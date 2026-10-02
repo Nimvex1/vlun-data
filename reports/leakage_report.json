@@ -1,0 +1,3240 @@
+{
+  "code_overlap": {
+    "count_file_function_pairs": 0,
+    "count_function_signatures": 0,
+    "count_identical_snippets": 0,
+    "count_normalised_snippets": 0,
+    "file_function_pairs": {},
+    "function_signatures": {},
+    "identical_snippets": {},
+    "normalised_snippets": {}
+  },
+  "exact_overlap": {
+    "commit_shas": {
+      "main": {
+        "train": [
+          "2022-05-alchemix/M-04",
+          "2022-05-alchemix/M-11",
+          "2022-05-alchemix/M-14",
+          "2022-05-alchemix/submission-123",
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-186"
+        ],
+        "validation": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13"
+        ]
+      }
+    },
+    "count_commit_shas": 1,
+    "count_source_urls": 0,
+    "finding_ids": {},
+    "source_urls": {}
+  },
+  "generated_by": "scripts/check_leakage.py",
+  "near_duplicate_overlap": {
+    "count": 0,
+    "pairs": [],
+    "threshold_jaccard": 0.8
+  },
+  "repository_isolation": {
+    "held_out_repositories": [
+      "2024-08-wildcat",
+      "2024-12-bakerfi",
+      "2025-06-panoptic",
+      "2025-08-gte-perps"
+    ],
+    "repository_to_splits": {
+      "2022-05-alchemix": [
+        "train"
+      ],
+      "2024-01-decent": [
+        "validation"
+      ],
+      "2024-01-renft": [
+        "validation"
+      ],
+      "2024-04-noya": [
+        "train"
+      ],
+      "2024-08-wildcat": [
+        "test"
+      ],
+      "2024-12-bakerfi": [
+        "test"
+      ],
+      "2025-06-panoptic": [
+        "test"
+      ],
+      "2025-08-gte-perps": [
+        "test"
+      ]
+    },
+    "violations": {}
+  },
+  "semantic_overlap": {
+    "count": 2,
+    "pairs": [
+      {
+        "a": "2022-05-alchemix/L-05",
+        "a_split": "train",
+        "b": "2024-01-decent/submission-12",
+        "b_split": "validation",
+        "cosine": 0.753
+      },
+      {
+        "a": "2022-05-alchemix/L-06",
+        "a_split": "train",
+        "b": "2024-01-decent/submission-10",
+        "b_split": "validation",
+        "cosine": 0.717
+      }
+    ],
+    "threshold_cosine": 0.7
+  },
+  "source": {
+    "counts": {
+      "test": 253,
+      "train": 415,
+      "validation": 277
+    },
+    "splits_dir": "splits",
+    "thresholds": {
+      "near_duplicate_jaccard": 0.8,
+      "semantic_cosine": 0.7
+    }
+  },
+  "splits_v2": {
+    "counts": {
+      "test": 253,
+      "train": 413,
+      "validation": 277
+    },
+    "offending_pairs": [
+      {
+        "a": "2022-05-alchemix/L-05",
+        "b": "2024-01-decent/submission-12",
+        "detector": "semantic_overlap",
+        "similarity": {
+          "a": "2022-05-alchemix/L-05",
+          "a_split": "train",
+          "b": "2024-01-decent/submission-12",
+          "b_split": "validation",
+          "cosine": 0.753
+        }
+      },
+      {
+        "a": "2022-05-alchemix/L-06",
+        "b": "2024-01-decent/submission-10",
+        "detector": "semantic_overlap",
+        "similarity": {
+          "a": "2022-05-alchemix/L-06",
+          "a_split": "train",
+          "b": "2024-01-decent/submission-10",
+          "b_split": "validation",
+          "cosine": 0.717
+        }
+      }
+    ],
+    "post_check": {
+      "commit_shas": 1,
+      "exact_finding_ids": 0,
+      "near_duplicate_overlap": 0,
+      "repository_violations": {},
+      "semantic_overlap": 0
+    },
+    "quarantine_detail": [
+      {
+        "detector": "semantic_overlap",
+        "duplicate_of": "2024-01-decent/submission-12",
+        "id": "2022-05-alchemix/L-05",
+        "kept_in": "validation",
+        "similarity": {
+          "a": "2022-05-alchemix/L-05",
+          "a_split": "train",
+          "b": "2024-01-decent/submission-12",
+          "b_split": "validation",
+          "cosine": 0.753
+        },
+        "split": "train"
+      },
+      {
+        "detector": "semantic_overlap",
+        "duplicate_of": "2024-01-decent/submission-10",
+        "id": "2022-05-alchemix/L-06",
+        "kept_in": "validation",
+        "similarity": {
+          "a": "2022-05-alchemix/L-06",
+          "a_split": "train",
+          "b": "2024-01-decent/submission-10",
+          "b_split": "validation",
+          "cosine": 0.717
+        },
+        "split": "train"
+      }
+    ],
+    "quarantined": [
+      "2022-05-alchemix/L-05",
+      "2022-05-alchemix/L-06"
+    ],
+    "records_quarantined": 2,
+    "rule": "records are quarantined, never moved: the redundant copy in the less protected split is set aside and the copy in the more protected split is kept, so no repository is relocated and the test set stays unseen"
+  },
+  "within_split_repeats": {
+    "commit_shas": {
+      "test": {
+        "72836c0d5fc8a46052a5dce27cd09c299b7f6edb": [
+          "2025-06-panoptic/01",
+          "2025-06-panoptic/02"
+        ],
+        "8ef6d867a5fb6ffd1a6cc479a2380a611d452b4a": [
+          "2025-06-panoptic/H-01",
+          "2025-06-panoptic/H-02"
+        ],
+        "f43e1eedb65e7e0327cfaf4d7608a37d85d2fae7": [
+          "2025-08-gte-perps/H-03",
+          "2025-08-gte-perps/H-04",
+          "2025-08-gte-perps/H-05",
+          "2025-08-gte-perps/H-06",
+          "2025-08-gte-perps/H-07",
+          "2025-08-gte-perps/H-08",
+          "2025-08-gte-perps/H-09",
+          "2025-08-gte-perps/H-10",
+          "2025-08-gte-perps/M-03",
+          "2025-08-gte-perps/M-04",
+          "2025-08-gte-perps/M-07",
+          "2025-08-gte-perps/M-08",
+          "2025-08-gte-perps/M-09",
+          "2025-08-gte-perps/M-10",
+          "2025-08-gte-perps/M-11",
+          "2025-08-gte-perps/M-12",
+          "2025-08-gte-perps/M-13",
+          "2025-08-gte-perps/M-14",
+          "2025-08-gte-perps/M-15",
+          "2025-08-gte-perps/M-19",
+          "2025-08-gte-perps/M-21",
+          "2025-08-gte-perps/M-22"
+        ]
+      },
+      "train": {
+        "71abbe683dfd5c0686b7e594fb4f78a14b668d8b": [
+          "2022-05-alchemix/L-10",
+          "2022-05-alchemix/L-11",
+          "2022-05-alchemix/M-07",
+          "2022-05-alchemix/submission-11",
+          "2022-05-alchemix/submission-12",
+          "2022-05-alchemix/submission-13",
+          "2022-05-alchemix/submission-14",
+          "2022-05-alchemix/submission-140",
+          "2022-05-alchemix/submission-15",
+          "2022-05-alchemix/submission-16",
+          "2022-05-alchemix/submission-17",
+          "2022-05-alchemix/submission-18",
+          "2022-05-alchemix/submission-19",
+          "2022-05-alchemix/submission-20",
+          "2022-05-alchemix/submission-21",
+          "2022-05-alchemix/submission-22",
+          "2022-05-alchemix/submission-23",
+          "2022-05-alchemix/submission-25",
+          "2022-05-alchemix/submission-26",
+          "2022-05-alchemix/submission-27",
+          "2022-05-alchemix/submission-3",
+          "2022-05-alchemix/submission-4"
+        ],
+        "9c79b332eff82011dcfa1e8fd51bad805159d758": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/H-03",
+          "2024-04-noya/H-04",
+          "2024-04-noya/H-05",
+          "2024-04-noya/H-06",
+          "2024-04-noya/H-07",
+          "2024-04-noya/H-08",
+          "2024-04-noya/H-14",
+          "2024-04-noya/H-15",
+          "2024-04-noya/H-18",
+          "2024-04-noya/H-19",
+          "2024-04-noya/M-01",
+          "2024-04-noya/M-02",
+          "2024-04-noya/M-03",
+          "2024-04-noya/M-11",
+          "2024-04-noya/M-12",
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-14",
+          "2024-04-noya/M-15",
+          "2024-04-noya/M-18",
+          "2024-04-noya/M-19",
+          "2024-04-noya/M-20",
+          "2024-04-noya/M-22",
+          "2024-04-noya/M-23",
+          "2024-04-noya/M-24",
+          "2024-04-noya/M-25",
+          "2024-04-noya/M-27",
+          "2024-04-noya/M-28",
+          "2024-04-noya/M-29",
+          "2024-04-noya/M-30",
+          "2024-04-noya/M-31",
+          "2024-04-noya/M-37",
+          "2024-04-noya/M-38",
+          "2024-04-noya/M-39",
+          "2024-04-noya/M-40",
+          "2024-04-noya/M-41",
+          "2024-04-noya/M-42",
+          "2024-04-noya/M-43",
+          "2024-04-noya/M-46",
+          "2024-04-noya/M-47",
+          "2024-04-noya/M-50",
+          "2024-04-noya/M-54",
+          "2024-04-noya/M-55",
+          "2024-04-noya/M-56",
+          "2024-04-noya/M-57",
+          "2024-04-noya/M-58",
+          "2024-04-noya/M-59",
+          "2024-04-noya/M-61",
+          "2024-04-noya/M-62",
+          "2024-04-noya/M-63",
+          "2024-04-noya/submission-1020",
+          "2024-04-noya/submission-1084",
+          "2024-04-noya/submission-1089",
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-126",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1297",
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1311",
+          "2024-04-noya/submission-1313",
+          "2024-04-noya/submission-1315",
+          "2024-04-noya/submission-1317",
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-1324",
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-1328",
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1332",
+          "2024-04-noya/submission-1333",
+          "2024-04-noya/submission-1335",
+          "2024-04-noya/submission-1336",
+          "2024-04-noya/submission-1338",
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1344",
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1354",
+          "2024-04-noya/submission-1355",
+          "2024-04-noya/submission-1356",
+          "2024-04-noya/submission-1358",
+          "2024-04-noya/submission-1359",
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1364",
+          "2024-04-noya/submission-1365",
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-1371",
+          "2024-04-noya/submission-1372",
+          "2024-04-noya/submission-1374",
+          "2024-04-noya/submission-1375",
+          "2024-04-noya/submission-1376",
+          "2024-04-noya/submission-1377",
+          "2024-04-noya/submission-1379",
+          "2024-04-noya/submission-1380",
+          "2024-04-noya/submission-1382",
+          "2024-04-noya/submission-1384",
+          "2024-04-noya/submission-1386",
+          "2024-04-noya/submission-1388",
+          "2024-04-noya/submission-1389",
+          "2024-04-noya/submission-1390",
+          "2024-04-noya/submission-1391",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1393",
+          "2024-04-noya/submission-1400",
+          "2024-04-noya/submission-1405",
+          "2024-04-noya/submission-1408",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1411",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1414",
+          "2024-04-noya/submission-1416",
+          "2024-04-noya/submission-1417",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1421",
+          "2024-04-noya/submission-1422",
+          "2024-04-noya/submission-1423",
+          "2024-04-noya/submission-1427",
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-1433",
+          "2024-04-noya/submission-1434",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1443",
+          "2024-04-noya/submission-1448",
+          "2024-04-noya/submission-1449",
+          "2024-04-noya/submission-1453",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-1456",
+          "2024-04-noya/submission-1460",
+          "2024-04-noya/submission-1461",
+          "2024-04-noya/submission-1463",
+          "2024-04-noya/submission-1467",
+          "2024-04-noya/submission-1472",
+          "2024-04-noya/submission-1474",
+          "2024-04-noya/submission-1478",
+          "2024-04-noya/submission-1480",
+          "2024-04-noya/submission-1487",
+          "2024-04-noya/submission-1492",
+          "2024-04-noya/submission-1496",
+          "2024-04-noya/submission-15",
+          "2024-04-noya/submission-1502",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1507",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1511",
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-1513",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-1515",
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1526",
+          "2024-04-noya/submission-1529",
+          "2024-04-noya/submission-1531",
+          "2024-04-noya/submission-1538",
+          "2024-04-noya/submission-1539",
+          "2024-04-noya/submission-1540",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1549",
+          "2024-04-noya/submission-1551",
+          "2024-04-noya/submission-1552",
+          "2024-04-noya/submission-1556",
+          "2024-04-noya/submission-250",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-259",
+          "2024-04-noya/submission-263",
+          "2024-04-noya/submission-270",
+          "2024-04-noya/submission-278",
+          "2024-04-noya/submission-281",
+          "2024-04-noya/submission-297",
+          "2024-04-noya/submission-309",
+          "2024-04-noya/submission-341",
+          "2024-04-noya/submission-360",
+          "2024-04-noya/submission-369",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-414",
+          "2024-04-noya/submission-427",
+          "2024-04-noya/submission-431",
+          "2024-04-noya/submission-472",
+          "2024-04-noya/submission-492",
+          "2024-04-noya/submission-516",
+          "2024-04-noya/submission-552",
+          "2024-04-noya/submission-554",
+          "2024-04-noya/submission-60",
+          "2024-04-noya/submission-611",
+          "2024-04-noya/submission-646",
+          "2024-04-noya/submission-671",
+          "2024-04-noya/submission-73",
+          "2024-04-noya/submission-749",
+          "2024-04-noya/submission-750",
+          "2024-04-noya/submission-751",
+          "2024-04-noya/submission-752",
+          "2024-04-noya/submission-757",
+          "2024-04-noya/submission-785",
+          "2024-04-noya/submission-796",
+          "2024-04-noya/submission-85",
+          "2024-04-noya/submission-879",
+          "2024-04-noya/submission-89"
+        ],
+        "cc3854f634a72bd4a8b597021887088ca2d6d29f": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-07",
+          "2024-04-noya/M-10",
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1491",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-1497"
+        ],
+        "de65c34c7b6e4e94662bf508e214dcbf327984f4": [
+          "2022-05-alchemix/L-01",
+          "2022-05-alchemix/L-02",
+          "2022-05-alchemix/L-04",
+          "2022-05-alchemix/L-11",
+          "2022-05-alchemix/M-01",
+          "2022-05-alchemix/M-02",
+          "2022-05-alchemix/M-03",
+          "2022-05-alchemix/M-05",
+          "2022-05-alchemix/M-06",
+          "2022-05-alchemix/M-08",
+          "2022-05-alchemix/M-09",
+          "2022-05-alchemix/M-10",
+          "2022-05-alchemix/M-12",
+          "2022-05-alchemix/M-13",
+          "2022-05-alchemix/M-15",
+          "2022-05-alchemix/M-16",
+          "2022-05-alchemix/M-17",
+          "2022-05-alchemix/submission-131",
+          "2022-05-alchemix/submission-132",
+          "2022-05-alchemix/submission-30",
+          "2022-05-alchemix/submission-80"
+        ],
+        "main": [
+          "2022-05-alchemix/M-04",
+          "2022-05-alchemix/M-11",
+          "2022-05-alchemix/M-14",
+          "2022-05-alchemix/submission-123",
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-186",
+          "2022-05-alchemix/submission-194",
+          "2022-05-alchemix/submission-33",
+          "2022-05-alchemix/submission-37",
+          "2022-05-alchemix/submission-38",
+          "2022-05-alchemix/submission-42",
+          "2022-05-alchemix/submission-53",
+          "2024-04-noya/H-03",
+          "2024-04-noya/H-04",
+          "2024-04-noya/H-09",
+          "2024-04-noya/H-10",
+          "2024-04-noya/H-11",
+          "2024-04-noya/H-12",
+          "2024-04-noya/H-13",
+          "2024-04-noya/H-20",
+          "2024-04-noya/H-21",
+          "2024-04-noya/H-22",
+          "2024-04-noya/H-23",
+          "2024-04-noya/M-08",
+          "2024-04-noya/M-09",
+          "2024-04-noya/M-11",
+          "2024-04-noya/M-21",
+          "2024-04-noya/M-26",
+          "2024-04-noya/M-29",
+          "2024-04-noya/M-32",
+          "2024-04-noya/M-33",
+          "2024-04-noya/M-34",
+          "2024-04-noya/M-35",
+          "2024-04-noya/M-36",
+          "2024-04-noya/M-39",
+          "2024-04-noya/M-44",
+          "2024-04-noya/M-45",
+          "2024-04-noya/M-48",
+          "2024-04-noya/M-49",
+          "2024-04-noya/M-51",
+          "2024-04-noya/M-52",
+          "2024-04-noya/M-53",
+          "2024-04-noya/M-60",
+          "2024-04-noya/M-63",
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1337",
+          "2024-04-noya/submission-1350",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1399",
+          "2024-04-noya/submission-1406",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1417",
+          "2024-04-noya/submission-1418",
+          "2024-04-noya/submission-1425",
+          "2024-04-noya/submission-1429",
+          "2024-04-noya/submission-1434",
+          "2024-04-noya/submission-1439",
+          "2024-04-noya/submission-1447",
+          "2024-04-noya/submission-1450",
+          "2024-04-noya/submission-1451",
+          "2024-04-noya/submission-1462",
+          "2024-04-noya/submission-1464",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-1470",
+          "2024-04-noya/submission-1471",
+          "2024-04-noya/submission-1476",
+          "2024-04-noya/submission-1485",
+          "2024-04-noya/submission-1500",
+          "2024-04-noya/submission-1504",
+          "2024-04-noya/submission-1510",
+          "2024-04-noya/submission-1528",
+          "2024-04-noya/submission-1534",
+          "2024-04-noya/submission-1557",
+          "2024-04-noya/submission-217",
+          "2024-04-noya/submission-317",
+          "2024-04-noya/submission-329",
+          "2024-04-noya/submission-332",
+          "2024-04-noya/submission-346",
+          "2024-04-noya/submission-348",
+          "2024-04-noya/submission-356",
+          "2024-04-noya/submission-53",
+          "2024-04-noya/submission-552",
+          "2024-04-noya/submission-650",
+          "2024-04-noya/submission-748",
+          "2024-04-noya/submission-780",
+          "2024-04-noya/submission-792",
+          "2024-04-noya/submission-809",
+          "2024-04-noya/submission-839"
+        ]
+      },
+      "validation": {
+        "011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29": [
+          "2024-01-decent/M-01",
+          "2024-01-decent/M-03",
+          "2024-01-decent/M-04",
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-625",
+          "2024-01-decent/submission-627",
+          "2024-01-decent/submission-642",
+          "2024-01-decent/submission-655",
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-659",
+          "2024-01-decent/submission-662",
+          "2024-01-decent/submission-663",
+          "2024-01-decent/submission-671",
+          "2024-01-decent/submission-673",
+          "2024-01-decent/submission-675",
+          "2024-01-decent/submission-679",
+          "2024-01-decent/submission-684",
+          "2024-01-decent/submission-686",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-695",
+          "2024-01-decent/submission-700",
+          "2024-01-decent/submission-727",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-736",
+          "2024-01-decent/submission-746",
+          "2024-01-decent/submission-748"
+        ],
+        "07ef78215e3d246d47a410651906287c6acec3ef": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-02",
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-251",
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-674",
+          "2024-01-decent/submission-687",
+          "2024-01-decent/submission-690",
+          "2024-01-decent/submission-696",
+          "2024-01-decent/submission-714",
+          "2024-01-decent/submission-735",
+          "2024-01-decent/submission-745",
+          "2024-01-decent/submission-85"
+        ],
+        "main": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-158",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-517",
+          "2024-01-decent/submission-627",
+          "2024-01-decent/submission-628",
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-639",
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-654",
+          "2024-01-decent/submission-664",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-676",
+          "2024-01-decent/submission-677",
+          "2024-01-decent/submission-678",
+          "2024-01-decent/submission-683",
+          "2024-01-decent/submission-692",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-7",
+          "2024-01-decent/submission-702",
+          "2024-01-decent/submission-707",
+          "2024-01-decent/submission-710",
+          "2024-01-decent/submission-713",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-730",
+          "2024-01-decent/submission-738",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ]
+      }
+    },
+    "file_function_pairs": {
+      "test": {
+        "code-423n4/2025-06-panoptic/src/accountants/PanopticVaultAccountant.sol::computeNAV": [
+          "2025-06-panoptic/H-01",
+          "2025-06-panoptic/H-02"
+        ],
+        "code-423n4/2025-08-gte-perps/contracts/launchpad/Distributor.sol::addRewards": [
+          "2025-08-gte-perps/H-06",
+          "2025-08-gte-perps/H-07"
+        ],
+        "code-423n4/2025-08-gte-perps/contracts/launchpad/Launchpad.sol::_createPairAndSwapRemaining": [
+          "2025-08-gte-perps/H-09",
+          "2025-08-gte-perps/M-22"
+        ],
+        "code-423n4/2025-08-gte-perps/contracts/launchpad/uniswap/GTELaunchpadV2Pair.sol::swap": [
+          "2025-08-gte-perps/H-04",
+          "2025-08-gte-perps/M-22"
+        ]
+      },
+      "train": {
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemicTokenV2.sol::": [
+          "2022-05-alchemix/L-04",
+          "2022-05-alchemix/submission-4"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemicTokenV2.sol::flashFee": [
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-4"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemicTokenV2.sol::flashLoan": [
+          "2022-05-alchemix/submission-131",
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-4"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemicTokenV2.sol::setFlashFee": [
+          "2022-05-alchemix/submission-131",
+          "2022-05-alchemix/submission-181"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemistV2.sol::": [
+          "2022-05-alchemix/M-17",
+          "2022-05-alchemix/submission-3",
+          "2022-05-alchemix/submission-33"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/AlchemistV2.sol::repay": [
+          "2022-05-alchemix/M-17",
+          "2022-05-alchemix/submission-13"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/CrossChainCanonicalAlchemicTokenV2.sol::": [
+          "2022-05-alchemix/M-05",
+          "2022-05-alchemix/submission-186"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/CrossChainCanonicalBase.sol::": [
+          "2022-05-alchemix/M-05",
+          "2022-05-alchemix/submission-194"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/TransmuterBuffer.sol::": [
+          "2022-05-alchemix/M-13",
+          "2022-05-alchemix/submission-3"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/adapters/fuse/FuseTokenAdapterV1.sol::unwrap": [
+          "2022-05-alchemix/M-03",
+          "2022-05-alchemix/submission-18"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/adapters/fuse/FuseTokenAdapterV1.sol::wrap": [
+          "2022-05-alchemix/M-03",
+          "2022-05-alchemix/submission-17"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/adapters/yearn/YearnTokenAdapter.sol::unwrap": [
+          "2022-05-alchemix/M-04",
+          "2022-05-alchemix/submission-16"
+        ],
+        "code-423n4/2022-05-alchemix/contracts-full/adapters/yearn/YearnTokenAdapter.sol::wrap": [
+          "2022-05-alchemix/M-08",
+          "2022-05-alchemix/submission-15"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-26",
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-1328",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1389",
+          "2024-04-noya/submission-1450",
+          "2024-04-noya/submission-270",
+          "2024-04-noya/submission-414",
+          "2024-04-noya/submission-552",
+          "2024-04-noya/submission-757"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::TVL": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-20",
+          "2024-04-noya/M-30",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-646"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::calculateDepositShares": [
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-1333",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1447",
+          "2024-04-noya/submission-1451",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-1502",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1507",
+          "2024-04-noya/submission-1513",
+          "2024-04-noya/submission-809"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::calculateWithdrawShares": [
+          "2024-04-noya/H-10",
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-1315",
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-309",
+          "2024-04-noya/submission-809"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::checkIfTVLHasDroped": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-1531",
+          "2024-04-noya/submission-646"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::collectManagementFees": [
+          "2024-04-noya/M-53",
+          "2024-04-noya/submission-1388",
+          "2024-04-noya/submission-270"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::deposit": [
+          "2024-04-noya/M-03",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/M-24",
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1333",
+          "2024-04-noya/submission-1336",
+          "2024-04-noya/submission-1384",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-1496",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1552",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-329",
+          "2024-04-noya/submission-492",
+          "2024-04-noya/submission-552"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::executeDeposit": [
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1485",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-552",
+          "2024-04-noya/submission-809"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::executeWithdraw": [
+          "2024-04-noya/H-04",
+          "2024-04-noya/M-35",
+          "2024-04-noya/submission-1020",
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1315",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1356",
+          "2024-04-noya/submission-1390",
+          "2024-04-noya/submission-1405",
+          "2024-04-noya/submission-1472",
+          "2024-04-noya/submission-1478",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1491",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1504",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1528",
+          "2024-04-noya/submission-297",
+          "2024-04-noya/submission-309",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-749",
+          "2024-04-noya/submission-750",
+          "2024-04-noya/submission-751",
+          "2024-04-noya/submission-752",
+          "2024-04-noya/submission-757",
+          "2024-04-noya/submission-809"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::fulfillCurrentWithdrawGroup": [
+          "2024-04-noya/submission-1315",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-1526",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-414"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::getProfit": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-35",
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-253"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::mint": [
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/submission-1336",
+          "2024-04-noya/submission-1338",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1544"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::neededAssetsForWithdraw": [
+          "2024-04-noya/submission-1315",
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1493"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::recordProfitForFee": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-53"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::redeem": [
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1344"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::retrieveTokensForWithdraw": [
+          "2024-04-noya/M-08",
+          "2024-04-noya/M-27",
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1467",
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-839"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::sendTokensToTrustedAddress": [
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1439"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::setFees": [
+          "2024-04-noya/M-53",
+          "2024-04-noya/submission-1526"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::startCurrentWithdrawGroup": [
+          "2024-04-noya/submission-1313",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-414"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::totalAssets": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-253"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::withdraw": [
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1317",
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1515",
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1551",
+          "2024-04-noya/submission-297",
+          "2024-04-noya/submission-309",
+          "2024-04-noya/submission-53"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol::": [
+          "2024-04-noya/M-40",
+          "2024-04-noya/submission-1364",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1474"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol::if": [
+          "2024-04-noya/M-09",
+          "2024-04-noya/submission-1332"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol::setMaxNumHoldingPositions": [
+          "2024-04-noya/submission-1487",
+          "2024-04-noya/submission-356"
+        ],
+        "code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol::updateHoldingPosition": [
+          "2024-04-noya/H-12",
+          "2024-04-noya/M-40",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1487",
+          "2024-04-noya/submission-281",
+          "2024-04-noya/submission-356"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/AaveConnector.sol::": [
+          "2024-04-noya/M-21",
+          "2024-04-noya/M-26"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/AerodromeConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-06",
+          "2024-04-noya/M-48",
+          "2024-04-noya/M-55"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/AerodromeConnector.sol::withdraw": [
+          "2024-04-noya/submission-1416",
+          "2024-04-noya/submission-346"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol::": [
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-785"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-13",
+          "2024-04-noya/H-14",
+          "2024-04-noya/M-14",
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-1425",
+          "2024-04-noya/submission-650",
+          "2024-04-noya/submission-785",
+          "2024-04-noya/submission-879"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol::openPosition": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1372",
+          "2024-04-noya/submission-1427",
+          "2024-04-noya/submission-1529"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/BalancerFlashLoan.sol::makeFlashLoan": [
+          "2024-04-noya/H-08",
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1500"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/BalancerFlashLoan.sol::receiveFlashLoan": [
+          "2024-04-noya/H-08",
+          "2024-04-noya/M-51",
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1335",
+          "2024-04-noya/submission-1371",
+          "2024-04-noya/submission-1386"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CamelotConnector.sol::removeLiquidityFromCamelotPool": [
+          "2024-04-noya/M-43",
+          "2024-04-noya/submission-1416",
+          "2024-04-noya/submission-1510"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CompoundConnector.sol::getBorrowBalanceInBase": [
+          "2024-04-noya/M-31",
+          "2024-04-noya/submission-1423"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CompoundConnector.sol::supply": [
+          "2024-04-noya/M-30",
+          "2024-04-noya/submission-1423",
+          "2024-04-noya/submission-472"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CurveConnector.sol::": [
+          "2024-04-noya/submission-1449",
+          "2024-04-noya/submission-796"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CurveConnector.sol::decreaseCurvePosition": [
+          "2024-04-noya/M-59",
+          "2024-04-noya/submission-796"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CurveConnector.sol::depositIntoConvexBooster": [
+          "2024-04-noya/M-34",
+          "2024-04-noya/M-62"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/CurveConnector.sol::harvestConvexRewards": [
+          "2024-04-noya/M-02",
+          "2024-04-noya/submission-1377"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol::": [
+          "2024-04-noya/M-26",
+          "2024-04-noya/submission-1297",
+          "2024-04-noya/submission-1411"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol::openBorrowPosition": [
+          "2024-04-noya/H-18",
+          "2024-04-noya/M-50",
+          "2024-04-noya/submission-1411"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol::withdraw": [
+          "2024-04-noya/M-50",
+          "2024-04-noya/submission-1297",
+          "2024-04-noya/submission-1411"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/GearBoxV3.sol::": [
+          "2024-04-noya/M-56",
+          "2024-04-noya/submission-1433"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/GearBoxV3.sol::executeCommands": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-56"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/MaverickConnector.sol::addLiquidityInMaverickPool": [
+          "2024-04-noya/M-54",
+          "2024-04-noya/submission-1311"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/MaverickConnector.sol::claimBoostedPositionRewards": [
+          "2024-04-noya/M-01",
+          "2024-04-noya/M-13"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/MorphoBlueConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-19",
+          "2024-04-noya/submission-1359",
+          "2024-04-noya/submission-1534"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/MorphoBlueConnector.sol::withdraw": [
+          "2024-04-noya/H-19",
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-45",
+          "2024-04-noya/submission-1374",
+          "2024-04-noya/submission-1416",
+          "2024-04-noya/submission-1461",
+          "2024-04-noya/submission-611"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-22",
+          "2024-04-noya/M-15",
+          "2024-04-noya/submission-317"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol::burnLP": [
+          "2024-04-noya/H-07",
+          "2024-04-noya/M-38",
+          "2024-04-noya/submission-1382",
+          "2024-04-noya/submission-1462"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol::decreasePosition": [
+          "2024-04-noya/H-21",
+          "2024-04-noya/submission-1416",
+          "2024-04-noya/submission-1470",
+          "2024-04-noya/submission-1487"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol::depositIntoMarket": [
+          "2024-04-noya/H-05",
+          "2024-04-noya/M-38",
+          "2024-04-noya/submission-1462"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol::isMarketEmpty": [
+          "2024-04-noya/H-21",
+          "2024-04-noya/submission-1470",
+          "2024-04-noya/submission-1487"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol::": [
+          "2024-04-noya/H-09",
+          "2024-04-noya/M-26"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol::addColl": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1556"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol::adjustTrove": [
+          "2024-04-noya/M-47",
+          "2024-04-noya/M-52",
+          "2024-04-noya/submission-1408"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-11",
+          "2024-04-noya/M-22",
+          "2024-04-noya/M-58",
+          "2024-04-noya/submission-1421",
+          "2024-04-noya/submission-281"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol::mintOrBurnSUSD": [
+          "2024-04-noya/M-57",
+          "2024-04-noya/submission-369"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/SiloConnector.sol::_getPositionTVL": [
+          "2024-04-noya/H-15",
+          "2024-04-noya/submission-1391",
+          "2024-04-noya/submission-250"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/StargateConnector.sol::": [
+          "2024-04-noya/M-29",
+          "2024-04-noya/submission-1392"
+        ],
+        "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol::_getPositionTVL": [
+          "2024-04-noya/H-20",
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-1380",
+          "2024-04-noya/submission-1393"
+        ],
+        "code-423n4/2024-04-noya/contracts/governance/Keepers.sol::execute": [
+          "2024-04-noya/M-11",
+          "2024-04-noya/submission-1089",
+          "2024-04-noya/submission-1354",
+          "2024-04-noya/submission-1453",
+          "2024-04-noya/submission-1511",
+          "2024-04-noya/submission-780"
+        ],
+        "code-423n4/2024-04-noya/contracts/governance/Keepers.sol::updateOwners": [
+          "2024-04-noya/submission-1557",
+          "2024-04-noya/submission-748"
+        ],
+        "code-423n4/2024-04-noya/contracts/governance/NoyaGovernanceBase.sol::": [
+          "2024-04-noya/M-46",
+          "2024-04-noya/submission-792"
+        ],
+        "code-423n4/2024-04-noya/contracts/governance/Watchers.sol::verifyRemoveLiquidity": [
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1434",
+          "2024-04-noya/submission-1484"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/BaseConnector.sol::": [
+          "2024-04-noya/M-47",
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-431"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/BaseConnector.sol::_updateTokenInRegistry": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-40",
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-1417",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1463",
+          "2024-04-noya/submission-611"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/BaseConnector.sol::sendTokensToTrustedAddress": [
+          "2024-04-noya/H-08",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1434",
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/BaseConnector.sol::swapHoldings": [
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1512"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/BaseConnector.sol::updateTokenInRegistry": [
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1370"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/LZHelpers/LZHelperReceiver.sol::_lzReceive": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/submission-1358"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/LZHelpers/LZHelperSender.sol::updateTVL": [
+          "2024-04-noya/M-61",
+          "2024-04-noya/submission-1358",
+          "2024-04-noya/submission-1539",
+          "2024-04-noya/submission-259"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/OmniChainHandler/OmnichainManagerBaseChain.sol::updateTVL": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/submission-1358"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol::": [
+          "2024-04-noya/M-23",
+          "2024-04-noya/submission-1365",
+          "2024-04-noya/submission-1456",
+          "2024-04-noya/submission-1514"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol::executeBridge": [
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1549"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol::executeSwap": [
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-360"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol::setEnableRoute": [
+          "2024-04-noya/submission-1456",
+          "2024-04-noya/submission-792"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/Implementaions/LifiImplementation.sol::_forward": [
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1514"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/Implementaions/LifiImplementation.sol::performSwapAction": [
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-217"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/SwapHandler/Implementaions/LifiImplementation.sol::verifySwapData": [
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-217"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/TVLHelper.sol::getTVL": [
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1480",
+          "2024-04-noya/submission-1531",
+          "2024-04-noya/submission-611",
+          "2024-04-noya/submission-646"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol::_getValue": [
+          "2024-04-noya/H-03",
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1355",
+          "2024-04-noya/submission-15",
+          "2024-04-noya/submission-1531"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol::updatePriceRoute": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/H-03"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol::": [
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-278",
+          "2024-04-noya/submission-554"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol::getValue": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1414",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-554",
+          "2024-04-noya/submission-89"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol::getValueFromChainlinkFeed": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/M-07",
+          "2024-04-noya/M-12",
+          "2024-04-noya/M-42",
+          "2024-04-noya/submission-1337",
+          "2024-04-noya/submission-1350",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1400",
+          "2024-04-noya/submission-1406",
+          "2024-04-noya/submission-1418",
+          "2024-04-noya/submission-1429",
+          "2024-04-noya/submission-1448",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-1538",
+          "2024-04-noya/submission-1540",
+          "2024-04-noya/submission-263",
+          "2024-04-noya/submission-332",
+          "2024-04-noya/submission-554",
+          "2024-04-noya/submission-85"
+        ],
+        "code-423n4/2024-04-noya/contracts/helpers/valueOracle/oracles/UniswapValueOracle.sol::getValue": [
+          "2024-04-noya/submission-1443",
+          "2024-04-noya/submission-1540"
+        ]
+      },
+      "validation": {
+        "code-423n4/2024-01-decent/src/UTB.sol::": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-642",
+          "2024-01-decent/submission-654",
+          "2024-01-decent/submission-673",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::_swapAndExecute": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-85"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::bridgeAndExecute": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/M-02",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-748"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::callBridge": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::if": [
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-636"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::performSwap": [
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-625",
+          "2024-01-decent/submission-628",
+          "2024-01-decent/submission-673",
+          "2024-01-decent/submission-676",
+          "2024-01-decent/submission-684"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::receiveFromBridge": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-639",
+          "2024-01-decent/submission-655",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::swapAndExecute": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-639",
+          "2024-01-decent/submission-642",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-748",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "code-423n4/2024-01-decent/src/UTB.sol::swapAndModifyPostBridge": [
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-675"
+        ],
+        "code-423n4/2024-01-decent/src/UTBExecutor.sol::": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-03",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-662",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-677",
+          "2024-01-decent/submission-679",
+          "2024-01-decent/submission-683",
+          "2024-01-decent/submission-700",
+          "2024-01-decent/submission-707",
+          "2024-01-decent/submission-736",
+          "2024-01-decent/submission-85"
+        ],
+        "code-423n4/2024-01-decent/src/UTBFeeCollector.sol::collectFees": [
+          "2024-01-decent/L-02",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-686",
+          "2024-01-decent/submission-687",
+          "2024-01-decent/submission-690",
+          "2024-01-decent/submission-695",
+          "2024-01-decent/submission-713",
+          "2024-01-decent/submission-727",
+          "2024-01-decent/submission-735",
+          "2024-01-decent/submission-745"
+        ],
+        "code-423n4/2024-01-decent/src/UTBFeeCollector.sol::redeemFees": [
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-659"
+        ],
+        "code-423n4/2024-01-decent/src/bridge_adapters/DecentBridgeAdapter.sol::": [
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "code-423n4/2024-01-decent/src/bridge_adapters/DecentBridgeAdapter.sol::bridge": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "code-423n4/2024-01-decent/src/bridge_adapters/StargateBridgeAdapter.sol::": [
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-671",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "code-423n4/2024-01-decent/src/bridge_adapters/StargateBridgeAdapter.sol::callBridge": [
+          "2024-01-decent/submission-158",
+          "2024-01-decent/submission-517",
+          "2024-01-decent/submission-675"
+        ],
+        "code-423n4/2024-01-decent/src/bridge_adapters/StargateBridgeAdapter.sol::sgReceive": [
+          "2024-01-decent/M-01",
+          "2024-01-decent/M-04",
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-663",
+          "2024-01-decent/submission-684",
+          "2024-01-decent/submission-692",
+          "2024-01-decent/submission-746"
+        ],
+        "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-627",
+          "2024-01-decent/submission-678"
+        ],
+        "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::_receiveAndWrapIfNeeded": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-678",
+          "2024-01-decent/submission-8"
+        ],
+        "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::swapExactIn": [
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-627",
+          "2024-01-decent/submission-684",
+          "2024-01-decent/submission-710",
+          "2024-01-decent/submission-714",
+          "2024-01-decent/submission-730"
+        ],
+        "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::swapExactOut": [
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-627",
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-664",
+          "2024-01-decent/submission-684",
+          "2024-01-decent/submission-696",
+          "2024-01-decent/submission-707",
+          "2024-01-decent/submission-710",
+          "2024-01-decent/submission-730",
+          "2024-01-decent/submission-738"
+        ],
+        "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::swapNoPath": [
+          "2024-01-decent/submission-251",
+          "2024-01-decent/submission-678",
+          "2024-01-decent/submission-702"
+        ]
+      }
+    },
+    "identical_snippets": {
+      "test": {
+        "9ddb8bc36d285c06bc01750231f2f1238cbbc670933b3f7b318dec1484ba0acf": [
+          "2025-08-gte-perps/H-06",
+          "2025-08-gte-perps/H-07"
+        ],
+        "ef543b7fb20bd14f5d1c0547f845b76722ad238339d9bc9ac40f19f2202fa2e1": [
+          "2025-08-gte-perps/H-09",
+          "2025-08-gte-perps/M-22"
+        ]
+      },
+      "train": {
+        "02394063717e34f3aa028b6a06b9928ff67a2daf3ff37fbb82b8ecc3155f488a": [
+          "2024-04-noya/M-08",
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1467",
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-839"
+        ],
+        "048345dc7b2d8f7e806143c95c256e1566861052d1abd405dcee7cb61f5f423f": [
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1344"
+        ],
+        "0988ed792b07a6d5abe209b27cbd91a0c745ecc39d9c66203c16217efc4196d9": [
+          "2022-05-alchemix/M-04",
+          "2022-05-alchemix/submission-16"
+        ],
+        "0bab4c799d3affaf40f72f798b49a2ca5f83167125b389b1b2964115f41b74f0": [
+          "2024-04-noya/M-56",
+          "2024-04-noya/submission-1433"
+        ],
+        "0bd1820909ffc698d54176c795a7540a8bf7132c6fd9043186362d0bee081c44": [
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-611"
+        ],
+        "0c0c9a3f7d9722048a9d5294aa18e63e4ee7499b96bbe11acfd881388b257f69": [
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1493"
+        ],
+        "0c1b4ae1633453524134d66ccc0a4cec368b5c47b74ccddc055af2839156783a": [
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-356"
+        ],
+        "10d500ebbd9ad69f9f0362766c567b1ada3ec023dde53392a23c2b5288332a19": [
+          "2024-04-noya/M-23",
+          "2024-04-noya/submission-1365"
+        ],
+        "115c143a1fd22d3820292a0d609f129e74863a2266b4b6bf2d066af2e3fb7880": [
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1336"
+        ],
+        "13c6b74100524344b837e7191d389ab1449b38c72e442c2d1a3f610cf1206bfc": [
+          "2022-05-alchemix/M-03",
+          "2022-05-alchemix/submission-18"
+        ],
+        "150305d621c6e1b39a4038595e003db455c3e0d02ef69cedad3cc0058da9d812": [
+          "2024-04-noya/M-01",
+          "2024-04-noya/M-13"
+        ],
+        "1b8ce6284c1b6ec6e0d4db473b5377879002bb184cef477cb984004aa5004ffc": [
+          "2024-04-noya/submission-1328",
+          "2024-04-noya/submission-1450"
+        ],
+        "214fd87b8e50e24b59ab56d18acc8bfa1221b4978165ea73f1f962284865f4e5": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/submission-1358"
+        ],
+        "257762cbbe47eb8458bfe07d06fee477d8c5a09c1d120851bae36cb781f15f1b": [
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/submission-1419"
+        ],
+        "26fbd3f5033481c1db3f3fa9488ed42e3c9a48b71c136601599078e4395a986b": [
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1335",
+          "2024-04-noya/submission-1371"
+        ],
+        "3922ba0394bc415bcf3172de85ee0487833f4f14c5c6be00ac8445e1bf12cdb0": [
+          "2024-04-noya/submission-1297",
+          "2024-04-noya/submission-1411"
+        ],
+        "3c1d2a67fb580bc108d5c4fb8a6de62b63eaccba7b2955ac0fdaa2245477a9e4": [
+          "2024-04-noya/submission-1320",
+          "2024-04-noya/submission-1500"
+        ],
+        "3e18e86b0755085465b969c8c8b730ab2307df3867fa0471609dbb5df1aff2ef": [
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-360"
+        ],
+        "43d1240068c9300732a10ee48b836c91ac51a8b856627a9d30dfa9e5e9f27c54": [
+          "2024-04-noya/submission-1470",
+          "2024-04-noya/submission-1487"
+        ],
+        "45170b82e4208e1ca1a279ae07ab3e5fb84b22c7e76fc6bc878125614f94823a": [
+          "2024-04-noya/submission-1313",
+          "2024-04-noya/submission-403"
+        ],
+        "453e5210a400a061c50bc12558390bce8271ce6febcbff6b55929a7031fa57a4": [
+          "2024-04-noya/submission-1364",
+          "2024-04-noya/submission-1474"
+        ],
+        "467e26503f4da386c59f18b21e2f239de436982129c1efbfcbb540984f0bc891": [
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1434",
+          "2024-04-noya/submission-1484"
+        ],
+        "49c6834869daf3768fa886bc0bd8629ae91708b2720b5ac836892885a5ac14c7": [
+          "2024-04-noya/submission-1374",
+          "2024-04-noya/submission-611"
+        ],
+        "4c06d37474f30b1e3041bd4f65b7e4c75f4186677db007c82c8f28f5329d43c5": [
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1518"
+        ],
+        "4e2e13a14e9157a529797df0fb0d4c3a101134ace0ba462e6a44704e6a69838a": [
+          "2024-04-noya/M-30",
+          "2024-04-noya/submission-1423",
+          "2024-04-noya/submission-472"
+        ],
+        "50bac0a5641b0ab33d805c427f9e6b804060a46e5f0437befbfb55864549e57f": [
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1549"
+        ],
+        "53e5bc62c0b54b9c98e2c5e381094aaab137fe566b924432d373b6e52046554f": [
+          "2024-04-noya/M-34",
+          "2024-04-noya/M-62"
+        ],
+        "548c1a1593b5de314a1687e39967ddf4e47f64743f1e01908b79ed2491bb77dc": [
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-217"
+        ],
+        "586e8a8192dfb2617d9dd238c3f005385c7b2edbbc1e7f9943c958f968ddf448": [
+          "2024-04-noya/H-14",
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-1425",
+          "2024-04-noya/submission-650",
+          "2024-04-noya/submission-785",
+          "2024-04-noya/submission-879"
+        ],
+        "5add7a98ad28150805c72ad3d9f9caf6ab4cc92afa48ef819b6bb5238d08794a": [
+          "2024-04-noya/H-03",
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1355",
+          "2024-04-noya/submission-15"
+        ],
+        "5b6bddd73f7d78f3b4df54fa8d33b2254c6ba7424332f3307feeecf0a2e355eb": [
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-4"
+        ],
+        "5eb3261fd5f8e44cef3cf6ca2918429e3cba71e9b53b6484ed7c78d12742346f": [
+          "2024-04-noya/submission-1512",
+          "2024-04-noya/submission-217"
+        ],
+        "66630915b2f285d326560468a0386c26c0bf8ca40d7a40eb4c459ded84f2c9ac": [
+          "2022-05-alchemix/M-08",
+          "2022-05-alchemix/submission-15"
+        ],
+        "68f8082ac9f2e7961505b4198daa6e99ae1a1c476cf3d893e80fcc180c15ec27": [
+          "2022-05-alchemix/M-03",
+          "2022-05-alchemix/submission-17"
+        ],
+        "69df7fcd1617e7378e30da5cb5794b91e7c94339bd1793f2765c45748d607ea8": [
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1480",
+          "2024-04-noya/submission-1531",
+          "2024-04-noya/submission-611",
+          "2024-04-noya/submission-646"
+        ],
+        "6cbe94fb3aa48e65a72f1ff08a3651e9046708032a536f3d33451736571c9f9f": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1372",
+          "2024-04-noya/submission-1427",
+          "2024-04-noya/submission-1529"
+        ],
+        "6e9dcf63d15a14ca2e0333c9d7a37f0553787fdaab5c7be56cc02f748f255070": [
+          "2024-04-noya/submission-1456",
+          "2024-04-noya/submission-792"
+        ],
+        "743ec8364797aa9e7a8ab99618a997fa2adcd01c0a0936451e888bd5023bd7e1": [
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1439"
+        ],
+        "7443b4c5f2a3546ba303082590129fcef2cdc4f8b0c6ffe325111c28299898c3": [
+          "2024-04-noya/M-09",
+          "2024-04-noya/submission-1332"
+        ],
+        "78870e6c54c6f206e9ac3ce4b8b26d77dfe9d50422184231db0a56317a92ec67": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/H-03"
+        ],
+        "80e62fd9b4bfdbdb83606162c3741246b4b74f6e1c11fa1dbfeb9f39eab43e0f": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1556"
+        ],
+        "813cb36af98c10fa410e4e8a0ab1cb2f762bda1cbccd27345f3bb9f94f5035dd": [
+          "2024-04-noya/M-61",
+          "2024-04-noya/submission-1539",
+          "2024-04-noya/submission-259"
+        ],
+        "84449b69a6bbdec596b857db459abe6e50d7bd9728261939a58d74a5d24d1f8f": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-20",
+          "2024-04-noya/M-30",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1468"
+        ],
+        "84741b7c72b25edd568a545d51a2257d6423c64a22b58bb2772f1023149a81d7": [
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1341"
+        ],
+        "85eeec1c9426312f965c2690d0e00b4992ae7cc98d6861019564524c368e3706": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1366"
+        ],
+        "8a7ea1051326276c7592157f81446426220c4a7cb81e1ab2a0baadd633ced866": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/M-07",
+          "2024-04-noya/M-42",
+          "2024-04-noya/submission-1337",
+          "2024-04-noya/submission-1350",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1406",
+          "2024-04-noya/submission-1418",
+          "2024-04-noya/submission-1429",
+          "2024-04-noya/submission-1448",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-1538",
+          "2024-04-noya/submission-1540",
+          "2024-04-noya/submission-263",
+          "2024-04-noya/submission-332",
+          "2024-04-noya/submission-554"
+        ],
+        "8dc842c9687050a76c7a931c77ebdd7732a505e060724241158a164edc523f8c": [
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1485",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-552"
+        ],
+        "8dd5937cc90d1fc2bd3902fe312400de1493d396f166f38615f589c3cc2570ca": [
+          "2024-04-noya/H-04",
+          "2024-04-noya/M-35",
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1356",
+          "2024-04-noya/submission-1472",
+          "2024-04-noya/submission-1478",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1491",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1504",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1528",
+          "2024-04-noya/submission-297",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-749",
+          "2024-04-noya/submission-750",
+          "2024-04-noya/submission-751",
+          "2024-04-noya/submission-752",
+          "2024-04-noya/submission-757"
+        ],
+        "9479b56bffa831de0f6fd3f346d4db8301d9abaeae7d2d3cecf007041bce84ef": [
+          "2024-04-noya/H-13",
+          "2024-04-noya/M-14"
+        ],
+        "952dc903c8ae4aabf297f83749f787861074f21023890f353fe6e4f96c3e6c97": [
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1367"
+        ],
+        "99d931005b36b955f3bf131c0529fa9691fe1e3ee89a78e4eca94ca0909347ba": [
+          "2024-04-noya/submission-1443",
+          "2024-04-noya/submission-1540"
+        ],
+        "9d44e34e9fe884b7f3982daf91bb686fa265b78edf0aa98adf1450d23e35e740": [
+          "2024-04-noya/submission-1336",
+          "2024-04-noya/submission-1338"
+        ],
+        "a29c319aba48ebe3f96c92c842a9adc2cb5b4c693590b5d9238205785f31422e": [
+          "2024-04-noya/M-59",
+          "2024-04-noya/submission-796"
+        ],
+        "a3ec99f6d050f772f18de1f23547260fc19ac32232c5f33e8fb3253ee6434aa4": [
+          "2024-04-noya/submission-1487",
+          "2024-04-noya/submission-356"
+        ],
+        "a4711653b52bcbd93244bde42eb4c430d777f2ca49a4ae7947d860abfb209dab": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-10",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-646"
+        ],
+        "a5a62ad5eaf53ac88ade227efc4f5893ff79c6cd0627d9dfc6c137676b7f4e55": [
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484"
+        ],
+        "a6dedd0750749d3598404d29839a96cf798798da7d23767c23ddaf8fd6624959": [
+          "2024-04-noya/M-02",
+          "2024-04-noya/submission-1377"
+        ],
+        "ad143e8a42ad952f9d9d4d208a54164a825ed224a80ba7034d1bc8c92f71a303": [
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-309"
+        ],
+        "af3dceaffd2a8a183e25e8dbe7df80cf4f703ad68606deff7a8def6d5559943f": [
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1434"
+        ],
+        "af8650184063d4e798827201c24a3270544a71231809cf04c87e42d83195d953": [
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-1393"
+        ],
+        "baffb54b012fac760a9681538fdc61c0ab202f630fd21e7a8403377084e3e7e1": [
+          "2024-04-noya/M-38",
+          "2024-04-noya/submission-1462"
+        ],
+        "bc0b7418fd1a270d385535e99d923c840746f572c35871ace5651bdcb1b26f22": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-56"
+        ],
+        "bda2bdefcc4e4350c7862c73a12f7b0117c848a738be7d62270879702db1baa0": [
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1317",
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1497",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1515",
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1551",
+          "2024-04-noya/submission-309",
+          "2024-04-noya/submission-53"
+        ],
+        "be744e7a84f40bb8f1f5838ef7212b6ef77464246d830a42dd675a8b58235b61": [
+          "2024-04-noya/H-11",
+          "2024-04-noya/M-22",
+          "2024-04-noya/M-58",
+          "2024-04-noya/submission-281"
+        ],
+        "be871d714d35bbf1c4b33ebd5f39d70c0c06b152444554f74a80d8cedca3aa91": [
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1333"
+        ],
+        "c1882ff0d499a1da9e2080aa5eb54ff7b67f82d75c472e5f94fa50f59276a42c": [
+          "2024-04-noya/H-19",
+          "2024-04-noya/M-13",
+          "2024-04-noya/M-45",
+          "2024-04-noya/submission-1461"
+        ],
+        "c4137df1e8dfd05485af8c849e991ff04e5d2997e0dcc0418d543671aa047ba2": [
+          "2024-04-noya/M-47",
+          "2024-04-noya/submission-431"
+        ],
+        "c907d8fc3e297740782d9b7e51cc33203d30547dde940c2daa1ca321bccd7496": [
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1447",
+          "2024-04-noya/submission-1451",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-1502",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1507",
+          "2024-04-noya/submission-1513"
+        ],
+        "c97fe874fea01afb6ab8cc859cc41e0c9e1d34be779afe9c8224e6bafcb41419": [
+          "2024-04-noya/H-12",
+          "2024-04-noya/submission-1487",
+          "2024-04-noya/submission-281",
+          "2024-04-noya/submission-356"
+        ],
+        "c9b9299e526b83e50c0c3290b7cdac8e7e4b15d4c10ee8891b4afbc86f3f5ca4": [
+          "2024-04-noya/M-48",
+          "2024-04-noya/M-55"
+        ],
+        "cd55b14ba501cbdfa4bf77b0bdbdae4535c3b72ea7d19cee0ae0d11dc88a9a72": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1414",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-554",
+          "2024-04-noya/submission-89"
+        ],
+        "ce6b040b33c67fa509457ca3afa9105cdfaa6f0f5bd969e8c5cfe9f4e253520e": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1468",
+          "2024-04-noya/submission-253"
+        ],
+        "d1225ae885ed46f2b7fca8bf300bb1f38bf488aa224ab36f9ccbeed53fc717e0": [
+          "2024-04-noya/M-40",
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1417",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1463"
+        ],
+        "d760002e6e0a3e85a6d9c1e425f0b05442d19dd9f0ed4cef64a1e71c4fe343d9": [
+          "2022-05-alchemix/submission-131",
+          "2022-05-alchemix/submission-181"
+        ],
+        "d78af8a202ec498b7e7d118b75d511cdb6fbc2f926183c072124bba4b9bcbd08": [
+          "2024-04-noya/submission-1347",
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-1526",
+          "2024-04-noya/submission-403",
+          "2024-04-noya/submission-414"
+        ],
+        "db91a4e9c0312b4870be15e45b701541a4195b5be1494293f17e56776a5a1c7c": [
+          "2024-04-noya/H-07",
+          "2024-04-noya/M-38",
+          "2024-04-noya/submission-1382",
+          "2024-04-noya/submission-1462"
+        ],
+        "dc4aa881bef9f8f97637910a8100be96e3e632f6fe291a02c504527a90d56559": [
+          "2024-04-noya/M-03",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-18",
+          "2024-04-noya/M-24",
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1493",
+          "2024-04-noya/submission-1496",
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1552",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-329",
+          "2024-04-noya/submission-492",
+          "2024-04-noya/submission-552"
+        ],
+        "dd6b1dd7e4ec6736c20797bd42e46568dbc8b762555e15974e0da14259076d01": [
+          "2022-05-alchemix/submission-181",
+          "2022-05-alchemix/submission-4"
+        ],
+        "e502bdfed489810212fb48e7de3586933e51550d35b4116f04b1c7abab04ed48": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-1531"
+        ],
+        "e6e7ee0fd462ff8e26fd4f24c0e62b5d0612337f237aaf4199538a0e5546fa8e": [
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1370"
+        ],
+        "f14396f23322e59ca89c0732834b39955fb9e59b55ebc41774cc5306257aa613": [
+          "2024-04-noya/M-11",
+          "2024-04-noya/submission-1089",
+          "2024-04-noya/submission-1453",
+          "2024-04-noya/submission-1511",
+          "2024-04-noya/submission-780"
+        ],
+        "fb2d0c77930c421fa98b17a5e2c3f43049b57b76f29e2eaf38f86120de3d33d6": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-35",
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-253"
+        ],
+        "fd4cdde25fb0e03ae20820b5b4cd6ad589522115c32d48ec014dc2ce2e3b93d3": [
+          "2022-05-alchemix/submission-37",
+          "2022-05-alchemix/submission-38"
+        ],
+        "fd965575563c2fe9f8e25533d93fcde06424718832359918132bf9ed333377b5": [
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1531"
+        ]
+      },
+      "validation": {
+        "39028ad998ee95ef15724e5703e2124bbe0dc73644826bb38d6af3423f67d4dc": [
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-636"
+        ],
+        "3e8665ebcf8766f35c7e2471c6387806dfc69135de366f91436531b9e1d10e9f": [
+          "2024-01-decent/M-01",
+          "2024-01-decent/M-04",
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-663",
+          "2024-01-decent/submission-692",
+          "2024-01-decent/submission-746"
+        ],
+        "411a93d920f53b240feb0b10a094ba23e42950e47185541eb40f0a99fb56a06c": [
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-684"
+        ],
+        "416112c57eca8142e0ebcaee8245f592f16e516958fbe95175525c55c0b1ebff": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-639",
+          "2024-01-decent/submission-655",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "55e7768a02d2112ac3f35e8678dfaf7c240b1dac5f86eb053e50dfed7ad7b918": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/submission-652"
+        ],
+        "599d2861798fca9aee5f565fc3dafa46046a52feaa08ca0b31dd826a3b1e1b21": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/M-02",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-748"
+        ],
+        "5eb5de00f45c9f76f604cd78e0c30f603d55233c15f591363a7db1f500d30026": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-683",
+          "2024-01-decent/submission-700",
+          "2024-01-decent/submission-736",
+          "2024-01-decent/submission-85"
+        ],
+        "77b71df8bf4d12a5ff7691be0c88b7332f1335d757e980db801a1ef067c9cf26": [
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-679",
+          "2024-01-decent/submission-707"
+        ],
+        "7b076f2f3c433e1f60631f3697554ef3f9b5ba872d70cbf6b4f7beea258ddbf4": [
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-659"
+        ],
+        "7c344544e50a8ba44f11707a5ec52f4da66bcfb482c257856e46d4891159316f": [
+          "2024-01-decent/L-02",
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-686",
+          "2024-01-decent/submission-690",
+          "2024-01-decent/submission-695",
+          "2024-01-decent/submission-713",
+          "2024-01-decent/submission-727",
+          "2024-01-decent/submission-745"
+        ],
+        "83182febfede10b97eeeada83d2df31e3f7f8473a269a5a42423e44a5d2ed20e": [
+          "2024-01-decent/submission-687",
+          "2024-01-decent/submission-735"
+        ],
+        "9519c23c92cec0781220f78afa78da754fe40df425183396e9683cf82254e6ca": [
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-675"
+        ],
+        "9a9ba2e3d97d52f62af902db80dda59b4153f6b2d263da5b276dcb4c54b25102": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12"
+        ],
+        "9e464579e918e7703daea871d6023a83fb58ffa4ffa2d9415c76ae921924e568": [
+          "2024-01-decent/submission-710",
+          "2024-01-decent/submission-714",
+          "2024-01-decent/submission-730"
+        ],
+        "b8aba16eea0c4b5ae564cdfee1e450c85c89a1c6ff59e1f7243ba004eaae27cf": [
+          "2024-01-decent/submission-707",
+          "2024-01-decent/submission-730"
+        ],
+        "bd09e97d95e66f7842535be7770edc936cc95c549c436196371c56c766a30bbe": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "c05532c4308d5de5123c0473c4e578b74365d567aca76e27b4fbba3e56c201fa": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "c697fcda360f3e8acfaa7d34850ec0b71bf903b32223d0aebe5dbb320655d834": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-636",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-694",
+          "2024-01-decent/submission-748",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "ce3dc08852ae8a3df7bcfc3f4dae6eb032c1868c0d29308d41f29c736eee62d0": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-694"
+        ],
+        "ce87a87ed4d6835d01c15abaf6a6ae76c09bba0f861513b14c3dcca9003c4b21": [
+          "2024-01-decent/submission-3",
+          "2024-01-decent/submission-625",
+          "2024-01-decent/submission-673",
+          "2024-01-decent/submission-676",
+          "2024-01-decent/submission-684"
+        ],
+        "e65a681669a5b2ff6609d5e6f7cc9bc14248d2cd8fd053ed085bb49feae3d70c": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-85"
+        ],
+        "ee8dee18cddadd4614c77badd58349afa53c6e3856ec64366808d6c8e990e530": [
+          "2024-01-decent/submission-251",
+          "2024-01-decent/submission-678",
+          "2024-01-decent/submission-702"
+        ],
+        "ef5961d543cf82e712bba91e4553962924f823637616df117098855e0ace3002": [
+          "2024-01-decent/L-03",
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-664",
+          "2024-01-decent/submission-684",
+          "2024-01-decent/submission-738"
+        ],
+        "f1f794b3f0a79236220b7a6b2092733bf65fb799103bc15c2e8ddf214d130a32": [
+          "2024-01-decent/submission-158",
+          "2024-01-decent/submission-517",
+          "2024-01-decent/submission-675"
+        ],
+        "f404041c78bdb69f14bb1f541f0ae352f5f54a2b71dcb32f89227976f536c12e": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-694"
+        ]
+      }
+    },
+    "note": "repetition inside one split inflates train but does not leak across it",
+    "source_urls": {
+      "test": {
+        "https://code4rena.com/audits/2024-08-wildcat": [
+          "2024-08-wildcat/01",
+          "2024-08-wildcat/02",
+          "2024-08-wildcat/03",
+          "2024-08-wildcat/04",
+          "2024-08-wildcat/05",
+          "2024-08-wildcat/06",
+          "2024-08-wildcat/07",
+          "2024-08-wildcat/08",
+          "2024-08-wildcat/09",
+          "2024-08-wildcat/10",
+          "2024-08-wildcat/11",
+          "2024-08-wildcat/12",
+          "2024-08-wildcat/13",
+          "2024-08-wildcat/14",
+          "2024-08-wildcat/15",
+          "2024-08-wildcat/16",
+          "2024-08-wildcat/17",
+          "2024-08-wildcat/18",
+          "2024-08-wildcat/19",
+          "2024-08-wildcat/20",
+          "2024-08-wildcat/21",
+          "2024-08-wildcat/22",
+          "2024-08-wildcat/23",
+          "protocol:The Wildcat Protocol",
+          "sha256:ccdbb8fcc48136de126d2406"
+        ],
+        "https://code4rena.com/audits/2024-12-bakerfi-invitational": [
+          "2024-12-bakerfi/01",
+          "2024-12-bakerfi/02",
+          "2024-12-bakerfi/03",
+          "2024-12-bakerfi/04",
+          "2024-12-bakerfi/05",
+          "2024-12-bakerfi/06",
+          "2024-12-bakerfi/07",
+          "2024-12-bakerfi/08",
+          "2024-12-bakerfi/09",
+          "protocol:BakerFi Invitational",
+          "sha256:5049eb5d5acf800eb409a0bf"
+        ],
+        "https://code4rena.com/audits/2025-06-panoptic-hypovault": [
+          "2025-06-panoptic/01",
+          "2025-06-panoptic/02",
+          "protocol:Panoptic Hypovault",
+          "sha256:fa1dded6fe4369b0ba3fc0b1"
+        ],
+        "https://code4rena.com/audits/2025-08-gte-perps-and-launchpad": [
+          "2025-08-gte-perps/L-01",
+          "2025-08-gte-perps/L-02",
+          "2025-08-gte-perps/L-03",
+          "2025-08-gte-perps/L-04",
+          "2025-08-gte-perps/L-05",
+          "2025-08-gte-perps/L-06",
+          "protocol:GTE Perps and Launchpad",
+          "sha256:e641fe207d600f6dbf114975"
+        ],
+        "https://code4rena.com/reports/2024-12-bakerfi-invitational": [
+          "sha256:54eaed95618acd2febbb5954",
+          "sha256:72dc7491392a6b0b8b77787c",
+          "sha256:d08237609f58468f402e127f"
+        ],
+        "https://code4rena.com/reports/2025-06-panoptic-hypovault": [
+          "sha256:755e4f3704c737bde09507fd",
+          "sha256:e7ab2d7520ba6c82d4e18fc8"
+        ],
+        "https://code4rena.com/reports/2025-08-gte-perps-and-launchpad": [
+          "sha256:7c781323e5620efb50e4f1cc",
+          "sha256:e88a05e19004fa25b6c40ad3"
+        ],
+        "https://github.com/baker-fi/bakerfi-contracts/4": [
+          "2024-12-bakerfi/M-07",
+          "2024-12-bakerfi/M-15"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/README.md#L276": [
+          "2024-08-wildcat/02",
+          "2024-08-wildcat/13"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/src/access/AccessControlHooks.sol#L812": [
+          "2024-08-wildcat/submission-78",
+          "2024-08-wildcat/submission-83"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/src/market/WildcatMarket.sol#L226": [
+          "2024-08-wildcat/submission-68",
+          "2024-08-wildcat/submission-75"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/src/market/WildcatMarket.sol#L226-L288": [
+          "2024-08-wildcat/13",
+          "2024-08-wildcat/17"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/src/market/WildcatMarketBase.sol#L406-L465": [
+          "2024-08-wildcat/04",
+          "2024-08-wildcat/submission-89"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1/src/types/TransientBytesArray.sol#L1-L5": [
+          "2024-08-wildcat/22",
+          "2024-08-wildcat/23"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/AccessControlHooks.sol#L812": [
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/FixedTermLoanHooks.sol": [
+          "2024-08-wildcat/M-06",
+          "2024-08-wildcat/submission-95"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/FixedTermLoanHooks.sol#L848": [
+          "2024-08-wildcat/M-04",
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/FixedTermLoanHooks.sol#L960-L978": [
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/submission-95"
+        ],
+        "https://github.com/code-423n4/2024-08-wildcat/blob/main/test/market/WildcatMarket.t.sol": [
+          "2024-08-wildcat/M-06",
+          "2024-08-wildcat/submission-90",
+          "2024-08-wildcat/submission-95"
+        ],
+        "https://github.com/code-423n4/2024-12-bakerfi": [
+          "protocol:BakerFi Invitational",
+          "sha256:5049eb5d5acf800eb409a0bf"
+        ],
+        "https://github.com/code-423n4/2024-12-bakerfi/blob/0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a/contracts/core/MultiStrategy.sol#L107": [
+          "2024-12-bakerfi/04",
+          "2024-12-bakerfi/06"
+        ],
+        "https://github.com/code-423n4/2024-12-bakerfi/blob/0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a/contracts/core/VaultRouter.sol#L99": [
+          "2024-12-bakerfi/07",
+          "2024-12-bakerfi/M-08"
+        ],
+        "https://github.com/code-423n4/2024-12-bakerfi/blob/0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a/contracts/core/strategies/StrategySupplyBase.sol#L110": [
+          "2024-12-bakerfi/H-03",
+          "2024-12-bakerfi/H-04"
+        ],
+        "https://github.com/code-423n4/2025-06-panoptic": [
+          "protocol:Panoptic Hypovault",
+          "sha256:fa1dded6fe4369b0ba3fc0b1"
+        ],
+        "https://github.com/code-423n4/2025-08-gte-perps": [
+          "protocol:GTE Perps and Launchpad",
+          "sha256:e641fe207d600f6dbf114975"
+        ]
+      },
+      "train": {
+        "https://code4rena.com/audits/2022-05-alchemix": [
+          "2022-05-alchemix/L-01",
+          "2022-05-alchemix/L-02",
+          "2022-05-alchemix/L-03",
+          "2022-05-alchemix/L-04",
+          "2022-05-alchemix/L-05",
+          "2022-05-alchemix/L-06",
+          "2022-05-alchemix/L-07",
+          "2022-05-alchemix/L-08",
+          "2022-05-alchemix/L-09",
+          "2022-05-alchemix/L-10",
+          "2022-05-alchemix/L-11",
+          "protocol:Alchemix",
+          "sha256:59af404d6c7297fbbcf07db3"
+        ],
+        "https://code4rena.com/audits/2024-04-noya": [
+          "protocol:NOYA",
+          "sha256:dbd5314e92c3f0f34ef28af9"
+        ],
+        "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/dbb6104ce834628e473d2173bbc9d47f81a9eec3/contracts/token/ERC20/extensions/ERC4626.sol#L166-L168": [
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
+        ],
+        "https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol#L119-L121": [
+          "2022-05-alchemix/M-10",
+          "2024-04-noya/submission-1409"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-552",
+          "2024-04-noya/submission-757"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L200": [
+          "2024-04-noya/M-18",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1496",
+          "2024-04-noya/submission-492",
+          "2024-04-noya/submission-552"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L200-L219": [
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1544",
+          "2024-04-noya/submission-1552",
+          "2024-04-noya/submission-253"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L207-L213": [
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1336"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L226": [
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1513"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L226-L250": [
+          "2024-04-noya/submission-1503",
+          "2024-04-noya/submission-1507"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L239": [
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-1502"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L304": [
+          "2024-04-noya/M-18",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1419",
+          "2024-04-noya/submission-1551",
+          "2024-04-noya/submission-309"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L304-L316": [
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-1317",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-1515",
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L305": [
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1343"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L313": [
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1341"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L328-L355": [
+          "2024-04-noya/M-19",
+          "2024-04-noya/submission-1518"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L344": [
+          "2024-04-noya/submission-1318",
+          "2024-04-noya/submission-309"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L396-L446": [
+          "2024-04-noya/submission-1356",
+          "2024-04-noya/submission-1508",
+          "2024-04-noya/submission-749",
+          "2024-04-noya/submission-750",
+          "2024-04-noya/submission-751",
+          "2024-04-noya/submission-752"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L419": [
+          "2024-04-noya/submission-11",
+          "2024-04-noya/submission-1341",
+          "2024-04-noya/submission-297"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L428": [
+          "2024-04-noya/H-04",
+          "2024-04-noya/submission-1296",
+          "2024-04-noya/submission-1356",
+          "2024-04-noya/submission-757"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L495": [
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-1531"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L582-L588": [
+          "2024-04-noya/submission-1432",
+          "2024-04-noya/submission-253"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L591-L593": [
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-253"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L592": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-20"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L627-L630": [
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-253",
+          "2024-04-noya/submission-646"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L628": [
+          "2024-04-noya/M-20",
+          "2024-04-noya/M-30"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L693-L707": [
+          "2024-04-noya/M-18",
+          "2024-04-noya/submission-1419"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L694": [
+          "2024-04-noya/submission-1336",
+          "2024-04-noya/submission-1338"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L698": [
+          "2024-04-noya/submission-1340",
+          "2024-04-noya/submission-1341"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L702": [
+          "2024-04-noya/submission-1343",
+          "2024-04-noya/submission-1344"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L706": [
+          "2024-04-noya/submission-1331",
+          "2024-04-noya/submission-1333"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/Registry.sol#L293-L326": [
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/Registry.sol#L32-L37": [
+          "2024-04-noya/submission-1364",
+          "2024-04-noya/submission-1474"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/BalancerConnector.sol": [
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-785"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/BalancerConnector.sol#L162": [
+          "2024-04-noya/submission-1323",
+          "2024-04-noya/submission-879"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/BalancerConnector.sol#L64": [
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1372",
+          "2024-04-noya/submission-1427"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/BalancerFlashLoan.sol#L92": [
+          "2024-04-noya/submission-1335",
+          "2024-04-noya/submission-1371"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/CompoundConnector.sol#L29": [
+          "2024-04-noya/M-30",
+          "2024-04-noya/submission-1423",
+          "2024-04-noya/submission-472"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/CurveConnector.sol#L169": [
+          "2024-04-noya/M-59",
+          "2024-04-noya/submission-796"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/CurveConnector.sol#L247": [
+          "2024-04-noya/M-02",
+          "2024-04-noya/submission-1377"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/Dolomite.sol": [
+          "2024-04-noya/submission-1297",
+          "2024-04-noya/submission-1411"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/GearBoxV3.sol#L1-L105": [
+          "2024-04-noya/M-56",
+          "2024-04-noya/submission-1433"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/MaverickConnector.sol#L137": [
+          "2024-04-noya/M-01",
+          "2024-04-noya/M-13"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/MorphoBlueConnector.sol#L58": [
+          "2024-04-noya/H-19",
+          "2024-04-noya/M-13",
+          "2024-04-noya/submission-1461"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/MorphoBlueConnector.sol#L58-L73": [
+          "2024-04-noya/submission-1374",
+          "2024-04-noya/submission-611"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/PendleConnector.sol#L205": [
+          "2024-04-noya/H-07",
+          "2024-04-noya/M-38"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/SNXConnector.sol#L121-L126": [
+          "2024-04-noya/M-22",
+          "2024-04-noya/M-58",
+          "2024-04-noya/submission-281"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/UNIv3Connector.sol#L140": [
+          "2024-04-noya/submission-1325",
+          "2024-04-noya/submission-1393"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/governance/Watchers.sol#L8": [
+          "2024-04-noya/submission-1346",
+          "2024-04-noya/submission-1434"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/BaseConnector.sol#L135-L146": [
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1366"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/BaseConnector.sol#L153-L160": [
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1370"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/BaseConnector.sol#L158-L160": [
+          "2024-04-noya/submission-1366",
+          "2024-04-noya/submission-1370",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-611"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/BaseConnector.sol#L159": [
+          "2024-04-noya/M-40",
+          "2024-04-noya/submission-1308",
+          "2024-04-noya/submission-1417",
+          "2024-04-noya/submission-1437",
+          "2024-04-noya/submission-1463"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/BaseConnector.sol#L28": [
+          "2024-04-noya/M-47",
+          "2024-04-noya/submission-431"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/LZHelpers/LZHelperSender.sol#L80": [
+          "2024-04-noya/M-61",
+          "2024-04-noya/submission-1539",
+          "2024-04-noya/submission-259"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol#L115": [
+          "2024-04-noya/submission-1514",
+          "2024-04-noya/submission-360"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol#L29-L32": [
+          "2024-04-noya/M-23",
+          "2024-04-noya/submission-1365"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/SwapHandler/GenericSwapAndBridgeHandler.sol#L90-L120": [
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1512"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/SwapHandler/Implementaions/LifiImplementation.sol#L165-L183": [
+          "2024-04-noya/submission-1362",
+          "2024-04-noya/submission-1367"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/SwapHandler/Implementaions/LifiImplementation.sol#L77-L102": [
+          "2024-04-noya/submission-1367",
+          "2024-04-noya/submission-1512"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/TVLHelper.sol#L22": [
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1531",
+          "2024-04-noya/submission-646"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/NoyaValueOracle.sol#L81-L93": [
+          "2024-04-noya/H-03",
+          "2024-04-noya/submission-1162",
+          "2024-04-noya/submission-1355",
+          "2024-04-noya/submission-15"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L115": [
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1454",
+          "2024-04-noya/submission-554"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L115-L135": [
+          "2024-04-noya/submission-1538",
+          "2024-04-noya/submission-1540",
+          "2024-04-noya/submission-263"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L125": [
+          "2024-04-noya/M-42",
+          "2024-04-noya/submission-1448"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L89": [
+          "2024-04-noya/submission-1392",
+          "2024-04-noya/submission-1414",
+          "2024-04-noya/submission-1454"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/helpers/valueOracle/oracles/UniswapValueOracle.sol#L60-L86": [
+          "2024-04-noya/submission-1443",
+          "2024-04-noya/submission-1540"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L200-L219": [
+          "2024-04-noya/M-06",
+          "2024-04-noya/submission-1493"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L304-L316": [
+          "2024-04-noya/M-06",
+          "2024-04-noya/submission-1497"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L370-L390": [
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1493"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L396-L446": [
+          "2024-04-noya/submission-1484",
+          "2024-04-noya/submission-1491",
+          "2024-04-noya/submission-1497"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L428": [
+          "2024-04-noya/submission-1491",
+          "2024-04-noya/submission-1497"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L548-L573": [
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L616-L625": [
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1493"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L627-L630": [
+          "2024-04-noya/M-04",
+          "2024-04-noya/M-10",
+          "2024-04-noya/submission-1493"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/accountingManager/AccountingManager.sol#L693-L707": [
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/helpers/BaseConnector.sol#L84-L108": [
+          "2024-04-noya/submission-1479",
+          "2024-04-noya/submission-1484"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/cc3854f634a72bd4a8b597021887088ca2d6d29f/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L115-L135": [
+          "2024-04-noya/H-01",
+          "2024-04-noya/M-07"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L226": [
+          "2024-04-noya/M-44",
+          "2024-04-noya/submission-1447",
+          "2024-04-noya/submission-1451"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L428": [
+          "2024-04-noya/H-04",
+          "2024-04-noya/submission-1528"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L591": [
+          "2024-04-noya/submission-1409",
+          "2024-04-noya/submission-1468"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L627": [
+          "2024-04-noya/submission-1413",
+          "2024-04-noya/submission-1468"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/StargateConnector.sol": [
+          "2024-04-noya/M-29",
+          "2024-04-noya/submission-1392"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L115-L135": [
+          "2024-04-noya/submission-1337",
+          "2024-04-noya/submission-1350",
+          "2024-04-noya/submission-332"
+        ],
+        "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/helpers/valueOracle/oracles/ChainlinkOracleConnector.sol#L123": [
+          "2024-04-noya/submission-1406",
+          "2024-04-noya/submission-1418",
+          "2024-04-noya/submission-1429"
+        ]
+      },
+      "validation": {
+        "https://code4rena.com/audits/2024-01-decent": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-02",
+          "2024-01-decent/L-03",
+          "protocol:Decent",
+          "sha256:224c2519f8c0bcdda515f5f2"
+        ],
+        "https://code4rena.com/audits/2024-01-renft": [
+          "2024-01-renft/L-01",
+          "2024-01-renft/L-02",
+          "2024-01-renft/L-03",
+          "2024-01-renft/L-04",
+          "2024-01-renft/L-05",
+          "2024-01-renft/L-06",
+          "protocol:reNFT",
+          "sha256:6aa05a6cbc829ba4121a646a"
+        ],
+        "https://github.com/2024-01-renft/tree/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-04",
+          "2024-01-renft/H-05",
+          "2024-01-renft/H-06",
+          "2024-01-renft/H-07",
+          "2024-01-renft/L-01",
+          "2024-01-renft/L-02",
+          "2024-01-renft/L-03",
+          "2024-01-renft/L-04",
+          "2024-01-renft/L-05",
+          "2024-01-renft/L-06",
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-02",
+          "2024-01-renft/M-03",
+          "2024-01-renft/M-04",
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-06",
+          "2024-01-renft/M-07",
+          "2024-01-renft/M-08",
+          "2024-01-renft/M-09",
+          "2024-01-renft/M-10",
+          "2024-01-renft/M-11",
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-13",
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15",
+          "2024-01-renft/M-16"
+        ],
+        "https://github.com/LayerZero-Labs/solidity-examples/blob/ca7d4f1d482df5e17f8aaf1b34d0e4432020bc4e/contracts/lzApp/LzApp.sol#L35-L52": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-693"
+        ],
+        "https://github.com/Uniswap/v2-periphery/blob/0335e8f7e1bd1e8d8329fd300aea2ef2f36dd19f/contracts/UniswapV2Router02.sol#L229": [
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-710"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTB.sol#L108": [
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-748"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTB.sol#L228": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-691"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTB.sol#L259": [
+          "2024-01-decent/submission-691",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-748"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBExecutor.sol#L41": [
+          "2024-01-decent/submission-700",
+          "2024-01-decent/submission-736"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBFeeCollector.sol#L44": [
+          "2024-01-decent/M-03",
+          "2024-01-decent/submission-686"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBFeeCollector.sol#L44-L62": [
+          "2024-01-decent/submission-695",
+          "2024-01-decent/submission-727"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/bridge_adapters/StargateBridgeAdapter.sol#L183": [
+          "2024-01-decent/M-01",
+          "2024-01-decent/submission-746"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/bridge_adapters/StargateBridgeAdapter.sol#L207": [
+          "2024-01-decent/M-04",
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-663"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/swappers/UniSwapper.sol": [
+          "2024-01-decent/submission-117",
+          "2024-01-decent/submission-627"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBExecutor.sol#L52": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-03"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBExecutor.sol#L65": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-03"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBExecutor.sol#L70": [
+          "2024-01-decent/L-01",
+          "2024-01-decent/L-03"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBFeeCollector.sol#L44": [
+          "2024-01-decent/L-02",
+          "2024-01-decent/submission-690"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBFeeCollector.sol#L44-L62": [
+          "2024-01-decent/submission-259",
+          "2024-01-decent/submission-745"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBFeeCollector.sol#L44-L63": [
+          "2024-01-decent/submission-687",
+          "2024-01-decent/submission-735"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L108-L124": [
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L259": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/submission-728"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L259-L274": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L282-L301": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L311-L319": [
+          "2024-01-decent/submission-639",
+          "2024-01-decent/submission-749",
+          "2024-01-decent/submission-750"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTBExecutor.sol": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTBExecutor.sol#L41-L82": [
+          "2024-01-decent/submission-666",
+          "2024-01-decent/submission-707"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTBFeeCollector.sol#L44-L62": [
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-713"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/bridge_adapters/DecentBridgeAdapter.sol": [
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/bridge_adapters/DecentBridgeAdapter.sol#L81-L125": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/bridge_adapters/StargateBridgeAdapter.sol": [
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-8",
+          "2024-01-decent/submission-9"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12",
+          "2024-01-decent/submission-13",
+          "2024-01-decent/submission-5",
+          "2024-01-decent/submission-678"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol#L100-L121": [
+          "2024-01-decent/submission-678",
+          "2024-01-decent/submission-702"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol#L123-L141": [
+          "2024-01-decent/submission-710",
+          "2024-01-decent/submission-730"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol#L143-L169": [
+          "2024-01-decent/submission-707",
+          "2024-01-decent/submission-730"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol#L153": [
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-664",
+          "2024-01-decent/submission-738"
+        ],
+        "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol#L83-L83": [
+          "2024-01-decent/submission-10",
+          "2024-01-decent/submission-12"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DcntEth.sol#L20-L22": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-633",
+          "2024-01-decent/submission-731"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentBridgeExecutor.sol#L24": [
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-705"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentBridgeExecutor.sol#L63": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/submission-701"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L105": [
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-720"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L148": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-728"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L148-L194": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/M-02"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L171": [
+          "2024-01-decent/M-05",
+          "2024-01-decent/submission-715"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L185": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-697"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L197": [
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-728"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L197-L215": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-715"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L80": [
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-728"
+        ],
+        "https://github.com/decentxyz/decent-bridge/blob/7f90fd4489551b69c20d11eeecb17a3f564afb18/src/DecentEthRouter.sol#L80-L111": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/submission-693"
+        ],
+        "https://github.com/re-nft/smart-contracts/10": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/M-13"
+        ],
+        "https://github.com/re-nft/smart-contracts/14": [
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-06"
+        ],
+        "https://github.com/re-nft/smart-contracts/17": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-12"
+        ],
+        "https://github.com/re-nft/smart-contracts/7": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-12"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/Kernel.sol#L285": [
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-434"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/Kernel.sol#L548": [
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-437"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/libraries/RentalConstants.sol#L62": [
+          "2024-01-renft/H-04",
+          "2024-01-renft/submission-625"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L100": [
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-15"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L100-L118": [
+          "2024-01-renft/submission-161",
+          "2024-01-renft/submission-550"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L132-L146": [
+          "2024-01-renft/submission-249",
+          "2024-01-renft/submission-534"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L320": [
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-605"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/Storage.sol#L144-L172": [
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/Storage.sol#L313": [
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Reclaimer.sol#L32-L34": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-567"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Reclaimer.sol#L33": [
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-615"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Reclaimer.sol#L71": [
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-627"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L162-L195": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-492"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L181-L194": [
+          "2024-01-renft/submission-454",
+          "2024-01-renft/submission-461",
+          "2024-01-renft/submission-494"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L218-L239": [
+          "2024-01-renft/submission-492",
+          "2024-01-renft/submission-629"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L231-L238": [
+          "2024-01-renft/submission-494",
+          "2024-01-renft/submission-613"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L232-L238": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-613"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L248-L262": [
+          "2024-01-renft/submission-488",
+          "2024-01-renft/submission-514"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L373-L375": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-620"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L384-L386": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-495"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L394-L400": [
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-472",
+          "2024-01-renft/submission-620"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L406": [
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-495"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Create.sol#L595": [
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-06"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Create.sol#L733": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-03",
+          "2024-01-renft/submission-431",
+          "2024-01-renft/submission-433"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Factory.sol#L138": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Factory.sol#L138-L194": [
+          "2024-01-renft/submission-553",
+          "2024-01-renft/submission-591"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Factory.sol#L180-L186": [
+          "2024-01-renft/submission-445",
+          "2024-01-renft/submission-553"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol": [
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-08",
+          "2024-01-renft/M-09",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584",
+          "2024-01-renft/submission-630"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L195": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-02",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L195-L293": [
+          "2024-01-renft/M-08",
+          "2024-01-renft/submission-539"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L203-L291": [
+          "2024-01-renft/submission-621",
+          "2024-01-renft/submission-630"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L255-L267": [
+          "2024-01-renft/M-16",
+          "2024-01-renft/submission-625"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L309-L345": [
+          "2024-01-renft/submission-429",
+          "2024-01-renft/submission-489",
+          "2024-01-renft/submission-542"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol": [
+          "2024-01-renft/submission-589",
+          "2024-01-renft/submission-605"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L209-L212": [
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L210-L212": [
+          "2024-01-renft/M-04",
+          "2024-01-renft/submission-435",
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-551"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L227-L233": [
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-551"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L265": [
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-589",
+          "2024-01-renft/submission-605",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-627",
+          "2024-01-renft/submission-628"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L265-L306": [
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-583",
+          "2024-01-renft/submission-638"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L289": [
+          "2024-01-renft/submission-551",
+          "2024-01-renft/submission-559"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L293": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-615"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L353": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-605"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/test/integration/StopRent.t.sol": [
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/cbf5ff74e40576be72090afd99bf6f0c366bd315/src/packages/Signer.sol#L162-L195": [
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-440"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/cbf5ff74e40576be72090afd99bf6f0c366bd315/src/packages/Signer.sol#L218-L239": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-442"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/cbf5ff74e40576be72090afd99bf6f0c366bd315/src/policies/Guard.sol#L195-L293": [
+          "2024-01-renft/submission-430",
+          "2024-01-renft/submission-432"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/main/src/policies/Factory.sol": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
+        "https://github.com/re-nft/smart-contracts/blob/main/src/policies/Guard.sol": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
+        "https://github.com/safe-global/safe-contracts/blob/b140318af6581e499506b11128a892e3f7a52aeb/contracts/base/FallbackManager.sol#L44": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03"
+        ],
+        "https://github.com/safe-global/safe-contracts/blob/main/contracts/base/FallbackManager.sol": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03",
+          "2024-01-renft/M-02"
+        ]
+      }
+    }
+  }
+}

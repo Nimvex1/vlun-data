@@ -1,0 +1,923 @@
+{
+  "audit_of": "published v1 repository (jsonl/ + splits/ + reports/)",
+  "code_context_coverage": {
+    "context_is_flat_list_of_permalinks_not_a_dependency_graph": true,
+    "distinct_commits_cited": 53,
+    "distinct_files_cited": 326,
+    "entries_redistributed": 895,
+    "entries_reference_only_withheld": 670,
+    "entries_total_cited": 1565,
+    "entries_with_snippet": 827,
+    "no_enclosing_contract_or_caller_callee_layer": true,
+    "records_reference_only_only": 242,
+    "records_with_any_code_context": 677,
+    "records_with_no_code_at_all": 45,
+    "records_with_redistributed_snippet": 430,
+    "records_with_reference_only_only": 242,
+    "redistributed_line_range_verified": 827,
+    "redistrieved_line_range_unverified": 68,
+    "withheld_by_unresolved_file": 0,
+    "withheld_note_kind": {
+      "source withheld from this published copy": 288
+    }
+  },
+  "dataset_version_in_data": [
+    "1.0"
+  ],
+  "documentation_inconsistencies": [
+    {
+      "claim": "layout: negative_findings.jsonl records",
+      "computed_from_jsonl": 458,
+      "readme_text": "negative_findings.jsonl   458 records",
+      "readme_value": 458,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: findings.jsonl records",
+      "computed_from_jsonl": 264,
+      "readme_text": "findings.jsonl           264 records",
+      "readme_value": 264,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: findings.jsonl records",
+      "computed_from_jsonl": 264,
+      "readme_text": "findings.jsonl   458 records",
+      "readme_value": 458,
+      "verdict": "MISMATCH"
+    },
+    {
+      "claim": "layout: exploits.jsonl records",
+      "computed_from_jsonl": 155,
+      "readme_text": "exploits.jsonl            155 records",
+      "readme_value": 155,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: patches.jsonl records",
+      "computed_from_jsonl": 38,
+      "readme_text": "patches.jsonl              38 records",
+      "readme_value": 38,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: protocol.jsonl records",
+      "computed_from_jsonl": 8,
+      "readme_text": "protocol.jsonl              8 records",
+      "readme_value": 8,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: metadata.jsonl records",
+      "computed_from_jsonl": 11,
+      "readme_text": "metadata.jsonl             11 records",
+      "readme_value": 11,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "layout: errors.jsonl records",
+      "computed_from_jsonl": 19,
+      "readme_text": "errors.jsonl                18 records",
+      "readme_value": 18,
+      "verdict": "MISMATCH"
+    },
+    {
+      "claim": "limitation 3: negatives rejected on a label alone",
+      "computed_from_jsonl": 427,
+      "readme_text": "427 of 458 negative findings have only a label",
+      "readme_value": 427,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "limitation 7: findings carrying an invariant",
+      "computed_from_jsonl": 109,
+      "readme_text": "109 of 264 records carry an invariant",
+      "readme_value": 109,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "limitation 5: repositories with no declared licence",
+      "computed_from_jsonl": 5,
+      "readme_text": "5 repositories declare no licence",
+      "readme_value": 5,
+      "verdict": "consistent"
+    },
+    {
+      "claim": "limitation 4: permalinks unusable as a source (findings scope)",
+      "computed_from_jsonl": 13,
+      "readme_text": "13 of 740 permalinks could not be used as source",
+      "readme_value": 13,
+      "verdict": "NOT_REPRODUCIBLE",
+      "why": "the README figure comes from the pre-redaction internal build, whose code-context population (740 permalinks, 1435 verified ranges) is larger than what this published copy redistributes, so the same population cannot be recounted here. The computed value is the closest comparable figure in this copy."
+    },
+    {
+      "claim": "limitation 4: line ranges re-verified byte-for-byte",
+      "computed_from_jsonl": 827,
+      "readme_text": "re-checks all\n   1,435 verified ranges",
+      "readme_value": 1435,
+      "verdict": "NOT_REPRODUCIBLE",
+      "why": "the README figure comes from the pre-redaction internal build, whose code-context population (740 permalinks, 1435 verified ranges) is larger than what this published copy redistributes, so the same population cannot be recounted here. The computed value is the closest comparable figure in this copy."
+    }
+  ],
+  "executable_poc_coverage": {
+    "compiler_or_toolchain_pinned_per_record": false,
+    "conclusion": "PoC material exists as quoted text only. Nothing in v1 was compiled or run, so 'available' cannot be distinguished from 'works'.",
+    "execution_evidence_fields_present": false,
+    "exploit_impact_confirmed_by_execution": 0,
+    "exploit_records": 155,
+    "poc_code_present": 346,
+    "poc_compiled": 0,
+    "poc_executed": 0,
+    "poc_flagged_reproducible": 0,
+    "poc_framework_declared": {
+      "<undeclared>": 144,
+      "Foundry": 11
+    },
+    "poc_target_file_declared": 23,
+    "poc_test_name_declared": 38,
+    "records_with_poc_available_flag": 346,
+    "reproducibility_note_variants": {
+      "the PoC code below is quoted from the published report. It w": 155
+    }
+  },
+  "how_to_reproduce": [
+    "python scripts/audit_pre_upgrade.py",
+    "python scripts/generate_stats.py"
+  ],
+  "leakage_risks": {
+    "duplicate_ids_inside_a_single_split": {
+      "test": {
+        "2024-08-wildcat/01": 2,
+        "2024-08-wildcat/02": 2,
+        "2024-08-wildcat/04": 2,
+        "2024-08-wildcat/06": 2,
+        "2024-08-wildcat/07": 2,
+        "2024-08-wildcat/08": 2,
+        "2024-08-wildcat/09": 2,
+        "2024-08-wildcat/10": 2,
+        "2024-08-wildcat/11": 2,
+        "2024-08-wildcat/12": 2,
+        "2024-08-wildcat/13": 2,
+        "2024-08-wildcat/14": 2,
+        "2024-08-wildcat/15": 2,
+        "2024-08-wildcat/17": 2,
+        "2024-08-wildcat/19": 2,
+        "2024-08-wildcat/20": 2,
+        "2024-08-wildcat/21": 2,
+        "2024-08-wildcat/22": 2,
+        "2024-08-wildcat/H-01": 2,
+        "2024-08-wildcat/M-02": 2,
+        "2024-08-wildcat/M-03": 2,
+        "2024-08-wildcat/M-04": 2,
+        "2024-08-wildcat/M-05": 2,
+        "2024-08-wildcat/M-06": 2,
+        "2024-08-wildcat/M-07": 2,
+        "2024-08-wildcat/M-08": 2,
+        "2024-12-bakerfi/01": 2,
+        "2024-12-bakerfi/02": 2,
+        "2024-12-bakerfi/03": 2,
+        "2024-12-bakerfi/04": 2,
+        "2024-12-bakerfi/07": 2,
+        "2024-12-bakerfi/08": 2,
+        "2024-12-bakerfi/H-01": 3,
+        "2024-12-bakerfi/H-02": 3,
+        "2024-12-bakerfi/H-03": 3,
+        "2024-12-bakerfi/H-04": 3,
+        "2024-12-bakerfi/H-05": 3,
+        "2024-12-bakerfi/H-06": 3,
+        "2024-12-bakerfi/H-07": 3,
+        "2024-12-bakerfi/M-01": 3,
+        "2024-12-bakerfi/M-02": 3,
+        "2024-12-bakerfi/M-03": 3,
+        "2024-12-bakerfi/M-04": 2,
+        "2024-12-bakerfi/M-06": 3,
+        "2024-12-bakerfi/M-07": 2,
+        "2024-12-bakerfi/M-08": 3,
+        "2024-12-bakerfi/M-09": 2,
+        "2024-12-bakerfi/M-10": 3,
+        "2024-12-bakerfi/M-11": 3,
+        "2024-12-bakerfi/M-12": 2,
+        "2024-12-bakerfi/M-13": 3,
+        "2024-12-bakerfi/M-14": 3,
+        "2024-12-bakerfi/M-15": 2,
+        "2024-12-bakerfi/M-16": 3,
+        "2025-06-panoptic/01": 2,
+        "2025-06-panoptic/02": 2,
+        "2025-06-panoptic/H-01": 2,
+        "2025-08-gte-perps/H-06": 2,
+        "2025-08-gte-perps/H-10": 2,
+        "2025-08-gte-perps/L-01": 2,
+        "2025-08-gte-perps/L-04": 2,
+        "2025-08-gte-perps/M-01": 2,
+        "2025-08-gte-perps/M-03": 2,
+        "2025-08-gte-perps/M-06": 2,
+        "2025-08-gte-perps/M-07": 2,
+        "2025-08-gte-perps/M-08": 2,
+        "2025-08-gte-perps/M-10": 2,
+        "2025-08-gte-perps/M-14": 2,
+        "2025-08-gte-perps/M-21": 2,
+        "2025-08-gte-perps/M-22": 2,
+        "2025-08-gte-perps/M-23": 2,
+        "2025-08-gte-perps/M-24": 2
+      },
+      "train": {
+        "2022-05-alchemix/L-02": 2,
+        "2022-05-alchemix/L-11": 2,
+        "2022-05-alchemix/M-01": 2,
+        "2022-05-alchemix/M-06": 2,
+        "2022-05-alchemix/M-08": 2,
+        "2022-05-alchemix/M-09": 2,
+        "2022-05-alchemix/M-10": 2,
+        "2022-05-alchemix/M-13": 2,
+        "2022-05-alchemix/M-15": 2,
+        "2022-05-alchemix/M-16": 2,
+        "2024-04-noya/H-01": 2,
+        "2024-04-noya/H-02": 2,
+        "2024-04-noya/H-04": 2,
+        "2024-04-noya/H-05": 2,
+        "2024-04-noya/H-06": 2,
+        "2024-04-noya/H-07": 2,
+        "2024-04-noya/H-10": 2,
+        "2024-04-noya/H-11": 2,
+        "2024-04-noya/H-12": 2,
+        "2024-04-noya/H-13": 2,
+        "2024-04-noya/H-14": 2,
+        "2024-04-noya/H-15": 2,
+        "2024-04-noya/H-18": 2,
+        "2024-04-noya/H-19": 2,
+        "2024-04-noya/H-20": 2,
+        "2024-04-noya/H-21": 2,
+        "2024-04-noya/H-22": 2,
+        "2024-04-noya/H-23": 2,
+        "2024-04-noya/M-02": 2,
+        "2024-04-noya/M-04": 2,
+        "2024-04-noya/M-05": 2,
+        "2024-04-noya/M-06": 2,
+        "2024-04-noya/M-07": 2,
+        "2024-04-noya/M-08": 2,
+        "2024-04-noya/M-10": 2,
+        "2024-04-noya/M-13": 2,
+        "2024-04-noya/M-16": 2,
+        "2024-04-noya/M-19": 2,
+        "2024-04-noya/M-24": 2,
+        "2024-04-noya/M-25": 2,
+        "2024-04-noya/M-26": 2,
+        "2024-04-noya/M-27": 2,
+        "2024-04-noya/M-30": 2,
+        "2024-04-noya/M-33": 2,
+        "2024-04-noya/M-34": 2,
+        "2024-04-noya/M-37": 2,
+        "2024-04-noya/M-38": 2,
+        "2024-04-noya/M-39": 2,
+        "2024-04-noya/M-40": 2,
+        "2024-04-noya/M-42": 2,
+        "2024-04-noya/M-43": 2,
+        "2024-04-noya/M-44": 2,
+        "2024-04-noya/M-48": 2,
+        "2024-04-noya/M-49": 2,
+        "2024-04-noya/M-50": 2,
+        "2024-04-noya/M-51": 2,
+        "2024-04-noya/M-52": 2,
+        "2024-04-noya/M-53": 2,
+        "2024-04-noya/M-54": 2,
+        "2024-04-noya/M-59": 2,
+        "2024-04-noya/M-60": 2,
+        "2024-04-noya/M-61": 2,
+        "2024-04-noya/M-63": 2
+      },
+      "validation": {
+        "2024-01-decent/H-01": 2,
+        "2024-01-decent/H-02": 2,
+        "2024-01-decent/H-03": 2,
+        "2024-01-decent/H-04": 2,
+        "2024-01-decent/L-02": 2,
+        "2024-01-decent/L-03": 2,
+        "2024-01-decent/M-03": 2,
+        "2024-01-renft/H-01": 3,
+        "2024-01-renft/H-02": 2,
+        "2024-01-renft/H-03": 2,
+        "2024-01-renft/H-04": 3,
+        "2024-01-renft/H-05": 2,
+        "2024-01-renft/H-06": 3,
+        "2024-01-renft/H-07": 3,
+        "2024-01-renft/M-01": 2,
+        "2024-01-renft/M-02": 2,
+        "2024-01-renft/M-03": 2,
+        "2024-01-renft/M-04": 2,
+        "2024-01-renft/M-05": 3,
+        "2024-01-renft/M-06": 2,
+        "2024-01-renft/M-07": 2,
+        "2024-01-renft/M-08": 3,
+        "2024-01-renft/M-09": 3,
+        "2024-01-renft/M-10": 3,
+        "2024-01-renft/M-11": 3,
+        "2024-01-renft/M-12": 3,
+        "2024-01-renft/M-13": 2,
+        "2024-01-renft/M-14": 2,
+        "2024-01-renft/M-15": 2,
+        "2024-01-renft/M-16": 3
+      }
+    },
+    "file_function_pairs_in_multiple_splits_count": 0,
+    "file_function_pairs_in_multiple_splits_top": {},
+    "finding_ids_in_multiple_splits": {},
+    "repositories_in_multiple_splits": {},
+    "same_repository_source_across_exploit_patch_rows": [
+      "2022-05-alchemix",
+      "2024-01-decent",
+      "2024-01-renft",
+      "2024-04-noya",
+      "2024-08-wildcat",
+      "2024-12-bakerfi",
+      "2025-06-panoptic",
+      "2025-08-gte-perps"
+    ],
+    "unmeasured_in_v1": [
+      "identical or normalised code snippets shared across splits",
+      "function-signature collisions across splits",
+      "semantic near-duplicates (same root cause, different wording)",
+      "duplicate submissions inside the negative corpus that share a canonical target"
+    ]
+  },
+  "missing_fields": {
+    "empty_or_null_top_level_field_counts": {
+      "classifier_evidence": 43,
+      "code_context": 285,
+      "code_context_note": 142
+    },
+    "note": "v1 has no per-field evidence type: every populated field reads as equally trustworthy.",
+    "records_with_empty_finding_root_cause": 259,
+    "records_with_empty_finding_summary": 44,
+    "records_with_no_code_context_and_no_reference": 45,
+    "records_with_no_provenance_url": 0,
+    "records_with_undeclared_licence": 491
+  },
+  "negative_example_quality": {
+    "by_rejection_basis": {
+      "label_only": 427,
+      "public_discussion_no_verdict_attributed": 22,
+      "public_judge_or_sponsor_comment": 9
+    },
+    "carry_severity_at_all": 0,
+    "counterexamples_for_confirmed_findings": 0,
+    "duplicate_targets_unresolvable": [
+      "issue #1076",
+      "issue #1099",
+      "issue #1149",
+      "issue #117",
+      "issue #1300",
+      "issue #1303",
+      "issue #136",
+      "issue #14",
+      "issue #1403",
+      "issue #142",
+      "issue #144",
+      "issue #149",
+      "issue #1495",
+      "issue #1520",
+      "issue #1533",
+      "issue #1536",
+      "issue #157",
+      "issue #16",
+      "issue #172",
+      "issue #18"
+    ],
+    "duplicates_pointing_at_canonical": 338,
+    "label_only": 427,
+    "label_only_with_code_available": 268,
+    "label_only_without_code": 159,
+    "missing_structured_fields": [
+      "candidate_claim",
+      "relevant_code",
+      "blocking_condition",
+      "why_exploit_fails",
+      "verdict",
+      "evidence"
+    ],
+    "structured_fields_present": [
+      "judge_and_sponsor_statements",
+      "rejection_basis",
+      "role_attribution_note",
+      "why_it_is_not_a_vulnerability",
+      "why_it_looked_plausible"
+    ],
+    "total": 458,
+    "verdict_attribution_collapsed_to": "finding.status / validation.status only",
+    "with_code_available_to_explain_the_rejection": 292,
+    "with_nonempty_why_it_is_not_a_vulnerability": 458,
+    "with_nonempty_why_it_looked_plausible": 458
+  },
+  "patch_coverage": {
+    "by_remediation_status": {
+      "Mitigation Confirmed": 15,
+      "Mitigation Error": 2,
+      "Mitigation confirmed": 17,
+      "Unmitigated": 4
+    },
+    "diff_withheld_by_licence": 38,
+    "distinct_prs": 0,
+    "note": "patches.jsonl records the fixing PR and its merge commit, but the diff itself is withheld in this published copy and no PoC was run against vulnerable vs fixed code.",
+    "records": 38,
+    "records_with_diff": 0,
+    "records_with_fix_verification": 0,
+    "records_with_regression_test": 0,
+    "vulnerable_commit_present": 38,
+    "with_diff_redistributed": 0,
+    "with_fix_commit": 38,
+    "with_vulnerable_commit": 38,
+    "with_why_the_fix_works": 38
+  },
+  "provenance_weaknesses": {
+    "blob_permalinks": 1571,
+    "blob_permalinks_without_40hex_commit": [
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/helpers/valueOracle/NoyaValueOracle.sol",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L428",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/PrismaConnector.sol#L11",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L461-L468",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.sol#L328-L354",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/SNXConnector.sol#L121-L126",
+      "https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Account.sol#L101-L116",
+      "https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Pool.sol",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/Registry.sol#L353",
+      "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/BalancerConnector.sol#L162-L173"
+    ],
+    "classifier_evidence_absent_on": 43,
+    "classifier_evidence_present_on": 679,
+    "invariant_source_record_level_values": {
+      "<missing>": 458,
+      "finding prose / remediation section": 111,
+      "not stated in the report; not inferred": 153
+    },
+    "invariants_with_source_type": 365,
+    "no_distinction_between": [
+      "observed in source vs stated by the report vs inferred by the rule-based classifier",
+      "judge verdict vs sponsor opinion vs dataset-builder judgement",
+      "attacker capability read off code vs attacker capability asserted in prose"
+    ],
+    "per_field_evidence_type": "absent — v1 documents *where* a field came from in README prose, not in the record, so a consumer cannot tell a quote from a derivation",
+    "records_with_zero_permalinks": 44
+  },
+  "recommended_upgrade_priorities": [
+    {
+      "gap_ids": [
+        "S1"
+      ],
+      "priority": "P0",
+      "why": "the published numbers disagree with the data; nothing downstream can be trusted",
+      "work": "authoritative stats + validation gate"
+    },
+    {
+      "priority": "P0",
+      "why": "without it a derived sentence is indistinguishable from an executed fact",
+      "work": "per-field evidence semantics"
+    },
+    {
+      "priority": "P1",
+      "why": "155 PoCs are text-only; this is the single largest quality gap and it is also the only one that can falsify the dataset",
+      "work": "compile + run the quoted PoCs at the pinned commits"
+    },
+    {
+      "priority": "P2",
+      "why": "427 negatives are label-only; 268 of them already have code in the dataset that could ground the rejection mechanically",
+      "work": "hard negatives grounded in retrieved code"
+    },
+    {
+      "priority": "P2",
+      "why": "teaches do-not-report-bug from the same code that supports report-bug",
+      "work": "counterexamples for confirmed H/M"
+    },
+    {
+      "priority": "P3",
+      "why": "v1 context is a flat permalink list; no caller/callee/modifier/state layer",
+      "work": "dependency-aware context expansion at pinned commits"
+    },
+    {
+      "priority": "P4",
+      "why": "attack_path strings exist but carry no states, no actor capabilities, no invariants to check",
+      "work": "state-transition + structured attacker model"
+    },
+    {
+      "priority": "P5",
+      "why": "'a PR exists' is not 'the fix works'",
+      "work": "patch retrieval and vulnerable-vs-fixed execution"
+    },
+    {
+      "priority": "P6",
+      "why": "repository-level splitting alone does not prevent near-duplicate leakage",
+      "work": "code + semantic leakage detection and a real benchmark"
+    }
+  ],
+  "record_counts": {
+    "by_file": {
+      "errors": 19,
+      "exploits": 155,
+      "findings": 264,
+      "metadata": 11,
+      "negatives": 458,
+      "patches": 38,
+      "protocol": 8
+    },
+    "by_split": {
+      "test": 253,
+      "train": 415,
+      "validation": 277
+    },
+    "finding_records_are_unique": true,
+    "split_union_equals_findings_file": false,
+    "total_jsonl_records": 953,
+    "total_split_records": 945,
+    "v1_manifest_records_written": 1898
+  },
+  "schema_inventory": {
+    "_nested_blocks_over_judged_records": {
+      "finding": [
+        "affected_contracts",
+        "affected_functions",
+        "also_found_by",
+        "author",
+        "author_note",
+        "claimed_risk_labels",
+        "id",
+        "judge_status",
+        "original_issue_url",
+        "record_class",
+        "root_cause",
+        "severity",
+        "severity_source",
+        "sponsor_response",
+        "status",
+        "summary",
+        "title",
+        "vulnerability_classes"
+      ],
+      "negative_analysis": [
+        "judge_and_sponsor_statements",
+        "rejection_basis",
+        "role_attribution_note",
+        "why_it_is_not_a_vulnerability",
+        "why_it_looked_plausible"
+      ],
+      "patch": [
+        "available",
+        "diff",
+        "explanation",
+        "fix_pr_urls",
+        "fixed_commit",
+        "vulnerable_commit"
+      ],
+      "poc": [
+        "attack_sequence",
+        "available",
+        "code",
+        "expected_impact",
+        "file",
+        "framework",
+        "observed_impact",
+        "reproducibility_note",
+        "reproducible",
+        "setup",
+        "test_name"
+      ],
+      "provenance": [
+        "extraction_notes",
+        "judge_and_sponsor_quotes",
+        "license",
+        "license_verified",
+        "report_file",
+        "source_files",
+        "source_urls",
+        "submission_issue_comments"
+      ],
+      "security_reasoning": [
+        "attack_path",
+        "attack_prerequisites",
+        "attacker_capabilities",
+        "attacker_limitations",
+        "broken_behavior",
+        "environment_assumptions",
+        "expected_behavior_per_remediation",
+        "impact",
+        "intended_behavior",
+        "intended_behavior_source",
+        "invariant_source",
+        "invariants",
+        "security_assumption"
+      ],
+      "validation": [
+        "all_public_statuses",
+        "assumptions",
+        "duplicate",
+        "duplicate_of",
+        "evidence",
+        "judge_decision",
+        "requires_assumption",
+        "severity_change",
+        "sponsor_agreement",
+        "sponsor_position",
+        "status"
+      ]
+    },
+    "_v2_fields_absent_from_v1": [
+      "evidence",
+      "security_state_transition",
+      "attacker_model",
+      "quality",
+      "taxonomy",
+      "verification",
+      "benchmark_tasks"
+    ],
+    "errors": {
+      "always_present": [
+        "confidence",
+        "dataset_version",
+        "error",
+        "provenance",
+        "record_type",
+        "source"
+      ],
+      "records": 19,
+      "sometimes_present": [],
+      "top_level_keys": [
+        "confidence",
+        "dataset_version",
+        "error",
+        "provenance",
+        "record_type",
+        "source"
+      ]
+    },
+    "exploits": {
+      "always_present": [
+        "confidence",
+        "dataset_version",
+        "exploit",
+        "finding",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source",
+        "vulnerable_code"
+      ],
+      "records": 155,
+      "sometimes_present": [
+        "code_reference_only",
+        "code_reference_only_note"
+      ],
+      "top_level_keys": [
+        "code_reference_only",
+        "code_reference_only_note",
+        "confidence",
+        "dataset_version",
+        "exploit",
+        "finding",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source",
+        "vulnerable_code"
+      ]
+    },
+    "findings": {
+      "always_present": [
+        "classifier_evidence",
+        "code_context",
+        "confidence",
+        "dataset_version",
+        "finding",
+        "patch",
+        "poc",
+        "protocol",
+        "provenance",
+        "record_type",
+        "security_reasoning",
+        "source",
+        "validation"
+      ],
+      "records": 264,
+      "sometimes_present": [
+        "code_context_note",
+        "code_reference_only",
+        "code_reference_only_note",
+        "protocol_context"
+      ],
+      "top_level_keys": [
+        "classifier_evidence",
+        "code_context",
+        "code_context_note",
+        "code_reference_only",
+        "code_reference_only_note",
+        "confidence",
+        "dataset_version",
+        "finding",
+        "patch",
+        "poc",
+        "protocol",
+        "protocol_context",
+        "provenance",
+        "record_type",
+        "security_reasoning",
+        "source",
+        "validation"
+      ]
+    },
+    "metadata": {
+      "always_present": [
+        "confidence",
+        "dataset_version",
+        "processing",
+        "provenance",
+        "record_type",
+        "source"
+      ],
+      "records": 11,
+      "sometimes_present": [],
+      "top_level_keys": [
+        "confidence",
+        "dataset_version",
+        "processing",
+        "provenance",
+        "record_type",
+        "source"
+      ]
+    },
+    "negatives": {
+      "always_present": [
+        "classifier_evidence",
+        "code_context",
+        "confidence",
+        "dataset_version",
+        "finding",
+        "negative_analysis",
+        "patch",
+        "poc",
+        "protocol",
+        "provenance",
+        "record_type",
+        "security_reasoning",
+        "source",
+        "validation"
+      ],
+      "records": 458,
+      "sometimes_present": [
+        "code_reference_only",
+        "code_reference_only_note"
+      ],
+      "top_level_keys": [
+        "classifier_evidence",
+        "code_context",
+        "code_reference_only",
+        "code_reference_only_note",
+        "confidence",
+        "dataset_version",
+        "finding",
+        "negative_analysis",
+        "patch",
+        "poc",
+        "protocol",
+        "provenance",
+        "record_type",
+        "security_reasoning",
+        "source",
+        "validation"
+      ]
+    },
+    "patches": {
+      "always_present": [
+        "confidence",
+        "dataset_version",
+        "finding",
+        "patch",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source",
+        "vulnerable_code"
+      ],
+      "records": 38,
+      "sometimes_present": [
+        "code_reference_only",
+        "code_reference_only_note"
+      ],
+      "top_level_keys": [
+        "code_reference_only",
+        "code_reference_only_note",
+        "confidence",
+        "dataset_version",
+        "finding",
+        "patch",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source",
+        "vulnerable_code"
+      ]
+    },
+    "protocol": {
+      "always_present": [
+        "confidence",
+        "dataset_version",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source"
+      ],
+      "records": 8,
+      "sometimes_present": [],
+      "top_level_keys": [
+        "confidence",
+        "dataset_version",
+        "protocol",
+        "provenance",
+        "record_type",
+        "source"
+      ]
+    }
+  },
+  "statistics_inconsistencies": [
+    {
+      "computed_from_jsonl": 895,
+      "direction": "undercount",
+      "id": "S:code_context_entries",
+      "v1_reported": 557
+    },
+    {
+      "computed_from_jsonl": 827,
+      "direction": "undercount",
+      "id": "S:code_context_with_verified_line_range",
+      "v1_reported": 510
+    },
+    {
+      "computed_from_jsonl": 110,
+      "direction": "undercount",
+      "id": "S:findings_with_named_judge_or_sponsor_verdict",
+      "v1_reported": 105
+    },
+    {
+      "computed_from_jsonl": 346,
+      "direction": "undercount",
+      "id": "S:poc_available",
+      "v1_reported": 155
+    },
+    {
+      "detail": "v1 keys with no defined canonical meaning (aggregations, not verifiable facts)",
+      "id": "S:unmapped_v1_keys",
+      "keys": [
+        "by_audit_year",
+        "by_confidence",
+        "by_protocol_category",
+        "by_report_publication_year",
+        "by_repository",
+        "by_severity",
+        "by_split",
+        "by_validation_status_findings",
+        "by_validation_status_negatives",
+        "by_vulnerability_category",
+        "by_vulnerability_class",
+        "duplicate_canonical_ids",
+        "duplicate_finding_targets",
+        "negatives_self_withdrawn",
+        "repositories_failed",
+        "repositories_processed",
+        "repositories_requested",
+        "split_finding_id_overlaps"
+      ]
+    }
+  ],
+  "validation_weaknesses": [
+    {
+      "detail": "README references scripts/build_all.py and scripts/validate.py, but no scripts/ directory is published. The gate is described, not runnable.",
+      "gap": "no machine-readable gate exists in the published repo",
+      "id": "V1"
+    },
+    {
+      "detail": "reports/dataset_stats.json is a hand-maintained artefact; see statistics_inconsistencies.",
+      "gap": "reported statistics were never recomputed",
+      "id": "V2"
+    },
+    {
+      "detail": "see documentation_inconsistencies; several figures describe the pre-redaction build.",
+      "gap": "README numbers are not generated from the data",
+      "id": "V3"
+    },
+    {
+      "detail": "v1 checks repo-in-two-splits, id-in-two-splits, file::function-in-two-splits. No code, semantic or near-duplicate similarity detection.",
+      "gap": "no leakage measurement beyond three hard checks",
+      "id": "V4"
+    },
+    {
+      "detail": "every poc.reproducible is false, so there is no invariant tying a PoC to a run.",
+      "gap": "PoC metadata cannot be checked because nothing was executed",
+      "id": "V5"
+    },
+    {
+      "detail": "findings are keyed by source.repository + finding.id only; exploit/patch/protocol rows carry no primary key field, so dedup depends on positional conventions.",
+      "gap": "no record-level uniqueness key",
+      "id": "V6"
+    },
+    {
+      "detail": "findings.jsonl, exploits.jsonl and splits/*.jsonl each restate severity; no cross-file agreement rule exists.",
+      "gap": "severity consistency across files is unchecked",
+      "id": "V7"
+    }
+  ]
+}

@@ -5,3 +5,11 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+
+# Retrieved source, clones and execution artefacts. These are reproducible from
+# the pinned citations with `python scripts/fetch_sources.py`, and several
+# contain source that must NOT be redistributed. Nothing in work/ belongs in the
+# repository; the dataset keeps citations and hashes, not the code.
+work/
+
+# Generated at build time, committed deliberately: see reports/.

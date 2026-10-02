@@ -1,0 +1,25 @@
+{
+  "attacker_kind": {
+    "privileged": 99,
+    "unknown": 232,
+    "unprivileged": 127
+  },
+  "blocking_condition_derived_from_code": 6,
+  "blocking_condition_reported_by_source": 9,
+  "blocking_condition_unknown": 443,
+  "generated_by": "scripts/build_hard_negatives.py",
+  "invariants_invented": 0,
+  "negative_reasoning": {
+    "code_grounded": 15,
+    "label_only": 421,
+    "reported_only": 22
+  },
+  "note": "blocking_condition is unknown for the majority. That is the correct answer when the only public evidence is a rejection label.",
+  "total": 458,
+  "verdict_attribution": {
+    "externally_attributed": 427,
+    "reported_claim": 31
+  },
+  "with_redistributed_code": 292,
+  "with_reference_only_code": 166
+}

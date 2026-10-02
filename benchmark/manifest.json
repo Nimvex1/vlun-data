@@ -1,0 +1,97 @@
+{
+  "dataset_version": "2.0",
+  "generated_by": "scripts/build_benchmark.py",
+  "splits_source": "splits_v2",
+  "tasks": {
+    "A_vulnerability_detection": {
+      "by_split": {
+        "test": 236,
+        "train": 407,
+        "validation": 270
+      },
+      "file": "benchmark/A_vulnerability_detection.jsonl",
+      "labeled": 913,
+      "partial": 0,
+      "scorable": 913,
+      "tasks": 913,
+      "unlabeled": 0
+    },
+    "B_root_cause_reasoning": {
+      "by_split": {
+        "test": 236,
+        "train": 407,
+        "validation": 270
+      },
+      "file": "benchmark/B_root_cause_reasoning.jsonl",
+      "labeled": 0,
+      "partial": 503,
+      "scorable": 0,
+      "tasks": 913,
+      "unlabeled": 410
+    },
+    "C_attacker_reasoning": {
+      "by_split": {
+        "test": 236,
+        "train": 407,
+        "validation": 270
+      },
+      "file": "benchmark/C_attacker_reasoning.jsonl",
+      "labeled": 384,
+      "partial": 0,
+      "scorable": 384,
+      "tasks": 913,
+      "unlabeled": 529
+    },
+    "D_exploit_construction": {
+      "by_split": {
+        "test": 236,
+        "train": 407,
+        "validation": 270
+      },
+      "file": "benchmark/D_exploit_construction.jsonl",
+      "labeled": 346,
+      "partial": 0,
+      "scorable": 346,
+      "tasks": 913,
+      "unlabeled": 567
+    },
+    "E_exploit_verification": {
+      "by_split": {
+        "test": 236,
+        "train": 407,
+        "validation": 270
+      },
+      "file": "benchmark/E_exploit_verification.jsonl",
+      "labeled": 14,
+      "partial": 0,
+      "scorable": 14,
+      "tasks": 913,
+      "unlabeled": 899
+    },
+    "F_false_positive_rejection": {
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "file": "benchmark/F_false_positive_rejection.jsonl",
+      "labeled": 15,
+      "partial": 0,
+      "scorable": 15,
+      "tasks": 458,
+      "unlabeled": 443
+    },
+    "G_patch_verification": {
+      "by_split": {
+        "test": 57,
+        "validation": 47
+      },
+      "file": "benchmark/G_patch_verification.jsonl",
+      "labeled": 0,
+      "partial": 0,
+      "scorable": 0,
+      "tasks": 104,
+      "unlabeled": 104
+    }
+  }
+}

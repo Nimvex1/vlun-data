@@ -1,0 +1,14 @@
+# Data files are committed with LF. Without this, Windows checkouts rewrite the
+# whole dataset to CRLF and every file shows as modified, which hides real edits
+# and makes the repository impossible to review.
+*.jsonl   text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.csv     text eol=lf
+*.py      text eol=lf
+*.sol     text eol=lf
+*.toml    text eol=lf
+*.txt     text eol=lf
+
+# Binary artefacts of the execution pipeline are not committed.
+*.failed  binary

@@ -1,0 +1,19 @@
+{
+  "by_status": {
+    "ok": 1
+  },
+  "generated_by": "scripts/build_all.py",
+  "stages": [
+    {
+      "command": "python scripts/validate.py",
+      "description": "the gate",
+      "rc": 0,
+      "script": "validate.py",
+      "seconds": 1.1,
+      "stage": 13,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "validate.py\n  [ok  ] structure/jsonl_parses\n  [ok  ] structure/required_fields_present\n  [ok  ] structure/record_uniqueness_within_file\n  [ok  ] structure/cross_file_id_references_resolve\n  [ok  ] structure/source_layer_version_uniform\n  [ok  ] provenance/every_record_has_a_source\n  [ok  ] provenance/blob_permalinks_wellformed\n  [warn] provenance/commit_pins_are_immutable  (453 failures)\n         - findings.jsonl 2024-04-noya/H-03 code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-04 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-09 code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n  [ok  ] provenance/line_ranges_sane\n  [ok  ] provenance/snippet_length_plausible\n  [ok  ] consistency/reported_statistics_equal_computed\n  [ok  ] consistency/severity_agrees_across_files\n  [ok  ] consistency/severity_agrees_with_splits\n  [ok  ] consistency/no_unexecuted_poc_claims_reproducible\n  [ok  ] consistency/patch_diff_and_withheld_flag_agree\n  [ok  ] consistency/negative_labels_consistent\n  [ok  ] consistency/license_declared_implies_verified\n  [ok  ] evidence/evidence_type_in_closed_vocabulary\n  [ok  ] evidence/experimental_claims_have_a_run_artefact\n  [ok  ] evidence/every_reproduced_verdict_names_a_forge_status\n  [ok  ] evidence/negative_reasons_typed_consistently\n  [ok  ] evidence/failure_reasons_in_closed_vocabulary\n  [ok  ] evidence/reproduced_requires_a_successful_forge_run\n  [ok  ] splits/repository_not_in_two_splits\n  [ok  ] splits/finding_id_not_in_two_splits\n  [ok  ] splits/splits_v2_leakage_free\n  [ok  ] consistency/derived_files_parse\n  [ok  ] consistency/derived_manifest_matches_file\n\n27/28 checks passed; 0 critical failures, 1 warnings\nBUILD OK"
+    }
+  ]
+}

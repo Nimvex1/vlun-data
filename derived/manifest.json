@@ -1,0 +1,71 @@
+{
+  "attacker_identity_unknown": 432,
+  "attacker_kind": {
+    "honest_but_misconfigured": 3,
+    "malicious_dependency": 11,
+    "privileged": 133,
+    "unknown": 432,
+    "unprivileged": 143
+  },
+  "attacker_kind_basis": {
+    "derived_fact": 147,
+    "reported_claim": 143,
+    "unknown": 432
+  },
+  "code_context_analysed_files": 469,
+  "code_context_files_retrieved": 464,
+  "dynamic_verification": {
+    "inconclusive": 8,
+    "not_attempted": 567,
+    "not_executed": 140,
+    "not_reproduced": 2,
+    "reproduced": 5
+  },
+  "files": {
+    "records.jsonl": 722
+  },
+  "generated_by": "scripts/build_derived.py",
+  "invariants_invented": 0,
+  "license_classes": {
+    "redistributable": 1,
+    "source_available_but_not_redistributable": 225,
+    "unknown": 496
+  },
+  "numeric_state_values_invented": 0,
+  "quality_attacker_model": {
+    "high": 290,
+    "low": 432
+  },
+  "quality_code_context": {
+    "high": 36,
+    "medium": 270,
+    "none": 416
+  },
+  "quality_state_transition": {
+    "high": 130,
+    "none": 592
+  },
+  "records": 722,
+  "redistribution_flagged": {
+    "none": 298,
+    "source_redistributed_without_declared_license": 424
+  },
+  "state_transition_present": 244,
+  "state_transition_with_transactions": 130,
+  "taxonomy_top_level": {
+    "Access Control": 51,
+    "Accounting": 89,
+    "Cross-Chain": 51,
+    "Cross-Contract": 34,
+    "Cryptography / Signatures": 53,
+    "DeFi": 148,
+    "Denial of Service": 76,
+    "Governance": 11,
+    "Logic Error": 10,
+    "Reentrancy / External Calls": 35,
+    "Token Standards": 113,
+    "Unknown": 43,
+    "Upgradeability": 8
+  },
+  "with_invariant": 229
+}

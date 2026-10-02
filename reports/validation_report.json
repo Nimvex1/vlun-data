@@ -1,0 +1,295 @@
+{
+  "checks": 28,
+  "dataset_version": "2.0",
+  "details": [
+    {
+      "check": "jsonl_parses",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "required_fields_present",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "record_uniqueness_within_file",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "cross_file_id_references_resolve",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "source_layer_version_uniform",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "every_record_has_a_source",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "blob_permalinks_wellformed",
+      "critical": true,
+      "detail": "453 citations use a mutable ref (branch name) instead of a 40-hex commit; listed as a warning, they are a real reproducibility hazard",
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "commit_pins_are_immutable",
+      "critical": false,
+      "detail": null,
+      "failure_count": 453,
+      "failures": [
+        "findings.jsonl 2024-04-noya/H-03 code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-04 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-09 code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-11 code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-12 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/testFoundry/BalancerConnector.t.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-20 code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-22 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/H-23 code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/M-05 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
+        "findings.jsonl 2024-04-noya/M-06 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
+        "findings.jsonl 2024-04-noya/M-08 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/M-09 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
+        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
+        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
+        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'"
+      ],
+      "group": "provenance",
+      "ok": false
+    },
+    {
+      "check": "line_ranges_sane",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "snippet_length_plausible",
+      "critical": false,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "reported_statistics_equal_computed",
+      "critical": true,
+      "detail": "20 top-level stat groups compared",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "severity_agrees_across_files",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "severity_agrees_with_splits",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "no_unexecuted_poc_claims_reproducible",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "patch_diff_and_withheld_flag_agree",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "negative_labels_consistent",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "license_declared_implies_verified",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "evidence_type_in_closed_vocabulary",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "experimental_claims_have_a_run_artefact",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "every_reproduced_verdict_names_a_forge_status",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "negative_reasons_typed_consistently",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "failure_reasons_in_closed_vocabulary",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "reproduced_requires_a_successful_forge_run",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "repository_not_in_two_splits",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "splits",
+      "ok": true
+    },
+    {
+      "check": "finding_id_not_in_two_splits",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "splits",
+      "ok": true
+    },
+    {
+      "check": "splits_v2_leakage_free",
+      "critical": false,
+      "detail": "checked against reports/leakage_report.json; run scripts/check_leakage.py --emit splits_v2 first",
+      "failure_count": 0,
+      "failures": [],
+      "group": "splits",
+      "ok": true
+    },
+    {
+      "check": "derived_files_parse",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "derived_manifest_matches_file",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    }
+  ],
+  "failed_critical": 0,
+  "generated_by": "scripts/validate.py",
+  "groups": {
+    "consistency": 9,
+    "evidence": 6,
+    "provenance": 5,
+    "splits": 3,
+    "structure": 5
+  },
+  "passed": 27,
+  "warnings": 1
+}

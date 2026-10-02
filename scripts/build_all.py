@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Run the whole pipeline, in dependency order.
+
+    python scripts/build_all.py               # everything that can run offline-safe
+    python scripts/build_all.py --with-network   # also clone repos and run PoCs
+    python scripts/build_all.py --from 4        # resume at stage 4
+
+Stages that cannot run — no network, no clone, no archive RPC — emit a
+deterministic machine-readable status instead of being silently skipped, and the
+final gate still runs so the build reports honestly.
+
+Stage order matters: sources must exist before anything can analyse them, and
+statistics must be regenerated before the gate compares them.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from vlun import REPORTS, ROOT, WORK, log, write_json  # noqa: E402
+
+PY = sys.executable
+
+STAGES = [
+    # (id, needs network, script, args, description)
+    (1, True, "fetch_sources.py", ["--checkouts"],
+     "clone the audited repositories and retrieve every pinned (commit, file) citation"),
+    (2, False, "build_derived.py", [],
+     "evidence semantics, attacker model, state transition, expanded code context, taxonomy"),
+    (3, False, "build_hard_negatives.py", [], "structured rejection reasons for the negative corpus"),
+    (4, False, "build_counterexamples.py", [],
+     "nearby false hypotheses for confirmed High/Medium findings"),
+    (5, True, "verify_pocs.py", [], "compile and execute the PoCs"),
+    (6, False, "verify_patches.py", [], "run each PoC against vulnerable and fixed revisions"),
+    (7, False, "check_leakage.py", ["--emit", "splits_v2"],
+     "leakage detection and a leakage-free re-split"),
+    (8, False, "build_benchmark.py", [], "the seven benchmark task families"),
+    (9, False, "generate_stats.py", [], "recompute every statistic from the canonical JSONL"),
+    (10, False, "audit_records.py", ["--derive"],
+     "per-record evidence/quality matrix for a curator"),
+    (11, False, "generate_reports.py", [], "extraction errors, benchmark metrics, final report"),
+    (12, False, "generate_readme.py", [],
+     "README.md and NOTICE.md, with every figure read from the reports"),
+    (13, False, "validate.py", [], "the gate"),
+]
+
+
+def _scrub(text: str) -> str:
+    """Strip local paths and home directories out of captured build output.
+
+    Subprocess stderr routinely contains absolute paths and the operator's home
+    directory. Those end up in a committed report, which leaks nothing useful and
+    makes the build non-reproducible, so they are replaced with placeholders.
+    """
+    if not text:
+        return ""
+    t = text.replace(str(ROOT), "<repo>").replace(str(ROOT).replace("\\", "/"), "<repo>")
+    home = str(Path.home())
+    for h in {home, home.replace("\\", "/")}:
+        if h and h not in ("/", "C:\\"):
+            t = t.replace(h, "<home>")
+    return re.sub(r"[A-Za-z]:[\\/][^\s\"'<>|]*", "<path>", t)
+
+
+def run_stage(nid: int, script: str, args: list[str], desc: str, needs_net: bool,
+              allow_net: bool) -> dict:
+    cmd = [PY, str(ROOT / "scripts" / script), *args]
+    # Record the command as a user would type it. The resolved interpreter path is
+    # machine-specific and must not be committed.
+    shown = " ".join(["python", f"scripts/{script}", *args])
+    t0 = time.time()
+    if needs_net and not allow_net:
+        return {"stage": nid, "script": script, "status": "skipped_no_network",
+                "reason": "this stage needs network access; re-run with --with-network",
+                "seconds": 0, "command": shown}
+    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, errors="replace")
+    out = (proc.stdout or "").strip().splitlines()
+    return {
+        "stage": nid, "script": script, "status": "ok" if proc.returncode == 0 else "failed",
+        "rc": proc.returncode, "seconds": round(time.time() - t0, 1),
+        "command": shown, "description": desc,
+        "tail": _scrub("\n".join(out[-40:])),
+        "stderr_tail": _scrub("\n".join((proc.stderr or "").strip().splitlines()[-15:])),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--with-network", action="store_true",
+                    help="also clone repositories and execute PoCs")
+    ap.add_argument("--from", dest="start", type=int, default=1)
+    ap.add_argument("--to", dest="end", type=int, default=len(STAGES))
+    ap.add_argument("--continue-on-failure", action="store_true", default=True)
+    args = ap.parse_args()
+
+    results = []
+    log("build_all")
+    for nid, needs_net, script, sargs, desc in STAGES:
+        if not (args.start <= nid <= args.end):
+            continue
+        log(f"\n=== stage {nid}: {script} — {desc}")
+        r = run_stage(nid, script, sargs, desc, needs_net, args.with_network)
+        results.append(r)
+        log(f"  -> {r['status']}" + (f" rc={r['rc']}" if "rc" in r else "") +
+            f" ({r['seconds']}s)")
+        for line in (r.get("tail") or "").splitlines()[-12:]:
+            log(f"     {line}")
+
+    summary = {
+        "generated_by": "scripts/build_all.py",
+        "stages": results,
+        "by_status": {s: sum(1 for r in results if r["status"] == s)
+                      for s in sorted({r["status"] for r in results})},
+    }
+    write_json(REPORTS / "build_all.json", summary)
+    log(f"\nbuild_all.json: {summary['by_status']}")
+    gate = next((r for r in results if r["script"] == "validate.py"), None)
+    if gate and gate["status"] != "ok":
+        log("GATE FAILED")
+        return 1
+    log("pipeline complete")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

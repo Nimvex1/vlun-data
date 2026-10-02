@@ -1,0 +1,184 @@
+{
+  "by_repository": {
+    "code-423n4/2022-05-alchemix": {
+      "compile_rc": 0,
+      "compile_runner": "hardhat compile",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "poc_invalid": 10
+      },
+      "harness_files_edited": 0,
+      "head_commit": "18e9bea5648b18f7624e522e6dc3ebfb6a7fcb29",
+      "seconds": 260.9,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "not_executed": 10
+      }
+    },
+    "code-423n4/2024-01-decent": {
+      "compile_rc": 0,
+      "compile_runner": "forge build",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "poc_invalid": 7
+      },
+      "harness_files_edited": 0,
+      "head_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+      "seconds": 132.4,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "not_executed": 7
+      }
+    },
+    "code-423n4/2024-01-renft": {
+      "compile_rc": null,
+      "compile_runner": null,
+      "dependencies": "ok",
+      "failure_reasons": {
+        "broken_original_test": 2,
+        "dependency_unavailable": 4,
+        "poc_invalid": 10
+      },
+      "harness_files_edited": 0,
+      "head_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+      "seconds": 13.1,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "not_executed": 16
+      }
+    },
+    "code-423n4/2024-04-noya": {
+      "compile_rc": 0,
+      "compile_runner": "forge build",
+      "dependencies": "already_present",
+      "failure_reasons": {
+        "broken_original_test": 1,
+        "environment_unavailable": 8,
+        "poc_invalid": 38
+      },
+      "harness_files_edited": 0,
+      "head_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+      "seconds": 40.7,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "inconclusive": 8,
+        "not_executed": 39,
+        "not_reproduced": 2,
+        "reproduced": 4
+      }
+    },
+    "code-423n4/2024-08-wildcat": {
+      "compile_rc": 1,
+      "compile_runner": "forge build",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "broken_original_test": 1,
+        "dependency_unavailable": 3,
+        "poc_invalid": 22
+      },
+      "harness_files_edited": 0,
+      "head_commit": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+      "seconds": 55.9,
+      "solc": "0.8.25",
+      "status": "ok",
+      "tally": {
+        "not_executed": 26
+      }
+    },
+    "code-423n4/2024-12-bakerfi": {
+      "compile_rc": 1,
+      "compile_runner": "hardhat compile",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "broken_original_test": 3,
+        "poc_invalid": 22
+      },
+      "harness_files_edited": 0,
+      "head_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a",
+      "seconds": 111.7,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "not_executed": 25
+      }
+    },
+    "code-423n4/2025-06-panoptic": {
+      "compile_rc": 0,
+      "compile_runner": "forge build",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "poc_invalid": 2
+      },
+      "harness_files_edited": 0,
+      "head_commit": "eea2c931b1cbce1da01586e42ba298814de40d31",
+      "seconds": 6.4,
+      "solc": null,
+      "status": "ok",
+      "tally": {
+        "not_executed": 2,
+        "reproduced": 1
+      }
+    },
+    "code-423n4/2025-08-gte-perps": {
+      "compile_rc": 1,
+      "compile_runner": "forge build",
+      "dependencies": "ok",
+      "failure_reasons": {
+        "poc_invalid": 15
+      },
+      "harness_files_edited": 0,
+      "head_commit": "4e38f46e1d0479762b9b786de4d2ba26bb98b55e",
+      "seconds": 611.2,
+      "solc": "0.8.27",
+      "status": "ok",
+      "tally": {
+        "not_executed": 15
+      }
+    }
+  },
+  "environment": {
+    "archive_rpc_supplied": false,
+    "node": "64 fuzz runs"
+  },
+  "failure_reason_vocabulary": [
+    "source_unavailable",
+    "dependency_unavailable",
+    "historical_commit_unavailable",
+    "broken_original_test",
+    "environment_unavailable",
+    "license_restriction",
+    "insufficient_evidence",
+    "poc_invalid",
+    "poc_reconstruction_failed",
+    "no_poc_published"
+  ],
+  "generated_by": "scripts/verify_pocs.py",
+  "guarantee": "No record is marked reproduced unless a forge run reported Success for its test.",
+  "not_executed_failure_reasons": {
+    "broken_original_test": 7,
+    "dependency_unavailable": 7,
+    "environment_unavailable": 8,
+    "poc_invalid": 126
+  },
+  "poc_compilation_rate": {
+    "poc_files_materialised": 20,
+    "poc_files_skipped": 133,
+    "repos_attempted": 8,
+    "repos_compiled": 4
+  },
+  "tooling": {
+    "forge": "1.8.3",
+    "git": "2.55.0"
+  },
+  "totals": {
+    "exploit_records": 155,
+    "inconclusive": 8,
+    "not_executed": 140,
+    "not_reproduced": 2,
+    "reproduced": 5
+  }
+}

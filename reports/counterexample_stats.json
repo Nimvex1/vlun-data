@@ -1,0 +1,18 @@
+{
+  "by_type": {
+    "access_control_refutation": 86,
+    "authorisation_guard_refutation": 13
+  },
+  "confirmed_high_medium_records": 204,
+  "counterexamples_on_the_vulnerable_function": 0,
+  "generated_by": "scripts/build_counterexamples.py",
+  "note": "every counterexample refutes a hypothesis about a function the finding did NOT name as vulnerable, so it can never contradict its own finding. Records with no counterexample are counted with the reason rather than padded with a weak one.",
+  "records_with_at_least_one_counterexample": 43,
+  "records_without": 161,
+  "records_without_reason": {
+    "cited_files_not_retrieved": 19,
+    "every_cited_function_is_the_vulnerable_one_or_has_no_refutable_property": 119,
+    "no_code_cited_by_the_record": 23
+  },
+  "total_counterexamples": 99
+}
