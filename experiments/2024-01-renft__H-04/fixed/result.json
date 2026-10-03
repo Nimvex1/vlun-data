@@ -1,0 +1,62 @@
+{
+  "artifact_sha256": {
+    "command.txt": "e85b01d0dc7da248b4a500b444d2a5a778df0dfcca564bc0d7319b9aa60e950a",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "a995f2cf268f91df10cc56fcbaab82ba25cc97d2786d0cbefe70d89613cfd6f7"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__Exploits.t.sol -vv",
+  "declared_expectation": "test PASSES: the guard blocks the exploit",
+  "declared_expected_status": "pass",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 1.6,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 0,
+  "experiment_id": "cd692d8d73d2308433475043",
+  "finding_id": "2024-01-renft/H-04",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 448122,
+  "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+  "harness_file_digests": {
+    "integration__Exploits.t.sol": "575c7eb11c5cf5815488ea7f24839889c915c8c113bb8ce9545cc8e7c64cdee1",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__Exploits.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {
+    "test_DisableModule_Exploit()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    }
+  },
+  "repository": {
+    "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "fixed",
+  "security_property": "a renter cannot disable the payment-escrow module and bypass the guard, because the calldata offset used to address the module must be the real one",
+  "status": "pass",
+  "test_status": "success"
+}

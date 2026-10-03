@@ -1,0 +1,30 @@
+{
+  "admission_rules": {
+    "verified_exploits": "an exploit was executed at the audited revision and the declared security property was observed to be violated",
+    "verified_findings": "immutable pinned citations, at least one cited file retrieved at its pinned commit, a public verdict and a stated severity",
+    "verified_negatives": "an attempted exploit was observed to fail, OR a named judge or sponsor published the reason, OR a confirmed finding carries the same claim so this copy is redundant rather than wrong",
+    "verified_patches": "the same test observed the violation on the audited revision and the property held on the fixed revision"
+  },
+  "exploit_levels": {
+    "L6": 4
+  },
+  "generated_by": "scripts/build_subsets.py",
+  "negative_classes": {
+    "attributed": 9,
+    "corroborated_duplicate": 221
+  },
+  "policy": "These subsets are deliberately small. A record is never admitted by lowering the bar; if the evidence is not there the row does not exist.",
+  "subsets": {
+    "verified_exploits": 4,
+    "verified_findings": 293,
+    "verified_negatives": 230,
+    "verified_patches": 5
+  },
+  "training": {
+    "attacker_reasoning": 293,
+    "exploit_reasoning": 4,
+    "negative_reasoning": 230,
+    "patch_reasoning": 5,
+    "vulnerability_detection": 293
+  }
+}

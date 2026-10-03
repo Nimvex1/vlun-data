@@ -1,4 +1,16 @@
 {
+  "artefact_overlap": {
+    "attack_sequence_signature": {},
+    "count_attack_sequences": 0,
+    "count_identical_patch_diffs": 0,
+    "count_normalised_poc_bodies": 0,
+    "count_root_cause_statements": 0,
+    "identical_patch_diffs": {},
+    "normalised_poc_bodies": {},
+    "note": "the same patch, the same PoC body, the same root-cause statement or the same attack sequence appearing in two splits would let a model memorise an answer instead of reasoning to it",
+    "root_cause_statement": {},
+    "same_fixing_commit": {}
+  },
   "code_overlap": {
     "count_file_function_pairs": 0,
     "count_function_signatures": 0,
@@ -40,6 +52,11 @@
     "count": 0,
     "pairs": [],
     "threshold_jaccard": 0.8
+  },
+  "protocol_isolation": {
+    "count": 0,
+    "note": "a protocol name must not appear in more than one split; the held-out split has to be an unseen protocol, not unseen wording",
+    "protocols_in_multiple_splits": {}
   },
   "repository_isolation": {
     "held_out_repositories": [

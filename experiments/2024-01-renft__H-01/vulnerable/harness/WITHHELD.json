@@ -1,0 +1,12 @@
+{
+  "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+  "files": [
+    {
+      "bytes": 848,
+      "path": "mocks__tokens__weird__MockAlwaysRevertERC20.sol",
+      "sha256": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa"
+    }
+  ],
+  "how_to_obtain": "git show <commit>:<path> in the audited repository; the sha256 below is the hash of the exact bytes that were compiled in this experiment, so a replay can be verified byte for byte.",
+  "why": "these harness files are verbatim copies from the audited repository, which is licensed BUSL-1.1 (use permitted, redistribution not). They are therefore not published in this repository."
+}

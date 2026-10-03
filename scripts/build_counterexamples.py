@@ -22,6 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import counterexample_pairs as cp
 import solidity_facts as sf  # noqa: E402
 from vlun import (  # noqa: E402
     DATASET_VERSION, DERIVED, JSONL, REPORTS, log, sha256_text, snippet_entries, write_json,
@@ -214,6 +215,47 @@ def main() -> int:
             })
 
     # why the other H/M records have none, so the gap is measured not guessed
+    # ---------------------------------------------------------------- v2.1
+    # API-sibling pairs. These are the counterexamples worth having: the same
+    # category, the same API shape, a different security property, and a guard
+    # that is actually declared in the retrieved source.
+    import local_sources as ls
+    pair_stats = collections.Counter()
+    pairs_total = 0
+    records_with_pairs = 0
+    by_id = {o["finding_id"]: o for o in out}
+    for r in hm:
+        rid = (r.get("finding") or {}).get("id")
+        owner = f"{r['source'].get('organization', 'code-423n4')}/{r['source']['repository']}"
+        cls = ls.classify_record_code(r)
+        entries = []
+        seen = set()
+        for e in (list(r.get("code_context") or []) + list(r.get("vulnerable_code") or [])
+                  + list(r.get("code_reference_only") or [])):
+            key = (e.get("commit_sha"), e.get("file"))
+            if not key[0] or not key[1] or key in seen:
+                continue
+            seen.add(key)
+            entries.append(ls.analyse_cited(owner, e, allow_text=False))
+        pairs = cp.pairs_for_record(r, entries)
+        if not pairs:
+            continue
+        records_with_pairs += 1
+        pairs_total += len(pairs)
+        for pr in pairs:
+            pair_stats[pr["type"]] += 1
+        rec = by_id.get(rid)
+        if rec is None:
+            rec = {"record_type": "counterexample_set", "finding_id": rid,
+                   "severity": (r.get("finding") or {}).get("severity"),
+                   "vulnerable_functions": [], "counterexamples": [],
+                   "original_evidence": {"source": "derived",
+                                         "dataset_version": r.get("dataset_version")}}
+            out.append(rec)
+            by_id[rid] = rec
+        rec["api_sibling_pairs"] = pairs
+        rec["has_api_sibling_pairs"] = True
+
     reasons = collections.Counter()
     for r in hm:
         if counterexamples_for(r):
@@ -239,6 +281,14 @@ def main() -> int:
         "by_type": dict(collections.Counter(
             ce["type"] for o in out for ce in o["counterexamples"])),
         "counterexamples_on_the_vulnerable_function": 0,
+        "api_sibling_pairs": pairs_total,
+        "records_with_api_sibling_pairs": records_with_pairs,
+        "api_sibling_pair_types": dict(pair_stats),
+        "api_sibling_note": ("an API-sibling pair contrasts two entry points of the same shape "
+                             "in one contract where exactly one declares an authorisation "
+                             "guard. It is a stronger teaching signal than a generic "
+                             "access-control refutation because the two members are "
+                             "genuinely similar code."),
         "note": "every counterexample refutes a hypothesis about a function the finding did NOT "
                 "name as vulnerable, so it can never contradict its own finding. Records with no "
                 "counterexample are counted with the reason rather than padded with a weak one.",
@@ -249,6 +299,7 @@ def main() -> int:
     log(f"  H/M with counterexample: {with_ce}/{len(hm)}")
     log(f"  without, by reason: {dict(reasons)}")
     log(f"  by type: {stats['by_type']}")
+    log(f"  API-sibling pairs: {pairs_total} on {records_with_pairs} records")
     return 0
 
 

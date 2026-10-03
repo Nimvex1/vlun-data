@@ -4,11 +4,23 @@ A provenance-preserving corpus built from 8 public Code4rena
 audits. Every record traces to a public artefact: a report section, a submission issue, a comment,
 or a commit-pinned permalink.
 
-This is v2. v1 shipped structured findings but **executed nothing**: every `poc.reproducible` was
-`false`, its statistics disagreed with its own data in four places, and the scripts its README
-described were not published. v2 adds per-field evidence semantics, real PoC execution, grounded
-hard negatives, counterexamples, a leakage-resistant split, a benchmark, and a validation gate
-that fails when any of it drifts.
+v1 shipped structured findings but **executed nothing**: every `poc.reproducible` was `false`, its
+statistics disagreed with its own data in four places, and the scripts its README described were not
+published. v2 added per-field evidence semantics and a validation gate. **This is v2.1**, whose
+subject is experimental evidence:
+
+* every exploit PoC is given a **proof-shape class** (nine values) and a **quality level L0-L6**,
+  and a level above L2 is only reachable by an actual run artefact;
+* **pinpoint exploit experiments** run the same test against the audited revision and against the
+  fixing revision, so a patch is called *effective* only when the violation is observed on one and
+  blocked on the other;
+* **every mutable branch citation is resolved** to the commit that provably contains the cited
+  content, by content identity, submodule pointer or date-anchored blob identity;
+* **hard negatives are re-classified** into verified / attributed / corroborated-duplicate /
+  unknown, and a corroborated duplicate is explicitly *not* a false positive;
+* **API-sibling counterexample pairs**, **Slither cross-checks**, **ten benchmark families**
+  including the three that only accept experimentally produced ground truth, and
+  **high-confidence subsets** with published admission rules.
 
 ## Layout
 
@@ -29,9 +41,14 @@ derived/         enriched records, deterministic and reproducible
 ├── counterexamples.jsonl      43 counterexample sets
 └── manifest.json
 
+experiments/     one directory per attempted exploit: harness, command, stdout,
+                 stderr, trace and result.json for the vulnerable and the fixed
+                 revision. Small, hashed, and committed on purpose.
+datasets/        high-confidence subsets, each with a published admission rule
+training/        task-oriented training files, split by task rather than one blob
 splits/          v1 repository-level splits (kept for comparison)
 splits_v2/       leakage-free splits + quarantine.jsonl
-benchmark/       seven task families, machine readable
+benchmark/       ten task families, machine readable
 reports/         every generated report, including pre_upgrade_audit.json
 scripts/         the pipeline (see below)
 work/            clones, retrieved source, execution logs — git-ignored
@@ -53,10 +70,28 @@ the builder derived from what was experimentally verified.
 | PoCs demonstrating the claimed impact | unknown | **5** of 155 |
 | negatives with a code-grounded reason | 0 | 6 derived + 9 reported |
 | cross-split leakage checks | 3 | 4 detectors, 2 real duplicates found and quarantined |
-| validation gate | described, not shipped | 27/28 checks, 0 critical failures |
+| validation gate | described, not shipped | 51/52 checks, 0 critical failures |
 
-Full accounting, including what could **not** be verified, is in
-[`reports/final_quality_report.md`](reports/final_quality_report.md).
+### v2.1: experimentally proven evidence
+
+| | v2 | v2.1 |
+|---|---|---|
+| PoC records given a proof-shape class | 0 | 155 of 155 |
+| PoC records given an L0-L6 level | 0 | 155 |
+| Pinpoint exploit experiments executed | 0 | 9 |
+| Vulnerabilities with an observed violation at the audited commit | 5 | 5 |
+| Patches verified effective (reproduced on vulnerable, blocked on fixed) | 0 | **5** |
+| Mutable branch citations | 453 | **0** |
+| Negatives with a defensible reason | 15 | **231** |
+| Negatives still honestly unknown | 443 | **227** |
+| API-sibling counterexample pairs | 0 | 71 |
+| Repositories with a static-analysis signal | none | 5 analysed, 1 reported unanalysable |
+| Benchmark families | 7 | 10 |
+| Benchmark tasks with experimentally produced ground truth | 0 | 11 |
+
+Full accounting, including what could **not** be verified and why, is in
+[`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md). The v2 report it supersedes is
+kept at [`reports/final_quality_report.md`](reports/final_quality_report.md).
 
 ## Split integrity
 
@@ -99,6 +134,12 @@ forge reported `Success` for its test.
 [`reports/extraction_errors.json`](reports/extraction_errors.json) and summarised in the final
 quality report. The ones that matter most:
 
+0. **Only 9 pinpoint experiments exist and
+   4 of them are inconclusive.** That is the honest number.
+   Each names the audited commit, the exact command and the observed assertion message; the
+   failures record the specific missing symbol rather than a shrug. Widening this needs either an
+   archive RPC for the fork-based proofs or a per-PoC port of the reporter's own fixtures; see
+   `experiments/*/vulnerable/result.json`.
 1. **Most PoCs do not execute.** 140 of 155
    were never run. The blocker is the toolchain, not Solidity: these 2022–2025 repositories pin
    hardhat 2.x with peer ranges modern npm rejects, and fork-based PoCs need an archive RPC key
@@ -117,11 +158,16 @@ quality report. The ones that matter most:
 5. **424
    records contain source text whose repository declares no licence.** v1 redistributed it; v2
    flags it. A downstream redistributor must decide for themselves.
-6. **453 code citations pin a branch name** (`main`) instead of a commit, so those line ranges are
-   not reproducible over time. Reported as a validation warning.
+6. **453 code citations used to pin a branch name** (`main`) instead of a commit, so those line
+   ranges were not reproducible over time. All 473 occurrences are now pinned to an exact commit
+   by content identity, submodule pointer or date-anchored blob identity
+   (`reports/citation_resolution.json`). No SHA was invented: where no identity test succeeded
+   the citation stays mutable and is counted, and the count is
+   0.
 7. **No invariant was invented.** `invariants: []` for 35
    of 264 records is the intended outcome.
-8. **0 of 38 patches could be verified
+8. **5 of 38 patches are
+   experimentally confirmed effective; 33 are `not_testable` because no experiment ran both of their revisions
    effective.** A merged PR is not evidence; only running the PoC against both revisions is.
 
 Code that must not be redistributed is **not** in this repository. Where v1 withheld it, the
@@ -140,13 +186,22 @@ or stage by stage:
 python scripts/fetch_sources.py              # clone + retrieve every pinned citation
 python scripts/verify_pocs.py                 # compile and run the PoCs
 python scripts/verify_patches.py              # vulnerable vs fixed revisions
+python scripts/resolve_citations.py           # mutable branch refs -> exact commits
+python scripts/run_verified_experiments.py    # exploit experiments, both revisions
+python scripts/run_negative_experiments.py    # attempt each hard negative's attack
+python scripts/verify_patches.py              # vulnerable vs fixed, plus the delta
+python scripts/classify_negatives.py          # four-class negative taxonomy
+python scripts/build_reproduction.py          # PoC classes, L-levels, replay manifest
+python scripts/run_static_analysis.py         # Slither where the repo builds
 python scripts/build_derived.py               # evidence, attacker model, state transition
 python scripts/build_hard_negatives.py        # structured rejection reasons
 python scripts/build_counterexamples.py
 python scripts/check_leakage.py --emit splits_v2
-python scripts/build_benchmark.py
+python scripts/build_benchmark.py             # ten task families
+python scripts/build_subsets.py               # datasets/ and training/
 python scripts/generate_stats.py              # the only source of statistics
 python scripts/generate_reports.py
+python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
@@ -158,13 +213,13 @@ Every script is idempotent, takes `--help`, and writes only under `derived/`, `s
 | Repository | Protocol | Findings | Split |
 |---|---|---|---|
 | `code-423n4/2022-05-alchemix` | Alchemix | 28 | train |
-| `code-423n4/2024-01-decent` | Alchemix | 12 | validation |
-| `code-423n4/2024-01-renft` | Alchemix | 29 | validation |
-| `code-423n4/2024-04-noya` | Alchemix | 86 | train |
-| `code-423n4/2024-08-wildcat` | Alchemix | 32 | test |
-| `code-423n4/2024-12-bakerfi` | Alchemix | 32 | test |
-| `code-423n4/2025-06-panoptic` | Alchemix | 4 | test |
-| `code-423n4/2025-08-gte-perps` | Alchemix | 41 | test |
+| `code-423n4/2024-01-decent` | Decent | 12 | validation |
+| `code-423n4/2024-01-renft` | reNFT | 29 | validation |
+| `code-423n4/2024-04-noya` | NOYA | 86 | train |
+| `code-423n4/2024-08-wildcat` | The Wildcat Protocol | 32 | test |
+| `code-423n4/2024-12-bakerfi` | BakerFi Invitational | 32 | test |
+| `code-423n4/2025-06-panoptic` | Panoptic Hypovault | 4 | test |
+| `code-423n4/2025-08-gte-perps` | GTE Perps and Launchpad | 41 | test |
 
 Source for every citation was retrieved at the pinned commit
 (321 of 326 files,

@@ -1,0 +1,30 @@
+Error: Compiler run failed:
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:62:27:
+   |
+62 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(alice.safe, digest);
+   |                           ^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:130:27:
+    |
+130 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(bob.safe, digest);
+    |                           ^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:178:27:
+    |
+178 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(alice.safe, digest);
+    |                           ^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:185:64:
+    |
+185 |         kernel.executeAction(Actions.DeactivatePolicy, address(fallbackPolicy));
+    |                                                                ^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:195:62:
+    |
+195 |         kernel.executeAction(Actions.ActivatePolicy, address(fallbackPolicy));
+    |                                                              ^^^^^^^^^^^^^^

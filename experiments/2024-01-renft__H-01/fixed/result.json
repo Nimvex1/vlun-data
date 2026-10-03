@@ -1,0 +1,63 @@
+{
+  "artifact_sha256": {
+    "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e7ac03e4fde498acbb78e80ef40bb065095fd9e092425ea1f49b0599e60bcff5",
+    "trace.txt": "68aedb2e3aa157ba05b7e9fc1b21803a5b1d5e0ed29730deb1ab9cf4030a0ebb"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol -vv",
+  "declared_expectation": "test PASSES: the guard blocks the exploit",
+  "declared_expected_status": "pass",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 8.54,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 0,
+  "experiment_id": "3de5db6e86438dd998556d55",
+  "finding_id": "2024-01-renft/H-01",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 2768346,
+  "harness_digest": "0bdbfb4d91574229443667fc3feead75db058838fc6c9fb7089f55a841493082",
+  "harness_file_digests": {
+    "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "e433086b967f335a7a83f5e2eed3466ea00be40a6449245a88b2c9e83eb05067",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__MaliciousSeaportTip.t.sol",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol"
+  ],
+  "per_test": {
+    "test_MaliciousSeaportTip_Exploit()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    }
+  },
+  "repository": {
+    "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "fixed",
+  "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
+  "status": "pass",
+  "test_status": "success"
+}

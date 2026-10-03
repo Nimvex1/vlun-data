@@ -7,7 +7,7 @@ readable report in `reports/`. Where a measurement was not possible the line say
 
 | dimension | BEFORE (published v1) | AFTER (this pipeline) |
 |---|---|---|
-| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 27/28 gate checks pass and `reported_statistics == computed_statistics` is enforced |
+| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 51/52 gate checks pass and `reported_statistics == computed_statistics` is enforced |
 | per-field evidence type | absent | 7-value closed vocabulary on every derived field |
 | audit of the original repository | none published | reports/pre_upgrade_audit.json, mechanical, reproducible |
 | cited source retrieved | 0 files (the raw dump is not published) | 321/326 pinned (commit, file) pairs, hash-verified |
@@ -19,10 +19,10 @@ readable report in `reports/`. Where a measurement was not possible the line say
 | records with a state transition | 0 (attack_path strings only) | 244 present, 130 with structured transactions |
 | records with a structured attacker model | 0 (free-text capabilities) | 290 of 722 classified ({'derived_fact': 147, 'reported_claim': 143, 'unknown': 432}) |
 | code context expansion beyond a flat permalink list | none | 469 files analysed to contract, function, modifier, guard and state-variable level |
-| patch effectiveness tested | 0 | 0 of 38 evaluated; 0 confirmed effective |
+| patch effectiveness tested | 0 | 5 of 38 evaluated; 5 confirmed effective |
 | leakage detection | 3 hard checks (repo, id, file::function) | 4 detectors; found 0 near-duplicate and 2 semantic cross-split pairs, both hand-checked and quarantined |
 | taxonomy depth | 2 levels, inconsistent names | 4 levels (category/family/class/subtype) mapped onto a stated table, C4 strings kept |
-| benchmark | none | 5127 tasks across 7 families, 1672 scorable |
+| benchmark | none | 4109 tasks across 7 families, 1389 scorable |
 
 ## WHAT IMPROVED
 
@@ -93,8 +93,8 @@ This is the honest accounting of failure.
   build was attempted, and `scripts/verify_pocs.py` records which and why.
 
 - **No patch was confirmed effective.** 38 patch records
-  exist; 0 could be evaluated and
-  0 were confirmed by running a PoC against
+  exist; 5 could be evaluated and
+  5 were confirmed by running a PoC against
   both revisions. This is blocked by the same toolchain limits, and the patch diffs are
   withheld in the published copy.
 - **No invariant was invented, and none was derived from a failing assertion.**
@@ -146,4 +146,4 @@ python scripts/generate_reports.py
 python scripts/validate.py             # the gate
 ```
 
-Last validation: 27/28 checks passed, 0 critical failures, 1 warnings.
+Last validation: 51/52 checks passed, 0 critical failures, 1 warnings.

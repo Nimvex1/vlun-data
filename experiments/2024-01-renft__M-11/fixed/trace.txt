@@ -1,0 +1,36 @@
+No files changed, compilation skipped
+
+Ran 4 tests for test/vlun_poc/VlunEip712.t.sol:VlunEip712Test
+[PASS] test_VlunEip712_EncodingsDiffer() (gas: 4629)
+Traces:
+  [4629] VlunEip712Test::test_VlunEip712_EncodingsDiffer()
+    â””â”€ â†� [Stop]
+
+[PASS] test_VlunEip712_HookExtraDataIsHashed() (gas: 15321)
+Traces:
+  [15321] VlunEip712Test::test_VlunEip712_HookExtraDataIsHashed()
+    â”œâ”€ [403] SignerProbe::hookTypeHash() [staticcall]
+    â”‚   â””â”€ â†� [Return] 0x3e8d802341c34e171cfd9db60895611f6bdde88ece58c769e29934f429fc0b11
+    â”œâ”€ [2660] SignerProbe::deriveHookHash(Hook({ target: 0x0000000000000000000000000000000000000B0b, itemIndex: 0, extraData: 0x7061796c6f6164 })) [staticcall]
+    â”‚   â””â”€ â†� [Return] 0xe48fc53f4a9ad5f4a7cf8f1166775f2e212ae2d1382f768852661e164873d576
+    â””â”€ â†� [Stop]
+
+[PASS] test_VlunEip712_RentalOrderTypeHashIsCanonical() (gas: 6640)
+Traces:
+  [6640] VlunEip712Test::test_VlunEip712_RentalOrderTypeHashIsCanonical()
+    â”œâ”€ [359] SignerProbe::rentalOrderTypeHash() [staticcall]
+    â”‚   â””â”€ â†� [Return] 0x136317b5d1776ee565433492ded25e83d8ae8d93642cd665ab18247728b00be3
+    â””â”€ â†� [Stop]
+
+[PASS] test_VlunEip712_RentalWalletIsBoundByTheDigest() (gas: 45290)
+Traces:
+  [45290] VlunEip712Test::test_VlunEip712_RentalWalletIsBoundByTheDigest()
+    â”œâ”€ [11874] SignerProbe::deriveRentalOrderHash(RentalOrder({ seaportOrderHash: 0x21c0107378acb490e7190da71596effe409c128f08adcc5467b293f1f3a66431, items: [Item({ itemType: 0, settleTo: 0, token: 0x00000000000000000000000000000000000A11cE, amount: 1000000000000000000 [1e18], identifier: 7 })], hooks: [Hook({ target: 0x0000000000000000000000000000000000000B0b, itemIndex: 0, extraData: 0x7061796c6f6164 })], orderType: 0, lender: 0x00000000000000000000000000000000000011e4, renter: 0x00000000000000000000000000000000002E27e2, rentalWallet: 0x000000000000000000000000000000000000Bbb2, startTimestamp: 1700000000 [1.7e9], endTimestamp: 1702592000 [1.702e9] })) [staticcall]
+    â”‚   â””â”€ â†� [Return] 0x12d3c7685d84377194fc077cc260532f3fda327aca1f11170eacc4a090edb9e4
+    â”œâ”€ [11874] SignerProbe::deriveRentalOrderHash(RentalOrder({ seaportOrderHash: 0x21c0107378acb490e7190da71596effe409c128f08adcc5467b293f1f3a66431, items: [Item({ itemType: 0, settleTo: 0, token: 0x00000000000000000000000000000000000A11cE, amount: 1000000000000000000 [1e18], identifier: 7 })], hooks: [Hook({ target: 0x0000000000000000000000000000000000000B0b, itemIndex: 0, extraData: 0x7061796c6f6164 })], orderType: 0, lender: 0x00000000000000000000000000000000000011e4, renter: 0x00000000000000000000000000000000002E27e2, rentalWallet: 0x000000000000000000000000000000000000AaA1, startTimestamp: 1700000000 [1.7e9], endTimestamp: 1702592000 [1.702e9] })) [staticcall]
+    â”‚   â””â”€ â†� [Return] 0xa7ae01646054b4e0f04a8f50cbda8db3a72b393e32883980b6262dc052016c12
+    â””â”€ â†� [Stop]
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 1.38ms (969.80Âµs CPU time)
+
+Ran 1 test suite in 9.43ms (1.38ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

@@ -1,547 +1,518 @@
 {
   "by_status": {
-    "insufficient_evidence": 28,
-    "not_attempted": 10
+    "effective": 5,
+    "not_testable": 33
   },
-  "evaluated": 0,
-  "fix_confirmed_effective": 0,
-  "fixed_revision_exploited": 0,
-  "generated_by": "scripts/verify_patches.py",
-  "guarantee": "a patch is called effective only when the same PoC exploited the vulnerable revision and then failed on the fixed revision. A merged PR is never sufficient.",
+  "evaluated": 5,
+  "fix_confirmed_effective": 5,
+  "generated_by": "scripts/verify_patches.py (v2 compatibility view)",
   "patch_records": 38,
   "records": [
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-01",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-02",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "b917057e20b25db8a592991cd7a50e50205ec5e8",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-03",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": "pass",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-04",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-06",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": {
+          "fixed": "pass",
+          "vulnerable": "reconstruction_failed"
+        },
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/H-07",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "2e3e8dbca1330ca66d32a8bb9d3509abf043a758",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-01",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": "pass",
+        "reason": {
+          "fixed": "pass",
+          "vulnerable": "reconstruction_failed"
+        },
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-02",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": "pass",
+        "reason": {
+          "fixed": "pass",
+          "vulnerable": "reconstruction_failed"
+        },
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
-      "prs": [],
-      "remediation_status": "Mitigation Error",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-04",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "a4000839b111a3dc2e7b191e8fd098a6130b6151",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-05",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-06",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "9bcee7b5f18c2ef2323551eebcbcbe258672fac8",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-08",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": {
+          "fixed": "pass",
+          "vulnerable": "reconstruction_failed"
+        },
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-09",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-10",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "393ebb9f1b58bf9e0c52fb2a3867bb364b574bba",
-      "prs": [],
-      "remediation_status": "Mitigation Error",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-11",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": "pass",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-12",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-13",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "2e3e8dbca1330ca66d32a8bb9d3509abf043a758",
-      "prs": [],
-      "remediation_status": "Mitigation Confirmed",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-01-renft/M-16",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "28d647bd663aebdce618806fc63d9f22a9ffddf7",
-      "prs": [],
-      "remediation_status": "Unmitigated",
-      "repository": "code-423n4/2024-01-renft",
+      "repository": "2024-01-renft",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-01",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "ce9d853ff1c24840fd02e4e8b352022b8f09c401",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-02",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "e11abaf1aa03fae283441485a3cd25f91232ff60",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-03",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "1662f58d7505868a9c5be2683915159cf0547e10",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-04",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "0a356c2d32593344f06907c0fc74b460f13cbdff",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-05",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "67f943e05baf38da14a9def43348ea768cf89dc4",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-06",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "f7bc5337d7afcaa479bae4c89662416b311abd52",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/H-07",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "0e2f3089983af3a37959b0658f26406d64526ce2",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-01",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "edfeec0dd08b32a7596a05410facd911646897ea",
-      "prs": [],
-      "remediation_status": "Unmitigated",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-02",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "679350d3075f15b18f8b697e0332e152da5a548f",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-03",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "e44fd4582fdefb62f06fbe1ef2fa7bf2a86fafcb",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-06",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "defdde33a0dbe78fb086909bd7bebef502193acb",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-07",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "4752a6a00f542316dba7c212829192616066d876",
-      "prs": [],
-      "remediation_status": "Unmitigated",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-08",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "55132644126ca7c7d4b638b599e5c3635315791d",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-09",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "23fe3624c48f008e0f0d6e1dcaca8abafd51f86f",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-10",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "1a9b78d7bb28bdf3f7b74e71966bdcc7399d1ff9",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-11",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "e80920956980ce24c4551a960739280f90cd775c",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-13",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "50ecbf5d854bf9d5c0ddecd09f64895f1c6f1fb9",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-14",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "eeb7ad84f99c54ead1af22c330905b028aa242df",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-15",
       "fix_verification": {
-        "reason": "no PoC execution record for this finding",
-        "status": "not_attempted"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "4752a6a00f542316dba7c212829192616066d876",
-      "prs": [],
-      "remediation_status": "Mitigation confirmed",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     },
     {
-      "diff_available_locally": false,
-      "diff_withheld": true,
       "finding_id": "2024-12-bakerfi/M-16",
       "fix_verification": {
-        "reason": "the PoC did not exploit the vulnerable revision (verdict=not_executed), so a fix cannot be evaluated",
-        "status": "insufficient_evidence"
+        "fixed_revision_result": null,
+        "reason": "no experiment ran both revisions for this finding",
+        "regression_test_passed": false,
+        "status": "not_testable",
+        "vulnerable_revision_result": null
       },
       "fixed_commit": "273c2834dc96a440293c25c8d9deef923e44e744",
-      "prs": [],
-      "remediation_status": "Unmitigated",
-      "repository": "code-423n4/2024-12-bakerfi",
+      "repository": "2024-12-bakerfi",
       "vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a"
     }
-  ],
-  "vulnerable_revision_exploited": 0
+  ]
 }

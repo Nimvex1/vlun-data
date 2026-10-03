@@ -190,6 +190,51 @@ def build(rows_by_split: dict[str, list[dict]]) -> dict:
     near.sort(key=lambda x: -x["jaccard"])
     sem.sort(key=lambda x: -x["cosine"])
 
+    # ---- deeper detectors: patch, PoC, root cause, attack sequence --------
+    patch = {s: collections.defaultdict(set) for s in rows_by_split}
+    poc = {s: collections.defaultdict(set) for s in rows_by_split}
+    cause = {s: collections.defaultdict(set) for s in rows_by_split}
+    seq = {s: collections.defaultdict(set) for s in rows_by_split}
+    for s, rows in rows_by_split.items():
+        for r in rows:
+            pt = r.get("patch") or {}
+            if pt.get("diff"):
+                patch[s][sha256_text(pt["diff"])].add(rec_id(r))
+            fx = (r.get("finding") or {}).get("fixed_commit")
+            if fx:
+                patch[s][f"fix::{fx}"].add(rec_id(r))
+            pc = r.get("poc") or {}
+            code = pc.get("code") or ""
+            if code.strip():
+                poc[s][sha256_text(normalise_code(code))].add(rec_id(r))
+            steps = pc.get("attack_sequence") or []
+            if steps:
+                step_sig = "|".join(sorted(
+                    f"{(st or {}).get('function', '')}:{(st or {}).get('action', '')[:40]}"
+                    for st in steps if isinstance(st, dict)))
+                if len(step_sig) > 20:
+                    seq[s][sha256_text(step_sig)].add(rec_id(r))
+            sc = r.get("security_reasoning") or {}
+            blob = " ".join(str(sc.get(k) or "") for k in
+                            ("security_assumption", "broken_behavior", "intended_behavior",
+                             "root_cause"))
+            blob = norm_text(blob)
+            if len(blob) > 60:
+                cause[s][sha256_text(" ".join(sorted(tokens(blob))))].add(rec_id(r))
+
+    # ---- protocol-level isolation ---------------------------------------
+    # `jsonl/protocol.jsonl` carries no protocol name, so fall back to the
+    # audited repository, which is the unit the splits are built on anyway.
+    def protocol_key(r: dict) -> str:
+        return ((r.get("protocol") or {}).get("name")
+                or (r.get("source") or {}).get("repository") or "?")
+
+    protocols: dict[str, set[str]] = collections.defaultdict(set)
+    for s, rows in rows_by_split.items():
+        for r in rows:
+            protocols[protocol_key(r)].add(s)
+    protocol_leaks = {p: sorted(v) for p, v in protocols.items() if len(v) > 1}
+
     return {
         "exact_overlap": {
             "finding_ids": {f"{a}|{b}": sorted(ids[a] & ids[b])
@@ -208,6 +253,26 @@ def build(rows_by_split: dict[str, list[dict]]) -> dict:
             "count_normalised_snippets": len(cross(norm)),
             "count_function_signatures": len(cross(sig)),
             "count_file_function_pairs": len(cross(ffs)),
+        },
+        "artefact_overlap": {
+            "note": ("the same patch, the same PoC body, the same root-cause statement or the "
+                     "same attack sequence appearing in two splits would let a model memorise "
+                     "an answer instead of reasoning to it"),
+            "identical_patch_diffs": cross(patch),
+            "same_fixing_commit": cross(patch),
+            "normalised_poc_bodies": cross(poc),
+            "root_cause_statement": cross(cause),
+            "attack_sequence_signature": cross(seq),
+            "count_identical_patch_diffs": len(cross(patch)),
+            "count_normalised_poc_bodies": len(cross(poc)),
+            "count_root_cause_statements": len(cross(cause)),
+            "count_attack_sequences": len(cross(seq)),
+        },
+        "protocol_isolation": {
+            "note": ("a protocol name must not appear in more than one split; the held-out "
+                     "split has to be an unseen protocol, not unseen wording"),
+            "protocols_in_multiple_splits": protocol_leaks,
+            "count": len(protocol_leaks),
         },
         "near_duplicate_overlap": {
             "threshold_jaccard": NEAR_DUP_JACCARD,

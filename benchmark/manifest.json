@@ -4,94 +4,178 @@
   "splits_source": "splits_v2",
   "tasks": {
     "A_vulnerability_detection": {
-      "by_split": {
-        "test": 236,
-        "train": 407,
-        "validation": 270
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
       },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
       "file": "benchmark/A_vulnerability_detection.jsonl",
-      "labeled": 913,
+      "labeled": 720,
       "partial": 0,
-      "scorable": 913,
-      "tasks": 913,
-      "unlabeled": 0
+      "scorable": 720,
+      "tasks": 720,
+      "unlabeled": 0,
+      "unscorable": 0
     },
     "B_root_cause_reasoning": {
-      "by_split": {
-        "test": 236,
-        "train": 407,
-        "validation": 270
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
       },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
       "file": "benchmark/B_root_cause_reasoning.jsonl",
       "labeled": 0,
-      "partial": 503,
+      "partial": 416,
       "scorable": 0,
-      "tasks": 913,
-      "unlabeled": 410
+      "tasks": 720,
+      "unlabeled": 304,
+      "unscorable": 304
     },
     "C_attacker_reasoning": {
-      "by_split": {
-        "test": 236,
-        "train": 407,
-        "validation": 270
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
       },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
       "file": "benchmark/C_attacker_reasoning.jsonl",
-      "labeled": 384,
+      "labeled": 290,
       "partial": 0,
-      "scorable": 384,
-      "tasks": 913,
-      "unlabeled": 529
+      "scorable": 290,
+      "tasks": 720,
+      "unlabeled": 430,
+      "unscorable": 430
     },
     "D_exploit_construction": {
-      "by_split": {
-        "test": 236,
-        "train": 407,
-        "validation": 270
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
       },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
       "file": "benchmark/D_exploit_construction.jsonl",
       "labeled": 346,
       "partial": 0,
       "scorable": 346,
-      "tasks": 913,
-      "unlabeled": 567
+      "tasks": 720,
+      "unlabeled": 374,
+      "unscorable": 374
     },
     "E_exploit_verification": {
-      "by_split": {
-        "test": 236,
-        "train": 407,
-        "validation": 270
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
       },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
       "file": "benchmark/E_exploit_verification.jsonl",
-      "labeled": 14,
+      "labeled": 7,
       "partial": 0,
-      "scorable": 14,
-      "tasks": 913,
-      "unlabeled": 899
+      "scorable": 7,
+      "tasks": 720,
+      "unlabeled": 713,
+      "unscorable": 713
     },
     "F_false_positive_rejection": {
+      "answer_key_evidence_levels": {
+        "not_recorded": 458
+      },
       "by_split": {
         "test": 38,
         "train": 232,
         "validation": 188
       },
+      "duplicate_rows_dropped": 0,
       "file": "benchmark/F_false_positive_rejection.jsonl",
       "labeled": 15,
       "partial": 0,
       "scorable": 15,
       "tasks": 458,
-      "unlabeled": 443
+      "unlabeled": 443,
+      "unscorable": 443
     },
     "G_patch_verification": {
-      "by_split": {
-        "test": 57,
-        "validation": 47
+      "answer_key_evidence_levels": {
+        "not_recorded": 38
       },
+      "by_split": {
+        "test": 20,
+        "validation": 18
+      },
+      "duplicate_rows_dropped": 66,
       "file": "benchmark/G_patch_verification.jsonl",
       "labeled": 0,
       "partial": 0,
       "scorable": 0,
-      "tasks": 104,
-      "unlabeled": 104
+      "tasks": 38,
+      "unlabeled": 38,
+      "unscorable": 38
+    },
+    "H_verified_exploit": {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5
+      },
+      "by_split": {
+        "validation": 5
+      },
+      "duplicate_rows_dropped": 9,
+      "file": "benchmark/H_verified_exploit.jsonl",
+      "labeled": 5,
+      "partial": 0,
+      "scorable": 5,
+      "tasks": 5,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "I_verified_non_exploit": {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 1,
+        "unknown": 2
+      },
+      "by_split": {
+        "validation": 3
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/I_verified_non_exploit.jsonl",
+      "labeled": 1,
+      "partial": 0,
+      "scorable": 1,
+      "tasks": 3,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "J_verified_patch": {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5
+      },
+      "by_split": {
+        "validation": 5
+      },
+      "duplicate_rows_dropped": 9,
+      "file": "benchmark/J_verified_patch.jsonl",
+      "labeled": 5,
+      "partial": 0,
+      "scorable": 5,
+      "tasks": 5,
+      "unlabeled": 0,
+      "unscorable": 0
     }
   }
 }

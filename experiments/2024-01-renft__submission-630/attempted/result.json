@@ -1,0 +1,55 @@
+{
+  "artifact_sha256": {
+    "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
+    "stderr.txt": "a85e9596f9e76eeb1124afebfbc488e5c2ce16a370305a7bd4a9f1397394de14",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "blocking_condition_under_test": "the Guard's guarded-selector list includes the burn selectors, so the call reverts",
+  "claimed_attack": "a renter burns the lender's rented ERC-721/ERC-1155 tokens, destroying the asset while the rental is active",
+  "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+  "decoded_logs": [],
+  "detail": "Error: Compiler run failed:\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:31:9:\n   |\n31 |         erc721s[0].mint(address(alice.safe), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:67:9:\n   |\n67 |         erc721s[0].mint(address(alice.addr), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+  "duration_s": 2.66,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "finding_id": "2024-01-renft/submission-630",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": null,
+  "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+  "harness_file_digests": {
+    "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
+    "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__guarded-transactions__ERC721.t.sol",
+    "mocks__tokens__standard__MockERC721.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {},
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "attempted",
+  "status": "compile_error",
+  "test_status": null
+}

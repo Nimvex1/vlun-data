@@ -1,0 +1,6 @@
+Error: Compiler run failed:
+Error (7576): Undeclared identifier.
+   --> test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195:9:
+    |
+195 |         withZone(address(maliciousZone));
+    |         ^^^^^^^^

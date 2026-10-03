@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+
+Ran 4 tests for test/vlun_poc/VlunEip712.t.sol:VlunEip712Test
+[PASS] test_VlunEip712_EncodingsDiffer() (gas: 4629)
+[FAIL] test_VlunEip712_HookExtraDataIsHashed() (gas: 31870)
+[FAIL] test_VlunEip712_RentalOrderTypeHashIsCanonical() (gas: 22897)
+[FAIL] test_VlunEip712_RentalWalletIsBoundByTheDigest() (gas: 60932)
+Suite result: FAILED. 1 passed; 3 failed; 0 skipped; finished in 1.48ms (786.40Âµs CPU time)
+
+Ran 1 test suite in 16.64ms (1.48ms CPU time): 1 tests passed, 3 failed, 0 skipped (4 total tests)
+
+Failing tests:
+Encountered 3 failing tests in test/vlun_poc/VlunEip712.t.sol:VlunEip712Test
+[FAIL] test_VlunEip712_HookExtraDataIsHashed() (gas: 31870)
+[FAIL] test_VlunEip712_RentalOrderTypeHashIsCanonical() (gas: 22897)
+[FAIL] test_VlunEip712_RentalWalletIsBoundByTheDigest() (gas: 60932)
+
+Encountered a total of 3 failing tests, 1 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 3 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+

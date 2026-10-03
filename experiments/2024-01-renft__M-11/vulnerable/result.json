@@ -1,0 +1,87 @@
+{
+  "artifact_sha256": {
+    "command.txt": "829f93b9ce60a1801b8f8364947222e8d9b2f08f395640126efab15ca6b1169f",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "1aa12c0f67c354f2a813380be2e20bb35dd8188d01231cde799a178e3f325436",
+    "trace.txt": "8855a111a51e29bb7baf626d6e1134498b84bc89b98b12c32a9db9e80cc81847"
+  },
+  "classification": "already_runnable",
+  "command": "forge test --json --match-test test_VlunEip712 -vv",
+  "declared_expectation": "the three EIP-712 property assertions FAIL: the protocol computes a non-canonical digest",
+  "declared_expected_status": "fail",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 12.41,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "experiment_id": "34993ff5a996b055ce1eca55",
+  "finding_id": "2024-01-renft/M-11",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 4629,
+  "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+  "harness_file_digests": {
+    "VlunEip712.t.sol": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+  },
+  "harness_files": [
+    "VlunEip712.t.sol"
+  ],
+  "harness_files_withheld_for_licence": [],
+  "per_test": {
+    "test_VlunEip712_EncodingsDiffer()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    },
+    "test_VlunEip712_HookExtraDataIsHashed()": {
+      "logs": [
+        "Error: a == b not satisfied [bytes32]",
+        "      Left: 0x00ce0c89f0ff2f371279dee3f9e5c0eab0017ce37052cd8b4eb65af2ceb19def",
+        "     Right: 0xe48fc53f4a9ad5f4a7cf8f1166775f2e212ae2d1382f768852661e164873d576"
+      ],
+      "reason": null,
+      "status": "Failure"
+    },
+    "test_VlunEip712_RentalOrderTypeHashIsCanonical()": {
+      "logs": [
+        "Error: a == b not satisfied [bytes32]",
+        "      Left: 0x3ed82f3a702f9be472dfaac401d861c9fd2ba6a8313066522128d1793c32302c",
+        "     Right: 0x136317b5d1776ee565433492ded25e83d8ae8d93642cd665ab18247728b00be3"
+      ],
+      "reason": null,
+      "status": "Failure"
+    },
+    "test_VlunEip712_RentalWalletIsBoundByTheDigest()": {
+      "logs": [
+        "Error: two rental orders differing only in rentalWallet produced the same digest",
+        "Error: Assertion Failed"
+      ],
+      "reason": null,
+      "status": "Failure"
+    }
+  },
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "vulnerable",
+  "security_property": "the protocol's EIP-712 type hash of a rental order equals the hash of the canonical type string, so a signature over the order can never be replayed into a different type domain",
+  "status": "fail",
+  "test_status": "failure"
+}

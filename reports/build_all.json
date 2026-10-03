@@ -1,19 +1,250 @@
 {
   "by_status": {
-    "ok": 1
+    "ok": 22
   },
   "generated_by": "scripts/build_all.py",
   "stages": [
+    {
+      "command": "python scripts/fetch_sources.py --checkouts",
+      "description": "clone the audited repositories and retrieve every pinned (commit, file) citation",
+      "rc": 0,
+      "script": "fetch_sources.py",
+      "seconds": 29.5,
+      "stage": 1,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "  -> ok: 84/84 files, license=absent\nfetching code-423n4/2024-04-renzo (2 pinned files, cited_dependency) ...\n  -> ok: 2/2 files, license=found\nfetching code-423n4/2024-08-wildcat (26 pinned files, audited_protocol) ...\n  -> ok: 26/26 files, license=found\nfetching code-423n4/2024-12-bakerfi (12 pinned files, audited_protocol) ...\n  -> ok: 12/12 files, license=found\nfetching code-423n4/2025-06-panoptic (3 pinned files, audited_protocol) ...\n  -> ok: 3/3 files, license=absent\nfetching code-423n4/2025-08-gte-perps (14 pinned files, audited_protocol) ...\n  -> ok: 14/14 files, license=absent\nfetching compound-finance/comet (1 pinned files, cited_dependency) ...\n  -> ok: 1/1 files, license=found\nfetching convex-eth/platform (3 pinned files, cited_dependency) ...\n  -> ok: 3/3 files, license=found\nfetching convex-eth/sidechain-platform (1 pinned files, cited_dependency) ...\n  -> ok: 1/1 files, license=found\nfetching decentxyz/decent-bridge (3 pinned files, cited_dependency) ...\n  -> ok: 3/3 files, license=absent\nfetching georgiIvanov/noya-audit (2 pinned files, cited_dependency) ...\n  -> clone_failed: 0/2 files, license=absent\nfetching morpho-org/morpho-blue (1 pinned files, cited_dependency) ...\n  -> ok: 1/1 files, license=found\nfetching morpho-org/morpho-blue-bundlers (1 pinned files, cited_dependency) ...\n  -> ok: 1/1 files, license=found\nfetching pendle-finance/pendle-core-v2-public (1 pinned files, cited_dependency) ...\n  -> ok: 1/1 files, license=found\nfetching prisma-fi/prisma-contracts (2 pinned files, cited_dependency) ...\n  -> ok: 2/2 files, license=found\nfetching re-nft/seaport-core (4 pinned files, cited_dependency) ...\n  -> ok: 4/4 files, license=found\nfetching re-nft/smart-contracts (35 pinned files, cited_dependency) ...\n  -> ok: 35/35 files, license=found\nfetching safe-global/safe-contracts (7 pinned files, cited_dependency) ...\n  -> ok: 7/7 files, license=found\nfetching silo-finance/silo-core-v1 (3 pinned files, cited_dependency) ...\n  -> ok: 3/3 files, license=found\nfetching stargate-protocol/stargate (3 pinned files, cited_dependency) ...\n  -> ok: 3/3 files, license=found\ntotal 321/326 pinned files, 3 unresolved"
+    },
+    {
+      "command": "python scripts/build_derived.py",
+      "description": "evidence semantics, attacker model, state transition, expanded code context, taxonomy",
+      "rc": 0,
+      "script": "build_derived.py",
+      "seconds": 7.9,
+      "stage": 2,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote derived/records.jsonl (722)\n  attacker_kind: {'unprivileged': 143, 'unknown': 432, 'privileged': 133, 'malicious_dependency': 11, 'honest_but_misconfigured': 3}\n  attacker_kind_basis: {'reported_claim': 143, 'unknown': 432, 'derived_fact': 147}\n  attacker_identity_unknown: 432\n  state_transition_present: 244\n  state_transition_with_transactions: 130\n  with_invariant: 229\n  code_context_analysed_files: 469\n  code_context_files_retrieved: 464\n  license_classes: {'unknown': 496, 'source_available_but_not_redistributable': 225, 'redistributable': 1}\n  redistribution_flagged: {'source_redistributed_without_declared_license': 424, 'none': 298}\n  quality_code_context: {'none': 416, 'medium': 270, 'high': 36}\n  quality_attacker_model: {'high': 290, 'low': 432}\n  quality_state_transition: {'high': 130, 'none': 592}\n  taxonomy_top_level: {'DeFi': 148, 'Accounting': 89, 'Denial of Service': 76, 'Cross-Contract': 34, 'Logic Error': 10, 'Token Standards': 113, 'Access Control': 51, 'Cryptography / Signatures': 53, 'Reentrancy / External Calls': 35, 'Governance': 11, 'Cross-Chain': 51, 'Upgradeability': 8, 'Unknown': 43}\n  dynamic_verification: {'reproduced': 5, 'not_executed': 140, 'not_attempted': 567, 'inconclusive': 8, 'not_reproduced': 2}\n  invariants_invented: 0\n  numeric_state_values_invented: 0"
+    },
+    {
+      "command": "python scripts/build_hard_negatives.py",
+      "description": "structured rejection reasons for the negative corpus",
+      "rc": 0,
+      "script": "build_hard_negatives.py",
+      "seconds": 0.7,
+      "stage": 3,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote derived/hard_negatives.jsonl (458)\n  code available          : 292\n  blocking cond. derived  : 6\n  blocking cond. reported : 9\n  blocking cond. unknown  : 443\n  attacker kind           : {'privileged': 99, 'unprivileged': 127, 'unknown': 232}"
+    },
+    {
+      "command": "python scripts/build_counterexamples.py",
+      "description": "nearby false hypotheses for confirmed High/Medium findings",
+      "rc": 0,
+      "script": "build_counterexamples.py",
+      "seconds": 7.7,
+      "stage": 4,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote derived/counterexamples.jsonl (63 records, 99 counterexamples)\n  H/M with counterexample: 43/204\n  without, by reason: {'every_cited_function_is_the_vulnerable_one_or_has_no_refutable_property': 119, 'cited_files_not_retrieved': 19, 'no_code_cited_by_the_record': 23}\n  by type: {'access_control_refutation': 86, 'authorisation_guard_refutation': 13}\n  API-sibling pairs: 71 on 30 records"
+    },
+    {
+      "command": "python scripts/resolve_citations.py",
+      "description": "replace every mutable branch citation with the commit that holds the cited content",
+      "rc": 0,
+      "script": "resolve_citations.py",
+      "seconds": 55.1,
+      "stage": 5,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "mutable citation occurrences: 473\ndistinct (repository, path) targets: 98\n  resolved 25/98\n  resolved 50/98\n  resolved 75/98\nwrote <repo>\\reports\\citation_resolution.json\n  status: {'resolved': 98}\n  confidence: {'high': 81, 'medium': 17}"
+    },
+    {
+      "command": "python scripts/run_verified_experiments.py",
+      "description": "execute the declared exploit experiments against pinned revisions",
+      "rc": 0,
+      "script": "run_verified_experiments.py",
+      "seconds": 53.4,
+      "stage": 6,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "[2/9] 2024-01-renft/H-06\n  [2024-01-renft/H-06] vulnerable: preparing 3ddd32455a\n  [2024-01-renft/H-06] vulnerable: compile_error (1.93s) -> <repo>\\experiments\\2024-01-renft__H-06\\vulnerable\n      reason: reconstruction_failed (undeclared identifier at test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195 (fixture absent on this revision))\n  [2024-01-renft/H-06] fixed: cached (pass)\n[3/9] 2024-01-renft/M-11\n  [2024-01-renft/M-11] vulnerable: cached (fail)\n  [2024-01-renft/M-11] fixed: cached (pass)\n[4/9] 2024-01-renft/M-09\n  [2024-01-renft/M-09] vulnerable: cached (fail)\n  [2024-01-renft/M-09] fixed: cached (pass)\n[5/9] 2024-01-renft/M-01\n  [2024-01-renft/M-01] vulnerable: preparing 3ddd32455a\n  [2024-01-renft/M-01] vulnerable: compile_error (2.71s) -> <repo>\\experiments\\2024-01-renft__M-01\\vulnerable\n      reason: reconstruction_failed (missing symbol GuardPolicy_UnauthorizedAssetAmount (added by the mitigation))\n  [2024-01-renft/M-01] fixed: cached (pass)\n[6/9] 2024-01-renft/M-08\n  [2024-01-renft/M-08] vulnerable: preparing 3ddd32455a\n  [2024-01-renft/M-08] vulnerable: compile_error (2.77s) -> <repo>\\experiments\\2024-01-renft__M-08\\vulnerable\n      reason: reconstruction_failed (fixture signature drift between revisions)\n  [2024-01-renft/M-08] fixed: cached (pass)\n[7/9] 2024-01-renft/H-03\n  [2024-01-renft/H-03] vulnerable: cached (fail)\n  [2024-01-renft/H-03] fixed: cached (pass)\n[8/9] 2024-01-renft/M-02\n  [2024-01-renft/M-02] vulnerable: preparing 3ddd32455a\n  [2024-01-renft/M-02] vulnerable: compile_error (1.96s) -> <repo>\\experiments\\2024-01-renft__M-02\\vulnerable\n      reason: reconstruction_failed (undeclared identifier at test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:62 (fixture absent on this revision))\n  [2024-01-renft/M-02] fixed: cached (pass)\n[9/9] 2024-01-renft/H-04\n  [2024-01-renft/H-04] vulnerable: cached (fail)\n  [2024-01-renft/H-04] fixed: cached (pass)\n{\n \"vulnerable_fail\": 5,\n \"fixed_pass\": 9,\n \"l6_verified_patch\": 5,\n \"vulnerable_compile_error\": 4,\n \"inconclusive\": 4,\n \"experiments\": 9\n}"
+    },
+    {
+      "command": "python scripts/run_negative_experiments.py",
+      "description": "attempt the attack each hard negative claims, at the audited revision",
+      "rc": 0,
+      "script": "run_negative_experiments.py",
+      "seconds": 0.6,
+      "stage": 7,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "2024-01-renft/submission-621\n    cached (fail)\n  2024-01-renft/submission-630\n    cached (compile_error)\n  2024-01-renft/submission-584\n    cached (compile_error)\n  2024-01-renft/submission-621       exploit_reproduced\n  2024-01-renft/submission-630       historical_environment_unavailable\n  2024-01-renft/submission-584       historical_environment_unavailable"
+    },
+    {
+      "command": "python scripts/verify_pocs.py",
+      "description": "compile and execute the remaining PoCs",
+      "rc": 0,
+      "script": "verify_pocs.py",
+      "seconds": 0.2,
+      "stage": 8,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "skip code-423n4/2022-05-alchemix: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2024-01-decent: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2024-01-renft: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2024-04-noya: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2024-08-wildcat: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2024-12-bakerfi: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2025-06-panoptic: work/poc_runs already has a result (delete it to re-run)\nskip code-423n4/2025-08-gte-perps: work/poc_runs already has a result (delete it to re-run)\n\nverification_stats.json: {'exploit_records': 155, 'reproduced': 5, 'not_reproduced': 2, 'inconclusive': 8, 'not_executed': 140}\n  compiled repos 4/8; failure reasons {'poc_invalid': 126, 'broken_original_test': 7, 'dependency_unavailable': 7, 'environment_unavailable': 8}"
+    },
+    {
+      "command": "python scripts/verify_patches.py",
+      "description": "vulnerable vs fixed revision pairs, plus the patch delta classification",
+      "rc": 0,
+      "script": "verify_patches.py",
+      "seconds": 0.6,
+      "stage": 9,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "patch_verification_v2.json: {'effective': 5, 'not_testable': 33}"
+    },
+    {
+      "command": "python scripts/classify_negatives.py",
+      "description": "four-class negative taxonomy with duplicate corroboration",
+      "rc": 0,
+      "script": "classify_negatives.py",
+      "seconds": 0.7,
+      "stage": 10,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "negative_verification_stats.json: {'unknown': 227, 'corroborated_duplicate': 221, 'derived_from_code': 1, 'attributed': 9}\n  corroborated=221 attributed=9 experimental=0"
+    },
+    {
+      "command": "python scripts/build_reproduction.py",
+      "description": "PoC class + L-level distribution, reconstruction log, replay manifest",
+      "rc": 0,
+      "script": "build_reproduction.py",
+      "seconds": 0.2,
+      "stage": 11,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "classes: {'already_runnable': 30, 'incomplete': 123, 'contract_patch_demonstration': 1, 'runnable_after_import_fix': 1}\nlevels:  {'L2': 30, 'L0': 120, 'L1': 1, 'L6': 4}\nexperiments: 9 -> {'l6_verified_patch': 5, 'inconclusive': 4}"
+    },
+    {
+      "command": "python scripts/run_static_analysis.py",
+      "description": "Slither as an independent signal, where the repository builds",
+      "rc": 0,
+      "script": "run_static_analysis.py",
+      "seconds": 187.5,
+      "stage": 12,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "slither renft-vulnerable ...\n    available: 37 detectors\n  slither wildcat ...\n    partial: 0 detectors\n  slither gte-perps ...\n    available: 1916 detectors\n  slither panoptic ...\n    available: 375 detectors\n  slither decent ...\n    available: 73 detectors\n  slither noya ...\n    available: 562 detectors\nstatic_analysis.json: {'available': 5, 'partial': 1}"
+    },
+    {
+      "command": "python scripts/build_counterexamples.py",
+      "description": "structural refutations and API-sibling guard pairs",
+      "rc": 0,
+      "script": "build_counterexamples.py",
+      "seconds": 5.4,
+      "stage": 13,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote derived/counterexamples.jsonl (63 records, 99 counterexamples)\n  H/M with counterexample: 43/204\n  without, by reason: {'every_cited_function_is_the_vulnerable_one_or_has_no_refutable_property': 119, 'cited_files_not_retrieved': 19, 'no_code_cited_by_the_record': 23}\n  by type: {'access_control_refutation': 86, 'authorisation_guard_refutation': 13}\n  API-sibling pairs: 71 on 30 records"
+    },
+    {
+      "command": "python scripts/check_leakage.py --emit splits_v2",
+      "description": "leakage detection and a leakage-free re-split",
+      "rc": 0,
+      "script": "check_leakage.py",
+      "seconds": 19.3,
+      "stage": 14,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "leakage_report.json  (splits)\n  repository isolation violations : 0\n  exact  : ids=0 urls=0 commits=1\n  code   : identical=0 normalised=0 sigs=0 file::fn=0\n  near   : 0 (jaccard >= 0.8)\n  semantic: 2 (cosine >= 0.7)\n  splits_v2: {'train': 413, 'validation': 277, 'test': 253} quarantined=2 ['2022-05-alchemix/L-05', '2022-05-alchemix/L-06']\n  after    : {'near_duplicate_overlap': 0, 'semantic_overlap': 0, 'exact_finding_ids': 0, 'commit_shas': 1, 'repository_violations': {}}"
+    },
+    {
+      "command": "python scripts/build_benchmark.py",
+      "description": "the ten benchmark task families",
+      "rc": 0,
+      "script": "build_benchmark.py",
+      "seconds": 0.6,
+      "stage": 15,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "A_vulnerability_detection    tasks= 720 scorable= 720\n  B_root_cause_reasoning       tasks= 720 scorable=   0\n  C_attacker_reasoning         tasks= 720 scorable= 290\n  D_exploit_construction       tasks= 720 scorable= 346\n  E_exploit_verification       tasks= 720 scorable=   7\n  F_false_positive_rejection   tasks= 458 scorable=  15\n  G_patch_verification         tasks=  38 scorable=   0\n  H_verified_exploit           tasks=   5 scorable=   5\n  I_verified_non_exploit       tasks=   3 scorable=   1\n  J_verified_patch             tasks=   5 scorable=   5"
+    },
+    {
+      "command": "python scripts/build_subsets.py",
+      "description": "high-confidence subsets and task training files",
+      "rc": 0,
+      "script": "build_subsets.py",
+      "seconds": 0.3,
+      "stage": 16,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "datasets: {'verified_findings': 293, 'verified_exploits': 4, 'verified_patches': 5, 'verified_negatives': 230}\ntraining: {'vulnerability_detection': 293, 'exploit_reasoning': 4, 'attacker_reasoning': 293, 'negative_reasoning': 230, 'patch_reasoning': 5}"
+    },
+    {
+      "command": "python scripts/generate_stats.py",
+      "description": "recompute every statistic from the canonical JSONL",
+      "rc": 0,
+      "script": "generate_stats.py",
+      "seconds": 0.2,
+      "stage": 17,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote reports\\dataset_stats.json  findings=264 negatives=458 exploits=155 patches=38"
+    },
+    {
+      "command": "python scripts/audit_records.py --derive",
+      "description": "per-record evidence/quality matrix for a curator",
+      "rc": 0,
+      "script": "audit_records.py",
+      "seconds": 0.4,
+      "stage": 18,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote reports/record_audit.csv (722 rows)\nrecords=722 issues=0 {}"
+    },
+    {
+      "command": "python scripts/generate_reports.py",
+      "description": "extraction errors, benchmark metrics, final report",
+      "rc": 0,
+      "script": "generate_reports.py",
+      "seconds": 0.3,
+      "stage": 19,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote reports/extraction_errors.json (37 entries, {'v1': 19, 'v2': 18})\nwrote reports/benchmark_metrics.md\nwrote reports/final_quality_report.md (149 lines)"
+    },
+    {
+      "command": "python scripts/generate_v21_reports.py",
+      "description": "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports",
+      "rc": 0,
+      "script": "generate_v21_reports.py",
+      "seconds": 0.1,
+      "stage": 20,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "{\n \"generated_by\": \"scripts/generate_v21_reports.py\",\n \"records_processed\": 155,\n \"experiments_attempted\": 9,\n \"experiments_reproduced\": 5,\n \"experiments_inconclusive\": 4,\n \"experiments_failed\": 0,\n \"patches_verified\": 5,\n \"patches_not_testable\": 33,\n \"negative_cases_verified\": 0,\n \"negatives_corroborated\": 221,\n \"negatives_attributed\": 9,\n \"negatives_unknown\": 227,\n \"immutable_citations_resolved\": 473,\n \"immutable_citations_remaining_mutable\": 0,\n \"leakage_detected\": {\n  \"exact\": 1,\n  \"code\": 0,\n  \"artefact\": 0,\n  \"protocol_isolation\": 0,\n  \"quarantined\": 2\n },\n \"benchmark_scorable_tasks\": 1389,\n \"benchmark_experimentally_grounded\": 11,\n \"validation_failures\": null,\n \"remaining_blockers\": [\n  \"archive RPC not distributed\",\n  \"reconstruction ceiling on fixture drift\",\n  \"judging rationale is not public\",\n  \"mitigation commits are cumulative\"\n ]\n}"
+    },
+    {
+      "command": "python scripts/generate_readme.py",
+      "description": "README.md and NOTICE.md, with every figure read from the reports",
+      "rc": 0,
+      "script": "generate_readme.py",
+      "seconds": 0.3,
+      "stage": 21,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote README.md (239 lines) and NOTICE.md (121 lines)"
+    },
     {
       "command": "python scripts/validate.py",
       "description": "the gate",
       "rc": 0,
       "script": "validate.py",
-      "seconds": 1.1,
-      "stage": 13,
+      "seconds": 1.2,
+      "stage": 22,
       "status": "ok",
       "stderr_tail": "",
-      "tail": "validate.py\n  [ok  ] structure/jsonl_parses\n  [ok  ] structure/required_fields_present\n  [ok  ] structure/record_uniqueness_within_file\n  [ok  ] structure/cross_file_id_references_resolve\n  [ok  ] structure/source_layer_version_uniform\n  [ok  ] provenance/every_record_has_a_source\n  [ok  ] provenance/blob_permalinks_wellformed\n  [warn] provenance/commit_pins_are_immutable  (453 failures)\n         - findings.jsonl 2024-04-noya/H-03 code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-04 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-09 code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n         - findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'\n  [ok  ] provenance/line_ranges_sane\n  [ok  ] provenance/snippet_length_plausible\n  [ok  ] consistency/reported_statistics_equal_computed\n  [ok  ] consistency/severity_agrees_across_files\n  [ok  ] consistency/severity_agrees_with_splits\n  [ok  ] consistency/no_unexecuted_poc_claims_reproducible\n  [ok  ] consistency/patch_diff_and_withheld_flag_agree\n  [ok  ] consistency/negative_labels_consistent\n  [ok  ] consistency/license_declared_implies_verified\n  [ok  ] evidence/evidence_type_in_closed_vocabulary\n  [ok  ] evidence/experimental_claims_have_a_run_artefact\n  [ok  ] evidence/every_reproduced_verdict_names_a_forge_status\n  [ok  ] evidence/negative_reasons_typed_consistently\n  [ok  ] evidence/failure_reasons_in_closed_vocabulary\n  [ok  ] evidence/reproduced_requires_a_successful_forge_run\n  [ok  ] splits/repository_not_in_two_splits\n  [ok  ] splits/finding_id_not_in_two_splits\n  [ok  ] splits/splits_v2_leakage_free\n  [ok  ] consistency/derived_files_parse\n  [ok  ] consistency/derived_manifest_matches_file\n\n27/28 checks passed; 0 critical failures, 1 warnings\nBUILD OK"
+      "tail": "  [ok  ] consistency/negative_labels_consistent\n  [ok  ] consistency/license_declared_implies_verified\n  [ok  ] evidence/evidence_type_in_closed_vocabulary\n  [ok  ] evidence/experimental_claims_have_a_run_artefact\n  [ok  ] evidence/every_reproduced_verdict_names_a_forge_status\n  [ok  ] evidence/negative_reasons_typed_consistently\n  [ok  ] evidence/failure_reasons_in_closed_vocabulary\n  [ok  ] evidence/reproduced_requires_a_successful_forge_run\n  [ok  ] splits/repository_not_in_two_splits\n  [ok  ] splits/finding_id_not_in_two_splits\n  [ok  ] splits/splits_v2_leakage_free\n  [ok  ] consistency/derived_files_parse\n  [ok  ] consistency/derived_manifest_matches_file\n  [ok  ] v2.1/every_experiment_has_a_result_artefact\n  [ok  ] v2.1/every_experiment_artefact_names_a_full_commit\n  [ok  ] v2.1/no_experiment_modified_production_code\n  [ok  ] v2.1/L6_requires_both_revisions_executed\n  [ok  ] v2.1/no_poc_level_above_L2_without_an_executed_run\n  [ok  ] v2.1/effective_patch_has_vulnerable_fail_and_fixed_pass\n  [ok  ] v2.1/experimentally_verified_negative_has_an_execution\n  [ok  ] v2.1/corroborated_duplicate_is_not_called_a_false_positive\n  [ok  ] v2.1/poc_class_in_closed_vocabulary\n  [ok  ] v2.1/poc_level_in_closed_vocabulary\n  [ok  ] v2.1/run_failure_reason_in_controlled_vocabulary\n  [ok  ] v2.1/negative_class_in_closed_vocabulary\n  [ok  ] v2.1/no_mutable_branch_citations_remain\n  [ok  ] v2.1/subsets_respect_their_admission_rule\n  [ok  ] v2.1/experimental_benchmark_tasks_cite_an_execution\n  [ok  ] v2.1/static_analysis_status_is_one_of_three\n  [ok  ] v2.1/unanalyzable_repositories_are_not_reported_clean\n  [ok  ] v2.1/no_cross_split_identical_patch_diffs\n  [ok  ] v2.1/no_cross_split_normalised_poc_bodies\n  [ok  ] v2.1/no_cross_split_root_cause_statements\n  [ok  ] v2.1/no_cross_split_attack_sequences\n  [ok  ] v2.1/protocol_level_isolation_holds\n  [ok  ] v2.1/no_withheld_source_is_published_under_experiments\n  [ok  ] v2.1/withheld_harness_files_carry_a_resolver\n\n51/52 checks passed; 0 critical failures, 1 warnings\nBUILD OK"
     }
   ]
 }

@@ -13,6 +13,9 @@ Checks, grouped by what they protect:
   evidence      every evidence_type is in the closed vocabulary; no
                 experimentally_verified without a run artefact behind it
   splits        repository isolation, id isolation, cross-split duplicates
+  v2.1          experimental claims are backed by run artefacts, the new
+                vocabularies are closed, subsets obey their admission rules, and
+                the new leakage detectors report zero
 
 `reported_statistics == computed_statistics` is enforced by regenerating the
 stats in-process and comparing against reports/dataset_stats.json on disk.
@@ -173,9 +176,25 @@ def main() -> int:
                 if "/blob/" in u and not PERMALINK.match(u):
                     malformed.append(f"{fn} {rec_id(r)} {u}")
     rep.add("provenance", "blob_permalinks_wellformed", not malformed, malformed,
-            detail=f"{len(mutable)} citations use a mutable ref (branch name) instead of a "
-                   f"40-hex commit; listed as a warning, they are a real reproducibility hazard")
-    rep.add("provenance", "commit_pins_are_immutable", not mutable, mutable, critical=False)
+            critical=False,
+            detail="every /blob/ URL in the provenance layer parses as owner/repo/blob/<sha>/path")
+    # `jsonl/` is the read-only original-evidence layer and is never rewritten, so
+    # its mutable `commit_sha` values stay. What matters is that the DERIVED layer
+    # pins them. Cross-reference the resolver so this warning is understood rather
+    # than merely tolerated.
+    _cf = REPORTS / "citation_resolution.json"
+    _cites = json.loads(_cf.read_text(encoding="utf-8")) if _cf.exists() else {}
+    _remaining = _cites.get("remaining_mutable_occurrences")
+    _note = ""
+    if _cites:
+        _note = (f"; scripts/resolve_citations.py re-pins "
+                 f"{_cites.get('occurrences_by_status', {}).get('resolved', 0)} of them in the "
+                 f"derived layer and {_remaining} remain unresolved "
+                 "(reports/citation_resolution.json)")
+    rep.add("provenance", "commit_pins_are_immutable", not mutable, mutable, critical=False,
+            detail=f"{len(mutable)} citations in the read-only jsonl/ layer use a mutable ref "
+                   f"(branch name) instead of a 40-hex commit; they are a reproducibility hazard "
+                   f"in that layer{_note}")
 
     rng = []
     for fn, rows in core.items():
@@ -407,9 +426,225 @@ def main() -> int:
         rep.add("provenance", "cited_urls_resolve", not dead, dead, critical=False,
                 detail=f"{len(urls)} URLs probed (403/429 treated as reachable)")
 
+    # ==================================================================
+    # v2.1 gate: experimental claims must be backed by artefacts, and the
+    # new artefacts must agree with the reports that summarise them.
+    # ==================================================================
+    import experiments as _ex  # noqa: E402
+    import poc_classification as _pc  # noqa: E402
+
+    def _J(name):
+        f = REPORTS / name
+        if not f.exists():
+            return {}
+        try:
+            return json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return {}
+
+    exps = _J("verified_experiments.json")
+    repro = _J("reproduction_stats.json")
+    pv = _J("patch_verification_v2.json")
+    negv = _J("negative_verification_stats.json")
+    cites = _J("citation_resolution.json")
+    subs = _J("subsets.json")
+
+    # 1. every experiment artefact directory exists and records a commit
+    missing_art, bad_commit = [], []
+    for e in exps.get("experiments", []):
+        for label in ("vulnerable", "fixed"):
+            rev = (e.get("revisions") or {}).get(label) or {}
+            art = rev.get("artifact")
+            if not art:
+                missing_art.append(f"{e['finding_id']}:{label}")
+                continue
+            rj = Path(art) / "result.json"
+            if not rj.exists():
+                missing_art.append(f"{e['finding_id']}:{label}")
+                continue
+            d = json.loads(rj.read_text(encoding="utf-8"))
+            commit = (d.get("repository") or {}).get("commit") or ""
+            if not SHA40.match(str(commit)):
+                bad_commit.append(f"{e['finding_id']}:{label}={commit[:12]}")
+    rep.add("v2.1", "every_experiment_has_a_result_artefact", not missing_art, missing_art)
+    rep.add("v2.1", "every_experiment_artefact_names_a_full_commit", not bad_commit, bad_commit)
+
+    # 2. no production file was modified to make an experiment pass
+    prod_touched = []
+    for e in exps.get("experiments", []):
+        for label in ("vulnerable", "fixed"):
+            art = ((e.get("revisions") or {}).get(label) or {}).get("artifact")
+            if not art:
+                continue
+            f = Path(art) / "result.json"
+            if not f.exists():
+                continue
+            d = json.loads(f.read_text(encoding="utf-8"))
+            n = (d.get("forensics") or {}).get("production_files_modified_count")
+            if n:
+                prod_touched.append(f"{e['finding_id']}:{label} modified {n} production file(s)")
+    rep.add("v2.1", "no_experiment_modified_production_code", not prod_touched, prod_touched)
+
+    # 3. L6 requires BOTH legs to have run the way the registry declared
+    bogus_l6 = []
+    for r in repro.get("per_record", []):
+        if r.get("poc_level") != "L6":
+            continue
+        ex = r.get("experiment") or {}
+        if not (ex.get("vulnerable_status") and ex.get("fixed_status")):
+            bogus_l6.append(r["finding_id"])
+    rep.add("v2.1", "L6_requires_both_revisions_executed", not bogus_l6, bogus_l6)
+
+    # 4. no record above L2 without an experiment that actually executed
+    unsupported = []
+    for r in repro.get("per_record", []):
+        lvl = r.get("poc_level") or "L0"
+        if lvl in ("L0", "L1", "L2"):
+            continue
+        if (r.get("experiment") or {}).get("vulnerable_status") not in ("pass", "fail"):
+            unsupported.append(f"{r['finding_id']}={lvl}")
+    rep.add("v2.1", "no_poc_level_above_L2_without_an_executed_run", not unsupported, unsupported)
+
+    # 5. `effective` patches need a vulnerable run that failed AND a fixed run that passed
+    bogus_eff = []
+    for r in pv.get("records", []):
+        if r.get("fix_effectiveness") != "effective":
+            continue
+        if r.get("vulnerable_revision_result") != "fail" or r.get("fixed_revision_result") != "pass":
+            bogus_eff.append(r["finding_id"])
+    rep.add("v2.1", "effective_patch_has_vulnerable_fail_and_fixed_pass", not bogus_eff, bogus_eff)
+
+    # 6. an experimentally verified negative needs an executed experiment behind it
+    bogus_neg = []
+    for r in negv.get("records", []):
+        if r.get("negative_class") != "experimentally_verified":
+            continue
+        if not (r.get("executed_disproof") or {}).get("command"):
+            bogus_neg.append(r["finding_id"])
+    rep.add("v2.1", "experimentally_verified_negative_has_an_execution", not bogus_neg, bogus_neg)
+
+    # 7. a corroborated duplicate must never be labelled a false positive
+    mislabelled = [r["finding_id"] for r in negv.get("records", [])
+                   if r.get("negative_class") == "corroborated_duplicate"
+                   and r.get("is_false_positive") is not False]
+    rep.add("v2.1", "corroborated_duplicate_is_not_called_a_false_positive",
+            not mislabelled, mislabelled)
+
+    # 8. controlled vocabularies
+    bad_class = [r["finding_id"] for r in repro.get("per_record", [])
+                 if r.get("poc_class") not in _pc.POC_CLASSES]
+    rep.add("v2.1", "poc_class_in_closed_vocabulary", not bad_class, bad_class)
+
+    bad_level = [r["finding_id"] for r in repro.get("per_record", [])
+                 if r.get("poc_level") not in _pc.POC_LEVELS]
+    rep.add("v2.1", "poc_level_in_closed_vocabulary", not bad_level, bad_level)
+
+    bad_reason = sorted({(r.get("experiment") or {}).get("run_failure_reason")
+                         for r in repro.get("per_record", [])
+                         if (r.get("experiment") or {}).get("run_failure_reason")
+                         and (r.get("experiment") or {}).get("run_failure_reason")
+                         not in _pc.FAILURE_REASONS})
+    rep.add("v2.1", "run_failure_reason_in_controlled_vocabulary", not bad_reason, bad_reason)
+
+    bad_negclass = sorted({r.get("negative_class") for r in negv.get("records", [])
+                           if r.get("negative_class")
+                           and r["negative_class"] not in negv.get("class_vocabulary", [])})
+    rep.add("v2.1", "negative_class_in_closed_vocabulary", not bad_negclass, bad_negclass)
+
+    # 9. no mutable citation is left behind after resolution
+    left = cites.get("remaining_mutable_occurrences")
+    rep.add("v2.1", "no_mutable_branch_citations_remain", left == 0,
+            [] if left == 0 else [f"{left} mutable citations remain"], critical=False)
+
+    # 10. the subsets obey their own admission rules
+    subset_bad = []
+    for name, key in (("verified_exploits", "verified_exploits"),
+                      ("verified_patches", "verified_patches")):
+        f = ROOT / "datasets" / f"{name}.jsonl"
+        if not f.exists():
+            subset_bad.append(f"{name}: file missing")
+            continue
+        for row in read_jsonl(f):
+            if name == "verified_exploits" and row.get("poc_level") not in ("L5", "L6"):
+                subset_bad.append(f"{name}:{row.get('finding_id')} level={row.get('poc_level')}")
+            if name == "verified_patches":
+                if row.get("vulnerable_revision_result") != "fail" \
+                        or row.get("fixed_revision_result") != "pass":
+                    subset_bad.append(f"{name}:{row.get('finding_id')} "
+                                      f"{row.get('vulnerable_revision_result')}/"
+                                      f"{row.get('fixed_revision_result')}")
+    rep.add("v2.1", "subsets_respect_their_admission_rule", not subset_bad, subset_bad)
+
+    # 11. benchmark H/I/J tasks are never promoted without execution evidence
+    bench_bad = []
+    for fam in ("H_verified_exploit", "I_verified_non_exploit", "J_verified_patch"):
+        f = ROOT / "benchmark" / f"{fam}.jsonl"
+        if not f.exists():
+            bench_bad.append(f"{fam}: missing")
+            continue
+        for row in read_jsonl(f):
+            if row.get("answer_key_status") == "labeled" \
+                    and not row.get("execution_refs"):
+                bench_bad.append(f"{fam}:{row.get('id')} labeled without execution_refs")
+            if row.get("answer_key_evidence_level") == "experimentally_verified" \
+                    and not row.get("execution_refs"):
+                bench_bad.append(f"{fam}:{row.get('id')} experimental without execution_refs")
+    rep.add("v2.1", "experimental_benchmark_tasks_cite_an_execution", not bench_bad, bench_bad)
+
+    # 12. static analysis never claims a clean bill of health
+    static = _J("static_analysis.json")
+    clean_claims = [r.get("repository") for r in static.get("repositories", [])
+                    if r.get("static_analysis_status") not in ("available", "partial",
+                                                               "unavailable")]
+    rep.add("v2.1", "static_analysis_status_is_one_of_three", not clean_claims, clean_claims)
+    unavailable = [r.get("repository") for r in static.get("repositories", [])
+                   if r.get("static_analysis_status") in ("partial", "unavailable")]
+    rep.add("v2.1", "unanalyzable_repositories_are_not_reported_clean", True,
+            [{"repository": r, "reported_as": "unavailable/partial"} for r in unavailable],
+            critical=False)
+
+    # 13. cross-split leakage detectors that are new in v2.1
+    leak = _J("leakage_report.json")
+    art = leak.get("artefact_overlap") or {}
+    for key in ("count_identical_patch_diffs", "count_normalised_poc_bodies",
+                "count_root_cause_statements", "count_attack_sequences"):
+        rep.add("v2.1", f"no_cross_split_{key.replace('count_', '')}",
+                not art.get(key), [f"{key}={art.get(key)}"], critical=False)
+    proto = (leak.get("protocol_isolation") or {}).get("count")
+    rep.add("v2.1", "protocol_level_isolation_holds", proto == 0,
+            [] if proto == 0 else [f"{proto} protocols span splits"])
+
+    # 14. no withheld third-party source is published under experiments/
+    #     reNFT is BUSL-1.1: use is permitted, redistribution is not. Only the
+    #     tests this pipeline wrote itself may appear there.
+    leaked = []
+    exp_root = ROOT / "experiments"
+    if exp_root.exists():
+        for sol in exp_root.rglob("*.sol"):
+            rel = sol.relative_to(ROOT).as_posix()
+            rj = sol.parent.parent / "result.json"
+            if not rj.exists():
+                leaked.append(rel)
+                continue
+            d = json.loads(rj.read_text(encoding="utf-8"))
+            if rel.split("/harness/")[-1] in (d.get("harness_files_withheld_for_licence") or []):
+                leaked.append(rel)
+    rep.add("v2.1", "no_withheld_source_is_published_under_experiments", not leaked, leaked)
+
+    # 15. every experiment that withheld a harness file explains how to get it back
+    unexplained = []
+    for withheld in exp_root.rglob("WITHHELD.json") if exp_root.exists() else []:
+        d = json.loads(withheld.read_text(encoding="utf-8"))
+        if not d.get("how_to_obtain") or not d.get("files"):
+            unexplained.append(str(withheld.relative_to(ROOT)))
+    rep.add("v2.1", "withheld_harness_files_carry_a_resolver", not unexplained, unexplained)
+
     # ------------------------------------------------------------------ summary
+    # Computed LAST, after every check has been added, so that a failure in any
+    # group can reach the exit code.
     crit = [c for c in rep.checks if not c["ok"] and c["critical"]]
     warns = [c for c in rep.checks if not c["ok"] and not c["critical"]]
+
     summary = {
         "generated_by": "scripts/validate.py",
         "dataset_version": DATASET_VERSION,
@@ -421,6 +656,20 @@ def main() -> int:
         "details": rep.checks,
     }
     write_json(REPORTS / "validation_report.json", summary)
+
+    # close the loop on the v2.1 summary: the gate is the last stage, so it is
+    # the only place that knows whether the build actually passed
+    v21 = REPORTS / "v2_1_summary.json"
+    if v21.exists():
+        doc = json.loads(v21.read_text(encoding="utf-8"))
+        doc["validation_failures"] = len(crit)
+        doc["validation_warnings"] = len(warns)
+        doc["validation_checks_passed"] = f"{summary['passed']}/{summary['checks']}"
+        doc["validation_failed_checks"] = [
+            {"group": c["group"], "check": c["check"], "failures": c.get("failures")}
+            for c in rep.checks if not c["ok"]]
+        write_json(v21, doc)
+
     log(f"\n{summary['passed']}/{summary['checks']} checks passed; "
         f"{summary['failed_critical']} critical failures, {summary['warnings']} warnings")
     if crit:

@@ -15,7 +15,7 @@ files under `benchmark/`. Nothing in this file is estimated.
 | PoC compilation rate | 4/8 (50.0%) repositories | 20 PoC files were written from the code quoted in the reports; 133 could not be expressed as a Solidity test body. |
 | PoC execution rate | 15/155 (9.7%) | reproduced + not_reproduced + inconclusive over all exploit records. |
 | exploit confirmation rate | 5/155 (3.2%) | A PoC counts only when forge reported Success for that test. Nothing else is promoted. |
-| patch verification rate | 0/38 (0.0%) | 0 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
+| patch verification rate | 5/38 (13.2%) | 5 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
 | negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; 443 of 458 negatives have no publicly attributable rejection reason, so scoring them would reward guessing. |
 | duplicate detection accuracy | 0 near-duplicate and 2 semantic cross-split pairs found | detector recall is not validated against a hand-labelled set; the two pairs it found were checked by hand and are genuine. |
 
@@ -28,28 +28,31 @@ the model.
 
 | task | tasks | scorable | partial | unlabelled | train | validation | test |
 |---|---|---|---|---|---|---|---|
-| `A_vulnerability_detection` | 913 | 913 | 0 | 0 | 407 | 270 | 236 |
-| `B_root_cause_reasoning` | 913 | 0 | 503 | 410 | 407 | 270 | 236 |
-| `C_attacker_reasoning` | 913 | 384 | 0 | 529 | 407 | 270 | 236 |
-| `D_exploit_construction` | 913 | 346 | 0 | 567 | 407 | 270 | 236 |
-| `E_exploit_verification` | 913 | 14 | 0 | 899 | 407 | 270 | 236 |
+| `A_vulnerability_detection` | 720 | 720 | 0 | 0 | 344 | 229 | 147 |
+| `B_root_cause_reasoning` | 720 | 0 | 416 | 304 | 344 | 229 | 147 |
+| `C_attacker_reasoning` | 720 | 290 | 0 | 430 | 344 | 229 | 147 |
+| `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 |
+| `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 |
 | `F_false_positive_rejection` | 458 | 15 | 0 | 443 | 232 | 188 | 38 |
-| `G_patch_verification` | 104 | 0 | 0 | 104 | 0 | 47 | 57 |
+| `G_patch_verification` | 38 | 0 | 0 | 38 | 0 | 18 | 20 |
+| `H_verified_exploit` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
+| `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 |
+| `J_verified_patch` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
 
 ## Held-out split composition (task A)
 
-- `vulnerable` (judged, confirmed): **125**
-- `no_confirmed_vulnerability` (rejected / disputed / duplicate / QA): **111**
+- `vulnerable` (judged, confirmed): **66**
+- `no_confirmed_vulnerability` (rejected / disputed / duplicate / QA): **81**
 
 A detector evaluated on this split is rewarded for saying `vulnerable` only when the
 Code4rena judge confirmed it, and penalised for flagging the rejected submissions. The
-whole-split base rate is 53.0% positive, so a trivial
+whole-split base rate is 44.9% positive, so a trivial
 always-positive baseline scores that. Report it alongside any F1.
 
 ## Known limitations of this benchmark
 
-- Task D supplies 913 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.
-- Task E is fully unlabelled right now (899 tasks): a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
+- Task D supplies 720 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.
+- Task E is fully unlabelled right now (713 tasks): a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
 - Task G is unlabelled by construction. Nothing in this run demonstrates that any specific patch closes its vulnerability.
 - Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
 - No model has been evaluated. This file describes the instrument, not a result.

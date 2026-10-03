@@ -1,0 +1,523 @@
+{
+  "experiments": [
+    {
+      "blocked_behaviour": "the protocol rejects a consideration item whose token cannot complete the transfer, so the order never becomes unstoppable",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "a fulfiller adds a token that reverts on transferFrom after the first pull; reNFT's stop-rent path depends on that transfer succeeding, so the order can never be stopped and the renter keeps paying",
+      "finding_id": "2024-01-renft/H-01",
+      "match_test": "test_VlunMaliciousSeaportTip",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-01\\fixed",
+          "cached": true,
+          "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "3de5db6e86438dd998556d55",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_MaliciousSeaportTip_Exploit()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-01\\vulnerable",
+          "cached": true,
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "exit_code": 1,
+          "experiment_id": "3cf2a9811b3f2fb56bc8ff19",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()"
+            }
+          ],
+          "per_test_status": {
+            "test_VlunMaliciousSeaportTip_ControlWellBehavedTipIsAccepted()": "Success",
+            "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()": "Failure"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "fail"
+        }
+      },
+      "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
+      "verdict": "l6_verified_patch"
+    },
+    {
+      "blocked_behaviour": "the guard refuses to act when the approval was not granted under the guard's own check",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "the attacker approves the conduit on the renter's behalf during a benign rent, then performs the guarded action later without the guard seeing it",
+      "finding_id": "2024-01-renft/H-06",
+      "inconclusive_detail": {
+        "vulnerable": "undeclared identifier at test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195 (fixture absent on this revision)"
+      },
+      "inconclusive_reason": {
+        "fixed": "pass",
+        "vulnerable": "reconstruction_failed"
+      },
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-06\\fixed",
+          "cached": true,
+          "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "713c24071e41be52408d19d6",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_PreapproveToBypassGuard_Exploit()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-06\\vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "detail": "Error: Compiler run failed:\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195:9:\n    |\n195 |         withZone(address(maliciousZone));\n    |         ^^^^^^^^\n",
+          "exit_code": 1,
+          "experiment_id": "3b801601eff8511c097f8490",
+          "observed_failure": [],
+          "per_test_status": {},
+          "production_files_modified": 0,
+          "run_failure_detail": "undeclared identifier at test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195 (fixture absent on this revision)",
+          "run_failure_reason": "reconstruction_failed",
+          "status": "compile_error"
+        }
+      },
+      "security_property": "a fulfiller cannot pre-approve the protocol so that a later rental settlement bypasses the guard's per-selector checks",
+      "verdict": "inconclusive"
+    },
+    {
+      "blocked_behaviour": "the type hash is computed with abi.encodePacked, which matches the canonical EIP-712 encoding byte for byte",
+      "classification": "already_runnable",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "Signer.sol hashed the order type string with abi.encode, which appends a 32-byte word per argument, so the computed domain separator differed from the EIP-712 encoding and signatures verified against a different digest",
+      "finding_id": "2024-01-renft/M-11",
+      "match_test": "test_VlunEip712",
+      "notes": "self-contained test: the EIP-712 defect is a pure encoding defect, so it is reproduced without any protocol fixture. The fixed revision's Signer.sol is read at execution time to decide which assertion is expected to hold.",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-11\\fixed",
+          "cached": true,
+          "commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
+          "declared_expectation": "the three EIP-712 property assertions PASS: the protocol computes the canonical digest",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "9d26a1d8d91193bc723ca787",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_VlunEip712_EncodingsDiffer()": "Success",
+            "test_VlunEip712_HookExtraDataIsHashed()": "Success",
+            "test_VlunEip712_RentalOrderTypeHashIsCanonical()": "Success",
+            "test_VlunEip712_RentalWalletIsBoundByTheDigest()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-11\\vulnerable",
+          "cached": true,
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "the three EIP-712 property assertions FAIL: the protocol computes a non-canonical digest",
+          "declared_expected_status": "fail",
+          "exit_code": 1,
+          "experiment_id": "34993ff5a996b055ce1eca55",
+          "observed_failure": [
+            {
+              "assertion_messages": [
+                "Error: a == b not satisfied [bytes32]",
+                "      Left: 0x00ce0c89f0ff2f371279dee3f9e5c0eab0017ce37052cd8b4eb65af2ceb19def",
+                "     Right: 0xe48fc53f4a9ad5f4a7cf8f1166775f2e212ae2d1382f768852661e164873d576"
+              ],
+              "forge_reason": null,
+              "test": "test_VlunEip712_HookExtraDataIsHashed()"
+            },
+            {
+              "assertion_messages": [
+                "Error: a == b not satisfied [bytes32]",
+                "      Left: 0x3ed82f3a702f9be472dfaac401d861c9fd2ba6a8313066522128d1793c32302c",
+                "     Right: 0x136317b5d1776ee565433492ded25e83d8ae8d93642cd665ab18247728b00be3"
+              ],
+              "forge_reason": null,
+              "test": "test_VlunEip712_RentalOrderTypeHashIsCanonical()"
+            },
+            {
+              "assertion_messages": [
+                "Error: two rental orders differing only in rentalWallet produced the same digest",
+                "Error: Assertion Failed"
+              ],
+              "forge_reason": null,
+              "test": "test_VlunEip712_RentalWalletIsBoundByTheDigest()"
+            }
+          ],
+          "per_test_status": {
+            "test_VlunEip712_EncodingsDiffer()": "Success",
+            "test_VlunEip712_HookExtraDataIsHashed()": "Failure",
+            "test_VlunEip712_RentalOrderTypeHashIsCanonical()": "Failure",
+            "test_VlunEip712_RentalWalletIsBoundByTheDigest()": "Failure"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "fail"
+        }
+      },
+      "security_property": "the protocol's EIP-712 type hash of a rental order equals the hash of the canonical type string, so a signature over the order can never be replayed into a different type domain",
+      "verdict": "l6_verified_patch"
+    },
+    {
+      "blocked_behaviour": "the guard permits a plain call that moves the safe's ETH balance",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "GuardCheckTransaction rejected every native transfer out of the rental safe, including the owner's own withdrawal of rental proceeds",
+      "finding_id": "2024-01-renft/M-09",
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-09\\fixed",
+          "cached": true,
+          "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "31799b7b15941a4ccab84415",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_Success_TransferETH()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-09\\vulnerable",
+          "cached": true,
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "exit_code": 1,
+          "experiment_id": "ff37fd91acee655cf53846c3",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_Success_TransferETH()"
+            }
+          ],
+          "per_test_status": {
+            "test_Success_TransferETH()": "Failure"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "fail"
+        }
+      },
+      "security_property": "an owner of a rental safe can transfer native ETH out of the safe; the guard must not block it",
+      "verdict": "l6_verified_patch"
+    },
+    {
+      "blocked_behaviour": "the guard compares the action against the recorded rented amount rather than the post-withdrawal balance",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "a malicious lender withdrew more ERC-1155 than was rented, so the guard refused every subsequent burn and the borrower's balance was frozen",
+      "finding_id": "2024-01-renft/M-01",
+      "inconclusive_detail": {
+        "vulnerable": "missing symbol GuardPolicy_UnauthorizedAssetAmount (added by the mitigation)"
+      },
+      "inconclusive_reason": {
+        "fixed": "pass",
+        "vulnerable": "reconstruction_failed"
+      },
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-01\\fixed",
+          "cached": true,
+          "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "2b20559ad0adda3f5a3bcbb8",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": "Success",
+            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": "Success",
+            "test_Reverts_ERC1155_BurnBatch_Always()": "Success",
+            "test_Reverts_ERC1155_Burn_Rented()": "Success",
+            "test_Success_ERC1155_Burn_NotRented()": "Success",
+            "test_Success_ERC1155_SafeTransferFrom_NotRented()": "Success",
+            "test_Success_ERC1155_SafeTransferFrom_Rented()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-01\\vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "detail": "ions__ERC1155.t.sol:31:9:\n   |\n31 |         erc1155s[0].mint(address(alice.safe), 5, 10);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 3 arguments given but expected 2.\n  --> test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:66:9:\n   |\n66 |         erc1155s[0].mint(address(alice.addr), 5, 10);\n   |         ^^^^^^^^^^^",
+          "exit_code": 1,
+          "experiment_id": "910a825b05ee17918080b300",
+          "observed_failure": [],
+          "per_test_status": {},
+          "production_files_modified": 0,
+          "run_failure_detail": "missing symbol GuardPolicy_UnauthorizedAssetAmount (added by the mitigation)",
+          "run_failure_reason": "reconstruction_failed",
+          "status": "compile_error"
+        }
+      },
+      "security_property": "a lender cannot freeze a borrower's ERC-1155: a burn or transfer up to the rented amount stays possible",
+      "verdict": "inconclusive"
+    },
+    {
+      "blocked_behaviour": "the guard rejects an unguarded destructive call against the safe",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "burn() or a transfer to a dead address removed the asset from the safe while the rental was active",
+      "finding_id": "2024-01-renft/M-08",
+      "inconclusive_detail": {
+        "vulnerable": "fixture signature drift between revisions"
+      },
+      "inconclusive_reason": {
+        "fixed": "pass",
+        "vulnerable": "reconstruction_failed"
+      },
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-08\\fixed",
+          "cached": true,
+          "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "5cfbc6de626afbb8e9e932ff",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_Reverts_ERC721_Burn_Rented()": "Success",
+            "test_Success_ERC721_Burn_NotRented()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-08\\vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "detail": "Error: Compiler run failed:\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:31:9:\n   |\n31 |         erc721s[0].mint(address(alice.safe), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> tes",
+          "exit_code": 1,
+          "experiment_id": "08f7ba39d9c03b98c97755f9",
+          "observed_failure": [],
+          "per_test_status": {},
+          "production_files_modified": 0,
+          "run_failure_detail": "fixture signature drift between revisions",
+          "run_failure_reason": "reconstruction_failed",
+          "status": "compile_error"
+        }
+      },
+      "security_property": "assets held by a rental safe cannot be destroyed by the renter or the lender; the guard blocks unguarded destructive selectors",
+      "verdict": "inconclusive"
+    },
+    {
+      "blocked_behaviour": "the escrow enforces its balance invariant against the settled state, so the intermediate transfer cannot inflate the withdrawable amount",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "an intermediary transferred on rent, so the escrow's invariant checks were evaluated against a temporary balance that the account could then withdraw, draining the escrow",
+      "finding_id": "2024-01-renft/H-03",
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-03\\fixed",
+          "cached": true,
+          "commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "d0f3ee3c4300b339c0379578",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_BypassInvariantChecks_Exploit()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-03\\vulnerable",
+          "cached": true,
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "exit_code": 1,
+          "experiment_id": "7d99a0620fb6a8583af7acdc",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_BypassInvariantChecks_Exploit()"
+            }
+          ],
+          "per_test_status": {
+            "test_BypassInvariantChecks_Exploit()": "Failure"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "fail"
+        }
+      },
+      "security_property": "the payment escrow cannot be drained by an account whose temporary allowance exceeds its balance",
+      "verdict": "l6_verified_patch"
+    },
+    {
+      "blocked_behaviour": "the safe's fallback handler refuses token callbacks it does not recognise",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "a malicious borrower called the safe with a permit-style token call, so the rental settled into an attacker-chosen recipient",
+      "finding_id": "2024-01-renft/M-02",
+      "inconclusive_detail": {
+        "vulnerable": "undeclared identifier at test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:62 (fixture absent on this revision)"
+      },
+      "inconclusive_reason": {
+        "fixed": "pass",
+        "vulnerable": "reconstruction_failed"
+      },
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-02\\fixed",
+          "cached": true,
+          "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "3704e4529028a44f52d03226",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_Reverts_Permit_Whitelisted()": "Success",
+            "test_Success_FallbackCanBeDeactivated()": "Success",
+            "test_Success_Permit_NotWhitelisted()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-02\\vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "detail": "vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:178:27:\n    |\n178 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(alice.safe, digest);\n    |                           ^^^^^^^^^^^^^^\n\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:185:64:\n    |\n185 |         kernel.executeAction(Actions.DeactivatePolicy, ad",
+          "exit_code": 1,
+          "experiment_id": "44a992831fe888870b5dd020",
+          "observed_failure": [],
+          "per_test_status": {},
+          "production_files_modified": 0,
+          "run_failure_detail": "undeclared identifier at test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:62 (fixture absent on this revision)",
+          "run_failure_reason": "reconstruction_failed",
+          "status": "compile_error"
+        }
+      },
+      "security_property": "a caller cannot settle a rental into an arbitrary account by triggering an ERC-721 permit transfer",
+      "verdict": "inconclusive"
+    },
+    {
+      "blocked_behaviour": "the constant matches the deployed module layout, so the disabled module is the guard itself",
+      "classification": "runnable_after_harness_reconstruction",
+      "evidence_layer": "dynamic_poc_plus_source_diff",
+      "exploited_behaviour": "DISABLE_MODULE_OFFSET pointed at the wrong byte, so the signed transaction disabled a different module and the guard stayed active while the renter believed it was disabled",
+      "finding_id": "2024-01-renft/H-04",
+      "match_test": "test_",
+      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "revisions": {
+        "fixed": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-04\\fixed",
+          "cached": true,
+          "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expected_status": "pass",
+          "exit_code": 0,
+          "experiment_id": "cd692d8d73d2308433475043",
+          "observed_failure": [],
+          "per_test_status": {
+            "test_DisableModule_Exploit()": "Success"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "pass"
+        },
+        "vulnerable": {
+          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-04\\vulnerable",
+          "cached": true,
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expected_status": "fail",
+          "exit_code": 1,
+          "experiment_id": "5dc26789c4771b4a93c4e0d6",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_DisableModule_Exploit()"
+            }
+          ],
+          "per_test_status": {
+            "test_DisableModule_Exploit()": "Failure"
+          },
+          "production_files_modified": 0,
+          "run_failure_detail": null,
+          "run_failure_reason": null,
+          "status": "fail"
+        }
+      },
+      "security_property": "a renter cannot disable the payment-escrow module and bypass the guard, because the calldata offset used to address the module must be the real one",
+      "verdict": "l6_verified_patch"
+    }
+  ],
+  "generated_by": "scripts/run_verified_experiments.py",
+  "totals": {
+    "experiments": 9,
+    "fixed_pass": 9,
+    "inconclusive": 4,
+    "l6_verified_patch": 5,
+    "vulnerable_compile_error": 4,
+    "vulnerable_fail": 5
+  }
+}

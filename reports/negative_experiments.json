@@ -1,0 +1,68 @@
+{
+  "experiments": [
+    {
+      "artifact": "experiments/2024-01-renft__submission-621/attempted",
+      "audited_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "blocking_condition_under_test": "the Guard's guarded-selector check rejects `setFallbackHandler(address)` before the Safe executes it",
+      "cached": true,
+      "claimed_attack": "a renter bypasses the Guard completely by calling `setFallbackHandler()` on the rental safe, then performs unguarded transactions",
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__SetCustomFallbackHandler.t.sol -vv",
+      "detail": {
+        "assertions_that_did_not_block": [
+          {
+            "forge_reason": null,
+            "test": "test_SetFallbackHandler_Exploit()"
+          }
+        ],
+        "reading": "at least one claimed attack was not blocked; this record is not a false positive"
+      },
+      "execution_result": "fail",
+      "finding_id": "2024-01-renft/submission-621",
+      "per_test_status": {
+        "test_SetFallbackHandler_Exploit()": "Failure"
+      },
+      "production_files_modified": 0,
+      "repository": "2024-01-renft",
+      "run_failure_reason": null,
+      "status": "exploit_reproduced"
+    },
+    {
+      "artifact": "experiments/2024-01-renft__submission-630/attempted",
+      "audited_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "blocking_condition_under_test": "the Guard's guarded-selector list includes the burn selectors, so the call reverts",
+      "cached": true,
+      "claimed_attack": "a renter burns the lender's rented ERC-721/ERC-1155 tokens, destroying the asset while the rental is active",
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+      "detail": {
+        "run_failure": null
+      },
+      "execution_result": "compile_error",
+      "finding_id": "2024-01-renft/submission-630",
+      "per_test_status": {},
+      "production_files_modified": 0,
+      "repository": "2024-01-renft",
+      "run_failure_reason": "toolchain_failure",
+      "status": "historical_environment_unavailable"
+    },
+    {
+      "artifact": "experiments/2024-01-renft__submission-584/attempted",
+      "audited_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "blocking_condition_under_test": "the Guard's guarded-selector list includes the ERC-1155 burn selectors, so the call reverts",
+      "cached": true,
+      "claimed_attack": "the Guard does not check `burn(address,uint256,uint256)` on ERC-1155, so an attacker can burn the renter's tokens",
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
+      "detail": {
+        "run_failure": null
+      },
+      "execution_result": "compile_error",
+      "finding_id": "2024-01-renft/submission-584",
+      "per_test_status": {},
+      "production_files_modified": 0,
+      "repository": "2024-01-renft",
+      "run_failure_reason": "toolchain_failure",
+      "status": "historical_environment_unavailable"
+    }
+  ],
+  "generated_by": "scripts/run_negative_experiments.py",
+  "note": "Each experiment attempted the attack the submission describes, on the audited revision. `false_positive_verified` is only emitted when the attack was executed and every assertion observed the guard blocking it."
+}

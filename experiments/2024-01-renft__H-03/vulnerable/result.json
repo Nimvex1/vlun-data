@@ -1,0 +1,62 @@
+{
+  "artifact_sha256": {
+    "command.txt": "5ae6b13659b10ff8a59ac1aca7eb357c864c69b9f43bf4037be6c73aa208b76c",
+    "stderr.txt": "2adedc5f8aeee70cd0d0aec67089e8ac7854b9c52ffcae5fd042d41df4c7b05c",
+    "stdout.txt": "e4bce23dfecf40745c6d22be8dc1d4eb0b15c1fc26e14e360f921905b3ef8ed9"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__BypassInvariantChecks.t.sol -vv",
+  "declared_expectation": "test FAILS: the guard does not block the exploit",
+  "declared_expected_status": "fail",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 11.59,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "experiment_id": "7d99a0620fb6a8583af7acdc",
+  "finding_id": "2024-01-renft/H-03",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 4052768,
+  "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+  "harness_file_digests": {
+    "integration__prevented-exploits__BypassInvariantChecks.t.sol": "99677034bd4b8e7bf50727b519380c6531363a0b72549ce1c05d9ebeb341f51f",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__BypassInvariantChecks.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {
+    "test_BypassInvariantChecks_Exploit()": {
+      "logs": [],
+      "reason": null,
+      "status": "Failure"
+    }
+  },
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "vulnerable",
+  "security_property": "the payment escrow cannot be drained by an account whose temporary allowance exceeds its balance",
+  "status": "fail",
+  "test_status": "failure"
+}

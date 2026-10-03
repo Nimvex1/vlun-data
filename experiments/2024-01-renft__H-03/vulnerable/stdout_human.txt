@@ -1,0 +1,17 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/vlun_poc/integration__prevented-exploits__BypassInvariantChecks.t.sol:BypassInvariantChecks_PreventedExploits_Integration_Test
+[FAIL: next call did not revert as expected] test_BypassInvariantChecks_Exploit() (gas: 4052768)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 16.54ms (3.06ms CPU time)
+
+Ran 1 test suite in 18.60ms (16.54ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/vlun_poc/integration__prevented-exploits__BypassInvariantChecks.t.sol:BypassInvariantChecks_PreventedExploits_Integration_Test
+[FAIL: next call did not revert as expected] test_BypassInvariantChecks_Exploit() (gas: 4052768)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+

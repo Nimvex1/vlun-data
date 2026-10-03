@@ -1,0 +1,57 @@
+{
+  "artifact_sha256": {
+    "command.txt": "776a8ab09366cda706e2aedb97e717d332cdb33ae6cafdfdf40231ca98d303ab",
+    "stderr.txt": "34ed04a954ff9d4d5deb9b6c9e1c53910b1e48fb9622c298289d8c8bfa5b74eb",
+    "stdout.txt": "c82a690bb0679ac13a9f009d870ce671267406f2a80daa4526703b08b746e431"
+  },
+  "blocking_condition_under_test": "the Guard's guarded-selector check rejects `setFallbackHandler(address)` before the Safe executes it",
+  "claimed_attack": "a renter bypasses the Guard completely by calling `setFallbackHandler()` on the rental safe, then performs unguarded transactions",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__SetCustomFallbackHandler.t.sol -vv",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 8.15,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "finding_id": "2024-01-renft/submission-621",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 168545,
+  "harness_digest": "0505648158c3de7449e72320d8732d05561852f39a5c97f5aceec162d60289e3",
+  "harness_file_digests": {
+    "integration__prevented-exploits__SetCustomFallbackHandler.t.sol": "6e110b9b87c50cc6c412db420ba9bcce9d15429778f554dd010dd4a91cc5b883"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__SetCustomFallbackHandler.t.sol"
+  ],
+  "per_test": {
+    "test_SetFallbackHandler_Exploit()": {
+      "logs": [],
+      "reason": null,
+      "status": "Failure"
+    }
+  },
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "attempted",
+  "status": "fail",
+  "test_status": "failure"
+}

@@ -1,0 +1,72 @@
+{
+  "artifact_sha256": {
+    "command.txt": "cf34dedda237aae3b61c43cd0c288624f2154084bbaf030e65bc4a02be3d9904",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "7db42d35df584e8d1f67d2572b6f87d5fc529b4619ebf5d1bbb0609ddf90a0b5"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol -vv",
+  "declared_expectation": "test PASSES: the guard blocks the exploit",
+  "declared_expected_status": "pass",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 1.65,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 0,
+  "experiment_id": "3704e4529028a44f52d03226",
+  "finding_id": "2024-01-renft/M-02",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 2068424,
+  "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+  "harness_file_digests": {
+    "integration__prevented-exploits__PermitTokens.t.sol": "2706e911aad8de63652abc16a55d54c07fcd7291697e7996ce3060b64517eec5",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__PermitTokens.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {
+    "test_Reverts_Permit_Whitelisted()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    },
+    "test_Success_FallbackCanBeDeactivated()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    },
+    "test_Success_Permit_NotWhitelisted()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    }
+  },
+  "repository": {
+    "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "fixed",
+  "security_property": "a caller cannot settle a rental into an arbitrary account by triggering an ERC-721 permit transfer",
+  "status": "pass",
+  "test_status": "success"
+}

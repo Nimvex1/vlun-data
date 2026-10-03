@@ -1,0 +1,29 @@
+{
+  "citations": {
+    "distinct_targets": 98,
+    "mutable_after": 0,
+    "mutable_before": 453,
+    "occurrences_resolved": 473,
+    "policy": "A mutable citation is only replaced when a mechanical content or date identity test succeeded. No SHA is invented; unresolved citations stay mutable and are counted.",
+    "resolution_confidence": {
+      "high": 81,
+      "medium": 17
+    },
+    "resolution_methods": {
+      "blob_identity_first_commit": 94,
+      "date_anchored_blob_identity": 2,
+      "submodule_pointer_at_audit_snapshot": 2
+    }
+  },
+  "generated_by": "scripts/generate_v21_reports.py",
+  "licence": {
+    "note": "the dataset redistributes only code whose licence permits it; where it does not, the citation is retained and scripts/fetch_sources.py retrieves the bytes locally",
+    "withheld_citations_resolvable": true
+  },
+  "records_with_unknown_provenance": null,
+  "source_retrieval": {
+    "failures": [],
+    "files_checked": 321,
+    "ok": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+  "files": [
+    {
+      "bytes": 1280,
+      "path": "integration__guarded-transactions__Safe.t.sol",
+      "sha256": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004"
+    },
+    {
+      "bytes": 7393,
+      "path": "utils__GnosisSafeUtils.sol",
+      "sha256": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+    }
+  ],
+  "how_to_obtain": "git show <commit>:<path> in the audited repository; the sha256 below is the hash of the exact bytes that were compiled in this experiment, so a replay can be verified byte for byte.",
+  "why": "these harness files are verbatim copies from the audited repository, which is licensed BUSL-1.1 (use permitted, redistribution not). They are therefore not published in this repository."
+}

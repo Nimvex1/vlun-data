@@ -1,0 +1,658 @@
+{
+  "entries": [
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-01/fixed",
+      "artifact_hashes": {
+        "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "e7ac03e4fde498acbb78e80ef40bb065095fd9e092425ea1f49b0599e60bcff5",
+        "trace.txt": "68aedb2e3aa157ba05b7e9fc1b21803a5b1d5e0ed29730deb1ab9cf4030a0ebb"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol -vv",
+      "commit_sha": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-01",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "0bdbfb4d91574229443667fc3feead75db058838fc6c9fb7089f55a841493082",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-01/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "f3dcf2679ed5200a8082f7fb44888a30c99bc349c0c2e28f872ec0a55ff66a1d",
+        "stderr.txt": "9aca9038120861cd8863b8db39ae6f50364980a7fb7f1d825a2c80c7a4e3d68b",
+        "stdout.txt": "e349d2f5b4d8ae38822ed8ffef5347ab4caf02a69230132423c893820dbb6899"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/VlunMaliciousSeaportTip.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-01",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "a1c4a9ae4d6b77cd27cfdc11feb935a55e84825368de9f000a87a90168de8f4e",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "fail",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-03/fixed",
+      "artifact_hashes": {
+        "command.txt": "5ae6b13659b10ff8a59ac1aca7eb357c864c69b9f43bf4037be6c73aa208b76c",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "9e62d36b8d6ed1c62f18a3e1ba25aff9efc875873f47ddc3e367a3daa0d78040"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__BypassInvariantChecks.t.sol -vv",
+      "commit_sha": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-03",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-03/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "5ae6b13659b10ff8a59ac1aca7eb357c864c69b9f43bf4037be6c73aa208b76c",
+        "stderr.txt": "2adedc5f8aeee70cd0d0aec67089e8ac7854b9c52ffcae5fd042d41df4c7b05c",
+        "stdout.txt": "e4bce23dfecf40745c6d22be8dc1d4eb0b15c1fc26e14e360f921905b3ef8ed9"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__BypassInvariantChecks.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-03",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "fail",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-04/fixed",
+      "artifact_hashes": {
+        "command.txt": "e85b01d0dc7da248b4a500b444d2a5a778df0dfcca564bc0d7319b9aa60e950a",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "a995f2cf268f91df10cc56fcbaab82ba25cc97d2786d0cbefe70d89613cfd6f7"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__Exploits.t.sol -vv",
+      "commit_sha": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-04",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-04/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "e85b01d0dc7da248b4a500b444d2a5a778df0dfcca564bc0d7319b9aa60e950a",
+        "stderr.txt": "ca934e321fb6c32a1df6c90dddcdb4637ae494d3b2ee751e09661758e7844775",
+        "stdout.txt": "3cb1295bedd8347d4b3d71a670fca64a71118d97f61ce666f9e6f972bd0cf5b3"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__Exploits.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-04",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "fail",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-06/fixed",
+      "artifact_hashes": {
+        "command.txt": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "d4af2e6af1d52a0d09ab4d877d1ed9181361aa81c8fe3cc5f307397817e8f07c",
+        "trace.txt": "c80a73cb62c4a134000505795c9350109c83d22705a9465b8e6b3a794983f407"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol -vv",
+      "commit_sha": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-06",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__H-06/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146",
+        "stderr.txt": "b4f3456f14ea466112b352b71ce1f69e396a32aed4082e4855d2621df5a7d3f2",
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/H-06",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "compile_error",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-01/fixed",
+      "artifact_hashes": {
+        "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "fa8e49e17c68a81d49cfb426550d94667ee4284a7ea990ad377581c269f94f1d"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
+      "commit_sha": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-01",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-01/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
+        "stderr.txt": "dc12b03a90dc265ddc9a76317e61b8574a32d76f38c18eaff8a0348657a7b165",
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-01",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "compile_error",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-02/fixed",
+      "artifact_hashes": {
+        "command.txt": "cf34dedda237aae3b61c43cd0c288624f2154084bbaf030e65bc4a02be3d9904",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "7db42d35df584e8d1f67d2572b6f87d5fc529b4619ebf5d1bbb0609ddf90a0b5"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol -vv",
+      "commit_sha": "12bdab416447b51b43b7053be7b55b5b932336e5",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-02",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-02/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "cf34dedda237aae3b61c43cd0c288624f2154084bbaf030e65bc4a02be3d9904",
+        "stderr.txt": "0a509c105a438e797d070025f2c84b981584feae26bf962ea08ec9d11f82a2b3",
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-02",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "compile_error",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-08/fixed",
+      "artifact_hashes": {
+        "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "82ddb874e47fd4b833ea064280f9d63b7c4df4fbc5406f8d8071b4d49fa8a0fb"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+      "commit_sha": "fb8013111b57c1e09482fb3193db58cb892229e9",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-08",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-08/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
+        "stderr.txt": "a85e9596f9e76eeb1124afebfbc488e5c2ce16a370305a7bd4a9f1397394de14",
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-08",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "compile_error",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-09/fixed",
+      "artifact_hashes": {
+        "command.txt": "f189c4b5414d240a253a0347dde1b0b205f05dc6bdefc5c7d287f67274c3ac22",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "f689fac5edf106aeb50e2846ce9349198aa68d0189f187a0da123e6494460855"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__Safe.t.sol -vv",
+      "commit_sha": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-09",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-09/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "f189c4b5414d240a253a0347dde1b0b205f05dc6bdefc5c7d287f67274c3ac22",
+        "stderr.txt": "ef7b55c879a552d9602ea950b8bfd7520ace96fab4adea912d2530d48f06b8b0",
+        "stdout.txt": "6cbe9a917dcd0b0c9fe36a841ffe139b13419e19ba57b7e32632a5a4a241101d"
+      },
+      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__Safe.t.sol -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-09",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "fail",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-11/fixed",
+      "artifact_hashes": {
+        "command.txt": "829f93b9ce60a1801b8f8364947222e8d9b2f08f395640126efab15ca6b1169f",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "058b4ebbef584278efa6025de4e10e57ab0a4d15b8eda3ca4ffb6a04ceee453e",
+        "trace.txt": "53b163df58642d22ef85e1451ec8a71441ebee4ade6df42d423af6b11c6575d7"
+      },
+      "command": "forge test --json --match-test test_VlunEip712 -vv",
+      "commit_sha": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-11",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "pass",
+      "revision_label": "fixed",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    },
+    {
+      "artifact_dir": "experiments/2024-01-renft__M-11/vulnerable",
+      "artifact_hashes": {
+        "command.txt": "829f93b9ce60a1801b8f8364947222e8d9b2f08f395640126efab15ca6b1169f",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "1aa12c0f67c354f2a813380be2e20bb35dd8188d01231cde799a178e3f325436",
+        "trace.txt": "8855a111a51e29bb7baf626d6e1134498b84bc89b98b12c32a9db9e80cc81847"
+      },
+      "command": "forge test --json --match-test test_VlunEip712 -vv",
+      "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "environment_requirements": {
+        "forge": "foundry (forge 1.8.3 or any 1.x)",
+        "git": "git 2.x with submodule support",
+        "node": "node 18+ only for Hardhat projects",
+        "solc": "selected by the repository's foundry.toml / hardhat config"
+      },
+      "finding_id": "2024-01-renft/M-11",
+      "fork_block": null,
+      "fork_required": false,
+      "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+      "production_files_modified": 0,
+      "repository": {
+        "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "commit_pinned": true,
+        "framework": "foundry",
+        "slug": "renft-smart",
+        "url": "https://github.com/re-nft/smart-contracts.git"
+      },
+      "result": "fail",
+      "revision_label": "vulnerable",
+      "toolchain": {
+        "forge": "1.8.3",
+        "git": "2.55",
+        "node": "not required (Foundry)",
+        "solc": "selected by the repository"
+      }
+    }
+  ],
+  "generated_by": "scripts/build_reproduction.py",
+  "note": "Replay instructions for every executed experiment. Fork-based entries would require an archive RPC via VLUN_RPC_URL; none were executed because no archive endpoint is distributed with the dataset."
+}

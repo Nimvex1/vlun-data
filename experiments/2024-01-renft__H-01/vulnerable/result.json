@@ -1,0 +1,68 @@
+{
+  "artifact_sha256": {
+    "command.txt": "f3dcf2679ed5200a8082f7fb44888a30c99bc349c0c2e28f872ec0a55ff66a1d",
+    "stderr.txt": "9aca9038120861cd8863b8db39ae6f50364980a7fb7f1d825a2c80c7a4e3d68b",
+    "stdout.txt": "e349d2f5b4d8ae38822ed8ffef5347ab4caf02a69230132423c893820dbb6899"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/VlunMaliciousSeaportTip.t.sol -vv",
+  "declared_expectation": "test FAILS: the guard does not block the exploit",
+  "declared_expected_status": "fail",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 7.25,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "experiment_id": "3cf2a9811b3f2fb56bc8ff19",
+  "finding_id": "2024-01-renft/H-01",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 3008593,
+  "harness_digest": "a1c4a9ae4d6b77cd27cfdc11feb935a55e84825368de9f000a87a90168de8f4e",
+  "harness_file_digests": {
+    "VlunMaliciousSeaportTip.t.sol": "14c55a8ec0b1ad9be295bd58726c1ad30fd5310e12522efa9d0ba8097c346056",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa"
+  },
+  "harness_files": [
+    "VlunMaliciousSeaportTip.t.sol"
+  ],
+  "harness_files_withheld_for_licence": [
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol"
+  ],
+  "per_test": {
+    "test_VlunMaliciousSeaportTip_ControlWellBehavedTipIsAccepted()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    },
+    "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()": {
+      "logs": [],
+      "reason": null,
+      "status": "Failure"
+    }
+  },
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "vulnerable",
+  "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
+  "status": "fail",
+  "test_status": "failure"
+}

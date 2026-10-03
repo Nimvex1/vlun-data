@@ -1,0 +1,178 @@
+{
+  "experimentally_grounded_tasks": 11,
+  "families": [
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
+      "family": "A_vulnerability_detection",
+      "ground_truth_rule": "the Code4rena verdict for the finding",
+      "scorable": 720,
+      "tasks": 720,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
+      "family": "B_root_cause_reasoning",
+      "ground_truth_rule": "a root cause stated by a source, or an invariant stated by a source; unscorable otherwise",
+      "scorable": 0,
+      "tasks": 720,
+      "unscorable": 304
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
+      "family": "C_attacker_reasoning",
+      "ground_truth_rule": "an attacker model derived from the cited source or reported by the audit; unknown is a valid answer",
+      "scorable": 290,
+      "tasks": 720,
+      "unscorable": 430
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
+      "family": "D_exploit_construction",
+      "ground_truth_rule": "a PoC body published in the report",
+      "scorable": 346,
+      "tasks": 720,
+      "unscorable": 374
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "duplicate_rows_dropped": 193,
+      "family": "E_exploit_verification",
+      "ground_truth_rule": "an executed run recorded by the pipeline",
+      "scorable": 7,
+      "tasks": 720,
+      "unscorable": 713
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 458
+      },
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "F_false_positive_rejection",
+      "ground_truth_rule": "attributed judge or sponsor reasoning",
+      "scorable": 15,
+      "tasks": 458,
+      "unscorable": 443
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 38
+      },
+      "by_split": {
+        "test": 20,
+        "validation": 18
+      },
+      "duplicate_rows_dropped": 66,
+      "family": "G_patch_verification",
+      "ground_truth_rule": "a recorded vulnerable/fixed commit pair",
+      "scorable": 0,
+      "tasks": 38,
+      "unscorable": 38
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5
+      },
+      "by_split": {
+        "validation": 5
+      },
+      "duplicate_rows_dropped": 9,
+      "family": "H_verified_exploit",
+      "ground_truth_rule": "an exploit executed at the audited revision, with the security property observed to be violated",
+      "scorable": 5,
+      "tasks": 5,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 1,
+        "unknown": 2
+      },
+      "by_split": {
+        "validation": 3
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "I_verified_non_exploit",
+      "ground_truth_rule": "an attempted exploit executed at the audited revision",
+      "scorable": 1,
+      "tasks": 3,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5
+      },
+      "by_split": {
+        "validation": 5
+      },
+      "duplicate_rows_dropped": 9,
+      "family": "J_verified_patch",
+      "ground_truth_rule": "the same exploit executed against the vulnerable AND the fixed revision",
+      "scorable": 5,
+      "tasks": 5,
+      "unscorable": 0
+    }
+  ],
+  "generated_by": "scripts/generate_v21_reports.py",
+  "ground_truth_rules": {
+    "A_vulnerability_detection": "the Code4rena verdict for the finding",
+    "B_root_cause_reasoning": "a root cause stated by a source, or an invariant stated by a source; unscorable otherwise",
+    "C_attacker_reasoning": "an attacker model derived from the cited source or reported by the audit; unknown is a valid answer",
+    "D_exploit_construction": "a PoC body published in the report",
+    "E_exploit_verification": "an executed run recorded by the pipeline",
+    "F_false_positive_rejection": "attributed judge or sponsor reasoning",
+    "G_patch_verification": "a recorded vulnerable/fixed commit pair",
+    "H_verified_exploit": "an exploit executed at the audited revision, with the security property observed to be violated",
+    "I_verified_non_exploit": "an attempted exploit executed at the audited revision",
+    "J_verified_patch": "the same exploit executed against the vulnerable AND the fixed revision"
+  },
+  "policy": "A task counts as scorable only when its answer key comes from an experiment or from a named public verdict. Report claims alone never produce a scorable task. Rows duplicated inside a split are collapsed, which is why the totals are lower than the v2 pipeline reported.",
+  "totals": {
+    "scorable": 1389,
+    "tasks": 4109,
+    "unscorable": 2302
+  }
+}

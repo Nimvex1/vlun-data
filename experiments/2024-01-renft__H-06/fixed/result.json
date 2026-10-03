@@ -1,0 +1,63 @@
+{
+  "artifact_sha256": {
+    "command.txt": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "d4af2e6af1d52a0d09ab4d877d1ed9181361aa81c8fe3cc5f307397817e8f07c",
+    "trace.txt": "c80a73cb62c4a134000505795c9350109c83d22705a9465b8e6b3a794983f407"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol -vv",
+  "declared_expectation": "test PASSES: the guard blocks the exploit",
+  "declared_expected_status": "pass",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 1.62,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 0,
+  "experiment_id": "713c24071e41be52408d19d6",
+  "finding_id": "2024-01-renft/H-06",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 4520719,
+  "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+  "harness_file_digests": {
+    "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__PreapproveToBypassGuard.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {
+    "test_PreapproveToBypassGuard_Exploit()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    }
+  },
+  "repository": {
+    "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "fixed",
+  "security_property": "a fulfiller cannot pre-approve the protocol so that a later rental settlement bypasses the guard's per-selector checks",
+  "status": "pass",
+  "test_status": "success"
+}

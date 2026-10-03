@@ -1,0 +1,22 @@
+{
+  "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+  "files": [
+    {
+      "bytes": 4385,
+      "path": "integration__guarded-transactions__ERC721.t.sol",
+      "sha256": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea"
+    },
+    {
+      "bytes": 3896,
+      "path": "mocks__tokens__standard__MockERC721.sol",
+      "sha256": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1"
+    },
+    {
+      "bytes": 7393,
+      "path": "utils__GnosisSafeUtils.sol",
+      "sha256": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+    }
+  ],
+  "how_to_obtain": "git show <commit>:<path> in the audited repository; the sha256 below is the hash of the exact bytes that were compiled in this experiment, so a replay can be verified byte for byte.",
+  "why": "these harness files are verbatim copies from the audited repository, which is licensed BUSL-1.1 (use permitted, redistribution not). They are therefore not published in this repository."
+}

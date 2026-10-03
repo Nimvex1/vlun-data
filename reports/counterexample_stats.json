@@ -1,4 +1,10 @@
 {
+  "api_sibling_note": "an API-sibling pair contrasts two entry points of the same shape in one contract where exactly one declares an authorisation guard. It is a stronger teaching signal than a generic access-control refutation because the two members are genuinely similar code.",
+  "api_sibling_pair_types": {
+    "identical_signature_sibling": 40,
+    "same_family_sibling": 31
+  },
+  "api_sibling_pairs": 71,
   "by_type": {
     "access_control_refutation": 86,
     "authorisation_guard_refutation": 13
@@ -7,6 +13,7 @@
   "counterexamples_on_the_vulnerable_function": 0,
   "generated_by": "scripts/build_counterexamples.py",
   "note": "every counterexample refutes a hypothesis about a function the finding did NOT name as vulnerable, so it can never contradict its own finding. Records with no counterexample are counted with the reason rather than padded with a weak one.",
+  "records_with_api_sibling_pairs": 30,
   "records_with_at_least_one_counterexample": 43,
   "records_without": 161,
   "records_without_reason": {

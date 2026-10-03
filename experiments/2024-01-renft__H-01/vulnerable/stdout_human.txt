@@ -1,0 +1,18 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/vlun_poc/VlunMaliciousSeaportTip.t.sol:VlunMaliciousSeaportTipTest
+[PASS] test_VlunMaliciousSeaportTip_ControlWellBehavedTipIsAccepted() (gas: 3008593)
+[FAIL: next call did not revert as expected] test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected() (gas: 3143189)
+Suite result: FAILED. 1 passed; 1 failed; 0 skipped; finished in 15.78ms (3.25ms CPU time)
+
+Ran 1 test suite in 17.83ms (15.78ms CPU time): 1 tests passed, 1 failed, 0 skipped (2 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/vlun_poc/VlunMaliciousSeaportTip.t.sol:VlunMaliciousSeaportTipTest
+[FAIL: next call did not revert as expected] test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected() (gas: 3143189)
+
+Encountered a total of 1 failing tests, 1 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+

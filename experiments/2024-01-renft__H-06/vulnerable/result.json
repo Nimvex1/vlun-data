@@ -1,0 +1,56 @@
+{
+  "artifact_sha256": {
+    "command.txt": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146",
+    "stderr.txt": "b4f3456f14ea466112b352b71ce1f69e396a32aed4082e4855d2621df5a7d3f2",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol -vv",
+  "declared_expectation": "test FAILS: the guard does not block the exploit",
+  "declared_expected_status": "fail",
+  "decoded_logs": [],
+  "detail": "Error: Compiler run failed:\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195:9:\n    |\n195 |         withZone(address(maliciousZone));\n    |         ^^^^^^^^\n",
+  "duration_s": 1.93,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "experiment_id": "3b801601eff8511c097f8490",
+  "finding_id": "2024-01-renft/H-06",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": null,
+  "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+  "harness_file_digests": {
+    "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__prevented-exploits__PreapproveToBypassGuard.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {},
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "vulnerable",
+  "security_property": "a fulfiller cannot pre-approve the protocol so that a later rental settlement bypasses the guard's per-selector checks",
+  "status": "compile_error",
+  "test_status": null
+}

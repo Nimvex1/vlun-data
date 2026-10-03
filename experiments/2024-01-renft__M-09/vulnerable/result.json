@@ -1,0 +1,62 @@
+{
+  "artifact_sha256": {
+    "command.txt": "f189c4b5414d240a253a0347dde1b0b205f05dc6bdefc5c7d287f67274c3ac22",
+    "stderr.txt": "ef7b55c879a552d9602ea950b8bfd7520ace96fab4adea912d2530d48f06b8b0",
+    "stdout.txt": "6cbe9a917dcd0b0c9fe36a841ffe139b13419e19ba57b7e32632a5a4a241101d"
+  },
+  "classification": "runnable_after_harness_reconstruction",
+  "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__Safe.t.sol -vv",
+  "declared_expectation": "test FAILS: the guard does not block the exploit",
+  "declared_expected_status": "fail",
+  "decoded_logs": [],
+  "detail": "",
+  "duration_s": 8.49,
+  "environment_requirements": {
+    "forge": "foundry (forge 1.8.3 or any 1.x)",
+    "git": "git 2.x with submodule support",
+    "node": "node 18+ only for Hardhat projects",
+    "solc": "selected by the repository's foundry.toml / hardhat config"
+  },
+  "exit_code": 1,
+  "experiment_id": "ff37fd91acee655cf53846c3",
+  "finding_id": "2024-01-renft/M-09",
+  "forensics": {
+    "available": true,
+    "clean": true,
+    "other_changes": [],
+    "overlay_files": [
+      "?? test/vlun_poc/"
+    ],
+    "production_files_modified": [],
+    "production_files_modified_count": 0
+  },
+  "gas_used": 134692,
+  "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+  "harness_file_digests": {
+    "integration__guarded-transactions__Safe.t.sol": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004",
+    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+  },
+  "harness_files": [],
+  "harness_files_withheld_for_licence": [
+    "integration__guarded-transactions__Safe.t.sol",
+    "utils__GnosisSafeUtils.sol"
+  ],
+  "per_test": {
+    "test_Success_TransferETH()": {
+      "logs": [],
+      "reason": null,
+      "status": "Failure"
+    }
+  },
+  "repository": {
+    "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "commit_pinned": true,
+    "framework": "foundry",
+    "slug": "renft-smart",
+    "url": "https://github.com/re-nft/smart-contracts.git"
+  },
+  "revision_label": "vulnerable",
+  "security_property": "an owner of a rental safe can transfer native ETH out of the safe; the guard must not block it",
+  "status": "fail",
+  "test_status": "failure"
+}
