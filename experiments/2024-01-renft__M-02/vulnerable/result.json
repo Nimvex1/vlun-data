@@ -10,7 +10,7 @@
   "declared_expected_status": "fail",
   "decoded_logs": [],
   "detail": "vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:178:27:\n    |\n178 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(alice.safe, digest);\n    |                           ^^^^^^^^^^^^^^\n\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:185:64:\n    |\n185 |         kernel.executeAction(Actions.DeactivatePolicy, address(fallbackPolicy));\n    |                                                                ^^^^^^^^^^^^^^\n\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:195:62:\n    |\n195 |         kernel.executeAction(Actions.ActivatePolicy, address(fallbackPolicy));\n    |                                                              ^^^^^^^^^^^^^^\n",
-  "duration_s": 1.96,
+  "duration_s": 0.73,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",

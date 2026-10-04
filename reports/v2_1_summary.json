@@ -1,10 +1,11 @@
 {
-  "benchmark_experimentally_grounded": 11,
-  "benchmark_scorable_tasks": 1389,
+  "benchmark_experimentally_grounded": 10,
+  "benchmark_scorable_tasks": 1388,
   "experiments_attempted": 9,
   "experiments_failed": 0,
-  "experiments_inconclusive": 4,
-  "experiments_reproduced": 5,
+  "experiments_inconclusive": 5,
+  "experiments_not_a_controlled_comparison": 1,
+  "experiments_reproduced": 4,
   "generated_by": "scripts/generate_v21_reports.py",
   "immutable_citations_remaining_mutable": 0,
   "immutable_citations_resolved": 473,
@@ -19,8 +20,8 @@
   "negatives_attributed": 9,
   "negatives_corroborated": 221,
   "negatives_unknown": 227,
-  "patches_not_testable": 33,
-  "patches_verified": 5,
+  "patches_not_testable": 34,
+  "patches_verified": 4,
   "records_processed": 155,
   "remaining_blockers": [
     "archive RPC not distributed",
@@ -28,40 +29,8 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks_passed": "51/52",
-  "validation_failed_checks": [
-    {
-      "check": "commit_pins_are_immutable",
-      "failures": [
-        "findings.jsonl 2024-04-noya/H-03 code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-04 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-09 code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-12 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/testFoundry/BalancerConnector.t.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-20 code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-22 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-23 code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-05 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-06 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-08 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-09 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'"
-      ],
-      "group": "provenance"
-    }
-  ],
+  "validation_checks_passed": "53/53",
+  "validation_failed_checks": [],
   "validation_failures": 0,
-  "validation_warnings": 1
+  "validation_warnings": 0
 }

@@ -1,0 +1,113 @@
+{
+  "artefacts_written": 15,
+  "bodies_committed": 0,
+  "generated_by": "scripts/export_run_artefacts.py",
+  "records": {
+    "2024-04-noya/H-01": {
+      "artefact": "experiments/2024-04-noya__H-01__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "reproduced"
+    },
+    "2024-04-noya/H-12": {
+      "artefact": "experiments/2024-04-noya__H-12__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/H-19": {
+      "artefact": "experiments/2024-04-noya__H-19__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "not_reproduced"
+    },
+    "2024-04-noya/H-22": {
+      "artefact": "experiments/2024-04-noya__H-22__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/H-23": {
+      "artefact": "experiments/2024-04-noya__H-23__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/M-04": {
+      "artefact": "experiments/2024-04-noya__M-04__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/M-05": {
+      "artefact": "experiments/2024-04-noya__M-05__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/M-06": {
+      "artefact": "experiments/2024-04-noya__M-06__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/M-07": {
+      "artefact": "experiments/2024-04-noya__M-07__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "reproduced"
+    },
+    "2024-04-noya/M-10": {
+      "artefact": "experiments/2024-04-noya__M-10__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2024-04-noya/M-33": {
+      "artefact": "experiments/2024-04-noya__M-33__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "not_reproduced"
+    },
+    "2024-04-noya/M-34": {
+      "artefact": "experiments/2024-04-noya__M-34__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "reproduced"
+    },
+    "2024-04-noya/M-37": {
+      "artefact": "experiments/2024-04-noya__M-37__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "repo_native_test",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "reproduced"
+    },
+    "2024-04-noya/M-60": {
+      "artefact": "experiments/2024-04-noya__M-60__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "report_quoted_poc",
+      "repository": "code-423n4/2024-04-noya",
+      "verdict": "inconclusive"
+    },
+    "2025-06-panoptic/H-01": {
+      "artefact": "experiments/2025-06-panoptic__H-01__poc_run/result.json",
+      "body_committed": false,
+      "poc_type": "repo_native_test",
+      "repository": "code-423n4/2025-06-panoptic",
+      "verdict": "reproduced"
+    }
+  },
+  "source": "work/poc_runs/*.json (git-ignored); this index is the committed copy"
+}

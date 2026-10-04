@@ -878,7 +878,12 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
                                    "detail": result.detail[:400]}
         outcomes[label] = result.status
     out["verdict"] = verdict_for(exp, outcomes)
-    if out["verdict"] == "inconclusive":
+    _controlled, _why = same_test_on_both_revisions(exp)
+    out["controlled_comparison"] = _controlled
+    if not _controlled:
+        out["controlled_comparison_detail"] = _why
+    if out["verdict"] == "inconclusive" or \
+            out["verdict"] == "inconclusive_not_a_controlled_comparison":
         reasons = {lbl: ((out["revisions"].get(lbl) or {}).get("run_failure_reason")
                          or out["revisions"].get(lbl, {}).get("status"))
                    for lbl in ("vulnerable", "fixed")}
@@ -891,6 +896,36 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
 
 def EXPERIMENTS_PATH(fid: str, label: str) -> Path:
     return ex.EXPERIMENTS / fid.replace("/", "__") / label
+
+
+def same_test_on_both_revisions(exp: dict) -> tuple[bool, str]:
+    """Is this a controlled comparison, i.e. did both revisions run the SAME test?
+
+    `l6_verified_patch` means "the violation is observed on one revision and
+    blocked on the other". That claim is only meaningful if the two runs differ
+    in the code under test and in nothing else. If the two revisions run
+    different test files, or the same file but different test functions, any
+    difference in outcome could be a property of the test rather than of the
+    protocol, and the verdict must not be an effectiveness claim.
+
+    Returns (ok, explanation).
+    """
+    v = exp.get("revisions", {}).get("vulnerable", {}) or {}
+    f = exp.get("revisions", {}).get("fixed", {}) or {}
+    vp, fp = v.get("match_path"), f.get("match_path")
+    vt, ft = v.get("match_test"), f.get("match_test")
+    if not vp and not fp:
+        return True, ""
+    if vp != fp:
+        return False, (f"not a controlled comparison: the vulnerable revision ran "
+                       f"{vp or '<no match-path>'} and the fixed revision ran "
+                       f"{fp or '<no match-path>'}. Different tests were executed on the "
+                       f"two sides, so an outcome difference cannot be attributed to the "
+                       f"protocol change.")
+    if vt != ft:
+        return False, (f"not a controlled comparison: both sides ran {vp} but selected "
+                       f"different test functions ({vt} vs {ft}).")
+    return True, ""
 
 
 def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
@@ -911,6 +946,12 @@ def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
     if v in (None, "not_run", "timeout", "toolchain_failure", "compile_error") or \
        f in (None, "not_run", "timeout", "toolchain_failure", "compile_error"):
         return "inconclusive"
+    # An effectiveness claim requires a controlled comparison. This is checked
+    # before polarity so a run of two different tests can never be reported as
+    # a verified patch, however clean both outcomes look.
+    controlled, why = same_test_on_both_revisions(exp)
+    if not controlled:
+        return "inconclusive_not_a_controlled_comparison"
     # property polarity: fail on vulnerable, pass on fixed
     if expv == "fail" and expf == "pass":
         if v == "fail" and f == "pass":

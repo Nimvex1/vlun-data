@@ -1,9 +1,9 @@
 {
   "by_fix_effectiveness": {
-    "effective": 5,
-    "not_testable": 33
+    "effective": 4,
+    "not_testable": 34
   },
-  "experimentally_confirmed_pairs": 5,
+  "experimentally_confirmed_pairs": 4,
   "fix_category_vocabulary": [
     "authorization",
     "input_validation",
@@ -28,7 +28,6 @@
   "records": [
     {
       "diff_withheld_for_licence": true,
-      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
       "finding_id": "2024-01-renft/H-01",
       "fix_category": {
         "category": "parameter_correction",
@@ -43,7 +42,7 @@
           "upgradeability": 5
         }
       },
-      "fix_effectiveness": "effective",
+      "fix_effectiveness": "not_testable",
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
@@ -256,8 +255,10 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
-      "regression_test": "test_VlunMaliciousSeaportTip",
+      "reason": {
+        "fixed": "pass",
+        "vulnerable": "fail"
+      },
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "high",

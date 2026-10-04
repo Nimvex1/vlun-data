@@ -3,9 +3,16 @@
     {
       "blocked_behaviour": "the protocol rejects a consideration item whose token cannot complete the transfer, so the order never becomes unstoppable",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": false,
+      "controlled_comparison_detail": "not a controlled comparison: the vulnerable revision ran test/vlun_poc/VlunMaliciousSeaportTip.t.sol and the fixed revision ran test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol. Different tests were executed on the two sides, so an outcome difference cannot be attributed to the protocol change.",
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "a fulfiller adds a token that reverts on transferFrom after the first pull; reNFT's stop-rent path depends on that transfer succeeding, so the order can never be stopped and the renter keeps paying",
       "finding_id": "2024-01-renft/H-01",
+      "inconclusive_detail": {},
+      "inconclusive_reason": {
+        "fixed": "pass",
+        "vulnerable": "fail"
+      },
       "match_test": "test_VlunMaliciousSeaportTip",
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
@@ -52,11 +59,12 @@
         }
       },
       "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
-      "verdict": "l6_verified_patch"
+      "verdict": "inconclusive_not_a_controlled_comparison"
     },
     {
       "blocked_behaviour": "the guard refuses to act when the approval was not granted under the guard's own check",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "the attacker approves the conduit on the renter's behalf during a benign rent, then performs the guarded action later without the guard seeing it",
       "finding_id": "2024-01-renft/H-06",
@@ -109,6 +117,7 @@
     {
       "blocked_behaviour": "the type hash is computed with abi.encodePacked, which matches the canonical EIP-712 encoding byte for byte",
       "classification": "already_runnable",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "Signer.sol hashed the order type string with abi.encode, which appends a 32-byte word per argument, so the computed domain separator differed from the EIP-712 encoding and signatures verified against a different digest",
       "finding_id": "2024-01-renft/M-11",
@@ -189,6 +198,7 @@
     {
       "blocked_behaviour": "the guard permits a plain call that moves the safe's ETH balance",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "GuardCheckTransaction rejected every native transfer out of the rental safe, including the owner's own withdrawal of rental proceeds",
       "finding_id": "2024-01-renft/M-09",
@@ -242,6 +252,7 @@
     {
       "blocked_behaviour": "the guard compares the action against the recorded rented amount rather than the post-withdrawal balance",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "a malicious lender withdrew more ERC-1155 than was rented, so the guard refused every subsequent burn and the borrower's balance was frozen",
       "finding_id": "2024-01-renft/M-01",
@@ -300,6 +311,7 @@
     {
       "blocked_behaviour": "the guard rejects an unguarded destructive call against the safe",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "burn() or a transfer to a dead address removed the asset from the safe while the rental was active",
       "finding_id": "2024-01-renft/M-08",
@@ -353,6 +365,7 @@
     {
       "blocked_behaviour": "the escrow enforces its balance invariant against the settled state, so the intermediate transfer cannot inflate the withdrawable amount",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "an intermediary transferred on rent, so the escrow's invariant checks were evaluated against a temporary balance that the account could then withdraw, draining the escrow",
       "finding_id": "2024-01-renft/H-03",
@@ -406,6 +419,7 @@
     {
       "blocked_behaviour": "the safe's fallback handler refuses token callbacks it does not recognise",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "a malicious borrower called the safe with a permit-style token call, so the rental settled into an attacker-chosen recipient",
       "finding_id": "2024-01-renft/M-02",
@@ -460,6 +474,7 @@
     {
       "blocked_behaviour": "the constant matches the deployed module layout, so the disabled module is the guard itself",
       "classification": "runnable_after_harness_reconstruction",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "DISABLE_MODULE_OFFSET pointed at the wrong byte, so the signed transaction disabled a different module and the guard stayed active while the renter believed it was disabled",
       "finding_id": "2024-01-renft/H-04",
@@ -516,7 +531,8 @@
     "experiments": 9,
     "fixed_pass": 9,
     "inconclusive": 4,
-    "l6_verified_patch": 5,
+    "inconclusive_not_a_controlled_comparison": 1,
+    "l6_verified_patch": 4,
     "vulnerable_compile_error": 4,
     "vulnerable_fail": 5
   }

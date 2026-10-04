@@ -1,10 +1,10 @@
 {
   "by_status": {
-    "effective": 5,
-    "not_testable": 33
+    "effective": 4,
+    "not_testable": 34
   },
-  "evaluated": 5,
-  "fix_confirmed_effective": 5,
+  "evaluated": 4,
+  "fix_confirmed_effective": 4,
   "generated_by": "scripts/verify_patches.py (v2 compatibility view)",
   "patch_records": 38,
   "records": [
@@ -12,9 +12,12 @@
       "finding_id": "2024-01-renft/H-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
-        "regression_test_passed": true,
-        "status": "effective",
+        "reason": {
+          "fixed": "pass",
+          "vulnerable": "fail"
+        },
+        "regression_test_passed": false,
+        "status": "not_testable",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",

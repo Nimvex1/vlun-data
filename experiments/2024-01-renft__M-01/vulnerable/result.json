@@ -10,7 +10,7 @@
   "declared_expected_status": "fail",
   "decoded_logs": [],
   "detail": "ions__ERC1155.t.sol:31:9:\n   |\n31 |         erc1155s[0].mint(address(alice.safe), 5, 10);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 3 arguments given but expected 2.\n  --> test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:66:9:\n   |\n66 |         erc1155s[0].mint(address(alice.addr), 5, 10);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (9582): Member \"GuardPolicy_UnauthorizedAssetAmount\" not found or not visible after argument-dependent lookup in type(library Errors).\n   --> test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:135:17:\n    |\n135 |                 Errors.GuardPolicy_UnauthorizedAssetAmount.selector,\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
-  "duration_s": 2.71,
+  "duration_s": 1.31,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",

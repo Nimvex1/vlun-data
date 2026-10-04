@@ -353,9 +353,16 @@ def main() -> int:
         "experiments_attempted": len(ex),
         "experiments_reproduced": ex_verdicts.get("l6_verified_patch", 0)
                                   + ex_verdicts.get("reproduced_but_not_blocked", 0),
-        "experiments_inconclusive": ex_verdicts.get("inconclusive", 0),
-        "experiments_failed": len(ex) - ex_verdicts.get("l6_verified_patch", 0)
-                               - ex_verdicts.get("inconclusive", 0),
+        "experiments_inconclusive": ex_verdicts.get("inconclusive", 0)
+                                    + ex_verdicts.get(
+                                        "inconclusive_not_a_controlled_comparison", 0),
+        "experiments_not_a_controlled_comparison": ex_verdicts.get(
+            "inconclusive_not_a_controlled_comparison", 0),
+        "experiments_failed": sum(
+            n for v, n in ex_verdicts.items()
+            if v not in ("l6_verified_patch", "reproduced_but_not_blocked",
+                         "inconclusive",
+                         "inconclusive_not_a_controlled_comparison")),
         "patches_verified": patches.get("experimentally_confirmed_pairs"),
         "patches_not_testable": (patches.get("by_fix_effectiveness") or {}).get("not_testable"),
         "negative_cases_verified": negs.get("experimentally_verified"),
