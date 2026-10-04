@@ -1,0 +1,10 @@
+{
+  "shared_external_targets_cross_split": 0,
+  "external_repos_spanning_splits": 1,
+  "external_citations_by_field": {
+    "code_context_expanded": 313,
+    "code_reference_only": 498
+  },
+  "external_citations_surviving_into_splits_v2": 0,
+  "note": "check_leakage.py audits splits/*.jsonl, a thin projection without code_reference_only / code_context_expanded, so third-party dependency leakage is structurally invisible to it."
+}

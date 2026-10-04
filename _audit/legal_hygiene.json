@@ -1,0 +1,27 @@
+{
+  "license_file_present": true,
+  "records_with_solidity_snippet_text": 400,
+  "records_carrying_poc_source": 346,
+  "self_declared_redistributed_records": 424,
+  "redistribution_flag_distribution": {
+    "source_redistributed_without_declared_license": 424,
+    "None": 298
+  },
+  "blob_urls_total": 4083,
+  "blob_urls_branch_pinned": 923,
+  "citations_resolved_by_resolver": 473,
+  "resolution_methods": {
+    "blob_identity_first_commit": 464,
+    "date_anchored_blob_identity": 4,
+    "submodule_pointer_at_audit_snapshot": 5
+  },
+  "resolved_sha_malformed": 0,
+  "poc_spdx": {
+    "(no SPDX header)": 329,
+    "Apache-2.0": 3,
+    "BUSL-1.1": 4,
+    "UNLICENSED": 3,
+    "MIT": 3,
+    "Unlicense": 4
+  }
+}

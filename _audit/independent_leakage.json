@@ -1,0 +1,194 @@
+{
+  "audited_splits": "splits_v2",
+  "detectors": {
+    "1_taxonomy_class_overlap": {
+      "classes_in_multiple_splits": 62,
+      "train_test_class_jaccard": 0.625,
+      "train_val_class_jaccard": 0.647,
+      "train_only_classes": [
+        "cross-chain / bridge/accounting mismatch",
+        "logic error/missing state update"
+      ],
+      "test_classes_never_in_train": [
+        "access control/arbitrary call",
+        "access control/arbitrary recipient",
+        "access control/privilege escalation",
+        "cross-chain / bridge/replay",
+        "denial of service/temporary dos",
+        "reentrancy / external calls/callback abuse",
+        "signatures / cryptography/replay"
+      ],
+      "top_shared_classes": [
+        [
+          "defi/bad debt",
+          3
+        ],
+        [
+          "defi/flash-loan interaction",
+          3
+        ],
+        [
+          "defi/leverage",
+          3
+        ],
+        [
+          "defi/oracle manipulation",
+          3
+        ],
+        [
+          "accounting / financial logic/share inflation",
+          3
+        ],
+        [
+          "denial of service/gas exhaustion",
+          3
+        ],
+        [
+          "cross-contract / protocol architecture/incompatible assumptions",
+          3
+        ],
+        [
+          "defi/rewards/points accounting",
+          3
+        ],
+        [
+          "denial of service/blocked withdrawals",
+          3
+        ],
+        [
+          "defi/slippage failure",
+          3
+        ],
+        [
+          "denial of service/permanent dos",
+          3
+        ],
+        [
+          "logic error/wrong variable / branch",
+          3
+        ],
+        [
+          "token / erc standards/approval misuse",
+          3
+        ],
+        [
+          "governance/emergency controls",
+          3
+        ],
+        [
+          "accounting / financial logic/rounding error",
+          3
+        ]
+      ]
+    },
+    "2_third_party_dependency_overlap": {
+      "citation_entries_per_split": {
+        "train": 677,
+        "validation": 175,
+        "test": 43
+      },
+      "external_targets": 0,
+      "external_targets_in_multiple_splits": 0,
+      "examples": {}
+    },
+    "3_submitter_author_overlap": {
+      "distinct_authors": 95,
+      "authors_in_multiple_splits": 18,
+      "examples": {
+        "0xalix2": [
+          "train",
+          "validation"
+        ],
+        "0xpiken": [
+          "test",
+          "validation"
+        ],
+        "alexczm": [
+          "test",
+          "train"
+        ],
+        "benrai": [
+          "test",
+          "train"
+        ],
+        "c4-bot-1": [
+          "train",
+          "validation"
+        ],
+        "c4-bot-10": [
+          "test",
+          "train",
+          "validation"
+        ],
+        "c4-bot-2": [
+          "train",
+          "validation"
+        ],
+        "c4-bot-3": [
+          "train",
+          "validation"
+        ],
+        "c4-bot-4": [
+          "train",
+          "validation"
+        ],
+        "c4-bot-5": [
+          "train",
+          "validation"
+        ],
+        "c4-bot-6": [
+          "test",
+          "train",
+          "validation"
+        ],
+        "c4-bot-7": [
+          "test",
+          "train",
+          "validation"
+        ],
+        "c4-bot-8": [
+          "test",
+          "train",
+          "validation"
+        ],
+        "c4-bot-9": [
+          "test",
+          "train",
+          "validation"
+        ],
+        "iamandreiski": [
+          "train",
+          "validation"
+        ]
+      }
+    },
+    "4_contract_name_collision": {
+      "distinct_contract_names": 208,
+      "contract_names_in_multiple_splits": 2,
+      "train_test_shared": [
+        "ValidationLogic"
+      ],
+      "examples": {
+        "Pool": [
+          "train",
+          "validation"
+        ],
+        "ValidationLogic": [
+          "test",
+          "train"
+        ]
+      }
+    },
+    "5_function_name_collision": {
+      "distinct_function_names": 204,
+      "function_names_in_multiple_splits": 5,
+      "train_test_shared_count": 3,
+      "train_test_shared_top": [
+        "burn",
+        "executeDeposit",
+        "mint"
+      ]
+    }
+  },
+  "author_detectors_blind_spot": "all ten author detectors are text-identity tests; none compare vulnerability class, dependency target, submitter or contract role"
+}
