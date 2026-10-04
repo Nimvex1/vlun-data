@@ -28,6 +28,12 @@ from vlun import REPORTS, ROOT, WORK, log, write_json  # noqa: E402
 
 PY = sys.executable
 
+# Stages allowed to fail without failing the build. Empty by default: a stage that
+# fails means a downstream artefact is stale or missing, and shipping that as a
+# green build is the failure mode this constant exists to prevent. If a stage ever
+# genuinely cannot fail the build, add it here with a comment saying why.
+TOLERATED_FAILURES: set[str] = set()
+
 STAGES = [
     # (id, needs network, script, args, description)
     (1, True, "fetch_sources.py", ["--checkouts"],
@@ -37,7 +43,11 @@ STAGES = [
     (3, False, "build_hard_negatives.py", [], "structured rejection reasons for the negative corpus"),
     (4, False, "build_counterexamples.py", [],
      "nearby false hypotheses for confirmed High/Medium findings"),
-    (5, True, "resolve_citations.py", [],
+    # Reads the clones stage 1 produced and resolves by local git plumbing
+    # (blob identity, submodule pointer, date-anchored blob). It does NOT touch
+    # the network, so it must run offline whenever the clones are present -
+    # otherwise an offline rebuild silently unpins every citation.
+    (5, False, "resolve_citations.py", [],
      "replace every mutable branch citation with the commit that holds the cited content"),
     (6, True, "run_verified_experiments.py", [],
      "execute the declared exploit experiments against pinned revisions"),
@@ -50,23 +60,26 @@ STAGES = [
      "four-class negative taxonomy with duplicate corroboration"),
     (11, False, "build_reproduction.py", [],
      "PoC class + L-level distribution, reconstruction log, replay manifest"),
-    (12, True, "run_static_analysis.py", [],
+(12, True, "run_static_analysis.py", [],
      "Slither as an independent signal, where the repository builds"),
-    (13, False, "build_counterexamples.py", [],
+    (13, False, "audit_third_party.py", ["--sample", "20"],
+     "measure what third-party source is actually redistributed, and disclose it"),
+    (14, False, "export_run_artefacts.py", [],
+     "commit the executed-PoC run records out of git-ignored work/"),
+    (15, False, "build_counterexamples.py", [],
      "structural refutations and API-sibling guard pairs"),
-    (14, False, "check_leakage.py", ["--emit", "splits_v2"],
+    (16, False, "check_leakage.py", ["--emit", "splits_v2"],
      "leakage detection and a leakage-free re-split"),
-    (15, False, "build_benchmark.py", [], "the ten benchmark task families"),
-    (16, False, "build_subsets.py", [], "high-confidence subsets and task training files"),
-    (17, False, "generate_stats.py", [], "recompute every statistic from the canonical JSONL"),
-    (18, False, "audit_records.py", ["--derive"],
+    (17, False, "build_benchmark.py", [], "the ten benchmark task families"),
+    (18, False, "build_subsets.py", [], "high-confidence subsets and task training files"),
+    (19, False, "generate_stats.py", [], "recompute every statistic from the canonical JSONL"),
+    (20, False, "audit_records.py", ["--derive"],
      "per-record evidence/quality matrix for a curator"),
-    (19, False, "generate_reports.py", [], "extraction errors, benchmark metrics, final report"),
-    (20, False, "generate_v21_reports.py", [],
-     "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports"),
-    (21, False, "generate_readme.py", [],
+    (21, False, "generate_reports.py", [], "extraction errors, benchmark metrics, final report"),
+    (22, False, "generate_v21_reports.py", [], "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports"),
+    (23, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (22, False, "validate.py", [], "the gate"),
+    (24, False, "validate.py", [], "the gate"),
 ]
 
 
@@ -139,11 +152,41 @@ def main() -> int:
     }
     write_json(REPORTS / "build_all.json", summary)
     log(f"\nbuild_all.json: {summary['by_status']}")
+
+    # A stage that failed may have left downstream artefacts stale or absent.
+    # Reporting success here is how a broken build ships as a green pipeline, so
+    # any failure is fatal unless it is explicitly tolerated above.
+    failed = [r for r in results if r["status"] == "failed"]
+    if failed:
+        tolerated = ({r["script"] for r in failed if r["script"] in TOLERATED_FAILURES}
+                     if TOLERATED_FAILURES else set())
+        hard = [r for r in failed if r["script"] not in tolerated]
+        if hard:
+            for r in hard:
+                log(f"STAGE FAILED: stage {r['stage']} {r['script']} rc={r.get('rc')}")
+            if tolerated:
+                log(f"  (tolerated: {sorted(tolerated)})")
+            skipped_here = summary["by_status"].get("skipped_no_network", 0)
+            if skipped_here and not args.with_network:
+                log("")
+                log(f"{skipped_here} stage(s) were skipped because --with-network was not")
+                log("given. Those stages provide the clone, execution and citation-resolution")
+                log("inputs the later stages depend on, so an offline run cannot produce a")
+                log("complete or self-consistent dataset. Re-run with:")
+                log("    python scripts/build_all.py --with-network")
+            log("BUILD FAILED")
+            return 1
+
     gate = next((r for r in results if r["script"] == "validate.py"), None)
     if gate and gate["status"] != "ok":
         log("GATE FAILED")
         return 1
-    log("pipeline complete")
+    skipped = summary["by_status"].get("skipped_no_network", 0)
+    if skipped:
+        log(f"pipeline complete, but {skipped} stage(s) were skipped for lack of network")
+        log("  artefacts that depend on them are NOT reproduced by this run")
+    else:
+        log("pipeline complete")
     return 0
 
 

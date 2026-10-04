@@ -35,8 +35,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import generate_stats  # noqa: E402
 from vlun import (  # noqa: E402
-    DATASET_VERSION, DERIVED, EVIDENCE_TYPES, EXEC_FAILURE_REASONS, JSONL, REPORTS, ROOT,
-    SPLITS, WORK, code_entries, load_core, load_splits, log, read_jsonl, rec_id,
+    DATASET_VERSION, DERIVED, EVIDENCE_TYPES, EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL, REPORTS,
+    ROOT, SPLITS, WORK, code_entries, load_core, load_splits, log, read_jsonl, rec_id,
     sha256_text, snippet_entries, write_json,
 )
 
@@ -178,23 +178,47 @@ def main() -> int:
     rep.add("provenance", "blob_permalinks_wellformed", not malformed, malformed,
             critical=False,
             detail="every /blob/ URL in the provenance layer parses as owner/repo/blob/<sha>/path")
-    # `jsonl/` is the read-only original-evidence layer and is never rewritten, so
-    # its mutable `commit_sha` values stay. What matters is that the DERIVED layer
-    # pins them. Cross-reference the resolver so this warning is understood rather
-    # than merely tolerated.
-    _cf = REPORTS / "citation_resolution.json"
-    _cites = json.loads(_cf.read_text(encoding="utf-8")) if _cf.exists() else {}
-    _remaining = _cites.get("remaining_mutable_occurrences")
-    _note = ""
-    if _cites:
-        _note = (f"; scripts/resolve_citations.py re-pins "
-                 f"{_cites.get('occurrences_by_status', {}).get('resolved', 0)} of them in the "
-                 f"derived layer and {_remaining} remain unresolved "
-                 "(reports/citation_resolution.json)")
-    rep.add("provenance", "commit_pins_are_immutable", not mutable, mutable, critical=False,
-            detail=f"{len(mutable)} citations in the read-only jsonl/ layer use a mutable ref "
-                   f"(branch name) instead of a 40-hex commit; they are a reproducibility hazard "
-                   f"in that layer{_note}")
+    # `jsonl/` is the read-only original-evidence layer. It is never rewritten by
+    # design, so the v1 mutable refs it recorded are a permanent, honest property
+    # of that layer and are reported as a counted warning. The DERIVED layer is
+    # the one this pipeline owns and rewrites, so it is checked separately below
+    # and a mutable ref there is CRITICAL.
+    src_mutable_n = len(mutable)
+    rep.add("provenance", "source_layer_commit_pins_counted", True, [], critical=False,
+            detail=(f"{src_mutable_n} citations in the read-only jsonl/ layer still use a "
+                    f"mutable ref (a branch name). That layer is the v1 evidence record and is "
+                    f"never rewritten, so this is a disclosed count, not a defect. The DERIVED "
+                    f"layer is fully pinned - see provenance/derived_commit_pins_are_immutable."))
+
+    # The load-bearing provenance check: does the layer we actually ship have any
+    # citation that resolves to whatever is at HEAD today? Computed from
+    # derived/records.jsonl itself, never from a report about it.
+    derived_mutable, derived_total = [], 0
+    _dpath = DERIVED / "records.jsonl"
+    if _dpath.exists():
+        for r in read_jsonl(_dpath):
+            for key in ("code_context", "code_context_expanded",
+                        "code_reference_only", "vulnerable_code"):
+                for e in (r.get(key) or []):
+                    if not isinstance(e, dict):
+                        continue
+                    derived_total += 1
+                    sha = e.get("commit_sha")
+                    u = e.get("source_url") or ""
+                    m = re.search(r"/blob/([^/]+)/", u)
+                    bad_sha = bool(sha) and not SHA40.match(sha)
+                    bad_url = bool(m) and not SHA40.match(m.group(1))
+                    if bad_sha or bad_url:
+                        derived_mutable.append(
+                            f"{rec_id(r)} {key} {e.get('file')} "
+                            f"commit_sha={sha!r} url_ref={m.group(1) if m else None!r}")
+    rep.add("provenance", "derived_commit_pins_are_immutable", not derived_mutable,
+            derived_mutable, critical=True,
+            detail=(f"{derived_total - len(derived_mutable)}/{derived_total} citations in "
+                    f"derived/records.jsonl are pinned to a 40-hex commit and are therefore "
+                    f"reproducible over time; every one is written by "
+                    f"scripts/resolve_citations.py, which records original_reference, "
+                    f"source_url_original, resolution_method and resolution_confidence inline"))
 
     rng = []
     for fn, rows in core.items():
@@ -313,8 +337,48 @@ def main() -> int:
         for r in read_jsonl(p):
             walk(r, fn, (r.get("finding") or r.get("source_record") or {}).get("id") or r.get("id"))
     rep.add("evidence", "evidence_type_in_closed_vocabulary", not ev_bad, ev_bad)
-    rep.add("evidence", "experimental_claims_have_a_run_artefact", not verified_without_run,
-            verified_without_run)
+
+    # Every `experimentally_verified` claim must be backed by an artefact that is
+    # IN THE REPOSITORY, not by something under git-ignored `work/`. This is what
+    # makes the headline PoC numbers auditable by a third party.
+    committed_runs = {}
+    _idx = REPORTS / "run_artefacts_index.json"
+    if _idx.exists():
+        committed_runs = json.loads(_idx.read_text(encoding="utf-8")).get("records", {})
+
+    def claimed_fids():
+        """Every record id in derived/ that asserts experimentally_verified somewhere."""
+        out = set()
+
+        def scan(node, fid):
+            if isinstance(node, dict):
+                if node.get("evidence_type") == "experimentally_verified":
+                    out.add(fid)
+                for v in node.values():
+                    scan(v, fid)
+            elif isinstance(node, list):
+                for v in node[:200]:
+                    scan(v, fid)
+
+        for fn in ("records.jsonl", "hard_negatives.jsonl", "counterexamples.jsonl"):
+            p = DERIVED / fn
+            if not p.exists():
+                continue
+            for r in read_jsonl(p):
+                fid = ((r.get("finding") or r.get("source_record") or {}).get("id")
+                       or r.get("id") or "")
+                scan(r, fid)
+        return {f for f in out if f}
+
+    claimed = claimed_fids()
+    unbacked = sorted(f for f in claimed if f not in committed_runs)
+    rep.add("evidence", "experimental_claims_have_a_committed_run_artefact", not unbacked,
+            unbacked, critical=True,
+            detail=(f"{len(claimed)} finding(s) in derived/ claim experimentally_verified; "
+                    f"{len(committed_runs)} executed findings have a committed artefact under "
+                    f"experiments/*__poc_run/result.json indexed by "
+                    f"reports/run_artefacts_index.json. work/poc_runs is git-ignored and is "
+                    f"deliberately not accepted as evidence."))
 
     stale = []
     for f in sorted((WORK / "poc_runs").glob("*.json")) if (WORK / "poc_runs").exists() else []:
@@ -551,10 +615,19 @@ def main() -> int:
                            and r["negative_class"] not in negv.get("class_vocabulary", [])})
     rep.add("v2.1", "negative_class_in_closed_vocabulary", not bad_negclass, bad_negclass)
 
-    # 9. no mutable citation is left behind after resolution
-    left = cites.get("remaining_mutable_occurrences")
-    rep.add("v2.1", "no_mutable_branch_citations_remain", left == 0,
-            [] if left == 0 else [f"{left} mutable citations remain"], critical=False)
+    # 9. no mutable citation is left behind after resolution. Computed from the
+    # records, and cross-checked against the resolver's own count so a stale
+    # report cannot certify a stale dataset.
+    _left = derived_mutable
+    _rep_left = cites.get("remaining_mutable_occurrences_after_apply")
+    _agree = (_rep_left is None) or (_rep_left == len(_left))
+    _mismatch = ([] if _agree else
+                 [f"resolver reported {_rep_left} remaining but the records hold {len(_left)}"])
+    rep.add("v2.1", "no_mutable_branch_citations_remain", not _left and not _mismatch,
+            list(_left) + _mismatch, critical=True,
+            detail=("counted from derived/records.jsonl, not read from "
+                    "reports/citation_resolution.json; the resolver's self-reported count is "
+                    "compared against it so the two cannot silently disagree"))
 
     # 10. the subsets obey their own admission rules
     subset_bad = []
