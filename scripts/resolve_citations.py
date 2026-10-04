@@ -49,7 +49,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, REPORTS, ROOT, WORK, log, read_jsonl, write_json,
+    DERIVED, REPORTS, ROOT, WORK, log, read_jsonl, write_json, write_jsonl,
 )
 
 BLOB_URL = re.compile(
@@ -656,10 +656,76 @@ def collect(records: list[dict]):
     return seen, occurrences
 
 
+def apply_resolutions(records: list[dict], resolutions: dict,
+                      per_citation: list[dict], min_confidence: str) -> dict:
+    """Write the resolved commit back into the records.
+
+    This is the step that makes the claim "no mutable branch citation remains"
+    true of the data rather than only of this script's own report. Every mutated
+    citation keeps its provenance: the original ref and URL are preserved and the
+    resolution method/confidence is recorded inline, so the edit is auditable and
+    reversible. `jsonl/` is never touched.
+    """
+    rank = {"high": 3, "medium": 2, "low": 1, "unknown": 0, None: 0}
+    floor = rank.get(min_confidence, 2)
+
+    stats = {"citations_seen": 0, "citations_pinned": 0, "citations_skipped_low_confidence": 0,
+             "citations_unresolved": 0, "records_touched": 0, "urls_rewritten": 0}
+    for rec in records:
+        touched = False
+        for key in REF_KEYS:
+            for c in rec.get(key) or []:
+                if not isinstance(c, dict):
+                    continue
+                sha = c.get("commit_sha")
+                if sha and SHA40.match(sha):
+                    continue                      # already immutable
+                url = c.get("source_url") or ""
+                m = BLOB_URL.match(url)
+                if not m:
+                    stats["citations_unresolved"] += 1
+                    continue
+                repo, ref, path = m.group(1), m.group(2), m.group(3)
+                stats["citations_seen"] += 1
+                res = resolutions.get((repo, path)) or {}
+                new = res.get("resolved_commit")
+                if res.get("commit_resolution_status") != "resolved" or not new \
+                        or not SHA40.match(new):
+                    stats["citations_unresolved"] += 1
+                    continue
+                if rank.get(res.get("resolution_confidence"), 0) < floor:
+                    stats["citations_skipped_low_confidence"] += 1
+                    continue
+                c["commit_sha"] = new
+                c["source_url"] = re.sub(
+                    r"^(https://github\.com/" + re.escape(repo) + r"/blob/)[^/]+/",
+                    lambda mo: mo.group(1) + new + "/", url)
+                if c["source_url"] != url:
+                    stats["urls_rewritten"] += 1
+                c["original_reference"] = ref
+                c["source_url_original"] = url
+                c["commit_resolution_status"] = res.get("commit_resolution_status")
+                c["resolution_method"] = res.get("resolution_method")
+                c["resolution_confidence"] = res.get("resolution_confidence")
+                c["commit_pinned_by"] = "scripts/resolve_citations.py"
+                stats["citations_pinned"] += 1
+                touched = True
+        if touched:
+            stats["records_touched"] += 1
+    return stats
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--records", default=str(DERIVED / "records.jsonl"))
     ap.add_argument("--out", default=str(REPORTS / "citation_resolution.json"))
+    ap.add_argument("--apply", dest="apply", action="store_true", default=True,
+                    help="write the resolved commit back into --records (default)")
+    ap.add_argument("--no-apply", dest="apply", action="store_false",
+                    help="only emit the report; leave the records untouched")
+    ap.add_argument("--min-confidence", default="medium",
+                    choices=["high", "medium", "low", "unknown"],
+                    help="lowest resolution confidence that may be written back")
     args = ap.parse_args()
 
     records = read_jsonl(Path(args.records))
@@ -748,6 +814,45 @@ def main() -> int:
     log(f"wrote {args.out}")
     log(f"  status: {dict(status)}")
     log(f"  confidence: {dict(conf)}")
+
+    # ------------------------------------------------------------------ apply
+    # The report above proposes the fix. Without this step the dataset itself is
+    # left holding branch names while the report claims they were resolved, so the
+    # numbers below are measured on the records AFTER the write-back.
+    applied: dict = {}
+    if args.apply:
+        applied = apply_resolutions(records, resolutions, per_citation,
+                                    args.min_confidence)
+        write_jsonl(Path(args.records), records)
+        log(f"applied resolutions to {args.records} "
+            f"(min-confidence={args.min_confidence})")
+        log(f"  {applied}")
+
+    # Recount from the written file rather than trusting either the resolver or
+    # the in-memory copy. This is the number the README and the gate must quote.
+    still_mutable = 0
+    still_by_file: dict[str, int] = defaultdict(int)
+    for rec in read_jsonl(Path(args.records)):
+        for key in REF_KEYS:
+            for c in rec.get(key) or []:
+                if not isinstance(c, dict):
+                    continue
+                sha = c.get("commit_sha") or ""
+                m = BLOB_URL.match(c.get("source_url") or "")
+                if (sha and not SHA40.match(sha)) or (m and not SHA40.match(m.group(2))):
+                    still_mutable += 1
+                    still_by_file[key] += 1
+    doc["applied"] = {
+        "applied_to_records": bool(args.apply),
+        "min_confidence": args.min_confidence,
+        **applied,
+    }
+    doc["remaining_mutable_occurrences_after_apply"] = still_mutable
+    doc["remaining_mutable_by_context_key"] = dict(still_by_file)
+    doc["remaining_mutable_in_source_layer"] = None   # filled by validate.py
+    write_json(Path(args.out), doc)
+    log(f"  mutable citations still present in {args.records}: {still_mutable} "
+        f"{dict(still_by_file)}")
     return 0
 
 

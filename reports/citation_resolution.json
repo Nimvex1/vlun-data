@@ -1,4 +1,14 @@
 {
+  "applied": {
+    "applied_to_records": true,
+    "citations_pinned": 473,
+    "citations_seen": 473,
+    "citations_skipped_low_confidence": 0,
+    "citations_unresolved": 0,
+    "min_confidence": "medium",
+    "records_touched": 173,
+    "urls_rewritten": 473
+  },
   "by_confidence": {
     "high": 81,
     "medium": 17
@@ -7116,7 +7126,10 @@
     "resolved": 473
   },
   "policy": "A mutable citation is only replaced when a mechanical content or date identity test succeeded. No SHA is invented; unresolved citations stay mutable and are counted.",
+  "remaining_mutable_by_context_key": {},
+  "remaining_mutable_in_source_layer": null,
   "remaining_mutable_occurrences": 0,
+  "remaining_mutable_occurrences_after_apply": 0,
   "targets": [
     {
       "affected_records": [

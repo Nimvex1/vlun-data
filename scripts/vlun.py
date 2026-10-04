@@ -24,6 +24,7 @@ DERIVED = ROOT / "derived"
 REPORTS = ROOT / "reports"
 WORK = ROOT / "work"
 BENCH = ROOT / "benchmark"
+EXPERIMENTS = ROOT / "experiments"
 SPLITS_DIR = ROOT / "splits"
 SPLITS_V2 = ROOT / "splits_v2"
 
