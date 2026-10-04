@@ -1,0 +1,27 @@
+# VLUN pipeline dependencies.
+#
+# The pipeline is standard-library-only for its core. Nothing below is required to
+# read, validate or use the dataset; `scripts/validate.py` and the JSONL layers
+# need no third-party package at all.
+#
+#     pip install -r requirements.txt          # everything optional
+#     pip install -r requirements.txt --extra optional-deps   # see extras
+
+# --- core (no third-party imports; listed for completeness) ---
+# json, hashlib, re, subprocess, collections, dataclasses, pathlib, statistics
+
+# --- static analysis, stage 12 only -------------------------------------------
+# `run_static_analysis.py` degrades gracefully and records
+# `status: unavailable` when slither is absent, so this is optional. Without it,
+# the repository simply has no static-analysis signal (see README limitations).
+slither-analyzer>=0.10.0 ; extra == "static-analysis"
+
+# --- toolchain the experiments need, not installable via pip ------------------
+# git      >= 2.30   (clone + object identity for citation resolution)
+# forge    >= 0.2.0  (Foundry; runs the Solidity PoCs and the pinpoint experiments)
+# node     >= 18     (repositories that build with hardhat)
+# npm      >= 9
+# Optional and archive-only:
+#   VLUN_RPC_URL   an Ethereum **archive** endpoint. 140 of 155 PoCs and the
+#                  fork-based proofs are blocked without it. Public endpoints are
+#                  rate-limited and are not a substitute for a funded key.

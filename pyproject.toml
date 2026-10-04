@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlun-data"
+version = "2.1.0"
+description = "Provenance-preserving smart-contract security reasoning dataset built from Code4rena audits"
+readme = "README.md"
+requires-python = ">=3.10"
+license-files = ["LICENSE"]
+# The pipeline core is standard-library only, on purpose: a dataset that a
+# reviewer cannot validate without a dependency resolver is a dataset nobody
+# validates. Everything below is optional and declared, never assumed.
+dependencies = []
+
+[project.optional-dependencies]
+static-analysis = ["slither-analyzer>=0.10.0"]
+
+[project.urls]
+Repository = "https://github.com/Nimvex1/vlun-data"
+Upstream = "https://code4rena.com"
+
+[tool.setuptools]
+# Ship the pipeline, not the corpus: the corpus is data, consumed from the
+# repository, not imported.
+packages = ["scripts"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -1,0 +1,74 @@
+{
+  "blocks_release_if_nonzero": true,
+  "citation_entries_by_field": {
+    "code_context": 895,
+    "code_context_expanded": 469,
+    "code_reference_only": 670
+  },
+  "citation_entries_over_200_chars": 696,
+  "external_citation_total": 811,
+  "external_repositories_cited": {
+    "FraxFinance/fraxlend": 6,
+    "LayerZero-Labs/LayerZero": 5,
+    "LayerZero-Labs/solidity-examples": 11,
+    "OpenZeppelin/openzeppelin-contracts": 21,
+    "ProjectOpenSea/seaport-core": 2,
+    "ProjectOpenSea/seaport-types": 3,
+    "Synthetixio/synthetix-v3": 15,
+    "Uniswap/swap-router-contracts": 2,
+    "Uniswap/v2-core": 4,
+    "Uniswap/v2-periphery": 4,
+    "Uniswap/v3-core": 2,
+    "Uniswap/v3-periphery": 15,
+    "aave/aave-v3-core": 6,
+    "aerodrome-finance/contracts": 4,
+    "balancer/balancer-v2-monorepo": 2,
+    "code-423n4/2024-01-curves": 11,
+    "code-423n4/2024-04-dyad": 2,
+    "code-423n4/2024-04-renzo": 5,
+    "compound-finance/comet": 2,
+    "convex-eth/platform": 7,
+    "convex-eth/sidechain-platform": 5,
+    "decentxyz/decent-bridge": 108,
+    "georgiIvanov/noya-audit": 4,
+    "morpho-org/morpho-blue": 2,
+    "morpho-org/morpho-blue-bundlers": 2,
+    "pendle-finance/pendle-core-v2-public": 3,
+    "prisma-fi/prisma-contracts": 7,
+    "re-nft/seaport-core": 9,
+    "re-nft/smart-contracts": 502,
+    "safe-global/safe-contracts": 25,
+    "silo-finance/silo-core-v1": 6,
+    "stargate-protocol/stargate": 9
+  },
+  "generated_by": "scripts/audit_third_party.py",
+  "legal_status": "This dataset redistributes source from repositories that declare no licence. Downstream redistribution is the recipient's decision; see LICENSE part 3. No upstream permission has been obtained.",
+  "license_classification": {
+    "redistributable": 1,
+    "source_available_but_not_redistributable": 225,
+    "unknown": 496
+  },
+  "measurement_note": "Counts are re-derived from the text of the citations, not read from the dataset's own license_classification field. The classifier's view is reported alongside so the two can be compared.",
+  "records": 722,
+  "records_containing_solidity_source_text": 390,
+  "records_declaring_no_licence": 496,
+  "records_self_declared_redistributed_unlicensed_source": 424,
+  "records_with_solidity_source_by_repo": {
+    "source_redistributed_without_declared_license": {
+      "2022-05-alchemix": 50,
+      "2024-01-decent": 62,
+      "2024-04-noya": 247,
+      "2025-06-panoptic": 4,
+      "2025-08-gte-perps": 18
+    },
+    "unset": {
+      "2024-01-decent": 2,
+      "2024-04-noya": 7
+    }
+  },
+  "redistribution_flag": {
+    "source_redistributed_without_declared_license": 424,
+    "unset": 298
+  },
+  "samples": []
+}

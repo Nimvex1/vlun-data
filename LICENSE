@@ -1,0 +1,113 @@
+VLUN — smart-contract security reasoning dataset
+Copyright (c) 2026 the VLUN authors.
+
+This repository is licensed under a split licence. Read all three parts: they
+do not cover the same material.
+
+================================================================================
+1. THE DATA  —  CC BY 4.0
+================================================================================
+
+Everything under these paths is licensed under the Creative Commons
+Attribution 4.0 International licence (CC BY 4.0):
+
+    jsonl/            derived/          splits/           splits_v2/
+    benchmark/        datasets/         training/         reports/
+    experiments/      (the run records and harness code, see part 3)
+
+    https://creativecommons.org/licenses/by/4.0/
+
+You are free to share and adapt this material, including commercially, provided
+you give appropriate credit, link to the licence, and indicate whether changes
+were made.
+
+SPDX-License-Identifier: CC-BY-4.0
+
+================================================================================
+2. THE PIPELINE  —  MIT
+================================================================================
+
+Everything under `scripts/` is licensed under the MIT licence.
+
+    MIT License
+
+    Copyright (c) 2026 the VLUN authors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+SPDX-License-Identifier: MIT
+
+================================================================================
+3. THIRD-PARTY SOURCE  —  NOT LICENSED HERE.  READ THIS BEFORE REDISTRIBUTING.
+================================================================================
+
+**This licence does not grant you any right to the source code of the audited
+protocols, and it cannot.**
+
+The dataset quotes Solidity source from eight public Code4rena audits. Those
+repositories are licensed by their authors, not by us. Most declare **no
+licence at all**; several are BUSL-1.1 or carry the Commons Clause. Quotation for
+research and citation is a different question from redistribution, and that
+question is the downstream user's to answer — we cannot answer it for you and we
+have not obtained permission from those authors.
+
+Concretely, as measured by `scripts/audit_third_party.py` and recorded per record
+in `derived/records.jsonl`:
+
+  * records whose `redistribution.flag` is
+    `source_redistributed_without_declared_license` contain verbatim source text
+    quoted from a repository that declares no licence. **If you intend to
+    redistribute this dataset, or to train a model on it and ship the model or
+    its outputs, you must decide for yourself whether that use is lawful in your
+    jurisdiction. We make no representation that it is.**
+  * records whose `redistribution.flag` is `withheld` contain **no** source text.
+    The citation survives: path, commit, line range, URL and sha256.
+    `scripts/fetch_sources.py` retrieves the file locally so its structure can be
+    analysed without copying it out of the repository.
+  * PoC code in `jsonl/exploits.jsonl` belongs to the Code4rena submission
+    authors. It is redistributed as quoted evidence, with its original SPDX
+    identifier preserved where the author supplied one, and with **no** licence
+    applied by us. `attribution` in `NOTICE.md` names the authors.
+  * Harness code the VLUN authors wrote for `experiments/` is the authors' own
+    work and carries `SPDX-License-Identifier: BUSL-1.1`, which is a
+    source-available licence, **not** an OSI open-source licence and **not**
+    covered by the MIT grant in part 2. It converts to MIT after the Change Date
+    defined in BUSL-1.1; until then, treat it as BUSL-1.1.
+
+What we have done, and what we have not:
+
+  DONE    every quoted citation is pinned to an exact commit and carries a sha256,
+          so any recipient can identify precisely which bytes were quoted;
+  DONE    every record states, in `license_classification` and `redistribution`,
+          what the upstream repository declared and whether text was included;
+  DONE    some citations were withheld entirely rather than quoted;
+  NOT DONE  we have not obtained redistribution permission from the upstream
+          protocol authors, and we cannot.
+
+If you need a clean dataset for redistribution or commercial training, use the
+withheld records, or use `scripts/fetch_sources.py` to pull sources yourself
+under your own compliance process.
+
+================================================================================
+4. ATTRIBUTION
+================================================================================
+
+Findings, verdicts and PoC code belong to their original authors: Code4rena and
+the competitive-audit participants. See NOTICE.md. The CC BY 4.0 attribution
+requirement in part 1 runs in addition to, not instead of, that attribution.
