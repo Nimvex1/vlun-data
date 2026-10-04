@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generate README.md from the reports, so no number in it can drift.
 
 The v1 README carried hand-written counts (18 error records when there were 19,
@@ -193,6 +193,29 @@ def render() -> str:
     pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     negs = jread(REPORTS / "negative_verification_stats.json", {}) or {}
     cites = jread(REPORTS / "citation_resolution.json", {}) or {}
+    # Counted from the data, not from the resolver's own report: the report is a
+    # claim ABOUT the dataset and must never be the source of a README figure.
+    derived_pin = jread(REPORTS / "third_party_audit.json", {}) or {}
+    third_party = derived_pin
+    _vpath = DERIVED / "records.jsonl"
+    _derived_total = _derived_mutable = 0
+    if _vpath.exists():
+        import re as _re
+        _blob = _re.compile(r"/blob/([^/]+)/")
+        for _r in read_jsonl(_vpath):
+            for _k in ("code_context", "code_context_expanded",
+                       "code_reference_only", "vulnerable_code"):
+                for _e in (_r.get(_k) or []):
+                    if not isinstance(_e, dict):
+                        continue
+                    _derived_total += 1
+                    _sha = _e.get("commit_sha") or ""
+                    _m = _blob.search(_e.get("source_url") or "")
+                    if (_sha and not _re.match(r"^[0-9a-f]{40}$", _sha)) or \
+                       (_m and not _re.match(r"^[0-9a-f]{40}$", _m.group(1))):
+                        _derived_mutable += 1
+    source_layer_mutable = (derived_pin.get("source_layer_mutable_citations")
+                            or cites.get("mutable_occurrences"))
     static = jread(REPORTS / "static_analysis.json", {}) or {}
     benchq = jread(REPORTS / "benchmark_quality.json", {}) or {}
     V2_BEFORE_REPRO = 5
@@ -225,9 +248,13 @@ subject is experimental evidence:
   and a level above L2 is only reachable by an actual run artefact;
 * **pinpoint exploit experiments** run the same test against the audited revision and against the
   fixing revision, so a patch is called *effective* only when the violation is observed on one and
-  blocked on the other;
-* **every mutable branch citation is resolved** to the commit that provably contains the cited
-  content, by content identity, submodule pointer or date-anchored blob identity;
+  blocked on the other — and only when both runs really executed that same test. An experiment whose
+  two sides ran *different* tests is recorded as
+  `inconclusive_not_a_controlled_comparison`, never as an effectiveness result;
+* **every mutable branch citation in the shipped derived layer is resolved** and written back into
+  `derived/records.jsonl`, by content identity, submodule pointer or date-anchored blob identity.
+  {n(_derived_mutable)} of {n(_derived_total)} citations remain mutable. The read-only `jsonl/`
+  evidence layer still carries {n(source_layer_mutable)} of them and is never rewritten;
 * **hard negatives are re-classified** into verified / attributed / corroborated-duplicate /
   unknown, and a corroborated duplicate is explicitly *not* a false positive;
 * **API-sibling counterexample pairs**, **Slither cross-checks**, **ten benchmark families**
@@ -246,7 +273,7 @@ jsonl/            the ORIGINAL v1 evidence layer. Never rewritten by this pipeli
 ├── metadata.jsonl             {n(rc.get('metadata', 0))} records
 └── errors.jsonl               {n(rc.get('errors', 0))} records
 
-derived/         enriched records, deterministic and reproducible
+derived/         enriched records, deterministic given the same inputs
 ├── records.jsonl              {n(dm.get('records', 0))} records with evidence, attacker model,
 │                              state transition, expanded context, taxonomy, quality
 ├── hard_negatives.jsonl       {n(hn.get('total', 0))} structured rejections
@@ -293,8 +320,8 @@ the builder derived from what was experimentally verified.
 | Pinpoint exploit experiments executed | 0 | {n(len(exp.get('experiments', [])))} |
 | Vulnerabilities with an observed violation at the audited commit | {n(V2_BEFORE_REPRO)} | {n(exp_verdicts.get('l6_verified_patch', 0) + exp_verdicts.get('reproduced_but_not_blocked', 0))} |
 | Patches verified effective (reproduced on vulnerable, blocked on fixed) | 0 | **{n(pv.get('experimentally_confirmed_pairs'))}** |
-| Mutable branch citations | 453 | **{cites.get('remaining_mutable_occurrences')}** |
-| Negatives with a defensible reason | 15 | **{n(negs.get('total', 0) - (negs.get('by_class', {}) or {}).get('unknown', 0))}** |
+| Mutable branch citations in the shipped derived layer | {n(source_layer_mutable)} | **{n(_derived_mutable)}** of {n(_derived_total)} |
+| Negatives with a defensible reason | 15 | **{n(negs.get('total', 0) - (negs.get('by_class', {}) or {}).get('unknown', 0))}** — of which **{n((negs.get('by_class', {}) or {}).get('derived_from_code'))}** are derived from code, **{n((negs.get('by_class', {}) or {}).get('attributed'))}** attributed to a named source, and **{n((negs.get('by_class', {}) or {}).get('corroborated_duplicate'))}** are corroborated duplicates (a valid claim filed twice — *not* a rejected one) |
 | Negatives still honestly unknown | 443 | **{n((negs.get('by_class', {}) or {}).get('unknown'))}** |
 | API-sibling counterexample pairs | 0 | {n(ce.get('api_sibling_pairs', 0))} |
 | Repositories with a static-analysis signal | none | {n((static.get('by_status', {}) or {}).get('available', 0))} analysed, {(static.get('by_status', {}) or {}).get('partial', 0) + (static.get('by_status', {}) or {}).get('unavailable', 0)} reported unanalysable |
@@ -368,25 +395,39 @@ quality report. The ones that matter most:
    counterexample** — most findings cite only the vulnerable function, so there is no neighbouring
    function to build a false hypothesis about.
 5. **{dm.get('redistribution_flagged', {}).get('source_redistributed_without_declared_license', 0)}
-   records contain source text whose repository declares no licence.** v1 redistributed it; v2
-   flags it. A downstream redistributor must decide for themselves.
-6. **453 code citations used to pin a branch name** (`main`) instead of a commit, so those line
-   ranges were not reproducible over time. All 473 occurrences are now pinned to an exact commit
-   by content identity, submodule pointer or date-anchored blob identity
-   (`reports/citation_resolution.json`). No SHA was invented: where no identity test succeeded
-   the citation stays mutable and is counted, and the count is
-   {cites.get('remaining_mutable_occurrences')}.
+    records contain source text whose repository declares no licence.** This is disclosed, not
+    resolved: the text is here, it is flagged per record in `redistribution.flag`, and
+    `scripts/audit_third_party.py` re-measures the count from the text itself
+    (`reports/third_party_audit.json`). **A downstream redistributor must decide for themselves
+    whether their use is lawful.** See `LICENSE` part 3.
+6. **{n(source_layer_mutable)} citations in the read-only `jsonl/` layer used a branch name**
+    (`main`) instead of a commit, so those line ranges were not reproducible over time. All
+    {n(cites.get('occurrences_by_status', {}).get('resolved', 0))} of them are now pinned to an exact
+    commit **in the data** by content identity, submodule pointer or date-anchored blob identity.
+    No SHA was invented: where no identity test succeeded the citation stays mutable and is counted,
+    and the count in the shipped derived layer is **{n(_derived_mutable)}**. The `jsonl/` layer is
+    the v1 evidence record and is never rewritten, so its {n(source_layer_mutable)} stay and are
+    reported by the gate as a counted, non-fatal warning.
 7. **No invariant was invented.** `invariants: []` for {s.get('findings', {}).get('total', 264) - dm.get('with_invariant', 0)}
-   of {n(s.get('findings', {}).get('total', 264))} records is the intended outcome.
+    of {n(s.get('findings', {}).get('total', 264))} records is the intended outcome.
 8. **{pv.get('experimentally_confirmed_pairs')} of {pv.get('patch_records', 0)} patches are
    experimentally confirmed effective; {n((pv.get('by_fix_effectiveness') or {}).get('not_testable', 0))} are `not_testable` because no experiment ran both of their revisions
    effective.** A merged PR is not evidence; only running the PoC against both revisions is.
 
-Code that must not be redistributed is **not** in this repository. Where v1 withheld it, the
-citation survives — path, commit, line range, URL, sha256 — and `scripts/fetch_sources.py`
-retrieves it locally so structure can be analysed without copying text out.
+**Some** source that must not be redistributed has been withheld from this repository: for those
+citations the text is absent and the citation survives — path, commit, line range, URL, sha256 — so
+`scripts/fetch_sources.py` retrieves it locally and its structure can be analysed without copying
+text out. **Withholding was partial, not complete.**
+{dm.get('redistribution_flagged', {}).get('source_redistributed_without_declared_license', 0)}
+records still carry verbatim source text from repositories that declare no licence. Each says so in
+`redistribution.flag`, and `LICENSE` part 3 sets out exactly what that does and does not license. No
+permission has been obtained from the upstream protocol authors, and this dataset cannot grant it.
 
 ## Pipeline
+
+The pipeline core is **standard-library only** — see `requirements.txt` and `pyproject.toml`. `git`,
+`forge` and `node` are needed for the experiment stages; `slither` is optional and its absence is
+recorded rather than hidden.
 
 ```bash
 python scripts/build_all.py --with-network   # everything
@@ -405,6 +446,8 @@ python scripts/verify_patches.py              # vulnerable vs fixed, plus the de
 python scripts/classify_negatives.py          # four-class negative taxonomy
 python scripts/build_reproduction.py          # PoC classes, L-levels, replay manifest
 python scripts/run_static_analysis.py         # Slither where the repo builds
+python scripts/audit_third_party.py           # measure + disclose redistributed source
+python scripts/export_run_artefacts.py        # commit executed-PoC run records
 python scripts/build_derived.py               # evidence, attacker model, state transition
 python scripts/build_hard_negatives.py        # structured rejection reasons
 python scripts/build_counterexamples.py
@@ -418,7 +461,19 @@ python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
 Every script is idempotent, takes `--help`, and writes only under `derived/`, `splits_v2/`,
-`benchmark/`, `reports/` or `work/`. `jsonl/` is read-only.
+`benchmark/`, `reports/`, `experiments/` or `work/`. `jsonl/` is read-only.
+
+**`build_all.py` exits non-zero if any stage fails or if the gate fails.** It used to exit 0 with
+two stages failing, which is how a broken build ships as a green pipeline. Stages that cannot run
+for want of network report `skipped_no_network` and the summary says so; a skip is not a pass.
+
+**The pipeline is not self-contained.** Several stages need network access, and the experiment
+stages additionally read clones and retrieved source out of `work/`, which is git-ignored. A fresh
+clone therefore reproduces the JSONL layers, the derived layer and the statistics, but **not** the
+experiment-derived fields: without `work/poc_runs` the `verification` block of a record degrades to
+`unknown` and the benchmark loses its experimentally grounded families. That is stated rather than
+hidden, and `reports/run_artefacts_index.json` commits the verdicts so the counts remain checkable
+without `work/`.
 
 ## Repositories
 
@@ -444,10 +499,36 @@ sha256 recorded). Licence class per repository is in `derived/records.jsonl`
 
 ## Licensing
 
-The dataset redistributes only code whose licence permits it. Where it does not — the audited
-protocols are BUSL-1.1 / Commons Clause or declare no licence at all — the text is absent and the
-citation is retained. `reports/extraction_errors.json` records which is which. Nothing here
-circumvents a licence, and a withheld citation is never "solved" by copying the source in.
+**This dataset does not redistribute only code whose licence permits it.** Stating that plainly is
+the purpose of this section.
+
+* `LICENSE` splits the terms three ways: the data under `jsonl/`, `derived/`, `splits*/`,
+  `benchmark/`, `datasets/`, `training/`, `reports/` is **CC BY 4.0**; the pipeline under
+  `scripts/` is **MIT**; and third-party source is **not licensed here at all**.
+* **{n(third_party.get('records_self_declared_redistributed_unlicensed_source', 0))} of
+  {n(third_party.get('records', 0))} records still carry verbatim Solidity quoted from a repository
+  that declares no licence.** Each is flagged in `redistribution.flag`, and
+  `scripts/audit_third_party.py` re-derives the count from the text itself rather than trusting
+  the dataset's own classifier (`reports/third_party_audit.json`). Quotation for research is a
+  different question from redistribution; that question belongs to you, and this dataset cannot
+  answer it.
+* **{n(third_party.get('records_containing_solidity_source_text', 0))} records contain Solidity
+  source text; {n(third_party.get('citation_entries_over_200_chars', 0))} citation entries exceed
+  200 characters.** Nothing here is paraphrased.
+* Withholding was **partial**. Where a citation was withheld, the text is absent and the citation
+  survives — path, commit, line range, URL, sha256 — so
+  `scripts/fetch_sources.py` retrieves it locally and its structure can be analysed without
+  copying text out.
+* PoC code in `jsonl/exploits.jsonl` belongs to the Code4rena submission authors. It is reproduced
+  as quoted evidence with its original SPDX identifier preserved where the author supplied one, and
+  **no** licence is applied by us.
+* Harness code the authors wrote for `experiments/` is their own work under
+  `SPDX-License-Identifier: BUSL-1.1` — source-available, not open source, and not
+  covered by the MIT grant.
+* **No permission has been obtained from the upstream protocol authors.**
+
+If you need a clean dataset for redistribution or commercial training, use the withheld records, or
+run `scripts/fetch_sources.py` and pull the sources yourself under your own compliance process.
 
 ## Attribution
 

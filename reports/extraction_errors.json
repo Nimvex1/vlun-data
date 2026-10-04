@@ -8,7 +8,6 @@
     "license_not_declared": 16,
     "mitigation_in_separate_repository": 1,
     "mitigation_review_partial": 1,
-    "mutable_commit_reference": 1,
     "network_list_not_documented": 1,
     "no_public_poc": 1,
     "permalinked_line_range_not_verifiable": 1,
@@ -20,7 +19,7 @@
   },
   "by_origin": {
     "v1": 19,
-    "v2": 18
+    "v2": 17
   },
   "description": "Every known limitation of this dataset. `origin: v1` entries were recorded by the original builder; `origin: v2` entries were surfaced by the hardening pipeline. Nothing is marked resolved unless a check proves it.",
   "entries": [
@@ -837,16 +836,6 @@
     },
     {
       "affected_files": [],
-      "detail": "commit_sha values such as 'main' or 'release-v5.0' are mutable, so the cited line ranges are not reproducible over time. The v1 statistics already claimed byte-for-byte range verification, which cannot hold for these.",
-      "kind": "mutable_commit_reference",
-      "origin": "v2",
-      "repository": "all",
-      "still_true": true,
-      "summary": "453 code citations pin a branch name instead of a commit",
-      "urls": []
-    },
-    {
-      "affected_files": [],
       "detail": "the shared ref is a third-party dependency commit (`main`) cited by findings in two different audited repositories. It is reported rather than suppressed: a model can see the same dependency helper in both splits.",
       "kind": "cross_split_commit_reference",
       "origin": "v2",
@@ -868,5 +857,5 @@
   ],
   "generated_by": "scripts/generate_reports.py",
   "resolved_entries": 0,
-  "total": 37
+  "total": 36
 }

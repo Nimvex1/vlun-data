@@ -1,5 +1,5 @@
 {
-  "experimentally_grounded_tasks": 11,
+  "experimentally_grounded_tasks": 10,
   "families": [
     {
       "answer_key_evidence_levels": {
@@ -143,16 +143,16 @@
     },
     {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 4
       },
       "by_split": {
-        "validation": 5
+        "validation": 4
       },
-      "duplicate_rows_dropped": 9,
+      "duplicate_rows_dropped": 7,
       "family": "J_verified_patch",
       "ground_truth_rule": "the same exploit executed against the vulnerable AND the fixed revision",
-      "scorable": 5,
-      "tasks": 5,
+      "scorable": 4,
+      "tasks": 4,
       "unscorable": 0
     }
   ],
@@ -171,8 +171,8 @@
   },
   "policy": "A task counts as scorable only when its answer key comes from an experiment or from a named public verdict. Report claims alone never produce a scorable task. Rows duplicated inside a split are collapsed, which is why the totals are lower than the v2 pipeline reported.",
   "totals": {
-    "scorable": 1389,
-    "tasks": 4109,
+    "scorable": 1388,
+    "tasks": 4108,
     "unscorable": 2302
   }
 }

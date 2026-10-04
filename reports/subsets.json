@@ -6,7 +6,8 @@
     "verified_patches": "the same test observed the violation on the audited revision and the property held on the fixed revision"
   },
   "exploit_levels": {
-    "L6": 4
+    "L5": 1,
+    "L6": 3
   },
   "generated_by": "scripts/build_subsets.py",
   "negative_classes": {
@@ -16,15 +17,15 @@
   "policy": "These subsets are deliberately small. A record is never admitted by lowering the bar; if the evidence is not there the row does not exist.",
   "subsets": {
     "verified_exploits": 4,
-    "verified_findings": 293,
+    "verified_findings": 302,
     "verified_negatives": 230,
-    "verified_patches": 5
+    "verified_patches": 4
   },
   "training": {
-    "attacker_reasoning": 293,
+    "attacker_reasoning": 302,
     "exploit_reasoning": 4,
     "negative_reasoning": 230,
-    "patch_reasoning": 5,
-    "vulnerability_detection": 293
+    "patch_reasoning": 4,
+    "vulnerability_detection": 302
   }
 }

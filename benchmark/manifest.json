@@ -163,17 +163,17 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 4
       },
       "by_split": {
-        "validation": 5
+        "validation": 4
       },
-      "duplicate_rows_dropped": 9,
+      "duplicate_rows_dropped": 7,
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 5,
+      "labeled": 4,
       "partial": 0,
-      "scorable": 5,
-      "tasks": 5,
+      "scorable": 4,
+      "tasks": 4,
       "unlabeled": 0,
       "unscorable": 0
     }

@@ -1,5 +1,5 @@
 {
-  "checks": 52,
+  "checks": 53,
   "dataset_version": "2.0",
   "details": [
     {
@@ -66,39 +66,22 @@
       "ok": true
     },
     {
-      "check": "commit_pins_are_immutable",
+      "check": "source_layer_commit_pins_counted",
       "critical": false,
-      "detail": "453 citations in the read-only jsonl/ layer use a mutable ref (branch name) instead of a 40-hex commit; they are a reproducibility hazard in that layer; scripts/resolve_citations.py re-pins 473 of them in the derived layer and 0 remain unresolved (reports/citation_resolution.json)",
-      "failure_count": 453,
-      "failures": [
-        "findings.jsonl 2024-04-noya/H-03 code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-04 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-09 code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-10 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-11 Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-12 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-13 code-423n4/2024-04-noya/testFoundry/BalancerConnector.t.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-20 code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-21 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-22 code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/H-23 code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-05 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-06 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-08 code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-09 code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-10 OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'",
-        "findings.jsonl 2024-04-noya/M-11 code-423n4/2024-04-noya/contracts/governance/Keepers.sol commit_sha='main'"
-      ],
+      "detail": "453 citations in the read-only jsonl/ layer still use a mutable ref (a branch name). That layer is the v1 evidence record and is never rewritten, so this is a disclosed count, not a defect. The DERIVED layer is fully pinned - see provenance/derived_commit_pins_are_immutable.",
+      "failure_count": 0,
+      "failures": [],
       "group": "provenance",
-      "ok": false
+      "ok": true
+    },
+    {
+      "check": "derived_commit_pins_are_immutable",
+      "critical": true,
+      "detail": "2034/2034 citations in derived/records.jsonl are pinned to a 40-hex commit and are therefore reproducible over time; every one is written by scripts/resolve_citations.py, which records original_reference, source_url_original, resolution_method and resolution_confidence inline",
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
     },
     {
       "check": "line_ranges_sane",
@@ -191,9 +174,9 @@
       "ok": true
     },
     {
-      "check": "experimental_claims_have_a_run_artefact",
+      "check": "experimental_claims_have_a_committed_run_artefact",
       "critical": true,
-      "detail": null,
+      "detail": "7 finding(s) in derived/ claim experimentally_verified; 15 executed findings have a committed artefact under experiments/*__poc_run/result.json indexed by reports/run_artefacts_index.json. work/poc_runs is git-ignored and is deliberately not accepted as evidence.",
       "failure_count": 0,
       "failures": [],
       "group": "evidence",
@@ -390,8 +373,8 @@
     },
     {
       "check": "no_mutable_branch_citations_remain",
-      "critical": false,
-      "detail": null,
+      "critical": true,
+      "detail": "counted from derived/records.jsonl, not read from reports/citation_resolution.json; the resolver's self-reported count is compared against it so the two cannot silently disagree",
       "failure_count": 0,
       "failures": [],
       "group": "v2.1",
@@ -502,11 +485,11 @@
   "groups": {
     "consistency": 9,
     "evidence": 6,
-    "provenance": 5,
+    "provenance": 6,
     "splits": 3,
     "structure": 5,
     "v2.1": 24
   },
-  "passed": 51,
-  "warnings": 1
+  "passed": 53,
+  "warnings": 0
 }

@@ -54,7 +54,7 @@ without recording the assertion that failed. v2.1 replaces that with pinpoint ex
 | | |
 |---|---|
 | declared exploit experiments | 9 |
-| verified effective patches (L6) | **5** |
+| verified effective patches (L6) | **4** |
 | inconclusive, with the missing symbol recorded | 4 |
 | experiments that modified production code | 0 (asserted per run by the gate) |
 | experiments that ran against an unpinned revision | 0 (`prepare()` refuses to start) |

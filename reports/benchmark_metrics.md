@@ -15,7 +15,7 @@ files under `benchmark/`. Nothing in this file is estimated.
 | PoC compilation rate | 4/8 (50.0%) repositories | 20 PoC files were written from the code quoted in the reports; 133 could not be expressed as a Solidity test body. |
 | PoC execution rate | 15/155 (9.7%) | reproduced + not_reproduced + inconclusive over all exploit records. |
 | exploit confirmation rate | 5/155 (3.2%) | A PoC counts only when forge reported Success for that test. Nothing else is promoted. |
-| patch verification rate | 5/38 (13.2%) | 5 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
+| patch verification rate | 4/38 (10.5%) | 4 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
 | negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; 443 of 458 negatives have no publicly attributable rejection reason, so scoring them would reward guessing. |
 | duplicate detection accuracy | 0 near-duplicate and 2 semantic cross-split pairs found | detector recall is not validated against a hand-labelled set; the two pairs it found were checked by hand and are genuine. |
 
@@ -37,7 +37,7 @@ the model.
 | `G_patch_verification` | 38 | 0 | 0 | 38 | 0 | 18 | 20 |
 | `H_verified_exploit` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 |
-| `J_verified_patch` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
+| `J_verified_patch` | 4 | 4 | 0 | 0 | 0 | 4 | 0 |
 
 ## Held-out split composition (task A)
 
