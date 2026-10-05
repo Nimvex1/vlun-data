@@ -1,0 +1,74 @@
+{
+  "argv": [
+    "forge",
+    "test",
+    "--match-path",
+    "test/Audit*",
+    "-vv"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 2636,
+      "sha256": "5cfb83807cdc95c3c1e555ebe67f5a80eca8008609bd72747c36399b011a4cda"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "forge test --match-path test/Audit* -vv",
+  "cwd": "<repo>",
+  "description": "the self-audit's 24 Solidity PoCs",
+  "exit_code": 0,
+  "expectation": {
+    "declared": {
+      "all_pass": true,
+      "min_tests": 24
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "zentory-selfaudit-auditpocs",
+  "failing_test_count": 0,
+  "failing_tests": [],
+  "passing_tests": [
+    "test_G1_expiredWithdrawalLeavesStaleQuorum()",
+    "test_G2_postSnapshotStakeCanVote()",
+    "test_R1_zeroStakeSignerIsAccepted()",
+    "test_R2_zeroStakeSignerExhaustsSharedEpochCap()",
+    "test_S1_penaltyAppliesOncePerDistinctSignalAndCompounds()",
+    "test_S2_rewardPathRevertsWithoutAllowance()",
+    "test_S3_negativeDirectionIsAcceptedButScoredNeutral()",
+    "test_SC1_keeperCanAdvanceRegistryIndependently()",
+    "test_SC2_epochSettlerCanSettleBeforeDuration()",
+    "test_SC3_scoringOracleSetsUnknownSignalAccuracy()",
+    "test_SC4_expiredSignalCanBeSlashed()",
+    "test_SC5_revertingAdapterRollsBackNonceState()",
+    "test_baseVaultKeeperMarkAccruesFeesFromIdlePrincipal()",
+    "test_defaultInsuranceFundKeepsSlashedTokensInStaking()",
+    "test_deployerRetainsAdminAndBootstrapProposerCanSchedule()",
+    "test_feeDistributorStaleGpCreditUsesRetainedBuybackBalance()",
+    "test_feeDistributorTriggerBuybackClearsPoolWithoutSpendingAsset()",
+    "test_fullSlashAfterPendingUnbondLeavesTimestampAndBlocksUnbondPaths()",
+    "test_hyperCoreAdapterConstructorGrantsDeployerExecutorRole()",
+    "test_hyperSwapRouterAdapterOneWeiDonationBreaksSwap()",
+    "test_singleRegistryRedeployLeavesScorerOnOldRegistry()",
+    "test_strategyExecutorZeroLimitsAllowRepeatedSignals()",
+    "test_subscriptionPaymentGoesToTreasuryAndPositiveRefundCancelReverts()",
+    "test_zentBuybackLeavesConfiguredFeeToken()"
+  ],
+  "seconds": 1.4,
+  "source_report": "zentory-self-audit",
+  "status": "ok",
+  "test_counts": {
+    "failed": 0,
+    "passed": 24,
+    "skipped": 0
+  },
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+  }
+}

@@ -1,0 +1,39 @@
+No files changed, compilation skipped
+
+Ran 7 tests for test/AuditExecutionFeePocs.t.sol:AuditExecutionFeePocsTest
+[PASS] test_baseVaultKeeperMarkAccruesFeesFromIdlePrincipal() (gas: 4110584)
+[PASS] test_feeDistributorStaleGpCreditUsesRetainedBuybackBalance() (gas: 2816380)
+[PASS] test_feeDistributorTriggerBuybackClearsPoolWithoutSpendingAsset() (gas: 2768281)
+[PASS] test_hyperCoreAdapterConstructorGrantsDeployerExecutorRole() (gas: 1222468)
+[PASS] test_hyperSwapRouterAdapterOneWeiDonationBreaksSwap() (gas: 2560620)
+[PASS] test_strategyExecutorZeroLimitsAllowRepeatedSignals() (gas: 2394826)
+[PASS] test_zentBuybackLeavesConfiguredFeeToken() (gas: 1692631)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 10.83ms (27.36ms CPU time)
+
+Ran 5 tests for test/AuditScoringControlPocs.t.sol:AuditScoringControlPocsTest
+[PASS] test_SC1_keeperCanAdvanceRegistryIndependently() (gas: 98727)
+[PASS] test_SC2_epochSettlerCanSettleBeforeDuration() (gas: 142005)
+[PASS] test_SC3_scoringOracleSetsUnknownSignalAccuracy() (gas: 108829)
+[PASS] test_SC4_expiredSignalCanBeSlashed() (gas: 902825)
+[PASS] test_SC5_revertingAdapterRollsBackNonceState() (gas: 372244)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 10.78ms (14.72ms CPU time)
+
+Ran 5 tests for test/AuditCustodyOperationsPocs.t.sol:AuditCustodyOperationsPocsTest
+[PASS] test_defaultInsuranceFundKeepsSlashedTokensInStaking() (gas: 462271)
+[PASS] test_deployerRetainsAdminAndBootstrapProposerCanSchedule() (gas: 120229)
+[PASS] test_fullSlashAfterPendingUnbondLeavesTimestampAndBlocksUnbondPaths() (gas: 645637)
+[PASS] test_singleRegistryRedeployLeavesScorerOnOldRegistry() (gas: 317087)
+[PASS] test_subscriptionPaymentGoesToTreasuryAndPositiveRefundCancelReverts() (gas: 460554)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 240.31ms (18.98ms CPU time)
+
+Ran 7 tests for test/AuditGovernanceScoringPocs.t.sol:AuditGovernanceScoringPocsTest
+[PASS] test_G1_expiredWithdrawalLeavesStaleQuorum() (gas: 297478)
+[PASS] test_G2_postSnapshotStakeCanVote() (gas: 407876)
+[PASS] test_R1_zeroStakeSignerIsAccepted() (gas: 644324)
+[PASS] test_R2_zeroStakeSignerExhaustsSharedEpochCap() (gas: 385067861)
+[PASS] test_S1_penaltyAppliesOncePerDistinctSignalAndCompounds() (gas: 1581664)
+[PASS] test_S2_rewardPathRevertsWithoutAllowance() (gas: 1005219)
+[PASS] test_S3_negativeDirectionIsAcceptedButScoredNeutral() (gas: 2963813)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 240.07ms (257.15ms CPU time)
+
+Ran 4 test suites in 242.28ms (502.00ms CPU time): 24 tests passed, 0 failed, 0 skipped (24 total tests)

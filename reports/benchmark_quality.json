@@ -154,6 +154,123 @@
       "scorable": 4,
       "tasks": 4,
       "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 67,
+        "observed_fact": 70
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "K_language_ecosystem_routing",
+      "ground_truth_rule": "the ecosystem the sources publish, or the ingest rule from the code the report cites; observed_fact when every source is a machine-read security advisory",
+      "scorable": 137,
+      "tasks": 137,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "reported_claim": 134,
+        "unknown": 3
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "L_severity_reconciliation",
+      "ground_truth_rule": "the severity recorded for the record and the attribution recorded with it; partial when a rating exists without an attribution, unlabeled when no source publishes a rating",
+      "scorable": 128,
+      "tasks": 137,
+      "unscorable": 3
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 36
+      },
+      "by_split": {
+        "test": 1,
+        "train": 31,
+        "validation": 4
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "M_experiment_level_classification",
+      "ground_truth_rule": "the L0-L6 level the executed run earned and its outcome, read from the record's own experiment block",
+      "scorable": 36,
+      "tasks": 36,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "reported_claim": 24,
+        "unknown": 113
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "N_attacker_identity_extraction",
+      "ground_truth_rule": "the identity a quoted source sentence states, plus the sentence verbatim; unknown where no source says",
+      "scorable": 14,
+      "tasks": 137,
+      "unscorable": 113
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 45,
+        "externally_attributed": 8,
+        "reported_claim": 84
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "O_record_class_and_scope",
+      "ground_truth_rule": "the record_class assigned by the ingest rule, with its evidence type taken from who states the class",
+      "scorable": 137,
+      "tasks": 137,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "P_provenance_tier_and_rights",
+      "ground_truth_rule": "tier, evidence origin, content licence and redistribution rights per source, under the published tier rules",
+      "scorable": 137,
+      "tasks": 137,
+      "unscorable": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "family": "Q_evidence_type_and_quality_rubric",
+      "ground_truth_rule": "the closed evidence vocabulary applied per field, the record's strongest and weakest evidence, and the published quality rubric applied to observations",
+      "scorable": 137,
+      "tasks": 137,
+      "unscorable": 0
     }
   ],
   "generated_by": "scripts/generate_v21_reports.py",
@@ -167,12 +284,19 @@
     "G_patch_verification": "a recorded vulnerable/fixed commit pair",
     "H_verified_exploit": "an exploit executed at the audited revision, with the security property observed to be violated",
     "I_verified_non_exploit": "an attempted exploit executed at the audited revision",
-    "J_verified_patch": "the same exploit executed against the vulnerable AND the fixed revision"
+    "J_verified_patch": "the same exploit executed against the vulnerable AND the fixed revision",
+    "K_language_ecosystem_routing": "the ecosystem the sources publish, or the ingest rule from the code the report cites; observed_fact when every source is a machine-read security advisory",
+    "L_severity_reconciliation": "the severity recorded for the record and the attribution recorded with it; partial when a rating exists without an attribution, unlabeled when no source publishes a rating",
+    "M_experiment_level_classification": "the L0-L6 level the executed run earned and its outcome, read from the record's own experiment block",
+    "N_attacker_identity_extraction": "the identity a quoted source sentence states, plus the sentence verbatim; unknown where no source says",
+    "O_record_class_and_scope": "the record_class assigned by the ingest rule, with its evidence type taken from who states the class",
+    "P_provenance_tier_and_rights": "tier, evidence origin, content licence and redistribution rights per source, under the published tier rules",
+    "Q_evidence_type_and_quality_rubric": "the closed evidence vocabulary applied per field, the record's strongest and weakest evidence, and the published quality rubric applied to observations"
   },
   "policy": "A task counts as scorable only when its answer key comes from an experiment or from a named public verdict. Report claims alone never produce a scorable task. Rows duplicated inside a split are collapsed, which is why the totals are lower than the v2 pipeline reported.",
   "totals": {
-    "scorable": 1388,
-    "tasks": 4108,
-    "unscorable": 2302
+    "scorable": 2114,
+    "tasks": 4966,
+    "unscorable": 2418
   }
 }

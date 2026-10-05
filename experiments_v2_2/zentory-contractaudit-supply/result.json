@@ -1,0 +1,53 @@
+{
+  "argv": [
+    "forge",
+    "test",
+    "--match-test",
+    "test_totalVeSupply_notDecrementedOnFullDecay_withdraw",
+    "-vv"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 960,
+      "sha256": "c09a9b055025586985510d186e2179aaccd7b58d78c4e10c6e428862500a51ed"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "forge test --match-test test_totalVeSupply_notDecrementedOnFullDecay_withdraw -vv",
+  "cwd": "<repo>",
+  "description": "H2 totalVeSupply not decremented on full decay (expected to fail today)",
+  "exit_code": 1,
+  "expectation": {
+    "declared": {
+      "fail": [
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "min_tests": 1
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "zentory-contractaudit-supply",
+  "failing_test_count": 1,
+  "failing_tests": [
+    "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+  ],
+  "passing_tests": [],
+  "seconds": 1.1,
+  "source_report": "zentory-contracts-audit",
+  "status": "ok",
+  "test_counts": {
+    "failed": 1,
+    "passed": 0,
+    "skipped": 0
+  },
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+  }
+}

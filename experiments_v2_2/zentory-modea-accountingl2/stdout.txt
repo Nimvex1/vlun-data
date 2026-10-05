@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 5 tests for test/audit/AccountingL2PoC.t.sol:AccountingL2PoC
+[PASS] test_poc_1_gpPoolDoubleCounted() (gas: 1083850)
+Logs:
+  sum(pools)      = 75000000
+  actual balance  = 50000000
+  overstatement   = 25000000
+  gpEngine holds  = 20000000
+
+[PASS] test_poc_2_triggerBuybackStrandsAssetAndBurnsUnrelatedZent() (gas: 1111820)
+Logs:
+  WBTC stranded   = 50000000
+  ZENT burned     = 1000000000000000000000000
+
+[PASS] test_poc_3_withdrawRemovesZeroVe() (gas: 390431)
+Logs:
+  totalVeSupply after withdraw = 1000000000000000000000
+  sum(veBalance)               = 0
+  quorum @1500bps with 0 live ve = 150000000000000000000
+
+[PASS] test_poc_4_veSupplyInflationByStakeWithdrawCycles() (gas: 1175779)
+Logs:
+  iter 0 now 1
+    lockEnd 604801
+    warped to 604801
+  iter 1 now 604801
+    lockEnd 1209601
+    warped to 1209601
+  iter 2 now 1209601
+    lockEnd 1814401
+    warped to 1814401
+  iter 3 now 1814401
+    lockEnd 2419201
+    warped to 2419201
+  totalVeSupply after 4 cycles = 38356164383561643832
+  expected inflation           = 38356164383561643832
+
+[PASS] test_poc_5_buybackEventReportsUnspentUsdc() (gas: 774973)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 6.66ms (11.73ms CPU time)
+
+Ran 1 test suite in 33.24ms (6.66ms CPU time): 5 tests passed, 0 failed, 0 skipped (5 total tests)

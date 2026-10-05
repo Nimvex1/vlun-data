@@ -12,7 +12,7 @@
     "redistrieved_line_range_unverified": 68,
     "withheld_by_unresolved_file": 0
   },
-  "dataset_version": "2.0",
+  "dataset_version": "2.2",
   "derived_layer": {
     "files": {
       "attacker_identity_unknown": 432,

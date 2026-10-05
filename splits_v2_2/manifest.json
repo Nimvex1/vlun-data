@@ -1,0 +1,136 @@
+{
+  "assignment": {
+    "by_language_target": {
+      "test": 27,
+      "train": 44,
+      "validation": 29
+    },
+    "canonical_groups": {
+      "zentory/cancel-subscription-unpayable": [
+        "solidity:zentory-contracts-audit/H3",
+        "solidity:zentory-mode-a/M-2",
+        "solidity:zentory-self-audit/M-05"
+      ],
+      "zentory/deployer-retains-admin": [
+        "solidity:zentory-mode-a/H-4",
+        "solidity:zentory-self-audit/H-07"
+      ],
+      "zentory/evaluate-fees-on-unrealized-pnl": [
+        "solidity:zentory-mode-a/H-5",
+        "solidity:zentory-self-audit/C-1"
+      ],
+      "zentory/fee-distributor-pool-double-count": [
+        "solidity:zentory-contracts-audit/H1",
+        "solidity:zentory-mode-a/H-1",
+        "solidity:zentory-self-audit/M-03"
+      ],
+      "zentory/governor-live-votes-no-snapshot": [
+        "solidity:zentory-mode-a/M-3",
+        "solidity:zentory-self-audit/H-03"
+      ],
+      "zentory/hot-keeper-advances-registry-epoch": [
+        "solidity:zentory-contracts-audit/M1",
+        "solidity:zentory-self-audit/H-05"
+      ],
+      "zentory/hypercore-executor-role-deployer": [
+        "solidity:zentory-mode-a/H-6",
+        "solidity:zentory-self-audit/H-01"
+      ],
+      "zentory/totalve-supply-never-decays": [
+        "solidity:zentory-contracts-audit/H2",
+        "solidity:zentory-mode-a/H-3",
+        "solidity:zentory-self-audit/H-02"
+      ],
+      "zentory/trigger-buyback-strands-pool": [
+        "solidity:zentory-mode-a/H-2",
+        "solidity:zentory-self-audit/H-06"
+      ],
+      "zentory/zentbuyback-burns-without-swap": [
+        "solidity:zentory-mode-a/M-1",
+        "solidity:zentory-self-audit/H-06b"
+      ]
+    },
+    "code_repository_groups": {},
+    "coverage": {
+      "cairo": {
+        "test": 2,
+        "train": 4,
+        "validation": 2
+      },
+      "move": {
+        "test": 4,
+        "train": 7,
+        "validation": 4
+      },
+      "rust": {
+        "test": 5,
+        "train": 8,
+        "validation": 5
+      },
+      "solidity": {
+        "test": 6,
+        "train": 35,
+        "validation": 4
+      },
+      "vyper": {
+        "test": 14,
+        "train": 22,
+        "validation": 15
+      }
+    },
+    "groups": 87,
+    "intra_layer_pairs": {
+      "near": 1,
+      "semantic": 0
+    },
+    "multi_member_groups": 9,
+    "shared_url_groups": 12
+  },
+  "counts": {
+    "quarantine": 2,
+    "test": 284,
+    "train": 489,
+    "validation": 307
+  },
+  "cross_layer": {
+    "near": 0,
+    "note": "v2.2 records that duplicate v1 text are quarantined, not merged",
+    "semantic": 0
+  },
+  "dataset_version": "2.2",
+  "generated_by": "scripts/build_splits_v22.py",
+  "post_check": {
+    "code_repository_violations": {},
+    "cross_split_near_duplicates": 0,
+    "cross_split_semantic_pairs": 0,
+    "cross_split_source_urls": 0
+  },
+  "problems": 0,
+  "proportions_v2_2": {
+    "test": 27,
+    "train": 44,
+    "validation": 29
+  },
+  "quarantine": {
+    "count": 2,
+    "reasons": {
+      "v1": 2
+    }
+  },
+  "records": {
+    "total": 1082,
+    "v1": 945,
+    "v2.2": 137
+  },
+  "rules": [
+    "v1 rows are mirrored from splits_v2 and are never reassigned",
+    "canonical group, shared source URL and near-duplicate / semantic twins are placed in one split",
+    "records that carry code inherit repository-level isolation; advisory-derived records carry no code and are isolated by content, so a repository's advisories may span splits",
+    "the remainder is assigned deterministically, stratified by language, at the stated proportions",
+    "a v2.2 record duplicating a v1 record is quarantined in favour of the v1 copy; records are quarantined, never moved"
+  ],
+  "thresholds": {
+    "near_duplicate_jaccard": 0.8,
+    "semantic_cosine": 0.7
+  }
+}

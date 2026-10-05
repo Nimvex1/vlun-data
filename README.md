@@ -1,13 +1,14 @@
 # VLUN — smart-contract security reasoning dataset
 
 A provenance-preserving corpus built from 8 public Code4rena
-audits. Every record traces to a public artefact: a report section, a submission issue, a comment,
-or a commit-pinned permalink.
+audits, plus — since v2.2 — advisories, audits, bug bounties and post-mortems covering five
+smart-contract languages. Every record traces to a public artefact: a report section, a submission
+issue, a comment, a registry payload, or a commit-pinned permalink.
 
 v1 shipped structured findings but **executed nothing**: every `poc.reproducible` was `false`, its
 statistics disagreed with its own data in four places, and the scripts its README described were not
-published. v2 added per-field evidence semantics and a validation gate. **This is v2.1**, whose
-subject is experimental evidence:
+published. v2 added per-field evidence semantics and a validation gate. v2.1 made experimental
+evidence its subject, and every v2.1 guarantee below still holds in **v2.2**:
 
 * every exploit PoC is given a **proof-shape class** (nine values) and a **quality level L0-L6**,
   and a level above L2 is only reachable by an actual run artefact;
@@ -22,8 +23,9 @@ subject is experimental evidence:
   evidence layer still carries 473 of them and is never rewritten;
 * **hard negatives are re-classified** into verified / attributed / corroborated-duplicate /
   unknown, and a corroborated duplicate is explicitly *not* a false positive;
-* **API-sibling counterexample pairs**, **Slither cross-checks**, **ten benchmark families**
-  including the three that only accept experimentally produced ground truth, and
+* **API-sibling counterexample pairs**, **Slither cross-checks**, **17 benchmark families**
+  (A-J on the v1 layer, K-Q on the multi-language v2.2 layer, including the three that only accept
+  experimentally produced ground truth), and
   **high-confidence subsets** with published admission rules.
 
 ## Layout
@@ -48,12 +50,18 @@ derived/         enriched records, deterministic given the same inputs
 experiments/     one directory per attempted exploit: harness, command, stdout,
                  stderr, trace and result.json for the vulnerable and the fixed
                  revision. Small, hashed, and committed on purpose.
+jsonl_ml/        the v2.2 multi-language source layer: 137 findings,
+                 112 sources across 5 languages. Read-only like jsonl/.
+derived_v2_2/    v2.2 derived records (137) with per-field
+                 evidence, the quality rubric and the experiment view
+splits_v2_2/     v2.2 splits with per-record sha256 pointers + quarantine.jsonl
+experiments_v2_2/ executed multi-language runs: command, stdout, stderr, result.json
 datasets/        high-confidence subsets, each with a published admission rule
 training/        task-oriented training files, split by task rather than one blob
 splits/          v1 repository-level splits (kept for comparison)
 splits_v2/       leakage-free splits + quarantine.jsonl
-benchmark/       ten task families, machine readable
-reports/         every generated report, including pre_upgrade_audit.json
+benchmark/       17 task families, machine readable (A-J v1, K-Q v2.2)
+reports/         every generated report, including reports/v2_2/ and pre_upgrade_audit.json
 scripts/         the pipeline (see below)
 work/            clones, retrieved source, execution logs — git-ignored
 ```
@@ -61,7 +69,9 @@ work/            clones, retrieved source, execution logs — git-ignored
 `jsonl/` is the contract: **original evidence**. Everything the dataset builder inferred lives in
 `derived/`, everything a machine actually ran lives in `work/` and is summarised in
 `reports/verification_stats.json`. A researcher can always separate what the audit said from what
-the builder derived from what was experimentally verified.
+the builder derived from what was experimentally verified. `jsonl_ml/` is the same contract for the
+v2.2 layer — the retrieved advisory, audit and post-mortem payloads of the five-language corpus —
+and is never rewritten either.
 
 ## What was actually done
 
@@ -74,7 +84,7 @@ the builder derived from what was experimentally verified.
 | PoCs demonstrating the claimed impact | unknown | **5** of 155 |
 | negatives with a code-grounded reason | 0 | 6 derived + 9 reported |
 | cross-split leakage checks | 3 | 4 detectors, 2 real duplicates found and quarantined |
-| validation gate | described, not shipped | 53/53 checks, 0 critical failures |
+| validation gate | described, not shipped | 66/66 checks, 0 critical failures |
 
 ### v2.1: experimentally proven evidence
 
@@ -90,12 +100,49 @@ the builder derived from what was experimentally verified.
 | Negatives still honestly unknown | 443 | **227** |
 | API-sibling counterexample pairs | 0 | 71 |
 | Repositories with a static-analysis signal | none | 5 analysed, 1 reported unanalysable |
-| Benchmark families | 7 | 10 |
+| Benchmark families | 7 | 17 |
 | Benchmark tasks with experimentally produced ground truth | 0 | 10 |
 
 Full accounting, including what could **not** be verified and why, is in
 [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md). The v2 report it supersedes is
 kept at [`reports/final_quality_report.md`](reports/final_quality_report.md).
+
+### v2.2: five languages, provenance-correct
+
+v2.2 keeps every v2.1 guarantee and adds a second source layer: 137 findings and
+112 sources from advisories, audits, bug bounties and post-mortems across **5 languages**
+— Solidity, Vyper, Rust (Solana / CosmWasm / Substrate), Move (Sui / Aptos) and Cairo (Starknet).
+The layer is provenance-first: each source carries its retrieval method, payload sha256,
+verification status, a tier 0-4 from protocol-published down to third-party write-up, and its
+licence declaration (or `unknown`, which is what an undeclared licence stays).
+
+| | v2.1 | v2.2 |
+|---|---|---|
+| languages | 1 (Solidity) | 5 — `{'cairo': 8, 'move': 15, 'rust': 18, 'solidity': 45, 'vyper': 51}` |
+| source layer | `jsonl/` (v1, never rewritten) | + `jsonl_ml/` 137 findings, 112 sources (never rewritten) |
+| derived records | 722 | + 137 in `derived_v2_2/` with evidence, quality rubric, experiment view |
+| splits | `splits_v2/` by repository | + `splits_v2_2/`: train 76, validation 30, test 31, quarantine 2 — per-record sha256 pointers, duplicates quarantined |
+| executed experiment runs (v2.2 layer) | — | **36** — levels `{'L3': 1, 'L5': 35, 'none': 101}` |
+| benchmark families | 10 | 17 (K-Q added: language routing, severity reconciliation, experiment level, attacker identity, record class, provenance tier, evidence rubric) |
+| strongest evidence per record | — | `{'experimentally_verified': 36, 'observed_fact': 101}` |
+| gate | — | 66/66 checks, 0 critical failures |
+
+Read with the honest counts, all of them also in
+[`reports/v2_2/`](reports/v2_2/): **123 of
+137 records state no attacker standing** (`unknown`, not inferred);
+**61
+carry a reported claim rather than a code-derived verdict**; and family L is labelled on
+128 of
+137 tasks —
+6 have a rating
+but no attribution and 3
+have neither, each said so on the row instead of guessed. Source titles and record ids in a task's
+`source` block are traceability, not model input: task ids carry the record id, and a record id
+carries its language prefix, which is family K's answer.
+
+Full accounting for the new layer, including what could **not** be executed (Sui, Aptos, Scarb and
+snFuzzer toolchains are absent from this environment, so no Move or Cairo run reaches L3), is in
+[`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md).
 
 ## Split integrity
 
@@ -217,16 +264,19 @@ python scripts/build_derived.py               # evidence, attacker model, state 
 python scripts/build_hard_negatives.py        # structured rejection reasons
 python scripts/build_counterexamples.py
 python scripts/check_leakage.py --emit splits_v2
-python scripts/build_benchmark.py             # ten task families
+python scripts/build_benchmark.py             # task families A-J (v1 layer)
+python scripts/build_benchmark_v22.py         # task families K-Q (derived_v2_2 + splits_v2_2)
 python scripts/build_subsets.py               # datasets/ and training/
 python scripts/generate_stats.py              # the only source of statistics
 python scripts/generate_reports.py
 python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
+python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
-Every script is idempotent, takes `--help`, and writes only under `derived/`, `splits_v2/`,
-`benchmark/`, `reports/`, `experiments/` or `work/`. `jsonl/` is read-only.
+Every script is idempotent, takes `--help`, and writes only under `derived/`, `derived_v2_2/`,
+`splits_v2/`, `splits_v2_2/`, `benchmark/`, `reports/`, `experiments/`, `experiments_v2_2/` or
+`work/`. `jsonl/` and `jsonl_ml/` are read-only.
 
 **`build_all.py` exits non-zero if any stage fails or if the gate fails.** It used to exit 0 with
 two stages failing, which is how a broken build ships as a green pipeline. Stages that cannot run

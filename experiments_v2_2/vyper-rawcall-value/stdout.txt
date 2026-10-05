@@ -1,0 +1,8 @@
+OBS vyper_0.3.10=0.3.10+commit.9136169
+OBS vyper_0.4.0=0.4.0+commit.e9db8d9
+CHECK pass vulnerable_compiler_accepts_value_kwarg_on_a_delegate_call :: rc=0
+CHECK pass vulnerable_compiler_also_accepts_the_control_without_value :: rc=0
+OBS patched_compiler_error=vyper.exceptions.ArgumentException: value= may not be passed for static or delegate calls!
+CHECK pass patched_compiler_rejects_value_kwarg_on_a_delegate_call :: rc=1 rejected=True
+CHECK pass patched_compiler_still_accepts_the_control_without_value :: rc=0
+checks: 4 passed, 0 failed, 0 skipped

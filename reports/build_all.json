@@ -1,6 +1,6 @@
 {
   "by_status": {
-    "ok": 19,
+    "ok": 21,
     "skipped_no_network": 5
   },
   "generated_by": "scripts/build_all.py",
@@ -18,7 +18,7 @@
       "description": "evidence semantics, attacker model, state transition, expanded code context, taxonomy",
       "rc": 0,
       "script": "build_derived.py",
-      "seconds": 1.8,
+      "seconds": 4.3,
       "stage": 2,
       "status": "ok",
       "stderr_tail": "",
@@ -40,7 +40,7 @@
       "description": "nearby false hypotheses for confirmed High/Medium findings",
       "rc": 0,
       "script": "build_counterexamples.py",
-      "seconds": 3.5,
+      "seconds": 5.9,
       "stage": 4,
       "status": "ok",
       "stderr_tail": "",
@@ -51,7 +51,7 @@
       "description": "replace every mutable branch citation with the commit that holds the cited content",
       "rc": 0,
       "script": "resolve_citations.py",
-      "seconds": 46.6,
+      "seconds": 49.8,
       "stage": 5,
       "status": "ok",
       "stderr_tail": "",
@@ -97,7 +97,7 @@
       "description": "four-class negative taxonomy with duplicate corroboration",
       "rc": 0,
       "script": "classify_negatives.py",
-      "seconds": 0.5,
+      "seconds": 0.6,
       "stage": 10,
       "status": "ok",
       "stderr_tail": "",
@@ -149,7 +149,7 @@
       "description": "structural refutations and API-sibling guard pairs",
       "rc": 0,
       "script": "build_counterexamples.py",
-      "seconds": 3.4,
+      "seconds": 3.8,
       "stage": 15,
       "status": "ok",
       "stderr_tail": "",
@@ -160,7 +160,7 @@
       "description": "leakage detection and a leakage-free re-split",
       "rc": 0,
       "script": "check_leakage.py",
-      "seconds": 9.3,
+      "seconds": 18.7,
       "stage": 16,
       "status": "ok",
       "stderr_tail": "",
@@ -168,7 +168,7 @@
     },
     {
       "command": "python scripts/build_benchmark.py",
-      "description": "the ten benchmark task families",
+      "description": "benchmark task families A-J (v1 layer)",
       "rc": 0,
       "script": "build_benchmark.py",
       "seconds": 0.5,
@@ -178,12 +178,23 @@
       "tail": "A_vulnerability_detection    tasks= 720 scorable= 720\n  B_root_cause_reasoning       tasks= 720 scorable=   0\n  C_attacker_reasoning         tasks= 720 scorable= 290\n  D_exploit_construction       tasks= 720 scorable= 346\n  E_exploit_verification       tasks= 720 scorable=   7\n  F_false_positive_rejection   tasks= 458 scorable=  15\n  G_patch_verification         tasks=  38 scorable=   0\n  H_verified_exploit           tasks=   5 scorable=   5\n  I_verified_non_exploit       tasks=   3 scorable=   1\n  J_verified_patch             tasks=   4 scorable=   4"
     },
     {
+      "command": "python scripts/build_benchmark_v22.py",
+      "description": "benchmark task families K-Q over derived_v2_2 + splits_v2_2, merged into the manifest",
+      "rc": 0,
+      "script": "build_benchmark_v22.py",
+      "seconds": 0.3,
+      "stage": 18,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "K_language_ecosystem_routing       tasks= 137 labeled= 137 partial=   0 unlabeled=   0 splits={'train': 76, 'validation': 30, 'test': 31}\n  L_severity_reconciliation          tasks= 137 labeled= 128 partial=   6 unlabeled=   3 splits={'train': 76, 'validation': 30, 'test': 31}\n  M_experiment_level_classification  tasks=  36 labeled=  36 partial=   0 unlabeled=   0 splits={'train': 31, 'validation': 4, 'test': 1}\n  N_attacker_identity_extraction     tasks= 137 labeled=  14 partial=  10 unlabeled= 113 splits={'train': 76, 'validation': 30, 'test': 31}\n  O_record_class_and_scope           tasks= 137 labeled= 137 partial=   0 unlabeled=   0 splits={'train': 76, 'validation': 30, 'test': 31}\n  P_provenance_tier_and_rights       tasks= 137 labeled= 137 partial=   0 unlabeled=   0 splits={'train': 76, 'validation': 30, 'test': 31}\n  Q_evidence_type_and_quality_rubric tasks= 137 labeled= 137 partial=   0 unlabeled=   0 splits={'train': 76, 'validation': 30, 'test': 31}\nmanifest families: 17 (A_vulnerability_detection..Q_evidence_type_and_quality_rubric)\nwrote <repo>\\benchmark\\manifest.json"
+    },
+    {
       "command": "python scripts/build_subsets.py",
       "description": "high-confidence subsets and task training files",
       "rc": 0,
       "script": "build_subsets.py",
       "seconds": 0.3,
-      "stage": 18,
+      "stage": 19,
       "status": "ok",
       "stderr_tail": "",
       "tail": "datasets: {'verified_findings': 302, 'verified_exploits': 4, 'verified_patches': 4, 'verified_negatives': 230}\ntraining: {'vulnerability_detection': 302, 'exploit_reasoning': 4, 'attacker_reasoning': 302, 'negative_reasoning': 230, 'patch_reasoning': 4}"
@@ -194,7 +205,7 @@
       "rc": 0,
       "script": "generate_stats.py",
       "seconds": 0.2,
-      "stage": 19,
+      "stage": 20,
       "status": "ok",
       "stderr_tail": "",
       "tail": "wrote reports\\dataset_stats.json  findings=264 negatives=458 exploits=155 patches=38"
@@ -205,7 +216,7 @@
       "rc": 0,
       "script": "audit_records.py",
       "seconds": 0.3,
-      "stage": 20,
+      "stage": 21,
       "status": "ok",
       "stderr_tail": "",
       "tail": "wrote reports/record_audit.csv (722 rows)\nrecords=722 issues=0 {}"
@@ -216,7 +227,7 @@
       "rc": 0,
       "script": "generate_reports.py",
       "seconds": 0.2,
-      "stage": 21,
+      "stage": 22,
       "status": "ok",
       "stderr_tail": "",
       "tail": "wrote reports/extraction_errors.json (36 entries, {'v1': 19, 'v2': 17})\nwrote reports/benchmark_metrics.md\nwrote reports/final_quality_report.md (149 lines)"
@@ -227,32 +238,43 @@
       "rc": 0,
       "script": "generate_v21_reports.py",
       "seconds": 0.1,
-      "stage": 22,
+      "stage": 23,
       "status": "ok",
       "stderr_tail": "",
-      "tail": "{\n \"generated_by\": \"scripts/generate_v21_reports.py\",\n \"records_processed\": 155,\n \"experiments_attempted\": 9,\n \"experiments_reproduced\": 4,\n \"experiments_inconclusive\": 5,\n \"experiments_not_a_controlled_comparison\": 1,\n \"experiments_failed\": 0,\n \"patches_verified\": 4,\n \"patches_not_testable\": 34,\n \"negative_cases_verified\": 0,\n \"negatives_corroborated\": 221,\n \"negatives_attributed\": 9,\n \"negatives_unknown\": 227,\n \"immutable_citations_resolved\": 473,\n \"immutable_citations_remaining_mutable\": 0,\n \"leakage_detected\": {\n  \"exact\": 1,\n  \"code\": 0,\n  \"artefact\": 0,\n  \"protocol_isolation\": 0,\n  \"quarantined\": 2\n },\n \"benchmark_scorable_tasks\": 1388,\n \"benchmark_experimentally_grounded\": 10,\n \"validation_failures\": null,\n \"remaining_blockers\": [\n  \"archive RPC not distributed\",\n  \"reconstruction ceiling on fixture drift\",\n  \"judging rationale is not public\",\n  \"mitigation commits are cumulative\"\n ]\n}"
+      "tail": "{\n \"generated_by\": \"scripts/generate_v21_reports.py\",\n \"records_processed\": 155,\n \"experiments_attempted\": 9,\n \"experiments_reproduced\": 4,\n \"experiments_inconclusive\": 5,\n \"experiments_not_a_controlled_comparison\": 1,\n \"experiments_failed\": 0,\n \"patches_verified\": 4,\n \"patches_not_testable\": 34,\n \"negative_cases_verified\": 0,\n \"negatives_corroborated\": 221,\n \"negatives_attributed\": 9,\n \"negatives_unknown\": 227,\n \"immutable_citations_resolved\": 473,\n \"immutable_citations_remaining_mutable\": 0,\n \"leakage_detected\": {\n  \"exact\": 1,\n  \"code\": 0,\n  \"artefact\": 0,\n  \"protocol_isolation\": 0,\n  \"quarantined\": 2\n },\n \"benchmark_scorable_tasks\": 2114,\n \"benchmark_experimentally_grounded\": 10,\n \"validation_failures\": null,\n \"remaining_blockers\": [\n  \"archive RPC not distributed\",\n  \"reconstruction ceiling on fixture drift\",\n  \"judging rationale is not public\",\n  \"mitigation commits are cumulative\"\n ]\n}"
+    },
+    {
+      "command": "python scripts/generate_v22_reports.py",
+      "description": "reports/v2_2/: the five-language layer summary, benchmark A-Q and quality report",
+      "rc": 0,
+      "script": "generate_v22_reports.py",
+      "seconds": 0.1,
+      "stage": 24,
+      "status": "ok",
+      "stderr_tail": "",
+      "tail": "wrote <repo>\\reports\\v2_2\\quality_report.md\nwrote <repo>\\reports\\v2_2\\dataset_summary.json and <repo>\\reports\\v2_2\\benchmark.json\nrecords=137 sources=112 tasks=4966 gate=66/66"
     },
     {
       "command": "python scripts/generate_readme.py",
       "description": "README.md and NOTICE.md, with every figure read from the reports",
       "rc": 0,
       "script": "generate_readme.py",
-      "seconds": 0.4,
-      "stage": 23,
+      "seconds": 0.5,
+      "stage": 25,
       "status": "ok",
       "stderr_tail": "",
-      "tail": "wrote README.md (297 lines) and NOTICE.md (121 lines)"
+      "tail": "wrote README.md (347 lines) and NOTICE.md (121 lines)"
     },
     {
       "command": "python scripts/validate.py",
       "description": "the gate",
       "rc": 0,
       "script": "validate.py",
-      "seconds": 1.4,
-      "stage": 24,
+      "seconds": 2.0,
+      "stage": 26,
       "status": "ok",
       "stderr_tail": "",
-      "tail": "  [ok  ] consistency/negative_labels_consistent\n  [ok  ] consistency/license_declared_implies_verified\n  [ok  ] evidence/evidence_type_in_closed_vocabulary\n  [ok  ] evidence/experimental_claims_have_a_committed_run_artefact\n  [ok  ] evidence/every_reproduced_verdict_names_a_forge_status\n  [ok  ] evidence/negative_reasons_typed_consistently\n  [ok  ] evidence/failure_reasons_in_closed_vocabulary\n  [ok  ] evidence/reproduced_requires_a_successful_forge_run\n  [ok  ] splits/repository_not_in_two_splits\n  [ok  ] splits/finding_id_not_in_two_splits\n  [ok  ] splits/splits_v2_leakage_free\n  [ok  ] consistency/derived_files_parse\n  [ok  ] consistency/derived_manifest_matches_file\n  [ok  ] v2.1/every_experiment_has_a_result_artefact\n  [ok  ] v2.1/every_experiment_artefact_names_a_full_commit\n  [ok  ] v2.1/no_experiment_modified_production_code\n  [ok  ] v2.1/L6_requires_both_revisions_executed\n  [ok  ] v2.1/no_poc_level_above_L2_without_an_executed_run\n  [ok  ] v2.1/effective_patch_has_vulnerable_fail_and_fixed_pass\n  [ok  ] v2.1/experimentally_verified_negative_has_an_execution\n  [ok  ] v2.1/corroborated_duplicate_is_not_called_a_false_positive\n  [ok  ] v2.1/poc_class_in_closed_vocabulary\n  [ok  ] v2.1/poc_level_in_closed_vocabulary\n  [ok  ] v2.1/run_failure_reason_in_controlled_vocabulary\n  [ok  ] v2.1/negative_class_in_closed_vocabulary\n  [ok  ] v2.1/no_mutable_branch_citations_remain\n  [ok  ] v2.1/subsets_respect_their_admission_rule\n  [ok  ] v2.1/experimental_benchmark_tasks_cite_an_execution\n  [ok  ] v2.1/static_analysis_status_is_one_of_three\n  [ok  ] v2.1/unanalyzable_repositories_are_not_reported_clean\n  [ok  ] v2.1/no_cross_split_identical_patch_diffs\n  [ok  ] v2.1/no_cross_split_normalised_poc_bodies\n  [ok  ] v2.1/no_cross_split_root_cause_statements\n  [ok  ] v2.1/no_cross_split_attack_sequences\n  [ok  ] v2.1/protocol_level_isolation_holds\n  [ok  ] v2.1/no_withheld_source_is_published_under_experiments\n  [ok  ] v2.1/withheld_harness_files_carry_a_resolver\n\n53/53 checks passed; 0 critical failures, 0 warnings\nBUILD OK"
+      "tail": "  [ok  ] v2.1/every_experiment_has_a_result_artefact\n  [ok  ] v2.1/every_experiment_artefact_names_a_full_commit\n  [ok  ] v2.1/no_experiment_modified_production_code\n  [ok  ] v2.1/L6_requires_both_revisions_executed\n  [ok  ] v2.1/no_poc_level_above_L2_without_an_executed_run\n  [ok  ] v2.1/effective_patch_has_vulnerable_fail_and_fixed_pass\n  [ok  ] v2.1/experimentally_verified_negative_has_an_execution\n  [ok  ] v2.1/corroborated_duplicate_is_not_called_a_false_positive\n  [ok  ] v2.1/poc_class_in_closed_vocabulary\n  [ok  ] v2.1/poc_level_in_closed_vocabulary\n  [ok  ] v2.1/run_failure_reason_in_controlled_vocabulary\n  [ok  ] v2.1/negative_class_in_closed_vocabulary\n  [ok  ] v2.1/no_mutable_branch_citations_remain\n  [ok  ] v2.1/subsets_respect_their_admission_rule\n  [ok  ] v2.1/experimental_benchmark_tasks_cite_an_execution\n  [ok  ] v2.1/static_analysis_status_is_one_of_three\n  [ok  ] v2.1/unanalyzable_repositories_are_not_reported_clean\n  [ok  ] v2.1/no_cross_split_identical_patch_diffs\n  [ok  ] v2.1/no_cross_split_normalised_poc_bodies\n  [ok  ] v2.1/no_cross_split_root_cause_statements\n  [ok  ] v2.1/no_cross_split_attack_sequences\n  [ok  ] v2.1/protocol_level_isolation_holds\n  [ok  ] v2.1/no_withheld_source_is_published_under_experiments\n  [ok  ] v2.1/withheld_harness_files_carry_a_resolver\n  [ok  ] v2.2/versions_agree\n  [ok  ] v2.2/readme_states_the_release_version\n  [ok  ] v2.2/ml_layer_passes_its_own_gate\n  [ok  ] v2.2/derived_v2_2_evidence_walk\n  [ok  ] v2.2/no_experimental_claim_without_an_experiment\n  [ok  ] v2.2/experiment_artefacts_resolve\n  [ok  ] v2.2/experiment_index_is_exactly_the_referenced_set\n  [ok  ] v2.2/splits_v2_2_pointers_resolve\n  [ok  ] v2.2/ml_sources_do_not_span_splits\n  [ok  ] v2.2/benchmark_manifest_covers_every_family\n  [ok  ] v2.2/benchmark_rows_obey_the_row_contract\n  [ok  ] v2.2/benchmark_kq_rebuilds_from_the_records\n  [ok  ] v2.2/family_M_is_exactly_the_set_of_executed_records\n\n66/66 checks passed; 0 critical failures, 0 warnings\nBUILD OK"
     }
   ]
 }

@@ -28,8 +28,14 @@ EXPERIMENTS = ROOT / "experiments"
 SPLITS_DIR = ROOT / "splits"
 SPLITS_V2 = ROOT / "splits_v2"
 
-DATASET_VERSION = "2.0"
-SOURCE_VERSION = "1.0"
+# Three versions, three jobs. v2.2 used to be described as "2.0" in this file
+# while README.md called the release v2.1 and no `schema_version` existed
+# anywhere, so nothing could tell a reader which of the three numbers they were
+# looking at. They are now named separately and validate.py fails if they drift
+# (check `v2.2/versions_agree`).
+DATASET_VERSION = "2.2"   # the release: every artefact this pipeline writes
+SCHEMA_VERSION = "2.2"    # the record schema those artefacts are written in
+SOURCE_VERSION = "1.0"    # jsonl/ only: the immutable v1 source layer
 
 CORE_FILES = {
     "findings": "findings.jsonl",
@@ -122,6 +128,60 @@ TRUSTED_ROLES = (
     "role_member",
     "none",
 )
+
+# ---------------------------------------------------------------------------
+# The benchmark families. key -> (file name, layer, the question the family asks).
+#
+# This is the single source of truth for what a family is: scripts/validate.py
+# fails the build if benchmark/manifest.json does not carry every one of these
+# keys with a file behind it, so a stage that rebuilds only part of the
+# benchmark (build_benchmark.py writes A-J, build_benchmark_v22.py writes K-Q)
+# cannot silently drop a family and still ship.
+#
+# A-J are built by scripts/build_benchmark.py from the v1 layer; K-Q by
+# scripts/build_benchmark_v22.py from the v2.2 layer. Both write only under
+# benchmark/, and the model-facing payload of every task is its `input` object -
+# task ids and `source` blocks carry the record id for traceability and are not
+# meant to be shown to a model.
+# ---------------------------------------------------------------------------
+BENCHMARK_FAMILIES = {
+    "A": ("A_vulnerability_detection", "v1",
+          "does this protocol contain a confirmed, exploitable vulnerability?"),
+    "B": ("B_root_cause_reasoning", "v1",
+          "what is the root cause and which invariant does it violate?"),
+    "C": ("C_attacker_reasoning", "v1",
+          "who can carry this out, what must they be able to do, in what order?"),
+    "D": ("D_exploit_construction", "v1",
+          "write a Foundry test that demonstrates the claimed impact"),
+    "E": ("E_exploit_verification", "v1",
+          "does this test demonstrate the claimed impact?"),
+    "F": ("F_false_positive_rejection", "v1",
+          "is this claim a valid vulnerability, and what blocks it if not?"),
+    "G": ("G_patch_verification", "v1",
+          "does the fix address the vulnerability?"),
+    "H": ("H_verified_exploit", "v1",
+          "name the vulnerability, attacker model and PoC at the audited revision, "
+          "against code whose experiment was actually executed"),
+    "I": ("I_verified_non_exploit", "v1",
+          "is this exploitable at the audited revision, given an executed attempt?"),
+    "J": ("J_verified_patch", "v1",
+          "does the exploit pass on the vulnerable revision and fail on the fixed one?"),
+    "K": ("K_language_ecosystem_routing", "v2.2",
+          "which language and which ecosystem does this finding concern?"),
+    "L": ("L_severity_reconciliation", "v2.2",
+          "what severity do the publishers agree on, and who says so?"),
+    "M": ("M_experiment_level_classification", "v2.2",
+          "which L0-L6 level and which outcome does this executed run earn?"),
+    "N": ("N_attacker_identity_extraction", "v2.2",
+          "who does a source sentence say can act, and what is the sentence?"),
+    "O": ("O_record_class_and_scope", "v2.2",
+          "what kind of record is this: advisory, incident, judged finding, "
+          "audit finding, or out of scope?"),
+    "P": ("P_provenance_tier_and_rights", "v2.2",
+          "what tier and origin does each source admit under, and may it be redistributed?"),
+    "Q": ("Q_evidence_type_and_quality_rubric", "v2.2",
+          "type every claim's evidence and apply the published quality rubric"),
+}
 
 
 def read_jsonl(path: Path) -> list[dict]:

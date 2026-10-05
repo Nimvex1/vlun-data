@@ -1,6 +1,6 @@
 {
   "benchmark_experimentally_grounded": 10,
-  "benchmark_scorable_tasks": 1388,
+  "benchmark_scorable_tasks": 2114,
   "experiments_attempted": 9,
   "experiments_failed": 0,
   "experiments_inconclusive": 5,
@@ -29,7 +29,7 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks_passed": "53/53",
+  "validation_checks_passed": "66/66",
   "validation_failed_checks": [],
   "validation_failures": 0,
   "validation_warnings": 0

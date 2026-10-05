@@ -1,0 +1,54 @@
+{
+  "argv": [
+    "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "scripts/run_vyper_poc.py",
+    "--id",
+    "optimizer_ternary"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 827,
+      "sha256": "389cf1e47eb72a3e0909b945932659f73fa81cab93f67af36cc2e018068b8b3a"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id optimizer_ternary",
+  "cwd": "<repo>",
+  "description": "the optimizer folds `msg.value | 2` to 1: IR differential plus a deployed call returning 1 at -O gas and 7 at -O none",
+  "exit_code": 0,
+  "expectation": {
+    "declared": {
+      "min_tests": 0,
+      "stdout_contains": [
+        "CHECK pass ir_v0.3.10_optimize_gas_folds_msg_value_or_2_to_1",
+        "CHECK pass ir_v0.3.10_optimize_none_keeps_the_callvalue_expression",
+        "CHECK pass runtime_optimize_gas_calc_true_with_value_5_returns_1",
+        "CHECK pass runtime_optimize_none_calc_true_with_value_5_returns_7"
+      ],
+      "stdout_not_contains": [
+        "CHECK fail"
+      ]
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "vyper-optimizer-ternary",
+  "failing_test_count": 0,
+  "failing_tests": [],
+  "passing_tests": [],
+  "seconds": 3.9,
+  "source_report": "vyper-GHSA-6j9c-gvcw-74fj",
+  "status": "ok",
+  "test_counts": null,
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "anvil": "anvil Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "cast": "cast Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "vyper 0.3.10": "0.3.10+commit.9136169",
+    "vyper 0.4.0": "0.4.0+commit.e9db8d9"
+  }
+}

@@ -38,6 +38,13 @@ the model.
 | `H_verified_exploit` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 |
 | `J_verified_patch` | 4 | 4 | 0 | 0 | 0 | 4 | 0 |
+| `K_language_ecosystem_routing` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
+| `L_severity_reconciliation` | 137 | 128 | 6 | 3 | 76 | 30 | 31 |
+| `M_experiment_level_classification` | 36 | 36 | 0 | 0 | 31 | 4 | 1 |
+| `N_attacker_identity_extraction` | 137 | 14 | 10 | 113 | 76 | 30 | 31 |
+| `O_record_class_and_scope` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
+| `P_provenance_tier_and_rights` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
+| `Q_evidence_type_and_quality_rubric` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
 
 ## Held-out split composition (task A)
 

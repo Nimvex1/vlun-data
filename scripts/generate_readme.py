@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import BENCH, DERIVED, REPORTS, ROOT, WORK, log, read_jsonl  # noqa: E402
+from vlun import BENCH, DATASET_VERSION, DERIVED, REPORTS, ROOT, WORK, log, read_jsonl  # noqa: E402
 
 README = ROOT / "README.md"
 NOTICE = ROOT / "NOTICE.md"
@@ -218,6 +218,21 @@ def render() -> str:
                             or cites.get("mutable_occurrences"))
     static = jread(REPORTS / "static_analysis.json", {}) or {}
     benchq = jread(REPORTS / "benchmark_quality.json", {}) or {}
+    # v2.2 layer: multi-language sources, derived records, splits, experiments.
+    # Every figure below is counted from those artefacts, never typed in.
+    from vlun_ml import DERIVED_V22, ML_JSONL, SPLITS_V22, load_findings, load_sources  # noqa: E402
+    d22m = jread(DERIVED_V22 / "manifest.json", {}) or {}
+    fam_n = len(bench.get("tasks") or {})
+    ml_sources = ml_findings = 0
+    if ML_JSONL.exists():
+        ml_sources, ml_findings = len(load_sources()), len(load_findings())
+    v22_splits: dict = {}
+    for _sp in ("train", "validation", "test", "quarantine"):
+        _p = SPLITS_V22 / f"{_sp}.jsonl"
+        if _p.exists():
+            v22_splits[_sp] = sum(1 for r in read_jsonl(_p) if r.get("layer") == "v2.2") \
+                if _sp != "quarantine" else len(read_jsonl(_p))
+    ex22 = jread(REPORTS / "v2_2" / "dataset_summary.json", {}) or {}
     V2_BEFORE_REPRO = 5
     exp_verdicts = {}
     for _e in exp.get("experiments", []):
@@ -236,13 +251,14 @@ def render() -> str:
     lines = f"""# VLUN — smart-contract security reasoning dataset
 
 A provenance-preserving corpus built from {rc.get('repositories_processed', 8)} public Code4rena
-audits. Every record traces to a public artefact: a report section, a submission issue, a comment,
-or a commit-pinned permalink.
+audits, plus — since v2.2 — advisories, audits, bug bounties and post-mortems covering five
+smart-contract languages. Every record traces to a public artefact: a report section, a submission
+issue, a comment, a registry payload, or a commit-pinned permalink.
 
 v1 shipped structured findings but **executed nothing**: every `poc.reproducible` was `false`, its
 statistics disagreed with its own data in four places, and the scripts its README described were not
-published. v2 added per-field evidence semantics and a validation gate. **This is v2.1**, whose
-subject is experimental evidence:
+published. v2 added per-field evidence semantics and a validation gate. v2.1 made experimental
+evidence its subject, and every v2.1 guarantee below still holds in **v{DATASET_VERSION}**:
 
 * every exploit PoC is given a **proof-shape class** (nine values) and a **quality level L0-L6**,
   and a level above L2 is only reachable by an actual run artefact;
@@ -257,8 +273,9 @@ subject is experimental evidence:
   evidence layer still carries {n(source_layer_mutable)} of them and is never rewritten;
 * **hard negatives are re-classified** into verified / attributed / corroborated-duplicate /
   unknown, and a corroborated duplicate is explicitly *not* a false positive;
-* **API-sibling counterexample pairs**, **Slither cross-checks**, **ten benchmark families**
-  including the three that only accept experimentally produced ground truth, and
+* **API-sibling counterexample pairs**, **Slither cross-checks**, **{fam_n} benchmark families**
+  (A-J on the v1 layer, K-Q on the multi-language v2.2 layer, including the three that only accept
+  experimentally produced ground truth), and
   **high-confidence subsets** with published admission rules.
 
 ## Layout
@@ -283,12 +300,18 @@ derived/         enriched records, deterministic given the same inputs
 experiments/     one directory per attempted exploit: harness, command, stdout,
                  stderr, trace and result.json for the vulnerable and the fixed
                  revision. Small, hashed, and committed on purpose.
+jsonl_ml/        the v2.2 multi-language source layer: {n(ml_findings)} findings,
+                 {n(ml_sources)} sources across 5 languages. Read-only like jsonl/.
+derived_v2_2/    v2.2 derived records ({n(d22m.get('records', 0))}) with per-field
+                 evidence, the quality rubric and the experiment view
+splits_v2_2/     v2.2 splits with per-record sha256 pointers + quarantine.jsonl
+experiments_v2_2/ executed multi-language runs: command, stdout, stderr, result.json
 datasets/        high-confidence subsets, each with a published admission rule
 training/        task-oriented training files, split by task rather than one blob
 splits/          v1 repository-level splits (kept for comparison)
 splits_v2/       leakage-free splits + quarantine.jsonl
-benchmark/       ten task families, machine readable
-reports/         every generated report, including pre_upgrade_audit.json
+benchmark/       {fam_n} task families, machine readable (A-J v1, K-Q v2.2)
+reports/         every generated report, including reports/v2_2/ and pre_upgrade_audit.json
 scripts/         the pipeline (see below)
 work/            clones, retrieved source, execution logs — git-ignored
 ```
@@ -296,7 +319,9 @@ work/            clones, retrieved source, execution logs — git-ignored
 `jsonl/` is the contract: **original evidence**. Everything the dataset builder inferred lives in
 `derived/`, everything a machine actually ran lives in `work/` and is summarised in
 `reports/verification_stats.json`. A researcher can always separate what the audit said from what
-the builder derived from what was experimentally verified.
+the builder derived from what was experimentally verified. `jsonl_ml/` is the same contract for the
+v2.2 layer — the retrieved advisory, audit and post-mortem payloads of the five-language corpus —
+and is never rewritten either.
 
 ## What was actually done
 
@@ -325,12 +350,49 @@ the builder derived from what was experimentally verified.
 | Negatives still honestly unknown | 443 | **{n((negs.get('by_class', {}) or {}).get('unknown'))}** |
 | API-sibling counterexample pairs | 0 | {n(ce.get('api_sibling_pairs', 0))} |
 | Repositories with a static-analysis signal | none | {n((static.get('by_status', {}) or {}).get('available', 0))} analysed, {(static.get('by_status', {}) or {}).get('partial', 0) + (static.get('by_status', {}) or {}).get('unavailable', 0)} reported unanalysable |
-| Benchmark families | 7 | 10 |
+| Benchmark families | 7 | {fam_n} |
 | Benchmark tasks with experimentally produced ground truth | 0 | {n(benchq.get('experimentally_grounded_tasks'))} |
 
 Full accounting, including what could **not** be verified and why, is in
 [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md). The v2 report it supersedes is
 kept at [`reports/final_quality_report.md`](reports/final_quality_report.md).
+
+### v2.2: five languages, provenance-correct
+
+v2.2 keeps every v2.1 guarantee and adds a second source layer: {n(ml_findings)} findings and
+{n(ml_sources)} sources from advisories, audits, bug bounties and post-mortems across **5 languages**
+— Solidity, Vyper, Rust (Solana / CosmWasm / Substrate), Move (Sui / Aptos) and Cairo (Starknet).
+The layer is provenance-first: each source carries its retrieval method, payload sha256,
+verification status, a tier 0-4 from protocol-published down to third-party write-up, and its
+licence declaration (or `unknown`, which is what an undeclared licence stays).
+
+| | v2.1 | v2.2 |
+|---|---|---|
+| languages | 1 (Solidity) | 5 — `{d22m.get('by_language')}` |
+| source layer | `jsonl/` (v1, never rewritten) | + `jsonl_ml/` {n(ml_findings)} findings, {n(ml_sources)} sources (never rewritten) |
+| derived records | {n(dm.get('records', 0))} | + {n(d22m.get('records', 0))} in `derived_v2_2/` with evidence, quality rubric, experiment view |
+| splits | `splits_v2/` by repository | + `splits_v2_2/`: train {n(v22_splits.get('train'))}, validation {n(v22_splits.get('validation'))}, test {n(v22_splits.get('test'))}, quarantine {n(v22_splits.get('quarantine'))} — per-record sha256 pointers, duplicates quarantined |
+| executed experiment runs (v2.2 layer) | — | **{n((d22m.get('experiment_levels') or {}).get('L5', 0) + (d22m.get('experiment_levels') or {}).get('L3', 0))}** — levels `{d22m.get('experiment_levels')}` |
+| benchmark families | 10 | {fam_n} (K-Q added: language routing, severity reconciliation, experiment level, attacker identity, record class, provenance tier, evidence rubric) |
+| strongest evidence per record | — | `{d22m.get('evidence_strongest')}` |
+| gate | — | {vrep.get('passed', 0)}/{vrep.get('checks', 0)} checks, {vrep.get('failed_critical', 0)} critical failures |
+
+Read with the honest counts, all of them also in
+[`reports/v2_2/`](reports/v2_2/): **{n(((d22m.get('attacker_identity') or {}).get('unknown')))} of
+{n(d22m.get('records', 0))} records state no attacker standing** (`unknown`, not inferred);
+**{(d22m.get('by_status') or {}).get('unknown', 0) + (d22m.get('by_status') or {}).get('reported_claim', 0)}
+carry a reported claim rather than a code-derived verdict**; and family L is labelled on
+{n((bench.get('tasks') or {}).get('L_severity_reconciliation', {}).get('labeled'))} of
+{n((bench.get('tasks') or {}).get('L_severity_reconciliation', {}).get('tasks'))} tasks —
+{n((bench.get('tasks') or {}).get('L_severity_reconciliation', {}).get('partial'))} have a rating
+but no attribution and {(bench.get('tasks') or {}).get('L_severity_reconciliation', {}).get('unlabeled')}
+have neither, each said so on the row instead of guessed. Source titles and record ids in a task's
+`source` block are traceability, not model input: task ids carry the record id, and a record id
+carries its language prefix, which is family K's answer.
+
+Full accounting for the new layer, including what could **not** be executed (Sui, Aptos, Scarb and
+snFuzzer toolchains are absent from this environment, so no Move or Cairo run reaches L3), is in
+[`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md).
 
 ## Split integrity
 
@@ -452,16 +514,19 @@ python scripts/build_derived.py               # evidence, attacker model, state 
 python scripts/build_hard_negatives.py        # structured rejection reasons
 python scripts/build_counterexamples.py
 python scripts/check_leakage.py --emit splits_v2
-python scripts/build_benchmark.py             # ten task families
+python scripts/build_benchmark.py             # task families A-J (v1 layer)
+python scripts/build_benchmark_v22.py         # task families K-Q (derived_v2_2 + splits_v2_2)
 python scripts/build_subsets.py               # datasets/ and training/
 python scripts/generate_stats.py              # the only source of statistics
 python scripts/generate_reports.py
 python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
+python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
-Every script is idempotent, takes `--help`, and writes only under `derived/`, `splits_v2/`,
-`benchmark/`, `reports/`, `experiments/` or `work/`. `jsonl/` is read-only.
+Every script is idempotent, takes `--help`, and writes only under `derived/`, `derived_v2_2/`,
+`splits_v2/`, `splits_v2_2/`, `benchmark/`, `reports/`, `experiments/`, `experiments_v2_2/` or
+`work/`. `jsonl/` and `jsonl_ml/` are read-only.
 
 **`build_all.py` exits non-zero if any stage fails or if the gate fails.** It used to exit 0 with
 two stages failing, which is how a broken build ships as a green pipeline. Stages that cannot run

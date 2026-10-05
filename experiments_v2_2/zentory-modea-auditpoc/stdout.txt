@@ -1,0 +1,17 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/audit/AuditPoc.t.sol:AuditPocTest
+[PASS] test_cancelSubscription_revertsBecauseVaultHoldsNoFunds() (gas: 342957)
+[FAIL: totalVeSupply must fall to 0 once the only position expires+withdraws: 41095890410958904109 != 0] test_totalVeSupply_notDecrementedOnFullDecay_withdraw() (gas: 234579)
+Suite result: FAILED. 1 passed; 1 failed; 0 skipped; finished in 2.58ms (1.72ms CPU time)
+
+Ran 1 test suite in 9.54ms (2.58ms CPU time): 1 tests passed, 1 failed, 0 skipped (2 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/audit/AuditPoc.t.sol:AuditPocTest
+[FAIL: totalVeSupply must fall to 0 once the only position expires+withdraws: 41095890410958904109 != 0] test_totalVeSupply_notDecrementedOnFullDecay_withdraw() (gas: 234579)
+
+Encountered a total of 1 failing tests, 1 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

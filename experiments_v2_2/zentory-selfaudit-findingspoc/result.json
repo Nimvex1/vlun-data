@@ -1,0 +1,57 @@
+{
+  "argv": [
+    "forge",
+    "test",
+    "--match-path",
+    "test/FindingsPoc.t.sol",
+    "-vv"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 672,
+      "sha256": "49b12bf212ab906977cd7330c2ad49cc0fa00d0a3d064fc63e1da74812d5290e"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "forge test --match-path test/FindingsPoc.t.sol -vv",
+  "cwd": "<repo>",
+  "description": "the self-audit's original 7 finding PoCs",
+  "exit_code": 0,
+  "expectation": {
+    "declared": {
+      "all_pass": true,
+      "min_tests": 7
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "zentory-selfaudit-findingspoc",
+  "failing_test_count": 0,
+  "failing_tests": [],
+  "passing_tests": [
+    "test_C1_markToMarketFeeDrainsVault()",
+    "test_H2_buybackFeesFrozen()",
+    "test_H3_rewardBrickedSlashWorks()",
+    "test_M1_cancelAlwaysReverts()",
+    "test_M2_renewStalePricePaid()",
+    "test_M3_epochCapSharedSpam()",
+    "test_M5_postSnapshotStakeCounts()"
+  ],
+  "seconds": 1.1,
+  "source_report": "zentory-self-audit",
+  "status": "ok",
+  "test_counts": {
+    "failed": 0,
+    "passed": 7,
+    "skipped": 0
+  },
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+  }
+}

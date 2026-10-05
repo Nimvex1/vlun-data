@@ -1,0 +1,13 @@
+No files changed, compilation skipped
+
+Ran 7 tests for test/FindingsPoc.t.sol:FindingsPocTest
+[PASS] test_C1_markToMarketFeeDrainsVault() (gas: 662989)
+[PASS] test_H2_buybackFeesFrozen() (gas: 716339)
+[PASS] test_H3_rewardBrickedSlashWorks() (gas: 351750)
+[PASS] test_M1_cancelAlwaysReverts() (gas: 391351)
+[PASS] test_M2_renewStalePricePaid() (gas: 406229)
+[PASS] test_M3_epochCapSharedSpam() (gas: 384955431)
+[PASS] test_M5_postSnapshotStakeCounts() (gas: 370586)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 218.87ms (221.81ms CPU time)
+
+Ran 1 test suite in 220.77ms (218.87ms CPU time): 7 tests passed, 0 failed, 0 skipped (7 total tests)

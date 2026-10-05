@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/AuditPoc.t.sol:H1ShortBrickTest
+[PASS] testH1_shortCloseAndLiquidateBrick() (gas: 1233065)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 35.85ms (1.18ms CPU time)
+
+Ran 2 tests for test/AuditPoc.t.sol:H2HedgeLivenessTest
+[PASS] testH2_jumpPausesAndStrangerCannotUnpause() (gas: 1325652)
+[PASS] testH2_staleLatchFreezesWithNoTx() (gas: 1097391)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 39.65ms (4.78ms CPU time)
+
+Ran 2 tests for test/AuditPoc.t.sol:H3FullLegDumpTest
+[PASS] testH3_partialWithdrawSwapsFullOtherBalance() (gas: 8977622)
+[PASS] testH3_thinPoolPartialWithdrawRevertsInRouter() (gas: 10000711)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 42.65ms (13.29ms CPU time)
+
+Ran 2 tests for test/AuditPoc.t.sol:M1NavExtractionTest
+[PASS] testM1_hedgerExtractsNavFromVictim() (gas: 2705213)
+[PASS] testM1_jumpSelfClearsOnRepeatReport() (gas: 1127355)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 44.43ms (8.92ms CPU time)
+
+Ran 4 test suites in 49.33ms (162.58ms CPU time): 7 tests passed, 0 failed, 0 skipped (7 total tests)

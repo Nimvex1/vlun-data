@@ -114,6 +114,23 @@ GROUND_TRUTH_RULES = {
     "I_verified_non_exploit": "an attempted exploit executed at the audited revision",
     "J_verified_patch": "the same exploit executed against the vulnerable AND the fixed "
                         "revision",
+    "K_language_ecosystem_routing": "the ecosystem the sources publish, or the ingest rule from "
+                                    "the code the report cites; observed_fact when every source "
+                                    "is a machine-read security advisory",
+    "L_severity_reconciliation": "the severity recorded for the record and the attribution "
+                                 "recorded with it; partial when a rating exists without an "
+                                 "attribution, unlabeled when no source publishes a rating",
+    "M_experiment_level_classification": "the L0-L6 level the executed run earned and its "
+                                         "outcome, read from the record's own experiment block",
+    "N_attacker_identity_extraction": "the identity a quoted source sentence states, plus the "
+                                      "sentence verbatim; unknown where no source says",
+    "O_record_class_and_scope": "the record_class assigned by the ingest rule, with its "
+                                "evidence type taken from who states the class",
+    "P_provenance_tier_and_rights": "tier, evidence origin, content licence and redistribution "
+                                    "rights per source, under the published tier rules",
+    "Q_evidence_type_and_quality_rubric": "the closed evidence vocabulary applied per field, "
+                                          "the record's strongest and weakest evidence, and the "
+                                          "published quality rubric applied to observations",
 }
 
 

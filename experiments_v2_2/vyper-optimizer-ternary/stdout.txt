@@ -1,0 +1,13 @@
+OBS vyper_0.3.10=0.3.10+commit.9136169
+OBS vyper_0.4.0=0.4.0+commit.e9db8d9
+CHECK pass ir_v0.3.10_optimize_gas_folds_msg_value_or_2_to_1 :: rc=0 folded=True
+CHECK pass ir_v0.3.10_optimize_none_keeps_the_callvalue_expression :: rc=0 folded=False callvalue=True
+OBS ir_v0.4.0_optimize_gas_still_folds=True
+OBS advisory_names_a_patched_version=no
+CHECK pass bytecode_builds_produced :: gas_rc=0 none_rc=0
+CHECK pass both_builds_deployed :: gas=0x5fbdb2315678afecb367f032d93f642f64180aa3 none=0xe7f1725e7734ce288f8367e1bb143e90bb3f0512
+OBS calc_true_with_5wei_on_optimize_gas=1
+OBS calc_true_with_5wei_on_optimize_none=7
+CHECK pass runtime_optimize_gas_calc_true_with_value_5_returns_1 :: returned 1
+CHECK pass runtime_optimize_none_calc_true_with_value_5_returns_7 :: returned 7
+checks: 6 passed, 0 failed, 0 skipped

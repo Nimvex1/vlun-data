@@ -1,0 +1,8 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/security/EmergencyUnstakeRecipientPoC.t.sol:EmergencyUnstakeRecipientPoC
+[PASS] test_PoC_EmergencyUnstake_PaysArbitraryRecipient() (gas: 439449)
+[PASS] test_PoC_EmergencyUnstake_ZeroRecipient_PaysUser() (gas: 424274)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 6.15ms (2.46ms CPU time)
+
+Ran 1 test suite in 15.81ms (6.15ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

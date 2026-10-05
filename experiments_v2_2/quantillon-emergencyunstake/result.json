@@ -1,0 +1,54 @@
+{
+  "argv": [
+    "forge",
+    "test",
+    "--match-contract",
+    "EmergencyUnstakeRecipientPoC",
+    "--match-test",
+    "PoC",
+    "-vv"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 471,
+      "sha256": "116c76e904f2bcb9330da2487890146bb40b0a6b0a81da4a58e4f00aff9de4bf"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "forge test --match-contract EmergencyUnstakeRecipientPoC --match-test PoC -vv",
+  "cwd": "<repo>",
+  "description": "H-1 emergencyUnstake pays an arbitrary recipient, plus its control",
+  "exit_code": 0,
+  "expectation": {
+    "declared": {
+      "all_pass": true,
+      "min_tests": 2
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "quantillon-emergencyunstake",
+  "failing_test_count": 0,
+  "failing_tests": [],
+  "passing_tests": [
+    "test_PoC_EmergencyUnstake_PaysArbitraryRecipient()",
+    "test_PoC_EmergencyUnstake_ZeroRecipient_PaysUser()"
+  ],
+  "seconds": 5.6,
+  "source_report": "quantillon-report",
+  "status": "ok",
+  "test_counts": {
+    "failed": 0,
+    "passed": 2,
+    "skipped": 0
+  },
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+  }
+}

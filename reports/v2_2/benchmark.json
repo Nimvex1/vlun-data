@@ -1,0 +1,394 @@
+{
+  "families": [
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "family": "A",
+      "file": "benchmark/A_vulnerability_detection.jsonl",
+      "labeled": 720,
+      "layer": "v1",
+      "partial": 0,
+      "question": "does this protocol contain a confirmed, exploitable vulnerability?",
+      "scorable": 720,
+      "tasks": 720,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "family": "B",
+      "file": "benchmark/B_root_cause_reasoning.jsonl",
+      "labeled": 0,
+      "layer": "v1",
+      "partial": 416,
+      "question": "what is the root cause and which invariant does it violate?",
+      "scorable": 0,
+      "tasks": 720,
+      "unlabeled": 304
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "family": "C",
+      "file": "benchmark/C_attacker_reasoning.jsonl",
+      "labeled": 290,
+      "layer": "v1",
+      "partial": 0,
+      "question": "who can carry this out, what must they be able to do, in what order?",
+      "scorable": 290,
+      "tasks": 720,
+      "unlabeled": 430
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "family": "D",
+      "file": "benchmark/D_exploit_construction.jsonl",
+      "labeled": 346,
+      "layer": "v1",
+      "partial": 0,
+      "question": "write a Foundry test that demonstrates the claimed impact",
+      "scorable": 346,
+      "tasks": 720,
+      "unlabeled": 374
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 720
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 147,
+        "train": 344,
+        "validation": 229
+      },
+      "family": "E",
+      "file": "benchmark/E_exploit_verification.jsonl",
+      "labeled": 7,
+      "layer": "v1",
+      "partial": 0,
+      "question": "does this test demonstrate the claimed impact?",
+      "scorable": 7,
+      "tasks": 720,
+      "unlabeled": 713
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 458
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "family": "F",
+      "file": "benchmark/F_false_positive_rejection.jsonl",
+      "labeled": 15,
+      "layer": "v1",
+      "partial": 0,
+      "question": "is this claim a valid vulnerability, and what blocks it if not?",
+      "scorable": 15,
+      "tasks": 458,
+      "unlabeled": 443
+    },
+    {
+      "answer_key_evidence_levels": {
+        "not_recorded": 38
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 20,
+        "validation": 18
+      },
+      "family": "G",
+      "file": "benchmark/G_patch_verification.jsonl",
+      "labeled": 0,
+      "layer": "v1",
+      "partial": 0,
+      "question": "does the fix address the vulnerability?",
+      "scorable": 0,
+      "tasks": 38,
+      "unlabeled": 38
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5
+      },
+      "by_language": null,
+      "by_split": {
+        "validation": 5
+      },
+      "family": "H",
+      "file": "benchmark/H_verified_exploit.jsonl",
+      "labeled": 5,
+      "layer": "v1",
+      "partial": 0,
+      "question": "name the vulnerability, attacker model and PoC at the audited revision, against code whose experiment was actually executed",
+      "scorable": 5,
+      "tasks": 5,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 1,
+        "unknown": 2
+      },
+      "by_language": null,
+      "by_split": {
+        "validation": 3
+      },
+      "family": "I",
+      "file": "benchmark/I_verified_non_exploit.jsonl",
+      "labeled": 1,
+      "layer": "v1",
+      "partial": 0,
+      "question": "is this exploitable at the audited revision, given an executed attempt?",
+      "scorable": 1,
+      "tasks": 3,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 4
+      },
+      "by_language": null,
+      "by_split": {
+        "validation": 4
+      },
+      "family": "J",
+      "file": "benchmark/J_verified_patch.jsonl",
+      "labeled": 4,
+      "layer": "v1",
+      "partial": 0,
+      "question": "does the exploit pass on the vulnerable revision and fail on the fixed one?",
+      "scorable": 4,
+      "tasks": 4,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 67,
+        "observed_fact": 70
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "K",
+      "file": "benchmark/K_language_ecosystem_routing.jsonl",
+      "labeled": 137,
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "which language and which ecosystem does this finding concern?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "reported_claim": 134,
+        "unknown": 3
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "L",
+      "file": "benchmark/L_severity_reconciliation.jsonl",
+      "labeled": 128,
+      "layer": "v2.2",
+      "partial": 6,
+      "question": "what severity do the publishers agree on, and who says so?",
+      "scorable": 128,
+      "tasks": 137,
+      "unlabeled": 3
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 36
+      },
+      "by_language": {
+        "solidity": 34,
+        "vyper": 2
+      },
+      "by_split": {
+        "test": 1,
+        "train": 31,
+        "validation": 4
+      },
+      "family": "M",
+      "file": "benchmark/M_experiment_level_classification.jsonl",
+      "labeled": 36,
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "which L0-L6 level and which outcome does this executed run earn?",
+      "scorable": 36,
+      "tasks": 36,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "reported_claim": 24,
+        "unknown": 113
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "N",
+      "file": "benchmark/N_attacker_identity_extraction.jsonl",
+      "labeled": 14,
+      "layer": "v2.2",
+      "partial": 10,
+      "question": "who does a source sentence say can act, and what is the sentence?",
+      "scorable": 14,
+      "tasks": 137,
+      "unlabeled": 113
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 45,
+        "externally_attributed": 8,
+        "reported_claim": 84
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "O",
+      "file": "benchmark/O_record_class_and_scope.jsonl",
+      "labeled": 137,
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "what kind of record is this: advisory, incident, judged finding, audit finding, or out of scope?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "P",
+      "file": "benchmark/P_provenance_tier_and_rights.jsonl",
+      "labeled": 137,
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "what tier and origin does each source admit under, and may it be redistributed?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "family": "Q",
+      "file": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
+      "labeled": 137,
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "type every claim's evidence and apply the published quality rubric",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0
+    }
+  ],
+  "generated_by": "scripts/generate_v22_reports.py",
+  "policy": "families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2_2 over splits_v2_2, one task per v2.2 record (M only for records with a run). A task is labeled only where the record actually holds the answer, partial where half of it exists, and unlabeled with a stated reason otherwise; only labeled tasks are scored. The model-facing payload is the task's `input` object - ids and source blocks are traceability and carry the language prefix.",
+  "totals": {
+    "families": 17,
+    "labeled": 2114,
+    "partial": 432,
+    "scorable": 2114,
+    "tasks": 4966,
+    "unlabeled": 2418,
+    "v2_2_families": 7,
+    "v2_2_tasks": 858
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "argv": [
+    "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "scripts/run_vyper_poc.py",
+    "--id",
+    "rawcall_value"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 561,
+      "sha256": "64082945d23bea6b9861d8fa70f00f3bfd33fb7fe386cd7c72cf61f25a3b8783"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id rawcall_value",
+  "cwd": "<repo>",
+  "description": "value= on a delegate call: accepted by 0.3.10, rejected by 0.4.0, with a control that compiles on both",
+  "exit_code": 0,
+  "expectation": {
+    "declared": {
+      "min_tests": 0,
+      "stdout_contains": [
+        "CHECK pass vulnerable_compiler_accepts_value_kwarg_on_a_delegate_call",
+        "CHECK pass vulnerable_compiler_also_accepts_the_control_without_value",
+        "CHECK pass patched_compiler_rejects_value_kwarg_on_a_delegate_call",
+        "CHECK pass patched_compiler_still_accepts_the_control_without_value"
+      ],
+      "stdout_not_contains": [
+        "CHECK fail"
+      ]
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "vyper-rawcall-value",
+  "failing_test_count": 0,
+  "failing_tests": [],
+  "passing_tests": [],
+  "seconds": 2.1,
+  "source_report": "vyper-GHSA-x2c2-q32w-4w6m",
+  "status": "ok",
+  "test_counts": null,
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "anvil": "anvil Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "cast": "cast Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "vyper 0.3.10": "0.3.10+commit.9136169",
+    "vyper 0.4.0": "0.4.0+commit.e9db8d9"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "actor_mentioned": 20,
+  "attacker_identity": {
+    "malicious_dependency": 2,
+    "privileged": 6,
+    "unknown": 123,
+    "unprivileged": 6
+  },
+  "by_language": {
+    "cairo": 8,
+    "move": 15,
+    "rust": 18,
+    "solidity": 45,
+    "vyper": 51
+  },
+  "by_record_class": {
+    "advisory": 51,
+    "audit_finding": 39,
+    "incident": 2,
+    "judged": 8,
+    "negative_control": 1,
+    "observation": 2,
+    "out_of_scope": 1,
+    "overstated_by_the_report": 1,
+    "scope_risk": 1,
+    "vulnerability": 31
+  },
+  "by_status": {
+    "confirmed": 8,
+    "experimentally_verified": 36,
+    "exploited": 1,
+    "fix_in_testing_at_time_of_postmortem": 1,
+    "fixed": 7,
+    "patched": 22,
+    "patched_versions_not_published": 1,
+    "reported_claim": 60,
+    "unknown": 1
+  },
+  "canonical_groups": 10,
+  "code_citations": 155,
+  "code_citations_commit_pinned": 5,
+  "code_citations_resolved": 146,
+  "evidence_strongest": {
+    "experimentally_verified": 36,
+    "observed_fact": 101
+  },
+  "experiment_artefacts_all_present": 36,
+  "experiment_levels": {
+    "L3": 1,
+    "L5": 35,
+    "none": 101
+  },
+  "generated_by": "scripts/build_derived_v22.py",
+  "not_redistributable": 137,
+  "problems": 0,
+  "quality": {
+    "attacker_model": {
+      "high": 14,
+      "low": 113,
+      "medium": 10
+    },
+    "code_context": {
+      "low": 15,
+      "medium": 38,
+      "none": 84
+    },
+    "licensing": {
+      "mixed": 3,
+      "unknown_not_redistributable": 134
+    },
+    "provenance": {
+      "high": 89,
+      "medium": 48
+    },
+    "reasoning": {
+      "low": 13,
+      "medium": 124
+    },
+    "taxonomy": {
+      "classes_present_unmapped": 75,
+      "mapped": 8,
+      "no_classes": 54
+    },
+    "verification": {
+      "experimentally_verified": 36,
+      "reported_claim": 99,
+      "unverified": 2
+    }
+  },
+  "records": 137,
+  "state_transition_present": 0,
+  "taxonomy_mapped": 8,
+  "with_experiment": 36
+}

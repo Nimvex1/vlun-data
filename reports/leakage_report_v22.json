@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "quarantine": 2,
+    "test": 284,
+    "train": 489,
+    "validation": 307
+  },
+  "cross_layer_pairs": {
+    "near": [],
+    "semantic": []
+  },
+  "generated_by": "scripts/build_splits_v22.py",
+  "post_check": {
+    "code_repository_violations": {},
+    "cross_split_near_duplicates": 0,
+    "cross_split_semantic_pairs": 0,
+    "cross_split_source_urls": 0
+  },
+  "quarantine_detail": [
+    {
+      "id": "2022-05-alchemix/L-05",
+      "layer": "v1",
+      "reason": "cross-split semantic_overlap with 2024-01-decent/submission-12 ({'a': '2022-05-alchemix/L-05', 'b': '2024-01-decent/submission-12', 'cosine': 0.753, 'a_split': 'train', 'b_split': 'validation'}); the copy in the more protected split (validation) is retained so the held-out set stays unseen"
+    },
+    {
+      "id": "2022-05-alchemix/L-06",
+      "layer": "v1",
+      "reason": "cross-split semantic_overlap with 2024-01-decent/submission-10 ({'a': '2022-05-alchemix/L-06', 'b': '2024-01-decent/submission-10', 'cosine': 0.717, 'a_split': 'train', 'b_split': 'validation'}); the copy in the more protected split (validation) is retained so the held-out set stays unseen"
+    }
+  ],
+  "splits_dir": "splits_v2_2",
+  "thresholds": {
+    "near_duplicate_jaccard": 0.8,
+    "semantic_cosine": 0.7
+  }
+}

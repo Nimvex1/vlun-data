@@ -1,0 +1,621 @@
+{
+  "experiments": [
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-path",
+        "test/audit/AccountingL2PoC.t.sol",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 1384,
+          "sha256": "b1f37dc8b5f44441796aaefca629b7a968725c4e6b8c001bca8414d2ffd14e42"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-path test/audit/AccountingL2PoC.t.sol -vv",
+      "cwd": "<repo>",
+      "description": "the five accounting/governance PoCs of report A",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 5
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-modea-accountingl2",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "test_poc_1_gpPoolDoubleCounted()",
+        "test_poc_2_triggerBuybackStrandsAssetAndBurnsUnrelatedZent()",
+        "test_poc_3_withdrawRemovesZeroVe()",
+        "test_poc_4_veSupplyInflationByStakeWithdrawCycles()",
+        "test_poc_5_buybackEventReportsUnspentUsdc()"
+      ],
+      "seconds": 4.0,
+      "source_report": "zentory-mode-a",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 5,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-path",
+        "test/audit/AuditPoc.t.sol",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 1035,
+          "sha256": "670ede09c4cfa855ac59cfc55e58af5998da3ea299c6abbacd384fc87240999b"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-path test/audit/AuditPoc.t.sol -vv",
+      "cwd": "<repo>",
+      "description": "report A: 1 pass, 1 FAIL on the current tree (the live H-3 bug)",
+      "exit_code": 1,
+      "expectation": {
+        "declared": {
+          "fail": [
+            "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+          ],
+          "pass": [
+            "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds"
+          ]
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-modea-auditpoc",
+      "failing_test_count": 1,
+      "failing_tests": [
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "passing_tests": [
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds()"
+      ],
+      "seconds": 0.9,
+      "source_report": "zentory-mode-a",
+      "status": "ok",
+      "test_counts": {
+        "failed": 1,
+        "passed": 1,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-test",
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 960,
+          "sha256": "c09a9b055025586985510d186e2179aaccd7b58d78c4e10c6e428862500a51ed"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-test test_totalVeSupply_notDecrementedOnFullDecay_withdraw -vv",
+      "cwd": "<repo>",
+      "description": "H2 totalVeSupply not decremented on full decay (expected to fail today)",
+      "exit_code": 1,
+      "expectation": {
+        "declared": {
+          "fail": [
+            "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+          ],
+          "min_tests": 1
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-contractaudit-supply",
+      "failing_test_count": 1,
+      "failing_tests": [
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "passing_tests": [],
+      "seconds": 1.1,
+      "source_report": "zentory-contracts-audit",
+      "status": "ok",
+      "test_counts": {
+        "failed": 1,
+        "passed": 0,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-test",
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 370,
+          "sha256": "e40517441cfe800f1fbef12813be4c71bb2c3c948573b64d05c37a8d7b41d08e"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-test test_cancelSubscription_revertsBecauseVaultHoldsNoFunds -vv",
+      "cwd": "<repo>",
+      "description": "H3 cancelSubscription always reverts (the test asserts the revert)",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 1
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-contractaudit-cancel",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds()"
+      ],
+      "seconds": 1.0,
+      "source_report": "zentory-contracts-audit",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 1,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-path",
+        "test/Audit*",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 2636,
+          "sha256": "5cfb83807cdc95c3c1e555ebe67f5a80eca8008609bd72747c36399b011a4cda"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-path test/Audit* -vv",
+      "cwd": "<repo>",
+      "description": "the self-audit's 24 Solidity PoCs",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 24
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-selfaudit-auditpocs",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "test_G1_expiredWithdrawalLeavesStaleQuorum()",
+        "test_G2_postSnapshotStakeCanVote()",
+        "test_R1_zeroStakeSignerIsAccepted()",
+        "test_R2_zeroStakeSignerExhaustsSharedEpochCap()",
+        "test_S1_penaltyAppliesOncePerDistinctSignalAndCompounds()",
+        "test_S2_rewardPathRevertsWithoutAllowance()",
+        "test_S3_negativeDirectionIsAcceptedButScoredNeutral()",
+        "test_SC1_keeperCanAdvanceRegistryIndependently()",
+        "test_SC2_epochSettlerCanSettleBeforeDuration()",
+        "test_SC3_scoringOracleSetsUnknownSignalAccuracy()",
+        "test_SC4_expiredSignalCanBeSlashed()",
+        "test_SC5_revertingAdapterRollsBackNonceState()",
+        "test_baseVaultKeeperMarkAccruesFeesFromIdlePrincipal()",
+        "test_defaultInsuranceFundKeepsSlashedTokensInStaking()",
+        "test_deployerRetainsAdminAndBootstrapProposerCanSchedule()",
+        "test_feeDistributorStaleGpCreditUsesRetainedBuybackBalance()",
+        "test_feeDistributorTriggerBuybackClearsPoolWithoutSpendingAsset()",
+        "test_fullSlashAfterPendingUnbondLeavesTimestampAndBlocksUnbondPaths()",
+        "test_hyperCoreAdapterConstructorGrantsDeployerExecutorRole()",
+        "test_hyperSwapRouterAdapterOneWeiDonationBreaksSwap()",
+        "test_singleRegistryRedeployLeavesScorerOnOldRegistry()",
+        "test_strategyExecutorZeroLimitsAllowRepeatedSignals()",
+        "test_subscriptionPaymentGoesToTreasuryAndPositiveRefundCancelReverts()",
+        "test_zentBuybackLeavesConfiguredFeeToken()"
+      ],
+      "seconds": 1.4,
+      "source_report": "zentory-self-audit",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 24,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-path",
+        "test/FindingsPoc.t.sol",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 672,
+          "sha256": "49b12bf212ab906977cd7330c2ad49cc0fa00d0a3d064fc63e1da74812d5290e"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-path test/FindingsPoc.t.sol -vv",
+      "cwd": "<repo>",
+      "description": "the self-audit's original 7 finding PoCs",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 7
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-selfaudit-findingspoc",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "test_C1_markToMarketFeeDrainsVault()",
+        "test_H2_buybackFeesFrozen()",
+        "test_H3_rewardBrickedSlashWorks()",
+        "test_M1_cancelAlwaysReverts()",
+        "test_M2_renewStalePricePaid()",
+        "test_M3_epochCapSharedSpam()",
+        "test_M5_postSnapshotStakeCounts()"
+      ],
+      "seconds": 1.1,
+      "source_report": "zentory-self-audit",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 7,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "node",
+        "test/AuditAirdropSnapshotPoc.mjs"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "assertion_stdout_captured": false,
+      "command": "node test/AuditAirdropSnapshotPoc.mjs",
+      "cwd": "<repo>",
+      "description": "M-09 off-chain airdrop snapshot model",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 0
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "zentory-selfaudit-airdrop-node",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [],
+      "seconds": 0.2,
+      "source_report": "zentory-self-audit",
+      "status": "ok",
+      "test_counts": null,
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "node": "v24.20.0",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-path",
+        "test/AuditPoc.t.sol",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 1174,
+          "sha256": "87fa21041b55437e5480cfc73fc9b33c0f0b0014a5ce5c6c60ff7a83fe576252"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-path test/AuditPoc.t.sol -vv",
+      "cwd": "<repo>",
+      "description": "Kerf's four findings, seven PoC tests",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 7
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "kerf-auditpoc",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "testH1_shortCloseAndLiquidateBrick()",
+        "testH2_jumpPausesAndStrangerCannotUnpause()",
+        "testH2_staleLatchFreezesWithNoTx()",
+        "testH3_partialWithdrawSwapsFullOtherBalance()",
+        "testH3_thinPoolPartialWithdrawRevertsInRouter()",
+        "testM1_hedgerExtractsNavFromVictim()",
+        "testM1_jumpSelfClearsOnRepeatReport()"
+      ],
+      "seconds": 5.1,
+      "source_report": "kerf-report",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 7,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "forge",
+        "test",
+        "--match-contract",
+        "EmergencyUnstakeRecipientPoC",
+        "--match-test",
+        "PoC",
+        "-vv"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 471,
+          "sha256": "116c76e904f2bcb9330da2487890146bb40b0a6b0a81da4a58e4f00aff9de4bf"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "forge test --match-contract EmergencyUnstakeRecipientPoC --match-test PoC -vv",
+      "cwd": "<repo>",
+      "description": "H-1 emergencyUnstake pays an arbitrary recipient, plus its control",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "all_pass": true,
+          "min_tests": 2
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "quantillon-emergencyunstake",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [
+        "test_PoC_EmergencyUnstake_PaysArbitraryRecipient()",
+        "test_PoC_EmergencyUnstake_ZeroRecipient_PaysUser()"
+      ],
+      "seconds": 5.6,
+      "source_report": "quantillon-report",
+      "status": "ok",
+      "test_counts": {
+        "failed": 0,
+        "passed": 2,
+        "skipped": 0
+      },
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+      }
+    },
+    {
+      "argv": [
+        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "scripts/run_vyper_poc.py",
+        "--id",
+        "optimizer_ternary"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 827,
+          "sha256": "389cf1e47eb72a3e0909b945932659f73fa81cab93f67af36cc2e018068b8b3a"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id optimizer_ternary",
+      "cwd": "<repo>",
+      "description": "the optimizer folds `msg.value | 2` to 1: IR differential plus a deployed call returning 1 at -O gas and 7 at -O none",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "min_tests": 0,
+          "stdout_contains": [
+            "CHECK pass ir_v0.3.10_optimize_gas_folds_msg_value_or_2_to_1",
+            "CHECK pass ir_v0.3.10_optimize_none_keeps_the_callvalue_expression",
+            "CHECK pass runtime_optimize_gas_calc_true_with_value_5_returns_1",
+            "CHECK pass runtime_optimize_none_calc_true_with_value_5_returns_7"
+          ],
+          "stdout_not_contains": [
+            "CHECK fail"
+          ]
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "vyper-optimizer-ternary",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [],
+      "seconds": 3.9,
+      "source_report": "vyper-GHSA-6j9c-gvcw-74fj",
+      "status": "ok",
+      "test_counts": null,
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "anvil": "anvil Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "cast": "cast Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "vyper 0.3.10": "0.3.10+commit.9136169",
+        "vyper 0.4.0": "0.4.0+commit.e9db8d9"
+      }
+    },
+    {
+      "argv": [
+        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "scripts/run_vyper_poc.py",
+        "--id",
+        "rawcall_value"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 561,
+          "sha256": "64082945d23bea6b9861d8fa70f00f3bfd33fb7fe386cd7c72cf61f25a3b8783"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id rawcall_value",
+      "cwd": "<repo>",
+      "description": "value= on a delegate call: accepted by 0.3.10, rejected by 0.4.0, with a control that compiles on both",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "min_tests": 0,
+          "stdout_contains": [
+            "CHECK pass vulnerable_compiler_accepts_value_kwarg_on_a_delegate_call",
+            "CHECK pass vulnerable_compiler_also_accepts_the_control_without_value",
+            "CHECK pass patched_compiler_rejects_value_kwarg_on_a_delegate_call",
+            "CHECK pass patched_compiler_still_accepts_the_control_without_value"
+          ],
+          "stdout_not_contains": [
+            "CHECK fail"
+          ]
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "vyper-rawcall-value",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [],
+      "seconds": 2.1,
+      "source_report": "vyper-GHSA-x2c2-q32w-4w6m",
+      "status": "ok",
+      "test_counts": null,
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "anvil": "anvil Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "cast": "cast Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+        "vyper 0.3.10": "0.3.10+commit.9136169",
+        "vyper 0.4.0": "0.4.0+commit.e9db8d9"
+      }
+    }
+  ],
+  "generated_by": "scripts/run_ml_pocs.py",
+  "totals": {
+    "declared": 11,
+    "failed": 0,
+    "ok": 11,
+    "other": 0,
+    "tests_failed": 2,
+    "tests_passed": 47
+  }
+}

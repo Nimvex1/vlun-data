@@ -1,0 +1,57 @@
+{
+  "argv": [
+    "forge",
+    "test",
+    "--match-path",
+    "test/audit/AuditPoc.t.sol",
+    "-vv"
+  ],
+  "artefacts": {
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 1035,
+      "sha256": "670ede09c4cfa855ac59cfc55e58af5998da3ea299c6abbacd384fc87240999b"
+    }
+  },
+  "assertion_stdout_captured": true,
+  "command": "forge test --match-path test/audit/AuditPoc.t.sol -vv",
+  "cwd": "<repo>",
+  "description": "report A: 1 pass, 1 FAIL on the current tree (the live H-3 bug)",
+  "exit_code": 1,
+  "expectation": {
+    "declared": {
+      "fail": [
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "pass": [
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds"
+      ]
+    },
+    "met": true,
+    "violations": []
+  },
+  "experiment_id": "zentory-modea-auditpoc",
+  "failing_test_count": 1,
+  "failing_tests": [
+    "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+  ],
+  "passing_tests": [
+    "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds()"
+  ],
+  "seconds": 0.9,
+  "source_report": "zentory-mode-a",
+  "status": "ok",
+  "test_counts": {
+    "failed": 1,
+    "passed": 1,
+    "skipped": 0
+  },
+  "timeout_seconds": 3600,
+  "toolchain": {
+    "forge": "forge Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
+    "solc": "solc, the solidity compiler commandline interface Version: 0.8.37+commit.f401782d.Windows.msvc"
+  }
+}
