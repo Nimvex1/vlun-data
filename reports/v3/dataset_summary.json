@@ -1,0 +1,66 @@
+{
+  "by_ecosystem": {
+    "aptos": 11,
+    "cosmos": 95,
+    "evm": 6446,
+    "solana": 103,
+    "stacks": 4,
+    "sui": 5,
+    "ton": 4,
+    "unknown": 1044
+  },
+  "by_language": {
+    "clarity": 4,
+    "go": 28,
+    "move": 30,
+    "rust": 132,
+    "solidity": 6446,
+    "unknown": 1072
+  },
+  "by_source": {
+    "abdk-audits": 216,
+    "ackee-audits": 97,
+    "anza-security-audits": 77,
+    "c4-phi-findings": 378,
+    "c4-renzo-findings": 612,
+    "c4-reserve-findings": 117,
+    "certora-reports": 200,
+    "cyba-audits": 14,
+    "defihacklabs": 878,
+    "hexens-reports": 170,
+    "informal-audits": 95,
+    "nethermind-audits": 190,
+    "pashov-audits": 3520,
+    "sherlock-optimism": 306,
+    "sherlock-symmetrical": 24,
+    "sigmaprime-audits": 156,
+    "smartbugs-curated": 207,
+    "zellic-publications": 455
+  },
+  "candidate_count": 7712,
+  "dataset_version": "3.0",
+  "decisions": {
+    "CORROBORATION_ONLY": 108,
+    "IMPORT": 3517,
+    "IMPORT_AS_NEGATIVE": 16,
+    "IMPORT_AS_UNVERIFIED": 1934,
+    "RESEARCH_ONLY": 2137
+  },
+  "experimental_runs_attempted": 0,
+  "experimental_runs_note": "no exploit executed in this integration pass; all L1 claims are published-PoC claims, not executions",
+  "generated_by": "scripts/build_v3.py",
+  "license_posture": "METADATA_ONLY for all third-party content",
+  "record_count": 5467,
+  "schema_version": "3.0",
+  "source_count": 18,
+  "tiers": {
+    "0": "defihacklabs",
+    "1": "anza-security-audits",
+    "2": "sherlock-optimism",
+    "4": "smartbugs-curated"
+  },
+  "verification_levels": {
+    "L0": 6831,
+    "L1": 881
+  }
+}

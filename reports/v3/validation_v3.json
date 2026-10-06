@@ -1,0 +1,305 @@
+{
+  "checks": [
+    {
+      "check": "derived_v3/candidate_ledger.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_v3/records.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_v3/negatives.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_v3/duplicates.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_v3/corroborations.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "jsonl_v3/findings.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "jsonl_v3/sources.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "candidate_required_fields",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "candidate_ids_unique",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "finding_ids_unique",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "sources_cover_18",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "file_sha256_shape",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "clone_head_shape",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "commit_hex_shape",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "commit_confidence_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "url_shape",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "decision_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "levels_L0_L1_only_this_pass",
+      "critical": false,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L1_requires_published_poc",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "negative_class_iff_negative",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "corroboration_has_link",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "quality_score_0_95",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "license_metadata_present",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "duplicates_resolve",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "corroborations_resolve",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "negatives_subset_of_records",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "records_eq_admitted",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "benchmark_tasks_resolve",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "splits_cover_records_once",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "manifest_counts_match",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "source_ledger_sums",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "v3_version_3_0_consistent",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "versions",
+      "ok": true
+    },
+    {
+      "check": "benchmark_A_Q_intact",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "isolation",
+      "ok": true
+    }
+  ],
+  "critical_failures": 0,
+  "dataset_version": "3.0",
+  "passed": 33,
+  "total": 33
+}
