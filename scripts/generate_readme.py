@@ -233,6 +233,17 @@ def render() -> str:
             v22_splits[_sp] = sum(1 for r in read_jsonl(_p) if r.get("layer") == "v2.2") \
                 if _sp != "quarantine" else len(read_jsonl(_p))
     ex22 = jread(REPORTS / "v2_2" / "dataset_summary.json", {}) or {}
+    # v3 layer: eighteen new sources harvested from V3/clones. Same rule as
+    # above: every figure is read from the v3 artefacts, never typed in.
+    v3m = jread(REPORTS / "v3" / "dataset_summary.json", {}) or {}
+    v3bench = jread(BENCH / "v3_manifest.json", {}) or {}
+    v3gate = jread(REPORTS / "v3" / "validation_v3.json", {}) or {}
+    v3split: dict = {}
+    _sp3 = ROOT / "splits_v3" / "split.json"
+    if _sp3.exists():
+        _sj = jread(_sp3, {}) or {}
+        for _k, _v in ((_sj.get("splits") or {}).items()):
+            v3split[_k] = len(_v)
     V2_BEFORE_REPRO = 5
     exp_verdicts = {}
     for _e in exp.get("experiments", []):
@@ -306,11 +317,16 @@ derived_v2_2/    v2.2 derived records ({n(d22m.get('records', 0))}) with per-fie
                  evidence, the quality rubric and the experiment view
 splits_v2_2/     v2.2 splits with per-record sha256 pointers + quarantine.jsonl
 experiments_v2_2/ executed multi-language runs: command, stdout, stderr, result.json
+jsonl_v3/        the v3 source layer: {n(v3m.get('candidate_count', 0))} candidates,
+                 {n(v3m.get('source_count', 0))} sources across 18 new archives. Read-only like jsonl/.
+derived_v3/      v3 derived records ({n(v3m.get('record_count', 0))}) with decisions, quality rubric,
+                 provenance ledger and verification view
+splits_v3/       v3 by-source splits (no source spans splits) + quarantine.jsonl
 datasets/        high-confidence subsets, each with a published admission rule
 training/        task-oriented training files, split by task rather than one blob
 splits/          v1 repository-level splits (kept for comparison)
 splits_v2/       leakage-free splits + quarantine.jsonl
-benchmark/       {fam_n} task families, machine readable (A-J v1, K-Q v2.2)
+benchmark/       {fam_n} task families, machine readable (A-J v1, K-Q v2.2, R-S v3)
 reports/         every generated report, including reports/v2_2/ and pre_upgrade_audit.json
 scripts/         the pipeline (see below)
 work/            clones, retrieved source, execution logs — git-ignored
@@ -372,7 +388,7 @@ licence declaration (or `unknown`, which is what an undeclared licence stays).
 | source layer | `jsonl/` (v1, never rewritten) | + `jsonl_ml/` {n(ml_findings)} findings, {n(ml_sources)} sources (never rewritten) |
 | derived records | {n(dm.get('records', 0))} | + {n(d22m.get('records', 0))} in `derived_v2_2/` with evidence, quality rubric, experiment view |
 | splits | `splits_v2/` by repository | + `splits_v2_2/`: train {n(v22_splits.get('train'))}, validation {n(v22_splits.get('validation'))}, test {n(v22_splits.get('test'))}, quarantine {n(v22_splits.get('quarantine'))} — per-record sha256 pointers, duplicates quarantined |
-| executed experiment runs (v2.2 layer) | — | **{n((d22m.get('experiment_levels') or {}).get('L5', 0) + (d22m.get('experiment_levels') or {}).get('L3', 0))}** — levels `{d22m.get('experiment_levels')}` |
+| executed experiment runs (v2.2 layer) | — | **{n(sum(v for k, v in (d22m.get('experiment_levels') or {}).items() if k != 'none'))}** — levels `{d22m.get('experiment_levels')}` |
 | benchmark families | 10 | {fam_n} (K-Q added: language routing, severity reconciliation, experiment level, attacker identity, record class, provenance tier, evidence rubric) |
 | strongest evidence per record | — | `{d22m.get('evidence_strongest')}` |
 | gate | — | {vrep.get('passed', 0)}/{vrep.get('checks', 0)} checks, {vrep.get('failed_critical', 0)} critical failures |
@@ -393,6 +409,31 @@ carries its language prefix, which is family K's answer.
 Full accounting for the new layer, including what could **not** be executed (Sui, Aptos, Scarb and
 snFuzzer toolchains are absent from this environment, so no Move or Cairo run reaches L3), is in
 [`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md).
+
+### v3.0: eighteen new sources, additive layer
+
+v3.0 keeps every v2.2 guarantee and adds a third source layer harvested from 18 cloned archives
+(professional audits, competitive audits, incident PoCs, one Tier-4 research dataset): {n(v3m.get('candidate_count', 0))}
+candidates, {n(v3m.get('record_count', 0))} admitted records. The v1/v2.2 artefacts are untouched;
+the clone working trees (~3.1 GB, must-not-redistribute) are not committed - provenance survives
+as clone-HEAD pins plus per-file sha256. Nothing was executed in this pass, so no record exceeds
+L1 (published PoC); `reproducibility = 0` for every v3 record by construction.
+
+| | v3.0 |
+|---|---|
+| sources discovered | {n(v3m.get('source_count', 0))} |
+| candidates / admitted records | {n(v3m.get('candidate_count', 0))} / {n(v3m.get('record_count', 0))} |
+| decisions | {(v3m.get('decisions') or {})} |
+| verification levels | {(v3m.get('verification_levels') or {})} |
+| ecosystems | {(v3m.get('by_ecosystem') or {})} |
+| languages | {(v3m.get('by_language') or {})} |
+| splits_v3 (by source) | train {n(v3split.get('train'))}, validation {n(v3split.get('validation'))}, test {n(v3split.get('test'))} |
+| benchmark families added | {(v3bench.get('families') or [])} ({n((v3bench.get('tasks') or {}).get('R_v3_source_tier_routing'))} + {n((v3bench.get('tasks') or {}).get('S_v3_contest_outcome'))} tasks) |
+| v3 gate | {n(v3gate.get('passed', 0))}/{n(v3gate.get('total', 0))} checks, {n(v3gate.get('critical_failures', 0))} critical failures |
+
+Full accounting, including the report-level-pointer thin spots (hard negatives: 16; per-finding
+language/class extraction queued, not faked), is in
+[`reports/v3/quality_report.md`](reports/v3/quality_report.md).
 
 ## Split integrity
 
@@ -521,12 +562,14 @@ python scripts/generate_stats.py              # the only source of statistics
 python scripts/generate_reports.py
 python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
 python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
+python scripts/build_v3.py                    # v3 layer: 18 clones -> jsonl_v3/derived_v3/splits_v3 + families R-S
+python scripts/validate_v3.py                 # the v3 gate; non-zero on failure
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
 Every script is idempotent, takes `--help`, and writes only under `derived/`, `derived_v2_2/`,
-`splits_v2/`, `splits_v2_2/`, `benchmark/`, `reports/`, `experiments/`, `experiments_v2_2/` or
-`work/`. `jsonl/` and `jsonl_ml/` are read-only.
+`derived_v3/`, `splits_v2/`, `splits_v2_2/`, `splits_v3/`, `benchmark/`, `reports/`, `reports/v3/`,
+`experiments/`, `experiments_v2_2/` or `work/`. `jsonl/`, `jsonl_ml/` and `jsonl_v3/` are read-only.
 
 **`build_all.py` exits non-zero if any stage fails or if the gate fails.** It used to exit 0 with
 two stages failing, which is how a broken build ships as a green pipeline. Stages that cannot run
