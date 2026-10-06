@@ -1,0 +1,9 @@
+{
+  "inconclusive": 0,
+  "normalization_version": "3.1",
+  "not_testable": 47,
+  "note": "merged/described fixes are patch claims (reported_claim), never effectiveness verdicts; L6 needs same-test both revisions",
+  "patch_candidates": 47,
+  "reproduced_but_not_blocked": 0,
+  "verified_effective": 0
+}

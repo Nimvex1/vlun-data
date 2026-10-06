@@ -1,0 +1,114 @@
+{
+  "fields": {
+    "affected_file_candidates": {
+      "by_source": {
+        "abdk-audits": 2129,
+        "anza-security-audits": 14,
+        "certora-reports": 2,
+        "cyba-audits": 1,
+        "nethermind-audits": 698,
+        "sigmaprime-audits": 109,
+        "zellic-publications": 1424
+      },
+      "resolving_evidence": "code filename or blob permalink in the finding segment",
+      "unknown": 4377
+    },
+    "affected_function_reported": {
+      "by_source": {
+        "abdk-audits": 2872,
+        "anza-security-audits": 22,
+        "certora-reports": 21,
+        "cyba-audits": 44,
+        "nethermind-audits": 708,
+        "sigmaprime-audits": 1081,
+        "zellic-publications": 2289
+      },
+      "resolving_evidence": "explicit Function field or attributed signature",
+      "unknown": 7037
+    },
+    "commit_shas": {
+      "by_source": {
+        "abdk-audits": 2872,
+        "anza-security-audits": 22,
+        "certora-reports": 21,
+        "cyba-audits": 44,
+        "nethermind-audits": 706,
+        "sigmaprime-audits": 1079,
+        "zellic-publications": 2274
+      },
+      "resolving_evidence": "40-hex SHA in scope/fix context",
+      "unknown": 7018
+    },
+    "ecosystem": {
+      "by_source": {
+        "abdk-audits": 2088,
+        "anza-security-audits": 21,
+        "certora-reports": 14,
+        "nethermind-audits": 698,
+        "sigmaprime-audits": 421,
+        "zellic-publications": 755
+      },
+      "resolving_evidence": "explicit platform/repository evidence (Rust alone insufficient)",
+      "unknown": 3997
+    },
+    "fix_status_reported": {
+      "by_source": {
+        "abdk-audits": 47,
+        "anza-security-audits": 22,
+        "certora-reports": 1,
+        "zellic-publications": 2289
+      },
+      "resolving_evidence": "explicit Status field in the finding segment",
+      "unknown": 2359
+    },
+    "language": {
+      "by_source": {
+        "abdk-audits": 2088,
+        "anza-security-audits": 21,
+        "certora-reports": 14,
+        "nethermind-audits": 698,
+        "sigmaprime-audits": 421,
+        "zellic-publications": 380
+      },
+      "resolving_evidence": "README platform column or explicit framework + file-extension convergence",
+      "unknown": 3622
+    },
+    "normalized_vulnerability_classes": {
+      "by_source": {
+        "abdk-audits": 2589,
+        "anza-security-audits": 12,
+        "certora-reports": 16,
+        "cyba-audits": 23,
+        "nethermind-audits": 613,
+        "sigmaprime-audits": 636,
+        "zellic-publications": 1055
+      },
+      "resolving_evidence": "explicit auditor Category/Type label",
+      "unknown": 4944
+    },
+    "poc_section": {
+      "by_source": {
+        "abdk-audits": 2872,
+        "anza-security-audits": 22,
+        "certora-reports": 15,
+        "cyba-audits": 32,
+        "nethermind-audits": 708,
+        "sigmaprime-audits": 1081,
+        "zellic-publications": 2277
+      },
+      "resolving_evidence": "PoC/proof section with code in the finding segment",
+      "unknown": 7007
+    },
+    "severity_normalized": {
+      "by_source": {},
+      "resolving_evidence": "explicit Severity field in the finding segment",
+      "unknown": 0
+    }
+  },
+  "normalization_version": "3.1",
+  "v30_baseline": {
+    "ecosystem": 1044,
+    "language": 1072,
+    "severity": 2995
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "commit_roles": {
+    "fix": 6,
+    "scope": 20,
+    "unknown": 4
+  },
+  "conflict_count": 0,
+  "corroboration_links": 0,
+  "coverage_before_after": {
+    "after_v31": {
+      "affected_files": 5790,
+      "affected_functions": 0,
+      "class_known": 7037,
+      "ecosystem_known": 8507,
+      "exact_fixed_commits": 47,
+      "exact_vulnerable_commits": 1077,
+      "executable_pocs": 0,
+      "executed_pocs": 0,
+      "experiment_ready_tier_a": 0,
+      "l5": 0,
+      "l6": 0,
+      "language_known": 8882,
+      "line_refs": 213,
+      "note": "AFTER counts preview rows (v3.0 records with overlays applied + admitted V3.1 children). Executed/reproduced/L5/L6 stay 0: nothing was executed in V3.1.",
+      "patch_candidates": 47,
+      "patches_verified": 0,
+      "published_pocs": 1943,
+      "repository_known": 4520,
+      "reproduced": 0,
+      "rows": 12504,
+      "severity_known": 7037
+    },
+    "before_v30_ledger": {
+      "affected_files": 207,
+      "class_known": 207,
+      "ecosystem_known": 6668,
+      "exact_fixed_commits": 47,
+      "exact_vulnerable_commits": 1205,
+      "language_known": 6640,
+      "published_pocs": 881,
+      "repository_known": 4940,
+      "rows": 7712,
+      "severity_known": 4717
+    },
+    "normalization_version": "3.1"
+  },
+  "dataset_version": "3.0",
+  "extraction_quality": {
+    "corroboration_links": 0,
+    "despaced_reports": 133,
+    "dhl_attack_sequence": 878,
+    "md_code_files": 3130,
+    "no_body_offline": 1107,
+    "overlay_superseded": 6137,
+    "patch_candidates": 47,
+    "preview_rows": 12504,
+    "text_cmap": 1394,
+    "text_markdown": 281,
+    "text_naive": 174
+  },
+  "fragment_count": 29176,
+  "fragment_decisions": {
+    "admitted": 7037,
+    "duplicate_native_id": 7858,
+    "rejected_bad_title": 3436,
+    "rejected_duplicate": 7858,
+    "rejected_no_boundary": 718,
+    "rejected_no_severity": 9892,
+    "rejected_poor_extraction": 235
+  },
+  "generated_by": "scripts/normalize_v3.py",
+  "langeco_confidence": {
+    "derived": 1526,
+    "explicit": 1889,
+    "unknown": 3622
+  },
+  "normalization_version": "3.1",
+  "overlay_count": 9987,
+  "patch_candidates": 47,
+  "preview_count": 12504,
+  "severity_confidence": {
+    "derived": 2806,
+    "explicit": 4231,
+    "unknown": 9892
+  },
+  "splitter_use": {
+    "_split_abdk": 191,
+    "_split_anza": 68,
+    "_split_certora": 192,
+    "_split_cyba": 14,
+    "_split_generic_severity": 407,
+    "_split_nethermind": 190,
+    "_split_sigmaprime": 154,
+    "_split_zellic": 392
+  },
+  "taxonomy_confidence": {
+    "derived": 1497,
+    "explicit": 596,
+    "unknown": 4944
+  },
+  "yield_by_source": {
+    "abdk-audits": {
+      "admitted": 2872,
+      "rejected": 4590
+    },
+    "ackee-audits": {
+      "admitted": 0,
+      "rejected": 96
+    },
+    "anza-security-audits": {
+      "admitted": 22,
+      "rejected": 441
+    },
+    "certora-reports": {
+      "admitted": 21,
+      "rejected": 2029
+    },
+    "cyba-audits": {
+      "admitted": 44,
+      "rejected": 17
+    },
+    "hexens-reports": {
+      "admitted": 0,
+      "rejected": 202
+    },
+    "informal-audits": {
+      "admitted": 0,
+      "rejected": 94
+    },
+    "nethermind-audits": {
+      "admitted": 708,
+      "rejected": 1184
+    },
+    "pashov-audits": {
+      "admitted": 0,
+      "rejected": 3
+    },
+    "sherlock-optimism": {
+      "admitted": 0,
+      "rejected": 218
+    },
+    "sherlock-symmetrical": {
+      "admitted": 0,
+      "rejected": 1
+    },
+    "sigmaprime-audits": {
+      "admitted": 1081,
+      "rejected": 856
+    },
+    "zellic-publications": {
+      "admitted": 2289,
+      "rejected": 12408
+    }
+  }
+}

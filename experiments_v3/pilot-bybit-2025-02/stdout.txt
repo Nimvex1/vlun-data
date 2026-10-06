@@ -1,0 +1,1165 @@
+Warning: Found unknown `func_attrs_with_params_multiline` config key in section `fmt` defined in foundry.toml.
+Warning: Found unknown `variable_override_spacing` config key in section `fmt` defined in foundry.toml.
+Missing dependencies found. Installing now...
+Submodule 'lib/forge-std' (https://github.com/foundry-rs/forge-std) registered for path 'lib/forge-std'
+Cloning into 'C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std'...
+remote: Enumerating objects: 3250, done.        
+remote: Counting objects:   0% (1/474)        
+remote: Counting objects:   1% (5/474)        
+remote: Counting objects:   2% (10/474)        
+remote: Counting objects:   3% (15/474)        
+remote: Counting objects:   4% (19/474)        
+remote: Counting objects:   5% (24/474)        
+remote: Counting objects:   6% (29/474)        
+remote: Counting objects:   7% (34/474)        
+remote: Counting objects:   8% (38/474)        
+remote: Counting objects:   9% (43/474)        
+remote: Counting objects:  10% (48/474)        
+remote: Counting objects:  11% (53/474)        
+remote: Counting objects:  12% (57/474)        
+remote: Counting objects:  13% (62/474)        
+remote: Counting objects:  14% (67/474)        
+remote: Counting objects:  15% (72/474)        
+remote: Counting objects:  16% (76/474)        
+remote: Counting objects:  17% (81/474)        
+remote: Counting objects:  18% (86/474)        
+remote: Counting objects:  19% (91/474)        
+remote: Counting objects:  20% (95/474)        
+remote: Counting objects:  21% (100/474)        
+remote: Counting objects:  22% (105/474)        
+remote: Counting objects:  23% (110/474)        
+remote: Counting objects:  24% (114/474)        
+remote: Counting objects:  25% (119/474)        
+remote: Counting objects:  26% (124/474)        
+remote: Counting objects:  27% (128/474)        
+remote: Counting objects:  28% (133/474)        
+remote: Counting objects:  29% (138/474)        
+remote: Counting objects:  30% (143/474)        
+remote: Counting objects:  31% (147/474)        
+remote: Counting objects:  32% (152/474)        
+remote: Counting objects:  33% (157/474)        
+remote: Counting objects:  34% (162/474)        
+remote: Counting objects:  35% (166/474)        
+remote: Counting objects:  36% (171/474)        
+remote: Counting objects:  37% (176/474)        
+remote: Counting objects:  38% (181/474)        
+remote: Counting objects:  39% (185/474)        
+remote: Counting objects:  40% (190/474)        
+remote: Counting objects:  41% (195/474)        
+remote: Counting objects:  42% (200/474)        
+remote: Counting objects:  43% (204/474)        
+remote: Counting objects:  44% (209/474)        
+remote: Counting objects:  45% (214/474)        
+remote: Counting objects:  46% (219/474)        
+remote: Counting objects:  47% (223/474)        
+remote: Counting objects:  48% (228/474)        
+remote: Counting objects:  49% (233/474)        
+remote: Counting objects:  50% (237/474)        
+remote: Counting objects:  51% (242/474)        
+remote: Counting objects:  52% (247/474)        
+remote: Counting objects:  53% (252/474)        
+remote: Counting objects:  54% (256/474)        
+remote: Counting objects:  55% (261/474)        
+remote: Counting objects:  56% (266/474)        
+remote: Counting objects:  57% (271/474)        
+remote: Counting objects:  58% (275/474)        
+remote: Counting objects:  59% (280/474)        
+remote: Counting objects:  60% (285/474)        
+remote: Counting objects:  61% (290/474)        
+remote: Counting objects:  62% (294/474)        
+remote: Counting objects:  63% (299/474)        
+remote: Counting objects:  64% (304/474)        
+remote: Counting objects:  65% (309/474)        
+remote: Counting objects:  66% (313/474)        
+remote: Counting objects:  67% (318/474)        
+remote: Counting objects:  68% (323/474)        
+remote: Counting objects:  69% (328/474)        
+remote: Counting objects:  70% (332/474)        
+remote: Counting objects:  71% (337/474)        
+remote: Counting objects:  72% (342/474)        
+remote: Counting objects:  73% (347/474)        
+remote: Counting objects:  74% (351/474)        
+remote: Counting objects:  75% (356/474)        
+remote: Counting objects:  76% (361/474)        
+remote: Counting objects:  77% (365/474)        
+remote: Counting objects:  78% (370/474)        
+remote: Counting objects:  79% (375/474)        
+remote: Counting objects:  80% (380/474)        
+remote: Counting objects:  81% (384/474)        
+remote: Counting objects:  82% (389/474)        
+remote: Counting objects:  83% (394/474)        
+remote: Counting objects:  84% (399/474)        
+remote: Counting objects:  85% (403/474)        
+remote: Counting objects:  86% (408/474)        
+remote: Counting objects:  87% (413/474)        
+remote: Counting objects:  88% (418/474)        
+remote: Counting objects:  89% (422/474)        
+remote: Counting objects:  90% (427/474)        
+remote: Counting objects:  91% (432/474)        
+remote: Counting objects:  92% (437/474)        
+remote: Counting objects:  93% (441/474)        
+remote: Counting objects:  94% (446/474)        
+remote: Counting objects:  95% (451/474)        
+remote: Counting objects:  96% (456/474)        
+remote: Counting objects:  97% (460/474)        
+remote: Counting objects:  98% (465/474)        
+remote: Counting objects:  99% (470/474)        
+remote: Counting objects: 100% (474/474)        
+remote: Counting objects: 100% (474/474), done.        
+remote: Compressing objects:   0% (1/210)        
+remote: Compressing objects:   1% (3/210)        
+remote: Compressing objects:   2% (5/210)        
+remote: Compressing objects:   3% (7/210)        
+remote: Compressing objects:   4% (9/210)        
+remote: Compressing objects:   5% (11/210)        
+remote: Compressing objects:   6% (13/210)        
+remote: Compressing objects:   7% (15/210)        
+remote: Compressing objects:   8% (17/210)        
+remote: Compressing objects:   9% (19/210)        
+remote: Compressing objects:  10% (21/210)        
+remote: Compressing objects:  11% (24/210)        
+remote: Compressing objects:  12% (26/210)        
+remote: Compressing objects:  13% (28/210)        
+remote: Compressing objects:  14% (30/210)        
+remote: Compressing objects:  15% (32/210)        
+remote: Compressing objects:  16% (34/210)        
+remote: Compressing objects:  17% (36/210)        
+remote: Compressing objects:  18% (38/210)        
+remote: Compressing objects:  19% (40/210)        
+remote: Compressing objects:  20% (42/210)        
+remote: Compressing objects:  21% (45/210)        
+remote: Compressing objects:  22% (47/210)        
+remote: Compressing objects:  23% (49/210)        
+remote: Compressing objects:  24% (51/210)        
+remote: Compressing objects:  25% (53/210)        
+remote: Compressing objects:  26% (55/210)        
+remote: Compressing objects:  27% (57/210)        
+remote: Compressing objects:  28% (59/210)        
+remote: Compressing objects:  29% (61/210)        
+remote: Compressing objects:  30% (63/210)        
+remote: Compressing objects:  31% (66/210)        
+remote: Compressing objects:  32% (68/210)        
+remote: Compressing objects:  33% (70/210)        
+remote: Compressing objects:  34% (72/210)        
+remote: Compressing objects:  35% (74/210)        
+remote: Compressing objects:  36% (76/210)        
+remote: Compressing objects:  37% (78/210)        
+remote: Compressing objects:  38% (80/210)        
+remote: Compressing objects:  39% (82/210)        
+remote: Compressing objects:  40% (84/210)        
+remote: Compressing objects:  41% (87/210)        
+remote: Compressing objects:  42% (89/210)        
+remote: Compressing objects:  43% (91/210)        
+remote: Compressing objects:  44% (93/210)        
+remote: Compressing objects:  45% (95/210)        
+remote: Compressing objects:  46% (97/210)        
+remote: Compressing objects:  47% (99/210)        
+remote: Compressing objects:  48% (101/210)        
+remote: Compressing objects:  49% (103/210)        
+remote: Compressing objects:  50% (105/210)        
+remote: Compressing objects:  51% (108/210)        
+remote: Compressing objects:  52% (110/210)        
+remote: Compressing objects:  53% (112/210)        
+remote: Compressing objects:  54% (114/210)        
+remote: Compressing objects:  55% (116/210)        
+remote: Compressing objects:  56% (118/210)        
+remote: Compressing objects:  57% (120/210)        
+remote: Compressing objects:  58% (122/210)        
+remote: Compressing objects:  59% (124/210)        
+remote: Compressing objects:  60% (126/210)        
+remote: Compressing objects:  61% (129/210)        
+remote: Compressing objects:  62% (131/210)        
+remote: Compressing objects:  63% (133/210)        
+remote: Compressing objects:  64% (135/210)        
+remote: Compressing objects:  65% (137/210)        
+remote: Compressing objects:  66% (139/210)        
+remote: Compressing objects:  67% (141/210)        
+remote: Compressing objects:  68% (143/210)        
+remote: Compressing objects:  69% (145/210)        
+remote: Compressing objects:  70% (147/210)        
+remote: Compressing objects:  71% (150/210)        
+remote: Compressing objects:  72% (152/210)        
+remote: Compressing objects:  73% (154/210)        
+remote: Compressing objects:  74% (156/210)        
+remote: Compressing objects:  75% (158/210)        
+remote: Compressing objects:  76% (160/210)        
+remote: Compressing objects:  77% (162/210)        
+remote: Compressing objects:  78% (164/210)        
+remote: Compressing objects:  79% (166/210)        
+remote: Compressing objects:  80% (168/210)        
+remote: Compressing objects:  81% (171/210)        
+remote: Compressing objects:  82% (173/210)        
+remote: Compressing objects:  83% (175/210)        
+remote: Compressing objects:  84% (177/210)        
+remote: Compressing objects:  85% (179/210)        
+remote: Compressing objects:  86% (181/210)        
+remote: Compressing objects:  87% (183/210)        
+remote: Compressing objects:  88% (185/210)        
+remote: Compressing objects:  89% (187/210)        
+remote: Compressing objects:  90% (189/210)        
+remote: Compressing objects:  91% (192/210)        
+remote: Compressing objects:  92% (194/210)        
+remote: Compressing objects:  93% (196/210)        
+remote: Compressing objects:  94% (198/210)        
+remote: Compressing objects:  95% (200/210)        
+remote: Compressing objects:  96% (202/210)        
+remote: Compressing objects:  97% (204/210)        
+remote: Compressing objects:  98% (206/210)        
+remote: Compressing objects:  99% (208/210)        
+remote: Compressing objects: 100% (210/210)        
+remote: Compressing objects: 100% (210/210), done.        
+Receiving objects:   0% (1/3250)
+Receiving objects:   1% (33/3250)
+Receiving objects:   2% (65/3250)
+Receiving objects:   3% (98/3250)
+Receiving objects:   4% (130/3250)
+Receiving objects:   5% (163/3250)
+Receiving objects:   6% (195/3250)
+Receiving objects:   7% (228/3250)
+Receiving objects:   8% (260/3250)
+Receiving objects:   9% (293/3250)
+Receiving objects:  10% (325/3250)
+Receiving objects:  11% (358/3250)
+Receiving objects:  12% (390/3250)
+Receiving objects:  13% (423/3250)
+Receiving objects:  14% (455/3250)
+Receiving objects:  15% (488/3250)
+Receiving objects:  16% (520/3250)
+Receiving objects:  17% (553/3250)
+Receiving objects:  18% (585/3250)
+Receiving objects:  19% (618/3250)
+Receiving objects:  20% (650/3250)
+Receiving objects:  21% (683/3250)
+Receiving objects:  22% (715/3250)
+Receiving objects:  23% (748/3250)
+Receiving objects:  24% (780/3250)
+Receiving objects:  25% (813/3250)
+Receiving objects:  26% (845/3250)
+Receiving objects:  27% (878/3250)
+Receiving objects:  28% (910/3250)
+Receiving objects:  29% (943/3250)
+Receiving objects:  30% (975/3250)
+Receiving objects:  31% (1008/3250)
+Receiving objects:  32% (1040/3250)
+Receiving objects:  33% (1073/3250)
+Receiving objects:  34% (1105/3250)
+Receiving objects:  35% (1138/3250)
+Receiving objects:  36% (1170/3250)
+Receiving objects:  37% (1203/3250)
+Receiving objects:  38% (1235/3250)
+Receiving objects:  39% (1268/3250)
+Receiving objects:  40% (1300/3250)
+Receiving objects:  41% (1333/3250)
+Receiving objects:  42% (1365/3250)
+Receiving objects:  43% (1398/3250)
+Receiving objects:  44% (1430/3250)
+Receiving objects:  45% (1463/3250)
+Receiving objects:  46% (1495/3250)
+Receiving objects:  47% (1528/3250)
+Receiving objects:  48% (1560/3250)
+Receiving objects:  49% (1593/3250)
+Receiving objects:  50% (1625/3250)
+Receiving objects:  51% (1658/3250)
+Receiving objects:  52% (1690/3250)
+Receiving objects:  53% (1723/3250)
+Receiving objects:  54% (1755/3250)
+Receiving objects:  55% (1788/3250)
+Receiving objects:  56% (1820/3250)
+Receiving objects:  57% (1853/3250)
+Receiving objects:  58% (1885/3250)
+Receiving objects:  59% (1918/3250)
+Receiving objects:  60% (1950/3250)
+Receiving objects:  61% (1983/3250)
+Receiving objects:  62% (2015/3250)
+Receiving objects:  63% (2048/3250)
+Receiving objects:  64% (2080/3250)
+Receiving objects:  65% (2113/3250)
+Receiving objects:  66% (2145/3250)
+Receiving objects:  67% (2178/3250)
+Receiving objects:  68% (2210/3250)
+Receiving objects:  69% (2243/3250)
+Receiving objects:  70% (2275/3250)
+Receiving objects:  71% (2308/3250)
+Receiving objects:  72% (2340/3250)
+Receiving objects:  73% (2373/3250)
+Receiving objects:  74% (2405/3250)
+Receiving objects:  75% (2438/3250)
+Receiving objects:  76% (2470/3250)
+Receiving objects:  77% (2503/3250)
+Receiving objects:  78% (2535/3250)
+Receiving objects:  79% (2568/3250)
+Receiving objects:  80% (2600/3250)
+Receiving objects:  81% (2633/3250)
+Receiving objects:  82% (2665/3250)
+Receiving objects:  83% (2698/3250)
+Receiving objects:  84% (2730/3250)
+Receiving objects:  85% (2763/3250)
+Receiving objects:  86% (2795/3250)
+Receiving objects:  87% (2828/3250)
+Receiving objects:  88% (2860/3250)
+Receiving objects:  89% (2893/3250)
+Receiving objects:  90% (2925/3250)
+Receiving objects:  91% (2958/3250)
+Receiving objects:  92% (2990/3250)
+Receiving objects:  93% (3023/3250)
+Receiving objects:  94% (3055/3250)
+Receiving objects:  95% (3088/3250)
+Receiving objects:  96% (3120/3250)
+Receiving objects:  97% (3153/3250)
+Receiving objects:  98% (3185/3250)
+Receiving objects:  99% (3218/3250)
+remote: Total 3250 (delta 421), reused 264 (delta 264), pack-reused 2776 (from 4)        
+Receiving objects: 100% (3250/3250)
+Receiving objects: 100% (3250/3250), 1.29 MiB | 7.84 MiB/s, done.
+Resolving deltas:   0% (0/2178)
+Resolving deltas:   1% (22/2178)
+Resolving deltas:   2% (45/2178)
+Resolving deltas:   3% (66/2178)
+Resolving deltas:   4% (88/2178)
+Resolving deltas:   5% (110/2178)
+Resolving deltas:   6% (131/2178)
+Resolving deltas:   7% (153/2178)
+Resolving deltas:   8% (175/2178)
+Resolving deltas:   9% (197/2178)
+Resolving deltas:  10% (218/2178)
+Resolving deltas:  11% (240/2178)
+Resolving deltas:  12% (262/2178)
+Resolving deltas:  13% (284/2178)
+Resolving deltas:  14% (305/2178)
+Resolving deltas:  15% (327/2178)
+Resolving deltas:  16% (349/2178)
+Resolving deltas:  17% (371/2178)
+Resolving deltas:  18% (394/2178)
+Resolving deltas:  19% (414/2178)
+Resolving deltas:  20% (436/2178)
+Resolving deltas:  21% (458/2178)
+Resolving deltas:  22% (481/2178)
+Resolving deltas:  23% (501/2178)
+Resolving deltas:  24% (523/2178)
+Resolving deltas:  25% (545/2178)
+Resolving deltas:  26% (567/2178)
+Resolving deltas:  27% (589/2178)
+Resolving deltas:  28% (610/2178)
+Resolving deltas:  29% (632/2178)
+Resolving deltas:  30% (654/2178)
+Resolving deltas:  31% (676/2178)
+Resolving deltas:  32% (697/2178)
+Resolving deltas:  33% (719/2178)
+Resolving deltas:  34% (741/2178)
+Resolving deltas:  35% (763/2178)
+Resolving deltas:  36% (785/2178)
+Resolving deltas:  37% (807/2178)
+Resolving deltas:  38% (829/2178)
+Resolving deltas:  39% (850/2178)
+Resolving deltas:  40% (872/2178)
+Resolving deltas:  41% (893/2178)
+Resolving deltas:  42% (915/2178)
+Resolving deltas:  43% (937/2178)
+Resolving deltas:  44% (959/2178)
+Resolving deltas:  45% (981/2178)
+Resolving deltas:  46% (1003/2178)
+Resolving deltas:  47% (1024/2178)
+Resolving deltas:  48% (1046/2178)
+Resolving deltas:  49% (1068/2178)
+Resolving deltas:  50% (1090/2178)
+Resolving deltas:  51% (1111/2178)
+Resolving deltas:  52% (1133/2178)
+Resolving deltas:  53% (1155/2178)
+Resolving deltas:  54% (1177/2178)
+Resolving deltas:  55% (1198/2178)
+Resolving deltas:  56% (1220/2178)
+Resolving deltas:  57% (1242/2178)
+Resolving deltas:  58% (1264/2178)
+Resolving deltas:  59% (1286/2178)
+Resolving deltas:  60% (1307/2178)
+Resolving deltas:  61% (1329/2178)
+Resolving deltas:  62% (1351/2178)
+Resolving deltas:  63% (1373/2178)
+Resolving deltas:  64% (1394/2178)
+Resolving deltas:  65% (1416/2178)
+Resolving deltas:  66% (1438/2178)
+Resolving deltas:  67% (1460/2178)
+Resolving deltas:  68% (1483/2178)
+Resolving deltas:  69% (1503/2178)
+Resolving deltas:  70% (1525/2178)
+Resolving deltas:  71% (1547/2178)
+Resolving deltas:  72% (1569/2178)
+Resolving deltas:  73% (1591/2178)
+Resolving deltas:  74% (1612/2178)
+Resolving deltas:  75% (1634/2178)
+Resolving deltas:  76% (1656/2178)
+Resolving deltas:  77% (1678/2178)
+Resolving deltas:  78% (1699/2178)
+Resolving deltas:  79% (1721/2178)
+Resolving deltas:  80% (1743/2178)
+Resolving deltas:  81% (1765/2178)
+Resolving deltas:  82% (1786/2178)
+Resolving deltas:  83% (1808/2178)
+Resolving deltas:  84% (1830/2178)
+Resolving deltas:  85% (1852/2178)
+Resolving deltas:  86% (1874/2178)
+Resolving deltas:  87% (1895/2178)
+Resolving deltas:  88% (1917/2178)
+Resolving deltas:  89% (1939/2178)
+Resolving deltas:  90% (1961/2178)
+Resolving deltas:  91% (1982/2178)
+Resolving deltas:  92% (2004/2178)
+Resolving deltas:  93% (2026/2178)
+Resolving deltas:  94% (2048/2178)
+Resolving deltas:  95% (2071/2178)
+Resolving deltas:  96% (2091/2178)
+Resolving deltas:  97% (2113/2178)
+Resolving deltas:  98% (2135/2178)
+Resolving deltas:  99% (2157/2178)
+Resolving deltas: 100% (2178/2178)
+Resolving deltas: 100% (2178/2178), done.
+Updating dependencies in C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib
+Warning: Found unknown `func_attrs_with_params_multiline` config key in section `fmt` defined in foundry.toml.
+Warning: Found unknown `variable_override_spacing` config key in section `fmt` defined in foundry.toml.
+Error: Compiler run failed:
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-06/Snood_exp.sol:17:5:
+   |
+17 |     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-10/MulticallWithoutCheck_exp.sol:28:5:
+   |
+28 |     IERC20 USDT = IERC20(0xc2132D05D31c914a87C6611C10748AEb04B58e8F);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> src/test/interface.sol:1878:1:
+     |
+1878 | interface USDT {
+     | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-10/N00d_exp.sol:25:5:
+   |
+25 |     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-11/BrahTOPG_exp.sol:27:5:
+   |
+27 |     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-11/BrahTOPG_exp.sol:28:5:
+   |
+28 |     IERC20 USDC = IERC20(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> src/test/interface.sol:3064:1:
+     |
+3064 | interface USDC {
+     | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:57:5:
+   |
+57 |     IERC20 WBNB = IERC20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> src/test/interface.sol:2436:1:
+     |
+2436 | interface WBNB {
+     | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:154:9:
+    |
+154 |         bytes memory data = abi.encode(uint256(WETH.balanceOf(address(WETH_USDbCV3))));
+    |         ^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/2023-11/CAROLProtocol_exp.sol:151:9:
+    |
+151 |         bytes calldata data
+    |         ^^^^^^^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2023-11/CAROLProtocol_exp.sol:67:5:
+   |
+67 |     IWETH private constant WETH = IWETH(payable(0x4200000000000000000000000000000000000006));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (9302): Return value of low-level calls not used.
+  --> src/test/2022-02/Meter_exp.sol:37:9:
+   |
+37 |         sushiSwapRouter.call(
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (9302): Return value of low-level calls not used.
+  --> src/test/2022-11/BrahTOPG_exp.sol:40:9:
+   |
+40 |         address(WETH).call{value: 1e15}("");
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (9302): Return value of low-level calls not used.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:77:9:
+   |
+77 |         address(WBNB).call{value: 3 ether}("");
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2020-10/HarvestFinance_exp.sol:63:13:
+   |
+63 |             bool usdcSuccess = usdc.transfer(address(usdcPair), usdcRepayment);
+   |             ^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2020-10/HarvestFinance_exp.sol:76:9:
+   |
+76 |         uint256 i
+   |         ^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2021-05/RariCapital_exp.sol:34:10:
+   |
+34 |         (bool success, bytes memory result) = address(0x2f755e8980f0c2E81681D82CCCd1a4BD5b4D5D46).call{
+   |          ^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2021-05/RariCapital_exp.sol:34:24:
+   |
+34 |         (bool success, bytes memory result) = address(0x2f755e8980f0c2E81681D82CCCd1a4BD5b4D5D46).call{
+   |                        ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-06/Eleven_exp.sol:65:26:
+   |
+65 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                          ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-06/Eleven_exp.sol:65:42:
+   |
+65 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                          ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-06/Eleven_exp.sol:65:59:
+   |
+65 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                           ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-06/Eleven_exp.sol:65:76:
+   |
+65 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                                            ^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2021-08/PolyNetwork_exp.sol:107:9:
+    |
+107 |         Header memory header = Header({
+    |         ^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2021-08/PolyNetwork_exp.sol:148:9:
+    |
+148 |         ToMerkleValue memory toMerkleValue = ToMerkleValue({
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2021-08/PolyNetwork_exp.sol:183:9:
+    |
+183 |         address AssetProxy = 0x250e76987d838a75310c34bf422ea9f1AC4Cc906;
+    |         ^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-09/Nimbus_exp.sol:37:25:
+   |
+37 |     function NimbusCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                         ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-09/Nimbus_exp.sol:37:58:
+   |
+37 |     function NimbusCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                          ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-09/Nimbus_exp.sol:37:75:
+   |
+37 |     function NimbusCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                                           ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-12/Grim_exp.sol:46:9:
+   |
+46 |         bytes memory userData
+   |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-12/Grim_exp.sol:82:27:
+   |
+82 |     function transferFrom(address _from, address _to, uint256 _value) public {
+   |                           ^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-12/Grim_exp.sol:82:42:
+   |
+82 |     function transferFrom(address _from, address _to, uint256 _value) public {
+   |                                          ^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2021-12/Grim_exp.sol:82:55:
+   |
+82 |     function transferFrom(address _from, address _to, uint256 _value) public {
+   |                                                       ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-03/OneRing_exp.sol:23:19:
+   |
+23 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                   ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-03/OneRing_exp.sol:23:52:
+   |
+23 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                    ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-03/OneRing_exp.sol:23:69:
+   |
+23 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                                     ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Gym_1_exp.sol:37:26:
+   |
+37 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                          ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Gym_1_exp.sol:37:59:
+   |
+37 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                           ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Gym_1_exp.sol:37:76:
+   |
+37 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                                            ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Wdoge_exp.sol:23:26:
+   |
+23 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                          ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Wdoge_exp.sol:23:42:
+   |
+23 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                          ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Wdoge_exp.sol:23:59:
+   |
+23 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                           ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Wdoge_exp.sol:23:76:
+   |
+23 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+   |                                                                            ^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2022-04/Zeed_exp.sol:23:10:
+   |
+23 |         (uint112 _reserve0, uint112 _reserve1,) = usdtYeedHoSwapPair.getReserves();
+   |          ^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Zeed_exp.sol:36:26:
+   |
+36 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                          ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Zeed_exp.sol:36:42:
+   |
+36 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                          ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-04/Zeed_exp.sol:36:76:
+   |
+36 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                                            ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-06/Discover_exp.sol:34:26:
+   |
+34 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                          ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-06/Discover_exp.sol:34:42:
+   |
+34 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                          ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-06/Discover_exp.sol:34:59:
+   |
+34 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                           ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-06/Discover_exp.sol:34:76:
+   |
+34 |     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                                            ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:62:28:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                            ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:62:44:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                            ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:62:61:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                             ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:62:78:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                                              ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:72:9:
+   |
+72 |         address operator,
+   |         ^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:73:9:
+   |
+73 |         address from,
+   |         ^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:75:9:
+   |
+75 |         uint256 amount,
+   |         ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:76:9:
+   |
+76 |         bytes calldata userData,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-10/N00d_exp.sol:77:9:
+   |
+77 |         bytes calldata operatorData
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:73:27:
+   |
+73 |     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
+   |                           ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:73:43:
+   |
+73 |     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
+   |                                           ^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:73:62:
+   |
+73 |     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
+   |                                                              ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:78:9:
+   |
+78 |         address account
+   |         ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:83:22:
+   |
+83 |     function approve(address spender, uint256 amount) external returns (bool) {
+   |                      ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/BrahTOPG_exp.sol:83:39:
+   |
+83 |     function approve(address spender, uint256 amount) external returns (bool) {
+   |                                       ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:85:31:
+   |
+85 |     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
+   |                               ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:85:47:
+   |
+85 |     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
+   |                                               ^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:85:67:
+   |
+85 |     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
+   |                                                                   ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:85:88:
+   |
+85 |     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
+   |                                                                                        ^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2022-11/MooCAKECTX_exp.sol:97:9:
+   |
+97 |         Harvest harvest = new Harvest();
+   |         ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:118:9:
+    |
+118 |         address sender,
+    |         ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:119:9:
+    |
+119 |         address underlying,
+    |         ^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:122:9:
+    |
+122 |         bytes calldata params
+    |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:134:9:
+    |
+134 |         address[] memory tokens,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:136:9:
+    |
+136 |         uint256[] memory feeAmounts,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:137:9:
+    |
+137 |         bytes memory userData
+    |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:148:9:
+    |
+148 |         address initiator,
+    |         ^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:151:9:
+    |
+151 |         bytes calldata data
+    |         ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:159:51:
+    |
+159 |     function uniswapV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
+    |                                                   ^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:170:19:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                   ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:170:52:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                                                    ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/test/2023-11/CAROLProtocol_exp.sol:170:69:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                                                                     ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2024-05/TCH_exp.sol:64:51:
+   |
+64 |     function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
+   |                                                   ^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/test/2024-05/TCH_exp.sol:64:65:
+   |
+64 |     function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
+   |                                                                 ^^^^^^^^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> src/test/2021-06/88mph_exp.sol:37:5:
+   |
+37 |     function onERC721Received(address, address, uint256, bytes memory) public returns (bytes4) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> src/test/2022-01/Anyswap_exp.sol:48:5:
+   |
+48 |     function burn(address from, uint256 amount) external returns (bool) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> src/test/2022-01/Anyswap_exp.sol:54:5:
+   |
+54 |     function depositVault(uint256 amount, address to) external returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> src/test/2022-11/BrahTOPG_exp.sol:73:5:
+   |
+73 |     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> src/test/2022-11/BrahTOPG_exp.sol:77:5:
+   |
+77 |     function balanceOf(
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (3445): This function is named "fallback" but is not the fallback function of the contract. If you intend this to be a fallback function, use "fallback(...) { ... }" without the "function" keyword to define it.
+  --> src/test/2024-09/unverified_a89f_exp.sol:59:14:
+   |
+59 |     function fallback() external payable {}
+   |              ^^^^^^^^
+
+Error (6275): Source "src/interface.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+ParserError: Source "src/interface.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+ --> src/test/IUNMI_db27_exp.sol:4:1:
+  |
+4 | import "../interface.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "@balancer-labs/v2-solidity-utils/contracts/math/FixedPoint.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+ParserError: Source "@balancer-labs/v2-solidity-utils/contracts/math/FixedPoint.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+  --> src/test/StableMath.sol:20:1:
+   |
+20 | import "@balancer-labs/v2-solidity-utils/contracts/math/FixedPoint.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "@balancer-labs/v2-solidity-utils/contracts/math/Math.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+ParserError: Source "@balancer-labs/v2-solidity-utils/contracts/math/Math.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs".
+  --> src/test/StableMath.sol:21:1:
+   |
+21 | import "@balancer-labs/v2-solidity-utils/contracts/math/Math.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/test/interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> src/test/interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2072): Unused local variable.
+  --> src/test/2025-05/Corkprotocol_exp.sol:72:10:
+   |
+72 |         (uint256 rA, uint256 rB) = ICorkHook(CorkHook).getReserves(address(WstETH), ct2);
+   |          ^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2025-05/Corkprotocol_exp.sol:86:10:
+   |
+86 |         (uint256 received, uint256 _exchangeRate) = IERC1967ProxyA(ERC1967Proxy).depositPsm(
+   |          ^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+  --> src/test/2025-05/Corkprotocol_exp.sol:86:28:
+   |
+86 |         (uint256 received, uint256 _exchangeRate) = IERC1967ProxyA(ERC1967Proxy).depositPsm(
+   |                            ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2025-05/Corkprotocol_exp.sol:142:10:
+    |
+142 |         (bool ok, ) = address(PoolManager).call(
+    |          ^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2025-05/Corkprotocol_exp.sol:150:9:
+    |
+150 |         uint256 balDS2 = IERC20(ds2).balanceOf(address(this));
+    |         ^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> src/test/2025-05/Corkprotocol_exp.sol:169:10:
+    |
+169 |         (bool success, ) = CorkHook.call(
+    |          ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> src/test/2025-05/Corkprotocol_exp.sol:237:5:
+    |
+237 |     function rate() public view returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> src/test/2025-05/Corkprotocol_exp.sol:241:5:
+    |
+241 |     function rate(bytes32) public view returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Error (8936): Invalid character in string. If you are trying to use Unicode characters, use a unicode"..." string literal.
+   --> src/test/2026-04/SaturnProtocol_exp.sol:111:21:
+    |
+111 |         console.log("\n[Step 3] convertFromStrc() — should PANIC (0x11)");
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

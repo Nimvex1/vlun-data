@@ -1,0 +1,25 @@
+{
+  "claimed_level": null,
+  "command": "forge test --match-path src/test/2025-02/Bybit_exp.sol --match-test testExploit -vvv",
+  "exit_code": 1,
+  "experiment_id": "pilot-bybit-2025-02",
+  "exploit_observed": false,
+  "failure_taxonomy": [
+    "dependency_unavailable",
+    "historical_commit_unavailable"
+  ],
+  "finding_id": "defihacklabs:src/test/2025-02/Bybit_exp",
+  "fixed_revision_result": null,
+  "harness": "upstream PoC file unmodified; no overlay written",
+  "note": "compile failed repo-wide at this HEAD: PoC layout drift (missing src/interface.sol affects every PoC importing ../interface.sol). No exploit ran; no L-level assigned. forge-std submodule was empty and auto-fetched during the run (foundry.lock change reverted afterwards).",
+  "observed_errors": [
+    "ParserError 6275: src/interface.sol not found (IUNMI_db27_exp.sol imports ../interface.sol; file absent at this HEAD)",
+    "ParserError 6275: @balancer-labs/v2-solidity-utils/... not found (StableMath.sol; node modules never vendored)",
+    "Error 8936: unicode em-dash in SaturnProtocol_exp.sol console.log (solc strictness)"
+  ],
+  "outcome": "blocked_before_execution",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "revision": "0200ce8af03a1c28b1aa569a34dd8bac639b94a",
+  "revision_role": "clone HEAD (not the incident-date revision)",
+  "violation_observed": null
+}

@@ -1,0 +1,302 @@
+{
+  "checks": [
+    {
+      "check": "fragments_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "overlays_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "preview_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "ledger_v30_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "records_v30_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "corroborations_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "patches_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "readiness_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "fragment_required_fields",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "fragment_ids_unique",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "preview_ids_unique",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "overlay_target_field_unique",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "admitted_spans_valid",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "spans",
+      "ok": true
+    },
+    {
+      "check": "severity_values",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "taxonomy_confidence",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "commit_roles",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "levels_L0_L1_only",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "overlay_evidence_types",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "patches_never_effective",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "readiness_no_execution_claims",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "shas_present_in_source",
+      "critical": true,
+      "detail": "30 SHAs re-checked against extracted source",
+      "failure_count": 0,
+      "failures": [],
+      "group": "no-invention",
+      "ok": true
+    },
+    {
+      "check": "explicit_taxonomy_grounded",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "no-invention",
+      "ok": true
+    },
+    {
+      "check": "fragments_resolve_parents",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "overlays_resolve_targets",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "preview_rows_grounded",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "corroborations_resolve",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "manifest_counts_match",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "v31_consistent",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "versions",
+      "ok": true
+    },
+    {
+      "check": "v31_outputs_disjoint_from_protected",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "isolation",
+      "ok": true
+    },
+    {
+      "check": "worktree_dirt_attribution",
+      "critical": false,
+      "detail": "30 dirty entries under data dirs, 14 not from V3.1 outputs",
+      "failure_count": 14,
+      "failures": [
+        " M benchmark/F_false_positive_rejection.jsonl",
+        " M benchmark/H_verified_exploit.jsonl",
+        " M benchmark/J_verified_patch.jsonl",
+        " M benchmark/M_experiment_level_classification.jsonl",
+        " M benchmark/Q_evidence_type_and_quality_rubric.jsonl",
+        " M benchmark/manifest.json",
+        " M benchmark/v3_manifest.json",
+        " M derived/hard_negatives.jsonl",
+        " M derived_v2_2/manifest.json",
+        " M derived_v2_2/records.jsonl",
+        " M jsonl_ml/findings_move.jsonl",
+        "?? benchmark/v3_T_taxonomy_explicit.jsonl",
+        "?? derived_v2_2/audit_ingestion_records.jsonl",
+        "?? derived_v2_2/audit_sources.jsonl"
+      ],
+      "group": "isolation",
+      "ok": true
+    },
+    {
+      "check": "benchmark_T_resolves",
+      "critical": true,
+      "detail": "589 tasks checked",
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    }
+  ],
+  "critical_failures": 0,
+  "normalization_version": "3.1",
+  "passed": 31,
+  "total": 31
+}

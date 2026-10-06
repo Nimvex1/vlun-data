@@ -1,0 +1,9 @@
+{
+  "normalization_version": "3.1",
+  "note": "published PoC is not executed PoC; L2+ needs experiment artefacts (see experiment_readiness.json)",
+  "poc_available_v30_rows": 881,
+  "poc_executed": 0,
+  "poc_mentioned_fragments": 30,
+  "poc_with_code_fragments": 10,
+  "reproduced": 0
+}
