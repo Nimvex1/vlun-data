@@ -168,10 +168,50 @@ OBJ_RE = re.compile(rb"(\d+) (\d+) obj(.*?)endobj", re.S)
 
 
 def _parse_objects(data: bytes) -> dict[tuple[int, int], bytes]:
-    """All indirect objects, expanding compressed object streams (ObjStm)."""
+    """All indirect objects, expanding compressed object streams (ObjStm).
+
+    Authority rule: when classic xref tables are present, the object at the
+    xref-recorded offset wins; an ObjStm member reusing the same number (seen
+    in malformed producers) must not overwrite it. Without xref tables the
+    legacy scan order applies.
+    """
     objs: dict[tuple[int, int], bytes] = {}
-    for m in OBJ_RE.finditer(data):
-        objs[(int(m.group(1)), int(m.group(2)))] = m.group(3)
+    xref_offsets: dict[tuple[int, int], int] = {}
+    for xm in re.finditer(rb"^xref\r?\n", data, re.M):
+        pos = xm.end()
+        while True:
+            hm = re.match(rb"(\d+)\s+(\d+)\s*\r?\n", data[pos:])
+            if not hm:
+                break
+            first, count = int(hm.group(1)), int(hm.group(2))
+            pos += hm.end()
+            for i in range(count):
+                entry = data[pos:pos + 20]
+                if len(entry) < 18:
+                    break
+                try:
+                    off = int(entry[0:10])
+                    gen = int(entry[11:16])
+                except ValueError:
+                    pass
+                else:
+                    if entry[17:18] == b"n":
+                        xref_offsets[(first + i, gen)] = off
+                pos += 20
+                if data[pos:pos + 1] in (b"\r", b"\n"):
+                    pos += 1
+                    if data[pos:pos + 1] == b"\n" and entry[18:19] == b"\r":
+                        pos += 1
+            if data[pos:pos + 7] == b"trailer":
+                break
+    if xref_offsets:
+        for (num, gen), off in xref_offsets.items():
+            m = re.match(rb"(\d+)\s+(\d+)\s+obj(.*?)endobj", data[off:], re.S)
+            if m:
+                objs[(num, gen)] = m.group(3)
+    else:
+        for m in OBJ_RE.finditer(data):
+            objs[(int(m.group(1)), int(m.group(2)))] = m.group(3)
     for (_num, _gen), body in list(objs.items()):
         sm = re.search(rb"stream\r?\n(.*?)endstream", body, re.S)
         if not sm or b"ObjStm" not in body:
@@ -193,6 +233,8 @@ def _parse_objects(data: bytes) -> dict[tuple[int, int], bytes]:
         # pairs are (offset, objnum): ends come from offset order, not
         # object-number order (sorting by number slices garbage/empty).
         for idx, (off, onum) in enumerate(pairs):
+            if (onum, 0) in xref_offsets:
+                continue  # xref-recorded object wins over ObjStm reuse
             end = pairs[idx + 1][0] if idx + 1 < len(pairs) else len(dec) - first
             if off < 0 or first + off > len(dec):
                 continue
@@ -419,7 +461,8 @@ def _cmap_block_text(block: bytes, fonts: dict[str, dict], cur: list) -> str:
             parts.append(_decode_codes(_unescape_literal(m.group(3)), decoder))
         elif m.group(4) is not None:
             try:
-                parts.append(_decode_codes(_hex_bytes(m.group(4)), decoder))
+                parts.append(_decode_codes(
+                    _hex_bytes(m.group(4).strip(b"<>")), decoder))
             except ValueError:
                 pass
         elif m.group(5) is not None or m.group(6) is not None \
@@ -460,21 +503,37 @@ def _collect_decoders(objs: dict[tuple[int, int], bytes]
                                 pass
             break
     pages: list[tuple[dict[str, tuple[int, int]], list[tuple[int, int]]]] = []
-    for body in objs.values():
+    for _pkey, body in objs.items():
         if not re.search(rb"/Type\s*/Page(?!s)", body):
             continue
         info["pages"] += 1
         fbody = None
-        fm = re.search(rb"/Font\s*<<(.*?)>>", body, re.S)
-        if fm:
-            fbody = fm.group(1)
-        else:
-            rm = re.search(rb"/Resources\s+(\d+)\s+(\d+)\s+R", body)
+        seen = {_pkey}
+        cursor: bytes | None = body
+        # /Resources inherit down the page tree: walk /Parent refs.
+        for _depth in range(6):
+            if cursor is None:
+                break
+            fm = re.search(rb"/Font\s*<<(.*?)>>", cursor, re.S)
+            if fm:
+                fbody = fm.group(1)
+                break
+            rm = re.search(rb"/Resources\s+(\d+)\s+(\d+)\s+R", cursor)
             if rm:
                 rbody = objs.get((int(rm.group(1)), int(rm.group(2))))
                 if rbody:
                     fm2 = re.search(rb"/Font\s*<<(.*?)>>", rbody, re.S)
-                    fbody = fm2.group(1) if fm2 else None
+                    if fm2:
+                        fbody = fm2.group(1)
+                        break
+            pm = re.search(rb"/Parent\s+(\d+)\s+(\d+)\s+R", cursor)
+            if not pm:
+                break
+            pref = (int(pm.group(1)), int(pm.group(2)))
+            if pref in seen:
+                break
+            seen.add(pref)
+            cursor = objs.get(pref)
         resmap: dict[str, tuple[int, int]] = {}
         if fbody:
             for nm, a, b in re.findall(rb"(/[A-Za-z0-9+\-.]+)\s+(\d+)\s+(\d+)\s+R",
@@ -491,7 +550,7 @@ def _collect_decoders(objs: dict[tuple[int, int], bytes]
                 mm = re.match(rb"\s*(\d+)\s+(\d+)\s+R", tok)
                 if mm:
                     contents.append((int(mm.group(1)), int(mm.group(2))))
-        pages.append((resmap, contents))
+        pages.append((resmap, contents, body))
     cache: dict[tuple[int, int], dict] = {}
 
     def decoder_for(ref: tuple[int, int]) -> dict:
@@ -516,17 +575,21 @@ def _collect_decoders(objs: dict[tuple[int, int], bytes]
                 if tstream:
                     tu_table = _parse_tounicode(tstream)
             ttf_table: dict[int, str] = {}
-            for pat in (rb"/FontFile2\s+(\d+)\s+(\d+)\s+R",
-                        rb"/FontFile3\s+(\d+)\s+(\d+)\s+R",
-                        rb"/FontFile\s+(\d+)\s+(\d+)\s+R"):
-                f2m = re.search(pat, fbody)
-                if f2m:
-                    f2 = _stream_bytes(
-                        objs.get((int(f2m.group(1)), int(f2m.group(2)))))
-                    if f2:
-                        ttf_table = _parse_ttf_cmap(f2)
-                        if ttf_table:
-                            break
+            # TrueType cmap parsing is the slowest step here: attempt it only
+            # when the ToUnicode map is absent or suspiciously small (a
+            # truncated producer map must not block the embedded-font fallback).
+            if len(tu_table) < 50:
+                for pat in (rb"/FontFile2\s+(\d+)\s+(\d+)\s+R",
+                            rb"/FontFile3\s+(\d+)\s+(\d+)\s+R",
+                            rb"/FontFile\s+(\d+)\s+(\d+)\s+R"):
+                    f2m = re.search(pat, fbody)
+                    if f2m:
+                        f2 = _stream_bytes(
+                            objs.get((int(f2m.group(1)), int(f2m.group(2)))))
+                        if f2:
+                            ttf_table = _parse_ttf_cmap(f2)
+                            if ttf_table:
+                                break
             # Keep the larger map: a truncated ToUnicode prefix must not beat
             # a complete embedded-font cmap (seen on subset mono fonts), and a
             # richer ToUnicode beats a sparse cmap. Ties prefer ToUnicode.
@@ -549,7 +612,7 @@ def _collect_decoders(objs: dict[tuple[int, int], bytes]
         return dec
 
     ordered: list[str] = []
-    for resmap, _contents in pages:
+    for resmap, _contents, _pagebody in pages:
         for name, ref in resmap.items():
             if name not in fonts:
                 fonts[name] = decoder_for(ref)
@@ -579,15 +642,21 @@ def extract_text_cmap(data: bytes) -> tuple[str, dict] | None:
     first_font = ordered[0] if ordered else next(iter(fonts))
     chunks: list[str] = []
     nblocks = 0
-    for _resmap, contents in pages:
+    for _resmap, contents, pagebody in pages:
         cur = [first_font]
-        for ref in contents:
-            body = objs.get(ref)
+        seen_streams: set[bytes] = set()
+        # Some producers inline the page content as the page object's own
+        # stream while /Contents points at a stub (seen in Ackee reports):
+        # prefer the object's own stream when it carries text.
+        own = _stream_bytes(pagebody)
+        bodies: list[bytes | None] = [own] + [objs.get(ref) for ref in contents]
+        for body in bodies:
             if body is None:
                 continue
-            stream = _stream_bytes(body)
-            if stream is None:
+            stream = _stream_bytes(body) if body is not own else own
+            if stream is None or stream in seen_streams:
                 continue
+            seen_streams.add(stream)
             for bm in BT_RE.finditer(stream):
                 nblocks += 1
                 chunks.append(_cmap_block_text(bm.group(1), fonts, cur))
