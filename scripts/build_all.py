@@ -96,9 +96,12 @@ STAGES = [
     (29, False, "validate_v31.py", [], "the V3.1 normalization gate"),
     (30, False, "build_benchmark_v31.py", [],
      "benchmark family T (explicit-confidence taxonomy) + v3 manifest"),
-    (31, False, "generate_readme.py", [],
+    (31, True, "run_dhl_experiments.py", ["--max-attempts", "6"],
+     "V3.2 DeFiHackLabs pilots: staged build + fork execution with full "
+     "artefacts (needs network for forge-std/solc fetches and fork RPC)"),
+    (32, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (32, False, "validate.py", [], "the gate"),
+    (33, False, "validate.py", [], "the gate"),
 ]
 
 

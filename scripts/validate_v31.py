@@ -371,6 +371,57 @@ def main() -> int:
         rep.add("references", "benchmark_T_resolves", True,
                 detail="family T file absent (deferred)", critical=False)
 
+    # ---- experiments: artifacts complete, levels earned -------------------------
+    proof_path = V.REPORTS_V3 / "experimental_proof.json"
+    if proof_path.exists():
+        try:
+            proof = json.loads(proof_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            proof = None
+            rep.add("experiments", "proof_readable", False, [str(exc)])
+        if proof is not None:
+            exp_bad: list[str] = []
+            for r in proof.get("runs", []):
+                fid = r.get("finding_id", "?")
+                slug = r.get("experiment", "")
+                rdir = V.ROOT / "experiments_v3" / slug
+                for need in ("command.txt", "stdout.txt", "stderr.txt",
+                             "result.json", "toolchain.txt", "harness.json"):
+                    if not (rdir / need).exists():
+                        exp_bad.append(f"{fid}: missing {need}")
+                lvl = r.get("level_awarded")
+                if lvl not in ("L0", "L1", "L2", "L3", "L4", "L5", None):
+                    exp_bad.append(f"{fid}: bad level {lvl}")
+                if lvl == "L6":
+                    exp_bad.append(f"{fid}: L6 without fixed-side run")
+                if lvl in ("L4", "L5"):
+                    try:
+                        so = (rdir / "stdout.txt").read_text(
+                            encoding="utf-8", errors="replace")
+                    except OSError:
+                        so = ""
+                    fn = (r.get("test") or {}).get("test_function", "")
+                    if not re.search(r"\[PASS\]\s+" + re.escape(fn), so):
+                        exp_bad.append(f"{fid}: {lvl} without [PASS] "
+                                       f"evidence for {fn}")
+                    if lvl == "L5" and not any(
+                            d.get("profit", 0) > 0
+                            for d in r.get("profit_deltas", [])):
+                        exp_bad.append(f"{fid}: L5 without profit>0")
+                if r.get("status") not in (
+                        "violation_observed", "executed_no_profit_evidence",
+                        "test_failed", "blocked", "not_started"):
+                    exp_bad.append(f"{fid}: bad status {r.get('status')}")
+                if r.get("status") == "blocked" and not r.get(
+                        "failure_reason"):
+                    exp_bad.append(f"{fid}: blocked without reason")
+            rep.add("experiments", "artifacts_complete_and_earned",
+                    not exp_bad, exp_bad)
+    else:
+        rep.add("experiments", "artifacts_complete_and_earned", True,
+                detail="no experimental_proof.json (no runs yet)",
+                critical=False)
+
     crit_fail = sum(1 for c in rep.checks if c["critical"] and not c["ok"])
     total = len(rep.checks)
     passed = sum(1 for c in rep.checks if c["ok"])

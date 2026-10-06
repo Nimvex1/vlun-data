@@ -1,0 +1,311 @@
+{
+  "by_level": {
+    "L3": 4,
+    "L5": 2
+  },
+  "by_status": {
+    "blocked": 4,
+    "violation_observed": 2
+  },
+  "compile_triage": {
+    "compiled_l3": 127,
+    "failed": 2,
+    "failed_files": [
+      "2026-01/PRXVT_exp.sol",
+      "2026-04/SaturnProtocol_exp.sol"
+    ],
+    "failure_reasons": {
+      "Identifier already declared.": 1,
+      "Invalid character in string. If you are trying to use Unicode characters, use a unicode\"...\" string ": 1
+    },
+    "note": "L3 = forge build rc=0 on unmodified PoC bytes; supplied shared helpers are repo-own files, recorded per PoC in reports/v3/compile_sweep.json",
+    "scope": "defihacklabs _exp.sol at clone HEAD, isolated per-PoC staging (see stage_poc)",
+    "total": 129,
+    "via_ir_builds": [
+      "2026-05/Renegade_exp.sol",
+      "2026-05/VerusBridge_exp.sol"
+    ]
+  },
+  "runs": [
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/burgerswap",
+      "artifact_hashes": {
+        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+        "harness.json": "549f6e1635a4ffbebe9e66ead1824b8782ea359a48e5b4ab5302f4972ff36e94",
+        "stderr.txt": "a6f4b2b221d07b481cd6d17a1ce84f80c711e3b6fe1e2d48119f71a2ac60f09d",
+        "stdout.txt": "691ec59472b069ca9755c5680f465088fad5b4e585b9efcd4b335e22b876bb04",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2021-05/BurgerSwap_exp.sol",
+          "poc_sha256": "3f342e3f555a69f49530c53f86569f5e8b45fed51c111cec69a15ba9ccacdabe",
+          "staged_files": [
+            "src/test/2021-05/BurgerSwap_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x72b61c6014342d914470eC7aC2975bE345796c2b: server returned an error response: error code -32000: missing trie node] setUp() (gas: 0)",
+      "experiment": "burgerswap",
+      "failure_reason": "archive_state_unavailable",
+      "finding_id": "defihacklabs:2021-05/BurgerSwap_exp.sol",
+      "fork_aliases": [
+        "bsc"
+      ],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 5.1,
+      "status": "blocked",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 1,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/shibatoken",
+      "artifact_hashes": {
+        "command.txt": "4d591a223c5bf9712f2833cef697e24b76cb83bcc657a95cd7247d9522176197",
+        "harness.json": "bde788bd2074c74427b662c9c70416786629be6e5df01fb347bc62dd44b1cd03",
+        "stderr.txt": "2ab83fa1c33a0dd9d6e0cbbf24f1c7e051a90865bc2c48ba72c32d0160244c8c",
+        "stdout.txt": "1487b5dac502c4ce3c18729632597aba1665c7441e0fbc64cd777fc6f3ff50cd",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2023-11/ShibaToken_exp.sol",
+          "poc_sha256": "dd42c6b5b6987f8d7abe1c18984e242c113925b8e3cb16682a5f0ba58f080aa7",
+          "staged_files": [
+            "src/test/2023-11/ShibaToken_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32000: missing trie node] setUp() (gas: 0)",
+      "experiment": "shibatoken",
+      "failure_reason": "archive_state_unavailable",
+      "finding_id": "defihacklabs:2023-11/ShibaToken_exp.sol",
+      "fork_aliases": [
+        "bsc",
+        "https://rpc.ankr.com/bsc"
+      ],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 3.6,
+      "status": "blocked",
+      "test": {
+        "command": "forge test --match-test test -vv",
+        "rc": 1,
+        "test_function": "test"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/gamma",
+      "artifact_hashes": {
+        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+        "harness.json": "ef2804404b0652b4be4e2e6de8147d555b1dbb430ba32c97e77d4c1955909638",
+        "stderr.txt": "70432e465f0b4b4b859ae38bcce771fdfcec434aea3aca998dfda60a1b4e1dab",
+        "stdout.txt": "ab9c283bc48314b1fde558b065282b1c7c66af7ffc52301812c3fa126275058d",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2024-01/Gamma_exp.sol",
+          "poc_sha256": "7c5fd6aa18bc4330fdb2985c0e9c4f4cccfce0c6bee946e96249a3643c8fd635",
+          "staged_files": [
+            "src/test/2024-01/Gamma_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220",
+      "experiment": "gamma",
+      "failure_reason": "archive_state_unavailable",
+      "finding_id": "defihacklabs:2024-01/Gamma_exp.sol",
+      "fork_aliases": [
+        "arbitrum"
+      ],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 3.3,
+      "status": "blocked",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 1,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/prisma",
+      "artifact_hashes": {
+        "command.txt": "1db0f05b9c6c0a3709b09dcfc18c659ba6937f99e2cb4e556067b156ee390ea9",
+        "harness.json": "696f4b28e82b6a892fda5e3e943918574bdd8f7858c47135d1826c69db43213b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "9aa630374d5160167b829bf76523dbe7866f835e772fa7f5b4a1b33a9574d9bd",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2024-03/Prisma_exp.sol",
+          "poc_sha256": "02481ff268e72e42b1a839122da095a8165547f97f0ec2c858665bb1acfc6d78",
+          "staged_files": [
+            "src/test/2024-03/Prisma_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "[FAIL: vm.createSelectFork: backend: failed replaying transaction; transaction validation error: gas floor (21680) exceeds the gas limit (21438)] setUp() (gas: 0)",
+      "experiment": "prisma",
+      "failure_reason": "archive_state_unavailable",
+      "finding_id": "defihacklabs:2024-03/Prisma_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 163.9,
+      "status": "blocked",
+      "test": {
+        "command": "forge test --match-test test_exploit -vv",
+        "rc": 1,
+        "test_function": "test_exploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/pikefinance",
+      "artifact_hashes": {
+        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+        "harness.json": "a075b53de24dda1e78c7c8d596ce0c5d9f0d13d4894ccf4a6df94b93cb4610ab",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "d7ebc9d982e60233040c9bd015cc551532fe507090b5665c2179bebdc7702f20",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2024-04/PikeFinance_exp.sol",
+          "poc_sha256": "c4a1c8f3e7291d8018ed8ca68b175f45a705d213e4a292d30a4338d4f6d9c1be",
+          "staged_files": [
+            "src/test/2024-04/PikeFinance_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "pikefinance",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2024-04/PikeFinance_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L5",
+      "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+      "profit_deltas": [
+        {
+          "after": 479.393838338751,
+          "attacker_side": true,
+          "before": 0.0,
+          "label_after": "Attacker ETH Balance After exploit",
+          "label_before": "Attacker ETH Balance Before exploit",
+          "profit": 479.393838338751
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 7.9,
+      "status": "violation_observed",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/swappstaking",
+      "artifact_hashes": {
+        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+        "harness.json": "f9f0059c22e1df2e093f7019f772d75cc4d4ee46ea52172b2636e92a8c91a24b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "988475fce181aaa62ab4c2b5e4f07a22aceb74c505b9207dc62ff6d46fec2c7b",
+        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+      },
+      "build": {
+        "harness": {
+          "poc": "2025-07/SWAPPStaking_exp.sol",
+          "poc_sha256": "4b8922b218a57f18cffe8e2c376264310b9df1653e885c342636ed0f1788025f",
+          "staged_files": [
+            "src/test/2025-07/SWAPPStaking_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "swappstaking",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2025-07/SWAPPStaking_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L5",
+      "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+      "profit_deltas": [
+        {
+          "after": 128657759164064.0,
+          "attacker_side": true,
+          "before": 0.0,
+          "label_after": "balance of attacker after exploiting",
+          "label_before": "current balance of attacker",
+          "profit": 128657759164064.0
+        },
+        {
+          "after": 0.0,
+          "attacker_side": false,
+          "before": 128657759164064.0,
+          "label_after": "balance of staking after exploiting",
+          "label_before": "current balance of staking",
+          "profit": -128657759164064.0
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 48.4,
+      "status": "violation_observed",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    }
+  ],
+  "stage": "V3.2 experimental proof (DeFiHackLabs pilots)"
+}

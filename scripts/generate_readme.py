@@ -428,7 +428,7 @@ L1 (published PoC); `reproducibility = 0` for every v3 record by construction.
 | ecosystems | {(v3m.get('by_ecosystem') or {})} |
 | languages | {(v3m.get('by_language') or {})} |
 | splits_v3 (by source) | train {n(v3split.get('train'))}, validation {n(v3split.get('validation'))}, test {n(v3split.get('test'))} |
-| benchmark families added | {(v3bench.get('families') or [])} ({n((v3bench.get('tasks') or {}).get('R_v3_source_tier_routing'))} + {n((v3bench.get('tasks') or {}).get('S_v3_contest_outcome'))} tasks) |
+| benchmark families added | {(v3bench.get('families') or [])} ({n((v3bench.get('tasks') or {}).get('R_v3_source_tier_routing'))} + {n((v3bench.get('tasks') or {}).get('S_v3_contest_outcome'))} + {n((v3bench.get('tasks') or {}).get('T_v31_taxonomy_explicit'))} tasks) |
 | v3 gate | {n(v3gate.get('passed', 0))}/{n(v3gate.get('total', 0))} checks, {n(v3gate.get('critical_failures', 0))} critical failures |
 
 Full accounting, including the report-level-pointer thin spots (hard negatives: 16; per-finding
@@ -564,6 +564,10 @@ python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
 python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
 python scripts/build_v3.py                    # v3 layer: 18 clones -> jsonl_v3/derived_v3/splits_v3 + families R-S
 python scripts/validate_v3.py                 # the v3 gate; non-zero on failure
+python scripts/normalize_v3.py                # v3.1 evidence extraction: boundaries, fields, overlays, preview
+python scripts/validate_v31.py                # the v3.1 normalization gate
+python scripts/build_benchmark_v31.py         # benchmark family T (explicit taxonomy)
+python scripts/run_dhl_experiments.py         # v3.2 staged fork executions with full artefacts
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 

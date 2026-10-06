@@ -264,8 +264,8 @@
     {
       "check": "worktree_dirt_attribution",
       "critical": false,
-      "detail": "20 dirty entries under data dirs, 13 not from V3.1 outputs",
-      "failure_count": 13,
+      "detail": "16 dirty entries under data dirs, 15 not from V3.1 outputs",
+      "failure_count": 15,
       "failures": [
         " M benchmark/F_false_positive_rejection.jsonl",
         " M benchmark/H_verified_exploit.jsonl",
@@ -273,13 +273,15 @@
         " M benchmark/M_experiment_level_classification.jsonl",
         " M benchmark/Q_evidence_type_and_quality_rubric.jsonl",
         " M benchmark/manifest.json",
-        " M benchmark/v3_manifest.json",
         " M derived/hard_negatives.jsonl",
         " M derived_v2_2/manifest.json",
         " M derived_v2_2/records.jsonl",
         " M jsonl_ml/findings_move.jsonl",
         "?? derived_v2_2/audit_ingestion_records.jsonl",
-        "?? derived_v2_2/audit_sources.jsonl"
+        "?? derived_v2_2/audit_sources.jsonl",
+        "?? reports/v3/compile_sweep.json",
+        "?? reports/v3/experimental_proof.json",
+        "?? reports/v3/experimental_proof.md"
       ],
       "group": "isolation",
       "ok": true
@@ -292,10 +294,19 @@
       "failures": [],
       "group": "references",
       "ok": true
+    },
+    {
+      "check": "artifacts_complete_and_earned",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "experiments",
+      "ok": true
     }
   ],
   "critical_failures": 0,
   "normalization_version": "3.1",
-  "passed": 31,
-  "total": 31
+  "passed": 32,
+  "total": 32
 }

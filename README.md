@@ -167,7 +167,7 @@ L1 (published PoC); `reproducibility = 0` for every v3 record by construction.
 | ecosystems | {'aptos': 11, 'cosmos': 95, 'evm': 6446, 'solana': 103, 'stacks': 4, 'sui': 5, 'ton': 4, 'unknown': 1044} |
 | languages | {'clarity': 4, 'go': 28, 'move': 30, 'rust': 132, 'solidity': 6446, 'unknown': 1072} |
 | splits_v3 (by source) | train 5,006, validation 354, test 107 |
-| benchmark families added | ['R_v3_source_tier_routing', 'S_v3_contest_outcome'] (5,467 + 1,072 tasks) |
+| benchmark families added | ['R_v3_source_tier_routing', 'S_v3_contest_outcome', 'T_v31_taxonomy_explicit'] (5,467 + 1,072 + 589 tasks) |
 | v3 gate | 33/33 checks, 0 critical failures |
 
 Full accounting, including the report-level-pointer thin spots (hard negatives: 16; per-finding
@@ -303,6 +303,10 @@ python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
 python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
 python scripts/build_v3.py                    # v3 layer: 18 clones -> jsonl_v3/derived_v3/splits_v3 + families R-S
 python scripts/validate_v3.py                 # the v3 gate; non-zero on failure
+python scripts/normalize_v3.py                # v3.1 evidence extraction: boundaries, fields, overlays, preview
+python scripts/validate_v31.py                # the v3.1 normalization gate
+python scripts/build_benchmark_v31.py         # benchmark family T (explicit taxonomy)
+python scripts/run_dhl_experiments.py         # v3.2 staged fork executions with full artefacts
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 

@@ -1,0 +1,791 @@
+{
+  "rows": [
+    {
+      "errors": [],
+      "file": "2017-07/Parity_first_hack_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2018-04/SmartMesh_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2018-10/SpankChain_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-01/Sushi_Badger_Digg_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-05/BurgerSwap_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-05/Spartan_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-07/Levyathan_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-08/Popsicle_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2021-10/IndexedFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2022-08/LuckyTiger_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2022-10/Market_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2022-11/MEV_0ad8_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-01/TINU_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-02/FDP_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-02/LaunchZone_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-02/USDs_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-03/safeMoon_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-11/LinkDao_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-11/ShibaToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2023-11/Token8633_9419_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-01/Gamma_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-01/LQDX_alert_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-03/Prisma_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-04/ChaingeFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-04/NGFS_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-04/PikeFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-04/Yield_exp.sol",
+      "rc": 0,
+      "supplied": [
+        {
+          "from": "src/test/interface.sol",
+          "import": "src/test/interface.sol"
+        }
+      ]
+    },
+    {
+      "errors": [],
+      "file": "2024-05/RedKeysCoin_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-10/Erc20transfer_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-10/MorphoBlue_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2024-11/Matez_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-02/HenloKart_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-03/DCFToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-05/BetaPresale_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-05/UsualMoney_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-05/unverified_91a1_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-06/ResupplyFi_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-06/Stead_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-07/SWAPPStaking_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-07/Unverified670471_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-07/Unverified6883_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-08/AutoPooledTradingBot_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-08/PresaleV5_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-08/unverified_6f7a_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-08/unverified_d132_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-09/Kame_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-10/TokenHolder_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2025-12/yETH_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-01/MTToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [
+        "Identifier already declared."
+      ],
+      "file": "2026-01/PRXVT_exp.sol",
+      "rc": 1,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-01/SynapLogic_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-01/Truebit_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-01/futureswap_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-01/makina_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-03/Venus_THE_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-04/JuiceboxREVLoans_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-04/MONA_LisaVault_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [
+        "Invalid character in string. If you are trying to use Unicode characters, use a unicode\"...\" string literal."
+      ],
+      "file": "2026-04/SaturnProtocol_exp.sol",
+      "rc": 1,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/AROS_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/AdsharesBridge_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/Ekubo_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/FractalProtocol_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/INKFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/MAPProtocol_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/MureDistribution_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/Renegade_exp.sol",
+      "note": "plain forge build fails (stack too deep); rc=0 observed with forge build --via-ir (repo precedent: FOUNDRY_VIA_IR); PoC bytes unmodified",
+      "rc": 0,
+      "supplied": [],
+      "via_ir": true
+    },
+    {
+      "errors": [],
+      "file": "2026-05/SEAToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/SQTokenStaking_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-05/VerusBridge_exp.sol",
+      "note": "plain forge build fails (stack too deep); rc=0 observed with forge build --via-ir (repo precedent: FOUNDRY_VIA_IR); PoC bytes unmodified",
+      "rc": 0,
+      "supplied": [],
+      "via_ir": true
+    },
+    {
+      "errors": [],
+      "file": "2026-05/YSDAO_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-06/AztecConnect_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-06/AztecEscapeHatch_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-06/DIP_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-06/NovaBox_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-06/TOPBPool_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-07/SummerFi_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/AIC_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/AjnaFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/AllbridgeCCTP_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/ArrakisGUNI_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/BalancerV1BPool_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/CashCowCoin_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/EnjinCryptoItems_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/FHToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/FloatProtocol_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/ReflexerGEB_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/SandboxOFT_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/StrongBlock_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/TermFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/USM_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-08/UnistreetLaunchpad_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/BeatXswap_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/BonfireSwap_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/CozyFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/DAOstack_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/DHC_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/DoinGud_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/EnsoFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/EtherFiAtomicQueue_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/Flamincome_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/GDC_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/GaslessReservoirEnabler_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/InternetToken_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/LPBonus_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/Likwid_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/MUS_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/Nimiq_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/NotionalFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/OMNI404_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/ORB_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/OrderFactory_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/PositionManager_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/PrimeFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/Reddio_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/RouterDrain_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/RsETHSafeModule_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/SKYDAO_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/SecuredFi_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/SpiralHookV2_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/Startale_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/UnifiProtocol_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/YamFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-09/ZentraFinance_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/CrowdRingCircle_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/FlashLoopAdapter_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/GoldPesa_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/MALT_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/MOKE_exp.sol",
+      "rc": 0,
+      "supplied": []
+    },
+    {
+      "errors": [],
+      "file": "2026-10/PerpetualProtocol_exp.sol",
+      "rc": 0,
+      "supplied": []
+    }
+  ]
+}
