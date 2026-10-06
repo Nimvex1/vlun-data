@@ -13,3 +13,10 @@ Thumbs.db
 work/
 
 # Generated at build time, committed deliberately: see reports/.
+
+# V3 third-party clones (~3 GB, PDF-heavy, must NOT be redistributed).
+# The harvester reads them from disk; provenance survives via clone-HEAD pins
+# + file sha256 in jsonl_v3/derived_v3. Only the manifest + research docs are
+# tracked (negations below).
+V3/clones/*
+!V3/clones/MANIFEST.md
