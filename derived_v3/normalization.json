@@ -10,7 +10,7 @@
     "after_v31": {
       "affected_files": 5790,
       "affected_functions": 0,
-      "class_known": 7037,
+      "class_known": 2093,
       "ecosystem_known": 8507,
       "exact_fixed_commits": 47,
       "exact_vulnerable_commits": 1077,
@@ -21,14 +21,14 @@
       "l6": 0,
       "language_known": 8882,
       "line_refs": 213,
-      "note": "AFTER counts preview rows (v3.0 records with overlays applied + admitted V3.1 children). Executed/reproduced/L5/L6 stay 0: nothing was executed in V3.1.",
+      "note": "AFTER counts preview rows (v3.0 records with overlays applied + admitted V3.1 children). repository_known and exact commits read lower than Before because preview excludes non-admitted ledger rows (e.g. C4 scope commits on QA/research rows); no committed value was changed. Executed/reproduced/L5/L6 stay 0: nothing was executed in V3.1.",
       "patch_candidates": 47,
       "patches_verified": 0,
-      "published_pocs": 1943,
+      "published_pocs": 1700,
       "repository_known": 4520,
       "reproduced": 0,
       "rows": 12504,
-      "severity_known": 7037
+      "severity_known": 11610
     },
     "before_v30_ledger": {
       "affected_files": 207,
@@ -75,7 +75,7 @@
     "unknown": 3622
   },
   "normalization_version": "3.1",
-  "overlay_count": 9987,
+  "overlay_count": 9744,
   "patch_candidates": 47,
   "preview_count": 12504,
   "severity_confidence": {

@@ -1111,14 +1111,13 @@ def _coverage(ledger: list, preview: list, fragments: list,
     adm = [f for f in fragments if f.get("fragment_status") == "admitted"]
 
     def class_known_preview() -> int:
-        n = 0
-        for r in preview:
-            if r.get("record_type") == "record_v31":
-                continue
-            if r.get("normalized_vulnerability_class") not in (U, None):
-                n += 1
+        n = sum(
+            1 for r in preview
+            if r.get("record_type") != "record_v31"
+            and r.get("normalized_vulnerability_class") not in (U, None))
         for f in adm:
-            if (f.get("normalized_vulnerability_classes") or [U])[0] != U:
+            first = (f.get("normalized_vulnerability_classes") or [U])[0]
+            if isinstance(first, str) and first.lower() != "unknown":
                 n += 1
         return n
 
@@ -1156,7 +1155,7 @@ def _coverage(ledger: list, preview: list, fragments: list,
             if r.get("record_type") == "record_v31":
                 if r.get("severity") not in (U, None):
                     n += 1
-            elif r.get("severity_normalized") not in (U, None):
+            elif r.get("severity") not in (U, None):
                 n += 1
         return n
 
@@ -1207,8 +1206,12 @@ def _coverage(ledger: list, preview: list, fragments: list,
         "patches_verified": 0,
     }
     after["note"] = ("AFTER counts preview rows (v3.0 records with overlays "
-                     "applied + admitted V3.1 children). Executed/reproduced/"
-                     "L5/L6 stay 0: nothing was executed in V3.1.")
+                     "applied + admitted V3.1 children). repository_known and "
+                     "exact commits read lower than Before because preview "
+                     "excludes non-admitted ledger rows (e.g. C4 scope "
+                     "commits on QA/research rows); no committed value was "
+                     "changed. Executed/reproduced/L5/L6 stay 0: nothing was "
+                     "executed in V3.1.")
     return {"before_v30_ledger": before, "after_v31": after,
             "normalization_version": NORM_VERSION}
 

@@ -518,6 +518,19 @@ REM_HEADER_RE = re.compile(
     r"client (comment|response)|developer response)\b")
 
 
+def _poc_window(segment: str, start: int, limit: int = 4000) -> str:
+    """Text after a section header, cut at the next markdown header.
+
+    Without the cut, a code fence kilobytes later (next finding's fix
+    snippet, an appendix) would falsely mark this section as code-bearing.
+    """
+    window = segment[start:start + limit]
+    nxt = re.search(r"(?m)^#{1,4}\s+\S", window)
+    if nxt and nxt.start() > 20:
+        window = window[:nxt.start()]
+    return window
+
+
 def ev(value, evidence_type, method, span=None) -> dict:
     return {"value": value, "evidence_type": evidence_type,
             "method": method, "span": span}
@@ -621,13 +634,16 @@ def extract_fields(segment: str, seg_start: int, text: str,
             "ABDK 'Listing N : LINE' refs in finding segment", None)
     poc_m = POC_HEADER_RE.search(segment)
     if poc_m:
-        after = segment[poc_m.end():poc_m.end() + 4000]
+        after = _poc_window(segment, poc_m.end())
         has_code = ("```" in after) or bool(
             re.search(r"(?m)^\s*(function\s+\w+|forge|cast|vm\.)", after))
+        fns = sorted(set(re.findall(
+            r"(?m)^\s*function\s+([A-Za-z0-9_]+)\s*\(", after)))[:10]
         out["poc_section"] = ev(
             {"present": True, "has_code": has_code,
-             "chars": len(after.strip())}, "observed_fact",
-            "PoC section header + code scan in finding segment",
+             "poc_functions": fns}, "observed_fact",
+            "PoC section header + code scan within the section "
+            "(cut at next header)",
             _span(text, seg_start, poc_m))
     elif re.search(r"\[PoC\]", segment):
         # Auditor PoC tag without a prose header (Cyba-style): the tag marks
@@ -697,13 +713,13 @@ def enrich_markdown_row(candidate: dict) -> dict:
                                    "(candidate set, not attribution)", None)
     pm = POC_HEADER_RE.search(body)
     if pm:
-        after = body[pm.end():][:4000]
+        after = _poc_window(body, pm.end())
         fns = sorted(set(re.findall(
             r"(?m)^\s*function\s+([A-Za-z0-9_]+)\s*\(", after)))[:10]
         out["poc_section"] = ev(
             {"present": True, "has_code": ("```" in after),
              "poc_functions": fns}, "observed_fact",
-            "PoC section scan over finding body", None)
+            "PoC section scan over finding body (cut at next header)", None)
     shas = sorted(set(V.SHA40_RE.findall(body)))
     if shas:
         out["commit_shas"] = ev(shas[:8], "observed_fact",

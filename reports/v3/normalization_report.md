@@ -6,7 +6,7 @@ normalization_version 3.1 (dataset 3.0). V3.0 files untouched; this layer is fra
 
 fragments admitted: 7037 / 29176
 fragment decisions: {'admitted': 7037, 'rejected_no_boundary': 718, 'rejected_bad_title': 3436, 'rejected_no_severity': 9892, 'rejected_poor_extraction': 235, 'duplicate_native_id': 7858, 'rejected_duplicate': 7858}
-overlays: 9987 (conflicts kept, old values win: 0)
+overlays: 9744 (conflicts kept, old values win: 0)
 preview rows: 12504
 patch candidates (all not_testable): 47
 
@@ -45,8 +45,8 @@ zellic-publications | 2289 | 12408
 Metric | Before | After
 ---|---|---
 rows | 7712 | 12504
-severity_known | 4717 | 7037
-class_known | 207 | 7037
+severity_known | 4717 | 11610
+class_known | 207 | 2093
 language_known | 6640 | 8882
 ecosystem_known | 6668 | 8507
 repository_known | 4940 | 4520
@@ -55,7 +55,7 @@ exact_fixed_commits | 47 | 47
 affected_files | 207 | 5790
 affected_functions | - | 0
 line_refs | - | 213
-published_pocs | 881 | 1943
+published_pocs | 881 | 1700
 executable_pocs | - | 0
 experiment_ready_tier_a | - | 0
 executed_pocs | - | 0
@@ -65,4 +65,4 @@ l6 | - | 0
 patch_candidates | - | 47
 patches_verified | - | 0
 
-AFTER counts preview rows (v3.0 records with overlays applied + admitted V3.1 children). Executed/reproduced/L5/L6 stay 0: nothing was executed in V3.1.
+AFTER counts preview rows (v3.0 records with overlays applied + admitted V3.1 children). repository_known and exact commits read lower than Before because preview excludes non-admitted ledger rows (e.g. C4 scope commits on QA/research rows); no committed value was changed. Executed/reproduced/L5/L6 stay 0: nothing was executed in V3.1.

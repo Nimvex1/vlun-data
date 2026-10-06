@@ -264,8 +264,8 @@
     {
       "check": "worktree_dirt_attribution",
       "critical": false,
-      "detail": "30 dirty entries under data dirs, 14 not from V3.1 outputs",
-      "failure_count": 14,
+      "detail": "20 dirty entries under data dirs, 13 not from V3.1 outputs",
+      "failure_count": 13,
       "failures": [
         " M benchmark/F_false_positive_rejection.jsonl",
         " M benchmark/H_verified_exploit.jsonl",
@@ -278,7 +278,6 @@
         " M derived_v2_2/manifest.json",
         " M derived_v2_2/records.jsonl",
         " M jsonl_ml/findings_move.jsonl",
-        "?? benchmark/v3_T_taxonomy_explicit.jsonl",
         "?? derived_v2_2/audit_ingestion_records.jsonl",
         "?? derived_v2_2/audit_sources.jsonl"
       ],
