@@ -1,0 +1,604 @@
+{
+  "sources": [
+    {
+      "canonical_url": "https://github.com/abdk-consulting/audits",
+      "clone_head": "57af593b14bb3701cf659937b1b7b6483009a0cc",
+      "decisions": {
+        "RESEARCH_ONLY": 216
+      },
+      "ecosystems": [
+        "evm",
+        "zk"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 75,
+      "records_corroboration": 0,
+      "records_discovered": 216,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 216,
+      "records_unknown": 0,
+      "source_id": "abdk-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 216
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/Ackee-Blockchain/public-audit-reports",
+      "clone_head": "2033ac4dcd808e9cebdadfbaff40e4e89e33998f",
+      "decisions": {
+        "RESEARCH_ONLY": 97
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 77,
+      "records_corroboration": 0,
+      "records_discovered": 97,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 97,
+      "records_unknown": 0,
+      "source_id": "ackee-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 97
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/anza-xyz/security-audits",
+      "clone_head": "4d5d71e423d1b293f55da1a831a86921bb8c8dee",
+      "decisions": {
+        "RESEARCH_ONLY": 77
+      },
+      "ecosystems": [
+        "solana"
+      ],
+      "first_party": false,
+      "languages": [
+        "rust"
+      ],
+      "license_status": "unknown",
+      "notes": "Pointer/mirror layer: every record carries mirror_of handling; the auditor original remains the canonical source.",
+      "provenance_quality": 60,
+      "records_corroboration": 0,
+      "records_discovered": 77,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 77,
+      "records_unknown": 0,
+      "source_id": "anza-security-audits",
+      "source_type": "professional_audit_mirror",
+      "verification_levels": {
+        "L0": 77
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/code-423n4/2024-08-phi-findings",
+      "clone_head": "0c473d9115cd5a1e90ed5beb49d363c9e2fee9f0",
+      "decisions": {
+        "IMPORT_AS_UNVERIFIED": 334,
+        "RESEARCH_ONLY": 44
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 91,
+      "records_corroboration": 0,
+      "records_discovered": 378,
+      "records_imported": 334,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 44,
+      "records_unknown": 0,
+      "source_id": "c4-phi-findings",
+      "source_type": "competitive_audit",
+      "verification_levels": {
+        "L0": 378
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/code-423n4/2024-04-renzo-findings",
+      "clone_head": "b4206cef724c8b518073b896bb4d2a8bf219feca",
+      "decisions": {
+        "CORROBORATION_ONLY": 9,
+        "IMPORT_AS_UNVERIFIED": 575,
+        "RESEARCH_ONLY": 28
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 91,
+      "records_corroboration": 9,
+      "records_discovered": 612,
+      "records_imported": 575,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 28,
+      "records_unknown": 0,
+      "source_id": "c4-renzo-findings",
+      "source_type": "competitive_audit",
+      "verification_levels": {
+        "L0": 612
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/code-423n4/2024-07-reserve-findings",
+      "clone_head": "59b95d602bd74c79ee49c820d154ca87d4885ac5",
+      "decisions": {
+        "CORROBORATION_ONLY": 1,
+        "IMPORT_AS_UNVERIFIED": 107,
+        "RESEARCH_ONLY": 9
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 91,
+      "records_corroboration": 1,
+      "records_discovered": 117,
+      "records_imported": 107,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 9,
+      "records_unknown": 0,
+      "source_id": "c4-reserve-findings",
+      "source_type": "competitive_audit",
+      "verification_levels": {
+        "L0": 117
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/Certora/SecurityReports",
+      "clone_head": "646989b731edde67fd42904336c5242e8a61230d",
+      "decisions": {
+        "RESEARCH_ONLY": 200
+      },
+      "ecosystems": [
+        "evm",
+        "solana",
+        "stellar",
+        "sui"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity",
+        "vyper",
+        "rust",
+        "move"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 85,
+      "records_corroboration": 0,
+      "records_discovered": 200,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 200,
+      "records_unknown": 0,
+      "source_id": "certora-reports",
+      "source_type": "professional_audit_formal_verification",
+      "verification_levels": {
+        "L0": 200
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/cybasecurity/audits",
+      "clone_head": "7b74efd6c6b7de51e334440c528be20f6721220f",
+      "decisions": {
+        "RESEARCH_ONLY": 14
+      },
+      "ecosystems": [
+        "stacks",
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "clarity",
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 81,
+      "records_corroboration": 0,
+      "records_discovered": 14,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 14,
+      "records_unknown": 0,
+      "source_id": "cyba-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 14
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "decisions": {
+        "IMPORT_AS_UNVERIFIED": 878
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": false,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 78,
+      "records_corroboration": 0,
+      "records_discovered": 878,
+      "records_imported": 878,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 0,
+      "records_unknown": 0,
+      "source_id": "defihacklabs",
+      "source_type": "incident_database",
+      "verification_levels": {
+        "L1": 878
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/Hexens/Smart-Contract-Review-Public-Reports",
+      "clone_head": "beb987e3fe5389eac376a76d107c61b0b820d8ec",
+      "decisions": {
+        "RESEARCH_ONLY": 170
+      },
+      "ecosystems": [
+        "evm",
+        "fuel",
+        "solana"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity",
+        "sway",
+        "rust"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 86,
+      "records_corroboration": 0,
+      "records_discovered": 170,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 170,
+      "records_unknown": 0,
+      "source_id": "hexens-reports",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 170
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/informalsystems/audits",
+      "clone_head": "39db31f3cfd9a9405d0f9a35c53dd1b0b34c646f",
+      "decisions": {
+        "RESEARCH_ONLY": 95
+      },
+      "ecosystems": [
+        "cosmos",
+        "ibc"
+      ],
+      "first_party": true,
+      "languages": [
+        "rust",
+        "go"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 81,
+      "records_corroboration": 0,
+      "records_discovered": 95,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 95,
+      "records_unknown": 0,
+      "source_id": "informal-audits",
+      "source_type": "professional_audit_formal_verification",
+      "verification_levels": {
+        "L0": 95
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/NethermindEth/PublicAuditReports",
+      "clone_head": "abf4dd79490b8962834f3d076844c756ed3218ed",
+      "decisions": {
+        "RESEARCH_ONLY": 190
+      },
+      "ecosystems": [
+        "evm",
+        "starknet"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity",
+        "cairo",
+        "rust"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 85,
+      "records_corroboration": 0,
+      "records_discovered": 190,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 190,
+      "records_unknown": 0,
+      "source_id": "nethermind-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 190
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/pashov/audits",
+      "clone_head": "8d9785ad52dd3f26edd6ac99b4199882d45d8d32",
+      "decisions": {
+        "IMPORT": 3517,
+        "RESEARCH_ONLY": 3
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 86,
+      "records_corroboration": 0,
+      "records_discovered": 3520,
+      "records_imported": 3517,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 3,
+      "records_unknown": 0,
+      "source_id": "pashov-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 3520
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/sherlock-audit/2023-01-optimism-judging",
+      "clone_head": "3907084c648b04281e5379830c34696fe9fc04f1",
+      "decisions": {
+        "CORROBORATION_ONLY": 50,
+        "IMPORT_AS_UNVERIFIED": 36,
+        "RESEARCH_ONLY": 220
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 87,
+      "records_corroboration": 50,
+      "records_discovered": 306,
+      "records_imported": 36,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 220,
+      "records_unknown": 0,
+      "source_id": "sherlock-optimism",
+      "source_type": "competitive_audit",
+      "verification_levels": {
+        "L0": 303,
+        "L1": 3
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/sherlock-audit/2024-06-symmetrical-update-2-judging",
+      "clone_head": "5b2c754dea8d65eb9b90e2bd7bfd9e5b8ed9ad0d",
+      "decisions": {
+        "CORROBORATION_ONLY": 3,
+        "IMPORT_AS_NEGATIVE": 16,
+        "IMPORT_AS_UNVERIFIED": 4,
+        "RESEARCH_ONLY": 1
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": true,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 87,
+      "records_corroboration": 3,
+      "records_discovered": 24,
+      "records_imported": 4,
+      "records_negative": 16,
+      "records_rejected": 0,
+      "records_research_only": 1,
+      "records_unknown": 0,
+      "source_id": "sherlock-symmetrical",
+      "source_type": "competitive_audit",
+      "verification_levels": {
+        "L0": 24
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/sigp/public-audits",
+      "clone_head": "7d9046e092e1e93623164e39df8c552a16f2fe5d",
+      "decisions": {
+        "CORROBORATION_ONLY": 1,
+        "RESEARCH_ONLY": 155
+      },
+      "ecosystems": [
+        "ethereum-infra",
+        "evm",
+        "l2"
+      ],
+      "first_party": true,
+      "languages": [
+        "rust",
+        "go",
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 72,
+      "records_corroboration": 1,
+      "records_discovered": 156,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 155,
+      "records_unknown": 0,
+      "source_id": "sigmaprime-audits",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 156
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/smartbugs/smartbugs-curated",
+      "clone_head": "230e649123477eff332742a59a1c7cc6dc286cab",
+      "decisions": {
+        "RESEARCH_ONLY": 207
+      },
+      "ecosystems": [
+        "evm"
+      ],
+      "first_party": false,
+      "languages": [
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "Taxonomy / benchmark-design reference only; never ground truth.",
+      "provenance_quality": 46,
+      "records_corroboration": 0,
+      "records_discovered": 207,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 207,
+      "records_unknown": 0,
+      "source_id": "smartbugs-curated",
+      "source_type": "research_dataset",
+      "verification_levels": {
+        "L0": 207
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    },
+    {
+      "canonical_url": "https://github.com/Zellic/publications",
+      "clone_head": "0aa77a8fa96da44b4ea2244c51cb7a8a183a15d4",
+      "decisions": {
+        "CORROBORATION_ONLY": 44,
+        "RESEARCH_ONLY": 411
+      },
+      "ecosystems": [
+        "solana",
+        "sui",
+        "aptos",
+        "evm",
+        "stellar"
+      ],
+      "first_party": true,
+      "languages": [
+        "rust",
+        "move",
+        "solidity"
+      ],
+      "license_status": "unknown",
+      "notes": "",
+      "provenance_quality": 92,
+      "records_corroboration": 44,
+      "records_discovered": 455,
+      "records_imported": 0,
+      "records_negative": 0,
+      "records_rejected": 0,
+      "records_research_only": 411,
+      "records_unknown": 0,
+      "source_id": "zellic-publications",
+      "source_type": "professional_audit",
+      "verification_levels": {
+        "L0": 455
+      },
+      "verified_l4_plus": 0,
+      "verified_l6": 0
+    }
+  ]
+}
