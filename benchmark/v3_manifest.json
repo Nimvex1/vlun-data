@@ -1,0 +1,14 @@
+{
+  "dataset_version": "3.0",
+  "families": [
+    "R_v3_source_tier_routing",
+    "S_v3_contest_outcome"
+  ],
+  "generated_by": "scripts/build_v3.py",
+  "notes": "answer keys rebuild mechanically from derived_v3/records.jsonl; task ids carry record ids for traceability (same convention as families A-Q)",
+  "splits_source": "splits_v3",
+  "tasks": {
+    "R_v3_source_tier_routing": 5467,
+    "S_v3_contest_outcome": 1072
+  }
+}
