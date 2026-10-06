@@ -81,9 +81,17 @@ STAGES = [
     (23, False, "generate_v21_reports.py", [], "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports"),
     (24, False, "generate_v22_reports.py", [],
      "reports/v2_2/: the five-language layer summary, benchmark A-Q and quality report"),
-    (25, False, "generate_readme.py", [],
+    (25, False, "ingest_audit_sources.py", [],
+     "authoritative audit-source registry, section-4 ingestion records and "
+     "reports/audit_source_ingestion_report.md (offline-safe without --probe-urls)"),
+    (26, False, "build_v3.py", [],
+     "V3 layer: harvest the 18 V3/clones sources into jsonl_v3/, derived_v3/, "
+     "splits_v3/, benchmark families R/S and reports/v3/ (fails fast if "
+     "V3/clones is not populated; never touches v1/v2.2 artefacts)"),
+    (27, False, "validate_v3.py", [], "the V3 gate"),
+    (28, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (26, False, "validate.py", [], "the gate"),
+    (29, False, "validate.py", [], "the gate"),
 ]
 
 
@@ -182,8 +190,12 @@ def main() -> int:
             return 1
 
     gate = next((r for r in results if r["script"] == "validate.py"), None)
+    gate_v3 = next((r for r in results if r["script"] == "validate_v3.py"), None)
     if gate and gate["status"] != "ok":
         log("GATE FAILED")
+        return 1
+    if gate_v3 and gate_v3["status"] != "ok":
+        log("V3 GATE FAILED")
         return 1
     skipped = summary["by_status"].get("skipped_no_network", 0)
     if skipped:
