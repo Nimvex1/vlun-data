@@ -1,0 +1,50 @@
+{
+  "artifact_hashes": {
+    "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+    "harness.json": "a075b53de24dda1e78c7c8d596ce0c5d9f0d13d4894ccf4a6df94b93cb4610ab",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "d7ebc9d982e60233040c9bd015cc551532fe507090b5665c2179bebdc7702f20",
+    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+  },
+  "build": {
+    "harness": {
+      "poc": "2024-04/PikeFinance_exp.sol",
+      "poc_sha256": "c4a1c8f3e7291d8018ed8ca68b175f45a705d213e4a292d30a4338d4f6d9c1be",
+      "staged_files": [
+        "src/test/2024-04/PikeFinance_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "pikefinance",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2024-04/PikeFinance_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L5",
+  "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+  "profit_deltas": [
+    {
+      "after": 479.393838338751,
+      "attacker_side": true,
+      "before": 0.0,
+      "label_after": "Attacker ETH Balance After exploit",
+      "label_before": "Attacker ETH Balance Before exploit",
+      "profit": 479.393838338751
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 7.9,
+  "status": "violation_observed",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+    "harness.json": "ef2804404b0652b4be4e2e6de8147d555b1dbb430ba32c97e77d4c1955909638",
+    "stderr.txt": "70432e465f0b4b4b859ae38bcce771fdfcec434aea3aca998dfda60a1b4e1dab",
+    "stdout.txt": "ab9c283bc48314b1fde558b065282b1c7c66af7ffc52301812c3fa126275058d",
+    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+  },
+  "build": {
+    "harness": {
+      "poc": "2024-01/Gamma_exp.sol",
+      "poc_sha256": "7c5fd6aa18bc4330fdb2985c0e9c4f4cccfce0c6bee946e96249a3643c8fd635",
+      "staged_files": [
+        "src/test/2024-01/Gamma_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220",
+  "experiment": "gamma",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2024-01/Gamma_exp.sol",
+  "fork_aliases": [
+    "arbitrum"
+  ],
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 3.3,
+  "status": "blocked",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 1,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

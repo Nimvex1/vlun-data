@@ -1,0 +1,13 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2025-07/SWAPPStaking_exp.sol:SWAPPStakingExp
+[PASS] testExploit() (gas: 3905140)
+Logs:
+  current balance of attacker: 0
+  current balance of staking: 128657759164064
+  balance of attacker after exploiting : 128657759164064
+  balance of staking after exploiting: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 45.07s (42.64s CPU time)
+
+Ran 1 test suite in 45.08s (45.07s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

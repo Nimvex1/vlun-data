@@ -1,0 +1,10 @@
+{
+  "poc": "2024-01/Gamma_exp.sol",
+  "poc_sha256": "7c5fd6aa18bc4330fdb2985c0e9c4f4cccfce0c6bee946e96249a3643c8fd635",
+  "staged_files": [
+    "src/test/2024-01/Gamma_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

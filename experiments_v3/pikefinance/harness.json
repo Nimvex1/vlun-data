@@ -1,0 +1,10 @@
+{
+  "poc": "2024-04/PikeFinance_exp.sol",
+  "poc_sha256": "c4a1c8f3e7291d8018ed8ca68b175f45a705d213e4a292d30a4338d4f6d9c1be",
+  "staged_files": [
+    "src/test/2024-04/PikeFinance_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

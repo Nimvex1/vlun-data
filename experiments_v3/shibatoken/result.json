@@ -1,0 +1,42 @@
+{
+  "artifact_hashes": {
+    "command.txt": "4d591a223c5bf9712f2833cef697e24b76cb83bcc657a95cd7247d9522176197",
+    "harness.json": "bde788bd2074c74427b662c9c70416786629be6e5df01fb347bc62dd44b1cd03",
+    "stderr.txt": "2ab83fa1c33a0dd9d6e0cbbf24f1c7e051a90865bc2c48ba72c32d0160244c8c",
+    "stdout.txt": "1487b5dac502c4ce3c18729632597aba1665c7441e0fbc64cd777fc6f3ff50cd",
+    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+  },
+  "build": {
+    "harness": {
+      "poc": "2023-11/ShibaToken_exp.sol",
+      "poc_sha256": "dd42c6b5b6987f8d7abe1c18984e242c113925b8e3cb16682a5f0ba58f080aa7",
+      "staged_files": [
+        "src/test/2023-11/ShibaToken_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32000: missing trie node] setUp() (gas: 0)",
+  "experiment": "shibatoken",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2023-11/ShibaToken_exp.sol",
+  "fork_aliases": [
+    "bsc",
+    "https://rpc.ankr.com/bsc"
+  ],
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 3.6,
+  "status": "blocked",
+  "test": {
+    "command": "forge test --match-test test -vv",
+    "rc": 1,
+    "test_function": "test"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

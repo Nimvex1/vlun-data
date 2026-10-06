@@ -1,0 +1,10 @@
+{
+  "poc": "2025-07/SWAPPStaking_exp.sol",
+  "poc_sha256": "4b8922b218a57f18cffe8e2c376264310b9df1653e885c342636ed0f1788025f",
+  "staged_files": [
+    "src/test/2025-07/SWAPPStaking_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

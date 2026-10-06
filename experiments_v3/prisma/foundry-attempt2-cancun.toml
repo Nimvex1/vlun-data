@@ -1,0 +1,8 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ['C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib']
+evm_version = 'cancun'
+
+[rpc_endpoints]
+mainnet = "https://eth-mainnet.public.blastapi.io"

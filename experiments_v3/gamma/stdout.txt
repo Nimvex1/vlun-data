@@ -1,0 +1,16 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2024-01/Gamma_exp.sol:ContractTest
+[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220b5abfaf6c2b6c045de409e9a2a230d4f2746b0e is not available] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.69s (0.00ns CPU time)
+
+Ran 1 test suite in 1.69s (1.69s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in src/test/2024-01/Gamma_exp.sol:ContractTest
+[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220b5abfaf6c2b6c045de409e9a2a230d4f2746b0e is not available] setUp() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

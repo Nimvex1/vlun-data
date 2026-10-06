@@ -1,0 +1,58 @@
+{
+  "artifact_hashes": {
+    "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+    "harness.json": "f9f0059c22e1df2e093f7019f772d75cc4d4ee46ea52172b2636e92a8c91a24b",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "988475fce181aaa62ab4c2b5e4f07a22aceb74c505b9207dc62ff6d46fec2c7b",
+    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+  },
+  "build": {
+    "harness": {
+      "poc": "2025-07/SWAPPStaking_exp.sol",
+      "poc_sha256": "4b8922b218a57f18cffe8e2c376264310b9df1653e885c342636ed0f1788025f",
+      "staged_files": [
+        "src/test/2025-07/SWAPPStaking_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "swappstaking",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2025-07/SWAPPStaking_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L5",
+  "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+  "profit_deltas": [
+    {
+      "after": 128657759164064.0,
+      "attacker_side": true,
+      "before": 0.0,
+      "label_after": "balance of attacker after exploiting",
+      "label_before": "current balance of attacker",
+      "profit": 128657759164064.0
+    },
+    {
+      "after": 0.0,
+      "attacker_side": false,
+      "before": 128657759164064.0,
+      "label_after": "balance of staking after exploiting",
+      "label_before": "current balance of staking",
+      "profit": -128657759164064.0
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 48.4,
+  "status": "violation_observed",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

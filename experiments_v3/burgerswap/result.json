@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
+    "harness.json": "549f6e1635a4ffbebe9e66ead1824b8782ea359a48e5b4ab5302f4972ff36e94",
+    "stderr.txt": "a6f4b2b221d07b481cd6d17a1ce84f80c711e3b6fe1e2d48119f71a2ac60f09d",
+    "stdout.txt": "691ec59472b069ca9755c5680f465088fad5b4e585b9efcd4b335e22b876bb04",
+    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+  },
+  "build": {
+    "harness": {
+      "poc": "2021-05/BurgerSwap_exp.sol",
+      "poc_sha256": "3f342e3f555a69f49530c53f86569f5e8b45fed51c111cec69a15ba9ccacdabe",
+      "staged_files": [
+        "src/test/2021-05/BurgerSwap_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0x72b61c6014342d914470eC7aC2975bE345796c2b: server returned an error response: error code -32000: missing trie node] setUp() (gas: 0)",
+  "experiment": "burgerswap",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2021-05/BurgerSwap_exp.sol",
+  "fork_aliases": [
+    "bsc"
+  ],
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 5.1,
+  "status": "blocked",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 1,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

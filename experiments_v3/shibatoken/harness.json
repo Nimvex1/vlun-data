@@ -1,0 +1,10 @@
+{
+  "poc": "2023-11/ShibaToken_exp.sol",
+  "poc_sha256": "dd42c6b5b6987f8d7abe1c18984e242c113925b8e3cb16682a5f0ba58f080aa7",
+  "staged_files": [
+    "src/test/2023-11/ShibaToken_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

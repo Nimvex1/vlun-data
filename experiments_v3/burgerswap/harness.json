@@ -1,0 +1,10 @@
+{
+  "poc": "2021-05/BurgerSwap_exp.sol",
+  "poc_sha256": "3f342e3f555a69f49530c53f86569f5e8b45fed51c111cec69a15ba9ccacdabe",
+  "staged_files": [
+    "src/test/2021-05/BurgerSwap_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}
