@@ -56,11 +56,16 @@ derived_v2_2/    v2.2 derived records (137) with per-field
                  evidence, the quality rubric and the experiment view
 splits_v2_2/     v2.2 splits with per-record sha256 pointers + quarantine.jsonl
 experiments_v2_2/ executed multi-language runs: command, stdout, stderr, result.json
+jsonl_v3/        the v3 source layer: 7,712 candidates,
+                 18 sources across 18 new archives. Read-only like jsonl/.
+derived_v3/      v3 derived records (5,467) with decisions, quality rubric,
+                 provenance ledger and verification view
+splits_v3/       v3 by-source splits (no source spans splits) + quarantine.jsonl
 datasets/        high-confidence subsets, each with a published admission rule
 training/        task-oriented training files, split by task rather than one blob
 splits/          v1 repository-level splits (kept for comparison)
 splits_v2/       leakage-free splits + quarantine.jsonl
-benchmark/       17 task families, machine readable (A-J v1, K-Q v2.2)
+benchmark/       17 task families, machine readable (A-J v1, K-Q v2.2, R-S v3)
 reports/         every generated report, including reports/v2_2/ and pre_upgrade_audit.json
 scripts/         the pipeline (see below)
 work/            clones, retrieved source, execution logs — git-ignored
@@ -82,9 +87,9 @@ and is never rewritten either.
 | PoCs compiled | 0 | 4 of 8 repositories |
 | PoCs executed | 0 | 15 of 155 |
 | PoCs demonstrating the claimed impact | unknown | **5** of 155 |
-| negatives with a code-grounded reason | 0 | 6 derived + 9 reported |
+| negatives with a code-grounded reason | 0 | 8 derived + 9 reported |
 | cross-split leakage checks | 3 | 4 detectors, 2 real duplicates found and quarantined |
-| validation gate | described, not shipped | 66/66 checks, 0 critical failures |
+| validation gate | described, not shipped | 71/71 checks, 0 critical failures |
 
 ### v2.1: experimentally proven evidence
 
@@ -93,15 +98,15 @@ and is never rewritten either.
 | PoC records given a proof-shape class | 0 | 155 of 155 |
 | PoC records given an L0-L6 level | 0 | 155 |
 | Pinpoint exploit experiments executed | 0 | 9 |
-| Vulnerabilities with an observed violation at the audited commit | 5 | 4 |
-| Patches verified effective (reproduced on vulnerable, blocked on fixed) | 0 | **4** |
+| Vulnerabilities with an observed violation at the audited commit | 5 | 7 |
+| Patches verified effective (reproduced on vulnerable, blocked on fixed) | 0 | **7** |
 | Mutable branch citations in the shipped derived layer | 473 | **0** of 2,034 |
-| Negatives with a defensible reason | 15 | **231** — of which **1** are derived from code, **9** attributed to a named source, and **221** are corroborated duplicates (a valid claim filed twice — *not* a rejected one) |
-| Negatives still honestly unknown | 443 | **227** |
+| Negatives with a defensible reason | 15 | **331** — of which **1** are derived from code, **9** attributed to a named source, and **321** are corroborated duplicates (a valid claim filed twice — *not* a rejected one) |
+| Negatives still honestly unknown | 443 | **127** |
 | API-sibling counterexample pairs | 0 | 71 |
 | Repositories with a static-analysis signal | none | 5 analysed, 1 reported unanalysable |
 | Benchmark families | 7 | 17 |
-| Benchmark tasks with experimentally produced ground truth | 0 | 10 |
+| Benchmark tasks with experimentally produced ground truth | 0 | 15 |
 
 Full accounting, including what could **not** be verified and why, is in
 [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md). The v2 report it supersedes is
@@ -122,10 +127,10 @@ licence declaration (or `unknown`, which is what an undeclared licence stays).
 | source layer | `jsonl/` (v1, never rewritten) | + `jsonl_ml/` 137 findings, 112 sources (never rewritten) |
 | derived records | 722 | + 137 in `derived_v2_2/` with evidence, quality rubric, experiment view |
 | splits | `splits_v2/` by repository | + `splits_v2_2/`: train 76, validation 30, test 31, quarantine 2 — per-record sha256 pointers, duplicates quarantined |
-| executed experiment runs (v2.2 layer) | — | **36** — levels `{'L3': 1, 'L5': 35, 'none': 101}` |
+| executed experiment runs (v2.2 layer) | — | **37** — levels `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` |
 | benchmark families | 10 | 17 (K-Q added: language routing, severity reconciliation, experiment level, attacker identity, record class, provenance tier, evidence rubric) |
-| strongest evidence per record | — | `{'experimentally_verified': 36, 'observed_fact': 101}` |
-| gate | — | 66/66 checks, 0 critical failures |
+| strongest evidence per record | — | `{'experimentally_verified': 37, 'observed_fact': 100}` |
+| gate | — | 71/71 checks, 0 critical failures |
 
 Read with the honest counts, all of them also in
 [`reports/v2_2/`](reports/v2_2/): **123 of
@@ -144,6 +149,31 @@ Full accounting for the new layer, including what could **not** be executed (Sui
 snFuzzer toolchains are absent from this environment, so no Move or Cairo run reaches L3), is in
 [`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md).
 
+### v3.0: eighteen new sources, additive layer
+
+v3.0 keeps every v2.2 guarantee and adds a third source layer harvested from 18 cloned archives
+(professional audits, competitive audits, incident PoCs, one Tier-4 research dataset): 7,712
+candidates, 5,467 admitted records. The v1/v2.2 artefacts are untouched;
+the clone working trees (~3.1 GB, must-not-redistribute) are not committed - provenance survives
+as clone-HEAD pins plus per-file sha256. Nothing was executed in this pass, so no record exceeds
+L1 (published PoC); `reproducibility = 0` for every v3 record by construction.
+
+| | v3.0 |
+|---|---|
+| sources discovered | 18 |
+| candidates / admitted records | 7,712 / 5,467 |
+| decisions | {'CORROBORATION_ONLY': 108, 'IMPORT': 3517, 'IMPORT_AS_NEGATIVE': 16, 'IMPORT_AS_UNVERIFIED': 1934, 'RESEARCH_ONLY': 2137} |
+| verification levels | {'L0': 6831, 'L1': 881} |
+| ecosystems | {'aptos': 11, 'cosmos': 95, 'evm': 6446, 'solana': 103, 'stacks': 4, 'sui': 5, 'ton': 4, 'unknown': 1044} |
+| languages | {'clarity': 4, 'go': 28, 'move': 30, 'rust': 132, 'solidity': 6446, 'unknown': 1072} |
+| splits_v3 (by source) | train 5,006, validation 354, test 107 |
+| benchmark families added | ['R_v3_source_tier_routing', 'S_v3_contest_outcome'] (5,467 + 1,072 tasks) |
+| v3 gate | 33/33 checks, 0 critical failures |
+
+Full accounting, including the report-level-pointer thin spots (hard negatives: 16; per-finding
+language/class extraction queued, not faked), is in
+[`reports/v3/quality_report.md`](reports/v3/quality_report.md).
+
 ## Split integrity
 
 v1 splits by repository, so one protocol's source never appears twice. v2 adds four detectors —
@@ -157,7 +187,7 @@ never deleted, and no repository is ever relocated.
 
 ```
 train       415      validation   277      test       253
-quarantined 2      (see splits_v2/quarantine.jsonl)
+quarantined 0      (see splits_v2/quarantine.jsonl)
 ```
 
 ## Evidence semantics
@@ -186,7 +216,7 @@ forge reported `Success` for its test.
 quality report. The ones that matter most:
 
 0. **Only 9 pinpoint experiments exist and
-   4 of them are inconclusive.** That is the honest number.
+   2 of them are inconclusive.** That is the honest number.
    Each names the audited commit, the exact command and the observed assertion message; the
    failures record the specific missing symbol rather than a shrug. Widening this needs either an
    archive RPC for the fork-based proofs or a per-PoC port of the reporter's own fixtures; see
@@ -196,7 +226,7 @@ quality report. The ones that matter most:
    hardhat 2.x with peer ranges modern npm rejects, and fork-based PoCs need an archive RPC key
    that is not distributed. Set `VLUN_RPC_URL` to an archive endpoint and re-run
    `scripts/verify_pocs.py` — that is the highest-value action available downstream.
-2. **443 of 458 negatives have no
+2. **441 of 458 negatives have no
    defensible rejection reason.** Code4rena's judging rationale is largely not public. Those
    records say `rejection_basis: label_only` and leave `blocking_condition` as `unknown` rather than
    inventing a plausible one.
@@ -222,8 +252,8 @@ quality report. The ones that matter most:
     reported by the gate as a counted, non-fatal warning.
 7. **No invariant was invented.** `invariants: []` for 35
     of 264 records is the intended outcome.
-8. **4 of 38 patches are
-   experimentally confirmed effective; 34 are `not_testable` because no experiment ran both of their revisions
+8. **7 of 38 patches are
+   experimentally confirmed effective; 31 are `not_testable` because no experiment ran both of their revisions
    effective.** A merged PR is not evidence; only running the PoC against both revisions is.
 
 **Some** source that must not be redistributed has been withheld from this repository: for those
@@ -271,12 +301,14 @@ python scripts/generate_stats.py              # the only source of statistics
 python scripts/generate_reports.py
 python scripts/generate_v21_reports.py        # the v2.1 BEFORE/AFTER report
 python scripts/generate_v22_reports.py        # reports/v2_2/: five-language layer report
+python scripts/build_v3.py                    # v3 layer: 18 clones -> jsonl_v3/derived_v3/splits_v3 + families R-S
+python scripts/validate_v3.py                 # the v3 gate; non-zero on failure
 python scripts/validate.py                    # the gate; non-zero on failure
 ```
 
 Every script is idempotent, takes `--help`, and writes only under `derived/`, `derived_v2_2/`,
-`splits_v2/`, `splits_v2_2/`, `benchmark/`, `reports/`, `experiments/`, `experiments_v2_2/` or
-`work/`. `jsonl/` and `jsonl_ml/` are read-only.
+`derived_v3/`, `splits_v2/`, `splits_v2_2/`, `splits_v3/`, `benchmark/`, `reports/`, `reports/v3/`,
+`experiments/`, `experiments_v2_2/` or `work/`. `jsonl/`, `jsonl_ml/` and `jsonl_v3/` are read-only.
 
 **`build_all.py` exits non-zero if any stage fails or if the gate fails.** It used to exit 0 with
 two stages failing, which is how a broken build ships as a green pipeline. Stages that cannot run
