@@ -89,9 +89,16 @@ STAGES = [
      "splits_v3/, benchmark families R/S and reports/v3/ (fails fast if "
      "V3/clones is not populated; never touches v1/v2.2 artefacts)"),
     (27, False, "validate_v3.py", [], "the V3 gate"),
-    (28, False, "generate_readme.py", [],
+    (28, False, "normalize_v3.py", [],
+     "V3.1 evidence extraction: finding boundaries, field evidence, "
+     "taxonomy, overlays, preview, readiness (fails fast if V3/clones is "
+     "not populated; never rewrites v3.0 files)"),
+    (29, False, "validate_v31.py", [], "the V3.1 normalization gate"),
+    (30, False, "build_benchmark_v31.py", [],
+     "benchmark family T (explicit-confidence taxonomy) + v3 manifest"),
+    (31, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (29, False, "validate.py", [], "the gate"),
+    (32, False, "validate.py", [], "the gate"),
 ]
 
 
@@ -191,11 +198,16 @@ def main() -> int:
 
     gate = next((r for r in results if r["script"] == "validate.py"), None)
     gate_v3 = next((r for r in results if r["script"] == "validate_v3.py"), None)
+    gate_v31 = next((r for r in results if r["script"] == "validate_v31.py"),
+                    None)
     if gate and gate["status"] != "ok":
         log("GATE FAILED")
         return 1
     if gate_v3 and gate_v3["status"] != "ok":
         log("V3 GATE FAILED")
+        return 1
+    if gate_v31 and gate_v31["status"] != "ok":
+        log("V3.1 GATE FAILED")
         return 1
     skipped = summary["by_status"].get("skipped_no_network", 0)
     if skipped:
