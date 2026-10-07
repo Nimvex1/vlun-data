@@ -1,0 +1,54 @@
+{
+  "by_ecosystem": {
+    "aptos": 10,
+    "cosmos": 9,
+    "evm": 567,
+    "solana": 7,
+    "starknet": 2,
+    "sui": 7,
+    "unknown": 117
+  },
+  "by_language": {
+    "cairo": 2,
+    "go": 23,
+    "move": 20,
+    "rust": 14,
+    "solidity": 560,
+    "unknown": 95,
+    "vyper": 5
+  },
+  "by_source": {
+    "cantina-portfolio": 6,
+    "cyfrin-codehawks": 8,
+    "immunefi-past-competitions": 2,
+    "movebit-sampled-audits": 15,
+    "neodyme-reports": 12,
+    "openzeppelin-cairo": 2,
+    "ottersec-audits": 11,
+    "runtime-verification-publications": 3,
+    "shieldify-audits-portfolio": 33,
+    "solodit-harvest": 733,
+    "trailofbits-publications": 4,
+    "veridise-zk-archive": 15
+  },
+  "candidate_count": 844,
+  "dataset_version": "vbeta-1.0",
+  "decisions": {
+    "CORROBORATION_ONLY": 63,
+    "IMPORT": 60,
+    "IMPORT_AS_NEGATIVE": 5,
+    "IMPORT_AS_UNVERIFIED": 654,
+    "RESEARCH_ONLY": 62
+  },
+  "experimental_runs_attempted": 0,
+  "experimental_runs_note": "nothing executed in this pass; L1 = published-PoC claims only",
+  "generated_by": "Vbeta/scripts/build_vbeta.py",
+  "license_posture": "METADATA_ONLY for all third-party content; openzeppelin-cairo rows carry observed MIT",
+  "record_count": 719,
+  "schema_version": "vbeta-1.0",
+  "source_count": 12,
+  "verification_levels": {
+    "L0": 787,
+    "L1": 57
+  }
+}

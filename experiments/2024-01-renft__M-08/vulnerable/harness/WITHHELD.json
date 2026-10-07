@@ -2,9 +2,39 @@
   "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
   "files": [
     {
-      "bytes": 4385,
+      "bytes": 1155,
+      "path": "BaseTest.sol",
+      "sha256": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d"
+    },
+    {
+      "bytes": 559,
+      "path": "fixtures__engine__BaseEngine.sol",
+      "sha256": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f"
+    },
+    {
+      "bytes": 15089,
+      "path": "fixtures__engine__OrderCreator.sol",
+      "sha256": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd"
+    },
+    {
+      "bytes": 28287,
+      "path": "fixtures__engine__OrderFulfiller.sol",
+      "sha256": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a"
+    },
+    {
+      "bytes": 5307,
+      "path": "fixtures__protocol__AccountCreator.sol",
+      "sha256": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7"
+    },
+    {
+      "bytes": 580,
+      "path": "fixtures__protocol__BaseProtocol.sol",
+      "sha256": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f"
+    },
+    {
+      "bytes": 4394,
       "path": "integration__guarded-transactions__ERC721.t.sol",
-      "sha256": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea"
+      "sha256": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba"
     },
     {
       "bytes": 3896,

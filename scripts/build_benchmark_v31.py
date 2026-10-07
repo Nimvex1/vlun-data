@@ -89,8 +89,14 @@ def main() -> int:
     if "T_v31_taxonomy_explicit" not in man["families"]:
         man["families"].append("T_v31_taxonomy_explicit")
     man["tasks"]["T_v31_taxonomy_explicit"] = len(tasks)
-    man["generated_by"] += " + scripts/build_benchmark_v31.py"
-    man["notes"] = man.get("notes", "") + (
+    # Idempotent provenance: strip any previously appended suffixes before
+    # re-adding once, so reruns never duplicate text.
+    gen = man.get("generated_by", "")
+    gen = gen.replace(" + scripts/build_benchmark_v31.py", "")
+    man["generated_by"] = gen + " + scripts/build_benchmark_v31.py"
+    base_notes = man.get("notes", "")
+    base_notes = base_notes.split(" Family T admits only")[0]
+    man["notes"] = base_notes + (
         " Family T admits only explicit-confidence taxonomy rows whose "
         "title+target do not already name the answer class "
         f"({skipped_leak} leakers excluded this run).")

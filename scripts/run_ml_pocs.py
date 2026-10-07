@@ -137,6 +137,33 @@ SPECS = [
           "CHECK pass patched_compiler_rejects_value_kwarg_on_a_delegate_call",
           "CHECK pass patched_compiler_still_accepts_the_control_without_value"],
       "stdout_not_contains": ["CHECK fail"]}),
+    # Move: the Cetus CLMM incident's root cause, IntegerMate's
+    # math_u256::checked_shlw, as a three-revision differential -
+    # the audited mask era, the insufficient PR #6 fix, and the
+    # merged PR #7 fix. The PoC module is tracked in this checkout
+    # (experiments_v2_2/pocs/move) and installed into each
+    # revision's worktree by the runner, so cwd is the dataset root
+    # rather than one of the audited trees.
+    ("move-cetus-checked-shlw", ROOT, ".",
+     [sys.executable, "scripts/run_move_poc.py", "--id",
+      "cetus_checked_shlw"],
+     "move:cetus-checked-shlw",
+     "checked_shlw silently truncates a product of exactly 2^192 on "
+     "the audited revision and on the insufficient PR #6 revision, "
+     "and reports overflow on the PR #7 fix, with a below-boundary "
+     "control passing on all three",
+     {"min_tests": 0,
+      "stdout_contains": [
+          "CHECK pass mask_era_4d09c8b_checked_out_revision",
+          "CHECK pass mask_era_4d09c8b_control_shifts_below_2pow192",
+          "CHECK pass mask_era_4d09c8b_boundary_2pow192_shifts_silently",
+          "CHECK pass pr6_era_fc84a51_checked_out_revision",
+          "CHECK pass pr6_era_fc84a51_control_shifts_below_2pow192",
+          "CHECK pass pr6_era_fc84a51_boundary_2pow192_shifts_silently",
+          "CHECK pass pr7_fix_06660f7_checked_out_revision",
+          "CHECK pass pr7_fix_06660f7_control_shifts_below_2pow192",
+          "CHECK pass pr7_fix_06660f7_boundary_2pow192_reports_overflow"],
+      "stdout_not_contains": ["CHECK fail"]}),
 ]
 
 # forge 1.8.3's final line is either
@@ -188,6 +215,19 @@ def tool_versions(argv: list[str]) -> dict:
                                                 "--version"])
         out["anvil"] = _first_lines(["anvil", "--version"])
         out["cast"] = _first_lines(["cast", "--version"])
+        return out
+    # The Move differential is compiled and run by two sui releases:
+    # the era-matching 1.6.3 for the audited revision (its Move.toml
+    # pins framework mainnet-v1.6.3, which the 1.48.2 compiler
+    # rejects) and 1.48.2 for the two revisions that pin 1.48.2.
+    if any(str(a).endswith("run_move_poc.py") for a in argv):
+        sui_148 = ROOT / "work" / "toolchains" / "sui.exe"
+        sui_163 = (ROOT / "work" / "toolchains-1.6.3" / "target"
+                   / "release" / "sui-windows-x86_64.exe")
+        out["sui 1.48.2"] = (_first_lines([str(sui_148), "--version"])
+                               if sui_148.exists() else "unavailable")
+        out["sui 1.6.3"] = (_first_lines([str(sui_163), "--version"])
+                              if sui_163.exists() else "unavailable")
         return out
     exe = argv[0]
     for name, cmd in (("forge", ["forge", "--version"]),

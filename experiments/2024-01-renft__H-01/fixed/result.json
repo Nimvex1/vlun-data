@@ -2,7 +2,7 @@
   "artifact_sha256": {
     "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
     "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout.txt": "e7ac03e4fde498acbb78e80ef40bb065095fd9e092425ea1f49b0599e60bcff5",
+    "stdout.txt": "b77747d0db1601f9c5e4d2d07fe47f60978c5604e9add031432c414e0114cafc",
     "trace.txt": "68aedb2e3aa157ba05b7e9fc1b21803a5b1d5e0ed29730deb1ab9cf4030a0ebb"
   },
   "classification": "runnable_after_harness_reconstruction",
@@ -11,7 +11,7 @@
   "declared_expected_status": "pass",
   "decoded_logs": [],
   "detail": "",
-  "duration_s": 8.54,
+  "duration_s": 1.57,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",
@@ -19,7 +19,7 @@
     "solc": "selected by the repository's foundry.toml / hardhat config"
   },
   "exit_code": 0,
-  "experiment_id": "3de5db6e86438dd998556d55",
+  "experiment_id": "bfd06d78b7c1dc0e5ef34b00",
   "finding_id": "2024-01-renft/H-01",
   "forensics": {
     "available": true,
@@ -32,15 +32,17 @@
     "production_files_modified_count": 0
   },
   "gas_used": 2768346,
-  "harness_digest": "0bdbfb4d91574229443667fc3feead75db058838fc6c9fb7089f55a841493082",
+  "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
   "harness_file_digests": {
-    "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "e433086b967f335a7a83f5e2eed3466ea00be40a6449245a88b2c9e83eb05067",
-    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa"
+    "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+    "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
   },
   "harness_files": [],
   "harness_files_withheld_for_licence": [
     "integration__prevented-exploits__MaliciousSeaportTip.t.sol",
-    "mocks__tokens__weird__MockAlwaysRevertERC20.sol"
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol",
+    "src__libraries__Errors.sol"
   ],
   "per_test": {
     "test_MaliciousSeaportTip_Exploit()": {

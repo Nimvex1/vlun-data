@@ -45,6 +45,12 @@ from vlun import REPORTS, log, write_json  # noqa: E402
 RENFT_VULN = "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"   # audited snapshot
 RENFT_URL = "https://github.com/re-nft/smart-contracts.git"
 
+# Fixture overlays that only redirect imports are pinned to the AUDITED revision
+# itself: the file bytes are identical to what the repository ships, and the
+# overlay copy exists purely so the harness's `@test/` imports resolve to other
+# overlay files rather than back into the repository tree.
+AUDITED_PIN = RENFT_VULN
+
 REPOS: dict[str, ex.RepoSpec] = {
     "renft-vulnerable": ex.RepoSpec(
         slug="renft-smart", url=RENFT_URL, commit=RENFT_VULN,
@@ -112,11 +118,17 @@ def flatten(name: str) -> str:
 
 
 def rewrite_imports(text: str, overlay_paths: dict[str, str]) -> str:
-    """Point `@test/<p>` imports at the overlay copy when we supply one."""
+    """Point `@test/<p>` (and overlaid `@src/<p>`) imports at the overlay copy."""
     out = text
     for original, flat in sorted(overlay_paths.items()):
         out = out.replace(f'@test/{original}', f'@test/vlun_poc/{flat}')
         out = out.replace(f'"{original}"', f'"@test/vlun_poc/{flat}"')
+        if original.startswith("src/"):
+            # A harness may carry a verbatim src/ file (a library that gained a
+            # member the regression test references). Its import spec is
+            # `@src/<p>`; only harness files are redirected, so every deployed
+            # contract still compiles from the repository's own tree.
+            out = out.replace(f'@{original}', f'@test/vlun_poc/{flat}')
     return out
 
 
@@ -169,9 +181,14 @@ RENFT_CASES = [
         finding_id="2024-01-renft/H-01",
         test="integration/prevented-exploits/MaliciousSeaportTip.t.sol",
         fix_commit="1783237cf05c9369c271b6f3a388b8d57d03ecc8",
-        overlays=["mocks/tokens/weird/MockAlwaysRevertERC20.sol"],
-        match_test="test_VlunMaliciousSeaportTip",
-        custom="h01_tip",
+        # The regression test references Errors.CreatePolicy_PaymentNotWhitelisted,
+        # declared by the mitigation's Errors.sol, so the fix commit's verbatim
+        # library is overlaid for the test file's import. Deployed contracts still
+        # compile from the repository's own tree, and custom-error selectors are
+        # signature-derived, so expectRevert matching is byte-identical.
+        overlays=["mocks/tokens/weird/MockAlwaysRevertERC20.sol",
+                  "src/libraries/Errors.sol"],
+        match_test="test_MaliciousSeaportTip",
         classification="runnable_after_harness_reconstruction",
         security_property=(
             "a fulfilment's ERC-20 consideration item can never make a rental order "
@@ -188,6 +205,15 @@ RENFT_CASES = [
         finding_id="2024-01-renft/H-06",
         test="integration/prevented-exploits/PreapproveToBypassGuard.t.sol",
         fix_commit="32e4df787a85534745b86eaea2d58d75a73e2edc",
+        # Two blockers on the audited revision, both verified against the
+        # repository: (1) the test calls the internal helper `withZone`, which
+        # the mitigation added to OrderCreator.sol; (2) deeper, the fix also
+        # added `orderHash` to src RentPayload and `orderType` to SeaportPayload,
+        # and the fix-era fixtures construct the 5-field payload. Supplying those
+        # fixtures would mean compiling the harness against struct definitions
+        # the deployed (audited) contracts do not share, so no honest overlay can
+        # host this test on the audited revision. The record stays inconclusive
+        # with this reason rather than being upgraded.
         overlays=["utils/GnosisSafeUtils.sol"],
         match_test="test_",
         classification="runnable_after_harness_reconstruction",
@@ -240,8 +266,30 @@ RENFT_CASES += [
         finding_id="2024-01-renft/M-01",
         test="integration/guarded-transactions/ERC1155.t.sol",
         fix_commit="45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+        # Two blockers on the audited revision: (1) the test expects
+        # Errors.GuardPolicy_UnauthorizedAssetAmount, declared by the mitigation
+        # (Errors.sol overlaid verbatim from the fix commit); (2) the mock arrays
+        # are declared in AccountCreator.sol with the pre-mitigation mock types,
+        # so the declaring chain (BaseTest -> BaseProtocol -> AccountCreator) is
+        # overlaid at the audited revision, which redirects its mock imports to
+        # the post-mitigation MockERC1155. The fix commit's own Protocol.sol is
+        # deliberately NOT overlaid: it calls Admin.setMaxRentDuration, which the
+        # audited Admin policy does not have.
         overlays=["utils/GnosisSafeUtils.sol",
-                   "mocks/tokens/standard/MockERC1155.sol"],
+                  "mocks/tokens/standard/MockERC1155.sol",
+                  "src/libraries/Errors.sol",
+                  ("BaseTest.sol", AUDITED_PIN),
+                  ("fixtures/engine/BaseEngine.sol", AUDITED_PIN),
+                  ("fixtures/engine/OrderFulfiller.sol", AUDITED_PIN),
+                  ("fixtures/engine/OrderCreator.sol", AUDITED_PIN),
+                  ("fixtures/protocol/BaseProtocol.sol", AUDITED_PIN),
+                  ("fixtures/protocol/AccountCreator.sol", AUDITED_PIN)],
+        # The fix commit moved the mock declarations from AccountCreator into a
+        # new TokenCreator fixture, so the audited-revision AccountCreator overlay
+        # would collide with the repository's own TokenCreator on the fixed side.
+        # The fixed revision hosts the regression test with its own fixtures.
+        fixed_overlays=["utils/GnosisSafeUtils.sol",
+                        "mocks/tokens/standard/MockERC1155.sol"],
         match_test="test_",
         classification="runnable_after_harness_reconstruction",
         security_property=(
@@ -256,8 +304,22 @@ RENFT_CASES += [
         finding_id="2024-01-renft/M-08",
         test="integration/guarded-transactions/ERC721.t.sol",
         fix_commit="fb8013111b57c1e09482fb3193db58cb892229e9",
+        # Same closure treatment as M-01: the mock arrays are declared in
+        # AccountCreator.sol, which the test reaches through the engine chain
+        # (BaseTest -> BaseEngine -> OrderFulfiller -> OrderCreator -> BaseProtocol
+        # -> AccountCreator), so the whole chain is overlaid at the audited
+        # revision - byte-identical files whose only effect is redirecting the
+        # mock imports to the post-mitigation MockERC721.
         overlays=["utils/GnosisSafeUtils.sol",
-                   "mocks/tokens/standard/MockERC721.sol"],
+                  "mocks/tokens/standard/MockERC721.sol",
+                  ("BaseTest.sol", AUDITED_PIN),
+                  ("fixtures/engine/BaseEngine.sol", AUDITED_PIN),
+                  ("fixtures/engine/OrderFulfiller.sol", AUDITED_PIN),
+                  ("fixtures/engine/OrderCreator.sol", AUDITED_PIN),
+                  ("fixtures/protocol/BaseProtocol.sol", AUDITED_PIN),
+                  ("fixtures/protocol/AccountCreator.sol", AUDITED_PIN)],
+        fixed_overlays=["utils/GnosisSafeUtils.sol",
+                        "mocks/tokens/standard/MockERC721.sol"],
         match_test="test_",
         classification="runnable_after_harness_reconstruction",
         security_property=(
@@ -289,6 +351,13 @@ RENFT_CASES += [
         fix_commit="12bdab416447b51b43b7053be7b55b5b932336e5",
         overlays=["utils/GnosisSafeUtils.sol"],
         match_test="test_",
+        notes=("not reconstructable on the audited revision without modifying "
+               "production code: the regression test calls Fallback"
+               ".getMessageHashForSafe and Kernel Actions.DeactivatePolicy, and "
+               "neither symbol exists at 3ddd3245 (verified by git grep). The "
+               "harness never modifies or replaces production code, so no honest "
+               "overlay can host this test there; the record stays inconclusive "
+               "with this reason rather than being upgraded."),
         classification="runnable_after_harness_reconstruction",
         security_property=(
             "a caller cannot settle a rental into an arbitrary account by triggering an "
@@ -324,6 +393,10 @@ def m11_harness() -> dict[str, str]:
     return {"VlunEip712.t.sol": M11_SOURCE}
 
 
+# Superseded reconstruction of the H-01 harness, kept for provenance of the
+# earlier attempt. The registry no longer uses it: H-01 now runs the mitigation
+# commit's own regression test on BOTH revisions (an Errors.sol overlay supplies
+# the selector the test needs), which makes it a controlled comparison.
 H01_SOURCE = '''// SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.20;
 
@@ -689,31 +762,37 @@ def build_registry() -> list[dict]:
             })
             continue
         overlay_files = {}
-        for path in case["overlays"]:
-            rev = RENFT_FIXTURE_UPDATES.get(path, case["fix_commit"])
-            overlay_files[path] = git_show("renft-vulnerable", rev, "test/" + path)
-        if case.get("custom") == "h01_tip":
-            # The published regression test asserts an error selector introduced by
-            # the fix, so it cannot compile on the audited revision. The
-            # reconstruction keeps the attack sequence and asserts the property.
-            fixed_harness = build_harness(
-                {case["test"]: git_show("renft-vulnerable", case["fix_commit"],
-                                        "test/" + case["test"])}, overlay_files)
-            vuln_harness = build_harness(
-                {"VlunMaliciousSeaportTip.t.sol": H01_SOURCE}, overlay_files)
-            vuln_match_path = "test/vlun_poc/VlunMaliciousSeaportTip.t.sol"
-            fixed_match_path = ("test/vlun_poc/"
-                                + flatten(case["test"]))
-        else:
-            test_src = git_show("renft-vulnerable", case["fix_commit"],
-                                "test/" + case["test"])
-            base = {case["test"]: test_src}
-            vuln_harness = build_harness(base, overlay_files)
-            fixed_harness = dict(vuln_harness)
-        if vuln_match_path is None:
-            vuln_match_path = "test/vlun_poc/" + flatten(case["test"])
-        if fixed_match_path is None:
-            fixed_match_path = vuln_match_path
+        for entry in case["overlays"]:
+            # An overlay entry is either a path (fetched from RENFT_FIXTURE_UPDATES,
+            # else from the case's fix commit) or a (path, commit) tuple that pins
+            # the revision the bytes come from.
+            if isinstance(entry, tuple):
+                path, rev = entry
+            else:
+                path = entry
+                rev = RENFT_FIXTURE_UPDATES.get(path, case["fix_commit"])
+            # src/ overlays live at the repository root; everything else under test/.
+            repo_path = path if path.startswith("src/") else "test/" + path
+            overlay_files[path] = git_show("renft-vulnerable", rev, repo_path)
+        # Both revisions run the SAME regression test. Where the fixture overlay
+        # differs per revision (fixed_overlays), the difference is confined to
+        # test-fixture bytes and is recorded per side in the harness manifests.
+        test_src = git_show("renft-vulnerable", case["fix_commit"],
+                            "test/" + case["test"])
+        base = {case["test"]: test_src}
+        vuln_harness = build_harness(base, overlay_files)
+        fixed_overlays = {}
+        for entry in case.get("fixed_overlays", case["overlays"]):
+            if isinstance(entry, tuple):
+                fpath, frev = entry
+            else:
+                fpath = entry
+                frev = RENFT_FIXTURE_UPDATES.get(fpath, case["fix_commit"])
+            frepo_path = fpath if fpath.startswith("src/") else "test/" + fpath
+            fixed_overlays[fpath] = git_show("renft-vulnerable", frev, frepo_path)
+        fixed_harness = build_harness(base, fixed_overlays)
+        vuln_match_path = "test/vlun_poc/" + flatten(case["test"])
+        fixed_match_path = vuln_match_path
         reg.append({
             "finding_id": case["finding_id"],
             "classification": case["classification"],
@@ -721,15 +800,17 @@ def build_registry() -> list[dict]:
             "exploited_behaviour": case["exploited"],
             "blocked_behaviour": case["blocked"],
             "evidence_layer": "dynamic_poc_plus_source_diff",
-            "notes": ("the regression test shipped by the mitigation commit is executed "
-                      "against both revisions; fixture files it needs are supplied as an "
-                      "overlay so no repository file is modified"),
+            "notes": case.get(
+                "notes",
+                "the regression test shipped by the mitigation commit is executed "
+                "against both revisions; fixture files it needs are supplied as an "
+                "overlay so no repository file is modified"),
             "match_test": case["match_test"],
             "revisions": {
                 "vulnerable": {"repo_key": "renft-vulnerable",
                                "harness": vuln_harness,
                                "match_path": vuln_match_path,
-                               "authored_harness": ["VlunMaliciousSeaportTip.t.sol"],
+                               "authored_harness": [],
                                "expectation": "test FAILS: the guard does not block the exploit", "expected_status": "fail"},
                 "fixed": {"repo_key": "renft-fixed-" + case["fix_commit"][:8],
                           "harness": fixed_harness,

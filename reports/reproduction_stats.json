@@ -1,8 +1,7 @@
 {
   "experiment_outcomes": {
-    "inconclusive": 4,
-    "inconclusive_not_a_controlled_comparison": 1,
-    "l6_verified_patch": 4
+    "inconclusive": 2,
+    "l6_verified_patch": 7
   },
   "experiments_attempted": 9,
   "exploit_records": 155,
@@ -27,9 +26,9 @@
   ],
   "generated_by": "scripts/build_reproduction.py",
   "guard": "no record is above L2 unless scripts/run_verified_experiments.py executed something at the audited revision",
-  "levels_l4_or_higher": 4,
-  "levels_l5_or_higher": 4,
-  "levels_l6": 3,
+  "levels_l4_or_higher": 5,
+  "levels_l5_or_higher": 5,
+  "levels_l6": 5,
   "per_record": [
     {
       "experiment": {
@@ -1997,20 +1996,17 @@
         "attempted": true,
         "fixed_revision": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
         "fixed_status": "pass",
-        "inconclusive_reason": {
-          "fixed": "pass",
-          "vulnerable": "fail"
-        },
+        "inconclusive_reason": null,
         "observed_failure": [
           {
             "assertion_messages": [],
             "forge_reason": null,
-            "test": "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()"
+            "test": "test_MaliciousSeaportTip_Exploit()"
           }
         ],
         "run_failure_detail": null,
         "run_failure_reason": null,
-        "verdict": "inconclusive_not_a_controlled_comparison",
+        "verdict": "l6_verified_patch",
         "vulnerable_revision": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
         "vulnerable_status": "fail"
       },
@@ -2031,8 +2027,8 @@
         "test_file_declared": "Rent.t.sol",
         "test_function_count": 0
       },
-      "poc_level": "L5",
-      "poc_level_basis": "the declared security-property assertion failed on the audited revision, which is the observed violation",
+      "poc_level": "L6",
+      "poc_level_basis": "the declared exploit outcome was observed on the audited revision and the security property held on the fixed revision",
       "poc_level_evidence": "experimentally_verified",
       "repository": "2024-01-renft",
       "severity": "high",
@@ -2311,16 +2307,19 @@
         "attempted": true,
         "fixed_revision": "fb8013111b57c1e09482fb3193db58cb892229e9",
         "fixed_status": "pass",
-        "inconclusive_reason": {
-          "fixed": "pass",
-          "vulnerable": "reconstruction_failed"
-        },
-        "observed_failure": [],
-        "run_failure_detail": "fixture signature drift between revisions",
-        "run_failure_reason": "reconstruction_failed",
-        "verdict": "inconclusive",
+        "inconclusive_reason": null,
+        "observed_failure": [
+          {
+            "assertion_messages": [],
+            "forge_reason": "next call did not revert as expected",
+            "test": "test_Reverts_ERC721_Burn_Rented()"
+          }
+        ],
+        "run_failure_detail": null,
+        "run_failure_reason": null,
+        "verdict": "l6_verified_patch",
         "vulnerable_revision": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
-        "vulnerable_status": "compile_error"
+        "vulnerable_status": "fail"
       },
       "finding_id": "2024-01-renft/M-08",
       "poc_class": "runnable_after_import_fix",
@@ -2339,8 +2338,8 @@
         "test_file_declared": "CheckTransaction.t.sol, test/unit/Guard/CheckTransaction.t.sol",
         "test_function_count": 1
       },
-      "poc_level": "L2",
-      "poc_level_basis": "the reconstructed harness could not be executed on this revision",
+      "poc_level": "L6",
+      "poc_level_basis": "the declared exploit outcome was observed on the audited revision and the security property held on the fixed revision",
       "poc_level_evidence": "experimentally_verified",
       "repository": "2024-01-renft",
       "severity": "medium",
@@ -5850,8 +5849,7 @@
   "poc_level_distribution": {
     "L0": 120,
     "L1": 1,
-    "L2": 30,
-    "L5": 1,
-    "L6": 3
+    "L2": 29,
+    "L6": 5
   }
 }

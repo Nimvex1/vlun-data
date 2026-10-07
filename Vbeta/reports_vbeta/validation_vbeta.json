@@ -1,0 +1,314 @@
+{
+  "checks": [
+    {
+      "check": "derived_vbeta/candidate_ledger.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_vbeta/records.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "derived_vbeta/negatives.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "jsonl_vbeta/findings.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "jsonl_vbeta/sources.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "fetched/receipts.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "ledger_required_fields",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "records_required_fields",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "ledger_unique_ids",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "records_unique_ids",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "sources_json_readable",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "every_candidate_cites_registered_receipt",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "source_locations_are_https",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "operator_rows_stay_unverified_L0",
+      "critical": true,
+      "detail": "user_contributed rows: IMPORT_AS_UNVERIFIED + L0 only",
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "decisions_closed_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "levels_closed_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L1_requires_observed_poc",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "nothing_above_L1",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "negative_classes_closed_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "records_resolve_to_ledger",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "negatives_match_records",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "splits_cover_records_exactly",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "no_source_spans_splits",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "benchmark_vbeta/vbeta_U_language_routing.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "benchmark_vbeta/vbeta_V_source_tier_routing.jsonl_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "U_answers_rebuild_from_records",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "V_answers_rebuild_from_records",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "references",
+      "ok": true
+    },
+    {
+      "check": "confidence_closed_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "no_verified_patch_without_artefacts",
+      "critical": true,
+      "detail": "verified_patch=true would require run artefacts (none exist)",
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "taxonomy_present_when_evidence",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "proof_type_closed_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "manifest_matches_files",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "all_vbeta_1_0",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "versions",
+      "ok": true
+    },
+    {
+      "check": "present_sentinels_unchanged",
+      "critical": false,
+      "detail": "warn-only: PRESENT may evolve deliberately",
+      "failure_count": 0,
+      "failures": [],
+      "group": "isolation",
+      "ok": true
+    }
+  ],
+  "critical_failures": 0,
+  "dataset_version": "vbeta-1.0",
+  "generated_at": "2026-10-07T18:31:53+00:00",
+  "generated_by": "Vbeta/scripts/validate_vbeta.py"
+}

@@ -1,0 +1,13 @@
+{
+  "dataset_version": "vbeta-1.0",
+  "families": [
+    "vbeta_U_language_routing",
+    "vbeta_V_source_tier_routing"
+  ],
+  "generated_by": "Vbeta/scripts/build_vbeta.py",
+  "notes": "answer keys rebuild from derived_vbeta/records.jsonl; U excludes unknown-language rows (none in this pass)",
+  "tasks": {
+    "vbeta_U_language_routing": 624,
+    "vbeta_V_source_tier_routing": 719
+  }
+}

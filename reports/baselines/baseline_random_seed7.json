@@ -1,0 +1,138 @@
+{
+  "excluded_families": {
+    "B_root_cause_reasoning.jsonl": "no labeled rows (partial/unlabeled only)",
+    "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
+    "G_patch_verification.jsonl": "no labeled rows",
+    "H_verified_exploit.jsonl": "descriptive reference, no label field",
+    "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
+  },
+  "families": {
+    "A_vulnerability_detection.jsonl": {
+      "accuracy": 0.5291666666666667,
+      "accuracy_scorable": 0.5291666666666667,
+      "correct": 381,
+      "predicted": 720,
+      "scorable": 720
+    },
+    "C_attacker_reasoning.jsonl": {
+      "accuracy": 0.2517241379310345,
+      "accuracy_scorable": 0.2517241379310345,
+      "correct": 73,
+      "predicted": 290,
+      "scorable": 290
+    },
+    "E_exploit_verification.jsonl": {
+      "accuracy": 0.2857142857142857,
+      "accuracy_scorable": 0.2857142857142857,
+      "correct": 2,
+      "predicted": 7,
+      "scorable": 7
+    },
+    "F_false_positive_rejection.jsonl": {
+      "accuracy": 1.0,
+      "accuracy_scorable": 1.0,
+      "correct": 17,
+      "predicted": 17,
+      "scorable": 17
+    },
+    "I_verified_non_exploit.jsonl": {
+      "accuracy": 1.0,
+      "accuracy_scorable": 1.0,
+      "correct": 1,
+      "predicted": 1,
+      "scorable": 1
+    },
+    "J_verified_patch.jsonl": {
+      "accuracy": 1.0,
+      "accuracy_scorable": 1.0,
+      "correct": 7,
+      "predicted": 7,
+      "scorable": 7
+    },
+    "K_language_ecosystem_routing.jsonl": {
+      "accuracy": 0.18248175182481752,
+      "accuracy_scorable": 0.18248175182481752,
+      "correct": 25,
+      "predicted": 137,
+      "scorable": 137
+    },
+    "L_severity_reconciliation.jsonl": {
+      "accuracy": 0.1875,
+      "accuracy_scorable": 0.1875,
+      "correct": 24,
+      "predicted": 128,
+      "scorable": 128
+    },
+    "M_experiment_level_classification.jsonl": {
+      "accuracy": 0.08108108108108109,
+      "accuracy_scorable": 0.08108108108108109,
+      "correct": 3,
+      "predicted": 37,
+      "scorable": 37
+    },
+    "N_attacker_identity_extraction.jsonl": {
+      "accuracy": 0.42857142857142855,
+      "accuracy_scorable": 0.42857142857142855,
+      "correct": 6,
+      "predicted": 14,
+      "scorable": 14
+    },
+    "O_record_class_and_scope.jsonl": {
+      "accuracy": 0.058394160583941604,
+      "accuracy_scorable": 0.058394160583941604,
+      "correct": 8,
+      "predicted": 137,
+      "scorable": 137
+    },
+    "P_provenance_tier_and_rights.jsonl": {
+      "accuracy": 0.36496350364963503,
+      "accuracy_scorable": 0.36496350364963503,
+      "correct": 50,
+      "predicted": 137,
+      "scorable": 137
+    },
+    "v3_R_source_tier_routing.jsonl": {
+      "accuracy": 0.32869946954454,
+      "accuracy_scorable": 0.32869946954454,
+      "correct": 1797,
+      "predicted": 5467,
+      "scorable": 5467
+    },
+    "v3_S_contest_outcome.jsonl": {
+      "accuracy": 0.5027985074626866,
+      "accuracy_scorable": 0.5027985074626866,
+      "correct": 539,
+      "predicted": 1072,
+      "scorable": 1072
+    },
+    "v3_T_taxonomy_explicit.jsonl": {
+      "accuracy": 0.5246179966044142,
+      "accuracy_scorable": 0.5246179966044142,
+      "correct": 309,
+      "predicted": 589,
+      "scorable": 589
+    },
+    "vbeta_U_language_routing.jsonl": {
+      "accuracy": 0.18573551263001487,
+      "accuracy_scorable": 0.18573551263001487,
+      "correct": 125,
+      "predicted": 673,
+      "scorable": 673
+    },
+    "vbeta_V_source_tier_routing.jsonl": {
+      "accuracy": 0.4948849104859335,
+      "accuracy_scorable": 0.4948849104859335,
+      "correct": 387,
+      "predicted": 782,
+      "scorable": 782
+    }
+  },
+  "micro": {
+    "accuracy": 0.367498776309349,
+    "accuracy_scorable": 0.367498776309349,
+    "correct": 3754,
+    "predicted": 10215,
+    "scorable": 10215
+  },
+  "run": "baseline:random:seed7"
+}

@@ -2,7 +2,7 @@
   "artifact_sha256": {
     "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
     "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout.txt": "82ddb874e47fd4b833ea064280f9d63b7c4df4fbc5406f8d8071b4d49fa8a0fb"
+    "stdout.txt": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
   },
   "classification": "runnable_after_harness_reconstruction",
   "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
@@ -10,7 +10,7 @@
   "declared_expected_status": "pass",
   "decoded_logs": [],
   "detail": "",
-  "duration_s": 1.59,
+  "duration_s": 6.64,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",

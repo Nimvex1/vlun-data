@@ -1,16 +1,16 @@
 {
   "artifact_sha256": {
-    "command.txt": "f3dcf2679ed5200a8082f7fb44888a30c99bc349c0c2e28f872ec0a55ff66a1d",
-    "stderr.txt": "9aca9038120861cd8863b8db39ae6f50364980a7fb7f1d825a2c80c7a4e3d68b",
-    "stdout.txt": "e349d2f5b4d8ae38822ed8ffef5347ab4caf02a69230132423c893820dbb6899"
+    "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "6a85587b8042bb5d0bcd0443fd60a622554bfd03923dc8fce4bd806a85412d88"
   },
   "classification": "runnable_after_harness_reconstruction",
-  "command": "forge test --json --match-path test/vlun_poc/VlunMaliciousSeaportTip.t.sol -vv",
+  "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol -vv",
   "declared_expectation": "test FAILS: the guard does not block the exploit",
   "declared_expected_status": "fail",
   "decoded_logs": [],
   "detail": "",
-  "duration_s": 7.25,
+  "duration_s": 7.82,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",
@@ -18,7 +18,7 @@
     "solc": "selected by the repository's foundry.toml / hardhat config"
   },
   "exit_code": 1,
-  "experiment_id": "3cf2a9811b3f2fb56bc8ff19",
+  "experiment_id": "a40672192f84a36a15e82eea",
   "finding_id": "2024-01-renft/H-01",
   "forensics": {
     "available": true,
@@ -30,25 +30,21 @@
     "production_files_modified": [],
     "production_files_modified_count": 0
   },
-  "gas_used": 3008593,
-  "harness_digest": "a1c4a9ae4d6b77cd27cfdc11feb935a55e84825368de9f000a87a90168de8f4e",
+  "gas_used": 3579558,
+  "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
   "harness_file_digests": {
-    "VlunMaliciousSeaportTip.t.sol": "14c55a8ec0b1ad9be295bd58726c1ad30fd5310e12522efa9d0ba8097c346056",
-    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa"
+    "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+    "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
   },
-  "harness_files": [
-    "VlunMaliciousSeaportTip.t.sol"
-  ],
+  "harness_files": [],
   "harness_files_withheld_for_licence": [
-    "mocks__tokens__weird__MockAlwaysRevertERC20.sol"
+    "integration__prevented-exploits__MaliciousSeaportTip.t.sol",
+    "mocks__tokens__weird__MockAlwaysRevertERC20.sol",
+    "src__libraries__Errors.sol"
   ],
   "per_test": {
-    "test_VlunMaliciousSeaportTip_ControlWellBehavedTipIsAccepted()": {
-      "logs": [],
-      "reason": null,
-      "status": "Success"
-    },
-    "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()": {
+    "test_MaliciousSeaportTip_Exploit()": {
       "logs": [],
       "reason": null,
       "status": "Failure"

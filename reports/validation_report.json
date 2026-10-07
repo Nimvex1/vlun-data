@@ -1,5 +1,5 @@
 {
-  "checks": 66,
+  "checks": 71,
   "dataset_version": "2.2",
   "details": [
     {
@@ -527,7 +527,7 @@
     {
       "check": "experiment_artefacts_resolve",
       "critical": true,
-      "detail": "11 experiment ids referenced by records; 11 in experiments_v2_2/index.json",
+      "detail": "12 experiment ids referenced by records; 12 in experiments_v2_2/index.json",
       "failure_count": 0,
       "failures": [],
       "group": "v2.2",
@@ -590,16 +590,62 @@
     {
       "check": "family_M_is_exactly_the_set_of_executed_records",
       "critical": true,
-      "detail": "36 tasks, 36 records with an experiment",
+      "detail": "37 tasks, 37 records with an experiment",
       "failure_count": 0,
       "failures": [],
       "group": "v2.2",
+      "ok": true
+    },
+    {
+      "check": "ingestion_report_present",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "audit_sources",
+      "ok": true
+    },
+    {
+      "check": "report_sections_and_denominators",
+      "critical": true,
+      "detail": "24/24 required sections present; every metric must read 'numerator / denominator'",
+      "failure_count": 0,
+      "failures": [],
+      "group": "audit_sources",
+      "ok": true
+    },
+    {
+      "check": "registry_covers_every_mandatory_source",
+      "critical": true,
+      "detail": "16 mandatory archives in scripts/audit_sources.py",
+      "failure_count": 0,
+      "failures": [],
+      "group": "audit_sources",
+      "ok": true
+    },
+    {
+      "check": "ingestion_records_obey_the_section_4_schema",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "audit_sources",
+      "ok": true
+    },
+    {
+      "check": "no_fabricated_commit_provenance",
+      "critical": false,
+      "detail": "section 24: missing commits stay null/unknown, never guessed",
+      "failure_count": 0,
+      "failures": [],
+      "group": "audit_sources",
       "ok": true
     }
   ],
   "failed_critical": 0,
   "generated_by": "scripts/validate.py",
   "groups": {
+    "audit_sources": 5,
     "consistency": 9,
     "evidence": 6,
     "provenance": 6,
@@ -608,6 +654,6 @@
     "v2.1": 24,
     "v2.2": 13
   },
-  "passed": 66,
+  "passed": 71,
   "warnings": 0
 }

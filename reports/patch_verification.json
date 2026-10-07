@@ -1,10 +1,10 @@
 {
   "by_status": {
-    "effective": 4,
-    "not_testable": 34
+    "effective": 7,
+    "not_testable": 31
   },
-  "evaluated": 4,
-  "fix_confirmed_effective": 4,
+  "evaluated": 7,
+  "fix_confirmed_effective": 7,
   "generated_by": "scripts/verify_patches.py (v2 compatibility view)",
   "patch_records": 38,
   "records": [
@@ -12,12 +12,9 @@
       "finding_id": "2024-01-renft/H-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": {
-          "fixed": "pass",
-          "vulnerable": "fail"
-        },
-        "regression_test_passed": false,
-        "status": "not_testable",
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
@@ -96,13 +93,10 @@
       "finding_id": "2024-01-renft/M-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": {
-          "fixed": "pass",
-          "vulnerable": "reconstruction_failed"
-        },
-        "regression_test_passed": false,
-        "status": "not_testable",
-        "vulnerable_revision_result": "compile_error"
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
       "repository": "2024-01-renft",
@@ -167,13 +161,10 @@
       "finding_id": "2024-01-renft/M-08",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": {
-          "fixed": "pass",
-          "vulnerable": "reconstruction_failed"
-        },
-        "regression_test_passed": false,
-        "status": "not_testable",
-        "vulnerable_revision_result": "compile_error"
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "regression_test_passed": true,
+        "status": "effective",
+        "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
       "repository": "2024-01-renft",

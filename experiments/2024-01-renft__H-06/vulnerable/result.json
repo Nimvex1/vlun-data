@@ -10,7 +10,7 @@
   "declared_expected_status": "fail",
   "decoded_logs": [],
   "detail": "Error: Compiler run failed:\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195:9:\n    |\n195 |         withZone(address(maliciousZone));\n    |         ^^^^^^^^\n",
-  "duration_s": 1.52,
+  "duration_s": 1.09,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",

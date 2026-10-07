@@ -53,36 +53,109 @@ def norm_title(t: str | None) -> str:
     return re.sub(r"[^a-z0-9]+", " ", (t or "").lower()).strip()
 
 
-def finding_index(findings: list[dict]) -> tuple[dict, dict]:
-    by_target: dict[tuple, list[dict]] = {}
-    by_title: dict[str, list[dict]] = {}
+def _tokens(text: str) -> frozenset:
+    return frozenset(re.findall(r"[a-z0-9]+", (text or "").lower()))
+
+
+def _jaccard(a: frozenset, b: frozenset) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+SNIPPET_JACCARD_THRESHOLD = 0.6
+
+
+def finding_index(findings: list[dict]) -> dict:
+    """Indexes over the published findings, every one scoped to its audit.
+
+    A corroboration is only evidence if the confirming finding belongs to the
+    SAME audit as the rejected copy: the same boilerplate title filed against two
+    different audits is the leakage case, not corroboration.
+    """
+    by_target: dict[tuple, list[dict]] = {}   # (repo, file, function) -> entries
+    by_title: dict[tuple, list[dict]] = {}    # (repo, norm title)   -> entries
+    by_id: dict[str, dict] = {}               # finding id          -> entry
+    tokens_by_repo: dict[str, list[tuple[dict, frozenset]]] = {}
     for f in findings:
         v = (f.get("validation") or {}).get("status")
         fi = f.get("finding") or {}
+        repo = (f.get("source") or {}).get("repository")
         entry = {"id": fi.get("id"), "status": v, "severity": fi.get("severity"),
-                 "title": fi.get("title")}
+                 "title": fi.get("title"), "repo": repo}
+        by_id[fi.get("id")] = entry
+        toks = frozenset()
         for c in (f.get("code_context") or []):
-            by_target.setdefault((c.get("file"), c.get("function")), []).append(entry)
-        by_title.setdefault(norm_title(fi.get("title")), []).append(entry)
-    return by_target, by_title
+            by_target.setdefault((repo, c.get("file"), c.get("function")), []).append(entry)
+            t = _tokens(c.get("snippet") or "")
+            if len(t) > len(toks):
+                toks = t
+        if toks:
+            tokens_by_repo.setdefault(repo, []).append((entry, toks))
+        by_title.setdefault((repo, norm_title(fi.get("title"))), []).append(entry)
+    return {"by_target": by_target, "by_title": by_title, "by_id": by_id,
+            "tokens_by_repo": tokens_by_repo}
 
 
-def corroborate(row: dict, by_target: dict, by_title: dict) -> dict | None:
-    """Find a published finding in the same audit that carries the same claim."""
+def corroborate(row: dict, index: dict) -> dict | None:
+    """Find a published finding in the same audit that carries the same claim.
+
+    Four mechanical methods, strongest first; all of them are recorded when they
+    fire, and the `method` field lists every method that produced a CONFIRMED
+    match, so the class evidence states exactly how the corroboration was made.
+    """
+    repo = (row.get("source") or {}).get("repository")
     hits: dict[str, dict] = {}
+
+    def add(entry: dict, method: str) -> None:
+        h = hits.setdefault(entry["id"], {"entry": entry, "methods": set()})
+        h["methods"].add(method)
+
+    # 1. an explicit duplicate_of pointer that resolves to a finding id
+    dup_of = ((row.get("validation") or {}).get("duplicate_of") or "").strip()
+    pointed = index["by_id"].get(dup_of)
+    if pointed is not None:
+        add(pointed, "explicit duplicate_of pointer to a published finding")
+
+    # 2. same code target (file::function), same audit
     for c in (row.get("code_context") or []):
-        for e in by_target.get((c.get("file"), c.get("function")), []):
-            hits[e["id"]] = e
-    for e in by_title.get(norm_title((row.get("finding") or {}).get("title")), []):
-        hits[e["id"]] = e
+        for e in index["by_target"].get((repo, c.get("file"), c.get("function")), []):
+            add(e, "same code target (file::function) within the same audit")
+
+    # 3. identical normalised title, same audit
+    for e in index["by_title"].get((repo, norm_title((row.get("finding") or {}).get("title"))), []):
+        add(e, "identical normalised title within the same audit")
+
+    # 4. snippet similarity (token Jaccard) against same-audit findings
+    neg_toks = frozenset()
+    for c in (row.get("code_context") or []):
+        t = _tokens(c.get("snippet") or "")
+        if len(t) > len(neg_toks):
+            neg_toks = t
+    if neg_toks:
+        best = 0.0
+        best_entry = None
+        for entry, toks in index["tokens_by_repo"].get(repo, []):
+            j = _jaccard(neg_toks, toks)
+            if j > best:
+                best, best_entry = j, entry
+        if best_entry is not None and best >= SNIPPET_JACCARD_THRESHOLD:
+            add(best_entry, f"snippet similarity: token Jaccard {best:.2f} >= "
+                            f"{SNIPPET_JACCARD_THRESHOLD} with a finding of the same audit")
+
     if not hits:
         return None
-    confirmed = sorted({h for h, e in hits.items() if e["status"] == "confirmed"})
-    acknowledged = sorted({h for h, e in hits.items() if e["status"] != "confirmed"})
+    confirmed = sorted(h for h, x in hits.items() if x["entry"]["status"] == "confirmed")
+    other = sorted(h for h, x in hits.items() if x["entry"]["status"] != "confirmed")
+    confirmed_methods = sorted(m for h, x in hits.items()
+                               if x["entry"]["status"] == "confirmed" for m in x["methods"])
     return {"candidates": sorted(hits), "confirmed": confirmed,
-            "other_status": acknowledged,
-            "method": "same code target (file::function) or identical normalised title, "
-                      "within the same audit"}
+            "other_status": other,
+            "method": ("; ".join(confirmed_methods) if confirmed_methods
+                       else "matched a published finding of the same audit that is not "
+                            "confirmed"),
+            "scoping": "matches are scoped to the same audit; a same-title claim in a "
+                       "different audit is the leakage case, not corroboration"}
 
 
 def classify_negative(derived: dict, row: dict, corr: dict | None,
@@ -156,7 +229,7 @@ def main() -> int:
 
     negatives = read_jsonl(JSONL / "negative_findings.jsonl")
     findings = read_jsonl(JSONL / "findings.jsonl")
-    by_target, by_title = finding_index(findings)
+    index = finding_index(findings)
 
     executed_path = REPORTS / "negative_experiments.json"
     executed: dict[str, dict] = {}
@@ -171,7 +244,7 @@ def main() -> int:
     blockers = collections.Counter()
     for row in negatives:
         derived = v2.build_negative(row)
-        corr = corroborate(row, by_target, by_title)
+        corr = corroborate(row, index)
         rid = (row.get("finding") or {}).get("id") or v2.rec_id(row)
         cls = classify_negative(derived, row, corr, executed.get(rid))
         tally[cls["negative_class"]] += 1

@@ -1,0 +1,48 @@
+
+=== mask_era_4d09c8b: IntegerMate v1.1.0, the audited and exploited revision
+OBS mask_era_4d09c8b_head=4d09c8ba0527274983c6664a5d5def2e784d4692
+CHECK pass mask_era_4d09c8b_checked_out_revision :: expected 4d09c8ba0527274983c6664a5d5def2e784d4692, worktree reports 4d09c8ba0527274983c6664a5d5def2e784d4692
+OBS mask_era_4d09c8b_toolchain=sui 1.6.3-f4a70c8-dirty
+OBS mask_era_4d09c8b_era=IntegerMate v1.1.0, the audited and exploited revision
+OBS mask_era_4d09c8b_src_mask=0xffffffffffffffff << 192
+OBS mask_era_4d09c8b_src_comparison=n > mask
+OBS mask_era_4d09c8b_poc_sha256=258f60d1be52ecbde0dcd42015d259480206f973ebd55ce4fc14483126f3949b
+OBS mask_era_4d09c8b_exit_code=0
+[ PASS    ] 0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57::checked_shlw_poc_tests::boundary_exactly_2_pow_192_shifts_silently
+[ PASS    ] 0x714a63a0dba6da4f017b42d5d0fb78867f18bcde904868e51d951a5a6f5b7f57::checked_shlw_poc_tests::control_below_the_boundary_still_shifts
+OBS mask_era_4d09c8b_suite=Test result: OK. Total tests: 81; passed: 81; failed: 0
+CHECK pass mask_era_4d09c8b_control_shifts_below_2pow192 :: control test did not pass; the differential would be vacuous
+CHECK pass mask_era_4d09c8b_boundary_2pow192_shifts_silently :: the violation test did not pass on this vulnerable revision
+
+=== pr6_era_fc84a51: IntegerMate v1.1.1, the incomplete PR #6 fix
+OBS pr6_era_fc84a51_head=fc84a51c29fabfbfbdb8ed76506b61a07493d492
+CHECK pass pr6_era_fc84a51_checked_out_revision :: expected fc84a51c29fabfbfbdb8ed76506b61a07493d492, worktree reports fc84a51c29fabfbfbdb8ed76506b61a07493d492
+OBS pr6_era_fc84a51_toolchain=sui 1.48.2-17a9eb8e1914
+OBS pr6_era_fc84a51_era=IntegerMate v1.1.1, the incomplete PR #6 fix
+OBS pr6_era_fc84a51_src_mask=1 << 192
+OBS pr6_era_fc84a51_src_comparison=n > mask
+OBS pr6_era_fc84a51_poc_sha256=258f60d1be52ecbde0dcd42015d259480206f973ebd55ce4fc14483126f3949b
+OBS pr6_era_fc84a51_exit_code=0
+[ PASS    ] integer_mate::checked_shlw_poc_tests::boundary_exactly_2_pow_192_shifts_silently
+[ PASS    ] integer_mate::checked_shlw_poc_tests::control_below_the_boundary_still_shifts
+OBS pr6_era_fc84a51_suite=Test result: OK. Total tests: 81; passed: 81; failed: 0
+CHECK pass pr6_era_fc84a51_control_shifts_below_2pow192 :: control test did not pass; the differential would be vacuous
+CHECK pass pr6_era_fc84a51_boundary_2pow192_shifts_silently :: the violation test did not pass on this vulnerable revision
+
+=== pr7_fix_06660f7: IntegerMate v1.1.2, the merged PR #7 fix
+OBS pr7_fix_06660f7_head=06660f704c4ac1d443ab62346a46b5b60d49df33
+CHECK pass pr7_fix_06660f7_checked_out_revision :: expected 06660f704c4ac1d443ab62346a46b5b60d49df33, worktree reports 06660f704c4ac1d443ab62346a46b5b60d49df33
+OBS pr7_fix_06660f7_toolchain=sui 1.48.2-17a9eb8e1914
+OBS pr7_fix_06660f7_era=IntegerMate v1.1.2, the merged PR #7 fix
+OBS pr7_fix_06660f7_src_mask=1 << 192
+OBS pr7_fix_06660f7_src_comparison=n >= mask
+OBS pr7_fix_06660f7_poc_sha256=258f60d1be52ecbde0dcd42015d259480206f973ebd55ce4fc14483126f3949b
+OBS pr7_fix_06660f7_exit_code=1
+[ FAIL    ] integer_mate::checked_shlw_poc_tests::boundary_exactly_2_pow_192_shifts_silently
+[ PASS    ] integer_mate::checked_shlw_poc_tests::control_below_the_boundary_still_shifts
+OBS pr7_fix_06660f7_suite=Test result: FAILED. Total tests: 81; passed: 80; failed: 1
+CHECK pass pr7_fix_06660f7_control_shifts_below_2pow192 :: control test did not pass; the differential would be vacuous
+CHECK pass pr7_fix_06660f7_boundary_2pow192_reports_overflow :: the violation test did not fail on the fixed revision
+OBS pr7_fix_06660f7_abort_code=4
+
+9 checks ran, 9 passed, 0 failed

@@ -3,17 +3,11 @@
     {
       "blocked_behaviour": "the protocol rejects a consideration item whose token cannot complete the transfer, so the order never becomes unstoppable",
       "classification": "runnable_after_harness_reconstruction",
-      "controlled_comparison": false,
-      "controlled_comparison_detail": "not a controlled comparison: the vulnerable revision ran test/vlun_poc/VlunMaliciousSeaportTip.t.sol and the fixed revision ran test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol. Different tests were executed on the two sides, so an outcome difference cannot be attributed to the protocol change.",
+      "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "a fulfiller adds a token that reverts on transferFrom after the first pull; reNFT's stop-rent path depends on that transfer succeeding, so the order can never be stopped and the renter keeps paying",
       "finding_id": "2024-01-renft/H-01",
-      "inconclusive_detail": {},
-      "inconclusive_reason": {
-        "fixed": "pass",
-        "vulnerable": "fail"
-      },
-      "match_test": "test_VlunMaliciousSeaportTip",
+      "match_test": "test_MaliciousSeaportTip",
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
@@ -23,7 +17,7 @@
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
           "exit_code": 0,
-          "experiment_id": "3de5db6e86438dd998556d55",
+          "experiment_id": "bfd06d78b7c1dc0e5ef34b00",
           "observed_failure": [],
           "per_test_status": {
             "test_MaliciousSeaportTip_Exploit()": "Success"
@@ -40,17 +34,16 @@
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
           "exit_code": 1,
-          "experiment_id": "3cf2a9811b3f2fb56bc8ff19",
+          "experiment_id": "a40672192f84a36a15e82eea",
           "observed_failure": [
             {
               "assertion_messages": [],
               "forge_reason": null,
-              "test": "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()"
+              "test": "test_MaliciousSeaportTip_Exploit()"
             }
           ],
           "per_test_status": {
-            "test_VlunMaliciousSeaportTip_ControlWellBehavedTipIsAccepted()": "Success",
-            "test_VlunMaliciousSeaportTip_UnsettleableTipMustBeRejected()": "Failure"
+            "test_MaliciousSeaportTip_Exploit()": "Failure"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
@@ -59,7 +52,7 @@
         }
       },
       "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
-      "verdict": "inconclusive_not_a_controlled_comparison"
+      "verdict": "l6_verified_patch"
     },
     {
       "blocked_behaviour": "the guard refuses to act when the approval was not granted under the guard's own check",
@@ -80,10 +73,10 @@
       "revisions": {
         "fixed": {
           "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-06\\fixed",
-          "cached": true,
           "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "713c24071e41be52408d19d6",
           "observed_failure": [],
@@ -92,7 +85,7 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "pass"
         },
         "vulnerable": {
@@ -256,22 +249,15 @@
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "a malicious lender withdrew more ERC-1155 than was rented, so the guard refused every subsequent burn and the borrower's balance was frozen",
       "finding_id": "2024-01-renft/M-01",
-      "inconclusive_detail": {
-        "vulnerable": "missing symbol GuardPolicy_UnauthorizedAssetAmount (added by the mitigation)"
-      },
-      "inconclusive_reason": {
-        "fixed": "pass",
-        "vulnerable": "reconstruction_failed"
-      },
       "match_test": "test_",
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
           "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-01\\fixed",
-          "cached": true,
           "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "2b20559ad0adda3f5a3bcbb8",
           "observed_failure": [],
@@ -286,7 +272,7 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "pass"
         },
         "vulnerable": {
@@ -294,19 +280,53 @@
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
-          "detail": "ions__ERC1155.t.sol:31:9:\n   |\n31 |         erc1155s[0].mint(address(alice.safe), 5, 10);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 3 arguments given but expected 2.\n  --> test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:66:9:\n   |\n66 |         erc1155s[0].mint(address(alice.addr), 5, 10);\n   |         ^^^^^^^^^^^",
+          "detail": "",
           "exit_code": 1,
-          "experiment_id": "910a825b05ee17918080b300",
-          "observed_failure": [],
-          "per_test_status": {},
+          "experiment_id": "49f98270284e8d3eb7e70dcf",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)"
+            },
+            {
+              "assertion_messages": [],
+              "forge_reason": null,
+              "test": "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)"
+            },
+            {
+              "assertion_messages": [],
+              "forge_reason": "next call did not revert as expected",
+              "test": "test_Reverts_ERC1155_BurnBatch_Always()"
+            },
+            {
+              "assertion_messages": [],
+              "forge_reason": "next call did not revert as expected",
+              "test": "test_Reverts_ERC1155_Burn_Rented()"
+            },
+            {
+              "assertion_messages": [],
+              "forge_reason": "Error != expected error: GuardPolicy_UnauthorizedSelector(0xf242432a) != GuardPolicy_UnauthorizedAssetAmount(0xf242432a, 10, 0)",
+              "test": "test_Success_ERC1155_SafeTransferFrom_Rented()"
+            }
+          ],
+          "per_test_status": {
+            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": "Failure",
+            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": "Failure",
+            "test_Reverts_ERC1155_BurnBatch_Always()": "Failure",
+            "test_Reverts_ERC1155_Burn_Rented()": "Failure",
+            "test_Success_ERC1155_Burn_NotRented()": "Success",
+            "test_Success_ERC1155_SafeTransferFrom_NotRented()": "Success",
+            "test_Success_ERC1155_SafeTransferFrom_Rented()": "Failure"
+          },
           "production_files_modified": 0,
-          "run_failure_detail": "missing symbol GuardPolicy_UnauthorizedAssetAmount (added by the mitigation)",
-          "run_failure_reason": "reconstruction_failed",
-          "status": "compile_error"
+          "run_failure_detail": null,
+          "run_failure_reason": "",
+          "status": "fail"
         }
       },
       "security_property": "a lender cannot freeze a borrower's ERC-1155: a burn or transfer up to the rented amount stays possible",
-      "verdict": "inconclusive"
+      "verdict": "l6_verified_patch"
     },
     {
       "blocked_behaviour": "the guard rejects an unguarded destructive call against the safe",
@@ -315,22 +335,15 @@
       "evidence_layer": "dynamic_poc_plus_source_diff",
       "exploited_behaviour": "burn() or a transfer to a dead address removed the asset from the safe while the rental was active",
       "finding_id": "2024-01-renft/M-08",
-      "inconclusive_detail": {
-        "vulnerable": "fixture signature drift between revisions"
-      },
-      "inconclusive_reason": {
-        "fixed": "pass",
-        "vulnerable": "reconstruction_failed"
-      },
       "match_test": "test_",
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
           "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-08\\fixed",
-          "cached": true,
           "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "5cfbc6de626afbb8e9e932ff",
           "observed_failure": [],
@@ -340,7 +353,7 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "pass"
         },
         "vulnerable": {
@@ -348,19 +361,28 @@
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
-          "detail": "Error: Compiler run failed:\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:31:9:\n   |\n31 |         erc721s[0].mint(address(alice.safe), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> tes",
+          "detail": "",
           "exit_code": 1,
-          "experiment_id": "08f7ba39d9c03b98c97755f9",
-          "observed_failure": [],
-          "per_test_status": {},
+          "experiment_id": "9c2eee4eeaf7d9912f8aff83",
+          "observed_failure": [
+            {
+              "assertion_messages": [],
+              "forge_reason": "next call did not revert as expected",
+              "test": "test_Reverts_ERC721_Burn_Rented()"
+            }
+          ],
+          "per_test_status": {
+            "test_Reverts_ERC721_Burn_Rented()": "Failure",
+            "test_Success_ERC721_Burn_NotRented()": "Success"
+          },
           "production_files_modified": 0,
-          "run_failure_detail": "fixture signature drift between revisions",
-          "run_failure_reason": "reconstruction_failed",
-          "status": "compile_error"
+          "run_failure_detail": null,
+          "run_failure_reason": "",
+          "status": "fail"
         }
       },
       "security_property": "assets held by a rental safe cannot be destroyed by the renter or the lender; the guard blocks unguarded destructive selectors",
-      "verdict": "inconclusive"
+      "verdict": "l6_verified_patch"
     },
     {
       "blocked_behaviour": "the escrow enforces its balance invariant against the settled state, so the intermediate transfer cannot inflate the withdrawable amount",
@@ -431,7 +453,7 @@
         "vulnerable": "reconstruction_failed"
       },
       "match_test": "test_",
-      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "notes": "not reconstructable on the audited revision without modifying production code: the regression test calls Fallback.getMessageHashForSafe and Kernel Actions.DeactivatePolicy, and neither symbol exists at 3ddd3245 (verified by git grep). The harness never modifies or replaces production code, so no honest overlay can host this test there; the record stays inconclusive with this reason rather than being upgraded.",
       "revisions": {
         "fixed": {
           "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-02\\fixed",
@@ -530,10 +552,9 @@
   "totals": {
     "experiments": 9,
     "fixed_pass": 9,
-    "inconclusive": 4,
-    "inconclusive_not_a_controlled_comparison": 1,
-    "l6_verified_patch": 4,
-    "vulnerable_compile_error": 4,
-    "vulnerable_fail": 5
+    "inconclusive": 2,
+    "l6_verified_patch": 7,
+    "vulnerable_compile_error": 2,
+    "vulnerable_fail": 7
   }
 }

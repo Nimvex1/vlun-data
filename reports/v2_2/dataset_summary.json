@@ -113,13 +113,13 @@
         },
         "family": "F",
         "file": "benchmark/F_false_positive_rejection.jsonl",
-        "labeled": 15,
+        "labeled": 17,
         "layer": "v1",
         "partial": 0,
         "question": "is this claim a valid vulnerability, and what blocks it if not?",
-        "scorable": 15,
+        "scorable": 17,
         "tasks": 458,
-        "unlabeled": 443
+        "unlabeled": 441
       },
       {
         "answer_key_evidence_levels": {
@@ -142,20 +142,20 @@
       },
       {
         "answer_key_evidence_levels": {
-          "experimentally_verified": 5
+          "experimentally_verified": 7
         },
         "by_language": null,
         "by_split": {
-          "validation": 5
+          "validation": 7
         },
         "family": "H",
         "file": "benchmark/H_verified_exploit.jsonl",
-        "labeled": 5,
+        "labeled": 7,
         "layer": "v1",
         "partial": 0,
         "question": "name the vulnerability, attacker model and PoC at the audited revision, against code whose experiment was actually executed",
-        "scorable": 5,
-        "tasks": 5,
+        "scorable": 7,
+        "tasks": 7,
         "unlabeled": 0
       },
       {
@@ -179,20 +179,20 @@
       },
       {
         "answer_key_evidence_levels": {
-          "experimentally_verified": 4
+          "experimentally_verified": 7
         },
         "by_language": null,
         "by_split": {
-          "validation": 4
+          "validation": 7
         },
         "family": "J",
         "file": "benchmark/J_verified_patch.jsonl",
-        "labeled": 4,
+        "labeled": 7,
         "layer": "v1",
         "partial": 0,
         "question": "does the exploit pass on the vulnerable revision and fail on the fixed one?",
-        "scorable": 4,
-        "tasks": 4,
+        "scorable": 7,
+        "tasks": 7,
         "unlabeled": 0
       },
       {
@@ -251,25 +251,26 @@
       },
       {
         "answer_key_evidence_levels": {
-          "experimentally_verified": 36
+          "experimentally_verified": 37
         },
         "by_language": {
+          "move": 1,
           "solidity": 34,
           "vyper": 2
         },
         "by_split": {
           "test": 1,
           "train": 31,
-          "validation": 4
+          "validation": 5
         },
         "family": "M",
         "file": "benchmark/M_experiment_level_classification.jsonl",
-        "labeled": 36,
+        "labeled": 37,
         "layer": "v2.2",
         "partial": 0,
         "question": "which L0-L6 level and which outcome does this executed run earn?",
-        "scorable": 36,
-        "tasks": 36,
+        "scorable": 37,
+        "tasks": 37,
         "unlabeled": 0
       },
       {
@@ -384,17 +385,17 @@
     "policy": "families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2_2 over splits_v2_2, one task per v2.2 record (M only for records with a run). A task is labeled only where the record actually holds the answer, partial where half of it exists, and unlabeled with a stated reason otherwise; only labeled tasks are scored. The model-facing payload is the task's `input` object - ids and source blocks are traceability and carry the language prefix.",
     "totals": {
       "families": 17,
-      "labeled": 2114,
+      "labeled": 2122,
       "partial": 432,
-      "scorable": 2114,
-      "tasks": 4966,
-      "unlabeled": 2418,
+      "scorable": 2122,
+      "tasks": 4972,
+      "unlabeled": 2416,
       "v2_2_families": 7,
-      "v2_2_tasks": 858
+      "v2_2_tasks": 859
     }
   },
   "blockers": [
-    "move and cairo toolchains (sui, aptos, scarb, snFuzzer) are not installed, so no local L3-L6 for Move/Cairo",
+    "move and cairo toolchains (sui, aptos, scarb, snFuzzer) are not installed, so no local L3-L6 for Move/Cairo except the one sui-toolchain Move run (move:cetus-checked-shlw, L6)",
     "the report layer declares no licence for 109 of 112 sources, which stay content_license=unknown and not redistributable",
     "no model has been evaluated: these files describe the instrument, not a result"
   ],
@@ -451,8 +452,7 @@
     },
     "by_status": {
       "confirmed": 8,
-      "experimentally_verified": 36,
-      "exploited": 1,
+      "experimentally_verified": 37,
       "fix_in_testing_at_time_of_postmortem": 1,
       "fixed": 7,
       "patched": 22,
@@ -461,8 +461,8 @@
       "unknown": 1
     },
     "evidence_strongest": {
-      "experimentally_verified": 36,
-      "observed_fact": 101
+      "experimentally_verified": 37,
+      "observed_fact": 100
     },
     "evidence_weakest": {
       "observed_fact": 1,
@@ -471,9 +471,9 @@
     },
     "field_evidence_types": {
       "derived_fact": 74,
-      "experimentally_verified": 37,
-      "observed_fact": 280,
-      "reported_claim": 429,
+      "experimentally_verified": 38,
+      "observed_fact": 281,
+      "reported_claim": 428,
       "unknown": 247
     },
     "note": "the quality dimensions are the published rubric applied by scripts/build_derived_v22.py; no weighted aggregate is produced and none is reported",
@@ -512,8 +512,8 @@
         "no_classes": 54
       },
       "verification": {
-        "experimentally_verified": 36,
-        "reported_claim": 99,
+        "experimentally_verified": 37,
+        "reported_claim": 98,
         "unverified": 2
       }
     },
@@ -522,22 +522,23 @@
     "severity_with_attribution": 128
   },
   "experiments": {
-    "blocker": "sui, aptos, scarb and snFuzzer are not installed in this environment, so no Move or Cairo run could reach L3; those records stay at their reported-claim level and the absence is counted here rather than hidden",
+    "blocker": "sui, aptos, scarb and snFuzzer are not installed in this environment, so every Move and Cairo record except move:cetus-checked-shlw could not run locally and stays at its reported-claim level; that one record ran through a downloaded sui toolchain (1.6.3 for the v1.1.0 era, 1.48.2 for the v1.1.1 and v1.1.2 eras) and is counted with the executed runs above, not here",
     "by_level": {
       "L3": 1,
       "L5": 35,
-      "none": 101
+      "L6": 1,
+      "none": 100
     },
     "by_outcome": {
-      "reproduced": 36
+      "reproduced": 37
     },
-    "executed": 36,
-    "fixed_revision_executed": 1,
+    "executed": 37,
+    "fixed_revision_executed": 2,
     "not_executed_by_language": {
       "cairo": 8,
-      "move": 15
+      "move": 14
     },
-    "runs": 11,
+    "runs": 12,
     "runs_detail": [
       {
         "exit_code": 0,
@@ -684,6 +685,19 @@
           "cast": "cast Version: 1.8.3 Commit SHA: cae51ad458f6abb64852b7709eb784352429825d",
           "vyper 0.3.10": "0.3.10+commit.9136169",
           "vyper 0.4.0": "0.4.0+commit.e9db8d9"
+        }
+      },
+      {
+        "exit_code": 0,
+        "experiment_id": "move-cetus-checked-shlw",
+        "failing_tests": 0,
+        "passing_tests": 0,
+        "seconds": 10.2,
+        "source_report": "move:cetus-checked-shlw",
+        "status": "ok",
+        "toolchain": {
+          "sui 1.48.2": "sui 1.48.2-17a9eb8e1914",
+          "sui 1.6.3": "sui 1.6.3-f4a70c8-dirty"
         }
       }
     ]

@@ -264,22 +264,9 @@
     {
       "check": "worktree_dirt_attribution",
       "critical": false,
-      "detail": "13 dirty entries under data dirs, 12 not from V3.1 outputs",
-      "failure_count": 12,
-      "failures": [
-        " M benchmark/F_false_positive_rejection.jsonl",
-        " M benchmark/H_verified_exploit.jsonl",
-        " M benchmark/J_verified_patch.jsonl",
-        " M benchmark/M_experiment_level_classification.jsonl",
-        " M benchmark/Q_evidence_type_and_quality_rubric.jsonl",
-        " M benchmark/manifest.json",
-        " M derived/hard_negatives.jsonl",
-        " M derived_v2_2/manifest.json",
-        " M derived_v2_2/records.jsonl",
-        " M jsonl_ml/findings_move.jsonl",
-        "?? derived_v2_2/audit_ingestion_records.jsonl",
-        "?? derived_v2_2/audit_sources.jsonl"
-      ],
+      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

@@ -27,8 +27,7 @@
   },
   "by_status": {
     "confirmed": 8,
-    "experimentally_verified": 36,
-    "exploited": 1,
+    "experimentally_verified": 37,
     "fix_in_testing_at_time_of_postmortem": 1,
     "fixed": 7,
     "patched": 22,
@@ -41,14 +40,15 @@
   "code_citations_commit_pinned": 5,
   "code_citations_resolved": 146,
   "evidence_strongest": {
-    "experimentally_verified": 36,
-    "observed_fact": 101
+    "experimentally_verified": 37,
+    "observed_fact": 100
   },
-  "experiment_artefacts_all_present": 36,
+  "experiment_artefacts_all_present": 37,
   "experiment_levels": {
     "L3": 1,
     "L5": 35,
-    "none": 101
+    "L6": 1,
+    "none": 100
   },
   "generated_by": "scripts/build_derived_v22.py",
   "not_redistributable": 137,
@@ -82,13 +82,13 @@
       "no_classes": 54
     },
     "verification": {
-      "experimentally_verified": 36,
-      "reported_claim": 99,
+      "experimentally_verified": 37,
+      "reported_claim": 98,
       "unverified": 2
     }
   },
   "records": 137,
   "state_transition_present": 0,
   "taxonomy_mapped": 8,
-  "with_experiment": 36
+  "with_experiment": 37
 }

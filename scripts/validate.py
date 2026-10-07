@@ -981,6 +981,96 @@ def main() -> int:
             diff[:10],
             detail=f"{len(m_ids)} tasks, {len(ran_ids)} records with an experiment")
 
+    # ------------------------------------------------- audit-source ingestion
+    # VLUN v2.2 sections 1-25: the authoritative audit-source registry, the
+    # section-4 ingestion records, and the section-23 report. Computed from
+    # the artefacts scripts/ingest_audit_sources.py writes; nothing is taken
+    # on trust from prose.
+    import audit_sources as _as  # noqa: E402
+
+    _arep = REPORTS / "audit_source_ingestion_report.md"
+    _ajson = REPORTS / "audit_source_ingestion.json"
+    _asrc = _ml.DERIVED_V22 / "audit_sources.jsonl"
+    _arec = _ml.DERIVED_V22 / "audit_ingestion_records.jsonl"
+    rep.add("audit_sources", "ingestion_report_present",
+            _arep.exists() and _ajson.exists(),
+            [] if (_arep.exists() and _ajson.exists()) else
+            ["reports/audit_source_ingestion_report.md or "
+             "reports/audit_source_ingestion.json missing; run "
+             "scripts/ingest_audit_sources.py"])
+
+    _denom_bad: list[str] = []
+    _sections_found = 0
+    if _arep.exists():
+        _text = _arep.read_text(encoding="utf-8")
+        for n in range(1, 25):
+            heads = [ln for ln in _text.splitlines()
+                     if ln.startswith(f"## {n}.")]
+            if not heads:
+                _denom_bad.append(f"section {n} missing from the ingestion report")
+                continue
+            _sections_found += 1
+        # every section-23 metric must read "numerator / denominator". Only
+        # bold "**n / d**" metric lines are held to this: supplementary prose
+        # (threshold rules, policy notes) is exempt.
+        _metric_lines = [ln for ln in _text.splitlines()
+                         if ln.startswith("- ") and "**" in ln]
+        _bare = [ln[:110] for ln in _metric_lines if "/" not in ln]
+        if _bare:
+            _denom_bad += [f"metric without a denominator: {b}" for b in _bare[:10]]
+    else:
+        _denom_bad.append("no ingestion report to check")
+    rep.add("audit_sources", "report_sections_and_denominators",
+            not _denom_bad and _sections_found == 24, _denom_bad,
+            detail=f"{_sections_found}/24 required sections present; every "
+                   f"metric must read 'numerator / denominator'")
+
+    _reg_bad: list[str] = []
+    if _asrc.exists():
+        _rows = read_jsonl(_asrc)
+        _names = {r.get("source_name") for r in _rows}
+        _want = {s["source_name"] for s in _as.MANDATORY_SOURCES}
+        _missing = sorted(_want - _names)
+        if _missing:
+            _reg_bad.append(f"registry sources missing: {_missing}")
+        _bad_class = sorted(n for r in _rows for n in [r.get("source_name")]
+                            if r.get("source_class") not in _as.SOURCE_CLASSES)
+        if _bad_class:
+            _reg_bad.append(f"source_class outside S0-S5: {_bad_class}")
+        if len(_rows) != len(_as.MANDATORY_SOURCES):
+            _reg_bad.append(f"audit_sources.jsonl has {len(_rows)} rows, "
+                            f"registry declares {len(_as.MANDATORY_SOURCES)}")
+    else:
+        _reg_bad.append("derived_v2_2/audit_sources.jsonl missing")
+    rep.add("audit_sources", "registry_covers_every_mandatory_source",
+            not _reg_bad, _reg_bad,
+            detail=f"{len(_as.MANDATORY_SOURCES)} mandatory archives in "
+                   f"scripts/audit_sources.py")
+
+    _rec_bad: list[str] = []
+    if _arec.exists():
+        for r in read_jsonl(_arec):
+            _rec_bad += [f"{r.get('source_name')}: {e}"
+                         for e in _as.validate_ingestion_record(r)]
+        if not read_jsonl(_arec):
+            _rec_bad.append("audit_ingestion_records.jsonl is empty")
+    else:
+        _rec_bad.append("derived_v2_2/audit_ingestion_records.jsonl missing")
+    rep.add("audit_sources", "ingestion_records_obey_the_section_4_schema",
+            not _rec_bad, _rec_bad[:25])
+
+    _fab: list[str] = []
+    if _arec.exists():
+        for r in read_jsonl(_arec):
+            for key in ("audited_commit", "fix_commit"):
+                v = r.get(key)
+                if v not in (None, "", "unknown") and not SHA40.match(str(v)):
+                    _fab.append(f"{r.get('source_name')} {key}={v!r} "
+                                f"is not a 40-hex sha")
+    rep.add("audit_sources", "no_fabricated_commit_provenance", not _fab, _fab,
+            critical=False,
+            detail="section 24: missing commits stay null/unknown, never guessed")
+
     # --------------------------------------------------------------- summary
     # Computed LAST, after every check has been added, so that a failure in any
     # group can reach the exit code.

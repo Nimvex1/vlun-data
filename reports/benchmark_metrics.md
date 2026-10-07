@@ -15,8 +15,8 @@ files under `benchmark/`. Nothing in this file is estimated.
 | PoC compilation rate | 4/8 (50.0%) repositories | 20 PoC files were written from the code quoted in the reports; 133 could not be expressed as a Solidity test body. |
 | PoC execution rate | 15/155 (9.7%) | reproduced + not_reproduced + inconclusive over all exploit records. |
 | exploit confirmation rate | 5/155 (3.2%) | A PoC counts only when forge reported Success for that test. Nothing else is promoted. |
-| patch verification rate | 4/38 (10.5%) | 4 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
-| negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; 443 of 458 negatives have no publicly attributable rejection reason, so scoring them would reward guessing. |
+| patch verification rate | 7/38 (18.4%) | 7 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
+| negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; 441 of 458 negatives have no publicly attributable rejection reason, so scoring them would reward guessing. |
 | duplicate detection accuracy | 0 near-duplicate and 2 semantic cross-split pairs found | detector recall is not validated against a hand-labelled set; the two pairs it found were checked by hand and are genuine. |
 
 ## Task coverage
@@ -33,18 +33,11 @@ the model.
 | `C_attacker_reasoning` | 720 | 290 | 0 | 430 | 344 | 229 | 147 |
 | `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 |
 | `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 |
-| `F_false_positive_rejection` | 458 | 15 | 0 | 443 | 232 | 188 | 38 |
+| `F_false_positive_rejection` | 458 | 17 | 0 | 441 | 232 | 188 | 38 |
 | `G_patch_verification` | 38 | 0 | 0 | 38 | 0 | 18 | 20 |
-| `H_verified_exploit` | 5 | 5 | 0 | 0 | 0 | 5 | 0 |
+| `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 |
-| `J_verified_patch` | 4 | 4 | 0 | 0 | 0 | 4 | 0 |
-| `K_language_ecosystem_routing` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
-| `L_severity_reconciliation` | 137 | 128 | 6 | 3 | 76 | 30 | 31 |
-| `M_experiment_level_classification` | 36 | 36 | 0 | 0 | 31 | 4 | 1 |
-| `N_attacker_identity_extraction` | 137 | 14 | 10 | 113 | 76 | 30 | 31 |
-| `O_record_class_and_scope` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
-| `P_provenance_tier_and_rights` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
-| `Q_evidence_type_and_quality_rubric` | 137 | 137 | 0 | 0 | 76 | 30 | 31 |
+| `J_verified_patch` | 7 | 7 | 0 | 0 | 0 | 7 | 0 |
 
 ## Held-out split composition (task A)
 

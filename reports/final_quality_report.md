@@ -14,15 +14,15 @@ readable report in `reports/`. Where a measurement was not possible the line say
 | PoCs compiled | 0 | 4/8 (50.0%) repositories |
 | PoCs executed | 0 | 15/155 (9.7%) |
 | PoCs that demonstrated the claimed impact | 0 (unknown; nothing was run) | 5/155 (3.2%) |
-| hard negatives with a code-grounded rejection reason | 0 (427 of 458 were label-only with no reason recorded) | 6 derived from code + 9 reported by a source; 443 still unknown |
+| hard negatives with a code-grounded rejection reason | 0 (427 of 458 were label-only with no reason recorded) | 8 derived from code + 9 reported by a source; 441 still unknown |
 | counterexamples for confirmed H/M | 0 | 43 of 204 |
 | records with a state transition | 0 (attack_path strings only) | 244 present, 130 with structured transactions |
 | records with a structured attacker model | 0 (free-text capabilities) | 290 of 722 classified ({'derived_fact': 147, 'reported_claim': 143, 'unknown': 432}) |
 | code context expansion beyond a flat permalink list | none | 469 files analysed to contract, function, modifier, guard and state-variable level |
-| patch effectiveness tested | 0 | 4 of 38 evaluated; 4 confirmed effective |
+| patch effectiveness tested | 0 | 7 of 38 evaluated; 7 confirmed effective |
 | leakage detection | 3 hard checks (repo, id, file::function) | 4 detectors; found 0 near-duplicate and 2 semantic cross-split pairs, both hand-checked and quarantined |
 | taxonomy depth | 2 levels, inconsistent names | 4 levels (category/family/class/subtype) mapped onto a stated table, C4 strings kept |
-| benchmark | none | 4966 tasks across 7 families, 2114 scorable |
+| benchmark | none | 4113 tasks across 7 families, 1395 scorable |
 
 ## WHAT IMPROVED
 
@@ -49,10 +49,10 @@ readable report in `reports/`. Where a measurement was not possible the line say
    contract patch instead of a test — before any build was attempted. Most still did
    not run; the reason is recorded per record rather than summarised away.
 4. **The negative corpus explains itself where the evidence allows.**
-   6 negatives now carry a blocking
+   8 negatives now carry a blocking
    condition derived mechanically from a role gate in the cited source, and
    9 carry one quoted from a public
-   judge or sponsor comment. The remaining 443 stay
+   judge or sponsor comment. The remaining 441 stay
    `unknown`, which is the correct answer and is counted as a first-class outcome.
 5. **Cross-split leakage was found and removed.** The detector found
    2 genuinely duplicated submission
@@ -93,8 +93,8 @@ This is the honest accounting of failure.
   build was attempted, and `scripts/verify_pocs.py` records which and why.
 
 - **No patch was confirmed effective.** 38 patch records
-  exist; 4 could be evaluated and
-  4 were confirmed by running a PoC against
+  exist; 7 could be evaluated and
+  7 were confirmed by running a PoC against
   both revisions. This is blocked by the same toolchain limits, and the patch diffs are
   withheld in the published copy.
 - **No invariant was invented, and none was derived from a failing assertion.**
@@ -109,7 +109,7 @@ This is the honest accounting of failure.
 
 ## WHAT REMAINS LIMITED
 
-- **443 of 458 negatives have no
+- **441 of 458 negatives have no
   defensible rejection reason.** Code4rena's judging rationale is largely not public.
   This corpus cannot teach *why* a false positive is false at scale; it can only teach
   the claim, the code, and the fact of rejection.

@@ -5,7 +5,10 @@
 # need no third-party package at all.
 #
 #     pip install -r requirements.txt          # everything optional
-#     pip install -r requirements.txt --extra optional-deps   # see extras
+#     pip install "vlun-data[static-analysis]"   # the extra is named
+#                                                # static-analysis in pyproject.toml
+#     # NOTE: pip has no `--extra` flag for requirements files; install the
+#     # extra from the project (line above), not from this file.
 
 # --- core (no third-party imports; listed for completeness) ---
 # json, hashlib, re, subprocess, collections, dataclasses, pathlib, statistics

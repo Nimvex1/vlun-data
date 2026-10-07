@@ -1,16 +1,16 @@
 {
   "artifact_sha256": {
     "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
-    "stderr.txt": "a85e9596f9e76eeb1124afebfbc488e5c2ce16a370305a7bd4a9f1397394de14",
-    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
   },
   "classification": "runnable_after_harness_reconstruction",
   "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
   "declared_expectation": "test FAILS: the guard does not block the exploit",
   "declared_expected_status": "fail",
   "decoded_logs": [],
-  "detail": "Error: Compiler run failed:\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:31:9:\n   |\n31 |         erc721s[0].mint(address(alice.safe), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6160): Wrong argument count for function call: 2 arguments given but expected 1.\n  --> test/vlun_poc/integration__guarded-transactions__ERC721.t.sol:67:9:\n   |\n67 |         erc721s[0].mint(address(alice.addr), 5);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
-  "duration_s": 1.31,
+  "detail": "",
+  "duration_s": 11.05,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",
@@ -18,7 +18,7 @@
     "solc": "selected by the repository's foundry.toml / hardhat config"
   },
   "exit_code": 1,
-  "experiment_id": "08f7ba39d9c03b98c97755f9",
+  "experiment_id": "9c2eee4eeaf7d9912f8aff83",
   "finding_id": "2024-01-renft/M-08",
   "forensics": {
     "available": true,
@@ -30,20 +30,43 @@
     "production_files_modified": [],
     "production_files_modified_count": 0
   },
-  "gas_used": null,
-  "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+  "gas_used": 2571413,
+  "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
   "harness_file_digests": {
-    "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
+    "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
+    "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
+    "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
+    "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
+    "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
+    "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
+    "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
     "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
     "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
   },
   "harness_files": [],
   "harness_files_withheld_for_licence": [
+    "BaseTest.sol",
+    "fixtures__engine__BaseEngine.sol",
+    "fixtures__engine__OrderCreator.sol",
+    "fixtures__engine__OrderFulfiller.sol",
+    "fixtures__protocol__AccountCreator.sol",
+    "fixtures__protocol__BaseProtocol.sol",
     "integration__guarded-transactions__ERC721.t.sol",
     "mocks__tokens__standard__MockERC721.sol",
     "utils__GnosisSafeUtils.sol"
   ],
-  "per_test": {},
+  "per_test": {
+    "test_Reverts_ERC721_Burn_Rented()": {
+      "logs": [],
+      "reason": null,
+      "status": "Failure"
+    },
+    "test_Success_ERC721_Burn_NotRented()": {
+      "logs": [],
+      "reason": null,
+      "status": "Success"
+    }
+  },
   "repository": {
     "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
     "commit_pinned": true,
@@ -53,6 +76,6 @@
   },
   "revision_label": "vulnerable",
   "security_property": "assets held by a rental safe cannot be destroyed by the renter or the lender; the guard blocks unguarded destructive selectors",
-  "status": "compile_error",
-  "test_status": null
+  "status": "fail",
+  "test_status": "failure"
 }

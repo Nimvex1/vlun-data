@@ -129,12 +129,12 @@
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/F_false_positive_rejection.jsonl",
-      "labeled": 15,
+      "labeled": 17,
       "partial": 0,
-      "scorable": 15,
+      "scorable": 17,
       "tasks": 458,
-      "unlabeled": 443,
-      "unscorable": 443
+      "unlabeled": 441,
+      "unscorable": 441
     },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
@@ -155,17 +155,17 @@
     },
     "H_verified_exploit": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 7
       },
       "by_split": {
-        "validation": 5
+        "validation": 7
       },
-      "duplicate_rows_dropped": 9,
+      "duplicate_rows_dropped": 12,
       "file": "benchmark/H_verified_exploit.jsonl",
-      "labeled": 5,
+      "labeled": 7,
       "partial": 0,
-      "scorable": 5,
-      "tasks": 5,
+      "scorable": 7,
+      "tasks": 7,
       "unlabeled": 0,
       "unscorable": 0
     },
@@ -188,17 +188,17 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 4
+        "experimentally_verified": 7
       },
       "by_split": {
-        "validation": 4
+        "validation": 7
       },
-      "duplicate_rows_dropped": 7,
+      "duplicate_rows_dropped": 12,
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 4,
+      "labeled": 7,
       "partial": 0,
-      "scorable": 4,
-      "tasks": 4,
+      "scorable": 7,
+      "tasks": 7,
       "unlabeled": 0,
       "unscorable": 0
     },
@@ -274,20 +274,21 @@
     },
     "M_experiment_level_classification": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 36
+        "experimentally_verified": 37
       },
       "by_language": {
+        "move": 1,
         "solidity": 34,
         "vyper": 2
       },
       "by_split": {
         "test": 1,
         "train": 31,
-        "validation": 4
+        "validation": 5
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/M_experiment_level_classification.jsonl",
-      "labeled": 36,
+      "labeled": 37,
       "languages_allowed": [
         "vyper",
         "rust",
@@ -298,8 +299,8 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "which L0-L6 level and which outcome does this executed run earn?",
-      "scorable": 36,
-      "tasks": 36,
+      "scorable": 37,
+      "tasks": 37,
       "unlabeled": 0,
       "unscorable": 0
     },

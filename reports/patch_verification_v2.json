@@ -1,9 +1,9 @@
 {
   "by_fix_effectiveness": {
-    "effective": 4,
-    "not_testable": 34
+    "effective": 7,
+    "not_testable": 31
   },
-  "experimentally_confirmed_pairs": 4,
+  "experimentally_confirmed_pairs": 7,
   "fix_category_vocabulary": [
     "authorization",
     "input_validation",
@@ -28,6 +28,7 @@
   "records": [
     {
       "diff_withheld_for_licence": true,
+      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
       "finding_id": "2024-01-renft/H-01",
       "fix_category": {
         "category": "parameter_correction",
@@ -42,7 +43,7 @@
           "upgradeability": 5
         }
       },
-      "fix_effectiveness": "not_testable",
+      "fix_effectiveness": "effective",
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
@@ -255,10 +256,8 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": {
-        "fixed": "pass",
-        "vulnerable": "fail"
-      },
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "regression_test": "test_MaliciousSeaportTip",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "high",
@@ -1024,6 +1023,7 @@
     },
     {
       "diff_withheld_for_licence": true,
+      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
       "finding_id": "2024-01-renft/M-01",
       "fix_category": {
         "category": "parameter_correction",
@@ -1038,7 +1038,7 @@
           "upgradeability": 5
         }
       },
-      "fix_effectiveness": "not_testable",
+      "fix_effectiveness": "effective",
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
@@ -1242,15 +1242,13 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": {
-        "fixed": "pass",
-        "vulnerable": "reconstruction_failed"
-      },
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
-      "vulnerable_revision_result": "compile_error"
+      "vulnerable_revision_result": "fail"
     },
     {
       "diff_withheld_for_licence": true,
@@ -1665,6 +1663,7 @@
     },
     {
       "diff_withheld_for_licence": true,
+      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
       "finding_id": "2024-01-renft/M-08",
       "fix_category": {
         "category": "parameter_correction",
@@ -1679,7 +1678,7 @@
           "upgradeability": 3
         }
       },
-      "fix_effectiveness": "not_testable",
+      "fix_effectiveness": "effective",
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
@@ -1860,15 +1859,13 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": {
-        "fixed": "pass",
-        "vulnerable": "reconstruction_failed"
-      },
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
-      "vulnerable_revision_result": "compile_error"
+      "vulnerable_revision_result": "fail"
     },
     {
       "diff_withheld_for_licence": true,

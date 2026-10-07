@@ -123,7 +123,8 @@ def experiment_summary(records: list[dict], index: dict) -> dict:
     blockers = {}
     for r in records:
         lang = r.get("language")
-        if lang in ("move", "cairo"):
+        if lang in ("move", "cairo") \
+                and not (r.get("experiment_view") or {}).get("executed"):
             blockers[lang] = (blockers.get(lang) or 0) + 1
     return {
         "runs": len(runs),
@@ -150,9 +151,12 @@ def experiment_summary(records: list[dict], index: dict) -> dict:
         } for e in runs],
         "not_executed_by_language": dict(sorted(blockers.items())),
         "blocker": ("sui, aptos, scarb and snFuzzer are not installed in this "
-                    "environment, so no Move or Cairo run could reach L3; those "
-                    "records stay at their reported-claim level and the "
-                    "absence is counted here rather than hidden"),
+                    "environment, so every Move and Cairo record except "
+                    "move:cetus-checked-shlw could not run locally and stays "
+                    "at its reported-claim level; that one record ran through "
+                    "a downloaded sui toolchain (1.6.3 for the v1.1.0 era, "
+                    "1.48.2 for the v1.1.1 and v1.1.2 eras) and is counted "
+                    "with the executed runs above, not here"),
     }
 
 
@@ -263,7 +267,8 @@ def write_reports() -> dict:
         },
         "blockers": [
             "move and cairo toolchains (sui, aptos, scarb, snFuzzer) are not "
-            "installed, so no local L3-L6 for Move/Cairo",
+            "installed, so no local L3-L6 for Move/Cairo except the one "
+            "sui-toolchain Move run (move:cetus-checked-shlw, L6)",
             "the report layer declares no licence for 109 of 112 sources, which "
             "stay content_license=unknown and not redistributable",
             "no model has been evaluated: these files describe the instrument, "
@@ -353,8 +358,10 @@ def quality_report_md(s: dict) -> str:
     a(f"- outcomes: `{ex['by_outcome']}`")
     a(f"- fixed-revision leg executed: **{ex['fixed_revision_executed']}** "
       "(L6 needs the same violation reproduced on vulnerable AND blocked on "
-      "fixed; the one record with a fixed-revision leg sits at L3, so no "
-      "v2.2 record claims L6)\n")
+      "fixed; move:cetus-checked-shlw meets it - the silent 2^192 shift "
+      "reproduces on integer-mate v1.1.0 and on the insufficient v1.1.1, "
+      "and the boundary test aborts on the v1.1.2 fix - while the other "
+      "fixed-revision record, vyper:CVE-2024-24567, sits at L3)\n")
     a("| experiment | source report | status | exit | seconds | tests pass/fail |")
     a("|---|---|---|---|---|---|")
     for r in ex["runs_detail"]:

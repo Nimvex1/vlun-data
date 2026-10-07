@@ -20,3 +20,11 @@ work/
 # tracked (negations below).
 V3/clones/*
 !V3/clones/MANIFEST.md
+
+# Local-only Solodit scrape artefacts (verbatim third-party finding prose,
+# must NOT be redistributed). The harvester reads them from disk; only
+# structured attributed facts enter Vbeta/. Declared-ignored paths are
+# enforced by scripts/check_reproducibility.py — a path listed here must
+# never appear in `git ls-files`.
+nextdata/
+.firecrawl/

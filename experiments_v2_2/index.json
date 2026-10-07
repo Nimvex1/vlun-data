@@ -607,13 +607,70 @@
         "vyper 0.3.10": "0.3.10+commit.9136169",
         "vyper 0.4.0": "0.4.0+commit.e9db8d9"
       }
+    },
+    {
+      "argv": [
+        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "scripts/run_move_poc.py",
+        "--id",
+        "cetus_checked_shlw"
+      ],
+      "artefacts": {
+        "stderr.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout.txt": {
+          "bytes": 3666,
+          "sha256": "a8b81b05d490dec4df3a855eeab6bcb30a44ab389c6549990ef3e2cdd2394abb"
+        }
+      },
+      "assertion_stdout_captured": true,
+      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_move_poc.py --id cetus_checked_shlw",
+      "cwd": "<repo>",
+      "description": "checked_shlw silently truncates a product of exactly 2^192 on the audited revision and on the insufficient PR #6 revision, and reports overflow on the PR #7 fix, with a below-boundary control passing on all three",
+      "exit_code": 0,
+      "expectation": {
+        "declared": {
+          "min_tests": 0,
+          "stdout_contains": [
+            "CHECK pass mask_era_4d09c8b_checked_out_revision",
+            "CHECK pass mask_era_4d09c8b_control_shifts_below_2pow192",
+            "CHECK pass mask_era_4d09c8b_boundary_2pow192_shifts_silently",
+            "CHECK pass pr6_era_fc84a51_checked_out_revision",
+            "CHECK pass pr6_era_fc84a51_control_shifts_below_2pow192",
+            "CHECK pass pr6_era_fc84a51_boundary_2pow192_shifts_silently",
+            "CHECK pass pr7_fix_06660f7_checked_out_revision",
+            "CHECK pass pr7_fix_06660f7_control_shifts_below_2pow192",
+            "CHECK pass pr7_fix_06660f7_boundary_2pow192_reports_overflow"
+          ],
+          "stdout_not_contains": [
+            "CHECK fail"
+          ]
+        },
+        "met": true,
+        "violations": []
+      },
+      "experiment_id": "move-cetus-checked-shlw",
+      "failing_test_count": 0,
+      "failing_tests": [],
+      "passing_tests": [],
+      "seconds": 10.2,
+      "source_report": "move:cetus-checked-shlw",
+      "status": "ok",
+      "test_counts": null,
+      "timeout_seconds": 3600,
+      "toolchain": {
+        "sui 1.48.2": "sui 1.48.2-17a9eb8e1914",
+        "sui 1.6.3": "sui 1.6.3-f4a70c8-dirty"
+      }
     }
   ],
   "generated_by": "scripts/run_ml_pocs.py",
   "totals": {
-    "declared": 11,
+    "declared": 12,
     "failed": 0,
-    "ok": 11,
+    "ok": 12,
     "other": 0,
     "tests_failed": 2,
     "tests_passed": 47

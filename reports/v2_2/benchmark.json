@@ -112,13 +112,13 @@
       },
       "family": "F",
       "file": "benchmark/F_false_positive_rejection.jsonl",
-      "labeled": 15,
+      "labeled": 17,
       "layer": "v1",
       "partial": 0,
       "question": "is this claim a valid vulnerability, and what blocks it if not?",
-      "scorable": 15,
+      "scorable": 17,
       "tasks": 458,
-      "unlabeled": 443
+      "unlabeled": 441
     },
     {
       "answer_key_evidence_levels": {
@@ -141,20 +141,20 @@
     },
     {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 7
       },
       "by_language": null,
       "by_split": {
-        "validation": 5
+        "validation": 7
       },
       "family": "H",
       "file": "benchmark/H_verified_exploit.jsonl",
-      "labeled": 5,
+      "labeled": 7,
       "layer": "v1",
       "partial": 0,
       "question": "name the vulnerability, attacker model and PoC at the audited revision, against code whose experiment was actually executed",
-      "scorable": 5,
-      "tasks": 5,
+      "scorable": 7,
+      "tasks": 7,
       "unlabeled": 0
     },
     {
@@ -178,20 +178,20 @@
     },
     {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 4
+        "experimentally_verified": 7
       },
       "by_language": null,
       "by_split": {
-        "validation": 4
+        "validation": 7
       },
       "family": "J",
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 4,
+      "labeled": 7,
       "layer": "v1",
       "partial": 0,
       "question": "does the exploit pass on the vulnerable revision and fail on the fixed one?",
-      "scorable": 4,
-      "tasks": 4,
+      "scorable": 7,
+      "tasks": 7,
       "unlabeled": 0
     },
     {
@@ -250,25 +250,26 @@
     },
     {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 36
+        "experimentally_verified": 37
       },
       "by_language": {
+        "move": 1,
         "solidity": 34,
         "vyper": 2
       },
       "by_split": {
         "test": 1,
         "train": 31,
-        "validation": 4
+        "validation": 5
       },
       "family": "M",
       "file": "benchmark/M_experiment_level_classification.jsonl",
-      "labeled": 36,
+      "labeled": 37,
       "layer": "v2.2",
       "partial": 0,
       "question": "which L0-L6 level and which outcome does this executed run earn?",
-      "scorable": 36,
-      "tasks": 36,
+      "scorable": 37,
+      "tasks": 37,
       "unlabeled": 0
     },
     {
@@ -383,12 +384,12 @@
   "policy": "families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2_2 over splits_v2_2, one task per v2.2 record (M only for records with a run). A task is labeled only where the record actually holds the answer, partial where half of it exists, and unlabeled with a stated reason otherwise; only labeled tasks are scored. The model-facing payload is the task's `input` object - ids and source blocks are traceability and carry the language prefix.",
   "totals": {
     "families": 17,
-    "labeled": 2114,
+    "labeled": 2122,
     "partial": 432,
-    "scorable": 2114,
-    "tasks": 4966,
-    "unlabeled": 2418,
+    "scorable": 2122,
+    "tasks": 4972,
+    "unlabeled": 2416,
     "v2_2_families": 7,
-    "v2_2_tasks": 858
+    "v2_2_tasks": 859
   }
 }

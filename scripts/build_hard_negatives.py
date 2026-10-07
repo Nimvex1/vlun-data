@@ -8,8 +8,16 @@ hold* — and where the code is not conclusive, it says so.
 The hard rule: a blocking condition is only asserted when one of these is true
 
   1. a public judge/sponsor comment states it      -> reported_claim
-  2. the code mechanically shows a role gate that
-     the claim's own text denies                   -> derived_fact
+  2. the code mechanically shows a gate that the
+     claim's own text denies                       -> derived_fact
+
+A gate is mechanical in exactly three forms, all read off the function the
+claim itself names:
+
+  a. an onlyX-style modifier on the declaration,
+  b. an inline caller-identity check (`require(msg.sender == x)` and the like)
+     in the function body,
+  c. internal/private visibility, which blocks a direct external call.
 
 Anything else is `unknown`. Inventing a plausible-sounding rejection reason is
 the exact failure mode this dataset exists to prevent, so `unknown` is a
@@ -33,10 +41,13 @@ from vlun import (  # noqa: E402
 )
 
 # A claim that asserts unprivileged reach. Only such a claim can be *contradicted*
-# by a role gate observed in code — a claim that never asserts unauthenticated
-# access is not refuted by the presence of a modifier.
+# by a gate observed in code — a claim that never asserts unauthenticated
+# access is not refuted by the presence of a modifier. The vocabulary is kept
+# tight: each alternative must literally deny that caller identity matters.
 UNPRIVILEGED_ASSERTION = re.compile(
-    r"\b(anyone|any user|arbitrary|any caller|permissionless|unrestricted|"
+    r"\b(anyone|any user|any address|any account|any wallet|any party|any caller|"
+    r"any external (?:caller|account|party|user|contract)|arbitrary|"
+    r"permissionless|unrestricted|unauthenticated|unprotected|"
     r"missing access control|no access control|lacks? access control|lacking access control|"
     r"without (?:any )?(?:restriction|permission|authorization|check)|"
     r"malicious user|any third party|unauthori[sz]ed|publicly callable)\b", re.I)
@@ -77,33 +88,100 @@ def code_block(row) -> list[dict]:
     return out
 
 
-def role_gate_for(snippets: list[dict], claim_text: str = "") -> dict | None:
-    """First mechanically observed role gate across the record's code.
+def _caller_identity_guards(fn: dict) -> list[dict]:
+    """Body guards that compare the caller's identity against something else.
 
-    `named_in_claim` says whether the gated function is the one the submission
-    actually talks about. When it is not, the gate is real but cannot be used to
-    refute the claim, so the caller records it at low confidence instead of
-    dropping it.
+    `require(msg.sender == owner)` and its siblings are mechanically equivalent
+    to a role modifier. Only equality/inequality comparisons whose checked side
+    names msg.sender or tx.origin qualify; input validation (`amount > 0`) does
+    not.
+    """
+    out = []
+    for g in fn.get("guards", []):
+        subject = (g.get("subject") or "")
+        comparison = (g.get("comparison") or "")
+        if g.get("operator") not in ("==", "!="):
+            continue
+        caller_side = None
+        if "msg.sender" in subject:
+            caller_side, other = subject, comparison
+        elif "msg.sender" in comparison:
+            caller_side, other = comparison, subject
+        else:
+            continue
+        # the other side must name some identity that is not the caller itself
+        other_id = other.replace("msg.sender", "").strip()
+        if not other_id:
+            continue
+        out.append({"kind": "inline_caller_identity_check",
+                    "guard": f"{subject} {g['operator']} {comparison}",
+                    "operator": g["operator"],
+                    "required_identity": other_id[:80],
+                    "line": g.get("line")})
+    return out
+
+
+def gate_for(snippets: list[dict], claim_text: str = "") -> dict | None:
+    """First mechanically observed gate across the record's code.
+
+    Three gate kinds, in order of how directly they contradict an unprivileged
+    reach assertion: a modifier role on the declaration, an inline caller-identity
+    check in the body, and internal/private visibility. `named_in_claim` says
+    whether the gated function is the one the submission actually talks about.
+    When it is not, the gate is real but cannot be used to refute the claim, so
+    the caller records it at low confidence instead of dropping it.
     """
     fallback = None
     for blk in snippets:
         a = sf.analyse(blk["snippet"], blk.get("function"))
         for fn in a["functions"]:
-            if not fn["required_roles"]:
+            named = _fn_in_claim(fn["name"], claim_text)
+            gate = None
+            if fn["required_roles"]:
+                gate = {"kind": "modifier_role_gate",
+                        "file": blk["file"], "commit_sha": blk["commit_sha"],
+                        "function": fn["name"], "line": fn["declared_at_line"],
+                        "modifiers": fn["modifiers"], "roles": fn["required_roles"],
+                        "visibility": fn["visibility"],
+                        "evidence_type": "derived_fact",
+                        "rule": "onlyX-style modifier on the function declaration",
+                        "rule_source": "scripts/solidity_facts.py:functions"}
+            else:
+                id_guards = _caller_identity_guards(fn)
+                if id_guards:
+                    g = id_guards[0]
+                    gate = {"kind": "inline_caller_identity_check",
+                            "file": blk["file"], "commit_sha": blk["commit_sha"],
+                            "function": fn["name"], "line": g["line"],
+                            "modifiers": fn["modifiers"], "roles": [],
+                            "guard": g["guard"], "required_identity": g["required_identity"],
+                            "visibility": fn["visibility"],
+                            "evidence_type": "derived_fact",
+                            "rule": "inline caller-identity check in the function body",
+                            "rule_source": "scripts/solidity_facts.py:_guards"}
+                elif fn["visibility"] in ("internal", "private"):
+                    gate = {"kind": "internal_visibility_gate",
+                            "file": blk["file"], "commit_sha": blk["commit_sha"],
+                            "function": fn["name"], "line": fn["declared_at_line"],
+                            "modifiers": fn["modifiers"], "roles": [],
+                            "visibility": fn["visibility"],
+                            "evidence_type": "derived_fact",
+                            "rule": "internal/private visibility blocks a direct external call",
+                            "rule_source": "scripts/solidity_facts.py:functions"}
+            if gate is None:
                 continue
-            gate = {"file": blk["file"], "commit_sha": blk["commit_sha"],
-                    "function": fn["name"], "line": fn["declared_at_line"],
-                    "modifiers": fn["modifiers"], "roles": fn["required_roles"],
-                    "visibility": fn["visibility"],
-                    "evidence_type": "derived_fact",
-                    "rule": "onlyX-style modifier on the function declaration",
-                    "rule_source": "scripts/solidity_facts.py:functions",
-                    "named_in_claim": _fn_in_claim(fn["name"], claim_text)}
-            if gate["named_in_claim"]:
+            gate["named_in_claim"] = named
+            if named:
                 return gate
             if fallback is None:
                 fallback = gate
     return fallback
+
+
+# retained name: classify_negatives.py and the stats consumers read the builder
+# through build_negative, which calls gate_for.
+def role_gate_for(snippets: list[dict], claim_text: str = "") -> dict | None:
+    return gate_for(snippets, claim_text)
 
 
 def build_negative(row: dict) -> dict:
@@ -130,20 +208,29 @@ def build_negative(row: dict) -> dict:
                                 if isinstance(na.get("judge_and_sponsor_statements"), list) else refs[:3],
                                 note=f"attributed to {role}" if role else None)
     elif UNPRIVILEGED_ASSERTION.search(claim_text):
-        gate = role_gate_for(snippets, claim_text)
+        gate = gate_for(snippets, claim_text)
         if gate and gate["named_in_claim"]:
+            if gate["kind"] == "modifier_role_gate":
+                statement = (f"the claim's own target `{gate['function']}` in {gate['file']} is "
+                             f"declared with {', '.join(gate['modifiers'])}, so reaching it "
+                             f"requires {', '.join(gate['roles'])}")
+            elif gate["kind"] == "inline_caller_identity_check":
+                statement = (f"the claim's own target `{gate['function']}` in {gate['file']} "
+                             f"contains `{gate['guard']}`, so reaching it requires being "
+                             f"{gate['required_identity']}")
+            else:
+                statement = (f"the claim's own target `{gate['function']}` in {gate['file']} is "
+                             f"`{gate['visibility']}`, so an external caller cannot reach it "
+                             f"directly")
             blocking = evidence(
-                f"the claim's own target `{gate['function']}` in {gate['file']} is declared with "
-                f"{', '.join(gate['modifiers'])}, so reaching it requires "
-                f"{', '.join(gate['roles'])}",
+                statement,
                 "derived_fact",
-                refs=[f"{gate['file']}@{gate['commit_sha']}#L{gate['line']}"]
-                + ([gate["source_url"]] if False else []),
+                refs=[f"{gate['file']}@{gate['commit_sha']}#L{gate['line']}"],
                 confidence="high",
                 note=f"rule: {gate['rule']} ({gate['rule_source']})")
         elif gate:
             blocking = evidence(
-                f"a role gate ({', '.join(gate['modifiers'])}) is present on "
+                f"a gate ({gate['rule']}) is present on "
                 f"`{gate['function']}` in {gate['file']}, but that function is not the one the "
                 f"submission names, so it does not by itself refute the claim",
                 "derived_fact",
@@ -171,9 +258,13 @@ def build_negative(row: dict) -> dict:
 
     why_fails = evidence(None, "unknown")
     if blocking["evidence_type"] in ("reported_claim", "derived_fact"):
+        kind = (blocking.get("note") or "")
         why_fails = evidence(
-            "the path the claim depends on requires a privileged role, so an unprivileged "
-            "attacker cannot reach it",
+            ("the path the claim depends on is not externally reachable, so the claimed "
+             "external attack cannot be executed as stated"
+             if "internal/private visibility" in kind else
+             "the path the claim depends on requires a caller the claim does not control, so an "
+             "unprivileged attacker cannot reach it"),
             "derived_fact" if blocking["evidence_type"] == "derived_fact" else "reported_claim",
             refs=blocking["source_refs"])
 
@@ -217,15 +308,20 @@ def build_negative(row: dict) -> dict:
 
 def attacker_model(snippets: list[dict]) -> dict:
     roles, conds, gates = set(), set(), []
+    restricted = False
     for blk in snippets:
         a = sf.analyse(blk["snippet"], blk.get("function"))
         for fn in a["functions"]:
             roles.update(fn["required_roles"])
             conds.update(fn["operational_conditions"])
+            if _caller_identity_guards(fn):
+                restricted = True
         t = a.get("target_function")
         if t:
+            if t["visibility"] in ("internal", "private"):
+                restricted = True
             gates.append(sf.access_control_summary(a))
-    if roles:
+    if roles or restricted:
         kind = "privileged"
     elif any(g["verdict"] == "no_check_observed" for g in gates):
         kind = "unprivileged"
@@ -238,7 +334,8 @@ def attacker_model(snippets: list[dict]) -> dict:
         "trusted_roles": sorted(roles),
         "operational_conditions": sorted(conds),
         "per_function_access_control": gates[:6],
-        "rule": "any onlyX modifier on a cited function implies a privileged actor",
+        "rule": ("any onlyX modifier, inline caller-identity check, or internal/private "
+                 "visibility on a cited function implies a restricted caller"),
     }
 
 

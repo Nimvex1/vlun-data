@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Generate README.md from the reports, so no number in it can drift.
 
 The v1 README carried hand-written counts (18 error records when there were 19,
@@ -256,6 +256,33 @@ def render() -> str:
     tri32 = (proof32.get("compile_triage") or {})
     _cov = (norm31.get("coverage_before_after") or {})
     _cov_after = _cov.get("after_v31", {})
+    # Vbeta layer: isolated new-language + Solodit-mirror layer. Same rule as
+    # above: every figure is read from the Vbeta artefacts, never typed in.
+    _vb = ROOT / "Vbeta"
+    vbm = jread(_vb / "derived_vbeta" / "manifest.json", {}) or {}
+    _vbsplit = jread(_vb / "splits_vbeta" / "split.json", {}) or {}
+    _vbsplits = {k: len(v) for k, v in ((_vbsplit.get("splits") or {}).items())}
+    vbbm = jread(_vb / "benchmark_vbeta" / "vbeta_manifest.json", {}) or {}
+    vbharv = jread(_vb / "reports_vbeta" / "solodit_harvest_stats.json", {}) or {}
+    _solodit_indexed = 0
+    _sidx = ROOT / "nextdata" / "_index_all_1926.json"
+    if _sidx.exists():
+        try:
+            _rows = json.loads(_sidx.read_text(encoding="utf-8-sig"))
+            _solodit_indexed = sum(
+                1 for _r in _rows
+                if isinstance(_r, dict) and (_r.get("url") or {}).get("value"))
+        except (json.JSONDecodeError, OSError):
+            _solodit_indexed = 0
+    vbgate = jread(_vb / "reports_vbeta" / "validation_vbeta.json", {}) or {}
+    _vbgchecks = vbgate.get("checks", [])
+    _vbgpass = sum(1 for _c in _vbgchecks if _c.get("ok"))
+    _vbm_tasks = vbbm.get("tasks", {}) or {}
+    _btasks = bench.get("tasks", {}) or {}
+    _v3tasks = (v3bench.get("tasks", {}) or {})
+    _vbdec = vbm.get("decisions", {}) or {}
+    _vblvl = vbm.get("verification_levels", {}) or {}
+    _vblang = vbm.get("by_language", {}) or {}
     _one = lambda d: json.dumps(d, sort_keys=True)
 
     rc = s.get("record_counts", {})
@@ -267,6 +294,26 @@ def render() -> str:
 
     def n(x):
         return f"{x:,}" if isinstance(x, int) else str(x)
+
+    _bench_rows = "\n".join(
+        f"| `{fam}` | {n((spec if isinstance(spec, dict) else {}).get('tasks', 0))} | "
+        f"{n((spec if isinstance(spec, dict) else {}).get('scorable', 'n/a'))} | v1/A-Q |"
+        for fam, spec in sorted(_btasks.items()))
+    _v3bench_rows = "\n".join(
+        f"| `{fam}` | {n(tasks)} | {n(tasks)} | v3 |"
+        for fam, tasks in sorted(_v3tasks.items()))
+    _vbbench_rows = "\n".join(
+        f"| `{fam}` | {n(tasks)} | {n(tasks)} | Vbeta |"
+        for fam, tasks in sorted(_vbm_tasks.items()))
+    _v22_lvl = d22m.get("experiment_levels", {}) or {}
+    _v22_verified = sum(v for k, v in _v22_lvl.items() if k in ("L5", "L6"))
+    _vb_lvl = vbm.get("verification_levels", {}) or {}
+    _vb_verified = sum(v for k, v in _vb_lvl.items() if k in ("L5", "L6"))
+    _bl_base = jread(REPORTS / "baselines" / "baseline_majority.json", {}) or {}
+    _bl_rand = jread(REPORTS / "baselines" / "baseline_random_seed7.json", {}) or {}
+
+    def _pct(x):
+        return f"{x:.4f}" if isinstance(x, (int, float)) else str(x)
 
     lines = f"""# VLUN — smart-contract security reasoning dataset
 
@@ -284,8 +331,11 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | {n(v3m.get('record_count', 0))} admitted / {n(v3m.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 | V3.1 | normalized findings with spans + overlays | {n(norm31.get('preview_count', 0))} preview rows ({n((norm31.get('fragment_decisions') or {}).get('admitted', 0))} new) | severity on {n(_cov_after.get('severity_known', 0))}, class on {n(_cov_after.get('class_known', 0))}, files on {n(_cov_after.get('affected_files', 0))} |
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced thefts, {(proof32.get('by_level') or {}).get('L3', 0)} blocked at L3 |
+| Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)}.
+Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
+
+Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(0)}/{n(v3m.get('record_count', 0))} (L0/L1-only by construction) · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -304,9 +354,12 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits/ + splits_v2/  v1/v2 splits with quarantine
-benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy)
+benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
+tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
+Vbeta/            isolated new-language layer ({n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates, {n(vbm.get('source_count', 0))} sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
+nextdata/ + .firecrawl/  local-only Solodit scrape artefacts ({n(_solodit_indexed)} issue URLs indexed, {n(vbharv.get('harvested', 0))} detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
 
@@ -358,19 +411,50 @@ forge reported `Success`, and no patch is called effective without the controlle
   evidence; {n(len((proof32.get('runs') or [])) - (proof32.get('by_level') or {}).get('L5', 0))} blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
   `experiments_v3/`); 47 patch candidates all `not_testable` (no executable PoC on either side).
+- **Vbeta:** {n(vbm.get('record_count', 0))} admitted records from {n(vbm.get('candidate_count', 0))} candidates
+  ({n(_vbdec.get('IMPORT', 0))} IMPORT, {n(_vbdec.get('IMPORT_AS_UNVERIFIED', 0))} unverified,
+  {n(_vbdec.get('IMPORT_AS_NEGATIVE', 0))} negatives, {n(_vbdec.get('RESEARCH_ONLY', 0))} research-only);
+  {n(_vblvl.get('L1', 0))} L1 quoted-PoC rows (rest L0); languages `{_one(sorted(_vblang.keys()))}`;
+  splits train {n(_vbsplits.get('train'))} / validation {n(_vbsplits.get('validation'))} / test {n(_vbsplits.get('test'))}.
 - Full per-source accounting, unknowns with resolving evidence, and extraction failures:
   [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md),
   [`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md),
   [`reports/v3/quality_report.md`](reports/v3/quality_report.md),
-  [`reports/v3/normalization_report.md`](reports/v3/normalization_report.md),
-  [`reports/v3/normalization_unknowns.md`](reports/v3/normalization_unknowns.md).
+   [`reports/v3/normalization_report.md`](reports/v3/normalization_report.md),
+   [`reports/v3/normalization_unknowns.md`](reports/v3/normalization_unknowns.md),
+   [`Vbeta/reports_vbeta/quality_report.md`](Vbeta/reports_vbeta/quality_report.md),
+   [`Vbeta/reports_vbeta/shieldify_ingestion_report.md`](Vbeta/reports_vbeta/shieldify_ingestion_report.md),
+   [`Vbeta/reports_vbeta/solodit_ingestion_report.md`](Vbeta/reports_vbeta/solodit_ingestion_report.md).
+- Per-field coverage (which fraction of records actually carry root_cause, attacker model,
+  impact, severity, language, … — 11 of 24 tracked fields under 50% known):
+  [`reports/field_coverage.md`](reports/field_coverage.md), generated by
+  `scripts/field_coverage.py` from the canonical files.
 
 ## Splits & benchmarks
 
-Splits isolate by repository (v1/v2) or by record/source (v2.2/v3); duplicates are quarantined,
-never deleted. Benchmark families A-T are machine-readable under `benchmark/` with a manifest;
-answer keys rebuild from the records, and families that need experimentally produced ground truth
-only admit rows that have it.
+Splits isolate by repository (v1/v2) or by record/source (v2.2/v3/Vbeta); duplicates are quarantined,
+never deleted. Benchmark families A-V are machine-readable under `benchmark/` (A-T) and
+`Vbeta/benchmark_vbeta/` (U-V) with manifests; answer keys rebuild from the records, and
+families that need experimentally produced ground truth only admit rows that have it.
+
+| Family | Tasks | Scorable | Layer |
+|---|---|---|---|
+{_bench_rows}
+{_v3bench_rows}
+{_vbbench_rows}
+
+`Scorable` is the manifest count (answer key present). The exact-match scorer
+(`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
+`docs/ANSWER_KEY.md`) covers the labeled scalar-key subset — currently
+{n(_bl_base.get('micro', {}).get('scorable', 0))} tasks at micro-accuracy
+{_pct(_bl_base.get('micro', {}).get('accuracy'))} (majority baseline) /
+{_pct(_bl_rand.get('micro', {}).get('accuracy'))}
+(random-seed7); B/D/G/H/Q need a judge or have no labels and are excluded
+with reasons. `scripts/check_manifests.py` recomputes every one of these
+counts from the canonical records
+(manifest-file agreement, task-record resolution, split coverage, RESEARCH_ONLY
+leak scans, L5/L6-without-artefact and `verified_patch` scans). A family whose file disagrees
+with its manifest fails the build.
 
 ## Licensing
 
@@ -379,8 +463,12 @@ only admit rows that have it.
   source is **not licensed here at all**.
 - {dm.get('redistribution_flagged', {}).get('source_redistributed_without_declared_license', 0)} v1 records
   carry verbatim source from repositories declaring no licence (flagged per record; re-measured
-  from the text itself in `reports/third_party_audit.json`). V3 keeps link + sha256 + attributed
-  facts only (METADATA_ONLY).
+   from the text itself in `reports/third_party_audit.json`). V3 keeps link + sha256 + attributed
+   facts only (METADATA_ONLY). Vbeta keeps links + observed facts only (METADATA_ONLY) —
+   full report prose is never copied in; `openzeppelin-cairo` rows carry observed MIT.
+- Vbeta sources are first-party audit pages plus a tier-2 Solodit mirror (auditor originals
+  stay canonical). No operator-authored rows remain: the single interim one was retired and
+  replaced by its harvested original (see `Vbeta/reports_vbeta/solodit_ingestion_report.md`).
 - No permission has been obtained from upstream protocol authors. For redistribution or
   commercial training, pull sources yourself via `scripts/fetch_sources.py` under your own
   compliance process. See [`NOTICE.md`](NOTICE.md).
@@ -392,7 +480,13 @@ python scripts/build_all.py --with-network   # everything
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
+python scripts/check_manifests.py            # 101 count/reference checks, recomputed from canonical records
+python scripts/check_reproducibility.py      # provenance, determinism, isolation (skips stay skipped_no_network)
+python -m unittest discover -s tests        # terminology, invariants, fixtures (incl. intentionally-broken)
 python scripts/generate_readme.py --check    # this file is generated; stays current only if regenerated
+python Vbeta/scripts/build_vbeta.py --check  # Vbeta dry run (writes only under Vbeta/)
+python Vbeta/scripts/validate_vbeta.py       # Vbeta gate
+python Vbeta/tests/test_vbeta.py             # Vbeta tests
 ```
 
 Every script is idempotent, takes `--help`, and writes only under its own layer directories;
@@ -423,6 +517,10 @@ python scripts/normalize_v3.py                # v3.1: boundaries, fields, overla
 python scripts/validate_v31.py                # the v3.1 gate
 python scripts/build_benchmark_v31.py         # family T (explicit taxonomy)
 python scripts/run_dhl_experiments.py         # v3.2: staged fork executions
+python scripts/check_manifests.py             # cross-manifest count integrity (writes nothing)
+python scripts/check_reproducibility.py        # reproducibility gate incl. Vbeta rebuild parity
+python Vbeta/scripts/harvest_solodit.py       # scrape -> Vbeta/solodit_candidates.json (deterministic)
+python Vbeta/scripts/build_vbeta.py           # candidates -> records/splits/U-V (Vbeta only)
 ```
 
 ## Repositories (v1 scope)
@@ -441,10 +539,50 @@ python scripts/run_dhl_experiments.py         # v3.2: staged fork executions
 V3 spans 18 more archives (audits, contests, incident PoCs); per-source accounting is in
 [`reports/v3/quality_report.md`](reports/v3/quality_report.md).
 
+## Vbeta layer (isolated, additive)
+
+`Vbeta/` holds {n(vbm.get('source_count', 0))} new sources with zero overlap against V3's 18 archives:
+professional-audit pages (OtterSec, Neodyme, Trail of Bits, Runtime Verification, Veridise ZK,
+MoveBit, OpenZeppelin Cairo), contest findings (Immunefi, Cyfrin CodeHawks, Cantina),
+Shieldify portfolio findings, and a Solodit HIGH+MEDIUM mirror
+({n(vbharv.get('harvested', 0))} detail pages harvested of {n(_solodit_indexed)} indexed,
+{n(vbharv.get('rejected', 0))} duplicate excluded; languages `{_one(sorted(set(vbharv.get('languages', []))))}`).
+Rule 1: PRESENT is read-only — every Vbeta writer refuses paths outside `Vbeta/`, and the gate
+warns if any PRESENT sentinel drifts from `Vbeta/present_snapshot.json`. Rule 2: truth over
+scale (no record above L1 without run artefacts). Rule 3: METADATA_ONLY (links + observed
+facts; full prose one hop away, never copied in). Admission is computed in code
+(`decide()`): IMPORT only on title + severity + link + status all observed. See
+[`Vbeta/README.md`](Vbeta/README.md) and the per-source ingestion reports.
+
+## Integrity infrastructure
+
+One canonical vocabulary — `scripts/schema_terms.py` (single source of truth; imports, never
+redefines, the existing enums) — separates sources from findings, candidates from admitted
+records, derived rows from preview rows, published PoCs (L1) from reproduced ones (L5/L6),
+and team-reported `Fixed` from `verified_patch`. Validators reject deprecated terms
+(`verified source`, `reproduced`-as-prose, `Fixed (verified)`). Live status:
+[`reports/reproducibility_report.md`](reports/reproducibility_report.md) holds the full
+PASS/FAIL/SKIPPED matrix; `scripts/validate.py` (71/71), `validate_v3.py`, `validate_v31.py`
+and the Vbeta gate enforce it per layer.
+
+## ML quickstart
+
+- Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files) and
+  `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
+  rebuild from the records).
+- Admission-filtered records: `datasets/` (each with a published rule), `derived_v3/records.jsonl`,
+  `Vbeta/derived_vbeta/records.jsonl` (each row carries `decision`, `verification_level`,
+  `language`, `ecosystem`, `benchmark_split`).
+- Splits never leak across train/validation/test by repository or source; duplicates sit in
+  `quarantine`, never deleted. Check any of this with `scripts/check_manifests.py`.
+
 ## Attribution
 
 Findings, verdicts and PoC code belong to their original authors: Code4rena and the
-competitive-audit participants, the professional auditors, and the incident PoC authors.
+competitive-audit participants, the professional auditors (Shieldify, OtterSec, Neodyme,
+Trail of Bits, Runtime Verification, Veridise, MoveBit, OpenZeppelin, Zellic, Pashov and
+others), the contest platforms (Cantina, CodeHawks, Immunefi, Sherlock), the incident PoC
+authors, and Cyfrin Solodit as a mirror (auditor originals stay canonical).
 See [`NOTICE.md`](NOTICE.md).
 """
     return lines

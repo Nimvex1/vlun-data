@@ -5,7 +5,7 @@
       "artifact_hashes": {
         "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "e7ac03e4fde498acbb78e80ef40bb065095fd9e092425ea1f49b0599e60bcff5",
+        "stdout.txt": "b77747d0db1601f9c5e4d2d07fe47f60978c5604e9add031432c414e0114cafc",
         "trace.txt": "68aedb2e3aa157ba05b7e9fc1b21803a5b1d5e0ed29730deb1ab9cf4030a0ebb"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol -vv",
@@ -19,7 +19,7 @@
       "finding_id": "2024-01-renft/H-01",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "0bdbfb4d91574229443667fc3feead75db058838fc6c9fb7089f55a841493082",
+      "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
       "production_files_modified": 0,
       "repository": {
         "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
@@ -40,11 +40,11 @@
     {
       "artifact_dir": "experiments/2024-01-renft__H-01/vulnerable",
       "artifact_hashes": {
-        "command.txt": "f3dcf2679ed5200a8082f7fb44888a30c99bc349c0c2e28f872ec0a55ff66a1d",
-        "stderr.txt": "9aca9038120861cd8863b8db39ae6f50364980a7fb7f1d825a2c80c7a4e3d68b",
-        "stdout.txt": "e349d2f5b4d8ae38822ed8ffef5347ab4caf02a69230132423c893820dbb6899"
+        "command.txt": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "6a85587b8042bb5d0bcd0443fd60a622554bfd03923dc8fce4bd806a85412d88"
       },
-      "command": "forge test --json --match-path test/vlun_poc/VlunMaliciousSeaportTip.t.sol -vv",
+      "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__MaliciousSeaportTip.t.sol -vv",
       "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
       "environment_requirements": {
         "forge": "foundry (forge 1.8.3 or any 1.x)",
@@ -55,7 +55,7 @@
       "finding_id": "2024-01-renft/H-01",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "a1c4a9ae4d6b77cd27cfdc11feb935a55e84825368de9f000a87a90168de8f4e",
+      "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
       "production_files_modified": 0,
       "repository": {
         "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -222,7 +222,7 @@
       "artifact_hashes": {
         "command.txt": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "d4af2e6af1d52a0d09ab4d877d1ed9181361aa81c8fe3cc5f307397817e8f07c",
+        "stdout.txt": "59fc30d9938d262bad5f0e774546c9ffd9e32ae9c935149e9d948c27dea3921d",
         "trace.txt": "c80a73cb62c4a134000505795c9350109c83d22705a9465b8e6b3a794983f407"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol -vv",
@@ -295,7 +295,7 @@
       "artifact_hashes": {
         "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "fa8e49e17c68a81d49cfb426550d94667ee4284a7ea990ad377581c269f94f1d"
+        "stdout.txt": "6aae45c1b8854aa0168ca8335aa9c31e678d279e43494d08696ab8eeede63723"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
       "commit_sha": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
@@ -330,8 +330,8 @@
       "artifact_dir": "experiments/2024-01-renft__M-01/vulnerable",
       "artifact_hashes": {
         "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
-        "stderr.txt": "dc12b03a90dc265ddc9a76317e61b8574a32d76f38c18eaff8a0348657a7b165",
-        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "d8fc146dbf3652a567b38c5caf6c61e68fc5613c005276cc4d0416ffad63e5b2"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
       "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -344,7 +344,7 @@
       "finding_id": "2024-01-renft/M-01",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+      "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
       "production_files_modified": 0,
       "repository": {
         "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -353,7 +353,7 @@
         "slug": "renft-smart",
         "url": "https://github.com/re-nft/smart-contracts.git"
       },
-      "result": "compile_error",
+      "result": "fail",
       "revision_label": "vulnerable",
       "toolchain": {
         "forge": "1.8.3",
@@ -439,7 +439,7 @@
       "artifact_hashes": {
         "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "82ddb874e47fd4b833ea064280f9d63b7c4df4fbc5406f8d8071b4d49fa8a0fb"
+        "stdout.txt": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
       "commit_sha": "fb8013111b57c1e09482fb3193db58cb892229e9",
@@ -474,8 +474,8 @@
       "artifact_dir": "experiments/2024-01-renft__M-08/vulnerable",
       "artifact_hashes": {
         "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
-        "stderr.txt": "a85e9596f9e76eeb1124afebfbc488e5c2ce16a370305a7bd4a9f1397394de14",
-        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
       },
       "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
       "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -488,7 +488,7 @@
       "finding_id": "2024-01-renft/M-08",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+      "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
       "production_files_modified": 0,
       "repository": {
         "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -497,7 +497,7 @@
         "slug": "renft-smart",
         "url": "https://github.com/re-nft/smart-contracts.git"
       },
-      "result": "compile_error",
+      "result": "fail",
       "revision_label": "vulnerable",
       "toolchain": {
         "forge": "1.8.3",
