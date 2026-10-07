@@ -113,26 +113,26 @@
       "scorable": 589
     },
     "vbeta_U_language_routing.jsonl": {
-      "accuracy": 0.9019316493313522,
-      "accuracy_scorable": 0.9019316493313522,
-      "correct": 607,
-      "predicted": 673,
-      "scorable": 673
+      "accuracy": 0.8974358974358975,
+      "accuracy_scorable": 0.8974358974358975,
+      "correct": 560,
+      "predicted": 624,
+      "scorable": 624
     },
     "vbeta_V_source_tier_routing.jsonl": {
-      "accuracy": 0.9552429667519181,
-      "accuracy_scorable": 0.9552429667519181,
-      "correct": 747,
-      "predicted": 782,
-      "scorable": 782
+      "accuracy": 0.9513212795549374,
+      "accuracy_scorable": 0.9513212795549374,
+      "correct": 684,
+      "predicted": 719,
+      "scorable": 719
     }
   },
   "micro": {
-    "accuracy": 0.7323543808125306,
-    "accuracy_scorable": 0.7323543808125306,
-    "correct": 7481,
-    "predicted": 10215,
-    "scorable": 10215
+    "accuracy": 0.7295852717014748,
+    "accuracy_scorable": 0.7295852717014748,
+    "correct": 7371,
+    "predicted": 10103,
+    "scorable": 10103
   },
   "run": "baseline:majority:seed7"
 }

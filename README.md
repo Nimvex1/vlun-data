@@ -148,9 +148,9 @@ families that need experimentally produced ground truth only admit rows that hav
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers the labeled scalar-key subset — currently
-10,215 tasks at micro-accuracy
-0.7324 (majority baseline) /
-0.3675
+10,103 tasks at micro-accuracy
+0.7296 (majority baseline) /
+0.3671
 (random-seed7); B/D/G/H/Q need a judge or have no labels and are excluded
 with reasons. `scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records

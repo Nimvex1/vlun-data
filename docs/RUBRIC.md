@@ -31,8 +31,8 @@ smoke signals, and read the micro average for the headline.
 
 | Baseline | Rule | Micro accuracy |
 |---|---|---|
-| majority | most common labeled answer per family (ties: sorted-first) | 0.7324 |
-| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3675 |
+| majority | most common labeled answer per family (ties: sorted-first) | 0.7296 |
+| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3671 |
 
 ```bash
 python scripts/score_benchmark.py --baseline majority
@@ -46,7 +46,7 @@ python scripts/score_benchmark.py --predictions preds.jsonl --out reports/scores
 ```
 
 where `preds.jsonl` rows are `{"task_id": ..., "answer": ...}` and `task_id`
-is the task file's `id`/`task_id`. 10,215 tasks are scorable across 17
+is the task file's `id`/`task_id`. 10,103 tasks are scorable across 17
 families; 5 families (B, D, G, H, Q) are excluded with reasons above.
 
 ## What this rubric does NOT claim
