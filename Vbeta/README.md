@@ -17,8 +17,8 @@ third-party report text or code is redistributed here.
 
 | | PRESENT (v1/v2.2/V3) | Vbeta (this folder) |
 |---|---|---|
-| Languages | solidity, rust, move, vyper, cairo(thin), clarity(4 rows) | + **circom, noir, leo, o1js/typescript, gnark/go** (844 candidates, 9 languages); deepens **cairo, move, rust-solana, soroban-rust** |
-| Sources | 18 V3 archives (+ v1/v2) | 12 harvested sources (11 observed + 1 Solodit mirror), none overlapping V3's 18 clones |
+| Languages | solidity, rust, move, vyper, cairo(thin), clarity(4 rows) | + **circom, noir, leo, o1js/typescript, gnark/go** (7,060 candidates, 9 languages); deepens **cairo, move, rust-solana, soroban-rust** |
+| Sources | 18 V3 archives (+ v1/v2) | 15 harvested sources (11 observed + Solodit mirror + Web3Bugs + ScaBench + LISABench), none overlapping V3's 18 clones |
 | Provenance | clone-HEAD + sha256 (needs ~3 GB clones) | **observation receipts** (URL + observed titles + session date; zero clones, zero gigabytes) |
 | Licence wins | mostly `unknown` | `openzeppelin-cairo` rows carry observed **MIT** |
 | Excluded honestly | — | `blocksec` (only a CTF fork found), `clarity`/`sway` depth (no finding-level material observed) — queued, not faked |
@@ -30,7 +30,7 @@ Vbeta/
   README.md               this file (the layer contract)
   CREATED_AT              layer birth timestamp (isolation reference)
   present_snapshot.json   sha256 sentinels of PRESENT files + git-status at creation
-  sources.json            12 sources: canonical URL, languages, verification evidence
+  sources.json            15 sources: canonical URL, languages, verification evidence
   fetched/receipts.jsonl  one observation receipt per source (what was seen, when)
   candidates.json         hand-authored candidate facts (EVERY row cites a receipt)
   scripts/vlun_vbeta.py   constants + helpers (stdlib only)

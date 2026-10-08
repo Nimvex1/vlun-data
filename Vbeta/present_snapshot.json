@@ -1,8 +1,8 @@
 {
   "note": "baseline: PRESENT must stay at these bytes; validate_vbeta.py warns on drift",
-  "resnapshot_reason": "final regen: baselines refreshed post-quarantine; README regenerated from settled numbers",
+  "resnapshot_reason": "terminal: README embeds settled 35/35 gate; snapshotted last, no further edits",
   "sentinel_sha256": {
-    "README.md": "890d5a4858f9d701b86fb41b545cd7ad9669e8af19438cd3540f722c4ca07e1c",
+    "README.md": "a3ae434aae502bfd84038d7b6f8e084c4afd0b21e61606341c946adf7c91a918",
     "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
     "derived_v3/manifest.json": "4d0c535db2c0df8df0c32eca35e18579cb48b53ce92bb63b86190abe854fe008",
     "pyproject.toml": "2154dd230e94185f3eaee97aff3f50da7d7e671dde5b0b12d5b25921bd8e683e",

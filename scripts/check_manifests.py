@@ -464,7 +464,7 @@ def main() -> int:
           len([r for r in ledb if is_admitted(r["decision"])]), len(recb),
           "IMPORT* ledger rows")
     F.add("vbeta", "manifest", "candidate/record/source counts",
-          (844, 719, 12),
+          (7060, 6935, 15),
           (mb["candidate_count"], mb["record_count"], mb["source_count"]),
           "manifest fields")
     spb = js(V / "splits_vbeta" / "split.json")

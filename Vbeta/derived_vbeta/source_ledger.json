@@ -3,28 +3,34 @@
     "cantina-portfolio": "train",
     "cyfrin-codehawks": "validation",
     "immunefi-past-competitions": "test",
+    "lisabench": "test",
     "movebit-sampled-audits": "train",
     "neodyme-reports": "validation",
     "openzeppelin-cairo": "test",
     "ottersec-audits": "train",
     "runtime-verification-publications": "validation",
+    "scabench": "validation",
     "shieldify-audits-portfolio": "validation",
     "solodit-harvest": "train",
     "trailofbits-publications": "test",
-    "veridise-zk-archive": "train"
+    "veridise-zk-archive": "train",
+    "web3bugs": "test"
   },
   "by_source": {
     "cantina-portfolio": 6,
     "cyfrin-codehawks": 8,
     "immunefi-past-competitions": 2,
+    "lisabench": 5175,
     "movebit-sampled-audits": 15,
     "neodyme-reports": 12,
     "openzeppelin-cairo": 2,
     "ottersec-audits": 11,
     "runtime-verification-publications": 3,
+    "scabench": 550,
     "shieldify-audits-portfolio": 33,
     "solodit-harvest": 733,
     "trailofbits-publications": 4,
-    "veridise-zk-archive": 15
+    "veridise-zk-archive": 15,
+    "web3bugs": 491
   }
 }

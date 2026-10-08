@@ -77,12 +77,12 @@ class TestFieldsResolve(unittest.TestCase):
     def test_vbeta_severity_regression(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])
         k = sum(1 for r in rows if known(get(r, "severity_observed")))
-        self.assertEqual((k, len(rows)), (118, 719))
+        self.assertEqual((k, len(rows)), (6334, 6935))
         # And the published report agrees with the recomputation.
         import json
         rep = json.load(open(ROOT / "reports" / "field_coverage.json",
                              encoding="utf-8-sig"))["fields"]
-        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 118)
+        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6334)
 
     def test_broken_key_would_fail(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])

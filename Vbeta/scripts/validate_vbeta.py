@@ -168,10 +168,12 @@ def main() -> int:
     rep.add("consistency", "levels_closed_vocab", not bad_lvl, bad_lvl)
     cands = {c["cid"]: c for c in
              V.read_json(V.VBETA_DIR / "candidates.json")}
-    solodit_path = V.VBETA_DIR / "solodit_candidates.json"
-    if solodit_path.exists():
-        for c in V.read_json(solodit_path):
-            cands[c["cid"]] = c
+    for extra in ("solodit_candidates.json", "web3bugs_candidates.json",
+                    "scabench_candidates.json", "lisabench_candidates.json"):
+        extra_path = V.VBETA_DIR / extra
+        if extra_path.exists():
+            for c in V.read_json(extra_path):
+                cands[c["cid"]] = c
     l1_without_poc = [r.get("candidate_id") for r in ledger
                       if r.get("verification_level") == "L1"
                       and not cands.get(r["candidate_id"], {}).get("poc_observed")]

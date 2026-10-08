@@ -89,19 +89,22 @@ def main() -> int:
     receipts = {r["source_id"]: r
                 for r in V.read_jsonl(V.FETCHED / "receipts.jsonl")}
     candidates = V.read_json(V.VBETA_DIR / "candidates.json")
-    # Machine-harvested candidates (deterministic harvester output). Kept in
-    # a separate file so hand-authored candidates.json stays a stable review
-    # surface; both feed the same admission rule below.
-    solodit_path = V.VBETA_DIR / "solodit_candidates.json"
-    if solodit_path.exists():
-        harvested = V.read_json(solodit_path)
+    # Machine-harvested candidate files (deterministic harvester outputs).
+    # Kept separate so hand-authored candidates.json stays a stable review
+    # surface; all files feed the same admission rule below.
+    for extra in ("solodit_candidates.json", "web3bugs_candidates.json",
+                    "scabench_candidates.json", "lisabench_candidates.json"):
+        extra_path = V.VBETA_DIR / extra
+        if not extra_path.exists():
+            continue
+        harvested = V.read_json(extra_path)
         have = {c["cid"] for c in candidates}
         dupes = [c["cid"] for c in harvested if c["cid"] in have]
         if dupes:
             V.log(f"  ERROR duplicate cids across candidate files: {dupes}")
             return 1
         candidates = candidates + harvested
-        V.log(f"  + {len(harvested)} harvested Solodit candidates")
+        V.log(f"  + {len(harvested)} harvested candidates from {extra}")
 
     # Every candidate must cite a live receipt for a registered source.
     errors: list[str] = []
@@ -216,20 +219,34 @@ def main() -> int:
     by_lang = collections.Counter(r["language"] for r in records)
     by_eco = collections.Counter(r["ecosystem"] for r in records)
 
-    # Splits: sticky by-source assignment. The 10 vbeta-1.0 sources keep the
-    # exact assignment they shipped with (round-robin over sorted ids);
-    # later sources continue the sequence so existing splits never move.
-    LEGACY_ORDER = ["cantina-portfolio", "cyfrin-codehawks",
-                    "immunefi-past-competitions", "movebit-sampled-audits",
-                    "neodyme-reports", "openzeppelin-cairo", "ottersec-audits",
-                    "runtime-verification-publications",
-                    "trailofbits-publications", "veridise-zk-archive"]
-    assignment = {sid: ("train", "validation", "test")[i % 3]
-                  for i, sid in enumerate(LEGACY_ORDER) if sid in by_source}
-    for i, sid in enumerate(sorted(s for s in by_source
-                                   if s not in assignment)):
+    # Splits: sticky by-source assignment. Every source ever shipped keeps
+    # the exact split it shipped with (pinned below); newcomers take
+    # round-robin slots continuing from len(PINNED_ASSIGNMENT), so adding a
+    # source can never move an existing one. A prior growing-counter rule
+    # reshuffled splits when a source sorted earlier arrived; pinned table
+    # replaces it permanently.
+    PINNED_ASSIGNMENT = {
+        "cantina-portfolio": "train",
+        "cyfrin-codehawks": "validation",
+        "immunefi-past-competitions": "test",
+        "movebit-sampled-audits": "train",
+        "neodyme-reports": "validation",
+        "openzeppelin-cairo": "test",
+        "ottersec-audits": "train",
+        "runtime-verification-publications": "validation",
+        "trailofbits-publications": "test",
+        "veridise-zk-archive": "train",
+        "shieldify-audits-portfolio": "validation",
+        "solodit-harvest": "train",
+        "web3bugs": "test",
+        "scabench": "validation",
+    }
+    assignment = {sid: PINNED_ASSIGNMENT[sid] for sid in by_source
+                  if sid in PINNED_ASSIGNMENT}
+    newcomers = sorted(s for s in by_source if s not in assignment)
+    for k, sid in enumerate(newcomers):
         assignment[sid] = ("train", "validation", "test")[
-            (len(assignment) + i) % 3]
+            (len(PINNED_ASSIGNMENT) + k) % 3]
     id_to_split = {}
     for r in records:
         id_to_split[r["finding_id"]] = assignment[r["source_id"]]

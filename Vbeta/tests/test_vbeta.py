@@ -62,20 +62,23 @@ class TestArtefacts(unittest.TestCase):
         cls.split = V.read_json(V.SPLITS_VB / "split.json")
         cls.cands = {c["cid"]: c
                      for c in V.read_json(V.VBETA_DIR / "candidates.json")}
-        solodit_path = V.VBETA_DIR / "solodit_candidates.json"
-        if solodit_path.exists():
-            for c in V.read_json(solodit_path):
-                cls.cands[c["cid"]] = c
+        for extra in ("solodit_candidates.json", "web3bugs_candidates.json",
+                        "scabench_candidates.json",
+                        "lisabench_candidates.json"):
+            extra_path = V.VBETA_DIR / extra
+            if extra_path.exists():
+                for c in V.read_json(extra_path):
+                    cls.cands[c["cid"]] = c
 
     def test_counts(self):
-        self.assertEqual(len(self.ledger), 844)
-        self.assertEqual(self.manifest["candidate_count"], 844)
+        self.assertEqual(len(self.ledger), 7060)
+        self.assertEqual(self.manifest["candidate_count"], 7060)
         self.assertEqual(self.manifest["record_count"], len(self.records))
-        self.assertEqual(len(self.records), 719)
+        self.assertEqual(len(self.records), 6935)
         dec = {k: v for k, v in self.manifest["decisions"].items()}
         self.assertEqual(dec.get("IMPORT"), 60)
         self.assertEqual(dec.get("IMPORT_AS_NEGATIVE"), 5)
-        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 654)
+        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6870)
         self.assertEqual(dec.get("RESEARCH_ONLY"), 62)
         self.assertEqual(dec.get("CORROBORATION_ONLY"), 63)
 
@@ -139,6 +142,10 @@ class TestArtefacts(unittest.TestCase):
                              f"legacy split moved: {sid}")
         self.assertEqual(split["assignment"].get("shieldify-audits-portfolio"),
                          "validation")
+        self.assertEqual(split["assignment"].get("solodit-harvest"), "train")
+        self.assertEqual(split["assignment"].get("web3bugs"), "test")
+        self.assertEqual(split["assignment"].get("scabench"), "validation")
+        self.assertEqual(split["assignment"].get("scabench"), "validation")
 
 
 class TestShieldify(unittest.TestCase):
@@ -190,6 +197,111 @@ class TestShieldify(unittest.TestCase):
         blob = _json.dumps(self.records)
         self.assertNotIn("Team Response", blob)
         self.assertNotIn("winner_wallet PDA is created using", blob)
+
+
+class TestWeb3Bugs(unittest.TestCase):
+    SRC = "web3bugs"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ledger = [r for r in
+                      V.read_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl")
+                      if r["source_id"] == cls.SRC]
+        cls.records = [r for r in
+                       V.read_jsonl(V.DERIVED_VB / "records.jsonl")
+                       if r["source_id"] == cls.SRC]
+
+    def test_volume_and_decisions(self):
+        self.assertEqual(len(self.ledger), 491)
+        self.assertEqual(len(self.records), 491)
+        decs = {r["decision"] for r in self.records}
+        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+
+    def test_labels_are_not_severities(self):
+        # Oracle-difficulty labels must never leak into severity fields.
+        for r in self.records:
+            self.assertEqual(r["severity_observed"], "High")
+            self.assertIn("oracle-difficulty", r["description"])
+
+    def test_links_are_code4rena_reports(self):
+        for r in self.ledger:
+            loc = r.get("source_location") or ""
+            self.assertTrue(loc.startswith("https://code4rena.com/reports/"),
+                            r["candidate_id"])
+
+
+class TestScaBench(unittest.TestCase):
+    SRC = "scabench"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ledger = [r for r in
+                      V.read_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl")
+                      if r["source_id"] == cls.SRC]
+        cls.records = [r for r in
+                       V.read_jsonl(V.DERIVED_VB / "records.jsonl")
+                       if r["source_id"] == cls.SRC]
+
+    def test_volume_and_decisions(self):
+        self.assertEqual(len(self.ledger), 550)
+        self.assertEqual(len(self.records), 550)
+        decs = {r["decision"] for r in self.records}
+        # No disposition field in source: nothing may claim IMPORT.
+        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+
+    def test_commit_pinned_links(self):
+        for r in self.ledger:
+            loc = r.get("source_location") or ""
+            self.assertTrue(loc.startswith("https://github.com/"),
+                            r["candidate_id"])
+
+    def test_language_honestly_unknown(self):
+        langs = {r["language"] for r in self.records}
+        self.assertEqual(langs, {"unknown"})
+
+    def test_adjudication_mined_as_attribution(self):
+        named = [r for r in self.records
+                 if "submitter unknown via" not in
+                 r["evidence"]["attribution"]]
+        self.assertGreater(len(named), 200)
+
+
+class TestLisabench(unittest.TestCase):
+    SRC = "lisabench"
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ledger = [r for r in
+                      V.read_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl")
+                      if r["source_id"] == cls.SRC]
+        cls.records = [r for r in
+                       V.read_jsonl(V.DERIVED_VB / "records.jsonl")
+                       if r["source_id"] == cls.SRC]
+
+    def test_volume_and_decisions(self):
+        self.assertEqual(len(self.ledger), 5175)
+        self.assertEqual(len(self.records), 5175)
+        decs = {r["decision"] for r in self.records}
+        # No disposition field in source: nothing may claim IMPORT.
+        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+
+    def test_severity_verbatim_including_gas(self):
+        sevs = {r["severity_observed"] for r in self.records}
+        self.assertTrue({"MEDIUM", "HIGH", "LOW", "GAS"} <= sevs)
+
+    def test_code_content_never_copied(self):
+        # Contract bodies carry these markers; prose titles do not.
+        import json as _json
+        blob = _json.dumps(self.records)
+        for marker in ("SPDX-License-Identifier", "pragma solidity",
+                       "vm.prank", "mapping(address"):
+            self.assertNotIn(marker, blob)
+
+    def test_links_resolve_to_issues_or_contests(self):
+        bad = [r["candidate_id"] for r in self.ledger
+               if not (r.get("source_location") or "").startswith(
+                   "https://")]
+        self.assertEqual(bad, [])
 
 
 class TestSoloditHarvest(unittest.TestCase):

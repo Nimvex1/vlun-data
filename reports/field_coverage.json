@@ -106,70 +106,70 @@
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 719,
-      "unknown_or_empty": 719
+      "total": 6935,
+      "unknown_or_empty": 6935
     },
     "vbeta.records.decision": {
-      "known": 719,
+      "known": 6935,
       "known_pct": 100.0,
-      "total": 719,
+      "total": 6935,
       "unknown_or_empty": 0
     },
     "vbeta.records.ecosystem": {
-      "known": 602,
-      "known_pct": 83.7,
-      "total": 719,
-      "unknown_or_empty": 117
+      "known": 6123,
+      "known_pct": 88.3,
+      "total": 6935,
+      "unknown_or_empty": 812
     },
     "vbeta.records.fix_description": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 719,
-      "unknown_or_empty": 719
+      "total": 6935,
+      "unknown_or_empty": 6935
     },
     "vbeta.records.impact": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 719,
-      "unknown_or_empty": 719
+      "total": 6935,
+      "unknown_or_empty": 6935
     },
     "vbeta.records.language": {
-      "known": 624,
-      "known_pct": 86.8,
-      "total": 719,
-      "unknown_or_empty": 95
+      "known": 6218,
+      "known_pct": 89.7,
+      "total": 6935,
+      "unknown_or_empty": 717
     },
     "vbeta.records.root_cause": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 719,
-      "unknown_or_empty": 719
+      "total": 6935,
+      "unknown_or_empty": 6935
     },
     "vbeta.records.severity_observed": {
-      "known": 118,
-      "known_pct": 16.4,
-      "total": 719,
+      "known": 6334,
+      "known_pct": 91.3,
+      "total": 6935,
       "unknown_or_empty": 601
     },
     "vbeta.records.status_observed": {
       "known": 64,
-      "known_pct": 8.9,
-      "total": 719,
-      "unknown_or_empty": 655
+      "known_pct": 0.9,
+      "total": 6935,
+      "unknown_or_empty": 6871
     },
     "vbeta.records.title": {
-      "known": 719,
+      "known": 6935,
       "known_pct": 100.0,
-      "total": 719,
+      "total": 6935,
       "unknown_or_empty": 0
     },
     "vbeta.records.verification_level": {
-      "known": 719,
+      "known": 6935,
       "known_pct": 100.0,
-      "total": 719,
+      "total": 6935,
       "unknown_or_empty": 0
     }
   },

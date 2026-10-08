@@ -14,11 +14,11 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | L0/L1 only — nothing executed in this pass |
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
-| Vbeta | 12 new sources (incl. Solodit mirror) | 719 admitted / 844 candidates | L0/L1 only — nothing executed in this pass |
+| Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
 Gates (0 critical failures everywhere): v2 71/71 · v3.0 33/33 · v3.1 32/32 · Vbeta 35/35. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 0/5,467 (L0/L1-only by construction) · Vbeta 0/719 (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 0/5,467 (L0/L1-only by construction) · Vbeta 0/6,935 (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -37,11 +37,11 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits/ + splits_v2/  v1/v2 splits with quarantine
-benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (1,343 tasks)
+benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,153 tasks)
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
-Vbeta/            isolated new-language layer (719 admitted / 844 candidates, 12 sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
+Vbeta/            isolated new-language layer (6,935 admitted / 7,060 candidates, 15 sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
 nextdata/ + .firecrawl/  local-only Solodit scrape artefacts (1,926 issue URLs indexed, 733 detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
@@ -94,11 +94,11 @@ forge reported `Success`, and no patch is called effective without the controlle
   evidence; 4 blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
   `experiments_v3/`); 47 patch candidates all `not_testable` (no executable PoC on either side).
-- **Vbeta:** 719 admitted records from 844 candidates
-  (60 IMPORT, 654 unverified,
+- **Vbeta:** 6,935 admitted records from 7,060 candidates
+  (60 IMPORT, 6,870 unverified,
   5 negatives, 62 research-only);
   57 L1 quoted-PoC rows (rest L0); languages `["cairo", "go", "move", "rust", "solidity", "unknown", "vyper"]`;
-  splits train 683 / validation 34 / test 2.
+  splits train 683 / validation 584 / test 5,668.
 - Full per-source accounting, unknowns with resolving evidence, and extraction failures:
   [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md),
   [`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md),
@@ -149,8 +149,8 @@ families that need experimentally produced ground truth only admit rows that hav
 | `R_v3_source_tier_routing` | 5,467 | 5,467 |  | v3 |
 | `S_v3_contest_outcome` | 1,072 | 1,072 | SATURATED | v3 |
 | `T_v31_taxonomy_explicit` | 589 | 589 | SATURATED | v3 |
-| `vbeta_U_language_routing` | 624 | 624 |  | Vbeta |
-| `vbeta_V_source_tier_routing` | 719 | 719 | SATURATED | Vbeta |
+| `vbeta_U_language_routing` | 6,218 | 6,218 |  | Vbeta |
+| `vbeta_V_source_tier_routing` | 6,935 | 6,935 | SATURATED | Vbeta |
 
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
@@ -260,7 +260,7 @@ V3 spans 18 more archives (audits, contests, incident PoCs); per-source accounti
 
 ## Vbeta layer (isolated, additive)
 
-`Vbeta/` holds 12 new sources with zero overlap against V3's 18 archives:
+`Vbeta/` holds 15 new sources with zero overlap against V3's 18 archives:
 professional-audit pages (OtterSec, Neodyme, Trail of Bits, Runtime Verification, Veridise ZK,
 MoveBit, OpenZeppelin Cairo), contest findings (Immunefi, Cyfrin CodeHawks, Cantina),
 Shieldify portfolio findings, and a Solodit HIGH+MEDIUM mirror
