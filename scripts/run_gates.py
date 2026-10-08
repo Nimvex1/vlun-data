@@ -68,20 +68,33 @@ def main() -> int:
     results = []
     print("run_gates.py")
     for name, cmd in selected:
+        out = ""
         try:
             p = subprocess.run(cmd, cwd=str(ROOT), capture_output=True,
                                text=True, timeout=1200, errors="replace")
             ok = p.returncode == 0
-            tail = ((p.stdout or "") + (p.stderr or "")).strip().splitlines()
-            tail = " | ".join(t.strip() for t in tail[-2:] if t.strip())
+            out = ((p.stdout or "") + (p.stderr or "")).strip()
+            tail = " | ".join(t.strip() for t in out.splitlines()[-2:]
+                              if t.strip())
         except subprocess.TimeoutExpired:
             ok, tail = False, "timeout after 1200s"
         except OSError as exc:
             ok, tail = False, f"cannot start: {exc}"
         results.append((name, ok))
-        if not args.quiet:
-            print(f"  [{'PASS' if ok else 'FAIL'}] {name}"
-                  + (f" — {tail[:160]}" if tail else ""))
+        if args.quiet:
+            continue
+        print(f"  [{'PASS' if ok else 'FAIL'}] {name}"
+              + (f" — {tail[:160]}" if tail else ""))
+        if not ok and out:
+            # A failing gate must show WHY, especially on CI where the
+            # validator's own log is captured, not streamed.
+            lines = out.splitlines()
+            show = lines if len(lines) <= 60 else (
+                lines[:10]
+                + [f"... ({len(lines) - 50} lines elided) ..."]
+                + lines[-40:])
+            for ln in show:
+                print(f"    {ln.strip()}"[:300])
 
     nfail = sum(1 for _, ok in results if not ok)
     print(f"gates={len(results)} pass={len(results) - nfail} fail={nfail}")

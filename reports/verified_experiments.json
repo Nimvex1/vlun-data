@@ -11,7 +11,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-01\\fixed",
+          "artifact": "experiments/2024-01-renft__H-01/fixed",
           "cached": true,
           "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
@@ -28,7 +28,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-01\\vulnerable",
+          "artifact": "experiments/2024-01-renft__H-01/vulnerable",
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
@@ -72,7 +72,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-06\\fixed",
+          "artifact": "experiments/2024-01-renft__H-06/fixed",
           "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
@@ -89,7 +89,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-06\\vulnerable",
+          "artifact": "experiments/2024-01-renft__H-06/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
@@ -118,7 +118,7 @@
       "notes": "self-contained test: the EIP-712 defect is a pure encoding defect, so it is reproduced without any protocol fixture. The fixed revision's Signer.sol is read at execution time to decide which assertion is expected to hold.",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-11\\fixed",
+          "artifact": "experiments/2024-01-renft__M-11/fixed",
           "cached": true,
           "commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
           "declared_expectation": "the three EIP-712 property assertions PASS: the protocol computes the canonical digest",
@@ -138,7 +138,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-11\\vulnerable",
+          "artifact": "experiments/2024-01-renft__M-11/vulnerable",
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "the three EIP-712 property assertions FAIL: the protocol computes a non-canonical digest",
@@ -199,7 +199,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-09\\fixed",
+          "artifact": "experiments/2024-01-renft__M-09/fixed",
           "cached": true,
           "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
@@ -216,7 +216,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-09\\vulnerable",
+          "artifact": "experiments/2024-01-renft__M-09/vulnerable",
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
@@ -253,7 +253,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-01\\fixed",
+          "artifact": "experiments/2024-01-renft__M-01/fixed",
           "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
@@ -276,7 +276,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-01\\vulnerable",
+          "artifact": "experiments/2024-01-renft__M-01/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
@@ -339,7 +339,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-08\\fixed",
+          "artifact": "experiments/2024-01-renft__M-08/fixed",
           "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
@@ -357,7 +357,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-08\\vulnerable",
+          "artifact": "experiments/2024-01-renft__M-08/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
@@ -395,7 +395,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-03\\fixed",
+          "artifact": "experiments/2024-01-renft__H-03/fixed",
           "cached": true,
           "commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
@@ -412,7 +412,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-03\\vulnerable",
+          "artifact": "experiments/2024-01-renft__H-03/vulnerable",
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
@@ -456,7 +456,7 @@
       "notes": "not reconstructable on the audited revision without modifying production code: the regression test calls Fallback.getMessageHashForSafe and Kernel Actions.DeactivatePolicy, and neither symbol exists at 3ddd3245 (verified by git grep). The harness never modifies or replaces production code, so no honest overlay can host this test there; the record stays inconclusive with this reason rather than being upgraded.",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-02\\fixed",
+          "artifact": "experiments/2024-01-renft__M-02/fixed",
           "cached": true,
           "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
@@ -475,7 +475,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__M-02\\vulnerable",
+          "artifact": "experiments/2024-01-renft__M-02/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
@@ -504,7 +504,7 @@
       "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
       "revisions": {
         "fixed": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-04\\fixed",
+          "artifact": "experiments/2024-01-renft__H-04/fixed",
           "cached": true,
           "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
@@ -521,7 +521,7 @@
           "status": "pass"
         },
         "vulnerable": {
-          "artifact": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\experiments\\2024-01-renft__H-04\\vulnerable",
+          "artifact": "experiments/2024-01-renft__H-04/vulnerable",
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",

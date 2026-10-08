@@ -86,13 +86,13 @@ def main() -> int:
                          "the reason is recorded in the snapshot)")
     args = ap.parse_args()
     if args.resnapshot:
-        import hashlib as _hl
         from build_vbeta import SENTINELS
         snap = {"resnapshot_reason": args.resnapshot,
                 "sentinel_sha256": {
-                    s: _hl.sha256((V.ROOT / s).read_bytes()).hexdigest()
+                    s: V.text_file_sha256(V.ROOT / s)
                     for s in SENTINELS},
-                "note": "baseline: PRESENT must stay at these bytes; "
+                "note": "baseline: PRESENT must stay at this text "
+                        "(line-ending-independent hash); "
                         "validate_vbeta.py warns on drift"}
         V.write_json(V.VBETA_DIR / "present_snapshot.json", snap)
         V.log(f"resnapshotted: {args.resnapshot}")
@@ -307,14 +307,13 @@ def main() -> int:
     # ---- isolation (warn-only) --------------------------------------------
     try:
         snap = V.read_json(V.VBETA_DIR / "present_snapshot.json")
-        import hashlib
         drift = []
         for rel, old in snap.get("sentinel_sha256", {}).items():
             p = V.ROOT / rel
             if not p.exists():
                 drift.append(f"{rel}: missing")
                 continue
-            h = hashlib.sha256(p.read_bytes()).hexdigest()
+            h = V.text_file_sha256(p)
             if h != old:
                 drift.append(f"{rel}: drifted")
         rep.add("isolation", "present_sentinels_unchanged", not drift, drift,

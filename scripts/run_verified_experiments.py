@@ -37,7 +37,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import experiments as ex  # noqa: E402
-from vlun import REPORTS, log, write_json  # noqa: E402
+from vlun import REPORTS, ROOT, log, write_json  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # repositories
@@ -876,7 +876,7 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
                 "experiment_id": eid,
                 "commit": prior.get("repository", {}).get("commit"),
                 "cached": True,
-                "artifact": str(EXPERIMENTS_PATH(fid, label)),
+                "artifact": rel_artifact(EXPERIMENTS_PATH(fid, label)),
                 "exit_code": prior.get("exit_code"),
                 "declared_expectation": prior.get("declared_expectation"),
                 "declared_expected_status": rev.get("expected_status"),
@@ -945,7 +945,7 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
                              "forge_reason": ex.fail_reason(human, k),
                              "assertion_messages": logs[:4]})
         out["revisions"][label] = {"status": result.status, "experiment_id": eid,
-                                   "commit": info["head"], "artifact": str(d),
+                                   "commit": info["head"], "artifact": rel_artifact(d),
                                    "exit_code": result.exit_code,
                                    "declared_expectation": rev["expectation"],
                                    "declared_expected_status": rev.get("expected_status"),
@@ -977,6 +977,19 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
 
 def EXPERIMENTS_PATH(fid: str, label: str) -> Path:
     return ex.EXPERIMENTS / fid.replace("/", "__") / label
+
+
+def rel_artifact(p) -> str:
+    """Recorded artefact paths are repo-relative POSIX (machine-independent).
+
+    An absolute path only resolves on the machine that wrote it, so the
+    committed report must never carry one: validators resolve recorded
+    artefacts against the checkout root on every platform.
+    """
+    try:
+        return Path(p).relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(p)
 
 
 def same_test_on_both_revisions(exp: dict) -> tuple[bool, str]:
@@ -1087,6 +1100,12 @@ def main() -> int:
         try:
             prev = json.loads((REPORTS / "verified_experiments.json").read_text(encoding="utf-8"))
             for r in prev.get("experiments", []):
+                # Legacy entries may carry absolute artefact paths from the
+                # machine that recorded them; relativize on merge so a
+                # filtered run never re-commits a machine-specific path.
+                for _rev in (r.get("revisions") or {}).values():
+                    if isinstance(_rev, dict) and _rev.get("artifact"):
+                        _rev["artifact"] = rel_artifact(_rev["artifact"])
                 prior[r.get("finding_id")] = r
         except (OSError, json.JSONDecodeError):
             prior = {}

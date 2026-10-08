@@ -152,8 +152,13 @@ def main() -> int:
         for label, rev in exp.get("revisions", {}).items():
             art = rev.get("artifact")
             rj = None
+            _ap = None
             if art:
-                p = Path(art) / "result.json"
+                # Recorded artefacts are repo-relative POSIX; legacy absolute
+                # entries resolve on the machine that wrote them.
+                _ap = Path(art)
+                _ap = _ap if _ap.is_absolute() else ROOT / _ap
+                p = _ap / "result.json"
                 if p.exists():
                     import json
                     rj = json.loads(p.read_text(encoding="utf-8"))
@@ -169,8 +174,8 @@ def main() -> int:
                 "fork_required": False,
                 "fork_block": None,
                 "result": rev.get("status"),
-                "artifact_dir": str(Path(art).relative_to(ROOT)).replace("\\", "/")
-                                 if art else None,
+                "artifact_dir": str(_ap.relative_to(ROOT)).replace("\\", "/")
+                                 if _ap else None,
                 "artifact_hashes": (rj or {}).get("artifact_sha256"),
                 "harness_digest": (rj or {}).get("harness_digest"),
                 "production_files_modified":

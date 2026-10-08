@@ -1,0 +1,127 @@
+{
+  "files": {
+    "11e18e60b11645cd76c3beaaafcfcd843efec78f640610b45cc03064aace04fd": {
+      "shas": [
+        "4633085640f777ca0eeb894189d331f1c4c70a92",
+        "6b1b81f6c0310297f5b6cd9a258b99e43c61b092",
+        "6c3989dc8f5e2e7a0a60ad7792265ed246083219",
+        "b81a509b41524c896f8bfa75785b554496e16080",
+        "da89259c00235fdab7edbcb638ec04f3e360ef48",
+        "f95f9d5ac4ac31057cef185d57a1a7b03df5f199"
+      ],
+      "source_location": "V3/clones/zellic-publications/Revest Resonate Pt. 2 - Zellic Audit Report.pdf"
+    },
+    "211d9f985ff4b361e20bd9c8990b5bcfa84c9d44eea8ac5b481cdeda80198e69": {
+      "shas": [
+        "3e24c50fc1daec666a51e93756268512fb098182",
+        "4580ffc0747f463e304214bb29848e21e4e93e32",
+        "9f618708008e97e63efbe3f1a3a7f31ceb2c39d7",
+        "9f959f4fc492599ffc4a0bfa0d6e29d26b097b4e",
+        "a58639fb5458e65e4fa917ff951c390292c24a15",
+        "bb2f96c01607a30806cb2195b6a7feb9ca325826",
+        "d47a3745a7f3adf8f94d53c86bbcf8378b07be15"
+      ],
+      "source_location": "V3/clones/zellic-publications/Astria Bridge - Zellic Audit Report.pdf"
+    },
+    "338515c21be33c499e02da14ad34f338b085b214431c2608f3f5cffc1638804b": {
+      "shas": [
+        "06d1ecb8452c4ba034e746cf2d9cf1d85e262bfc",
+        "1740f6039ce7a43a00748806d4ed232d70207c02",
+        "334b6b3c0607cd38893b6367b6f28d2ddaa1b570",
+        "473667cb16b8d8d6a76b79c4bfdf0b07315db07f",
+        "5dd490517f774458ce11894174c45bcffc9dabdb",
+        "d3350e4c4ae59d6a99599fb9872b441347c382bd",
+        "ddf370922071c584a43aabe884616abd83520e4f"
+      ],
+      "source_location": "V3/clones/nethermind-audits/WORLD_RUST_2025_TO_2026.pdf"
+    },
+    "3476dc94d78734a0a81e40cf1d03fe4a0dba10c6819e26f03ffd6758b7b8203c": {
+      "shas": [
+        "28e9f694655e92e509b84fa1fe5b3152e8fb7412",
+        "58c4ac801a95236db24c0857f820bdf4935d5814"
+      ],
+      "source_location": "V3/clones/zellic-publications/Cultured - Zellic Audit Report.pdf"
+    },
+    "3a2d4f336fac6263649557824f0c57594708925352115797c1419b18115a5be2": {
+      "shas": [
+        "35663b74b13ac517593366909a81bfc9c2cc1a8b",
+        "95e7567a8b621618c1f2cc25dd86a4f8cc6fdd2c",
+        "a99ef204c12d55df664867ea535fe9a33140725f",
+        "b23d6371abaa9271053d26e0278f54168b150a93"
+      ],
+      "source_location": "V3/clones/nethermind-audits/NM_0555_SURGE_WITH_TAIKO.pdf"
+    },
+    "9433efa899e822ba553904b45e16c12f5f78679954f12c94e9964128de84790c": {
+      "shas": [
+        "0e1f258cb0435ff498ecb4e5904fdadae7a88188",
+        "1b9a002f39853a5f415cdead06f56aa1136dfd39",
+        "20abd9a02bd9da1711f2fc87ca97be3f82790336",
+        "238149578fe19dda3c904d30a651e8e9c1a9cbb1",
+        "2b5aaec16e69466a112de48e3f27ec45b51dd3ce",
+        "825723d0166e3ba02dd46900e582cbf82019d17b",
+        "8e781c122d462efd068aba2d5ff10eca8a6f6c90",
+        "9a31e844ed8c6fdecfe4bec00f4819e82f9496c9",
+        "a606ac705a4caaee81c67396d3d4c06266f94c59",
+        "abe1d78615984662c3a9f1f80a443ec51b889f2a",
+        "b779c7954d5b020e2dfe5e2763376ff5bfc721ad",
+        "e1b4c43ce0e8db013305c863f2127e264755a772"
+      ],
+      "source_location": "V3/clones/zellic-publications/Family Wallet - Zellic Audit Report.pdf"
+    },
+    "a878457d1d223917285e0782ddfb524c3d83263b0341b5cf64d5e8e28a48e689": {
+      "shas": [
+        "5f9724be5ad41500855c9c6e6f76037e438f320c",
+        "a30fd3d23b31dff26ded8abf373e0bc8050d08c7",
+        "ab48ba42f4f34873d65fd1737fabac5c680baff6"
+      ],
+      "source_location": "V3/clones/zellic-publications/Astria Geth - Zellic Audit Report.pdf"
+    },
+    "ad4b707444e7d5c9348cbb4ce0d680de116d2520dc0b6b2b1c8a93b5ae576f1f": {
+      "shas": [
+        "5aa867159939b0203421fc0359f2a8d1a7907286",
+        "5b1dbda8bfc80d9828e94004f19f5822be96d58c",
+        "c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+      ],
+      "source_location": "V3/clones/zellic-publications/Xion Passkeys - Zellic Audit Report.pdf"
+    },
+    "ae34403689db1d6b806a33b097e916c7139ffc6beb8c36d4323e02bf99b2f1bc": {
+      "shas": [
+        "bd325d56b4c62c9c5c1aff048c37c6bb18ac0290"
+      ],
+      "source_location": "V3/clones/sigmaprime-audits/reports/omni-network/Sigma Prime - Omni Network - Omni Portal - Security Assessment Report - v2.1.pdf"
+    },
+    "b77389c55abab1cba8a422ac34843a317de409d79b21a0a078c8f101bce53e63": {
+      "shas": [
+        "4ddf1402e81bb5d0f6ddaabfbd2f296721010c23",
+        "84ae2025b9620fd926d4e60673fcea2385c79d8a",
+        "ade7190314582a87df0083dfb139bef2652b104c"
+      ],
+      "source_location": "V3/clones/sigmaprime-audits/reports/dimo/review.pdf"
+    },
+    "cae0b20e893527cfca23acdc41f32960316268443624000399bd5711490b8ca0": {
+      "shas": [
+        "d8faad177e8fdaa3cf8b79bee452bf00050c7195",
+        "f92bbdf1d6fe5953974f42b42e653fc7542c46ff"
+      ],
+      "source_location": "V3/clones/zellic-publications/Claim and Rewards Programs - Zellic Audit Report.pdf"
+    },
+    "d77e585ab02214325b822bf07f5354d29f8526a58d052abc623cb783af6b35b2": {
+      "shas": [
+        "0000000000000000000000000000000000000001",
+        "0000000000000000000000000000000000000004",
+        "2ba49b1fba7162d80094dc2f2b6c5a3a4402e743",
+        "326ca35f4738f837ad9f335349fc71bdecf4c4ed",
+        "32e1a72a7c215563f9426bfe267b6fa22ba49b1f",
+        "3d4dc7e52709e6bbc279ff9cfa17dc5b00b2230e",
+        "444d8f47463d2f776a9be3d33f956f378a121b09",
+        "455fe586ea89fcf10afdaf0766da5151d163edc8",
+        "627dc2af9ee001b0e119100599dc3923ccdff2c5",
+        "ba17f6a540713740f7abcbce1ce42bc239de8e4c",
+        "bafac86e9ebc05a07701c151846c6de7bca68cd3",
+        "c5c72c0c727da13466d4fcd6dcd88d719f8b00b7"
+      ],
+      "source_location": "V3/clones/zellic-publications/Initia - Zellic Audit Report.pdf"
+    }
+  },
+  "generated_by": "scripts/build_source_sha_index.py"
+}

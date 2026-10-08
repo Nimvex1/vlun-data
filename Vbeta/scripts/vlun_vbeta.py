@@ -103,6 +103,18 @@ def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def text_file_sha256(path: Path) -> str:
+    """Line-ending-independent sha256 of a text file.
+
+    Text-mode read translates CRLF/CR to LF on every platform, so a file
+    checked out with CRLF (Windows/autocrlf) hashes identically to the
+    same file checked out with LF (Linux/CI). Byte hashes (read_bytes)
+    must never be used for cross-checkout sentinels.
+    """
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        return sha256_text(fh.read())
+
+
 def read_json(path: Path):
     with open(path, encoding="utf-8") as fh:
         return json.load(fh)

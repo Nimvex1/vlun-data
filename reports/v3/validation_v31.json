@@ -183,7 +183,7 @@
     {
       "check": "shas_present_in_source",
       "critical": true,
-      "detail": "30 SHAs re-checked against extracted source",
+      "detail": "30 SHAs checked against the committed source-SHA index",
       "failure_count": 0,
       "failures": [],
       "group": "no-invention",

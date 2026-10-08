@@ -1,10 +1,10 @@
 {
-  "note": "baseline: PRESENT must stay at these bytes; validate_vbeta.py warns on drift",
-  "resnapshot_reason": "terminal: README embeds settled 72/72 + 35/35 gate; snapshotted last, no further edits",
+  "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
+  "resnapshot_reason": "fixpoint: README settled at final gate counts after text-hash migration",
   "sentinel_sha256": {
     "README.md": "6ebb5c82096900cf89db0bce6dbcc409b1133599880de6417486a694a7abb2b7",
     "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
-    "derived_v3/manifest.json": "4d0c535db2c0df8df0c32eca35e18579cb48b53ce92bb63b86190abe854fe008",
+    "derived_v3/manifest.json": "f6f7918582d4b7c27d7d8c71281f625f96f08e5b1a0a15cb9482d09a51f93b76",
     "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",
     "scripts/vlun_v3.py": "d0785f7d9ee38d2c8e102bead09da81048278e0cba918e2f54e358314dd5c74a"
   }

@@ -185,44 +185,50 @@ def main() -> int:
     rep.add("vocabularies", "readiness_no_execution_claims", not bad_rd,
             bad_rd)
 
-    # ---- no-invention: SHAs re-found in parent source text -------------------
-    # SHAs live inside compressed PDF streams, so raw-byte search is wrong:
-    # re-resolve through the same deterministic extraction used to produce
-    # the fragment (temp-cached), whitespace-stripped on both sides.
+    # ---- no-invention: SHAs grounded in parent sources ----------------------
+    # Parent sources live in V3/clones (git-ignored, never redistributed),
+    # so the gate cannot re-read them on a fresh clone. It checks fragments
+    # against the committed SHA index (derived_v3/source_sha_index.json:
+    # file-sha256 -> SHAs found in the extracted source text; hashes only,
+    # no third-party prose). A parent with no index entry fails closed with
+    # the regen command.
     try:
-        sys.path.insert(0, str(V.ROOT / "scripts"))
-        import v31_extract as X  # noqa: E402
         ledger_by_id = {c["candidate_id"]: c for c in ledger}
+        _index = json.loads((V.DERIVED_V3 / "source_sha_index.json")
+                            .read_text(encoding="utf-8"))
+        _files_index = _index.get("files", {})
         sha_fails: list[str] = []
         checked = 0
-        texts: dict[str, str] = {}
         for f in frags:
             if f.get("fragment_status") != "admitted":
                 continue
-            if not f.get("commit_shas"):
+            full = [s.get("sha", "") for s in f.get("commit_shas", [])
+                    if SHA40.match(s.get("sha", ""))]
+            if not full:
                 continue
             parent = ledger_by_id.get(f.get("parent_candidate_id", ""))
             if parent is None:
                 sha_fails.append(f["fragment_id"] + ":parent-missing")
                 continue
-            pid = parent["candidate_id"]
-            if pid not in texts:
-                try:
-                    t, _q = X.get_text(parent)
-                except Exception:
-                    t = ""
-                texts[pid] = re.sub(r"\s+", "", t)
-            for s in f.get("commit_shas", []):
-                sha = s.get("sha", "")
-                if not SHA40.match(sha):
-                    continue
+            digest = ((f.get("source_span") or {}).get("file_sha256")
+                      or (parent.get("provenance") or {}).get("file_sha256")
+                      or "")
+            entry = _files_index.get(digest)
+            if not entry:
+                sha_fails.append(
+                    f["fragment_id"] + ":no-index-entry "
+                    "(regen: python scripts/build_source_sha_index.py)")
+                continue
+            have = set(entry.get("shas", []))
+            for sha in full:
                 checked += 1
-                if sha not in texts[pid]:
+                if sha not in have:
                     sha_fails.append(f["fragment_id"] + ":" + sha[:12])
         rep.add("no-invention", "shas_present_in_source",
                 not sha_fails, sha_fails,
-                detail=f"{checked} SHAs re-checked against extracted source")
-    except Exception as exc:  # extractor import failure is itself critical
+                detail=f"{checked} SHAs checked against the committed "
+                       f"source-SHA index")
+    except Exception as exc:  # missing/unreadable index is itself critical
         rep.add("no-invention", "shas_present_in_source", False, [str(exc)])
 
     # taxonomy-explicit only from Category fields: spot rule -- an explicit

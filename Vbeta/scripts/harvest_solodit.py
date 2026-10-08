@@ -287,12 +287,14 @@ def main() -> int:
                               encoding="utf-8-sig"))
     url_by_file = {}
     url_by_slug = {}
+    n_indexed = 0
     for r in index:
         if not isinstance(r, dict):
             continue
         url = (r.get("url") or {}).get("value")
         if not url:
             continue
+        n_indexed += 1
         url_by_slug[url.rsplit("/", 1)[-1]] = url
         if r.get("file"):
             url_by_file[r["file"]] = url
@@ -353,6 +355,8 @@ def main() -> int:
         "dataset_version": "vbeta-1.0",
         "files": len(files),
         "harvested": len(rows),
+        "indexed": n_indexed,
+        "indexed_from": "nextdata/_index_all_1926.json",
         "rejected": len(rejected),
         "rejections": [{"file": f, "reason": w} for f, w in rejected],
         "duplicates": duplicates,

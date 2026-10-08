@@ -119,10 +119,9 @@ class TestArtefacts(unittest.TestCase):
             self.assertEqual(t["answer"], str(recmap[t["finding_id"]]["source_tier"]))
 
     def test_present_sentinels_unchanged(self):
-        import hashlib
         snap = V.read_json(V.VBETA_DIR / "present_snapshot.json")
         for rel, old in snap["sentinel_sha256"].items():
-            cur = hashlib.sha256((V.ROOT / rel).read_bytes()).hexdigest()
+            cur = V.text_file_sha256(V.ROOT / rel)
             self.assertEqual(cur, old, f"PRESENT drifted: {rel}")
 
     def test_legacy_splits_pinned(self):

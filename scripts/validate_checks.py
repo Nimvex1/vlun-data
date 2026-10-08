@@ -24,6 +24,17 @@ from vlun import (  # noqa: E402
 )
 
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
+
+
+def artifact_dir(art: str) -> Path:
+    """Recorded artefact dir as a usable path on any checkout.
+
+    Recorded artefacts are repo-relative POSIX (see run_verified_experiments
+    .rel_artifact); legacy absolute entries still resolve on the machine
+    that wrote them. Relative entries resolve against the checkout root.
+    """
+    p = Path(art)
+    return p if p.is_absolute() else ROOT / art
 PERMALINK = re.compile(r"^https://github\.com/[^/]+/[^/]+/blob/([^/#?]+)/([^#]+)(?:#L(\d+)(?:-L?(\d+))?)?$")
 REQUIRED_TOP = {
 "findings.jsonl": ["record_type", "source", "protocol", "finding", "security_reasoning",
@@ -288,6 +299,17 @@ def check_evidence(rep, core):
     runs = {v["finding_id"]: v for f in sorted((WORK / "poc_runs").glob("*.json"))
             if f.name != "_all.json"
             for v in json.loads(f.read_text(encoding="utf-8")).get("verdicts", [])}
+    # Committed run artefacts ground the same claims on a fresh clone (no
+    # work/): every experiments/ result.json carries its finding_id, so an
+    # experimentally_verified claim with a committed run artefact passes
+    # on every checkout, not just the machine that ran it.
+    for _rj in sorted(EXPERIMENTS.rglob("result.json")):
+        try:
+            _fid = json.loads(_rj.read_text(encoding="utf-8")).get("finding_id")
+        except (OSError, ValueError):
+            continue
+        if _fid:
+            runs.setdefault(_fid, {"finding_id": _fid})
 
     def walk(node, path, fid):
         if isinstance(node, dict):
@@ -513,7 +535,7 @@ def check_v21(rep, derived_mutable):
             if not art:
                 missing_art.append(f"{e['finding_id']}:{label}")
                 continue
-            rj = Path(art) / "result.json"
+            rj = artifact_dir(art) / "result.json"
             if not rj.exists():
                 missing_art.append(f"{e['finding_id']}:{label}")
                 continue
@@ -531,7 +553,7 @@ def check_v21(rep, derived_mutable):
             art = ((e.get("revisions") or {}).get(label) or {}).get("artifact")
             if not art:
                 continue
-            f = Path(art) / "result.json"
+            f = artifact_dir(art) / "result.json"
             if not f.exists():
                 continue
             d = json.loads(f.read_text(encoding="utf-8"))

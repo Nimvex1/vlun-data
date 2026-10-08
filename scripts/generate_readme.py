@@ -264,9 +264,12 @@ def render() -> str:
     _vbsplits = {k: len(v) for k, v in ((_vbsplit.get("splits") or {}).items())}
     vbbm = jread(_vb / "benchmark_vbeta" / "vbeta_manifest.json", {}) or {}
     vbharv = jread(_vb / "reports_vbeta" / "solodit_harvest_stats.json", {}) or {}
-    _solodit_indexed = 0
+    # Indexed-issue count comes from the committed harvest stats (the URL
+    # index itself lives in git-ignored nextdata/, so a fresh clone must
+    # not rescan it). The local file is only a fallback for harvest-time.
+    _solodit_indexed = vbharv.get("indexed", 0) or 0
     _sidx = ROOT / "nextdata" / "_index_all_1926.json"
-    if _sidx.exists():
+    if not _solodit_indexed and _sidx.exists():
         try:
             _rows = json.loads(_sidx.read_text(encoding="utf-8-sig"))
             _solodit_indexed = sum(

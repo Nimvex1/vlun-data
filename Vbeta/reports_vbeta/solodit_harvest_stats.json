@@ -333,6 +333,8 @@
   "files": 734,
   "generated_by": "Vbeta/scripts/harvest_solodit.py",
   "harvested": 733,
+  "indexed": 1926,
+  "indexed_from": "nextdata/_index_all_1926.json",
   "languages": [
     "cairo",
     "go",
