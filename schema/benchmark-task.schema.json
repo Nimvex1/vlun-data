@@ -1,0 +1,55 @@
+{
+  "$id": "vlun-benchmark-task-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "required": [
+        "task_id"
+      ]
+    }
+  ],
+  "properties": {
+    "answer_key_status": {
+      "enum": [
+        "labeled",
+        "partial",
+        "unlabeled",
+        "unscorable"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "input": {
+      "type": "object"
+    },
+    "source": {
+      "type": "object"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test",
+        "quarantine",
+        "unknown"
+      ]
+    },
+    "task": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "input"
+  ],
+  "title": "VLUN benchmark task (any family)",
+  "type": "object"
+}

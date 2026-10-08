@@ -4,7 +4,7 @@ Counts recomputed from canonical files by `scripts/field_coverage.py`. `unknown`
 
 | Scope.field | Total | Known | Missing | Known % |
 |---|---|---|---|---|
-| `v1.derived.attacker_identity` | 722 | 290 | 432 | 40.2 |
+| `v1.derived.attacker_model.attacker_identity` | 722 | 290 | 432 | 40.2 |
 | `v1.derived.invariants` | 722 | 722 | 0 | 100.0 |
 | `v1.derived.security_state_transition` | 722 | 722 | 0 | 100.0 |
 | `v1.derived.taxonomy` | 722 | 722 | 0 | 100.0 |
@@ -22,9 +22,13 @@ Counts recomputed from canonical files by `scripts/field_coverage.py`. `unknown`
 | `v3.records.root_cause` | 5467 | 0 | 5467 | 0.0 |
 | `v3.records.severity` | 5467 | 4573 | 894 | 83.6 |
 | `vbeta.records.attack_sequence` | 719 | 0 | 719 | 0.0 |
+| `vbeta.records.decision` | 719 | 719 | 0 | 100.0 |
 | `vbeta.records.ecosystem` | 719 | 602 | 117 | 83.7 |
 | `vbeta.records.fix_description` | 719 | 0 | 719 | 0.0 |
 | `vbeta.records.impact` | 719 | 0 | 719 | 0.0 |
 | `vbeta.records.language` | 719 | 624 | 95 | 86.8 |
 | `vbeta.records.root_cause` | 719 | 0 | 719 | 0.0 |
-| `vbeta.records.severity` | 719 | 0 | 719 | 0.0 |
+| `vbeta.records.severity_observed` | 719 | 118 | 601 | 16.4 |
+| `vbeta.records.status_observed` | 719 | 64 | 655 | 8.9 |
+| `vbeta.records.title` | 719 | 719 | 0 | 100.0 |
+| `vbeta.records.verification_level` | 719 | 719 | 0 | 100.0 |

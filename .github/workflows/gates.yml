@@ -1,0 +1,25 @@
+name: gates
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run all gates
+        run: python scripts/run_gates.py
+      - name: Datasheets and schemas stay current
+        run: |
+          python scripts/build_schemas.py --check
+          python scripts/build_datasheet.py --check
+          python scripts/field_coverage.py --check
+          python scripts/generate_stats.py --check
+          python scripts/generate_readme.py --check
+          python Vbeta/scripts/build_vbeta.py --check

@@ -290,7 +290,9 @@ def main() -> int:
            "critical_failures": crit_fail,
            "dataset_version": V.DATASET_VERSION_V3}
     V.REPORTS_V3.mkdir(parents=True, exist_ok=True)
-    with open(V.REPORTS_V3 / "validation_v3.json", "w", encoding="utf-8") as fh:
+    # newline="\n": platform-stable LF output (see vlun_v3.write_json).
+    with open(V.REPORTS_V3 / "validation_v3.json", "w", encoding="utf-8",
+              newline="\n") as fh:
         json.dump(out, fh, indent=2, sort_keys=True)
     V.log(f"validate_v3.py: {passed}/{total} checks passed, "
           f"{crit_fail} critical failures")

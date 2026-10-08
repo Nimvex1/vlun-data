@@ -1,0 +1,29 @@
+{
+  "$id": "vlun-experiment-result-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "command": {
+      "type": "string"
+    },
+    "declared_expected_status": {
+      "enum": [
+        "pass",
+        "fail"
+      ],
+      "type": "string"
+    },
+    "experiment_id": {
+      "type": "string"
+    },
+    "finding_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "experiment_id",
+    "finding_id",
+    "command"
+  ],
+  "title": "VLUN experiment result (experiments/*/result.json)",
+  "type": "object"
+}

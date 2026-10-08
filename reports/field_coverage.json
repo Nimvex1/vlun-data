@@ -1,6 +1,6 @@
 {
   "fields": {
-    "v1.derived.attacker_identity": {
+    "v1.derived.attacker_model.attacker_identity": {
       "known": 290,
       "known_pct": 40.2,
       "total": 722,
@@ -105,8 +105,15 @@
     "vbeta.records.attack_sequence": {
       "known": 0,
       "known_pct": 0.0,
+      "note": "field absent in layer",
       "total": 719,
       "unknown_or_empty": 719
+    },
+    "vbeta.records.decision": {
+      "known": 719,
+      "known_pct": 100.0,
+      "total": 719,
+      "unknown_or_empty": 0
     },
     "vbeta.records.ecosystem": {
       "known": 602,
@@ -117,12 +124,14 @@
     "vbeta.records.fix_description": {
       "known": 0,
       "known_pct": 0.0,
+      "note": "field absent in layer",
       "total": 719,
       "unknown_or_empty": 719
     },
     "vbeta.records.impact": {
       "known": 0,
       "known_pct": 0.0,
+      "note": "field absent in layer",
       "total": 719,
       "unknown_or_empty": 719
     },
@@ -135,14 +144,33 @@
     "vbeta.records.root_cause": {
       "known": 0,
       "known_pct": 0.0,
+      "note": "field absent in layer",
       "total": 719,
       "unknown_or_empty": 719
     },
-    "vbeta.records.severity": {
-      "known": 0,
-      "known_pct": 0.0,
+    "vbeta.records.severity_observed": {
+      "known": 118,
+      "known_pct": 16.4,
       "total": 719,
-      "unknown_or_empty": 719
+      "unknown_or_empty": 601
+    },
+    "vbeta.records.status_observed": {
+      "known": 64,
+      "known_pct": 8.9,
+      "total": 719,
+      "unknown_or_empty": 655
+    },
+    "vbeta.records.title": {
+      "known": 719,
+      "known_pct": 100.0,
+      "total": 719,
+      "unknown_or_empty": 0
+    },
+    "vbeta.records.verification_level": {
+      "known": 719,
+      "known_pct": 100.0,
+      "total": 719,
+      "unknown_or_empty": 0
     }
   },
   "generated_by": "scripts/field_coverage.py"

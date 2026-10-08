@@ -48,6 +48,45 @@ def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
+def _immutable_citations(rec: dict) -> list[str]:
+    """Pinned-commit citation URLs on a derived record."""
+    urls = [c.get("source_url") for c in
+            (rec.get("code_context") or []) + (rec.get("code_reference_only") or [])
+            if c.get("source_url")]
+    return [u for u in urls if "/blob/" in u and len(u.split("/blob/")[1][:40]) == 40]
+
+
+def admits_finding(rec: dict) -> bool:
+    """verified_findings rule: immutable pinned citations AND at least one
+    cited file retrieved at its pinned commit. Pure; unit-tested."""
+    urls = [c.get("source_url") for c in
+            (rec.get("code_context") or []) + (rec.get("code_reference_only") or [])
+            if c.get("source_url")]
+    immutable = _immutable_citations(rec)
+    if not urls or not immutable:
+        return False
+    retrieved = [c for c in (rec.get("code_context_expanded") or [])
+                 if c.get("retrieved_locally")]
+    return bool(retrieved)
+
+
+def admits_exploit(rep: dict) -> bool:
+    """verified_exploits rule: executed at L5/L6. Pure; unit-tested."""
+    return rep.get("poc_level") in ("L5", "L6")
+
+
+def admits_patch(pv: dict) -> bool:
+    """verified_patches rule: fix confirmed effective. Pure; unit-tested."""
+    return pv.get("fix_effectiveness") == "effective"
+
+
+def admits_negative(n: dict) -> bool:
+    """verified_negatives rule: authoritative rejection evidence. Pure."""
+    return n.get("negative_class") in ("experimentally_verified",
+                                       "attributed",
+                                       "corroborated_duplicate")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--records", default=str(DERIVED / "records.jsonl"))
@@ -64,16 +103,14 @@ def main() -> int:
     findings = []
     for rec in records:
         rid = rec["id"]
+        if not admits_finding(rec):
+            continue
         urls = [c.get("source_url") for c in
                 (rec.get("code_context") or []) + (rec.get("code_reference_only") or [])
                 if c.get("source_url")]
-        immutable = [u for u in urls if "/blob/" in u and len(u.split("/blob/")[1][:40]) == 40]
-        if not urls or not immutable:
-            continue
+        immutable = _immutable_citations(rec)
         retrieved = [c for c in (rec.get("code_context_expanded") or [])
                      if c.get("retrieved_locally")]
-        if not retrieved:
-            continue
         f = rec.get("finding") or {}
         findings.append({
             "id": rid,
@@ -107,7 +144,7 @@ def main() -> int:
     # --------------------------------------------------------------- exploits
     exploits = []
     for fid, r in sorted(repro_by.items()):
-        if r["poc_level"] not in ("L5", "L6"):
+        if not admits_exploit(r):
             continue
         pv = patches.get(fid) or {}
         exploits.append({
@@ -130,7 +167,7 @@ def main() -> int:
     # ---------------------------------------------------------------- patches
     verified_patches = []
     for fid, pv in sorted(patches.items()):
-        if pv.get("fix_effectiveness") != "effective":
+        if not admits_patch(pv):
             continue
         verified_patches.append({
             "finding_id": fid,
@@ -154,8 +191,7 @@ def main() -> int:
     # --------------------------------------------------------------- negatives
     verified_negatives = []
     for fid, n in sorted(negatives.items()):
-        if n["negative_class"] not in ("experimentally_verified", "attributed",
-                                       "corroborated_duplicate"):
+        if not admits_negative(n):
             continue
         verified_negatives.append({
             "finding_id": fid,

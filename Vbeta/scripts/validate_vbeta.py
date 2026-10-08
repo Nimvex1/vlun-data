@@ -88,8 +88,7 @@ def main() -> int:
     if args.resnapshot:
         import hashlib as _hl
         from build_vbeta import SENTINELS
-        snap = {"resnapshotted_at": V.utcnow(),
-                "resnapshot_reason": args.resnapshot,
+        snap = {"resnapshot_reason": args.resnapshot,
                 "sentinel_sha256": {
                     s: _hl.sha256((V.ROOT / s).read_bytes()).hexdigest()
                     for s in SENTINELS},
@@ -261,6 +260,13 @@ def main() -> int:
                  and r["evidence"].get("proof_type")
                  not in ("published_poc_in_report", "none_observed")]
     rep.add("evidence", "proof_type_closed_vocab", not bad_proof, bad_proof)
+    bad_sevnorm = [r.get("finding_id") for r in records
+                   if r.get("severity_normalized")
+                   not in ("critical", "high", "medium", "low",
+                           "informational", "unknown")]
+    rep.add("evidence", "severity_normalized_closed_vocab", not bad_sevnorm,
+            bad_sevnorm,
+            detail="derived field only; severity_observed kept verbatim")
 
     # ---- counts --------------------------------------------------------------
     try:
@@ -318,7 +324,6 @@ def main() -> int:
 
     out = {"dataset_version": V.DATASET_VERSION_VB,
            "generated_by": "Vbeta/scripts/validate_vbeta.py",
-           "generated_at": V.utcnow(),
            "checks": rep.checks,
            "critical_failures": sum(1 for c in rep.checks
                                     if not c["ok"] and c["critical"])}

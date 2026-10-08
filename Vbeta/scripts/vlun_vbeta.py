@@ -35,6 +35,37 @@ SCHEMA_VERSION_VB = "vbeta-1.0"
 
 UNKNOWN = "unknown"
 
+# Closed vocabulary for the DERIVED severity field. The observed string is
+# always kept alongside (severity_observed); this mapping never overwrites
+# it. Unambiguous tokens map; anything else (Minor, Insight, empty) is
+# unknown with a reason — never forced into the nearest bucket.
+SEVERITY_NORMALIZED_VOCAB = (
+    "critical", "high", "medium", "low", "informational", "unknown",
+)
+
+_SEV_WORD = re.compile(
+    r"\b(critical|high|medium|low|informational|info)\b")
+
+
+def normalize_severity(raw) -> tuple[str, str]:
+    """Map an observed severity string to the closed vocabulary.
+
+    Returns (value, reason). First vocabulary word wins
+    ("**Impact:** High, ..." -> high); "info" alone counts as
+    informational; no match -> unknown.
+    """
+    if raw is None or not str(raw).strip():
+        return ("unknown", "no severity observed")
+    text = re.sub(r"\*+", "", str(raw)).strip()
+    m = _SEV_WORD.search(text.lower())
+    if not m:
+        return ("unknown",
+                f"no closed-vocab token in observed {raw!r:.60}")
+    word = m.group(1)
+    if word == "info":
+        return ("informational", f"'info' in observed {raw!r:.60}")
+    return (word, f"first closed-vocab token in observed {raw!r:.60}")
+
 VERIFICATION_LEVELS = ("L0", "L1", "L2", "L3", "L4", "L5", "L6")
 
 DECISIONS = (
@@ -89,14 +120,17 @@ def read_jsonl(path: Path) -> list[dict]:
 
 def write_json(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as fh:
+    # newline="\n": without it Windows text mode emits CRLF, making build
+    # output platform-dependent.
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(obj, fh, indent=2, sort_keys=True)
         fh.write("\n")
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as fh:
+    # newline="\n": see write_json — platform-stable LF output.
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
         for row in rows:
             fh.write(json.dumps(row, sort_keys=True) + "\n")
 

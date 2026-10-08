@@ -70,32 +70,62 @@ def cover(rows: list[dict], field: str, basis: bool = False) -> dict:
             "known_pct": round(100 * k / len(rows), 1) if rows else None}
 
 
+# Canonical field map per layer. Keys are the ACTUAL field paths in that
+# layer's records (v3 uses `severity`, Vbeta uses `severity_observed`).
+# tests/test_field_coverage.py imports this map and fails if any listed
+# field resolves to nothing on every record — silent-wrong-key bugs must
+# be caught by the gate, not by a reviewer.
+LAYER_FIELDS: dict[str, list[str]] = {
+    "v1.findings": ["finding.root_cause", "finding.summary",
+                    "finding.severity", "finding.vulnerability_classes",
+                    "finding.title", "finding.status"],
+    "v1.derived": ["attacker_model.attacker_identity", "invariants",
+                   "security_state_transition", "taxonomy"],
+    "v3.records": ["root_cause", "impact", "attack_sequence", "severity",
+                   "language", "ecosystem", "fix_description"],
+    "vbeta.records": ["severity_observed", "language", "ecosystem",
+                      "status_observed", "title", "decision",
+                      "verification_level"],
+}
+
+# Concepts with no key at all in a layer's records. Reported as
+# "field absent in layer" — distinct from 0% known. Absence is honest;
+# inventing the keys to report zeros would not be.
+LAYER_ABSENT: dict[str, list[str]] = {
+    "vbeta.records": ["root_cause", "impact", "attack_sequence",
+                      "fix_description"],
+}
+
+LAYER_FILES: dict[str, str] = {
+    "v1.findings": "jsonl/findings.jsonl",
+    "v1.derived": "derived/records.jsonl",
+    "v3.records": "derived_v3/records.jsonl",
+    "vbeta.records": "Vbeta/derived_vbeta/records.jsonl",
+}
+
+# Fields whose known-ness is judged by basis/evidence, not mere presence.
+BASIS_FIELDS = {"attacker_model.attacker_identity"}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
 
     rep: dict[str, dict] = {}
-    findings = jl(ROOT / "jsonl" / "findings.jsonl")
-    for f in ("finding.root_cause", "finding.summary", "finding.severity",
-              "finding.vulnerability_classes", "finding.title",
-              "finding.status"):
-        rep[f"v1.findings.{f}"] = cover(findings, f)
-    derived = jl(ROOT / "derived" / "records.jsonl")
-    rep["v1.derived.attacker_identity"] = cover(
-        derived, "attacker_model.attacker_identity", basis=True)
-    for f in ("invariants", "security_state_transition", "taxonomy"):
-        rep[f"v1.derived.{f}"] = cover(derived, f)
-    for layer, path in (("v3", ROOT / "derived_v3" / "records.jsonl"),
-                        ("vbeta", ROOT / "Vbeta" / "derived_vbeta"
-                         / "records.jsonl")):
+    for scope, rel in LAYER_FILES.items():
         try:
-            rows = jl(path)
+            rows = jl(ROOT / rel)
         except OSError:
             continue
-        for f in ("root_cause", "impact", "attack_sequence", "severity",
-                  "language", "ecosystem", "fix_description"):
-            rep[f"{layer}.records.{f}"] = cover(rows, f)
+        for f in LAYER_FIELDS[scope]:
+            rep[f"{scope}.{f}"] = cover(
+                rows, f, basis=(f in BASIS_FIELDS))
+        for f in LAYER_ABSENT.get(scope, []):
+            rep[f"{scope}.{f}"] = {"total": len(rows), "known": 0,
+                                   "unknown_or_empty": len(rows),
+                                   "known_pct": 0.0,
+                                   "note": "field absent in layer"}
 
     out_json = ROOT / "reports" / "field_coverage.json"
     lines = ["# Field coverage — what fraction of records carry each field",

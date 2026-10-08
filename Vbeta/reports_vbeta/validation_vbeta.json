@@ -280,6 +280,15 @@
       "ok": true
     },
     {
+      "check": "severity_normalized_closed_vocab",
+      "critical": true,
+      "detail": "derived field only; severity_observed kept verbatim",
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
       "check": "manifest_matches_files",
       "critical": true,
       "detail": null,
@@ -309,6 +318,5 @@
   ],
   "critical_failures": 0,
   "dataset_version": "vbeta-1.0",
-  "generated_at": "2026-10-07T18:41:06+00:00",
   "generated_by": "Vbeta/scripts/validate_vbeta.py"
 }

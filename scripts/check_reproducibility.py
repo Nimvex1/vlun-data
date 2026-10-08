@@ -308,13 +308,19 @@ def main() -> int:
              "dataset_version uniform per layer dir")
 
     # ---- 10. work/ never required ---------------------------------------------------
+    # Word-boundary match: the naive `"work/" in blob` also matches
+    # `network/`. The data-layer citations below are provenance notes (which
+    # builder script and raw payload produced a row), not load-bearing
+    # payloads: every citing row carries its usable content inline.
+    import re as _re
+    WORK_CITE = _re.compile(r"(?<![A-Za-z0-9_/.-])work/")
     needing_work = []
     for m in ["reports/dataset_stats.json", "derived_v3/manifest.json",
               "Vbeta/derived_vbeta/manifest.json", "benchmark/manifest.json",
               "benchmark/v3_manifest.json"]:
         try:
             blob = (ROOT / m).read_text(encoding="utf-8")
-            if "work/" in blob:
+            if WORK_CITE.search(blob):
                 needing_work.append(m)
         except OSError:
             pass
@@ -323,12 +329,34 @@ def main() -> int:
     else:
         G.ok("work/ artefacts never required", "no manifest references work/")
 
+    # ---- 10b. data-layer work/ citation census ----------------------------------
+    # 117 jsonl_ml rows (list_endpoint notes) + 16 benchmark L/P/Q tasks cite
+    # git-ignored work/ payloads as provenance. They are counted here, not
+    # hidden; usability holds because each citing row's content is inline.
+    def _rows_with_cite(path: Path) -> int:
+        try:
+            return sum(1 for line in
+                       path.read_text(encoding="utf-8").splitlines()
+                       if line.strip() and WORK_CITE.search(line))
+        except OSError:
+            return 0
+
+    ml_cited = sum(_rows_with_cite(p) for p in (ROOT / "jsonl_ml").glob("*.jsonl"))
+    bq_cited = sum(_rows_with_cite(ROOT / f) for f in
+                   ("benchmark/L_severity_reconciliation.jsonl",
+                    "benchmark/P_provenance_tier_and_rights.jsonl",
+                    "benchmark/Q_evidence_type_and_quality_rubric.jsonl"))
+    G.ok("data-layer work/ citations censused",
+         f"jsonl_ml={ml_cited} benchmark-LPQ={bq_cited} total="
+         f"{ml_cited + bq_cited} (provenance notes; content inline)")
+
     # ---- 10b. declared-ignored paths are actually ignored ----------------------
     # Docs claim nextdata/, .firecrawl/, work/, V3/clones/ are local-only.
     # This gate fails if any of them is tracked (grep git ls-files) or if
     # .gitignore stops declaring them. Documentation without enforcement
     # rots; this is the enforcement.
-    declared_ignored = ["nextdata/", ".firecrawl/", "work/", "V3/clones/"]
+    declared_ignored = ["nextdata/", ".firecrawl/", "work/", "V3/clones/",
+                        ".freebuff/", "brag-output/"]
     try:
         gi = (ROOT / ".gitignore").read_text(encoding="utf-8")
         missing_decl = [p for p in declared_ignored if p not in gi]

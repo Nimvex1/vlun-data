@@ -28,3 +28,9 @@ V3/clones/*
 # never appear in `git ls-files`.
 nextdata/
 .firecrawl/
+
+# Local tool markers and marketing media. brag-output/ held generated video
+# plus third-party audio SFX with no licence in this repo; if the video is
+# wanted, keep it outside the repository and link to it.
+.freebuff/
+brag-output/

@@ -1,6 +1,6 @@
 {
   "generated_by": "scripts/generate_reports.py",
-  "markdown_lines": 58,
+  "markdown_lines": 65,
   "note": "see reports/benchmark_metrics.md; metrics that need a predictor are reported as not measurable rather than estimated",
   "task_coverage": {
     "A_vulnerability_detection": {
@@ -174,6 +174,247 @@
       "partial": 0,
       "scorable": 7,
       "tasks": 7,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "K_language_ecosystem_routing": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 67,
+        "observed_fact": 70
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/K_language_ecosystem_routing.jsonl",
+      "labeled": 137,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "which language and which ecosystem does this finding concern?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "L_severity_reconciliation": {
+      "answer_key_evidence_levels": {
+        "reported_claim": 134,
+        "unknown": 3
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/L_severity_reconciliation.jsonl",
+      "labeled": 128,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 6,
+      "question": "what severity do the publishers agree on, and who says so?",
+      "scorable": 128,
+      "tasks": 137,
+      "unlabeled": 3,
+      "unscorable": 3
+    },
+    "M_experiment_level_classification": {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 37
+      },
+      "by_language": {
+        "move": 1,
+        "solidity": 34,
+        "vyper": 2
+      },
+      "by_split": {
+        "test": 1,
+        "train": 31,
+        "validation": 5
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/M_experiment_level_classification.jsonl",
+      "labeled": 37,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "which L0-L6 level and which outcome does this executed run earn?",
+      "scorable": 37,
+      "tasks": 37,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "N_attacker_identity_extraction": {
+      "answer_key_evidence_levels": {
+        "reported_claim": 24,
+        "unknown": 113
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/N_attacker_identity_extraction.jsonl",
+      "labeled": 14,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 10,
+      "question": "who does a source sentence say can act, and what is the sentence?",
+      "scorable": 14,
+      "tasks": 137,
+      "unlabeled": 113,
+      "unscorable": 113
+    },
+    "O_record_class_and_scope": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 45,
+        "externally_attributed": 8,
+        "reported_claim": 84
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/O_record_class_and_scope.jsonl",
+      "labeled": 137,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "what kind of record is this: advisory, incident, judged finding, audit finding, or out of scope?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "P_provenance_tier_and_rights": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/P_provenance_tier_and_rights.jsonl",
+      "labeled": 137,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "what tier and origin does each source admit under, and may it be redistributed?",
+      "scorable": 137,
+      "tasks": 137,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
+    "Q_evidence_type_and_quality_rubric": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 137
+      },
+      "by_language": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "by_split": {
+        "test": 31,
+        "train": 76,
+        "validation": 30
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
+      "labeled": 137,
+      "languages_allowed": [
+        "vyper",
+        "rust",
+        "move",
+        "cairo",
+        "solidity"
+      ],
+      "layer": "v2.2",
+      "partial": 0,
+      "question": "type every claim's evidence and apply the published quality rubric",
+      "scorable": 137,
+      "tasks": 137,
       "unlabeled": 0,
       "unscorable": 0
     }

@@ -26,18 +26,25 @@ written to `benchmark/*.jsonl` with `answer_key_status` and a reason, and are ex
 from any metric, because a key invented to fill a slot would measure the generator, not
 the model.
 
-| task | tasks | scorable | partial | unlabelled | train | validation | test |
-|---|---|---|---|---|---|---|---|
-| `A_vulnerability_detection` | 720 | 720 | 0 | 0 | 344 | 229 | 147 |
-| `B_root_cause_reasoning` | 720 | 0 | 416 | 304 | 344 | 229 | 147 |
-| `C_attacker_reasoning` | 720 | 290 | 0 | 430 | 344 | 229 | 147 |
-| `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 |
-| `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 |
-| `F_false_positive_rejection` | 458 | 17 | 0 | 441 | 232 | 188 | 38 |
-| `G_patch_verification` | 38 | 0 | 0 | 38 | 0 | 18 | 20 |
-| `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 |
-| `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 |
-| `J_verified_patch` | 7 | 7 | 0 | 0 | 0 | 7 | 0 |
+| task | tasks | scorable | partial | unlabelled | train | validation | test | majority |
+|---|---|---|---|---|---|---|---|---|
+| `A_vulnerability_detection` | 720 | 720 | 0 | 0 | 344 | 229 | 147 | 0.731 |
+| `B_root_cause_reasoning` | 720 | 0 | 416 | 304 | 344 | 229 | 147 | n/a |
+| `C_attacker_reasoning` | 720 | 290 | 0 | 430 | 344 | 229 | 147 | 0.493 |
+| `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 | n/a |
+| `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 | 0.714 |
+| `F_false_positive_rejection` | 458 | 17 | 0 | 441 | 232 | 188 | 38 | 1.000 SATURATED |
+| `G_patch_verification` | 38 | 0 | 0 | 38 | 0 | 18 | 20 | n/a |
+| `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | n/a |
+| `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 | 1.000 SATURATED |
+| `J_verified_patch` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | 1.000 SATURATED |
+| `K_language_ecosystem_routing` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | 0.372 |
+| `L_severity_reconciliation` | 137 | 128 | 6 | 3 | 76 | 30 | 31 | 0.320 |
+| `M_experiment_level_classification` | 37 | 37 | 0 | 0 | 31 | 5 | 1 | 0.946 SATURATED |
+| `N_attacker_identity_extraction` | 137 | 14 | 10 | 113 | 76 | 30 | 31 | 0.714 |
+| `O_record_class_and_scope` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | 0.372 |
+| `P_provenance_tier_and_rights` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | 0.577 |
+| `Q_evidence_type_and_quality_rubric` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | n/a |
 
 ## Held-out split composition (task A)
 
@@ -55,4 +62,4 @@ always-positive baseline scores that. Report it alongside any F1.
 - Task E is fully unlabelled right now (713 tasks): a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
 - Task G is unlabelled by construction. Nothing in this run demonstrates that any specific patch closes its vulnerability.
 - Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
-- No model has been evaluated. This file describes the instrument, not a result.
+- Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Families with majority accuracy >= 0.94 are marked SATURATED above — a model beat there carries no signal.

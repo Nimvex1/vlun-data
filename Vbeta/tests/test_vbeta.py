@@ -244,6 +244,16 @@ class TestSoloditHarvest(unittest.TestCase):
             self.assertEqual(r["evidence"]["proof_type"],
                              "published_poc_in_report")
 
+    def test_severity_normalized_closed_and_raw_kept(self):
+        for r in self.records:
+            self.assertIn(r.get("severity_normalized"),
+                          ("critical", "high", "medium", "low",
+                           "informational", "unknown"),
+                          r["finding_id"])
+            # The observed string is always kept alongside; the derived
+            # field never overwrites it.
+            self.assertIn("severity_observed", r, r["finding_id"])
+
     def test_quarantine_never_admitted_twice(self):
         rec_ids = {r["finding_id"] for r in self.records}
         dups = V.read_jsonl(V.DERIVED_VB / "duplicates.jsonl")

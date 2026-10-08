@@ -183,6 +183,8 @@ def main() -> int:
             "title": r["finding_title"],
             "description": description,
             "severity_observed": r["severity_observed"],
+            "severity_normalized": V.normalize_severity(
+                r["severity_observed"])[0],
             "status_observed": r["status_observed"],
             "language": r["language"],
             "ecosystem": r["ecosystem"],

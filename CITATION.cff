@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "VLUN: a provenance-preserving smart-contract security reasoning dataset"
+version: 2.2
+date-released: 2026-10-07
+repository-code: "https://github.com/Nimvex1/vlun-data"
+license: CC-BY-4.0
+keywords:
+  - smart contracts
+  - vulnerability detection
+  - security auditing
+  - software engineering
+  - machine learning
+  - blockchain
+authors:
+  - name: "Code4rena competitive-audit participants"
+    role: "finding authors (original audit sources)"
+  - name: "Professional audit firms and contest platforms"
+    role: "finding authors (see NOTICE.md and Vbeta ingestion reports)"
+abstract: >
+  A provenance-preserving corpus of smart-contract security findings across
+  Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and
+  Clarity. Every record traces to a public artefact and every claim carries
+  its evidence type. Governing rule: truth over scale; unknown is a counted
+  outcome. Data layers are CC BY 4.0; pipeline scripts are MIT; third-party
+  source is not licensed here at all (see NOTICE.md).
+preferred-citation:
+  type: dataset
+  title: "VLUN: a provenance-preserving smart-contract security reasoning dataset"
+  version: 2.2
+  repository-code: "https://github.com/Nimvex1/vlun-data"

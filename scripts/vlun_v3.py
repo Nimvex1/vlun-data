@@ -316,14 +316,17 @@ def read_jsonl(path: Path) -> list[dict]:
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as fh:
+    # newline="\n": without it Windows text mode emits CRLF, making build
+    # output platform-dependent. Committed files are LF (.gitattributes).
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
         for row in rows:
             fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def write_json(path: Path, obj: dict | list) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as fh:
+    # newline="\n": see write_jsonl — platform-stable LF output.
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(obj, fh, indent=2, ensure_ascii=False, sort_keys=True)
         fh.write("\n")
 

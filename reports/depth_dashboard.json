@@ -1,0 +1,63 @@
+{
+  "field_coverage_ref": "reports/field_coverage.json",
+  "generated_by": "scripts/depth_dashboard.py",
+  "layers": {
+    "v1": {
+      "levels": {
+        "L6": 7,
+        "note": "7 verified-effective patches (L6, both-legs forge runs); 9 pinpoint experiments, 2 inconclusive"
+      },
+      "records": 264,
+      "root_cause_known": 5
+    },
+    "v2.2": {
+      "levels": {
+        "L3": 1,
+        "L5": 35,
+        "L6": 1,
+        "none": 100
+      },
+      "levels_note": "executed-run levels over 37 runs; 'none' = no run",
+      "records": 137
+    },
+    "v3.0": {
+      "levels": {
+        "L0": 6831,
+        "L1": 881
+      },
+      "levels_note": "L0/L1 only by construction; nothing executed",
+      "records": 5467
+    },
+    "v3.2": {
+      "levels": {
+        "L3": 4,
+        "L5": 2
+      },
+      "levels_note": "fork-execution runs, not records",
+      "runs": 6
+    },
+    "vbeta": {
+      "levels": {
+        "L0": 787,
+        "L1": 57
+      },
+      "levels_note": "ledger-level; L0/L1 only by construction",
+      "records": 719
+    }
+  },
+  "prepared_experiments": [
+    {
+      "finding_id": "2024-01-renft/M-13",
+      "fix_merge_commit": "2e3e8dbca1330ca66d32a8bb9d3509abf043a758",
+      "fix_merge_date": "2024-02-15",
+      "fix_pr": "https://github.com/re-nft/smart-contracts/pull/10",
+      "mitigation": "confirmed by 3 reviewers (juancito, EV_om, sin1st3r__); fix commit absent from jsonl patch block (read-only layer left untouched)",
+      "pattern": "M-11 sibling (same Signer.sol EIP-712 domain)",
+      "status": "prepared, NOT executed (no verdict recorded)",
+      "title": "RentPayload's signature can be replayed",
+      "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b"
+    }
+  ],
+  "root_cause_corrections": 40,
+  "scope_note": "no new sources admitted in this pass (rule 3.3)"
+}

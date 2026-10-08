@@ -172,6 +172,20 @@ def build_benchmark_metrics() -> str:
     fp = jl(BENCH / "F_false_positive_rejection.jsonl")
     ev = jl(BENCH / "E_exploit_verification.jsonl")
     d_t = jl(BENCH / "D_exploit_construction.jsonl")
+    # Majority-baseline accuracy per family (recomputed by the scorer, read
+    # here — never typed). Families at >= 0.94 carry no signal: beating
+    # majority there proves nothing about a model.
+    maj = {}
+    try:
+        _bl = json.loads((REPORTS / "baselines"
+                          / "baseline_majority.json").read_text(
+                              encoding="utf-8"))
+        for _fam, _s in (_bl.get("families", {}) or {}).items():
+            if isinstance(_s, dict) and _s.get("accuracy") is not None:
+                maj[_fam[:-6] if _fam.endswith(".jsonl") else _fam] = \
+                    _s["accuracy"]
+    except (OSError, json.JSONDecodeError):
+        maj = {}
 
     pos = sum(1 for t in det if t["answer_key"]["label"] == "vulnerable")
     neg = sum(1 for t in det if t["answer_key"]["label"] == "no_confirmed_vulnerability")
@@ -244,14 +258,20 @@ def build_benchmark_metrics() -> str:
         "from any metric, because a key invented to fill a slot would measure the generator, not",
         "the model.",
         "",
-        "| task | tasks | scorable | partial | unlabelled | train | validation | test |",
-        "|---|---|---|---|---|---|---|---|",
+        "| task | tasks | scorable | partial | unlabelled | train | validation | test | majority |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for name, t in sorted(tasks.items()):
         bs = t.get("by_split", {})
+        ma = maj.get(name)
+        flag = ""
+        if ma is not None:
+            flag = f"{ma:.3f}" + (" SATURATED" if ma >= 0.94 else "")
+        else:
+            flag = "n/a"
         lines.append(f"| `{name}` | {t['tasks']} | {t['scorable']} | {t.get('partial', 0)} | "
                      f"{t.get('unlabeled', 0)} | {bs.get('train', 0)} | {bs.get('validation', 0)} | "
-                     f"{bs.get('test', 0)} |")
+                     f"{bs.get('test', 0)} | {flag} |")
 
     lines += [
         "",
@@ -277,7 +297,11 @@ def build_benchmark_metrics() -> str:
         f"- Counterexamples exist for only {ce.get('records_with_at_least_one_counterexample', 0)} "
         f"of {ce.get('confirmed_high_medium_records', 0)} confirmed High/Medium findings. The "
         "reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
-        "- No model has been evaluated. This file describes the instrument, not a result.",
+        "- Baseline predictors have been run (`reports/baselines/`, rubric in "
+        "`docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, "
+        "TF-IDF retrieval and seeded random. Families with majority accuracy "
+        ">= 0.94 are marked SATURATED above — a model beat there carries no "
+        "signal.",
         "",
     ]
     (MD / "benchmark_metrics.md").write_text("\n".join(lines), encoding="utf-8")

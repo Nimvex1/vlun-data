@@ -1,0 +1,81 @@
+{
+  "$id": "vlun-evidence-vocabulary-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "admission_decisions": [
+    "IMPORT",
+    "IMPORT_AS_UNVERIFIED",
+    "IMPORT_AS_NEGATIVE",
+    "CORROBORATION_ONLY",
+    "REJECT",
+    "RESEARCH_ONLY"
+  ],
+  "admitted_decisions": [
+    "IMPORT",
+    "IMPORT_AS_UNVERIFIED",
+    "IMPORT_AS_NEGATIVE"
+  ],
+  "count_domains": [
+    "source",
+    "report",
+    "candidate",
+    "admitted_record",
+    "rejected_candidate",
+    "unverified_record",
+    "research_only_record",
+    "negative_record",
+    "derived_record",
+    "preview_row",
+    "fragment",
+    "overlay",
+    "benchmark_task",
+    "benchmark_family",
+    "experiment",
+    "quarantine_row",
+    "split_pointer"
+  ],
+  "evidence_types": [
+    "observed_fact",
+    "reported_claim",
+    "derived_fact",
+    "experimentally_verified",
+    "externally_attributed",
+    "unverified",
+    "unknown"
+  ],
+  "layers": [
+    "v1",
+    "v2",
+    "v2.2",
+    "v3.0",
+    "v3.1",
+    "v3.2",
+    "vbeta"
+  ],
+  "negative_classes": [
+    "verified_non_exploit",
+    "externally_rejected",
+    "duplicate",
+    "out_of_scope",
+    "unknown"
+  ],
+  "patch_fields": [
+    "recommended_fix",
+    "team_reported_status",
+    "verified_patch"
+  ],
+  "splits": [
+    "train",
+    "validation",
+    "test"
+  ],
+  "title": "VLUN closed vocabularies (mirrors scripts/schema_terms.py)",
+  "verification_levels": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6"
+  ]
+}

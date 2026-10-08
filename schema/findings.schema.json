@@ -1,0 +1,48 @@
+{
+  "$id": "vlun-findings-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "dataset_version": {
+      "type": "string"
+    },
+    "finding": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "severity"
+      ],
+      "type": "object"
+    },
+    "protocol": {
+      "type": [
+        "object",
+        "string"
+      ]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "record_type": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "record_type",
+    "source",
+    "protocol",
+    "finding",
+    "provenance"
+  ],
+  "title": "VLUN v1 finding row (jsonl/)",
+  "type": "object"
+}

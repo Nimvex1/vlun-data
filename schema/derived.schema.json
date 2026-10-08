@@ -1,0 +1,37 @@
+{
+  "$id": "vlun-derived-2.2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "finding": {
+      "type": "object"
+    },
+    "id": {
+      "type": "string"
+    },
+    "taxonomy": {
+      "type": [
+        "object",
+        "string",
+        "null"
+      ]
+    },
+    "verification_level": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "finding",
+    "dataset_version"
+  ],
+  "title": "VLUN derived record (derived/, derived_v2_2/)",
+  "type": "object"
+}

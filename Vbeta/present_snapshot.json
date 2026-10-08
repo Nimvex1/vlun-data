@@ -1,12 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at these bytes; validate_vbeta.py warns on drift",
-  "resnapshot_reason": "terminal sequence: gate settled, README regenerated from settled numbers, snapshotted last",
-  "resnapshotted_at": "2026-10-07T18:40:45+00:00",
+  "resnapshot_reason": "terminal: Vbeta gate at 35 checks (severity_normalized added); README regenerated from settled numbers, snapshotted last",
   "sentinel_sha256": {
-    "README.md": "0456fab7d166c37da22e8df3cd4aef24d7c2ce853f29b998141dc57f9c5dd9b2",
+    "README.md": "890d5a4858f9d701b86fb41b545cd7ad9669e8af19438cd3540f722c4ca07e1c",
     "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
     "derived_v3/manifest.json": "4d0c535db2c0df8df0c32eca35e18579cb48b53ce92bb63b86190abe854fe008",
     "pyproject.toml": "2154dd230e94185f3eaee97aff3f50da7d7e671dde5b0b12d5b25921bd8e683e",
-    "scripts/vlun_v3.py": "5e02a0a614d832b7d07a269f9350edd44e7303baf766e0f54ba7ef0f758b967f"
+    "scripts/vlun_v3.py": "189fc891cce3c625118a1872a6624bc9357f3feddd7088ee83c6df4bff771875"
   }
 }

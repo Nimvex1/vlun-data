@@ -7,14 +7,14 @@ evidence level, patch state or record body was changed by this work.
 Regenerate the evidence with (all read-only except where noted):
 
 ```bash
-python scripts/check_manifests.py          # 101 count/reference checks
-python scripts/check_reproducibility.py    # 13 provenance/determinism checks
-python -m unittest discover -s tests       # 39 tests (incl. broken fixtures)
+python scripts/check_manifests.py          # 119 count/reference checks
+python scripts/check_reproducibility.py    # 16 provenance/determinism checks
+python -m unittest discover -s tests       # 44 tests (incl. broken fixtures)
 python scripts/validate.py                 # 71/71 (authorship gate)
 python scripts/validate_v3.py              # 33/33
 python scripts/validate_v31.py             # 32/32
 python Vbeta/scripts/validate_vbeta.py     # 0 critical failures
-python Vbeta/tests/test_vbeta.py           # 20/20
+python Vbeta/tests/test_vbeta.py           # 26/26
 python scripts/generate_stats.py --check   # current
 python scripts/generate_readme.py --check  # current
 ```
@@ -64,17 +64,17 @@ python scripts/generate_readme.py --check  # current
    checker asserts the linkage.
 5. Test fixtures contained 3 authoring bugs (bad overlap/gap/leak
    expectations, space-vs-underscore term). Fixed fixtures, not validators.
-6. No dataset inconsistency found: 101/101 manifest checks, 13/13
-   reproducibility checks (2 honest `skipped_no_network`), all authorship
+6. No dataset inconsistency found: 119/119 manifest checks, 16
+   reproducibility checks (14 pass, 2 honest `skipped_no_network`), all authorship
    gates green, README/stats `--check` current.
 
 ## PASS / FAIL / SKIPPED matrix
 
 | Command | Result |
 |---|---|
-| scripts/check_manifests.py | PASS (101/101) |
-| scripts/check_reproducibility.py | PASS (11 pass, 2 SKIPPED) |
-| tests/ (39) | PASS |
+| scripts/check_manifests.py | PASS (119/119) |
+| scripts/check_reproducibility.py | PASS (14 pass, 2 SKIPPED) |
+| tests/ (44) | PASS |
 | scripts/validate.py | PASS (71/71) |
 | scripts/validate_v3.py | PASS (33/33) |
 | scripts/validate_v31.py | PASS (32/32) |
@@ -99,11 +99,18 @@ Vbeta isolation intact (sentinels match `present_snapshot.json`).
   finding-IDs); first occurrence kept, 63 quarantined as CORROBORATION_ONLY
   with links in `derived_vbeta/duplicates.jsonl`. PoC-preferring keep rule:
   no quoted PoC is discarded with its row.
-- Per-field coverage: 11 of 24 tracked fields under 50% known
-  (`reports/field_coverage.md`).
-- Benchmark scoring: 10,215 exactly-scorable tasks at micro 0.7324
-  (majority) / 0.3675 (random-seed7); B/D/G/H/Q excluded with reasons
+- Per-field coverage (`reports/field_coverage.md`, regenerated
+  `scripts/field_coverage.py`): v1 root_cause 5/264 (1.9%), attacker model
+  290/722 known, Vbeta severity 118/719 (16.4%), v3 root_cause/impact 0%.
+- Benchmark scoring: 10,103 exactly-scorable tasks at micro 0.7296
+  (majority) / 0.3671 (random-seed7); B/D/G/H/Q excluded with reasons
   (`docs/RUBRIC.md`, `docs/ANSWER_KEY.md`, `reports/baselines/`).
+- `work/` posture: manifests never require `work/`; **133** shipped data
+  rows cite git-ignored payloads as provenance notes (117 `jsonl_ml`
+  list_endpoint notes + 16 benchmark L/P/Q input notes), pinned by
+  `check_manifests.py`. Each citing row's usable content is inline; the
+  raw advisory payloads are re-fetchable from GHSA/NVD APIs but no in-repo
+  builder restores them (only `build_vyper_ml.py --fetch` does, for vyper).
 - Scrape artefacts (`nextdata/`, `.firecrawl/`) are git-ignored local-only
   space, enforced by `check_reproducibility.py`; 1,192 of 1,926 issues
   still unscraped (credits), queued behind resume tooling.
