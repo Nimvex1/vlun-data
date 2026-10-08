@@ -94,6 +94,7 @@ def main() -> int:
     only = set(args.limit_sources.split(",")) if args.limit_sources else None
 
     V.log("normalize_v3.py: V3.1 evidence extraction (deterministic)")
+    _lib.reset_reject_sequences()
     missing = [spec["source_id"] for spec in V.SOURCES_V3
                if not (V.CLONES / spec["clone"]).exists()]
     if missing:

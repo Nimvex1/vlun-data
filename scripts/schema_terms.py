@@ -110,15 +110,20 @@ PATCH_FIELDS = (
 # ---------------------------------------------------------------------------
 # Deprecated / ambiguous terms. Validators reject these wherever they carry
 # dataset meaning (code constants, JSON values, manifest keys).
+#
+# The ban is on the bare two-word phrase "ground truth" (unqualified prose
+# claim). The tier-qualified FIELD form ground_truth="G<n>" (see
+# vlun_v3.SOURCES_V3) is exempt by construction: the underscore form never
+# matches this key, and the tier states exactly how strong the claim is.
 # ---------------------------------------------------------------------------
 
 DEPRECATED_TERMS = {
-    "verified_source": "say observed_source or ingested_source: only metadata was seen",
+    "verified source": "say observed_source or ingested_source: only metadata was seen",
     "reproduced": "say experimentally_verified (with artefact) or published_poc (L1)",
     "derived row": "say derived_record, preview_row, fragment or overlay explicitly",
     "Fixed (verified)": "team_reported_status Fixed is not verified_patch",
     "verified patch": "use the verified_patch field with artefacts, not prose",
-    "ground truth": "unqualified; say which tier/evidence backs the claim",
+    "ground truth": "unqualified truth claim; use a tiered ground_truth=G<n> field instead",
 }
 
 # Read-only (evidence) layers: no builder may write here. Enforced by
@@ -196,6 +201,31 @@ def level_not_experimental(record: dict) -> bool:
 
 def is_admitted(decision: str) -> bool:
     return decision in ADMITTED_DECISIONS
+
+
+# Import-time drift guards: the "single source of truth" claim is enforced
+# here, not just documented. A drifted copy fails the import.
+if set(POC_LEVELS) != set(VERIFICATION_LEVELS):
+    raise ImportError(
+        "schema_terms: poc_classification.POC_LEVELS keys "
+        f"{sorted(POC_LEVELS)} != VERIFICATION_LEVELS "
+        f"{sorted(VERIFICATION_LEVELS)} (L0-L6 ladder defined twice)")
+
+try:
+    _vb_dir = Path(__file__).resolve().parent.parent / "Vbeta" / "scripts"
+    if str(_vb_dir) not in sys.path:
+        sys.path.insert(0, str(_vb_dir))
+    import vlun_vbeta as _VBETA  # noqa: E402
+except ImportError:
+    _VBETA = None  # Vbeta layer absent: nothing to compare against
+if _VBETA is not None:
+    for _attr in ("DECISIONS", "VERIFICATION_LEVELS", "NEGATIVE_CLASSES"):
+        _mine = tuple(globals()[_attr])
+        _theirs = tuple(getattr(_VBETA, _attr))
+        if _mine != _theirs:
+            raise ImportError(
+                f"schema_terms: Vbeta vlun_vbeta.{_attr} drifted "
+                f"({_theirs} != {_mine})")
 
 
 __all__ = [

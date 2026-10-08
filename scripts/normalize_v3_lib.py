@@ -214,18 +214,21 @@ def map_taxonomy(category_reported: str | None, title: str,
                     f"auditor Category field exactly names VLUN class {v}"), \
                     [category_reported]
     text = f"{title}\n{body_sample}".lower()
-    fired: list[tuple[str, list[str]]] = []
+    fired: list[tuple[str, list[str], bool]] = []
     for cls, (strong, support) in TAX_SIGNALS.items():
         shits = sorted({p for p in strong if p in text})
         suphits = sorted({k for k in support if k in text})
         if shits or len(suphits) >= 2:
-            fired.append((cls, shits + suphits))
+            fired.append((cls, shits + suphits, bool(shits)))
     if not fired:
         return ["Unknown"], U, ("no explicit label and no multi-signal rule "
                                 "fired; left unknown"), []
-    fired.sort(key=lambda x: x[0])
-    classes = [c for c, _ in fired]
-    terms = sorted({t for _, ts in fired for t in ts})[:12]
+    # Strongest signal first (a strong-phrase hit outranks support-only),
+    # alphabetical within tiers so the order is deterministic. The old code
+    # sorted purely alphabetically, making "primary" alphabetical-first.
+    fired.sort(key=lambda x: (not x[2], x[0]))
+    classes = [c for c, _, _ in fired]
+    terms = sorted({t for _, ts, _ in fired for t in ts})[:12]
     return classes, "derived", ("conservative multi-signal keyword rules "
                                 "(1 strong phrase or >=2 support terms)"), terms
 LANG_SIGNALS = [
@@ -309,6 +312,17 @@ def _ov(target_id: str, field: str, old, new, evidence_type: str,
             "method": method, "source_span": span, "conflict": conflict,
             "normalization_version": NORM_VERSION}
 _REJ_SEQ: dict[str, int] = {}
+
+
+def reset_reject_sequences() -> None:
+    """Clear per-parent fragment sequence counters.
+
+    _RJ numbers rejected fragments per parent; without a reset, a second
+    in-process run continues numbering where the first stopped, so fragment
+    ids differ run-to-run and the "byte-identical" promise breaks. Call once
+    at the start of every top-level build (normalize_v3.main does).
+    """
+    _REJ_SEQ.clear()
 def _RJ(cand: dict, text: str, quality: dict, reason: str,
         span=None) -> dict:
     """Rejected-fragment constructor with per-parent unique sequence."""

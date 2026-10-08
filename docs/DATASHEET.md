@@ -13,9 +13,9 @@ ground truth. Governing rule: truth over scale.
 - v1 (immutable): 264 findings, 458 negatives, 155 exploits, 38 patches, 8 protocol rows, 11 metadata rows, 19 error rows.
 - v2.2 (five languages): 137 derived records.
 - V3.0: 5,467 admitted of 7,712 candidates across 18 sources; levels {"L0": 6831, "L1": 881}.
-- Vbeta (isolated): 719 admitted of 844 candidates across 12 sources; levels {"L0": 787, "L1": 57}.
+- Vbeta (isolated): 6,935 admitted of 7,060 candidates across 15 sources; levels {"L0": 7003, "L1": 57}.
 - Benchmark: 10,103 exactly-scorable tasks (majority micro-accuracy 0.7295852717014748); 490 manifest-scorable tasks need a judge or have no labels.
-- Field coverage: 4 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
+- Field coverage: 3 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process
 

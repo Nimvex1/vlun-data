@@ -1078,6 +1078,30 @@ def main() -> int:
     for i, exp in enumerate(reg, 1):
         log(f"[{i}/{len(reg)}] {exp['finding_id']}")
         results.append(run_one(exp, args.rerun, args.trace))
+    # A filtered run must not shrink the committed report (same guard as
+    # run_ml_pocs.py): experiments not repeated here keep their previously
+    # recorded verdicts, in registry order.
+    full = build_registry()
+    if len(reg) < len(full):
+        prior = {}
+        try:
+            prev = json.loads((REPORTS / "verified_experiments.json").read_text(encoding="utf-8"))
+            for r in prev.get("experiments", []):
+                prior[r.get("finding_id")] = r
+        except (OSError, json.JSONDecodeError):
+            prior = {}
+        have = {r.get("finding_id") for r in results}
+        merged = list(results)
+        for e in full:
+            fid = e["finding_id"]
+            if fid not in have and fid in prior:
+                merged.append(prior[fid])
+        pos = {e["finding_id"]: i for i, e in enumerate(full)}
+        merged.sort(key=lambda r: pos.get(r.get("finding_id"), len(pos)))
+        if len(merged) != len(results):
+            log(f"  merged {len(merged) - len(results)} previously recorded verdict(s) "
+                f"from outside this filtered run")
+        results = merged
     doc = {
         "generated_by": "scripts/run_verified_experiments.py",
         "experiments": results,

@@ -35,8 +35,9 @@ Checks:
                 corroboration endpoints exist; patch candidates resolve
   counts        normalization.json numbers recomputed from the files
   versions      normalization 3.1 + dataset 3.0 consistent everywhere
-  isolation     v1/v2/v2.2/v3.0 committed files byte-identical to origin/main
-                (V3.1 is additive; the gate diffs the git index)
+  isolation     V3.1 writes only V3.1 paths (filename disjointness vs every
+                protected layer file) plus worktree-dirt attribution as a
+                non-critical warning
 
 Writes reports/v3/validation_v31.json. Exit 1 on any critical failure.
 """
@@ -368,8 +369,9 @@ def main() -> int:
         rep.add("references", "benchmark_T_resolves", not t_bad, t_bad,
                 detail=f"{t_tasks} tasks checked")
     else:
-        rep.add("references", "benchmark_T_resolves", True,
-                detail="family T file absent (deferred)", critical=False)
+        rep.add("references", "benchmark_T_resolves", False, [],
+                detail="SKIPPED: family T file absent (no runs yet); "
+                       "not a pass", critical=False)
 
     # ---- experiments: artifacts complete, levels earned -------------------------
     proof_path = V.REPORTS_V3 / "experimental_proof.json"
@@ -418,9 +420,9 @@ def main() -> int:
             rep.add("experiments", "artifacts_complete_and_earned",
                     not exp_bad, exp_bad)
     else:
-        rep.add("experiments", "artifacts_complete_and_earned", True,
-                detail="no experimental_proof.json (no runs yet)",
-                critical=False)
+        rep.add("experiments", "artifacts_complete_and_earned", False, [],
+                detail="SKIPPED: no experimental_proof.json (no runs yet); "
+                       "not a pass", critical=False)
 
     crit_fail = sum(1 for c in rep.checks if c["critical"] and not c["ok"])
     total = len(rep.checks)

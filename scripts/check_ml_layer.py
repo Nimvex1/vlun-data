@@ -49,8 +49,8 @@ def main() -> int:
 
     log(f"ml layer check  dataset={DATASET_VERSION} schema={SCHEMA_VERSION}")
     if not ML_JSONL.exists():
-        log(f"{ML_JSONL.name}/ does not exist yet - no multi-language records")
-        return 0
+        log(f"SKIPPED: {ML_JSONL.name}/ does not exist - no multi-language records to check")
+        return 2
 
     total, errors = check_layer()
     if args.stats:

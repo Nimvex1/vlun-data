@@ -15,7 +15,6 @@ import json
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -224,15 +223,6 @@ def load_splits() -> dict[str, list[dict]]:
     return {s: read_jsonl(ROOT / "splits" / f"{s}.jsonl") for s in SPLITS}
 
 
-def core_rows() -> list[tuple[str, dict]]:
-    """Every record in `jsonl/` tagged with its file family."""
-    out = []
-    for family, fname in CORE_FILES.items():
-        for row in read_jsonl(JSONL / fname):
-            out.append((family, row))
-    return out
-
-
 def rec_id(row: dict) -> str:
     """Stable identifier for a record, independent of array position."""
     rid = row.get("finding", {}).get("id")
@@ -333,8 +323,3 @@ def rel(path: Path) -> str:
 
 def log(*args) -> None:
     print(*args, flush=True)
-
-
-def die(msg: str, code: int = 1):
-    log(f"ERROR: {msg}")
-    sys.exit(code)

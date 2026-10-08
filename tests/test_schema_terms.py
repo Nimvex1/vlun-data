@@ -113,6 +113,13 @@ class TestNoDriftedCopies(unittest.TestCase):
                          tuple(T.VERIFICATION_LEVELS))
         self.assertEqual(tuple(V.NEGATIVE_CLASSES), tuple(T.NEGATIVE_CLASSES))
 
+    def test_ladder_defined_once(self):
+        # The L0-L6 ladder lives in poc_classification and is re-exported;
+        # schema_terms fails at import on any drift (asserted here too).
+        from poc_classification import POC_LEVELS
+        self.assertEqual(set(POC_LEVELS), set(T.VERIFICATION_LEVELS))
+        self.assertEqual(len(T.VERIFICATION_LEVELS), 7)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

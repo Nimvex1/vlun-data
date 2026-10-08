@@ -1,11 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at these bytes; validate_vbeta.py warns on drift",
-  "resnapshot_reason": "terminal: README embeds settled 35/35 gate; snapshotted last, no further edits",
+  "resnapshot_reason": "terminal: README embeds settled 72/72 + 35/35 gate; snapshotted last, no further edits",
   "sentinel_sha256": {
-    "README.md": "a3ae434aae502bfd84038d7b6f8e084c4afd0b21e61606341c946adf7c91a918",
+    "README.md": "6ebb5c82096900cf89db0bce6dbcc409b1133599880de6417486a694a7abb2b7",
     "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
     "derived_v3/manifest.json": "4d0c535db2c0df8df0c32eca35e18579cb48b53ce92bb63b86190abe854fe008",
-    "pyproject.toml": "2154dd230e94185f3eaee97aff3f50da7d7e671dde5b0b12d5b25921bd8e683e",
-    "scripts/vlun_v3.py": "189fc891cce3c625118a1872a6624bc9357f3feddd7088ee83c6df4bff771875"
+    "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",
+    "scripts/vlun_v3.py": "d0785f7d9ee38d2c8e102bead09da81048278e0cba918e2f54e358314dd5c74a"
   }
 }

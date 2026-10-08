@@ -195,14 +195,19 @@ def classify(exploit: dict) -> dict:
 
 
 def level_for(classification: dict) -> dict:
-    """The maximum level justified by the *shape* alone. L2 and below."""
+    """The maximum level justified by the *shape* alone. L1 and below.
+
+    A quoted test is L1 (published PoC), never L2: L2 means the pipeline
+    reconstructed something, and classification happens before any
+    reconstruction. Only an actual run can produce L3 or above.
+    """
     cls = classification["poc_class"]
     if cls == "insufficient_evidence":
         return {"level": "L0", "basis": "no proof artefact is attached"}
     if cls == "already_runnable":
-        return {"level": "L2", "basis": "a complete test function is quoted; nothing has been executed"}
+        return {"level": "L1", "basis": "a complete test function is quoted; nothing has been executed or reconstructed"}
     if cls == "runnable_after_import_fix":
-        return {"level": "L2", "basis": "a test function is quoted but its imports are missing"}
+        return {"level": "L1", "basis": "a test function is quoted but its imports are missing; nothing reconstructed yet"}
     if cls == "runnable_after_harness_reconstruction":
         return {"level": "L1", "basis": "a test body is quoted; the author's harness is not"}
     if cls == "requires_fork":
@@ -241,8 +246,12 @@ def upgrade_from_experiment(level: str, experiment: dict) -> tuple[str, str]:
             if vs == "pass" and exp_v == "pass" and (experiment.get("match_test") or "").startswith("test_Vlun"):
                 return "L5", ("the harness asserts the exploit succeeds and it did on the "
                               "audited revision")
-            return "L5", ("the declared security-property assertion failed on the audited "
-                          "revision, which is the observed violation")
+            if vs == "fail" and exp_v == "fail":
+                return "L5", ("the declared security-property assertion failed on the audited "
+                              "revision, which is the observed violation")
+            return "L5", ("the declared exploit outcome was observed on the audited "
+                          "revision (expected status matched; no failure occurred, "
+                          "so no failure is claimed)")
         return "L4", "the reconstructed test executed; it did not demonstrate the claimed violation"
     if vs in ("compile_error", "toolchain_failure", "timeout"):
         return level, "the reconstructed harness could not be executed on this revision"

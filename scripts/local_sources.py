@@ -77,6 +77,17 @@ def repo_key_for_cited_file(owner: str, file: str) -> str:
     return f"{parts[0]}/{parts[1]}" if len(parts) > 2 else owner
 
 
+def _owner_of(row: dict) -> str | None:
+    """owner/repo for a record, or None when the record carries no
+    resolvable repository. Callers degrade to unknown/skip instead of
+    raising KeyError on records the validator tolerates."""
+    src = row.get("source") or {}
+    repo = src.get("repository")
+    if not repo:
+        return None
+    return f"{src.get('organization', 'code-423n4')}/{repo}"
+
+
 def classify_record_code(row: dict) -> str:
     """Licence class for the code a record cites.
 
@@ -94,14 +105,20 @@ def classify_record_code(row: dict) -> str:
     """
     note = (row.get("code_reference_only_note") or "").lower()
     classes = set()
+    _owner = _owner_of(row)
+    if _owner is None:
+        # No resolvable repository: nothing can be licence-checked, which is
+        # itself the answer (unknown), not a crash. The validator tolerates
+        # such records, so the analyser must too.
+        return "unknown"
     for e in (list(row.get("code_context") or []) + list(row.get("vulnerable_code") or [])):
         key = repo_key_for_cited_file(
-            f"{row['source'].get('organization', 'code-423n4')}/{row['source']['repository']}",
+            f"{_owner}",
             e.get("file") or "")
         classes.add(_license_by_repo().get(key, "unknown"))
     for e in (row.get("code_reference_only") or []):
         key = repo_key_for_cited_file(
-            f"{row['source'].get('organization', 'code-423n4')}/{row['source']['repository']}",
+            f"{_owner}",
             e.get("file") or "")
         classes.add(_license_by_repo().get(key, "unknown"))
     if not classes:
@@ -230,7 +247,9 @@ def _trim_functions(fns: list[dict], allow_text: bool) -> list[dict]:
 
 def enrich_all(row: dict) -> list[dict]:
     """Analyse every cited file of a record, honouring the licence gate."""
-    owner = f"{row['source'].get('organization', 'code-423n4')}/{row['source']['repository']}"
+    owner = _owner_of(row)
+    if owner is None:
+        return []
     cls = classify_record_code(row)
     allow = cls == "redistributable"
     entries = (list(row.get("code_context") or []) + list(row.get("vulnerable_code") or [])
@@ -254,7 +273,9 @@ def retrieved_coverage() -> dict:
     need, have = set(), set()
     for rows in core.values():
         for row in rows:
-            owner = f"{row['source'].get('organization', 'code-423n4')}/{row['source']['repository']}"
+            owner = _owner_of(row)
+            if owner is None:
+                continue
             for e in (list(row.get("code_context") or []) + list(row.get("vulnerable_code") or [])
                       + list(row.get("code_reference_only") or [])):
                 if not (e.get("commit_sha") and e.get("file")):

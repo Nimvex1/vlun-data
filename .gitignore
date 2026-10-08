@@ -34,3 +34,8 @@ nextdata/
 # wanted, keep it outside the repository and link to it.
 .freebuff/
 brag-output/
+
+# PEP 517 build artefacts: regenerable with `python -m build`, never source.
+build/
+dist/
+*.egg-info/

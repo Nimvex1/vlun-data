@@ -64,6 +64,24 @@ TRANSFER_RE = re.compile(r"\.(safeTransfer|safeTransferFrom|transfer|transferFro
 BALANCE_OF_RE = re.compile(r"\.balanceOf\s*\(")
 REENTRANCY_RE = re.compile(r"\bnonReentrant\b")
 
+# guard that names caller identity (msg.sender, tx.origin, an
+# access-control address, or a role an `onlyX` modifier implies)
+CALLER_IDENTITY_RES = [r"msg\.sender", r"tx\.origin", r"_?owner\b",
+                       r"_?admin\b", r"_?governor", r"_?guardian"]
+
+
+def _guard_names_caller(g: dict, roles: list[str]) -> bool:
+    """True when a parsed guard compares caller identity.
+
+    Operates on the guard's own subject/comparison text (never on an empty
+    string): a `require(msg.sender == owner)`-style guard is evidence of a
+    caller-identity check even without a role modifier.
+    """
+    needles = list(CALLER_IDENTITY_RES) + [re.escape(r) for r in roles]
+    text = f"{g.get('subject', '')} {g.get('comparison', '')}"
+    return bool(re.search(r"\b(" + "|".join(needles) + r")\b", text, re.I))
+
+
 # require/revert that guard something
 GUARD_RE = re.compile(
     r"\b(require|revert)\b[^;]*?([\w\.\[\]]+)\s*(==|!=|>|<|>=|<=)\s*([^;]+);", re.S)
@@ -173,18 +191,6 @@ def state_variables(src: str) -> list[dict]:
     return out
 
 
-def guards_sender_or_role(raw: str, roles: list[str]) -> list[dict]:
-    """Checks that a caller's identity or privilege is required.
-
-    A guard counts only when the comparison names msg.sender, tx.origin, an
-    access-control address, or the role an `onlyX` modifier implies.
-    """
-    needles = [r"msg\.sender", r"tx\.origin", r"_?owner\b", r"_?admin\b", r"_?governor", r"_?guardian"]
-    needles += [re.escape(r) for r in roles]
-    pat = re.compile(r"\b(" + "|".join(needles) + r")\b", re.I)
-    return [g for g in GUARD_RE.finditer(raw) if pat.search(g.group(2) + g.group(4))]
-
-
 def analyse(src: str, target_function: str | None = None) -> dict:
     """The fact bundle used by the hard-negative, counterexample and attacker
     model builders. Every value traces to a line in `src`."""
@@ -220,8 +226,16 @@ def access_control_summary(a: dict) -> dict:
                 "modifiers": t["modifiers"],
                 "evidence_type": "derived_fact",
                 "rule": "an onlyX-style modifier present on the function declaration"}
-    if guards_sender_or_role(strip_comments(""), []) or True:
-        pass
+    caller_guards = [g for g in (t.get("guards") or [])
+                     if _guard_names_caller(g, t["required_roles"])]
+    if caller_guards:
+        return {"verdict": "caller_identity_check_no_role",
+                "guards": [f"{g['subject']} {g['operator']} "
+                           f"{g['comparison']} (line {g['line']})"
+                           for g in caller_guards[:6]],
+                "evidence_type": "derived_fact",
+                "rule": "a guard compares caller identity "
+                        "(msg.sender/tx.origin/owner-like) without a role modifier"}
     if t["visibility"] == "internal" or t["visibility"] == "private":
         return {"verdict": "not_reachable_externally",
                 "visibility": t["visibility"], "evidence_type": "derived_fact",

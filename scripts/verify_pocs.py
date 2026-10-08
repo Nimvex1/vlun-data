@@ -60,10 +60,6 @@ def repo_dir(owner_repo: str) -> Path:
     return CLONES / owner_repo.replace("/", "__")
 
 
-def poc_tests_dir(root: Path) -> Path:
-    return root / POC_DIR
-
-
 # ---------------------------------------------------------------------------
 # stage: prepare
 # ---------------------------------------------------------------------------
@@ -200,16 +196,6 @@ def compile_project(root: Path, tc: dict, timeout: int) -> dict:
 # ---------------------------------------------------------------------------
 # stage: materialise PoCs
 # ---------------------------------------------------------------------------
-
-def infer_test_file(row: dict) -> str | None:
-    ex = row.get("exploit", {})
-    tf = (ex.get("test_file") or "").strip()
-    if tf:
-        return tf.replace("\\", "/")
-    # The report usually names a directory, e.g. "testFoundry\\testOracle.sol".
-    setup = (ex.get("setup") or "")
-    m = re.search(r"([A-Za-z0-9_./\\-]+\.sol)", setup)
-    return m.group(1).replace("\\", "/") if m else None
 
 
 def resolve_test_name(ex: dict) -> str | None:

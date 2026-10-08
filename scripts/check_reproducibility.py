@@ -175,25 +175,58 @@ def main() -> int:
              f"{len(gen_inputs)} artefacts")
 
     # ---- 6. read-only layers unwritable ---------------------------------------
+    # Resolves constant-based paths too (JSONL, ML_JSONL, V.JSONL_V3), so
+    # owner writes like V.write_jsonl(V.JSONL_V3 / ...) are attributed to
+    # their layer instead of evading a literal-"jsonl/" scan. Each
+    # read-only layer has exactly the writers below; anything else writing
+    # there fails the gate.
+    LAYER_OF_CONST = {"JSONL": "jsonl", "ML_JSONL": "jsonl_ml",
+                      "JSONL_V3": "jsonl_v3"}
+    READ_ONLY_OWNERS = {"jsonl": set(),
+                        "jsonl_ml": {"build_ml_ingest.py",
+                                     "build_vyper_ml.py"},
+                        "jsonl_v3": {"build_v3.py"}}
+    WRITE_VERBS = re.compile(
+        r"write_jsonl?|open\([^)]*['\"]w|write_text|\.mkdir\(|replace\(")
     offenders = []
-    for script in (ROOT / "scripts").glob("*.py"):
+    for script in sorted((ROOT / "scripts").glob("*.py")):
         if script.name in ("check_reproducibility.py", "check_manifests.py",
                            "schema_terms.py", "pdf_text.py"):
             continue
         text = script.read_text(encoding="utf-8", errors="ignore")
-        for layer in READ_ONLY_LAYERS:
-            # A builder references a read-only layer for writing if the layer
-            # path appears near a write call. Conservative pattern: the layer
-            # name inside a write_json/write_jsonl/out-file expression.
-            for m in re.finditer(rf"['\"]{layer}/", text):
-                window = text[max(0, m.start() - 400):m.start()]
-                if re.search(r"write_jsonl?|open\(.*['\"]w|Out-File|>\s*$|"
-                             r"write_text|replace\(", window):
-                    # Exclude Vbeta's own read-only *inputs* (it only reads
-                    # PRESENT; its writes assert inside Vbeta/).
-                    if "Vbeta" not in str(script):
-                        offenders.append(f"{script.name}: writes near {layer}/")
-                        break
+        touched: dict[str, list[int]] = {}
+        # Skip import statements including parenthesized continuations:
+        # they name constants and writers without calling anything.
+        code_lines = []
+        depth = 0
+        in_import = False
+        for lineno, line in enumerate(text.splitlines(), 1):
+            stripped = line.strip()
+            if re.match(r"^(import|from)\s", stripped):
+                in_import = True
+            if in_import:
+                depth += line.count("(") - line.count(")")
+                if depth <= 0:
+                    in_import = False
+                    depth = 0
+                continue
+            code_lines.append((lineno, line))
+        for lineno, line in code_lines:
+            if not WRITE_VERBS.search(line):
+                continue
+            for const, layer in LAYER_OF_CONST.items():
+                if re.search(rf"(?<![\w]){const}\b", line):
+                    touched.setdefault(layer, []).append(lineno)
+            for layer in READ_ONLY_LAYERS:
+                if re.search(rf"['\"]{layer}/", line):
+                    touched.setdefault(layer, []).append(lineno)
+        for layer, lines_ in touched.items():
+            if script.name not in READ_ONLY_OWNERS.get(layer, set()):
+                offenders.append(
+                    f"{script.name}:{lines_[0]} writes to read-only {layer}/ "
+                    f"(owners: {sorted(READ_ONLY_OWNERS.get(layer, [])) or 'none'})")
+    vbeta_build = (ROOT / "Vbeta" / "scripts" / "build_vbeta.py").read_text(
+        encoding="utf-8")
     vbeta_build = (ROOT / "Vbeta" / "scripts" / "build_vbeta.py").read_text(
         encoding="utf-8")
     if "assert_inside_vbeta" not in vbeta_build:

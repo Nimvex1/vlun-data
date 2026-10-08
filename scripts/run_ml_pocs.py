@@ -178,18 +178,6 @@ RE_PASS = re.compile(r"^\[PASS\]\s+(\S+)", re.M)
 RE_FAIL = re.compile(r"^\[FAIL(?:ure)?[^\]]*\]\s*(\S+)", re.M)
 
 
-def scrub(text: str) -> str:
-    if not text:
-        return ""
-    for base in (ROOT, ZENTORY_A, ZENTORY_B, KERF, QUANTILLON):
-        text = text.replace(str(base), "<repo>").replace(
-            str(base).replace("\\", "/"), "<repo>")
-    home = str(Path.home())
-    if home:
-        text = text.replace(home, "<home>")
-    return re.sub(r"[A-Za-z]:[\\/][^\s\"'<>|]*", "<path>", text)
-
-
 def _first_lines(cmd: list[str]) -> str:
     try:
         p = subprocess.run(cmd, capture_output=True, text=True, timeout=60,

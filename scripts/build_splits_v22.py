@@ -62,7 +62,19 @@ PROPORTION = {"train": 44, "validation": 29, "test": 27}
 # ---------------------------------------------------------------------------
 
 def rec_key(row: dict) -> str:
-    return row.get("id") or (row.get("finding") or {}).get("id") or "?"
+    """A stable identity for one row.
+
+    error/metadata/protocol rows carry no finding id. Keying them all as
+    "?" collapsed 30 distinct rows into one dict slot, so the straddle
+    post-check and the URL / repository isolation checks resolved every one
+    of them to a single arbitrary row. Fall back to the row's own sha256 —
+    the same digest pointer() records as record_sha256.
+    """
+    rid = row.get("id") or (row.get("finding") or {}).get("id")
+    if rid:
+        return rid
+    body = json.dumps(row, sort_keys=True, ensure_ascii=False)
+    return f"sha256::{sha256_text(body)}"
 
 
 def load_v1() -> dict[str, list[dict]]:
@@ -104,17 +116,6 @@ def canonical_key(row: dict, layer: str) -> str | None:
         return cf.get("value") if isinstance(cf, dict) else None
     cf = row.get("canonical_finding") or {}
     return cf.get("value") if isinstance(cf, dict) else None
-
-
-def group_key(row: dict, layer: str) -> str:
-    """The content identity a record is assigned under."""
-    ck = canonical_key(row, layer)
-    if ck:
-        return f"canonical::{ck}"
-    urls = sorted(source_urls(row, layer))
-    if urls:
-        return f"url::{urls[0]}"
-    return f"id::{rec_key(row)}"
 
 
 # ---------------------------------------------------------------------------

@@ -368,11 +368,11 @@ def norm_title(title: str) -> str:
     return re.sub(r"\s+", " ", (title or "").strip().lower())
 
 
-# --- quality scoring (spec section 26 weights; max 95 as specified) ----------
+# --- quality scoring (spec section 26 weights; max 77: 15+15+10+12+0+10+5+5+5) ---
 
 
 def quality_score(signals: dict) -> tuple[int, dict]:
-    """Deterministic 0-95 score from observed signals only.
+    """Deterministic 0-77 score from observed signals only.
 
     signals keys: tier, first_party, has_repo, has_commit40, specificity
     (0-3), poc (0-3: 0 none, 1 mentioned, 2 section+code, 3 executable file),

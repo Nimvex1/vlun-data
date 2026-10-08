@@ -420,6 +420,27 @@ def main() -> int:
             f"quarantined={report['splits_v2']['records_quarantined']} "
             f"{report['splits_v2']['quarantined']}")
         log(f"  after    : {report['splits_v2']['post_check']}")
+    # Exit code carries the verdict (a detector that only prints cannot fail
+    # a build). splits/ is the pre-quarantine INPUT: violations there are
+    # why this stage exists. splits_v2 (written here, or audited directly)
+    # is the SHIPPED artefact: any remaining violation fails the build.
+    if emit:
+        post = report["splits_v2"]["post_check"]
+        remaining = (post.get("near_duplicate_overlap", 0)
+                     + post.get("semantic_overlap", 0)
+                     + post.get("exact_finding_ids", 0)
+                     + len(post.get("repository_violations", [])))
+        if remaining:
+            log(f"LEAKAGE: {remaining} violation(s) remain after quarantine")
+            return 1
+        return 0
+    if args.input.rstrip("/").endswith("splits_v2"):
+        remaining = (report["near_duplicate_overlap"]["count"]
+                     + report["semantic_overlap"]["count"]
+                     + len(report["exact_overlap"]["finding_ids"]))
+        if remaining:
+            log(f"LEAKAGE: {remaining} violation(s) in shipped splits_v2")
+            return 1
     return 0
 
 

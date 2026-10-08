@@ -66,14 +66,15 @@ def load_core_dict():
     for fname, keys in REQUIRED_TOP.items():
         path = JSONL / fname
         rows = []
-        for i, line in enumerate(open(path, encoding="utf-8"), 1):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                bad_json.append(f"{fname}:{i} {exc}")
+        with open(path, encoding="utf-8") as fh:
+            for i, line in enumerate(fh, 1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rows.append(json.loads(line))
+                except json.JSONDecodeError as exc:
+                    bad_json.append(f"{fname}:{i} {exc}")
         core[fname] = rows
     return core, bad_json
 
@@ -203,7 +204,7 @@ def check_provenance(rep, core):
             for e in snippet_entries(r):
                 a, b = e.get("line_start"), e.get("line_end")
                 sn = e.get("snippet") or ""
-                if a and sn and sn.count("\n") + 1 > (b - a + 1) * 4:
+                if a and b and sn and sn.count("\n") + 1 > (b - a + 1) * 4:
                     snippet_mismatch.append(f"{fn} {rec_id(r)} {e.get('file')} "
                                             f"snippet far longer than its claimed range")
     rep.add("provenance", "snippet_length_plausible", not snippet_mismatch, snippet_mismatch,
@@ -310,6 +311,11 @@ def check_evidence(rep, core):
         for r in read_jsonl(p):
             walk(r, fn, (r.get("finding") or r.get("source_record") or {}).get("id") or r.get("id"))
     rep.add("evidence", "evidence_type_in_closed_vocabulary", not ev_bad, ev_bad)
+    # Collected by walk() above; without this rep.add the check silently
+    # does not exist. Stricter than the committed-artefact check below:
+    # these claims have no run artefact even under git-ignored work/.
+    rep.add("evidence", "experimentally_verified_has_any_run_artefact",
+            not verified_without_run, verified_without_run)
 
     # Every `experimentally_verified` claim must be backed by an artefact that is
     # IN THE REPOSITORY, not by something under git-ignored `work/`. This is what
@@ -751,12 +757,19 @@ def check_v22_layer(rep):
     import build_benchmark_v22 as _bb22
 
     # 1. jsonl_ml passes its own gate, re-run here in-process so it cannot be
-    #    skipped by forgetting to call scripts/check_ml_layer.py
-    _ml_total, _ml_errors = _ml.check_layer() if _ml.ML_JSONL.exists() else (0, [])
-    rep.add("v2.2", "ml_layer_passes_its_own_gate", not _ml_errors,
-            _ml_errors[:25],
-            detail=f"{_ml_total} jsonl_ml records checked in-process; "
-                   f"scripts/check_ml_layer.py runs the identical check_layer()")
+    #    skipped by forgetting to call scripts/check_ml_layer.py. A missing
+    #    layer is a recorded SKIP (warning), never a silent pass.
+    if not _ml.ML_JSONL.exists():
+        rep.add("v2.2", "ml_layer_passes_its_own_gate", False, [],
+                critical=False,
+                detail="SKIPPED: jsonl_ml/ absent; 0 records checked")
+        _ml_total, _ml_errors = 0, []
+    else:
+        _ml_total, _ml_errors = _ml.check_layer()
+        rep.add("v2.2", "ml_layer_passes_its_own_gate", not _ml_errors,
+                _ml_errors[:25],
+                detail=f"{_ml_total} jsonl_ml records checked in-process; "
+                       f"scripts/check_ml_layer.py runs the identical check_layer()")
 
     # 2. evidence walk over derived_v2_2: closed vocabulary, and no
     #    experimentally_verified record without an experiment behind it
@@ -810,7 +823,12 @@ def check_v22_layer(rep):
                 art_bad.append(f"{r['id']}: artefact missing: {rel}")
                 continue
             want = a.get("sha256")
-            if want and sha256_text(p.read_text(encoding="utf-8", errors="replace")) != want:
+            # Must match the producer exactly: build_derived_v22._artefact
+            # records sha256 over read_text (universal newlines, CRLF->LF).
+            # Hashing raw bytes instead fails on any CRLF checkout: the
+            # working tree is CRLF while the recorded hash is not.
+            if want and sha256_text(p.read_text(encoding="utf-8",
+                                                errors="replace")) != want:
                 art_bad.append(f"{r['id']}: artefact sha256 mismatch: {rel}")
     used = {eid for r in d22 for eid in ((r.get("experiment_view") or {}).get("experiment_ids") or [])}
     for e in idx.get("experiments", []):
@@ -923,7 +941,10 @@ def check_v22_layer(rep):
                                    f"answer_key_evidence_level={r.get('answer_key_evidence_level')!r}")
                 if seen_split.get(rec_id_part) != {r.get("split")}:
                     row_bad.append(f"{name} {rid} split disagrees with splits_v2_2")
-                elif r.get("answer_key_status") == "unlabeled" \
+                # Independent check, never elif'd onto the one above: an
+                # unlabeled row typed anything but unknown would otherwise
+                # pass silently whenever its split also disagreed.
+                if r.get("answer_key_status") == "unlabeled" \
                         and r.get("answer_key_evidence_level") != "unknown":
                     row_bad.append(f"{name} {rid} unlabeled typed "
                                    f"{r.get('answer_key_evidence_level')!r}, expected unknown")

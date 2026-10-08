@@ -432,36 +432,6 @@ SEMANTIC_CLASSES = (
     "implementation_specific",
 )
 
-# Section 2 normalisation: variant spellings collapse to one canonical label
-# while the original label is preserved on the record.
-ECOSYSTEM_NORMALIZE = {
-    "solana rust": "solana",
-    "rust / solana": "solana",
-    "solana / anchor": "anchor",
-    "anchor": "anchor",
-    "cosmos": "cosmos-sdk",
-    "cosmos sdk": "cosmos-sdk",
-    "evm": "evm",
-    "ethereum": "evm",
-    "bnb chain": "bnb-chain",
-    "starknet": "starknet",
-    "substrate": "substrate",
-    "polkadot": "substrate",
-    "kusama": "substrate",
-}
-
-LANGUAGE_NORMALIZE = {
-    "solana rust": "rust",
-    "rust / solana": "rust",
-    "solana / anchor": "rust",
-    "solidity / evm": "solidity",
-    "evm": "solidity",
-    "aptos move": "move",
-    "sui move": "move",
-    "cairo / starknet": "cairo",
-    "clarity": "clarity",
-}
-
 SEVERITY_NORMALIZE = {
     "critical": "critical",
     "high": "high",
@@ -477,42 +447,11 @@ def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def normalize_ecosystem(raw: str | None) -> tuple[str | None, str | None]:
-    """Return (canonical, original). Unknown input stays (None, original)."""
-    if raw is None or (isinstance(raw, str) and not raw.strip()):
-        return None, raw
-    key = raw.strip().lower()
-    return ECOSYSTEM_NORMALIZE.get(key, key), raw
-
-
-def normalize_language(raw: str | None) -> tuple[str | None, str | None]:
-    if raw is None or (isinstance(raw, str) and not raw.strip()):
-        return None, raw
-    key = raw.strip().lower()
-    return LANGUAGE_NORMALIZE.get(key, key), raw
-
-
 def normalize_severity(raw: str | None) -> tuple[str | None, str | None]:
     if raw is None or (isinstance(raw, str) and not raw.strip()):
         return None, raw
     key = raw.strip().lower()
     return SEVERITY_NORMALIZE.get(key, "unknown"), raw
-
-
-def normalize_repo_url(raw: str | None) -> str | None:
-    if not raw or not isinstance(raw, str):
-        return None
-    url = raw.strip().rstrip("/")
-    if url.endswith(".git"):
-        url = url[:-4]
-    return url or None
-
-
-def source_by_name(name: str) -> dict | None:
-    for src in MANDATORY_SOURCES:
-        if src["source_name"] == name:
-            return src
-    return None
 
 
 def validate_ingestion_record(rec: dict) -> list[str]:

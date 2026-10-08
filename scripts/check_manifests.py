@@ -32,7 +32,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from schema_terms import (  # noqa: E402
     ADMITTED_DECISIONS,
     DECISIONS,
+    TerminologyError,
     VERIFICATION_LEVELS,
+    check_no_deprecated,
     is_admitted,
 )
 from vlun import rec_id  # noqa: E402
@@ -655,6 +657,20 @@ def main() -> int:
     F.add("vbeta", "records", "duplicate canonical ids", [],
           [i for i, c in dup_check_b.items() if c > 1],
           "finding_id uniqueness")
+
+    # ---- deprecated terminology in closed-vocab values ------------------------
+    # Production caller for schema_terms.check_no_deprecated: closed-vocab
+    # JSON values (decisions, levels) must never carry deprecated terms.
+    dep_bad = []
+    for _r in ledb:
+        for _f in ("decision", "verification_level"):
+            try:
+                check_no_deprecated(str(_r.get(_f) or ""),
+                                    f"ledger:{_r.get('candidate_id')}")
+            except TerminologyError:
+                dep_bad.append(f"{_r.get('candidate_id')}:{_f}")
+    F.add("vbeta", "ledger", "no deprecated terms in closed values", [],
+          dep_bad[:10], "schema_terms.check_no_deprecated")
 
     # ---- schema agreement + sample validation ---------------------------------
     # Schemas are generated FROM schema_terms.py, so agreement is proven by

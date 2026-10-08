@@ -5,10 +5,8 @@
 # need no third-party package at all.
 #
 #     pip install -r requirements.txt          # everything optional
-#     pip install "vlun-data[static-analysis]"   # the extra is named
-#                                                # static-analysis in pyproject.toml
-#     # NOTE: pip has no `--extra` flag for requirements files; install the
-#     # extra from the project (line above), not from this file.
+#     pip install "vlun-data[static-analysis]"   # the same slither pin, pulled
+#                                                # through the named extra
 
 # --- core (no third-party imports; listed for completeness) ---
 # json, hashlib, re, subprocess, collections, dataclasses, pathlib, statistics
@@ -17,7 +15,10 @@
 # `run_static_analysis.py` degrades gracefully and records
 # `status: unavailable` when slither is absent, so this is optional. Without it,
 # the repository simply has no static-analysis signal (see README limitations).
-slither-analyzer>=0.10.0 ; extra == "static-analysis"
+# Unconditional on purpose: `extra` is undefined inside a requirements file, so
+# a `; extra == "static-analysis"` marker silently skipped this line and the
+# file installed nothing. The named extra lives in pyproject.toml.
+slither-analyzer>=0.10.0
 
 # --- toolchain the experiments need, not installable via pip ------------------
 # git      >= 2.30   (clone + object identity for citation resolution)

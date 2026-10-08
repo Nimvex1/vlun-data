@@ -1,5 +1,5 @@
 {
-  "checks": 71,
+  "checks": 72,
   "dataset_version": "2.2",
   "details": [
     {
@@ -166,6 +166,15 @@
     },
     {
       "check": "evidence_type_in_closed_vocabulary",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "experimentally_verified_has_any_run_artefact",
       "critical": true,
       "detail": null,
       "failure_count": 0,
@@ -647,13 +656,13 @@
   "groups": {
     "audit_sources": 5,
     "consistency": 9,
-    "evidence": 6,
+    "evidence": 7,
     "provenance": 6,
     "splits": 3,
     "structure": 5,
     "v2.1": 24,
     "v2.2": 13
   },
-  "passed": 71,
+  "passed": 72,
   "warnings": 0
 }

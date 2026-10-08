@@ -467,8 +467,8 @@ never deleted. Benchmark families A-V are machine-readable under `benchmark/` (A
 `Vbeta/benchmark_vbeta/` (U-V) with manifests; answer keys rebuild from the records, and
 families that need experimentally produced ground truth only admit rows that have it.
 
-| Family | Tasks | Scorable | Layer |
-|---|---|---|---|
+| Family | Tasks | Scorable | Saturated | Layer |
+|---|---|---|---|---|
 {_bench_rows}
 {_v3bench_rows}
 {_vbbench_rows}
@@ -610,9 +610,12 @@ and the Vbeta gate enforce it per layer.
 - Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files) and
   `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
   rebuild from the records).
-- Admission-filtered records: `datasets/` (each with a published rule), `derived_v3/records.jsonl`,
-  `Vbeta/derived_vbeta/records.jsonl` (each row carries `decision`, `verification_level`,
-  `language`, `ecosystem`, `benchmark_split`).
+- Admission-filtered records: `datasets/` (each row carries a published
+  `admission_rule`), `derived_v3/records.jsonl` (each row carries `decision`,
+  `verification_level`, `language`, `ecosystem`, `benchmark_split`),
+  `Vbeta/derived_vbeta/records.jsonl` (each row carries `decision`,
+  `verification_level`, `language`, `ecosystem`; the split lives in the
+  benchmark manifests under `Vbeta/benchmark_vbeta/`).
 - Splits never leak across train/validation/test by repository or source; duplicates sit in
   `quarantine`, never deleted. Check any of this with `scripts/check_manifests.py`.
 

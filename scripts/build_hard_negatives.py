@@ -178,12 +178,6 @@ def gate_for(snippets: list[dict], claim_text: str = "") -> dict | None:
     return fallback
 
 
-# retained name: classify_negatives.py and the stats consumers read the builder
-# through build_negative, which calls gate_for.
-def role_gate_for(snippets: list[dict], claim_text: str = "") -> dict | None:
-    return gate_for(snippets, claim_text)
-
-
 def build_negative(row: dict) -> dict:
     rid = rec_id(row)
     na = row.get("negative_analysis") or {}

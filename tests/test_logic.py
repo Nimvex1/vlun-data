@@ -198,6 +198,112 @@ class TestNormalizationLogic(unittest.TestCase):
             {"vulnerability_classes": ["no/such-class"]})["category"],
             "Unknown")
 
+    def test_local_sources_tolerates_missing_source(self):
+        # Records the validator tolerates (no source.repository) must not
+        # crash the analyser: unknown/empty, never KeyError.
+        from local_sources import (classify_record_code, enrich_all,
+                                   retrieved_coverage)
+        bare = {"record_type": "metadata"}
+        self.assertEqual(classify_record_code(bare), "unknown")
+        self.assertEqual(enrich_all(bare), [])
+        self.assertIsInstance(retrieved_coverage(), dict)
+
+    def test_taxonomy_strongest_first_not_alphabetical(self):
+        from normalize_v3_lib import map_taxonomy
+        # Both fire; the strong-phrase class must lead, not the
+        # alphabetical-first one.
+        labels, conf, _, _ = map_taxonomy(
+            None, "Reentrancy attack via callback",
+            "external call before state change")
+        self.assertEqual(labels[0], "Reentrancy")
+        self.assertEqual(conf, "derived")
+
+    def test_reject_sequences_reset(self):
+        import normalize_v3_lib as lib
+        lib._REJ_SEQ["x"] = 5
+        lib.reset_reject_sequences()
+        self.assertEqual(lib._REJ_SEQ, {})
+
+
+class TestSolidityFactsGuards(unittest.TestCase):
+    SRC_OWNER_CHECK = """
+contract Vault {
+    address public owner;
+    function withdraw(uint256 amount) public {
+        require(msg.sender == owner, "not owner");
+        payable(msg.sender).transfer(amount);
+    }
+}
+"""
+
+    SRC_PLAIN_CHECK = """
+contract Vault {
+    uint256 public total;
+    function deposit(uint256 amount) public {
+        require(amount > 0, "zero");
+        total += amount;
+    }
+}
+"""
+
+    def test_owner_check_gets_identity_verdict(self):
+        from solidity_facts import access_control_summary, analyse
+        a = analyse(self.SRC_OWNER_CHECK, target_function="withdraw")
+        out = access_control_summary(a)
+        self.assertEqual(out["verdict"], "caller_identity_check_no_role")
+        self.assertEqual(out["evidence_type"], "derived_fact")
+        self.assertNotIn("no caller-identity comparison exists",
+                         out["rule"])
+
+    def test_plain_check_keeps_old_verdict(self):
+        from solidity_facts import access_control_summary, analyse
+        a = analyse(self.SRC_PLAIN_CHECK, target_function="deposit")
+        out = access_control_summary(a)
+        self.assertEqual(out["verdict"], "input_guards_present_no_role_check")
+
+    def test_guard_helper_never_scans_empty_string(self):
+        from solidity_facts import _guard_names_caller
+        # The old dead line passed strip_comments("") — always []. A guard
+        # dict with real caller-identity text must match instead.
+        self.assertFalse(_guard_names_caller(
+            {"subject": "", "comparison": ""}, []))
+        self.assertTrue(_guard_names_caller(
+            {"subject": "msg.sender", "comparison": "owner"}, []))
+        self.assertFalse(_guard_names_caller(
+            {"subject": "amount", "comparison": "0"}, []))
+
+
+class TestPocClassification(unittest.TestCase):
+    def test_quoted_is_l1_never_l2(self):
+        # L2 means the pipeline reconstructed something; classification
+        # happens before any reconstruction, so quoted tests are L1.
+        from poc_classification import level_for
+        self.assertEqual(
+            level_for({"poc_class": "already_runnable"})["level"], "L1")
+        self.assertEqual(
+            level_for({"poc_class": "runnable_after_import_fix"})["level"],
+            "L1")
+        self.assertEqual(
+            level_for({"poc_class": "insufficient_evidence"})["level"], "L0")
+
+    def test_l5_rationale_never_claims_unhappened_failure(self):
+        from poc_classification import upgrade_from_experiment
+        base = {"revisions": {"vulnerable": {"status": "pass",
+                                             "declared_expected_status": "pass"}},
+                "classification": "already_runnable"}
+        lvl, rationale = upgrade_from_experiment("L1", dict(
+            base, match_test="some_other_test"))
+        self.assertEqual(lvl, "L5")
+        self.assertNotIn("failed", rationale)
+        self.assertIn("no failure", rationale)
+        # Genuine fail/fail keeps the failure rationale.
+        lvl2, rationale2 = upgrade_from_experiment("L1", {
+            "revisions": {"vulnerable": {"status": "fail",
+                                         "declared_expected_status": "fail"}},
+            "classification": "already_runnable"})
+        self.assertEqual(lvl2, "L5")
+        self.assertIn("failed", rationale2)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

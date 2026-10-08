@@ -98,48 +98,6 @@ def classify_harness_files(harness: dict[str, str], third_party: set[str]) -> di
     return {"authored": authored, "withheld": withheld}
 
 
-def resolve_withheld_harness(clone: Path, commit: str, path: str) -> str | None:
-    """Re-read a withheld overlay file from the local clone, if it is there."""
-    try:
-        r = subprocess.run(["git", "show", f"{commit}:{path}"], cwd=str(clone),
-                           capture_output=True, timeout=300)
-        return r.stdout.decode("utf-8", "replace") if r.returncode == 0 else None
-    except Exception:  # noqa: BLE001
-        return None
-
-
-def write_artifacts(finding_id: str, revision_label: str, harness: dict[str, str],
-                    result: RunResult, command: str, extra: dict | None = None,
-                    trace: str | None = None, repo_info: dict | None = None,
-                    third_party: set[str] | None = None,
-                    commit: str | None = None) -> Path:
-    """experiments/<finding_id>/<revision_label>/ — small, hashed, git-committable.
-
-    Files declared third-party are not written. They are recorded by path,
-    sha256 and size so a third party can verify the bytes they would get from
-    the upstream repository without this repository redistributing them.
-    """
-    safe = finding_id.replace("/", "__").replace("\\", "__")
-    d = EXPERIMENTS / safe / revision_label
-    (d / "harness").mkdir(parents=True, exist_ok=True)
-    split = classify_harness_files(harness, third_party or set())
-    for rel in split["authored"]:
-        target = d / "harness" / rel
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(harness[rel], encoding="utf-8", newline="\n")
-    if split["withheld"]:
-        write_json(d / "harness" / "WITHHELD.json", {
-            "why": ("these harness files are verbatim copies from the audited repository, "
-                    "which is licensed BUSL-1.1 (use permitted, redistribution not). They "
-                    "are not published here."),
-            "how_to_obtain": ("git show <commit>:<path> in the audited repository; the "
-                              "sha256 below is the hash of the exact bytes that were "
-                              "compiled in this experiment."),
-            "commit": commit,
-            "files": split["withheld"],
-        })
-    (d / "command.txt").write_text(command + "\n", encoding="utf-8")
-
 # Toolchain requirements recorded per experiment so a replay knows what to install.
 TOOLCHAIN = {
     "forge": "foundry (forge 1.8.3 or any 1.x)",

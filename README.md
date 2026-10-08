@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 71/71 · v3.0 33/33 · v3.1 32/32 · Vbeta 35/35. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
+Gates (0 critical failures everywhere): v2 72/72 · v3.0 33/33 · v3.1 32/32 · Vbeta 35/35. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
 
 Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 0/5,467 (L0/L1-only by construction) · Vbeta 0/6,935 (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -127,8 +127,8 @@ never deleted. Benchmark families A-V are machine-readable under `benchmark/` (A
 `Vbeta/benchmark_vbeta/` (U-V) with manifests; answer keys rebuild from the records, and
 families that need experimentally produced ground truth only admit rows that have it.
 
-| Family | Tasks | Scorable | Layer |
-|---|---|---|---|
+| Family | Tasks | Scorable | Saturated | Layer |
+|---|---|---|---|---|
 | `A_vulnerability_detection` | 720 | 720 |  | v1/A-Q |
 | `B_root_cause_reasoning` | 720 | 0 |  | v1/A-Q |
 | `C_attacker_reasoning` | 720 | 290 |  | v1/A-Q |
@@ -289,9 +289,12 @@ and the Vbeta gate enforce it per layer.
 - Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files) and
   `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
   rebuild from the records).
-- Admission-filtered records: `datasets/` (each with a published rule), `derived_v3/records.jsonl`,
-  `Vbeta/derived_vbeta/records.jsonl` (each row carries `decision`, `verification_level`,
-  `language`, `ecosystem`, `benchmark_split`).
+- Admission-filtered records: `datasets/` (each row carries a published
+  `admission_rule`), `derived_v3/records.jsonl` (each row carries `decision`,
+  `verification_level`, `language`, `ecosystem`, `benchmark_split`),
+  `Vbeta/derived_vbeta/records.jsonl` (each row carries `decision`,
+  `verification_level`, `language`, `ecosystem`; the split lives in the
+  benchmark manifests under `Vbeta/benchmark_vbeta/`).
 - Splits never leak across train/validation/test by repository or source; duplicates sit in
   `quarantine`, never deleted. Check any of this with `scripts/check_manifests.py`.
 
