@@ -264,12 +264,9 @@
     {
       "check": "worktree_dirt_attribution",
       "critical": false,
-      "detail": "8 dirty entries under data dirs, 2 not from V3.1 outputs",
-      "failure_count": 2,
-      "failures": [
-        " M reports/v3/validation_v3.json",
-        "?? derived/root_cause_candidates.jsonl"
-      ],
+      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

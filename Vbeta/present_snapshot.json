@@ -1,6 +1,6 @@
 {
   "note": "baseline: PRESENT must stay at these bytes; validate_vbeta.py warns on drift",
-  "resnapshot_reason": "terminal: Vbeta gate at 35 checks (severity_normalized added); README regenerated from settled numbers, snapshotted last",
+  "resnapshot_reason": "final regen: baselines refreshed post-quarantine; README regenerated from settled numbers",
   "sentinel_sha256": {
     "README.md": "890d5a4858f9d701b86fb41b545cd7ad9669e8af19438cd3540f722c4ca07e1c",
     "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
