@@ -73,7 +73,13 @@ VERIFICATION_STATES = (
     "INCONCLUSIVE",
 )
 
-EXPERIMENT_LEVELS = tuple(f"L{i}" for i in range(7))
+# Canonical L0-L6 ladder: single source of truth is
+# scripts/poc_classification.py::POC_LEVELS (derived, never re-typed).
+try:
+    from poc_classification import POC_LEVELS as _POC_LEVELS  # noqa: E402
+    EXPERIMENT_LEVELS = tuple(_POC_LEVELS)
+except ImportError:  # pragma: no cover
+    EXPERIMENT_LEVELS = tuple(f"L{i}" for i in range(7))
 
 # L0 is prose only; L6 needs the same exploit to reproduce on the vulnerable
 # revision and be blocked on the fixed revision. The mapping is stated once so

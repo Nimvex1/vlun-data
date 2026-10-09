@@ -1,0 +1,59 @@
+# Local safety net: the CI --check gates catch stale docs/manifests only
+# after push. These hooks run the same fast read-only checks before commit.
+#
+# Install once:  pip install pre-commit && pre-commit install
+# Run by hand:   pre-commit run --all-files
+#
+# Slow gates (check_reproducibility rebuilds, full unit tests) stay in CI
+# only: they need clones/network and minutes. Everything here is seconds
+# and writes nothing.
+repos:
+  - repo: local
+    hooks:
+      - id: readme-current
+        name: README/NOTICE generated and current
+        entry: python scripts/generate_readme.py --check
+        language: system
+        pass_filenames: false
+        files: ^(README\.md|NOTICE\.md|reports/.*|derived_v3/manifest\.json|Vbeta/derived_vbeta/manifest\.json|benchmark/.*)$
+      - id: manifests
+        name: cross-manifest count integrity
+        entry: python scripts/check_manifests.py --quiet
+        language: system
+        pass_filenames: false
+        files: ^(jsonl/.*|jsonl_ml/.*|jsonl_v3/.*|derived/.*|derived_v2_2/.*|derived_v3/.*|splits.*|benchmark/.*|Vbeta/.*|reports/.*)$
+      - id: line-endings
+        name: no CRLF would be committed
+        entry: python scripts/check_line_endings.py --quiet
+        language: system
+        pass_filenames: false
+      - id: stats-current
+        name: generated stats/datasheet/schemas current
+        entry: python scripts/generate_stats.py --check
+        language: system
+        pass_filenames: false
+        files: ^(reports/dataset_stats\.json|derived/.*|jsonl/.*)$
+      - id: ml-layer
+        name: multi-language layer gate
+        entry: python scripts/check_ml_layer.py --quiet
+        language: system
+        pass_filenames: false
+        files: ^(jsonl_ml/.*|scripts/vlun_ml\.py|scripts/check_ml_layer\.py)$
+      - id: unit-tests-fast
+        name: fast unit tests (no live gates)
+        entry: python -m unittest tests.test_logic tests.test_splits tests.test_schema_terms tests.test_packaging tests.test_v32_execution tests.test_benchmark_b_g tests.test_artefact_hashes tests.test_publish_manifest tests.test_baselines
+        language: system
+        pass_filenames: false
+        files: ^(scripts/.*|tests/.*)$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-json
+        exclude: ^(V3/clones/|work/|nextdata/|\.firecrawl/|\.freebuff/|brag-output/)
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=2048']
+        exclude: ^(V3/clones/|work/|nextdata/|\.firecrawl/)

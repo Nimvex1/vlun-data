@@ -11,14 +11,14 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 |---|---|---|---|
 | v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **7** L6 verified patches |
 | v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` |
-| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | L0/L1 only — nothing executed in this pass |
+| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 6831, "L1": 754, "L3": 125, "L5": 2}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 72/72 · v3.0 33/33 · v3.1 32/32 · Vbeta 35/35. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
+Gates (0 critical failures everywhere): v2 72/72 · v3.0 40/40 · v3.1 35/35 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 0/5,467 (L0/L1-only by construction) · Vbeta 0/6,935 (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -89,7 +89,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   (severity explicit on 4,231);
   taxonomy explicit on 596, derived on
   1,497, unknown elsewhere — by rule, not by optimism.
-- **V3.2:** 127/129 incident PoCs compile (L3);
+- **V3.2:** 127/129 incident PoCs compile (L3); 127 admitted v3 records now carry a run artefact (levels `{"L0": 6831, "L1": 754, "L3": 125, "L5": 2}`),
   2 thefts reproduced on fork with attacker-profit
   evidence; 4 blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
@@ -130,12 +130,12 @@ families that need experimentally produced ground truth only admit rows that hav
 | Family | Tasks | Scorable | Saturated | Layer |
 |---|---|---|---|---|
 | `A_vulnerability_detection` | 720 | 720 |  | v1/A-Q |
-| `B_root_cause_reasoning` | 720 | 0 |  | v1/A-Q |
+| `B_root_cause_reasoning` | 720 | 228 | SATURATED | v1/A-Q |
 | `C_attacker_reasoning` | 720 | 290 |  | v1/A-Q |
 | `D_exploit_construction` | 720 | 346 |  | v1/A-Q |
 | `E_exploit_verification` | 720 | 7 |  | v1/A-Q |
 | `F_false_positive_rejection` | 458 | 17 | SATURATED | v1/A-Q |
-| `G_patch_verification` | 38 | 0 |  | v1/A-Q |
+| `G_patch_verification` | 38 | 7 | SATURATED | v1/A-Q |
 | `H_verified_exploit` | 7 | 7 |  | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | SATURATED | v1/A-Q |
 | `J_verified_patch` | 7 | 7 | SATURATED | v1/A-Q |
@@ -149,24 +149,24 @@ families that need experimentally produced ground truth only admit rows that hav
 | `R_v3_source_tier_routing` | 5,467 | 5,467 |  | v3 |
 | `S_v3_contest_outcome` | 1,072 | 1,072 | SATURATED | v3 |
 | `T_v31_taxonomy_explicit` | 589 | 589 | SATURATED | v3 |
-| `vbeta_U_language_routing` | 6,218 | 6,218 |  | Vbeta |
+| `vbeta_U_language_routing` | 6,218 | 6,218 | SATURATED | Vbeta |
 | `vbeta_V_source_tier_routing` | 6,935 | 6,935 | SATURATED | Vbeta |
 
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 10,103 of
-10,593 manifest-scorable tasks
+`docs/ANSWER_KEY.md`) covers 22,148 of
+22,638 manifest-scorable tasks
 (D generative, Q judge-graded, H descriptive excluded with reasons).
 Published deterministic baselines, micro-accuracy / coverage:
-majority 0.7296 ·
-random-seed7 0.3671 ·
-frequency-seed7 0.6151 ·
-first-published 0.0070 @
+majority 0.8725 ·
+random-seed7 0.3608 ·
+frequency-seed7 0.8135 ·
+first-published 0.0032 @
 71 tasks ·
-majority-published 0.0070 @
+majority-published 0.0032 @
 71 tasks ·
-TF-IDF retrieval 0.8900.
-Families marked SATURATED (majority >= 0.94: F, I, J, M, S, T, V)
+TF-IDF retrieval 0.9257.
+Families marked SATURATED (majority >= 0.94: B, F, G, I, J, M, S, T, U, V)
 carry no signal — a model beat there proves nothing. Family A majority accuracy
 differs by split (see baseline reports); a split-blind floor is a validity
 hazard. `scripts/check_manifests.py` recomputes every one of these

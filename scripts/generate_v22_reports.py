@@ -422,7 +422,7 @@ def main() -> int:
     md = quality_report_md(s)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "quality_report.md").write_text(
-        md.encode("ascii", "replace").decode("ascii"), encoding="utf-8")
+        md.encode("ascii", "replace").decode("ascii"), encoding="utf-8", newline="\n")
     log(f"wrote {OUT / 'quality_report.md'}")
     log(f"wrote {OUT / 'dataset_summary.json'} and {OUT / 'benchmark.json'}")
     log(f"records={s['derived_records']['records']} "

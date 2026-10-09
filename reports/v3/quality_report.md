@@ -13,7 +13,7 @@ Additive layer: v1/v2.2 artefacts untouched. Clone working trees (~3.1 GB) are N
 - c4-reserve-findings: discovered=117 imported=107 negative=0 corroboration=1 research_only=9 rejected=0 levels={'L0': 117}
 - certora-reports: discovered=200 imported=0 negative=0 corroboration=0 research_only=200 rejected=0 levels={'L0': 200}
 - cyba-audits: discovered=14 imported=0 negative=0 corroboration=0 research_only=14 rejected=0 levels={'L0': 14}
-- defihacklabs: discovered=878 imported=878 negative=0 corroboration=0 research_only=0 rejected=0 levels={'L1': 878}
+- defihacklabs: discovered=878 imported=878 negative=0 corroboration=0 research_only=0 rejected=0 levels={'L3': 125, 'L1': 751, 'L5': 2}
 - hexens-reports: discovered=170 imported=0 negative=0 corroboration=0 research_only=170 rejected=0 levels={'L0': 170}
 - informal-audits: discovered=95 imported=0 negative=0 corroboration=0 research_only=95 rejected=0 levels={'L0': 95}
 - nethermind-audits: discovered=190 imported=0 negative=0 corroboration=0 research_only=190 rejected=0 levels={'L0': 190}
@@ -31,7 +31,7 @@ decisions={'RESEARCH_ONLY': 2137, 'IMPORT_AS_UNVERIFIED': 1934, 'CORROBORATION_O
 
 ## Verification
 
-levels={'L0': 6831, 'L1': 881}
+levels={'L0': 6831, 'L3': 125, 'L1': 754, 'L5': 2}
 L2-L6: 0 by construction (nothing executed in this pass).
 
 ## Ecosystems

@@ -28,7 +28,7 @@
   },
   "runs": [
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/burgerswap",
+      "artifact_dir": "experiments_v3/burgerswap",
       "artifact_hashes": {
         "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
         "harness.json": "549f6e1635a4ffbebe9e66ead1824b8782ea359a48e5b4ab5302f4972ff36e94",
@@ -70,7 +70,7 @@
       "toolchain": "forge (see toolchain.txt)"
     },
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/shibatoken",
+      "artifact_dir": "experiments_v3/shibatoken",
       "artifact_hashes": {
         "command.txt": "4d591a223c5bf9712f2833cef697e24b76cb83bcc657a95cd7247d9522176197",
         "harness.json": "bde788bd2074c74427b662c9c70416786629be6e5df01fb347bc62dd44b1cd03",
@@ -113,7 +113,7 @@
       "toolchain": "forge (see toolchain.txt)"
     },
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/gamma",
+      "artifact_dir": "experiments_v3/gamma",
       "artifact_hashes": {
         "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
         "harness.json": "ef2804404b0652b4be4e2e6de8147d555b1dbb430ba32c97e77d4c1955909638",
@@ -155,7 +155,7 @@
       "toolchain": "forge (see toolchain.txt)"
     },
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/prisma",
+      "artifact_dir": "experiments_v3/prisma",
       "artifact_hashes": {
         "command.txt": "1db0f05b9c6c0a3709b09dcfc18c659ba6937f99e2cb4e556067b156ee390ea9",
         "harness.json": "696f4b28e82b6a892fda5e3e943918574bdd8f7858c47135d1826c69db43213b",
@@ -197,7 +197,7 @@
       "toolchain": "forge (see toolchain.txt)"
     },
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/pikefinance",
+      "artifact_dir": "experiments_v3/pikefinance",
       "artifact_hashes": {
         "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
         "harness.json": "a075b53de24dda1e78c7c8d596ce0c5d9f0d13d4894ccf4a6df94b93cb4610ab",
@@ -248,7 +248,7 @@
       "toolchain": "forge (see toolchain.txt)"
     },
     {
-      "artifact_dir": "C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/experiments_v3/swappstaking",
+      "artifact_dir": "experiments_v3/swappstaking",
       "artifact_hashes": {
         "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
         "harness.json": "f9f0059c22e1df2e093f7019f772d75cc4d4ee46ea52172b2636e92a8c91a24b",

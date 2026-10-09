@@ -45,6 +45,8 @@ def stats() -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--stats", action="store_true")
+    ap.add_argument("--quiet", action="store_true",
+                    help="suppress per-record output (for run_gates.py)")
     args = ap.parse_args()
 
     log(f"ml layer check  dataset={DATASET_VERSION} schema={SCHEMA_VERSION}")
@@ -53,14 +55,21 @@ def main() -> int:
         return 2
 
     total, errors = check_layer()
-    if args.stats:
+    if args.stats and not args.quiet:
         stats()
     if errors:
-        for e in errors[:80]:
-            log(f"  [FAIL] {e}")
-        if len(errors) > 80:
-            log(f"  ... {len(errors) - 80} more")
+        if not args.quiet:
+            for e in errors[:80]:
+                log(f"  [FAIL] {e}")
+            if len(errors) > 80:
+                log(f"  ... {len(errors) - 80} more")
         log(f"{len(errors)} failure(s) across {total} records")
+        return 1
+    if total == 0:
+        # Fail closed: an empty layer must never report "ok: 0 records".
+        # A missing jsonl_ml/ returns 2 (SKIPPED) above; an existing-but-
+        # empty layer is a broken ingest, not a pass.
+        log("FAIL: ml layer present but 0 records checked (empty ingest)")
         return 1
     log(f"ok: {total} records, 0 failures")
     return 0

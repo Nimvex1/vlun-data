@@ -362,7 +362,7 @@ def main() -> int:
     md.append("")
 
     (REPORTS / "v2_1_quality_report.md").write_text(
-        "\n".join(md).encode("ascii", "replace").decode("ascii"), encoding="utf-8")
+        "\n".join(md).encode("ascii", "replace").decode("ascii"), encoding="utf-8", newline="\n")
 
     summary = {
         "generated_by": "scripts/generate_v21_reports.py",

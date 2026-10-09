@@ -46,8 +46,8 @@
     "IMPORT_AS_UNVERIFIED": 1934,
     "RESEARCH_ONLY": 2137
   },
-  "experimental_runs_attempted": 0,
-  "experimental_runs_note": "no exploit executed in this integration pass; all L1 claims are published-PoC claims, not executions",
+  "experimental_runs_attempted": 127,
+  "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 is awarded only with attacker-side profit evidence; L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
   "generated_by": "scripts/build_v3.py",
   "license_posture": "METADATA_ONLY for all third-party content",
   "record_count": 5467,
@@ -61,6 +61,9 @@
   },
   "verification_levels": {
     "L0": 6831,
-    "L1": 881
-  }
+    "L1": 754,
+    "L3": 125,
+    "L5": 2
+  },
+  "verified_records_l5_l6": 2
 }

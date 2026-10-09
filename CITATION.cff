@@ -12,6 +12,8 @@ keywords:
   - machine learning
   - blockchain
 authors:
+  - name: "Nimvex1"
+    role: "dataset compiler and pipeline author (collection, normalization, verification harnesses, benchmarks)"
   - name: "Code4rena competitive-audit participants"
     role: "finding authors (original audit sources)"
   - name: "Professional audit firms and contest platforms"

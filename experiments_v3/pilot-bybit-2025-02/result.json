@@ -1,4 +1,11 @@
 {
+  "artifact_hash_note": "sha256 over the committed (LF) artefact bytes. The originals were hashed on a CRLF-emitting platform; those 27 hashes could not be verified against the shipped files and were recomputed, not adjusted. Regenerate with python scripts/run_dhl_experiments.py on an LF platform to reproduce from scratch.",
+  "artifact_hashes": {
+    "command.txt": "a1724cda89965eec639ab156a93d20e129ef42f92f383f3e5ecb5aba8abbe14b",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "85fc17b677d1d8419328904d1f7c16155c34b96e1077a5ec0fc9231d2b791bbc",
+    "toolchain.txt": "1a22dfe717fab1f5b43f46ed410466e68142ed536c7ac71917c5667d307c70fb"
+  },
   "claimed_level": null,
   "command": "forge test --match-path src/test/2025-02/Bybit_exp.sol --match-test testExploit -vvv",
   "exit_code": 1,

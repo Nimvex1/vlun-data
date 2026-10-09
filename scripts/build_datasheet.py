@@ -51,6 +51,22 @@ def main() -> int:
     cov = (bl.get("coverage") or {})
     leak = (m3.get("verification_levels", {}) or {})
     lvl = (mvb.get("verification_levels", {}) or {})
+    # Judge-only / unlabelled tasks. Counted from the scorer's own
+    # exclusion list (per-family task counts it records), NOT from
+    # manifest_scorable_total - scorer_covered: that subtraction goes
+    # negative here because the v3/Vbeta manifests tally `tasks` while the
+    # scorer counts labeled rows, so the difference is not a task count.
+    _excl = (cov.get("excluded_families") or {})
+    _judged_n = sum(int(v.get("tasks") or 0) for v in _excl.values())
+    try:
+        import importlib.util as _ilu
+        _spec = _ilu.spec_from_file_location(
+            "_rg", str(ROOT / "scripts" / "run_gates.py"))
+        _rg = _ilu.module_from_spec(_spec)
+        _spec.loader.exec_module(_rg)
+        _gate_n = len(_rg.GATES)
+    except Exception:
+        _gate_n = "?"
 
     lines = f"""# Datasheet for VLUN
 
@@ -68,7 +84,7 @@ ground truth. Governing rule: truth over scale.
 - v2.2 (five languages): {n(m22.get('records', 0))} derived records.
 - V3.0: {n(m3.get('record_count', 0))} admitted of {n(m3.get('candidate_count', 0))} candidates across {n(m3.get('source_count', 0))} sources; levels {json.dumps(leak, sort_keys=True)}.
 - Vbeta (isolated): {n(mvb.get('record_count', 0))} admitted of {n(mvb.get('candidate_count', 0))} candidates across {n(mvb.get('source_count', 0))} sources; levels {json.dumps(lvl, sort_keys=True)}.
-- Benchmark: {n(micro.get('scorable', 0))} exactly-scorable tasks (majority micro-accuracy {micro.get('accuracy')}); {n(cov.get('manifest_scorable_total', 0) - cov.get('scorer_covered', 0))} manifest-scorable tasks need a judge or have no labels.
+- Benchmark: {n(micro.get('scorable', 0))} exactly-scorable tasks (majority micro-accuracy {round(micro.get('accuracy') or 0.0, 4)}). {_judged_n} further tasks across {len(_excl)} families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
 - Field coverage: {n(thin)} of {n(len(fields))} tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process
@@ -97,7 +113,7 @@ ground truth. Governing rule: truth over scale.
 
 ## Maintenance
 
-- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (11 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
+- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` ({_gate_n} gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
 - Contact/limitations: validation reports record every unknown, exclusion and failure reason; limitations are published in `reports/benchmark_metrics.md` and `reports/reproducibility_report.md`, not hidden.
 """
     out = ROOT / "docs" / "DATASHEET.md"

@@ -133,7 +133,10 @@ def classify(finding: dict) -> dict:
     classes = finding.get("vulnerability_classes") or []
     if not classes:
         return {"category": "Unknown", "family": None, "class": None, "subtype": None,
-                "evidence_type": "unknown", "c4_original": [],
+                "evidence_type": "unknown", "rule": "no-class",
+                "c4_original": [],
+                "labels": [], "multi_label": False,
+                "vocabulary": {"top_level": list(TOP_LEVEL)},
                 "note": "the record carries no vulnerability class; nothing is inferred"}
 
     labels = []
@@ -146,13 +149,13 @@ def classify(finding: dict) -> dict:
                            "class": n.split("/")[-1] if "/" in n else n,
                            "subtype": None, "evidence_type": "derived_fact",
                            "rule": "top-level matched, lower levels not attested",
-                           "c4_string": raw})
+                           "c4_original": raw, "c4_string": raw})
             continue
         cat, fam, cls, sub = hit
         labels.append({"category": cat, "family": fam, "class": cls, "subtype": sub,
                        "evidence_type": "derived_fact",
                        "rule": "exact match against the taxonomy table in scripts/taxonomy.py",
-                       "c4_string": raw})
+                       "c4_original": raw, "c4_string": raw})
 
     primary = labels[0]
     return {
@@ -161,6 +164,7 @@ def classify(finding: dict) -> dict:
         "class": primary["class"],
         "subtype": primary["subtype"],
         "evidence_type": primary["evidence_type"],
+        "rule": primary["rule"],
         "labels": labels,
         "multi_label": len(labels) > 1,
         "c4_original": classes,

@@ -256,6 +256,12 @@ def render() -> str:
     tri32 = (proof32.get("compile_triage") or {})
     _cov = (norm31.get("coverage_before_after") or {})
     _cov_after = _cov.get("after_v31", {})
+    # v3 record-level verification levels AFTER the V3.2 execution overlay
+    # (read from the manifest, never typed in).
+    _v3lv = (v3m.get("verification_levels") or {})
+    _v3_executed = sum(v for k, v in _v3lv.items() if k in ("L3", "L4", "L5", "L6"))
+    _v3_l5 = sum(v for k, v in _v3lv.items() if k in ("L5", "L6"))
+    _v3_runs = v3m.get("experimental_runs_attempted", 0) or 0
     # Vbeta layer: isolated new-language + Solodit-mirror layer. Same rule as
     # above: every figure is read from the Vbeta artefacts, never typed in.
     _vb = ROOT / "Vbeta"
@@ -278,7 +284,14 @@ def render() -> str:
         except (json.JSONDecodeError, OSError):
             _solodit_indexed = 0
     vbgate = jread(_vb / "reports_vbeta" / "validation_vbeta.json", {}) or {}
-    _vbgchecks = vbgate.get("checks", [])
+    # CRITICAL checks only. The Vbeta gate's isolation/present_sentinels check
+    # is warn-only and hashes README.md itself, so folding it into the count
+    # makes this file depend on its own hash: any edit flips the count,
+    # which rewrites the README, which flips the count again. Circular by
+    # construction; the sentinel warning still surfaces in the Vbeta gate
+    # output and reports_vbeta/validation_vbeta.json.
+    _vbgchecks = [c for c in vbgate.get("checks", [])
+                  if c.get("critical", True)]
     _vbgpass = sum(1 for _c in _vbgchecks if _c.get("ok"))
     _vbm_tasks = vbbm.get("tasks", {}) or {}
     _btasks = bench.get("tasks", {}) or {}
@@ -354,14 +367,14 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 |---|---|---|---|
 | v1 | 8 Code4rena audits (Solidity) | {n(dm.get('records', 0))} derived | {n(len(exp.get('experiments', [])))} pinpoint experiments, **{n(pv.get('experimentally_confirmed_pairs'))}** L6 verified patches |
 | v2.2 | advisories/audits/bounties/post-mortems, 5 languages | {n(d22m.get('records', 0))} | {n(sum(v for k, v in (d22m.get('experiment_levels') or {}).items() if k != 'none'))} executed runs, levels `{d22m.get('experiment_levels')}` |
-| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | {n(v3m.get('record_count', 0))} admitted / {n(v3m.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
+| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | {n(v3m.get('record_count', 0))} admitted / {n(v3m.get('candidate_count', 0))} candidates | levels `{_one(_v3lv)}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | {n(norm31.get('preview_count', 0))} preview rows ({n((norm31.get('fragment_decisions') or {}).get('admitted', 0))} new) | severity on {n(_cov_after.get('severity_known', 0))}, class on {n(_cov_after.get('class_known', 0))}, files on {n(_cov_after.get('affected_files', 0))} |
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced thefts, {(proof32.get('by_level') or {}).get('L3', 0)} blocked at L3 |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 
 Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
 
-Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(0)}/{n(v3m.get('record_count', 0))} (L0/L1-only by construction) · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_l5)}/{n(v3m.get('record_count', 0))} · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_executed)}/{n(v3m.get('record_count', 0))} · Vbeta 0/{n(vbm.get('record_count', 0))}. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -432,7 +445,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   (severity explicit on {n((norm31.get('severity_confidence') or {}).get('explicit', 0))});
   taxonomy explicit on {n((norm31.get('taxonomy_confidence') or {}).get('explicit', 0))}, derived on
   {n((norm31.get('taxonomy_confidence') or {}).get('derived', 0))}, unknown elsewhere — by rule, not by optimism.
-- **V3.2:** {n(tri32.get('compiled_l3', 0))}/{n(tri32.get('total', 0))} incident PoCs compile (L3);
+- **V3.2:** {n(tri32.get('compiled_l3', 0))}/{n(tri32.get('total', 0))} incident PoCs compile (L3); {n(_v3_executed)} admitted v3 records now carry a run artefact (levels `{_one(_v3lv)}`),
   {(proof32.get('by_level') or {}).get('L5', 0)} thefts reproduced on fork with attacker-profit
   evidence; {n(len((proof32.get('runs') or [])) - (proof32.get('by_level') or {}).get('L5', 0))} blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in

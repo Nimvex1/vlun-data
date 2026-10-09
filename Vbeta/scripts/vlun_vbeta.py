@@ -66,7 +66,17 @@ def normalize_severity(raw) -> tuple[str, str]:
         return ("informational", f"'info' in observed {raw!r:.60}")
     return (word, f"first closed-vocab token in observed {raw!r:.60}")
 
-VERIFICATION_LEVELS = ("L0", "L1", "L2", "L3", "L4", "L5", "L6")
+# Canonical L0-L6 ladder: single source of truth is
+# scripts/poc_classification.py::POC_LEVELS. Vbeta imports it read-only
+# (no writes outside Vbeta/); the import-time guard in
+# scripts/schema_terms.py fails the build on any drift.
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent
+                           / "scripts"))
+    from poc_classification import POC_LEVELS as _POC_LEVELS  # noqa: E402
+    VERIFICATION_LEVELS = tuple(_POC_LEVELS)
+except ImportError:  # pragma: no cover
+    VERIFICATION_LEVELS = ("L0", "L1", "L2", "L3", "L4", "L5", "L6")
 
 DECISIONS = (
     "IMPORT",

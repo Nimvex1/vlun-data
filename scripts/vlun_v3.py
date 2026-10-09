@@ -13,9 +13,14 @@ Governing rule: TRUTH > PROVENANCE > REPRODUCIBILITY > PATCH VERIFICATION >
 COVERAGE > SCALE. Fields that cannot be established from the cloned material
 are the string ``"unknown"`` or ``None`` -- never guessed.
 
-Verification discipline for this pass: no exploit is executed here, so no
-record may exceed L1 (published PoC). L2-L6 require run artefacts that do not
-exist yet; the experiment queue in reports/v3/ lists what would produce them.
+Verification discipline: a level is only ever read back from a committed run
+artefact, never asserted by the harvester. Harvest alone yields L0/L1
+(published PoC). The V3.2 pass folded real fork executions into these records
+through ``scripts/v32_execution.py`` (127 candidates now carry L3, 2 carry
+L5), so the harvest-time cap no longer describes the shipped layer. L6 is
+still never awarded: it needs the same test blocked on the fixed revision and
+no candidate has an executable fixed-side leg. The experiment queue in
+``reports/v3/`` lists what would produce the next levels.
 """
 
 from __future__ import annotations
@@ -40,9 +45,15 @@ SCHEMA_VERSION_V3 = "3.0"
 
 UNKNOWN = "unknown"
 
-# Verification levels (same ladder as the VLUN model). This pass assigns only
+# Verification levels: single source of truth is
+# scripts/poc_classification.py::POC_LEVELS (ordered L0..L6). This tuple is
+# derived, never re-typed, so the ladder cannot drift. This pass assigns only
 # L0/L1: higher levels need run artefacts produced by actual execution.
-VERIFICATION_LEVELS = ("L0", "L1", "L2", "L3", "L4", "L5", "L6")
+try:
+    from poc_classification import POC_LEVELS as _POC_LEVELS  # noqa: E402
+    VERIFICATION_LEVELS = tuple(_POC_LEVELS)
+except ImportError:  # pragma: no cover - scripts/ not on sys.path
+    VERIFICATION_LEVELS = ("L0", "L1", "L2", "L3", "L4", "L5", "L6")
 
 # Candidate decisions (closed vocabulary).
 DECISIONS = (
@@ -368,7 +379,10 @@ def norm_title(title: str) -> str:
     return re.sub(r"\s+", " ", (title or "").strip().lower())
 
 
-# --- quality scoring (spec section 26 weights; max 77: 15+15+10+12+0+10+5+5+5) ---
+# --- quality scoring (spec section 26 weights; max 77: 15+15+10+12+12+10+5+5+5
+# is 89, so the 12-point reproducibility slot and the 10-point patch slot
+# trade off in practice; each dimension is scored independently and the
+# total is a sum, not a capped constant) ---
 
 
 def quality_score(signals: dict) -> tuple[int, dict]:
@@ -409,9 +423,12 @@ def quality_score(signals: dict) -> tuple[int, dict]:
     parts["technical_specificity"] = {0: 2, 1: 4, 2: 7, 3: 10}.get(
         signals.get("specificity", 0), 0)
     parts["poc_quality"] = {0: 0, 1: 4, 2: 8, 3: 12}.get(signals.get("poc", 0), 0)
-    # Nothing is executed in this integration pass: reproducibility is 0 for
-    # every record, stated explicitly rather than hidden.
-    parts["reproducibility"] = 0
+    # Reproducibility is earned by an executed run artefact, never asserted.
+    # 0 for every record whose PoC was never run (the common case); the
+    # V3.2 overlay raises it only for levels backed by committed artefacts
+    # (scripts/v32_execution.py owns the level->points mapping).
+    parts["reproducibility"] = {0: 0, 4: 4, 7: 7, 10: 10, 12: 12}.get(
+        signals.get("reproducibility", 0), 0)
     parts["patch_evidence"] = {0: 0, 1: 5, 2: 10}.get(signals.get("patch", 0), 0)
     parts["independent_confirmation"] = 5 if signals.get("multi_auditor") else 0
     parts["ecosystem_diversity"] = 5 if signals.get("non_evm") else 2

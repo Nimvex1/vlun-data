@@ -91,9 +91,9 @@
       "ok": true
     },
     {
-      "check": "sources_cover_18",
+      "check": "sources_cover_registry",
       "critical": true,
-      "detail": null,
+      "detail": "18 sources == len(SOURCE_IDS)",
       "failure_count": 0,
       "failures": [],
       "group": "structure",
@@ -154,8 +154,44 @@
       "ok": true
     },
     {
-      "check": "levels_L0_L1_only_this_pass",
-      "critical": false,
+      "check": "level_vocab",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L3_plus_requires_experiment",
+      "critical": true,
+      "detail": "127 executed candidates",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L4_plus_requires_artefact_dir",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L5_requires_profit_evidence",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "no_L6_without_fixed_leg",
+      "critical": true,
       "detail": null,
       "failure_count": 0,
       "failures": [],
@@ -273,10 +309,37 @@
     {
       "check": "source_ledger_sums",
       "critical": true,
-      "detail": null,
+      "detail": "18 sources == len(SOURCE_IDS)",
       "failure_count": 0,
       "failures": [],
       "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "L3_requires_compile_sweep_row",
+      "critical": true,
+      "detail": "129 sweep rows, 125 L3 records",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L3_matches_sweep_row",
+      "critical": true,
+      "detail": "record's compile evidence equals its sweep row (rc=0, same via_ir, no invented artefact dir)",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "compiled_pocs_are_advertised",
+      "critical": true,
+      "detail": "every compiled sweep row appears as an L3+ record",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
       "ok": true
     },
     {
@@ -300,6 +363,6 @@
   ],
   "critical_failures": 0,
   "dataset_version": "3.0",
-  "passed": 33,
-  "total": 33
+  "passed": 40,
+  "total": 40
 }

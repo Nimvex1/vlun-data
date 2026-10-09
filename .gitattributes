@@ -9,6 +9,24 @@
 *.sol     text eol=lf
 *.toml    text eol=lf
 *.txt     text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.cff     text eol=lf
+
+# Generated markdown and json: same LF rule, stated explicitly because these
+# are the files whose line endings flip byte-identity gates. Writers pass
+# newline="\n"; scripts/check_line_endings.py fails the build on CRLF.
+reports/**/*.md      text eol=lf
+reports/**/*.json    text eol=lf
+docs/*.md            text eol=lf
+*.cff                text eol=lf
+
+# Verbatim execution evidence: stored exactly as the tool emitted it,
+# never newline-translated. forge's own output is part of the artefact,
+# and its recorded sha256 must keep matching on every platform.
+experiments/**            -text
+experiments_v2_2/**       -text
+experiments_v3/**         -text
 
 # Binary artefacts of the execution pipeline are not committed.
 *.failed  binary

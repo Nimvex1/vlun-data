@@ -158,7 +158,7 @@ def stage_poc(rel: str, work: Path) -> tuple[Path, dict]:
             "evm_version = 'shanghai'\n" % LIB.as_posix().replace("\\", "/"))
     toml += "\n[rpc_endpoints]\n" + "".join(
         f'{k} = "{v}"\n' for k, v in RPCS.items())
-    (proj / "foundry.toml").write_text(toml)
+    (proj / "foundry.toml").write_text(toml, newline="\n")
     manifest = {"poc": rel, "poc_sha256": sha_file(src),
                 "supplied": supplied,
                 "staged_files": sorted(
@@ -332,24 +332,29 @@ def _write_artifacts(out_dir: Path, cmd, so: str, se: str, rec: dict,
     out_dir.mkdir(parents=True, exist_ok=True)
     rec["seconds"] = round(time.time() - rec.pop("_t0", time.time()), 1)
     (out_dir / "command.txt").write_text(
-        " ".join(cmd) + "\n" if isinstance(cmd, list) else str(cmd) + "\n")
-    (out_dir / "stdout.txt").write_text(rec.pop("_stdout", so)[-200000:])
-    (out_dir / "stderr.txt").write_text(rec.pop("_stderr", se)[-200000:])
-    (out_dir / "toolchain.txt").write_text(_forge_version() + "\n")
+        " ".join(cmd) + "\n" if isinstance(cmd, list) else str(cmd) + "\n", newline="\n")
+    (out_dir / "stdout.txt").write_text(rec.pop("_stdout", so)[-200000:], newline="\n")
+    (out_dir / "stderr.txt").write_text(rec.pop("_stderr", se)[-200000:], newline="\n")
+    (out_dir / "toolchain.txt").write_text(_forge_version() + "\n", newline="\n")
     (out_dir / "harness.json").write_text(
-        json.dumps(manifest, indent=2, sort_keys=True))
+        json.dumps(manifest, indent=2, sort_keys=True), newline="\n")
     result = dict(rec)
     result["artifact_hashes"] = {
         f: sha_file(out_dir / f)
         for f in ("command.txt", "stdout.txt", "stderr.txt",
                   "toolchain.txt", "harness.json")}
     (out_dir / "result.json").write_text(
-        json.dumps(result, indent=2, sort_keys=True))
+        json.dumps(result, indent=2, sort_keys=True), newline="\n")
+    # Repo-relative only. An absolute local path would leak the operator's
+    # directory layout into a committed artefact; a path outside the repo
+    # means the run is not reproducible from this checkout, so it is
+    # dropped rather than rewritten (the gate then flags the missing
+    # artefact instead of trusting a dangling reference).
     try:
-        rel = out_dir.relative_to(ROOT).as_posix()
-    except ValueError:
-        rel = out_dir.as_posix()
-    rec["artifact_dir"] = rel
+        rec["artifact_dir"] = out_dir.resolve().relative_to(
+            ROOT.resolve()).as_posix()
+    except (ValueError, OSError):
+        rec["artifact_dir"] = None
     rec["artifact_hashes"] = result["artifact_hashes"]
 
 
@@ -499,7 +504,7 @@ def main() -> int:
                           "toolchain.txt", "harness.json")
                 if (out_dir / f).exists()}
             (out_dir / "result.json").write_text(
-                json.dumps(result, indent=2, sort_keys=True))
+                json.dumps(result, indent=2, sort_keys=True), newline="\n")
             V.log(f"reanalyzed {fid} -> {rec.get('status')} "
                   f"({rec.get('level_awarded')})")
     else:
@@ -559,7 +564,7 @@ def _write_md(summary: dict) -> None:
                 L.append(f"- {k}: {r[k]}")
         L.append("")
     (V.REPORTS_V3 / "experimental_proof.md").write_text(
-        "\n".join(L) + "\n", encoding="utf-8")
+        "\n".join(L) + "\n", encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":

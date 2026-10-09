@@ -173,8 +173,28 @@ def main() -> int:
                 bad_role.append(f["fragment_id"])
     rep.add("vocabularies", "commit_roles", not bad_role, bad_role)
     bad_lv = [r.get("finding_id") for r in preview
-              if r.get("verification_level") not in ("L0", "L1")]
-    rep.add("vocabularies", "levels_L0_L1_only", not bad_lv, bad_lv)
+              if r.get("verification_level") not in V.VERIFICATION_LEVELS]
+    rep.add("vocabularies", "levels_closed_vocabulary", not bad_lv, bad_lv)
+    # A preview row may claim an executed level (L2+) ONLY when it carries
+    # the run artefact that earned it, or when the parent candidate it was
+    # expanded from carries one. Document-extraction alone never earns a
+    # level, so an L2+ claim without a backing experiment is a fabrication
+    # and fails.
+    parent_exp = {cid: bool(c.get("experiment"))
+                  for cid, c in
+                  ((c["candidate_id"], c) for c in ledger)}
+    unjustified = []
+    for r in preview:
+        if r.get("verification_level") not in ("L2", "L3", "L4", "L5", "L6"):
+            continue
+        backed = bool(r.get("experiment")) or \
+            parent_exp.get(r.get("parent_candidate_id"), False)
+        if not backed:
+            unjustified.append(r.get("finding_id"))
+    rep.add("vocabularies", "preview_execution_claims_are_backed",
+            not unjustified, unjustified,
+            detail="an L2+ preview row must carry its own experiment or "
+                   "inherit one from an executed parent candidate")
     bad_ev = [o["target_id"] + "/" + o["field"] for o in overlays
               if o.get("evidence_type") not in EVIDENCE]
     rep.add("vocabularies", "overlay_evidence_types", not bad_ev, bad_ev)
@@ -323,6 +343,105 @@ def main() -> int:
     collision = sorted(protected & v31_outputs)
     rep.add("isolation", "v31_outputs_disjoint_from_protected",
             not collision, collision)
+    # Resolve the protected basenames to real paths once, so the
+    # byte-identity check below reads files and not a set of names.
+    protected_paths: set[str] = set()
+    for _layer in ("jsonl", "jsonl_ml", "derived", "derived_v2_2", "jsonl_v3",
+                   "derived_v3", "splits_v3", "benchmark", "reports/v3"):
+        for _f in sorted((V.ROOT / _layer).rglob("*")):
+            if _f.is_file() and _f.name in protected:
+                protected_paths.add(_f.relative_to(V.ROOT).as_posix())
+    # Byte-identity, not worktree attribution. `git status` reports whatever is
+    # dirty in the checkout, which says nothing about whether THIS pass wrote
+    # outside its own outputs -- it can neither fail nor prove isolation.
+    # What can be proven: every protected file is byte-identical to the
+    # canonical form this pipeline writes, so no V3.1 writer (or anything
+    # else) left a rewritten or hand-edited v3.0/v1/v2.2/v3 artefact behind.
+    # Files that legitimately differ from canonical form are listed in
+    # KNOWN_NONCANONICAL with the writer that owns them; that set is reviewed,
+    # not grown silently.
+    KNOWN_NONCANONICAL = {
+        # v3.0 audit reports are prose written by build_v3.py's report
+        # writers (leading-count tables), not JSON dumps.
+        "reports/v3/quality_report.md",
+        "reports/v3/top20_imported.md",
+        "reports/v3/top20_untrusted.md",
+        "reports/v3/experiment_queue.md",
+    }
+    # The immutable evidence layers are NOT written by any pipeline stage and
+    # deliberately keep the key order their original author wrote
+    # (jsonl/findings.jsonl is human-authored evidence, not a canonical
+    # dump). Canonical-form is therefore the right invariant only for the
+    # pipeline-generated layers; for the read-only layers the existing
+    # static scan ("no read-only layer writable by build" in
+    # check_reproducibility.py) is the proof, and here we assert the
+    # weaker but true property: they parse and are LF-clean.
+    CANONICAL_WRITTEN = ("derived/", "derived_v2_2/", "derived_v3/",
+                         "splits_v3/", "benchmark/")
+    _canon_bad: list[str] = []
+    _canon_checked = 0
+    _readonly_checked = 0
+    for _rel in sorted(protected_paths):
+        if not _rel.startswith(CANONICAL_WRITTEN):
+            _readonly_checked += 1
+            _p = V.ROOT / _rel
+            if not _p.is_file():
+                _canon_bad.append(f"{_rel}: missing")
+                continue
+            if _rel in KNOWN_NONCANONICAL or _p.suffix == ".md":
+                continue          # prose report, owned by its own writer
+            try:
+                _txt = _p.read_text(encoding="utf-8")
+                if _rel.endswith(".json"):
+                    json.loads(_txt)
+                else:
+                    for _ln in _txt.splitlines():
+                        if _ln.strip():
+                            json.loads(_ln)
+            except (OSError, ValueError) as exc:
+                _canon_bad.append(f"{_rel}: not parseable ({exc})")
+            continue
+        _p = V.ROOT / _rel
+        if not _p.is_file() or _rel in KNOWN_NONCANONICAL:
+            continue
+        try:
+            _raw = _p.read_bytes()
+            if _rel.endswith(".jsonl"):
+                _rows = [json.loads(ln) for ln in
+                         _raw.decode("utf-8").splitlines() if ln.strip()]
+                _want = "".join(
+                    json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n"
+                    for r in _rows).encode("utf-8")
+            else:
+                _want = (json.dumps(json.loads(_raw.decode("utf-8")),
+                                    indent=2, sort_keys=True,
+                                    ensure_ascii=False) + "\n").encode("utf-8")
+        except (OSError, ValueError) as exc:
+            _canon_bad.append(f"{_rel}: unreadable ({exc})")
+            continue
+        _canon_checked += 1
+        if _raw.replace(b"\r\n", b"\n") != _want:
+            _canon_bad.append(_rel)
+    rep.add("isolation", "protected_files_byte_identical", not _canon_bad,
+            _canon_bad,
+            detail=f"{_canon_checked} pipeline-written protected files "
+                   f"byte-identical to canonical form; "
+                   f"{_readonly_checked} read-only evidence files parse as "
+                   f"JSONL and are checked for writability by "
+                   f"check_reproducibility.py; {len(KNOWN_NONCANONICAL)} "
+                   f"declared non-canonical (prose reports)")
+
+    # CRLF anywhere in a protected file breaks the byte-identity contract on
+    # the next platform, so it is checked explicitly rather than normalised
+    # away silently.
+    _crlf_bad = [rel for rel in sorted(protected_paths)
+                 if (V.ROOT / rel).is_file()
+                 and b"\r\n" in (V.ROOT / rel).read_bytes()]
+    rep.add("isolation", "protected_files_lf_only", not _crlf_bad, _crlf_bad,
+            detail="CRLF in a protected file would break byte-identity on "
+                   "another platform; fix the writer (newline=\"\\n\")")
+
+    # Worktree dirt stays visible as a metric, never as the isolation proof.
     try:
         out = subprocess.run(
             ["git", "status", "--porcelain", "--",
@@ -331,21 +450,20 @@ def main() -> int:
              "reports/v3/"],
             capture_output=True, text=True, timeout=120, cwd=str(V.ROOT))
         dirty = [l for l in (out.stdout or "").splitlines() if l.strip()]
-        # Anything not under a V3.1 output name is somebody else's worktree
-        # dirt: warn, don't fail.
         foreign = [l for l in dirty
                    if not any(l.endswith("/" + n) or l.endswith(n)
                               for n in v31_outputs)]
-        rep.add("isolation", "worktree_dirt_attribution", True,
+        rep.add("isolation", "worktree_dirt_observed", True,
                 detail=f"{len(dirty)} dirty entries under data dirs, "
-                       f"{len(foreign)} not from V3.1 outputs",
+                       f"{len(foreign)} not from V3.1 outputs "
+                       "(informational; isolation is proven above)",
                 critical=False)
         if foreign:
             rep.checks[-1]["failures"] = foreign[:25]
             rep.checks[-1]["failure_count"] = len(foreign)
     except Exception as exc:
-        rep.add("isolation", "worktree_dirt_attribution", False, [str(exc)],
-                critical=False)
+        rep.add("isolation", "worktree_dirt_observed", True,
+                detail=f"git unavailable: {exc}", critical=False)
 
     # ---- benchmark family T ------------------------------------------------------
     bench_path = V.BENCH / "v3_T_taxonomy_explicit.jsonl"
@@ -436,9 +554,13 @@ def main() -> int:
     out = {"checks": rep.checks, "passed": passed, "total": total,
            "critical_failures": crit_fail, "normalization_version": "3.1"}
     V.REPORTS_V3.mkdir(parents=True, exist_ok=True)
+    # newline="\n": platform-stable LF output (CRLF on Windows would break
+    # byte-identity; enforced by check_reproducibility.py §7a). Trailing
+    # "\n" keeps the file identical to a sort_keys redump.
     with open(V.REPORTS_V3 / "validation_v31.json", "w",
-              encoding="utf-8") as fh:
+              encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, indent=2, sort_keys=True)
+        fh.write("\n")
     V.log(f"validate_v31.py: {passed}/{total} checks passed, "
           f"{crit_fail} critical failures")
     return 1 if crit_fail else 0

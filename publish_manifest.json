@@ -1,6 +1,13 @@
 {
- "code_context_entries_removed": 1936,
- "source_lines_withheld": 46070,
- "patch_diffs_removed": 76,
- "records_written": 1898
+  "code_context_entries_removed": 1936,
+  "generated_by": "scripts/build_reproduction.py (v1 publish/redaction pass)",
+  "patch_diffs_removed": 76,
+  "records_written": 1898,
+  "records_written_breakdown": {
+    "jsonl_source_rows": 953,
+    "note": "the original v1 publication count: every jsonl/ row plus every splits_v2/ pointer row (945, including the 2 quarantined cross-split duplicates). It counts pointers, not distinct records: a finding and its exploit/patch rows share an id, and each split row points back at a jsonl row. Distinct canonical ids are 722 findings+negatives; jsonl/ holds 953 rows; derived/ holds 722 derived records. This key is kept as the historical publish figure because audit_pre_upgrade.py pins it (v1_manifest_records_written).",
+    "splits_v2_rows": 945
+  },
+  "records_written_is_not_a_record_count": true,
+  "source_lines_withheld": 46070
 }

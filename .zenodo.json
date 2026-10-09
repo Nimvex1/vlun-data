@@ -1,0 +1,32 @@
+{
+  "title": "VLUN: a provenance-preserving smart-contract security reasoning dataset",
+  "version": "2.2",
+  "description": "A provenance-preserving corpus of smart-contract security findings across Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and Clarity. Every record traces to a public artefact and every claim carries its evidence type. Governing rule: truth over scale; unknown is a counted outcome. Data layers are CC BY 4.0; pipeline scripts are MIT; third-party source is not licensed here at all (see NOTICE.md).",
+  "creators": [
+    {
+      "name": "Nimvex1",
+      "role": "dataset compiler and pipeline author"
+    }
+  ],
+  "keywords": [
+    "smart contracts",
+    "vulnerability detection",
+    "security auditing",
+    "software engineering",
+    "machine learning",
+    "blockchain"
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "communities": [],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Nimvex1/vlun-data",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ],
+  "notes": "DOI is minted by Zenodo on first publish (see docs/ARCHIVAL.md). After publishing, copy the DOI back into CITATION.cff (doi: + preferred-citation.doi) and regenerate the README so the citable artifact is pinned in-repo."
+}

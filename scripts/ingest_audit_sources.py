@@ -633,7 +633,7 @@ def main() -> int:
     A.write_jsonl(DERIVED_V22 / "audit_sources.jsonl", source_rows)
     A.write_jsonl(DERIVED_V22 / "audit_ingestion_records.jsonl", records)
     A.write_json(REPORTS / "audit_source_ingestion.json", doc)
-    (REPORTS / "audit_source_ingestion_report.md").write_text(md, encoding="utf-8")
+    (REPORTS / "audit_source_ingestion_report.md").write_text(md, encoding="utf-8", newline="\n")
     log(f"wrote {DERIVED_V22 / 'audit_sources.jsonl'} ({len(source_rows)} rows)")
     log(f"wrote {DERIVED_V22 / 'audit_ingestion_records.jsonl'} ({len(records)} rows)")
     log(f"wrote {REPORTS / 'audit_source_ingestion_report.md'}")

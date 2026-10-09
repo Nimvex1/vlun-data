@@ -242,7 +242,10 @@ def main() -> int:
     unstable = []
     for path in [ROOT / "Vbeta" / "derived_vbeta" / "manifest.json",
                  ROOT / "derived_v3" / "manifest.json",
-                 ROOT / "reports" / "dataset_stats.json"]:
+                 ROOT / "derived_v3" / "normalization.json",
+                 ROOT / "reports" / "dataset_stats.json",
+                 ROOT / "reports" / "v3" / "validation_v3.json",
+                 ROOT / "reports" / "v3" / "validation_v31.json"]:
         try:
             obj = js(path)
             redump = json.dumps(obj, indent=2, sort_keys=True,
@@ -282,6 +285,115 @@ def main() -> int:
     else:
         G.ok("Vbeta rebuild parity",
              f"{len(after)} artefacts byte-identical across rebuilds")
+
+    # 7c. V3.1 byte-identity: committed normalization outputs must already
+    # be in canonical form (per-row sort_keys JSONL, sort_keys JSON). A
+    # hand-edited or non-deterministically written file fails here. The full
+    # rebuild-from-clones parity needs V3/clones (git-ignored) and takes
+    # minutes; after running `python scripts/normalize_v3.py` locally this
+    # same check proves the rebuild is byte-identical. Without clones the
+    # rebuild cannot run at all, which stays a skip, never a pass.
+    V31_FILES = [
+        "derived_v3/normalization_fragments.jsonl",
+        "derived_v3/normalization_overlay.jsonl",
+        "derived_v3/normalized_records_preview.jsonl",
+        "derived_v3/normalization.json",
+        "derived_v3/corroborations_v31.jsonl",
+        "derived_v3/patch_candidates.json",
+        "derived_v3/experiment_readiness.json",
+    ]
+    # patch_candidates.json / experiment_readiness.json carry a .json name
+    # but hold one object per line (written via write_jsonl); only
+    # normalization.json is a single pretty-printed object.
+    V31_JSONL_LIKE = set(V31_FILES) - {"derived_v3/normalization.json"}
+    _noncanon = []
+    for _rel in V31_FILES:
+        _p = ROOT / _rel
+        try:
+            _raw = _p.read_bytes()
+        except OSError:
+            _noncanon.append(f"{_rel} (missing)")
+            continue
+        try:
+            if _rel in V31_JSONL_LIKE:
+                _rows = [json.loads(ln) for ln in
+                         _raw.decode("utf-8").splitlines() if ln.strip()]
+                _want = "".join(
+                    json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n"
+                    for r in _rows).encode("utf-8")
+            else:
+                _want = (json.dumps(json.loads(_raw.decode("utf-8")),
+                                    indent=2, sort_keys=True,
+                                    ensure_ascii=False) + "\n").encode("utf-8")
+        except ValueError as exc:
+            _noncanon.append(f"{_rel} (invalid json: {exc})")
+            continue
+        if _raw.replace(b"\r\n", b"\n") != _want:
+            _noncanon.append(_rel)
+    if _noncanon:
+        G.fail("V3.1 byte-identity (canonical form)",
+               f"non-canonical: {_noncanon[:5]}")
+    else:
+        G.ok("V3.1 byte-identity (canonical form)",
+             f"{len(V31_FILES)} artefacts in canonical form")
+
+    # 7d/7e. derived/ and derived_v2_2/ rebuild parity.
+    #
+    # The v2.1 audit's worst finding (REFUTED-2: 376/722 v1 records change on
+    # rebuild) was that derived/ had NO rebuild gate, so drift could ship
+    # unnoticed. Clean-room rebuild-and-diff closes it.
+    #
+    # Learned the hard way: build_derived.py enriches code_context with
+    # commit pins RESOLVED FROM work/ (git-ignored clones, absent on a fresh
+    # clone). Without those it cannot reproduce the committed immutable pins
+    # and silently emits commit_sha='main' -- which validate.py's
+    # mutable-branch check then flags across 473 records. So the gate
+    # REQUIRES its citation inputs, skips when they are absent, and always
+    # RESTORES the committed bytes afterwards: this gate observes, it must
+    # never leave a degraded layer behind.
+    def _snap_files(rels):
+        return {r: hashlib.sha256((ROOT / r).read_bytes()).hexdigest()
+                for r in rels if (ROOT / r).is_file()}
+
+    _derived_missing = [p for p in ("work/source_manifest.json", "work/repos")
+                        if not (ROOT / p).exists()]
+
+    def _rebuild_parity(label, script, files, missing_inputs):
+        if missing_inputs:
+            G.skip(f"{label} rebuild parity",
+                   "skipped_no_network: citation inputs absent "
+                   f"({', '.join(missing_inputs)}); rebuild would emit "
+                   "mutable branch refs, not the committed immutable pins")
+            return
+        before = _snap_files(files)
+        saved = {f: (ROOT / f).read_bytes() for f in files
+                 if (ROOT / f).is_file()}
+        try:
+            r = subprocess.run([sys.executable, script], cwd=str(ROOT),
+                               capture_output=True, text=True, timeout=1800)
+        finally:
+            for f, blob in saved.items():
+                (ROOT / f).write_bytes(blob)
+        after = _snap_files(files)
+        if r.returncode != 0:
+            G.fail(f"{label} rebuild parity", f"rebuild rc={r.returncode}")
+        elif before != after:
+            diff = [k for k in set(before) | set(after)
+                    if before.get(k) != after.get(k)]
+            G.fail(f"{label} rebuild parity",
+                   f"outputs differ: {diff[:5]} (rebuilt bytes restored; "
+                   "committed layer untouched)")
+        else:
+            G.ok(f"{label} rebuild parity",
+                 f"{len(after)} artefacts byte-identical across rebuilds")
+
+    _rebuild_parity("derived/", "scripts/build_derived.py",
+                    ["derived/records.jsonl", "derived/manifest.json"],
+                    _derived_missing)
+    _rebuild_parity("derived_v2_2/", "scripts/build_derived_v22.py",
+                    ["derived_v2_2/records.jsonl",
+                     "derived_v2_2/manifest.json"],
+                    [])
 
     # ---- 8. declared outputs produced -------------------------------------------
     declared = {

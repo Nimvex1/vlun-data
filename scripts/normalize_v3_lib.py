@@ -981,7 +981,7 @@ def _write_normalization_md(path: Path, manifest: dict,
         L.append(f"{key} | {before.get(key, '-')} | {after.get(key, '-')}")
     L.append("")
     L.append(after.get("note", ""))
-    path.write_text("\n".join(L) + "\n", encoding="utf-8")
+    path.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
 def _write_unknowns_md(path: Path, unknowns: dict) -> None:
     L = ["# V3.1 unknown audit", "",
          "Every still-unknown field: how many, which sources, and what "
@@ -994,7 +994,7 @@ def _write_unknowns_md(path: Path, unknowns: dict) -> None:
         L.append("")
     L.append("## V3.0 baseline (context, not rewritten)")
     L.append(f"{unknowns['v30_baseline']}")
-    path.write_text("\n".join(L) + "\n", encoding="utf-8")
+    path.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")
 def _write_poc_report(path: Path, fragments: list, ledger: list) -> None:
     mentioned = sum(1 for f in fragments
                     if f.get("poc_section", {}).get("present"))
@@ -1010,7 +1010,7 @@ def _write_poc_report(path: Path, fragments: list, ledger: list) -> None:
         "note": "published PoC is not executed PoC; L2+ needs experiment "
                 "artefacts (see experiment_readiness.json)",
         "normalization_version": NORM_VERSION,
-    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 def _write_patch_report(path: Path, patch_candidates: list) -> None:
     path.write_text(json.dumps({
         "patch_candidates": len(patch_candidates),
@@ -1022,7 +1022,7 @@ def _write_patch_report(path: Path, patch_candidates: list) -> None:
                 "never effectiveness verdicts; L6 needs same-test both "
                 "revisions",
         "normalization_version": NORM_VERSION,
-    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 def _write_queue(path: Path, readiness: list) -> None:
     tiers: dict[str, list] = collections.defaultdict(list)
     for r in readiness:
@@ -1040,4 +1040,4 @@ def _write_queue(path: Path, readiness: list) -> None:
                      f"poc={r['has_poc']} repo={r['has_repository']} "
                      f"rev={r['has_revision']} blockers={r['blockers']}")
         L.append("")
-    path.write_text("\n".join(L) + "\n", encoding="utf-8")
+    path.write_text("\n".join(L) + "\n", encoding="utf-8", newline="\n")

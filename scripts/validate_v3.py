@@ -30,6 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
+import v32_execution as _exec_mod  # noqa: E402
 
 U = V.UNKNOWN
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
@@ -116,9 +117,15 @@ def main() -> int:
             not dup_ids(ledger, "candidate_id"), dup_ids(ledger, "candidate_id"))
     rep.add("structure", "finding_ids_unique",
             not dup_ids(records, "finding_id"), dup_ids(records, "finding_id"))
-    rep.add("structure", "sources_cover_18",
-            {r["source_id"] for r in sources} == set(V.SOURCE_IDS),
-            [f"sources={len(sources)}"])
+    _src_missing = sorted(set(V.SOURCE_IDS)
+                          - {r["source_id"] for r in sources})
+    _src_extra = sorted({r["source_id"] for r in sources}
+                        - set(V.SOURCE_IDS))
+    rep.add("structure", "sources_cover_registry",
+            not _src_missing and not _src_extra,
+            [f"missing={_src_missing}"] if _src_missing else
+            [f"undeclared={_src_extra}"] if _src_extra else [],
+            detail=f"{len(sources)} sources == len(SOURCE_IDS)")
 
     # ---- provenance ---------------------------------------------------------
     bad_sha = [c["candidate_id"] for c in ledger
@@ -146,9 +153,30 @@ def main() -> int:
     # ---- consistency --------------------------------------------------------
     bad_dec = [c["candidate_id"] for c in ledger if c.get("decision") not in V.DECISIONS]
     rep.add("consistency", "decision_vocab", not bad_dec, bad_dec)
-    bad_lv = [c["candidate_id"] for c in ledger if c.get("verification_level") not in ("L0", "L1")]
-    rep.add("consistency", "levels_L0_L1_only_this_pass", not bad_lv, bad_lv,
-            critical=False)
+    bad_lv = [c["candidate_id"] for c in ledger
+              if c.get("verification_level") not in V.VERIFICATION_LEVELS]
+    rep.add("consistency", "level_vocab", not bad_lv, bad_lv)
+
+    # Level above L1 requires an execution record; L4+ requires a committed
+    # artefact directory; L5 requires attacker-side profit evidence and
+    # L6 is never awardable here (no candidate has a fixed-side leg).
+    executed = [c for c in ledger
+                if c.get("verification_level") in ("L3", "L4", "L5", "L6")]
+    no_exp = [c["candidate_id"] for c in executed if not c.get("experiment")]
+    rep.add("consistency", "L3_plus_requires_experiment", not no_exp, no_exp,
+            detail=f"{len(executed)} executed candidates")
+    no_dir = [c["candidate_id"] for c in executed
+              if c.get("verification_level") in ("L4", "L5", "L6")
+              and not (V.ROOT / ((c.get("experiment") or {}).get(
+                  "artifact_dir") or "")).is_dir()]
+    rep.add("consistency", "L4_plus_requires_artefact_dir", not no_dir, no_dir)
+    no_profit = [c["candidate_id"] for c in executed
+                 if c.get("verification_level") == "L5"
+                 and not (c.get("experiment") or {}).get("profit_evidence")]
+    rep.add("consistency", "L5_requires_profit_evidence", not no_profit,
+            no_profit)
+    l6 = [c["candidate_id"] for c in executed if c.get("verification_level") == "L6"]
+    rep.add("consistency", "no_L6_without_fixed_leg", not l6, l6)
     l1_no_poc = [c["candidate_id"] for c in ledger
                  if c.get("verification_level") == "L1" and not c.get("poc_available")]
     rep.add("consistency", "L1_requires_published_poc", not l1_no_poc, l1_no_poc)
@@ -242,12 +270,81 @@ def main() -> int:
         rep.add("counts", "manifest_counts_match", not bad_counts, bad_counts)
         try:
             sl = json.loads((V.DERIVED_V3 / "source_ledger.json").read_text(encoding="utf-8"))
-            ssum = sum(s["records_discovered"] for s in sl.get("sources", []))
-            rep.add("counts", "source_ledger_sums",
-                    ssum == len(ledger) and len(sl.get("sources", [])) == 18,
-                    [] if ssum == len(ledger) else [f"ledger_sum={ssum} ledger={len(ledger)}"])
+            sources = sl.get("sources", [])
+            ssum = sum(s["records_discovered"] for s in sources)
+            # len(V.SOURCE_IDS), never a literal: adding or removing a source
+            # must not require editing this gate.
+            want_n = len(V.SOURCE_IDS)
+            problems = []
+            if ssum != len(ledger):
+                problems.append(f"ledger_sum={ssum} ledger={len(ledger)}")
+            if len(sources) != want_n:
+                problems.append(f"sources={len(sources)} expected={want_n}")
+            rep.add("counts", "source_ledger_sums", not problems, problems,
+                    detail=f"{len(sources)} sources == len(SOURCE_IDS)")
         except (OSError, json.JSONDecodeError, KeyError) as exc:
             rep.add("counts", "source_ledger_readable", False, [str(exc)])
+
+    # ---- L3 rows trace to the compile sweep -------------------------------------
+    # An L3 record claims "forge build rc=0 on these unmodified PoC bytes".
+    # That claim is checkable without a forge run: the row must exist in the
+    # committed sweep with rc==0, and the promoted record must not have
+    # drifted from it (no invented compile, no invented artefact dir).
+    sweep_path = V.REPORTS_V3 / "compile_sweep.json"
+    if sweep_path.is_file():
+        try:
+            sweep = json.loads(sweep_path.read_text(encoding="utf-8"))
+            rows = (sweep.get("rows") if isinstance(sweep, dict) else sweep)
+            by_key = {}
+            for s in (rows or []):
+                if not isinstance(s, dict):
+                    continue
+                try:
+                    key = _exec_mod.evidence_key(str(s.get("file", "")))
+                except Exception:
+                    continue
+                if key:
+                    by_key[key] = s
+            l3_no_sweep, l3_drift = [], []
+            for c in ledger:
+                if c.get("verification_level") != "L3":
+                    continue
+                key = _exec_mod.evidence_key(c["candidate_id"])
+                s = by_key.get(key)
+                if s is None:
+                    l3_no_sweep.append(c["candidate_id"])
+                elif s.get("rc") != 0:
+                    l3_drift.append(c["candidate_id"])
+                else:
+                    exp = c.get("experiment") or {}
+                    comp = exp.get("compile") or {}
+                    if comp.get("rc") != 0 or \
+                            bool(comp.get("via_ir")) != bool(s.get("via_ir")):
+                        l3_drift.append(c["candidate_id"])
+            rep.add("consistency", "L3_requires_compile_sweep_row",
+                    not l3_no_sweep, l3_no_sweep,
+                    detail=f"{len(by_key)} sweep rows, "
+                           f"{sum(1 for c in ledger if c.get('verification_level') == 'L3')} L3 records")
+            rep.add("consistency", "L3_matches_sweep_row", not l3_drift,
+                    l3_drift,
+                    detail="record's compile evidence equals its sweep row "
+                           "(rc=0, same via_ir, no invented artefact dir)")
+            # Every sweep success must be accounted for by some record, so a
+            # promotion cannot silently drop compiled PoCs.
+            l3_keys = {_exec_mod.evidence_key(c["candidate_id"])
+                       for c in ledger
+                       if c.get("verification_level") in ("L3", "L4", "L5")}
+            unaccounted = sorted(k for k, s in by_key.items()
+                                 if s.get("rc") == 0 and k not in l3_keys)
+            rep.add("consistency", "compiled_pocs_are_advertised",
+                    not unaccounted, unaccounted[:10],
+                    detail="every compiled sweep row appears as an L3+ record")
+        except (OSError, ValueError) as exc:
+            rep.add("consistency", "compile_sweep_readable", False, [str(exc)])
+    else:
+        rep.add("consistency", "compile_sweep_present", False, [],
+                detail="missing reports/v3/compile_sweep.json: L3 claims "
+                       "cannot be traced to a sweep row", critical=False)
 
     # ---- versions ---------------------------------------------------------------
     ver_bad = []
@@ -291,9 +388,12 @@ def main() -> int:
            "dataset_version": V.DATASET_VERSION_V3}
     V.REPORTS_V3.mkdir(parents=True, exist_ok=True)
     # newline="\n": platform-stable LF output (see vlun_v3.write_json).
+    # Trailing "\n" keeps the file byte-identical to a sort_keys redump
+    # (enforced by check_reproducibility.py §7a).
     with open(V.REPORTS_V3 / "validation_v3.json", "w", encoding="utf-8",
               newline="\n") as fh:
         json.dump(out, fh, indent=2, sort_keys=True)
+        fh.write("\n")
     V.log(f"validate_v3.py: {passed}/{total} checks passed, "
           f"{crit_fail} critical failures")
     return 1 if crit_fail else 0

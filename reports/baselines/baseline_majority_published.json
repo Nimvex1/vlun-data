@@ -1,17 +1,9 @@
 {
   "coverage": {
     "excluded_families": {
-      "B_root_cause_reasoning.jsonl": {
-        "reason": "no labeled rows (partial/unlabeled only)",
-        "tasks": 720
-      },
       "D_exploit_construction.jsonl": {
         "reason": "generative task: needs judge, not string match",
         "tasks": 720
-      },
-      "G_patch_verification.jsonl": {
-        "reason": "no labeled rows",
-        "tasks": 38
       },
       "H_verified_exploit.jsonl": {
         "reason": "descriptive reference, no label field",
@@ -22,13 +14,11 @@
         "tasks": 137
       }
     },
-    "manifest_scorable_total": 10593,
-    "scorer_covered": 10103
+    "manifest_scorable_total": 22638,
+    "scorer_covered": 22148
   },
   "excluded_families": {
-    "B_root_cause_reasoning.jsonl": "no labeled rows (partial/unlabeled only)",
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
-    "G_patch_verification.jsonl": "no labeled rows",
     "H_verified_exploit.jsonl": "descriptive reference, no label field",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
   },
@@ -57,6 +47,33 @@
           "correct": 0,
           "predicted": 0,
           "scorable": 229
+        }
+      }
+    },
+    "B_root_cause_reasoning.jsonl": {
+      "accuracy": null,
+      "accuracy_scorable": 0.0,
+      "correct": 0,
+      "predicted": 0,
+      "scorable": 228,
+      "splits": {
+        "test": {
+          "accuracy": null,
+          "correct": 0,
+          "predicted": 0,
+          "scorable": 59
+        },
+        "train": {
+          "accuracy": null,
+          "correct": 0,
+          "predicted": 0,
+          "scorable": 104
+        },
+        "validation": {
+          "accuracy": null,
+          "correct": 0,
+          "predicted": 0,
+          "scorable": 65
         }
       }
     },
@@ -126,6 +143,21 @@
           "correct": 0,
           "predicted": 0,
           "scorable": 1
+        }
+      }
+    },
+    "G_patch_verification.jsonl": {
+      "accuracy": null,
+      "accuracy_scorable": 0.0,
+      "correct": 0,
+      "predicted": 0,
+      "scorable": 7,
+      "splits": {
+        "validation": {
+          "accuracy": null,
+          "correct": 0,
+          "predicted": 0,
+          "scorable": 7
         }
       }
     },
@@ -401,13 +433,13 @@
       "accuracy_scorable": 0.0,
       "correct": 0,
       "predicted": 0,
-      "scorable": 624,
+      "scorable": 6218,
       "splits": {
         "test": {
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 2
+          "scorable": 5596
         },
         "train": {
           "accuracy": null,
@@ -428,13 +460,13 @@
       "accuracy_scorable": 0.0,
       "correct": 0,
       "predicted": 0,
-      "scorable": 719,
+      "scorable": 6935,
       "splits": {
         "test": {
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 2
+          "scorable": 5668
         },
         "train": {
           "accuracy": null,
@@ -446,17 +478,17 @@
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 34
+          "scorable": 584
         }
       }
     }
   },
   "micro": {
     "accuracy": 1.0,
-    "accuracy_scorable": 0.007027615559734733,
+    "accuracy_scorable": 0.003205707061585696,
     "correct": 71,
     "predicted": 71,
-    "scorable": 10103
+    "scorable": 22148
   },
   "run": "baseline:majority_published:seed7"
 }

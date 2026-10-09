@@ -1,10 +1,11 @@
 {
+  "artifact_hash_note": "sha256 over the committed (LF) artefact bytes. The originals were hashed on a CRLF-emitting platform; those 27 hashes could not be verified against the shipped files and were recomputed, not adjusted. Regenerate with python scripts/run_dhl_experiments.py on an LF platform to reproduce from scratch.",
   "artifact_hashes": {
-    "command.txt": "4d591a223c5bf9712f2833cef697e24b76cb83bcc657a95cd7247d9522176197",
-    "harness.json": "bde788bd2074c74427b662c9c70416786629be6e5df01fb347bc62dd44b1cd03",
-    "stderr.txt": "2ab83fa1c33a0dd9d6e0cbbf24f1c7e051a90865bc2c48ba72c32d0160244c8c",
-    "stdout.txt": "1487b5dac502c4ce3c18729632597aba1665c7441e0fbc64cd777fc6f3ff50cd",
-    "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+    "command.txt": "c53a60d9a2063adfae648093c64864caae3a45ad5de8f2ea2c8f9a539cfbf2a7",
+    "harness.json": "06b46f0f510ea7f43b328cf37bb3dc02d1848b03a2fb2162eece35eae943a87b",
+    "stderr.txt": "14a51d235bd3c7e4ae163110b26b6917731b6580904d3c5312301bdd9dca152a",
+    "stdout.txt": "7b432c22e2b24ee10db5edf787ce6de2508b5b1f2c6eb14661df3461565f11e3",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
   },
   "build": {
     "harness": {

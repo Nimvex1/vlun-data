@@ -168,7 +168,7 @@ def main() -> int:
                 f"- body committed: **no** — {result['body_note']}\n"
                 f"- fixed-revision leg: **no** — {result['fixed_revision_note']}\n\n"
                 f"Full record: [`result.json`](result.json)\n",
-                encoding="utf-8")
+                encoding="utf-8", newline="\n")
             written += 1
 
     summary = {

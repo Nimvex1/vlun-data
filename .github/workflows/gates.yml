@@ -23,3 +23,12 @@ jobs:
           python scripts/generate_stats.py --check
           python scripts/generate_readme.py --check
           python Vbeta/scripts/build_vbeta.py --check
+          python scripts/check_line_endings.py
+      # Rebuild parity for the v3.1 normalization layer needs the cloned
+      # sources (git-ignored, never redistributed), so it cannot run on a
+      # fresh CI checkout. Locally, with V3/clones populated,
+      # `python scripts/check_reproducibility.py` performs the full rebuild
+      # and byte-compares; on CI it stays skipped_no_network, never a pass.
+      - name: Documented skips stay skips
+        run: |
+          python scripts/check_reproducibility.py --quiet

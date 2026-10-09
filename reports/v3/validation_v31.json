@@ -145,9 +145,18 @@
       "ok": true
     },
     {
-      "check": "levels_L0_L1_only",
+      "check": "levels_closed_vocabulary",
       "critical": true,
       "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "vocabularies",
+      "ok": true
+    },
+    {
+      "check": "preview_execution_claims_are_backed",
+      "critical": true,
+      "detail": "an L2+ preview row must carry its own experiment or inherit one from an executed parent candidate",
       "failure_count": 0,
       "failures": [],
       "group": "vocabularies",
@@ -262,11 +271,48 @@
       "ok": true
     },
     {
-      "check": "worktree_dirt_attribution",
-      "critical": false,
-      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs",
+      "check": "protected_files_byte_identical",
+      "critical": true,
+      "detail": "17 pipeline-written protected files byte-identical to canonical form; 9 read-only evidence files parse as JSONL and are checked for writability by check_reproducibility.py; 4 declared non-canonical (prose reports)",
       "failure_count": 0,
       "failures": [],
+      "group": "isolation",
+      "ok": true
+    },
+    {
+      "check": "protected_files_lf_only",
+      "critical": true,
+      "detail": "CRLF in a protected file would break byte-identity on another platform; fix the writer (newline=\"\\n\")",
+      "failure_count": 0,
+      "failures": [],
+      "group": "isolation",
+      "ok": true
+    },
+    {
+      "check": "worktree_dirt_observed",
+      "critical": false,
+      "detail": "26 dirty entries under data dirs, 18 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 18,
+      "failures": [
+        " M benchmark/B_root_cause_reasoning.jsonl",
+        " M benchmark/G_patch_verification.jsonl",
+        " M benchmark/manifest.json",
+        " M benchmark/v3_T_taxonomy_explicit.jsonl",
+        " M benchmark/v3_manifest.json",
+        " M derived_v3/candidate_ledger.jsonl",
+        " M derived_v3/manifest.json",
+        " M derived_v3/records.jsonl",
+        " M derived_v3/source_ledger.json",
+        " M jsonl_v3/findings.jsonl",
+        " M reports/v3/dataset_summary.json",
+        " M reports/v3/experiment_queue.md",
+        " M reports/v3/experimental_proof.json",
+        " M reports/v3/quality_report.md",
+        " M reports/v3/top20_imported.md",
+        " M reports/v3/top20_untrusted.md",
+        " M reports/v3/validation_v3.json",
+        "?? benchmark/CANARY.md"
+      ],
       "group": "isolation",
       "ok": true
     },
@@ -291,6 +337,6 @@
   ],
   "critical_failures": 0,
   "normalization_version": "3.1",
-  "passed": 32,
-  "total": 32
+  "passed": 35,
+  "total": 35
 }

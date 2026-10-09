@@ -611,7 +611,8 @@ def build() -> tuple[dict[str, list[dict]], dict]:
 def manifest_entry(key: str, rows: list[dict]) -> dict:
     name = BENCHMARK_FAMILIES[key][0]
     st = collections.Counter(r["answer_key_status"] for r in rows)
-    return {
+    scorable = st.get("labeled", 0)
+    entry = {
         "file": f"benchmark/{name}.jsonl",
         "layer": "v2.2",
         "question": BENCHMARK_FAMILIES[key][2],
@@ -619,8 +620,8 @@ def manifest_entry(key: str, rows: list[dict]) -> dict:
         "labeled": st.get("labeled", 0),
         "partial": st.get("partial", 0),
         "unlabeled": st.get("unlabeled", 0),
-        "scorable": st.get("labeled", 0),
-        "unscorable": st.get("unlabeled", 0),
+        "scorable": scorable,
+        "unscorable": len(rows) - scorable,
         "answer_key_evidence_levels": dict(collections.Counter(
             r.get("answer_key_evidence_level") or "not_recorded" for r in rows)),
         "by_split": dict(collections.Counter(r["split"] for r in rows)),
@@ -629,6 +630,10 @@ def manifest_entry(key: str, rows: list[dict]) -> dict:
         "languages_allowed": list(FAMILY_LANGUAGES.get(key, [])),
         "duplicate_rows_dropped": 0,
     }
+    if name == "Q_evidence_type_and_quality_rubric":
+        entry["scoring_status"] = "descriptive/non-scorable"
+        entry["scoring_note"] = "judge-graded rubric dict (partial credit by definition)"
+    return entry
 
 
 def main() -> int:

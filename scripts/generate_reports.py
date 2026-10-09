@@ -304,7 +304,7 @@ def build_benchmark_metrics() -> str:
         "signal.",
         "",
     ]
-    (MD / "benchmark_metrics.md").write_text("\n".join(lines), encoding="utf-8")
+    (MD / "benchmark_metrics.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
     return "\n".join(lines)
 
 
@@ -560,7 +560,7 @@ def build_final_report() -> str:
         f"{vrep.get('failed_critical', 0)} critical failures, {vrep.get('warnings', 0)} warnings.",
         "",
     ]
-    (MD / "final_quality_report.md").write_text("\n".join(lines), encoding="utf-8")
+    (MD / "final_quality_report.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
     return "\n".join(lines)
 
 

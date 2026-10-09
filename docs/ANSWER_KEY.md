@@ -41,15 +41,30 @@ alongside accuracy so abstention is visible, never silent.
 | U_vbeta_language_routing | **answer** | language string (673; unknown-language rows excluded by construction) |
 | V_vbeta_source_tier_routing | **answer** | tier string (782) |
 
+## Partially scorable (scalar scored, prose judge-graded)
+
+| Family | Scored key | Scorable | Judge-graded remainder |
+|---|---|---|---|
+| B_root_cause_reasoning | `invariant_stated` | 228 / 720 | `root_cause`, `violated_invariant` |
+| G_patch_verification | `label` (L6-verified only) | 7 / 38 | — |
+| D_exploit_construction | `poc_code` presence | 346 / 720 | the PoC test itself |
+
+B's scalar comes from record structure (does the record carry a violated
+invariant), never from prose. The 492 rows without an invariant are excluded
+because their correct answer is the constant "no". G's 31 `not_testable`
+rows have no executable PoC on either revision, so no answer key exists.
+
 ## Not exactly scorable (excluded with reason, not silently)
 
 | Family | Reason |
 |---|---|
-| B_root_cause_reasoning | 0 labeled rows (416 partial, 304 unlabeled) |
 | D_exploit_construction | generative (write the PoC test) — needs a judge |
-| G_patch_verification | 0 labeled rows |
 | H_verified_exploit | descriptive reference (behaviours, no label field) |
 | Q_evidence_type_and_quality_rubric | judge-graded rubric dict (partial credit by definition) |
+
+`scripts/score_benchmark.py` `EXCLUDED` lists these three with the same
+reasons, and `check_manifests.py` fails if ANY family drops to
+`scorable == 0`.
 
 ## Provenance of every key
 

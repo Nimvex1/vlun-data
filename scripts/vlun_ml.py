@@ -123,7 +123,12 @@ VERIFICATION_EVIDENCE = {
 # experiment levels, identical to the Solidity layer
 # ---------------------------------------------------------------------------
 
-EXPERIMENT_LEVELS = tuple(f"L{i}" for i in range(7))
+# Single source of truth: scripts/poc_classification.py::POC_LEVELS.
+try:
+    from poc_classification import POC_LEVELS as _POC_LEVELS  # noqa: E402
+    EXPERIMENT_LEVELS = tuple(_POC_LEVELS)
+except ImportError:  # pragma: no cover
+    EXPERIMENT_LEVELS = tuple(f"L{i}" for i in range(7))
 
 # ---------------------------------------------------------------------------
 # which languages each v2.2 benchmark family may be built from

@@ -1,11 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "fixpoint: README settled at final gate counts after text-hash migration",
+  "resnapshot_reason": "README.md regenerated after B/G became scorable (228/7) and the six baselines were refreshed to 22,148 tasks",
   "sentinel_sha256": {
-    "README.md": "6ebb5c82096900cf89db0bce6dbcc409b1133599880de6417486a694a7abb2b7",
-    "benchmark/manifest.json": "a5f266bd6a4704a5acb7f1c06adbc4e6ccabc93eec40d0570657c9336daa934c",
-    "derived_v3/manifest.json": "f6f7918582d4b7c27d7d8c71281f625f96f08e5b1a0a15cb9482d09a51f93b76",
+    "README.md": "cbff81e99568c33be72c9daf0525b953a0d49d1486c36048fb919d076293fe63",
+    "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
+    "derived_v3/manifest.json": "606c8fa63a689d2e070873842c6416cc50062903f71fbd087a66ec51c4ed88d1",
     "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",
-    "scripts/vlun_v3.py": "d0785f7d9ee38d2c8e102bead09da81048278e0cba918e2f54e358314dd5c74a"
+    "scripts/vlun_v3.py": "b5753f8e5ab466a00af78206147bd6686ec9f68227f25aa2ca3453929e6934b9"
   }
 }

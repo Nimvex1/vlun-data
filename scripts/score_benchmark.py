@@ -40,6 +40,12 @@ ROOT = Path(__file__).resolve().parent.parent
 # family file -> answer-key projection. None = not exactly scorable (reason).
 PROJECTIONS = {
     "A_vulnerability_detection.jsonl": ("label", "scalar label"),
+    # B: the prose root_cause / violated_invariant are judge-graded, but the
+    # recognition question behind them is scalar -- does any source state a
+    # violated invariant, or is the correct answer null? Derived from record
+    # structure only, never from prose, so it is exactly matchable.
+    "B_root_cause_reasoning.jsonl": ("invariant_stated", "scalar label"),
+    "G_patch_verification.jsonl": ("label", "scalar label"),
     "C_attacker_reasoning.jsonl": ("attacker_kind", "scalar label"),
     "E_exploit_verification.jsonl": ("verdict", "scalar label"),
     "F_false_positive_rejection.jsonl": ("label", "scalar label"),
@@ -61,9 +67,7 @@ PROJECTIONS = {
 }
 
 EXCLUDED = {
-    "B_root_cause_reasoning.jsonl": "no labeled rows (partial/unlabeled only)",
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
-    "G_patch_verification.jsonl": "no labeled rows",
     "H_verified_exploit.jsonl": "descriptive reference, no label field",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict",
 }

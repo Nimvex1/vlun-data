@@ -22,10 +22,12 @@ PY = sys.executable
 
 GATES = [
     ("v1-authorship", [PY, "scripts/validate.py", "--quiet"]),
+    ("ml-layer", [PY, "scripts/check_ml_layer.py", "--quiet"]),
     ("v3", [PY, "scripts/validate_v3.py", "--quiet"]),
     ("v31", [PY, "scripts/validate_v31.py", "--quiet"]),
     ("vbeta-gate", [PY, "Vbeta/scripts/validate_vbeta.py", "--quiet"]),
     ("manifests", [PY, "scripts/check_manifests.py", "--quiet"]),
+    ("line-endings", [PY, "scripts/check_line_endings.py", "--quiet"]),
     ("reproducibility", [PY, "scripts/check_reproducibility.py", "--quiet"]),
     ("unit-tests", [PY, "-m", "unittest", "discover", "-s", "tests"]),
     ("vbeta-tests", [PY, "Vbeta/tests/test_vbeta.py"]),
@@ -35,15 +37,22 @@ GATES = [
 ]
 
 ONLY_MAP = {
-    "v1": ["v1-authorship"],
+    "v1": ["v1-authorship", "ml-layer"],
     "v3": ["v3"],
     "v31": ["v31"],
     "vbeta": ["vbeta-gate", "vbeta-tests"],
     "manifests": ["manifests"],
+    "line-endings": ["line-endings"],
     "repro": ["reproducibility"],
     "tests": ["unit-tests", "vbeta-tests"],
     "readme": ["readme-current", "stats-current", "field-coverage-current"],
 }
+
+# Exit code 2 means SKIPPED (missing optional inputs, no network): recorded
+# as skipped, never as pass and never as failure. check_ml_layer.py returns
+# 2 when jsonl_ml/ is absent; network-gated validators use the same
+# convention via skipped_no_network.
+SKIPPED_CODES = {2}
 
 
 def main() -> int:
@@ -69,23 +78,29 @@ def main() -> int:
     print("run_gates.py")
     for name, cmd in selected:
         out = ""
+        status = "FAIL"
         try:
             p = subprocess.run(cmd, cwd=str(ROOT), capture_output=True,
                                text=True, timeout=1200, errors="replace")
-            ok = p.returncode == 0
+            if p.returncode == 0:
+                status = "PASS"
+            elif p.returncode in SKIPPED_CODES:
+                status = "SKIPPED"
+            else:
+                status = "FAIL"
             out = ((p.stdout or "") + (p.stderr or "")).strip()
             tail = " | ".join(t.strip() for t in out.splitlines()[-2:]
                               if t.strip())
         except subprocess.TimeoutExpired:
-            ok, tail = False, "timeout after 1200s"
+            status, tail = "FAIL", "timeout after 1200s"
         except OSError as exc:
-            ok, tail = False, f"cannot start: {exc}"
-        results.append((name, ok))
+            status, tail = "FAIL", f"cannot start: {exc}"
+        results.append((name, status))
         if args.quiet:
             continue
-        print(f"  [{'PASS' if ok else 'FAIL'}] {name}"
+        print(f"  [{status}] {name}"
               + (f" — {tail[:160]}" if tail else ""))
-        if not ok and out:
+        if status == "FAIL" and out:
             # A failing gate must show WHY, especially on CI where the
             # validator's own log is captured, not streamed.
             lines = out.splitlines()
@@ -96,8 +111,10 @@ def main() -> int:
             for ln in show:
                 print(f"    {ln.strip()}"[:300])
 
-    nfail = sum(1 for _, ok in results if not ok)
-    print(f"gates={len(results)} pass={len(results) - nfail} fail={nfail}")
+    nfail = sum(1 for _, st in results if st == "FAIL")
+    nskip = sum(1 for _, st in results if st == "SKIPPED")
+    print(f"gates={len(results)} pass={len(results) - nfail - nskip} "
+          f"fail={nfail} skipped={nskip}")
     return 1 if nfail else 0
 
 
