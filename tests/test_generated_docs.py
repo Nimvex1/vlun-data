@@ -153,12 +153,53 @@ class TestReproducibilityReportIsGenerated(unittest.TestCase):
             encoding="utf-8")
         mc = json.loads((ROOT / "reports" / "manifest_checks.json")
                         .read_text(encoding="utf-8"))
-        rc = json.loads((ROOT / "reports" / "reproducibility_checks.json")
-                        .read_text(encoding="utf-8"))
-        self.assertIn(f"{mc['checks_total']}", text)
-        self.assertIn(f"{rc['checks_total']}", text)
+        self.assertIn(str(mc["checks_total"]), text)
         self.assertNotIn("119 count/reference checks", text)
         self.assertNotIn("16 provenance/determinism checks", text)
+
+    def test_report_is_machine_independent(self):
+        """The CI failure this prevents.
+
+        A checkout WITH the git-ignored V3/clones and work/ runs the
+        derived/ rebuild-parity gate; a fresh CI clone skips it. If the
+        report embedded that split it would be current on one machine and
+        stale on every other. Render it against a synthetic run with the
+        opposite profile and require byte-identical output.
+        """
+        import importlib.util
+        import tempfile
+
+        spec = importlib.util.spec_from_file_location(
+            "_br", str(ROOT / "scripts" / "build_repro_report.py"))
+        br = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(br)
+
+        real = (ROOT / "reports" / "reproducibility_checks.json")
+        backup = real.read_bytes() if real.is_file() else None
+        try:
+            # CI profile: derived/ parity skipped instead of passed.
+            real.write_text(json.dumps({
+                "checks": [{"check": "derived/ rebuild parity",
+                            "status": "SKIPPED", "detail": "no work/"}],
+                "checks_total": 19, "checks_passed": 16,
+                "checks_failed": 0, "checks_skipped": 3,
+            }, indent=2) + "\n", encoding="utf-8")
+            ci = br.render()
+        finally:
+            if backup is not None:
+                real.write_bytes(backup)
+        self.assertEqual(ci, br.render(),
+                         "report changed when the run profile changed: it is "
+                         "embedding machine-dependent results")
+
+    def test_report_has_no_per_check_statuses(self):
+        text = (ROOT / "reports" / "reproducibility_report.md").read_text(
+            encoding="utf-8")
+        for word in ("skipped_no_network:", "| PASS |", "| SKIPPED |"):
+            self.assertNotIn(word, text,
+                             "per-check statuses are machine-dependent and "
+                             "must not be pinned in a committed report")
+        self.assertIn("machine-dependent", text)
 
 
 if __name__ == "__main__":

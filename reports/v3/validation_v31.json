@@ -291,15 +291,9 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "6 dirty entries under data dirs, 5 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 5,
-      "failures": [
-        " M benchmark/v3_manifest.json",
-        " M derived_v3/manifest.json",
-        " M derived_v3/source_ledger.json",
-        " M reports/v3/dataset_summary.json",
-        " M reports/v3/validation_v3.json"
-      ],
+      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

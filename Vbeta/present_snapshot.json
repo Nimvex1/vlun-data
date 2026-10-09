@@ -1,8 +1,8 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "Vbeta manifest distributions domain-named (candidate_* sums to 7,060, admitted_* to 6,935); Solodit severity split from the Impact axis; README regenerated with live check count",
+  "resnapshot_reason": "README regenerated: reproducibility_report.md is now described as a machine-independent gate summary, not a live per-check matrix",
   "sentinel_sha256": {
-    "README.md": "e83cf89ff84624d9082538268b2134c19310276f803072bed81fbc3e0b0f0855",
+    "README.md": "52199ebed092e564f3b13545b1a1f463ef1491de24cda8d61604d6157bc729d8",
     "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
     "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",

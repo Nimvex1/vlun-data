@@ -501,7 +501,8 @@ def main() -> int:
     # .gitignore stops declaring them. Documentation without enforcement
     # rots; this is the enforcement.
     declared_ignored = ["nextdata/", ".firecrawl/", "work/", "V3/clones/",
-                        ".freebuff/", "brag-output/"]
+                        ".freebuff/", "brag-output/",
+                        "reports/reproducibility_checks.json"]
     try:
         gi = (ROOT / ".gitignore").read_text(encoding="utf-8")
         missing_decl = [p for p in declared_ignored if p not in gi]

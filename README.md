@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 72/72 · v3.0 41/41 · v3.1 35/35 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
+Gates (0 critical failures everywhere): v2 72/72 · v3.0 41/41 · v3.1 35/35 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -278,10 +278,13 @@ One canonical vocabulary — `scripts/schema_terms.py` (single source of truth; 
 redefines, the existing enums) — separates sources from findings, candidates from admitted
 records, derived rows from preview rows, published PoCs (L1) from reproduced ones (L5/L6),
 and team-reported `Fixed` from `verified_patch`. Validators reject deprecated terms
-(`verified source`, `reproduced`-as-prose, `Fixed (verified)`). Live status:
-[`reports/reproducibility_report.md`](reports/reproducibility_report.md) holds the full
-PASS/FAIL/SKIPPED matrix; `scripts/validate.py` (71/71), `validate_v3.py`, `validate_v31.py`
-and the Vbeta gate enforce it per layer.
+(`verified source`, `reproduced`-as-prose, `Fixed (verified)`). Status:
+[`reports/reproducibility_report.md`](reports/reproducibility_report.md) is generated from the
+JSON each gate writes and holds every gate's size and critical-failure count -- the
+numbers that do not vary by machine. The per-check PASS/SKIP matrix is deliberately not
+pinned there: it depends on whether the git-ignored `V3/clones`/`work/` are present, so it
+is the CI run for the commit, or `python scripts/run_gates.py` locally. `validate.py`,
+`validate_v3.py`, `validate_v31.py` and the Vbeta gate enforce it per layer.
 
 ## ML quickstart
 

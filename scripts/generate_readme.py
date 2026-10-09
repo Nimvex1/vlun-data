@@ -375,7 +375,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced thefts, {(proof32.get('by_level') or {}).get('L3', 0)} blocked at L3 |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the live PASS/FAIL matrix.
+Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_l5)}/{n(v3m.get('record_count', 0))} · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_executed)}/{n(v3m.get('record_count', 0))} · Vbeta 0/{n(vbm.get('record_count', 0))}. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -619,10 +619,13 @@ One canonical vocabulary — `scripts/schema_terms.py` (single source of truth; 
 redefines, the existing enums) — separates sources from findings, candidates from admitted
 records, derived rows from preview rows, published PoCs (L1) from reproduced ones (L5/L6),
 and team-reported `Fixed` from `verified_patch`. Validators reject deprecated terms
-(`verified source`, `reproduced`-as-prose, `Fixed (verified)`). Live status:
-[`reports/reproducibility_report.md`](reports/reproducibility_report.md) holds the full
-PASS/FAIL/SKIPPED matrix; `scripts/validate.py` (71/71), `validate_v3.py`, `validate_v31.py`
-and the Vbeta gate enforce it per layer.
+(`verified source`, `reproduced`-as-prose, `Fixed (verified)`). Status:
+[`reports/reproducibility_report.md`](reports/reproducibility_report.md) is generated from the
+JSON each gate writes and holds every gate's size and critical-failure count -- the
+numbers that do not vary by machine. The per-check PASS/SKIP matrix is deliberately not
+pinned there: it depends on whether the git-ignored `V3/clones`/`work/` are present, so it
+is the CI run for the commit, or `python scripts/run_gates.py` locally. `validate.py`,
+`validate_v3.py`, `validate_v31.py` and the Vbeta gate enforce it per layer.
 
 ## ML quickstart
 

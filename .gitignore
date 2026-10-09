@@ -14,6 +14,15 @@ work/
 
 # Generated at build time, committed deliberately: see reports/.
 
+# Machine-LOCAL run snapshot, deliberately NOT committed. The per-check
+# PASS/SKIP split depends on whether the git-ignored inputs are present: a
+# checkout with V3/clones/ and work/ runs the derived/ rebuild-parity gate,
+# a fresh CI clone skips it. Committing one machine's split makes the
+# published report stale everywhere else. The deterministic, committed
+# summary is reports/reproducibility_report.md; this file is the live
+# matrix for whoever ran it. Enforced by scripts/check_reproducibility.py.
+reports/reproducibility_checks.json
+
 # V3 third-party clones (~3 GB, PDF-heavy, must NOT be redistributed).
 # The harvester reads them from disk; provenance survives via clone-HEAD pins
 # + file sha256 in jsonl_v3/derived_v3. Only the manifest + research docs are
