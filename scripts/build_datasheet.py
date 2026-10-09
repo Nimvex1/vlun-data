@@ -49,8 +49,8 @@ def main() -> int:
             {}) or {}
     micro = (bl.get("micro") or {})
     cov = (bl.get("coverage") or {})
-    leak = (m3.get("verification_levels", {}) or {})
-    lvl = (mvb.get("verification_levels", {}) or {})
+    leak = (m3.get("admitted_verification_levels", {}) or {})
+    lvl = (mvb.get("candidate_verification_levels", {}) or {})
     # Judge-only / unlabelled tasks. Counted from the scorer's own
     # exclusion list (per-family task counts it records), NOT from
     # manifest_scorable_total - scorer_covered: that subtraction goes

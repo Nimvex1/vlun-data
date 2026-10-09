@@ -1,5 +1,5 @@
 {
-  "by_ecosystem": {
+  "admitted_by_ecosystem": {
     "aptos": 10,
     "cosmos": 9,
     "evm": 6088,
@@ -8,7 +8,7 @@
     "sui": 7,
     "unknown": 812
   },
-  "by_language": {
+  "admitted_by_language": {
     "cairo": 19,
     "go": 38,
     "move": 20,
@@ -17,7 +17,7 @@
     "unknown": 717,
     "vyper": 24
   },
-  "by_source": {
+  "candidate_by_source": {
     "cantina-portfolio": 6,
     "cyfrin-codehawks": 8,
     "immunefi-past-competitions": 2,
@@ -35,23 +35,33 @@
     "web3bugs": 491
   },
   "candidate_count": 7060,
-  "dataset_version": "vbeta-1.0",
-  "decisions": {
+  "candidate_decisions": {
     "CORROBORATION_ONLY": 63,
-    "IMPORT": 60,
+    "IMPORT": 62,
     "IMPORT_AS_NEGATIVE": 5,
-    "IMPORT_AS_UNVERIFIED": 6870,
+    "IMPORT_AS_UNVERIFIED": 6868,
     "RESEARCH_ONLY": 62
   },
+  "candidate_verification_levels": {
+    "L0": 7003,
+    "L1": 57
+  },
+  "count_domains": {
+    "admitted_by_ecosystem": "admitted_record (IMPORT* decisions)",
+    "admitted_by_language": "admitted_record (IMPORT* decisions)",
+    "candidate_by_source": "candidate (pre-admission ledger row)",
+    "candidate_count": "candidate (pre-admission ledger row)",
+    "candidate_decisions": "candidate (pre-admission ledger row)",
+    "candidate_verification_levels": "candidate (pre-admission ledger row)",
+    "record_count": "admitted_record (IMPORT* decisions)",
+    "source_count": "source (origin)"
+  },
+  "dataset_version": "vbeta-1.0",
   "experimental_runs_attempted": 0,
   "experimental_runs_note": "nothing executed in this pass; L1 = published-PoC claims only",
   "generated_by": "Vbeta/scripts/build_vbeta.py",
   "license_posture": "METADATA_ONLY for all third-party content; openzeppelin-cairo rows carry observed MIT",
   "record_count": 6935,
   "schema_version": "vbeta-1.0",
-  "source_count": 15,
-  "verification_levels": {
-    "L0": 7003,
-    "L1": 57
-  }
+  "source_count": 15
 }

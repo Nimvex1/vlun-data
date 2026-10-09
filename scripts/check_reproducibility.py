@@ -550,6 +550,21 @@ def main() -> int:
           f"{sum(1 for r in G.rows if r['status'] == 'PASS')} "
           f"fail={len(fails)} skipped="
           f"{sum(1 for r in G.rows if r['status'] == 'SKIPPED')}")
+    # Writes only its own report, so generated documents can quote a live
+    # count instead of a hard-coded one.
+    _rep = ROOT / "reports" / "reproducibility_checks.json"
+    _rep.parent.mkdir(parents=True, exist_ok=True)
+    _rep.write_text(json.dumps({
+        "generated_by": "scripts/check_reproducibility.py",
+        "checks": G.rows,
+        "checks_total": len(G.rows),
+        "checks_passed": sum(1 for r in G.rows if r["status"] == "PASS"),
+        "checks_failed": len(fails),
+        "checks_skipped": sum(1 for r in G.rows if r["status"] == "SKIPPED"),
+        "note": ("skipped_no_network entries are honest skips, never passes: "
+                 "they need git-ignored clones or work/ inputs that are not "
+                 "redistributed"),
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 1 if fails else 0
 
 

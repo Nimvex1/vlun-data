@@ -23,7 +23,7 @@ Dataset version vbeta-1.0. Isolated layer: no PRESENT file touched (see present_
 ## Findings
 
 candidates=7060 admitted_records=6935
-decisions={'CORROBORATION_ONLY': 63, 'IMPORT': 60, 'IMPORT_AS_NEGATIVE': 5, 'IMPORT_AS_UNVERIFIED': 6870, 'RESEARCH_ONLY': 62}
+decisions={'CORROBORATION_ONLY': 63, 'IMPORT': 62, 'IMPORT_AS_NEGATIVE': 5, 'IMPORT_AS_UNVERIFIED': 6868, 'RESEARCH_ONLY': 62}
 
 ## Verification
 

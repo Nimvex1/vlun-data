@@ -38,8 +38,8 @@ alongside accuracy so abstention is visible, never silent.
 | R_v3_source_tier_routing | **answer.tier** | 0 / 1 / 2 (5,467) |
 | S_v3_contest_outcome | **answer.outcome** | finding / negative (1,072) |
 | T_v31_taxonomy_explicit | **answer.vulnerability_class** | free-text class, explicit only (589) |
-| U_vbeta_language_routing | **answer** | language string (673; unknown-language rows excluded by construction) |
-| V_vbeta_source_tier_routing | **answer** | tier string (782) |
+| U_vbeta_language_routing | **answer** | language string (6,218 of 6,935 admitted; 717 unknown-language rows excluded) |
+| V_vbeta_source_tier_routing | **answer** | tier string (6,935, every admitted record) |
 
 ## Partially scorable (scalar scored, prose judge-graded)
 

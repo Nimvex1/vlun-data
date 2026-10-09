@@ -1,10 +1,10 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "README.md regenerated after B/G became scorable (228/7) and the six baselines were refreshed to 22,148 tasks",
+  "resnapshot_reason": "Vbeta manifest distributions domain-named (candidate_* sums to 7,060, admitted_* to 6,935); Solodit severity split from the Impact axis; README regenerated with live check count",
   "sentinel_sha256": {
-    "README.md": "cbff81e99568c33be72c9daf0525b953a0d49d1486c36048fb919d076293fe63",
+    "README.md": "e83cf89ff84624d9082538268b2134c19310276f803072bed81fbc3e0b0f0855",
     "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
-    "derived_v3/manifest.json": "606c8fa63a689d2e070873842c6416cc50062903f71fbd087a66ec51c4ed88d1",
+    "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
     "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",
     "scripts/vlun_v3.py": "b5753f8e5ab466a00af78206147bd6686ec9f68227f25aa2ca3453929e6934b9"
   }

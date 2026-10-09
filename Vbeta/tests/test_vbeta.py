@@ -75,12 +75,20 @@ class TestArtefacts(unittest.TestCase):
         self.assertEqual(self.manifest["candidate_count"], 7060)
         self.assertEqual(self.manifest["record_count"], len(self.records))
         self.assertEqual(len(self.records), 6935)
-        dec = {k: v for k, v in self.manifest["decisions"].items()}
-        self.assertEqual(dec.get("IMPORT"), 60)
+        # candidate_decisions is explicitly the CANDIDATE population
+        # (7,060 rows), distinct from the admitted record count.
+        dec = dict(self.manifest["candidate_decisions"])
+        self.assertEqual(sum(dec.values()), 7060)
+        self.assertEqual(dec.get("IMPORT"), 62)
         self.assertEqual(dec.get("IMPORT_AS_NEGATIVE"), 5)
-        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6870)
+        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6868)
         self.assertEqual(dec.get("RESEARCH_ONLY"), 62)
         self.assertEqual(dec.get("CORROBORATION_ONLY"), 63)
+        # admitted_* distributions sum to the admitted records.
+        for key in ("admitted_by_language", "admitted_by_ecosystem"):
+            self.assertEqual(sum(self.manifest[key].values()), 6935, key)
+        self.assertEqual(
+            sum(self.manifest["candidate_verification_levels"].values()), 7060)
 
     def test_new_languages_present(self):
         langs = {r["language"] for r in self.ledger}

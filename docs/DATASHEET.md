@@ -12,7 +12,7 @@ ground truth. Governing rule: truth over scale.
 
 - v1 (immutable): 264 findings, 458 negatives, 155 exploits, 38 patches, 8 protocol rows, 11 metadata rows, 19 error rows.
 - v2.2 (five languages): 137 derived records.
-- V3.0: 5,467 admitted of 7,712 candidates across 18 sources; levels {"L0": 6831, "L1": 754, "L3": 125, "L5": 2}.
+- V3.0: 5,467 admitted of 7,712 candidates across 18 sources; levels {"L0": 4586, "L1": 754, "L3": 125, "L5": 2}.
 - Vbeta (isolated): 6,935 admitted of 7,060 candidates across 15 sources; levels {"L0": 7003, "L1": 57}.
 - Benchmark: 22,148 exactly-scorable tasks (majority micro-accuracy 0.8725). 864 further tasks across 3 families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
 - Field coverage: 3 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
@@ -43,5 +43,5 @@ ground truth. Governing rule: truth over scale.
 
 ## Maintenance
 
-- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (13 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
+- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (15 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
 - Contact/limitations: validation reports record every unknown, exclusion and failure reason; limitations are published in `reports/benchmark_metrics.md` and `reports/reproducibility_report.md`, not hidden.

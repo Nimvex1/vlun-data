@@ -67,9 +67,136 @@ def body_of(text: str) -> str:
 
 
 def section(text: str, name: str) -> str:
-    m = re.search(r"^#{2,4}\s*" + re.escape(name) + r"\s*\n(.*?)(?=^#{1,4}\s|\Z)",
+    """Structured-heading layout: '## Name' followed by a body.
+
+    Deliberately does NOT match inline labels; use `inline_label` for the
+    '**Name:** value' layout, and `section_or_label` for fields that appear
+    in either shape (the corpus contains both).
+    """
+    m = re.search(r"^#{2,4}\s*" + re.escape(name) + r"\s*$\s*\n(.*?)(?=^#{1,4}\s|\Z)",
                   text, re.M | re.S)
     return m.group(1).strip() if m else ""
+
+
+def _label_re(name: str, value_max: int = 120):
+    """Pattern for an inline label in any observed shape.
+
+    The corpus writes the same label three ways: '**Severity:** High',
+    '**Severity**: High' and '**Severity** : High'. The bold markers sit on
+    either side of the colon, so both are optional. An earlier version put
+    them only before the colon and silently matched nothing.
+    """
+    return re.compile(
+        r"\*\*\s*" + re.escape(name) +
+        r"\s*\**\s*[:\-]?\s*\**\s*([^*\n]{0," + str(value_max) + r"})")
+
+
+def inline_label(text: str, name: str) -> str:
+    """Inline layout: '**Name:** value' (bold optional, colon optional)."""
+    m = _label_re(name).search(text)
+    return clean_md(m.group(1)) if m else ""
+
+
+def inline_label_line(text: str, name: str) -> str:
+    """Like inline_label but anchored to the start of a line.
+
+    The unanchored form also matches prose that merely mentions the label
+    ('...wiped in the severity manipulation...'), which must never become a
+    value. Anchoring to a line start (allowing leading markdown chrome) is
+    what makes an inline label an inline label.
+    """
+    m = re.search(r"^[ \t>*\-]{0,6}\**\s*" + re.escape(name) +
+                  r"\s*\**\s*[:\-]\s*\**\s*([^*\n]{0,120})", text, re.M)
+    return clean_md(m.group(1)) if m else ""
+
+
+def section_or_label(text: str, name: str) -> str:
+    """Return the value for a field present as a heading OR an inline label.
+
+    Heading wins when both are present: the structured body is the fuller
+    value, the inline label is often a truncated one-line summary.
+    """
+    return section(text, name) or inline_label(text, name)
+
+
+# Solodit renders its own triage widget under '## Severity' as a set of axis
+# labels. These are SOLODIT'S filtered view, not a severity statement by the
+# auditor whose report is being mirrored. They must never be stored as the
+# report's severity -- conflating the two invents a claim the auditor never
+# made, and the harvest's HIGH/MEDIUM listing filter is likewise not evidence
+# of a report's own severity.
+_SOLODIT_AXES = ("Impact", "Likelihood", "Confidence")
+
+
+def solodit_axis(text: str, axis: str) -> str:
+    m = _label_re(axis, 60).search(text)
+    return clean_md(m.group(1))[:60] if m else ""
+
+
+def strip_solodit_axes(text: str) -> str:
+    """Remove Solodit's own axis widget, leaving the report's own words."""
+    out = text
+    for axis in _SOLODIT_AXES:
+        out = _label_re(axis, 80).sub("", out)
+    return re.sub(r"\n{2,}", "\n", out).strip(" \t*-\n")
+
+
+# A report severity must look like a severity. Without this, any prose
+# sentence containing the word "severity" ('...price manipulation.', 'the
+# bridge token.') matched the inline fallback and became the answer.
+_SEVERITY_VALUE = re.compile(
+    r"\b(critical|crit|high|medium|med|low|informational|info|none|unknown)"
+    r"\b", re.I)
+def _looks_like_severity(value: str) -> bool:
+    v = (value or "").strip()
+    if not v or len(v) > 40:
+        return False
+    return bool(_SEVERITY_VALUE.search(v))
+
+
+def report_severity(text: str) -> tuple[str | None, dict]:
+    """The severity the ORIGINAL report states, plus Solodit's own axes.
+
+    Returns (report_severity_observed, solodit_sidebar). The two are kept
+    apart because they answer different questions:
+
+      * report severity  -- what the auditor wrote ('High Risk', 'Medium').
+      * Solodit Impact   -- Solodit's own triage axis, which feeds the
+                            listing filter. Recorded as its own field and
+                            never as the report's severity.
+
+    A report severity is only ever text that survived stripping the axis
+    widget AND parses as a severity token: if either test fails the answer
+    is null, even though Solodit displayed an Impact value.
+    """
+    raw = section(text, "Severity")
+    sidebar = {a.lower(): (solodit_axis(raw, a) or solodit_axis(text, a))
+               for a in _SOLODIT_AXES}
+    sidebar = {k: v for k, v in sidebar.items() if v}
+
+    report_side = strip_solodit_axes(raw) if raw else ""
+    if not _looks_like_severity(report_side.split("\n")[0] if report_side else ""):
+        # No heading value (or not severity-shaped): try a line-anchored
+        # inline label. Line-anchored on purpose -- an unanchored search
+        # matches prose that merely mentions the word.
+        inline = inline_label_line(text, "Severity")
+        report_side = inline if _looks_like_severity(inline) else ""
+        if inline and not report_side:
+            # it was shaped like a label but carried the widget, not a value
+            for a in _SOLODIT_AXES:
+                v = solodit_axis(inline, a)
+                if v:
+                    sidebar.setdefault(a.lower(), v)
+
+    if not report_side:
+        return None, sidebar
+    first = clean_md(report_side.split("\n")[0])[:60]
+    if not _looks_like_severity(first):
+        return None, sidebar
+    # Verbatim, format variants kept ('High Risk' stays 'High Risk'): the
+    # closed-vocabulary normalisation happens in build_vbeta, not here, so
+    # the observed string always matches the source text.
+    return first, sidebar
 
 
 def first_sentence(text: str, limit: int = 200) -> str:
@@ -184,15 +311,14 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
     body = body_of(text)
 
     sev_raw = section(text, "Severity")
-    severity = clean_md(sev_raw.split("\n")[0])[:60] if sev_raw else None
-    if not severity:
-        severity = None
-    team_raw = section(text, "Team Response")
+    severity, solodit_sidebar = report_severity(text)
+    team_raw = section_or_label(text, "Team Response") or \
+        section_or_label(text, "Status")
     status = clean_md(team_raw.split("\n")[0])[:60] if team_raw else None
     if not status:
         status = None
 
-    loc_raw = section(text, "Location of Affected Code")
+    loc_raw = section_or_label(text, "Location of Affected Code")
     code_path, code_url = None, None
     if loc_raw:
         lm = re.search(r"\[([^\]]+)\]\((https?://[^)]+)\)", loc_raw)
@@ -232,9 +358,9 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
 
     language, ecosystem, lang_basis = detect_language(body)
 
-    desc = section(text, "Description")
+    desc = section_or_label(text, "Description")
     excerpt = first_sentence(desc) if desc else ""
-    rec_raw = section(text, "Recommendation")
+    rec_raw = section_or_label(text, "Recommendation")
     rec = first_sentence(rec_raw, 160) if rec_raw else ""
 
     extra = (f"Solodit issue {url}; auditor: {auditor or 'unknown'}; "
@@ -267,6 +393,11 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
         "kind": "finding",
         "title": title,
         "severity_observed": severity,
+        "solodit_sidebar_observed": solodit_sidebar,
+        "severity_evidence": (
+            "report's own Severity section" if severity else
+            "no report severity observed; Solodit's Impact axis is triage "
+            "metadata and is NOT the report's severity"),
         "status_observed": status,
         "link_observed": url,
         "language": language,
@@ -362,7 +493,16 @@ def main() -> int:
         "duplicates": duplicates,
         "quarantined_near_dupes": n_quarantined,
         "with_severity": sum(1 for r in rows if r["severity_observed"]),
+        "with_report_severity": sum(
+            1 for r in rows if r["severity_observed"]
+            and "Impact" not in str(r["severity_observed"])),
+        "with_solodit_impact_axis": sum(
+            1 for r in rows if (r.get("solodit_sidebar_observed") or {}).get("impact")),
         "with_status": sum(1 for r in rows if r["status_observed"]),
+        "with_description_excerpt": sum(
+            1 for r in rows if "mechanism excerpt:" in (r.get("extra") or "")),
+        "with_recommendation": sum(
+            1 for r in rows if r["evidence"].get("recommended_fix_observed")),
         "with_poc": sum(1 for r in rows if r["poc_observed"]),
         "languages": sorted({r["language"] for r in rows}),
         "ecosystems": sorted({r["ecosystem"] for r in rows}),

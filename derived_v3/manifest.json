@@ -1,5 +1,22 @@
 {
-  "by_ecosystem": {
+  "admitted_by_decision": {
+    "IMPORT": 3517,
+    "IMPORT_AS_NEGATIVE": 16,
+    "IMPORT_AS_UNVERIFIED": 1934
+  },
+  "admitted_by_ecosystem": {
+    "evm": 5467
+  },
+  "admitted_by_language": {
+    "solidity": 5467
+  },
+  "admitted_verification_levels": {
+    "L0": 4586,
+    "L1": 754,
+    "L3": 125,
+    "L5": 2
+  },
+  "candidate_by_ecosystem": {
     "aptos": 11,
     "cosmos": 95,
     "evm": 6446,
@@ -9,7 +26,7 @@
     "ton": 4,
     "unknown": 1044
   },
-  "by_language": {
+  "candidate_by_language": {
     "clarity": 4,
     "go": 28,
     "move": 30,
@@ -17,7 +34,7 @@
     "solidity": 6446,
     "unknown": 1072
   },
-  "by_source": {
+  "candidate_by_source": {
     "abdk-audits": 216,
     "ackee-audits": 97,
     "anza-security-audits": 77,
@@ -38,14 +55,34 @@
     "zellic-publications": 455
   },
   "candidate_count": 7712,
-  "dataset_version": "3.0",
-  "decisions": {
+  "candidate_decisions": {
     "CORROBORATION_ONLY": 108,
     "IMPORT": 3517,
     "IMPORT_AS_NEGATIVE": 16,
     "IMPORT_AS_UNVERIFIED": 1934,
     "RESEARCH_ONLY": 2137
   },
+  "candidate_verification_levels": {
+    "L0": 6831,
+    "L1": 754,
+    "L3": 125,
+    "L5": 2
+  },
+  "count_domains": {
+    "admitted_by_decision": "admitted_record (IMPORT* decisions)",
+    "admitted_by_ecosystem": "admitted_record (IMPORT* decisions)",
+    "admitted_by_language": "admitted_record (IMPORT* decisions)",
+    "admitted_verification_levels": "admitted_record (IMPORT* decisions)",
+    "candidate_by_ecosystem": "candidate (pre-admission ledger row)",
+    "candidate_by_language": "candidate (pre-admission ledger row)",
+    "candidate_by_source": "candidate (pre-admission ledger row)",
+    "candidate_count": "candidate (pre-admission ledger row)",
+    "candidate_decisions": "candidate (pre-admission ledger row)",
+    "candidate_verification_levels": "candidate (pre-admission ledger row)",
+    "record_count": "admitted_record (IMPORT* decisions)",
+    "source_count": "source (origin)"
+  },
+  "dataset_version": "3.0",
   "experimental_runs_attempted": 127,
   "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 is awarded only with attacker-side profit evidence; L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
   "generated_by": "scripts/build_v3.py",
@@ -58,12 +95,6 @@
     "1": "anza-security-audits",
     "2": "sherlock-optimism",
     "4": "smartbugs-curated"
-  },
-  "verification_levels": {
-    "L0": 6831,
-    "L1": 754,
-    "L3": 125,
-    "L5": 2
   },
   "verified_records_l5_l6": 2
 }

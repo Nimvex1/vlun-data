@@ -268,6 +268,31 @@ def main() -> int:
         ]
         bad_counts = [f"{k}: manifest={a} actual={b}" for k, a, b in checks if a != b]
         rep.add("counts", "manifest_counts_match", not bad_counts, bad_counts)
+        # Every distribution must sum to the population it names.
+        # record_count counts admitted records; candidate_* count the
+        # ledger. Mixing them is how 5,467 and 7,712 got printed side by
+        # side under identical-looking keys.
+        cand_total, rec_total = len(ledger), len(records)
+        dom_bad = []
+        for key, want in (("candidate_decisions", cand_total),
+                          ("candidate_verification_levels", cand_total),
+                          ("candidate_by_source", cand_total),
+                          ("candidate_by_ecosystem", cand_total),
+                          ("candidate_by_language", cand_total),
+                          ("admitted_verification_levels", rec_total),
+                          ("admitted_by_decision", rec_total),
+                          ("admitted_by_ecosystem", rec_total),
+                          ("admitted_by_language", rec_total)):
+            got = manifest.get(key)
+            if not isinstance(got, dict):
+                dom_bad.append(f"{key}: missing or not a distribution")
+            elif sum(got.values()) != want:
+                dom_bad.append(f"{key}: sums to {sum(got.values())}, "
+                               f"expected {want}")
+        rep.add("counts", "count_domains_self_consistent", not dom_bad,
+                dom_bad,
+                detail="candidate_* sums to the ledger; admitted_* sums to "
+                       "the admitted records")
         try:
             sl = json.loads((V.DERIVED_V3 / "source_ledger.json").read_text(encoding="utf-8"))
             sources = sl.get("sources", [])

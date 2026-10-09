@@ -282,8 +282,26 @@ def main() -> int:
         mism = [f"{k}: manifest={manifest.get(k)} computed={v}"
                 for k, v in checks.items() if manifest.get(k) != v]
         dec = dict(collections.Counter(r.get("decision") for r in ledger))
-        if manifest.get("decisions") != dec:
-            mism.append(f"decisions: manifest={manifest.get('decisions')} computed={dec}")
+        if manifest.get("candidate_decisions") != dec:
+            mism.append(f"candidate_decisions: manifest="
+                        f"{manifest.get('candidate_decisions')} computed={dec}")
+        # Every distribution must sum to the population it claims to count.
+        # record_count is admitted records; candidate_* are the ledger.
+        # This is what catches a distribution silently moved to the other
+        # population (by_source summing to 6,935 instead of 7,060).
+        cand_total = len(ledger)
+        rec_total = len(records)
+        for key, want in (("candidate_by_source", cand_total),
+                          ("candidate_decisions", cand_total),
+                          ("candidate_verification_levels", cand_total),
+                          ("admitted_by_language", rec_total),
+                          ("admitted_by_ecosystem", rec_total)):
+            got = manifest.get(key)
+            if not isinstance(got, dict):
+                mism.append(f"{key}: missing or not a distribution")
+            elif sum(got.values()) != want:
+                mism.append(f"{key}: sums to {sum(got.values())}, "
+                            f"expected {want}")
         rep.add("counts", "manifest_matches_files", not mism, mism)
     except Exception as exc:  # noqa: BLE001
         rep.add("counts", "manifest_readable", False, [str(exc)])

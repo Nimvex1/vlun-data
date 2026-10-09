@@ -258,7 +258,7 @@ def render() -> str:
     _cov_after = _cov.get("after_v31", {})
     # v3 record-level verification levels AFTER the V3.2 execution overlay
     # (read from the manifest, never typed in).
-    _v3lv = (v3m.get("verification_levels") or {})
+    _v3lv = (v3m.get("admitted_verification_levels") or {})
     _v3_executed = sum(v for k, v in _v3lv.items() if k in ("L3", "L4", "L5", "L6"))
     _v3_l5 = sum(v for k, v in _v3lv.items() if k in ("L5", "L6"))
     _v3_runs = v3m.get("experimental_runs_attempted", 0) or 0
@@ -296,13 +296,16 @@ def render() -> str:
     _vbm_tasks = vbbm.get("tasks", {}) or {}
     _btasks = bench.get("tasks", {}) or {}
     _v3tasks = (v3bench.get("tasks", {}) or {})
-    _vbdec = vbm.get("decisions", {}) or {}
-    _vblvl = vbm.get("verification_levels", {}) or {}
-    _vblang = vbm.get("by_language", {}) or {}
+    _vbdec = vbm.get("candidate_decisions", {}) or {}
+    _vblvl = vbm.get("candidate_verification_levels", {}) or {}
+    _vblang = vbm.get("admitted_by_language", {}) or {}
     _one = lambda d: json.dumps(d, sort_keys=True)
 
     rc = s.get("record_counts", {})
     sc = s.get("splits", {}).get("counts", {})
+    # Live cross-manifest check count (written by check_manifests.py). Never a
+    # literal: the README previously hard-coded 101 while the gate ran 171.
+    _mchecks = jread(REPORTS / "manifest_checks.json", {}) or {}
     tot = ver.get("totals", {})
     comp = ver.get("poc_compilation_rate", {})
     cc = s.get("code_context", {})
@@ -347,7 +350,7 @@ def render() -> str:
         for fam, tasks in sorted(_vbm_tasks.items()))
     _v22_lvl = d22m.get("experiment_levels", {}) or {}
     _v22_verified = sum(v for k, v in _v22_lvl.items() if k in ("L5", "L6"))
-    _vb_lvl = vbm.get("verification_levels", {}) or {}
+    _vb_lvl = vbm.get("candidate_verification_levels", {}) or {}
     _vb_verified = sum(v for k, v in _vb_lvl.items() if k in ("L5", "L6"))
     _cov = (_bl_base.get("coverage") or {})
 
@@ -436,10 +439,10 @@ forge reported `Success`, and no patch is called effective without the controlle
   {n(ce.get('api_sibling_pairs', 0))} API-sibling counterexample pairs.
 - **v2.2:** {n(sum(v for k, v in (d22m.get('experiment_levels') or {}).items() if k != 'none'))} executed runs;
   {n(((d22m.get('attacker_identity') or {}).get('unknown')))} of {n(d22m.get('records', 0))} records state no attacker standing.
-- **V3.0:** {n((v3m.get('decisions') or {}).get('IMPORT', 0))} strong imports +
-  {n((v3m.get('decisions') or {}).get('IMPORT_AS_UNVERIFIED', 0))} unverified imports +
-  {n((v3m.get('decisions') or {}).get('IMPORT_AS_NEGATIVE', 0))} hard negatives +
-  {n((v3m.get('decisions') or {}).get('CORROBORATION_ONLY', 0))} corroborations; the rest stays
+- **V3.0:** {n((v3m.get('candidate_decisions') or {}).get('IMPORT', 0))} strong imports +
+  {n((v3m.get('candidate_decisions') or {}).get('IMPORT_AS_UNVERIFIED', 0))} unverified imports +
+  {n((v3m.get('candidate_decisions') or {}).get('IMPORT_AS_NEGATIVE', 0))} hard negatives +
+  {n((v3m.get('candidate_decisions') or {}).get('CORROBORATION_ONLY', 0))} corroborations; the rest stays
   research-only rather than being forced into the dataset.
 - **V3.1:** {n((norm31.get('fragment_decisions') or {}).get('admitted', 0))} admitted findings
   (severity explicit on {n((norm31.get('severity_confidence') or {}).get('explicit', 0))});
@@ -536,7 +539,7 @@ python scripts/build_all.py --with-network   # everything
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
-python scripts/check_manifests.py            # 101 count/reference checks, recomputed from canonical records
+python scripts/check_manifests.py            # {n(_mchecks.get('checks_total', 0))} count/reference checks, recomputed from canonical records
 python scripts/check_reproducibility.py      # provenance, determinism, isolation (skips stay skipped_no_network)
 python -m unittest discover -s tests        # terminology, invariants, fixtures (incl. intentionally-broken)
 python scripts/generate_readme.py --check    # this file is generated; stays current only if regenerated

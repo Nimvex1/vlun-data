@@ -422,7 +422,7 @@ def main() -> int:
     for d_key in ("IMPORT", "IMPORT_AS_UNVERIFIED", "IMPORT_AS_NEGATIVE",
                   "CORROBORATION_ONLY", "RESEARCH_ONLY"):
         F.add("v3", "derived_v3/manifest.json", f"decisions.{d_key}",
-              m3["decisions"].get(d_key, 0), dec3.get(d_key, 0),
+              m3["candidate_decisions"].get(d_key, 0), dec3.get(d_key, 0),
               "recomputed decision counts")
     admitted3 = [r for r in led3 if is_admitted(r["decision"])]
     F.add("v3", "derived_v3/manifest.json", "records == admitted rows",
@@ -844,8 +844,25 @@ def main() -> int:
 
     fails = [r for r in F.rows if r["status"] == "fail" and r["critical"]]
     unknowns = [r for r in F.rows if r["status"] == "unknown"]
+    summary = {
+        "generated_by": "scripts/check_manifests.py",
+        "checks_total": len(F.rows),
+        "checks_passed": sum(1 for r in F.rows if r["status"] == "pass"),
+        "checks_failed_critical": len(fails),
+        "checks_unknown": len(unknowns),
+        "note": ("count is recomputed here so generated documents never "
+                 "hard-code it (the README previously said 101 while this "
+                 "gate ran 171); tests/test_generated_docs.py cross-checks "
+                 "the README against this file"),
+    }
+    # Writes only its own report, like every other validator. This is what
+    # lets the README quote a live count instead of a stale literal.
+    _rep = ROOT / "reports" / "manifest_checks.json"
+    _rep.parent.mkdir(parents=True, exist_ok=True)
+    _rep.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n",
+                    encoding="utf-8", newline="\n")
     print(f"\nchecked={len(F.rows)} "
-          f"pass={sum(1 for r in F.rows if r['status'] == 'pass')} "
+          f"pass={summary['checks_passed']} "
           f"fail={len(fails)} unknown={len(unknowns)}")
     return 1 if fails else 0
 

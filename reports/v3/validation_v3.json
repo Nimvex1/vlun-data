@@ -307,6 +307,15 @@
       "ok": true
     },
     {
+      "check": "count_domains_self_consistent",
+      "critical": true,
+      "detail": "candidate_* sums to the ledger; admitted_* sums to the admitted records",
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
       "check": "source_ledger_sums",
       "critical": true,
       "detail": "18 sources == len(SOURCE_IDS)",
@@ -363,6 +372,6 @@
   ],
   "critical_failures": 0,
   "dataset_version": "3.0",
-  "passed": 40,
-  "total": 40
+  "passed": 41,
+  "total": 41
 }

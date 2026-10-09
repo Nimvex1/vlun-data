@@ -22,8 +22,10 @@
     },
     "v3.0": {
       "levels": {
-        "L0": 6831,
-        "L1": 881
+        "L0": 4586,
+        "L1": 754,
+        "L3": 125,
+        "L5": 2
       },
       "levels_note": "L0/L1 only by construction; nothing executed",
       "records": 5467
@@ -38,11 +40,11 @@
     },
     "vbeta": {
       "levels": {
-        "L0": 787,
+        "L0": 7003,
         "L1": 57
       },
       "levels_note": "ledger-level; L0/L1 only by construction",
-      "records": 719
+      "records": 6935
     }
   },
   "prepared_experiments": [

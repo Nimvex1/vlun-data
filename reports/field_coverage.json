@@ -149,16 +149,16 @@
       "unknown_or_empty": 6935
     },
     "vbeta.records.severity_observed": {
-      "known": 6334,
-      "known_pct": 91.3,
+      "known": 6317,
+      "known_pct": 91.1,
       "total": 6935,
-      "unknown_or_empty": 601
+      "unknown_or_empty": 618
     },
     "vbeta.records.status_observed": {
-      "known": 64,
-      "known_pct": 0.9,
+      "known": 91,
+      "known_pct": 1.3,
       "total": 6935,
-      "unknown_or_empty": 6871
+      "unknown_or_empty": 6844
     },
     "vbeta.records.title": {
       "known": 6935,

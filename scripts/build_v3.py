@@ -369,8 +369,9 @@ def main() -> int:
             "verified_l6": sum(
                 1 for r in rows if r["verification_level"] == "L6"),
             "run_artefacts": sum(1 for r in rows if r.get("experiment")),
-            "verification_levels": dict(lv),
-            "decisions": dict(dec),
+            # candidate-level: rows here are ledger rows, not admitted records
+            "candidate_verification_levels": dict(lv),
+            "candidate_decisions": dict(dec),
             "license_status": spec["license"],
             "provenance_quality": spec["provenance_quality"],
             "clone_head": V.clone_head(V.CLONES / spec["clone"]),
@@ -386,13 +387,45 @@ def main() -> int:
         "source_count": len(source_ledger),
         "candidate_count": len(ledger),
         "record_count": len(records),
-        "decisions": dict(collections.Counter(c["decision"] for c in ledger)),
-        "verification_levels": dict(collections.Counter(c["verification_level"] for c in ledger)),
-        "by_source": {s["source_id"]: s["records_discovered"] for s in source_ledger},
-        "by_ecosystem": dict(collections.Counter(
+        # Count domains are named explicitly. `record_count` is admitted
+        # records (5,467) while every *_by_* distribution below is counted
+        # over the CANDIDATE ledger (7,712): a candidate that was quarantined
+        # or held research-only still has a language. The bare names
+        # `verification_levels` / `by_source` / ... used to mean the ledger
+        # population while sitting next to an admitted-record count, which
+        # is how 5,467 and 7,712 ended up printed side by side.
+        "count_domains": {
+            "record_count": "admitted_record (IMPORT* decisions)",
+            "candidate_count": "candidate (pre-admission ledger row)",
+            "source_count": "source (origin)",
+            "candidate_decisions": "candidate (pre-admission ledger row)",
+            "candidate_verification_levels": "candidate (pre-admission ledger row)",
+            "candidate_by_source": "candidate (pre-admission ledger row)",
+            "candidate_by_ecosystem": "candidate (pre-admission ledger row)",
+            "candidate_by_language": "candidate (pre-admission ledger row)",
+            "admitted_verification_levels": "admitted_record (IMPORT* decisions)",
+            "admitted_by_decision": "admitted_record (IMPORT* decisions)",
+            "admitted_by_ecosystem": "admitted_record (IMPORT* decisions)",
+            "admitted_by_language": "admitted_record (IMPORT* decisions)",
+        },
+        "candidate_decisions": dict(collections.Counter(
+            c["decision"] for c in ledger)),
+        "candidate_verification_levels": dict(collections.Counter(
+            c["verification_level"] for c in ledger)),
+        "candidate_by_source": {s["source_id"]: s["records_discovered"]
+                                 for s in source_ledger},
+        "candidate_by_ecosystem": dict(collections.Counter(
             c["ecosystem"] for c in ledger)),
-        "by_language": dict(collections.Counter(
+        "candidate_by_language": dict(collections.Counter(
             c["language"] for c in ledger)),
+        "admitted_verification_levels": dict(collections.Counter(
+            r["verification_level"] for r in records)),
+        "admitted_by_decision": dict(collections.Counter(
+            r["decision"] for r in records)),
+        "admitted_by_ecosystem": dict(collections.Counter(
+            r["ecosystem"] for r in records)),
+        "admitted_by_language": dict(collections.Counter(
+            r["language"] for r in records)),
         "tiers": {str(spec["tier"]): spec["source_id"] for spec in V.SOURCES_V3},
         "experimental_runs_attempted": sum(
             1 for c in ledger if c.get("experiment")),

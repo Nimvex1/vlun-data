@@ -2,11 +2,18 @@
 
 ## Vbeta (unreleased beta layer, additive, isolated under `Vbeta/`)
 
-- 844 candidates / 719 admitted records / 12 sources, incl. 733 harvested
-  Solodit HIGH+MEDIUM findings (21 IMPORT, 51 L1 quoted-PoC, 63
+- 7,060 candidates / 6,935 admitted records / 15 sources, incl. 733
+  harvested Solodit HIGH+MEDIUM candidates (670 admitted, 63
   near-duplicate quarantines with links).
-- Benchmark families U (673 tasks) + V (719 tasks); Vbeta gate 0 critical
-  failures; splits train 683 / validation 34 / test 2 (by-source).
+- Solodit extraction now reads both corpus layouts (structured `## Section`
+  headings and inline `**Section:** value` labels) and keeps the report's own
+  severity separate from Solodit's Impact axis, which had been recorded as a
+  report severity on 45 rows.
+- Benchmark families U (6,218 tasks) + V (6,935 tasks; U excludes 717
+  admitted records whose language is `unknown`); Vbeta gate 0 critical
+  failures; splits train 683 / validation 584 / test 5,668 (by-source).
+- Manifest distributions are domain-named: `candidate_*` sums to the ledger
+  (7,060), `admitted_*` to the admitted records (6,935).
 
 ## v3.2 — fork executions of incident PoCs
 

@@ -32,6 +32,9 @@ GATES = [
     ("unit-tests", [PY, "-m", "unittest", "discover", "-s", "tests"]),
     ("vbeta-tests", [PY, "Vbeta/tests/test_vbeta.py"]),
     ("readme-current", [PY, "scripts/generate_readme.py", "--check"]),
+    ("solodit-report-current",
+     [PY, "Vbeta/scripts/build_solodit_report.py", "--check"]),
+    ("repro-report-current", [PY, "scripts/build_repro_report.py", "--check"]),
     ("stats-current", [PY, "scripts/generate_stats.py", "--check"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
 ]
@@ -45,7 +48,8 @@ ONLY_MAP = {
     "line-endings": ["line-endings"],
     "repro": ["reproducibility"],
     "tests": ["unit-tests", "vbeta-tests"],
-    "readme": ["readme-current", "stats-current", "field-coverage-current"],
+    "readme": ["readme-current", "stats-current", "field-coverage-current",
+               "solodit-report-current", "repro-report-current"],
 }
 
 # Exit code 2 means SKIPPED (missing optional inputs, no network): recorded

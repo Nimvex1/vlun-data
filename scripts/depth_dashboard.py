@@ -74,7 +74,7 @@ def main() -> int:
     m3 = js(ROOT / "derived_v3" / "manifest.json", {}) or {}
     layers["v3.0"] = {
         "records": m3.get("record_count", 0),
-        "levels": dict(m3.get("verification_levels", {})),
+        "levels": dict(m3.get("admitted_verification_levels", {})),
         "levels_note": "L0/L1 only by construction; nothing executed",
     }
     proof32 = js(ROOT / "reports" / "v3" / "experimental_proof.json", {}) or {}
@@ -86,7 +86,7 @@ def main() -> int:
     mvb = js(ROOT / "Vbeta" / "derived_vbeta" / "manifest.json", {}) or {}
     layers["vbeta"] = {
         "records": mvb.get("record_count", 0),
-        "levels": dict(mvb.get("verification_levels", {})),
+        "levels": dict(mvb.get("candidate_verification_levels", {})),
         "levels_note": "ledger-level; L0/L1 only by construction",
     }
     fc = js(ROOT / "reports" / "field_coverage.json", {}) or {}

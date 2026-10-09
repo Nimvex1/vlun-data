@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "check": "required inputs exist",
+      "detail": "18 files",
+      "status": "PASS"
+    },
+    {
+      "check": "referenced scripts exist",
+      "detail": "12 scripts",
+      "status": "PASS"
+    },
+    {
+      "check": "referenced manifests exist",
+      "detail": "12 manifests",
+      "status": "PASS"
+    },
+    {
+      "check": "source pins well-formed",
+      "detail": "3 sampled pins all 40-hex",
+      "status": "PASS"
+    },
+    {
+      "check": "source pins resolvable to objects",
+      "detail": "skipped_no_network: needs audited-repo clones; format checked above",
+      "status": "SKIPPED"
+    },
+    {
+      "check": "generated files correspond to declared inputs",
+      "detail": "4 artefacts",
+      "status": "PASS"
+    },
+    {
+      "check": "no read-only layer writable by build",
+      "detail": "static scan of scripts/ + Vbeta path assert",
+      "status": "PASS"
+    },
+    {
+      "check": "byte-stability of canonical dumps",
+      "detail": "sort_keys-stable",
+      "status": "PASS"
+    },
+    {
+      "check": "Vbeta rebuild parity",
+      "detail": "14 artefacts byte-identical across rebuilds",
+      "status": "PASS"
+    },
+    {
+      "check": "V3.1 byte-identity (canonical form)",
+      "detail": "7 artefacts in canonical form",
+      "status": "PASS"
+    },
+    {
+      "check": "derived/ rebuild parity",
+      "detail": "2 artefacts byte-identical across rebuilds",
+      "status": "PASS"
+    },
+    {
+      "check": "derived_v2_2/ rebuild parity",
+      "detail": "2 artefacts byte-identical across rebuilds",
+      "status": "PASS"
+    },
+    {
+      "check": "every declared output produced",
+      "detail": "28 files",
+      "status": "PASS"
+    },
+    {
+      "check": "produced artifacts belong to correct layer",
+      "detail": "dataset_version uniform per layer dir",
+      "status": "PASS"
+    },
+    {
+      "check": "work/ artefacts never required",
+      "detail": "no manifest references work/",
+      "status": "PASS"
+    },
+    {
+      "check": "data-layer work/ citations censused",
+      "detail": "jsonl_ml=117 benchmark-LPQ=16 total=133 (provenance notes; content inline)",
+      "status": "PASS"
+    },
+    {
+      "check": "ignored paths declared in .gitignore",
+      "detail": "6 paths",
+      "status": "PASS"
+    },
+    {
+      "check": "declared-ignored paths are untracked",
+      "detail": "git ls-files empty",
+      "status": "PASS"
+    },
+    {
+      "check": "network stages",
+      "detail": "skipped_no_network: 5 stages recorded as skipped, never as success",
+      "status": "SKIPPED"
+    }
+  ],
+  "checks_failed": 0,
+  "checks_passed": 17,
+  "checks_skipped": 2,
+  "checks_total": 19,
+  "generated_by": "scripts/check_reproducibility.py",
+  "note": "skipped_no_network entries are honest skips, never passes: they need git-ignored clones or work/ inputs that are not redistributed"
+}

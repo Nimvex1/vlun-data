@@ -1,0 +1,8 @@
+{
+  "checks_failed_critical": 0,
+  "checks_passed": 171,
+  "checks_total": 171,
+  "checks_unknown": 0,
+  "generated_by": "scripts/check_manifests.py",
+  "note": "count is recomputed here so generated documents never hard-code it (the README previously said 101 while this gate ran 171); tests/test_generated_docs.py cross-checks the README against this file"
+}

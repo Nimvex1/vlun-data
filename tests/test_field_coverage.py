@@ -77,12 +77,24 @@ class TestFieldsResolve(unittest.TestCase):
     def test_vbeta_severity_regression(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])
         k = sum(1 for r in rows if known(get(r, "severity_observed")))
-        self.assertEqual((k, len(rows)), (6334, 6935))
+        # 6,334 -> 6,317 when Solodit's own Impact axis stopped being
+        # recorded as a report severity (45 rows lost the false value, 17
+        # gained a real one from the inline `**Severity:**` layout). The
+        # drop is the fix, not a regression: see
+        # tests/test_solodit_harvest.py.
+        self.assertEqual((k, len(rows)), (6317, 6935))
+        # Semantic guard, so the pin can never again accept a contaminated
+        # value: Solodit's triage axis is not the auditor's severity.
+        contaminated = [r["finding_id"] for r in rows
+                        if any(ax in str(get(r, "severity_observed") or "")
+                               for ax in ("Impact:", "Impact**", "Likelihood:"))]
+        self.assertEqual(contaminated, [],
+                         "Solodit Impact/Likelihood stored as report severity")
         # And the published report agrees with the recomputation.
         import json
         rep = json.load(open(ROOT / "reports" / "field_coverage.json",
                              encoding="utf-8-sig"))["fields"]
-        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6334)
+        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6317)
 
     def test_broken_key_would_fail(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])

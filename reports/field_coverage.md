@@ -28,7 +28,7 @@ Counts recomputed from canonical files by `scripts/field_coverage.py`. `unknown`
 | `vbeta.records.impact` | 6935 | 0 | 6935 | 0.0 |
 | `vbeta.records.language` | 6935 | 6218 | 717 | 89.7 |
 | `vbeta.records.root_cause` | 6935 | 0 | 6935 | 0.0 |
-| `vbeta.records.severity_observed` | 6935 | 6334 | 601 | 91.3 |
-| `vbeta.records.status_observed` | 6935 | 64 | 6871 | 0.9 |
+| `vbeta.records.severity_observed` | 6935 | 6317 | 618 | 91.1 |
+| `vbeta.records.status_observed` | 6935 | 91 | 6844 | 1.3 |
 | `vbeta.records.title` | 6935 | 6935 | 0 | 100.0 |
 | `vbeta.records.verification_level` | 6935 | 6935 | 0 | 100.0 |

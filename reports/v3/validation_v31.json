@@ -291,27 +291,14 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "26 dirty entries under data dirs, 18 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 18,
+      "detail": "6 dirty entries under data dirs, 5 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 5,
       "failures": [
-        " M benchmark/B_root_cause_reasoning.jsonl",
-        " M benchmark/G_patch_verification.jsonl",
-        " M benchmark/manifest.json",
-        " M benchmark/v3_T_taxonomy_explicit.jsonl",
         " M benchmark/v3_manifest.json",
-        " M derived_v3/candidate_ledger.jsonl",
         " M derived_v3/manifest.json",
-        " M derived_v3/records.jsonl",
         " M derived_v3/source_ledger.json",
-        " M jsonl_v3/findings.jsonl",
         " M reports/v3/dataset_summary.json",
-        " M reports/v3/experiment_queue.md",
-        " M reports/v3/experimental_proof.json",
-        " M reports/v3/quality_report.md",
-        " M reports/v3/top20_imported.md",
-        " M reports/v3/top20_untrusted.md",
-        " M reports/v3/validation_v3.json",
-        "?? benchmark/CANARY.md"
+        " M reports/v3/validation_v3.json"
       ],
       "group": "isolation",
       "ok": true
