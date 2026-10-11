@@ -385,7 +385,7 @@
       "tracked": true
     },
     {
-      "bytes": 442,
+      "bytes": 433,
       "category": "meta",
       "keys": [
         "external_citations_by_field",
@@ -398,11 +398,11 @@
       "layer": "meta",
       "parse": "ok",
       "path": "_audit/dependency_leakage.json",
-      "sha256": "222c68910567e97bb1d8d8d2c4e13d26c7bdd3ae6d165045f71959aee890c2b6",
+      "sha256": "dc9d9a0d13fe238ae851e7a8619da2636fe17a2a32aab3973269b981f3c802bd",
       "tracked": true
     },
     {
-      "bytes": 4521,
+      "bytes": 4328,
       "category": "meta",
       "keys": [
         "audited_splits",
@@ -413,11 +413,11 @@
       "layer": "meta",
       "parse": "ok",
       "path": "_audit/independent_leakage.json",
-      "sha256": "ef568b45a2b1c8ff4329beadcfa34c89b3539abe16a3a030b2eb8c318df6fbba",
+      "sha256": "ce97bfc3a6d8190d0350b29f3d911b0b5198979cb933e8202d9f7b02e18e9658",
       "tracked": true
     },
     {
-      "bytes": 738,
+      "bytes": 712,
       "category": "meta",
       "keys": [
         "blob_urls_branch_pinned",
@@ -436,7 +436,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "_audit/legal_hygiene.json",
-      "sha256": "4d414b6d0a5862fb17be78290d933a33cf26333e11b4a6ac0b168ddf822271e7",
+      "sha256": "ad7b1b878164a3dc991d0b8da9502f927e27611b8d86ce794a7603138913f5c0",
       "tracked": true
     },
     {
@@ -813,13 +813,13 @@
       "tracked": true
     },
     {
-      "bytes": 25216,
+      "bytes": 25176,
       "category": "derived",
       "layer": "v1",
       "parse": "ok",
       "path": "derived/root_cause_candidates.jsonl",
       "rows": 40,
-      "sha256": "836caef01dfd0c6ab5057ea23d9a7ee53c32fd693b2810d563d192fb7e9b57b5",
+      "sha256": "8ce8d53b665b254b992d6f4060434f6febe25eb384d87a0bfa5b7da75c7b2d70",
       "tracked": true
     },
     {
@@ -2684,7 +2684,7 @@
       "tracked": true
     },
     {
-      "bytes": 23436,
+      "bytes": 22758,
       "category": "experiments",
       "keys": [
         "experiments",
@@ -2695,11 +2695,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/index.json",
-      "sha256": "ff9c615d30eb5ca1e746640121a5f41b1198b09d93ab6e77a1680fcf2f8d9390",
+      "sha256": "41492d26199766c0aeae6950ac1bec037f91c4ceca5dac97b2fef08b03956bc1",
       "tracked": true
     },
     {
-      "bytes": 1605,
+      "bytes": 1548,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2725,11 +2725,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/kerf-auditpoc/result.json",
-      "sha256": "6990f551b35b9724b8c51127e426df4836ba3810552e0362e61f6729c46e560b",
+      "sha256": "facbb2fcf96ed22c3885b81312b91781381bc51a75450ebb5386b03c31380ec4",
       "tracked": true
     },
     {
-      "bytes": 2110,
+      "bytes": 2053,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2755,11 +2755,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/move-cetus-checked-shlw/result.json",
-      "sha256": "5421bfd873e981656bb69c378343717389e983d039ce7d6bc35c0076ab6a69b4",
+      "sha256": "ed4395fe83838be23b054f92af3059bb38a371dd2f0b96c96aeb306739bdaace",
       "tracked": true
     },
     {
-      "bytes": 1506,
+      "bytes": 1452,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2785,11 +2785,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/quantillon-emergencyunstake/result.json",
-      "sha256": "0f193e46decfbab0c10d70f7b5345947f177e976b536e557d90e812ec817379f",
+      "sha256": "472aee9e65a9ce18738f79dfa7f733e9333ea6d7c25ae38d0057d3beadb40702",
       "tracked": true
     },
     {
-      "bytes": 1897,
+      "bytes": 1843,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2815,11 +2815,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/vyper-optimizer-ternary/result.json",
-      "sha256": "8d1dc51b61808daa00814ecaa6db1a3d7bfb521b6e04d71cf385acd1895d14d7",
+      "sha256": "21b607a19d12864c3b8aada0c3abc0d3284d9b1247b18a25d1db4d3674dc7154",
       "tracked": true
     },
     {
-      "bytes": 1886,
+      "bytes": 1832,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2845,11 +2845,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/vyper-rawcall-value/result.json",
-      "sha256": "d49378e60ea822d69fa3963cbe2ecdcc8b81cc1c54d31bec9f66e04a47c725ca",
+      "sha256": "27be13c014509452358440d06d6ea4dc92b0a7fdb4369d5f79ef173bd1fbda58",
       "tracked": true
     },
     {
-      "bytes": 1457,
+      "bytes": 1406,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2875,11 +2875,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-contractaudit-cancel/result.json",
-      "sha256": "3806e77088bf333329e8584e05d7069b7bfa6984dec5f3d143c79775cf05ff50",
+      "sha256": "675a608b0b40e03ba9f67d379cafccd8fa3472f56f1006dd7a86bd2f3c2f8394",
       "tracked": true
     },
     {
-      "bytes": 1521,
+      "bytes": 1468,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2905,11 +2905,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-contractaudit-supply/result.json",
-      "sha256": "cb36711e076379476b4ad5b30e1f0f7498ddf95363bd3d05ed11b3258c5efff7",
+      "sha256": "f407e113ccc3b3afdb69358b95c81d295d7397c66ccb47c3909504cf0e06a7b6",
       "tracked": true
     },
     {
-      "bytes": 1581,
+      "bytes": 1526,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2935,11 +2935,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-modea-accountingl2/result.json",
-      "sha256": "99034915d407c6a46135b935d5d4ccba34ff66cd60b8fb5fb24e79372577e544",
+      "sha256": "493cd5881fdc3448f8edd87b5f57ec5a1a4bbc6e0d72ad45d0873df386c9871d",
       "tracked": true
     },
     {
-      "bytes": 1583,
+      "bytes": 1526,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2965,11 +2965,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-modea-auditpoc/result.json",
-      "sha256": "55f6d789da25453b9c2672f052a8ee898ef8c4898e80e615bd43bb476a33a540",
+      "sha256": "e9b9c85087eff53ccc1b0c04e160b4df4116e5754b6cfcd8774c036b8d8f4692",
       "tracked": true
     },
     {
-      "bytes": 1117,
+      "bytes": 1075,
       "category": "experiments",
       "keys": [
         "argv",
@@ -2995,11 +2995,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-selfaudit-airdrop-node/result.json",
-      "sha256": "7c09d05416f588135ab22ac1acc80c44aae89e9a0de7eac29dc1af3214c7024b",
+      "sha256": "cd004cab56ba95ca56ed638935e2c66ef9ca5654b8438c110253c3dcb528160d",
       "tracked": true
     },
     {
-      "bytes": 2713,
+      "bytes": 2639,
       "category": "experiments",
       "keys": [
         "argv",
@@ -3025,11 +3025,11 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-selfaudit-auditpocs/result.json",
-      "sha256": "a4e139f635da0e11c88795348fc6e52e3ec0ea48364db3d1b7e33fb301bfe5bd",
+      "sha256": "5fb350a516d8262b69056b73217dd96df9e15124aaa6b732501639ae334aeec8",
       "tracked": true
     },
     {
-      "bytes": 1573,
+      "bytes": 1516,
       "category": "experiments",
       "keys": [
         "argv",
@@ -3055,7 +3055,7 @@
       "layer": "v2.2",
       "parse": "ok",
       "path": "experiments_v2_2/zentory-selfaudit-findingspoc/result.json",
-      "sha256": "266e63d137138d85c2140ad728f52368014875e369d4acd58a4652bb36d462c6",
+      "sha256": "2a8907f94a3a9a7bc199b70ed4084fea13bd0f830733dbf054b131c55eb42b28",
       "tracked": true
     },
     {
@@ -3820,7 +3820,7 @@
       "tracked": true
     },
     {
-      "bytes": 1945,
+      "bytes": 1880,
       "category": "reports",
       "keys": [
         "field_coverage_ref",
@@ -3834,7 +3834,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/depth_dashboard.json",
-      "sha256": "2d0ed7fe2a3a86c19d6533c88d82a6a6b3eb1522f74ca228cd6cab1f30fdb98b",
+      "sha256": "7b204d3901f3f880c2dcfde633e531f5f0deffb718b38fa7adfc0f2ca6ad241b",
       "tracked": true
     },
     {
@@ -3857,7 +3857,7 @@
       "tracked": true
     },
     {
-      "bytes": 4255,
+      "bytes": 4078,
       "category": "reports",
       "keys": [
         "fields",
@@ -3867,7 +3867,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/field_coverage.json",
-      "sha256": "780e1d2f9cffd4fc884768671d1842186748fa2717dc444fccd2f0863c0417d9",
+      "sha256": "273e661b464c5fa0d697136f35c017897166051e5c9e7c856dd08743c8e4f868",
       "tracked": true
     },
     {
@@ -4649,7 +4649,7 @@
       "tracked": true
     },
     {
-      "bytes": 910,
+      "bytes": 855,
       "category": "schema",
       "keys": [
         "$id",
@@ -4664,11 +4664,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/benchmark-task.schema.json",
-      "sha256": "eb1ad08e8806a95ebf47cd94e59c297eece84e9ac2de3423a6de68e1f99ff4d2",
+      "sha256": "3259ec9dd2d146a01f77aa285f88ea6336bce158ccbb553651c8a816071489d0",
       "tracked": true
     },
     {
-      "bytes": 645,
+      "bytes": 608,
       "category": "schema",
       "keys": [
         "$id",
@@ -4682,11 +4682,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/derived.schema.json",
-      "sha256": "6bf0115f65ba4ce51db35d6872d2ced72c773c6636d6e5eb83c65bf3b9ca8ce2",
+      "sha256": "96e5e09cbac1b017658b0e9bfb6dcf9147cbb1886a180c6df4285a346e8c4cfd",
       "tracked": true
     },
     {
-      "bytes": 1566,
+      "bytes": 1485,
       "category": "schema",
       "keys": [
         "$id",
@@ -4706,11 +4706,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/evidence-vocabulary.json",
-      "sha256": "6222366941278537b6e9acce869b2b0482e1612b226a2fb25a323d747a847d2e",
+      "sha256": "ac6ea6e26df198c6b2d65b0af6fb11f01ab1ae55bd1de2714c38e9ba3f8e04c0",
       "tracked": true
     },
     {
-      "bytes": 583,
+      "bytes": 554,
       "category": "schema",
       "keys": [
         "$id",
@@ -4724,11 +4724,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/experiment-result.schema.json",
-      "sha256": "2c119ab130612f8982545e439753beb750734de6b5c7193d7cead7cdb18fcbc6",
+      "sha256": "db5e430a9fe9ce772970e5736be8b1a92850f6e7adac660d04eef6592d5ca295",
       "tracked": true
     },
     {
-      "bytes": 868,
+      "bytes": 820,
       "category": "schema",
       "keys": [
         "$id",
@@ -4742,7 +4742,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/findings.schema.json",
-      "sha256": "f78628d510ef995280f73742fc16d2605561ead1fa2e8a8c53dbbd46537f7377",
+      "sha256": "144034afaea56a9de06fa8c049c253752685bbb85bb7c2534a88f26cd4d46891",
       "tracked": true
     },
     {
@@ -4926,7 +4926,7 @@
     }
   ],
   "generated_by": "scripts/build_json_catalog.py",
-  "scope_note": "every .json/.jsonl under the repo root except the catalog's own outputs, machine-local trees, git-ignored files (their bytes vary by machine), and volatile gate outputs (bytes vary run-to-run by design); nothing is moved, this file is a map",
+  "scope_note": "every .json/.jsonl under the repo root except the catalog's own outputs, machine-local trees, git-ignored files (their bytes vary by machine), and volatile gate outputs (bytes vary run-to-run by design); hashes and sizes are over LF-normalized bytes so the catalog is identical on every platform; nothing is moved, this file is a map",
   "volatile_outputs": [
     "reports/v3/validation_v31.json"
   ]

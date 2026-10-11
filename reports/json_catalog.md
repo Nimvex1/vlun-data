@@ -55,7 +55,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived/hard_negatives.jsonl` | v1 | 3,643,242 | 458 rows | yes |
 | `derived/manifest.json` | v1 | 1,631 | object, 20 keys | yes |
 | `derived/records.jsonl` | v1 | 16,989,297 | 722 rows | yes |
-| `derived/root_cause_candidates.jsonl` | v1 | 25,216 | 40 rows | yes |
+| `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
 | `derived_v2_2/manifest.json` | v2.2 | 1,923 | object, 20 keys | yes |
@@ -192,19 +192,19 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments/2024-04-noya__M-60__poc_run/result.json` | v1 | 1,704 | object, 24 keys | yes |
 | `experiments/2025-06-panoptic__H-01__poc_run/result.json` | v1 | 1,737 | object, 24 keys | yes |
 | `experiments/reconstruction_log.jsonl` | v1 | 53,415 | 155 rows | yes |
-| `experiments_v2_2/index.json` | v2.2 | 23,436 | object, 3 keys | yes |
-| `experiments_v2_2/kerf-auditpoc/result.json` | v2.2 | 1,605 | object, 18 keys | yes |
-| `experiments_v2_2/move-cetus-checked-shlw/result.json` | v2.2 | 2,110 | object, 18 keys | yes |
-| `experiments_v2_2/quantillon-emergencyunstake/result.json` | v2.2 | 1,506 | object, 18 keys | yes |
-| `experiments_v2_2/vyper-optimizer-ternary/result.json` | v2.2 | 1,897 | object, 18 keys | yes |
-| `experiments_v2_2/vyper-rawcall-value/result.json` | v2.2 | 1,886 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-contractaudit-cancel/result.json` | v2.2 | 1,457 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-contractaudit-supply/result.json` | v2.2 | 1,521 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-modea-accountingl2/result.json` | v2.2 | 1,581 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-modea-auditpoc/result.json` | v2.2 | 1,583 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-selfaudit-airdrop-node/result.json` | v2.2 | 1,117 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-selfaudit-auditpocs/result.json` | v2.2 | 2,713 | object, 18 keys | yes |
-| `experiments_v2_2/zentory-selfaudit-findingspoc/result.json` | v2.2 | 1,573 | object, 18 keys | yes |
+| `experiments_v2_2/index.json` | v2.2 | 22,758 | object, 3 keys | yes |
+| `experiments_v2_2/kerf-auditpoc/result.json` | v2.2 | 1,548 | object, 18 keys | yes |
+| `experiments_v2_2/move-cetus-checked-shlw/result.json` | v2.2 | 2,053 | object, 18 keys | yes |
+| `experiments_v2_2/quantillon-emergencyunstake/result.json` | v2.2 | 1,452 | object, 18 keys | yes |
+| `experiments_v2_2/vyper-optimizer-ternary/result.json` | v2.2 | 1,843 | object, 18 keys | yes |
+| `experiments_v2_2/vyper-rawcall-value/result.json` | v2.2 | 1,832 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-contractaudit-cancel/result.json` | v2.2 | 1,406 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-contractaudit-supply/result.json` | v2.2 | 1,468 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-modea-accountingl2/result.json` | v2.2 | 1,526 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-modea-auditpoc/result.json` | v2.2 | 1,526 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-selfaudit-airdrop-node/result.json` | v2.2 | 1,075 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-selfaudit-auditpocs/result.json` | v2.2 | 2,639 | object, 18 keys | yes |
+| `experiments_v2_2/zentory-selfaudit-findingspoc/result.json` | v2.2 | 1,516 | object, 18 keys | yes |
 | `experiments_v3/burgerswap/harness.json` | v3 | 271 | object, 4 keys | yes |
 | `experiments_v3/burgerswap/result.json` | v3 | 1,948 | object, 16 keys | yes |
 | `experiments_v3/gamma/harness.json` | v3 | 261 | object, 4 keys | yes |
@@ -240,9 +240,9 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
 | `reports/dataset_stats.json` | multi | 17,161 | object, 20 keys | yes |
-| `reports/depth_dashboard.json` | multi | 1,945 | object, 6 keys | yes |
+| `reports/depth_dashboard.json` | multi | 1,880 | object, 6 keys | yes |
 | `reports/extraction_errors.json` | multi | 35,478 | object, 7 keys | yes |
-| `reports/field_coverage.json` | multi | 4,255 | object, 2 keys | yes |
+| `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 724 | object, 12 keys | yes |
 | `reports/independent/audit.json` | multi | 66,774 | object, 4 keys | yes |
 | `reports/leakage_report.json` | multi | 141,515 | object, 11 keys | yes |
@@ -286,11 +286,11 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `schema/benchmark-task.schema.json` | multi | 910 | object, 7 keys | yes |
-| `schema/derived.schema.json` | multi | 645 | object, 6 keys | yes |
-| `schema/evidence-vocabulary.json` | multi | 1,566 | object, 12 keys | yes |
-| `schema/experiment-result.schema.json` | multi | 583 | object, 6 keys | yes |
-| `schema/findings.schema.json` | multi | 868 | object, 6 keys | yes |
+| `schema/benchmark-task.schema.json` | multi | 855 | object, 7 keys | yes |
+| `schema/derived.schema.json` | multi | 608 | object, 6 keys | yes |
+| `schema/evidence-vocabulary.json` | multi | 1,485 | object, 12 keys | yes |
+| `schema/experiment-result.schema.json` | multi | 554 | object, 6 keys | yes |
+| `schema/findings.schema.json` | multi | 820 | object, 6 keys | yes |
 
 ## datasets (4)
 
@@ -338,7 +338,7 @@ also excluded: reports/v3/validation_v31.json.
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `Vbeta/present_snapshot.json` | meta | 718 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
-| `_audit/dependency_leakage.json` | meta | 442 | object, 5 keys | yes |
-| `_audit/independent_leakage.json` | meta | 4,521 | object, 3 keys | yes |
-| `_audit/legal_hygiene.json` | meta | 738 | object, 11 keys | yes |
+| `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
+| `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
+| `_audit/legal_hygiene.json` | meta | 712 | object, 11 keys | yes |
 | `publish_manifest.json` | meta | 882 | object, 7 keys | yes |

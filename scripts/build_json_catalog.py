@@ -161,7 +161,13 @@ def scan() -> list[str]:
 
 
 def describe(rel: str) -> dict:
-    raw = (ROOT / rel).read_bytes()
+    # LF-normalized bytes: .gitattributes commits every JSON file with LF,
+    # but a Windows working tree can hold stale CRLF that git's clean filter
+    # silently masks (status stays green). Hashing raw disk bytes would make
+    # this catalog differ by platform; check_reproducibility.py uses this
+    # same normalization for its byte-identity checks. Every tracked blob
+    # is CR-free, so normalized bytes equal committed bytes everywhere.
+    raw = (ROOT / rel).read_bytes().replace(b"\r\n", b"\n")
     entry: dict = {
         "path": rel,
         "bytes": len(raw),
@@ -225,7 +231,9 @@ def build() -> dict:
                        "catalog's own outputs, machine-local trees, "
                        "git-ignored files (their bytes vary by machine), and "
                        "volatile gate outputs (bytes vary run-to-run by "
-                       "design); nothing is moved, this file is a map"),
+                       "design); hashes and sizes are over LF-normalized "
+                       "bytes so the catalog is identical on every platform; "
+                       "nothing is moved, this file is a map"),
         "excluded_prefixes": list(EXCLUDED_PREFIXES),
         "volatile_outputs": list(VOLATILE_OUTPUTS),
         "file_count": len(entries),
