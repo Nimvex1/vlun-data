@@ -14,7 +14,7 @@ machine.
 | Gate | Script | Checks | Critical failures |
 |---|---|---|---|
 | v1 authorship gate | `scripts/validate.py` | 72 checks | 0 |
-| v3 gate | `scripts/validate_v3.py` | 41 checks | 0 |
+| v3 gate | `scripts/validate_v3.py` | 42 checks | 0 |
 | v3.1 gate | `scripts/validate_v31.py` | 35 checks | 0 |
 | Vbeta gate | `Vbeta/scripts/validate_vbeta.py` | 35 checks | 0 |
 | cross-manifest | `scripts/check_manifests.py` | 171 checks | 0 |

@@ -347,7 +347,7 @@
   "source_layer_version": "1.0",
   "split_counts": {
     "test": 253,
-    "train": 415,
+    "train": 413,
     "validation": 277
   },
   "splits": {
@@ -359,7 +359,7 @@
         "2025-08-gte-perps": 61
       },
       "train": {
-        "2022-05-alchemix": 74,
+        "2022-05-alchemix": 72,
         "2024-04-noya": 341
       },
       "validation": {
@@ -369,10 +369,10 @@
     },
     "counts": {
       "test": 253,
-      "train": 415,
+      "train": 413,
       "validation": 277
     },
-    "distinct_records": 752,
+    "distinct_records": 750,
     "union_equals_findings": false
   },
   "taxonomy": {
@@ -462,5 +462,5 @@
     "findings_with_no_class": 15
   },
   "total_records_all_files": 953,
-  "total_split_records": 945
+  "total_split_records": 943
 }

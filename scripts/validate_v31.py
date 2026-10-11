@@ -449,9 +449,9 @@ def main() -> int:
              "jsonl_v3/", "derived_v3/", "splits_v3/", "benchmark/",
              "reports/v3/"],
             capture_output=True, text=True, timeout=120, cwd=str(V.ROOT))
-        dirty = [l for l in (out.stdout or "").splitlines() if l.strip()]
-        foreign = [l for l in dirty
-                   if not any(l.endswith("/" + n) or l.endswith(n)
+        dirty = [line for line in (out.stdout or "").splitlines() if line.strip()]
+        foreign = [line for line in dirty
+                   if not any(line.endswith("/" + n) or line.endswith(n)
                               for n in v31_outputs)]
         rep.add("isolation", "worktree_dirt_observed", True,
                 detail=f"{len(dirty)} dirty entries under data dirs, "

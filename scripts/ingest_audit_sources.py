@@ -52,15 +52,20 @@ import hashlib
 import json
 import sys
 import urllib.request
-from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import audit_sources as A  # noqa: E402
 from vlun import DATASET_VERSION, REPORTS, log, read_jsonl  # noqa: E402
-from vlun_ml import DERIVED_V22, EXPERIMENTS_V22, ML_JSONL, SPLITS_V22  # noqa: E402
+from vlun_ml import DERIVED_V22, EXPERIMENTS_V22, ML_JSONL  # noqa: E402
 
-TODAY = datetime.now(timezone.utc).date().isoformat()
+# Registry retrieval date, pinned so the build is byte-reproducible. A
+# wall-clock `datetime.now()` here made two machines on two days emit
+# different `retrieved_at` values for genuinely new/changed registry entries,
+# which the reproducibility gate cannot reconcile. This matches the pinned
+# `TODAY` convention in build_ml_ingest.py / build_vyper_ml.py. Bump it
+# deliberately when the registry itself is re-retrieved.
+TODAY = "2026-10-10"
 SHA40 = A.SHA40_RE
 
 
@@ -96,12 +101,30 @@ def probe_url(url: str, timeout: int = 10) -> dict:
 
 
 def enumerate_sources(probe: bool = False) -> list[dict]:
+    # retrieved_at is first-seen provenance, not a run timestamp: a rerun
+    # that re-stamps every row would dirty the committed file with zero new
+    # information. Preserve the recorded date while the registry entry is
+    # byte-identical; only genuinely new or changed entries get TODAY.
+    prior: dict[str, dict] = {}
+    try:
+        for line in (DERIVED_V22 / "audit_sources.jsonl").read_text(
+                encoding="utf-8").splitlines():
+            if line.strip():
+                r = json.loads(line)
+                prior[r.get("source_name")] = r
+    except (OSError, json.JSONDecodeError):
+        prior = {}
     rows = []
     for src in A.MANDATORY_SOURCES:
         entry = dict(src)
         entry["registry_sha256"] = _sha256_text(
             json.dumps(src, sort_keys=True, ensure_ascii=False))
-        entry["retrieved_at"] = TODAY
+        old = prior.get(src.get("source_name"))
+        if old is not None and old.get("registry_sha256") == entry[
+                "registry_sha256"]:
+            entry["retrieved_at"] = old.get("retrieved_at", TODAY)
+        else:
+            entry["retrieved_at"] = TODAY
         entry["dataset_version"] = DATASET_VERSION
         if probe:
             checked = {}
@@ -203,6 +226,10 @@ def compute_metrics(source_rows: list[dict], findings: list[dict],
     derived_by_id = {r.get("id"): r for r in derived}
     index = _J(EXPERIMENTS_V22 / "index.json", {}) or {}
     runs = index.get("experiments") or []
+    # Metrics that cannot be computed are None with the reason recorded
+    # here, never a silent zero. Zero is a measurement; None is the honest
+    # absence of one.
+    metric_errors: list[str] = []
 
     n_find = len(findings)
     # -- provenance ladder (sec 6) -----------------------------------------
@@ -275,8 +302,11 @@ def compute_metrics(source_rows: list[dict], findings: list[dict],
                   for rows in _load_splits().values() for r in rows}
         _repos.discard(None)
         n_protocols = len(_repos)
-    except Exception:  # noqa: BLE001
-        n_protocols = 0
+    except Exception as exc:  # noqa: BLE001
+        # A failed import is unknown, never zero: 0 would claim the corpus
+        # has no protocols, which is a different (false) fact.
+        n_protocols = None
+        metric_errors.append(f"leakage_v1_protocols: import failed: {exc}")
     # -- run outcomes ------------------------------------------------------------
     run_ok = sum(1 for e in runs if e.get("status") == "ok")
     run_bad = len(runs) - run_ok
@@ -304,8 +334,11 @@ def compute_metrics(source_rows: list[dict], findings: list[dict],
     try:
         from build_ml_ingest import ZENTORY_GROUPS  # noqa: E402
         dup_groups = len(ZENTORY_GROUPS)
-    except Exception:  # noqa: BLE001
-        dup_groups = 0
+    except Exception as exc:  # noqa: BLE001
+        # Same rule: unknown is not zero. Zero groups would claim no
+        # cross-report equivalence exists.
+        dup_groups = None
+        metric_errors.append(f"dedup_groups: import failed: {exc}")
 
     m = {
         "sources_registered": len(source_rows),
@@ -365,8 +398,14 @@ def compute_metrics(source_rows: list[dict], findings: list[dict],
         "leakage_v1_protocol": ((leak.get("protocol_isolation") or {}).get(
             "count", "n/a")),
         "leakage_v1_protocols": n_protocols,
+        "metric_errors": metric_errors,
     }
     return m
+
+
+def _show(v) -> str:
+    """Render a metric that may be an honest unknown (None)."""
+    return "unknown (see metric_errors)" if v is None else str(v)
 
 
 # ---------------------------------------------------------------------------
@@ -487,8 +526,8 @@ def build_report_md(m: dict, source_rows: list[dict]) -> str:
     a(f"- candidates: **{frac(m['candidates'], m['candidates'])}** findings in "
       "`jsonl_ml/`\n")
     a("## 10. Candidates deduplicated\n")
-    a(f"- cross-report equivalence groups: **{frac(m['dedup_groups'], m['candidates'])}** "
-      "groups over findings")
+    a(f"- cross-report equivalence groups: **{_show(m['dedup_groups'])} / "
+      f"{m['candidates']}** groups over findings")
     a(f"- findings linked to a group: **{frac(m['duplicates_linked'], m['candidates'])}** — "
       "linked, never counted twice; a duplicate is not a false positive\n")
     a("## 11. Candidates with exact commits\n")
@@ -540,7 +579,7 @@ def build_report_md(m: dict, source_rows: list[dict]) -> str:
     a(f"- v2.2 post-check: `{m['leakage_v22'] or 'no post_check on disk'}`")
     a(f"- v1 artefact overlap: **{m['leakage_v1_artefacts']} / 4** detectors "
       "with cross-split pairs; protocol-isolation violations: "
-      f"**{m['leakage_v1_protocol']} / {m['leakage_v1_protocols']}** protocols in two splits")
+      f"**{m['leakage_v1_protocol']} / {_show(m['leakage_v1_protocols'])}** protocols in two splits")
     a("- splits guard exact code, repository, protocol, audit-report, root "
       "cause, family, time and PoC reuse; temporal evaluations obey "
       "TRAIN ≤ cutoff < TEST\n")
@@ -569,6 +608,13 @@ def build_report_md(m: dict, source_rows: list[dict]) -> str:
       "invented, no fix inferred from a diff, and no external label copied as "
       "truth. Every blank field in `derived_v2_2/audit_ingestion_records.jsonl` "
       "is `null`/`unknown` with the missing evidence recorded.")
+    if m.get("metric_errors"):
+        a("Metrics that could not be computed this run (shown as unknown, "
+          "never zero):")
+        for e in m["metric_errors"]:
+            a(f"- {e}")
+    else:
+        a("All metrics computed; no unknown-metric errors this run.")
     a("")
     return "\n".join(L) + "\n"
 
@@ -598,7 +644,9 @@ def main() -> int:
 
     doc = {
         "generated_by": "scripts/ingest_audit_sources.py",
-        "generated_at": TODAY,
+        # No generated_at: a run timestamp would dirty this committed file on
+        # every regeneration with zero new information (git log dates the run;
+        # per-row retrieved_at carries the temporal provenance).
         "dataset_version": DATASET_VERSION,
         "registry": {
             "registered": m["sources_registered"],

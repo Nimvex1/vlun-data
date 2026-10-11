@@ -103,8 +103,8 @@ def main() -> int:
     ledger = _load_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl", rep, "structure")
     records = _load_jsonl(V.DERIVED_VB / "records.jsonl", rep, "structure")
     negatives = _load_jsonl(V.DERIVED_VB / "negatives.jsonl", rep, "structure")
-    findings = _load_jsonl(V.JSONL_VB / "findings.jsonl", rep, "structure")
-    src_rows = _load_jsonl(V.JSONL_VB / "sources.jsonl", rep, "structure")
+    _load_jsonl(V.JSONL_VB / "findings.jsonl", rep, "structure")
+    _load_jsonl(V.JSONL_VB / "sources.jsonl", rep, "structure")
     receipts = _load_jsonl(V.FETCHED / "receipts.jsonl", rep, "structure")
 
     # ---- structure ------------------------------------------------------
@@ -210,10 +210,6 @@ def main() -> int:
                 [f"split_only={sorted(split_ids - rec_ids)[:5]} "
                  f"record_only={sorted(rec_ids - split_ids)[:5]}"]
                 if split_ids != rec_ids else None)
-        asg = split.get("assignment", {})
-        span = [i for i in rec_ids
-                if asg.get(i.split(":")[0], None) is None
-                and True]
         # by-source rule: every record's source has exactly one split
         src_split: dict[str, set[str]] = {}
         for i in rec_ids:

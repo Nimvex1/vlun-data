@@ -116,7 +116,6 @@ def classify(exploit: dict) -> dict:
     """-> {class, evidence, signals}. Exactly one class, with the signals shown."""
     code = exploit.get("code") or ""
     setup = exploit.get("setup") or ""
-    narrative = exploit.get("narrative") or ""
     whole = _text(exploit)
     test_fns = TEST_FN.findall(code)
 
@@ -230,7 +229,7 @@ def upgrade_from_experiment(level: str, experiment: dict) -> tuple[str, str]:
     """
     v = experiment.get("revisions", {}).get("vulnerable") or {}
     f = experiment.get("revisions", {}).get("fixed") or {}
-    vs, fs = v.get("status"), f.get("status")
+    vs, _fs = v.get("status"), f.get("status")
     verdict = experiment.get("verdict")
 
     if verdict == "l6_verified_patch":

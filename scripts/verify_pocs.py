@@ -42,7 +42,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, EXEC_FAILURE_REASONS, REPORTS, WORK, load_core, log, owner_repo, run,
+    EXEC_FAILURE_REASONS, REPORTS, WORK, load_core, log, owner_repo, run,
     tool_version, write_json,
 )
 
@@ -112,7 +112,6 @@ def install_deps(root: Path, skip: bool) -> dict:
     out["needed"] = True
     lock = root / "package-lock.json"
     npm = shutil.which("npm") or shutil.which("npm.cmd")
-    npx = shutil.which("npx") or shutil.which("npx.cmd")
     if not npm:
         out.update(status="failed", attempts=[],
                    error="npm not found on PATH; install Node.js or pass --skip-install")
@@ -148,7 +147,9 @@ def patch_dead_rpcs(root: Path, rpc: str | None) -> dict:
         d = root / pat
         if not d.exists():
             continue
-        for f in d.rglob("*.sol"):
+        # Sorted: rglob order is filesystem-dependent (NTFS vs ext4 differ),
+        # and `edits` lands in committed result.json.
+        for f in sorted(d.rglob("*.sol")):
             try:
                 text = f.read_text(encoding="utf-8")
             except (UnicodeDecodeError, OSError):
@@ -445,7 +446,9 @@ def native_tests(root: Path, test_dir: str, names: list[str]) -> dict[str, dict]
         return {}
     want = set(names)
     found: dict[str, dict] = {}
-    for f in d.rglob("*.sol"):
+    # Sorted: first match wins below, so filesystem-dependent rglob order
+    # (NTFS vs ext4) would pick different files on different platforms.
+    for f in sorted(d.rglob("*.sol")):
         try:
             text = f.read_text(encoding="utf-8", errors="replace")
         except OSError:
@@ -806,7 +809,8 @@ def run_repo(owner_repo: str, exploits: list[dict], args) -> dict:
                         failure_reason=next((s["reason"] for s in mat["skipped"] if s["finding_id"] == rid),
                                             "insufficient_evidence"),
                         evidence={})
-            verdicts.append(base); continue
+            verdicts.append(base)
+            continue
         if not comp.get("compiled"):
             err = comp.get("error") or ""
             # A compile error inside our own PoC file is a property of the PoC;
@@ -815,7 +819,8 @@ def run_repo(owner_repo: str, exploits: list[dict], args) -> dict:
             base.update(verdict="not_executed", failure_reason=reason,
                         compile_rc=comp.get("rc"),
                         evidence={"compile_error": err[-800:]})
-            verdicts.append(base); continue
+            verdicts.append(base)
+            continue
         hit = find_result(results, name)
         if hit is None:
             if run_failure_reason:
@@ -831,7 +836,8 @@ def run_repo(owner_repo: str, exploits: list[dict], args) -> dict:
                                                "the compiled test set", "test_name": name,
                                       "tests_compiled": len(results),
                                       "compiled_test_names": sorted(results)[:40]})
-            verdicts.append(base); continue
+            verdicts.append(base)
+            continue
         verdict, reason = classify(hit["status"], hit["reason"])
         base.update(verdict=verdict, failure_reason=reason,
                     evidence={"test_name": name, "forge_status": hit["status"],
@@ -900,12 +906,17 @@ def main() -> int:
 
 def merge(args) -> None:
     runs = []
+    malformed_files: list[str] = []
     for f in sorted(RUNS.glob("*.json")):
         if f.name == "_all.json":  # this is the merged dump, not a per-repo run
             continue
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
+            # A malformed run file is unreadable input, never a zero: it is
+            # listed explicitly so totals account for it instead of silently
+            # shrinking.
+            malformed_files.append(f.name)
             continue
         if isinstance(data, dict):
             runs.append(data)
@@ -934,7 +945,9 @@ def merge(args) -> None:
                    "reproduced": tally["reproduced"],
                    "not_reproduced": tally["not_reproduced"],
                    "inconclusive": tally["inconclusive"],
-                   "not_executed": tally["not_executed"]},
+                   "not_executed": tally["not_executed"],
+                   "malformed_run_files": len(malformed_files)},
+        "malformed_run_files": sorted(malformed_files),
         "poc_compilation_rate": {
             "repos_attempted": len(runs),
             "repos_compiled": len(compiled),

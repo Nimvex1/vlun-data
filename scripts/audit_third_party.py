@@ -65,7 +65,7 @@ def main() -> int:
     if not path.exists():
         log(f"no {path}")
         return 1
-    rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
     licence = Counter()
     flag = Counter()

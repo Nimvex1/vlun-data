@@ -25,11 +25,13 @@ no candidate has an executable fixed-side leg. The experiment queue in
 
 from __future__ import annotations
 
-import hashlib
-import json
 import re
 import subprocess
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import vlun_io as _io  # noqa: E402  (shared JSON/JSONL + hash primitives)
 
 ROOT = Path(__file__).resolve().parent.parent
 V3_DIR = ROOT / "V3"
@@ -314,51 +316,34 @@ CERTORA_PLATFORM_MAP = {
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    rows: list[dict] = []
-    if not path.exists():
-        return rows
-    with open(path, encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if line:
-                rows.append(json.loads(line))
-    return rows
+    # v3 ledgers may be absent on a partial checkout: tolerate that. A
+    # malformed row still raises (via the shared strict reader).
+    return _io.read_jsonl(path, missing_ok=True)
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    # newline="\n": without it Windows text mode emits CRLF, making build
-    # output platform-dependent. Committed files are LF (.gitattributes).
-    with open(path, "w", encoding="utf-8", newline="\n") as fh:
-        for row in rows:
-            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+    _io.write_jsonl(path, rows)
 
 
 def write_json(path: Path, obj: dict | list) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    # newline="\n": see write_jsonl — platform-stable LF output.
-    with open(path, "w", encoding="utf-8", newline="\n") as fh:
-        json.dump(obj, fh, indent=2, ensure_ascii=False, sort_keys=True)
-        fh.write("\n")
+    _io.write_json(path, obj)
 
 
 def sha256_file(path: Path, chunk: int = 1 << 20) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        while True:
-            block = fh.read(chunk)
-            if not block:
-                break
-            h.update(block)
-    return h.hexdigest()
+    return _io.sha256_file(path, chunk)
 
 
 def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return _io.sha256_text(text)
 
 
 def clone_head(clone_dir: Path) -> str:
-    """HEAD SHA of a V3 clone, or "unknown" (shallow clones have no history)."""
+    """HEAD SHA of a V3 clone, or "unknown" (shallow clones have no history).
+
+    "unknown" is recorded as data, never guessed — but a rev-parse failure
+    on a directory that EXISTS means a corrupt clone, not a missing one, so
+    it warns loudly instead of flowing silently into candidate records.
+    """
     try:
         out = subprocess.run(
             ["git", "-C", str(clone_dir), "rev-parse", "HEAD"],
@@ -368,6 +353,9 @@ def clone_head(clone_dir: Path) -> str:
             return sha
     except Exception:
         pass
+    if clone_dir.exists():
+        log(f"  [warn] rev-parse failed on existing clone {clone_dir}; "
+            f"recording clone_head as unknown (clone may be corrupt)")
     return UNKNOWN
 
 

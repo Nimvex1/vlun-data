@@ -158,7 +158,7 @@ def stage_poc(rel: str, work: Path) -> tuple[Path, dict]:
             "evm_version = 'shanghai'\n" % LIB.as_posix().replace("\\", "/"))
     toml += "\n[rpc_endpoints]\n" + "".join(
         f'{k} = "{v}"\n' for k, v in RPCS.items())
-    (proj / "foundry.toml").write_text(toml, newline="\n")
+    (proj / "foundry.toml").write_text(toml, encoding="utf-8", newline="\n")
     manifest = {"poc": rel, "poc_sha256": sha_file(src),
                 "supplied": supplied,
                 "staged_files": sorted(
@@ -170,7 +170,8 @@ def stage_poc(rel: str, work: Path) -> tuple[Path, dict]:
 def run(cmd: list[str], cwd: Path, timeout: int) -> tuple[int, str, str]:
     try:
         p = subprocess.run(cmd, cwd=str(cwd), capture_output=True,
-                           text=True, errors="replace", timeout=timeout)
+                           text=True, encoding="utf-8", errors="replace",
+                           timeout=timeout)
         return p.returncode, p.stdout or "", p.stderr or ""
     except subprocess.TimeoutExpired as exc:
         out = (exc.stdout or b"").decode("utf-8", "replace") \
@@ -332,12 +333,17 @@ def _write_artifacts(out_dir: Path, cmd, so: str, se: str, rec: dict,
     out_dir.mkdir(parents=True, exist_ok=True)
     rec["seconds"] = round(time.time() - rec.pop("_t0", time.time()), 1)
     (out_dir / "command.txt").write_text(
-        " ".join(cmd) + "\n" if isinstance(cmd, list) else str(cmd) + "\n", newline="\n")
-    (out_dir / "stdout.txt").write_text(rec.pop("_stdout", so)[-200000:], newline="\n")
-    (out_dir / "stderr.txt").write_text(rec.pop("_stderr", se)[-200000:], newline="\n")
-    (out_dir / "toolchain.txt").write_text(_forge_version() + "\n", newline="\n")
+        " ".join(cmd) + "\n" if isinstance(cmd, list) else str(cmd) + "\n",
+        encoding="utf-8", newline="\n")
+    (out_dir / "stdout.txt").write_text(rec.pop("_stdout", so)[-200000:],
+                                        encoding="utf-8", newline="\n")
+    (out_dir / "stderr.txt").write_text(rec.pop("_stderr", se)[-200000:],
+                                        encoding="utf-8", newline="\n")
+    (out_dir / "toolchain.txt").write_text(_forge_version() + "\n",
+                                           encoding="utf-8", newline="\n")
     (out_dir / "harness.json").write_text(
-        json.dumps(manifest, indent=2, sort_keys=True), newline="\n")
+        json.dumps(manifest, indent=2, sort_keys=True),
+        encoding="utf-8", newline="\n")
     result = dict(rec)
     result["artifact_hashes"] = {
         f: sha_file(out_dir / f)
@@ -361,7 +367,8 @@ def _write_artifacts(out_dir: Path, cmd, so: str, se: str, rec: dict,
 def _forge_version() -> str:
     try:
         p = subprocess.run(["forge", "--version"], capture_output=True,
-                           text=True, timeout=60)
+                           text=True, encoding="utf-8", errors="replace",
+                           timeout=60)
         return (p.stdout or "").strip() or "forge (version unknown)"
     except Exception:
         return "forge (unavailable)"
@@ -504,7 +511,8 @@ def main() -> int:
                           "toolchain.txt", "harness.json")
                 if (out_dir / f).exists()}
             (out_dir / "result.json").write_text(
-                json.dumps(result, indent=2, sort_keys=True), newline="\n")
+                json.dumps(result, indent=2, sort_keys=True),
+                encoding="utf-8", newline="\n")
             V.log(f"reanalyzed {fid} -> {rec.get('status')} "
                   f"({rec.get('level_awarded')})")
     else:

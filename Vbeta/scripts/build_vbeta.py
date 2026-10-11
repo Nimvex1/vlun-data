@@ -133,7 +133,12 @@ def main() -> int:
         src = sources[c["source_id"]]
         decision, reason = V.decide(c)
         level = "L1" if c.get("poc_observed") else "L0"
-        assert level in ("L0", "L1"), "Vbeta never exceeds L1"
+        # Explicit, not assert: the L1 ceiling is a data invariant that must
+        # hold under `python -O` too. A violation fails the build loudly.
+        if level not in ("L0", "L1"):
+            V.log(f"  ERROR Vbeta level ceiling violated: {level!r} "
+                  f"for {c.get('cid')}")
+            return 1
         ledger.append({
             "candidate_id": c["cid"],
             "source_id": c["source_id"],
@@ -153,7 +158,7 @@ def main() -> int:
             "dataset_version": V.DATASET_VERSION_VB,
         })
 
-    admitted = [r for r in ledger if r["decision"] in V.ADMITTED_DECISIONS]
+    [r for r in ledger if r["decision"] in V.ADMITTED_DECISIONS]
     records = []
     for r in ledger:
         if r["decision"] not in V.ADMITTED_DECISIONS:

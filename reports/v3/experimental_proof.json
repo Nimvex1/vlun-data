@@ -30,11 +30,11 @@
     {
       "artifact_dir": "experiments_v3/burgerswap",
       "artifact_hashes": {
-        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
-        "harness.json": "549f6e1635a4ffbebe9e66ead1824b8782ea359a48e5b4ab5302f4972ff36e94",
-        "stderr.txt": "a6f4b2b221d07b481cd6d17a1ce84f80c711e3b6fe1e2d48119f71a2ac60f09d",
-        "stdout.txt": "691ec59472b069ca9755c5680f465088fad5b4e585b9efcd4b335e22b876bb04",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "7df24b8d9e34d643710d9f7f98e41b3e8b850981e927079ec41b7acae5d14725",
+        "stderr.txt": "740752694448d5f00cfb7f85dd4b0d2aa3068a1a5c9ee44096c9938b1063fc95",
+        "stdout.txt": "5c4bed1bc0746f8ae1980f0f53c6db253ed002a7b678f1c1c61fdfa3d9829a47",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {
@@ -72,11 +72,11 @@
     {
       "artifact_dir": "experiments_v3/shibatoken",
       "artifact_hashes": {
-        "command.txt": "4d591a223c5bf9712f2833cef697e24b76cb83bcc657a95cd7247d9522176197",
-        "harness.json": "bde788bd2074c74427b662c9c70416786629be6e5df01fb347bc62dd44b1cd03",
-        "stderr.txt": "2ab83fa1c33a0dd9d6e0cbbf24f1c7e051a90865bc2c48ba72c32d0160244c8c",
-        "stdout.txt": "1487b5dac502c4ce3c18729632597aba1665c7441e0fbc64cd777fc6f3ff50cd",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "command.txt": "c53a60d9a2063adfae648093c64864caae3a45ad5de8f2ea2c8f9a539cfbf2a7",
+        "harness.json": "06b46f0f510ea7f43b328cf37bb3dc02d1848b03a2fb2162eece35eae943a87b",
+        "stderr.txt": "14a51d235bd3c7e4ae163110b26b6917731b6580904d3c5312301bdd9dca152a",
+        "stdout.txt": "7b432c22e2b24ee10db5edf787ce6de2508b5b1f2c6eb14661df3461565f11e3",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {
@@ -115,11 +115,11 @@
     {
       "artifact_dir": "experiments_v3/gamma",
       "artifact_hashes": {
-        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
-        "harness.json": "ef2804404b0652b4be4e2e6de8147d555b1dbb430ba32c97e77d4c1955909638",
-        "stderr.txt": "70432e465f0b4b4b859ae38bcce771fdfcec434aea3aca998dfda60a1b4e1dab",
-        "stdout.txt": "ab9c283bc48314b1fde558b065282b1c7c66af7ffc52301812c3fa126275058d",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "c0bde20e150760a99c4cc0d9b136e835cfab2b5584a428f41da52f735d2f2118",
+        "stderr.txt": "969fd998fd1561d4cec0c786003cacce585dabf72929b7efd217f16fa515cfea",
+        "stdout.txt": "c0db489e69af401efd6696bed18142097a8c7bb4a0b5ae7ae1eab54d2d84e9a6",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {
@@ -157,11 +157,11 @@
     {
       "artifact_dir": "experiments_v3/prisma",
       "artifact_hashes": {
-        "command.txt": "1db0f05b9c6c0a3709b09dcfc18c659ba6937f99e2cb4e556067b156ee390ea9",
-        "harness.json": "696f4b28e82b6a892fda5e3e943918574bdd8f7858c47135d1826c69db43213b",
+        "command.txt": "a4a0dd0d5139adfa135dd2eccb4fffb5d39c1d9234af289451ef0256ccd32900",
+        "harness.json": "bc300ae17a140d7acd61954364b38ea7ab70061dc8dab50fdf927be54ffbbf95",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "9aa630374d5160167b829bf76523dbe7866f835e772fa7f5b4a1b33a9574d9bd",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "stdout.txt": "ecf2729a2b6f748ba763e4d17bc56535290e25bdfd0992163c7445c620bb4f15",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {
@@ -199,11 +199,11 @@
     {
       "artifact_dir": "experiments_v3/pikefinance",
       "artifact_hashes": {
-        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
-        "harness.json": "a075b53de24dda1e78c7c8d596ce0c5d9f0d13d4894ccf4a6df94b93cb4610ab",
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "394149afdd51e13c7d050fc4368723f58932836b264c11c44110e2d6c4edb343",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "d7ebc9d982e60233040c9bd015cc551532fe507090b5665c2179bebdc7702f20",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "stdout.txt": "024252e039a13ec5a2668b4c8256e2c1b19c7649c45a35fb9c36ea95db8a6449",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {
@@ -250,11 +250,11 @@
     {
       "artifact_dir": "experiments_v3/swappstaking",
       "artifact_hashes": {
-        "command.txt": "8126d005bddcf3c2e95423f6450ec5caf3dd15da57d60e81129048d281383d87",
-        "harness.json": "f9f0059c22e1df2e093f7019f772d75cc4d4ee46ea52172b2636e92a8c91a24b",
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "eb7445f9b1a75c470669360dd0d32590177ce840be26aa3876ddbe0a773f5e90",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "988475fce181aaa62ab4c2b5e4f07a22aceb74c505b9207dc62ff6d46fec2c7b",
-        "toolchain.txt": "85c3a217a78b6dfdb3852e9fe34c8a20813bce59fde480bb7a85a554ab406025"
+        "stdout.txt": "bbaa835b1151f4ce960df487de291f66c3a6948448b5d80e806fa19bf9eeb64d",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
       },
       "build": {
         "harness": {

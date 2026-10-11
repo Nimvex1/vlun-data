@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import collections
 import itertools
-import json
 import math
 import re
 import sys
@@ -34,7 +33,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, REPORTS, ROOT, SPLITS, WORK, load_splits, log, read_jsonl, rec_id,
+    REPORTS, ROOT, SPLITS, log, read_jsonl, rec_id,
     sha256_text, write_json, write_jsonl,
 )
 
@@ -374,7 +373,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--emit", choices=["", "splits_v2"], default="", metavar="splits_v2",
                     help="write a re-split with cross-split duplicates relocated")
-    ap.add_argument("--input", default="splits", help="splits directory to audit")
+    ap.add_argument("--input", default="splits_v2", help="splits directory to audit")
     args = ap.parse_args()
     emit = bool(args.emit)
 

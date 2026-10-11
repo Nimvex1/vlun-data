@@ -26,9 +26,7 @@ import argparse
 import csv
 import io
 import json
-import os
 import re
-import sys
 from pathlib import Path
 
 VBETA = Path(__file__).resolve().parent.parent

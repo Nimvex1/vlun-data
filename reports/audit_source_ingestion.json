@@ -1,7 +1,6 @@
 {
   "dataset_version": "2.2",
   "failure_policy": "missing evidence is null/unknown; no field fabricated",
-  "generated_at": "2026-10-06",
   "generated_by": "scripts/ingest_audit_sources.py",
   "ingestion_record_errors": [],
   "metrics": {
@@ -99,6 +98,7 @@
       "True": 3
     },
     "licenses_unknown": 109,
+    "metric_errors": [],
     "ml_sources": 112,
     "n_derived": 137,
     "n_vuln_classes": 80,

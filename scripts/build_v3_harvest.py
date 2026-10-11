@@ -8,9 +8,7 @@ and build output are byte-identical.
 
 from __future__ import annotations
 
-import argparse
 import collections
-import hashlib
 import json
 import re
 import sys
@@ -773,7 +771,6 @@ def harvest_zellic(spec: dict, clone_dir: Path, head: str) -> list[dict]:
         if len(cells) < 4 or cells[0].lower().startswith("product"):
             continue
         product, date, network = cells[0].strip(), cells[1].strip(), cells[2].strip().lower()
-        m = re.search(r"\(([^)]+\.pdf)\)|([^|\s]+\.pdf)", cells[3])
         pdf_name = U
         link_m = re.search(r"\./([^)]+)", cells[3])
         if link_m:
@@ -822,7 +819,6 @@ def harvest_certora(spec: dict, clone_dir: Path, head: str) -> list[dict]:
             continue
         protocol, date, project, platform = (cells[0].strip(), cells[1].strip(),
                                             cells[2].strip(), cells[3].strip().lower())
-        link_m = re.search(r"\./([^)]+)|Reports/([^)]+)", "|".join(cells))
         pdf_rel = None
         for cell in cells:
             m = re.search(r"Reports/([^)]+\.pdf)", cell)

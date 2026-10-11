@@ -36,6 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import solidity_facts as sf  # noqa: E402
+from build_derived import evidence  # noqa: E402  (shared wrapper; was a byte-identical copy)
 from vlun import (  # noqa: E402
     DERIVED, JSONL, REPORTS, log, rec_id, sha256_text, snippet_entries, write_json, write_jsonl,
 )
@@ -55,16 +56,6 @@ UNPRIVILEGED_ASSERTION = re.compile(
 
 def _fn_in_claim(fname: str | None, claim_text: str) -> bool:
     return bool(fname) and fname.lower() in claim_text.lower()
-
-
-def evidence(value, etype, refs=None, confidence=None, note=None):
-    d = {"value": value if value not in ("", None) else None, "evidence_type": etype,
-         "source_refs": refs or []}
-    if confidence:
-        d["confidence"] = confidence
-    if note:
-        d["note"] = note
-    return d
 
 
 def code_refs(row) -> list[str]:
@@ -102,11 +93,10 @@ def _caller_identity_guards(fn: dict) -> list[dict]:
         comparison = (g.get("comparison") or "")
         if g.get("operator") not in ("==", "!="):
             continue
-        caller_side = None
         if "msg.sender" in subject:
-            caller_side, other = subject, comparison
+            _caller_side, other = subject, comparison
         elif "msg.sender" in comparison:
-            caller_side, other = comparison, subject
+            _caller_side, other = comparison, subject
         else:
             continue
         # the other side must name some identity that is not the caller itself
@@ -346,7 +336,7 @@ def quality(verdict_et, blocking, snippets, basis) -> dict:
 
 
 def main() -> int:
-    rows = [json.loads(l) for l in open(JSONL / "negative_findings.jsonl", encoding="utf-8") if l.strip()]
+    rows = [json.loads(line) for line in open(JSONL / "negative_findings.jsonl", encoding="utf-8") if line.strip()]
     out = [build_negative(r) for r in rows]
     write_jsonl(DERIVED / "hard_negatives.jsonl", out)
 

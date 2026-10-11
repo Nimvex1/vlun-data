@@ -34,7 +34,6 @@ from __future__ import annotations
 import re
 from collections import defaultdict
 
-import solidity_facts as sf
 
 AUTH_MODIFIERS = ("onlyOwner", "onlyRole", "onlyManager", "onlyMaintainer",
                   "onlyGovernance", "onlyKeeper", "onlyGuardian", "onlyAdmin",

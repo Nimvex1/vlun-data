@@ -3,13 +3,15 @@
   "dataset_version": "3.0",
   "families": [
     "R_v3_source_tier_routing",
-    "S_v3_contest_outcome"
+    "S_v3_contest_outcome",
+    "T_v31_taxonomy_explicit"
   ],
-  "generated_by": "scripts/build_v3.py",
-  "notes": "answer keys rebuild mechanically from derived_v3/records.jsonl; task ids carry record ids for traceability (same convention as families A-Q)",
+  "generated_by": "scripts/build_v3.py + scripts/build_benchmark_v31.py",
+  "notes": "answer keys rebuild mechanically from derived_v3/records.jsonl; task ids carry record ids for traceability (same convention as families A-Q) Family T admits only explicit-confidence taxonomy rows whose title+target do not already name the answer class (7 leakers excluded this run).",
   "splits_source": "splits_v3",
   "tasks": {
     "R_v3_source_tier_routing": 5467,
-    "S_v3_contest_outcome": 1072
+    "S_v3_contest_outcome": 1072,
+    "T_v31_taxonomy_explicit": 589
   }
 }

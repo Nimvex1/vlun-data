@@ -84,7 +84,7 @@ bulk-tier families' memorization-proneness stays visible.
 
 ## Saturated families (majority >= 0.94 — a beat here carries no signal)
 
-B, F, G, I, J, M, S, T, V. Marked in the README benchmark table and in
+B, F, G, I, J, M, S, T, U, V. Marked in the README benchmark table and in
 `reports/benchmark_metrics.md`. The per-family accuracies live in
 `reports/baselines/baseline_majority.json`; read them there rather than from
 a hand-copied list that can drift.

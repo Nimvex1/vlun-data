@@ -59,7 +59,12 @@ class Gate:
         self.quiet = quiet
 
     def verdict(self, name, status, detail=""):
-        assert status in ("PASS", "FAIL", "SKIPPED")
+        # Explicit check, not assert: gate verdicts must hold under
+        # `python -O` too (asserts are stripped there). An invalid status is
+        # a bug in the caller, and it fails the gate rather than vanishing.
+        if status not in ("PASS", "FAIL", "SKIPPED"):
+            status, detail = (
+                "FAIL", f"invalid gate status {status!r} for {name}: {detail}")
         self.rows.append({"check": name, "status": status, "detail": detail})
         if not self.quiet:
             print(f"  [{status}] {name}" + (f" — {detail}" if detail and status != "PASS" else ""))
@@ -101,15 +106,15 @@ def main() -> int:
         G.ok("required inputs exist", f"{len(required)} files")
 
     # ---- 2. referenced scripts ----------------------------------------------
+    # (An earlier revision also read scripts/build_all_stages.json here; the
+    # file does not exist and the value was never used. Dead reads of
+    # nonexistent files are removed, not guarded: a guard would imply the
+    # file matters.)
     scripts = ["generate_stats.py", "generate_readme.py", "validate.py",
                "validate_v3.py", "validate_v31.py", "build_all.py",
                "check_manifests.py", "check_reproducibility.py",
                "schema_terms.py", "vlun.py", "taxonomy.py",
                "poc_classification.py"]
-    try:
-        stages = js(ROOT / "scripts" / "build_all_stages.json")
-    except OSError:
-        stages = None
     missing_s = [s for s in scripts if not (ROOT / "scripts" / s).is_file()]
     if missing_s:
         G.fail("referenced scripts exist", f"missing: {missing_s}")
@@ -425,10 +430,6 @@ def main() -> int:
              f"{sum(len(v) for v in declared.values())} files")
 
     # ---- 9. layer correctness -----------------------------------------------------
-    layer_versions = {
-        "jsonl": "1.0", "derived_v3": "3.0", "Vbeta/jsonl_vbeta": "vbeta-1.0",
-        "Vbeta/derived_vbeta": "vbeta-1.0",
-    }
     bad_layer = []
     probes = {
         "jsonl": ("findings.jsonl", "dataset_version", "1.0"),
@@ -518,7 +519,7 @@ def main() -> int:
         ls = subprocess.run(["git", "ls-files", *declared_ignored],
                             cwd=str(ROOT), capture_output=True, text=True,
                             timeout=120)
-        tracked = [l for l in (ls.stdout or "").splitlines() if l.strip()]
+        tracked = [line for line in (ls.stdout or "").splitlines() if line.strip()]
     except Exception as exc:  # noqa: BLE001
         tracked = [f"git ls-files failed: {exc}"]
     # Documented exception: the clones manifest itself is tracked by an

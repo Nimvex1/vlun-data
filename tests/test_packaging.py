@@ -63,7 +63,6 @@ class TestBenchmarkCanary(unittest.TestCase):
         # The GUID may appear only in the single source, the generated
         # manifests, the static CANARY file, docs, and this test. A copy
         # pasted into any other script is a drifted duplicate.
-        allowed_dirs = {"benchmark", "docs", "reports", "Vbeta/benchmark_vbeta"}
         allowed_files = {
             "scripts/schema_terms.py",
             "scripts/build_benchmark.py",

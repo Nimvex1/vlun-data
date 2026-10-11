@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -116,7 +115,13 @@ def main() -> int:
     for scope, rel in LAYER_FILES.items():
         try:
             rows = jl(ROOT / rel)
-        except OSError:
+        except OSError as exc:
+            # A missing layer file is MISSING, never silently absent: the
+            # report must show the hole rather than shrink to hide it.
+            rep[f"{scope}.__layer_file__"] = {
+                "total": 0, "known": 0, "unknown_or_empty": 0,
+                "known_pct": None,
+                "error": f"layer file missing: {rel} ({exc})"}
             continue
         for f in LAYER_FIELDS[scope]:
             rep[f"{scope}.{f}"] = cover(
@@ -138,6 +143,9 @@ def main() -> int:
              "|---|---|---|---|---|"]
     for key in sorted(rep):
         c = rep[key]
+        if "error" in c:
+            lines.append(f"| `{key}` | MISSING FILE | {c['error']} | | |")
+            continue
         lines.append(f"| `{key}` | {c['total']} | {c['known']} | "
                      f"{c['unknown_or_empty']} | {c['known_pct']} |")
     out_md = ROOT / "reports" / "field_coverage.md"

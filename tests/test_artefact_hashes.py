@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import sys
 import unittest
 from pathlib import Path
 
@@ -69,6 +68,62 @@ class TestArtefactHashes(unittest.TestCase):
             missing = [n for n in need if not (d / n).is_file()]
             self.assertEqual(missing, [], f"{slug}: {missing}")
 
+    def test_proof_hashes_match_disk(self):
+        """experimental_proof.json is the SOURCE v32_execution.py reads.
+
+        test_proof_runs_have_full_artefact_set only checked that the files
+        exist. The hashes recorded here were stale for all 6 runs -- the
+        CRLF recompute in c124c7e fixed result.json and left this copy
+        behind -- so the canonical record files inherited a pointer that
+        did not match the bytes it claimed to prove. Existence is not
+        provenance; this is.
+        """
+        proof = json.loads((ROOT / "reports" / "v3" / "experimental_proof.json")
+                           .read_text(encoding="utf-8"))
+        bad = []
+        checked = 0
+        for run in proof.get("runs", []):
+            d = run.get("artifact_dir")
+            for name, want in (run.get("artifact_hashes") or {}).items():
+                f = ROOT / d / name
+                if not f.is_file():
+                    bad.append(f"{d}/{name}: missing")
+                    continue
+                checked += 1
+                got = hashlib.sha256(f.read_bytes()).hexdigest()
+                if got != want:
+                    bad.append(f"{d}/{name}: {want[:12]} != {got[:12]}")
+        self.assertEqual(bad, [],
+                         f"{len(bad)} proof artefact hash mismatch(es)")
+        self.assertGreater(checked, 0)
+
+    def test_record_hashes_match_disk(self):
+        """The record files copy the proof's hashes; they must still match."""
+        bad = []
+        checked = 0
+        for name in ("jsonl_v3/findings.jsonl", "derived_v3/records.jsonl"):
+            p = ROOT / name
+            if not p.is_file():
+                continue
+            for line in p.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                exp = (json.loads(line).get("experiment") or {})
+                d = exp.get("artifact_dir")
+                for artifact, want in (exp.get("artifact_hashes") or {}).items():
+                    f = ROOT / d / artifact
+                    if not f.is_file():
+                        bad.append(f"{name}: {d}/{artifact} missing")
+                        continue
+                    checked += 1
+                    got = hashlib.sha256(f.read_bytes()).hexdigest()
+                    if got != want:
+                        bad.append(f"{name}: {d}/{artifact} "
+                                   f"{want[:12]} != {got[:12]}")
+        self.assertEqual(bad, [],
+                         f"{len(bad)} record artefact hash mismatch(es)")
+        self.assertGreater(checked, 0)
+
     def test_no_crlf_in_run_artefacts(self):
         # A CRLF artefact hashes differently on Windows vs Linux, which is
         # what made the recorded hashes unverifiable in the first place.
@@ -84,9 +139,9 @@ class TestArtefactHashes(unittest.TestCase):
 
 class TestV32RecordsCiteRealArtefacts(unittest.TestCase):
     def test_l4_plus_artefact_dir_exists(self):
-        recs = [json.loads(l) for l in
+        recs = [json.loads(line) for line in
                 (ROOT / "derived_v3" / "records.jsonl").open(encoding="utf-8")
-                if l.strip()]
+                if line.strip()]
         bad = []
         for r in recs:
             if r.get("verification_level") not in ("L4", "L5", "L6"):

@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import counterexample_pairs as cp
 import solidity_facts as sf  # noqa: E402
 from vlun import (  # noqa: E402
-    DATASET_VERSION, DERIVED, JSONL, REPORTS, log, sha256_text, snippet_entries, write_json,
+    DATASET_VERSION, DERIVED, JSONL, REPORTS, log, sha256_text, write_json,
     write_jsonl,
 )
 
@@ -190,7 +190,7 @@ def _refute(fn: dict, blk: dict, finding: dict) -> dict | None:
 
 
 def main() -> int:
-    rows = [json.loads(l) for l in open(JSONL / "findings.jsonl", encoding="utf-8") if l.strip()]
+    rows = [json.loads(line) for line in open(JSONL / "findings.jsonl", encoding="utf-8") if line.strip()]
     hm = [r for r in rows if r["finding"].get("record_class") == "judged"
           and r["finding"].get("severity") in ("high", "medium")]
     out, with_ce = [], 0
@@ -227,7 +227,6 @@ def main() -> int:
     for r in hm:
         rid = (r.get("finding") or {}).get("id")
         owner = f"{r['source'].get('organization', 'code-423n4')}/{r['source']['repository']}"
-        cls = ls.classify_record_code(r)
         entries = []
         seen = set()
         for e in (list(r.get("code_context") or []) + list(r.get("vulnerable_code") or [])

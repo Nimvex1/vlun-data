@@ -34,7 +34,7 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import DERIVED, JSONL, REPORTS, ROOT, log, read_jsonl, write_json, write_jsonl  # noqa: E402
+from vlun import DERIVED, REPORTS, ROOT, log, read_jsonl, write_json, write_jsonl  # noqa: E402
 
 DATASETS = ROOT / "datasets"
 TRAINING = ROOT / "training"

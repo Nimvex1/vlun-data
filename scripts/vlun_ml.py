@@ -24,10 +24,12 @@ Nothing here is ever written by hand: build them with the scripts. Run
 
 from __future__ import annotations
 
-import hashlib
-import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import vlun_io as _io  # noqa: E402  (shared JSON/JSONL + hash primitives)
 
 ROOT = Path(__file__).resolve().parent.parent
 ML_JSONL = ROOT / "jsonl_ml"
@@ -196,30 +198,15 @@ def ml_id(language: str, native_id: str) -> str:
 
 
 def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return _io.sha256_text(text)
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    rows = []
-    with open(path, encoding="utf-8") as fh:
-        for lineno, line in enumerate(fh, 1):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"{path.name}:{lineno} invalid JSON: {exc}") from exc
-    return rows
+    return _io.read_jsonl(path)
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
-        for row in rows:
-            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
-    tmp.replace(path)
+    _io.write_jsonl(path, rows)
 
 
 def _parts(prefix: str) -> list[Path]:

@@ -217,6 +217,15 @@
       "ok": true
     },
     {
+      "check": "duplicate_of_iff_corroboration",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
       "check": "corroboration_has_link",
       "critical": true,
       "detail": null,
@@ -372,6 +381,6 @@
   ],
   "critical_failures": 0,
   "dataset_version": "3.0",
-  "passed": 41,
-  "total": 41
+  "passed": 42,
+  "total": 42
 }

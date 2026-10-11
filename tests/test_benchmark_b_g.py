@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def _rows(p):
-    return [json.loads(l) for l in p.open(encoding="utf-8") if l.strip()]
+    return [json.loads(line) for line in p.open(encoding="utf-8") if line.strip()]
 
 
 class TestFamilyB(unittest.TestCase):

@@ -37,12 +37,9 @@ from __future__ import annotations
 
 import argparse
 import collections
-import hashlib
-import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import unquote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
@@ -52,9 +49,7 @@ U = V.UNKNOWN
 
 
 from build_v3_harvest import (  # noqa: E402
-    _load_existing_overlap, _head_line, _md_table_rows,
-    _parse_c4_report, _parse_sherlock_md, _report_pointer,
-    _section, harvest_abdk, harvest_ackee, harvest_anza,
+    _load_existing_overlap, harvest_abdk, harvest_ackee, harvest_anza,
     harvest_certora, harvest_cyba, harvest_c4,
     harvest_defihacklabs, harvest_flat_pdfs,
     harvest_informal, harvest_pashov, harvest_sherlock,
@@ -516,7 +511,6 @@ def _write_quality_report(ledger: list[dict], records: list[dict],
     lv = collections.Counter(c["verification_level"] for c in ledger)
     eco = collections.Counter(c["ecosystem"] for c in ledger)
     lang = collections.Counter(c["language"] for c in ledger)
-    sev = collections.Counter(c["severity_normalized"] for c in ledger)
     cls = collections.Counter(c["normalized_vulnerability_class"] for c in ledger)
     exact_v = sum(1 for c in ledger if re.fullmatch(r"[0-9a-f]{40}", str(c["vulnerable_commit"] or "")))
     exact_f = sum(1 for c in ledger if re.fullmatch(r"[0-9a-f]{40}", str(c["fixed_commit"] or "")))

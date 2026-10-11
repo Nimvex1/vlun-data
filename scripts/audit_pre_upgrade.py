@@ -23,8 +23,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    JSONL, REPORTS, ROOT, code_entries, load_core, load_splits, log, rec_id,
-    run, snippet_entries, write_json,
+    REPORTS, ROOT, code_entries, load_core, load_splits, log, rec_id,
+    snippet_entries, write_json,
 )
 
 LEGACY_STATS = REPORTS / "legacy" / "dataset_stats_v1_reported.json"
@@ -70,8 +70,7 @@ _V1_RECHECK = {
 
 
 def _recompute_findings_level(core):
-    findings, negatives = core["findings"], core["negatives"]
-    judged = findings + negatives
+    findings = core["findings"]
     def n(fn, rows): return sum(1 for r in rows if fn(r))
     return {
         "findings_with_attacker_capabilities": n(lambda r: r.get("security_reasoning", {}).get("attacker_capabilities"), findings),
@@ -241,7 +240,6 @@ def audit() -> dict:
     def norm_text(s: str) -> str:
         return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 
-    split_of = {rec_id(r): name for name, rows in splits.items() for r in rows}
     repo_split = collections.defaultdict(set)
     for name, rows in splits.items():
         for r in rows:
@@ -348,7 +346,6 @@ def audit() -> dict:
     }
 
     # ---- 10. patch coverage ----------------------------------------------
-    pa = core["patches"]
     out["patch_coverage"] = {
         **stats["patches"],
         "records_with_diff": 0,
@@ -470,7 +467,7 @@ def main() -> int:
     write_json(REPORTS / "pre_upgrade_audit.json", report)
     si = [p for p in report["statistics_inconsistencies"] if "v1_reported" in p]
     di = [p for p in report["documentation_inconsistencies"] if p.get("verdict") not in ("consistent",)]
-    log(f"wrote reports/pre_upgrade_audit.json")
+    log("wrote reports/pre_upgrade_audit.json")
     log(f"  statistics inconsistencies : {len(si)}")
     for p in si:
         log(f"    - {p['id']}: v1={p['v1_reported']} computed={p['computed_from_jsonl']}")

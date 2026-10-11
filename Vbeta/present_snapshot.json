@@ -1,11 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "README regenerated: reproducibility_report.md is now described as a machine-independent gate summary, not a live per-check matrix",
+  "resnapshot_reason": "retire deleted splits/ from generated README layout and LICENSE data paths",
   "sentinel_sha256": {
-    "README.md": "52199ebed092e564f3b13545b1a1f463ef1491de24cda8d61604d6157bc729d8",
+    "README.md": "befa3443579e67382e659e4b525e39415ef91a2dcdffad4666cdb4d08354abb5",
     "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
-    "pyproject.toml": "074f9712cc6f638478e840c2660d4d673adc3cba6b3186146a880ccd63886ef0",
-    "scripts/vlun_v3.py": "b5753f8e5ab466a00af78206147bd6686ec9f68227f25aa2ca3453929e6934b9"
+    "pyproject.toml": "72d7dea5899efb94758c3e5cda95f92f5e39930d4e8472e14c6cd1e7e6ed2a0d",
+    "scripts/vlun_v3.py": "212af14e934e3080bec4e8050590f26f3c7461dcead72abbf6116cb7acd59247"
   }
 }

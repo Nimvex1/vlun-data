@@ -92,7 +92,7 @@ def main() -> int:
     negatives = _load_jsonl(V.DERIVED_V3 / "negatives.jsonl", rep, "structure")
     duplicates = _load_jsonl(V.DERIVED_V3 / "duplicates.jsonl", rep, "structure")
     corroborations = _load_jsonl(V.DERIVED_V3 / "corroborations.jsonl", rep, "structure")
-    findings = _load_jsonl(V.JSONL_V3 / "findings.jsonl", rep, "structure")
+    _load_jsonl(V.JSONL_V3 / "findings.jsonl", rep, "structure")
     sources = _load_jsonl(V.JSONL_V3 / "sources.jsonl", rep, "structure")
 
     required = ["candidate_id", "source_id", "source_location", "project",
@@ -186,6 +186,7 @@ def main() -> int:
     dup_bad = [c["candidate_id"] for c in ledger
                if (c.get("duplicate_of") not in (None, U)) != (c["decision"] == "CORROBORATION_ONLY")
                and c.get("decision") not in ("REJECT",)]
+    rep.add("consistency", "duplicate_of_iff_corroboration", not dup_bad, dup_bad)
     # REJECT rows may carry no duplicate_of; CORROBORATION_ONLY must carry one.
     cor_no_link = [c["candidate_id"] for c in ledger
                    if c.get("decision") == "CORROBORATION_ONLY" and not c.get("duplicate_of")]

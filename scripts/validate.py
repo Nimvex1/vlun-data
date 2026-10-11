@@ -32,19 +32,12 @@ from __future__ import annotations
 import argparse
 import collections
 import json
-import re
 import sys
-import urllib.error
-import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import generate_stats  # noqa: E402
 from vlun import (  # noqa: E402
-    BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, DERIVED, EVIDENCE_TYPES,
-    EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL,
-    REPORTS, ROOT, SCHEMA_VERSION, SOURCE_VERSION, SPLITS, WORK, code_entries, load_core,
-    load_splits, log, read_jsonl, rec_id, sha256_text, snippet_entries, write_json,
+    DATASET_VERSION, REPORTS, log, write_json,
 )
 from validate_checks import (  # noqa: E402
     check_audit_sources, check_consistency,

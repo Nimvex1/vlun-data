@@ -44,6 +44,11 @@ nextdata/
 .freebuff/
 brag-output/
 
+# Operator-local model-training scratch (ad-hoc scripts, prompt drafts and
+# generated training JSONL). Not part of the dataset; nothing here is read
+# by the pipeline or the gates.
+ai/
+
 # PEP 517 build artefacts: regenerable with `python -m build`, never source.
 build/
 dist/

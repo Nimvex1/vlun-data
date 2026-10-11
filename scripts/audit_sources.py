@@ -23,10 +23,12 @@ provenance quality only.
 
 from __future__ import annotations
 
-import hashlib
-import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import vlun_io as _io  # noqa: E402  (shared JSON/JSONL + hash primitives)
 
 ROOT = Path(__file__).resolve().parent.parent
 DERIVED_V22 = ROOT / "derived_v2_2"
@@ -97,15 +99,9 @@ LEVEL_TO_STATE = {
 # ---------------------------------------------------------------------------
 # Section 12: negative / hard-negative handling. A duplicate is real but
 # already reported elsewhere; it must never contaminate the negative set.
+# The closed `negative_class` vocabulary is owned by vlun_v3.NEGATIVE_CLASSES
+# (re-exported through schema_terms.py); it is not redefined here.
 # ---------------------------------------------------------------------------
-
-NEGATIVE_CLASSES = (
-    "VERIFIED_NON_EXPLOIT",
-    "EXTERNALLY_REJECTED",
-    "DUPLICATE",
-    "ACCEPTED_RISK",
-    "UNKNOWN",
-)
 
 # Section 8: severity is stored twice; the original is never overwritten.
 SEVERITY_VOCAB = (
@@ -450,7 +446,7 @@ SEVERITY_NORMALIZE = {
 
 
 def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return _io.sha256_text(text)
 
 
 def normalize_severity(raw: str | None) -> tuple[str | None, str | None]:
@@ -533,32 +529,12 @@ def blank_ingestion_record(*, source: dict, report_url=None,
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    rows = []
-    with open(path, encoding="utf-8") as fh:
-        for lineno, line in enumerate(fh, 1):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"{path.name}:{lineno} invalid JSON: {exc}") from exc
-    return rows
+    return _io.read_jsonl(path)
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
-        for row in rows:
-            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
-    tmp.replace(path)
+    _io.write_jsonl(path, rows)
 
 
 def write_json(path: Path, obj) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
-        json.dump(obj, fh, ensure_ascii=False, indent=2, sort_keys=True)
-        fh.write("\n")
-    tmp.replace(path)
+    _io.write_json(path, obj)

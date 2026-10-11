@@ -29,7 +29,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
     DATASET_VERSION,
     DERIVED,
-    JSONL,
     REPORTS,
     ROOT,
     code_entries,

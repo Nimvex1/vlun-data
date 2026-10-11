@@ -8,7 +8,6 @@ behaviour and build output are byte-identical.
 
 from __future__ import annotations
 
-import argparse
 import collections
 import json
 import re
@@ -190,8 +189,6 @@ def _header_severity(native_id: str, header_text: str,
     if m and source_id == "cyba-audits":
         return (CYBA_LETTER_SEV[m.group(1)], "explicit",
                 "auditor finding-ID severity prefix ([H]-NN convention)")
-    m = re.search(r"<<status:(.*?)>>", header_text)
-    status_hint = m.group(1).strip() if m else U
     return U, U, "no severity in header"
 def _header_status(header_text: str) -> str:
     m = re.search(r"<<status:(.*?)>>", header_text)

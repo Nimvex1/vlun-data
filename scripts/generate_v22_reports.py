@@ -302,7 +302,7 @@ def quality_report_md(s: dict) -> str:
       f"**{s['ml_findings']} findings** from **{sl['total']} sources**, each source "
       "with retrieval method, payload sha256, verification status, a tier 0-4 and "
       "its licence declaration;")
-    a(f"- 137 derived records in `derived_v2_2/` with per-field evidence, "
+    a("- 137 derived records in `derived_v2_2/` with per-field evidence, "
       "the published quality rubric and the experiment view;")
     a(f"- `splits_v2_2/`: train {sp['train']['v2_2']}, validation "
       f"{sp['validation']['v2_2']}, test {sp['test']['v2_2']} assigned from "
@@ -398,7 +398,7 @@ def quality_report_md(s: dict) -> str:
     a(bm["policy"] + "\n")
 
     a("## Leakage\n")
-    a(f"- report: `reports/leakage_report_v22.json`")
+    a("- report: `reports/leakage_report_v22.json`")
     a(f"- sources spanning splits: `{s['leakage']['sources_spanning_splits']}`")
     a(f"- validation gate: {val.get('passed')}/{val.get('checks')} checks passed, "
       f"{val.get('failed_critical')} critical failures\n")

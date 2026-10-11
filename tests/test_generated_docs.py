@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def jl(p: Path) -> list[dict]:
-    return [json.loads(l) for l in p.open(encoding="utf-8") if l.strip()]
+    return [json.loads(line) for line in p.open(encoding="utf-8") if line.strip()]
 
 
 class TestReadmeCheckCountIsLive(unittest.TestCase):
@@ -167,7 +167,6 @@ class TestReproducibilityReportIsGenerated(unittest.TestCase):
         opposite profile and require byte-identical output.
         """
         import importlib.util
-        import tempfile
 
         spec = importlib.util.spec_from_file_location(
             "_br", str(ROOT / "scripts" / "build_repro_report.py"))

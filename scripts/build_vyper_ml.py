@@ -28,7 +28,6 @@ NVD payloads are fetched by `--fetch` and cached under work/v2_2/raw/vyper/.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import sys
@@ -39,6 +38,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import DATASET_VERSION, SCHEMA_VERSION, log  # noqa: E402
+from vlun_io import sha256_bytes, sha256_file  # noqa: E402  (shared hash primitives; were local copies)
 from vlun_ml import (  # noqa: E402
     ML_JSONL, claim, finding_record, source_record, unknown,
     validate_finding, validate_source, write_jsonl,
@@ -117,14 +117,6 @@ NVD_ONLY_PROJECTS = {
     "CVE-2023-46232": "era-compiler-vyper (EraVM Vyper compiler for zkSync Era)",
     "CVE-2024-43366": "zkvyper (Vyper compiler for zkSync)",
 }
-
-
-def sha256_bytes(b: bytes) -> str:
-    return hashlib.sha256(b).hexdigest()
-
-
-def sha256_file(p: Path) -> str:
-    return sha256_bytes(p.read_bytes())
 
 
 def load_json(p: Path):

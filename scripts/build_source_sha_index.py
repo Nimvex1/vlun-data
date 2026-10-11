@@ -19,7 +19,6 @@ source file is absent (the index cannot be built honestly without it).
 
 from __future__ import annotations
 
-import json
 import re
 import sys
 from pathlib import Path

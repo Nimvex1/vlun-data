@@ -18,7 +18,6 @@ from __future__ import annotations
 import argparse
 import collections
 import json
-import sys
 from pathlib import Path
 
 VBETA = Path(__file__).resolve().parent.parent
@@ -28,7 +27,7 @@ SID = "solodit-harvest"
 
 
 def jl(p: Path) -> list[dict]:
-    return [json.loads(l) for l in p.open(encoding="utf-8") if l.strip()]
+    return [json.loads(line) for line in p.open(encoding="utf-8") if line.strip()]
 
 
 def render() -> str:
@@ -46,9 +45,9 @@ def render() -> str:
     dec = collections.Counter(c["decision"] for c in sol)
     lv = collections.Counter(c.get("verification_level") for c in sol_ad)
     lang = collections.Counter(c.get("language") for c in sol_ad)
-    imported = [c for c in sol_ad if c["decision"] == "IMPORT"]
 
-    n = lambda x: f"{x:,}"
+    def n(x):
+        return f"{x:,}"
     lang_total = sum(lang.values())
     L: list[str] = [
         "# Solodit ingestion report (source: solodit-harvest)",
@@ -63,7 +62,7 @@ def render() -> str:
         f"- {n(stats['indexed'])} HIGH+MEDIUM cards indexed from Firecrawl",
         f"  listing pages; {n(stats['files'])} detail pages scraped verbatim to",
         "  `nextdata/*.md` (untracked, referenced by path).",
-        f"- Harvested by `Vbeta/scripts/harvest_solodit.py` (deterministic,",
+        "- Harvested by `Vbeta/scripts/harvest_solodit.py` (deterministic,",
         "  stdlib-only) into `Vbeta/solodit_candidates.json`.",
         f"- {n(stats['rejected'])} file rejected, "
         f"{n(stats['quarantined_near_dupes'])} near-duplicate candidates",
@@ -98,8 +97,8 @@ def render() -> str:
         f"- Description excerpt: {n(stats['with_description_excerpt'])}",
         f"- Recommendation: {n(stats['with_recommendation'])}",
         f"- PoC section: {n(stats['with_poc'])}",
-        f"- Levels: " + ", ".join(f"{k} {v}" for k, v in sorted(lv.items())),
-        f"- Languages: " + ", ".join(f"{k} {v}"
+        "- Levels: " + ", ".join(f"{k} {v}" for k, v in sorted(lv.items())),
+        "- Languages: " + ", ".join(f"{k} {v}"
                                      for k, v in lang.most_common())
         + f" (sum {n(lang_total)})",
         "",

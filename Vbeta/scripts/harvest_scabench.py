@@ -28,7 +28,6 @@ import argparse
 import io
 import json
 import re
-import sys
 from pathlib import Path
 
 VBETA = Path(__file__).resolve().parent.parent

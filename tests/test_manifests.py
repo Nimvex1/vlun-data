@@ -109,9 +109,9 @@ class TestLiveTree(unittest.TestCase):
     def test_vbeta_split_covers_live_records(self):
         import json
         recs = {r["finding_id"] for r in (
-            json.loads(l) for l in
+            json.loads(line) for line in
             open(ROOT / "Vbeta/derived_vbeta/records.jsonl",
-                 encoding="utf-8-sig") if l.strip())}
+                 encoding="utf-8-sig") if line.strip())}
         split = json.load(open(ROOT / "Vbeta/splits_vbeta/split.json",
                                encoding="utf-8-sig"))
         ok, why = splits_cover_exactly(recs, split)
@@ -120,9 +120,9 @@ class TestLiveTree(unittest.TestCase):
     def test_v3_split_covers_live_records(self):
         import json
         recs = {r["finding_id"] for r in (
-            json.loads(l) for l in
+            json.loads(line) for line in
             open(ROOT / "derived_v3/records.jsonl", encoding="utf-8-sig")
-            if l.strip())}
+            if line.strip())}
         split = json.load(open(ROOT / "splits_v3/split.json",
                                encoding="utf-8-sig"))
         ok, why = splits_cover_exactly(recs, split)

@@ -174,9 +174,9 @@ class TestShippedLayer(unittest.TestCase):
     """The committed layer must satisfy the promotion rules end to end."""
 
     def test_records_agree_with_arifacts(self):
-        recs = [json.loads(l) for l in
+        recs = [json.loads(line) for line in
                 (ROOT / "derived_v3" / "records.jsonl")
-                .open(encoding="utf-8") if l.strip()]
+                .open(encoding="utf-8") if line.strip()]
         executed = [r for r in recs
                     if r.get("verification_level") in ("L3", "L4", "L5", "L6")]
         self.assertTrue(executed,
@@ -196,18 +196,18 @@ class TestShippedLayer(unittest.TestCase):
                                 "observed-fact sentence")
 
     def test_no_promotion_without_artefact_key(self):
-        recs = [json.loads(l) for l in
+        recs = [json.loads(line) for line in
                 (ROOT / "derived_v3" / "records.jsonl")
-                .open(encoding="utf-8") if l.strip()]
+                .open(encoding="utf-8") if line.strip()]
         bad = [r["finding_id"] for r in recs
                if r.get("verification_level") in ("L3", "L4", "L5", "L6")
                and "experiment" not in r]
         self.assertEqual(bad, [])
 
     def test_l6_never_present(self):
-        recs = [json.loads(l) for l in
+        recs = [json.loads(line) for line in
                 (ROOT / "derived_v3" / "records.jsonl")
-                .open(encoding="utf-8") if l.strip()]
+                .open(encoding="utf-8") if line.strip()]
         self.assertEqual([r["finding_id"] for r in recs
                           if r.get("verification_level") == "L6"], [])
 

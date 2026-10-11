@@ -93,14 +93,14 @@ def read_diff(slug: str, vulnerable: str, fixed: str) -> dict | None:
     if r.returncode != 0:
         return None
     diff = r.stdout
-    added = [l for l in diff.splitlines() if l.startswith("+") and not l.startswith("+++")]
-    removed = [l for l in diff.splitlines() if l.startswith("-") and not l.startswith("---")]
-    files = [l for l in diff.splitlines() if l.startswith("diff --git")]
+    added = [line for line in diff.splitlines() if line.startswith("+") and not line.startswith("+++")]
+    removed = [line for line in diff.splitlines() if line.startswith("-") and not line.startswith("---")]
+    files = [line for line in diff.splitlines() if line.startswith("diff --git")]
     return {"diff_bytes": len(diff), "files_changed": len(files),
             "added_lines": len(added), "removed_lines": len(removed),
-            "added_sample": [l[1:].strip() for l in added[:120]],
-            "removed_sample": [l[1:].strip() for l in removed[:120]],
-            "paths": [l.split(" b/", 1)[-1] for l in files][:60]}
+            "added_sample": [line[1:].strip() for line in added[:120]],
+            "removed_sample": [line[1:].strip() for line in removed[:120]],
+            "paths": [line.split(" b/", 1)[-1] for line in files][:60]}
 
 
 def classify_fix(delta: dict | None) -> dict:

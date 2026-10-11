@@ -62,7 +62,6 @@ V2_BEFORE = {
 
 
 def benchmark_quality() -> dict:
-    man = J("manifest.json", {})
     bench_manifest = {}
     p = ROOT / "benchmark" / "manifest.json"
     if p.exists():
@@ -138,7 +137,6 @@ def provenance_quality() -> dict:
     cites = J("citation_resolution.json", {})
     src = J("source_fetch_verification.json", {})
     recs = J("dataset_stats.json", {})
-    targets = cites.get("targets", [])
     return {
         "generated_by": "scripts/generate_v21_reports.py",
         "citations": {

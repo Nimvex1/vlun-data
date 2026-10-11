@@ -18,13 +18,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from field_coverage import (  # noqa: E402
-    BASIS_FIELDS,
     LAYER_FIELDS,
     LAYER_FILES,
     get,
     jl,
     known,
-    known_basis,
 )
 
 

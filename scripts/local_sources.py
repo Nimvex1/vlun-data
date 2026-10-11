@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import solidity_facts as sf  # noqa: E402
-from vlun import WORK, load_core, sha256_text  # noqa: E402
+from vlun import WORK, load_core  # noqa: E402
 
 MANIFEST = WORK / "source_manifest.json"
 

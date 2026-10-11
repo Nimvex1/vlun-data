@@ -11,7 +11,6 @@ No exploit is executed in this layer, so no record may exceed L1.
 
 from __future__ import annotations
 
-import datetime
 import hashlib
 import json
 import re
@@ -103,10 +102,6 @@ SHA64_RE = re.compile(r"^[0-9a-f]{64}$")
 
 def log(msg: str = "") -> None:
     print(msg, flush=True)
-
-
-def utcnow() -> str:
-    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
 
 
 def sha256_text(text: str) -> str:

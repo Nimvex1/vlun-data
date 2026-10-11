@@ -45,7 +45,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import ROOT, WORK, log, write_json  # noqa: E402
+from vlun import ROOT, WORK, sha256_text, write_json  # noqa: E402
 
 WT = WORK / "wt"          # working clones used for experiments
 EXPERIMENTS = ROOT / "experiments"
@@ -105,10 +105,6 @@ TOOLCHAIN = {
     "node": "node 18+ only for Hardhat projects",
     "git": "git 2.x with submodule support",
 }
-
-
-def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def digest_files(files: dict[str, str]) -> str:

@@ -17,8 +17,6 @@ from __future__ import annotations
 
 import argparse
 import collections
-import json
-import re
 import sys
 from pathlib import Path
 
@@ -28,7 +26,7 @@ import vlun_v3 as V  # noqa: E402
 from build_v3 import _load_existing_overlap as _v3_overlap_loader  # noqa: E402
 import normalize_v3_lib as _lib  # noqa: E402
 from normalize_v3_lib import (
-    NORM_VERSION, U, V, X,
+    NORM_VERSION, U,
     _RJ, _apply_enrichment, _build_preview,
     _collect_patch_candidates, _corroborate, _coverage,
     _emit_fragment, _ov, _readiness_for, _unknown_audit,

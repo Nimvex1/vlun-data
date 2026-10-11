@@ -1,0 +1,2400 @@
+{
+  "audit_version": "1",
+  "families": {
+    "A_vulnerability_detection.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 720,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 720,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 0.551,
+        "frequency_from_train": {
+          "accuracy": 0.5102,
+          "coverage": 1.0,
+          "macro_f1": 0.4808
+        },
+        "input_retrieval": {
+          "accuracy": 0.3469,
+          "coverage": 1.0,
+          "macro_f1": 0.2726
+        },
+        "majority_from_train": {
+          "accuracy": 0.551,
+          "coverage": 1.0,
+          "macro_f1": 0.3553
+        },
+        "majority_global_official": {
+          "accuracy": 0.551,
+          "coverage": 1.0,
+          "macro_f1": 0.3553
+        },
+        "random_from_train_space": {
+          "accuracy": 0.551,
+          "coverage": 1.0,
+          "macro_f1": 0.5485
+        },
+        "source_only_lookup": {
+          "accuracy": 0.551,
+          "coverage": 0.0,
+          "macro_f1": 0.3553
+        },
+        "test_rows": 147,
+        "title_retrieval": {
+          "accuracy": 0.551,
+          "coverage": 1.0,
+          "macro_f1": 0.3553
+        },
+        "train_rows": 344
+      },
+      "claim": "detect a confirmed vulnerability from code",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 720,
+        "held_out_labels": [
+          "no_confirmed_vulnerability",
+          "vulnerable"
+        ],
+        "held_out_rows": 720,
+        "kept_groups": 0,
+        "kept_rows": 0,
+        "label_counts": {
+          "no_confirmed_vulnerability": 526,
+          "vulnerable": 194
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.3937,
+        "label_distribution": {
+          "no_confirmed_vulnerability": 526,
+          "vulnerable": 194
+        },
+        "majority_fraction": 0.7306,
+        "majority_label": "no_confirmed_vulnerability",
+        "n_labels": 2,
+        "rows": 720,
+        "verdict": "near_degenerate"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 147,
+        "test_rows": 147,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 344
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.4545,
+        "nearest_train_similarity_median": 0.4348,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 147,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 147,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 720,
+      "rows_total": 720,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "no_confirmed_vulnerability": 81,
+            "vulnerable": 66
+          },
+          "train": {
+            "no_confirmed_vulnerability": 248,
+            "vulnerable": 96
+          },
+          "validation": {
+            "no_confirmed_vulnerability": 197,
+            "vulnerable": 32
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.3398,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 147,
+          "train_majority": "no_confirmed_vulnerability",
+          "train_majority_accuracy_on_test": 0.551
+        }
+      },
+      "usable_as_evidence": true,
+      "validity_flags": []
+    },
+    "B_root_cause_reasoning.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 228,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 1,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "input_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 59,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 104
+      },
+      "claim": "does a source state a violated invariant",
+      "class_disjoint": {
+        "reason": "task has one class; class-disjoint eval is vacuous",
+        "verdict": "skipped_single_class"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0,
+        "label_distribution": {
+          "invariant_stated": 228
+        },
+        "majority_fraction": 1.0,
+        "majority_label": "invariant_stated",
+        "n_labels": 1,
+        "rows": 228,
+        "verdict": "single_label"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 59,
+        "test_rows": 59,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 104
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.3902,
+        "nearest_train_similarity_median": 0.2963,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 59,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 59,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 228,
+      "rows_total": 720,
+      "rows_unlabeled": 492,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "invariant_stated": 59
+          },
+          "train": {
+            "invariant_stated": 104
+          },
+          "validation": {
+            "invariant_stated": 65
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.0,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 59,
+          "train_majority": "invariant_stated",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "single_label"
+      ]
+    },
+    "C_attacker_reasoning.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 1,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0034,
+        "examples": [
+          "C::validation::2024-01-decent/submission-9"
+        ],
+        "rows_checked": 290,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 4,
+        "best_shortcut_accuracy": 0.5641,
+        "frequency_from_train": {
+          "accuracy": 0.3846,
+          "coverage": 1.0,
+          "macro_f1": 0.1965
+        },
+        "input_retrieval": {
+          "accuracy": 0.5641,
+          "coverage": 1.0,
+          "macro_f1": 0.2421
+        },
+        "majority_from_train": {
+          "accuracy": 0.3333,
+          "coverage": 1.0,
+          "macro_f1": 0.125
+        },
+        "majority_global_official": {
+          "accuracy": 0.3333,
+          "coverage": 1.0,
+          "macro_f1": 0.125
+        },
+        "random_from_train_space": {
+          "accuracy": 0.1282,
+          "coverage": 1.0,
+          "macro_f1": 0.1393
+        },
+        "source_only_lookup": {
+          "accuracy": 0.3333,
+          "coverage": 0.0,
+          "macro_f1": 0.125
+        },
+        "test_rows": 39,
+        "title_retrieval": {
+          "accuracy": 0.3333,
+          "coverage": 1.0,
+          "macro_f1": 0.125
+        },
+        "train_rows": 132
+      },
+      "claim": "classify the required attacker privilege",
+      "class_disjoint": {
+        "label_counts": {
+          "honest_but_misconfigured": 3,
+          "malicious_dependency": 11,
+          "privileged": 133,
+          "unprivileged": 143
+        },
+        "reason": "rarest class 'honest_but_misconfigured' has n=3",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.545,
+        "label_distribution": {
+          "honest_but_misconfigured": 3,
+          "malicious_dependency": 11,
+          "privileged": 133,
+          "unprivileged": 143
+        },
+        "majority_fraction": 0.4931,
+        "majority_label": "unprivileged",
+        "n_labels": 4,
+        "rows": 290,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 39,
+        "test_rows": 39,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 132
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.4545,
+        "nearest_train_similarity_median": 0.3226,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 39,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 39,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 290,
+      "rows_total": 720,
+      "rows_unlabeled": 430,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "honest_but_misconfigured": 1,
+            "malicious_dependency": 5,
+            "privileged": 20,
+            "unprivileged": 13
+          },
+          "train": {
+            "honest_but_misconfigured": 1,
+            "malicious_dependency": 3,
+            "privileged": 16,
+            "unprivileged": 112
+          },
+          "validation": {
+            "honest_but_misconfigured": 1,
+            "malicious_dependency": 3,
+            "privileged": 97,
+            "unprivileged": 18
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 1.0303,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 39,
+          "train_majority": "unprivileged",
+          "train_majority_accuracy_on_test": 0.3333
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "split_composition_drift"
+      ]
+    },
+    "D_exploit_construction.jsonl": {
+      "reason": "generative task, needs a judge rather than string match",
+      "rows": 720,
+      "verdict": "skipped_no_scorable_key"
+    },
+    "E_exploit_verification.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 1,
+        "answer_only_in_instruction": 6,
+        "evidence_leak_rate": 0.1429,
+        "examples": [
+          "E::train::2024-04-noya/M-33"
+        ],
+        "rows_checked": 7,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "input_retrieval": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 1,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 6
+      },
+      "claim": "verify an exploit actually executes",
+      "class_disjoint": {
+        "label_counts": {
+          "fails": 2,
+          "passes": 5
+        },
+        "reason": "rarest class 'fails' has n=2",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.4082,
+        "label_distribution": {
+          "fails": 2,
+          "passes": 5
+        },
+        "majority_fraction": 0.7143,
+        "majority_label": "passes",
+        "n_labels": 2,
+        "rows": 7,
+        "verdict": "too_small_to_score"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 1,
+        "test_rows": 1,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 6
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.027,
+        "nearest_train_similarity_median": 0.027,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 1,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 1,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 7,
+      "rows_total": 720,
+      "rows_unlabeled": 713,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "passes": 1
+          },
+          "train": {
+            "fails": 2,
+            "passes": 4
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.6667,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 1,
+          "train_majority": "passes",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "too_small_to_score",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "F_false_positive_rejection.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 1,
+        "answer_only_in_instruction": 16,
+        "evidence_leak_rate": 0.0588,
+        "examples": [
+          "F::train::2024-04-noya/submission-1503"
+        ],
+        "rows_checked": 17,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "verdict": "skipped_no_holdout"
+      },
+      "claim": "reject a false positive",
+      "class_disjoint": {
+        "reason": "task has one class; class-disjoint eval is vacuous",
+        "verdict": "skipped_single_class"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0,
+        "label_distribution": {
+          "invalid": 17
+        },
+        "majority_fraction": 1.0,
+        "majority_label": "invalid",
+        "n_labels": 1,
+        "rows": 17,
+        "verdict": "single_label"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 0,
+        "test_rows": 0,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": null,
+        "train_groups": 16
+      },
+      "near_duplicates": {
+        "verdict": "skipped_no_scorable_key"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 0,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 17,
+      "rows_total": 458,
+      "rows_unlabeled": 441,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "train": {
+            "invalid": 16
+          },
+          "validation": {
+            "invalid": 1
+          }
+        },
+        "train_majority_probe": {}
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "G_patch_verification.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 7,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "verdict": "skipped_no_holdout"
+      },
+      "claim": "verify a patch is effective",
+      "class_disjoint": {
+        "reason": "task has one class; class-disjoint eval is vacuous",
+        "verdict": "skipped_single_class"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0,
+        "label_distribution": {
+          "effective": 7
+        },
+        "majority_fraction": 1.0,
+        "majority_label": "effective",
+        "n_labels": 1,
+        "rows": 7,
+        "verdict": "single_label"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 0,
+        "test_rows": 0,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": null,
+        "train_groups": 0
+      },
+      "near_duplicates": {
+        "verdict": "skipped_no_scorable_key"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 0,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 7,
+      "rows_total": 38,
+      "rows_unlabeled": 31,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "validation": {
+            "effective": 7
+          }
+        },
+        "train_majority_probe": {}
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "H_verified_exploit.jsonl": {
+      "reason": "descriptive reference answers, no scalar label",
+      "rows": 7,
+      "verdict": "skipped_no_scorable_key"
+    },
+    "I_verified_non_exploit.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 1,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 1,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "verdict": "skipped_no_holdout"
+      },
+      "claim": "verified non-exploit",
+      "class_disjoint": {
+        "reason": "task has one class; class-disjoint eval is vacuous",
+        "verdict": "skipped_single_class"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0,
+        "label_distribution": {
+          "exploitable": 1
+        },
+        "majority_fraction": 1.0,
+        "majority_label": "exploitable",
+        "n_labels": 1,
+        "rows": 1,
+        "verdict": "single_label"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 0,
+        "test_rows": 0,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": null,
+        "train_groups": 0
+      },
+      "near_duplicates": {
+        "verdict": "skipped_no_scorable_key"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 0,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 1,
+      "rows_total": 3,
+      "rows_unlabeled": 2,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "validation": {
+            "exploitable": 1
+          }
+        },
+        "train_majority_probe": {}
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "J_verified_patch.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 7,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 7,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "verdict": "skipped_no_holdout"
+      },
+      "claim": "verified patch",
+      "class_disjoint": {
+        "reason": "task has one class; class-disjoint eval is vacuous",
+        "verdict": "skipped_single_class"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0,
+        "label_distribution": {
+          "effective": 7
+        },
+        "majority_fraction": 1.0,
+        "majority_label": "effective",
+        "n_labels": 1,
+        "rows": 7,
+        "verdict": "single_label"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 0,
+        "test_rows": 0,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": null,
+        "train_groups": 0
+      },
+      "near_duplicates": {
+        "verdict": "skipped_no_scorable_key"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 0,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 7,
+      "rows_total": 7,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "validation": {
+            "effective": 7
+          }
+        },
+        "train_majority_probe": {}
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "K_language_ecosystem_routing.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 76,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.5547,
+        "examples": [
+          "K::train::cairo:CVE-2024-45304",
+          "K::train::cairo:CVE-2025-29072",
+          "K::train::cairo:CS-HRDTCL-005",
+          "K::train::cairo:CS-HRDTCL-001",
+          "K::train::move:zellic-3.2-control-flow-graph"
+        ],
+        "rows_checked": 137,
+        "severity": "high",
+        "verdict": "answer_literal_leak"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 5,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 0.3871,
+          "coverage": 1.0,
+          "macro_f1": 0.4323
+        },
+        "input_retrieval": {
+          "accuracy": 0.8387,
+          "coverage": 1.0,
+          "macro_f1": 0.7578
+        },
+        "majority_from_train": {
+          "accuracy": 0.1935,
+          "coverage": 1.0,
+          "macro_f1": 0.0649
+        },
+        "majority_global_official": {
+          "accuracy": 0.4516,
+          "coverage": 1.0,
+          "macro_f1": 0.1244
+        },
+        "random_from_train_space": {
+          "accuracy": 0.1613,
+          "coverage": 1.0,
+          "macro_f1": 0.0909
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 31,
+        "title_retrieval": {
+          "accuracy": 0.1935,
+          "coverage": 1.0,
+          "macro_f1": 0.0649
+        },
+        "train_rows": 76
+      },
+      "claim": "route a finding to its language and ecosystem",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 2,
+        "held_out_labels": [
+          "cairo",
+          "move"
+        ],
+        "held_out_rows": 23,
+        "kept_groups": 3,
+        "kept_rows": 114,
+        "label_counts": {
+          "cairo": 8,
+          "move": 15,
+          "rust": 18,
+          "solidity": 45,
+          "vyper": 51
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.7209,
+        "label_distribution": {
+          "cairo": 8,
+          "move": 15,
+          "rust": 18,
+          "solidity": 45,
+          "vyper": 51
+        },
+        "majority_fraction": 0.3723,
+        "majority_label": "vyper",
+        "n_labels": 5,
+        "rows": 137,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "language",
+        "shared_groups": 5,
+        "test_groups": 5,
+        "test_rows": 31,
+        "test_rows_in_shared_group": 31,
+        "test_rows_in_shared_group_pct": 100.0,
+        "train_groups": 5
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.1593,
+        "nearest_train_similarity_median": 0.0741,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 31,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 4,
+        "test_rows": 31,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 25
+      },
+      "rows_scorable": 137,
+      "rows_total": 137,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "cairo": 2,
+            "move": 4,
+            "rust": 5,
+            "solidity": 6,
+            "vyper": 14
+          },
+          "train": {
+            "cairo": 4,
+            "move": 7,
+            "rust": 8,
+            "solidity": 35,
+            "vyper": 22
+          },
+          "validation": {
+            "cairo": 2,
+            "move": 4,
+            "rust": 5,
+            "solidity": 4,
+            "vyper": 15
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.534,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 31,
+          "train_majority": "solidity",
+          "train_majority_accuracy_on_test": 0.1935
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "L_severity_reconciliation.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 94,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.7344,
+        "examples": [
+          "L::train::move:CVE-2023-42374",
+          "L::train::move:zellic-3.2-control-flow-graph",
+          "L::train::move:zellic-3.2-control-flow-graph-aptos",
+          "L::train::move:zellic-3.1-usable-value-drop",
+          "L::train::move:navi-pool-01-withdraw-permission"
+        ],
+        "rows_checked": 128,
+        "severity": "high",
+        "verdict": "answer_literal_leak"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 6,
+        "best_shortcut_accuracy": 0.5172,
+        "frequency_from_train": {
+          "accuracy": 0.2414,
+          "coverage": 1.0,
+          "macro_f1": 0.146
+        },
+        "input_retrieval": {
+          "accuracy": 0.5172,
+          "coverage": 1.0,
+          "macro_f1": 0.3666
+        },
+        "majority_from_train": {
+          "accuracy": 0.1034,
+          "coverage": 1.0,
+          "macro_f1": 0.0312
+        },
+        "majority_global_official": {
+          "accuracy": 0.4483,
+          "coverage": 1.0,
+          "macro_f1": 0.1032
+        },
+        "random_from_train_space": {
+          "accuracy": 0.2414,
+          "coverage": 1.0,
+          "macro_f1": 0.2505
+        },
+        "source_only_lookup": {
+          "accuracy": 0.3103,
+          "coverage": 1.0,
+          "macro_f1": 0.1933
+        },
+        "test_rows": 29,
+        "title_retrieval": {
+          "accuracy": 0.1034,
+          "coverage": 1.0,
+          "macro_f1": 0.0312
+        },
+        "train_rows": 72
+      },
+      "claim": "reconcile conflicting published severities",
+      "class_disjoint": {
+        "label_counts": {
+          "critical": 16,
+          "high": 40,
+          "informational": 4,
+          "low": 24,
+          "medium": 41,
+          "unknown": 3
+        },
+        "reason": "rarest class 'unknown' has n=3",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.7474,
+        "label_distribution": {
+          "critical": 16,
+          "high": 40,
+          "informational": 4,
+          "low": 24,
+          "medium": 41,
+          "unknown": 3
+        },
+        "majority_fraction": 0.3203,
+        "majority_label": "medium",
+        "n_labels": 6,
+        "rows": 128,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "language",
+        "shared_groups": 4,
+        "test_groups": 4,
+        "test_rows": 29,
+        "test_rows_in_shared_group": 29,
+        "test_rows_in_shared_group_pct": 100.0,
+        "train_groups": 4
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.2615,
+        "nearest_train_similarity_median": 0.1386,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 29,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 3,
+        "test_rows": 29,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 23
+      },
+      "rows_scorable": 128,
+      "rows_total": 137,
+      "rows_unlabeled": 9,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "critical": 4,
+            "high": 3,
+            "informational": 1,
+            "low": 7,
+            "medium": 13,
+            "unknown": 1
+          },
+          "train": {
+            "critical": 11,
+            "high": 25,
+            "informational": 3,
+            "low": 12,
+            "medium": 20,
+            "unknown": 1
+          },
+          "validation": {
+            "critical": 1,
+            "high": 12,
+            "low": 5,
+            "medium": 8,
+            "unknown": 1
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.5316,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 29,
+          "train_majority": "high",
+          "train_majority_accuracy_on_test": 0.1034
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "M_experiment_level_classification.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": null,
+        "examples": [],
+        "rows_checked": 0,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "input_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 1,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 31
+      },
+      "claim": "classify the reproduction evidence level",
+      "class_disjoint": {
+        "label_counts": {
+          "l3": 1,
+          "l5": 35,
+          "l6": 1
+        },
+        "reason": "rarest class 'l3' has n=1",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.1037,
+        "label_distribution": {
+          "l3": 1,
+          "l5": 35,
+          "l6": 1
+        },
+        "majority_fraction": 0.9459,
+        "majority_label": "l5",
+        "n_labels": 3,
+        "rows": 37,
+        "verdict": "near_degenerate"
+      },
+      "group_overlap": {
+        "group_type": "record",
+        "shared_groups": 0,
+        "test_groups": 1,
+        "test_rows": 1,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 31
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.224,
+        "nearest_train_similarity_median": 0.224,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 1,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 1,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 37,
+      "rows_total": 37,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "l5": 1
+          },
+          "train": {
+            "l3": 1,
+            "l5": 30
+          },
+          "validation": {
+            "l5": 4,
+            "l6": 1
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.0645,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 1,
+          "train_majority": "l5",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "holdout_too_small"
+      ]
+    },
+    "N_attacker_identity_extraction.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": null,
+        "examples": [],
+        "rows_checked": 0,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 0.6667,
+          "coverage": 1.0,
+          "macro_f1": 0.4
+        },
+        "input_retrieval": {
+          "accuracy": 0.6667,
+          "coverage": 1.0,
+          "macro_f1": 0.4
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 0.6667,
+          "coverage": 1.0,
+          "macro_f1": 0.4
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.6667,
+          "macro_f1": 1.0
+        },
+        "test_rows": 3,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 10
+      },
+      "claim": "is a specific actor named",
+      "class_disjoint": {
+        "label_counts": {
+          "false": 4,
+          "true": 10
+        },
+        "reason": "rarest class 'false' has n=4",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.4082,
+        "label_distribution": {
+          "false": 4,
+          "true": 10
+        },
+        "majority_fraction": 0.7143,
+        "majority_label": "true",
+        "n_labels": 2,
+        "rows": 14,
+        "verdict": "too_small_to_score"
+      },
+      "group_overlap": {
+        "group_type": "language",
+        "shared_groups": 1,
+        "test_groups": 2,
+        "test_rows": 3,
+        "test_rows_in_shared_group": 2,
+        "test_rows_in_shared_group_pct": 66.67,
+        "train_groups": 4
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.1878,
+        "nearest_train_similarity_median": 0.1838,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 3,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 3,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 14,
+      "rows_total": 137,
+      "rows_unlabeled": 123,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "true": 3
+          },
+          "train": {
+            "false": 3,
+            "true": 7
+          },
+          "validation": {
+            "false": 1
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.6,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 3,
+          "train_majority": "true",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "too_small_to_score",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "O_record_class_and_scope.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 12,
+        "answer_only_in_instruction": 125,
+        "evidence_leak_rate": 0.0876,
+        "examples": [
+          "O::train::vyper:CVE-2025-47774",
+          "O::train::vyper:CVE-2022-29175",
+          "O::train::vyper:CVE-2024-26149",
+          "O::train::vyper:CVE-2024-24560",
+          "O::train::vyper:GHSA-mr6r-mvw4-736g"
+        ],
+        "rows_checked": 137,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 9,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 0.2903,
+          "coverage": 1.0,
+          "macro_f1": 0.1809
+        },
+        "input_retrieval": {
+          "accuracy": 0.9355,
+          "coverage": 1.0,
+          "macro_f1": 0.8974
+        },
+        "majority_from_train": {
+          "accuracy": 0.1935,
+          "coverage": 1.0,
+          "macro_f1": 0.0811
+        },
+        "majority_global_official": {
+          "accuracy": 0.4516,
+          "coverage": 1.0,
+          "macro_f1": 0.1556
+        },
+        "random_from_train_space": {
+          "accuracy": 0.2258,
+          "coverage": 1.0,
+          "macro_f1": 0.1502
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 31,
+        "title_retrieval": {
+          "accuracy": 0.1935,
+          "coverage": 1.0,
+          "macro_f1": 0.0811
+        },
+        "train_rows": 76
+      },
+      "claim": "classify the record's scope class",
+      "class_disjoint": {
+        "label_counts": {
+          "advisory": 51,
+          "audit_finding": 39,
+          "incident": 2,
+          "judged": 8,
+          "negative_control": 1,
+          "observation": 2,
+          "out_of_scope": 1,
+          "overstated_by_the_report": 1,
+          "scope_risk": 1,
+          "vulnerability": 31
+        },
+        "reason": "rarest class 'negative_control' has n=1",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.7251,
+        "label_distribution": {
+          "advisory": 51,
+          "audit_finding": 39,
+          "incident": 2,
+          "judged": 8,
+          "negative_control": 1,
+          "observation": 2,
+          "out_of_scope": 1,
+          "overstated_by_the_report": 1,
+          "scope_risk": 1,
+          "vulnerability": 31
+        },
+        "majority_fraction": 0.3723,
+        "majority_label": "advisory",
+        "n_labels": 10,
+        "rows": 137,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "language",
+        "shared_groups": 5,
+        "test_groups": 5,
+        "test_rows": 31,
+        "test_rows_in_shared_group": 31,
+        "test_rows_in_shared_group_pct": 100.0,
+        "train_groups": 5
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.2924,
+        "nearest_train_similarity_median": 0.1918,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 31,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 4,
+        "test_rows": 31,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 25
+      },
+      "rows_scorable": 137,
+      "rows_total": 137,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "advisory": 14,
+            "audit_finding": 6,
+            "judged": 2,
+            "vulnerability": 9
+          },
+          "train": {
+            "advisory": 22,
+            "audit_finding": 29,
+            "judged": 4,
+            "negative_control": 1,
+            "observation": 2,
+            "out_of_scope": 1,
+            "overstated_by_the_report": 1,
+            "scope_risk": 1,
+            "vulnerability": 15
+          },
+          "validation": {
+            "advisory": 15,
+            "audit_finding": 4,
+            "incident": 2,
+            "judged": 2,
+            "vulnerability": 7
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.534,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 31,
+          "train_majority": "audit_finding",
+          "train_majority_accuracy_on_test": 0.1935
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "P_provenance_tier_and_rights.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": null,
+        "examples": [],
+        "rows_checked": 0,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 3,
+        "best_shortcut_accuracy": 0.9032,
+        "frequency_from_train": {
+          "accuracy": 0.4839,
+          "coverage": 1.0,
+          "macro_f1": 0.3583
+        },
+        "input_retrieval": {
+          "accuracy": 0.871,
+          "coverage": 1.0,
+          "macro_f1": 0.703
+        },
+        "majority_from_train": {
+          "accuracy": 0.2903,
+          "coverage": 1.0,
+          "macro_f1": 0.15
+        },
+        "majority_global_official": {
+          "accuracy": 0.6774,
+          "coverage": 1.0,
+          "macro_f1": 0.2692
+        },
+        "random_from_train_space": {
+          "accuracy": 0.5161,
+          "coverage": 1.0,
+          "macro_f1": 0.4393
+        },
+        "source_only_lookup": {
+          "accuracy": 0.9032,
+          "coverage": 1.0,
+          "macro_f1": 0.7333
+        },
+        "test_rows": 31,
+        "title_retrieval": {
+          "accuracy": 0.2903,
+          "coverage": 1.0,
+          "macro_f1": 0.15
+        },
+        "train_rows": 76
+      },
+      "claim": "apply tier rules and redistribution rights",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 3,
+        "held_out_labels": [
+          "1",
+          "3"
+        ],
+        "held_out_rows": 58,
+        "kept_groups": 2,
+        "kept_rows": 69,
+        "label_counts": {
+          "0": 79,
+          "1": 10,
+          "3": 48
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.5394,
+        "label_distribution": {
+          "0": 79,
+          "1": 10,
+          "3": 48
+        },
+        "majority_fraction": 0.5766,
+        "majority_label": "0",
+        "n_labels": 3,
+        "rows": 137,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "language",
+        "shared_groups": 5,
+        "test_groups": 5,
+        "test_rows": 31,
+        "test_rows_in_shared_group": 31,
+        "test_rows_in_shared_group_pct": 100.0,
+        "train_groups": 5
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.761,
+        "nearest_train_similarity_median": 0.7277,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 31,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 4,
+        "test_rows": 31,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 25
+      },
+      "rows_scorable": 137,
+      "rows_total": 137,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "0": 21,
+            "1": 1,
+            "3": 9
+          },
+          "train": {
+            "0": 33,
+            "1": 8,
+            "3": 35
+          },
+          "validation": {
+            "0": 25,
+            "1": 1,
+            "3": 4
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.4864,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 31,
+          "train_majority": "3",
+          "train_majority_accuracy_on_test": 0.2903
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "Q_evidence_type_and_quality_rubric.jsonl": {
+      "reason": "judge-graded rubric dict",
+      "rows": 137,
+      "verdict": "skipped_no_scorable_key"
+    },
+    "v3_R_source_tier_routing.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": null,
+        "examples": [],
+        "rows_checked": 0,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 3,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 0.1215,
+          "coverage": 1.0,
+          "macro_f1": 0.0722
+        },
+        "input_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_from_train": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "majority_global_official": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "random_from_train_space": {
+          "accuracy": 0.3551,
+          "coverage": 1.0,
+          "macro_f1": 0.1747
+        },
+        "source_only_lookup": {
+          "accuracy": 0.0,
+          "coverage": 0.0,
+          "macro_f1": 0.0
+        },
+        "test_rows": 107,
+        "title_retrieval": {
+          "accuracy": 0.1682,
+          "coverage": 1.0,
+          "macro_f1": 0.144
+        },
+        "train_rows": 5006
+      },
+      "claim": "route a finding to a provenance tier",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 6,
+        "held_out_labels": [
+          "0",
+          "2"
+        ],
+        "held_out_rows": 1950,
+        "kept_groups": 1,
+        "kept_rows": 3517,
+        "label_counts": {
+          "0": 878,
+          "1": 3517,
+          "2": 1072
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.5219,
+        "label_distribution": {
+          "0": 878,
+          "1": 3517,
+          "2": 1072
+        },
+        "majority_fraction": 0.6433,
+        "majority_label": "1",
+        "n_labels": 3,
+        "rows": 5467,
+        "verdict": "usable"
+      },
+      "group_overlap": {
+        "group_type": "source",
+        "shared_groups": 0,
+        "test_groups": 1,
+        "test_rows": 107,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 4
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.0833,
+        "nearest_train_similarity_median": 0.0526,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 5,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 107,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 5467,
+      "rows_total": 5467,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "2": 107
+          },
+          "train": {
+            "0": 878,
+            "1": 3517,
+            "2": 611
+          },
+          "validation": {
+            "2": 354
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 1.7559,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 107,
+          "train_majority": "1",
+          "train_majority_accuracy_on_test": 0.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "split_composition_drift"
+      ]
+    },
+    "v3_S_contest_outcome.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0,
+        "examples": [],
+        "rows_checked": 1072,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 1,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "input_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 107,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 611
+      },
+      "claim": "predict whether a contest entry was a finding",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 5,
+        "held_out_labels": [
+          "finding",
+          "negative"
+        ],
+        "held_out_rows": 1072,
+        "kept_groups": 0,
+        "kept_rows": 0,
+        "label_counts": {
+          "finding": 1056,
+          "negative": 16
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0294,
+        "label_distribution": {
+          "finding": 1056,
+          "negative": 16
+        },
+        "majority_fraction": 0.9851,
+        "majority_label": "finding",
+        "n_labels": 2,
+        "rows": 1072,
+        "verdict": "saturated"
+      },
+      "group_overlap": {
+        "group_type": "source",
+        "shared_groups": 0,
+        "test_groups": 1,
+        "test_rows": 107,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 2
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.0833,
+        "nearest_train_similarity_median": 0.0526,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 4,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 107,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 1072,
+      "rows_total": 1072,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "finding": 107
+          },
+          "train": {
+            "finding": 611
+          },
+          "validation": {
+            "finding": 338,
+            "negative": 16
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.0,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 107,
+          "train_majority": "finding",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "saturated"
+      ]
+    },
+    "v3_T_taxonomy_explicit.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 1,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0017,
+        "examples": [
+          "T_v31_taxonomy::zellic-publications:zellic-publications/Fractal Protocol - Zellic Audit Report:3.5"
+        ],
+        "rows_checked": 589,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 1.0,
+        "frequency_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "input_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_from_train": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "majority_global_official": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "random_from_train_space": {
+          "accuracy": 0.5,
+          "coverage": 1.0,
+          "macro_f1": 0.3333
+        },
+        "source_only_lookup": {
+          "accuracy": 1.0,
+          "coverage": 0.0,
+          "macro_f1": 1.0
+        },
+        "test_rows": 2,
+        "title_retrieval": {
+          "accuracy": 1.0,
+          "coverage": 1.0,
+          "macro_f1": 1.0
+        },
+        "train_rows": 587
+      },
+      "claim": "predict the explicit auditor category",
+      "class_disjoint": {
+        "label_counts": {
+          "access control": 1,
+          "business logic": 588
+        },
+        "reason": "rarest class 'access control' has n=1",
+        "verdict": "skipped_insufficient_minority_support"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0034,
+        "label_distribution": {
+          "access control": 1,
+          "business logic": 588
+        },
+        "majority_fraction": 0.9983,
+        "majority_label": "business logic",
+        "n_labels": 2,
+        "rows": 589,
+        "verdict": "saturated"
+      },
+      "group_overlap": {
+        "group_type": "source",
+        "shared_groups": 0,
+        "test_groups": 1,
+        "test_rows": 2,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 1
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 1.0,
+        "nearest_train_similarity_median": 1.0,
+        "of_those_label_matches_train": 2,
+        "test_rows_sampled": 2,
+        "test_rows_sim_ge_0.9": 2,
+        "verdict": "near_duplicate_leak"
+      },
+      "record_overlap": {
+        "record_id_overlap": 0,
+        "repositories_shared": 0,
+        "test_rows": 2,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 0
+      },
+      "rows_scorable": 589,
+      "rows_total": 589,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "business logic": 2
+          },
+          "train": {
+            "access control": 1,
+            "business logic": 586
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.0034,
+          "test_is_single_class": true,
+          "test_labels_absent_from_train": [],
+          "test_rows": 2,
+          "train_majority": "business logic",
+          "train_majority_accuracy_on_test": 1.0
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "saturated",
+        "near_duplicate_leak",
+        "holdout_too_small"
+      ]
+    },
+    "vbeta_U_language_routing.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 54,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": 0.0087,
+        "examples": [
+          "U_solodit-harvest:0404-h-06-incorrect-solidity-version-in-fullmathsol-can-cause-permanent-freezing-of-assets-for-arithmetic-underflow-induced-r",
+          "U_lisabench:04802",
+          "U_lisabench:04957",
+          "U_lisabench:05659",
+          "U_lisabench:06041"
+        ],
+        "rows_checked": 6180,
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 6,
+        "best_shortcut_accuracy": 0.9834,
+        "frequency_from_train": {
+          "accuracy": 0.9074,
+          "coverage": 1.0,
+          "macro_f1": 0.1586
+        },
+        "input_retrieval": {
+          "accuracy": 0.8999,
+          "coverage": 1.0,
+          "macro_f1": 0.1658
+        },
+        "majority_from_train": {
+          "accuracy": 0.9834,
+          "coverage": 1.0,
+          "macro_f1": 0.1983
+        },
+        "majority_global_official": {
+          "accuracy": 0.9834,
+          "coverage": 1.0,
+          "macro_f1": 0.1983
+        },
+        "random_from_train_space": {
+          "accuracy": 0.1596,
+          "coverage": 1.0,
+          "macro_f1": 0.0528
+        },
+        "source_only_lookup": {
+          "accuracy": 0.9834,
+          "coverage": 0.0,
+          "macro_f1": 0.1983
+        },
+        "test_rows": 5596,
+        "title_retrieval": {
+          "accuracy": 0.8987,
+          "coverage": 1.0,
+          "macro_f1": 0.1655
+        },
+        "train_rows": 588
+      },
+      "claim": "route a finding to its language",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 6,
+        "held_out_labels": [
+          "cairo",
+          "move"
+        ],
+        "held_out_rows": 39,
+        "kept_groups": 4,
+        "kept_rows": 505,
+        "label_counts": {
+          "cairo": 19,
+          "go": 38,
+          "move": 20,
+          "rust": 55,
+          "solidity": 6062,
+          "vyper": 24
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.0494,
+        "label_distribution": {
+          "cairo": 19,
+          "go": 38,
+          "move": 20,
+          "rust": 55,
+          "solidity": 6062,
+          "vyper": 24
+        },
+        "majority_fraction": 0.9749,
+        "majority_label": "solidity",
+        "n_labels": 6,
+        "rows": 6218,
+        "verdict": "saturated"
+      },
+      "group_overlap": {
+        "group_type": "source",
+        "shared_groups": 0,
+        "test_groups": 4,
+        "test_rows": 5596,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 4
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.0909,
+        "nearest_train_similarity_median": 0.05,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 3,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 1,
+        "repositories_shared": 1,
+        "test_rows": 5596,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 5596
+      },
+      "rows_scorable": 6218,
+      "rows_total": 6218,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "cairo": 18,
+            "go": 15,
+            "rust": 41,
+            "solidity": 5503,
+            "vyper": 19
+          },
+          "train": {
+            "cairo": 1,
+            "go": 21,
+            "move": 10,
+            "rust": 8,
+            "solidity": 543,
+            "vyper": 5
+          },
+          "validation": {
+            "go": 2,
+            "move": 10,
+            "rust": 6,
+            "solidity": 16
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.1229,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 5596,
+          "train_majority": "solidity",
+          "train_majority_accuracy_on_test": 0.9834
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
+    },
+    "vbeta_V_source_tier_routing.jsonl": {
+      "answer_leakage": {
+        "answer_literal_in_evidence": 0,
+        "answer_only_in_instruction": 0,
+        "evidence_leak_rate": null,
+        "examples": [],
+        "rows_checked": 0,
+        "severity": "none",
+        "verdict": "clean"
+      },
+      "baselines_test_split": {
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 0.9998,
+        "frequency_from_train": {
+          "accuracy": 0.9889,
+          "coverage": 1.0,
+          "macro_f1": 0.4972
+        },
+        "input_retrieval": {
+          "accuracy": 0.9926,
+          "coverage": 1.0,
+          "macro_f1": 0.4981
+        },
+        "majority_from_train": {
+          "accuracy": 0.9998,
+          "coverage": 1.0,
+          "macro_f1": 0.5
+        },
+        "majority_global_official": {
+          "accuracy": 0.9998,
+          "coverage": 1.0,
+          "macro_f1": 0.5
+        },
+        "random_from_train_space": {
+          "accuracy": 0.4875,
+          "coverage": 1.0,
+          "macro_f1": 0.3277
+        },
+        "source_only_lookup": {
+          "accuracy": 0.9998,
+          "coverage": 0.0,
+          "macro_f1": 0.5
+        },
+        "test_rows": 5668,
+        "title_retrieval": {
+          "accuracy": 0.9894,
+          "coverage": 1.0,
+          "macro_f1": 0.4973
+        },
+        "train_rows": 683
+      },
+      "claim": "route a finding to a provenance tier",
+      "class_disjoint": {
+        "group_disjoint": true,
+        "held_out_groups": 11,
+        "held_out_labels": [
+          "1",
+          "2"
+        ],
+        "held_out_rows": 6935,
+        "kept_groups": 0,
+        "kept_rows": 0,
+        "label_counts": {
+          "1": 35,
+          "2": 6900
+        },
+        "verdict": "built"
+      },
+      "degeneracy": {
+        "inv_gini": 0.01,
+        "label_distribution": {
+          "1": 35,
+          "2": 6900
+        },
+        "majority_fraction": 0.995,
+        "majority_label": "2",
+        "n_labels": 2,
+        "rows": 6935,
+        "verdict": "saturated"
+      },
+      "group_overlap": {
+        "group_type": "source",
+        "shared_groups": 0,
+        "test_groups": 4,
+        "test_rows": 5668,
+        "test_rows_in_shared_group": 0,
+        "test_rows_in_shared_group_pct": 0.0,
+        "train_groups": 4
+      },
+      "near_duplicates": {
+        "nearest_train_similarity_max": 0.0909,
+        "nearest_train_similarity_median": 0.05,
+        "of_those_label_matches_train": 0,
+        "test_rows_sampled": 6,
+        "test_rows_sim_ge_0.9": 0,
+        "verdict": "clean"
+      },
+      "record_overlap": {
+        "record_id_overlap": 1,
+        "repositories_shared": 1,
+        "test_rows": 5668,
+        "test_rows_with_identical_code_block": 0,
+        "test_rows_with_shared_code_file_path": 0,
+        "test_rows_with_shared_repo": 5668
+      },
+      "rows_scorable": 6935,
+      "rows_total": 6935,
+      "rows_unlabeled": 0,
+      "split_drift": {
+        "per_split_label_distribution": {
+          "test": {
+            "1": 1,
+            "2": 5667
+          },
+          "train": {
+            "1": 7,
+            "2": 676
+          },
+          "validation": {
+            "1": 27,
+            "2": 557
+          }
+        },
+        "train_majority_probe": {
+          "label_mix_l1_distance": 0.0201,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [],
+          "test_rows": 5668,
+          "train_majority": "2",
+          "train_majority_accuracy_on_test": 0.9998
+        }
+      },
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
+    }
+  },
+  "scoring_rule": "identical to scripts/score_benchmark.py: exact match on the lowercased projected scalar, labeled rows only; macro-F1 is unweighted over classes present in gold or prediction",
+  "seed": 7
+}

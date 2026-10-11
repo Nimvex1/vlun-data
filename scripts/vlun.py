@@ -15,7 +15,11 @@ import json
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import vlun_io as _io  # noqa: E402  (shared JSON/JSONL + hash primitives)
 
 ROOT = Path(__file__).resolve().parent.parent
 JSONL = ROOT / "jsonl"
@@ -24,7 +28,7 @@ REPORTS = ROOT / "reports"
 WORK = ROOT / "work"
 BENCH = ROOT / "benchmark"
 EXPERIMENTS = ROOT / "experiments"
-SPLITS_DIR = ROOT / "splits"
+SPLITS_DIR = ROOT / "splits_v2"
 SPLITS_V2 = ROOT / "splits_v2"
 
 # Three versions, three jobs. v2.2 used to be described as "2.0" in this file
@@ -184,35 +188,15 @@ BENCHMARK_FAMILIES = {
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    rows = []
-    with open(path, encoding="utf-8") as fh:
-        for lineno, line in enumerate(fh, 1):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"{path.name}:{lineno} invalid JSON: {exc}") from exc
-    return rows
+    return _io.read_jsonl(path)
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
-        for row in rows:
-            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
-    tmp.replace(path)
+    _io.write_jsonl(path, rows)
 
 
 def write_json(path: Path, obj) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
-        json.dump(obj, fh, ensure_ascii=False, indent=2, sort_keys=True)
-        fh.write("\n")
-    tmp.replace(path)
+    _io.write_json(path, obj)
 
 
 def load_core() -> dict[str, list[dict]]:
@@ -220,7 +204,9 @@ def load_core() -> dict[str, list[dict]]:
 
 
 def load_splits() -> dict[str, list[dict]]:
-    return {s: read_jsonl(ROOT / "splits" / f"{s}.jsonl") for s in SPLITS}
+    # The shipped splits are splits_v2/ (post-quarantine). The pre-quarantine
+    # splits/ directory was retired: one counter, one truth.
+    return {s: read_jsonl(SPLITS_DIR / f"{s}.jsonl") for s in SPLITS}
 
 
 def rec_id(row: dict) -> str:
@@ -251,7 +237,7 @@ def snippet_entries(row: dict) -> list[dict]:
 
 
 def sha256_text(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return _io.sha256_text(text)
 
 
 def evidence_strength(ev: str) -> int:

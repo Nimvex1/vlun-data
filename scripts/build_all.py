@@ -16,7 +16,6 @@ statistics must be regenerated before the gate compares them.
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import subprocess
 import sys
@@ -24,7 +23,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import REPORTS, ROOT, WORK, log, write_json  # noqa: E402
+from vlun import REPORTS, ROOT, log, write_json  # noqa: E402
 
 PY = sys.executable
 
@@ -66,42 +65,40 @@ STAGES = [
      "measure what third-party source is actually redistributed, and disclose it"),
     (14, False, "export_run_artefacts.py", [],
      "commit the executed-PoC run records out of git-ignored work/"),
-    (15, False, "build_counterexamples.py", [],
-     "structural refutations and API-sibling guard pairs"),
-    (16, False, "check_leakage.py", ["--emit", "splits_v2"],
+    (15, False, "check_leakage.py", ["--emit", "splits_v2"],
      "leakage detection and a leakage-free re-split"),
-    (17, False, "build_benchmark.py", [], "benchmark task families A-J (v1 layer)"),
-    (18, False, "build_benchmark_v22.py", [],
+    (16, False, "build_benchmark.py", [], "benchmark task families A-J (v1 layer)"),
+    (17, False, "build_benchmark_v22.py", [],
      "benchmark task families K-Q over derived_v2_2 + splits_v2_2, merged into the manifest"),
-    (19, False, "build_subsets.py", [], "high-confidence subsets and task training files"),
-    (20, False, "generate_stats.py", [], "recompute every statistic from the canonical JSONL"),
-    (21, False, "audit_records.py", ["--derive"],
+    (18, False, "build_subsets.py", [], "high-confidence subsets and task training files"),
+    (19, False, "generate_stats.py", [], "recompute every statistic from the canonical JSONL"),
+    (20, False, "audit_records.py", ["--derive"],
      "per-record evidence/quality matrix for a curator"),
-    (22, False, "generate_reports.py", [], "extraction errors, benchmark metrics, final report"),
-    (23, False, "generate_v21_reports.py", [], "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports"),
-    (24, False, "generate_v22_reports.py", [],
+    (21, False, "generate_reports.py", [], "extraction errors, benchmark metrics, final report"),
+    (22, False, "generate_v21_reports.py", [], "the v2.1 BEFORE/AFTER report, benchmark/provenance/leakage quality reports"),
+    (23, False, "generate_v22_reports.py", [],
      "reports/v2_2/: the five-language layer summary, benchmark A-Q and quality report"),
-    (25, False, "ingest_audit_sources.py", [],
+    (24, False, "ingest_audit_sources.py", [],
      "authoritative audit-source registry, section-4 ingestion records and "
      "reports/audit_source_ingestion_report.md (offline-safe without --probe-urls)"),
-    (26, False, "build_v3.py", [],
+    (25, False, "build_v3.py", [],
      "V3 layer: harvest the 18 V3/clones sources into jsonl_v3/, derived_v3/, "
      "splits_v3/, benchmark families R/S and reports/v3/ (fails fast if "
      "V3/clones is not populated; never touches v1/v2.2 artefacts)"),
-    (27, False, "validate_v3.py", [], "the V3 gate"),
-    (28, False, "normalize_v3.py", [],
+    (26, False, "validate_v3.py", [], "the V3 gate"),
+    (27, False, "normalize_v3.py", [],
      "V3.1 evidence extraction: finding boundaries, field evidence, "
      "taxonomy, overlays, preview, readiness (fails fast if V3/clones is "
      "not populated; never rewrites v3.0 files)"),
-    (29, False, "validate_v31.py", [], "the V3.1 normalization gate"),
-    (30, False, "build_benchmark_v31.py", [],
+    (28, False, "validate_v31.py", [], "the V3.1 normalization gate"),
+    (29, False, "build_benchmark_v31.py", [],
      "benchmark family T (explicit-confidence taxonomy) + v3 manifest"),
-    (31, True, "run_dhl_experiments.py", ["--max-attempts", "6"],
+    (30, True, "run_dhl_experiments.py", ["--max-attempts", "6"],
      "V3.2 DeFiHackLabs pilots: staged build + fork execution with full "
      "artefacts (needs network for forge-std/solc fetches and fork RPC)"),
-    (32, False, "generate_readme.py", [],
+    (31, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (33, False, "validate.py", [], "the gate"),
+    (32, False, "validate.py", [], "the gate"),
 ]
 
 

@@ -37,9 +37,7 @@ import local_sources as ls  # noqa: E402
 import solidity_facts as sf  # noqa: E402
 import taxonomy as tx  # noqa: E402
 from vlun import (  # noqa: E402
-    ATTACKER_KINDS, DATASET_VERSION, DERIVED, INVARIANT_SOURCES, JSONL, REPORTS,
-    code_entries, confidence_from_evidence, log, rec_id, sha256_text, snippet_entries,
-    write_json, write_jsonl,
+    ATTACKER_KINDS, DATASET_VERSION, DERIVED, INVARIANT_SOURCES, JSONL, confidence_from_evidence, log, rec_id, sha256_text, write_json, write_jsonl,
 )
 
 # ---------------------------------------------------------------------------
@@ -284,7 +282,7 @@ def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
     """
     sr = row.get("security_reasoning") or {}
     path = sr.get("attack_path") or []
-    steps, refs = [], []
+    steps, _refs = [], []
 
     for i, p in enumerate(path, 1):
         if isinstance(p, dict):
@@ -452,7 +450,6 @@ def build_record(row: dict, verification_index: dict) -> dict:
     inv = invariants_block(row, ctx)
     row_v = row.get("_verification_verdict")
 
-    derived_etypes = {att["attacker_identity"]["evidence_type"]}
     overall = confidence_from_evidence(
         [att["attacker_identity"]["evidence_type"]] +
         (["reported_claim"] if st["present"] else []))

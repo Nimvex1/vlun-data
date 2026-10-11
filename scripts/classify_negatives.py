@@ -39,8 +39,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_hard_negatives as v2  # noqa: E402  (reuse the v2 derivation)
 from vlun import JSONL, REPORTS, log, read_jsonl, write_json  # noqa: E402
 
-# The classes, strongest evidence first.
-NEGATIVE_CLASSES = (
+# The classes, strongest evidence first. This is the v2.1 hard-negative
+# EVIDENCE taxonomy; it is deliberately NOT `vlun_v3.NEGATIVE_CLASSES`, which
+# is the closed `negative_class` schema for v3 records (schema_terms.py owns
+# that name). The two answer different questions and must never be conflated.
+HARD_NEGATIVE_CLASSES = (
     "experimentally_verified",   # the exploit was attempted and observed to fail
     "attributed",                # a named judge or sponsor published the reason
     "corroborated_duplicate",    # the claim is validated elsewhere; this copy is redundant
@@ -277,7 +280,7 @@ def main() -> int:
         "generated_by": "scripts/build_hard_negatives.py (v2.1 classification)",
         "total": len(out_rows),
         "by_class": dict(tally),
-        "class_vocabulary": list(NEGATIVE_CLASSES),
+        "class_vocabulary": list(HARD_NEGATIVE_CLASSES),
         "is_false_positive": dict(fp_tally),
         "blocking_reason": dict(blockers),
         "executed_negative_experiments": dict(exp_tally),

@@ -21,7 +21,6 @@ Public entry points used by scripts/normalize_v3.py:
 
 from __future__ import annotations
 
-import hashlib
 import re
 import sys
 import tempfile
@@ -323,7 +322,7 @@ def _split_nethermind(text: str) -> list[tuple[str, int, int, str]]:
     for i, line in enumerate(lines):
         if not re.fullmatch(r"\d+", line.strip() or ""):
             continue
-        window = [l.strip() for l in lines[i + 1:i + 5]]
+        window = [w.strip() for w in lines[i + 1:i + 5]]
         if len(window) >= 3 and len(window[0]) >= 10 \
                 and re.fullmatch(
                     r"Critical|High|Medium|Low|Informational|Info|"
@@ -331,7 +330,7 @@ def _split_nethermind(text: str) -> list[tuple[str, int, int, str]]:
                 and re.fullmatch(
                     r"Fixed|Acknowledged|Partially fixed|Won't fix|Won.t fix|"
                     r"Resolved|Closed|Unfixed", window[2] or "", re.I):
-            off = sum(len(l) + 1 for l in lines[:i])
+            off = sum(len(prev) + 1 for prev in lines[:i])
             sev, status = window[1], window[2]
             marks.append((line.strip(), off,
                           f"[{sev}] {window[0][:180]} "
@@ -355,7 +354,7 @@ def _split_generic_severity(text: str) -> list[tuple[str, int, int, str]]:
     for i, (sev, start) in enumerate(marks):
         end = marks[i + 1][1] if i + 1 < len(marks) else len(text)
         before = text[max(0, start - 400):start].splitlines()
-        title = " / ".join(l.strip() for l in before if l.strip())[-200:]
+        title = " / ".join(prev.strip() for prev in before if prev.strip())[-200:]
         segs.append((f"finding-{i + 1}", start, end, f"[{sev}] {title}"))
     return segs
 
@@ -437,8 +436,10 @@ def split_findings(candidate: dict, text: str
     fn = SPLITTERS.get(sid, _split_generic_severity)
     if sid == "anza-security-audits":
         loc = candidate.get("source_location", "")
-        fn = (lambda text, _loc=loc: _split_anza(
-            text, _loc.rsplit("/", 1)[-1]))
+
+        def fn(text):
+            return _split_anza(text, loc.rsplit("/", 1)[-1])
+
         fn.__name__ = "_split_anza"
     work_text = text
     despaced = False

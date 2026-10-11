@@ -20,7 +20,7 @@ from vlun import (  # noqa: E402
     BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, DERIVED, EVIDENCE_TYPES,
     EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL,
     REPORTS, ROOT, SCHEMA_VERSION, SOURCE_VERSION, SPLITS, WORK, code_entries, load_core,
-    load_splits, log, read_jsonl, rec_id, sha256_text, snippet_entries, write_json,
+    load_splits, read_jsonl, rec_id, sha256_text, snippet_entries,
 )
 
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
@@ -507,7 +507,6 @@ def check_v21(rep, derived_mutable):
     # v2.1 gate: experimental claims must be backed by artefacts, and the
     # new artefacts must agree with the reports that summarise them.
     # ==================================================================
-    import experiments as _ex  # noqa: E402
     import poc_classification as _pc  # noqa: E402
 
     def _J(name):
@@ -524,7 +523,6 @@ def check_v21(rep, derived_mutable):
     pv = _J("patch_verification_v2.json")
     negv = _J("negative_verification_stats.json")
     cites = _J("citation_resolution.json")
-    subs = _J("subsets.json")
 
     # 1. every experiment artefact directory exists and records a commit
     missing_art, bad_commit = [], []

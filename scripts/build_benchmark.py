@@ -496,6 +496,7 @@ def main() -> int:
             patches[fid] = p
 
     vidx = {}
+    malformed_verdict_files: list[str] = []
     run_dir = WORK / "poc_runs"
     for f in sorted(run_dir.glob("*.json")) if run_dir.exists() else []:
         if f.name == "_all.json":
@@ -504,7 +505,10 @@ def main() -> int:
             for v in json.loads(f.read_text(encoding="utf-8")).get("verdicts", []):
                 vidx[v["finding_id"]] = v
         except json.JSONDecodeError:
-            pass
+            # An unreadable verdict file drops verdicts from the index; it is
+            # recorded explicitly so the build log accounts for it instead of
+            # silently building on fewer verdicts.
+            malformed_verdict_files.append(f.name)
 
     experiments = _experiment_index()
     negative_experiments = _negative_experiment_index()
@@ -622,6 +626,12 @@ def main() -> int:
             entry["judge_graded_rows"] = len(rows) - scorable
         manifest["tasks"][name] = entry
         log(f"  {name:28s} tasks={len(rows):4d} scorable={manifest['tasks'][name]['scorable']:4d}")
+    if malformed_verdict_files:
+        manifest["malformed_verdict_files_skipped"] = sorted(
+            malformed_verdict_files)
+        log(f"  WARNING: {len(malformed_verdict_files)} malformed verdict "
+            f"file(s) skipped (verdicts missing from index): "
+            f"{sorted(malformed_verdict_files)}")
     write_json(BENCH / "manifest.json", manifest)
     return 0
 

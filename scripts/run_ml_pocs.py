@@ -24,8 +24,8 @@ jsonl/, derived/ or datasets/ is touched by a run.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -34,6 +34,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import ROOT, log  # noqa: E402
+from vlun_io import sha256_file  # noqa: E402  (shared hash primitive; was a local copy)
 
 OUT = ROOT / "experiments_v2_2"
 
@@ -47,11 +48,22 @@ def vyper_python(tag: str) -> Path | None:
         return None
 
 # The audited repositories, outside this checkout. Absolute on purpose: these
-# are the machines's copies of third-party code, not dataset content.
-ZENTORY_A = Path(r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts")
-ZENTORY_B = Path(r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts")
-KERF = Path(r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main")
-QUANTILLON = Path(r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main\quantillon-protocol")
+# are the machine's copies of third-party code, not dataset content. Each is
+# overridable via VLUN_<NAME> so another machine can point at its own copies;
+# a missing path degrades to an explicit not_run/source_unavailable, never a
+# silent skip.
+def _ext(env: str, default: str) -> Path:
+    return Path(os.environ.get(env, default))
+
+
+ZENTORY_A = _ext("VLUN_ZENTORY_MODE_A_REPO",
+                 r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts")
+ZENTORY_B = _ext("VLUN_ZENTORY_SELF_REPO",
+                 r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts")
+KERF = _ext("VLUN_KERF_REPO",
+            r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main")
+QUANTILLON = _ext("VLUN_QUANTILLON_REPO",
+                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main\quantillon-protocol")
 
 # (id, repo, cwd-relative, argv, source report, what it proves, expectation)
 # `expect` is what the report itself predicts, so a run is judged against the
@@ -298,14 +310,6 @@ def judge(parsed: dict, expect: dict, text: str = "") -> dict:
     return {"declared": expect, "met": not failures, "violations": failures}
 
 
-def sha256_file(p: Path) -> str:
-    h = hashlib.sha256()
-    with open(p, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def run_one(spec, timeout: int) -> dict:
     sid, repo, cwd, argv, report, desc, expect = spec
     work = repo / cwd
@@ -320,7 +324,7 @@ def run_one(spec, timeout: int) -> dict:
                   "detail": f"repository path missing: {work}"}
         (d / "result.json").write_text(json.dumps(result, indent=2) + "\n",
                                        encoding="utf-8")
-        log(f"    -> not_run (repository missing)")
+        log("    -> not_run (repository missing)")
         return result
     t0 = time.time()
     try:

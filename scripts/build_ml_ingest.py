@@ -26,17 +26,29 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import DATASET_VERSION, SCHEMA_VERSION, log  # noqa: E402
+from vlun_io import sha256_file  # noqa: E402  (shared hash primitive; was a local copy)
 from vlun_ml import (  # noqa: E402
     ML_JSONL, claim, finding_record, source_record, unknown, validate_finding,
     validate_source, write_jsonl,
 )
+
+
+def _ext(env: str, default: str) -> str:
+    """External (non-repo) source path, overridable for other machines.
+
+    These reports live outside the checkout by design (third-party audit
+    material is not vendored). The default is the operator's layout; any
+    other machine exports VLUN_<NAME> to point at its own copies. Missing
+    paths are reported as MISSING and skipped, never fabricated.
+    """
+    return os.environ.get(env, default)
 
 TODAY = "2026-10-05"
 EXPERIMENTS = Path(__file__).resolve().parent.parent / "experiments_v2_2"
@@ -49,8 +61,10 @@ REPORTS = [
     dict(
         report_id="zentory-mode-a",
         title="Zentory Protocol - Security Audit Report (Mode A, HIGH+)",
-        path=r"C:\Users\jeet\Documents\zentory-protocol-main\report.md",
-        repo=r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts",
+        path=_ext("VLUN_ZENTORY_MODE_A_REPORT",
+                  r"C:\Users\jeet\Documents\zentory-protocol-main\report.md"),
+        repo=_ext("VLUN_ZENTORY_MODE_A_REPO",
+                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
         category="Perpetuals / vaults / signals (HyperEVM)",
@@ -62,8 +76,10 @@ REPORTS = [
     dict(
         report_id="zentory-contracts-audit",
         title="Zentory Protocol - Smart Contract Security Audit (High/Critical focus)",
-        path=r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts\report.md",
-        repo=r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts",
+        path=_ext("VLUN_ZENTORY_CONTRACTS_REPORT",
+                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts\report.md"),
+        repo=_ext("VLUN_ZENTORY_CONTRACTS_REPO",
+                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
         category="Perpets / vaults / signals (HyperEVM)",
@@ -75,8 +91,10 @@ REPORTS = [
     dict(
         report_id="zentory-self-audit",
         title="Zentory Protocol - Self-Audit Report",
-        path=r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\report.md",
-        repo=r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts",
+        path=_ext("VLUN_ZENTORY_SELF_REPORT",
+                  r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\report.md"),
+        repo=_ext("VLUN_ZENTORY_SELF_REPO",
+                  r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
         category="Perpetuals / vaults / signals (HyperEVM)",
@@ -88,8 +106,10 @@ REPORTS = [
     dict(
         report_id="kerf-report",
         title="Kerf Contracts - Security Audit Report",
-        path=r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main\REPORT.md",
-        repo=r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main",
+        path=_ext("VLUN_KERF_REPORT",
+                  r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main\REPORT.md"),
+        repo=_ext("VLUN_KERF_REPO",
+                  r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main"),
         protocol="Kerf",
         ecosystem="evm",
         category="Perp / LP vaults / structured notes",
@@ -101,10 +121,12 @@ REPORTS = [
     dict(
         report_id="quantillon-report",
         title="Quantillon Protocol - Independent Security Review (Live Findings)",
-        path=r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
-             r"\quantillon-protocol\report.md",
-        repo=r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
-             r"\quantillon-protocol",
+        path=_ext("VLUN_QUANTILLON_REPORT",
+                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
+                  r"\quantillon-protocol\report.md"),
+        repo=_ext("VLUN_QUANTILLON_REPO",
+                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
+                  r"\quantillon-protocol"),
         protocol="Quantillon Protocol",
         ecosystem="base",
         category="EURO stablecoin / hedged vaults (Base)",
@@ -208,14 +230,6 @@ SCRIPT_LOC_RE = re.compile(
     r"(?::(\d+)(?:\s*-\s*(\d+))?)?`?")
 
 
-def sha256_file(p: Path) -> str:
-    h = hashlib.sha256()
-    with open(p, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def load_experiment_index() -> dict:
     p = EXPERIMENTS / "index.json"
     if not p.exists():
@@ -306,11 +320,11 @@ def parse_findings(rep: dict, text: str) -> list[dict]:
                          else (int(lm.group(2)) if lm.group(2) else None)})
         # de-duplicate, keep order
         seen, uniq_locs = set(), []
-        for l in locs:
-            k = (l["file"], l["line_start"], l["line_end"])
+        for loc in locs:
+            k = (loc["file"], loc["line_start"], loc["line_end"])
             if k not in seen:
                 seen.add(k)
-                uniq_locs.append(l)
+                uniq_locs.append(loc)
         scripts = []
         for lm in SCRIPT_LOC_RE.finditer(body):
             path = lm.group(1)
@@ -440,12 +454,12 @@ def resolve_code_context(rep: dict, locs: list[dict]) -> list[dict]:
     the commit cannot be pinned. Existence is checkable, so it is checked and
     the way it resolved is recorded; the sha stays unknown rather than guessed."""
     out = []
-    for l in locs:
-        p, how, cands = resolve_path(rep, l["file"])
+    for loc in locs:
+        p, how, cands = resolve_path(rep, loc["file"])
         entry = {
             "language": "solidity",
-            "file": project_relative(rep, p) if p else l["file"],
-            "path_as_cited": l["file"],
+            "file": project_relative(rep, p) if p else loc["file"],
+            "path_as_cited": loc["file"],
             "resolution": how,
             "note": {
                 "external_dependency":
@@ -463,24 +477,24 @@ def resolve_code_context(rep: dict, locs: list[dict]) -> list[dict]:
             "commit_sha": None,
             "commit_note": "the audited tree carries no .git metadata, so no "
                            "commit can be pinned; the citation is path-and-line only",
-            "line_start": l["line_start"],
-            "line_end": l["line_end"],
+            "line_start": loc["line_start"],
+            "line_end": loc["line_end"],
             "file_exists": p is not None,
             "line_range_verified": False,
             "evidence_type": "observed_fact" if p is not None else "unknown",
         }
-        if p is not None and l["line_start"]:
+        if p is not None and loc["line_start"]:
             try:
                 n = sum(1 for _ in open(p, encoding="utf-8", errors="replace"))
             except OSError:
                 n = None
             if n is not None:
                 entry["file_lines"] = n
-                entry["line_range_within_file"] = l["line_end"] is None or \
-                    l["line_end"] <= n
+                entry["line_range_within_file"] = loc["line_end"] is None or \
+                    loc["line_end"] <= n
                 entry["line_range_verified"] = bool(
-                    l["line_start"] <= n and
-                    (l["line_end"] is None or l["line_end"] <= n))
+                    loc["line_start"] <= n and
+                    (loc["line_end"] is None or loc["line_end"] <= n))
         out.append(entry)
     return out
 
@@ -739,7 +753,7 @@ def build(check_only: bool) -> tuple[list, list]:
                     "summary": f["body"][:4000],
                     "root_cause": None,
                     "affected_components": sorted(
-                        {l["file"] for l in f["locations"]} |
+                        {loc["file"] for loc in f["locations"]} |
                         {s["file"] for s in f["script_locations"]}),
                     "affected_functions": [],
                     "affected_versions": None,

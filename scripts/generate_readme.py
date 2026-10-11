@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import BENCH, DATASET_VERSION, DERIVED, REPORTS, ROOT, WORK, log, read_jsonl  # noqa: E402
+from vlun import BENCH, DERIVED, REPORTS, ROOT, log, read_jsonl  # noqa: E402
 
 README = ROOT / "README.md"
 NOTICE = ROOT / "NOTICE.md"
@@ -177,26 +177,13 @@ def jread(p: Path, default=None):
 
 def render() -> str:
     s = jread(REPORTS / "dataset_stats.json", {}) or {}
-    ver = jread(REPORTS / "verification_stats.json", {}) or {}
-    patch = jread(REPORTS / "patch_verification.json", {}) or {}
-    hn = jread(REPORTS / "hard_negative_stats.json", {}) or {}
     ce = jread(REPORTS / "counterexample_stats.json", {}) or {}
-    leak = jread(REPORTS / "leakage_report.json", {}) or {}
     vrep = jread(REPORTS / "validation_report.json", {}) or {}
-    audit = jread(REPORTS / "pre_upgrade_audit.json", {}) or {}
-    srcman = jread(WORK / "source_manifest.json", {}) or {}
     bench = jread(BENCH / "manifest.json", {}) or {}
     dm = jread(DERIVED / "manifest.json", {}) or {}
-    ee = jread(REPORTS / "extraction_errors.json", {}) or {}
-    repro = jread(REPORTS / "reproduction_stats.json", {}) or {}
     exp = jread(REPORTS / "verified_experiments.json", {}) or {}
     pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     negs = jread(REPORTS / "negative_verification_stats.json", {}) or {}
-    cites = jread(REPORTS / "citation_resolution.json", {}) or {}
-    # Counted from the data, not from the resolver's own report: the report is a
-    # claim ABOUT the dataset and must never be the source of a README figure.
-    derived_pin = jread(REPORTS / "third_party_audit.json", {}) or {}
-    third_party = derived_pin
     _vpath = DERIVED / "records.jsonl"
     _derived_total = _derived_mutable = 0
     if _vpath.exists():
@@ -214,10 +201,6 @@ def render() -> str:
                     if (_sha and not _re.match(r"^[0-9a-f]{40}$", _sha)) or \
                        (_m and not _re.match(r"^[0-9a-f]{40}$", _m.group(1))):
                         _derived_mutable += 1
-    source_layer_mutable = (derived_pin.get("source_layer_mutable_citations")
-                            or cites.get("mutable_occurrences"))
-    static = jread(REPORTS / "static_analysis.json", {}) or {}
-    benchq = jread(REPORTS / "benchmark_quality.json", {}) or {}
     # v2.2 layer: multi-language sources, derived records, splits, experiments.
     # Every figure below is counted from those artefacts, never typed in.
     from vlun_ml import DERIVED_V22, ML_JSONL, SPLITS_V22, load_findings, load_sources  # noqa: E402
@@ -232,7 +215,6 @@ def render() -> str:
         if _p.exists():
             v22_splits[_sp] = sum(1 for r in read_jsonl(_p) if r.get("layer") == "v2.2") \
                 if _sp != "quarantine" else len(read_jsonl(_p))
-    ex22 = jread(REPORTS / "v2_2" / "dataset_summary.json", {}) or {}
     # v3 layer: eighteen new sources harvested from V3/clones. Same rule as
     # above: every figure is read from the v3 artefacts, never typed in.
     v3m = jread(REPORTS / "v3" / "dataset_summary.json", {}) or {}
@@ -244,7 +226,6 @@ def render() -> str:
         _sj = jread(_sp3, {}) or {}
         for _k, _v in ((_sj.get("splits") or {}).items()):
             v3split[_k] = len(_v)
-    V2_BEFORE_REPRO = 5
     exp_verdicts = {}
     for _e in exp.get("experiments", []):
         exp_verdicts[_e.get("verdict")] = exp_verdicts.get(_e.get("verdict"), 0) + 1
@@ -299,17 +280,21 @@ def render() -> str:
     _vbdec = vbm.get("candidate_decisions", {}) or {}
     _vblvl = vbm.get("candidate_verification_levels", {}) or {}
     _vblang = vbm.get("admitted_by_language", {}) or {}
-    _one = lambda d: json.dumps(d, sort_keys=True)
+    def _one(d):
+        return json.dumps(d, sort_keys=True)
 
     rc = s.get("record_counts", {})
-    sc = s.get("splits", {}).get("counts", {})
     # Live cross-manifest check count (written by check_manifests.py). Never a
     # literal: the README previously hard-coded 101 while the gate ran 171.
     _mchecks = jread(REPORTS / "manifest_checks.json", {}) or {}
-    tot = ver.get("totals", {})
-    comp = ver.get("poc_compilation_rate", {})
-    cc = s.get("code_context", {})
-    fc = s.get("field_coverage", {})
+    # Per-field coverage is counted from reports/field_coverage.json the same
+    # way build_datasheet.py does — never typed in, so the two generated
+    # documents cannot disagree.
+    _fcover = jread(REPORTS / "field_coverage.json", {}) or {}
+    _fc_fields = _fcover.get("fields", {}) or {}
+    _fc_thin = sum(1 for _v in _fc_fields.values()
+                   if isinstance(_v, dict)
+                   and (_v.get("known_pct") or 100) < 50)
 
     def n(x):
         return f"{x:,}" if isinstance(x, int) else str(x)
@@ -395,7 +380,7 @@ splits_v3/        by-source splits, no source spans splits
 experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harness manifest, result.json)
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
-splits/ + splits_v2/  v1/v2 splits with quarantine
+splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
 benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
@@ -475,7 +460,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   [`CHANGELOG.md`](CHANGELOG.md), [`docs/DATASHEET.md`](docs/DATASHEET.md)
   (generated from reports), and CI running all gates on push/PR.
 - Per-field coverage (which fraction of records actually carry root_cause, attacker model,
-  impact, severity, language, … — 11 of 24 tracked fields under 50% known):
+  impact, severity, language, … — {n(_fc_thin)} of {n(len(_fc_fields))} tracked fields under 50% known):
   [`reports/field_coverage.md`](reports/field_coverage.md), generated by
   `scripts/field_coverage.py` from the canonical files.
 

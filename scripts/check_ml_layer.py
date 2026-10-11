@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import DATASET_VERSION, SCHEMA_VERSION, log  # noqa: E402
 from vlun_ml import (  # noqa: E402
-    ECOSYSTEMS, EVIDENCE_ORIGIN, LANGUAGES, ML_JSONL, SOURCE_TIERS, check_layer,
+    ML_JSONL, check_layer,
     load_findings, load_sources,
 )
 

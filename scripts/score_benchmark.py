@@ -403,6 +403,9 @@ def main() -> int:
                              "retrieval"], default=None)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--out", default=None, help="write JSON report here")
+    ap.add_argument("--quiet", action="store_true",
+                    help="machine mode: write only --out, print nothing "
+                         "(stdout stays a human channel otherwise)")
     args = ap.parse_args()
 
     if args.predictions:
@@ -423,34 +426,35 @@ def main() -> int:
 
     rep = score(preds)
     rep["run"] = name
-    print(f"{'family':38} {'scorable':>8} {'pred':>6} {'correct':>7}  acc")
+    emit = (lambda *a, **k: None) if args.quiet else print
+    emit(f"{'family':38} {'scorable':>8} {'pred':>6} {'correct':>7}  acc")
     for fam, s in rep["families"].items():
         acc = f"{s['accuracy']:.3f}" if s["accuracy"] is not None else "n/a"
-        print(f"{fam:38} {s['scorable']:>8} {s['predicted']:>6} "
-              f"{s['correct']:>7}  {acc}")
+        emit(f"{fam:38} {s['scorable']:>8} {s['predicted']:>6} "
+             f"{s['correct']:>7}  {acc}")
     m = rep["micro"]
     macc = f"{m['accuracy']:.4f}" if m["accuracy"] is not None else "n/a"
-    print(f"{'MICRO':38} {m['scorable']:>8} {m['predicted']:>6} "
-          f"{m['correct']:>7}  {macc}")
+    emit(f"{'MICRO':38} {m['scorable']:>8} {m['predicted']:>6} "
+         f"{m['correct']:>7}  {macc}")
     a_fam = rep["families"].get("A_vulnerability_detection.jsonl")
     if a_fam:
         for sp, ss in a_fam["splits"].items():
             sacc = (f"{ss['accuracy']:.3f}" if ss["accuracy"] is not None
                     else "n/a")
-            print(f"  A/{sp}: scorable={ss['scorable']} "
-                  f"predicted={ss['predicted']} correct={ss['correct']} "
-                  f"acc={sacc}")
+            emit(f"  A/{sp}: scorable={ss['scorable']} "
+                 f"predicted={ss['predicted']} correct={ss['correct']} "
+                 f"acc={sacc}")
     cov = rep.get("coverage", {})
-    print(f"coverage: scorer={cov.get('scorer_covered')} of manifest "
-          f"scorable={cov.get('manifest_scorable_total')}")
-    print(f"excluded: {', '.join(sorted(rep['excluded_families']))}")
+    emit(f"coverage: scorer={cov.get('scorer_covered')} of manifest "
+         f"scorable={cov.get('manifest_scorable_total')}")
+    emit(f"excluded: {', '.join(sorted(rep['excluded_families']))}")
     if args.out:
         out = Path(args.out)
         out.parent.mkdir(parents=True, exist_ok=True)
         with open(out, "w", encoding="utf-8", newline="\n") as fh:
             json.dump(rep, fh, indent=2, sort_keys=True)
             fh.write("\n")
-        print(f"wrote {out}")
+        emit(f"wrote {out}")
     return 0
 
 

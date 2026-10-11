@@ -8,22 +8,34 @@ jobs:
   gates:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        # requires-python is >=3.10; the pipeline is stdlib-only with
+        # `from __future__ import annotations` throughout, so no
+        # version-specific syntax is used. The matrix proves it.
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
       - name: Run all gates
         run: python scripts/run_gates.py
-      - name: Datasheets and schemas stay current
+      # run_gates.py includes the datasheet/schema/field-coverage/stats/
+      # readme/line-ending checks, so local and CI run the same set. See
+      # the gate list in scripts/run_gates.py.
+      # Deliberately absent: mypy and `ruff format --check`. Measured
+      # 2026-10-10, mypy 2.4 reports 348 errors in 63 files (the pipeline
+      # is annotated but dynamically typed throughout: bare `dict`/`list`
+      # record shapes), and `ruff format` would rewrite 103 files. A gate
+      # that cannot pass is not a gate; enabling either means re-typing or
+      # reformatting the pipeline first, which is a separate change.
+      - name: Lint (ruff, configured in pyproject.toml)
         run: |
-          python scripts/build_schemas.py --check
-          python scripts/build_datasheet.py --check
-          python scripts/field_coverage.py --check
-          python scripts/generate_stats.py --check
-          python scripts/generate_readme.py --check
-          python Vbeta/scripts/build_vbeta.py --check
-          python scripts/check_line_endings.py
+          python -m pip install --quiet ruff
+          python -m ruff check scripts/ tests/ Vbeta/scripts/ Vbeta/tests/
       # Rebuild parity for the v3.1 normalization layer needs the cloned
       # sources (git-ignored, never redistributed), so it cannot run on a
       # fresh CI checkout. Locally, with V3/clones populated,

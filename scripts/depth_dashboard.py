@@ -15,14 +15,12 @@ Writes reports/depth_dashboard.json + reports/depth_dashboard.md only.
 from __future__ import annotations
 
 import argparse
-import collections
 import json
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from vlun import read_jsonl  # noqa: E402
 
 
 def jl(path: Path) -> list[dict]:

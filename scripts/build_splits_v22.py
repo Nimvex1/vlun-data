@@ -49,10 +49,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_leakage as cl  # noqa: E402
 from vlun import (  # noqa: E402
-    REPORTS, ROOT, SPLITS, SPLITS_V2, log, read_jsonl, sha256_text, write_json,
+    REPORTS, SPLITS, SPLITS_V2, log, read_jsonl, sha256_text, write_json,
     write_jsonl,
 )
-from vlun_ml import DERIVED_V22, ML_JSONL, SPLITS_V22  # noqa: E402
+from vlun_ml import DERIVED_V22, SPLITS_V22  # noqa: E402
 
 PROPORTION = {"train": 44, "validation": 29, "test": 27}
 
@@ -404,7 +404,6 @@ def main() -> int:
         bagged_split[split] = _bagged([(split, resolve_pointer(p))
                                        for p in rows])
 
-    seen: set[frozenset] = set()
     post_near, post_sem = set(), set()
     ordered = [s for s in SPLITS]
     for i, a in enumerate(ordered):

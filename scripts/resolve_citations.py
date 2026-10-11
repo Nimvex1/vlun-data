@@ -49,7 +49,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, REPORTS, ROOT, WORK, log, read_jsonl, write_json, write_jsonl,
+    DERIVED, REPORTS, WORK, log, read_jsonl, write_json, write_jsonl,
 )
 
 BLOB_URL = re.compile(

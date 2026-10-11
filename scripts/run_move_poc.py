@@ -45,12 +45,14 @@ requirement (a toolchain binary or a revision worktree) is unavailable.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from vlun_io import sha256_file  # noqa: E402  (shared hash primitive; was a local copy)
 
 ROOT = Path(__file__).resolve().parent.parent
 POC = ROOT / "experiments_v2_2" / "pocs" / "move" / "checked_shlw_poc.move"
@@ -114,12 +116,6 @@ def check(name: str, ok: bool, detail: str = "") -> None:
 def unavailable(reason: str) -> "None":
     print(f"ERROR {reason}", flush=True)
     raise SystemExit(127)
-
-
-def sha256_file(p: Path) -> str:
-    h = hashlib.sha256()
-    h.update(p.read_bytes())
-    return h.hexdigest()
 
 
 def git_head(worktree: Path) -> str | None:

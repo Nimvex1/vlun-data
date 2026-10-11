@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    BENCH, DERIVED, JSONL, REPORTS, ROOT, WORK, log, read_jsonl, write_json,
+    BENCH, DERIVED, JSONL, REPORTS, WORK, log, read_jsonl, write_json,
 )
 
 MD = REPORTS
@@ -71,7 +71,6 @@ def build_extraction_errors() -> dict:
 
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     leak = jread(REPORTS / "leakage_report.json", {}) or {}
-    audit = jread(REPORTS / "pre_upgrade_audit.json", {}) or {}
     srcman = jread(WORK / "source_manifest.json", {}) or {}
     vpath = REPORTS / "validation_report.json"
     vrep = jread(vpath, {}) or {}
@@ -109,7 +108,6 @@ def build_extraction_errors() -> dict:
                 "redistributable, so it is classified `unknown` and the redistribution is "
                 "flagged rather than assumed lawful.", r["repo"])
 
-    mutable = audit.get("provenance_weaknesses", {}).get("blob_permalinks_without_40hex_commit")
     for c in vrep.get("details", []):
         if c["check"] == "commit_pins_are_immutable" and c["failure_count"]:
             add("mutable_commit_reference",
@@ -187,8 +185,6 @@ def build_benchmark_metrics() -> str:
     except (OSError, json.JSONDecodeError):
         maj = {}
 
-    pos = sum(1 for t in det if t["answer_key"]["label"] == "vulnerable")
-    neg = sum(1 for t in det if t["answer_key"]["label"] == "no_confirmed_vulnerability")
     test_det = [t for t in det if t["split"] == "test"]
     test_pos = sum(1 for t in test_det if t["answer_key"]["label"] == "vulnerable")
     test_neg = len(test_det) - test_pos
@@ -197,7 +193,6 @@ def build_benchmark_metrics() -> str:
     ex_n = totals.get("exploit_records", 0)
     comp = ver.get("poc_compilation_rate", {})
 
-    fp_lab = [t for t in fp if t["answer_key_status"] == "labeled"]
     test_fp = [t for t in fp if t["split"] == "test" and t["answer_key_status"] == "labeled"]
 
     rows = [
@@ -347,7 +342,6 @@ def dominant_blocker(reasons: dict) -> tuple[str, str]:
 
 
 def build_final_report() -> str:
-    audit = jread(REPORTS / "pre_upgrade_audit.json", {}) or {}
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     patch = jread(REPORTS / "patch_verification.json", {}) or {}
     hn = jread(REPORTS / "hard_negative_stats.json", {}) or {}
@@ -356,8 +350,6 @@ def build_final_report() -> str:
     dman = jread(DERIVED / "manifest.json", {}) or {}
     bench = jread(BENCH / "manifest.json", {}) or {}
     vrep = jread(REPORTS / "validation_report.json", {}) or {}
-    cov = jread(REPORTS / "source_fetch_verification.json", {}) or {}
-    stats = jread(REPORTS / "dataset_stats.json", {}) or {}
     srcman = jread(WORK / "source_manifest.json", {}) or {}
 
     t = ver.get("totals", {})
@@ -443,8 +435,8 @@ def build_final_report() -> str:
         "   by `scripts/generate_stats.py` and the gate fails if the file on disk differs from a",
         "   fresh computation.",
         "2. **The source layer is no longer a dead citation list.** v1 shipped 326 pinned",
-        f"   (commit, file) citations whose content lived in an unpublished `dataset/raw`. This",
-        f"   pipeline clones the audited repositories and the 24 third-party dependencies they",
+        "   (commit, file) citations whose content lived in an unpublished `dataset/raw`. This",
+        "   pipeline clones the audited repositories and the 24 third-party dependencies they",
         f"   cite, and retrieves {srcman.get('total_files_retrieved', 0)} of",
         f"   {srcman.get('total_files_requested', 0)} cited files byte-for-byte at the pinned",
         "   commit. That unlocks contract-level analysis, access-control facts and counterexamples",
@@ -463,7 +455,7 @@ def build_final_report() -> str:
         f"   {hn.get('blocking_condition_reported_by_source', 0)} carry one quoted from a public",
         f"   judge or sponsor comment. The remaining {hn.get('blocking_condition_unknown', 0)} stay",
         "   `unknown`, which is the correct answer and is counted as a first-class outcome.",
-        f"5. **Cross-split leakage was found and removed.** The detector found",
+        "5. **Cross-split leakage was found and removed.** The detector found",
         f"   {leak.get('semantic_overlap', {}).get('count', 0)} genuinely duplicated submission",
         "   pairs — the same boilerplate `transfer()/transferFrom()` findings filed against two",
         "   different audits. `splits_v2/` quarantines the redundant train copies; nothing was",

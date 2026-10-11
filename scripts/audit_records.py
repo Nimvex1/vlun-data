@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, JSONL, REPORTS, SPLITS, SPLITS_DIR, WORK, load_core, log, read_jsonl, write_json,
+    DERIVED, REPORTS, SPLITS, SPLITS_DIR, WORK, load_core, log, read_jsonl, write_json,
 )
 
 FAMILY_KEY = {"findings.jsonl": "findings", "negative_findings.jsonl": "negatives"}

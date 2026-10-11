@@ -34,7 +34,6 @@ import io
 import json
 import os
 import re
-import sys
 from pathlib import Path
 
 VBETA = Path(__file__).resolve().parent.parent
@@ -217,7 +216,7 @@ def detect_language(body: str) -> tuple[str, str, str]:
     if not votes:
         return "unknown", "unknown", "no code-file signals"
     top_n = max(votes.values())
-    leaders = sorted(l for l, n in votes.items() if n == top_n)
+    leaders = sorted(lang for lang, n in votes.items() if n == top_n)
     if len(leaders) != 1:
         return "unknown", "unknown", f"tie: {leaders}"
     lang = leaders[0]
@@ -256,7 +255,7 @@ def mark_duplicates(rows: list[dict]) -> tuple[int, list[dict]]:
     merely similar sibling findings score below threshold and stay.
     """
     parent = {id(r): id(r) for r in rows}
-    by_id = {id(r): r for r in rows}
+    {id(r): r for r in rows}
 
     def find(a):
         while parent[a] != a:
@@ -310,7 +309,6 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
         return None
     body = body_of(text)
 
-    sev_raw = section(text, "Severity")
     severity, solodit_sidebar = report_severity(text)
     team_raw = section_or_label(text, "Team Response") or \
         section_or_label(text, "Status")

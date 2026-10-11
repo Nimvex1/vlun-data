@@ -40,11 +40,17 @@ repos:
         pass_filenames: false
         files: ^(jsonl_ml/.*|scripts/vlun_ml\.py|scripts/check_ml_layer\.py)$
       - id: unit-tests-fast
-        name: fast unit tests (no live gates)
-        entry: python -m unittest tests.test_logic tests.test_splits tests.test_schema_terms tests.test_packaging tests.test_v32_execution tests.test_benchmark_b_g tests.test_artefact_hashes tests.test_publish_manifest tests.test_baselines
+        name: fast unit tests (no live gates, no tree mutation)
+        entry: python -m unittest tests.test_logic tests.test_splits tests.test_schema_terms tests.test_packaging tests.test_v32_execution tests.test_benchmark_b_g tests.test_artefact_hashes tests.test_publish_manifest tests.test_baselines tests.test_field_coverage tests.test_manifests tests.test_solodit_harvest tests.test_json_catalog
         language: system
         pass_filenames: false
         files: ^(scripts/.*|tests/.*)$
+      - id: json-catalog-current
+        name: JSON catalog map is current
+        entry: python scripts/build_json_catalog.py --check
+        language: system
+        pass_filenames: false
+        files: ^(.*\.jsonl?|scripts/build_json_catalog\.py|reports/json_catalog\.(json|md))$
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -57,3 +63,12 @@ repos:
       - id: check-added-large-files
         args: ['--maxkb=2048']
         exclude: ^(V3/clones/|work/|nextdata/|\.firecrawl/)
+
+  # Correctness lint for the pipeline (pyflakes + pycodestyle errors only,
+  # configured in pyproject.toml [tool.ruff]). Style rules are excluded so
+  # this stays green on formatting-neutral refactors.
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.0
+    hooks:
+      - id: ruff
+        args: [check, scripts/, tests/, Vbeta/scripts/, Vbeta/tests/]

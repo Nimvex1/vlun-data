@@ -34,7 +34,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    REPORTS, ROOT, WORK, code_entries, load_core, log, owner_repo as owner_repo_of, run,
+    REPORTS, WORK, code_entries, load_core, log, owner_repo as owner_repo_of, run,
     sha256_text, write_json,
 )
 

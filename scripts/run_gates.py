@@ -37,6 +37,26 @@ GATES = [
     ("repro-report-current", [PY, "scripts/build_repro_report.py", "--check"]),
     ("stats-current", [PY, "scripts/generate_stats.py", "--check"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
+    # Packaging gates the CI workflow already ran separately. Without these
+    # a local `run_gates.py` reported green while CI failed on a stale
+    # datasheet or schema, so local green did not mean mergeable.
+    ("schemas-current", [PY, "scripts/build_schemas.py", "--check"]),
+    ("datasheet-current", [PY, "scripts/build_datasheet.py", "--check"]),
+    ("vbeta-build-current",
+     [PY, "Vbeta/scripts/build_vbeta.py", "--check"]),
+    # The JSON catalog maps every committed .json/.jsonl by category without
+    # moving anything; a new data file without a catalog entry fails here.
+    ("catalog-current", [PY, "scripts/build_json_catalog.py", "--check"]),
+    # Independent benchmark-validity layer (additive; --check only, so the
+    # gate cannot regenerate the audit it is verifying).
+    ("benchmark-audit-current",
+     [PY, "scripts/independent_benchmark_audit.py", "--check"]),
+    ("benchmark-holdout-current",
+     [PY, "scripts/build_secondary_holdout.py", "--check"]),
+    # V3.2 execution provenance: every recorded artefact hash must match
+    # the committed bytes (network-free, machine-independent).
+    ("proof-hashes-current",
+     [PY, "scripts/reconcile_proof_artefact_hashes.py", "--check"]),
 ]
 
 ONLY_MAP = {
@@ -50,6 +70,10 @@ ONLY_MAP = {
     "tests": ["unit-tests", "vbeta-tests"],
     "readme": ["readme-current", "stats-current", "field-coverage-current",
                "solodit-report-current", "repro-report-current"],
+    "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
+    "catalog": ["catalog-current"],
+    "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],
+    "proof": ["proof-hashes-current"],
 }
 
 # Exit code 2 means SKIPPED (missing optional inputs, no network): recorded
@@ -69,8 +93,12 @@ def main() -> int:
     want = set(ONLY_MAP) if not args.only else set()
     for key in (args.only or []):
         want.update(ONLY_MAP[key])
-    selected = [(name, cmd) for name, cmd in GATES
-                if name in {n for k in want for n in ONLY_MAP[k]}]
+    # `want` holds group keys on a full run and gate names under --only;
+    # resolve both so --only works instead of KeyErroring on a gate name.
+    names: set[str] = set()
+    for k in want:
+        names.update(ONLY_MAP.get(k, [k]))
+    selected = [(name, cmd) for name, cmd in GATES if name in names]
     # --only given explicitly trims to the requested groups.
     if args.only:
         keep = set()
@@ -117,8 +145,22 @@ def main() -> int:
 
     nfail = sum(1 for _, st in results if st == "FAIL")
     nskip = sum(1 for _, st in results if st == "SKIPPED")
-    print(f"gates={len(results)} pass={len(results) - nfail - nskip} "
+    npass = len(results) - nfail - nskip
+    print(f"gates={len(results)} pass={npass} "
           f"fail={nfail} skipped={nskip}")
+    return overall_rc(results)
+
+
+def overall_rc(results: list[tuple[str, str]]) -> int:
+    """Exit code for a gate run. A green build that ran zero checks is a
+    lie, not a pass: every gate skipping (exit 2: missing optional inputs)
+    fails the run rather than reporting success with nothing verified."""
+    nfail = sum(1 for _, st in results if st == "FAIL")
+    npass = sum(1 for _, st in results if st == "PASS")
+    if not results or npass == 0:
+        print("FAIL: no gate passed; a build that verifies nothing is not green",
+              file=sys.stderr)
+        return 1
     return 1 if nfail else 0
 
 

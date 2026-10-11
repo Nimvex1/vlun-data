@@ -11,7 +11,7 @@ do not cover the same material.
 Everything under these paths is licensed under the Creative Commons
 Attribution 4.0 International licence (CC BY 4.0):
 
-    jsonl/            derived/          splits/           splits_v2/
+    jsonl/            derived/          splits_v2/
     benchmark/        datasets/         training/         reports/
     experiments/      (the run records and harness code, see part 3)
 

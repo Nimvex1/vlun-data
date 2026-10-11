@@ -151,4 +151,5 @@ Governing rule: **TRUTH > PROVENANCE > REPRODUCIBILITY > DIVERSITY > SCALE > MET
 ## Failure policy (section 24)
 
 No commit was guessed, no vulnerability inferred from severity, no PoC invented, no fix inferred from a diff, and no external label copied as truth. Every blank field in `derived_v2_2/audit_ingestion_records.jsonl` is `null`/`unknown` with the missing evidence recorded.
+All metrics computed; no unknown-metric errors this run.
 
