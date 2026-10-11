@@ -291,18 +291,9 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "9 dirty entries under data dirs, 8 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 8,
-      "failures": [
-        "A  benchmark/independent/secondary_holdout_manifest.json",
-        "A  benchmark/independent/secondary_holdout_tasks.jsonl",
-        " M benchmark/v3_manifest.json",
-        " M derived_v2_2/audit_sources.jsonl",
-        " M derived_v3/records.jsonl",
-        " M jsonl_v3/findings.jsonl",
-        " M reports/v3/experimental_proof.json",
-        " M reports/v3/validation_v3.json"
-      ],
+      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

@@ -6,7 +6,7 @@
     "experiments": 82,
     "harvest": 6,
     "meta": 8,
-    "reports": 56,
+    "reports": 54,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 258,
+  "file_count": 256,
   "files": [
     {
       "bytes": 1363,
@@ -4203,25 +4203,6 @@
       "tracked": true
     },
     {
-      "bytes": 2896,
-      "category": "reports",
-      "keys": [
-        "checks",
-        "checks_failed",
-        "checks_passed",
-        "checks_skipped",
-        "checks_total",
-        "generated_by",
-        "note"
-      ],
-      "kind": "object",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "reports/reproducibility_checks.json",
-      "sha256": "a1866ef3672a540571a6fb6e08431437abc599a8e0063a8e6e71684dd95530db",
-      "tracked": false
-    },
-    {
       "bytes": 28437,
       "category": "reports",
       "keys": [
@@ -4612,23 +4593,6 @@
       "tracked": true
     },
     {
-      "bytes": 7889,
-      "category": "reports",
-      "keys": [
-        "checks",
-        "critical_failures",
-        "normalization_version",
-        "passed",
-        "total"
-      ],
-      "kind": "object",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "reports/v3/validation_v31.json",
-      "sha256": "b307b22d6c1ce55bdf9693275ee27a18fab54630afc71637c2ab7466f72ce310",
-      "tracked": true
-    },
-    {
       "bytes": 17268,
       "category": "reports",
       "keys": [
@@ -4962,5 +4926,8 @@
     }
   ],
   "generated_by": "scripts/build_json_catalog.py",
-  "scope_note": "every .json/.jsonl under the repo root except the catalog's own outputs and machine-local trees; nothing is moved, this file is a map"
+  "scope_note": "every .json/.jsonl under the repo root except the catalog's own outputs, machine-local trees, git-ignored files (their bytes vary by machine), and volatile gate outputs (bytes vary run-to-run by design); nothing is moved, this file is a map",
+  "volatile_outputs": [
+    "reports/v3/validation_v31.json"
+  ]
 }

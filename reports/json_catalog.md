@@ -5,7 +5,10 @@ working tree. Every `.json`/`.jsonl` file lives where its layer
 froze it; this page only says where each kind lives. Machine-local
 trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextdata/, .freebuff/, brag-output/, ai/) are out of scope.
 
-258 files across 11 categories.
+Volatile gate outputs (bytes vary run-to-run by design) are
+also excluded: reports/v3/validation_v31.json.
+
+256 files across 11 categories.
 
 ## source (21)
 
@@ -216,7 +219,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (56)
+## reports (54)
 
 *validation, stats, quality and baseline reports.*
 
@@ -254,7 +257,6 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 | `reports/pre_upgrade_audit.json` | multi | 28,885 | object, 16 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
 | `reports/record_audit_summary.json` | multi | 701 | object, 11 keys | yes |
-| `reports/reproducibility_checks.json` | multi | 2,896 | object, 7 keys | no |
 | `reports/reproduction_manifest.json` | multi | 28,437 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,420 | object, 14 keys | yes |
 | `reports/run_artefacts_index.json` | multi | 4,055 | object, 5 keys | yes |
@@ -274,7 +276,6 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 | `reports/v3/patch_verification_report.json` | multi | 303 | object, 7 keys | yes |
 | `reports/v3/poc_extraction_report.json` | multi | 287 | object, 7 keys | yes |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
-| `reports/v3/validation_v31.json` | multi | 7,889 | object, 5 keys | yes |
 | `reports/validation_report.json` | multi | 17,268 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 27,811 | object, 3 keys | yes |

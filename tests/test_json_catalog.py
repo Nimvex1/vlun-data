@@ -21,11 +21,14 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 class TestJsonCatalogComplete(unittest.TestCase):
     def test_every_tracked_json_is_catalogued_once(self):
+        from build_json_catalog import VOLATILE_OUTPUTS
         catalog = json.loads(
             (ROOT / "reports" / "json_catalog.json").read_text(encoding="utf-8"))
         listed = [f["path"] for f in catalog["files"]]
         self.assertEqual(len(listed), len(set(listed)), "duplicate catalog entries")
         self.assertEqual(catalog["file_count"], len(listed))
+        self.assertEqual(sorted(catalog["volatile_outputs"]),
+                         sorted(VOLATILE_OUTPUTS))
         proc = subprocess.run(["git", "ls-files"], cwd=str(ROOT),
                               capture_output=True, text=True, timeout=120)
         self.assertEqual(proc.returncode, 0)
@@ -34,6 +37,7 @@ class TestJsonCatalogComplete(unittest.TestCase):
         missing = [p for p in proc.stdout.splitlines()
                    if p.endswith((".json", ".jsonl"))
                    and p not in own
+                   and p not in VOLATILE_OUTPUTS
                    and not any(p == e[:-1] or p.startswith(e) for e in excluded)
                    and p not in listed]
         self.assertEqual(missing, [], f"tracked JSON missing from catalog: {missing[:5]}")

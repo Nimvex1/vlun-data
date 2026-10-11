@@ -43,6 +43,13 @@ EXCLUDED_PREFIXES = (
 # the entry is computed from the previous bytes, then the file is rewritten.
 SELF_OUTPUTS = ("reports/json_catalog.json", "reports/json_catalog.md")
 
+# Gate outputs whose committed bytes legitimately vary run-to-run. These are
+# pinned nowhere: reports/v3/validation_v31.json embeds a worktree-dirt
+# observation ("N dirty entries ..."), so its bytes differ between a dirty
+# tree, a clean tree and CI by design. (Its verdict counts are stable and
+# stay gated by validate_v31.py itself.) Listed here, not hashed.
+VOLATILE_OUTPUTS = ("reports/v3/validation_v31.json",)
+
 # (category, one-line meaning). Order is the markdown section order.
 CATEGORIES = (
     ("source", "original evidence layers: one row per harvested pointer"),
@@ -104,21 +111,6 @@ def categorize(rel: str) -> tuple[str, str]:
     return "meta", "meta"
 
 
-def scan() -> list[str]:
-    out = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file() or path.suffix not in (".json", ".jsonl"):
-            continue
-        rel = path.relative_to(ROOT).as_posix()
-        if rel in SELF_OUTPUTS:
-            continue
-        if any(rel == pre[:-1] or rel.startswith(pre)
-               for pre in EXCLUDED_PREFIXES):
-            continue
-        out.append(rel)
-    return sorted(out)
-
-
 def tracked_set() -> set[str]:
     try:
         proc = subprocess.run(["git", "ls-files"], cwd=str(ROOT),
@@ -128,6 +120,44 @@ def tracked_set() -> set[str]:
     if proc.returncode != 0:
         return set()
     return set(proc.stdout.splitlines())
+
+
+def ignored_set() -> set[str]:
+    """Paths git ignores (machine-local by declaration in .gitignore).
+
+    These must never enter the catalog: their bytes vary by machine (e.g.
+    reports/reproducibility_checks.json records this machine's PASS/SKIP
+    split), so cataloguing them makes --check fail on every other machine.
+    """
+    try:
+        proc = subprocess.run(
+            ["git", "ls-files", "--others", "-i", "--exclude-standard"],
+            cwd=str(ROOT), capture_output=True, text=True, timeout=120)
+    except OSError:
+        return set()
+    if proc.returncode != 0:
+        return set()
+    return set(proc.stdout.splitlines())
+
+
+def scan() -> list[str]:
+    ignored = ignored_set()
+    out = []
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.suffix not in (".json", ".jsonl"):
+            continue
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in SELF_OUTPUTS:
+            continue
+        if rel in VOLATILE_OUTPUTS:
+            continue
+        if rel in ignored:
+            continue
+        if any(rel == pre[:-1] or rel.startswith(pre)
+               for pre in EXCLUDED_PREFIXES):
+            continue
+        out.append(rel)
+    return sorted(out)
 
 
 def describe(rel: str) -> dict:
@@ -192,9 +222,12 @@ def build() -> dict:
     return {
         "generated_by": "scripts/build_json_catalog.py",
         "scope_note": ("every .json/.jsonl under the repo root except the "
-                       "catalog's own outputs and machine-local trees; "
-                       "nothing is moved, this file is a map"),
+                       "catalog's own outputs, machine-local trees, "
+                       "git-ignored files (their bytes vary by machine), and "
+                       "volatile gate outputs (bytes vary run-to-run by "
+                       "design); nothing is moved, this file is a map"),
         "excluded_prefixes": list(EXCLUDED_PREFIXES),
+        "volatile_outputs": list(VOLATILE_OUTPUTS),
         "file_count": len(entries),
         "by_category": {name: by_category.get(name, 0)
                         for name, _ in CATEGORIES},
@@ -209,6 +242,9 @@ def render_md(doc: dict) -> str:
              "working tree. Every `.json`/`.jsonl` file lives where its layer",
              "froze it; this page only says where each kind lives. Machine-local",
              f"trees ({', '.join(doc['excluded_prefixes'])}) are out of scope.",
+             "",
+             "Volatile gate outputs (bytes vary run-to-run by design) are",
+             f"also excluded: {', '.join(doc['volatile_outputs'])}.",
              "",
              f"{doc['file_count']} files across "
              f"{sum(1 for _ in CATEGORIES)} categories.",
@@ -250,8 +286,22 @@ def main() -> int:
         problems = []
         if not CATALOG_JSON.is_file():
             problems.append("reports/json_catalog.json (missing)")
-        elif json.loads(CATALOG_JSON.read_text(encoding="utf-8")) != doc:
-            problems.append("reports/json_catalog.json (stale)")
+        else:
+            try:
+                on_disk = json.loads(CATALOG_JSON.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                on_disk = None
+            if on_disk != doc:
+                problems.append("reports/json_catalog.json (stale)")
+                if isinstance(on_disk, dict):
+                    old = {f["path"]: f for f in on_disk.get("files", [])
+                           if isinstance(f, dict) and "path" in f}
+                    new = {f["path"]: f for f in doc["files"]}
+                    diffs = sorted(set(old) ^ set(new)
+                                   | {p for p in set(old) & set(new)
+                                      if old[p] != new[p]})[:8]
+                    for p in diffs:
+                        problems.append(f"  entry differs: {p}")
         want_md = render_md(doc)
         if not CATALOG_MD.is_file():
             problems.append("reports/json_catalog.md (missing)")
