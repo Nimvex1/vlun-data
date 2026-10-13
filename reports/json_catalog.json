@@ -6,7 +6,7 @@
     "experiments": 82,
     "harvest": 6,
     "meta": 8,
-    "reports": 55,
+    "reports": 56,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 257,
+  "file_count": 258,
   "files": [
     {
       "bytes": 1363,
@@ -3859,6 +3859,25 @@
       "parse": "ok",
       "path": "reports/depth_dashboard.json",
       "sha256": "7b204d3901f3f880c2dcfde633e531f5f0deffb718b38fa7adfc0f2ca6ad241b",
+      "tracked": true
+    },
+    {
+      "bytes": 6688,
+      "category": "reports",
+      "keys": [
+        "buckets",
+        "correction_to_improve_md",
+        "counts",
+        "generated_by",
+        "method",
+        "out_of_scope_recorded",
+        "scope"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/evidence_pointer_audit.json",
+      "sha256": "aff6c3e8bfd4e8be34e89d92bd1088f122fa3c8a1c1c2b8057927adadc3da658",
       "tracked": true
     },
     {

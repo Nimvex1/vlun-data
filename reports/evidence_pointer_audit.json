@@ -1,0 +1,133 @@
+{
+  "generated_by": "Phase 1 Task 2 evidence-pointer audit (measured 2026-10-14, Windows, Python 3.12)",
+  "scope": [
+    "derived/records.jsonl (722 records)",
+    "derived_v2_2/records.jsonl (137 records)"
+  ],
+  "method": "walked every dict carrying evidence_type in both files; grouped by normalized path; sampled values per path; matched each fact-typed path against its emitting code in scripts/build_derived.py, scripts/taxonomy.py and scripts/solidity_facts.py",
+  "correction_to_improve_md": "improve.md S1-C counts only wrappers WITH a value key (1905 pointerless: 1183 derived_fact + 722 observed_fact - verified exact). The true derived_fact population is 3437: another 2254 live in wrappers without a value key (taxonomy.labels 1196, taxonomy 679, access_control_observations 242, required_permissions 137). All of them already name their rule in a rule field or note. The gate in Task 4 must walk ALL evidence_type carriers, not just value-keyed wrappers.",
+  "buckets": {
+    "meta": {
+      "action": "exempt from the pointer gate; listed in the published exemption list",
+      "entries": [
+        {
+          "action": "exempt",
+          "count": 722,
+          "evidence_type": "observed_fact",
+          "file": "derived/records.jsonl",
+          "path": "evidence.schema",
+          "reason": "describes the schema vocabulary itself (value null, note carries the vocabulary); a pointer would be self-referential"
+        },
+        {
+          "action": "exempt",
+          "count": 722,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "evidence.record_confidence",
+          "reason": "describes the record's own confidence (weakest link across its derived claims, scripts/build_derived.py:quality_block); a pointer to the record itself, not to the world"
+        }
+      ]
+    },
+    "rule_derived": {
+      "action": "promote the already-named rule into source_refs as rule:<module>:<function>; no new claims invented",
+      "entries": [
+        {
+          "count": 147,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "attacker_model.attacker_identity",
+          "rule_already_named_in": "rule field (role-modifier/tx.origin mapping rule)",
+          "source_refs": "rule:build_derived.py:attacker_model"
+        },
+        {
+          "count": 306,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "attacker_model.required_cross_contract_state",
+          "rule_already_named_in": "scripts/build_derived.py:state_transition (owner/repo extraction over code_context)",
+          "source_refs": "rule:build_derived.py:state_transition"
+        },
+        {
+          "count": 8,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "attacker_model.attacker_capabilities[]",
+          "rule_already_named_in": "note field (delegatecall / tx.origin / external-call / create token signals)",
+          "source_refs": "rule:build_derived.py:attacker_model"
+        },
+        {
+          "count": 1196,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "taxonomy.labels[]",
+          "rule_already_named_in": "rule field (exact match against the taxonomy table in scripts/taxonomy.py)",
+          "source_refs": "rule:taxonomy.py:classify"
+        },
+        {
+          "count": 679,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "taxonomy",
+          "rule_already_named_in": "labels[] rules above, same scripts/taxonomy.py table lookup",
+          "source_refs": "rule:taxonomy.py:classify"
+        },
+        {
+          "count": 242,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "attacker_model.access_control_observations[]",
+          "rule_already_named_in": "rule field (modifier/guard/visibility verdicts)",
+          "source_refs": "rule:solidity_facts.py:functions"
+        },
+        {
+          "count": 137,
+          "evidence_type": "derived_fact",
+          "file": "derived/records.jsonl",
+          "path": "attacker_model.required_permissions[]",
+          "rule_already_named_in": "note field (observed modifier X, from scripts/solidity_facts.py function signals)",
+          "source_refs": "rule:solidity_facts.py:functions"
+        },
+        {
+          "count": 464,
+          "evidence_type": "observed_fact",
+          "file": "derived/records.jsonl",
+          "path": "code_context_expanded[]",
+          "rule_already_named_in": "source_url + sha256 + commit pins on every one of the 464 entries (verified: 0 missing source_url)",
+          "source_refs": "[the entry's own source_url]"
+        },
+        {
+          "count": 23,
+          "evidence_type": "observed_fact",
+          "file": "derived_v2_2/records.jsonl",
+          "path": "corroboration_independence",
+          "rule_already_named_in": "note field (distinct-documents counting rule in scripts/build_derived_v22.py)",
+          "source_refs": "rule:build_derived_v22.py"
+        },
+        {
+          "count": 83,
+          "evidence_type": "derived_fact",
+          "file": "derived_v2_2/records.jsonl",
+          "path": "taxonomy.v1_lookup",
+          "rule_already_named_in": "v1 taxonomy table lookup in scripts/taxonomy.py",
+          "source_refs": "rule:taxonomy.py:classify"
+        }
+      ]
+    },
+    "silent": {
+      "entries": [],
+      "reason": "every non-meta fact-typed wrapper names its producing rule (in a rule/note field) or carries URL/sha pointers (code_context_expanded); verified per path against emitting code and sampled values. Nothing in this bucket at audit time; the Task 4 gate keeps it at zero."
+    }
+  },
+  "counts": {
+    "derived_records_meta_exempt": 1444,
+    "derived_records_rule_derived_to_fix": 3179,
+    "derived_records_silent": 0,
+    "v22_already_pointed": 23,
+    "v22_rule_derived_to_fix": 106
+  },
+  "out_of_scope_recorded": {
+    "experimental": "derived/records.jsonl verification experimentally_verified x7 (test_evidence present); derived_v2_2 experiment_view x37 — execution artefacts, not prose pointers",
+    "reported_claim": "derived/records.jsonl 2086 (1591 value-keyed + 365 invariants + 130 transactions) and derived_v2_2 24 carry prose attribution (attributed_sentence/why/basis), not machine-checkable pointers; out of the Task 4 gate scope per plan (derived_fact/observed_fact only)",
+    "unknown": "derived/records.jsonl 6557 and derived_v2_2 448 claim nothing; correctly ref-less by definition"
+  }
+}
