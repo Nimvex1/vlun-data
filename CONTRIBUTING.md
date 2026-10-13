@@ -43,8 +43,8 @@ never the output. Verify with:
 ```bash
 python scripts/generate_readme.py --check
 python scripts/build_datasheet.py --check
-python scripts/run_gates.py          # all 21 gates; skips stay skipped_no_network
-python -m unittest discover -s tests # 175 tests
+python scripts/run_gates.py          # all 22 gates; skips stay skipped_no_network
+python -m unittest discover -s tests # 177 tests
 ```
 
 `Vbeta/present_snapshot.json` pins `README.md` and other PRESENT files.
