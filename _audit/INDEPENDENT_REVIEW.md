@@ -438,3 +438,29 @@ What I could verify independently, from committed artefacts:
 - Semantics of the 20 sampled hard negatives and 10 counterexample sets against the live Code4rena
   reports. I verified internal consistency and that 18/20 honestly declare a null blocking condition;
   I did not fetch the upstream audits.
+
+---
+
+## STATUS ANNOTATION (2026-10-13, verified at `e79b31a`) — read this first
+
+The body above is frozen: it targets `93af4b9` (2026-10-04). Each row below
+was re-measured from the canonical files at
+`e79b31a5b6b90189ac490137cc40f6eda508cea3` (Windows, Python 3.12.10).
+Status `FIXED` means the defect no longer reproduces; nothing in the body
+was edited to obtain it. Machine-readable baseline: `BASELINE.md`,
+`reports/baseline/measured_2026-10-13.json`.
+
+| # | Review claim | Status | Evidence | Resolved in |
+|---|---|---|---|---|
+| 1 | "mutable citations 453→0 is false — 471 `commit_sha` still equal `main`/`master`" | **FIXED.** 0 occurrences in `derived/records.jsonl`. `validate_checks.py:629-641` now counts from the records and cross-checks the resolver's report, so the circularity is gone. | re-walked all 722 records: 0 `commit_sha` == `main`/`master`; `no_mutable_branch_citations_remain` is `critical=True`, counted from records | verified present at `e79b31a` (resolving commit not traced) |
+| 2 | "2 stages fail while the build still exits 0" | **FIXED.** `build_all.json` → `{"ok": 21, "skipped_no_network": 5}`, 0 failed. | `reports/build_all.json`: `by_status: {ok: 21, skipped_no_network: 5}`, no `failed` key | verified present at `e79b31a` (resolving commit not traced) |
+| 3 | "the 5 reproduced PoCs have zero committed artefacts" | **FIXED.** 36 committed `result.json` under `experiments/`. | `Get-ChildItem -Recurse -Filter result.json experiments` → 36 | verified present at `e79b31a` (resolving commit not traced) |
+| 4 | "benchmark is unscoreable as shipped, 62% unscorable" | **FIXED.** `test_benchmark_b_g.py::TestNoFamilyIsDecorative` enforces no family has `scorable == 0`. | `tests/test_benchmark_b_g.py:98-104` asserts `scorable == 0` families == [] | verified present at `e79b31a` (resolving commit not traced) |
+| 5 | "gate checks pass vacuously on a fresh clone" | **FIXED.** `run_gates.py:154-164` fails when `npass == 0`. | `scripts/run_gates.py::overall_rc` returns 1 when `npass == 0` ("a build that verifies nothing is not green") | verified present at `e79b31a` (resolving commit not traced) |
+| 6 | "artefact hash drift (27 values)" | **FIXED.** `v32_provenance_closure.md` + `tests/test_artefact_hashes.py` (8 tests). | `reports/v32_provenance_closure.md` committed; 8 `def test_` methods in `tests/test_artefact_hashes.py` | verified present at `e79b31a` (resolving commit not traced) |
+
+Note: the closure doc lives at `reports/v32_provenance_closure.md` (not the
+repo root). One correction to improve.md §1-C found during this verification:
+`reported_claim` wrappers do not carry `source_refs` (1,483 key-absent + 108
+empty-list across `derived/records.jsonl`); they carry prose attribution
+(`attributed_sentence`/`why`/`basis`). See `BASELINE.md`.

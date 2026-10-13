@@ -6,7 +6,7 @@
     "experiments": 82,
     "harvest": 6,
     "meta": 8,
-    "reports": 54,
+    "reports": 55,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 256,
+  "file_count": 257,
   "files": [
     {
       "bytes": 1363,
@@ -3580,6 +3580,30 @@
       "parse": "ok",
       "path": "reports/audit_source_ingestion.json",
       "sha256": "417609a20014eec53fea556201167f2b254dbb61528e57e9d66e3d420b5b5a5b",
+      "tracked": true
+    },
+    {
+      "bytes": 3327,
+      "category": "reports",
+      "keys": [
+        "baseline_date",
+        "benchmark_shortcuts",
+        "commit",
+        "commit_short",
+        "empty_depth_fields",
+        "evidence_pointers",
+        "gates",
+        "honest_ceiling",
+        "platform",
+        "python",
+        "review",
+        "tests"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/baseline/measured_2026-10-13.json",
+      "sha256": "4e9bd8eac8929a4b7652d3e64e498c5ea9fe79b7b1ae956a89e59ceebc8ac7f5",
       "tracked": true
     },
     {

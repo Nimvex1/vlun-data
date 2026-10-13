@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-256 files across 11 categories.
+257 files across 11 categories.
 
 ## source (21)
 
@@ -219,7 +219,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (54)
+## reports (55)
 
 *validation, stats, quality and baseline reports.*
 
@@ -228,6 +228,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
 | `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
+| `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
 | `reports/baselines/baseline_first_published.json` | multi | 11,123 | object, 5 keys | yes |
 | `reports/baselines/baseline_frequency_seed7.json` | multi | 12,133 | object, 5 keys | yes |
 | `reports/baselines/baseline_majority.json` | multi | 12,029 | object, 5 keys | yes |
