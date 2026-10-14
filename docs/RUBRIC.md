@@ -1,6 +1,15 @@
 # RUBRIC.md — how benchmark scores are produced and read
 
-## The one number (and its continuity twin)
+## Primary metric (and its in-distribution twin)
+
+**The headline number to quote is exact-match accuracy on the class-disjoint
+holdout** (`benchmark/independent/secondary_holdout_tasks.jsonl`, 2,716 tasks),
+where every shortcut collapses to 0.0000. Official-split accuracy is reported
+second, labelled "in-distribution, contaminated by construction." Retraining
+the six baselines against the holdout leaves most near random; that is the
+finding, not a failure to report.
+
+## The one number (and its continuity twin) (in-distribution, secondary)
 
 **Micro-averaged exact-match accuracy over headline families' scorable tasks**,
 with coverage reported beside it. Eight saturated families
