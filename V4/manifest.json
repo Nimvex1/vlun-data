@@ -4,7 +4,7 @@
   "dataset_version": "4.0",
   "duplicates": 0,
   "extracted_findings": 5270,
-  "generated_at": "2026-10-14T11:51:30.815979Z",
+  "generated_at": "2026-10-14T12:31:34.823700Z",
   "languages": {
     "go": 3394,
     "michelson": 4,

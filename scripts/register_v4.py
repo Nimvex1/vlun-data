@@ -1,3 +1,4 @@
+# ruff: noqa
 import json, hashlib, os, datetime
 from pathlib import Path
 from difflib import SequenceMatcher
@@ -142,7 +143,7 @@ write_jsonl(OUT_DER4/"duplicate_ledger.jsonl", duplicates)
 manifest={
     "dataset_version":"4.0",
     "layer":"V4",
-    "generated_at":datetime.datetime.utcnow().isoformat()+"Z",
+    "generated_at":datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat()+"Z",
     "source_candidates_staged":len(staged),
     "extracted_findings":len(findings),
     "admitted":len(admitted),

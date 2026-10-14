@@ -90,7 +90,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "V4/manifest.json",
-      "sha256": "e6d77b5bc11dd14ee9be625eb783bddf5a2f75243639e6e042b6c1b377702369",
+      "sha256": "c61c3f319c265f3283ef8d6d44bf1cdd0a2483645c2c3367457d1b9039b32143",
       "tracked": true
     },
     {
@@ -1384,7 +1384,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "derived_v4/manifest.json",
-      "sha256": "e6d77b5bc11dd14ee9be625eb783bddf5a2f75243639e6e042b6c1b377702369",
+      "sha256": "c61c3f319c265f3283ef8d6d44bf1cdd0a2483645c2c3367457d1b9039b32143",
       "tracked": true
     },
     {
