@@ -549,11 +549,11 @@ blockers with verbatim evidence.
 
 | # | Task | Phase | Est. | Blocked |
 |---|---|---|---|---|
-| 1 | `BASELINE.md` + review status table | 0 | 0.5d | — |
+| 1 | **FIXED in c6b45df** (0 mutable commit_sha across 2756 shas) - `BASELINE.md` + review status table | 0 | 0.5d | — |
 | 2 | Evidence-pointer audit + 3-bucket classification | 1.1 | 0.5d | — |
 | 3 | `claim()` helper; populate `rule-derived` refs; rebuild derived consumers | 1.2 | 1.5d | — |
 | 4 | `every_fact_field_has_a_pointer` gate + negative-control test | 1.3 | 0.5d | — |
-| 5 | Rewrite permalinks to pinned sha; scan URLs not just shas; report 176 residual in `jsonl/` | 2 | 2d | — |
+| 5 | **FIXED in 8abe43f** (0 mutable commit_sha and 0 mutable source_url across 2756 shas / 2034 urls in derived/records.jsonl; derived_commit_pins_are_immutable gate) - Rewrite permalinks to pinned sha | 2 | 2d | — |
 | 6 | Retire 9 saturated families (+P); dual headline numbers; regen chain | 3.1 | 2d | — |
 | 7 | Fix K's id-prefix leak — or retire K if the detector will not clear it | 3.2 | 1d | — |
 | 8 | Fix or retire L (leaks high while resisting the baseline) | 3.2 | 1d | — |
