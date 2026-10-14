@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-268 files across 11 categories.
+277 files across 11 categories.
 
 ## source (21)
 
@@ -236,7 +236,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
-| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
+| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,396 | object, 4 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
 | `reports/baselines/baseline_first_published.json` | multi | 5,424 | object, 6 keys | yes |
@@ -340,7 +340,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/solodit_candidates.json` | vbeta | 1,332,714 | array[733] | yes |
 | `Vbeta/web3bugs_candidates.json` | vbeta | 633,436 | array[491] | yes |
 
-## meta (8)
+## meta (17)
 
 *repo-level registries, snapshots, packaging and reviews.*
 
@@ -348,9 +348,18 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 1,363 | object, 11 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
+| `V4/manifest.json` | meta | 851 | object, 15 keys | yes |
+| `V4/sources.json` | meta | 1,175 | array[3] | yes |
 | `Vbeta/present_snapshot.json` | meta | 739 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
 | `_audit/legal_hygiene.json` | meta | 712 | object, 11 keys | yes |
+| `derived_v4/admitted_ledger.jsonl` | meta | 17,765,076 | 5270 rows | yes |
+| `derived_v4/candidate_ledger.jsonl` | meta | 654,106 | 5270 rows | yes |
+| `derived_v4/duplicate_ledger.jsonl` | meta | 0 | 0 rows | yes |
+| `derived_v4/manifest.json` | meta | 851 | object, 15 keys | yes |
+| `derived_v4/quarantined_ledger.jsonl` | meta | 0 | 0 rows | yes |
+| `jsonl_v4/findings.jsonl` | meta | 17,765,076 | 5270 rows | yes |
+| `jsonl_v4/sources.jsonl` | meta | 1,056 | 3 rows | yes |
 | `publish_manifest.json` | meta | 882 | object, 7 keys | yes |

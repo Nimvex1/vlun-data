@@ -291,12 +291,9 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "3 dirty entries under data dirs, 2 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 2,
-      "failures": [
-        " M benchmark/independent/secondary_holdout_tasks.jsonl",
-        " M benchmark/v3_R_source_tier_routing.jsonl"
-      ],
+      "detail": "1 dirty entries under data dirs, 0 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

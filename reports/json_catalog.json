@@ -5,7 +5,7 @@
     "derived": 31,
     "experiments": 82,
     "harvest": 6,
-    "meta": 8,
+    "meta": 17,
     "reports": 56,
     "schema": 5,
     "source": 21,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 268,
+  "file_count": 277,
   "files": [
     {
       "bytes": 1363,
@@ -64,6 +64,44 @@
       "parse": "ok",
       "path": "V3/sources.json",
       "sha256": "a1b53cc17b9b360162cefc69522397fb5b538e478ea2c914f8527b874375f836",
+      "tracked": true
+    },
+    {
+      "bytes": 851,
+      "category": "meta",
+      "keys": [
+        "admitted",
+        "candidate_ledger",
+        "dataset_version",
+        "duplicates",
+        "extracted_findings",
+        "generated_at",
+        "languages",
+        "layer",
+        "licensing_risks",
+        "missing_provenance",
+        "quarantined",
+        "reports_by_source",
+        "source_candidates_staged",
+        "verification_levels",
+        "vulnerability_classes"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "V4/manifest.json",
+      "sha256": "e6d77b5bc11dd14ee9be625eb783bddf5a2f75243639e6e042b6c1b377702369",
+      "tracked": true
+    },
+    {
+      "bytes": 1175,
+      "category": "meta",
+      "kind": "array",
+      "layer": "meta",
+      "length": 3,
+      "parse": "ok",
+      "path": "V4/sources.json",
+      "sha256": "f0ceba3e3208ce0cc7e2d8f266f584fb8464b53f29c4906159bdc4b8523c3f0d",
       "tracked": true
     },
     {
@@ -294,7 +332,7 @@
       "tracked": true
     },
     {
-      "bytes": 7359,
+      "bytes": 7396,
       "category": "reports",
       "keys": [
         "checks",
@@ -306,7 +344,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/validation_vbeta.json",
-      "sha256": "0a7a2068bfa692ed3f40b4015393b6837fd91231458b00bf4ee2b271ea4d778d",
+      "sha256": "a3af6421e6517217d72bb2138f215c4891bff1adf7f42ccc2b3370e75e2545e0",
       "tracked": true
     },
     {
@@ -1290,6 +1328,73 @@
       "parse": "ok",
       "path": "derived_v3/source_sha_index.json",
       "sha256": "e11f1ad50eef364a564d9741f1b3b507897483f4a4c9021369c57b31ba650319",
+      "tracked": true
+    },
+    {
+      "bytes": 17765076,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/admitted_ledger.jsonl",
+      "rows": 5270,
+      "sha256": "28202be38bf95a16a1f1bcccb99555b0d48b3d33bd7a5cfdbb1a4aaf194150ed",
+      "tracked": true
+    },
+    {
+      "bytes": 654106,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/candidate_ledger.jsonl",
+      "rows": 5270,
+      "sha256": "3a3d3c9509ea22d2556f1f59dd8f2a61b9647407aff6c5c30c0d3ecce05f4a9a",
+      "tracked": true
+    },
+    {
+      "bytes": 0,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/duplicate_ledger.jsonl",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    {
+      "bytes": 851,
+      "category": "meta",
+      "keys": [
+        "admitted",
+        "candidate_ledger",
+        "dataset_version",
+        "duplicates",
+        "extracted_findings",
+        "generated_at",
+        "languages",
+        "layer",
+        "licensing_risks",
+        "missing_provenance",
+        "quarantined",
+        "reports_by_source",
+        "source_candidates_staged",
+        "verification_levels",
+        "vulnerability_classes"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/manifest.json",
+      "sha256": "e6d77b5bc11dd14ee9be625eb783bddf5a2f75243639e6e042b6c1b377702369",
+      "tracked": true
+    },
+    {
+      "bytes": 0,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/quarantined_ledger.jsonl",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "tracked": true
     },
     {
@@ -3752,6 +3857,26 @@
       "path": "jsonl_v3/sources.jsonl",
       "rows": 18,
       "sha256": "0961f2382bd4b2273b22768d8b2d9912a287abb7f081b0d48e2df9a035dfab06",
+      "tracked": true
+    },
+    {
+      "bytes": 17765076,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "jsonl_v4/findings.jsonl",
+      "rows": 5270,
+      "sha256": "28202be38bf95a16a1f1bcccb99555b0d48b3d33bd7a5cfdbb1a4aaf194150ed",
+      "tracked": true
+    },
+    {
+      "bytes": 1056,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "jsonl_v4/sources.jsonl",
+      "rows": 3,
+      "sha256": "51364a1ee968d486123d8000eaa9a09c19a8a4a262789cfa2f1cc3d6365361fa",
       "tracked": true
     },
     {
