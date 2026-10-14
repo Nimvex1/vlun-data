@@ -96,7 +96,26 @@ def sha256_file(path: Path, chunk: int = 1 << 20) -> str:
     return h.hexdigest()
 
 
+def claim(value, etype: str, rule: str | None = None, refs=None,
+          note: str | None = None) -> dict:
+    """Evidence wrapper whose pointer cannot be forgotten.
+
+    `rule` names the producing rule as ``rule:<module>:<function>`` and is
+    always stored in ``source_refs`` (first position); extra `refs` (URLs,
+    ids) follow. A fact-typed wrapper built without `rule` carries an empty
+    list, which the pointer gate rejects — the call site must name its rule.
+    Deliberately unvalidated: vocabulary enforcement belongs to the
+    validators (schema_terms), not to construction.
+    """
+    d = {"value": value if value not in ("", None) else None,
+         "evidence_type": etype,
+         "source_refs": ([rule] if rule else []) + list(refs or [])}
+    if note:
+        d["note"] = note
+    return d
+
+
 __all__ = [
-    "read_jsonl", "sha256_bytes", "sha256_file", "sha256_text",
+    "claim", "read_jsonl", "sha256_bytes", "sha256_file", "sha256_text",
     "write_json", "write_jsonl",
 ]

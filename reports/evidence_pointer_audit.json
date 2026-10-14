@@ -44,8 +44,8 @@
           "evidence_type": "derived_fact",
           "file": "derived/records.jsonl",
           "path": "attacker_model.required_cross_contract_state",
-          "rule_already_named_in": "scripts/build_derived.py:state_transition (owner/repo extraction over code_context)",
-          "source_refs": "rule:build_derived.py:state_transition"
+          "rule_already_named_in": "scripts/build_derived.py:attacker_model (owner/repo extraction over code_context)",
+          "source_refs": "rule:build_derived.py:attacker_model"
         },
         {
           "count": 8,

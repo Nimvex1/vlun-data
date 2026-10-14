@@ -702,6 +702,13 @@ def apply_resolutions(records: list[dict], resolutions: dict,
                     lambda mo: mo.group(1) + new + "/", url)
                 if c["source_url"] != url:
                     stats["urls_rewritten"] += 1
+                    # A source_refs entry copied from the pre-resolve URL must
+                    # follow the pin: otherwise the ref points at a mutable
+                    # branch while source_url is pinned (Phase 2 scans URLs).
+                    refs = c.get("source_refs")
+                    if isinstance(refs, list):
+                        c["source_refs"] = [
+                            c["source_url"] if r == url else r for r in refs]
                 c["original_reference"] = ref
                 c["source_url_original"] = url
                 c["commit_resolution_status"] = res.get("commit_resolution_status")

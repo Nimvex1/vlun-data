@@ -148,12 +148,14 @@ def classify(finding: dict) -> dict:
             labels.append({"category": top or "Unknown", "family": None,
                            "class": n.split("/")[-1] if "/" in n else n,
                            "subtype": None, "evidence_type": "derived_fact",
+                           "source_refs": ["rule:taxonomy.py:classify"],
                            "rule": "top-level matched, lower levels not attested",
                            "c4_original": raw, "c4_string": raw})
             continue
         cat, fam, cls, sub = hit
         labels.append({"category": cat, "family": fam, "class": cls, "subtype": sub,
                        "evidence_type": "derived_fact",
+                       "source_refs": ["rule:taxonomy.py:classify"],
                        "rule": "exact match against the taxonomy table in scripts/taxonomy.py",
                        "c4_original": raw, "c4_string": raw})
 
@@ -164,6 +166,7 @@ def classify(finding: dict) -> dict:
         "class": primary["class"],
         "subtype": primary["subtype"],
         "evidence_type": primary["evidence_type"],
+        "source_refs": ["rule:taxonomy.py:classify"],
         "rule": primary["rule"],
         "labels": labels,
         "multi_label": len(labels) > 1,

@@ -204,6 +204,7 @@ def analyse_cited(owner_repo: str, entry: dict, allow_text: bool) -> dict:
     res = dict(base)
     res.update({
         "evidence_type": "observed_fact",
+        "source_refs": [entry.get("source_url")] if entry.get("source_url") else [],
         "contracts": a["contracts"][:6],
         "function_count": a["function_count"],
         "state_variables": a["state_variables"][:40],

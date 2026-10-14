@@ -284,6 +284,12 @@ def taxonomy_view(finding: dict) -> dict:
                 "substituted for a missing class")
     else:
         note = lookup.get("note")
+    v1_lookup = {k: lookup.get(k) for k in
+                 ("category", "family", "class", "subtype", "evidence_type")}
+    # Pointer follows the taxonomy table only when the lookup derived one;
+    # unknown lookups stay ref-less like their source (scripts/taxonomy.py).
+    if lookup.get("source_refs"):
+        v1_lookup["source_refs"] = list(lookup["source_refs"])
     return {
         "classes": list(classes),
         "class_kinds": dict(kinds),
@@ -292,9 +298,7 @@ def taxonomy_view(finding: dict) -> dict:
                             "report's own id scheme, free_text from a "
                             "publisher that publishes no scheme",
         "primary_class": classes[0] if classes else None,
-        "v1_lookup": {k: lookup.get(k) for k in
-                      ("category", "family", "class", "subtype",
-                       "evidence_type")},
+        "v1_lookup": v1_lookup,
         "mapped_to_v1_vocabulary": bool(classes) and lookup.get("category") != "Unknown",
         "note": note,
         "policy": "class strings are preserved verbatim; the v1 taxonomy is "
@@ -469,6 +473,14 @@ def build_record(finding: dict, registry: dict[str, dict]) -> dict:
     quality["reasoning"] = "medium" if (f.get("root_cause") or f.get("summary")) \
         and len(str(f.get("summary") or "")) > 200 else "low"
 
+    # Pointer the corroboration judgement at the analysis that produced it
+    # (hand-authored Zentory authorship reasoning in build_ml_ingest.py).
+    # Unknown judgements stay ref-less: they claim nothing.
+    corrob = finding.get("corroboration_independence")
+    if isinstance(corrob, dict) and corrob.get("evidence_type") == "observed_fact":
+        corrob = dict(corrob)
+        corrob["source_refs"] = ["rule:build_ml_ingest.py"]
+
     return {
         "record_type": "derived_finding_v22",
         "dataset_version": DATASET_VERSION,
@@ -499,7 +511,7 @@ def build_record(finding: dict, registry: dict[str, dict]) -> dict:
         "duplicate_reports": finding.get("duplicate_reports") or [],
         "independent_confirmation_count":
             finding.get("independent_confirmation_count"),
-        "corroboration_independence": finding.get("corroboration_independence"),
+        "corroboration_independence": corrob,
         "quality": quality,
         "original_pointer": {
             "layer": "jsonl_ml",

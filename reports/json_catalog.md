@@ -54,12 +54,12 @@ also excluded: reports/v3/validation_v31.json.
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
 | `derived/hard_negatives.jsonl` | v1 | 3,643,242 | 458 rows | yes |
 | `derived/manifest.json` | v1 | 1,631 | object, 20 keys | yes |
-| `derived/records.jsonl` | v1 | 16,989,297 | 722 rows | yes |
+| `derived/records.jsonl` | v1 | 17,183,435 | 722 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
 | `derived_v2_2/manifest.json` | v2.2 | 1,923 | object, 20 keys | yes |
-| `derived_v2_2/records.jsonl` | v2.2 | 849,305 | 137 rows | yes |
+| `derived_v2_2/records.jsonl` | v2.2 | 854,181 | 137 rows | yes |
 | `derived_v3/candidate_ledger.jsonl` | v3 | 19,420,647 | 7712 rows | yes |
 | `derived_v3/corroborations.jsonl` | v3 | 34,481 | 108 rows | yes |
 | `derived_v3/corroborations_v31.jsonl` | v3 | 0 | 0 rows | yes |
@@ -242,7 +242,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
 | `reports/dataset_stats.json` | multi | 17,161 | object, 20 keys | yes |
 | `reports/depth_dashboard.json` | multi | 1,880 | object, 6 keys | yes |
-| `reports/evidence_pointer_audit.json` | multi | 6,688 | object, 7 keys | yes |
+| `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/extraction_errors.json` | multi | 35,478 | object, 7 keys | yes |
 | `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 724 | object, 12 keys | yes |

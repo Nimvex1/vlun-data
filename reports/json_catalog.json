@@ -803,13 +803,13 @@
       "tracked": true
     },
     {
-      "bytes": 16989297,
+      "bytes": 17183435,
       "category": "derived",
       "layer": "v1",
       "parse": "ok",
       "path": "derived/records.jsonl",
       "rows": 722,
-      "sha256": "141d20b35501d5b0e1582b5d7d11e67a91d94d515bed575df196a2ed2b0661a7",
+      "sha256": "429543d67743c24b6db41e0c6afa8e2d2df661af819e67142f44421b620de55d",
       "tracked": true
     },
     {
@@ -875,13 +875,13 @@
       "tracked": true
     },
     {
-      "bytes": 849305,
+      "bytes": 854181,
       "category": "derived",
       "layer": "v2.2",
       "parse": "ok",
       "path": "derived_v2_2/records.jsonl",
       "rows": 137,
-      "sha256": "b3f8b9d11d61051810f76d56cbd590c07d38ab2c910ff11b187cbafb1a1b07d2",
+      "sha256": "b8679a7e96987f20f0d6cf882e483d2abfd3e7c9932077a97c05364e0dfa191c",
       "tracked": true
     },
     {
@@ -3862,7 +3862,7 @@
       "tracked": true
     },
     {
-      "bytes": 6688,
+      "bytes": 6684,
       "category": "reports",
       "keys": [
         "buckets",
@@ -3877,7 +3877,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/evidence_pointer_audit.json",
-      "sha256": "aff6c3e8bfd4e8be34e89d92bd1088f122fa3c8a1c1c2b8057927adadc3da658",
+      "sha256": "22c0db50480e4e4fbf3a7510e7b272171007737d51d8825cda7fed15ab75ed80",
       "tracked": true
     },
     {
@@ -4869,7 +4869,7 @@
       "parse": "ok",
       "path": "splits_v2_2/test.jsonl",
       "rows": 284,
-      "sha256": "831c7ff3e24d0d7c0207db18bee76b2ca35a0a3e052f3c722000b2a812944fc1",
+      "sha256": "b48182b7015f8f0fccce2cf2964a87dfb0b37d7c507736e5adc852407070d869",
       "tracked": true
     },
     {
@@ -4879,7 +4879,7 @@
       "parse": "ok",
       "path": "splits_v2_2/train.jsonl",
       "rows": 489,
-      "sha256": "7db69eea65ee1a5dd7c4ae715a556317c81e8de5788c17af1ed86e64963bf71a",
+      "sha256": "5dbaa0880908379df81dd50ea6d1ba72d398dddf9e1587b182de7a7d138813fa",
       "tracked": true
     },
     {
@@ -4889,7 +4889,7 @@
       "parse": "ok",
       "path": "splits_v2_2/validation.jsonl",
       "rows": 307,
-      "sha256": "6e374ffb4ed00d1d42b4afe1ed4ffbeaa0da357dd0b45b8e1e07f99bb54ab184",
+      "sha256": "171ba3cb0219401c200c1151acfbb3c45d6055ad5f21bd22cc48faaeeae436f7",
       "tracked": true
     },
     {

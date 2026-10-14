@@ -135,6 +135,11 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
             for k, v in (t.get("signals") or {}).items():
                 if v:
                     signals[k] += 1
+    # Pointer the observation at the rule that produced its verdict. Unknown
+    # observations stay ref-less: they claim nothing.
+    for g in gates:
+        if isinstance(g, dict) and g.get("evidence_type") == "derived_fact":
+            g["source_refs"] = ["rule:solidity_facts.py:functions"]
 
     prose = " ".join(str(x) for x in [
         finding.get("title"), finding.get("summary"), finding.get("root_cause"),
@@ -208,14 +213,17 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         if s.get("has_delegatecall"):
             caps.append({"value": "the analysed function performs a delegatecall",
                          "evidence_type": "derived_fact",
+                         "source_refs": ["rule:build_derived.py:attacker_model"],
                          "note": "rule: delegatecall token present in the stripped body"})
         if s.get("uses_tx_origin"):
             caps.append({"value": "the analysed function reads tx.origin",
                          "evidence_type": "derived_fact",
+                         "source_refs": ["rule:build_derived.py:attacker_model"],
                          "note": "rule: tx.origin token present in the stripped body"})
         if s.get("has_external_call"):
             caps.append({"value": "the analysed function makes an external call",
                          "evidence_type": "derived_fact",
+                         "source_refs": ["rule:build_derived.py:attacker_model"],
                          "note": "rule: `.call(` / typed external call present"})
         if s.get("has_contract_creation"):
             prereqs.append({"value": "the analysed function deploys a contract",
@@ -228,6 +236,9 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "attacker_identity": {
             "value": kind,
             "evidence_type": basis if kind != "unknown" else "unknown",
+            "source_refs": (["rule:build_derived.py:attacker_model"]
+                            if kind != "unknown" and basis == "derived_fact"
+                            else []),
             "basis": basis,
             "why": why,
             "attributed_sentence": rep_sentence if basis == "reported_claim" else None,
@@ -246,6 +257,7 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "trusted_roles": sorted(roles),
         "required_permissions": [
             {"role": r, "evidence_type": "derived_fact",
+             "source_refs": ["rule:solidity_facts.py:functions"],
              "note": f"observed modifier {m}"}
             for r, m in sorted({(rr, mm) for c in ctx for f in (c.get("functions") or [])
                                 for rr, mm in zip(f.get("required_roles") or [], f.get("modifiers") or [])})
@@ -263,6 +275,10 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
             "derived_fact" if any((c.get("file") or "").count("/") > 1 and
                                   not c.get("file", "").startswith(f"{row['source']['repository']}/")
                                   for c in ctx) else "unknown",
+            refs=(["rule:build_derived.py:attacker_model"]
+                  if any((c.get("file") or "").count("/") > 1 and
+                         not c.get("file", "").startswith(f"{row['source']['repository']}/")
+                         for c in ctx) else None),
             note="other owners/repositories whose code the finding's reasoning touches"),
         "access_control_observations": gates[:8],
         "mechanical_signal_counts": dict(signals),
