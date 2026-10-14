@@ -1,5 +1,5 @@
 {
-  "checks": 72,
+  "checks": 73,
   "dataset_version": "2.2",
   "details": [
     {
@@ -222,6 +222,15 @@
       "check": "reproduced_requires_a_successful_forge_run",
       "critical": true,
       "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "every_fact_field_has_a_pointer",
+      "critical": true,
+      "detail": "2 published meta exemptions; silent bucket must stay 0",
       "failure_count": 0,
       "failures": [],
       "group": "evidence",
@@ -656,13 +665,13 @@
   "groups": {
     "audit_sources": 5,
     "consistency": 9,
-    "evidence": 7,
+    "evidence": 8,
     "provenance": 6,
     "splits": 3,
     "structure": 5,
     "v2.1": 24,
     "v2.2": 13
   },
-  "passed": 72,
+  "passed": 73,
   "warnings": 0
 }

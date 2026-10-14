@@ -292,6 +292,57 @@ def check_consistency(rep, core):
     return splits
 
 
+def load_pointer_exemptions() -> set[tuple[str, str]] | None:
+    """(file, path) pairs exempt from the source_refs requirement.
+
+    Single source: reports/evidence_pointer_audit.json buckets.meta — the
+    published exemption list from the Phase 1 audit (meta wrappers that
+    describe the schema or the record itself). Returns None when the audit
+    file cannot be read; callers must fail loudly, never treat a missing
+    exemption list as "everything is exempt".
+    """
+    try:
+        doc = json.loads(
+            (REPORTS / "evidence_pointer_audit.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    out = set()
+    for entry in ((doc.get("buckets") or {}).get("meta") or {}).get("entries", []):
+        out.add((entry.get("file"), entry.get("path")))
+    return out
+
+
+def fact_pointer_violations(rows: list[dict], file_label: str,
+                            exemptions: set[tuple[str, str]]) -> list[str]:
+    """IDs+paths of derived_fact/observed_fact wrappers with no pointer.
+
+    Pure: operates on the given rows only, so the negative-control test can
+    plant violations without touching committed files. A wrapper needs
+    non-empty source_refs unless (file, index-stripped path) is exempt, where
+    index-stripped means ``taxonomy.labels[0]`` matches ``taxonomy.labels[]``.
+    """
+    bad = []
+
+    def walk(node, path, fid):
+        if isinstance(node, dict):
+            et = node.get("evidence_type")
+            if et in ("derived_fact", "observed_fact"):
+                refs = node.get("source_refs")
+                key = (file_label, re.sub(r"\[\d+\]", "[]", path))
+                if not refs and key not in exemptions:
+                    bad.append(f"{fid} {path or '<root>'} {et} with empty source_refs")
+            for k, v in node.items():
+                walk(v, k if not path else f"{path}.{k}", fid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", fid)
+
+    for r in rows:
+        fid = (r.get("finding") or {}).get("id") or r.get("id") or "?"
+        walk(r, "", fid)
+    return bad
+
+
 def check_evidence(rep, core):
     """Evidence checks."""
     # -------------------------------------------------------------- evidence
@@ -420,6 +471,28 @@ def check_evidence(rep, core):
             if v["verdict"] == "reproduced" and v.get("evidence", {}).get("forge_status") != "Success":
                 ver_bad.append(f"{f.name} {v['finding_id']} reproduced without forge Success")
     rep.add("evidence", "reproduced_requires_a_successful_forge_run", not ver_bad, ver_bad)
+
+    # Phase 1 pointer gate: every derived_fact/observed_fact wrapper in the
+    # derived layers names its pointer, except the published meta exemptions
+    # (reports/evidence_pointer_audit.json buckets.meta). Critical: a fact
+    # without a pointer is the exact defect Phase 1 closed.
+    import vlun_ml as _ml
+    exemptions = load_pointer_exemptions()
+    if exemptions is None:
+        rep.add("evidence", "every_fact_field_has_a_pointer", False,
+                ["reports/evidence_pointer_audit.json unreadable: "
+                 "exemptions unverifiable, nothing is assumed exempt"])
+    else:
+        ptr_bad = []
+        for _rel, _rows in (
+                ("derived/records.jsonl",
+                 read_jsonl(DERIVED / "records.jsonl") if (DERIVED / "records.jsonl").exists() else []),
+                ("derived_v2_2/records.jsonl",
+                 read_jsonl(_ml.DERIVED_V22 / "records.jsonl") if (_ml.DERIVED_V22 / "records.jsonl").exists() else [])):
+            ptr_bad += fact_pointer_violations(_rows, _rel, exemptions)
+        rep.add("evidence", "every_fact_field_has_a_pointer", not ptr_bad, ptr_bad,
+                detail=f"{len(exemptions)} published meta exemptions; "
+                       f"silent bucket must stay 0")
 
 
 def check_splits(rep, splits):

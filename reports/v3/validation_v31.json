@@ -291,12 +291,9 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "3 dirty entries under data dirs, 2 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 2,
-      "failures": [
-        " M derived/records.jsonl",
-        " M derived_v2_2/records.jsonl"
-      ],
+      "detail": "0 dirty entries under data dirs, 0 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

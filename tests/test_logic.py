@@ -305,5 +305,47 @@ class TestPocClassification(unittest.TestCase):
         self.assertIn("failed", rationale2)
 
 
+class TestFactPointerGate(unittest.TestCase):
+    def test_planted_violation_fails(self):
+        # Negative control: a derived_fact with no pointer must be flagged.
+        # Synthetic rows only — committed files are never touched.
+        from validate_checks import fact_pointer_violations
+        rows = [{"id": "planted-1",
+                 "w": {"value": "x", "evidence_type": "derived_fact"}}]
+        bad = fact_pointer_violations(rows, "derived/records.jsonl", set())
+        self.assertEqual(len(bad), 1)
+        self.assertIn("planted-1", bad[0])
+
+    def test_empty_variants_all_fail(self):
+        from validate_checks import fact_pointer_violations
+        for refs in (None, [], "missing"):
+            w = {"value": "x", "evidence_type": "observed_fact"}
+            if refs != "missing":
+                w["source_refs"] = refs
+            bad = fact_pointer_violations(
+                [{"id": "t", "w": w}], "derived/records.jsonl", set())
+            self.assertEqual(len(bad), 1, refs)
+
+    def test_pointed_and_exempt_and_untyped_pass(self):
+        from validate_checks import fact_pointer_violations
+        rows = [{"id": "ok",
+                 "w": {"value": "x", "evidence_type": "derived_fact",
+                       "source_refs": ["rule:m.py:f"]},
+                 "m": {"value": None, "evidence_type": "derived_fact"},
+                 "r": {"value": "x", "evidence_type": "reported_claim"},
+                 "u": {"evidence_type": "unknown"}}]
+        exemptions = {("derived/records.jsonl", "m")}
+        self.assertEqual(
+            fact_pointer_violations(rows, "derived/records.jsonl", exemptions), [])
+
+    def test_exemption_list_loads_published_meta(self):
+        from validate_checks import load_pointer_exemptions
+        exemptions = load_pointer_exemptions()
+        self.assertIsNotNone(exemptions)
+        self.assertIn(("derived/records.jsonl", "evidence.schema"), exemptions)
+        self.assertIn(("derived/records.jsonl", "evidence.record_confidence"),
+                      exemptions)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

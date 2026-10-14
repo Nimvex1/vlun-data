@@ -278,7 +278,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/patch_verification_report.json` | multi | 303 | object, 7 keys | yes |
 | `reports/v3/poc_extraction_report.json` | multi | 287 | object, 7 keys | yes |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
-| `reports/validation_report.json` | multi | 17,268 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 17,520 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 27,811 | object, 3 keys | yes |
 
@@ -338,7 +338,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 1,363 | object, 11 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
-| `Vbeta/present_snapshot.json` | meta | 718 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 723 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 72/72 · v3.0 42/42 · v3.1 35/35 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (0 critical failures everywhere): v2 73/73 · v3.0 42/42 · v3.1 35/35 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
