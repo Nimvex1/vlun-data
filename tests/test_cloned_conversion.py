@@ -7,6 +7,7 @@ STAGE = ROOT / "work" / "cloned_conversion" / "staged_report_candidates.jsonl"
 WEB_MANIFEST = ROOT / "work" / "new_sources_intake_manifest.json"
 
 
+@unittest.skipUnless(STAGE.exists(), "staged report candidates unavailable (work directory is gitignored)")
 class TestClonedConversionStage (unittest.TestCase):
     def setUp(self):
         self.rows = [json.loads(x) for x in STAGE.read_text(encoding="utf-8").splitlines() if x.strip()]
