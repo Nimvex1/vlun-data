@@ -1,0 +1,37 @@
+{
+  "admitted": 5270,
+  "candidate_ledger": 5270,
+  "dataset_version": "4.0",
+  "duplicates": 0,
+  "extracted_findings": 5270,
+  "generated_at": "2026-10-14T11:51:30.815979Z",
+  "languages": {
+    "go": 3394,
+    "michelson": 4,
+    "move": 5,
+    "rust": 143,
+    "solidity": 1555,
+    "teal": 14,
+    "unknown": 155
+  },
+  "layer": "V4",
+  "licensing_risks": [
+    "halborn_public_reports: no LICENSE file found",
+    "coinfabrik_audit_reports: no LICENSE file found",
+    "oak_security_audit_reports: CC BY-ND 4.0"
+  ],
+  "missing_provenance": 2554,
+  "quarantined": 0,
+  "reports_by_source": {
+    "coinfabrik_audit_reports": 226,
+    "halborn_public_reports": 1785,
+    "oak_security_audit_reports": 3259
+  },
+  "source_candidates_staged": 666,
+  "verification_levels": {
+    "L0": 5270
+  },
+  "vulnerability_classes": {
+    "unknown": 5270
+  }
+}

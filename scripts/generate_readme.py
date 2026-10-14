@@ -654,11 +654,29 @@ See [`NOTICE.md`](NOTICE.md).
     return lines
 
 
+def render_v4() -> str:
+    m = jread(ROOT / "derived_v4" / "manifest.json", {}) or {}
+    if not m:
+        return ""
+    levels = m.get("verification_levels", {}) or {}
+    langs = ", ".join(f"{k} {v}" for k, v in (m.get("languages") or {}).items())
+    return (
+        "\n## V4 layer\n\n"
+        "Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives "
+        f"(`work/cloned_conversion/staged_report_candidates.jsonl`, {m.get('source_candidates_staged', 0)} report candidates). "
+        f"Records: {m.get('extracted_findings', 0)} extracted, {m.get('admitted', 0)} admitted, "
+        f"{m.get('quarantined', 0)} quarantined, {m.get('duplicates', 0)} duplicates. "
+        f"Evidence levels: {levels}. Languages: {langs}. Missing provenance is tracked in the manifest; "
+        "all records are L0 only (no PoC execution was performed). Details: "
+        "`reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.\n"
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
-    want = render()
+    want = render() + render_v4()
     notice = render_notice()
     if args.check:
         stale = []
