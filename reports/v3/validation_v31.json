@@ -291,14 +291,11 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "5 dirty entries under data dirs, 5 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 5,
+      "detail": "3 dirty entries under data dirs, 2 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 2,
       "failures": [
-        " M benchmark/manifest.json",
-        "R  benchmark/K_language_ecosystem_routing.jsonl -> benchmark/retired_families/K_language_ecosystem_routing.jsonl",
-        "R  benchmark/L_severity_reconciliation.jsonl -> benchmark/retired_families/L_severity_reconciliation.jsonl",
-        "?? benchmark/retired_families/K_language_ecosystem_routing.retirement.json",
-        "?? benchmark/retired_families/L_severity_reconciliation.retirement.json"
+        " M benchmark/independent/secondary_holdout_tasks.jsonl",
+        " M benchmark/v3_R_source_tier_routing.jsonl"
       ],
       "group": "isolation",
       "ok": true

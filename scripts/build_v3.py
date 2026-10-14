@@ -90,6 +90,23 @@ SPLIT_OF = {
     "sigmaprime-audits": "test", "anza-security-audits": "test",
 }
 
+# Stratified-by-tier override for family R ONLY (shared SPLIT_OF and
+# splits_v3/split.json stay untouched: T rows are frozen and derived_v3
+# records keep their canonical splits). Every R source is tier-uniform and
+# only defihacklabs (tier 0) and pashov-audits (tier 1) are non-tier-2, so
+# no 3-way by-source partition gives every split >= 2 tiers (pigeonhole:
+# the third split would hold tier-2 sources only). Train and test each get
+# two tiers; R has no validation rows (I/G/H/J precedent: families need
+# not span splits). Whole sources move together, so by-source isolation
+# holds trivially; unknown future sources fall back to SPLIT_OF and the
+# split_degenerate gate trips if that reintroduces degeneracy.
+R_SPLIT_OF = {
+    "pashov-audits": "train", "c4-renzo-findings": "train",
+    "sherlock-optimism": "train", "c4-phi-findings": "train",
+    "sherlock-symmetrical": "train",
+    "defihacklabs": "test", "c4-reserve-findings": "test",
+}
+
 
 
 def main() -> int:
@@ -464,7 +481,7 @@ def main() -> int:
             "answer": {"tier": next(s["tier"] for s in V.SOURCES_V3 if s["source_id"] == r["source_id"])},
             "answer_key_status": "labeled",
             "source": {"record_id": r["finding_id"], "source_id": r["source_id"]},
-            "split": r["benchmark_split"],
+            "split": R_SPLIT_OF.get(r["source_id"], r["benchmark_split"]),
         })
         if r["source_id"].startswith("c4-") or r["source_id"].startswith("sherlock-"):
             bench_s.append({

@@ -1705,17 +1705,17 @@
         "verdict": "clean"
       },
       "baselines_test_split": {
-        "answer_space_from_train": 3,
-        "best_shortcut_accuracy": 1.0,
+        "answer_space_from_train": 2,
+        "best_shortcut_accuracy": 0.1086,
         "frequency_from_train": {
-          "accuracy": 0.1215,
+          "accuracy": 0.0274,
           "coverage": 1.0,
-          "macro_f1": 0.0722
+          "macro_f1": 0.0552
         },
         "input_retrieval": {
-          "accuracy": 1.0,
+          "accuracy": 0.1086,
           "coverage": 1.0,
-          "macro_f1": 1.0
+          "macro_f1": 0.1521
         },
         "majority_from_train": {
           "accuracy": 0.0,
@@ -1728,22 +1728,22 @@
           "macro_f1": 0.0
         },
         "random_from_train_space": {
-          "accuracy": 0.3551,
+          "accuracy": 0.0548,
           "coverage": 1.0,
-          "macro_f1": 0.1747
+          "macro_f1": 0.0611
         },
         "source_only_lookup": {
           "accuracy": 0.0,
           "coverage": 0.0,
           "macro_f1": 0.0
         },
-        "test_rows": 107,
+        "test_rows": 985,
         "title_retrieval": {
-          "accuracy": 0.1682,
+          "accuracy": 0.0244,
           "coverage": 1.0,
-          "macro_f1": 0.144
+          "macro_f1": 0.1143
         },
-        "train_rows": 5006
+        "train_rows": 4482
       },
       "claim": "route a finding to a provenance tier",
       "class_disjoint": {
@@ -1779,11 +1779,11 @@
       "group_overlap": {
         "group_type": "source",
         "shared_groups": 0,
-        "test_groups": 1,
-        "test_rows": 107,
+        "test_groups": 2,
+        "test_rows": 985,
         "test_rows_in_shared_group": 0,
         "test_rows_in_shared_group_pct": 0.0,
-        "train_groups": 4
+        "train_groups": 5
       },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.0833,
@@ -1796,7 +1796,7 @@
       "record_overlap": {
         "record_id_overlap": 0,
         "repositories_shared": 0,
-        "test_rows": 107,
+        "test_rows": 985,
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
@@ -1807,28 +1807,28 @@
       "split_drift": {
         "per_split_label_distribution": {
           "test": {
+            "0": 878,
             "2": 107
           },
           "train": {
-            "0": 878,
             "1": 3517,
-            "2": 611
-          },
-          "validation": {
-            "2": 354
+            "2": 965
           }
         },
         "train_majority_probe": {
-          "label_mix_l1_distance": 1.7559,
-          "test_is_single_class": true,
-          "test_labels_absent_from_train": [],
-          "test_rows": 107,
+          "label_mix_l1_distance": 1.7827,
+          "test_is_single_class": false,
+          "test_labels_absent_from_train": [
+            "0"
+          ],
+          "test_rows": 985,
           "train_majority": "1",
           "train_majority_accuracy_on_test": 0.0
         }
       },
       "usable_as_evidence": false,
       "validity_flags": [
+        "held_out_labels_unseen_in_train",
         "split_composition_drift"
       ]
     },

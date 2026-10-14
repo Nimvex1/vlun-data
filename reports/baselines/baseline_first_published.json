@@ -154,19 +154,13 @@
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 107
+          "scorable": 985
         },
         "train": {
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 5006
-        },
-        "validation": {
-          "accuracy": null,
-          "correct": 0,
-          "predicted": 0,
-          "scorable": 354
+          "scorable": 4482
         }
       }
     },

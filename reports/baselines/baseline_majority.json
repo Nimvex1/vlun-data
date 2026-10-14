@@ -153,20 +153,14 @@
         "test": {
           "accuracy": 0.0,
           "correct": 0,
-          "predicted": 107,
-          "scorable": 107
+          "predicted": 985,
+          "scorable": 985
         },
         "train": {
-          "accuracy": 0.7025569316819816,
+          "accuracy": 0.784694332887104,
           "correct": 3517,
-          "predicted": 5006,
-          "scorable": 5006
-        },
-        "validation": {
-          "accuracy": 0.0,
-          "correct": 0,
-          "predicted": 354,
-          "scorable": 354
+          "predicted": 4482,
+          "scorable": 4482
         }
       }
     },

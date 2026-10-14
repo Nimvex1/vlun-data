@@ -144,29 +144,23 @@
       }
     },
     "v3_R_source_tier_routing.jsonl": {
-      "accuracy": 0.9427473934516188,
-      "accuracy_scorable": 0.9427473934516188,
-      "correct": 5154,
+      "accuracy": 0.8178159868300713,
+      "accuracy_scorable": 0.8178159868300713,
+      "correct": 4471,
       "predicted": 5467,
       "scorable": 5467,
       "splits": {
         "test": {
-          "accuracy": 0.028037383177570093,
-          "correct": 3,
-          "predicted": 107,
-          "scorable": 107
+          "accuracy": 0.0020304568527918783,
+          "correct": 2,
+          "predicted": 985,
+          "scorable": 985
         },
         "train": {
-          "accuracy": 0.9800239712345186,
-          "correct": 4906,
-          "predicted": 5006,
-          "scorable": 5006
-        },
-        "validation": {
-          "accuracy": 0.692090395480226,
-          "correct": 245,
-          "predicted": 354,
-          "scorable": 354
+          "accuracy": 0.997099509147702,
+          "correct": 4469,
+          "predicted": 4482,
+          "scorable": 4482
         }
       }
     },
@@ -226,16 +220,16 @@
     }
   },
   "micro": {
-    "accuracy": 0.9237542627373135,
-    "accuracy_scorable": 0.9230495371783135,
-    "correct": 18149,
+    "accuracy": 0.8889906856008551,
+    "accuracy_scorable": 0.8883124809276778,
+    "correct": 17466,
     "predicted": 19647,
     "scorable": 19662
   },
   "micro_all_families": {
-    "accuracy": 0.9257217729182668,
-    "accuracy_scorable": 0.9250948166877371,
-    "correct": 20489,
+    "accuracy": 0.8948628744408801,
+    "accuracy_scorable": 0.8942568177713563,
+    "correct": 19806,
     "predicted": 22133,
     "scorable": 22148
   },

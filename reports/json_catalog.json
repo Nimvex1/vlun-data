@@ -248,7 +248,7 @@
       "tracked": true
     },
     {
-      "bytes": 721,
+      "bytes": 739,
       "category": "meta",
       "keys": [
         "note",
@@ -259,7 +259,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "1ab1e6634500a242b7ee0b2e8639c11e349e435194fe7a7cc87d0991e39cfc8b",
+      "sha256": "3fc0e008015c1694558b46528250f74484aeb28d6967211f64b723f525bd9383",
       "tracked": true
     },
     {
@@ -552,13 +552,13 @@
       "tracked": true
     },
     {
-      "bytes": 1630922,
+      "bytes": 1628274,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/secondary_holdout_tasks.jsonl",
       "rows": 2716,
-      "sha256": "d133b2b3de32b64196315baeeba64b6966ba8fe9c874bec588fd35a5e88ba26e",
+      "sha256": "d47149b1e260694910a6d6aa8353b76393ad64ab2c5bc534373652b3655a63cc",
       "tracked": true
     },
     {
@@ -672,7 +672,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/K_language_ecosystem_routing.retirement.json",
       "sha256": "b4b6b74f13215ba1aa345d1b5d7b44565b16a9ab4e318d4f63c8541b1c799d4c",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 361836,
@@ -703,7 +703,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/L_severity_reconciliation.retirement.json",
       "sha256": "fc08b7e5a7e252efff05dfd9532fac79a0333a1e5aa48706b74d22a85ebb609d",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 204677,
@@ -892,13 +892,13 @@
       "tracked": true
     },
     {
-      "bytes": 2944595,
+      "bytes": 2941947,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/v3_R_source_tier_routing.jsonl",
       "rows": 5467,
-      "sha256": "e9f627feca6faa6db79094c83788953178ba44c1d10b55883673a562fe002623",
+      "sha256": "7f1754840cba655eaee8cf0cd9d7ce2688b0f610847f3e2941caf3422f20ca8a",
       "tracked": true
     },
     {
@@ -3817,7 +3817,7 @@
       "tracked": true
     },
     {
-      "bytes": 5563,
+      "bytes": 5424,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3831,11 +3831,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "a56c146469c802517ba3f3707fce7f276dab00742bbbc2a759ef990b7918555a",
+      "sha256": "5de949764a1873734e9a2ad525dc109351c3b0634d79ab11ed6d6c1e9fd09efb",
       "tracked": true
     },
     {
-      "bytes": 6048,
+      "bytes": 5891,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3849,11 +3849,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "f1935fa75a68c59503e36740101833ec2717d2652d2a055f119f86357835e908",
+      "sha256": "a6864dc1b164a66b22a00ea96bc07130fa286fff235dc3ec6b6ebd9847cabee2",
       "tracked": true
     },
     {
-      "bytes": 6015,
+      "bytes": 5874,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3867,11 +3867,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "8bc9fb7678eaac93300f82fc47a72037f58b8501022b7c308dfce4f1197b0cb2",
+      "sha256": "3e38c11f104d30cc5e476bb10c7dd762ccb44858d751b4088935d37597ac79e3",
       "tracked": true
     },
     {
-      "bytes": 5566,
+      "bytes": 5427,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3885,11 +3885,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "7a034f12729e22eda9644d9a5a0a66dce1b4b6dae8d01ee0b254f87b883bc575",
+      "sha256": "3009dafa1e27009ac1124ff587f301a2b80089c5c51a882213385089f1bff1fb",
       "tracked": true
     },
     {
-      "bytes": 6045,
+      "bytes": 5891,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3903,11 +3903,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "6d867147275a48d282d42bbc3be238397b0b36969321d47062875986efa7491b",
+      "sha256": "f59fd87523d9a4d807a9b35f92ebbd941b1d1434559bad539c9ab8a3b8e8b3d5",
       "tracked": true
     },
     {
-      "bytes": 6054,
+      "bytes": 5898,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3921,7 +3921,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "0b34de713d355c5952b354b27b6c1e736656d694d42849ed68a8f4a83322c376",
+      "sha256": "2fa3e13c26d73c96dbc60ba743d9bb77125e86fe973c5590593b6fff1b35b617",
       "tracked": true
     },
     {
@@ -4154,7 +4154,7 @@
       "tracked": true
     },
     {
-      "bytes": 66774,
+      "bytes": 66795,
       "category": "reports",
       "keys": [
         "audit_version",
@@ -4166,7 +4166,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/independent/audit.json",
-      "sha256": "1478437c27984a185b7e2cc03bc73664203fdf95b83fc8730ac9d52160de0e59",
+      "sha256": "27ed2ed2167e7ad76922904a322eacbb75015e1785f85d273660b9d8dcecdd25",
       "tracked": true
     },
     {
@@ -4312,7 +4312,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/manifest_checks.json",
-      "sha256": "7b75b7d04e27ae5b5d3e0c254af26f2438912646f14916a73e7efa5d544bc80d",
+      "sha256": "d8d4200a3a52cd9ee805e972f0c1bda7b19fa134d6d26b68322f4931561642b1",
       "tracked": true
     },
     {

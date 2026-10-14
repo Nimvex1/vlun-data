@@ -557,6 +557,43 @@ def main() -> int:
     F.add("vbeta", "ledger", "decisions closed vocabulary", True,
           decisions_sum_to_ledger(ledb), "every ledger row carries a decision")
 
+    # ---- split degeneracy (Phase 3.3) ---------------------------------------
+    # Every non-empty headline split with >=50 scorable rows must carry >=2
+    # distinct gold labels: a single-label split cannot discriminate at all
+    # (v3_R validation/test were 100% tier-2). Retired families are frozen
+    # and exempt; families without a scalar projection (generative/
+    # descriptive/judge-graded) have no labels to count; smaller splits are
+    # too small to judge and stay smoke signals per RUBRIC.md. Threshold 50
+    # separates structural degeneracy (R: 107/354 rows) from sampling noise
+    # (F train: 16, G/I/J: <=7).
+    from score_benchmark import PROJECTIONS as _PROJ, key_dict as _key_dict, norm as _snorm
+    _degen, _deg_scanned = [], []
+    for _d in (ROOT / "benchmark", ROOT / "Vbeta" / "benchmark_vbeta"):
+        for _p in sorted(_d.glob("*.jsonl")):
+            if "manifest" in _p.name:
+                continue
+            _proj = _PROJ.get(_p.name)
+            if _proj is None:
+                continue
+            _per_split: dict[str, list] = {}
+            for _line in _p.read_text(encoding="utf-8").splitlines():
+                if not _line.strip():
+                    continue
+                _r = json.loads(_line)
+                if _r.get("answer_key_status") != "labeled":
+                    continue
+                _g = _r.get("answer") if _proj[0] is None else _key_dict(_r).get(_proj[0])
+                if _g is None:
+                    continue
+                _per_split.setdefault(str(_r.get("split", "unknown")), []).append(_snorm(_g))
+            _deg_scanned.append(_p.name)
+            for _s, _golds in sorted(_per_split.items()):
+                if len(_golds) >= 50 and len(set(_golds)) < 2:
+                    _degen.append(f"{_p.name}:{_s} {len(_golds)} rows, 1 label")
+    F.add("bench", "splits", "no_degenerate_headline_split", [], _degen,
+          f"{len(_deg_scanned)} headline families scanned; "
+          f"split_degenerate exclusion enforced by failing loudly")
+
     # ---- leakage detectors --------------------------------------------------
     # Same-split repetition is expected (finding + exploit rows share ids);
     # cross-split sharing is the signal. Class Jaccard and title/contract

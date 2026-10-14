@@ -151,22 +151,16 @@
       "scorable": 5467,
       "splits": {
         "test": {
-          "accuracy": 0.16822429906542055,
-          "correct": 18,
-          "predicted": 107,
-          "scorable": 107
+          "accuracy": 0.15126903553299492,
+          "correct": 149,
+          "predicted": 985,
+          "scorable": 985
         },
         "train": {
-          "accuracy": 0.49800239712345185,
-          "correct": 2493,
-          "predicted": 5006,
-          "scorable": 5006
-        },
-        "validation": {
-          "accuracy": 0.20056497175141244,
-          "correct": 71,
-          "predicted": 354,
-          "scorable": 354
+          "accuracy": 0.5428380187416332,
+          "correct": 2433,
+          "predicted": 4482,
+          "scorable": 4482
         }
       }
     },

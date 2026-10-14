@@ -89,10 +89,13 @@ baselines disagree about the scorable set — a stale floor is worse than no
 floor.
 
 Reports live in `reports/baselines/`. The retrieval baseline scores high
-because same-project inputs share vocabulary (notably the tier-heavy R
-family): it measures project-matchability, not reasoning — published
+because same-project inputs share vocabulary: it measures
+project-matchability, not reasoning — published
 precisely so a model beat is read against the right floor, and so the
-bulk-tier families' memorization-proneness stays visible.
+bulk-tier families' memorization-proneness stays visible. Family R's splits
+are stratified by tier (train {1,2}, test {0,2}, no validation rows) because
+every R source is tier-uniform, which made the old test split 100% tier 2;
+its audit shortcut fell 1.0000 → 0.1086 on stratification.
 
 ## Saturated families (headline majority >= 0.94 — a beat here carries no signal)
 

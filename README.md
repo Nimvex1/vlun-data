@@ -167,12 +167,12 @@ first-published 0.0000 @
 0 tasks ·
 majority-published 0.0000 @
 0 tasks ·
-TF-IDF retrieval 0.9238.
+TF-IDF retrieval 0.8890.
 Continuity micro-accuracy over **all families ever shipped** (headline + retired,
 comparable to prior releases): majority 0.8725 ·
 random-seed7 0.3608 ·
 frequency-seed7 0.8135 ·
-TF-IDF retrieval 0.9257.
+TF-IDF retrieval 0.8949.
 Families marked SATURATED (majority >= 0.94: F, G, I, J, U, V)
 carry no signal — a model beat there proves nothing. Family A majority accuracy
 differs by split (see baseline reports); a split-blind floor is a validity
@@ -206,7 +206,7 @@ python scripts/build_all.py --with-network   # everything
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
-python scripts/check_manifests.py            # 171 count/reference checks, recomputed from canonical records
+python scripts/check_manifests.py            # 172 count/reference checks, recomputed from canonical records
 python scripts/check_reproducibility.py      # provenance, determinism, isolation (skips stay skipped_no_network)
 python -m unittest discover -s tests        # terminology, invariants, fixtures (incl. intentionally-broken)
 python scripts/generate_readme.py --check    # this file is generated; stays current only if regenerated
