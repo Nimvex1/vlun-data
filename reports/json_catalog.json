@@ -286,7 +286,7 @@
       "tracked": true
     },
     {
-      "bytes": 739,
+      "bytes": 738,
       "category": "meta",
       "keys": [
         "note",
@@ -297,7 +297,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "3fc0e008015c1694558b46528250f74484aeb28d6967211f64b723f525bd9383",
+      "sha256": "fb26a04fc11f6fcfa4ea3b44718f38e5bdaf38485078519e8d9b6603af6b1ef2",
       "tracked": true
     },
     {
