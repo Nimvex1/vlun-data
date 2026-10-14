@@ -45,6 +45,15 @@ BENCH = ROOT / "benchmark"
 DATASET_VERSION_V3 = "3.0"
 SCHEMA_VERSION_V3 = "3.0"
 
+# v3 benchmark families: manifest task-key -> task-file name. The key and the
+# file invert the v3 prefix (R_v3_source_tier_routing <-> v3_R_...jsonl), so
+# the mapping lives here once instead of being re-derived per consumer.
+V3_FAMILY_FILES = {
+    "R_v3_source_tier_routing": "v3_R_source_tier_routing.jsonl",
+    "S_v3_contest_outcome": "v3_S_contest_outcome.jsonl",
+    "T_v31_taxonomy_explicit": "v3_T_taxonomy_explicit.jsonl",
+}
+
 UNKNOWN = "unknown"
 
 # Verification levels: single source of truth is

@@ -291,10 +291,26 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "1 dirty entries under data dirs, 1 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 1,
+      "detail": "18 dirty entries under data dirs, 17 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 17,
       "failures": [
-        " M derived/records.jsonl"
+        " M benchmark/manifest.json",
+        "R  benchmark/B_root_cause_reasoning.jsonl -> benchmark/retired_families/B_root_cause_reasoning.jsonl",
+        "R  benchmark/E_exploit_verification.jsonl -> benchmark/retired_families/E_exploit_verification.jsonl",
+        "R  benchmark/M_experiment_level_classification.jsonl -> benchmark/retired_families/M_experiment_level_classification.jsonl",
+        "R  benchmark/N_attacker_identity_extraction.jsonl -> benchmark/retired_families/N_attacker_identity_extraction.jsonl",
+        "R  benchmark/O_record_class_and_scope.jsonl -> benchmark/retired_families/O_record_class_and_scope.jsonl",
+        "R  benchmark/P_provenance_tier_and_rights.jsonl -> benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
+        "R  benchmark/v3_S_contest_outcome.jsonl -> benchmark/retired_families/v3_S_contest_outcome.jsonl",
+        "R  benchmark/v3_T_taxonomy_explicit.jsonl -> benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
+        "?? benchmark/retired_families/B_root_cause_reasoning.retirement.json",
+        "?? benchmark/retired_families/E_exploit_verification.retirement.json",
+        "?? benchmark/retired_families/M_experiment_level_classification.retirement.json",
+        "?? benchmark/retired_families/N_attacker_identity_extraction.retirement.json",
+        "?? benchmark/retired_families/O_record_class_and_scope.retirement.json",
+        "?? benchmark/retired_families/P_provenance_tier_and_rights.retirement.json",
+        "?? benchmark/retired_families/v3_S_contest_outcome.retirement.json",
+        "?? benchmark/retired_families/v3_T_taxonomy_explicit.retirement.json"
       ],
       "group": "isolation",
       "ok": true

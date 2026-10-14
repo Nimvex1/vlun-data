@@ -217,7 +217,7 @@ def main() -> int:
     # benchmark tasks resolve + splits resolve
     bench_ok, bench_fails = True, []
     bench_tasks = 0
-    for name in ("v3_R_source_tier_routing.jsonl", "v3_S_contest_outcome.jsonl"):
+    for name in ("v3_R_source_tier_routing.jsonl", "retired_families/v3_S_contest_outcome.jsonl"):
         path = V.BENCH / name
         if not path.exists():
             bench_ok = False

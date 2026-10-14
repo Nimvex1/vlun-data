@@ -168,7 +168,7 @@ def build_benchmark_metrics() -> str:
 
     det = jl(BENCH / "A_vulnerability_detection.jsonl")
     fp = jl(BENCH / "F_false_positive_rejection.jsonl")
-    ev = jl(BENCH / "E_exploit_verification.jsonl")
+    ev = jl(BENCH / "retired_families" / "E_exploit_verification.jsonl")
     d_t = jl(BENCH / "D_exploit_construction.jsonl")
     # Majority-baseline accuracy per family (recomputed by the scorer, read
     # here — never typed). Families at >= 0.94 carry no signal: beating

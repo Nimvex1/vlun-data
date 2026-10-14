@@ -53,8 +53,8 @@ class TestManifestKeysRequired(unittest.TestCase):
                 encoding="utf-8"))["tasks"]
         for fname, mkey in [
                 ("v3_R_source_tier_routing.jsonl", "R_v3_source_tier_routing"),
-                ("v3_S_contest_outcome.jsonl", "S_v3_contest_outcome"),
-                ("v3_T_taxonomy_explicit.jsonl", "T_v31_taxonomy_explicit")]:
+                ("retired_families/v3_S_contest_outcome.jsonl", "S_v3_contest_outcome"),
+                ("retired_families/v3_T_taxonomy_explicit.jsonl", "T_v31_taxonomy_explicit")]:
             rows = sum(1 for _ in (ROOT / "benchmark" / fname).open(
                 encoding="utf-8"))
             self.assertIn(mkey, v3m, f"manifest key {mkey!r} missing")

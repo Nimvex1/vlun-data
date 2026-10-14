@@ -27,8 +27,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DATASET_VERSION, DERIVED, JSONL, REPORTS, ROOT, SPLITS, WORK, log, read_jsonl,
-    write_json, write_jsonl,
+    DATASET_VERSION, DERIVED, JSONL, REPORTS, RETIRED_FAMILIES, ROOT, SPLITS, WORK, log, read_jsonl,
+    retired_manifest_entry, write_json, write_jsonl,
 )
 
 BENCH = ROOT / "benchmark"
@@ -587,7 +587,25 @@ def main() -> int:
         "Q_evidence_type_and_quality_rubric": "judge-graded rubric dict",
     }
     BENCH.mkdir(parents=True, exist_ok=True)
+    try:
+        _prev_manifest = json.loads((BENCH / "manifest.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        _prev_manifest = {}
+    retired_carried = []
     for key, name in names.items():
+        if f"{name}.jsonl" in RETIRED_FAMILIES:
+            # Retired families stay frozen under benchmark/retired_families/;
+            # their manifest entry is carried over so file-rows checks keep
+            # verifying them, but no rows are rebuilt.
+            carried = retired_manifest_entry(_prev_manifest, name)
+            if carried is not None:
+                carried["status"] = "retired"
+                manifest["tasks"][name] = carried
+                retired_carried.append(name)
+                log(f"  {name:28s} retired, entry carried")
+            else:
+                log(f"  {name:28s} retired, no carried entry (manifest keeps none)")
+            continue
         # One record can appear several times in a split (finding row, exploit row,
         # patch row all carry the same finding id). A benchmark task is keyed by id,
         # so duplicates are collapsed rather than silently inflating the count.
@@ -608,6 +626,7 @@ def main() -> int:
         unscorable = len(rows) - scorable
         entry = {
             "file": f"benchmark/{name}.jsonl",
+            "status": "headline",
             "tasks": len(rows),
             "labeled": statuses.get("labeled", 0),
             "partial": statuses.get("partial", 0),

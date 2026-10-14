@@ -1,11 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "Phase 2 permalink gate added (v2 gate 73 to 74 checks); README regenerated",
+  "resnapshot_reason": "Phase 3.1 retires 8 saturated families (B,E,M,N,O,P,S,T) with dual headline numbers",
   "sentinel_sha256": {
-    "README.md": "803d96016e86356343f2f7626fcf138d5d17b3659a827b3fed4a4d45f7abbb7b",
-    "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
+    "README.md": "20fd0f1f6252239b710081737a42930377ff92e6bb331dba58940825a6aee281",
+    "benchmark/manifest.json": "6e28580e54e656dbdf1f2bcfa2259ec5ee5a5a69299b3935c30a0300cdd904b8",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
     "pyproject.toml": "72d7dea5899efb94758c3e5cda95f92f5e39930d4e8472e14c6cd1e7e6ed2a0d",
-    "scripts/vlun_v3.py": "212af14e934e3080bec4e8050590f26f3c7461dcead72abbf6116cb7acd59247"
+    "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
   }
 }

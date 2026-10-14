@@ -466,7 +466,7 @@ def main() -> int:
                 detail=f"git unavailable: {exc}", critical=False)
 
     # ---- benchmark family T ------------------------------------------------------
-    bench_path = V.BENCH / "v3_T_taxonomy_explicit.jsonl"
+    bench_path = V.BENCH / "retired_families" / "v3_T_taxonomy_explicit.jsonl"
     if bench_path.exists():
         prev_by_id = {r.get("finding_id"): r for r in preview}
         t_tasks, t_bad = 0, []

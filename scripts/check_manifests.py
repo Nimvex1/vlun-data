@@ -413,7 +413,7 @@ def main() -> int:
           "list_endpoint/provenance notes; content inline")
     bq_cited = sum(
         1 for f in ("benchmark/L_severity_reconciliation.jsonl",
-                    "benchmark/P_provenance_tier_and_rights.jsonl",
+                    "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
                     "benchmark/Q_evidence_type_and_quality_rubric.jsonl")
         for r in jl(ROOT / f) if _WB.search(json.dumps(r)))
     F.add("v2.2", "benchmark L/P/Q", "tasks citing work/ payloads", 16,
@@ -446,9 +446,9 @@ def main() -> int:
     v3m_tasks = js(ROOT / "benchmark" / "v3_manifest.json")["tasks"]
     for fam, fname, mkey in [("R", "v3_R_source_tier_routing.jsonl",
                               "R_v3_source_tier_routing"),
-                             ("S", "v3_S_contest_outcome.jsonl",
+                             ("S", "retired_families/v3_S_contest_outcome.jsonl",
                               "S_v3_contest_outcome"),
-                             ("T", "v3_T_taxonomy_explicit.jsonl",
+                             ("T", "retired_families/v3_T_taxonomy_explicit.jsonl",
                               "T_v31_taxonomy_explicit")]:
         tasks = jl(ROOT / "benchmark" / fname)
         # A missing manifest key must FAIL, never silently compare the file
@@ -480,7 +480,8 @@ def main() -> int:
     ro3 = {r["candidate_id"] for r in led3 if r["decision"] == "RESEARCH_ONLY"}
     leaked = []
     for fname in ("v3_R_source_tier_routing.jsonl",
-                  "v3_S_contest_outcome.jsonl", "v3_T_taxonomy_explicit.jsonl"):
+                   "retired_families/v3_S_contest_outcome.jsonl",
+                   "retired_families/v3_T_taxonomy_explicit.jsonl"):
         leaked += [task_record_id(t) for t in jl(ROOT / "benchmark" / fname)
                    if task_record_id(t) in ro3]
     F.add("v3", "benchmark R/S/T", "no RESEARCH_ONLY in benchmarks", [],
@@ -635,10 +636,13 @@ def main() -> int:
                    "class_vocabulary"}
     fam_files = sorted(
         p.name for d in (ROOT / "benchmark",
+                         ROOT / "benchmark" / "retired_families",
                          ROOT / "Vbeta" / "benchmark_vbeta")
         for p in d.glob("*.jsonl") if "manifest" not in p.name)
     for fam_file in fam_files:
         d = ROOT / "benchmark" / fam_file
+        if not d.is_file():
+            d = ROOT / "benchmark" / "retired_families" / fam_file
         if not d.is_file():
             d = ROOT / "Vbeta" / "benchmark_vbeta" / fam_file
         rows = jl(d)

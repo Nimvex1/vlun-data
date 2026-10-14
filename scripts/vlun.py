@@ -186,6 +186,38 @@ BENCHMARK_FAMILIES = {
           "type every claim's evidence and apply the published quality rubric"),
 }
 
+# Retired benchmark families: task files live under benchmark/retired_families/
+# (v3 families likewise), kept byte-identical and still audited, but excluded
+# from the headline micro-average. Task-file names (with .jsonl), matching
+# score_benchmark load_tasks keys and the moved files. A family returns to the
+# headline only with an audit showing best_shortcut_accuracy < 0.75 on the
+# test split. K/L/R are NOT listed: their prescribed fixes (Phase 3.2/3.3)
+# run first; failures join this set via the shortcut gate.
+RETIRED_FAMILIES = frozenset({
+    "B_root_cause_reasoning.jsonl",
+    "E_exploit_verification.jsonl",
+    "M_experiment_level_classification.jsonl",
+    "N_attacker_identity_extraction.jsonl",
+    "O_record_class_and_scope.jsonl",
+    "P_provenance_tier_and_rights.jsonl",
+    "v3_S_contest_outcome.jsonl",
+    "v3_T_taxonomy_explicit.jsonl",
+})
+
+
+def retired_manifest_entry(manifest: dict, task_key: str):
+    """Carry a retired family's manifest entry forward unchanged.
+
+    Builders that skip retired families must still emit their manifest
+    entries (gates iterate every known family), so the entry is copied
+    verbatim from the previous manifest — which on a fresh clone is the
+    committed one. Returns None when there is nothing to carry.
+    """
+    entry = ((manifest or {}).get("tasks") or {}).get(task_key)
+    if entry is None:
+        return None
+    return dict(entry) if isinstance(entry, dict) else entry
+
 
 def read_jsonl(path: Path) -> list[dict]:
     return _io.read_jsonl(path)

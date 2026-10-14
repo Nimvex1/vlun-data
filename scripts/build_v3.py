@@ -44,6 +44,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
 import v32_execution as _exec_mod  # noqa: E402
+from vlun import RETIRED_FAMILIES  # noqa: E402
 
 U = V.UNKNOWN
 
@@ -477,7 +478,12 @@ def main() -> int:
                 "split": r["benchmark_split"],
             })
     V.write_jsonl(V.BENCH / "v3_R_source_tier_routing.jsonl", bench_r)
-    V.write_jsonl(V.BENCH / "v3_S_contest_outcome.jsonl", bench_s)
+    if "v3_S_contest_outcome.jsonl" in RETIRED_FAMILIES:
+        # S stays frozen under benchmark/retired_families/; its count is
+        # carried so the manifest keeps covering every known family.
+        V.log("  S_v3_contest_outcome retired, rows not rebuilt")
+    else:
+        V.write_jsonl(V.BENCH / "v3_S_contest_outcome.jsonl", bench_s)
     try:
         from schema_terms import BENCHMARK_CANARY as _CANARY  # noqa: E402
     except ImportError:

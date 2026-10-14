@@ -27,6 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
 from build_v3 import SPLIT_OF  # noqa: E402
+from vlun import RETIRED_FAMILIES  # noqa: E402
 
 U = V.UNKNOWN
 
@@ -83,12 +84,19 @@ def main() -> int:
           f"({skipped_leak} title-leakers excluded)")
     if args.check:
         return 0
-    V.write_jsonl(V.BENCH / "v3_T_taxonomy_explicit.jsonl", tasks)
+    if "v3_T_taxonomy_explicit.jsonl" in RETIRED_FAMILIES:
+        # T stays frozen under benchmark/retired_families/; the manifest
+        # keeps its count and families entry (carried, not recomputed).
+        V.log("build_benchmark_v31.py: T_v31_taxonomy_explicit retired, "
+              "rows not rebuilt")
+    else:
+        V.write_jsonl(V.BENCH / "v3_T_taxonomy_explicit.jsonl", tasks)
     man_path = V.BENCH / "v3_manifest.json"
     man = json.loads(man_path.read_text(encoding="utf-8"))
     if "T_v31_taxonomy_explicit" not in man["families"]:
         man["families"].append("T_v31_taxonomy_explicit")
-    man["tasks"]["T_v31_taxonomy_explicit"] = len(tasks)
+    if "v3_T_taxonomy_explicit.jsonl" not in RETIRED_FAMILIES:
+        man["tasks"]["T_v31_taxonomy_explicit"] = len(tasks)
     # Idempotent provenance: strip any previously appended suffixes before
     # re-adding once, so reruns never duplicate text.
     gen = man.get("generated_by", "")

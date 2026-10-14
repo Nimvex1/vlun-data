@@ -1043,6 +1043,15 @@ def check_v22_layer(rep):
     mpath = BENCH / "manifest.json"
     man = json.loads(mpath.read_text(encoding="utf-8")) if mpath.exists() else {}
     tasks_manifest = man.get("tasks") or {}
+
+    def _task_file(name: str) -> Path:
+        # Manifest `file` fields are the source of truth for task locations:
+        # retired families live under benchmark/retired_families/ while the
+        # manifest keeps covering them (check 6 above guarantees the entry).
+        entry = tasks_manifest.get(name)
+        if isinstance(entry, dict) and entry.get("file"):
+            return ROOT / entry["file"]
+        return BENCH / f"{name}.jsonl"
     fam_bad = []
     for key, (name, layer, _q) in (BENCHMARK_FAMILIES).items():
         entry = tasks_manifest.get(name)
@@ -1071,7 +1080,7 @@ def check_v22_layer(rep):
     STATUS_VOCAB = {"labeled", "partial", "unlabeled", "unscorable"}
     row_bad = []
     for key, (name, layer, _q) in BENCHMARK_FAMILIES.items():
-        f = BENCH / f"{name}.jsonl"
+        f = _task_file(name)
         if not f.exists():
             continue
         for r in read_jsonl(f):
@@ -1122,7 +1131,7 @@ def check_v22_layer(rep):
         for key, (name, _layer, _q) in BENCHMARK_FAMILIES.items():
             if _layer != "v2.2":
                 continue
-            f = BENCH / f"{name}.jsonl"
+            f = _task_file(name)
             on_disk = read_jsonl(f) if f.exists() else []
             if json.dumps(rebuilt.get(key, []), sort_keys=True, ensure_ascii=False) != \
                     json.dumps(on_disk, sort_keys=True, ensure_ascii=False):
@@ -1137,7 +1146,7 @@ def check_v22_layer(rep):
 
     # 9. family M is exactly the set of records with a run behind them: no
     #    task graded experimentally_verified without one, none missing
-    m_file = BENCH / "M_experiment_level_classification.jsonl"
+    m_file = _task_file("M_experiment_level_classification")
     m_ids = {r["source"]["record_id"] for r in read_jsonl(m_file)} if m_file.exists() else set()
     ran_ids = {r["id"] for r in d22 if (r.get("experiment_view") or {}).get("present")}
     diff = sorted(m_ids ^ ran_ids)

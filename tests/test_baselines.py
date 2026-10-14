@@ -71,7 +71,7 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
         self.assertEqual(rep["micro"]["scorable"], total)
 
     def test_all_six_baselines_agree_on_scorable_set(self):
-        want = None
+        want = want_all = None
         for n in ("majority", "random_seed7", "frequency_seed7",
                   "first_published", "majority_published", "retrieval"):
             p = BASE / f"baseline_{n}.json"
@@ -81,6 +81,11 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
                 want = s
             self.assertEqual(s, want, f"baseline_{n}.json disagrees on "
                                       f"the scorable task set")
+            a = rep["micro_all_families"]["scorable"]
+            if want_all is None:
+                want_all = a
+            self.assertEqual(a, want_all, f"baseline_{n}.json disagrees on "
+                                          f"the all-families scorable set")
 
 
 if __name__ == "__main__":

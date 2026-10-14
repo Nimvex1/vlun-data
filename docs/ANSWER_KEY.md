@@ -7,6 +7,10 @@ and which families are exactly scorable. The scorer is
 and restated here. Anything here that disagrees with the task files is a
 bug — the files win, this doc gets fixed.
 
+Retired families (B, E, M, N, O, P, S, T — see `benchmark/retired_families/`
+and `docs/RUBRIC.md`) keep the schemas below unchanged; only their location
+and headline status changed.
+
 ## Status vocabulary (every task has one)
 
 | status | meaning |

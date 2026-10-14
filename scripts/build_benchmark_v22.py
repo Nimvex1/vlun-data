@@ -54,7 +54,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    ATTACKER_KINDS, BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, ROOT, SPLITS, log, read_jsonl, sha256_text, write_json, write_jsonl,
+    ATTACKER_KINDS, BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, RETIRED_FAMILIES, ROOT, SPLITS, log, read_jsonl, retired_manifest_entry, sha256_text, write_json, write_jsonl,
 )
 from vlun_ml import (  # noqa: E402
     DERIVED_V22, EXPERIMENTS_V22, FAMILY_LANGUAGES, ML_JSONL, SOURCE_TIERS,
@@ -613,6 +613,7 @@ def manifest_entry(key: str, rows: list[dict]) -> dict:
     scorable = st.get("labeled", 0)
     entry = {
         "file": f"benchmark/{name}.jsonl",
+        "status": "headline",
         "layer": "v2.2",
         "question": BENCHMARK_FAMILIES[key][2],
         "tasks": len(rows),
@@ -664,6 +665,17 @@ def main() -> int:
 
     BENCH.mkdir(parents=True, exist_ok=True)
     for key in V22_FAMILIES:
+        if f"{BENCHMARK_FAMILIES[key][0]}.jsonl" in RETIRED_FAMILIES:
+            # Frozen under benchmark/retired_families/; carry the manifest
+            # entry, rebuild no rows.
+            carried = retired_manifest_entry(manifest, BENCHMARK_FAMILIES[key][0])
+            if carried is not None:
+                carried["status"] = "retired"
+                manifest["tasks"][BENCHMARK_FAMILIES[key][0]] = carried
+                log(f"  {BENCHMARK_FAMILIES[key][0]:34s} retired, entry carried")
+            else:
+                log(f"  {BENCHMARK_FAMILIES[key][0]:34s} retired, no carried entry")
+            continue
         rows = tasks[key]
         seen, uniq, dropped = set(), [], 0
         for r in rows:

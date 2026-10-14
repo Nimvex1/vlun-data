@@ -38,6 +38,7 @@ datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
 benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,153 tasks)
+benchmark/retired_families/  retired headline-excluded families (B,E,M,N,O,P,S,T), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
@@ -130,10 +131,10 @@ families that need experimentally produced ground truth only admit rows that hav
 | Family | Tasks | Scorable | Saturated | Layer |
 |---|---|---|---|---|
 | `A_vulnerability_detection` | 720 | 720 |  | v1/A-Q |
-| `B_root_cause_reasoning` | 720 | 228 | SATURATED | v1/A-Q |
+| `B_root_cause_reasoning` | 720 | 228 | RETIRED | v1/A-Q |
 | `C_attacker_reasoning` | 720 | 290 |  | v1/A-Q |
 | `D_exploit_construction` | 720 | 346 |  | v1/A-Q |
-| `E_exploit_verification` | 720 | 7 |  | v1/A-Q |
+| `E_exploit_verification` | 720 | 7 | RETIRED | v1/A-Q |
 | `F_false_positive_rejection` | 458 | 17 | SATURATED | v1/A-Q |
 | `G_patch_verification` | 38 | 7 | SATURATED | v1/A-Q |
 | `H_verified_exploit` | 7 | 7 |  | v1/A-Q |
@@ -141,32 +142,38 @@ families that need experimentally produced ground truth only admit rows that hav
 | `J_verified_patch` | 7 | 7 | SATURATED | v1/A-Q |
 | `K_language_ecosystem_routing` | 137 | 137 |  | v1/A-Q |
 | `L_severity_reconciliation` | 137 | 128 |  | v1/A-Q |
-| `M_experiment_level_classification` | 37 | 37 | SATURATED | v1/A-Q |
-| `N_attacker_identity_extraction` | 137 | 14 |  | v1/A-Q |
-| `O_record_class_and_scope` | 137 | 137 |  | v1/A-Q |
-| `P_provenance_tier_and_rights` | 137 | 137 |  | v1/A-Q |
+| `M_experiment_level_classification` | 37 | 37 | RETIRED | v1/A-Q |
+| `N_attacker_identity_extraction` | 137 | 14 | RETIRED | v1/A-Q |
+| `O_record_class_and_scope` | 137 | 137 | RETIRED | v1/A-Q |
+| `P_provenance_tier_and_rights` | 137 | 137 | RETIRED | v1/A-Q |
 | `Q_evidence_type_and_quality_rubric` | 137 | 137 |  | v1/A-Q |
 | `R_v3_source_tier_routing` | 5,467 | 5,467 |  | v3 |
-| `S_v3_contest_outcome` | 1,072 | 1,072 | SATURATED | v3 |
-| `T_v31_taxonomy_explicit` | 589 | 589 | SATURATED | v3 |
+| `S_v3_contest_outcome` | 1,072 | 1,072 | RETIRED | v3 |
+| `T_v31_taxonomy_explicit` | 589 | 589 | RETIRED | v3 |
 | `vbeta_U_language_routing` | 6,218 | 6,218 | SATURATED | Vbeta |
 | `vbeta_V_source_tier_routing` | 6,935 | 6,935 | SATURATED | Vbeta |
 
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 22,148 of
+`docs/ANSWER_KEY.md`) covers 19,927 of
 22,638 manifest-scorable tasks
 (D generative, Q judge-graded, H descriptive excluded with reasons).
-Published deterministic baselines, micro-accuracy / coverage:
-majority 0.8725 ·
+Published deterministic baselines, micro-accuracy / coverage (**headline families only** —
+retired families excluded, see RETIRED marks above and `benchmark/retired_families/`):
+majority 0.8668 ·
+random-seed7 0.3443 ·
+frequency-seed7 0.8042 ·
+first-published 0.0036 @
+71 tasks ·
+majority-published 0.0036 @
+71 tasks ·
+TF-IDF retrieval 0.9201.
+Continuity micro-accuracy over **all families ever shipped** (headline + retired,
+comparable to prior releases): majority 0.8725 ·
 random-seed7 0.3608 ·
 frequency-seed7 0.8135 ·
-first-published 0.0032 @
-71 tasks ·
-majority-published 0.0032 @
-71 tasks ·
 TF-IDF retrieval 0.9257.
-Families marked SATURATED (majority >= 0.94: B, F, G, I, J, M, S, T, U, V)
+Families marked SATURATED (majority >= 0.94: F, G, I, J, U, V)
 carry no signal — a model beat there proves nothing. Family A majority accuracy
 differs by split (see baseline reports); a split-blind floor is a validity
 hazard. `scripts/check_manifests.py` recomputes every one of these

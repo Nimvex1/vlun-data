@@ -1,0 +1,11 @@
+{
+  "family": "P_provenance_tier_and_rights",
+  "leak_mechanism": "degenerate label distribution at 0.9032 majority",
+  "measured_answer_leak_severity": "none",
+  "measured_best_shortcut_accuracy": 0.9032,
+  "reason": "saturated shortcut: carries no signal as headline evidence; data preserved byte-identical",
+  "retired_on": "2026-10-14",
+  "return_rule": "may return to the headline only with an audit showing best_shortcut_accuracy < 0.75 on the test split",
+  "source": "reports/independent/audit.json families[*].baselines_test_split + answer_leakage",
+  "status": "retired"
+}

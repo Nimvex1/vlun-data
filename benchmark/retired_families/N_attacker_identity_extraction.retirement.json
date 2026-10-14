@@ -1,0 +1,11 @@
+{
+  "family": "N_attacker_identity_extraction",
+  "leak_mechanism": "degenerate label distribution",
+  "measured_answer_leak_severity": "none",
+  "measured_best_shortcut_accuracy": 1.0,
+  "reason": "saturated shortcut: carries no signal as headline evidence; data preserved byte-identical",
+  "retired_on": "2026-10-14",
+  "return_rule": "may return to the headline only with an audit showing best_shortcut_accuracy < 0.75 on the test split",
+  "source": "reports/independent/audit.json families[*].baselines_test_split + answer_leakage",
+  "status": "retired"
+}

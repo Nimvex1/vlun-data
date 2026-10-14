@@ -490,7 +490,7 @@ def main() -> int:
     ml_cited = sum(_rows_with_cite(p) for p in (ROOT / "jsonl_ml").glob("*.jsonl"))
     bq_cited = sum(_rows_with_cite(ROOT / f) for f in
                    ("benchmark/L_severity_reconciliation.jsonl",
-                    "benchmark/P_provenance_tier_and_rights.jsonl",
+                    "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
                     "benchmark/Q_evidence_type_and_quality_rubric.jsonl"))
     G.ok("data-layer work/ citations censused",
          f"jsonl_ml={ml_cited} benchmark-LPQ={bq_cited} total="

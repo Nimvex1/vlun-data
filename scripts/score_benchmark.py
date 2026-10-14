@@ -73,6 +73,7 @@ EXCLUDED = {
 }
 
 FAMILY_DIRS = [ROOT / "benchmark", ROOT / "Vbeta" / "benchmark_vbeta"]
+RETIRED_DIRS = [ROOT / "benchmark" / "retired_families"]
 
 
 def norm(v) -> str:
@@ -117,10 +118,19 @@ def key_dict(row: dict) -> dict:
     return a if isinstance(a, dict) else {"answer": a}
 
 
-def load_tasks():
-    """Return {task_id: (family_file, gold_scalar or None, scorable)}."""
+def load_tasks(include_retired=False):
+    """Return {task_id: (family_file, gold_scalar or None, scorable)}.
+
+    Retired families live under benchmark/retired_families/ and are excluded
+    by default (top-level glob never sees the subdir): the headline numbers
+    cover headline families only. Pass include_retired=True for the
+    continuity number over every family ever shipped.
+    """
     tasks = {}
-    for d in FAMILY_DIRS:
+    dirs = list(FAMILY_DIRS)
+    if include_retired:
+        dirs += [d for d in RETIRED_DIRS if d.is_dir()]
+    for d in dirs:
         if not d.is_dir():
             continue
         for path in sorted(d.glob("*.jsonl")):
@@ -212,6 +222,26 @@ def score(predictions: dict[str, str]):
                     tid = row.get("id") or row.get("task_id")
                     splits_of[tid] = str(row.get("split", "unknown"))
     rep = score_tasks(tasks, predictions, splits_of)
+    # Continuity number over every family ever shipped (headline + retired):
+    # retired rows live under retired_families/ with identical bytes, so this
+    # reproduces the pre-retirement micro exactly (asserted by re-running an
+    # old baseline report against it during review).
+    all_tasks = load_tasks(include_retired=True)
+    all_splits_of = dict(splits_of)
+    for d in RETIRED_DIRS:
+        if not d.is_dir():
+            continue
+        for path in sorted(d.glob("*.jsonl")):
+            with open(path, encoding="utf-8") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    row = json.loads(line)
+                    tid = row.get("id") or row.get("task_id")
+                    all_splits_of[tid] = str(row.get("split", "unknown"))
+    rep_all = score_tasks(all_tasks, predictions, all_splits_of)
+    rep["micro_all_families"] = rep_all["micro"]
     per_family = rep["families"]
     # Manifest-scorable vs scorer-covered reconciliation. The manifest
     # counts every row with an answer key; the scorer covers the labeled
@@ -249,6 +279,7 @@ def score(predictions: dict[str, str]):
         "micro": {"scorable": tot_s, "predicted": tot_p, "correct": tot_c,
                   "accuracy": tot_c / tot_p if tot_p else None,
                   "accuracy_scorable": tot_c / tot_s if tot_s else None},
+        "micro_all_families": rep_all["micro"],
         "coverage": {"manifest_scorable_total": manifest_scorable,
                      "scorer_covered": tot_s,
                      "excluded_families": excluded_detail},
@@ -257,7 +288,7 @@ def score(predictions: dict[str, str]):
 
 
 def baseline_predictions(kind: str, seed: int = 7) -> dict[str, str]:
-    tasks = load_tasks()
+    tasks = load_tasks(include_retired=True)
     by_fam: dict[str, list] = collections.defaultdict(list)
     ids: dict[str, list] = collections.defaultdict(list)
     for tid, (fam, gold, scorable) in tasks.items():
@@ -269,8 +300,11 @@ def baseline_predictions(kind: str, seed: int = 7) -> dict[str, str]:
     if kind == "frequency":
         # Label-frequency prior: seeded draw from the family's empirical
         # answer distribution (a stochastic constant predictor, distinct
-        # from deterministic majority).
-        for fam, golds in by_fam.items():
+        # from deterministic majority). Families iterate in sorted order so
+        # the RNG sequence matches the pre-retirement layout exactly
+        # (retired families keep their file names, only the directory moved).
+        for fam in sorted(by_fam):
+            golds = by_fam[fam]
             dist = sorted(set(golds))
             weights = [golds.count(g) / len(golds) for g in dist]
             for tid in ids[fam]:
@@ -312,7 +346,8 @@ def baseline_predictions(kind: str, seed: int = 7) -> dict[str, str]:
         # docs/RUBRIC.md; leakage-free by construction (test answers never
         # indexed, and a train task never retrieves itself).
         return retrieval_predictions(seed)
-    for fam, golds in by_fam.items():
+    for fam in sorted(by_fam):
+        golds = by_fam[fam]
         if kind == "majority":
             top = collections.Counter(golds).most_common()
             best_n = top[0][1]
@@ -330,26 +365,30 @@ def baseline_predictions(kind: str, seed: int = 7) -> dict[str, str]:
 
 
 def retrieval_predictions(seed: int = 7) -> dict[str, str]:
-    tasks = load_tasks()
+    tasks = load_tasks(include_retired=True)
     rows: dict[str, tuple[str, str, str]] = {}  # tid -> (fam, gold, split)
-    for d in FAMILY_DIRS:
-        if not d.is_dir():
+    # Merged name-sorted file order replicates the pre-retirement layout
+    # exactly (retired files kept their names, only the directory moved),
+    # so tie-breaks and the RNG-free deterministic output are unchanged.
+    paths = sorted(
+        (p for d in FAMILY_DIRS + [x for x in RETIRED_DIRS if x.is_dir()]
+         if d.is_dir() for p in d.glob("*.jsonl")),
+        key=lambda p: p.name)
+    for path in paths:
+        if "manifest" in path.name or path.name in EXCLUDED:
             continue
-        for path in sorted(d.glob("*.jsonl")):
-            if "manifest" in path.name or path.name in EXCLUDED:
-                continue
-            with open(path, encoding="utf-8") as fh:
-                for line in fh:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    row = json.loads(line)
-                    if row.get("answer_key_status") != "labeled":
-                        continue
-                    tid = row.get("id") or row.get("task_id")
-                    if tid in tasks and tasks[tid][2]:
-                        rows[tid] = (path.name, tasks[tid][1],
-                                     str(row.get("split", "unknown")))
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                row = json.loads(line)
+                if row.get("answer_key_status") != "labeled":
+                    continue
+                tid = row.get("id") or row.get("task_id")
+                if tid in tasks and tasks[tid][2]:
+                    rows[tid] = (path.name, tasks[tid][1],
+                                 str(row.get("split", "unknown")))
     preds: dict[str, str] = {}
     fams: dict[str, list[str]] = collections.defaultdict(list)
     for tid, (fam, _, _) in rows.items():
@@ -376,7 +415,7 @@ _row_cache: dict[str, dict] = {}
 
 def _row_of(tid: str) -> dict:
     if tid not in _row_cache:
-        for d in FAMILY_DIRS:
+        for d in FAMILY_DIRS + [x for x in RETIRED_DIRS if x.is_dir()]:
             if not d.is_dir():
                 continue
             for path in sorted(d.glob("*.jsonl")):

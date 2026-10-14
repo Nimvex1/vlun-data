@@ -1,6 +1,6 @@
 {
   "by_category": {
-    "benchmark": 27,
+    "benchmark": 35,
     "datasets": 4,
     "derived": 31,
     "experiments": 82,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 258,
+  "file_count": 266,
   "files": [
     {
       "bytes": 1363,
@@ -248,7 +248,7 @@
       "tracked": true
     },
     {
-      "bytes": 718,
+      "bytes": 727,
       "category": "meta",
       "keys": [
         "note",
@@ -259,7 +259,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "da77bb7ccfcd4bcbbb5e831e8e5262429885fbdbcc8b942d38580d3e59db5bd9",
+      "sha256": "ce0c24941f72c1ed4a3fc6db7829cdca0acd451a15e1fdbcbb8a4590228823cb",
       "tracked": true
     },
     {
@@ -450,16 +450,6 @@
       "tracked": true
     },
     {
-      "bytes": 1738887,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/B_root_cause_reasoning.jsonl",
-      "rows": 720,
-      "sha256": "08082fe7096791a6f39d264dc06059136ab109e63de10e1b33fcbf3c7b9ff1aa",
-      "tracked": true
-    },
-    {
       "bytes": 1601415,
       "category": "benchmark",
       "layer": "multi",
@@ -477,16 +467,6 @@
       "path": "benchmark/D_exploit_construction.jsonl",
       "rows": 720,
       "sha256": "cb0851c6c582ddf006aafcf6128ba8fdbbeaa4fe444460e498dd97999ae63307",
-      "tracked": true
-    },
-    {
-      "bytes": 780615,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/E_exploit_verification.jsonl",
-      "rows": 720,
-      "sha256": "736b8604ba212ecb2b10b4ed5a3da771d207ce69e9640754f4d7cae62d582565",
       "tracked": true
     },
     {
@@ -560,46 +540,6 @@
       "tracked": true
     },
     {
-      "bytes": 204677,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/M_experiment_level_classification.jsonl",
-      "rows": 37,
-      "sha256": "61d7c533fd9e967562f8a93c18c4df11d559eda2cfe72b090b748253d3f4a137",
-      "tracked": true
-    },
-    {
-      "bytes": 321620,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/N_attacker_identity_extraction.jsonl",
-      "rows": 137,
-      "sha256": "b0db9e859fad72b315af93063616b93561d94d3fe8f2709eabe99b76c5bbc790",
-      "tracked": true
-    },
-    {
-      "bytes": 343316,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/O_record_class_and_scope.jsonl",
-      "rows": 137,
-      "sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
-      "tracked": true
-    },
-    {
-      "bytes": 338549,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/P_provenance_tier_and_rights.jsonl",
-      "rows": 137,
-      "sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
-      "tracked": true
-    },
-    {
       "bytes": 1042196,
       "category": "benchmark",
       "layer": "multi",
@@ -642,7 +582,7 @@
       "tracked": true
     },
     {
-      "bytes": 12326,
+      "bytes": 12898,
       "category": "benchmark",
       "keys": [
         "canary",
@@ -658,8 +598,256 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/manifest.json",
-      "sha256": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
+      "sha256": "6e28580e54e656dbdf1f2bcfa2259ec5ee5a5a69299b3935c30a0300cdd904b8",
       "tracked": true
+    },
+    {
+      "bytes": 1738887,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
+      "rows": 720,
+      "sha256": "08082fe7096791a6f39d264dc06059136ab109e63de10e1b33fcbf3c7b9ff1aa",
+      "tracked": true
+    },
+    {
+      "bytes": 586,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/B_root_cause_reasoning.retirement.json",
+      "sha256": "73c82e6f728ead357c81b4796ba8bc848665bf094f4832912e7da7cf92970875",
+      "tracked": false
+    },
+    {
+      "bytes": 780615,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/E_exploit_verification.jsonl",
+      "rows": 720,
+      "sha256": "736b8604ba212ecb2b10b4ed5a3da771d207ce69e9640754f4d7cae62d582565",
+      "tracked": true
+    },
+    {
+      "bytes": 563,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/E_exploit_verification.retirement.json",
+      "sha256": "f632517526d25d38c3a3de7726288117ccfed0609597178779b25f1d633383c4",
+      "tracked": false
+    },
+    {
+      "bytes": 204677,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/M_experiment_level_classification.jsonl",
+      "rows": 37,
+      "sha256": "61d7c533fd9e967562f8a93c18c4df11d559eda2cfe72b090b748253d3f4a137",
+      "tracked": true
+    },
+    {
+      "bytes": 585,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/M_experiment_level_classification.retirement.json",
+      "sha256": "6d5ba3877932f2f2bcd6a70da8f0151edb22836e2a200b8344aa042795588569",
+      "tracked": false
+    },
+    {
+      "bytes": 321620,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
+      "rows": 137,
+      "sha256": "b0db9e859fad72b315af93063616b93561d94d3fe8f2709eabe99b76c5bbc790",
+      "tracked": true
+    },
+    {
+      "bytes": 563,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/N_attacker_identity_extraction.retirement.json",
+      "sha256": "eaf6f90383bc0c5d442f998d0f969b377b2d195014050e5dea3f59de091f5986",
+      "tracked": false
+    },
+    {
+      "bytes": 343316,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/O_record_class_and_scope.jsonl",
+      "rows": 137,
+      "sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
+      "tracked": true
+    },
+    {
+      "bytes": 559,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/O_record_class_and_scope.retirement.json",
+      "sha256": "19597f68248b0f0c3c36a25aa46feac0e210a5b5d59a139d584ab466da1bf39b",
+      "tracked": false
+    },
+    {
+      "bytes": 338549,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
+      "rows": 137,
+      "sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
+      "tracked": true
+    },
+    {
+      "bytes": 583,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/P_provenance_tier_and_rights.retirement.json",
+      "sha256": "14288a7ccdaa31dff43cd3120aa2bb75ef3b9b5b1571ba14704e4d3310cdd543",
+      "tracked": false
+    },
+    {
+      "bytes": 551514,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
+      "rows": 1072,
+      "sha256": "728c0ca6c285821e09666a64da7753db6858505c1cfafe9e078b77d0f04873ea",
+      "tracked": true
+    },
+    {
+      "bytes": 582,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/v3_S_contest_outcome.retirement.json",
+      "sha256": "77f2d52c50ce4de7f0a0d2f746e3713b28f67bcf585320235dde96987f7ffb70",
+      "tracked": false
+    },
+    {
+      "bytes": 355666,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
+      "rows": 589,
+      "sha256": "06e7586ac05c949b4fd86faa1f292d65ea4572fe2c0b5159c472c895be8033f0",
+      "tracked": true
+    },
+    {
+      "bytes": 569,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/v3_T_taxonomy_explicit.retirement.json",
+      "sha256": "92ba65c6a140db757eb868e397129e55e141ba2cec332b07f5ffd6d33003f32d",
+      "tracked": false
     },
     {
       "bytes": 2944595,
@@ -669,26 +857,6 @@
       "path": "benchmark/v3_R_source_tier_routing.jsonl",
       "rows": 5467,
       "sha256": "e9f627feca6faa6db79094c83788953178ba44c1d10b55883673a562fe002623",
-      "tracked": true
-    },
-    {
-      "bytes": 551514,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/v3_S_contest_outcome.jsonl",
-      "rows": 1072,
-      "sha256": "728c0ca6c285821e09666a64da7753db6858505c1cfafe9e078b77d0f04873ea",
-      "tracked": true
-    },
-    {
-      "bytes": 355666,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/v3_T_taxonomy_explicit.jsonl",
-      "rows": 589,
-      "sha256": "06e7586ac05c949b4fd86faa1f292d65ea4572fe2c0b5159c472c895be8033f0",
       "tracked": true
     },
     {
@@ -3607,109 +3775,115 @@
       "tracked": true
     },
     {
-      "bytes": 11123,
+      "bytes": 6788,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "3a1499d01cdba82d5c1c85e5adf9064a508b282ce6f069228ca2d9db4306415e",
+      "sha256": "eb3649b840671ae7a9473b542e49ceac51a643fa9593a4e46e90899a2d2c43c4",
       "tracked": true
     },
     {
-      "bytes": 12133,
+      "bytes": 7379,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "83793fe26a511135fa8e9faf40a8d0293406a55d4736701d238bcccbb3ada40a",
+      "sha256": "9ac7436237f5b572a2ee1dd72db4a9f04985025914f73c317857c34782662e54",
       "tracked": true
     },
     {
-      "bytes": 12029,
+      "bytes": 7339,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "d65c12bbd5f693ae6c06a7f24d270070acb0b1943620ab2f188d29efe377d0ae",
+      "sha256": "b4c6bd914d40558269ee4893c083cdc9cd5b3abaadd687e295ec34bb0e158ddc",
       "tracked": true
     },
     {
-      "bytes": 11126,
+      "bytes": 6791,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "058b7fb5bc37f635677096721242d129c593518021d8ecbaa8fa3c5d8caba922",
+      "sha256": "d216f15e44e7a59e1f9b28e829f2bbb37a42c067d1f8f140a4cfa188fc7807c3",
       "tracked": true
     },
     {
-      "bytes": 12128,
+      "bytes": 7387,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "2696674850af3c532efc1a06abfd6ac70f43c6ae975447b2dac9de992d2fb4ac",
+      "sha256": "9ae84075f4143c7f845089d5aaf7130e361b90cd61f5d7ce1b81a0ba7fbcab4c",
       "tracked": true
     },
     {
-      "bytes": 12055,
+      "bytes": 7376,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
         "families",
         "micro",
+        "micro_all_families",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "1356cd64b466c171d3a8c239c0803cb643ba55fbf6a49f59104116d842124c4a",
+      "sha256": "9353a98958798e455367a5472914af23aa81e50c93ce9c38aca21b6cce08effa",
       "tracked": true
     },
     {
-      "bytes": 10406,
+      "bytes": 11788,
       "category": "reports",
       "keys": [
         "generated_by",
@@ -3722,7 +3896,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/benchmark_metrics.json",
-      "sha256": "eaedefed8a01ef0c94918533be5e4e4b2d007afece716c1b21b8fd217539e88f",
+      "sha256": "4a0273161121a9881dd3d27e210bd23f50994b429c28e5c5afa8e88c73339cab",
       "tracked": true
     },
     {

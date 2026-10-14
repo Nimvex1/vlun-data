@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import BENCH, DERIVED, REPORTS, ROOT, log, read_jsonl  # noqa: E402
+from vlun import BENCH, DERIVED, REPORTS, RETIRED_FAMILIES, ROOT, log, read_jsonl  # noqa: E402
 
 README = ROOT / "README.md"
 NOTICE = ROOT / "NOTICE.md"
@@ -204,6 +204,7 @@ def render() -> str:
     # v2.2 layer: multi-language sources, derived records, splits, experiments.
     # Every figure below is counted from those artefacts, never typed in.
     from vlun_ml import DERIVED_V22, ML_JSONL, SPLITS_V22, load_findings, load_sources  # noqa: E402
+    from vlun_v3 import V3_FAMILY_FILES  # noqa: E402  (v3 manifest-key -> task-file map)
     d22m = jread(DERIVED_V22 / "manifest.json", {}) or {}
     fam_n = len(bench.get("tasks") or {})
     ml_sources = ml_findings = 0
@@ -320,14 +321,22 @@ def render() -> str:
     for _fam, _s in ((_bl_base.get("families") or {}).items()):
         if isinstance(_s, dict) and (_s.get("accuracy") or 0) >= 0.94:
             _sat_letters.add(_fam_letter(_fam))
+    def _retired(fam_key: str) -> bool:
+        # Manifest task keys (A_vulnerability_detection, R_v3_source_tier_routing)
+        # vs retired task-file names (A_vulnerability_detection.jsonl,
+        # v3_R_source_tier_routing.jsonl); v3 keys map through V3_FAMILY_FILES.
+        if f"{fam_key}.jsonl" in RETIRED_FAMILIES:
+            return True
+        return V3_FAMILY_FILES.get(fam_key, "") in RETIRED_FAMILIES
+
     _bench_rows = "\n".join(
         f"| `{fam}` | {n((spec if isinstance(spec, dict) else {}).get('tasks', 0))} | "
         f"{n((spec if isinstance(spec, dict) else {}).get('scorable', 'n/a'))} | "
-        f"{'SATURATED' if _fam_letter(fam) in _sat_letters else ''} | v1/A-Q |"
+        f"{'RETIRED' if _retired(fam) else ('SATURATED' if _fam_letter(fam) in _sat_letters else '')} | v1/A-Q |"
         for fam, spec in sorted(_btasks.items()))
     _v3bench_rows = "\n".join(
         f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
-        f"{'SATURATED' if _fam_letter(fam) in _sat_letters else ''} | v3 |"
+        f"{'RETIRED' if _retired(fam) else ('SATURATED' if _fam_letter(fam) in _sat_letters else '')} | v3 |"
         for fam, tasks in sorted(_v3tasks.items()))
     _vbbench_rows = "\n".join(
         f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
@@ -382,6 +391,7 @@ datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
 benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
+benchmark/retired_families/  retired headline-excluded families (B,E,M,N,O,P,S,T), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
@@ -482,7 +492,8 @@ families that need experimentally produced ground truth only admit rows that hav
 `docs/ANSWER_KEY.md`) covers {_cov.get('scorer_covered', 0):,} of
 {_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks
 (D generative, Q judge-graded, H descriptive excluded with reasons).
-Published deterministic baselines, micro-accuracy / coverage:
+Published deterministic baselines, micro-accuracy / coverage (**headline families only** —
+retired families excluded, see RETIRED marks above and `benchmark/retired_families/`):
 majority {_pct(_bl_base.get('micro', {}).get('accuracy'))} ·
 random-seed7 {_pct(_bl_rand.get('micro', {}).get('accuracy'))} ·
 frequency-seed7 {_pct(_bl_freq.get('micro', {}).get('accuracy'))} ·
@@ -491,6 +502,11 @@ first-published {_pct(_bl_fp.get('micro', {}).get('accuracy_scorable'))} @
 majority-published {_pct(_bl_mp.get('micro', {}).get('accuracy_scorable'))} @
 {(_bl_mp.get('micro', {}) or {}).get('predicted', 0)} tasks ·
 TF-IDF retrieval {_pct(_bl_ret.get('micro', {}).get('accuracy'))}.
+Continuity micro-accuracy over **all families ever shipped** (headline + retired,
+comparable to prior releases): majority {_pct((_bl_base.get('micro_all_families') or {}).get('accuracy'))} ·
+random-seed7 {_pct((_bl_rand.get('micro_all_families') or {}).get('accuracy'))} ·
+frequency-seed7 {_pct((_bl_freq.get('micro_all_families') or {}).get('accuracy'))} ·
+TF-IDF retrieval {_pct((_bl_ret.get('micro_all_families') or {}).get('accuracy'))}.
 Families marked SATURATED (majority >= 0.94: {", ".join(sorted(_sat_letters))})
 carry no signal — a model beat there proves nothing. Family A majority accuracy
 differs by split (see baseline reports); a split-blind floor is a validity

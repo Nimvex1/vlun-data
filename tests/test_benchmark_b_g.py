@@ -23,7 +23,7 @@ def _rows(p):
 
 class TestFamilyB(unittest.TestCase):
     def setUp(self):
-        self.rows = _rows(ROOT / "benchmark" / "B_root_cause_reasoning.jsonl")
+        self.rows = _rows(ROOT / "benchmark" / "retired_families" / "B_root_cause_reasoning.jsonl")
 
     def test_has_scorable_rows(self):
         labeled = [r for r in self.rows if r["answer_key_status"] == "labeled"]

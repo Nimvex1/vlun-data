@@ -56,7 +56,7 @@ FAMILIES: dict[str, dict] = {
         "why": "detect a confirmed vulnerability from code",
     },
     "B_root_cause_reasoning.jsonl": {
-        "dir": "benchmark", "projection": "invariant_stated",
+        "dir": "benchmark/retired_families", "projection": "invariant_stated",
         "group": "record", "id": "id",
         "why": "does a source state a violated invariant",
     },
@@ -66,7 +66,7 @@ FAMILIES: dict[str, dict] = {
         "why": "classify the required attacker privilege",
     },
     "E_exploit_verification.jsonl": {
-        "dir": "benchmark", "projection": "verdict",
+        "dir": "benchmark/retired_families", "projection": "verdict",
         "group": "record", "id": "id",
         "why": "verify an exploit actually executes",
     },
@@ -101,22 +101,22 @@ FAMILIES: dict[str, dict] = {
         "why": "reconcile conflicting published severities",
     },
     "M_experiment_level_classification.jsonl": {
-        "dir": "benchmark", "projection": "level",
+        "dir": "benchmark/retired_families", "projection": "level",
         "group": "record", "id": "id",
         "why": "classify the reproduction evidence level",
     },
     "N_attacker_identity_extraction.jsonl": {
-        "dir": "benchmark", "projection": "actor_mentioned",
+        "dir": "benchmark/retired_families", "projection": "actor_mentioned",
         "group": "language", "id": "id",
         "why": "is a specific actor named",
     },
     "O_record_class_and_scope.jsonl": {
-        "dir": "benchmark", "projection": "record_class",
+        "dir": "benchmark/retired_families", "projection": "record_class",
         "group": "language", "id": "id",
         "why": "classify the record's scope class",
     },
     "P_provenance_tier_and_rights.jsonl": {
-        "dir": "benchmark", "projection": "highest_authority_tier",
+        "dir": "benchmark/retired_families", "projection": "highest_authority_tier",
         "group": "language", "id": "id",
         "why": "apply tier rules and redistribution rights",
     },
@@ -126,12 +126,12 @@ FAMILIES: dict[str, dict] = {
         "why": "route a finding to a provenance tier",
     },
     "v3_S_contest_outcome.jsonl": {
-        "dir": "benchmark", "projection": "outcome",
+        "dir": "benchmark/retired_families", "projection": "outcome",
         "group": "source", "id": "task_id",
         "why": "predict whether a contest entry was a finding",
     },
     "v3_T_taxonomy_explicit.jsonl": {
-        "dir": "benchmark", "projection": "vulnerability_class",
+        "dir": "benchmark/retired_families", "projection": "vulnerability_class",
         "group": "source", "id": "task_id",
         "why": "predict the explicit auditor category",
     },
