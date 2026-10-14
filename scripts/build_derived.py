@@ -63,6 +63,48 @@ EXTERNAL_DEPENDENCY_MENTION = re.compile(
 MISCONFIG_ASSERTION = re.compile(
     r"\b(misconfigur|wrong(ly)? (?:set|configured)|incorrect(?:ly)? (?:set|configured)|"
     r"missing (?:config|environment)|not set|unset|omitted)\b", re.I)
+_MUTABLE_BLOB_RE = re.compile(
+    r"^(https://github\.com/([^/]+/[^/]+)/blob/)(main|master)(/.*)?$")
+_SHA40 = re.compile(r"^[0-9a-f]{40}$")
+
+
+def pin_provenance_urls(prov: dict, source: dict) -> dict:
+    """Rewrite audit-repo /blob/main|master/ links to the audited revision.
+
+    Only links into the record's own audit repository (code-423n4/<repository>)
+    can be pinned from in-record data, using source.commit_sha. Third-party
+    links, and links without a known sha, are NOT rewritten: they are listed
+    in the new source_urls_unpinned array so no branch link looks pinned.
+    source_urls itself keeps every URL — leakage, permalink and split
+    consumers read that array, and moving entries would silently change
+    their counts.
+    """
+    prov = dict(prov or {})
+    if prov.get("source_urls") is None:
+        return prov
+    repo = (source or {}).get("repository") or ""
+    sha = (source or {}).get("commit_sha") or ""
+    audited = "code-423n4/" + repo
+    pinnable = bool(_SHA40.match(str(sha)))
+    out_urls, unpinned = [], []
+    for u in prov.get("source_urls") or []:
+        if not isinstance(u, str):
+            out_urls.append(u)
+            continue
+        m = _MUTABLE_BLOB_RE.match(u)
+        if not m:
+            out_urls.append(u)
+            continue
+        if m.group(2) == audited and pinnable:
+            out_urls.append(m.group(1) + str(sha) + (m.group(4) or ""))
+        else:
+            out_urls.append(u)
+            if u not in unpinned:
+                unpinned.append(u)
+    prov["source_urls"] = out_urls
+    if unpinned:
+        prov["source_urls_unpinned"] = unpinned
+    return prov
 
 
 def evidence(value, etype, refs=None, confidence=None, note=None):
@@ -533,7 +575,7 @@ def build_record(row: dict, verification_index: dict) -> dict:
                 "patch": row.get("patch") or {},
                 "validation": row.get("validation") or {},
                 "security_reasoning": row.get("security_reasoning") or {},
-                "provenance": row.get("provenance") or {},
+        "provenance": pin_provenance_urls(row.get("provenance"), row.get("source")),
             },
         },
     }

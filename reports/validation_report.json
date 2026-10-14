@@ -1,5 +1,5 @@
 {
-  "checks": 73,
+  "checks": 74,
   "dataset_version": "2.2",
   "details": [
     {
@@ -96,6 +96,15 @@
       "check": "snippet_length_plausible",
       "critical": false,
       "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "provenance",
+      "ok": true
+    },
+    {
+      "check": "provenance_urls_immutable_or_declared",
+      "critical": true,
+      "detail": "29 derived records declare a mutable-URL residual; jsonl/ frozen residual: 176 mutable-URL lines (never rewritten, disclosed here)",
       "failure_count": 0,
       "failures": [],
       "group": "provenance",
@@ -666,12 +675,12 @@
     "audit_sources": 5,
     "consistency": 9,
     "evidence": 8,
-    "provenance": 6,
+    "provenance": 7,
     "splits": 3,
     "structure": 5,
     "v2.1": 24,
     "v2.2": 13
   },
-  "passed": 73,
+  "passed": 74,
   "warnings": 0
 }

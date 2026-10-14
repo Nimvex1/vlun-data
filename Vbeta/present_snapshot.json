@@ -1,8 +1,8 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "Phase 1 Task 4 pointer gate added (v2 gate 72 to 73 checks); README regenerated",
+  "resnapshot_reason": "Phase 2 permalink gate added (v2 gate 73 to 74 checks); README regenerated",
   "sentinel_sha256": {
-    "README.md": "46ee0a124038fc246c964cde97260772f47bfcb1fc6e43c1fcd6b49fb21b0bb2",
+    "README.md": "803d96016e86356343f2f7626fcf138d5d17b3659a827b3fed4a4d45f7abbb7b",
     "benchmark/manifest.json": "c71469497d610a48b381081cf14e73ab7f727c86e728500ca9558a7873c850dd",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
     "pyproject.toml": "72d7dea5899efb94758c3e5cda95f92f5e39930d4e8472e14c6cd1e7e6ed2a0d",

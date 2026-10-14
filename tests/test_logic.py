@@ -347,5 +347,50 @@ class TestFactPointerGate(unittest.TestCase):
                       exemptions)
 
 
+class TestProvenanceUrlGate(unittest.TestCase):
+    def test_planted_mutable_url_fails(self):
+        # Negative control: an undeclared /blob/main/ link must be flagged.
+        from validate_checks import record_url_problems
+        rec = {"finding": {"id": "planted-1"},
+               "provenance": {"source_urls": [
+                   "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/X.sol"]}}
+        bad = record_url_problems(rec)
+        self.assertEqual(len(bad), 1)
+        self.assertIn("planted-1", bad[0])
+
+    def test_pinned_and_declared_pass(self):
+        from validate_checks import record_url_problems
+        pinned = "https://github.com/code-423n4/2024-04-noya/blob/" + "c" * 40 + "/contracts/X.sol"
+        rec = {"finding": {"id": "ok"},
+               "provenance": {"source_urls": [
+                   pinned,
+                   "https://github.com/Uniswap/v3-periphery/blob/main/contracts/Y.sol"],
+                   "source_urls_unpinned": [
+                       "https://github.com/Uniswap/v3-periphery/blob/main/contracts/Y.sol"]},
+               "code_context": [{"source_url": pinned}]}
+        self.assertEqual(record_url_problems(rec), [])
+
+    def test_stale_declaration_and_mutable_field_fail(self):
+        from validate_checks import record_url_problems
+        rec = {"finding": {"id": "t"},
+               "provenance": {"source_urls": [],
+                              "source_urls_unpinned": [
+                                  "https://github.com/a/b/blob/c" + "d" * 40 + "/X.sol"]},
+               "code_context": [{"source_url":
+                                 "https://github.com/a/b/blob/main/X.sol"}]}
+        bad = record_url_problems(rec)
+        self.assertEqual(len(bad), 2)
+
+    def test_mirrors_originals_and_prose_exempt(self):
+        from validate_checks import record_url_problems
+        url = "https://github.com/a/b/blob/main/X.sol"
+        rec = {"finding": {"id": "t"},
+               "provenance": {"source_urls": []},
+               "original_evidence": {"v1_schema": {"provenance": {"source_urls": [url]}}},
+               "code_context": [{"source_url_original": url}],
+               "poc": {"setup": "see " + url}}
+        self.assertEqual(record_url_problems(rec), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

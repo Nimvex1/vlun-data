@@ -136,6 +136,48 @@ def check_structure(rep, core, bad_json):
     rep.add("structure", "source_layer_version_uniform", not version_bad, version_bad)
 
 
+_MUTABLE_BRANCH_RE = re.compile(r"/blob/(main|master)(/|$)")
+
+
+def record_url_problems(record: dict) -> list[str]:
+    """Mutable-URL violations for one derived record (pure).
+
+    Fails on /blob/main|master/ in citation URL fields: any `source_url`
+    key outside the original_evidence mirror subtree, and any top-level
+    provenance.source_urls item not declared in that record's
+    source_urls_unpinned residual list. Deliberately never flagged:
+    *_original audit-trail fields, free prose (quoted verbatim), and
+    original_evidence mirrors of the frozen source layer.
+    """
+    bad = []
+    rid = (record.get("finding") or {}).get("id") or record.get("id") or "?"
+    prov = record.get("provenance") or {}
+    declared = {u for u in (prov.get("source_urls_unpinned") or [])
+                if isinstance(u, str)}
+    for u in sorted(declared):
+        if not _MUTABLE_BRANCH_RE.search(u):
+            bad.append(f"{rid} declares non-mutable {u[:100]} as unpinned")
+    for u in prov.get("source_urls") or []:
+        if (isinstance(u, str) and _MUTABLE_BRANCH_RE.search(u)
+                and u not in declared):
+            bad.append(f"{rid} provenance.source_urls mutable and undeclared: {u[:100]}")
+    stack = [(record, False)]
+    while stack:
+        node, mirror = stack.pop()
+        if isinstance(node, dict):
+            for k, v in node.items():
+                in_mirror = mirror or k == "original_evidence"
+                if k == "source_url" and isinstance(v, str) and not in_mirror:
+                    if _MUTABLE_BRANCH_RE.search(v):
+                        bad.append(f"{rid} {k} mutable: {v[:100]}")
+                else:
+                    stack.append((v, in_mirror))
+        elif isinstance(node, list):
+            for v in node:
+                stack.append((v, mirror))
+    return bad
+
+
 def check_provenance(rep, core):
     """Provenance checks."""
     # -------------------------------------------------------------- provenance
@@ -220,6 +262,30 @@ def check_provenance(rep, core):
                                             f"snippet far longer than its claimed range")
     rep.add("provenance", "snippet_length_plausible", not snippet_mismatch, snippet_mismatch,
             critical=False)
+
+    # Phase 2 permalink gate: no branch link that looks pinned. Every mutable
+    # citation URL in derived/records.jsonl fails unless declared in that
+    # record's source_urls_unpinned residual list; a stale declaration fails
+    # too. jsonl/ is frozen and counted, never failed.
+    url_bad, n_unpinned_recs = [], 0
+    _dpath = DERIVED / "records.jsonl"
+    if _dpath.exists():
+        for r in read_jsonl(_dpath):
+            problems = record_url_problems(r)
+            url_bad += problems
+            if ((r.get("provenance") or {}).get("source_urls_unpinned")):
+                n_unpinned_recs += 1
+    jsonl_residual = 0
+    for _fn in ("findings.jsonl", "negative_findings.jsonl"):
+        _p = JSONL / _fn
+        if _p.exists():
+            with open(_p, encoding="utf-8") as _fh:
+                jsonl_residual += sum(
+                    1 for _line in _fh if _MUTABLE_BRANCH_RE.search(_line))
+    rep.add("provenance", "provenance_urls_immutable_or_declared", not url_bad, url_bad,
+            detail=(f"{n_unpinned_recs} derived records declare a mutable-URL residual; "
+                    f"jsonl/ frozen residual: {jsonl_residual} mutable-URL lines "
+                    f"(never rewritten, disclosed here)"))
     return derived_mutable
 
 

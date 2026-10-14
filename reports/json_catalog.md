@@ -54,7 +54,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
 | `derived/hard_negatives.jsonl` | v1 | 3,643,242 | 458 rows | yes |
 | `derived/manifest.json` | v1 | 1,631 | object, 20 keys | yes |
-| `derived/records.jsonl` | v1 | 17,183,435 | 722 rows | yes |
+| `derived/records.jsonl` | v1 | 17,199,694 | 722 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
@@ -278,7 +278,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/patch_verification_report.json` | multi | 303 | object, 7 keys | yes |
 | `reports/v3/poc_extraction_report.json` | multi | 287 | object, 7 keys | yes |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
-| `reports/validation_report.json` | multi | 17,520 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 17,857 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 27,811 | object, 3 keys | yes |
 
@@ -338,7 +338,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 1,363 | object, 11 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
-| `Vbeta/present_snapshot.json` | meta | 723 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 718 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
