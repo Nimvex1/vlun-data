@@ -59,15 +59,15 @@ families keep their per-family accuracy in the baseline reports under
 
 | Baseline | Rule | Headline micro accuracy | Continuity (all families) | Coverage |
 |---|---|---|---|---|
-| majority | most common labeled answer per family (ties: sorted-first) | 0.8668 | 0.8725 | 19,927/19,927 |
-| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3443 | 0.3608 | 19,927/19,927 |
-| frequency-seed7 | seeded draw from the family's empirical label distribution | 0.8042 | 0.8135 | 19,927/19,927 |
-| first-published (L only) | copy the first publisher's severity | 1.000 (71 tasks) | 1.000 (71 tasks) | 71/19,927 |
-| majority-published (L only) | copy the majority publisher severity | 1.000 (71 tasks) | 1.000 (71 tasks) | 71/19,927 |
-| retrieval (TF-IDF NN) | nearest train-split neighbour's label; test answers never indexed, train tasks never retrieve themselves | 0.9201 | 0.9257 | 19,912/19,927 |
+| majority | most common labeled answer per family (ties: sorted-first) | 0.8738 | 0.8725 | 19,662/19,662 |
+| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3468 | 0.3608 | 19,662/19,662 |
+| frequency-seed7 | seeded draw from the family's empirical label distribution | 0.8110 | 0.8135 | 19,662/19,662 |
+| first-published (L only, retired) | copy the first publisher's severity | n/a (0 headline coverage) | 1.000 (71 tasks) | 0/19,662 |
+| majority-published (L only, retired) | copy the majority publisher severity | n/a (0 headline coverage) | 1.000 (71 tasks) | 0/19,662 |
+| retrieval (TF-IDF NN) | nearest train-split neighbour's label; test answers never indexed, train tasks never retrieve themselves | 0.9238 | 0.9257 | 19,647/19,662 |
 
-Headline floors cover the headline scorable set (19,927 tasks, 11 families);
-continuity floors cover all families ever shipped (22,148 tasks), byte-equal
+Headline floors cover the headline scorable set (19,662 tasks, 9 families
+with scorable rows); continuity floors cover all families ever shipped (22,148 tasks), byte-equal
 to the pre-retirement reports. The earlier 10,103-task figures were computed
 against a stale Vbeta population (624/719 scorable rows); the shipped Vbeta
 benchmark carries 6,218/6,935. `tests/test_baselines.py` now fails the build on that class of
@@ -97,10 +97,11 @@ bulk-tier families' memorization-proneness stays visible.
 ## Saturated families (headline majority >= 0.94 — a beat here carries no signal)
 
 F, G, I, J, U, V. Marked in the README benchmark table and in
-`reports/benchmark_metrics.md`. Eight further families (B, E, M, N, O, P, S,
+`reports/benchmark_metrics.md`. Ten further families (B, E, K, L, M, N, O, P, S,
 T) saturated so completely they were retired to `benchmark/retired_families/`
 — each with a `retirement.json` naming the measured shortcut accuracy and
-leak mechanism. The per-family accuracies live in
+leak mechanism (K: content-based language signals, ids already excluded;
+L: literal severity leak with 127:1 degenerate agreement fallback). The per-family accuracies live in
 `reports/baselines/baseline_majority.json`; read them there rather than from
 a hand-copied list that can drift.
 
@@ -117,9 +118,9 @@ python scripts/score_benchmark.py --predictions preds.jsonl --out reports/scores
 ```
 
 where `preds.jsonl` rows are `{"task_id": ..., "answer": ...}` and `task_id`
-is the task file's `id`/`task_id`. 19,927 tasks are scorable across 11
+is the task file's `id`/`task_id`. 19,662 tasks are scorable across 9
 headline families (22,148 across all families ever shipped); 4 families
-(D, G, H, Q) are excluded with reasons above, and 8 saturated families live
+(D, G, H, Q) are excluded with reasons above, and 10 saturated families live
 retired under `benchmark/retired_families/`.
 
 ## What this rubric does NOT claim

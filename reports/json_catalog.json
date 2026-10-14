@@ -1,6 +1,6 @@
 {
   "by_category": {
-    "benchmark": 35,
+    "benchmark": 37,
     "datasets": 4,
     "derived": 31,
     "experiments": 82,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 266,
+  "file_count": 268,
   "files": [
     {
       "bytes": 1363,
@@ -248,7 +248,7 @@
       "tracked": true
     },
     {
-      "bytes": 727,
+      "bytes": 721,
       "category": "meta",
       "keys": [
         "note",
@@ -259,7 +259,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "ce0c24941f72c1ed4a3fc6db7829cdca0acd451a15e1fdbcbb8a4590228823cb",
+      "sha256": "1ab1e6634500a242b7ee0b2e8639c11e349e435194fe7a7cc87d0991e39cfc8b",
       "tracked": true
     },
     {
@@ -520,26 +520,6 @@
       "tracked": true
     },
     {
-      "bytes": 325579,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/K_language_ecosystem_routing.jsonl",
-      "rows": 137,
-      "sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
-      "tracked": true
-    },
-    {
-      "bytes": 361836,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/L_severity_reconciliation.jsonl",
-      "rows": 137,
-      "sha256": "8162d78299568a03c30db0e71a9951b733fe3f2dcd8cdc8358357c02dd9e0433",
-      "tracked": true
-    },
-    {
       "bytes": 1042196,
       "category": "benchmark",
       "layer": "multi",
@@ -582,7 +562,7 @@
       "tracked": true
     },
     {
-      "bytes": 12898,
+      "bytes": 12930,
       "category": "benchmark",
       "keys": [
         "canary",
@@ -598,7 +578,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/manifest.json",
-      "sha256": "6e28580e54e656dbdf1f2bcfa2259ec5ee5a5a69299b3935c30a0300cdd904b8",
+      "sha256": "a48e5e6abbad4e0f7ce1f0844a695bdf146ebb2afa060f2df52550c0c2524bf1",
       "tracked": true
     },
     {
@@ -630,7 +610,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/B_root_cause_reasoning.retirement.json",
       "sha256": "73c82e6f728ead357c81b4796ba8bc848665bf094f4832912e7da7cf92970875",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 780615,
@@ -661,6 +641,68 @@
       "parse": "ok",
       "path": "benchmark/retired_families/E_exploit_verification.retirement.json",
       "sha256": "f632517526d25d38c3a3de7726288117ccfed0609597178779b25f1d633383c4",
+      "tracked": true
+    },
+    {
+      "bytes": 325579,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
+      "rows": 137,
+      "sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
+      "tracked": true
+    },
+    {
+      "bytes": 817,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/K_language_ecosystem_routing.retirement.json",
+      "sha256": "b4b6b74f13215ba1aa345d1b5d7b44565b16a9ab4e318d4f63c8541b1c799d4c",
+      "tracked": false
+    },
+    {
+      "bytes": 361836,
+      "category": "benchmark",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/L_severity_reconciliation.jsonl",
+      "rows": 137,
+      "sha256": "8162d78299568a03c30db0e71a9951b733fe3f2dcd8cdc8358357c02dd9e0433",
+      "tracked": true
+    },
+    {
+      "bytes": 773,
+      "category": "benchmark",
+      "keys": [
+        "family",
+        "leak_mechanism",
+        "measured_answer_leak_severity",
+        "measured_best_shortcut_accuracy",
+        "reason",
+        "retired_on",
+        "return_rule",
+        "source",
+        "status"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "benchmark/retired_families/L_severity_reconciliation.retirement.json",
+      "sha256": "fc08b7e5a7e252efff05dfd9532fac79a0333a1e5aa48706b74d22a85ebb609d",
       "tracked": false
     },
     {
@@ -692,7 +734,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/M_experiment_level_classification.retirement.json",
       "sha256": "6d5ba3877932f2f2bcd6a70da8f0151edb22836e2a200b8344aa042795588569",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 321620,
@@ -723,7 +765,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/N_attacker_identity_extraction.retirement.json",
       "sha256": "eaf6f90383bc0c5d442f998d0f969b377b2d195014050e5dea3f59de091f5986",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 343316,
@@ -754,7 +796,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/O_record_class_and_scope.retirement.json",
       "sha256": "19597f68248b0f0c3c36a25aa46feac0e210a5b5d59a139d584ab466da1bf39b",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 338549,
@@ -785,7 +827,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/P_provenance_tier_and_rights.retirement.json",
       "sha256": "14288a7ccdaa31dff43cd3120aa2bb75ef3b9b5b1571ba14704e4d3310cdd543",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 551514,
@@ -816,7 +858,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/v3_S_contest_outcome.retirement.json",
       "sha256": "77f2d52c50ce4de7f0a0d2f746e3713b28f67bcf585320235dde96987f7ffb70",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 355666,
@@ -847,7 +889,7 @@
       "parse": "ok",
       "path": "benchmark/retired_families/v3_T_taxonomy_explicit.retirement.json",
       "sha256": "92ba65c6a140db757eb868e397129e55e141ba2cec332b07f5ffd6d33003f32d",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2944595,
@@ -3775,7 +3817,7 @@
       "tracked": true
     },
     {
-      "bytes": 6788,
+      "bytes": 5563,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3789,11 +3831,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "eb3649b840671ae7a9473b542e49ceac51a643fa9593a4e46e90899a2d2c43c4",
+      "sha256": "a56c146469c802517ba3f3707fce7f276dab00742bbbc2a759ef990b7918555a",
       "tracked": true
     },
     {
-      "bytes": 7379,
+      "bytes": 6048,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3807,11 +3849,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "9ac7436237f5b572a2ee1dd72db4a9f04985025914f73c317857c34782662e54",
+      "sha256": "f1935fa75a68c59503e36740101833ec2717d2652d2a055f119f86357835e908",
       "tracked": true
     },
     {
-      "bytes": 7339,
+      "bytes": 6015,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3825,11 +3867,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "b4c6bd914d40558269ee4893c083cdc9cd5b3abaadd687e295ec34bb0e158ddc",
+      "sha256": "8bc9fb7678eaac93300f82fc47a72037f58b8501022b7c308dfce4f1197b0cb2",
       "tracked": true
     },
     {
-      "bytes": 6791,
+      "bytes": 5566,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3843,11 +3885,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "d216f15e44e7a59e1f9b28e829f2bbb37a42c067d1f8f140a4cfa188fc7807c3",
+      "sha256": "7a034f12729e22eda9644d9a5a0a66dce1b4b6dae8d01ee0b254f87b883bc575",
       "tracked": true
     },
     {
-      "bytes": 7387,
+      "bytes": 6045,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3861,11 +3903,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "9ae84075f4143c7f845089d5aaf7130e361b90cd61f5d7ce1b81a0ba7fbcab4c",
+      "sha256": "6d867147275a48d282d42bbc3be238397b0b36969321d47062875986efa7491b",
       "tracked": true
     },
     {
-      "bytes": 7376,
+      "bytes": 6054,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3879,7 +3921,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "9353a98958798e455367a5472914af23aa81e50c93ce9c38aca21b6cce08effa",
+      "sha256": "0b34de713d355c5952b354b27b6c1e736656d694d42849ed68a8f4a83322c376",
       "tracked": true
     },
     {

@@ -196,6 +196,8 @@ BENCHMARK_FAMILIES = {
 RETIRED_FAMILIES = frozenset({
     "B_root_cause_reasoning.jsonl",
     "E_exploit_verification.jsonl",
+    "K_language_ecosystem_routing.jsonl",
+    "L_severity_reconciliation.jsonl",
     "M_experiment_level_classification.jsonl",
     "N_attacker_identity_extraction.jsonl",
     "O_record_class_and_scope.jsonl",

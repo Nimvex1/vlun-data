@@ -91,12 +91,12 @@ FAMILIES: dict[str, dict] = {
         "why": "verified patch",
     },
     "K_language_ecosystem_routing.jsonl": {
-        "dir": "benchmark", "projection": "language",
+        "dir": "benchmark/retired_families", "projection": "language",
         "group": "language", "id": "id",
         "why": "route a finding to its language and ecosystem",
     },
     "L_severity_reconciliation.jsonl": {
-        "dir": "benchmark", "projection": "severity",
+        "dir": "benchmark/retired_families", "projection": "severity",
         "group": "language", "id": "id",
         "why": "reconcile conflicting published severities",
     },

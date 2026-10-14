@@ -412,7 +412,7 @@ def main() -> int:
     F.add("v2.2", "jsonl_ml", "rows citing work/ payloads", 117, ml_cited,
           "list_endpoint/provenance notes; content inline")
     bq_cited = sum(
-        1 for f in ("benchmark/L_severity_reconciliation.jsonl",
+        1 for f in ("benchmark/retired_families/L_severity_reconciliation.jsonl",
                     "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
                     "benchmark/Q_evidence_type_and_quality_rubric.jsonl")
         for r in jl(ROOT / f) if _WB.search(json.dumps(r)))

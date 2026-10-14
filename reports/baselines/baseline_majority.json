@@ -15,7 +15,7 @@
       }
     },
     "manifest_scorable_total": 22638,
-    "scorer_covered": 19927
+    "scorer_covered": 19662
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
@@ -143,60 +143,6 @@
         }
       }
     },
-    "K_language_ecosystem_routing.jsonl": {
-      "accuracy": 0.3722627737226277,
-      "accuracy_scorable": 0.3722627737226277,
-      "correct": 51,
-      "predicted": 137,
-      "scorable": 137,
-      "splits": {
-        "test": {
-          "accuracy": 0.45161290322580644,
-          "correct": 14,
-          "predicted": 31,
-          "scorable": 31
-        },
-        "train": {
-          "accuracy": 0.2894736842105263,
-          "correct": 22,
-          "predicted": 76,
-          "scorable": 76
-        },
-        "validation": {
-          "accuracy": 0.5,
-          "correct": 15,
-          "predicted": 30,
-          "scorable": 30
-        }
-      }
-    },
-    "L_severity_reconciliation.jsonl": {
-      "accuracy": 0.3203125,
-      "accuracy_scorable": 0.3203125,
-      "correct": 41,
-      "predicted": 128,
-      "scorable": 128,
-      "splits": {
-        "test": {
-          "accuracy": 0.4482758620689655,
-          "correct": 13,
-          "predicted": 29,
-          "scorable": 29
-        },
-        "train": {
-          "accuracy": 0.2777777777777778,
-          "correct": 20,
-          "predicted": 72,
-          "scorable": 72
-        },
-        "validation": {
-          "accuracy": 0.2962962962962963,
-          "correct": 8,
-          "predicted": 27,
-          "scorable": 27
-        }
-      }
-    },
     "v3_R_source_tier_routing.jsonl": {
       "accuracy": 0.6433144320468264,
       "accuracy_scorable": 0.6433144320468264,
@@ -280,11 +226,11 @@
     }
   },
   "micro": {
-    "accuracy": 0.8667636874592262,
-    "accuracy_scorable": 0.8667636874592262,
-    "correct": 17272,
-    "predicted": 19927,
-    "scorable": 19927
+    "accuracy": 0.8737666564947615,
+    "accuracy_scorable": 0.8737666564947615,
+    "correct": 17180,
+    "predicted": 19662,
+    "scorable": 19662
   },
   "micro_all_families": {
     "accuracy": 0.872494130395521,

@@ -245,7 +245,7 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
-      "file": "benchmark/K_language_ecosystem_routing.jsonl",
+      "file": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
       "labeled": 137,
       "languages_allowed": [
         "vyper",
@@ -258,7 +258,7 @@
       "partial": 0,
       "question": "which language and which ecosystem does this finding concern?",
       "scorable": 137,
-      "status": "headline",
+      "status": "retired",
       "tasks": 137,
       "unlabeled": 0,
       "unscorable": 0
@@ -281,7 +281,7 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
-      "file": "benchmark/L_severity_reconciliation.jsonl",
+      "file": "benchmark/retired_families/L_severity_reconciliation.jsonl",
       "labeled": 128,
       "languages_allowed": [
         "vyper",
@@ -294,7 +294,7 @@
       "partial": 6,
       "question": "what severity do the publishers agree on, and who says so?",
       "scorable": 128,
-      "status": "headline",
+      "status": "retired",
       "tasks": 137,
       "unlabeled": 3,
       "unscorable": 9

@@ -314,7 +314,7 @@ def baseline_predictions(kind: str, seed: int = 7) -> dict[str, str]:
         # Copy-the-publisher heuristics for L_severity_reconciliation:
         # predict from the task's own published_severities input. Only L
         # tasks get predictions; every other family reports zero coverage.
-        for path in [ROOT / "benchmark"
+        for path in [ROOT / "benchmark" / "retired_families"
                      / "L_severity_reconciliation.jsonl"]:
             with open(path, encoding="utf-8") as fh:
                 for line in fh:

@@ -1,0 +1,11 @@
+{
+  "family": "L_severity_reconciliation",
+  "leak_mechanism": "resists the baseline (0.5172) but leaks literally (94/128): the scored severity key appears in published_severities input (68 rows) and prose (26). Re-keying to agreement is impossible without degenerating the family (127:1 agree:disagree); removing the list makes rows unanswerable.",
+  "measured_answer_leak_severity": "high",
+  "measured_best_shortcut_accuracy": 0.5172,
+  "reason": "see reason field; data preserved byte-identical",
+  "retired_on": "2026-10-14",
+  "return_rule": "may return to the headline only with an audit showing best_shortcut_accuracy < 0.75 on the test split",
+  "source": "reports/independent/audit.json families[*].baselines_test_split + answer_leakage",
+  "status": "retired"
+}

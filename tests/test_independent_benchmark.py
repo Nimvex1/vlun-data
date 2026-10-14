@@ -234,19 +234,21 @@ class TestCommittedFindings(unittest.TestCase):
                           self.audit["families"][fam]["validity_flags"], fam)
 
     def test_committed_first_published_baseline_headline_is_a_coverage_artifact(self):
-        """`micro.accuracy = 1.0000` on 71 of 22,148 scorable rows.
+        """L-only heuristics retire with L: headline coverage is now zero.
 
-        The field is not wrong -- it is computed on predicted rows only --
-        but quoting it as a headline says a copy-the-publisher rule solves
-        the benchmark. This test records the artifact so a future change
-        to coverage reporting is visible.
+        Previously `micro.accuracy = 1.0000` on 71 of 22,148 scorable rows --
+        computed on predicted rows only, which made a copy-the-publisher rule
+        look like it solved the benchmark. With L retired, the headline
+        reports zero coverage (honest) while micro_all_families preserves
+        the 71-row continuity number.
         """
         d = json.loads((ROOT / "reports" / "baselines"
                         / "baseline_first_published.json").read_text(
             encoding="utf-8"))
-        self.assertEqual(d["micro"]["accuracy"], 1.0)
-        self.assertLess(d["micro"]["accuracy_scorable"], 0.01)
-        self.assertLess(d["micro"]["predicted"] / d["micro"]["scorable"], 0.01)
+        self.assertEqual(d["micro"]["predicted"], 0)
+        self.assertEqual(d["micro"]["accuracy"], None)
+        self.assertEqual(d["micro_all_families"]["predicted"], 71)
+        self.assertEqual(d["micro_all_families"]["accuracy"], 1.0)
 
     def test_audit_is_not_a_blanket_condemnation(self):
         """If nothing were clean, the thresholds would be too aggressive to

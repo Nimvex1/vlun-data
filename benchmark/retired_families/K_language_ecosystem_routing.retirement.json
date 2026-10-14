@@ -1,0 +1,11 @@
+{
+  "family": "K_language_ecosystem_routing",
+  "leak_mechanism": "unfixable content leak, not an id leak: record ids already excluded from payload by construction (0/137 contain own id), yet answer appears literally in 76/137 rows via repository names, file extensions and prose. Stripping id prefixes fixes at most 4 rows; redacting content signals would gut the task (fabricated difficulty).",
+  "measured_answer_leak_severity": "high",
+  "measured_best_shortcut_accuracy": 1.0,
+  "reason": "see reason field; data preserved byte-identical",
+  "retired_on": "2026-10-14",
+  "return_rule": "may return to the headline only with an audit showing best_shortcut_accuracy < 0.75 on the test split",
+  "source": "reports/independent/audit.json families[*].baselines_test_split + answer_leakage",
+  "status": "retired"
+}

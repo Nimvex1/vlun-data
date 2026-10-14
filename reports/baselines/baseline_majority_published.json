@@ -15,7 +15,7 @@
       }
     },
     "manifest_scorable_total": 22638,
-    "scorer_covered": 19927
+    "scorer_covered": 19662
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
@@ -143,60 +143,6 @@
         }
       }
     },
-    "K_language_ecosystem_routing.jsonl": {
-      "accuracy": null,
-      "accuracy_scorable": 0.0,
-      "correct": 0,
-      "predicted": 0,
-      "scorable": 137,
-      "splits": {
-        "test": {
-          "accuracy": null,
-          "correct": 0,
-          "predicted": 0,
-          "scorable": 31
-        },
-        "train": {
-          "accuracy": null,
-          "correct": 0,
-          "predicted": 0,
-          "scorable": 76
-        },
-        "validation": {
-          "accuracy": null,
-          "correct": 0,
-          "predicted": 0,
-          "scorable": 30
-        }
-      }
-    },
-    "L_severity_reconciliation.jsonl": {
-      "accuracy": 1.0,
-      "accuracy_scorable": 0.5546875,
-      "correct": 71,
-      "predicted": 71,
-      "scorable": 128,
-      "splits": {
-        "test": {
-          "accuracy": 1.0,
-          "correct": 19,
-          "predicted": 19,
-          "scorable": 29
-        },
-        "train": {
-          "accuracy": 1.0,
-          "correct": 31,
-          "predicted": 31,
-          "scorable": 72
-        },
-        "validation": {
-          "accuracy": 1.0,
-          "correct": 21,
-          "predicted": 21,
-          "scorable": 27
-        }
-      }
-    },
     "v3_R_source_tier_routing.jsonl": {
       "accuracy": null,
       "accuracy_scorable": 0.0,
@@ -280,11 +226,11 @@
     }
   },
   "micro": {
-    "accuracy": 1.0,
-    "accuracy_scorable": 0.003563004968133688,
-    "correct": 71,
-    "predicted": 71,
-    "scorable": 19927
+    "accuracy": null,
+    "accuracy_scorable": 0.0,
+    "correct": 0,
+    "predicted": 0,
+    "scorable": 19662
   },
   "micro_all_families": {
     "accuracy": 1.0,

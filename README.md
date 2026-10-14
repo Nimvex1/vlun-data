@@ -140,8 +140,8 @@ families that need experimentally produced ground truth only admit rows that hav
 | `H_verified_exploit` | 7 | 7 |  | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | SATURATED | v1/A-Q |
 | `J_verified_patch` | 7 | 7 | SATURATED | v1/A-Q |
-| `K_language_ecosystem_routing` | 137 | 137 |  | v1/A-Q |
-| `L_severity_reconciliation` | 137 | 128 |  | v1/A-Q |
+| `K_language_ecosystem_routing` | 137 | 137 | RETIRED | v1/A-Q |
+| `L_severity_reconciliation` | 137 | 128 | RETIRED | v1/A-Q |
 | `M_experiment_level_classification` | 37 | 37 | RETIRED | v1/A-Q |
 | `N_attacker_identity_extraction` | 137 | 14 | RETIRED | v1/A-Q |
 | `O_record_class_and_scope` | 137 | 137 | RETIRED | v1/A-Q |
@@ -155,19 +155,19 @@ families that need experimentally produced ground truth only admit rows that hav
 
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 19,927 of
+`docs/ANSWER_KEY.md`) covers 19,662 of
 22,638 manifest-scorable tasks
 (D generative, Q judge-graded, H descriptive excluded with reasons).
 Published deterministic baselines, micro-accuracy / coverage (**headline families only** —
 retired families excluded, see RETIRED marks above and `benchmark/retired_families/`):
-majority 0.8668 ·
-random-seed7 0.3443 ·
-frequency-seed7 0.8042 ·
-first-published 0.0036 @
-71 tasks ·
-majority-published 0.0036 @
-71 tasks ·
-TF-IDF retrieval 0.9201.
+majority 0.8738 ·
+random-seed7 0.3468 ·
+frequency-seed7 0.8110 ·
+first-published 0.0000 @
+0 tasks ·
+majority-published 0.0000 @
+0 tasks ·
+TF-IDF retrieval 0.9238.
 Continuity micro-accuracy over **all families ever shipped** (headline + retired,
 comparable to prior releases): majority 0.8725 ·
 random-seed7 0.3608 ·
