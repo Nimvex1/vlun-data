@@ -352,11 +352,11 @@
       "reason": "duplicate of cyfrin-codehawks:stablecoin-h-03"
     }
   ],
-  "with_description_excerpt": 221,
-  "with_poc": 51,
-  "with_recommendation": 400,
-  "with_report_severity": 59,
-  "with_severity": 59,
-  "with_solodit_impact_axis": 101,
+  "with_description_excerpt": 502,
+  "with_poc": 73,
+  "with_recommendation": 574,
+  "with_report_severity": 92,
+  "with_severity": 92,
+  "with_solodit_impact_axis": 733,
   "with_status": 56
 }

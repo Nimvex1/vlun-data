@@ -14,8 +14,8 @@
         "tasks": 137
       }
     },
-    "manifest_scorable_total": 22638,
-    "scorer_covered": 19662
+    "manifest_scorable_total": 22639,
+    "scorer_covered": 19663
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
@@ -165,11 +165,11 @@
       }
     },
     "vbeta_U_language_routing.jsonl": {
-      "accuracy": 0.9503055644901898,
-      "accuracy_scorable": 0.9503055644901898,
-      "correct": 5909,
-      "predicted": 6218,
-      "scorable": 6218,
+      "accuracy": 0.9503135552339604,
+      "accuracy_scorable": 0.9503135552339604,
+      "correct": 5910,
+      "predicted": 6219,
+      "scorable": 6219,
       "splits": {
         "test": {
           "accuracy": 0.958541815582559,
@@ -178,10 +178,10 @@
           "scorable": 5596
         },
         "train": {
-          "accuracy": 0.9013605442176871,
-          "correct": 530,
-          "predicted": 588,
-          "scorable": 588
+          "accuracy": 0.9015280135823429,
+          "correct": 531,
+          "predicted": 589,
+          "scorable": 589
         },
         "validation": {
           "accuracy": 0.4411764705882353,
@@ -220,18 +220,18 @@
     }
   },
   "micro": {
-    "accuracy": 0.8110060014240668,
-    "accuracy_scorable": 0.8110060014240668,
-    "correct": 15946,
-    "predicted": 19662,
-    "scorable": 19662
+    "accuracy": 0.8110156130804048,
+    "accuracy_scorable": 0.8110156130804048,
+    "correct": 15947,
+    "predicted": 19663,
+    "scorable": 19663
   },
   "micro_all_families": {
-    "accuracy": 0.8135271807838179,
-    "accuracy_scorable": 0.8135271807838179,
-    "correct": 18018,
-    "predicted": 22148,
-    "scorable": 22148
+    "accuracy": 0.8135355998013455,
+    "accuracy_scorable": 0.8135355998013455,
+    "correct": 18019,
+    "predicted": 22149,
+    "scorable": 22149
   },
   "run": "baseline:frequency:seed7"
 }

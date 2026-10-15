@@ -2,7 +2,7 @@ Warning: Found unknown `func_attrs_with_params_multiline` config key in section 
 Warning: Found unknown `variable_override_spacing` config key in section `fmt` defined in foundry.toml.
 Missing dependencies found. Installing now...
 Submodule 'lib/forge-std' (https://github.com/foundry-rs/forge-std) registered for path 'lib/forge-std'
-Cloning into 'C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std'...
+Cloning into 'C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std'...
 remote: Enumerating objects: 3250, done.        
 remote: Counting objects:   0% (1/474)        
 remote: Counting objects:   1% (5/474)        
@@ -413,7 +413,7 @@ Resolving deltas:  98% (2135/2178)
 Resolving deltas:  99% (2157/2178)
 Resolving deltas: 100% (2178/2178)
 Resolving deltas: 100% (2178/2178), done.
-Updating dependencies in C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib
+Updating dependencies in C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib
 Warning: Found unknown `func_attrs_with_params_multiline` config key in section `fmt` defined in foundry.toml.
 Warning: Found unknown `variable_override_spacing` config key in section `fmt` defined in foundry.toml.
 Error: Compiler run failed:

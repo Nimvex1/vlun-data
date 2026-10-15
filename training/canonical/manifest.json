@@ -1,0 +1,216 @@
+{
+  "chunk_rows": 5000,
+  "counts": {
+    "detection": {
+      "test": {
+        "false": 8,
+        "true": 69
+      },
+      "train": {
+        "false": 101,
+        "true": 131
+      },
+      "validation": {
+        "false": 51,
+        "true": 39
+      }
+    },
+    "language": {
+      "test": {
+        "cairo": 20,
+        "go": 15,
+        "move": 4,
+        "rust": 48,
+        "solidity": 5840,
+        "vyper": 33
+      },
+      "train": {
+        "cairo": 5,
+        "go": 3176,
+        "move": 17,
+        "rust": 63,
+        "solidity": 5640,
+        "vyper": 27
+      },
+      "validation": {
+        "cairo": 2,
+        "go": 239,
+        "michelson": 4,
+        "move": 19,
+        "rust": 105,
+        "solidity": 1650,
+        "teal": 14,
+        "vyper": 15
+      }
+    },
+    "severity": {
+      "test": {
+        "critical": 18,
+        "high": 1337,
+        "informational": 1,
+        "low": 1642,
+        "medium": 2185
+      },
+      "train": {
+        "critical": 387,
+        "high": 1058,
+        "informational": 1674,
+        "low": 3137,
+        "medium": 1405
+      },
+      "validation": {
+        "critical": 59,
+        "high": 394,
+        "informational": 715,
+        "low": 853,
+        "medium": 745
+      }
+    }
+  },
+  "dataset_version": "canonical-1.0",
+  "example_count": 32945,
+  "exclusions": {
+    "v1:detection_unqualified": 387,
+    "v1:severity_unknown": 516,
+    "v2.2:detection_unqualified": 92,
+    "v2.2:severity_unknown": 6,
+    "v3.0:detection_unqualified": 5451,
+    "v3.0:severity_unknown": 894,
+    "v4:detection_unqualified": 5268,
+    "v4:language_unknown": 155,
+    "vbeta:detection_unqualified": 6930,
+    "vbeta:language_unknown": 716,
+    "vbeta:severity_unknown": 1501
+  },
+  "files": [
+    {
+      "part": 0,
+      "path": "training/canonical/detection.test.part-000.jsonl",
+      "rows": 77,
+      "sha256": "a531164869b5bdfaa9c3e27c9bea17d0e534bcf49bfbbd56bdba001916f327ff",
+      "split": "test",
+      "task": "detection"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/detection.train.part-000.jsonl",
+      "rows": 232,
+      "sha256": "8a85e0da857cacf605a109230d93c3b5af51d368eeb80b1f6dd64ae07f8b9683",
+      "split": "train",
+      "task": "detection"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/detection.validation.part-000.jsonl",
+      "rows": 90,
+      "sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
+      "split": "validation",
+      "task": "detection"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/language.test.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "868b4b9d5cb76831bb791597b14d5c400ca96b20ee28098513d1df6dedb40eb0",
+      "split": "test",
+      "task": "language"
+    },
+    {
+      "part": 1,
+      "path": "training/canonical/language.test.part-001.jsonl",
+      "rows": 960,
+      "sha256": "7eaea2de7a79ae81af992a4d515cc456ccde0bdac2dbc24cc5dc21ac6535f445",
+      "split": "test",
+      "task": "language"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/language.train.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "e7b6d235f607a6a056e8aa62524117ad9c33bb4f4f8ba8200b409d3b64f4dc70",
+      "split": "train",
+      "task": "language"
+    },
+    {
+      "part": 1,
+      "path": "training/canonical/language.train.part-001.jsonl",
+      "rows": 3928,
+      "sha256": "e71c57048d93ab66d2d3dac5c1243a06756343c5da1f28b9cbff2451436a29be",
+      "split": "train",
+      "task": "language"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/language.validation.part-000.jsonl",
+      "rows": 2048,
+      "sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
+      "split": "validation",
+      "task": "language"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/severity.test.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "89b4197c062e3ef2aa69c7e150ac624cc64f35f9a378d2c39499fb4d7cc3a4cc",
+      "split": "test",
+      "task": "severity"
+    },
+    {
+      "part": 1,
+      "path": "training/canonical/severity.test.part-001.jsonl",
+      "rows": 183,
+      "sha256": "f2f31b0ede7ca2dfc1182b3d202355415897c71de71ec4f76d3010f27f06fa62",
+      "split": "test",
+      "task": "severity"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/severity.train.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "4b8e750f52af3cf5d3a26d0fc0fccdeef70efac47cc5288b518a565ba51517eb",
+      "split": "train",
+      "task": "severity"
+    },
+    {
+      "part": 1,
+      "path": "training/canonical/severity.train.part-001.jsonl",
+      "rows": 2661,
+      "sha256": "efe73770cdc007db62dd292ecc5201807af2978f63f2b2b9902f44537cdd8040",
+      "split": "train",
+      "task": "severity"
+    },
+    {
+      "part": 0,
+      "path": "training/canonical/severity.validation.part-000.jsonl",
+      "rows": 2766,
+      "sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
+      "split": "validation",
+      "task": "severity"
+    }
+  ],
+  "filters": {
+    "detection": "verified only: v1 judged+confirmed positives, v1 rejected/disputed and v2.2 negative-control negatives, v3/vbeta IMPORT_AS_NEGATIVE negatives; unverified harvest rows never positives",
+    "language": "known languages only; unknown excluded",
+    "severity": "closed-vocab only; qa/unknown excluded, never coerced"
+  },
+  "generated_by": "scripts/build_canonical_training.py",
+  "input_budget_chars": 2000,
+  "severity_vocab": [
+    "critical",
+    "high",
+    "medium",
+    "low",
+    "informational"
+  ],
+  "split_policy": "official splits reused (v1 splits_v2, v2.2 splits_v2_2, v3 benchmark_split, vbeta by-source assignment); V4 uses a deterministic canonical-training-only by-source assignment",
+  "tasks": [
+    "severity",
+    "language",
+    "detection"
+  ],
+  "v4_canonical_split_assignment": {
+    "coinfabrik_audit_reports": "test",
+    "halborn_public_reports": "validation",
+    "oak_security_audit_reports": "train"
+  }
+}

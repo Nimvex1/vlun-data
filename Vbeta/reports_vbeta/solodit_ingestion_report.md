@@ -22,27 +22,27 @@ edit (tests/test_vbeta_docs.py fails the build on drift).
 | Harvested candidates | 733 | rows parsed from the scrape |
 | Admitted records | 670 | candidates that passed admission |
 | Quarantined | 63 | near-duplicates, linked not deleted |
-| IMPORT | 23 | severity + status + link + title all observed |
-| IMPORT_AS_UNVERIFIED | 647 | observed, not fully evidenced |
+| IMPORT | 25 | severity + status + link + title all observed |
+| IMPORT_AS_UNVERIFIED | 645 | observed, not fully evidenced |
 
 Language totals below are ADMITTED records and sum to 670; the earlier report's 782 summed a different
 population and did not match anything.
 
 ## Severity provenance
 
-- Report severity observed on **59** of 733 rows.
-- Solodit's own Impact axis observed on **101** rows, stored as
+- Report severity observed on **92** of 733 rows.
+- Solodit's own Impact axis observed on **733** rows, stored as
   `solodit_sidebar_observed`, never as the report's severity.
 - Status observed on 56 rows (inline
   `**Status:**` labels as well as `## Team Response` headings).
 
 ## Observed detail
 
-- Description excerpt: 221
-- Recommendation: 400
-- PoC section: 51
-- Levels: L0 621, L1 49
-- Languages: solidity 537, unknown 95, go 21, rust 8, vyper 5, move 3, cairo 1 (sum 670)
+- Description excerpt: 502
+- Recommendation: 574
+- PoC section: 73
+- Levels: L0 599, L1 71
+- Languages: solidity 538, unknown 94, go 21, rust 8, vyper 5, move 3, cairo 1 (sum 670)
 
 ## Splits
 

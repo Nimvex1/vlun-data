@@ -10,7 +10,7 @@
     "schema": 5,
     "source": 21,
     "splits": 13,
-    "training": 5
+    "training": 19
   },
   "excluded_prefixes": [
     "work/",
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 277,
+  "file_count": 291,
   "files": [
     {
       "bytes": 1363,
@@ -67,7 +67,7 @@
       "tracked": true
     },
     {
-      "bytes": 851,
+      "bytes": 847,
       "category": "meta",
       "keys": [
         "admitted",
@@ -75,7 +75,7 @@
         "dataset_version",
         "duplicates",
         "extracted_findings",
-        "generated_at",
+        "generated_by",
         "languages",
         "layer",
         "licensing_risks",
@@ -90,28 +90,28 @@
       "layer": "meta",
       "parse": "ok",
       "path": "V4/manifest.json",
-      "sha256": "c61c3f319c265f3283ef8d6d44bf1cdd0a2483645c2c3367457d1b9039b32143",
+      "sha256": "151f15268637506563ae3e21dec52f6dcdcc05860d80d57a5e3881c7bdabc739",
       "tracked": true
     },
     {
-      "bytes": 1175,
+      "bytes": 1176,
       "category": "meta",
       "kind": "array",
       "layer": "meta",
       "length": 3,
       "parse": "ok",
       "path": "V4/sources.json",
-      "sha256": "f0ceba3e3208ce0cc7e2d8f266f584fb8464b53f29c4906159bdc4b8523c3f0d",
+      "sha256": "acfabb1124cad629dc0e7b3a51c3006530555ecfb78db5a76256cab9c8484981",
       "tracked": true
     },
     {
-      "bytes": 1775798,
+      "bytes": 1776277,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
-      "rows": 6218,
-      "sha256": "6639f2182013021ceee3b43ec86ea1ba1fc39b28a785fc6e3320dfcbed32e3b7",
+      "rows": 6219,
+      "sha256": "6cf01c0abdaec57b088077d3c88018e30031280422db76228a7e11b014b11192",
       "tracked": true
     },
     {
@@ -139,7 +139,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/benchmark_vbeta/vbeta_manifest.json",
-      "sha256": "734f7b628b6fb485b34a12656d5f533c228f68958ecd0509605582bf682daaef",
+      "sha256": "36a3144ae6f24d09f9e8719942125958914f8e6b9bd7819f0c3cb3e0083585be",
       "tracked": true
     },
     {
@@ -154,13 +154,13 @@
       "tracked": true
     },
     {
-      "bytes": 4722439,
+      "bytes": 4723263,
       "category": "derived",
       "layer": "vbeta",
       "parse": "ok",
       "path": "Vbeta/derived_vbeta/candidate_ledger.jsonl",
       "rows": 7060,
-      "sha256": "93bd740958d7a0e26ad4442c991f7ffb8e9b24a9120adf07f43c3238989fd7a3",
+      "sha256": "995f22a762977475403d868bd2aeca1eee47592a8712f474bb71a98199f9114f",
       "tracked": true
     },
     {
@@ -207,7 +207,7 @@
       "layer": "vbeta",
       "parse": "ok",
       "path": "Vbeta/derived_vbeta/manifest.json",
-      "sha256": "94eec07f8383666a8a7525b34b0026a9c184e62b2703677bd4ff290178861e96",
+      "sha256": "6e2b6591ea935797a2194dc34fe7c43a14cfb020cfaa72975c2f1a0f16cc4da8",
       "tracked": true
     },
     {
@@ -221,13 +221,13 @@
       "tracked": true
     },
     {
-      "bytes": 11101741,
+      "bytes": 11334826,
       "category": "derived",
       "layer": "vbeta",
       "parse": "ok",
       "path": "Vbeta/derived_vbeta/records.jsonl",
       "rows": 6935,
-      "sha256": "23ec77ee7422160830b7f0458efa2b250e1cd8553bb3731579b753f5d2a51f73",
+      "sha256": "851475d0ead613f04261f017af7b576c64598430aa65ba024313fbf6fb8d4931",
       "tracked": true
     },
     {
@@ -255,13 +255,13 @@
       "tracked": true
     },
     {
-      "bytes": 2690377,
+      "bytes": 2690346,
       "category": "source",
       "layer": "vbeta",
       "parse": "ok",
       "path": "Vbeta/jsonl_vbeta/findings.jsonl",
       "rows": 7060,
-      "sha256": "208b7ba404f3d177cd120a208773cec2eddd8c68563200945192df08f1784778",
+      "sha256": "5bee5063668e06342dbc24f4c2eb1c7bbc54129a2ff631440cfd597eeb6c9c29",
       "tracked": true
     },
     {
@@ -297,7 +297,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "fb26a04fc11f6fcfa4ea3b44718f38e5bdaf38485078519e8d9b6603af6b1ef2",
+      "sha256": "61740ffedd3c1c1288f8addebe9d48932fb843e61834ec6fc6c5e67b70c18a3b",
       "tracked": true
     },
     {
@@ -328,11 +328,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/solodit_harvest_stats.json",
-      "sha256": "d97f6a34ece86b583a02078e0005bcb2c09854e35ea79737959e73bbe39113cd",
+      "sha256": "d143eb25ee102d0349a9ced1510aa41f2c57693f6a3bcec3aeced93c13ac97b3",
       "tracked": true
     },
     {
-      "bytes": 7359,
+      "bytes": 7396,
       "category": "reports",
       "keys": [
         "checks",
@@ -344,7 +344,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/validation_vbeta.json",
-      "sha256": "0a7a2068bfa692ed3f40b4015393b6837fd91231458b00bf4ee2b271ea4d778d",
+      "sha256": "a3af6421e6517217d72bb2138f215c4891bff1adf7f42ccc2b3370e75e2545e0",
       "tracked": true
     },
     {
@@ -359,14 +359,14 @@
       "tracked": true
     },
     {
-      "bytes": 1332714,
+      "bytes": 1963958,
       "category": "harvest",
       "kind": "array",
       "layer": "vbeta",
       "length": 733,
       "parse": "ok",
       "path": "Vbeta/solodit_candidates.json",
-      "sha256": "ad74ce4147ca84acca7441e660890b0379c741079aeefb6ff932cc48f466bc02",
+      "sha256": "d20ed869c836cd32bea160aa5872e6c77d99d3e60e51ba34078c466dc0283923",
       "tracked": true
     },
     {
@@ -590,13 +590,13 @@
       "tracked": true
     },
     {
-      "bytes": 1628274,
+      "bytes": 1628454,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/secondary_holdout_tasks.jsonl",
       "rows": 2716,
-      "sha256": "d47149b1e260694910a6d6aa8353b76393ad64ab2c5bc534373652b3655a63cc",
+      "sha256": "27b44ef46416447239ee2587f796d7efc211972fd6bff39216dd8a222bd15785",
       "tracked": true
     },
     {
@@ -682,13 +682,13 @@
       "tracked": true
     },
     {
-      "bytes": 325579,
+      "bytes": 325759,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
       "rows": 137,
-      "sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
+      "sha256": "db106e81785a966ca3606af94c1516d9a80ebc72973458b24377969f23c3aebf",
       "tracked": true
     },
     {
@@ -806,13 +806,13 @@
       "tracked": true
     },
     {
-      "bytes": 343316,
+      "bytes": 343496,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/retired_families/O_record_class_and_scope.jsonl",
       "rows": 137,
-      "sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
+      "sha256": "f245bc794962455cb5067e95f105f55b5a09e932f9e64daf360ad47dbb9bb031",
       "tracked": true
     },
     {
@@ -837,13 +837,13 @@
       "tracked": true
     },
     {
-      "bytes": 338549,
+      "bytes": 338729,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
       "rows": 137,
-      "sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
+      "sha256": "05e630a30bc6308715544ecffa7aee3fdfcce2d83a6e49950b9511d492855599",
       "tracked": true
     },
     {
@@ -1123,13 +1123,13 @@
       "tracked": true
     },
     {
-      "bytes": 854181,
+      "bytes": 854361,
       "category": "derived",
       "layer": "v2.2",
       "parse": "ok",
       "path": "derived_v2_2/records.jsonl",
       "rows": 137,
-      "sha256": "b8679a7e96987f20f0d6cf882e483d2abfd3e7c9932077a97c05364e0dfa191c",
+      "sha256": "e4f24c48c2a5e6cc895fa541674dbbf6f34ccbc5ecf3bfd2e77239f7ab7b3a7d",
       "tracked": true
     },
     {
@@ -1331,37 +1331,37 @@
       "tracked": true
     },
     {
-      "bytes": 17765076,
+      "bytes": 17757330,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "derived_v4/admitted_ledger.jsonl",
-      "rows": 5270,
-      "sha256": "28202be38bf95a16a1f1bcccb99555b0d48b3d33bd7a5cfdbb1a4aaf194150ed",
+      "rows": 5268,
+      "sha256": "41b4f3de87fa9437980b023e89ae342bea6061b7b16b40b152aceb5f1e96ba98",
       "tracked": true
     },
     {
-      "bytes": 654106,
+      "bytes": 654168,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "derived_v4/candidate_ledger.jsonl",
       "rows": 5270,
-      "sha256": "3a3d3c9509ea22d2556f1f59dd8f2a61b9647407aff6c5c30c0d3ecce05f4a9a",
+      "sha256": "14b5aef17e08b5421472103c57f6b0a27fe927d08bdf9a27ed89759cc6f3a8a0",
       "tracked": true
     },
     {
-      "bytes": 0,
+      "bytes": 7824,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "derived_v4/duplicate_ledger.jsonl",
-      "rows": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "rows": 2,
+      "sha256": "437ac43347ed85779a354c3b620532a61eb60300a9dd5f0318498c6cb2a253ad",
       "tracked": true
     },
     {
-      "bytes": 851,
+      "bytes": 847,
       "category": "meta",
       "keys": [
         "admitted",
@@ -1369,7 +1369,7 @@
         "dataset_version",
         "duplicates",
         "extracted_findings",
-        "generated_at",
+        "generated_by",
         "languages",
         "layer",
         "licensing_risks",
@@ -1384,7 +1384,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "derived_v4/manifest.json",
-      "sha256": "c61c3f319c265f3283ef8d6d44bf1cdd0a2483645c2c3367457d1b9039b32143",
+      "sha256": "151f15268637506563ae3e21dec52f6dcdcc05860d80d57a5e3881c7bdabc739",
       "tracked": true
     },
     {
@@ -3760,13 +3760,13 @@
       "tracked": true
     },
     {
-      "bytes": 402585,
+      "bytes": 402765,
       "category": "source",
       "layer": "v2.2",
       "parse": "ok",
       "path": "jsonl_ml/findings_reports.jsonl",
       "rows": 45,
-      "sha256": "5a3008e61d1e1dd4e56332ec9fc276ffa8a530eb968f1c08cc521fa105059691",
+      "sha256": "cd6d8ff02d5b3f15b70689464cb7cbc7039a6690926cf9c7ae6137587a4c5b37",
       "tracked": true
     },
     {
@@ -3810,13 +3810,13 @@
       "tracked": true
     },
     {
-      "bytes": 9540,
+      "bytes": 9560,
       "category": "source",
       "layer": "v2.2",
       "parse": "ok",
       "path": "jsonl_ml/sources_reports.jsonl",
       "rows": 5,
-      "sha256": "dfa96f9725a4aef34cbf959fdbbcee0d38095b0ced6270d44dd9978c55467354",
+      "sha256": "bd01f16c707138b1325e5f9b3ead03612d80dc14e60bf14e7c88a8bd03432f7e",
       "tracked": true
     },
     {
@@ -3860,13 +3860,13 @@
       "tracked": true
     },
     {
-      "bytes": 17765076,
+      "bytes": 17757330,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "jsonl_v4/findings.jsonl",
-      "rows": 5270,
-      "sha256": "28202be38bf95a16a1f1bcccb99555b0d48b3d33bd7a5cfdbb1a4aaf194150ed",
+      "rows": 5268,
+      "sha256": "41b4f3de87fa9437980b023e89ae342bea6061b7b16b40b152aceb5f1e96ba98",
       "tracked": true
     },
     {
@@ -3956,7 +3956,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "5de949764a1873734e9a2ad525dc109351c3b0634d79ab11ed6d6c1e9fd09efb",
+      "sha256": "191f122470e8b30805cd0fcb0aba20da3274a40d5a88d2d5170dd9dbd930ab05",
       "tracked": true
     },
     {
@@ -3974,11 +3974,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "a6864dc1b164a66b22a00ea96bc07130fa286fff235dc3ec6b6ebd9847cabee2",
+      "sha256": "5de980e1aed089a8a6f3b7a0359b0c85f23c54d4e9ef2aa572dac9a5ffd4ba52",
       "tracked": true
     },
     {
-      "bytes": 5874,
+      "bytes": 5875,
       "category": "reports",
       "keys": [
         "coverage",
@@ -3992,7 +3992,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "3e38c11f104d30cc5e476bb10c7dd762ccb44858d751b4088935d37597ac79e3",
+      "sha256": "1de75cbd67fa29ab2a6f2c0111e5731af3749f1b49487e4c7abf5e60b1eba263",
       "tracked": true
     },
     {
@@ -4010,11 +4010,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "3009dafa1e27009ac1124ff587f301a2b80089c5c51a882213385089f1bff1fb",
+      "sha256": "4f7f165f966f0d7591fcce3bc8aec416bd4c169c9dcdbf866dc49ad9d43f0931",
       "tracked": true
     },
     {
-      "bytes": 5891,
+      "bytes": 5894,
       "category": "reports",
       "keys": [
         "coverage",
@@ -4028,11 +4028,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "f59fd87523d9a4d807a9b35f92ebbd941b1d1434559bad539c9ab8a3b8e8b3d5",
+      "sha256": "b463351d801a96e50cfa4f487814476b5891dc384aeb9608958363cd8b7f26a3",
       "tracked": true
     },
     {
-      "bytes": 5898,
+      "bytes": 5897,
       "category": "reports",
       "keys": [
         "coverage",
@@ -4046,7 +4046,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "2fa3e13c26d73c96dbc60ba743d9bb77125e86fe973c5590593b6fff1b35b617",
+      "sha256": "6426f6e1946fa2e94ff602234403a34d712bd447fd44a80f14f7cf14a6f99b02",
       "tracked": true
     },
     {
@@ -4251,7 +4251,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/field_coverage.json",
-      "sha256": "273e661b464c5fa0d697136f35c017897166051e5c9e7c856dd08743c8e4f868",
+      "sha256": "4c1b1c57b80a466f2d1941a5f71209d3110dc83698ae07240a5bd56783c237ff",
       "tracked": true
     },
     {
@@ -5267,6 +5267,161 @@
       "rows": 302,
       "sha256": "a68979ae7be93e686ab6983ada3b3a9e7f186ea419c6f7a71e7b592c1b6e9120",
       "tracked": true
+    },
+    {
+      "bytes": 58773,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/detection.test.part-000.jsonl",
+      "rows": 77,
+      "sha256": "a531164869b5bdfaa9c3e27c9bea17d0e534bcf49bfbbd56bdba001916f327ff",
+      "tracked": false
+    },
+    {
+      "bytes": 184784,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/detection.train.part-000.jsonl",
+      "rows": 232,
+      "sha256": "8a85e0da857cacf605a109230d93c3b5af51d368eeb80b1f6dd64ae07f8b9683",
+      "tracked": false
+    },
+    {
+      "bytes": 52728,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/detection.validation.part-000.jsonl",
+      "rows": 90,
+      "sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
+      "tracked": false
+    },
+    {
+      "bytes": 4585458,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/language.test.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "868b4b9d5cb76831bb791597b14d5c400ca96b20ee28098513d1df6dedb40eb0",
+      "tracked": false
+    },
+    {
+      "bytes": 878313,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/language.test.part-001.jsonl",
+      "rows": 960,
+      "sha256": "7eaea2de7a79ae81af992a4d515cc456ccde0bdac2dbc24cc5dc21ac6535f445",
+      "tracked": false
+    },
+    {
+      "bytes": 6719812,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/language.train.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "e7b6d235f607a6a056e8aa62524117ad9c33bb4f4f8ba8200b409d3b64f4dc70",
+      "tracked": false
+    },
+    {
+      "bytes": 3899473,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/language.train.part-001.jsonl",
+      "rows": 3928,
+      "sha256": "e71c57048d93ab66d2d3dac5c1243a06756343c5da1f28b9cbff2451436a29be",
+      "tracked": false
+    },
+    {
+      "bytes": 2107106,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/language.validation.part-000.jsonl",
+      "rows": 2048,
+      "sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
+      "tracked": false
+    },
+    {
+      "bytes": 5983,
+      "category": "training",
+      "keys": [
+        "chunk_rows",
+        "counts",
+        "dataset_version",
+        "example_count",
+        "exclusions",
+        "files",
+        "filters",
+        "generated_by",
+        "input_budget_chars",
+        "severity_vocab",
+        "split_policy",
+        "tasks",
+        "v4_canonical_split_assignment"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/manifest.json",
+      "sha256": "377b43dd8a7939a226d120cfca178e611a643657c98fd02fb17916e420093a2d",
+      "tracked": false
+    },
+    {
+      "bytes": 4552706,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/severity.test.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "89b4197c062e3ef2aa69c7e150ac624cc64f35f9a378d2c39499fb4d7cc3a4cc",
+      "tracked": false
+    },
+    {
+      "bytes": 180777,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/severity.test.part-001.jsonl",
+      "rows": 183,
+      "sha256": "f2f31b0ede7ca2dfc1182b3d202355415897c71de71ec4f76d3010f27f06fa62",
+      "tracked": false
+    },
+    {
+      "bytes": 6839871,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/severity.train.part-000.jsonl",
+      "rows": 5000,
+      "sha256": "4b8e750f52af3cf5d3a26d0fc0fccdeef70efac47cc5288b518a565ba51517eb",
+      "tracked": false
+    },
+    {
+      "bytes": 2428233,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/severity.train.part-001.jsonl",
+      "rows": 2661,
+      "sha256": "efe73770cdc007db62dd292ecc5201807af2978f63f2b2b9902f44537cdd8040",
+      "tracked": false
+    },
+    {
+      "bytes": 2905903,
+      "category": "training",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "training/canonical/severity.validation.part-000.jsonl",
+      "rows": 2766,
+      "sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
+      "tracked": false
     },
     {
       "bytes": 2911,

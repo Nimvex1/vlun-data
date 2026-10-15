@@ -23,17 +23,17 @@ Dataset version vbeta-1.0. Isolated layer: no PRESENT file touched (see present_
 ## Findings
 
 candidates=7060 admitted_records=6935
-decisions={'CORROBORATION_ONLY': 63, 'IMPORT': 62, 'IMPORT_AS_NEGATIVE': 5, 'IMPORT_AS_UNVERIFIED': 6868, 'RESEARCH_ONLY': 62}
+decisions={'CORROBORATION_ONLY': 63, 'IMPORT': 64, 'IMPORT_AS_NEGATIVE': 5, 'IMPORT_AS_UNVERIFIED': 6866, 'RESEARCH_ONLY': 62}
 
 ## Verification
 
-levels={'L0': 7003, 'L1': 57}
+levels={'L0': 6981, 'L1': 79}
 L2-L6: 0 by construction (nothing executed in this pass).
 
 ## Languages / ecosystems (admitted records)
 
-{'cairo': 19, 'go': 38, 'move': 20, 'rust': 55, 'solidity': 6062, 'unknown': 717, 'vyper': 24}
-{'aptos': 10, 'cosmos': 9, 'evm': 6088, 'solana': 7, 'starknet': 2, 'sui': 7, 'unknown': 812}
+{'cairo': 19, 'go': 38, 'move': 20, 'rust': 55, 'solidity': 6063, 'unknown': 716, 'vyper': 24}
+{'aptos': 10, 'cosmos': 9, 'evm': 6089, 'solana': 7, 'starknet': 2, 'sui': 7, 'unknown': 811}
 
 ## Honest exclusions
 

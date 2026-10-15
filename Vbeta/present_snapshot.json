@@ -2,7 +2,7 @@
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
   "resnapshot_reason": "Phase 3 Task 9 stratifies R splits by tier (R shortcut 1.0 to 0.11); manifest checks 171 to 172",
   "sentinel_sha256": {
-    "README.md": "d1857f7c87ff97920fb464b49dc5874582fd5010a284305f35d7d7522ec31fff",
+    "README.md": "6d2fa9a563868745f44acb49090fcc920e4f915b1a12df22ff95b911f2532a8c",
     "benchmark/manifest.json": "a48e5e6abbad4e0f7ce1f0844a695bdf146ebb2afa060f2df52550c0c2524bf1",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
     "pyproject.toml": "72d7dea5899efb94758c3e5cda95f92f5e39930d4e8472e14c6cd1e7e6ed2a0d",

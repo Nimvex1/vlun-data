@@ -1,10 +1,10 @@
 {
-  "admitted": 5270,
+  "admitted": 5268,
   "candidate_ledger": 5270,
   "dataset_version": "4.0",
-  "duplicates": 0,
+  "duplicates": 2,
   "extracted_findings": 5270,
-  "generated_at": "2026-10-14T12:31:34.823700Z",
+  "generated_by": "scripts/register_v4.py",
   "languages": {
     "go": 3394,
     "michelson": 4,

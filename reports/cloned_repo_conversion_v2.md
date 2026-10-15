@@ -19,9 +19,9 @@ Total staged report candidates: **666**.
 |---|---:|
 | Report candidates staged | 666 |
 | Extracted per-finding records | 5270 |
-| Admitted (V4 findings) | 5270 |
+| Admitted (V4 findings) | 5268 |
 | Quarantined | 0 |
-| Duplicates | 0 |
+| Duplicates | 2 |
 | Rejected for missing core fields | 0 |
 
 Per source extracted/admitted counts:

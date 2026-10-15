@@ -310,10 +310,12 @@
       "check": "present_sentinels_unchanged",
       "critical": false,
       "detail": "warn-only: PRESENT may evolve deliberately",
-      "failure_count": 0,
-      "failures": [],
+      "failure_count": 1,
+      "failures": [
+        "README.md: drifted"
+      ],
       "group": "isolation",
-      "ok": true
+      "ok": false
     }
   ],
   "critical_failures": 0,

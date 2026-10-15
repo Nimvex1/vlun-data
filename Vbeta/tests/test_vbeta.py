@@ -79,9 +79,9 @@ class TestArtefacts(unittest.TestCase):
         # (7,060 rows), distinct from the admitted record count.
         dec = dict(self.manifest["candidate_decisions"])
         self.assertEqual(sum(dec.values()), 7060)
-        self.assertEqual(dec.get("IMPORT"), 62)
+        self.assertEqual(dec.get("IMPORT"), 64)
         self.assertEqual(dec.get("IMPORT_AS_NEGATIVE"), 5)
-        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6868)
+        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6866)
         self.assertEqual(dec.get("RESEARCH_ONLY"), 62)
         self.assertEqual(dec.get("CORROBORATION_ONLY"), 63)
         # admitted_* distributions sum to the admitted records.
@@ -353,12 +353,12 @@ class TestSoloditHarvest(unittest.TestCase):
                                 "user_contributed")
 
     def test_poc_rows_are_l1_with_proof(self):
-        # 51 ledger L1 (incl. 2 quarantined whose kept rows carry the same
-        # PoC); 49 admitted L1 records. No quoted PoC is lost: every
+        # 73 ledger L1 (incl. quarantined whose kept rows carry the same
+        # PoC); 71 admitted L1 records. No quoted PoC is lost: every
         # quarantined PoC row's kept counterpart has poc_observed=true.
         l1 = [r for r in self.records
               if r["verification_level"] == "L1"]
-        self.assertEqual(len(l1), 49)
+        self.assertEqual(len(l1), 71)
         for r in l1:
             self.assertEqual(r["evidence"]["proof_type"],
                              "published_poc_in_report")

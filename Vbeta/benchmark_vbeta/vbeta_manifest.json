@@ -6,9 +6,9 @@
     "vbeta_V_source_tier_routing"
   ],
   "generated_by": "Vbeta/scripts/build_vbeta.py",
-  "notes": "answer keys rebuild from derived_vbeta/records.jsonl. U covers 6,218 of 6,935 admitted records: 717 rows carry language 'unknown' and are excluded by construction, because a language-routing task whose answer is 'unknown' carries no signal. V covers every admitted record. Split assignment is by source (no source spans splits), which is why U is concentrated in whichever splits its sources own.",
+  "notes": "answer keys rebuild from derived_vbeta/records.jsonl. U covers 6,219 of 6,935 admitted records: 716 rows carry language 'unknown' and are excluded by construction, because a language-routing task whose answer is 'unknown' carries no signal. V covers every admitted record. Split assignment is by source (no source spans splits), which is why U is concentrated in whichever splits its sources own.",
   "tasks": {
-    "vbeta_U_language_routing": 6218,
+    "vbeta_U_language_routing": 6219,
     "vbeta_V_source_tier_routing": 6935
   }
 }

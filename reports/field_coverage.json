@@ -116,10 +116,10 @@
       "unknown_or_empty": 0
     },
     "vbeta.records.ecosystem": {
-      "known": 6123,
+      "known": 6124,
       "known_pct": 88.3,
       "total": 6935,
-      "unknown_or_empty": 812
+      "unknown_or_empty": 811
     },
     "vbeta.records.fix_description": {
       "known": 0,
@@ -136,10 +136,10 @@
       "unknown_or_empty": 6935
     },
     "vbeta.records.language": {
-      "known": 6218,
+      "known": 6219,
       "known_pct": 89.7,
       "total": 6935,
-      "unknown_or_empty": 717
+      "unknown_or_empty": 716
     },
     "vbeta.records.root_cause": {
       "known": 0,
@@ -149,10 +149,10 @@
       "unknown_or_empty": 6935
     },
     "vbeta.records.severity_observed": {
-      "known": 6317,
-      "known_pct": 91.1,
+      "known": 6350,
+      "known_pct": 91.6,
       "total": 6935,
-      "unknown_or_empty": 618
+      "unknown_or_empty": 585
     },
     "vbeta.records.status_observed": {
       "known": 91,

@@ -319,4 +319,4 @@ See [`NOTICE.md`](NOTICE.md).
 
 ## V4 layer
 
-Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5270 admitted, 0 quarantined, 0 duplicates. Evidence levels: {'L0': 5270}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.
+Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5270}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.

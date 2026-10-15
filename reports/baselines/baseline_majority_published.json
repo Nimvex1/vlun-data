@@ -14,8 +14,8 @@
         "tasks": 137
       }
     },
-    "manifest_scorable_total": 22638,
-    "scorer_covered": 19662
+    "manifest_scorable_total": 22639,
+    "scorer_covered": 19663
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task: needs judge, not string match",
@@ -169,7 +169,7 @@
       "accuracy_scorable": 0.0,
       "correct": 0,
       "predicted": 0,
-      "scorable": 6218,
+      "scorable": 6219,
       "splits": {
         "test": {
           "accuracy": null,
@@ -181,7 +181,7 @@
           "accuracy": null,
           "correct": 0,
           "predicted": 0,
-          "scorable": 588
+          "scorable": 589
         },
         "validation": {
           "accuracy": null,
@@ -224,14 +224,14 @@
     "accuracy_scorable": 0.0,
     "correct": 0,
     "predicted": 0,
-    "scorable": 19662
+    "scorable": 19663
   },
   "micro_all_families": {
     "accuracy": 1.0,
-    "accuracy_scorable": 0.003205707061585696,
+    "accuracy_scorable": 0.003205562327870333,
     "correct": 71,
     "predicted": 71,
-    "scorable": 22148
+    "scorable": 22149
   },
   "run": "baseline:majority_published:seed7"
 }

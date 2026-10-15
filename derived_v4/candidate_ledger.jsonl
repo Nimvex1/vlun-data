@@ -2643,7 +2643,7 @@
 {"candidate_id": "oak_security_audit_reports:41bb99c58426", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:1385bf4523ba", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:14c035ceccf6", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
-{"candidate_id": "oak_security_audit_reports:d02ce086b861", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
+{"candidate_id": "oak_security_audit_reports:d02ce086b861", "decision": "DUPLICATE", "reason": "within_extracted", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:4e9200d15b52", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:864626054b0f", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:4f3a78390051", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
@@ -3624,7 +3624,7 @@
 {"candidate_id": "oak_security_audit_reports:932941768efa", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:ef6913e4f2fa", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:0bbbb4cff53c", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
-{"candidate_id": "oak_security_audit_reports:8dcf7824fc76", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
+{"candidate_id": "oak_security_audit_reports:8dcf7824fc76", "decision": "DUPLICATE", "reason": "within_extracted", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:51db7823d8b8", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:98a9d0591621", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}
 {"candidate_id": "oak_security_audit_reports:571add74684d", "decision": "ADMITTED", "source_id": "oak_security_audit_reports"}

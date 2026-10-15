@@ -3,7 +3,7 @@ import re, json, hashlib, datetime
 from pathlib import Path
 from pypdf import PdfReader
 
-ROOT=Path(r"C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main")
+ROOT=Path(__file__).resolve().parents[1]
 OUT_DIR=ROOT/"work"/"cloned_conversion"/"v4"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 import os as _os

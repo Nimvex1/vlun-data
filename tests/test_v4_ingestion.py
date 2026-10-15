@@ -36,8 +36,32 @@ class TestV4Ingestion(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)))
 
     def test_source_hashes(self):
+        import hashlib
+        source_dirs = {
+            "halborn_public_reports": "halborn_reports",
+            "oak_security_audit_reports": "oak_audit_reports",
+            "coinfabrik_audit_reports": "coinfabrik_reports",
+        }
+        checked = 0
+        missing = []
         for row in self.findings:
             self.assertEqual(len(row["report_sha256"]), 64)
+            d = source_dirs.get(row.get("source_id"))
+            if not d:
+                continue
+            p = ROOT / "work" / "new_sources" / d / row["report_path"]
+            if not p.is_file():
+                missing.append(str(p))
+                continue
+            h = hashlib.sha256()
+            with open(p, "rb") as fh:
+                for chunk in iter(lambda: fh.read(65536), b""):
+                    h.update(chunk)
+            self.assertEqual(h.hexdigest(), row["report_sha256"],
+                             row.get("candidate_id"))
+            checked += 1
+        if missing and checked == 0:
+            self.skipTest("report files unavailable (work/ is gitignored)")
 
     def test_provenance_complete(self):
         for row in self.findings:
@@ -60,8 +84,11 @@ class TestV4Ingestion(unittest.TestCase):
 
     def test_manifest_counts(self):
         manifest = json.loads((ROOT / "derived_v4" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["extracted_findings"], len(self.findings))
+        self.assertEqual(manifest["extracted_findings"],
+                         len(self.findings) + len(self.quar) + len(self.dup))
         self.assertEqual(manifest["admitted"], len(self.adm))
+        self.assertEqual(manifest["quarantined"], len(self.quar))
+        self.assertEqual(manifest["duplicates"], len(self.dup))
 
 if __name__ == "__main__":
     unittest.main()

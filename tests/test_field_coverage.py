@@ -80,7 +80,12 @@ class TestFieldsResolve(unittest.TestCase):
         # gained a real one from the inline `**Severity:**` layout). The
         # drop is the fix, not a regression: see
         # tests/test_solodit_harvest.py.
-        self.assertEqual((k, len(rows)), (6317, 6935))
+        # 6,317 -> 6,350 when the harvester learned section aliases
+        # (`## Severity: Medium Risk` inline headings, Summary/Vulnerability
+        # Details/Recommendation aliases, wider PoC headings) and recovered
+        # more report-stated severities. The gain is the fix: every added
+        # value still passes the contamination guard below.
+        self.assertEqual((k, len(rows)), (6350, 6935))
         # Semantic guard, so the pin can never again accept a contaminated
         # value: Solodit's triage axis is not the auditor's severity.
         contaminated = [r["finding_id"] for r in rows
@@ -92,7 +97,7 @@ class TestFieldsResolve(unittest.TestCase):
         import json
         rep = json.load(open(ROOT / "reports" / "field_coverage.json",
                              encoding="utf-8-sig"))["fields"]
-        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6317)
+        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6350)
 
     def test_broken_key_would_fail(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])

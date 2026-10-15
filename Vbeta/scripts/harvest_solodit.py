@@ -47,6 +47,25 @@ EXT_LANG = {".sol": "solidity", ".vy": "vyper", ".cairo": "cairo",
 EVM_LANGS = {"solidity", "vyper"}
 FOOT_MARKERS = ["Unlock notes, bookmarks", "Full report"]
 
+# Observed section-name aliases. The Solodit mirror renders the same field
+# under several headings; a single exact heading match silently drops most of
+# the available evidence. These are aliases only -- no values are inferred or
+# synthesized, only observed text is kept.
+SEVERITY_NAMES = ["Severity"]
+DESCRIPTION_NAMES = ["Description", "Summary", "Vulnerability Details",
+                    "Root Cause", "Finding description", "Overview"]
+RECOMMENDATION_NAMES = ["Recommendation", "Recommendations", "Recommended Steps",
+                        "Recommended Mitigation", "Recommended Mitigation Steps",
+                        "Mitigation", "Mitigation Steps", "Recommended Fix"]
+POC_NAMES = ["Proof of Concept", "Proof of concept", "PoC", "POC", "PoC",
+             "Exploit Steps", "Exploit Scenario", "Attack Execution",
+             "Attack Path", "Attack Scenario"]
+CODE_LOC_NAMES = ["Location of Affected Code", "Code Location",
+                  "Lines of code", "Relevant GitHub Links", "Code Snippet",
+                  "Affected Code"]
+STATUS_NAMES = ["Team Response", "Status", "Response"]
+SIDEBAR_AXES = ("Impact", "Likelihood", "Confidence", "Quality", "Rarity")
+
 
 def clean_md(text: str) -> str:
     text = text.replace("\\[", "[").replace("\\]", "]").replace("\\_", "_")
@@ -75,6 +94,21 @@ def section(text: str, name: str) -> str:
     m = re.search(r"^#{2,4}\s*" + re.escape(name) + r"\s*$\s*\n(.*?)(?=^#{1,4}\s|\Z)",
                   text, re.M | re.S)
     return m.group(1).strip() if m else ""
+
+
+def section_any(text: str, names: list[str]) -> str:
+    """Try each alias and return the first observed section body."""
+    for name in names:
+        val = section(text, name)
+        if val.strip():
+            return val
+    # Inline-heading values: "## Severity: High Risk" has no following body.
+    for name in names:
+        m = re.search(r"^#{2,4}\s*" + re.escape(name) +
+                      r"\b[^\n]*[:\-]\s*(.+)$", text, re.M)
+        if m and m.group(1).strip():
+            return m.group(1).strip()
+    return ""
 
 
 def _label_re(name: str, value_max: int = 120):
@@ -128,8 +162,14 @@ _SOLODIT_AXES = ("Impact", "Likelihood", "Confidence")
 
 
 def solodit_axis(text: str, axis: str) -> str:
+    # Bold inline form: "**Impact:** High"
     m = _label_re(axis, 60).search(text)
-    return clean_md(m.group(1))[:60] if m else ""
+    if m and m.group(1).strip():
+        return clean_md(m.group(1))[:60]
+    # Unbolded / separate-line form: "Impact High" or "Impact: High"
+    m2 = re.search(r"(?mi)^[ \t>*\-]{0,6}" + re.escape(axis) +
+                   r"\s*[:\-]?\s*([^\n]{1,60})$", text)
+    return clean_md(m2.group(1))[:60] if m2 else ""
 
 
 def strip_solodit_axes(text: str) -> str:
@@ -168,21 +208,26 @@ def report_severity(text: str) -> tuple[str | None, dict]:
     widget AND parses as a severity token: if either test fails the answer
     is null, even though Solodit displayed an Impact value.
     """
-    raw = section(text, "Severity")
-    sidebar = {a.lower(): (solodit_axis(raw, a) or solodit_axis(text, a))
-               for a in _SOLODIT_AXES}
+    # Heading body ("## Severity\nHigh Risk"), or inline heading value
+    # ("## Severity: Medium Risk").
+    hm = re.search(r"^#{2,4}\s*Severity\b[^\n]*\n(.*?)(?=^#{1,4}\s|\Z)",
+                   text, re.M | re.S)
+    raw = hm.group(1).strip() if hm else ""
+    if not raw:
+        hm2 = re.search(r"^#{2,4}\s*Severity\b[^\n]*[:\-]\s*(.+)$",
+                        text, re.M)
+        raw = hm2.group(1).strip() if hm2 else ""
+
+    sidebar = {a.lower(): (solodit_axis(text, a))
+               for a in SIDEBAR_AXES}
     sidebar = {k: v for k, v in sidebar.items() if v}
 
     report_side = strip_solodit_axes(raw) if raw else ""
     if not _looks_like_severity(report_side.split("\n")[0] if report_side else ""):
-        # No heading value (or not severity-shaped): try a line-anchored
-        # inline label. Line-anchored on purpose -- an unanchored search
-        # matches prose that merely mentions the word.
         inline = inline_label_line(text, "Severity")
         report_side = inline if _looks_like_severity(inline) else ""
         if inline and not report_side:
-            # it was shaped like a label but carried the widget, not a value
-            for a in _SOLODIT_AXES:
+            for a in SIDEBAR_AXES:
                 v = solodit_axis(inline, a)
                 if v:
                     sidebar.setdefault(a.lower(), v)
@@ -192,9 +237,6 @@ def report_severity(text: str) -> tuple[str | None, dict]:
     first = clean_md(report_side.split("\n")[0])[:60]
     if not _looks_like_severity(first):
         return None, sidebar
-    # Verbatim, format variants kept ('High Risk' stays 'High Risk'): the
-    # closed-vocabulary normalisation happens in build_vbeta, not here, so
-    # the observed string always matches the source text.
     return first, sidebar
 
 
@@ -298,6 +340,73 @@ def mark_duplicates(rows: list[dict]) -> tuple[int, list[dict]]:
     return len(dupes), dupes
 
 
+def parse_footer_list(text: str, label: str) -> list[str]:
+    """Parse a Solodit footer list ('Tags' / 'Categories') into clean tokens."""
+    m = re.search(r"(?im)^" + re.escape(label) + r"\s*\n(.*?)(?=^\w[^\n]*\n|\Z)",
+                  text, re.S)
+    if not m:
+        m = re.search(r"(?i)" + re.escape(label) + r"\s*[:\-]?\s*(.+?)(?=\n\n|\Z)",
+                      text, re.S)
+    if not m:
+        return []
+    body = m.group(1)
+    items = []
+    for line in body.splitlines():
+        line = line.strip().lstrip("-* ").strip()
+        if not line:
+            continue
+        # Split comma/space separated token lists but keep multi-word-ish items
+        # reasonably intact by splitting on commas first.
+        for part in line.split(","):
+            part = clean_md(part)
+            if part and len(part) < 80:
+                items.append(part)
+    # De-duplicate preserving order.
+    seen = set()
+    out = []
+    for x in items:
+        if x.lower() not in seen:
+            seen.add(x.lower())
+            out.append(x)
+    return out[:20]
+
+
+def extract_code_locations(text: str, loc_raw: str) -> list[dict]:
+    """Observed code file/URL references only. No paths are invented."""
+    refs: list[dict] = []
+    seen: set[tuple[str | None, str | None]] = set()
+
+    def add(path, url):
+        path = (path or "").strip()[:160] or None
+        url = (url or "").strip()[:300] or None
+        key = (path, url)
+        if (path or url) and key not in seen:
+            seen.add(key)
+            refs.append({"path": path, "url": url})
+
+    # Markdown links in location/code sections.
+    for source in (loc_raw or "",):
+        for m in re.finditer(r"\[([^\]]+)\]\((https?://[^)]+)\)", source):
+            add(m.group(1), m.group(2))
+    # Also scan observed code-snippet/GitHub-link sections already in loc_raw.
+    for m in re.finditer(r"(?m)(https?://[^\s)]+)", loc_raw or ""):
+        if "github" in m.group(1) or "#L" in m.group(1) or ".sol" in m.group(1):
+            add(None, m.group(1))
+
+    # Inline bold refs: **src/Foo.sol:L10-L12** or **Foo.sol**
+    for m in re.finditer(r"(?m)^.{0,8}\*{1,2}([^*\n]+\.(?:sol|vy|rs|go|move|cairo)(?::L?\d+(?:-L?\d+)?)?)\*{0,2}\s*$",
+                         text):
+        add(m.group(1), None)
+
+    # Absolute code refs anywhere in body, only when clearly code-ish.
+    if not refs:
+        for m in re.finditer(r"\[([^\]]*\.(?:sol|vy|rs|go|move|cairo)[^\]]*)\]\((https?://[^)]+)\)",
+                             text):
+            add(m.group(1), m.group(2))
+
+    return refs[:25]
+
+
 def parse_file(fname: str, text: str, url: str) -> dict | None:
     seq = fname[:4]
     slug = fname[5:].removesuffix(".md").removesuffix("-markdown")
@@ -310,20 +419,21 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
     body = body_of(text)
 
     severity, solodit_sidebar = report_severity(text)
-    team_raw = section_or_label(text, "Team Response") or \
-        section_or_label(text, "Status")
+    team_raw = section_any(text, STATUS_NAMES)
+    if not team_raw:
+        team_raw = section_or_label(text, "Team Response") or \
+            section_or_label(text, "Status")
     status = clean_md(team_raw.split("\n")[0])[:60] if team_raw else None
     if not status:
         status = None
 
-    loc_raw = section_or_label(text, "Location of Affected Code")
+    loc_raw = section_any(text, CODE_LOC_NAMES)
+    code_refs = extract_code_locations(text, loc_raw)
     code_path, code_url = None, None
-    if loc_raw:
-        lm = re.search(r"\[([^\]]+)\]\((https?://[^)]+)\)", loc_raw)
-        if lm:
-            code_path, code_url = lm.group(1)[:160], lm.group(2)[:300]
-        else:
-            code_path = clean_md(loc_raw.split("\n")[0])[:160] or None
+    if code_refs:
+        first = code_refs[0]
+        code_path = first.get("path")
+        code_url = first.get("url")
 
     rep_url = None
     rm = re.search(r"Full report\s*\n\s*\[?[^\]\n]*\]?\((https?://[^)]+)\)",
@@ -346,20 +456,47 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
                     break
             break
 
+    # Observed absolute report date (relative phrases like "2 days ago" are
+    # NOT convertible without scrape timestamp assumptions).
+    report_date = None
+    date_m = re.search(
+        r"\b(?:January|February|March|April|May|June|July|August|September|"
+        r"October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|"
+        r"Oct|Nov|Dec)\.?\s+\d{1,2},?\s+\d{4}\b", project or "")
+    if not date_m:
+        # Also scan the same header area explicitly.
+        head = "\n".join(lines[:8])
+        date_m = re.search(
+            r"\b(?:January|February|March|April|May|June|July|August|September|"
+            r"October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|"
+            r"Oct|Nov|Dec)\.?\s+\d{1,2},?\s+\d{4}\b", head)
+    if date_m:
+        report_date = date_m.group(0)
+
     poc = False
-    pm = re.search(r"^#{2,4}\s*(Proof of Concept|Attack Execution|"
-                   r"Exploit Steps|\bPoC\b)\s*$", text, re.M | re.I)
+    poc_heading = "|".join(re.escape(n) for n in POC_NAMES)
+    pm = re.search(r"^#{2,4}\s*(" + poc_heading + r")\s*$",
+                   text, re.M | re.I)
     if pm:
         tail = text[pm.end():pm.end() + 1500]
         if re.search(r"(^|\n)\s*(```|\d+[.)]\s+\S)", tail):
             poc = True
 
-    language, ecosystem, lang_basis = detect_language(body)
+    lang_basis_input = body
+    if code_refs:
+        lang_basis_input += "\n" + "\n".join(
+            (r.get("path") or "") + " " + (r.get("url") or "")
+            for r in code_refs)
+    language, ecosystem, lang_basis = detect_language(lang_basis_input)
 
-    desc = section_or_label(text, "Description")
+    desc = section_any(text, DESCRIPTION_NAMES)
     excerpt = first_sentence(desc) if desc else ""
-    rec_raw = section_or_label(text, "Recommendation")
+    rec_raw = section_any(text, RECOMMENDATION_NAMES)
     rec = first_sentence(rec_raw, 160) if rec_raw else ""
+
+    # Footer-observed Solodit tags/categories (triage metadata, never taxonomy).
+    tags = parse_footer_list(text, "Tags")
+    categories = parse_footer_list(text, "Categories")
 
     extra = (f"Solodit issue {url}; auditor: {auditor or 'unknown'}; "
              f"project: {project or 'unknown'}; report: {rep_url or 'unknown'};"
@@ -378,11 +515,12 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
         "affected_function": None,
         "code_location": (f"{code_path} @ {code_url}" if code_path and code_url
                           else code_path),
+        "code_locations_observed": code_refs,
         "recommended_fix_observed": rec or None,
         "verified_patch": False,
         "fix_note": "team response preserved verbatim as status; never "
                     "experimental proof",
-        "report_date": "unknown",
+        "report_date": report_date or "unknown",
         "attribution": auditor or "unknown",
     }
     return {
@@ -403,6 +541,12 @@ def parse_file(fname: str, text: str, url: str) -> dict | None:
         "language_basis": lang_basis,
         "extra": extra[:600],
         "poc_observed": poc,
+        "report_date_observed": report_date,
+        "code_path_observed": code_path,
+        "code_url_observed": code_url,
+        "code_locations_observed": code_refs,
+        "solodit_tags_observed": tags,
+        "solodit_categories_observed": categories,
         "evidence": evidence,
     }
 
