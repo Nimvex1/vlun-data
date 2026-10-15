@@ -5,7 +5,7 @@
     "README.md": "6629d24a9dcc314d3b3632d831197a0f799b576143af44ebc201849e056d18be",
     "benchmark/manifest.json": "a48e5e6abbad4e0f7ce1f0844a695bdf146ebb2afa060f2df52550c0c2524bf1",
     "derived_v3/manifest.json": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
-    "pyproject.toml": "72d7dea5899efb94758c3e5cda95f92f5e39930d4e8472e14c6cd1e7e6ed2a0d",
+    "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",
     "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
   }
 }
