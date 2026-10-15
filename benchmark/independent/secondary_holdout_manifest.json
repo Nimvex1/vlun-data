@@ -934,7 +934,7 @@
           "go": 38,
           "move": 20,
           "rust": 55,
-          "solidity": 6062,
+          "solidity": 6063,
           "vyper": 24
         },
         "retained_contains_held_out_label": [],
@@ -958,16 +958,16 @@
           "go": 36,
           "move": 10,
           "rust": 49,
-          "solidity": 5555,
+          "solidity": 5556,
           "vyper": 24
         },
         "rows_held_out": 525,
-        "rows_retained": 5693,
+        "rows_retained": 5694,
         "single_class_holdout": false,
         "usable_for_comparison": true,
         "verdict": "built"
       },
-      "rows_available": 6218,
+      "rows_available": 6219,
       "shortcuts_class_disjoint": {
         "best_shortcut_accuracy": 0.5128,
         "frequency_from_retained": {
@@ -1024,7 +1024,7 @@
           "macro_f1": 0.1585
         },
         "kept_label_space": 6,
-        "kept_rows": 5693,
+        "kept_rows": 5694,
         "majority_from_retained": {
           "accuracy": 0.9657,
           "coverage": 1.0,

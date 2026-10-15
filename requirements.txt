@@ -22,6 +22,10 @@
 # an `extra ==` marker. Add optional deps to pyproject `[project.optional-dependencies]`.
 slither-analyzer>=0.10.0
 
+# --- optional, WIP-only ---------------------------------------------------------
+# scripts/extract_cloned_findings.py needs pypdf and fails loudly without it;
+# nothing else imports it, so it stays out of the install set. If you run
+# that script:  pip install "vlun-data[pdf-tools]"
 # --- toolchain the experiments need, not installable via pip ------------------
 # git      >= 2.30   (clone + object identity for citation resolution)
 # forge    >= 0.2.0  (Foundry; runs the Solidity PoCs and the pinpoint experiments)

@@ -16,6 +16,8 @@ dependencies = []
 
 [project.optional-dependencies]
 static-analysis = ["slither-analyzer>=0.10.0"]
+# WIP-only: scripts/extract_cloned_findings.py degrades gracefully without it.
+pdf-tools = ["pypdf>=4"]
 
 [project.urls]
 Repository = "https://github.com/Nimvex1/vlun-data"

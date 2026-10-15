@@ -297,7 +297,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "61740ffedd3c1c1288f8addebe9d48932fb843e61834ec6fc6c5e67b70c18a3b",
+      "sha256": "ce79a0fd07f7c1421194119f7aca7a5934c23107fb1d3cb913ef9f17a98f354e",
       "tracked": true
     },
     {
@@ -332,7 +332,7 @@
       "tracked": true
     },
     {
-      "bytes": 7396,
+      "bytes": 7359,
       "category": "reports",
       "keys": [
         "checks",
@@ -344,7 +344,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/validation_vbeta.json",
-      "sha256": "a3af6421e6517217d72bb2138f215c4891bff1adf7f42ccc2b3370e75e2545e0",
+      "sha256": "0a7a2068bfa692ed3f40b4015393b6837fd91231458b00bf4ee2b271ea4d778d",
       "tracked": true
     },
     {
@@ -586,7 +586,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/secondary_holdout_manifest.json",
-      "sha256": "2163bbaeb21aa2569d103ce7fa9ed37f4015a7284f63ef2ba31282bb348402fd",
+      "sha256": "f2e52405e2edf3bfc99fa66d492dd45d3dcf3e529e780ff56c6fad4f19cb646f",
       "tracked": true
     },
     {
@@ -1123,13 +1123,13 @@
       "tracked": true
     },
     {
-      "bytes": 854361,
+      "bytes": 854315,
       "category": "derived",
       "layer": "v2.2",
       "parse": "ok",
       "path": "derived_v2_2/records.jsonl",
       "rows": 137,
-      "sha256": "e4f24c48c2a5e6cc895fa541674dbbf6f34ccbc5ecf3bfd2e77239f7ab7b3a7d",
+      "sha256": "f40b78547d3f8ef4fad4862e08a34287ae69dc55040957d81b5cc5d27774d91d",
       "tracked": true
     },
     {
@@ -4291,7 +4291,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/independent/audit.json",
-      "sha256": "27ed2ed2167e7ad76922904a322eacbb75015e1785f85d273660b9d8dcecdd25",
+      "sha256": "78d83b6e6a87a06ac71ab8ac2ec97a16c152eac9cd38c7b1a29d3acd0c71dc71",
       "tracked": true
     },
     {
@@ -5210,7 +5210,7 @@
       "parse": "ok",
       "path": "splits_v2_2/test.jsonl",
       "rows": 284,
-      "sha256": "b48182b7015f8f0fccce2cf2964a87dfb0b37d7c507736e5adc852407070d869",
+      "sha256": "3d395d6c4c7d6ad2f847a594ef4e91b16891e41ff29fa760d6072e882515b9b7",
       "tracked": true
     },
     {
@@ -5220,7 +5220,7 @@
       "parse": "ok",
       "path": "splits_v2_2/train.jsonl",
       "rows": 489,
-      "sha256": "5dbaa0880908379df81dd50ea6d1ba72d398dddf9e1587b182de7a7d138813fa",
+      "sha256": "69678a59d29e2fc084ca418efa91ce22418ad180074df6a862d1d640f50e59b6",
       "tracked": true
     },
     {
@@ -5230,7 +5230,7 @@
       "parse": "ok",
       "path": "splits_v2_2/validation.jsonl",
       "rows": 307,
-      "sha256": "171ba3cb0219401c200c1151acfbb3c45d6055ad5f21bd22cc48faaeeae436f7",
+      "sha256": "0a4d0c96db2d2b10a4fa259463f779a6132adab6db69a82cb49b74507165566d",
       "tracked": true
     },
     {
@@ -5276,7 +5276,7 @@
       "path": "training/canonical/detection.test.part-000.jsonl",
       "rows": 77,
       "sha256": "a531164869b5bdfaa9c3e27c9bea17d0e534bcf49bfbbd56bdba001916f327ff",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 184784,
@@ -5286,7 +5286,7 @@
       "path": "training/canonical/detection.train.part-000.jsonl",
       "rows": 232,
       "sha256": "8a85e0da857cacf605a109230d93c3b5af51d368eeb80b1f6dd64ae07f8b9683",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 52728,
@@ -5296,7 +5296,7 @@
       "path": "training/canonical/detection.validation.part-000.jsonl",
       "rows": 90,
       "sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 4585458,
@@ -5306,7 +5306,7 @@
       "path": "training/canonical/language.test.part-000.jsonl",
       "rows": 5000,
       "sha256": "868b4b9d5cb76831bb791597b14d5c400ca96b20ee28098513d1df6dedb40eb0",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 878313,
@@ -5316,7 +5316,7 @@
       "path": "training/canonical/language.test.part-001.jsonl",
       "rows": 960,
       "sha256": "7eaea2de7a79ae81af992a4d515cc456ccde0bdac2dbc24cc5dc21ac6535f445",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 6719812,
@@ -5326,7 +5326,7 @@
       "path": "training/canonical/language.train.part-000.jsonl",
       "rows": 5000,
       "sha256": "e7b6d235f607a6a056e8aa62524117ad9c33bb4f4f8ba8200b409d3b64f4dc70",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 3899473,
@@ -5336,7 +5336,7 @@
       "path": "training/canonical/language.train.part-001.jsonl",
       "rows": 3928,
       "sha256": "e71c57048d93ab66d2d3dac5c1243a06756343c5da1f28b9cbff2451436a29be",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2107106,
@@ -5346,7 +5346,7 @@
       "path": "training/canonical/language.validation.part-000.jsonl",
       "rows": 2048,
       "sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 5983,
@@ -5371,7 +5371,7 @@
       "parse": "ok",
       "path": "training/canonical/manifest.json",
       "sha256": "377b43dd8a7939a226d120cfca178e611a643657c98fd02fb17916e420093a2d",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 4552706,
@@ -5381,7 +5381,7 @@
       "path": "training/canonical/severity.test.part-000.jsonl",
       "rows": 5000,
       "sha256": "89b4197c062e3ef2aa69c7e150ac624cc64f35f9a378d2c39499fb4d7cc3a4cc",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 180777,
@@ -5391,7 +5391,7 @@
       "path": "training/canonical/severity.test.part-001.jsonl",
       "rows": 183,
       "sha256": "f2f31b0ede7ca2dfc1182b3d202355415897c71de71ec4f76d3010f27f06fa62",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 6839871,
@@ -5401,7 +5401,7 @@
       "path": "training/canonical/severity.train.part-000.jsonl",
       "rows": 5000,
       "sha256": "4b8e750f52af3cf5d3a26d0fc0fccdeef70efac47cc5288b518a565ba51517eb",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2428233,
@@ -5411,7 +5411,7 @@
       "path": "training/canonical/severity.train.part-001.jsonl",
       "rows": 2661,
       "sha256": "efe73770cdc007db62dd292ecc5201807af2978f63f2b2b9902f44537cdd8040",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2905903,
@@ -5421,7 +5421,7 @@
       "path": "training/canonical/severity.validation.part-000.jsonl",
       "rows": 2766,
       "sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2911,

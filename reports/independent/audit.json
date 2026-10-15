@@ -2107,7 +2107,7 @@
           "U_lisabench:05659",
           "U_lisabench:06041"
         ],
-        "rows_checked": 6180,
+        "rows_checked": 6181,
         "severity": "medium",
         "verdict": "weak_answer_echo"
       },
@@ -2115,7 +2115,7 @@
         "answer_space_from_train": 6,
         "best_shortcut_accuracy": 0.9834,
         "frequency_from_train": {
-          "accuracy": 0.9074,
+          "accuracy": 0.9076,
           "coverage": 1.0,
           "macro_f1": 0.1586
         },
@@ -2150,7 +2150,7 @@
           "coverage": 1.0,
           "macro_f1": 0.1655
         },
-        "train_rows": 588
+        "train_rows": 589
       },
       "claim": "route a finding to its language",
       "class_disjoint": {
@@ -2168,7 +2168,7 @@
           "go": 38,
           "move": 20,
           "rust": 55,
-          "solidity": 6062,
+          "solidity": 6063,
           "vyper": 24
         },
         "verdict": "built"
@@ -2180,13 +2180,13 @@
           "go": 38,
           "move": 20,
           "rust": 55,
-          "solidity": 6062,
+          "solidity": 6063,
           "vyper": 24
         },
         "majority_fraction": 0.9749,
         "majority_label": "solidity",
         "n_labels": 6,
-        "rows": 6218,
+        "rows": 6219,
         "verdict": "saturated"
       },
       "group_overlap": {
@@ -2214,8 +2214,8 @@
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 5596
       },
-      "rows_scorable": 6218,
-      "rows_total": 6218,
+      "rows_scorable": 6219,
+      "rows_total": 6219,
       "rows_unlabeled": 0,
       "split_drift": {
         "per_split_label_distribution": {
@@ -2231,7 +2231,7 @@
             "go": 21,
             "move": 10,
             "rust": 8,
-            "solidity": 543,
+            "solidity": 544,
             "vyper": 5
           },
           "validation": {
@@ -2242,7 +2242,7 @@
           }
         },
         "train_majority_probe": {
-          "label_mix_l1_distance": 0.1229,
+          "label_mix_l1_distance": 0.1226,
           "test_is_single_class": false,
           "test_labels_absent_from_train": [],
           "test_rows": 5596,

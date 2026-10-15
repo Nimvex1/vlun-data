@@ -37,7 +37,7 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,153 tasks)
+benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,154 tasks)
 benchmark/retired_families/  retired headline-excluded families (B,E,M,N,O,P,S,T), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
@@ -96,9 +96,9 @@ forge reported `Success`, and no patch is called effective without the controlle
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
   `experiments_v3/`); 47 patch candidates all `not_testable` (no executable PoC on either side).
 - **Vbeta:** 6,935 admitted records from 7,060 candidates
-  (62 IMPORT, 6,868 unverified,
+  (64 IMPORT, 6,866 unverified,
   5 negatives, 62 research-only);
-  57 L1 quoted-PoC rows (rest L0); languages `["cairo", "go", "move", "rust", "solidity", "unknown", "vyper"]`;
+  79 L1 quoted-PoC rows (rest L0); languages `["cairo", "go", "move", "rust", "solidity", "unknown", "vyper"]`;
   splits train 683 / validation 584 / test 5,668.
 - Full per-source accounting, unknowns with resolving evidence, and extraction failures:
   [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md),
@@ -150,13 +150,13 @@ families that need experimentally produced ground truth only admit rows that hav
 | `R_v3_source_tier_routing` | 5,467 | 5,467 |  | v3 |
 | `S_v3_contest_outcome` | 1,072 | 1,072 | RETIRED | v3 |
 | `T_v31_taxonomy_explicit` | 589 | 589 | RETIRED | v3 |
-| `vbeta_U_language_routing` | 6,218 | 6,218 | SATURATED | Vbeta |
+| `vbeta_U_language_routing` | 6,219 | 6,219 | SATURATED | Vbeta |
 | `vbeta_V_source_tier_routing` | 6,935 | 6,935 | SATURATED | Vbeta |
 
 `Scorable` is the manifest count (answer key present). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 19,662 of
-22,638 manifest-scorable tasks
+`docs/ANSWER_KEY.md`) covers 19,663 of
+22,639 manifest-scorable tasks
 (D generative, Q judge-graded, H descriptive excluded with reasons).
 Published deterministic baselines, micro-accuracy / coverage (**headline families only** —
 retired families excluded, see RETIRED marks above and `benchmark/retired_families/`):

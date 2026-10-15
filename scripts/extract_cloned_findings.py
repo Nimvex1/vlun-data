@@ -1,7 +1,10 @@
 # ruff: noqa
 import re, json, hashlib, datetime
 from pathlib import Path
-from pypdf import PdfReader
+try:
+    from pypdf import PdfReader
+except ImportError:  # optional dep, stdlib-only pipeline degrades gracefully
+    PdfReader = None
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT_DIR=ROOT/"work"/"cloned_conversion"/"v4"
@@ -32,6 +35,10 @@ def sha256_file(p):
     return h.hexdigest()
 
 def pages_of(p):
+    if PdfReader is None:
+        raise RuntimeError("extract_cloned_findings.py needs pypdf "
+                           "(pip install pypdf); the core pipeline stays "
+                           "stdlib-only and never imports it")
     r=PdfReader(str(p))
     return [(i+1, (pg.extract_text(extraction_mode='layout') or '')) for i,pg in enumerate(r.pages)]
 

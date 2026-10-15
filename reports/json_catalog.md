@@ -59,7 +59,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
 | `derived_v2_2/manifest.json` | v2.2 | 1,923 | object, 20 keys | yes |
-| `derived_v2_2/records.jsonl` | v2.2 | 854,361 | 137 rows | yes |
+| `derived_v2_2/records.jsonl` | v2.2 | 854,315 | 137 rows | yes |
 | `derived_v3/candidate_ledger.jsonl` | v3 | 19,420,647 | 7712 rows | yes |
 | `derived_v3/corroborations.jsonl` | v3 | 34,481 | 108 rows | yes |
 | `derived_v3/corroborations_v31.jsonl` | v3 | 0 | 0 rows | yes |
@@ -236,7 +236,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
-| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,396 | object, 4 keys | yes |
+| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
 | `reports/baselines/baseline_first_published.json` | multi | 5,424 | object, 6 keys | yes |
@@ -322,20 +322,20 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `training/attacker_reasoning.jsonl` | multi | 79,919 | 302 rows | yes |
-| `training/canonical/detection.test.part-000.jsonl` | multi | 58,773 | 77 rows | no |
-| `training/canonical/detection.train.part-000.jsonl` | multi | 184,784 | 232 rows | no |
-| `training/canonical/detection.validation.part-000.jsonl` | multi | 52,728 | 90 rows | no |
-| `training/canonical/language.test.part-000.jsonl` | multi | 4,585,458 | 5000 rows | no |
-| `training/canonical/language.test.part-001.jsonl` | multi | 878,313 | 960 rows | no |
-| `training/canonical/language.train.part-000.jsonl` | multi | 6,719,812 | 5000 rows | no |
-| `training/canonical/language.train.part-001.jsonl` | multi | 3,899,473 | 3928 rows | no |
-| `training/canonical/language.validation.part-000.jsonl` | multi | 2,107,106 | 2048 rows | no |
-| `training/canonical/manifest.json` | multi | 5,983 | object, 13 keys | no |
-| `training/canonical/severity.test.part-000.jsonl` | multi | 4,552,706 | 5000 rows | no |
-| `training/canonical/severity.test.part-001.jsonl` | multi | 180,777 | 183 rows | no |
-| `training/canonical/severity.train.part-000.jsonl` | multi | 6,839,871 | 5000 rows | no |
-| `training/canonical/severity.train.part-001.jsonl` | multi | 2,428,233 | 2661 rows | no |
-| `training/canonical/severity.validation.part-000.jsonl` | multi | 2,905,903 | 2766 rows | no |
+| `training/canonical/detection.test.part-000.jsonl` | multi | 58,773 | 77 rows | yes |
+| `training/canonical/detection.train.part-000.jsonl` | multi | 184,784 | 232 rows | yes |
+| `training/canonical/detection.validation.part-000.jsonl` | multi | 52,728 | 90 rows | yes |
+| `training/canonical/language.test.part-000.jsonl` | multi | 4,585,458 | 5000 rows | yes |
+| `training/canonical/language.test.part-001.jsonl` | multi | 878,313 | 960 rows | yes |
+| `training/canonical/language.train.part-000.jsonl` | multi | 6,719,812 | 5000 rows | yes |
+| `training/canonical/language.train.part-001.jsonl` | multi | 3,899,473 | 3928 rows | yes |
+| `training/canonical/language.validation.part-000.jsonl` | multi | 2,107,106 | 2048 rows | yes |
+| `training/canonical/manifest.json` | multi | 5,983 | object, 13 keys | yes |
+| `training/canonical/severity.test.part-000.jsonl` | multi | 4,552,706 | 5000 rows | yes |
+| `training/canonical/severity.test.part-001.jsonl` | multi | 180,777 | 183 rows | yes |
+| `training/canonical/severity.train.part-000.jsonl` | multi | 6,839,871 | 5000 rows | yes |
+| `training/canonical/severity.train.part-001.jsonl` | multi | 2,428,233 | 2661 rows | yes |
+| `training/canonical/severity.validation.part-000.jsonl` | multi | 2,905,903 | 2766 rows | yes |
 | `training/exploit_reasoning.jsonl` | multi | 2,911 | 5 rows | yes |
 | `training/negative_reasoning.jsonl` | multi | 73,882 | 330 rows | yes |
 | `training/patch_reasoning.jsonl` | multi | 2,673 | 7 rows | yes |
