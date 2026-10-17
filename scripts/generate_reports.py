@@ -172,18 +172,30 @@ def build_benchmark_metrics() -> str:
     d_t = jl(BENCH / "D_exploit_construction.jsonl")
     # Majority-baseline accuracy per family (recomputed by the scorer, read
     # here — never typed). Families at >= 0.94 carry no signal: beating
-    # majority there proves nothing about a model.
+    # majority there proves nothing about a model. Exploratory families
+    # (below the 100-row headline floor) and retired families are read from
+    # their own blocks and tagged EXPLORATORY / RETIRED instead of
+    # SATURATED.
     maj = {}
+    _expl = set()
+    _ret = set()
     try:
         _bl = json.loads((REPORTS / "baselines"
                           / "baseline_majority.json").read_text(
                               encoding="utf-8"))
-        for _fam, _s in (_bl.get("families", {}) or {}).items():
-            if isinstance(_s, dict) and _s.get("accuracy") is not None:
-                maj[_fam[:-6] if _fam.endswith(".jsonl") else _fam] = \
-                    _s["accuracy"]
+        for _blk in ("families", "families_exploratory", "families_retired"):
+            for _fam, _s in (_bl.get(_blk, {}) or {}).items():
+                if isinstance(_s, dict) and _s.get("accuracy") is not None:
+                    maj[_fam[:-6] if _fam.endswith(".jsonl") else _fam] = \
+                        _s["accuracy"]
+        _expl = {(_f[:-6] if _f.endswith(".jsonl") else _f)
+                 for _f in (_bl.get("families_exploratory") or {})}
+        _ret = {(_f[:-6] if _f.endswith(".jsonl") else _f)
+                for _f in (_bl.get("families_retired") or {})}
     except (OSError, json.JSONDecodeError):
         maj = {}
+        _expl = set()
+        _ret = set()
 
     test_det = [t for t in det if t["split"] == "test"]
     test_pos = sum(1 for t in test_det if t["answer_key"]["label"] == "vulnerable")
@@ -259,11 +271,17 @@ def build_benchmark_metrics() -> str:
     for name, t in sorted(tasks.items()):
         bs = t.get("by_split", {})
         ma = maj.get(name)
-        flag = ""
-        if ma is not None:
-            flag = f"{ma:.3f}" + (" SATURATED" if ma >= 0.94 else "")
-        else:
+        if ma is None:
             flag = "n/a"
+        else:
+            tag = ""
+            if name in _expl:
+                tag = " EXPLORATORY"
+            elif name in _ret:
+                tag = " RETIRED"
+            elif ma >= 0.94:
+                tag = " SATURATED"
+            flag = f"{ma:.3f}{tag}"
         lines.append(f"| `{name}` | {t['tasks']} | {t['scorable']} | {t.get('partial', 0)} | "
                      f"{t.get('unlabeled', 0)} | {bs.get('train', 0)} | {bs.get('validation', 0)} | "
                      f"{bs.get('test', 0)} | {flag} |")
@@ -284,19 +302,25 @@ def build_benchmark_metrics() -> str:
         "",
         f"- Task D supplies {len(d_t)} PoC bodies quoted from reports. Their correctness is not "
         "established: only the fraction counted under *exploit confirmation rate* has been run.",
-        f"- Task E is fully unlabelled right now ({sum(1 for t in ev if t['answer_key_status'] == 'unlabeled')} "
-        "tasks): a PoC verification task needs an executed ground truth, and executing them needs "
-        "an archive RPC and a working toolchain.",
-        "- Task G is unlabelled by construction. Nothing in this run demonstrates that any "
-        "specific patch closes its vulnerability.",
+        f"- Task E is labelled on its {sum(1 for t in ev if t['answer_key_status'] == 'labeled')} "
+        f"rows with an executed verdict; the other {sum(1 for t in ev if t['answer_key_status'] != 'labeled')} "
+        "are unlabelled — a PoC verification task needs an executed ground truth, and executing "
+        "them needs an archive RPC and a working toolchain.",
+        f"- Task G is labelled on its {tasks.get('G_patch_verification', {}).get('scorable', 0)} "
+        "rows where the same exploit was run against both the vulnerable and the fixed revision "
+        f"(L6); the other {tasks.get('G_patch_verification', {}).get('unlabeled', 0)} are "
+        "`not_testable` — no executable PoC on either side, so their effectiveness is genuinely "
+        "unestablished.",
         f"- Counterexamples exist for only {ce.get('records_with_at_least_one_counterexample', 0)} "
         f"of {ce.get('confirmed_high_medium_records', 0)} confirmed High/Medium findings. The "
         "reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
         "- Baseline predictors have been run (`reports/baselines/`, rubric in "
         "`docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, "
         "TF-IDF retrieval and seeded random. Families with majority accuracy "
-        ">= 0.94 are marked SATURATED above — a model beat there carries no "
-        "signal.",
+        ">= 0.94 are marked SATURATED above; the four exploratory families "
+        "(F, G, I, J) are marked EXPLORATORY — below the 100-row floor where "
+        "a family score is interpretable — and a model beat there carries no "
+        "signal either.",
         "",
     ]
     (MD / "benchmark_metrics.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")

@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-291 files across 11 categories.
+294 files across 11 categories.
 
 ## source (21)
 
@@ -38,7 +38,7 @@ also excluded: reports/v3/validation_v31.json.
 | `jsonl_v3/findings.jsonl` | v3 | 17,197,363 | 7712 rows | yes |
 | `jsonl_v3/sources.jsonl` | v3 | 12,839 | 18 rows | yes |
 
-## derived (31)
+## derived (32)
 
 *normalized records, ledgers, manifests, overlays.*
 
@@ -72,6 +72,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v3/normalization_overlay.jsonl` | v3 | 4,649,822 | 9744 rows | yes |
 | `derived_v3/normalized_records_preview.jsonl` | v3 | 31,409,906 | 12504 rows | yes |
 | `derived_v3/patch_candidates.json` | v3 | 27,650 | unparseable | yes |
+| `derived_v3/patch_reviews.jsonl` | v3 | 165,902 | 47 rows | yes |
 | `derived_v3/records.jsonl` | v3 | 12,109,059 | 5467 rows | yes |
 | `derived_v3/source_ledger.json` | v3 | 16,906 | object, 1 keys | yes |
 | `derived_v3/source_sha_index.json` | v3 | 5,745 | object, 2 keys | yes |
@@ -140,7 +141,7 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/v3_R_source_tier_routing.jsonl` | multi | 2,941,947 | 5467 rows | yes |
 | `benchmark/v3_manifest.json` | multi | 790 | object, 7 keys | yes |
 
-## experiments (82)
+## experiments (83)
 
 *per-run result.json / harness.json run artefacts.*
 
@@ -215,6 +216,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v2_2/zentory-selfaudit-airdrop-node/result.json` | v2.2 | 1,075 | object, 18 keys | yes |
 | `experiments_v2_2/zentory-selfaudit-auditpocs/result.json` | v2.2 | 2,639 | object, 18 keys | yes |
 | `experiments_v2_2/zentory-selfaudit-findingspoc/result.json` | v2.2 | 1,516 | object, 18 keys | yes |
+| `experiments_v3/1inch-lop-m01/record.json` | v3 | 3,661 | object, 14 keys | yes |
 | `experiments_v3/burgerswap/harness.json` | v3 | 271 | object, 4 keys | yes |
 | `experiments_v3/burgerswap/result.json` | v3 | 1,948 | object, 16 keys | yes |
 | `experiments_v3/gamma/harness.json` | v3 | 261 | object, 4 keys | yes |
@@ -229,7 +231,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (56)
+## reports (57)
 
 *validation, stats, quality and baseline reports.*
 
@@ -239,13 +241,13 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
-| `reports/baselines/baseline_first_published.json` | multi | 5,424 | object, 6 keys | yes |
-| `reports/baselines/baseline_frequency_seed7.json` | multi | 5,891 | object, 6 keys | yes |
-| `reports/baselines/baseline_majority.json` | multi | 5,875 | object, 6 keys | yes |
-| `reports/baselines/baseline_majority_published.json` | multi | 5,427 | object, 6 keys | yes |
-| `reports/baselines/baseline_random_seed7.json` | multi | 5,894 | object, 6 keys | yes |
-| `reports/baselines/baseline_retrieval.json` | multi | 5,897 | object, 6 keys | yes |
-| `reports/benchmark_metrics.json` | multi | 11,788 | object, 5 keys | yes |
+| `reports/baselines/baseline_first_published.json` | multi | 11,886 | object, 11 keys | yes |
+| `reports/baselines/baseline_frequency_seed7.json` | multi | 12,931 | object, 11 keys | yes |
+| `reports/baselines/baseline_majority.json` | multi | 12,846 | object, 11 keys | yes |
+| `reports/baselines/baseline_majority_published.json` | multi | 11,889 | object, 11 keys | yes |
+| `reports/baselines/baseline_random_seed7.json` | multi | 12,933 | object, 11 keys | yes |
+| `reports/baselines/baseline_retrieval.json` | multi | 12,860 | object, 11 keys | yes |
+| `reports/benchmark_metrics.json` | multi | 11,820 | object, 5 keys | yes |
 | `reports/benchmark_quality.json` | multi | 6,679 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
 | `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
@@ -285,6 +287,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/extraction_failures.json` | multi | 35 | object, 2 keys | yes |
 | `reports/v3/normalization_report.json` | multi | 3,817 | object, 18 keys | yes |
 | `reports/v3/normalization_unknowns.json` | multi | 3,311 | object, 3 keys | yes |
+| `reports/v3/patch_static_review.json` | multi | 5,422 | object, 22 keys | yes |
 | `reports/v3/patch_verification_report.json` | multi | 303 | object, 7 keys | yes |
 | `reports/v3/poc_extraction_report.json` | multi | 287 | object, 7 keys | yes |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
@@ -364,7 +367,7 @@ also excluded: reports/v3/validation_v31.json.
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 1,176 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 738 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 812 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

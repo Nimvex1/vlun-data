@@ -2,11 +2,11 @@
   "by_category": {
     "benchmark": 37,
     "datasets": 4,
-    "derived": 31,
-    "experiments": 82,
+    "derived": 32,
+    "experiments": 83,
     "harvest": 6,
     "meta": 17,
-    "reports": 56,
+    "reports": 57,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 291,
+  "file_count": 294,
   "files": [
     {
       "bytes": 1363,
@@ -286,7 +286,7 @@
       "tracked": true
     },
     {
-      "bytes": 738,
+      "bytes": 812,
       "category": "meta",
       "keys": [
         "note",
@@ -297,7 +297,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "0c3e50fe5fa65038000467c570313e995c19719b6b2c973664d187f4d09ef1f0",
+      "sha256": "73faab57f6fcf07acdfbc02161d871bf85e65c9dc594b4f807240ec84948bf19",
       "tracked": true
     },
     {
@@ -1291,6 +1291,16 @@
       "parse": "error",
       "path": "derived_v3/patch_candidates.json",
       "sha256": "f6190e06fd2379638e3c250df9c671bfc31604c1e93a77a6efcdde058d8e23ba",
+      "tracked": true
+    },
+    {
+      "bytes": 165902,
+      "category": "derived",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "derived_v3/patch_reviews.jsonl",
+      "rows": 47,
+      "sha256": "be301cfcc199f48c300c4f0ffff9d1e65105467d1e63b0763f91c62756de3ab6",
       "tracked": true
     },
     {
@@ -3374,6 +3384,32 @@
       "tracked": true
     },
     {
+      "bytes": 3661,
+      "category": "experiments",
+      "keys": [
+        "caveats",
+        "commands",
+        "conclusion",
+        "executed_utc",
+        "files",
+        "finding_id",
+        "finding_title",
+        "id",
+        "purpose",
+        "repository",
+        "results",
+        "revisions",
+        "scenario",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/1inch-lop-m01/record.json",
+      "sha256": "1b9189a95d320e8b4802b6f2381c6c759535ffd688575d25cfed508e5af90306",
+      "tracked": true
+    },
+    {
       "bytes": 271,
       "category": "experiments",
       "keys": [
@@ -3942,115 +3978,145 @@
       "tracked": true
     },
     {
-      "bytes": 5424,
+      "bytes": 11886,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "191f122470e8b30805cd0fcb0aba20da3274a40d5a88d2d5170dd9dbd930ab05",
+      "sha256": "69889737241f4e66bf060aff02c657c461e09d65a5ea0b76f456f472614bb622",
       "tracked": true
     },
     {
-      "bytes": 5891,
+      "bytes": 12931,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "5de980e1aed089a8a6f3b7a0359b0c85f23c54d4e9ef2aa572dac9a5ffd4ba52",
+      "sha256": "389c783ea674a3fa5755dd7945f2e896031bff53f57a6504b50322a6e6c01123",
       "tracked": true
     },
     {
-      "bytes": 5875,
+      "bytes": 12846,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "1de75cbd67fa29ab2a6f2c0111e5731af3749f1b49487e4c7abf5e60b1eba263",
+      "sha256": "1d934b7b1bc7d019aecef914cb48568eef8c72c282af6a7f97bf6bc19e141f6b",
       "tracked": true
     },
     {
-      "bytes": 5427,
+      "bytes": 11889,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "4f7f165f966f0d7591fcce3bc8aec416bd4c169c9dcdbf866dc49ad9d43f0931",
+      "sha256": "563b711147883db2645df05b6b91b2e0693f3139a325f421111db638226498c7",
       "tracked": true
     },
     {
-      "bytes": 5894,
+      "bytes": 12933,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "b463351d801a96e50cfa4f487814476b5891dc384aeb9608958363cd8b7f26a3",
+      "sha256": "0c09ca89239d69ad74ec6cd42765587bff0973c7269c0ce2e58c65981416cb23",
       "tracked": true
     },
     {
-      "bytes": 5897,
+      "bytes": 12860,
       "category": "reports",
       "keys": [
         "coverage",
         "excluded_families",
+        "exploratory_families",
         "families",
+        "families_exploratory",
+        "families_retired",
         "micro",
         "micro_all_families",
+        "micro_exploratory",
+        "micro_retired",
         "run"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "6426f6e1946fa2e94ff602234403a34d712bd447fd44a80f14f7cf14a6f99b02",
+      "sha256": "3a26e9dfe84f67785a8f8219a7d134ef55405ec9b0e08a77bb82a958b098433d",
       "tracked": true
     },
     {
-      "bytes": 11788,
+      "bytes": 11820,
       "category": "reports",
       "keys": [
         "generated_by",
@@ -4063,7 +4129,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/benchmark_metrics.json",
-      "sha256": "4a0273161121a9881dd3d27e210bd23f50994b429c28e5c5afa8e88c73339cab",
+      "sha256": "9910311fc86cf69403f62909613c500141aa180ffbb235ba8f3c60c591ecd11e",
       "tracked": true
     },
     {
@@ -4199,7 +4265,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/depth_dashboard.json",
-      "sha256": "7b204d3901f3f880c2dcfde633e531f5f0deffb718b38fa7adfc0f2ca6ad241b",
+      "sha256": "005fe1f2518f4d192466e9ec6ad79f9d733f33fd2fdb4c87d2b010fb559f6955",
       "tracked": true
     },
     {
@@ -4919,6 +4985,40 @@
       "parse": "ok",
       "path": "reports/v3/normalization_unknowns.json",
       "sha256": "9afe6c4b22be052204634dacd179ba7ee8413bdf7c01c92c0b2cab1124481985",
+      "tracked": true
+    },
+    {
+      "bytes": 5422,
+      "category": "reports",
+      "keys": [
+        "by_diff_pair",
+        "by_fix_category",
+        "by_fix_confidence",
+        "by_patch_review_status",
+        "by_repository",
+        "execution",
+        "fix_effectiveness",
+        "fix_locality_assessed",
+        "fix_locality_by_assessment",
+        "fix_locality_scope_note",
+        "generated_by",
+        "licence_note",
+        "normalization_version",
+        "patch_candidates",
+        "poc_attempt_source",
+        "review_version",
+        "review_vocabulary",
+        "rows",
+        "rows_with_cited_diff",
+        "separation_guarantee",
+        "source_recovery",
+        "unique_diff_pairs"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/v3/patch_static_review.json",
+      "sha256": "6d7e097715412c3da289e3e820bdf5bdac74b216b15d543376f6fa7c39930650",
       "tracked": true
     },
     {

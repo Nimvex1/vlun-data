@@ -305,6 +305,7 @@ def main() -> int:
         "derived_v3/normalization.json",
         "derived_v3/corroborations_v31.jsonl",
         "derived_v3/patch_candidates.json",
+        "derived_v3/patch_reviews.jsonl",
         "derived_v3/experiment_readiness.json",
     ]
     # patch_candidates.json / experiment_readiness.json carry a .json name

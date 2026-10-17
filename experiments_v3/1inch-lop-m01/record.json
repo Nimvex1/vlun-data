@@ -1,0 +1,62 @@
+{
+  "id": "1inch-lop-m01",
+  "finding_id": "pashov-audits:team/1inch-security-review:[M-01]",
+  "finding_title": "FeeTaker is not accounting for unwrapWeth Feature",
+  "purpose": "Two-side PoC for a V3.1 patch candidate: the same fill scenario, adapted to each revision's interfaces, executed on both recorded revisions. Violation only on the vulnerable side.",
+  "repository": "limit-order-protocol",
+  "revisions": {
+    "vulnerable": "198a6d719aef8b6cd0b29e18a128f4abcf978046",
+    "fixed": "8c19fb95792c8fec76ed8f11554300dc0056416d"
+  },
+  "toolchain": {
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "hardhat": "2.19.4",
+    "solc": "0.8.23"
+  },
+  "commands": {
+    "setup": "git worktree add <dir> <revision>; npm install (the tree ships no lockfile, so npm ci is unavailable)",
+    "vulnerable": "npx hardhat test test/FeeTaker.js",
+    "fixed": "npx hardhat test test/FeeTaker.js"
+  },
+  "scenario": "fillOrderArgs on an order with makerTraits.unwrapWeth = true, takerAsset = WETH, order.receiver = FeeTaker, postInteraction fee in extraData; without msg.value (the protocol pulls WETH, withdraws it and sends ETH to the receiver).",
+  "results": {
+    "vulnerable": {
+      "passing": 4,
+      "failing": 1,
+      "failure": "the M-01 scenario reverts without a reason string at OrderMixin._fill (contracts/OrderMixin.sol:423): _WETH.safeWithdrawTo sends ETH to order.getReceiver() (the FeeTaker), which has no receive()/fallback at this revision"
+    },
+    "fixed": {
+      "passing": 6,
+      "failing": 0,
+      "note": "includes the two ETH-fee tests added by the fix commit; the fix adds receive() and an ETH branch to postInteraction"
+    },
+    "controls": "the four non-unwrapWeth fee-flow tests pass on both revisions; only the unwrapWeth ETH scenario separates them"
+  },
+  "conclusion": "The observed failure is exactly the M-01 mechanism (review scope: limit-order-protocol), and it is absent on the recorded fix revision. This flips the finding's review-layer fix_effectiveness to effective under the two-side rule; the frozen V3.1 candidate record stays untouched.",
+  "caveats": [
+    "hardhat 2.19.4 prints a Node.js 24 unsupported-version warning on every command; both suites nevertheless compile and run deterministically (outputs in the logs)",
+    "the adapted test is the fix commit's own ETH-fee test carried back to the vulnerable revision's interfaces (parameterless constructor, uint24/1e7 extraData encoding); the four pre-existing tests are unchanged",
+    "the two revisions also carry unrelated FeeTaker changes (uint16/1e5 fee encoding, onlyLimitOrderProtocol, rescueFunds); the PoC isolates the ETH path, not those"
+  ],
+  "files": {
+    "adapted_test": {
+      "path": "experiments_v3/1inch-lop-m01/adapted_test_FeeTaker.js",
+      "sha256": "4c4004396788880b53f1ad8f2312dc6816d064ea2606f914eadec4759f13605a"
+    },
+    "vulnerable_log": {
+      "path": "experiments_v3/1inch-lop-m01/vulnerable_run.log",
+      "sha256": "81483243ceeb0da3d34fc8add2ee6801145dcf33f63c6d47d02e6903f953ec91"
+    },
+    "fixed_log": {
+      "path": "experiments_v3/1inch-lop-m01/fixed_run.log",
+      "sha256": "b53e058c83ca0aff0cdbecf72baaa79cd6d31282aebfa02c44efbbbec3f43dca"
+    },
+    "upstream_license": {
+      "path": "experiments_v3/1inch-lop-m01/LICENSE.upstream.md",
+      "sha256": "9cbbc10de1ddafc5d8e875e8d27e7137de4a7242e84473822e817389e819c76d",
+      "source": "1inch/limit-order-protocol LICENSE.md at 8c19fb95792c8fec76ed8f11554300dc0056416d (the revision the adapted test derives from); carried byte-exact because MIT requires the notice to accompany substantial copies"
+    }
+  },
+  "executed_utc": "2026-10-17"
+}

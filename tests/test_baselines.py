@@ -2,7 +2,7 @@
 
 The committed baselines were computed against a stale Vbeta population
 (624/719 scorable rows) while the shipped Vbeta benchmark files carry
-6,218/6,935. A stale floor is worse than no floor: a model result read
+6,219 scorable U rows and 6,935 V rows (13,154 scorable tasks). A stale floor is worse than no floor: a model result read
 against it is meaningless. This recomputes the cheap deterministic
 summaries from the committed reports and fails when they disagree with
 reports/baselines/*.json.
@@ -71,7 +71,7 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
         self.assertEqual(rep["micro"]["scorable"], total)
 
     def test_all_six_baselines_agree_on_scorable_set(self):
-        want = want_all = None
+        want = want_all = want_expl = None
         for n in ("majority", "random_seed7", "frequency_seed7",
                   "first_published", "majority_published", "retrieval"):
             p = BASE / f"baseline_{n}.json"
@@ -86,6 +86,57 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
                 want_all = a
             self.assertEqual(a, want_all, f"baseline_{n}.json disagrees on "
                                           f"the all-families scorable set")
+            e = rep["micro_exploratory"]["scorable"]
+            if want_expl is None:
+                want_expl = e
+            self.assertEqual(e, want_expl,
+                             f"baseline_{n}.json disagrees on the "
+                             f"exploratory scorable set")
+
+    def test_exploratory_block_is_separate_and_reconciled(self):
+        rep = json.loads((BASE / "baseline_majority.json")
+                         .read_text(encoding="utf-8"))
+        expl = rep["families_exploratory"]
+        self.assertEqual(sorted(expl), [
+            "F_false_positive_rejection.jsonl", "G_patch_verification.jsonl",
+            "I_verified_non_exploit.jsonl", "J_verified_patch.jsonl",
+        ])
+        self.assertFalse(set(rep["families"]) & set(expl),
+                         "exploratory families leaked into the headline set")
+        self.assertEqual(rep["micro_exploratory"]["scorable"],
+                         sum(s["scorable"] for s in expl.values()))
+        for fam, stats in expl.items():
+            for base in (BENCH, VBENCH):
+                p = base / fam
+                if p.is_file():
+                    self.assertEqual(stats["scorable"], _labeled(p), fam)
+                    break
+            else:
+                self.fail(f"{fam}: no benchmark file found")
+
+    def test_retired_block_is_per_family_and_reconciled(self):
+        rep = json.loads((BASE / "baseline_majority.json")
+                         .read_text(encoding="utf-8"))
+        ret = rep["families_retired"]
+        self.assertEqual(rep["micro_retired"]["scorable"],
+                         sum(s["scorable"] for s in ret.values()))
+        self.assertFalse(set(rep["families"]) & set(ret))
+        for fam, stats in ret.items():
+            p = BENCH / "retired_families" / fam
+            self.assertTrue(p.is_file(), f"{fam}: no retired file")
+            self.assertEqual(stats["scorable"], _labeled(p), fam)
+
+    def test_scopes_reconcile_to_all_families(self):
+        for n in ("majority", "random_seed7", "frequency_seed7",
+                  "first_published", "majority_published", "retrieval"):
+            rep = json.loads((BASE / f"baseline_{n}.json")
+                             .read_text(encoding="utf-8"))
+            parts = (rep["micro"]["scorable"]
+                     + rep["micro_exploratory"]["scorable"]
+                     + rep["micro_retired"]["scorable"])
+            self.assertEqual(parts, rep["micro_all_families"]["scorable"],
+                             f"baseline_{n}.json: headline + exploratory + "
+                             f"retired != all families")
 
 
 if __name__ == "__main__":

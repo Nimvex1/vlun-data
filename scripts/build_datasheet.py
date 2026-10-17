@@ -43,8 +43,12 @@ def main() -> int:
     m22 = js(ROOT / "derived_v2_2" / "manifest.json", {}) or {}
     fc = js(ROOT / "reports" / "field_coverage.json", {}) or {}
     fields = fc.get("fields", {}) or {}
+    # known_pct == 0.0 is falsy; `or 100` hid fully unknown fields from this
+    # count (the datasheet said 3 of 28 when 11 are under 50%). Keep zero.
     thin = sum(1 for v in fields.values()
-               if isinstance(v, dict) and (v.get("known_pct") or 100) < 50)
+               if isinstance(v, dict)
+               and isinstance(v.get("known_pct"), (int, float))
+               and v["known_pct"] < 50)
     bl = js(ROOT / "reports" / "baselines" / "baseline_majority.json",
             {}) or {}
     micro = (bl.get("micro") or {})

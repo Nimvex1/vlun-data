@@ -9,7 +9,7 @@
   headings and inline `**Section:** value` labels) and keeps the report's own
   severity separate from Solodit's Impact axis, which had been recorded as a
   report severity on 45 rows.
-- Benchmark families U (6,218 tasks) + V (6,935 tasks; U excludes 717
+- Benchmark families U (6,219 tasks) + V (6,935 tasks; U excludes 716
   admitted records whose language is `unknown`); Vbeta gate 0 critical
   failures; splits train 683 / validation 584 / test 5,668 (by-source).
 - Manifest distributions are domain-named: `candidate_*` sums to the ledger

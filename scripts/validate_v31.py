@@ -12,6 +12,7 @@ Reads (never writes except its own report):
     derived_v3/normalization.json
     derived_v3/corroborations_v31.jsonl
     derived_v3/patch_candidates.json
+    derived_v3/patch_reviews.jsonl
     derived_v3/experiment_readiness.json
     derived_v3/candidate_ledger.jsonl  (v3.0, read-only)
     derived_v3/records.jsonl           (v3.0, read-only)
@@ -204,6 +205,84 @@ def main() -> int:
     bad_rd = [r.get("finding_id") for r in readiness if r.get("executed")]
     rep.add("vocabularies", "readiness_no_execution_claims", not bad_rd,
             bad_rd)
+
+    # ---- patch_reviews: static review, evidence-gated effectiveness ----------
+    # derived_v3/patch_reviews.jsonl adds a cited static diff per candidate;
+    # patch_status stays `not_testable` because a diff review states what
+    # changed, not whether the fix works. fix_effectiveness may flip only with
+    # the same valid PoC executed against BOTH revisions (L6-equivalent),
+    # recorded in work/patch_poc/index.json with committed evidence, and only
+    # on a finding whose cited diff is assessed `in_diff`. These checks keep
+    # the two facts separate.
+    reviews_path = D / "patch_reviews.jsonl"
+    if not reviews_path.exists():
+        rep.add("patch_reviews", "review_file_present", False,
+                [f"{reviews_path.name} missing (regen: "
+                 f"python scripts/review_patch_candidates.py)"])
+    else:
+        reviews = _load_jsonl(reviews_path, rep, "patch_reviews")
+        rep.add("patch_reviews", "review_file_present", True, [])
+        c_ids = [p.get("finding_id") for p in patches]
+        r_ids = [r.get("finding_id") for r in reviews]
+        rep.add("patch_reviews", "one_review_per_candidate",
+                len(r_ids) == len(set(r_ids)) and set(r_ids) == set(c_ids),
+                [f"candidates={len(c_ids)} reviews={len(r_ids)} "
+                 f"unique_reviews={len(set(r_ids))}"])
+        bad_stat_eff = [r.get("finding_id") for r in reviews
+                        if r.get("patch_review_status") == "static_diff_only"
+                        and r.get("fix_effectiveness") != "not_testable"]
+        rep.add("patch_reviews", "static_rows_never_effective",
+                not bad_stat_eff, bad_stat_eff)
+        bad_eff = []
+        for r in reviews:
+            if r.get("fix_effectiveness") == "not_testable":
+                continue
+            pr = r.get("poc_reconstruction") or {}
+            ev = pr.get("evidence") or {}
+            ok = (pr.get("attempted") is True
+                  and pr.get("outcome") == "fix_verified_two_side"
+                  and isinstance(ev.get("vulnerable"), dict)
+                  and isinstance(ev.get("fixed"), dict)
+                  and ev["vulnerable"].get("result")
+                  and ev["fixed"].get("result")
+                  and (r.get("fix_locality") or {}).get("assessment")
+                  == "in_diff")
+            if not ok:
+                bad_eff.append(r.get("finding_id"))
+        rep.add("patch_reviews", "effectiveness_gated_on_two_side_evidence",
+                not bad_eff, bad_eff,
+                detail="an effectiveness claim requires an executed two-side "
+                       "PoC on an in_diff finding, recorded in "
+                       "work/patch_poc/index.json with committed evidence")
+        bad_rst = [r.get("finding_id") for r in reviews
+                   if r.get("patch_review_status")
+                   not in ("static_diff_only", "diff_unavailable",
+                           "executed_fix_verified")]
+        rep.add("patch_reviews", "review_status_vocabulary",
+                not bad_rst, bad_rst)
+        bad_loc = [r.get("finding_id") for r in reviews
+                   if (r.get("fix_locality") or {}).get("assessment")
+                   not in (None, "in_diff", "not_in_diff", "ambiguous")]
+        rep.add("patch_reviews", "fix_locality_vocabulary",
+                not bad_loc, bad_loc,
+                detail="fix_locality (where assessed) states whether the "
+                       "cited diff touches the finding's target")
+        exec_claims = [r.get("finding_id") for r in reviews
+                       if r.get("verification_level") or r.get("experiment")
+                       or r.get("executed") is True]
+        rep.add("patch_reviews", "reviews_claim_no_execution",
+                not exec_claims, exec_claims,
+                detail="a static review earns no L-level and carries no "
+                       "experiment pointer")
+        no_cite = [r.get("finding_id") for r in reviews
+                   if r.get("patch_review_status") == "static_diff_only"
+                   and not re.fullmatch(
+                       r"[0-9a-f]{64}",
+                       ((r.get("cited_diff") or {}).get("diff_sha256") or ""))]
+        rep.add("patch_reviews", "static_rows_cite_their_diff",
+                not no_cite, no_cite,
+                detail="a static_diff_only row must carry the sha256 of the "
+                       "diff it reviewed")
 
     # ---- no-invention: SHAs grounded in parent sources ----------------------
     # Parent sources live in V3/clones (git-ignored, never redistributed),

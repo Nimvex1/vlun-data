@@ -14,8 +14,8 @@ ground truth. Governing rule: truth over scale.
 - v2.2 (five languages): 137 derived records.
 - V3.0: 5,467 admitted of 7,712 candidates across 18 sources; levels {"L0": 4586, "L1": 754, "L3": 125, "L5": 2}.
 - Vbeta (isolated): 6,935 admitted of 7,060 candidates across 15 sources; levels {"L0": 6981, "L1": 79}.
-- Benchmark: 19,663 exactly-scorable tasks (majority micro-accuracy 0.8738). 864 further tasks across 3 families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
-- Field coverage: 3 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
+- Benchmark: 19,631 exactly-scorable tasks (majority micro-accuracy 0.8736). 864 further tasks across 3 families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
+- Field coverage: 11 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process
 

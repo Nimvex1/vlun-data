@@ -1,0 +1,123 @@
+{
+  "by_diff_pair": [
+    {
+      "candidates_citing": 6,
+      "diff_sha256": "e79d263ed59811b7435527f26d60f941d7de1d486de9c51aa1f1c3944c39a7ed",
+      "fixed_commit": "8c19fb95792c8fec76ed8f11554300dc0056416d",
+      "repository": "https://github.com/1inch/limit-order-protocol",
+      "vulnerable_commit": "198a6d719aef8b6cd0b29e18a128f4abcf978046"
+    },
+    {
+      "candidates_citing": 19,
+      "diff_sha256": "a4490e194543f73f117246679814de224b1a407aa17b5de18741eff3fefbbfb1",
+      "fixed_commit": "bc07c576f6da578f9ba336f522c6577ffeb70914",
+      "repository": "https://github.com/Tapioca-DAO/tapioca-periph",
+      "vulnerable_commit": "f968050e8468d712b93fdd37382e24f302b626dd"
+    }
+  ],
+  "by_fix_category": {
+    "other": 22,
+    "state_update": 25
+  },
+  "by_fix_confidence": {
+    "low": 6,
+    "medium": 19,
+    "unknown": 22
+  },
+  "by_patch_review_status": {
+    "diff_unavailable": 22,
+    "executed_fix_verified": 1,
+    "static_diff_only": 24
+  },
+  "by_repository": {
+    "https://github.com/1inch/limit-order-protocol": {
+      "candidates": 6,
+      "executed_fix_verified": 1,
+      "static_diff_only": 5
+    },
+    "https://github.com/GainsNetwork-org/gTrade-contracts": {
+      "candidates": 2,
+      "diff_unavailable": 2
+    },
+    "https://github.com/Tapioca-DAO/tapioca-periph": {
+      "candidates": 19,
+      "static_diff_only": 19
+    },
+    "https://github.com/spaceandtimelabs/sxt-token": {
+      "candidates": 20,
+      "diff_unavailable": 20
+    }
+  },
+  "execution": {
+    "levels_claimed": [],
+    "outcomes": {
+      "fix_verified_two_side": 1,
+      "not_attempted": 46
+    },
+    "poc_runs_performed": 1
+  },
+  "fix_effectiveness": {
+    "effective": 1,
+    "not_testable": 46
+  },
+  "fix_locality_assessed": 6,
+  "fix_locality_by_assessment": {
+    "ambiguous": 1,
+    "in_diff": 1,
+    "not_in_diff": 4
+  },
+  "fix_locality_scope_note": "Assessed for the six 1inch findings only. The tapioca-periph pair is a 123-file repo-wide cumulative diff (108 commits), where a file merely appearing in the diff has no bearing on any single finding's fix; its rows leave fix_locality null rather than guess.",
+  "generated_by": "scripts/review_patch_candidates.py",
+  "licence_note": "No diff text is redistributed: rows carry counts, file paths, a control-category label and a sha256 of the diff read locally.",
+  "normalization_version": "3.1",
+  "patch_candidates": 47,
+  "poc_attempt_source": "local PoC attempt index read (6 entries)",
+  "review_version": "static-review-1",
+  "review_vocabulary": [
+    "static_diff_only",
+    "diff_unavailable",
+    "executed_fix_verified"
+  ],
+  "rows": 47,
+  "rows_with_cited_diff": 25,
+  "separation_guarantee": "A static diff review states what changed, never whether the fix works. fix_effectiveness stays `not_testable` unless the finding has an executed two-side PoC (work/patch_poc/index.json) with committed evidence in experiments_v3/: the same valid scenario run on both revisions with the correct violation only on the vulnerable side, on an in_diff finding. A diff review, a project build, or a single-side run never flips it, and no review row earns an L-level claim.",
+  "source_recovery": [
+    {
+      "clone_remote": "https://github.com/1inch/limit-order-protocol",
+      "evidence": "public upstream; full clone; both recorded revisions present",
+      "local_clone": "work/patch_repos/limit-order-protocol",
+      "mirror_used": null,
+      "outcome": "recoverable",
+      "repository": "https://github.com/1inch/limit-order-protocol",
+      "upstream_state": "public"
+    },
+    {
+      "clone_remote": "https://github.com/GainsNetwork/gTrade-v6",
+      "evidence": "upstream deleted (404 for GainsNetwork-org/gTrade-contracts and GainsNetwork/gTrade-contracts); pinned revisions absent from gTrade-v5, gTrade-v6 and gTrade-v6.1; fork search (37 hits) checked, incl. adsorptionenthalpy/gTrade-v6.1 (17 MB, pushed 2024-07-01) -- neither revision present; Software Heritage origin lookup 404; no fork of the deleted repo exists",
+      "local_clone": "work/patch_repos/gTrade-contracts",
+      "mirror_used": null,
+      "outcome": "unrecoverable",
+      "repository": "https://github.com/GainsNetwork-org/gTrade-contracts",
+      "upstream_state": "deleted_or_inaccessible"
+    },
+    {
+      "clone_remote": "https://github.com/tredesboi/tapioca-periph",
+      "evidence": "upstream deleted (404); mirror fork carries both recorded revisions (verified with git cat-file -e)",
+      "local_clone": "work/patch_repos/tapioca-periph",
+      "mirror_used": "https://github.com/tredesboi/tapioca-periph",
+      "outcome": "recoverable_via_mirror",
+      "repository": "https://github.com/Tapioca-DAO/tapioca-periph",
+      "upstream_state": "deleted_or_inaccessible"
+    },
+    {
+      "clone_remote": "https://github.com/spaceandtimefdn/sxt-token",
+      "evidence": "upstream deleted (404); successor spaceandtimefdn/sxt-token (created 2025-04-29, 3 commits) does not contain either recorded revision; only fork ilyadruzh/sxt-token forks the successor; Software Heritage origin lookup 404; fork search (4 hits) found no repository with the audited history",
+      "local_clone": "work/patch_repos/sxt-token",
+      "mirror_used": null,
+      "outcome": "unrecoverable",
+      "repository": "https://github.com/spaceandtimelabs/sxt-token",
+      "upstream_state": "deleted_or_inaccessible"
+    }
+  ],
+  "unique_diff_pairs": 2
+}

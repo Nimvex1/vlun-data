@@ -233,6 +233,8 @@ def render() -> str:
     # V3.1 / V3.2 figures (same rule: read from artefacts, never typed).
     norm31 = jread(REPORTS / "v3" / "normalization_report.json", {}) or {}
     proof32 = jread(REPORTS / "v3" / "experimental_proof.json", {}) or {}
+    pr31 = jread(REPORTS / "v3" / "patch_static_review.json", {}) or {}
+    _prdr = pr31.get("by_patch_review_status", {}) or {}
     v3gate = jread(REPORTS / "v3" / "validation_v3.json", {}) or {}
     v31gate = jread(REPORTS / "v3" / "validation_v31.json", {}) or {}
     tri32 = (proof32.get("compile_triage") or {})
@@ -293,9 +295,14 @@ def render() -> str:
     # documents cannot disagree.
     _fcover = jread(REPORTS / "field_coverage.json", {}) or {}
     _fc_fields = _fcover.get("fields", {}) or {}
-    _fc_thin = sum(1 for _v in _fc_fields.values()
-                   if isinstance(_v, dict)
-                   and (_v.get("known_pct") or 100) < 50)
+    # known_pct == 0.0 is falsy, so `or 100` reclassified fully unknown
+    # fields as fully known and undercounted the thin ones (README said
+    # 3 of 28 when 11 are under 50%). Non-numeric stays 100; zero stays 0.
+    _fc_thin = sum(
+        1 for _v in _fc_fields.values()
+        if isinstance(_v, dict)
+        and isinstance(_v.get("known_pct"), (int, float))
+        and _v["known_pct"] < 50)
 
     def n(x):
         return f"{x:,}" if isinstance(x, int) else str(x)
@@ -319,8 +326,18 @@ def render() -> str:
     _bl_ret = jread(REPORTS / "baselines" / "baseline_retrieval.json", {}) or {}
     _depth = jread(REPORTS / "depth_dashboard.json", {}) or {}
     for _fam, _s in ((_bl_base.get("families") or {}).items()):
-        if isinstance(_s, dict) and (_s.get("accuracy") or 0) >= 0.94:
+        # None accuracy (nothing predicted) is not saturation; an explicit
+        # None check keeps a real 0.0 comparable and a missing value out.
+        if (isinstance(_s, dict)
+                and isinstance(_s.get("accuracy"), (int, float))
+                and _s["accuracy"] >= 0.94):
             _sat_letters.add(_fam_letter(_fam))
+    # Exploratory families (below the 100-row headline floor) come from the
+    # same committed report, never typed in.
+    _expl_letters = {_fam_letter(_f) for _f in
+                     (_bl_base.get("families_exploratory") or {})}
+    _expl_scorable = (_bl_base.get("micro_exploratory") or {}).get(
+        "scorable", 0) or 0
     def _retired(fam_key: str) -> bool:
         # Manifest task keys (A_vulnerability_detection, R_v3_source_tier_routing)
         # vs retired task-file names (A_vulnerability_detection.jsonl,
@@ -329,18 +346,44 @@ def render() -> str:
             return True
         return V3_FAMILY_FILES.get(fam_key, "") in RETIRED_FAMILIES
 
+    # Manifest-scorable universe vs scorer-covered headline set, reconciled
+    # live: the gap is the retired families' scorable rows, the exploratory
+    # families' sub-floor rows, plus the three out-of-scope families
+    # (D generative, H descriptive, Q judge-graded).
+    _excl_reasoned = sum(
+        (_spec.get("scorable", 0) if isinstance(_spec, dict) else _spec)
+        for _fam, _spec in _btasks.items()
+        if _fam_letter(_fam) in ("D", "H", "Q"))
+    _retired_scorable = sum(
+        (_spec.get("scorable", 0) if isinstance(_spec, dict) else _spec)
+        for _fam, _spec in _btasks.items() if _retired(_fam))
+    _retired_scorable += sum(
+        (_spec if isinstance(_spec, int) else _spec.get("scorable", 0))
+        for _fam, _spec in _v3tasks.items() if _retired(_fam))
+    _retired_letters = ", ".join(
+        sorted({_fam_letter(_f) for _f in RETIRED_FAMILIES}))
+
+    def _status(fam: str) -> str:
+        if _retired(fam):
+            return "RETIRED"
+        if _fam_letter(fam) in _expl_letters:
+            return "EXPLORATORY"
+        if _fam_letter(fam) in _sat_letters:
+            return "SATURATED"
+        return ""
+
     _bench_rows = "\n".join(
         f"| `{fam}` | {n((spec if isinstance(spec, dict) else {}).get('tasks', 0))} | "
         f"{n((spec if isinstance(spec, dict) else {}).get('scorable', 'n/a'))} | "
-        f"{'RETIRED' if _retired(fam) else ('SATURATED' if _fam_letter(fam) in _sat_letters else '')} | v1/A-Q |"
+        f"{_status(fam)} | v1/A-Q |"
         for fam, spec in sorted(_btasks.items()))
     _v3bench_rows = "\n".join(
         f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
-        f"{'RETIRED' if _retired(fam) else ('SATURATED' if _fam_letter(fam) in _sat_letters else '')} | v3 |"
+        f"{_status(fam)} | v3 |"
         for fam, tasks in sorted(_v3tasks.items()))
     _vbbench_rows = "\n".join(
         f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
-        f"{'SATURATED' if _fam_letter(fam) in _sat_letters else ''} | Vbeta |"
+        f"{_status(fam)} | Vbeta |"
         for fam, tasks in sorted(_vbm_tasks.items()))
     _v22_lvl = d22m.get("experiment_levels", {}) or {}
     _v22_verified = sum(v for k, v in _v22_lvl.items() if k in ("L5", "L6"))
@@ -348,8 +391,35 @@ def render() -> str:
     _vb_verified = sum(v for k, v in _vb_lvl.items() if k in ("L5", "L6"))
     _cov = (_bl_base.get("coverage") or {})
 
-    def _pct(x):
-        return f"{x:.4f}" if isinstance(x, (int, float)) else str(x)
+    def _acc(x):
+        return f"{x:.4f}" if isinstance(x, (int, float)) else "n/a"
+
+    def _rate_cell(_d):
+        _m = _d.get("micro") or {}
+        return (f"{_acc(_m.get('accuracy'))} @ {n(_m.get('predicted', 0))}"
+                f"/{n(_m.get('scorable', 0))}")
+
+    def _over_scorable_cell(_d):
+        return _acc((_d.get("micro") or {}).get("accuracy_scorable"))
+
+    def _cont_cell(_d):
+        _m = _d.get("micro_all_families") or {}
+        return (f"{_acc(_m.get('accuracy'))} @ {n(_m.get('predicted', 0))}"
+                f"/{n(_m.get('scorable', 0))}")
+
+    # Baseline table, all cells live from the committed baseline JSONs. A
+    # zero-prediction run shows "n/a" for accuracy-among-predictions and its
+    # 0/scorable coverage — never a 0.0000 that reads as a scored result.
+    _bl_rows = "\n".join(
+        f"| {_label} | {_rate_cell(_d)} | {_over_scorable_cell(_d)} | "
+        f"{_cont_cell(_d)} |"
+        for _label, _d in (
+            ("majority", _bl_base),
+            ("random-seed7", _bl_rand),
+            ("frequency-seed7", _bl_freq),
+            ("first-published (L only, retired family)", _bl_fp),
+            ("majority-published (L only, retired family)", _bl_mp),
+            ("TF-IDF retrieval", _bl_ret)))
 
     lines = f"""# VLUN — smart-contract security reasoning dataset
 
@@ -391,7 +461,7 @@ datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
 benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
-benchmark/retired_families/  retired headline-excluded families (B,E,M,N,O,P,S,T), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
+benchmark/retired_families/  retired headline-excluded families ({_retired_letters}), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
@@ -447,7 +517,15 @@ forge reported `Success`, and no patch is called effective without the controlle
   {(proof32.get('by_level') or {}).get('L5', 0)} thefts reproduced on fork with attacker-profit
   evidence; {n(len((proof32.get('runs') or [])) - (proof32.get('by_level') or {}).get('L5', 0))} blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
-  `experiments_v3/`); 47 patch candidates all `not_testable` (no executable PoC on either side).
+  `experiments_v3/`); 47 V3.1 patch candidates stay unverified at the candidate
+  layer: {n(_prdr.get('static_diff_only', 0))} cite a
+  static diff review, {n(_prdr.get('diff_unavailable', 0))} have no retrievable source, and
+  {n(_prdr.get('executed_fix_verified', 0))} additionally carries an executed two-side PoC
+  (violation only on the vulnerable revision; harness and logs in
+  [`experiments_v3/1inch-lop-m01/`](experiments_v3/1inch-lop-m01/)) — a diff
+  review states what changed, not whether the fix works
+  ([`derived_v3/patch_reviews.jsonl`](derived_v3/patch_reviews.jsonl),
+  [`reports/v3/patch_static_review.json`](reports/v3/patch_static_review.json)).
 - **Vbeta:** {n(vbm.get('record_count', 0))} admitted records from {n(vbm.get('candidate_count', 0))} candidates
   ({n(_vbdec.get('IMPORT', 0))} IMPORT, {n(_vbdec.get('IMPORT_AS_UNVERIFIED', 0))} unverified,
   {n(_vbdec.get('IMPORT_AS_NEGATIVE', 0))} negatives, {n(_vbdec.get('RESEARCH_ONLY', 0))} research-only);
@@ -481,34 +559,47 @@ never deleted. Benchmark families A-V are machine-readable under `benchmark/` (A
 `Vbeta/benchmark_vbeta/` (U-V) with manifests; answer keys rebuild from the records, and
 families that need experimentally produced ground truth only admit rows that have it.
 
-| Family | Tasks | Scorable | Saturated | Layer |
+| Family | Tasks | Scorable | Status | Layer |
 |---|---|---|---|---|
 {_bench_rows}
 {_v3bench_rows}
 {_vbbench_rows}
 
-`Scorable` is the manifest count (answer key present). The exact-match scorer
+`Scorable` is the manifest count (answer key present); `Status` marks
+families retired to `benchmark/retired_families/`, demoted to EXPLORATORY
+(fewer than 100 headline scorable rows) or SATURATED (headline majority >=
+0.94). The exact-match scorer
 (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers {_cov.get('scorer_covered', 0):,} of
-{_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks
-(D generative, Q judge-graded, H descriptive excluded with reasons).
-Published deterministic baselines, micro-accuracy / coverage (**headline families only** —
-retired families excluded, see RETIRED marks above and `benchmark/retired_families/`):
-majority {_pct(_bl_base.get('micro', {}).get('accuracy'))} ·
-random-seed7 {_pct(_bl_rand.get('micro', {}).get('accuracy'))} ·
-frequency-seed7 {_pct(_bl_freq.get('micro', {}).get('accuracy'))} ·
-first-published {_pct(_bl_fp.get('micro', {}).get('accuracy_scorable'))} @
-{(_bl_fp.get('micro', {}) or {}).get('predicted', 0)} tasks ·
-majority-published {_pct(_bl_mp.get('micro', {}).get('accuracy_scorable'))} @
-{(_bl_mp.get('micro', {}) or {}).get('predicted', 0)} tasks ·
-TF-IDF retrieval {_pct(_bl_ret.get('micro', {}).get('accuracy'))}.
-Continuity micro-accuracy over **all families ever shipped** (headline + retired,
-comparable to prior releases): majority {_pct((_bl_base.get('micro_all_families') or {}).get('accuracy'))} ·
-random-seed7 {_pct((_bl_rand.get('micro_all_families') or {}).get('accuracy'))} ·
-frequency-seed7 {_pct((_bl_freq.get('micro_all_families') or {}).get('accuracy'))} ·
-TF-IDF retrieval {_pct((_bl_ret.get('micro_all_families') or {}).get('accuracy'))}.
-Families marked SATURATED (majority >= 0.94: {", ".join(sorted(_sat_letters))})
-carry no signal — a model beat there proves nothing. Family A majority accuracy
+{_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks; the rest are the
+{len(RETIRED_FAMILIES)} retired families' {_retired_scorable:,} scorable rows (scored only in
+the continuity twin below), the {len(_expl_letters)} exploratory families' {_expl_scorable:,} sub-floor
+rows (scored per-family and in the continuity twin), plus D generative, H
+descriptive and Q judge-graded tasks
+({_excl_reasoned:,} rows), excluded with stated reasons.
+
+Published deterministic baselines. `acc @ predicted/scorable` is micro-accuracy on
+the tasks the baseline actually predicted, shown with its coverage; the `over scorable`
+column counts unpredicted tasks as wrong, so abstention is visible, never silent.
+Headline rows exclude the retired and exploratory families (see Status marks
+above and `benchmark/retired_families/`); continuity rows cover **all families
+ever shipped** (headline + exploratory + retired), comparable to prior releases.
+
+| Baseline | Headline acc @ predicted/scorable | Headline acc over scorable | Continuity acc @ predicted/scorable |
+|---|---|---|---|
+{_bl_rows}
+
+first-published and majority-published are L-only predictors over a retired family:
+they emit nothing on headline families by construction, so their headline accuracy is
+**n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
+`over scorable` column is where the abstention shows as 0.0000 of
+{_cov.get('scorer_covered', 0):,} headline scorable tasks.
+Families marked SATURATED (headline majority >= 0.94: {", ".join(sorted(_sat_letters))})
+carry no signal — a model beat there proves nothing. The
+{len(_expl_letters)} exploratory families ({", ".join(sorted(_expl_letters))}) are below the
+100-row floor where a family score is interpretable, so they carry no
+headline claim either — their rows stay scored per-family and in the
+continuity twin. Family A majority accuracy
 differs by split (see baseline reports); a split-blind floor is a validity
 hazard. `scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records

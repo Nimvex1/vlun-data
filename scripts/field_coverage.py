@@ -164,10 +164,13 @@ def main() -> int:
         print("field coverage reports are current")
         return 0
     out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n",
-                        encoding="utf-8")
-    out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+                        encoding="utf-8", newline="\n")
+    out_md.write_text("\n".join(lines) + "\n", encoding="utf-8",
+                      newline="\n")
     print(f"wrote {len(rep)} field coverages "
-          f"({sum(1 for c in rep.values() if (c['known_pct'] or 0) < 50)} "
+          f"({sum(1 for c in rep.values()
+                    if isinstance(c['known_pct'], (int, float))
+                    and c['known_pct'] < 50)} "
           f"fields under 50% known)")
     return 0
 

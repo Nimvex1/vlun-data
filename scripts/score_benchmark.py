@@ -11,9 +11,14 @@ Scoring rule (defined per family in RUBRIC.md, enforced here): the model's
 answer, lowercased and stripped, must equal the projected scalar from the
 answer key. Only tasks with answer_key_status == "labeled" are scored;
 anything else is reported unscorable, never guessed. Families without an
-exactly-scorable scalar (B: no labeled rows; D: generative; G: no labeled
-rows; H: descriptive reference, no label; Q: judge-graded rubric) are
-excluded with a stated reason — they need a judge, not string match.
+exactly-scorable scalar (D: generative; H: descriptive reference, no label;
+Q: judge-graded rubric) are excluded with a stated reason — they need a
+judge, not string match. B's rows are retired; G is scored on its scalar
+label part (mechanism documented in docs/RUBRIC.md). F, G, I and J carry
+17/7/1/7 scorable rows — below the 100-row floor where a family score means
+anything — so they are demoted from the headline: scored per-family under
+"families_exploratory" and inside micro_all_families, never in the headline
+micro-average.
 
 Baselines (deterministic, reproducible):
     --baseline majority   predict the most common labeled answer per family
@@ -72,6 +77,19 @@ EXCLUDED = {
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict",
 }
 
+# Tiny families demoted from the headline micro-average. At 17/7/1/7
+# scorable rows the 95% CI half-width around p=0.5 runs from +-24pp to
+# +-37pp, so no headline claim is supportable. They stay shipped, labeled
+# and scored: per-family under "families_exploratory" and inside
+# micro_all_families, so the continuity twin keeps reproducing prior
+# releases byte-for-byte.
+EXPLORATORY = {
+    "F_false_positive_rejection.jsonl": "17 scorable rows: below the 100-row headline floor",
+    "G_patch_verification.jsonl": "7 scorable rows (L6-verified subset): below the 100-row headline floor",
+    "I_verified_non_exploit.jsonl": "1 scorable row: below the 100-row headline floor",
+    "J_verified_patch.jsonl": "7 scorable rows: below the 100-row headline floor",
+}
+
 FAMILY_DIRS = [ROOT / "benchmark", ROOT / "Vbeta" / "benchmark_vbeta"]
 RETIRED_DIRS = [ROOT / "benchmark" / "retired_families"]
 
@@ -123,8 +141,10 @@ def load_tasks(include_retired=False):
 
     Retired families live under benchmark/retired_families/ and are excluded
     by default (top-level glob never sees the subdir): the headline numbers
-    cover headline families only. Pass include_retired=True for the
-    continuity number over every family ever shipped.
+    cover headline families only. Exploratory families (EXPLORATORY: F, G,
+    I, J) are skipped by default for the same reason. Pass
+    include_retired=True for the continuity number over every family ever
+    shipped (headline + exploratory + retired).
     """
     tasks = {}
     dirs = list(FAMILY_DIRS)
@@ -135,6 +155,8 @@ def load_tasks(include_retired=False):
             continue
         for path in sorted(d.glob("*.jsonl")):
             if "manifest" in path.name:
+                continue
+            if not include_retired and path.name in EXPLORATORY:
                 continue
             with open(path, encoding="utf-8") as fh:
                 for line in fh:
@@ -222,9 +244,10 @@ def score(predictions: dict[str, str]):
                     tid = row.get("id") or row.get("task_id")
                     splits_of[tid] = str(row.get("split", "unknown"))
     rep = score_tasks(tasks, predictions, splits_of)
-    # Continuity number over every family ever shipped (headline + retired):
-    # retired rows live under retired_families/ with identical bytes, so this
-    # reproduces the pre-retirement micro exactly (asserted by re-running an
+    # Continuity number over every family ever shipped (headline +
+    # exploratory + retired): retired rows live under retired_families/ with
+    # identical bytes and exploratory files stay in place, so this
+    # reproduces the pre-demotion micro exactly (asserted by re-running an
     # old baseline report against it during review).
     all_tasks = load_tasks(include_retired=True)
     all_splits_of = dict(splits_of)
@@ -242,11 +265,27 @@ def score(predictions: dict[str, str]):
                     all_splits_of[tid] = str(row.get("split", "unknown"))
     rep_all = score_tasks(all_tasks, predictions, all_splits_of)
     rep["micro_all_families"] = rep_all["micro"]
+    # Exploratory families score in their own block: per-family stats plus a
+    # micro that never feeds the headline. Their rows are part of the
+    # all-families continuity set above.
+    expl_tasks = {tid: v for tid, v in all_tasks.items()
+                  if v[0] in EXPLORATORY}
+    rep_expl = score_tasks(expl_tasks, predictions, all_splits_of)
+    # Retired families likewise keep a per-family block: without it their
+    # majority accuracies would only survive in the aggregate, and reports
+    # that read per-family floors (benchmark_metrics) would have to drop
+    # them. headline + exploratory + retired reconciles to all-families.
+    retired_files = {p.name for d in RETIRED_DIRS if d.is_dir()
+                     for p in d.glob("*.jsonl") if "manifest" not in p.name}
+    ret_tasks = {tid: v for tid, v in all_tasks.items()
+                 if v[0] in retired_files}
+    rep_ret = score_tasks(ret_tasks, predictions, all_splits_of)
     per_family = rep["families"]
     # Manifest-scorable vs scorer-covered reconciliation. The manifest
     # counts every row with an answer key; the scorer covers the labeled
-    # scalar-key subset (D generative, Q judge-graded, H descriptive
-    # excluded with reasons in RUBRIC.md).
+    # scalar-key subset in the headline set (D generative, Q judge-graded,
+    # H descriptive excluded with reasons in RUBRIC.md; retired and
+    # exploratory families score in their own blocks).
     manifest_scorable = 0
     try:
         m1 = json.load(open(ROOT / "benchmark" / "manifest.json",
@@ -280,6 +319,11 @@ def score(predictions: dict[str, str]):
                   "accuracy": tot_c / tot_p if tot_p else None,
                   "accuracy_scorable": tot_c / tot_s if tot_s else None},
         "micro_all_families": rep_all["micro"],
+        "families_exploratory": dict(sorted(rep_expl["families"].items())),
+        "micro_exploratory": rep_expl["micro"],
+        "families_retired": dict(sorted(rep_ret["families"].items())),
+        "micro_retired": rep_ret["micro"],
+        "exploratory_families": EXPLORATORY,
         "coverage": {"manifest_scorable_total": manifest_scorable,
                      "scorer_covered": tot_s,
                      "excluded_families": excluded_detail},

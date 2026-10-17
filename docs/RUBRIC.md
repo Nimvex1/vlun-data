@@ -12,10 +12,13 @@ finding, not a failure to report.
 ## The one number (and its continuity twin) (in-distribution, secondary)
 
 **Micro-averaged exact-match accuracy over headline families' scorable tasks**,
-with coverage reported beside it. Eight saturated families
-(B, E, M, N, O, P, S, T) were retired to `benchmark/retired_families/` —
+with coverage reported beside it. Ten saturated families
+(B, E, K, L, M, N, O, P, S, T) were retired to `benchmark/retired_families/` —
 still shipped, audited and scored, but excluded from the headline because a
-shortcut solves them. The headline number is the one to quote:
+shortcut solves them. Four more (F, G, I, J) are saturated and sit below the
+100-row floor where a family score is interpretable (32 scorable rows
+total), so they are demoted to exploratory — also shipped and scored, also
+outside the headline. The headline number is the one to quote:
 
 - `accuracy` = correct ÷ predicted (how good when it answers)
 - `accuracy_scorable` = correct ÷ scorable (how good overall; abstention hurts)
@@ -23,8 +26,8 @@ shortcut solves them. The headline number is the one to quote:
 
 For continuity with prior releases, every baseline report also carries
 `micro_all_families` — the same micro-average over **all** families ever
-shipped, headline + retired. Quote the headline; compare across releases
-with the continuity twin.
+shipped, headline + exploratory + retired. Quote the headline; compare across
+releases with the continuity twin.
 
 Missing predictions count as wrong under `accuracy_scorable` and lower
 coverage — a run that answers nothing scores 0 coverage, not 100% accuracy.
@@ -38,8 +41,9 @@ is deliberately strict: it measures key-answer reproduction, not reasoning
 quality. Generative and judgement tasks (D, H, Q) are out of scope for this
 harness by design (see ANSWER_KEY.md).
 
-B and G are scored, but only on their scalar part (B is now retired;
-the mechanism below is preserved as its retirement reason):
+B and G are scored, but only on their scalar part — the mechanism matters
+because it defines what a B/G score would mean, not because they sit in the
+headline (B is retired, G is exploratory):
 
 - **B_root_cause_reasoning** scores `invariant_stated`
   (`invariant_stated` / `no_invariant_stated`). That label comes from record
@@ -58,28 +62,33 @@ the mechanism below is preserved as its retirement reason):
 
 ## Per-family accuracy
 
-Reported for every exactly-scorable headline family (11). Small families (F:
-17, I: 1, J: 7) have wide confidence intervals — read them as
-smoke signals, and read the micro average for the headline. Retired
-families keep their per-family accuracy in the baseline reports under
-`micro_all_families` scope (see below), not here.
+Reported for every exactly-scorable headline family (5). The small families
+are no longer headline: F (17), G (7), I (1), J (7) are exploratory — below
+the 100-row floor, reported per-family under `families_exploratory` and
+inside the `micro_all_families` scope of the baseline reports (see below),
+not here. Retired families likewise keep their per-family accuracy under
+`micro_all_families` scope, not here.
 
 ## Published baselines (deterministic, re-runnable)
 
 | Baseline | Rule | Headline micro accuracy | Continuity (all families) | Coverage |
 |---|---|---|---|---|
-| majority | most common labeled answer per family (ties: sorted-first) | 0.8738 | 0.8725 | 19,662/19,662 |
-| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3468 | 0.3608 | 19,662/19,662 |
-| frequency-seed7 | seeded draw from the family's empirical label distribution | 0.8110 | 0.8135 | 19,662/19,662 |
-| first-published (L only, retired) | copy the first publisher's severity | n/a (0 headline coverage) | 1.000 (71 tasks) | 0/19,662 |
-| majority-published (L only, retired) | copy the majority publisher severity | n/a (0 headline coverage) | 1.000 (71 tasks) | 0/19,662 |
-| retrieval (TF-IDF NN) | nearest train-split neighbour's label; test answers never indexed, train tasks never retrieve themselves | 0.9238 | 0.9257 | 19,647/19,662 |
+| majority | most common labeled answer per family (ties: sorted-first) | 0.8736 | 0.8725 | 19,631/19,631 |
+| random-seed7 | uniform draw from the family's observed answer space, seed 7 | 0.3457 | 0.3608 | 19,631/19,631 |
+| frequency-seed7 | seeded draw from the family's empirical label distribution | 0.8107 | 0.8135 | 19,631/19,631 |
+| first-published (L only, retired) | copy the first publisher's severity | n/a @ 0/19,631 | 1.000 (71 tasks) | 0/19,631 |
+| majority-published (L only, retired) | copy the majority publisher severity | n/a @ 0/19,631 | 1.000 (71 tasks) | 0/19,631 |
+| retrieval (TF-IDF NN) | nearest train-split neighbour's label; test answers never indexed, train tasks never retrieve themselves | 0.8889 | 0.8949 | 19,631/19,631 |
 
-Headline floors cover the headline scorable set (19,662 tasks, 9 families
-with scorable rows); continuity floors cover all families ever shipped (22,148 tasks), byte-equal
-to the pre-retirement reports. The earlier 10,103-task figures were computed
-against a stale Vbeta population (624/719 scorable rows); the shipped Vbeta
-benchmark carries 6,218/6,935. `tests/test_baselines.py` now fails the build on that class of
+Headline floors cover the headline scorable set (19,631 tasks, 5 families
+with scorable rows); continuity floors cover all families ever shipped (22,149 tasks,
+headline 19,631 + the 4 exploratory families' 32 sub-floor rows + the 10 retired
+families' 2,486 scorable rows), byte-equal
+to the pre-retirement reports. A baseline that predicts nothing shows n/a with
+its 0/scorable coverage — never a 0.0000 that reads as a scored result. The earlier
+10,103-task figures were computed against a stale Vbeta population (624/719 scorable
+rows); the shipped Vbeta benchmark carries 6,219 scorable U rows and 6,935 V rows
+(13,154 scorable tasks). `tests/test_baselines.py` now fails the build on that class of
 drift.
 
 ```bash
@@ -108,8 +117,14 @@ its audit shortcut fell 1.0000 → 0.1086 on stratification.
 
 ## Saturated families (headline majority >= 0.94 — a beat here carries no signal)
 
-F, G, I, J, U, V. Marked in the README benchmark table and in
-`reports/benchmark_metrics.md`. Ten further families (B, E, K, L, M, N, O, P, S,
+U, V. Marked SATURATED in the README benchmark table and in
+`reports/benchmark_metrics.md`. F, G, I, J are saturated too (majority 1.000
+on their labeled rows) and sit below the 100-row floor where a family score
+is interpretable — 32 scorable rows total, 95% CI half-width at p=0.5 from
+±24pp (n=17) to ±37pp (n=7) — so they are marked EXPLORATORY: excluded from
+the headline, still shipped and scored per-family (`families_exploratory`)
+and in the continuity twin (`micro_all_families`). Ten further families
+(B, E, K, L, M, N, O, P, S,
 T) saturated so completely they were retired to `benchmark/retired_families/`
 — each with a `retirement.json` naming the measured shortcut accuracy and
 leak mechanism (K: content-based language signals, ids already excluded;
@@ -118,10 +133,10 @@ L: literal severity leak with 127:1 degenerate agreement fallback). The per-fami
 a hand-copied list that can drift.
 
 B and G saturate by construction, not by difficulty: B's label is
-structural (`invariant_stated`, 228/720) and G's is the L6 subset where every
-patch was verified effective. A model beating 1.000 on either is not
-evidence of reasoning. The other saturated families saturate because their
-label distribution is degenerate.
+structural (`invariant_stated`, 228/720, retired) and G's is the L6 subset
+where every patch was verified effective (exploratory, 7 rows). A model
+beating 1.000 on either is not evidence of reasoning. The other saturated
+families saturate because their label distribution is degenerate.
 
 Reports live in `reports/baselines/`. Any model run is scored with:
 
@@ -130,10 +145,10 @@ python scripts/score_benchmark.py --predictions preds.jsonl --out reports/scores
 ```
 
 where `preds.jsonl` rows are `{"task_id": ..., "answer": ...}` and `task_id`
-is the task file's `id`/`task_id`. 19,662 tasks are scorable across 9
-headline families (22,148 across all families ever shipped); 4 families
-(D, G, H, Q) are excluded with reasons above, and 10 saturated families live
-retired under `benchmark/retired_families/`.
+is the task file's `id`/`task_id`. 19,631 tasks are scorable across 5
+headline families (22,149 across all families ever shipped); D, H and Q are
+excluded with reasons above (G is scored on its 7 L6 rows, as an exploratory
+family), and 10 saturated families live retired under `benchmark/retired_families/`.
 
 ## What this rubric does NOT claim
 

@@ -165,10 +165,14 @@ def main() -> int:
         "## Field coverage (worst first)",
         "",
     ]
+    # known_pct == 0.0 is falsy; `or 100` dropped fully unknown fields from
+    # the worst-first list entirely (they are the worst coverage there is).
     thin = sorted(
         ((k, v) for k, v in fields.items()
-         if isinstance(v, dict) and (v.get("known_pct") or 100) < 50),
-        key=lambda kv: kv[1].get("known_pct", 0))
+         if isinstance(v, dict)
+         and isinstance(v.get("known_pct"), (int, float))
+         and v["known_pct"] < 50),
+        key=lambda kv: kv[1]["known_pct"])
     for k, v in thin[:15]:
         md_lines.append(
             f"- `{k}`: {v['known']}/{v['total']} ({v['known_pct']}%)")
@@ -212,11 +216,12 @@ def main() -> int:
         print("depth dashboard is current")
         return 0
     out_json.write_text(json.dumps(dashboard, indent=2, sort_keys=True)
-                        + "\n", encoding="utf-8")
-    out_md.write_text("\n".join(md_lines) + "\n", encoding="utf-8")
+                        + "\n", encoding="utf-8", newline="\n")
+    out_md.write_text("\n".join(md_lines) + "\n", encoding="utf-8",
+                      newline="\n")
     corr_path.write_text("".join(
         json.dumps(c, sort_keys=True) + "\n" for c in corrections),
-        encoding="utf-8")
+        encoding="utf-8", newline="\n")
     print(f"wrote depth dashboard ({len(corrections)} root_cause candidates)")
     return 0
 

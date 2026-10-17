@@ -190,6 +190,87 @@
       "ok": true
     },
     {
+      "check": "patch_reviews_valid_jsonl",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "structure",
+      "ok": true
+    },
+    {
+      "check": "review_file_present",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "one_review_per_candidate",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "static_rows_never_effective",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "effectiveness_gated_on_two_side_evidence",
+      "critical": true,
+      "detail": "an effectiveness claim requires an executed two-side PoC on an in_diff finding, recorded in work/patch_poc/index.json with committed evidence",
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "review_status_vocabulary",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "fix_locality_vocabulary",
+      "critical": true,
+      "detail": "fix_locality (where assessed) states whether the cited diff touches the finding's target",
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "reviews_claim_no_execution",
+      "critical": true,
+      "detail": "a static review earns no L-level and carries no experiment pointer",
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
+      "check": "static_rows_cite_their_diff",
+      "critical": true,
+      "detail": "a static_diff_only row must carry the sha256 of the diff it reviewed",
+      "failure_count": 0,
+      "failures": [],
+      "group": "patch_reviews",
+      "ok": true
+    },
+    {
       "check": "shas_present_in_source",
       "critical": true,
       "detail": "30 SHAs checked against the committed source-SHA index",
@@ -291,9 +372,12 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "0 dirty entries under data dirs, 0 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 0,
-      "failures": [],
+      "detail": "3 dirty entries under data dirs, 2 not from V3.1 outputs (informational; isolation is proven above)",
+      "failure_count": 2,
+      "failures": [
+        "A  derived_v3/patch_reviews.jsonl",
+        "A  reports/v3/patch_static_review.json"
+      ],
       "group": "isolation",
       "ok": true
     },
@@ -318,6 +402,6 @@
   ],
   "critical_failures": 0,
   "normalization_version": "3.1",
-  "passed": 35,
-  "total": 35
+  "passed": 44,
+  "total": 44
 }

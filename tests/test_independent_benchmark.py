@@ -236,7 +236,7 @@ class TestCommittedFindings(unittest.TestCase):
     def test_committed_first_published_baseline_headline_is_a_coverage_artifact(self):
         """L-only heuristics retire with L: headline coverage is now zero.
 
-        Previously `micro.accuracy = 1.0000` on 71 of 22,148 scorable rows --
+        Previously `micro.accuracy = 1.0000` on 71 of 22,149 scorable rows --
         computed on predicted rows only, which made a copy-the-publisher rule
         look like it solved the benchmark. With L retired, the headline
         reports zero coverage (honest) while micro_all_families preserves

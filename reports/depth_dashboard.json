@@ -40,8 +40,8 @@
     },
     "vbeta": {
       "levels": {
-        "L0": 7003,
-        "L1": 57
+        "L0": 6981,
+        "L1": 79
       },
       "levels_note": "ledger-level; L0/L1 only by construction",
       "records": 6935

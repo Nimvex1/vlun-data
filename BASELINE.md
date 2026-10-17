@@ -17,11 +17,11 @@ From `reports/reproducibility_report.md` (sum of per-gate checks):
 |---|---|---|
 | v1 authorship (`scripts/validate.py`) | 72 | 0 |
 | v3 (`scripts/validate_v3.py`) | 42 | 0 |
-| v3.1 (`scripts/validate_v31.py`) | 35 | 0 |
+| v3.1 (`scripts/validate_v31.py`) | 44 | 0 |
 | Vbeta (`Vbeta/scripts/validate_vbeta.py`) | 35 | 0 |
 | cross-manifest (`scripts/check_manifests.py`) | 171 | 0 |
 | reproducibility (`scripts/check_reproducibility.py`) | 19 | 0 |
-| **Total** | **374** | **0** |
+| **Total** | **383** | **0** |
 
 ## Benchmark validity gap (§1-A): 15 scored families, 9 at exactly 1.0000
 

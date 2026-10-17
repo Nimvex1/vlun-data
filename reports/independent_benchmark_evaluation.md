@@ -159,13 +159,13 @@ Fitted on train only, scored on the official held-out rows.
 | R | 5467 | 3 | 0.64 | **0.000** | 0.000 | **1.000** | 0.000 | drift |
 | S | 1072 | 2 | 0.99 | 1.000 | 1.000 | 1.000 | 1.000 | saturated |
 | T | 589 | 2 | 1.00 | 1.000 | 1.000 | 1.000 | 1.000 | saturated, n=2 test |
-| U | 6218 | 6 | 0.97 | 0.983 | 0.198 | 0.900 | 0.983 | saturated |
+| U | 6219 | 6 | 0.97 | 0.983 | 0.198 | 0.900 | 0.983 | saturated |
 | V | 6935 | 2 | 0.99 | 1.000 | 0.500 | 0.993 | 1.000 | saturated |
 
 ### 3.1 A coverage artifact in a published baseline
 
 `reports/baselines/baseline_first_published.json` reports
-`micro.accuracy = 1.0000`. It predicts on **71 of 22,148** scorable rows
+`micro.accuracy = 1.0000`. It predicts on **71 of 22,149** scorable rows
 (0.32%). The field is computed over predicted rows only, so it is not
 arithmetically wrong — but quoted as a headline it says a copy-the-publisher
 rule solves the benchmark. The repository's own `accuracy_scorable` in the
@@ -178,16 +178,18 @@ reader will take it at face value.
 | first_published | 1.0000 | 0.0032 | 0.32% |
 | majority_published | 1.0000 | 0.0032 | 0.32% |
 | majority | 0.8725 | 0.8725 | 100% |
-| retrieval | 0.9257 | 0.9251 | 99.93% |
+| retrieval | 0.8949 | 0.8883 | 99.93% |
 | frequency (seed 7) | 0.8135 | 0.8135 | 100% |
 | random (seed 7) | 0.3608 | 0.3608 | 100% |
 
-### 3.2 Why micro-accuracy over 22,148 rows is not a headline
+### 3.2 Why micro-accuracy over 22,149 rows is not a headline
 
 The 0.8725 micro figure is dominated by families where one class is ≥95% of
-the rows. S (1056/1072), T (588/589), V (6900/6935), U (6062/6218) contribute
-19,806 of the 22,148 scorable rows and are each solved by a constant
-prediction. Macro-F1 exposes what accuracy hides: on V, majority-class
+the rows. S (1056/1072), T (588/589), U (6063/6219), V (6900/6935) contribute
+14,815 of the 22,149 scorable rows, each ≥98.5% solved by a constant
+prediction; with the single-label families B, F, G, I, J, nine families at
+≥95% majority span 15,075. Macro-F1 exposes what
+accuracy hides: on V, majority-class
 accuracy is 0.9998 but macro-F1 is **0.5000**, and on U it is 0.983 against
 **0.1983**. Those are the numbers a reader should have been shown.
 
@@ -289,7 +291,7 @@ train, so a score there is also a statement about the split.
 | 3 | **High** | Input retrieval scores 0.839–1.000 on official splits and 0.000 on every class-disjoint holdout | `secondary_holdout_manifest.json` |
 | 4 | **High** | 5 of 19 families are single-label; B scores 1.000 from a constant across 228 rows | `audit.json` `degeneracy` |
 | 5 | **High** | `baseline_first_published.json` publishes `accuracy = 1.0000` at 0.32% coverage | `reports/baselines/` |
-| 6 | **High** | S, T, U, V are ≥0.95 majority; 19,806 of 22,148 scorable rows | `audit.json` |
+| 6 | **High** | S, T, U, V are ≥0.95 majority; 14,815 of 22,149 scorable rows (15,075 across all nine ≥95% families) | `audit.json` |
 | 7 | **Medium** | K leaks the gold language into evidence in 78/137 rows; L leaks severity in 94 | `audit.json` `answer_leakage` |
 | 8 | **Medium** | M/T/N/E have 1–3 held-out rows | `audit.json` `split_drift` |
 | 9 | **Medium** | Macro-F1 is never published; it halves V (1.000 → 0.500) and quintuples the gap on U (0.198) | §3.2 |
