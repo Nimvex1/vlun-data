@@ -7,14 +7,14 @@ readable report in `reports/`. Where a measurement was not possible the line say
 
 | dimension | BEFORE (published v1) | AFTER (this pipeline) |
 |---|---|---|
-| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 74/74 gate checks pass and `reported_statistics == computed_statistics` is enforced |
+| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 78/78 gate checks pass and `reported_statistics == computed_statistics` is enforced |
 | per-field evidence type | absent | 7-value closed vocabulary on every derived field |
 | audit of the original repository | none published | reports/pre_upgrade_audit.json, mechanical, reproducible |
 | cited source retrieved | 0 files (the raw dump is not published) | 321/326 pinned (commit, file) pairs, hash-verified |
 | PoCs compiled | 0 | 4/8 (50.0%) repositories |
 | PoCs executed | 0 | 15/155 (9.7%) |
 | PoCs that demonstrated the claimed impact | 0 (unknown; nothing was run) | 5/155 (3.2%) |
-| hard negatives with a code-grounded rejection reason | 0 (427 of 458 were label-only with no reason recorded) | 8 derived from code + 9 reported by a source; 441 still unknown |
+| hard negatives with a code-grounded rejection reason | 0 (427 of 458 were label-only with no reason recorded) | 1 of 8 recorded code gates actually remove the standing the claim asserts (the rest sit on a neighbouring function or on a claim that names a privileged actor); 9 carry a reason quoted from a public judge or sponsor comment; 256 rest on a public label alone |
 | counterexamples for confirmed H/M | 0 | 43 of 204 |
 | records with a state transition | 0 (attack_path strings only) | 244 present, 130 with structured transactions |
 | records with a structured attacker model | 0 (free-text capabilities) | 290 of 722 classified ({'derived_fact': 147, 'reported_claim': 143, 'unknown': 432}) |
@@ -49,10 +49,13 @@ readable report in `reports/`. Where a measurement was not possible the line say
    contract patch instead of a test — before any build was attempted. Most still did
    not run; the reason is recorded per record rather than summarised away.
 4. **The negative corpus explains itself where the evidence allows.**
-   8 negatives now carry a blocking
-   condition derived mechanically from a role gate in the cited source, and
-   9 carry one quoted from a public
-   judge or sponsor comment. The remaining 441 stay
+   1 negatives carry a blocking
+   condition that removes the standing the submission's own text claims; the other
+   7
+   recorded gates are kept as context only, because the gate sits on a neighbouring
+   function or the claim names a privileged actor.
+   9 carry a reason quoted from a public
+   judge or sponsor comment. 256 stay
    `unknown`, which is the correct answer and is counted as a first-class outcome.
 5. **Cross-split leakage was found and removed.** The detector found
    2 genuinely duplicated submission
@@ -109,10 +112,7 @@ This is the honest accounting of failure.
 
 ## WHAT REMAINS LIMITED
 
-- **441 of 458 negatives have no
-  defensible rejection reason.** Code4rena's judging rationale is largely not public.
-  This corpus cannot teach *why* a false positive is false at scale; it can only teach
-  the claim, the code, and the fact of rejection.
+- **256 of 458 negatives have no technical rejection reason.** Code4rena's judging rationale is largely not public. A duplicate pointer at a confirmed finding says the copy was redundant, not that the claim was wrong. This corpus cannot teach *why* a false positive is false at scale; it can only teach the claim, the code, and the fact of rejection.
 - **43 of
   204 confirmed High/Medium findings have a
   counterexample.** Most findings cite exactly one function — the vulnerable one — so
@@ -146,4 +146,4 @@ python scripts/generate_reports.py
 python scripts/validate.py             # the gate
 ```
 
-Last validation: 74/74 checks passed, 0 critical failures, 0 warnings.
+Last validation: 78/78 checks passed, 0 critical failures, 0 warnings.

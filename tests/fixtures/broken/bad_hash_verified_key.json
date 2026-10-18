@@ -1,0 +1,27 @@
+{
+  "_audience": "HELD-OUT -- NOT FOR MODELS",
+  "abstain_expected": false,
+  "answerable": true,
+  "availability_reason": "single_finding_source_full_bytes_reproduced",
+  "expected_answer": "Medium",
+  "expected_span": {
+    "affected_lines": null,
+    "clone_head": "b4206cef724c8b518073b896bb4d2a8bf219feca",
+    "end_byte": 356,
+    "file_sha256": "945ded55d113d855d65e421d9506c9d6b3e2f8602a589026fe80857cc1fa4f2d",
+    "page_hint": null,
+    "source_location": "V3/clones/c4-renzo-findings/data/blutorque-518.json",
+    "span_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "start_byte": 0
+  },
+  "finding_id": "c4-renzo-findings:518",
+  "rights": {
+    "distribution": "metadata_only",
+    "licence_posture": "see NOTICE.md (third-party audit code and report prose are METADATA_ONLY; artefacts carry offsets+hashes, no span text)",
+    "may_copy_span_text": false,
+    "source_id": "c4-renzo-findings"
+  },
+  "span_availability": "verified",
+  "span_kind": "source_file_full_bytes",
+  "task_id": "spt-0027516b563163eb"
+}

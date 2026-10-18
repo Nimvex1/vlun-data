@@ -1,29 +1,19 @@
 #!/usr/bin/env python3
-"""Three honest classes of hard negative, plus duplicate corroboration.
+"""Report-side view of the canonical rejection-evidence layer.
 
-The v2 dataset reported 443 of 458 rejections as `blocking_condition: unknown`,
-which is defensible but throws away real evidence. Two things can be stated
-without inventing anything:
+This script no longer decides anything. `scripts/build_rejection_corpus.py`
+derives one record per negative in `derived_rejections/rejection_corpus.jsonl`;
+this file reads that layer and emits the aggregates that README.md and the v2.1
+quality report consume, so the same six definitions answer the same question in
+every report.
 
-  1. **Corroboration.** A submission rejected as a *duplicate* whose claim matches
-     a *confirmed* finding from the same audit — same code target, or the same
-     title — is not a false positive. The underlying issue was validated by the
-     judges; only this copy was redundant. Recording that is strictly better than
-     `unknown`, and it is mechanical.
+Why it changed: the previous version picked a single best class per record and
+let a duplicate pointer stand for a technical reason. That produced "331
+negatives with a defensible reason", of which 321 were duplicate
+corroborations — a count of classifications, not of explanations. The six
+metrics below are independent axes and are explicitly not additive.
 
-  2. **Attribution.** When a sponsor or judge published a reason, that reason is
-     attributed verbatim. Nine records qualify.
-
-The third class, an *experimentally demonstrated* non-exploit, is reserved for
-records where an exploit was actually attempted and observed to fail. It is the
-hardest class and it is counted honestly: where no attempt was possible the
-record says which controlled reason applies (`rpc_unavailable`,
-`requires_harness_reconstruction`, ...) instead of claiming a negative.
-
-The original verdict is never overwritten. A corroborated duplicate keeps
-`duplicate`; this file only adds what the public record additionally supports.
-
-    python scripts/build_hard_negatives.py
+    python scripts/classify_negatives.py [--check]
 """
 
 from __future__ import annotations
@@ -31,285 +21,209 @@ from __future__ import annotations
 import argparse
 import collections
 import json
-import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import build_hard_negatives as v2  # noqa: E402  (reuse the v2 derivation)
-from vlun import JSONL, REPORTS, log, read_jsonl, write_json  # noqa: E402
+import build_rejection_corpus as corpus  # noqa: E402
+from vlun import REPORTS, log, write_json  # noqa: E402
 
-# The classes, strongest evidence first. This is the v2.1 hard-negative
-# EVIDENCE taxonomy; it is deliberately NOT `vlun_v3.NEGATIVE_CLASSES`, which
-# is the closed `negative_class` schema for v3 records (schema_terms.py owns
-# that name). The two answer different questions and must never be conflated.
-HARD_NEGATIVE_CLASSES = (
-    "experimentally_verified",   # the exploit was attempted and observed to fail
-    "attributed",                # a named judge or sponsor published the reason
-    "corroborated_duplicate",    # the claim is validated elsewhere; this copy is redundant
-    "derived_from_code",         # a guard in the cited source blocks the claim's own target
-    "unknown",                   # only a rejection, duplicate or dispute label is public
+CORPUS_PATH = corpus.CORPUS
+OUT = REPORTS / "negative_verification_stats.json"
+
+# negative_class -> the evidence type that put the record in that class.
+CLASS_EVIDENCE_TYPE = {
+    "executionally_disproven": "experimentally_verified",
+    "experimentally_confirmed_underlying_issue": "experimentally_verified",
+    "public_judge_or_sponsor_explanation": "externally_attributed",
+    "business_scenario_exclusion": "externally_attributed",
+    "code_derived_blocker": "derived_fact",
+    "corroborated_duplicate": "derived_fact",
+    "duplicate_label_unresolved_pointer": "observed_fact",
+    "withdrawn_by_author": "observed_fact",
+    "scope_or_eligibility_label": "observed_fact",
+    "dispute_or_invalid_label": "observed_fact",
+    "unattributed_participant_discussion": "reported_claim",
+    "code_gate_context_only": "derived_fact",
+    "unresolved": "unknown",
+}
+
+# The classes that carry a reason a consumer can act on. `corroborated_duplicate`
+# is a reason the copy was redundant, never a reason the claim is false; the
+# `carries_technical_reason` field is what separates them.
+REASON_BEARING = (
+    "executionally_disproven",
+    "experimentally_confirmed_underlying_issue",
+    "public_judge_or_sponsor_explanation",
+    "business_scenario_exclusion",
+    "code_derived_blocker",
+    "corroborated_duplicate",
 )
 
 
-def norm_title(t: str | None) -> str:
-    return re.sub(r"[^a-z0-9]+", " ", (t or "").lower()).strip()
+def corpus_rows() -> list[dict]:
+    if not CORPUS_PATH.exists():
+        raise SystemExit("run scripts/build_rejection_corpus.py first: "
+                         f"{corpus.CORPUS} does not exist")
+    return [json.loads(line) for line in
+            CORPUS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def _tokens(text: str) -> frozenset:
-    return frozenset(re.findall(r"[a-z0-9]+", (text or "").lower()))
+def view(row: dict) -> dict:
+    """The per-record shape downstream consumers (build_subsets.py) read."""
+    axes = row["axes"]
+    cls = row["primary_reason_class"]
+    detail = {
+        "attributed": axes["attributed_reason"] if cls in (
+            "public_judge_or_sponsor_explanation", "business_scenario_exclusion") else None,
+        "code": axes["code_supported_reason"] if cls in (
+            "code_derived_blocker", "code_gate_context_only") else None,
+        "corroboration": axes["duplicate_corroboration"] if cls == "corroborated_duplicate"
+                         else None,
+        "labels": row["original_verdict"]["public_labels"] if cls in (
+            "withdrawn_by_author", "scope_or_eligibility_label", "dispute_or_invalid_label",
+            "duplicate_label_unresolved_pointer") else None,
+        "discussion": axes["attributed_reason"]["participant_statements"]
+        if cls == "unattributed_participant_discussion" else None,
+    }
+    return {
+        "finding_id": row["finding_id"],
+        "repository": row["repository"],
+        "original_verdict": row["original_verdict"]["status"],
+        "original_duplicate_of": row["original_verdict"]["duplicate_of"],
+        "duplicate": row["original_verdict"]["duplicate"],
+        "negative_class": cls,
+        "reason_classes": row["reason_classes"],
+        "class_evidence": {"evidence_type": CLASS_EVIDENCE_TYPE[cls],
+                           "detail": {k: v for k, v in detail.items() if v is not None}},
+        "carries_technical_reason": bool(row["technical_verification"]
+                                         ["counts_as_technical_reason_for_why_the_claim_is_false"]),
+        "technical_bases": row["technical_verification"]["bases"],
+        "corroboration": {k: axes["duplicate_corroboration"][k] for k in
+                          ("methods", "best_confidence", "corroborated", "explicit_pointer",
+                           "is_technical_explanation", "reading")},
+        "executed_disproof": axes["exploit_attempt"]["experiment"],
+        "is_false_positive": row["is_false_positive"],
+        "is_false_positive_basis": row["is_false_positive_basis"],
+        "confidence": row["confidence"],
+        "metrics": row["metrics"],
+    }
 
 
-def _jaccard(a: frozenset, b: frozenset) -> float:
-    if not a or not b:
-        return 0.0
-    return len(a & b) / len(a | b)
+def build() -> dict:
+    rows = [view(r) for r in corpus_rows()]
+    by_class = collections.Counter(r["negative_class"] for r in rows)
+    blockers = collections.Counter(
+        (("none" if r["negative_class"] == "executionally_disproven" else
+          (r["executed_disproof"] or {}).get("status", "not_attempted")
+          if r["executed_disproof"] else "not_attempted"))
+        for r in rows)
+    stats = {
+        "generated_by": "scripts/classify_negatives.py (reads derived_rejections/"
+                        "rejection_corpus.jsonl; it derives nothing itself)",
+        "definitions_version": corpus.DEFINITIONS_VERSION,
+        "corpus_schema_version": corpus.SCHEMA_VERSION,
+        "total": len(rows),
+        "by_class": dict(by_class),
+        "class_vocabulary": list(corpus.REASON_CLASSES),
+        "primary_precedence": list(corpus.PRIMARY_ORDER),
+        "reason_bearing_classes": list(REASON_BEARING),
+        "metrics": _metric_totals(rows),
+        "metric_definitions": corpus.DEFINITIONS,
+        "is_false_positive": dict(collections.Counter(str(r["is_false_positive"])
+                                                      for r in rows)),
+        "blocking_reason": dict(blockers),
+        "executed_negative_experiments": dict(collections.Counter(
+            (r["executed_disproof"] or {}).get("status") or "unknown"
+            for r in rows if r["executed_disproof"])),
+        "corroborated_by_confirmed_finding": _metric(rows, "explicit_pointer"),
+        "corroborated_by_any_accepted_finding": sum(
+            1 for r in rows if r["metrics"]
+            ["claim_corroborated_as_duplicate_of_confirmed_finding"]),
+        "attributed_by_named_source": sum(1 for r in rows if r["metrics"]
+                                          ["reason_attributed_to_judge_or_sponsor"]),
+        "experimentally_verified": sum(1 for r in rows if r["negative_class"]
+                                       == "executionally_disproven"),
+        "code_derived_technical_reasons": sum(1 for r in rows if r["negative_class"]
+                                              == "code_derived_blocker"),
+        "technical_reason_why_the_claim_is_false": sum(1 for r in rows
+                                                       if r["carries_technical_reason"]),
+        "guarantee": (
+            "Counts are independent axes, not a sum. A `corroborated_duplicate` record is "
+            "explicitly NOT a false positive and NOT a technical explanation: the claim was "
+            "accepted elsewhere in the same audit and only this copy was redundant. A code "
+            "gate counts only when it removes the standing the submission's own text claims. "
+            "`unknown` is a valid outcome and is never replaced with an invented reason. The "
+            "original contest verdict is carried verbatim and never overwritten."),
+        "known_ceiling": {
+            "largest_cluster": "2024-04-noya AccountingManager / connector functions",
+            "blocker": "rpc_unavailable",
+            "detail": ("the NOYA test fixtures create a mainnet fork in `setUp()`; without an "
+                       "archive endpoint (`VLUN_RPC_URL`) no exploit attempt can be executed "
+                       "against those contracts, so those negatives stay `unknown` rather than "
+                       "being given an invented reason"),
+        },
+        "records": rows,
+    }
+    return stats
 
 
-SNIPPET_JACCARD_THRESHOLD = 0.6
+def _metric_totals(rows: list[dict]) -> dict:
+    keys = list(corpus.METRICS)
+    return {k: sum(1 for r in rows if r["metrics"][k]) for k in keys}
 
 
-def finding_index(findings: list[dict]) -> dict:
-    """Indexes over the published findings, every one scoped to its audit.
-
-    A corroboration is only evidence if the confirming finding belongs to the
-    SAME audit as the rejected copy: the same boilerplate title filed against two
-    different audits is the leakage case, not corroboration.
-    """
-    by_target: dict[tuple, list[dict]] = {}   # (repo, file, function) -> entries
-    by_title: dict[tuple, list[dict]] = {}    # (repo, norm title)   -> entries
-    by_id: dict[str, dict] = {}               # finding id          -> entry
-    tokens_by_repo: dict[str, list[tuple[dict, frozenset]]] = {}
-    for f in findings:
-        v = (f.get("validation") or {}).get("status")
-        fi = f.get("finding") or {}
-        repo = (f.get("source") or {}).get("repository")
-        entry = {"id": fi.get("id"), "status": v, "severity": fi.get("severity"),
-                 "title": fi.get("title"), "repo": repo}
-        by_id[fi.get("id")] = entry
-        toks = frozenset()
-        for c in (f.get("code_context") or []):
-            by_target.setdefault((repo, c.get("file"), c.get("function")), []).append(entry)
-            t = _tokens(c.get("snippet") or "")
-            if len(t) > len(toks):
-                toks = t
-        if toks:
-            tokens_by_repo.setdefault(repo, []).append((entry, toks))
-        by_title.setdefault((repo, norm_title(fi.get("title"))), []).append(entry)
-    return {"by_target": by_target, "by_title": by_title, "by_id": by_id,
-            "tokens_by_repo": tokens_by_repo}
+def _metric(rows: list[dict], field: str) -> int:
+    return sum(1 for r in rows
+               if r["metrics"]["claim_corroborated_as_duplicate_of_confirmed_finding"]
+               and r["corroboration"][field])
 
 
-def corroborate(row: dict, index: dict) -> dict | None:
-    """Find a published finding in the same audit that carries the same claim.
-
-    Four mechanical methods, strongest first; all of them are recorded when they
-    fire, and the `method` field lists every method that produced a CONFIRMED
-    match, so the class evidence states exactly how the corroboration was made.
-    """
-    repo = (row.get("source") or {}).get("repository")
-    hits: dict[str, dict] = {}
-
-    def add(entry: dict, method: str) -> None:
-        h = hits.setdefault(entry["id"], {"entry": entry, "methods": set()})
-        h["methods"].add(method)
-
-    # 1. an explicit duplicate_of pointer that resolves to a finding id
-    dup_of = ((row.get("validation") or {}).get("duplicate_of") or "").strip()
-    pointed = index["by_id"].get(dup_of)
-    if pointed is not None:
-        add(pointed, "explicit duplicate_of pointer to a published finding")
-
-    # 2. same code target (file::function), same audit
-    for c in (row.get("code_context") or []):
-        for e in index["by_target"].get((repo, c.get("file"), c.get("function")), []):
-            add(e, "same code target (file::function) within the same audit")
-
-    # 3. identical normalised title, same audit
-    for e in index["by_title"].get((repo, norm_title((row.get("finding") or {}).get("title"))), []):
-        add(e, "identical normalised title within the same audit")
-
-    # 4. snippet similarity (token Jaccard) against same-audit findings
-    neg_toks = frozenset()
-    for c in (row.get("code_context") or []):
-        t = _tokens(c.get("snippet") or "")
-        if len(t) > len(neg_toks):
-            neg_toks = t
-    if neg_toks:
-        best = 0.0
-        best_entry = None
-        for entry, toks in index["tokens_by_repo"].get(repo, []):
-            j = _jaccard(neg_toks, toks)
-            if j > best:
-                best, best_entry = j, entry
-        if best_entry is not None and best >= SNIPPET_JACCARD_THRESHOLD:
-            add(best_entry, f"snippet similarity: token Jaccard {best:.2f} >= "
-                            f"{SNIPPET_JACCARD_THRESHOLD} with a finding of the same audit")
-
-    if not hits:
-        return None
-    confirmed = sorted(h for h, x in hits.items() if x["entry"]["status"] == "confirmed")
-    other = sorted(h for h, x in hits.items() if x["entry"]["status"] != "confirmed")
-    confirmed_methods = sorted(m for h, x in hits.items()
-                               if x["entry"]["status"] == "confirmed" for m in x["methods"])
-    return {"candidates": sorted(hits), "confirmed": confirmed,
-            "other_status": other,
-            "method": ("; ".join(confirmed_methods) if confirmed_methods
-                       else "matched a published finding of the same audit that is not "
-                            "confirmed"),
-            "scoping": "matches are scoped to the same audit; a same-title claim in a "
-                       "different audit is the leakage case, not corroboration"}
-
-
-def classify_negative(derived: dict, row: dict, corr: dict | None,
-                      executed: dict | None) -> dict:
-    """Exactly one class, with the evidence that put it there."""
-    blocking = derived.get("blocking_condition") or {}
-    etype = blocking.get("evidence_type")
-    basis = ((row.get("negative_analysis") or {}).get("rejection_basis"))
-
-    if executed and executed.get("status") in ("false_positive_verified",
-                                               "claim_misunderstood"):
-        return {"negative_class": "experimentally_verified",
-                "class_evidence": {"evidence_type": "experimentally_verified",
-                                   "detail": executed},
-                "is_false_positive": True}
-    if executed and executed.get("status") == "exploit_reproduced":
-        # The attack the submission described was executed and it *worked* on the
-        # audited revision. The record is therefore not a false positive at all.
-        return {"negative_class": "corroborated_duplicate",
-                "class_evidence": {
-                    "evidence_type": "experimentally_verified",
-                    "detail": {
-                        "experiment": executed,
-                        "reading": ("the submitted attack was reconstructed and executed "
-                                    "against the audited revision, and it succeeded. The "
-                                    "submission was rejected as a duplicate, not because the "
-                                    "claim was wrong. This is experimental confirmation that "
-                                    "the underlying vulnerability is real."),
-                        "therefore_false_positive": False,
-                    }},
-                "is_false_positive": False}
-    if basis == "public_judge_or_sponsor_comment" and etype == "reported_claim":
-        return {"negative_class": "attributed",
-                "class_evidence": {"evidence_type": "externally_attributed",
-                                   "detail": blocking},
-                "is_false_positive": None}
-    if corr and corr.get("confirmed"):
-        return {"negative_class": "corroborated_duplicate",
-                "class_evidence": {
-                    "evidence_type": "derived_fact",
-                    "detail": {
-                        "corroborating_findings": corr["confirmed"],
-                        "method": corr["method"],
-                        "reading": ("the same claim was accepted as a confirmed finding in "
-                                    "this audit. This submission was rejected as redundant; "
-                                    "that is a statement about duplication, NOT evidence "
-                                    "that the vulnerability is absent."),
-                        "therefore_false_positive": False,
-                    }},
-                "is_false_positive": False}
-    if etype == "derived_fact" and (blocking.get("confidence") == "high"):
-        return {"negative_class": "derived_from_code",
-                "class_evidence": {"evidence_type": "derived_fact", "detail": blocking},
-                "is_false_positive": None}
-    return {"negative_class": "unknown",
-            "class_evidence": {
-                "evidence_type": "unknown",
-                "detail": {
-                    "public_evidence": (row.get("validation") or {}).get("all_public_statuses"),
-                    "reason": ("no judge or sponsor reasoning is public, no confirmed finding "
-                               "carries the same claim, and no guard was mechanically located "
-                               "on the claim's own target"),
-                }},
-            "is_false_positive": None}
+def render(stats: dict) -> str:
+    m = stats["metrics"]
+    lines = ["# Negative (rejected) evidence summary\n",
+             f"Generated by `scripts/classify_negatives.py` from "
+             f"`derived_rejections/rejection_corpus.jsonl` "
+             f"(`{stats['corpus_schema_version']}`, definitions "
+             f"`{stats['definitions_version']}`).\n",
+             f"Records: **{stats['total']}**. Each axis below counts independently; they are "
+             "not additive.\n",
+             "| axis | records |", "|---|---|"]
+    for k, v in m.items():
+        lines.append(f"| `{k}` | {v} |")
+    lines.append(f"\n**Technical reason why the claim is false: "
+                 f"{stats['technical_reason_why_the_claim_is_false']} of {stats['total']}.** "
+                 "Duplicate corroboration, public labels and unresolved pointers are excluded "
+                 "from that number by definition.\n")
+    lines.append(f"Primary reason class: `{json.dumps(stats['by_class'], sort_keys=True)}`\n")
+    lines.append("The definitions and the precedence order live in "
+                 "`derived_rejections/definitions.json`; the prose explanation is "
+                 "`reports/rejection_evidence.md`.\n")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--out-stats", default=str(REPORTS / "negative_verification_stats.json"))
+    ap.add_argument("--out-stats", default=str(OUT))
+    ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
 
-    negatives = read_jsonl(JSONL / "negative_findings.jsonl")
-    findings = read_jsonl(JSONL / "findings.jsonl")
-    index = finding_index(findings)
-
-    executed_path = REPORTS / "negative_experiments.json"
-    executed: dict[str, dict] = {}
-    if executed_path.exists():
-        for e in json.loads(executed_path.read_text(encoding="utf-8")).get("experiments", []):
-            executed[e["finding_id"]] = e
-
-    out_rows = []
-    tally = collections.Counter()
-    fp_tally = collections.Counter()
-    exp_tally = collections.Counter()
-    blockers = collections.Counter()
-    for row in negatives:
-        derived = v2.build_negative(row)
-        corr = corroborate(row, index)
-        rid = (row.get("finding") or {}).get("id") or v2.rec_id(row)
-        cls = classify_negative(derived, row, corr, executed.get(rid))
-        tally[cls["negative_class"]] += 1
-        fp_tally[str(cls["is_false_positive"])] += 1
-        if cls["negative_class"] == "experimentally_verified":
-            blockers["none"] += 1
-        elif executed.get(rid):
-            blockers[(executed[rid].get("status") or "unknown")] += 1
-        else:
-            blockers["not_attempted"] += 1
-        if rid in executed:
-            exp_tally[executed[rid].get("status") or "unknown"] += 1
-        out_rows.append({
-            "finding_id": rid,
-            "repository": row["source"]["repository"],
-            "original_verdict": (row.get("validation") or {}).get("status"),
-            "original_duplicate_of": (row.get("validation") or {}).get("duplicate_of"),
-            "duplicate": (row.get("validation") or {}).get("duplicate"),
-            **cls,
-            "corroboration": corr,
-            "blocking_condition": derived.get("blocking_condition"),
-            "attacker_model": derived.get("attacker_model"),
-            "negative_reasoning": derived.get("negative_reasoning"),
-            "quality": derived.get("quality"),
-            "code_resolved": bool(row.get("code_context")),
-            "executed_disproof": executed.get(rid),
-        })
-
-    doc = {
-        "generated_by": "scripts/build_hard_negatives.py (v2.1 classification)",
-        "total": len(out_rows),
-        "by_class": dict(tally),
-        "class_vocabulary": list(HARD_NEGATIVE_CLASSES),
-        "is_false_positive": dict(fp_tally),
-        "blocking_reason": dict(blockers),
-        "executed_negative_experiments": dict(exp_tally),
-        "corroborated_by_confirmed_finding":
-            sum(1 for r in out_rows if r["negative_class"] == "corroborated_duplicate"),
-        "attributed_by_named_source":
-            sum(1 for r in out_rows if r["negative_class"] == "attributed"),
-        "experimentally_verified":
-            sum(1 for r in out_rows if r["negative_class"] == "experimentally_verified"),
-        "guarantee": (
-            "A record is only `experimentally_verified` when an exploit was executed and "
-            "observed to fail. A `corroborated_duplicate` record is explicitly NOT a false "
-            "positive: the claim was validated elsewhere and only this copy was redundant. "
-            "The original verdict is never overwritten."),
-        "known_ceiling": {
-            "largest_cluster": "2024-04-noya AccountingManager / connector functions",
-            "blocker": "rpc_unavailable",
-            "detail": ("the NOYA test fixtures create a mainnet fork in `setUp()`; without "
-                       "an archive endpoint (`VLUN_RPC_URL`) no exploit attempt can be "
-                       "executed against those contracts, so those negatives stay "
-                       "`unknown` rather than being given an invented reason"),
-        },
-        "records": out_rows,
-    }
-    write_json(Path(args.out_stats), doc)
-    log(f"negative_verification_stats.json: {dict(tally)}")
-    log(f"  corroborated={doc['corroborated_by_confirmed_finding']} "
-        f"attributed={doc['attributed_by_named_source']} "
-        f"experimental={doc['experimentally_verified']}")
+    stats = build()
+    text = json.dumps(stats, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    md = render(stats)
+    md_path = REPORTS / "negative_verification.md"
+    if args.check:
+        stale = [p for p, t in [(Path(args.out_stats), text), (md_path, md)]
+                 if not Path(p).exists() or Path(p).read_text(encoding="utf-8") != t]
+        if stale:
+            log("STALE: " + ", ".join(str(s) for s in stale))
+            return 1
+        log("negative_verification_stats.json is current")
+        return 0
+    write_json(Path(args.out_stats), json.loads(text))
+    md_path.write_text(md, encoding="utf-8", newline="\n")
+    log(f"negative_verification_stats.json: {json.dumps(stats['by_class'], sort_keys=True)}")
+    log(f"  metrics={json.dumps(stats['metrics'], sort_keys=True)}")
     return 0
 
 

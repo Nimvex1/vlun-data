@@ -1,0 +1,157 @@
+{
+  "row": {
+    "audit": "2024-04-noya",
+    "axes": {
+      "attributed_reason": {
+        "applies": false,
+        "basis_field": "label_only",
+        "design_or_scope_exclusion": false,
+        "is_technical_explanation": false,
+        "participant_statements": [],
+        "rule": null,
+        "statements": [],
+        "technical_refutation": false
+      },
+      "code_supported_reason": {
+        "applies": true,
+        "attacker_called_function": "openPosition",
+        "citation": {
+          "audited_commit": "main",
+          "cited_url_as_published": "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/UNIv3Connector.sol#L40-L57",
+          "cited_url_re_pinned": "https://github.com/code-423n4/2024-04-noya/blob/7e7b0ffb53b516b95c7900d25fb00af8f108727f/contracts/connectors/UNIv3Connector.sol#L40",
+          "clone": "code-423n4__2024-04-noya",
+          "file": "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol",
+          "function": "openPosition",
+          "mutable_ref_in_source_layer": false,
+          "repository": "2024-04-noya",
+          "verification": {
+            "commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+            "declaration_line": 40,
+            "file": "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol",
+            "file_path_in_clone": "contracts/connectors/UNIv3Connector.sol",
+            "file_sha256": "22c09dd1d54641734414136055337790a9dbc78c604de69d0b15dcb707e8f389",
+            "function": "openPosition",
+            "modifiers_observed": [
+              "nonReentrant",
+              "onlyManager"
+            ],
+            "verified": false
+          }
+        },
+        "claim_standing": "unprivileged",
+        "derived_confidence": "high",
+        "derived_fact_present": true,
+        "gate": {
+          "fact_found_under_this_name": true,
+          "file": "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol",
+          "function": "openPosition",
+          "layer_declares_neighbouring_gate": false,
+          "modifier_declared_in_blocking_condition": [
+            "nonReentrant",
+            "onlyManager"
+          ],
+          "modifiers_effective": [
+            "nonReentrant",
+            "onlyManager"
+          ],
+          "modifiers_observed_in_layer": [
+            "nonReentrant",
+            "onlyManager"
+          ],
+          "required_roles": [
+            "manager"
+          ]
+        },
+        "gate_on_claim_target": true,
+        "is_technical_explanation": true,
+        "refutes_claim_standing": true,
+        "rule": "claim text asserts an actor lacking standing (pattern '\\\\banyone\\\\b')"
+      },
+      "duplicate_corroboration": {
+        "best_confidence": "high",
+        "corroborated": true,
+        "explicit_pointer": true,
+        "is_technical_explanation": false,
+        "methods": [
+          {
+            "confidence": "high",
+            "corroborating_finding": "2024-04-noya/M-40",
+            "corroborating_issue_url": "https://github.com/code-423n4/2024-04-noya-findings/issues/959",
+            "corroborating_status": "confirmed",
+            "method": "explicit_duplicate_of_pointer",
+            "rule": "`validation.duplicate_of` equals a published finding id"
+          }
+        ],
+        "reading": "corroboration says the underlying issue was accepted in this audit and this copy was redundant. It is not a statement about why the claim is technically false, and it is never counted as one"
+      },
+      "exploit_attempt": {
+        "blocker": "not_attempted",
+        "claimed_violation_not_demonstrated": false,
+        "experiment": null,
+        "is_technical_explanation": false,
+        "status": "not_attempted",
+        "underlying_issue_demonstrated": false
+      },
+      "status_publicly_reported": {
+        "applies": true,
+        "evidence_type": "observed_fact",
+        "is_technical_explanation": false,
+        "labels": [
+          "issue labelled a duplicate of another submission"
+        ],
+        "statuses": [
+          "duplicate"
+        ]
+      }
+    },
+    "confidence": "high",
+    "definitions_version": "rejection-definitions-1.0",
+    "finding_id": "fixture-mutable-gate-citation",
+    "is_false_positive": false,
+    "is_false_positive_basis": "the same claim was accepted as a confirmed finding of this audit (explicit pointer), or the attack was executed and succeeded",
+    "metrics": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": true,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": false,
+      "reason_attributed_to_judge_or_sponsor": false,
+      "reason_supported_by_cited_code": true,
+      "rejection_status_publicly_reported": true,
+      "unknown_or_insufficient_evidence": false
+    },
+    "original_verdict": {
+      "all_public_statuses": [
+        "duplicate"
+      ],
+      "duplicate": true,
+      "duplicate_of": "2024-04-noya/M-40",
+      "judge_decision": null,
+      "never_overwritten": true,
+      "public_labels": [
+        "issue labelled a duplicate of another submission"
+      ],
+      "requires_assumption": false,
+      "sponsor_position": null,
+      "status": "duplicate"
+    },
+    "primary_reason_class": "code_derived_blocker",
+    "provenance": {
+      "hard_negative_layer": "derived/hard_negatives.jsonl",
+      "jsonl_line": 39,
+      "source_layer": "jsonl/negative_findings.jsonl",
+      "source_url": "https://github.com/code-423n4/2024-04-noya-findings/issues/1476"
+    },
+    "reason_classes": [
+      "code_derived_blocker",
+      "corroborated_duplicate"
+    ],
+    "repository": "2024-04-noya",
+    "schema_version": "vlun-rejection-corpus/1.0",
+    "technical_verification": {
+      "bases": [
+        "code_gate_refutes_claim_standing"
+      ],
+      "conditional_gate_not_counted": false,
+      "counts_as_technical_reason_for_why_the_claim_is_false": true
+    },
+    "unknown_or_insufficient": false
+  }
+}

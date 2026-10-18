@@ -5,6 +5,7 @@
     "unprivileged": 127
   },
   "blocking_condition_derived_from_code": 8,
+  "blocking_condition_means": "`derived_fact` here means a role gate or `require` was mechanically located on the cited target. That is a fact about the code, not a refutation of the submission: the gate does not disprove a claim that names a privileged actor, nor one about a function the gate is not on. The rejection-evidence layer decides which gates remove the standing the claim itself asserts — see `derived_rejections/rejection_corpus.jsonl` and `reports/rejection_evidence.md`. Do not add these counts to that layer's metrics.",
   "blocking_condition_reported_by_source": 9,
   "blocking_condition_unknown": 441,
   "generated_by": "scripts/build_hard_negatives.py",

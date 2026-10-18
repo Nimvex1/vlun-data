@@ -145,9 +145,16 @@ class TestSubsetAdmission(unittest.TestCase):
         self.assertFalse(admits_exploit({}))
         self.assertTrue(admits_patch({"fix_effectiveness": "effective"}))
         self.assertFalse(admits_patch({"fix_effectiveness": "partial"}))
-        for ok in ("experimentally_verified", "attributed",
-                   "corroborated_duplicate"):
+        # A reason of some kind admits the record; a bare label does not.
+        for ok in ("executionally_disproven", "public_judge_or_sponsor_explanation",
+                   "business_scenario_exclusion", "code_derived_blocker",
+                   "experimentally_confirmed_underlying_issue", "corroborated_duplicate"):
             self.assertTrue(admits_negative({"negative_class": ok}))
+        for label_only in ("withdrawn_by_author", "scope_or_eligibility_label",
+                           "dispute_or_invalid_label", "duplicate_label_unresolved_pointer",
+                           "unattributed_participant_discussion", "code_gate_context_only",
+                           "unresolved"):
+            self.assertFalse(admits_negative({"negative_class": label_only}), label_only)
         self.assertFalse(admits_negative({"negative_class": "unverified"}))
         self.assertFalse(admits_negative({}))
 

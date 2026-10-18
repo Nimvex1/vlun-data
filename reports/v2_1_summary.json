@@ -1,6 +1,6 @@
 {
   "benchmark_experimentally_grounded": 15,
-  "benchmark_scorable_tasks": 1395,
+  "benchmark_scorable_tasks": 2357,
   "experiments_attempted": 9,
   "experiments_failed": 0,
   "experiments_inconclusive": 2,
@@ -14,12 +14,12 @@
     "code": 0,
     "exact": 1,
     "protocol_isolation": 0,
-    "quarantined": null
+    "quarantined": 2
   },
   "negative_cases_verified": 0,
   "negatives_attributed": 9,
-  "negatives_corroborated": 321,
-  "negatives_unknown": 127,
+  "negatives_corroborated": 193,
+  "negatives_unknown": null,
   "patches_not_testable": 31,
   "patches_verified": 7,
   "records_processed": 155,
@@ -29,7 +29,7 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks_passed": "74/74",
+  "validation_checks_passed": "78/78",
   "validation_failed_checks": [],
   "validation_failures": 0,
   "validation_warnings": 0

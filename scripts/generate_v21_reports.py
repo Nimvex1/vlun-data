@@ -187,6 +187,7 @@ def main() -> int:
     repro = J("reproduction_stats.json", {})
     patches = J("patch_verification_v2.json", {})
     negs = J("negative_verification_stats.json", {})
+    hn = J("hard_negative_stats.json", {})
     exps = J("verified_experiments.json", {})
     static = J("static_analysis.json", {})
     cites = J("citation_resolution.json", {})
@@ -218,8 +219,12 @@ def main() -> int:
         "L5 exploits (observed violation, no fixed-revision leg)": 0,
         "L6 verified patches (vulnerable reproduces AND fixed blocks)":
             V2_BEFORE["patch_verified_effective"],
-        "Negatives with a defensible reason": V2_BEFORE["negatives_code_grounded"],
-        "Negatives still unknown": V2_BEFORE["negatives_unknown_blocking_condition"],
+        "Negatives with a technical reason why the claim is false":
+            V2_BEFORE["negatives_code_grounded"],
+        "Negatives corroborated as duplicates of an accepted finding": 0,
+        "Negatives with no recorded blocking condition (v2 measure)":
+            V2_BEFORE["negatives_unknown_blocking_condition"],
+        "Negatives whose only public evidence is a label (v2.1 measure)": "not separated",
         "Mutable citations": V2_BEFORE["mutable_citations"],
         "API-sibling counterexample pairs": 0,
         "Repositories with a static-analysis signal": V2_BEFORE["static_analysis"],
@@ -236,9 +241,15 @@ def main() -> int:
         "L5 exploits (observed violation, no fixed-revision leg)": lv.get("L5", 0),
         "L6 verified patches (vulnerable reproduces AND fixed blocks)":
             patches.get("experimentally_confirmed_pairs"),
-        "Negatives with a defensible reason": (negs.get("total", 0)
-                                              - negs.get("by_class", {}).get("unknown", 0)),
-        "Negatives still unknown": negs.get("by_class", {}).get("unknown"),
+        "Negatives with a technical reason why the claim is false":
+            negs.get("technical_reason_why_the_claim_is_false"),
+        "Negatives corroborated as duplicates of an accepted finding":
+            (negs.get("metrics") or {}).get(
+                "claim_corroborated_as_duplicate_of_confirmed_finding"),
+        "Negatives with no recorded blocking condition (v2 measure)":
+            hn.get("blocking_condition_unknown"),
+        "Negatives whose only public evidence is a label (v2.1 measure)":
+            (negs.get("metrics") or {}).get("unknown_or_insufficient_evidence"),
         "Mutable citations": cites.get("remaining_mutable_occurrences"),
         "API-sibling counterexample pairs": cex.get("api_sibling_pairs"),
         "Repositories with a static-analysis signal": static.get("by_status", {}).get("available"),
@@ -291,11 +302,19 @@ def main() -> int:
 
     md.append("## Hard negatives\n")
     md.append(f"- total: **{negs.get('total')}**")
-    md.append(f"- by class: `{negs.get('by_class')}`")
+    md.append(f"- metrics (independent axes, not additive): `{negs.get('metrics')}`")
+    md.append(f"- primary reason class: `{negs.get('by_class')}`")
     md.append(f"- executed negative experiments: `{negs.get('executed_negative_experiments')}`\n")
-    md.append("A `corroborated_duplicate` record is **not** a false positive: the same claim was "
-              "accepted as a confirmed finding in the same audit and only this copy was "
-              "redundant. The original verdict is preserved everywhere.\n")
+    md.append("A `corroborated_duplicate` record is **not** a false positive and **not** a "
+              "technical reason: the same claim was accepted as a confirmed finding in the "
+              "same audit and only this copy was redundant. Only "
+              f"**{negs.get('technical_reason_why_the_claim_is_false')}** of "
+              f"{negs.get('total')} negatives carry a reason that says why the claim is "
+              "technically false (an attributed sponsor/judge refutation, a code gate that "
+              "removes the standing the claim asserts, or an executed disproof). The original "
+              "verdict is preserved everywhere.\n")
+    md.append("Definitions and the class vocabulary: `derived_rejections/definitions.json`; "
+              "prose: `reports/rejection_evidence.md`.\n")
     if negs.get("known_ceiling"):
         md.append(f"**Stated ceiling.** {negs['known_ceiling']['detail']}\n")
 

@@ -150,6 +150,29 @@ headline families (22,149 across all families ever shipped); D, H and Q are
 excluded with reasons above (G is scored on its 7 L6 rows, as an exploratory
 family), and 10 saturated families live retired under `benchmark/retired_families/`.
 
+## Rejection evidence behind false-positive tasks
+
+Family F asks a model to reject a claim that was not accepted. The records it is
+built from distinguish six independent kinds of evidence about *why* a
+submission was rejected, defined in `derived_rejections/definitions.json` and
+`reports/rejection_evidence.md`, one row per negative in
+`derived_rejections/rejection_corpus.jsonl`:
+
+| field | what it licenses a scorer to say |
+|---|---|
+| `rejection_status_publicly_reported` | the contest recorded a status. Says nothing about the merits. |
+| `reason_attributed_to_judge_or_sponsor` | a named judge/sponsor statement exists, carried verbatim with author, role, URL and excerpt hash. |
+| `reason_supported_by_cited_code` | a gate on the function the claim's own actor calls removes the standing the claim asserts. |
+| `claim_corroborated_as_duplicate_of_confirmed_finding` | the underlying issue was accepted in the same audit; this copy was redundant — explicitly **not** a technical reason. |
+| `exploit_attempted_and_claimed_violation_not_demonstrated` | an executed attack failed to show the claimed impact. |
+| `unknown_or_insufficient_evidence` | only a label is public. A valid outcome, never filled in with an invented reason. |
+
+Consequences for scoring: a record whose only evidence is a duplicate label or a
+corroboration supports "this was rejected", not "this is technically wrong", so
+`carries_technical_reason: false` on it. `datasets/verified_negatives.jsonl`
+admits reason-bearing classes and exposes both fields, so a consumer cannot read
+a duplicate as a refutation. The axes are independent and are never summed.
+
 ## What this rubric does NOT claim
 
 - It does not measure exploit-writing (D), reference-matching (H), or rubric

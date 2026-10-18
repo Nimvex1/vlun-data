@@ -1,5 +1,5 @@
 {
-  "checks": 74,
+  "checks": 78,
   "dataset_version": "2.2",
   "details": [
     {
@@ -345,7 +345,7 @@
       "ok": true
     },
     {
-      "check": "experimentally_verified_negative_has_an_execution",
+      "check": "experimental_negative_has_an_execution",
       "critical": true,
       "detail": null,
       "failure_count": 0,
@@ -354,9 +354,45 @@
       "ok": true
     },
     {
-      "check": "corroborated_duplicate_is_not_called_a_false_positive",
+      "check": "false_positive_true_requires_executed_disproof",
       "critical": true,
       "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.1",
+      "ok": true
+    },
+    {
+      "check": "false_positive_false_requires_pointer_or_experiment",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.1",
+      "ok": true
+    },
+    {
+      "check": "technical_reason_uses_a_documented_basis",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.1",
+      "ok": true
+    },
+    {
+      "check": "corroborated_duplicate_is_not_a_technical_reason",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.1",
+      "ok": true
+    },
+    {
+      "check": "rejection_stats_recount_their_records_and_corpus",
+      "critical": true,
+      "detail": "the six rejection axes are counted from derived_rejections/rejection_corpus.jsonl; reports may not restate them from memory",
       "failure_count": 0,
       "failures": [],
       "group": "v2.1",
@@ -678,9 +714,9 @@
     "provenance": 7,
     "splits": 3,
     "structure": 5,
-    "v2.1": 24,
+    "v2.1": 28,
     "v2.2": 13
   },
-  "passed": 74,
+  "passed": 78,
   "warnings": 0
 }

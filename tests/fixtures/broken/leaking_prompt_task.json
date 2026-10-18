@@ -1,0 +1,4 @@
+{
+  "prompt": "The finding to resolve is identified only by the allowed source identifiers listed for this task. State the severity that source assigns to that finding as a single label, and cite the exact span within that source which states it. Reply ABSTAIN if you cannot cite span bytes verifiable from the allowed sources.\nExpected answer: Medium at bytes 0-356.",
+  "task_id": "spt-0027516b563163eb"
+}

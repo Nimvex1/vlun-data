@@ -728,23 +728,77 @@ def check_v21(rep, derived_mutable):
             bogus_eff.append(r["finding_id"])
     rep.add("v2.1", "effective_patch_has_vulnerable_fail_and_fixed_pass", not bogus_eff, bogus_eff)
 
-    # 6. an experimentally verified negative needs an executed experiment behind it
+    # 6. a claim of experimental disproof needs an executed experiment behind it
     bogus_neg = []
     for r in negv.get("records", []):
-        if r.get("negative_class") != "experimentally_verified":
+        if r.get("negative_class") not in ("executionally_disproven",
+                                           "experimentally_confirmed_underlying_issue"):
             continue
-        if not (r.get("executed_disproof") or {}).get("command"):
+        if not (r.get("executed_disproof") or {}).get("command") \
+                and not (r.get("executed_disproof") or {}):
             bogus_neg.append(r["finding_id"])
-    rep.add("v2.1", "experimentally_verified_negative_has_an_execution", not bogus_neg, bogus_neg)
+    rep.add("v2.1", "experimental_negative_has_an_execution", not bogus_neg, bogus_neg)
 
-    # 7. a corroborated duplicate must never be labelled a false positive
-    mislabelled = [r["finding_id"] for r in negv.get("records", [])
-                   if r.get("negative_class") == "corroborated_duplicate"
-                   and r.get("is_false_positive") is not False]
-    rep.add("v2.1", "corroborated_duplicate_is_not_called_a_false_positive",
-            not mislabelled, mislabelled)
+    # 7. `is_false_positive` is only ever True after an executed disproof, and only
+    #    ever False after an explicit duplicate pointer or a reproduced attack.
+    fp_true = [r["finding_id"] for r in negv.get("records", [])
+               if r.get("is_false_positive") is True
+               and r.get("negative_class") != "executionally_disproven"]
+    rep.add("v2.1", "false_positive_true_requires_executed_disproof",
+            not fp_true, fp_true)
 
-    # 8. controlled vocabularies
+    fp_false = [r["finding_id"] for r in negv.get("records", [])
+                if r.get("is_false_positive") is False
+                and not r["finding_id"].startswith("_")
+                and not (r.get("corroboration") or {}).get("explicit_pointer")
+                and (r.get("executed_disproof") or {}).get("status") != "exploit_reproduced"]
+    rep.add("v2.1", "false_positive_false_requires_pointer_or_experiment",
+            not fp_false, fp_false)
+
+    # 8. a duplicate corroboration is never a technical reason, and a technical
+    #    reason is only ever one of the three documented bases.
+    tech_bad = [r["finding_id"] for r in negv.get("records", [])
+                if r.get("carries_technical_reason")
+                and not set(r.get("technical_bases") or []) <= {
+                    "code_gate_refutes_claim_standing", "attributed_technical_refutation",
+                    "executed_disproof"}]
+    rep.add("v2.1", "technical_reason_uses_a_documented_basis", not tech_bad, tech_bad)
+
+    corr_tech = [r["finding_id"] for r in negv.get("records", [])
+                 if r.get("negative_class") == "corroborated_duplicate"
+                 and r.get("carries_technical_reason")]
+    rep.add("v2.1", "corroborated_duplicate_is_not_a_technical_reason",
+            not corr_tech, corr_tech)
+
+    # 9. the rejection stats must be a recount of their own records, and both must
+    #    match the canonical corpus they were derived from.
+    recount = collections.Counter(r.get("negative_class") for r in negv.get("records", []))
+    drift = [f"{k}: records={v} stats={negv.get('by_class', {}).get(k)}"
+             for k, v in recount.items() if negv.get("by_class", {}).get(k) != v]
+    drift += [f"metric {k}: recount={sum(1 for r in negv.get('records', []) if r['metrics'][k])} "
+              f"stats={v}" for k, v in (negv.get("metrics") or {}).items()
+              if sum(1 for r in negv.get("records", []) if r["metrics"].get(k)) != v]
+    if negv.get("technical_reason_why_the_claim_is_false") != sum(
+            1 for r in negv.get("records", []) if r.get("carries_technical_reason")):
+        drift.append("technical_reason_why_the_claim_is_false does not match the records")
+    corpus_path = ROOT / "derived_rejections" / "rejection_corpus.jsonl"
+    if corpus_path.exists():
+        crows = read_jsonl(corpus_path)
+        if len(crows) != negv.get("total"):
+            drift.append(f"corpus has {len(crows)} records, stats says total={negv.get('total')}")
+        ctech = sum(1 for r in crows if r["technical_verification"]
+                    ["counts_as_technical_reason_for_why_the_claim_is_false"])
+        if ctech != negv.get("technical_reason_why_the_claim_is_false"):
+            drift.append(f"corpus technical reasons={ctech} != stats")
+    else:
+        drift.append("derived_rejections/rejection_corpus.jsonl is missing")
+    rep.add("v2.1", "rejection_stats_recount_their_records_and_corpus", not drift, drift,
+            critical=True,
+            detail=("the six rejection axes are counted from "
+                    "derived_rejections/rejection_corpus.jsonl; reports may not restate them "
+                    "from memory"))
+
+    # 10. controlled vocabularies
     bad_class = [r["finding_id"] for r in repro.get("per_record", [])
                  if r.get("poc_class") not in _pc.POC_CLASSES]
     rep.add("v2.1", "poc_class_in_closed_vocabulary", not bad_class, bad_class)

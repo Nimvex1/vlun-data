@@ -357,6 +357,14 @@ def main() -> int:
         "invariants_invented": 0,
         "note": "blocking_condition is unknown for the majority. That is the correct answer "
                 "when the only public evidence is a rejection label.",
+        "blocking_condition_means": (
+            "`derived_fact` here means a role gate or `require` was mechanically located on the "
+            "cited target. That is a fact about the code, not a refutation of the submission: "
+            "the gate does not disprove a claim that names a privileged actor, nor one about a "
+            "function the gate is not on. The rejection-evidence layer decides which gates "
+            "remove the standing the claim itself asserts — see "
+            "`derived_rejections/rejection_corpus.jsonl` and "
+            "`reports/rejection_evidence.md`. Do not add these counts to that layer's metrics."),
     }
     write_json(REPORTS / "hard_negative_stats.json", stats)
     log(f"wrote derived/hard_negatives.jsonl ({len(out)})")

@@ -184,6 +184,7 @@ def render() -> str:
     exp = jread(REPORTS / "verified_experiments.json", {}) or {}
     pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     negs = jread(REPORTS / "negative_verification_stats.json", {}) or {}
+    _negm = negs.get("metrics") or {}
     _vpath = DERIVED / "records.jsonl"
     _derived_total = _derived_mutable = 0
     if _vpath.exists():
@@ -499,8 +500,17 @@ forge reported `Success`, and no patch is called effective without the controlle
 - **v1/v2:** {n(len(exp.get('experiments', [])))} pinpoint experiments
   ({n(exp_verdicts.get('inconclusive', 0))} inconclusive, missing symbol recorded);
   **{n(pv.get('experimentally_confirmed_pairs'))}** patches verified effective;
-  {n(negs.get('total', 0) - (negs.get('by_class', {}) or {}).get('unknown', 0))} negatives with a
-  defensible reason ({n((negs.get('by_class', {}) or {}).get('unknown'))} still unknown);
+  rejection evidence over {n(negs.get('total', 0))} rejected submissions (axes are independent
+  and not additive): {n(_negm.get('reason_attributed_to_judge_or_sponsor'))} carry a reason
+  attributed to a named judge or sponsor, {n(_negm.get('reason_supported_by_cited_code'))} where
+  a gate in the cited code removes the standing the claim itself asserts,
+  **{n(negs.get('technical_reason_why_the_claim_is_false'))}** in total have a technical reason
+  the claim is false, {n(_negm.get('claim_corroborated_as_duplicate_of_confirmed_finding'))} are
+  corroborated as duplicates of an accepted finding (redundancy, not falsity),
+  {n(_negm.get('exploit_attempted_and_claimed_violation_not_demonstrated'))} had an exploit
+  attempted that did not demonstrate the violation, and
+  {n(_negm.get('unknown_or_insufficient_evidence'))} rest on a public label alone — definitions
+  in [`reports/rejection_evidence.md`](reports/rejection_evidence.md);
   {n(ce.get('api_sibling_pairs', 0))} API-sibling counterexample pairs.
 - **v2.2:** {n(sum(v for k, v in (d22m.get('experiment_levels') or {}).items() if k != 'none'))} executed runs;
   {n(((d22m.get('attacker_identity') or {}).get('unknown')))} of {n(d22m.get('records', 0))} records state no attacker standing.

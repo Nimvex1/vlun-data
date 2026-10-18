@@ -2,7 +2,7 @@
   "admission_rules": {
     "verified_exploits": "an exploit was executed at the audited revision and the declared security property was observed to be violated",
     "verified_findings": "immutable pinned citations, at least one cited file retrieved at its pinned commit, a public verdict and a stated severity",
-    "verified_negatives": "an attempted exploit was observed to fail, OR a named judge or sponsor published the reason, OR a confirmed finding carries the same claim so this copy is redundant rather than wrong",
+    "verified_negatives": "an attempted exploit was executed and recorded, OR a named judge or sponsor published the reason, OR the cited code removes the standing the claim asserts, OR a confirmed finding of the same audit carries the same claim",
     "verified_patches": "the same test observed the violation on the audited revision and the property held on the fixed revision"
   },
   "exploit_levels": {
@@ -10,20 +10,23 @@
   },
   "generated_by": "scripts/build_subsets.py",
   "negative_classes": {
-    "attributed": 9,
-    "corroborated_duplicate": 321
+    "business_scenario_exclusion": 4,
+    "code_derived_blocker": 1,
+    "corroborated_duplicate": 191,
+    "experimentally_confirmed_underlying_issue": 1,
+    "public_judge_or_sponsor_explanation": 5
   },
   "policy": "These subsets are deliberately small. A record is never admitted by lowering the bar; if the evidence is not there the row does not exist.",
   "subsets": {
     "verified_exploits": 5,
     "verified_findings": 302,
-    "verified_negatives": 330,
+    "verified_negatives": 202,
     "verified_patches": 7
   },
   "training": {
     "attacker_reasoning": 302,
     "exploit_reasoning": 5,
-    "negative_reasoning": 330,
+    "negative_reasoning": 202,
     "patch_reasoning": 7,
     "vulnerability_detection": 302
   }

@@ -1,0 +1,9 @@
+{
+  "answer": "Medium",
+  "span": {
+    "end_byte": 356,
+    "source_location": "V3/clones/c4-renzo-findings/data/blutorque-518.json",
+    "start_byte": 0
+  },
+  "task_id": "spt-0027516b563163eb"
+}

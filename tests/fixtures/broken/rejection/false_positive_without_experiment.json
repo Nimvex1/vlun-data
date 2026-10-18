@@ -1,0 +1,128 @@
+{
+  "row": {
+    "audit": "2024-04-noya",
+    "axes": {
+      "attributed_reason": {
+        "applies": false,
+        "basis_field": "label_only",
+        "design_or_scope_exclusion": false,
+        "is_technical_explanation": false,
+        "participant_statements": [],
+        "rule": null,
+        "statements": [],
+        "technical_refutation": false
+      },
+      "code_supported_reason": {
+        "applies": false,
+        "attacker_called_function": null,
+        "citation": null,
+        "claim_standing": null,
+        "derived_confidence": null,
+        "derived_fact_present": false,
+        "gate": null,
+        "gate_on_claim_target": false,
+        "is_technical_explanation": false,
+        "refutes_claim_standing": null,
+        "rule": "no code-derived blocking condition exists for this record"
+      },
+      "duplicate_corroboration": {
+        "best_confidence": "high",
+        "corroborated": true,
+        "explicit_pointer": true,
+        "is_technical_explanation": false,
+        "methods": [
+          {
+            "confidence": "high",
+            "corroborating_finding": "2024-04-noya/M-10",
+            "corroborating_issue_url": "https://github.com/code-423n4/2024-04-noya-findings/issues/1473",
+            "corroborating_status": "confirmed",
+            "method": "explicit_duplicate_of_pointer",
+            "rule": "`validation.duplicate_of` equals a published finding id"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-04-noya/M-10",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::calculateDepositShares"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-04-noya/M-44",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::calculateDepositShares"
+          }
+        ],
+        "reading": "corroboration says the underlying issue was accepted in this audit and this copy was redundant. It is not a statement about why the claim is technically false, and it is never counted as one"
+      },
+      "exploit_attempt": {
+        "blocker": "not_attempted",
+        "claimed_violation_not_demonstrated": false,
+        "experiment": null,
+        "is_technical_explanation": false,
+        "status": "not_attempted",
+        "underlying_issue_demonstrated": false
+      },
+      "status_publicly_reported": {
+        "applies": true,
+        "evidence_type": "observed_fact",
+        "is_technical_explanation": false,
+        "labels": [
+          "issue labelled a duplicate of another submission"
+        ],
+        "statuses": [
+          "duplicate"
+        ]
+      }
+    },
+    "confidence": "high",
+    "definitions_version": "rejection-definitions-1.0",
+    "finding_id": "fixture-false-positive-without-experiment",
+    "is_false_positive": true,
+    "is_false_positive_basis": "the same claim was accepted as a confirmed finding of this audit (explicit pointer), or the attack was executed and succeeded",
+    "metrics": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": true,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": false,
+      "reason_attributed_to_judge_or_sponsor": false,
+      "reason_supported_by_cited_code": false,
+      "rejection_status_publicly_reported": true,
+      "unknown_or_insufficient_evidence": false
+    },
+    "original_verdict": {
+      "all_public_statuses": [
+        "duplicate"
+      ],
+      "duplicate": true,
+      "duplicate_of": "2024-04-noya/M-10",
+      "judge_decision": null,
+      "never_overwritten": true,
+      "public_labels": [
+        "issue labelled a duplicate of another submission"
+      ],
+      "requires_assumption": false,
+      "sponsor_position": null,
+      "status": "duplicate"
+    },
+    "primary_reason_class": "corroborated_duplicate",
+    "provenance": {
+      "hard_negative_layer": "derived/hard_negatives.jsonl",
+      "jsonl_line": 18,
+      "source_layer": "jsonl/negative_findings.jsonl",
+      "source_url": "https://github.com/code-423n4/2024-04-noya-findings/issues/1513"
+    },
+    "reason_classes": [
+      "corroborated_duplicate"
+    ],
+    "repository": "2024-04-noya",
+    "schema_version": "vlun-rejection-corpus/1.0",
+    "technical_verification": {
+      "bases": [],
+      "conditional_gate_not_counted": false,
+      "counts_as_technical_reason_for_why_the_claim_is_false": false
+    },
+    "unknown_or_insufficient": false
+  }
+}

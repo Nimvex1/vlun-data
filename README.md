@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 74/74 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (0 critical failures everywhere): v2 78/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -76,8 +76,17 @@ forge reported `Success`, and no patch is called effective without the controlle
 - **v1/v2:** 9 pinpoint experiments
   (2 inconclusive, missing symbol recorded);
   **7** patches verified effective;
-  331 negatives with a
-  defensible reason (127 still unknown);
+  rejection evidence over 458 rejected submissions (axes are independent
+  and not additive): 9 carry a reason
+  attributed to a named judge or sponsor, 1 where
+  a gate in the cited code removes the standing the claim itself asserts,
+  **6** in total have a technical reason
+  the claim is false, 193 are
+  corroborated as duplicates of an accepted finding (redundancy, not falsity),
+  0 had an exploit
+  attempted that did not demonstrate the violation, and
+  256 rest on a public label alone — definitions
+  in [`reports/rejection_evidence.md`](reports/rejection_evidence.md);
   71 API-sibling counterexample pairs.
 - **v2.2:** 37 executed runs;
   123 of 137 records state no attacker standing.

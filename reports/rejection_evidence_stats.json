@@ -1,0 +1,145 @@
+{
+  "attributed_statement_classes": {
+    "design_or_scope_exclusion": 4,
+    "participant_only": 22,
+    "technical_refutation": 5
+  },
+  "code_gate_axis": {
+    "standing=privileged/refutes=False/applies=False": 1,
+    "standing=unprivileged/refutes=False/applies=False": 5,
+    "standing=unprivileged/refutes=True/applies=True": 1,
+    "standing=unstated/refutes=None/applies=False": 1
+  },
+  "code_gate_demotion_reasons": {
+    "claim_names_a_privileged_actor": 1,
+    "claim_names_no_actor_standing": 1,
+    "counts_as_refutation": 1,
+    "gate_not_on_the_function_the_actor_calls": 1,
+    "neighbouring_gate_declared_by_layer": 4
+  },
+  "corroboration_by_method": {
+    "duplicate_of_issue_number_unresolved:none": 145,
+    "explicit_duplicate_of_pointer:high": 193,
+    "same_code_target_same_audit:low": 921
+  },
+  "definitions_version": "rejection-definitions-1.0",
+  "exploit_attempt_status": {
+    "claimed_violation_demonstrated": 1,
+    "environment_unavailable": 2,
+    "not_attempted": 455
+  },
+  "is_false_positive": {
+    "False": 193,
+    "None": 265
+  },
+  "metric_definitions": {
+    "claim_corroborated_as_duplicate_of_confirmed_finding": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "derived_fact",
+      "means": "the same claim was accepted as a confirmed/acknowledged finding in the same audit, so the underlying issue is real and only this copy was redundant",
+      "note": "graded by method: an explicit `duplicate_of` pointer that resolves to a published finding is high confidence, an identical normalised title in the same audit is medium, a shared code target or similar snippet is context only. Corroboration supports `is_false_positive: false` for the underlying issue; it never supports a technical reason"
+    },
+    "exploit_attempted_and_claimed_violation_not_demonstrated": {
+      "counts_as_technical_explanation": true,
+      "evidence_type": "experimentally_verified",
+      "means": "an exploit was reconstructed and executed against the pinned revision and the claimed violation was not observed",
+      "note": "the only class that can establish a false positive by experiment. Where the attack was executed and succeeded, the record states the underlying issue is real rather than calling anything disproven"
+    },
+    "reason_attributed_to_judge_or_sponsor": {
+      "counts_as_technical_explanation": "conditional",
+      "evidence_type": "externally_attributed",
+      "means": "a named judge or the sponsor published a statement, carried verbatim with author, role, URL and excerpt hash, that addresses this submission",
+      "note": "split by rule into a technical refutation and a design-intent/scope exclusion; participant (warden) replies are excluded — they are discussion, not an adjudicated reason"
+    },
+    "reason_supported_by_cited_code": {
+      "counts_as_technical_explanation": true,
+      "evidence_type": "derived_fact",
+      "means": "a guard mechanically located on the function the submission says the attacker calls removes the standing the submission's own text claims",
+      "note": "requires the gate on the CLAIM'S OWN TARGET plus a claim that asserts an actor lacking that role; a gate elsewhere, or a claim about a privileged actor, is recorded as context only"
+    },
+    "rejection_status_publicly_reported": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "observed_fact",
+      "means": "the contest page publicly records a status for this submission (duplicate / rejected / disputed / invalid / withdrawn / nullified / ineligible)",
+      "note": "this is the weakest useful statement: it is a fact about the contest record, not a reason the claim is false"
+    },
+    "unknown_or_insufficient_evidence": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "unknown",
+      "means": "only a rejection, duplicate or dispute label is public, no attributed reason exists, no gate refutes the claim's own standing, and no exploit was attempted",
+      "note": "unknown_or_insufficient_evidence is a valid answer, not a failure of the pipeline; it is reported with the blocker that applies (pointer unresolved, environment unavailable, no public statement)"
+    }
+  },
+  "metrics": {
+    "claim_corroborated_as_duplicate_of_confirmed_finding": 193,
+    "exploit_attempted_and_claimed_violation_not_demonstrated": 0,
+    "reason_attributed_to_judge_or_sponsor": 9,
+    "reason_supported_by_cited_code": 1,
+    "rejection_status_publicly_reported": 458,
+    "unknown_or_insufficient_evidence": 256
+  },
+  "metrics_sum_note": "these six metrics are independent axes and are NOT additive: one record can appear in several of them",
+  "primary_precedence": [
+    "executionally_disproven",
+    "public_judge_or_sponsor_explanation",
+    "business_scenario_exclusion",
+    "code_derived_blocker",
+    "experimentally_confirmed_underlying_issue",
+    "corroborated_duplicate",
+    "withdrawn_by_author",
+    "scope_or_eligibility_label",
+    "dispute_or_invalid_label",
+    "duplicate_label_unresolved_pointer",
+    "unattributed_participant_discussion",
+    "code_gate_context_only",
+    "unresolved"
+  ],
+  "primary_reason_class": {
+    "business_scenario_exclusion": 4,
+    "code_derived_blocker": 1,
+    "corroborated_duplicate": 191,
+    "dispute_or_invalid_label": 18,
+    "duplicate_label_unresolved_pointer": 138,
+    "experimentally_confirmed_underlying_issue": 1,
+    "public_judge_or_sponsor_explanation": 5,
+    "scope_or_eligibility_label": 10,
+    "withdrawn_by_author": 90
+  },
+  "reason_class_any": {
+    "business_scenario_exclusion": 4,
+    "code_derived_blocker": 1,
+    "code_gate_context_only": 7,
+    "corroborated_duplicate": 193,
+    "dispute_or_invalid_label": 112,
+    "duplicate_label_unresolved_pointer": 145,
+    "experimentally_confirmed_underlying_issue": 1,
+    "public_judge_or_sponsor_explanation": 5,
+    "scope_or_eligibility_label": 10,
+    "unattributed_participant_discussion": 22,
+    "withdrawn_by_author": 90
+  },
+  "reason_class_vocabulary": [
+    "executionally_disproven",
+    "experimentally_confirmed_underlying_issue",
+    "code_derived_blocker",
+    "code_gate_context_only",
+    "public_judge_or_sponsor_explanation",
+    "business_scenario_exclusion",
+    "corroborated_duplicate",
+    "duplicate_label_unresolved_pointer",
+    "withdrawn_by_author",
+    "scope_or_eligibility_label",
+    "dispute_or_invalid_label",
+    "unattributed_participant_discussion",
+    "unresolved"
+  ],
+  "schema_version": "vlun-rejection-corpus/1.0",
+  "seed_provenance": "Every row in this layer comes from a public Code4rena contest record in `jsonl/negative_findings.jsonl`. No artefact of a report the dataset builder submitted to a bounty programme exists in this project, and none was invented to reach 458-plus records: seeding one would require the actual source artefact plus a check of the programme's publication and confidentiality terms, and personal details would have to be anonymised first.",
+  "seeded_from_the_builders_own_rejected_reports": 0,
+  "technical_bases": {
+    "attributed_technical_refutation": 5,
+    "code_gate_refutes_claim_standing": 1
+  },
+  "technical_reason_for_why_the_claim_is_false": 6,
+  "total": 458
+}

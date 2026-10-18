@@ -81,10 +81,21 @@ def admits_patch(pv: dict) -> bool:
 
 
 def admits_negative(n: dict) -> bool:
-    """verified_negatives rule: authoritative rejection evidence. Pure."""
-    return n.get("negative_class") in ("experimentally_verified",
-                                       "attributed",
-                                       "corroborated_duplicate")
+    """verified_negatives rule: the public record carries a reason of some kind.
+
+    The vocabulary is the one `derived_rejections/rejection_corpus.jsonl` defines.
+    `corroborated_duplicate` is admitted as a duplicate record, not as evidence
+    that the claim is false — `carries_technical_reason` is the field that says
+    whether a technical reason exists.
+    """
+    return n.get("negative_class") in (
+        "executionally_disproven",
+        "experimentally_confirmed_underlying_issue",
+        "public_judge_or_sponsor_explanation",
+        "business_scenario_exclusion",
+        "code_derived_blocker",
+        "corroborated_duplicate",
+    )
 
 
 def main() -> int:
@@ -203,11 +214,16 @@ def main() -> int:
             "class_evidence": n["class_evidence"].get("detail"),
             "corroboration": n.get("corroboration"),
             "executed_disproof": n.get("executed_disproof"),
-            "admission_rule": ("an attempted exploit was observed to fail, OR a named judge or "
-                               "sponsor published the reason, OR a confirmed finding carries "
-                               "the same claim so this copy is redundant rather than wrong"),
-            "caveat": ("a corroborated duplicate is NOT a false positive; the claim was "
-                       "validated elsewhere in the same audit"),
+            "admission_rule": ("an attempted exploit was executed and recorded, OR a named "
+                               "judge or sponsor published the reason, OR the cited code "
+                               "removes the standing the claim asserts, OR a confirmed finding "
+                               "of the same audit carries the same claim"),
+            "caveat": ("`corroborated_duplicate` means this copy was redundant, NOT that the "
+                       "claim is false; read `carries_technical_reason` for whether a "
+                       "technical reason exists at all"),
+            "carries_technical_reason": n.get("carries_technical_reason"),
+            "technical_bases": n.get("technical_bases"),
+            "reason_classes": n.get("reason_classes"),
             "evidence_type": n["class_evidence"]["evidence_type"],
         })
 

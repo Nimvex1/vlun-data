@@ -162,6 +162,8 @@ def build_benchmark_metrics() -> str:
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     patch = jread(REPORTS / "patch_verification.json", {}) or {}
     hn = jread(REPORTS / "hard_negative_stats.json", {}) or {}
+    neg = jread(REPORTS / "negative_verification_stats.json", {}) or {}
+    negm = neg.get("metrics") or {}
     ce = jread(REPORTS / "counterexample_stats.json", {}) or {}
     leak = jread(REPORTS / "leakage_report.json", {}) or {}
     tasks = man.get("tasks", {})
@@ -232,9 +234,12 @@ def build_benchmark_metrics() -> str:
          f"{patch.get('fix_confirmed_effective', 0)} fixes confirmed effective by running the same "
          "PoC against vulnerable and fixed revisions."),
         ("negative-example accuracy", "not measurable",
-         f"the held-out split has {len(test_fp)} scorable false-positive tasks; "
-         f"{hn.get('blocking_condition_unknown', 0)} of {hn.get('total', 0)} negatives have no "
-         "publicly attributable rejection reason, so scoring them would reward guessing."),
+         f"the held-out split has {len(test_fp)} scorable false-positive tasks; of "
+         f"{neg.get('total', 0)} negatives only {negm.get('reason_attributed_to_judge_or_sponsor', 0)}"
+         " carry a reason attributed to a named judge or sponsor and "
+         f"{negm.get('reason_supported_by_cited_code', 0)} are blocked by a gate in the cited "
+         f"code, while {negm.get('unknown_or_insufficient_evidence', 0)} rest on a public "
+         "label alone, so scoring them would reward guessing."),
         ("duplicate detection accuracy",
          f"{leak.get('near_duplicate_overlap', {}).get('count', 0)} near-duplicate and "
          f"{leak.get('semantic_overlap', {}).get('count', 0)} semantic cross-split pairs found",
@@ -369,6 +374,8 @@ def build_final_report() -> str:
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     patch = jread(REPORTS / "patch_verification.json", {}) or {}
     hn = jread(REPORTS / "hard_negative_stats.json", {}) or {}
+    neg = jread(REPORTS / "negative_verification_stats.json", {}) or {}
+    negm = neg.get("metrics") or {}
     ce = jread(REPORTS / "counterexample_stats.json", {}) or {}
     leak = jread(REPORTS / "leakage_report.json", {}) or {}
     dman = jread(DERIVED / "manifest.json", {}) or {}
@@ -403,9 +410,13 @@ def build_final_report() -> str:
          pct(t.get("reproduced", 0), t.get("exploit_records", 0))),
         ("hard negatives with a code-grounded rejection reason",
          "0 (427 of 458 were label-only with no reason recorded)",
-         f"{hn.get('blocking_condition_derived_from_code', 0)} derived from code + "
-         f"{hn.get('blocking_condition_reported_by_source', 0)} reported by a source; "
-         f"{hn.get('blocking_condition_unknown', 0)} still unknown"),
+         f"{negm.get('reason_supported_by_cited_code', 0)} of "
+         f"{hn.get('blocking_condition_derived_from_code', 0)} recorded code gates actually "
+         "remove the standing the claim asserts (the rest sit on a neighbouring function or on "
+         "a claim that names a privileged actor); "
+         f"{negm.get('reason_attributed_to_judge_or_sponsor', 0)} carry a reason quoted from a "
+         f"public judge or sponsor comment; {negm.get('unknown_or_insufficient_evidence', 0)} "
+         "rest on a public label alone"),
         ("counterexamples for confirmed H/M", "0",
          f"{ce.get('records_with_at_least_one_counterexample', 0)} of "
          f"{ce.get('confirmed_high_medium_records', 0)}"),
@@ -474,10 +485,13 @@ def build_final_report() -> str:
         "   contract patch instead of a test — before any build was attempted. Most still did",
         "   not run; the reason is recorded per record rather than summarised away.",
         "4. **The negative corpus explains itself where the evidence allows.**",
-        f"   {hn.get('blocking_condition_derived_from_code', 0)} negatives now carry a blocking",
-        "   condition derived mechanically from a role gate in the cited source, and",
-        f"   {hn.get('blocking_condition_reported_by_source', 0)} carry one quoted from a public",
-        f"   judge or sponsor comment. The remaining {hn.get('blocking_condition_unknown', 0)} stay",
+        f"   {negm.get('reason_supported_by_cited_code', 0)} negatives carry a blocking",
+        "   condition that removes the standing the submission's own text claims; the other",
+        f"   {hn.get('blocking_condition_derived_from_code', 0) - negm.get('reason_supported_by_cited_code', 0)}",
+        "   recorded gates are kept as context only, because the gate sits on a neighbouring",
+        "   function or the claim names a privileged actor.",
+        f"   {negm.get('reason_attributed_to_judge_or_sponsor', 0)} carry a reason quoted from a public",
+        f"   judge or sponsor comment. {negm.get('unknown_or_insufficient_evidence', 0)} stay",
         "   `unknown`, which is the correct answer and is counted as a first-class outcome.",
         "5. **Cross-split leakage was found and removed.** The detector found",
         f"   {leak.get('semantic_overlap', {}).get('count', 0)} genuinely duplicated submission",
@@ -535,10 +549,11 @@ def build_final_report() -> str:
         "",
         "## WHAT REMAINS LIMITED",
         "",
-        f"- **{hn.get('blocking_condition_unknown', 0)} of {hn.get('total', 0)} negatives have no",
-        "  defensible rejection reason.** Code4rena's judging rationale is largely not public.",
-        "  This corpus cannot teach *why* a false positive is false at scale; it can only teach",
-        "  the claim, the code, and the fact of rejection.",
+        f"- **{negm.get('unknown_or_insufficient_evidence', 0)} of {neg.get('total', 0)} negatives "
+        "have no technical rejection reason.** Code4rena's judging rationale is largely not "
+        "public. A duplicate pointer at a confirmed finding says the copy was redundant, not "
+        "that the claim was wrong. This corpus cannot teach *why* a false positive is false at "
+        "scale; it can only teach the claim, the code, and the fact of rejection.",
         f"- **{ce.get('records_with_at_least_one_counterexample', 0)} of",
         f"  {ce.get('confirmed_high_medium_records', 0)} confirmed High/Medium findings have a",
         "  counterexample.** Most findings cite exactly one function — the vulnerable one — so",

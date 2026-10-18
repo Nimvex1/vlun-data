@@ -1,0 +1,341 @@
+{
+  "row": {
+    "audit": "2024-01-decent",
+    "axes": {
+      "attributed_reason": {
+        "applies": false,
+        "basis_field": "label_only",
+        "design_or_scope_exclusion": false,
+        "is_technical_explanation": false,
+        "participant_statements": [],
+        "rule": null,
+        "statements": [],
+        "technical_refutation": false
+      },
+      "code_supported_reason": {
+        "applies": false,
+        "attacker_called_function": null,
+        "citation": {
+          "audited_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+          "cited_url_as_published": "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBExecutor.sol#L41-L82",
+          "cited_url_re_pinned": "https://github.com/code-423n4/2024-01-decent/blob/5d1962143ee566e7f9354b735bff3492b8f82761/src/UTBExecutor.sol#L19",
+          "clone": "code-423n4__2024-01-decent",
+          "file": "code-423n4/2024-01-decent/src/UTBExecutor.sol",
+          "function": "execute",
+          "mutable_ref_in_source_layer": false,
+          "repository": "2024-01-decent",
+          "verification": {
+            "commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+            "declaration_line": 19,
+            "file": "code-423n4/2024-01-decent/src/UTBExecutor.sol",
+            "file_path_in_clone": "src/UTBExecutor.sol",
+            "file_sha256": "3793f97680c2b4f51f4ebfecedabcfcbf62afb2543cc1ee73e3eb5f337db075b",
+            "function": "execute",
+            "modifiers_observed": [
+              "onlyOwner"
+            ],
+            "verified": true
+          }
+        },
+        "claim_standing": "unstated",
+        "derived_confidence": "high",
+        "derived_fact_present": true,
+        "gate": {
+          "fact_found_under_this_name": true,
+          "file": "code-423n4/2024-01-decent/src/UTBExecutor.sol",
+          "function": "execute",
+          "layer_declares_neighbouring_gate": false,
+          "modifier_declared_in_blocking_condition": [
+            "onlyOwner"
+          ],
+          "modifiers_effective": [
+            "onlyOwner"
+          ],
+          "modifiers_observed_in_layer": [
+            "onlyOwner"
+          ],
+          "required_roles": [
+            "owner"
+          ]
+        },
+        "gate_on_claim_target": false,
+        "is_technical_explanation": false,
+        "refutes_claim_standing": null,
+        "rule": "claim text states no actor standing"
+      },
+      "duplicate_corroboration": {
+        "best_confidence": "low",
+        "corroborated": false,
+        "explicit_pointer": false,
+        "is_technical_explanation": false,
+        "methods": [
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/M-03",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-01",
+            "corroborating_status": "acknowledged",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-01",
+            "corroborating_status": "acknowledged",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-01",
+            "corroborating_status": "acknowledged",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-03",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-03",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "low",
+            "corroborating_finding": "2024-01-decent/L-03",
+            "corroborating_status": "confirmed",
+            "method": "same_code_target_same_audit",
+            "rule": "a confirmed finding of this audit cites the same file::function; a shared target is not the same claim",
+            "target": "code-423n4/2024-01-decent/src/UTBExecutor.sol::execute"
+          },
+          {
+            "confidence": "none",
+            "corroborating_finding": null,
+            "method": "duplicate_of_issue_number_unresolved",
+            "pointer": "issue #37",
+            "rule": "`duplicate_of` names issue #37; it was not matched — the referenced issue is not a published finding in this dataset against the published findings of this audit"
+          }
+        ],
+        "reading": "corroboration says the underlying issue was accepted in this audit and this copy was redundant. It is not a statement about why the claim is technically false, and it is never counted as one"
+      },
+      "exploit_attempt": {
+        "blocker": "not_attempted",
+        "claimed_violation_not_demonstrated": false,
+        "experiment": null,
+        "is_technical_explanation": false,
+        "status": "not_attempted",
+        "underlying_issue_demonstrated": false
+      },
+      "status_publicly_reported": {
+        "applies": true,
+        "evidence_type": "observed_fact",
+        "is_technical_explanation": false,
+        "labels": [
+          "issue labelled a duplicate of another submission"
+        ],
+        "statuses": [
+          "duplicate"
+        ]
+      }
+    },
+    "confidence": "low",
+    "definitions_version": "rejection-definitions-1.0",
+    "finding_id": "fixture-verdict-overwritten",
+    "is_false_positive": null,
+    "is_false_positive_basis": "not determinable from the public record",
+    "metrics": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": false,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": false,
+      "reason_attributed_to_judge_or_sponsor": false,
+      "reason_supported_by_cited_code": false,
+      "rejection_status_publicly_reported": true,
+      "unknown_or_insufficient_evidence": true
+    },
+    "original_verdict": {
+      "all_public_statuses": [
+        "duplicate"
+      ],
+      "duplicate": true,
+      "duplicate_of": "issue #37",
+      "judge_decision": null,
+      "never_overwritten": true,
+      "public_labels": [
+        "issue labelled a duplicate of another submission"
+      ],
+      "requires_assumption": false,
+      "sponsor_position": null,
+      "status": "acknowledged"
+    },
+    "primary_reason_class": "duplicate_label_unresolved_pointer",
+    "provenance": {
+      "hard_negative_layer": "derived/hard_negatives.jsonl",
+      "jsonl_line": 340,
+      "source_layer": "jsonl/negative_findings.jsonl",
+      "source_url": "https://github.com/code-423n4/2024-01-decent-findings/issues/679"
+    },
+    "reason_classes": [
+      "duplicate_label_unresolved_pointer",
+      "code_gate_context_only"
+    ],
+    "repository": "2024-01-decent",
+    "schema_version": "vlun-rejection-corpus/1.0",
+    "technical_verification": {
+      "bases": [],
+      "conditional_gate_not_counted": true,
+      "counts_as_technical_reason_for_why_the_claim_is_false": false
+    },
+    "unknown_or_insufficient": true
+  },
+  "source": {
+    "classifier_evidence": [
+      "Reentrancy / External Calls/unsafe external call ordering [strong]: 'Checks-Effects-Interactions'"
+    ],
+    "code_context": [
+      {
+        "commit_sha": "011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29",
+        "contract": "UTBExecutor",
+        "file": "code-423n4/2024-01-decent/src/UTBExecutor.sol",
+        "file_resolved": true,
+        "function": "execute",
+        "line_end": 82,
+        "line_range_verified": true,
+        "line_start": 41,
+        "range_source": "permalink line range, verified against the file at that commit",
+        "snippet": "    function execute(\n        address target,\n        address paymentOperator,\n        bytes memory payload,\n        address token,\n        uint amount,\n        address payable refund,\n        uint extraNative\n    ) public onlyOwner {\n        bool success;\n        if (token == address(0)) {\n            (success, ) = target.call{value: amount}(payload);\n            if (!success) {\n                (refund.call{value: amount}(\"\"));\n            }\n            return;\n        }\n\n        uint initBalance = IERC20(token).balanceOf(address(this));\n\n        IERC20(token).transferFrom(msg.sender, address(this), amount);\n        IERC20(token).approve(paymentOperator, amount);\n\n        if (extraNative > 0) {\n            (success, ) = target.call{value: extraNative}(payload);\n            if (!success) {\n                (refund.call{value: extraNative}(\"\"));\n            }\n        } else {\n            (success, ) = target.call(payload);\n        }\n\n        uint remainingBalance = IERC20(token).balanceOf(address(this)) -\n            initBalance;\n\n        if (remainingBalance == 0) {\n            return;\n        }\n\n        IERC20(token).transfer(refund, remainingBalance);\n    }\n}",
+        "source_url": "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBExecutor.sol#L41-L82",
+        "truncated": false
+      }
+    ],
+    "confidence": "medium",
+    "dataset_version": "1.0",
+    "finding": {
+      "affected_contracts": [
+        "UTBExecutor"
+      ],
+      "affected_functions": [
+        "execute"
+      ],
+      "author": "c4-bot-4",
+      "author_note": "the GitHub account that opened the submission issue; where that is the Code4rena organisation account the individual warden is not recoverable from the issue",
+      "claimed_risk_labels": [
+        "2 (Med Risk)"
+      ],
+      "id": "fixture-verdict-overwritten",
+      "root_cause": "",
+      "severity": "",
+      "status": "duplicate",
+      "summary": "",
+      "title": "Potential re-entrancy attack in the execute function",
+      "vulnerability_classes": [
+        "Reentrancy / External Calls/unsafe external call ordering"
+      ]
+    },
+    "negative_analysis": {
+      "judge_and_sponsor_statements": [],
+      "rejection_basis": "label_only",
+      "role_attribution_note": "roles are inferred from the wording C4 recorded in the comment prefix; where a comment has no role marker it is left as 'participant' rather than guessed",
+      "why_it_is_not_a_vulnerability": "no public comment explains the deduplication; the only public evidence is the duplicate label pointing at the primary finding",
+      "why_it_looked_plausible": "Potential re-entrancy attack in the execute function The execute function allows the execution of arbitrary external calls. In the case of native transfers token == address(0), there is a potential re-entrancy vulnerability."
+    },
+    "patch": {
+      "available": false,
+      "diff": "",
+      "explanation": "",
+      "fixed_commit": "",
+      "vulnerable_commit": ""
+    },
+    "poc": {
+      "attack_sequence": [],
+      "available": true,
+      "code": "function execute(\n        address target,\n        address paymentOperator,\n        bytes memory payload,\n        address token,\n        uint amount,\n        address payable refund,\n        uint extraNative\n    ) public onlyOwner {\n        bool success;\n        if (token == address(0)) {\n            (success, ) = target.call{value: amount}(payload);\n            if (!success) {\n                (refund.call{value: amount}(\"\"));\n            }\n            return;\n        }\n\n\n        uint initBalance = IERC20(token).balanceOf(address(this));\n\n\n        IERC20(token).transferFrom(msg.sender, address(this), amount);\n        IERC20(token).approve(paymentOperator, amount);\n\n\n        if (extraNative > 0) {\n            (success, ) = target.call{value: extraNative}(payload);\n            if (!success) {\n                (refund.call{value: extraNative}(\"\"));\n            }\n        } else {\n            (success, ) = target.call(payload);\n        }\n\n\n        uint remainingBalance = IERC20(token).balanceOf(address(this)) -\n            initBalance;\n\n\n        if (remainingBalance == 0) {\n            return;\n        }\n\n\n        IERC20(token).transfer(refund, remainingBalance);\n    }\n}",
+      "expected_impact": "",
+      "file": "",
+      "framework": "",
+      "observed_impact": "",
+      "reproducible": false,
+      "setup": "",
+      "test_name": ""
+    },
+    "protocol": {
+      "category": "Cross-chain bridge / intent-based messaging (LayerZero, UTBOwnable)",
+      "dependencies": [],
+      "name": "Decent",
+      "networks": [],
+      "solidity_versions": [
+        "0.8.20"
+      ]
+    },
+    "provenance": {
+      "extraction_notes": "rejection label is the only public evidence; no reasoning text",
+      "license": "",
+      "license_verified": false,
+      "source_files": [
+        "code-423n4/2024-01-decent/src/UTBExecutor.sol"
+      ],
+      "source_urls": [
+        "https://github.com/code-423n4/2024-01-decent-findings/issues/679",
+        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/UTBExecutor.sol#L41-L82"
+      ]
+    },
+    "record_type": "negative_finding",
+    "security_reasoning": {
+      "attack_path": [],
+      "attack_prerequisites": [
+        "first performs an external call and then transfers native tokens, and after that changing the state"
+      ],
+      "attacker_capabilities": [
+        "attacker could deploy a malicious contract to re-enter the execute function during the native transfer, potentially leading to unexpected behaviour"
+      ],
+      "attacker_limitations": [
+        "`UTBExecutor.execute` is public but gated by `onlyOwner`: an unprivileged attacker cannot reach it directly, so a finding that assumes free access to this function is not valid as stated"
+      ],
+      "broken_behavior": "",
+      "environment_assumptions": [],
+      "impact": {},
+      "intended_behavior": "",
+      "invariants": [],
+      "security_assumption": ""
+    },
+    "source": {
+      "audit_date": "2024-03-22",
+      "audit_name": "https://code4rena.com/audits/2024-01-decent",
+      "commit_sha": "5d1962143ee566e7f9354b735bff3492b8f82761",
+      "findings_repository_url": "https://github.com/code-423n4/2024-01-decent-findings",
+      "organization": "Code4rena",
+      "repository": "2024-01-decent",
+      "repository_url": "https://github.com/code-423n4/2024-01-decent"
+    },
+    "validation": {
+      "all_public_statuses": [
+        "duplicate"
+      ],
+      "assumptions": [],
+      "duplicate": true,
+      "duplicate_of": "issue #37",
+      "evidence": [
+        "issue labelled a duplicate of another submission"
+      ],
+      "judge_decision": "",
+      "requires_assumption": false,
+      "sponsor_position": "",
+      "status": "duplicate"
+    }
+  }
+}

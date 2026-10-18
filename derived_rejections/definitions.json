@@ -1,0 +1,84 @@
+{
+  "definitions": {
+    "claim_corroborated_as_duplicate_of_confirmed_finding": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "derived_fact",
+      "means": "the same claim was accepted as a confirmed/acknowledged finding in the same audit, so the underlying issue is real and only this copy was redundant",
+      "note": "graded by method: an explicit `duplicate_of` pointer that resolves to a published finding is high confidence, an identical normalised title in the same audit is medium, a shared code target or similar snippet is context only. Corroboration supports `is_false_positive: false` for the underlying issue; it never supports a technical reason"
+    },
+    "exploit_attempted_and_claimed_violation_not_demonstrated": {
+      "counts_as_technical_explanation": true,
+      "evidence_type": "experimentally_verified",
+      "means": "an exploit was reconstructed and executed against the pinned revision and the claimed violation was not observed",
+      "note": "the only class that can establish a false positive by experiment. Where the attack was executed and succeeded, the record states the underlying issue is real rather than calling anything disproven"
+    },
+    "reason_attributed_to_judge_or_sponsor": {
+      "counts_as_technical_explanation": "conditional",
+      "evidence_type": "externally_attributed",
+      "means": "a named judge or the sponsor published a statement, carried verbatim with author, role, URL and excerpt hash, that addresses this submission",
+      "note": "split by rule into a technical refutation and a design-intent/scope exclusion; participant (warden) replies are excluded — they are discussion, not an adjudicated reason"
+    },
+    "reason_supported_by_cited_code": {
+      "counts_as_technical_explanation": true,
+      "evidence_type": "derived_fact",
+      "means": "a guard mechanically located on the function the submission says the attacker calls removes the standing the submission's own text claims",
+      "note": "requires the gate on the CLAIM'S OWN TARGET plus a claim that asserts an actor lacking that role; a gate elsewhere, or a claim about a privileged actor, is recorded as context only"
+    },
+    "rejection_status_publicly_reported": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "observed_fact",
+      "means": "the contest page publicly records a status for this submission (duplicate / rejected / disputed / invalid / withdrawn / nullified / ineligible)",
+      "note": "this is the weakest useful statement: it is a fact about the contest record, not a reason the claim is false"
+    },
+    "unknown_or_insufficient_evidence": {
+      "counts_as_technical_explanation": false,
+      "evidence_type": "unknown",
+      "means": "only a rejection, duplicate or dispute label is public, no attributed reason exists, no gate refutes the claim's own standing, and no exploit was attempted",
+      "note": "unknown_or_insufficient_evidence is a valid answer, not a failure of the pipeline; it is reported with the blocker that applies (pointer unresolved, environment unavailable, no public statement)"
+    }
+  },
+  "definitions_version": "rejection-definitions-1.0",
+  "metrics": [
+    "rejection_status_publicly_reported",
+    "reason_attributed_to_judge_or_sponsor",
+    "reason_supported_by_cited_code",
+    "claim_corroborated_as_duplicate_of_confirmed_finding",
+    "exploit_attempted_and_claimed_violation_not_demonstrated",
+    "unknown_or_insufficient_evidence"
+  ],
+  "primary_precedence": [
+    "executionally_disproven",
+    "public_judge_or_sponsor_explanation",
+    "business_scenario_exclusion",
+    "code_derived_blocker",
+    "experimentally_confirmed_underlying_issue",
+    "corroborated_duplicate",
+    "withdrawn_by_author",
+    "scope_or_eligibility_label",
+    "dispute_or_invalid_label",
+    "duplicate_label_unresolved_pointer",
+    "unattributed_participant_discussion",
+    "code_gate_context_only",
+    "unresolved"
+  ],
+  "reason_classes": [
+    "executionally_disproven",
+    "experimentally_confirmed_underlying_issue",
+    "code_derived_blocker",
+    "code_gate_context_only",
+    "public_judge_or_sponsor_explanation",
+    "business_scenario_exclusion",
+    "corroborated_duplicate",
+    "duplicate_label_unresolved_pointer",
+    "withdrawn_by_author",
+    "scope_or_eligibility_label",
+    "dispute_or_invalid_label",
+    "unattributed_participant_discussion",
+    "unresolved"
+  ],
+  "technical_bases": [
+    "code_gate_refutes_claim_standing",
+    "attributed_technical_refutation",
+    "executed_disproof"
+  ]
+}

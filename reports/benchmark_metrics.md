@@ -16,7 +16,7 @@ files under `benchmark/`. Nothing in this file is estimated.
 | PoC execution rate | 15/155 (9.7%) | reproduced + not_reproduced + inconclusive over all exploit records. |
 | exploit confirmation rate | 5/155 (3.2%) | A PoC counts only when forge reported Success for that test. Nothing else is promoted. |
 | patch verification rate | 7/38 (18.4%) | 7 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
-| negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; 441 of 458 negatives have no publicly attributable rejection reason, so scoring them would reward guessing. |
+| negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; of 458 negatives only 9 carry a reason attributed to a named judge or sponsor and 1 are blocked by a gate in the cited code, while 256 rest on a public label alone, so scoring them would reward guessing. |
 | duplicate detection accuracy | 0 near-duplicate and 2 semantic cross-split pairs found | detector recall is not validated against a hand-labelled set; the two pairs it found were checked by hand and are genuine. |
 
 ## Task coverage

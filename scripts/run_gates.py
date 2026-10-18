@@ -36,6 +36,14 @@ GATES = [
      [PY, "Vbeta/scripts/build_solodit_report.py", "--check"]),
     ("repro-report-current", [PY, "scripts/build_repro_report.py", "--check"]),
     ("stats-current", [PY, "scripts/generate_stats.py", "--check"]),
+    # Rejection evidence: the canonical corpus and the report that reads it.
+    # Both must be current, and the corpus is what the six rejection axes are
+    # defined by, so a hand-edited negative count fails here.
+    ("rejection-corpus-current",
+     [PY, "scripts/build_rejection_corpus.py", "--check"]),
+    ("negative-stats-current", [PY, "scripts/classify_negatives.py", "--check"]),
+    # ...and the two must agree with the corpus on every axis, or the gate fails.
+    ("rejection-consistency", [PY, "scripts/check_rejection_consistency.py", "--quiet"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
     # Packaging gates the CI workflow already ran separately. Without these
     # a local `run_gates.py` reported green while CI failed on a stale
@@ -70,6 +78,7 @@ ONLY_MAP = {
     "tests": ["unit-tests", "vbeta-tests"],
     "readme": ["readme-current", "stats-current", "field-coverage-current",
                "solodit-report-current", "repro-report-current"],
+    "rejection": ["rejection-corpus-current", "negative-stats-current"],
     "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
     "catalog": ["catalog-current"],
     "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],

@@ -1,0 +1,297 @@
+{
+  "corpus": [
+    {
+      "audit": "2024-04-noya",
+      "axes": {
+        "attributed_reason": {
+          "applies": false,
+          "basis_field": "label_only",
+          "design_or_scope_exclusion": false,
+          "is_technical_explanation": false,
+          "participant_statements": [],
+          "rule": null,
+          "statements": [],
+          "technical_refutation": false
+        },
+        "code_supported_reason": {
+          "applies": false,
+          "attacker_called_function": null,
+          "citation": {
+            "audited_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+            "cited_url_as_published": "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/governance/Keepers.sol#L42-L56",
+            "cited_url_re_pinned": "https://github.com/code-423n4/2024-04-noya/blob/7e7b0ffb53b516b95c7900d25fb00af8f108727f/contracts/governance/Keepers.sol#L42",
+            "clone": "code-423n4__2024-04-noya",
+            "file": "code-423n4/2024-04-noya/contracts/governance/Keepers.sol",
+            "function": "updateOwners",
+            "mutable_ref_in_source_layer": false,
+            "repository": "2024-04-noya",
+            "verification": {
+              "commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+              "declaration_line": 42,
+              "file": "code-423n4/2024-04-noya/contracts/governance/Keepers.sol",
+              "file_path_in_clone": "contracts/governance/Keepers.sol",
+              "file_sha256": "c82a59acd8c484a567c8ad3672dfecac265fd8b0ecb6f2776a1320db4f5eeaba",
+              "function": "updateOwners",
+              "modifiers_observed": [
+                "onlyOwner"
+              ],
+              "verified": true
+            }
+          },
+          "claim_standing": "privileged",
+          "derived_confidence": "high",
+          "derived_fact_present": true,
+          "gate": {
+            "fact_found_under_this_name": true,
+            "file": "code-423n4/2024-04-noya/contracts/governance/Keepers.sol",
+            "function": "updateOwners",
+            "layer_declares_neighbouring_gate": false,
+            "modifier_declared_in_blocking_condition": [
+              "onlyOwner"
+            ],
+            "modifiers_effective": [
+              "onlyOwner"
+            ],
+            "modifiers_observed_in_layer": [
+              "onlyOwner"
+            ],
+            "required_roles": [
+              "owner"
+            ]
+          },
+          "gate_on_claim_target": false,
+          "is_technical_explanation": false,
+          "refutes_claim_standing": false,
+          "rule": "claim text names a privileged actor (pattern 'contract owner')"
+        },
+        "duplicate_corroboration": {
+          "best_confidence": "none",
+          "corroborated": false,
+          "explicit_pointer": false,
+          "is_technical_explanation": false,
+          "methods": [
+            {
+              "confidence": "none",
+              "corroborating_finding": null,
+              "method": "duplicate_of_issue_number_unresolved",
+              "pointer": "issue #1076",
+              "rule": "`duplicate_of` names issue #1076; it was not matched — the referenced issue is not a published finding in this dataset against the published findings of this audit"
+            }
+          ],
+          "reading": "corroboration says the underlying issue was accepted in this audit and this copy was redundant. It is not a statement about why the claim is technically false, and it is never counted as one"
+        },
+        "exploit_attempt": {
+          "blocker": "not_attempted",
+          "claimed_violation_not_demonstrated": false,
+          "experiment": null,
+          "is_technical_explanation": false,
+          "status": "not_attempted",
+          "underlying_issue_demonstrated": false
+        },
+        "status_publicly_reported": {
+          "applies": true,
+          "evidence_type": "observed_fact",
+          "is_technical_explanation": false,
+          "labels": [
+            "issue labelled a duplicate of another submission"
+          ],
+          "statuses": [
+            "duplicate"
+          ]
+        }
+      },
+      "confidence": "low",
+      "definitions_version": "rejection-definitions-1.0",
+      "finding_id": "2024-04-noya/submission-1557",
+      "is_false_positive": null,
+      "is_false_positive_basis": "not determinable from the public record",
+      "metrics": {
+        "claim_corroborated_as_duplicate_of_confirmed_finding": false,
+        "exploit_attempted_and_claimed_violation_not_demonstrated": false,
+        "reason_attributed_to_judge_or_sponsor": false,
+        "reason_supported_by_cited_code": false,
+        "rejection_status_publicly_reported": true,
+        "unknown_or_insufficient_evidence": true
+      },
+      "original_verdict": {
+        "all_public_statuses": [
+          "duplicate"
+        ],
+        "duplicate": true,
+        "duplicate_of": "issue #1076",
+        "judge_decision": null,
+        "never_overwritten": true,
+        "public_labels": [
+          "issue labelled a duplicate of another submission"
+        ],
+        "requires_assumption": false,
+        "sponsor_position": null,
+        "status": "duplicate"
+      },
+      "primary_reason_class": "duplicate_label_unresolved_pointer",
+      "provenance": {
+        "hard_negative_layer": "derived/hard_negatives.jsonl",
+        "jsonl_line": 1,
+        "source_layer": "jsonl/negative_findings.jsonl",
+        "source_url": "https://github.com/code-423n4/2024-04-noya-findings/issues/1557"
+      },
+      "reason_classes": [
+        "duplicate_label_unresolved_pointer",
+        "code_gate_context_only"
+      ],
+      "repository": "2024-04-noya",
+      "schema_version": "vlun-rejection-corpus/1.0",
+      "technical_verification": {
+        "bases": [],
+        "conditional_gate_not_counted": true,
+        "counts_as_technical_reason_for_why_the_claim_is_false": false
+      },
+      "unknown_or_insufficient": true
+    }
+  ],
+  "stats": {
+    "attributed_statement_classes": {
+      "design_or_scope_exclusion": 4,
+      "participant_only": 22,
+      "technical_refutation": 5
+    },
+    "code_gate_axis": {
+      "standing=privileged/refutes=False/applies=False": 1,
+      "standing=unprivileged/refutes=False/applies=False": 5,
+      "standing=unprivileged/refutes=True/applies=True": 1,
+      "standing=unstated/refutes=None/applies=False": 1
+    },
+    "code_gate_demotion_reasons": {
+      "claim_names_a_privileged_actor": 1,
+      "claim_names_no_actor_standing": 1,
+      "counts_as_refutation": 1,
+      "gate_not_on_the_function_the_actor_calls": 1,
+      "neighbouring_gate_declared_by_layer": 4
+    },
+    "corroboration_by_method": {
+      "duplicate_of_issue_number_unresolved:none": 145,
+      "explicit_duplicate_of_pointer:high": 193,
+      "same_code_target_same_audit:low": 921
+    },
+    "definitions_version": "rejection-definitions-1.0",
+    "exploit_attempt_status": {
+      "claimed_violation_demonstrated": 1,
+      "environment_unavailable": 2,
+      "not_attempted": 455
+    },
+    "is_false_positive": {
+      "False": 193,
+      "None": 265
+    },
+    "metric_definitions": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": {
+        "counts_as_technical_explanation": false,
+        "evidence_type": "derived_fact",
+        "means": "the same claim was accepted as a confirmed/acknowledged finding in the same audit, so the underlying issue is real and only this copy was redundant",
+        "note": "graded by method: an explicit `duplicate_of` pointer that resolves to a published finding is high confidence, an identical normalised title in the same audit is medium, a shared code target or similar snippet is context only. Corroboration supports `is_false_positive: false` for the underlying issue; it never supports a technical reason"
+      },
+      "exploit_attempted_and_claimed_violation_not_demonstrated": {
+        "counts_as_technical_explanation": true,
+        "evidence_type": "experimentally_verified",
+        "means": "an exploit was reconstructed and executed against the pinned revision and the claimed violation was not observed",
+        "note": "the only class that can establish a false positive by experiment. Where the attack was executed and succeeded, the record states the underlying issue is real rather than calling anything disproven"
+      },
+      "reason_attributed_to_judge_or_sponsor": {
+        "counts_as_technical_explanation": "conditional",
+        "evidence_type": "externally_attributed",
+        "means": "a named judge or the sponsor published a statement, carried verbatim with author, role, URL and excerpt hash, that addresses this submission",
+        "note": "split by rule into a technical refutation and a design-intent/scope exclusion; participant (warden) replies are excluded — they are discussion, not an adjudicated reason"
+      },
+      "reason_supported_by_cited_code": {
+        "counts_as_technical_explanation": true,
+        "evidence_type": "derived_fact",
+        "means": "a guard mechanically located on the function the submission says the attacker calls removes the standing the submission's own text claims",
+        "note": "requires the gate on the CLAIM'S OWN TARGET plus a claim that asserts an actor lacking that role; a gate elsewhere, or a claim about a privileged actor, is recorded as context only"
+      },
+      "rejection_status_publicly_reported": {
+        "counts_as_technical_explanation": false,
+        "evidence_type": "observed_fact",
+        "means": "the contest page publicly records a status for this submission (duplicate / rejected / disputed / invalid / withdrawn / nullified / ineligible)",
+        "note": "this is the weakest useful statement: it is a fact about the contest record, not a reason the claim is false"
+      },
+      "unknown_or_insufficient_evidence": {
+        "counts_as_technical_explanation": false,
+        "evidence_type": "unknown",
+        "means": "only a rejection, duplicate or dispute label is public, no attributed reason exists, no gate refutes the claim's own standing, and no exploit was attempted",
+        "note": "unknown_or_insufficient_evidence is a valid answer, not a failure of the pipeline; it is reported with the blocker that applies (pointer unresolved, environment unavailable, no public statement)"
+      }
+    },
+    "metrics": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": 193,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": 0,
+      "reason_attributed_to_judge_or_sponsor": 9,
+      "reason_supported_by_cited_code": 8,
+      "rejection_status_publicly_reported": 458,
+      "unknown_or_insufficient_evidence": 256
+    },
+    "metrics_sum_note": "these six metrics are independent axes and are NOT additive: one record can appear in several of them",
+    "primary_precedence": [
+      "executionally_disproven",
+      "public_judge_or_sponsor_explanation",
+      "business_scenario_exclusion",
+      "code_derived_blocker",
+      "experimentally_confirmed_underlying_issue",
+      "corroborated_duplicate",
+      "withdrawn_by_author",
+      "scope_or_eligibility_label",
+      "dispute_or_invalid_label",
+      "duplicate_label_unresolved_pointer",
+      "unattributed_participant_discussion",
+      "code_gate_context_only",
+      "unresolved"
+    ],
+    "primary_reason_class": {
+      "business_scenario_exclusion": 4,
+      "code_derived_blocker": 1,
+      "corroborated_duplicate": 191,
+      "dispute_or_invalid_label": 18,
+      "duplicate_label_unresolved_pointer": 138,
+      "experimentally_confirmed_underlying_issue": 1,
+      "public_judge_or_sponsor_explanation": 5,
+      "scope_or_eligibility_label": 10,
+      "withdrawn_by_author": 90
+    },
+    "reason_class_any": {
+      "business_scenario_exclusion": 4,
+      "code_derived_blocker": 1,
+      "code_gate_context_only": 7,
+      "corroborated_duplicate": 193,
+      "dispute_or_invalid_label": 112,
+      "duplicate_label_unresolved_pointer": 145,
+      "experimentally_confirmed_underlying_issue": 1,
+      "public_judge_or_sponsor_explanation": 5,
+      "scope_or_eligibility_label": 10,
+      "unattributed_participant_discussion": 22,
+      "withdrawn_by_author": 90
+    },
+    "reason_class_vocabulary": [
+      "executionally_disproven",
+      "experimentally_confirmed_underlying_issue",
+      "code_derived_blocker",
+      "code_gate_context_only",
+      "public_judge_or_sponsor_explanation",
+      "business_scenario_exclusion",
+      "corroborated_duplicate",
+      "duplicate_label_unresolved_pointer",
+      "withdrawn_by_author",
+      "scope_or_eligibility_label",
+      "dispute_or_invalid_label",
+      "unattributed_participant_discussion",
+      "unresolved"
+    ],
+    "schema_version": "vlun-rejection-corpus/1.0",
+    "seed_provenance": "Every row in this layer comes from a public Code4rena contest record in `jsonl/negative_findings.jsonl`. No artefact of a report the dataset builder submitted to a bounty programme exists in this project, and none was invented to reach 458-plus records: seeding one would require the actual source artefact plus a check of the programme's publication and confidentiality terms, and personal details would have to be anonymised first.",
+    "seeded_from_the_builders_own_rejected_reports": 0,
+    "technical_bases": {
+      "attributed_technical_refutation": 5,
+      "code_gate_refutes_claim_standing": 1
+    },
+    "technical_reason_for_why_the_claim_is_false": 15,
+    "total": 458
+  }
+}
