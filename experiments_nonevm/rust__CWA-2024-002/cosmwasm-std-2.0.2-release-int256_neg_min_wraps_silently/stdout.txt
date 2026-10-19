@@ -1,0 +1,21 @@
+
+running 1 test
+test tests::int256_neg_min_wraps_silently ... FAILED
+
+failures:
+
+---- tests::int256_neg_min_wraps_silently stdout ----
+
+thread 'tests::int256_neg_min_wraps_silently' (12184) panicked at C:\Users\jeet\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\cosmwasm-std-2.0.2\src\math\int256.rs:344:21:
+attempt to negate with overflow
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'tests::int256_neg_min_wraps_silently' (12184) panicked at src\lib.rs:23:9:
+-Int256::MIN panicked: no silent wrap
+
+
+failures:
+    tests::int256_neg_min_wraps_silently
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+

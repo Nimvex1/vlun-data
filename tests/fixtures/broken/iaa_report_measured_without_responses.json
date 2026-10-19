@@ -1,0 +1,33 @@
+{
+ "audit_violations": [],
+ "generated_by": "scripts/iaa_statistics.py",
+ "measured": true,
+ "measured_reason": null,
+ "notes": [],
+ "responses_present": 0,
+ "statistics": {
+  "annotators_seen": 2,
+  "human_rows": 600,
+  "measurable": true,
+  "non_human_rows_excluded": {},
+  "per_pair": {
+   "A|B": {
+    "kappa_primary_label": 0.71,
+    "n_common": 300,
+    "weighted_kappa_evidence_linear": 0.69,
+    "weighted_kappa_evidence_quadratic": 0.74,
+    "weighted_kappa_severity_linear": 0.83,
+    "weighted_kappa_severity_quadratic": 0.86
+   }
+  },
+  "pooled": {
+   "alpha_primary_label_nominal": {
+    "ci95_high": 0.79,
+    "ci95_low": 0.65,
+    "point": 0.72,
+    "replicates": 2000
+   }
+  }
+ },
+ "study": "fixture"
+}

@@ -1,0 +1,1 @@
+cargo test --tests --release -- --exact tests::uint256_pow_overflow_wraps_silently

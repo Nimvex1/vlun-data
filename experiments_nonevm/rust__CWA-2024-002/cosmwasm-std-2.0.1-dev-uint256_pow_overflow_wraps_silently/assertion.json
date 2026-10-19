@@ -1,0 +1,15 @@
+{
+  "expected": {
+    "test_status": "ok",
+    "why": "2.0.1 is declared_vulnerable; overflow-checks on"
+  },
+  "kind": "named_test",
+  "met": false,
+  "name": "tests::uint256_pow_overflow_wraps_silently",
+  "not_just_exit_code": true,
+  "observed": {
+    "suite_summary": "test result: FAILED. 0 passed; 1 failed",
+    "test_status": "failed"
+  },
+  "statement": "Uint256::pow with an exponent that overflows the 256-bit range returns a wrapped value instead of panicking"
+}

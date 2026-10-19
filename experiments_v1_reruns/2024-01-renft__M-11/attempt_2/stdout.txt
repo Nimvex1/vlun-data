@@ -1,0 +1,1 @@
+{"test/vlun_poc/2024-01-renft__M-11.t.sol:VlunReconstructedHarness":{"duration":"717µs","test_results":{"test_EIP712_encoding()":{"status":"Success","reason":null,"counterexample":null,"logs":[],"decoded_logs":[],"kind":{"Unit":{"gas":5424}},"traces":[],"labeled_addresses":{},"duration":"328µs 600ns","breakpoints":{},"gas_snapshots":{}}},"warnings":[]}}

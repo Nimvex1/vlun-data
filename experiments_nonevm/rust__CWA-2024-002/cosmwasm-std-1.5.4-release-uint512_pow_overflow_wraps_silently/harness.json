@@ -1,0 +1,24 @@
+{
+  "isolation": "generated crate in an isolated scratch dir; local test harness only - no chain, no funds, no node",
+  "pin": {
+    "commit": null,
+    "harness_files": {
+      "Cargo.toml.sha256": "95ef47e8e5579a7f04309b6c32da9aeb3349f72d280d745029b8d89eb740de86",
+      "src/lib.rs.sha256": "aebca7c9d057eac09b4b46de5cce9e3d73f79f6e33b3ea88491c6fe6ca5f9a9b"
+    },
+    "lock_resolved_version": "1.5.4",
+    "lock_sha256": "bf609e3b7a665c6e182cbfbfb0218317389eec069251e43c498eb969a50295db",
+    "repo": "https://github.com/CosmWasm/cosmwasm",
+    "requested_ref": "crates.io cosmwasm-std =1.5.4",
+    "resolved_by": "cargo.lock",
+    "revision_unresolved": null
+  },
+  "run_kind": "test_harness",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "cargo test",
+    "runtime": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+    "tool": "cargo",
+    "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+  }
+}

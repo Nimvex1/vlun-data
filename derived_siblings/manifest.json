@@ -1,0 +1,91 @@
+{
+  "builder_version": "api-siblings-1",
+  "counts": {
+    "candidates": 229,
+    "hard_negatives": 8,
+    "splits": {
+      "test": 47,
+      "train": 126,
+      "validation": 48
+    },
+    "tasks": 221
+  },
+  "disclaimer": "leakage-audited under the recorded criteria; NOT contamination-proof. Hard negatives are real near-misses re-read from the same pinned sources, not invented contrasts. No expressive source text is redistributed: every member stores spans and hashes.",
+  "files": {
+    "candidates.jsonl": 229,
+    "hard_negatives.jsonl": 8,
+    "splits.json": 3,
+    "tasks.jsonl": 221
+  },
+  "generated_by": "scripts/review_sibling_pairs.py",
+  "layer": "derived_siblings",
+  "leakage": {
+    "near_duplicate_pairs_cross_split": 0,
+    "project_holdout_violations": 0,
+    "shared_pinned_files_cross_split": 6
+  },
+  "pipeline": [
+    "scripts/build_api_siblings.py -> derived_siblings/candidates.jsonl",
+    "scripts/review_sibling_pairs.py -> tasks, hard negatives, splits, manifest, reports"
+  ],
+  "purpose": "cross-repository API-sibling call-site tasks: the same upstream API at two call sites in two audited repositories, one risky and one carrying the handling the other omits",
+  "record_schema": {
+    "required_fields": [
+      "task_id",
+      "project",
+      "revisions",
+      "root_cause",
+      "rationale",
+      "spans",
+      "rights",
+      "review"
+    ],
+    "span_fields": [
+      "file",
+      "revision",
+      "function",
+      "function_decl_line",
+      "call_line",
+      "char_start",
+      "char_end",
+      "byte_start",
+      "byte_end",
+      "file_sha256",
+      "span_sha256"
+    ],
+    "task_fields": [
+      "api",
+      "dataset_version",
+      "family",
+      "generated_by",
+      "pair_id",
+      "pair_type",
+      "project",
+      "property",
+      "property_note",
+      "rationale",
+      "record_type",
+      "review",
+      "revisions",
+      "rights",
+      "root_cause",
+      "spans",
+      "task_id"
+    ]
+  },
+  "review_version": "sibling-review-1",
+  "rights": {
+    "authority": "NOTICE.md: much of this corpus is source-available-but-not-redistributable or ships no licence at all; this layer therefore stores spans and hashes of the pinned bytes rather than the bytes",
+    "decision": "citations_and_spans_only__no_source_text_redistributed",
+    "expressive_text_redistributed": false,
+    "reference_side_classes": {
+      "redistributable": 103,
+      "source_available_but_not_redistributable": 63,
+      "unknown": 63
+    },
+    "vulnerable_side_classes": {
+      "source_available_but_not_redistributable": 2,
+      "unknown": 227
+    }
+  }
+}

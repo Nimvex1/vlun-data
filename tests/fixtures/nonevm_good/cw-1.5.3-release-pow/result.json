@@ -1,0 +1,70 @@
+{
+  "artefacts": {
+    "assertion.json": {
+      "bytes": 186,
+      "sha256": "d1b7fd1e59c91ef814b20d55bcfaa739b87b26f47c0e22f886365bd8b48677f3"
+    },
+    "command.txt": {
+      "bytes": 43,
+      "sha256": "2bffe2098e852ea779e8cd319a6702735220bd2ad9d13f141e251e5308c1d128"
+    },
+    "harness.json": {
+      "bytes": 180,
+      "sha256": "437f91440dd80dacd11d8cdc4f9f7e70f8bf262d784259a24c998a64ae43f483"
+    },
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 60,
+      "sha256": "dd53f7d22f46321c828b955060c590461c6b3d30a2c14229ed4763954d545d27"
+    },
+    "toolchain.txt": {
+      "bytes": 98,
+      "sha256": "296daf22ab17105641e791d58f43cf4eb25b05523f1652902248f26bdd6635da"
+    }
+  },
+  "assertion": {
+    "expected": {
+      "test_status": "ok"
+    },
+    "kind": "named_test",
+    "met": true,
+    "name": "tests::pow",
+    "not_just_exit_code": true,
+    "observed": {
+      "test_status": "ok"
+    }
+  },
+  "blocker": null,
+  "claim": "fixture claim",
+  "ladder": "L5",
+  "licence": {
+    "upstream": "Apache-2.0"
+  },
+  "outcome": "claim_reproduced",
+  "pin": {
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requested_ref": "=1.5.3"
+  },
+  "platform": "cosmwasm",
+  "prerequisites": [],
+  "record_id": "rust:CWA-2024-002",
+  "run": {
+    "argv": [
+      "cargo",
+      "test"
+    ],
+    "exit_code": 0,
+    "isolation": "local scratch",
+    "run_kind": "test_harness",
+    "seconds": 1.0
+  },
+  "run_slug": "cw-1.5.3-release-pow",
+  "schema": "vlun-nonevm-run/1",
+  "status": "executed",
+  "toolchain": {
+    "tool": "cargo"
+  }
+}

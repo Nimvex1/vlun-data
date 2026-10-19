@@ -1,0 +1,83 @@
+{
+  "artefacts": {
+    "command.txt": {
+      "bytes": 94,
+      "sha256": "605ae54cc02c7067cd07b5f937004f251fb8ecce1d0a379bd12d046683972f93"
+    },
+    "harness.json": {
+      "bytes": 723,
+      "sha256": "f39a248c9209d2491518ff41fd64f7b1e25b2e32c38ba8197c58f7e9c50ad8cb"
+    },
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "toolchain.txt": {
+      "bytes": 1063,
+      "sha256": "609ff73d3a7d3ba7a7541d3e7dbac53c5a1bba36b36db7a88095de5755459355"
+    }
+  },
+  "assertion": null,
+  "blocker": "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01",
+  "claim": "Navi lending core never validates the CoinType against the registered coin_type on any lending function (MoveBit LEND-06)",
+  "evidence_note": "candidate in the v2.2 pool that this pilot could not execute; the blocker text is the finding",
+  "ladder": "L1",
+  "licence": {
+    "harness_origin": "the #[test] module is written by this adapter and is not copied from upstream",
+    "redistribution": "the audited package sources stay in the local scratch copy; no upstream file is copied into a distribution artefact",
+    "upstream": "MIT (CetusProtocol/integer-mate)",
+    "withheld": null
+  },
+  "outcome": "blocked",
+  "pin": {
+    "commit": null,
+    "requested_ref": "audit scope commits 838650c8471c5a6401022852222362e70dd455d1, 1e888f75fc385657bef13d4991655d5b29455346, 50b69ce6ed44b5b0da313a6689182992e63654b7, 6f7fe8f3241fbed6ca41a11537704fe60cd0bbda (as printed)",
+    "revision_unresolved": "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01"
+  },
+  "platform": "sui_move",
+  "prerequisites": [
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
+      "version": "sui 1.48.2-17a9eb8e1914"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
+      "version": "sui 1.6.3-f4a70c8-dirty"
+    },
+    {
+      "install_command": "created on first `sui move` run that resolves a git dependency",
+      "install_status": "installed",
+      "tool": "move git dependency cache (~/.move)",
+      "version": null
+    }
+  ],
+  "record_id": "move:navi-lend-06-coin-type",
+  "run": {
+    "argv": [
+      "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "move",
+      "test"
+    ],
+    "isolation": "would be a local scratch copy plus the local Move VM",
+    "run_kind": "none"
+  },
+  "run_slug": "blocked-navi-lend-06-coin-type",
+  "schema": "vlun-nonevm-run/1",
+  "status": "blocked",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

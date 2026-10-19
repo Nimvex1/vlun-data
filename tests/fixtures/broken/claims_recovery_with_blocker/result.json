@@ -1,0 +1,24 @@
+{
+  "run": "prisma",
+  "attempt": 99,
+  "kind": "archive_provider",
+  "status": "violation_observed",
+  "failure_reason": "archive_state_unavailable",
+  "detail": "broken fixture: claims a reproduced violation while the blocker is still set",
+  "level_awarded": "L5",
+  "level_basis": "broken fixture",
+  "evidence_level_supported": "L5",
+  "recovered": true,
+  "provider": "https://example.invalid/bsc",
+  "fork_target_pinned_by_poc": {"alias": "bsc", "kind": "block", "value": 7781159},
+  "fork_target_used": {"alias": "bsc", "kind": "block", "value": 7781159},
+  "hardfork": "backend default (today's rules)",
+  "test": {"command": "forge test --match-test testExploit -vv", "rc": 0, "test_function": "testExploit"},
+  "impact_check": {"claim_notes": [], "balance_log_labels": ["attacker balance"], "console_log_lines": [], "assertions": []},
+  "profit_deltas": [
+    {"label_before": "Attacker WBNB before", "label_after": "Attacker WBNB after", "before": 0.0, "after": 5.0, "profit": 5.0, "attacker_side": true, "matched_subjects": ["WBNB"], "valid_attacker_profit": true}
+  ],
+  "poc_bytes_modified": false,
+  "overlay_files": [],
+  "original_run": {"status": "blocked", "level_awarded": "L3", "failure_reason": "archive_state_unavailable"}
+}

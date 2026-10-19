@@ -1,0 +1,16 @@
+{
+  "isolation": "would be a local scratch copy plus the local Move VM",
+  "pin": {
+    "commit": null,
+    "requested_ref": "report scope: MystenLabs/sui commit 4265c59af41535939288a55db22062e73815e9b5",
+    "revision_unresolved": "native_runner_not_applicable_and_build_time_exceeds_budget: the fix is in MystenLabs/sui crates/sui-adapter (Rust full node); a scoped `cargo test` needs the whole Sui workspace build"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

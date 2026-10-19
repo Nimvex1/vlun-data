@@ -1,0 +1,237 @@
+{
+  "axes_independent": true,
+  "axis_separation_demo": {
+    "exact_span": {
+      "answer_acc": 1.0,
+      "citation_rate": 0.825,
+      "exactness": 1.0,
+      "support": 1.0
+    },
+    "note": "off_by-one keeps answer + existence but breaks exactness AND support -> the two citation axes are genuinely separate; plausible-wrong keeps support but breaks answer correctness.",
+    "off_by_one": {
+      "answer_acc": 1.0,
+      "citation_rate": 0.825,
+      "exactness": 0.0,
+      "support": 0.0
+    },
+    "plausible_wrong": {
+      "answer_acc": 0.0,
+      "support": 1.0
+    }
+  },
+  "baseline_note": "Strategies are mechanical constructions (exact / off-by-one / random / plausible-wrong / always-abstain) to exercise each axis independently. They are NOT a model evaluation.",
+  "baseline_submissions": "work/scoreval/baseline_submissions.jsonl",
+  "baseline_subset_size": 400,
+  "baseline_subset_unavailable": 200,
+  "baseline_subset_verified": 200,
+  "generator": "scripts/score_span_tasks.py",
+  "grading_axes": [
+    "answer_correctness",
+    "citation_existence",
+    "citation_exactness",
+    "span_support",
+    "abstention"
+  ],
+  "mode": "mechanical_baselines",
+  "model_outputs_source": "none in repo (work/predict + reports/baseline are severity classifiers, not span citations); used SELF-GENERATED MECHANICAL BASELINES",
+  "not_a_real_model_result": true,
+  "results_by_strategy": {
+    "always_abstain": {
+      "metrics": {
+        "abstention": {
+          "correct_abstain": 200,
+          "missed_abstain": 0,
+          "valid_answer": 0,
+          "wrong_abstain": 200
+        },
+        "answer_correctness": {
+          "accuracy_over_attempted": null,
+          "attempted": 0,
+          "correct": 0
+        },
+        "citation_exactness": {
+          "applicable": 0,
+          "exact": 0,
+          "exact_rate_over_applicable": null
+        },
+        "citation_existence": {
+          "cited": 0,
+          "not_cited": 400,
+          "rate": 0.0
+        },
+        "cited_vs_supported_confusion": {
+          "cited_and_supported": 0,
+          "cited_but_unsupported": 0,
+          "not_cited_on_verifiable_task": 200,
+          "unsupported_but_cited_on_abstain_task": 0
+        },
+        "span_support": {
+          "applicable": 200,
+          "support_rate_over_applicable": 0.0,
+          "supported": 0
+        },
+        "tasks": 400
+      },
+      "scored": 400,
+      "skipped_unknown_task": 0
+    },
+    "exact_span": {
+      "metrics": {
+        "abstention": {
+          "correct_abstain": 0,
+          "missed_abstain": 200,
+          "valid_answer": 200,
+          "wrong_abstain": 0
+        },
+        "answer_correctness": {
+          "accuracy_over_attempted": 1.0,
+          "attempted": 400,
+          "correct": 400
+        },
+        "citation_exactness": {
+          "applicable": 200,
+          "exact": 200,
+          "exact_rate_over_applicable": 1.0
+        },
+        "citation_existence": {
+          "cited": 330,
+          "not_cited": 70,
+          "rate": 0.825
+        },
+        "cited_vs_supported_confusion": {
+          "cited_and_supported": 200,
+          "cited_but_unsupported": 0,
+          "not_cited_on_verifiable_task": 0,
+          "unsupported_but_cited_on_abstain_task": 130
+        },
+        "span_support": {
+          "applicable": 200,
+          "support_rate_over_applicable": 1.0,
+          "supported": 200
+        },
+        "tasks": 400
+      },
+      "scored": 400,
+      "skipped_unknown_task": 0
+    },
+    "off_by_one_span": {
+      "metrics": {
+        "abstention": {
+          "correct_abstain": 0,
+          "missed_abstain": 200,
+          "valid_answer": 200,
+          "wrong_abstain": 0
+        },
+        "answer_correctness": {
+          "accuracy_over_attempted": 1.0,
+          "attempted": 400,
+          "correct": 400
+        },
+        "citation_exactness": {
+          "applicable": 200,
+          "exact": 0,
+          "exact_rate_over_applicable": 0.0
+        },
+        "citation_existence": {
+          "cited": 330,
+          "not_cited": 70,
+          "rate": 0.825
+        },
+        "cited_vs_supported_confusion": {
+          "cited_and_supported": 0,
+          "cited_but_unsupported": 200,
+          "not_cited_on_verifiable_task": 0,
+          "unsupported_but_cited_on_abstain_task": 130
+        },
+        "span_support": {
+          "applicable": 200,
+          "support_rate_over_applicable": 0.0,
+          "supported": 0
+        },
+        "tasks": 400
+      },
+      "scored": 400,
+      "skipped_unknown_task": 0
+    },
+    "plausible_wrong_answer": {
+      "metrics": {
+        "abstention": {
+          "correct_abstain": 0,
+          "missed_abstain": 200,
+          "valid_answer": 200,
+          "wrong_abstain": 0
+        },
+        "answer_correctness": {
+          "accuracy_over_attempted": 0.0,
+          "attempted": 400,
+          "correct": 0
+        },
+        "citation_exactness": {
+          "applicable": 200,
+          "exact": 200,
+          "exact_rate_over_applicable": 1.0
+        },
+        "citation_existence": {
+          "cited": 330,
+          "not_cited": 70,
+          "rate": 0.825
+        },
+        "cited_vs_supported_confusion": {
+          "cited_and_supported": 200,
+          "cited_but_unsupported": 0,
+          "not_cited_on_verifiable_task": 0,
+          "unsupported_but_cited_on_abstain_task": 130
+        },
+        "span_support": {
+          "applicable": 200,
+          "support_rate_over_applicable": 1.0,
+          "supported": 200
+        },
+        "tasks": 400
+      },
+      "scored": 400,
+      "skipped_unknown_task": 0
+    },
+    "random_span": {
+      "metrics": {
+        "abstention": {
+          "correct_abstain": 0,
+          "missed_abstain": 200,
+          "valid_answer": 200,
+          "wrong_abstain": 0
+        },
+        "answer_correctness": {
+          "accuracy_over_attempted": 1.0,
+          "attempted": 400,
+          "correct": 400
+        },
+        "citation_exactness": {
+          "applicable": 200,
+          "exact": 0,
+          "exact_rate_over_applicable": 0.0
+        },
+        "citation_existence": {
+          "cited": 400,
+          "not_cited": 0,
+          "rate": 1.0
+        },
+        "cited_vs_supported_confusion": {
+          "cited_and_supported": 0,
+          "cited_but_unsupported": 200,
+          "not_cited_on_verifiable_task": 0,
+          "unsupported_but_cited_on_abstain_task": 200
+        },
+        "span_support": {
+          "applicable": 200,
+          "support_rate_over_applicable": 0.0,
+          "supported": 0
+        },
+        "tasks": 400
+      },
+      "scored": 400,
+      "skipped_unknown_task": 0
+    }
+  },
+  "spec_item": "10 evidence-span citation scoring",
+  "tolerance_bytes": 0
+}

@@ -1,0 +1,218 @@
+{
+ "_broken": "the task states no reason why the vulnerable member is vulnerable",
+ "_fixture_note": "Deliberately broken fixture for tests/test_api_siblings.py: derived from a real layer record and corrupted in exactly the named way. It must be REJECTED by the shared validators.",
+ "api": "balanceOf",
+ "dataset_version": "2.2",
+ "family": "api_sibling_call_site",
+ "generated_by": "scripts/review_sibling_pairs.py",
+ "pair_id": "SIB::038c368f42e5ff80cd1b",
+ "pair_type": "cross_repository_api_sibling_call_site",
+ "project": {
+  "reference": {
+   "project": "silo-core-v1",
+   "read_from": "clone_head_read_only",
+   "repo": "silo-finance/silo-core-v1"
+  },
+  "vulnerable": {
+   "audit_repository": "2024-01-decent",
+   "project": "2024-01-decent",
+   "repo": "Code4rena/2024-01-decent",
+   "repository_url": "https://github.com/code-423n4/2024-01-decent"
+  }
+ },
+ "property": "externally_influenced_balance_as_source",
+ "property_note": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable",
+ "rationale": {
+  "contrast_rule": "same API symbol and same property in two repositories; the reference site carries the handling the vulnerable site omits",
+  "evidence_type": "derived_fact",
+  "rule_source": "scripts/build_api_siblings.py:classify_forms",
+  "why_reference_is_correct": "the same symbol is read against an account the caller does not steer AND cross-checked against another quantity in the same statement, so a third-party transfer cannot move the value that is used -- observed at the reference site: `debtToken.balanceOf` at contracts/BaseSilo.sol#depositPossible line 191 reads the self account=False; argument=`_depositor`",
+  "why_vulnerable": "   "
+ },
+ "record_type": "api_sibling_task",
+ "review": {
+  "checks_passed": [
+   "contrast",
+   "cross_repository",
+   "reference_form",
+   "reference_span",
+   "root_cause_present",
+   "vulnerable_form",
+   "vulnerable_span"
+  ],
+  "review_version": "sibling-review-1",
+  "reviewed_by": "scripts/review_sibling_pairs.py",
+  "verdict": "agree"
+ },
+ "revisions": {
+  "fixed_revision": "unavailable",
+  "fixed_revision_state": "unavailable_in_the_canonical_layer",
+  "reference_fixed_revision": "unavailable",
+  "reference_revision": "9eb2ce56106f11507964d02fb4aecf222b0c095d",
+  "reference_revision_kind": "clone_head_read_only",
+  "vulnerable_revision": "7f90fd4489551b69c20d11eeecb17a3f564afb18",
+  "vulnerable_revision_kind": "record_pinned_citation"
+ },
+ "rights": {
+  "decision": "citations_and_spans_only__no_source_text_redistributed",
+  "expressive_text_redistributed": false,
+  "reference_license_class": "source_available_but_not_redistributable",
+  "reference_license_evidence": {
+   "first_line": "Business Source License 1.1",
+   "license_class": "source_available_but_not_redistributable",
+   "path": "LICENSE",
+   "read_from": "clone HEAD (read-only)",
+   "revision": "9eb2ce56106f11507964d02fb4aecf222b0c095d",
+   "sha256": "03610ce80e38be09ec42053495634b0b3e2e1100076d8b92d64cd2a364722a10"
+  },
+  "vulnerable_license_class": "unknown",
+  "vulnerable_license_note": "licence class of the cited repository at the pinned commit, from scripts/local_sources.py::classify_record_code; see NOTICE.md"
+ },
+ "root_cause": {
+  "evidence_type": "reported_claim",
+  "record_id": "2024-01-decent/H-04",
+  "record_sha256": "b5678a85783f4d97d38d9ad4fe9ecc3732b05041c9254e48589c574b6abc29cd",
+  "source_field": "security_reasoning.broken_behavior",
+  "value": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcntEth received (this could be due to the router receiving more cross-chain transactions than than sending cross-chain transactions which depletes its WETH reserves), then the dcntEth will get transferred to the address specified by to. DecentEthRouter.sol#L266-L281 [code] This dcntEth is sent to the user so that they can either redeem the WETH / ETH from the router once the WETH balance is refilled or send it back to the source chain to redeem back the WETH. The problem is that if the msgType != MTETHTRANSFER, then the to address is not the user, it is instead the target meant to be called by the destination chain's bridge executor (if the source chain uses a decent bridge adapter, the target is always the destination chain's bridg",
+  "vulnerability_classes": [
+   "Cross-Chain / Bridge/bridge authorization"
+  ]
+ },
+ "spans": {
+  "reference": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    5658,
+    5668
+   ],
+   "byte_end": 5658,
+   "byte_start": 5638,
+   "call_line": 191,
+   "char_end": 5658,
+   "char_start": 5638,
+   "file": "contracts/BaseSilo.sol",
+   "file_sha256": "9e6b92b4febdf500fa54359af155b95de8d6a0fa82ca76a249284229c77d4345",
+   "form": "controlled",
+   "function": "depositPossible",
+   "function_decl_line": 190,
+   "mechanical_features": {
+    "arg0": "_depositor",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     5658,
+     5668
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": true,
+    "destination_argument": "_depositor",
+    "destination_is_function_parameter": true,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": true,
+    "enclosing_function": "depositPossible",
+    "equality_comparison_in_statement": true,
+    "function_body_range": [
+     5600,
+     5746
+    ],
+    "function_decl_line": 190,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": false,
+    "receiver": "debtToken",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     5600,
+     5741
+    ],
+    "statement_shape_sha256": "2a8bdd2041c4ca47088243ec148c48b59a255b0f6d93b3b450114a9bfb692f35",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "silo-finance/silo-core-v1",
+   "project": "silo-core-v1",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "9eb2ce56106f11507964d02fb4aecf222b0c095d",
+   "revision_kind": "clone_head_read_only",
+   "side": "reference",
+   "source_bytes_sha256": "044881e9369e30c3a3f40f7d487895443aff146a0c96924c019480fe95087ec2",
+   "source_text_included": false,
+   "span_sha256": "0b0500cf34e2ccc68177ea02f823c7f22aaa814b6f14154424a69d5f030ae629",
+   "statement_char_range": [
+    5600,
+    5741
+   ],
+   "statement_shape_sha256": "2a8bdd2041c4ca47088243ec148c48b59a255b0f6d93b3b450114a9bfb692f35"
+  },
+  "vulnerable": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    957,
+    970
+   ],
+   "byte_end": 957,
+   "byte_start": 942,
+   "call_line": 35,
+   "char_end": 957,
+   "char_start": 942,
+   "file": "decentxyz/decent-bridge/src/DecentBridgeExecutor.sol",
+   "file_sha256": "b46e72f283307d5d2fc733d10ddd7f3cc4b580460ea3ff73262ee204b10bd137",
+   "form": "risky",
+   "function": "_executeWeth",
+   "function_decl_line": 18,
+   "mechanical_features": {
+    "arg0": "address(this)",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     957,
+     970
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "address(this)",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "_executeWeth",
+    "equality_comparison_in_statement": false,
+    "function_body_range": [
+     614,
+     1038
+    ],
+    "function_decl_line": 18,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": true,
+    "receiver": "weth",
+    "result_enforced_in_statement": false,
+    "statement_char_range": [
+     865,
+     973
+    ],
+    "statement_shape_sha256": "7033348850fcf7fd2ec748ca4272f53c9bdedd2fc31081163ac3e7449e2cc961",
+    "success_captured_as": "success",
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "Code4rena/2024-01-decent",
+   "project": "2024-01-decent",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "7f90fd4489551b69c20d11eeecb17a3f564afb18",
+   "revision_kind": "record_pinned_citation",
+   "side": "vulnerable",
+   "source_bytes_sha256": "da18195c2b277c10b36d048a99d759758e8bc79be9207ed736c4a0a5fc20e724",
+   "source_text_included": false,
+   "span_sha256": "fffcd4cc303c5a8242e88967f901c0a887e93de698ea96212fd0c64b81cadb2f",
+   "statement_char_range": [
+    865,
+    973
+   ],
+   "statement_shape_sha256": "7033348850fcf7fd2ec748ca4272f53c9bdedd2fc31081163ac3e7449e2cc961"
+  }
+ },
+ "task_id": "SIBTASK::BROKENRAT00000000000"
+}

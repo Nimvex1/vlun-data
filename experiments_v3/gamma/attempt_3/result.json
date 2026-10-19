@@ -1,0 +1,73 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+    "harness.json": "bd22f7c89ee544c05f0d7d18d2838c740703e6f663d4fcf5c429062f4a03891e",
+    "stderr.txt": "7f79d0eb72b6108a609f9fc8698f0adaea0171b17791357879b25e532342a874",
+    "stdout.txt": "e10a948a2ec3b553c75d5710eaa71cfdccc8833691bf275cec26d6925186b371",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 3,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220b5abfaf6c2b6c045de409e9a2a230d4f2746b0e is not available] setUp() (gas: 0)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2024-01/Gamma_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "arbitrum",
+    "kind": "block",
+    "value": 166873291
+  },
+  "fork_target_used": {
+    "alias": "arbitrum",
+    "kind": "block",
+    "value": 166873291
+  },
+  "hardfork": "backend default (today's rules)",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "@KeyInfo - Total Lost : ~$6.3m",
+      "Attacker : 0x5351536145610aa448a8bf85ba97c71caf31909c",
+      "Attack Tx : https://arbiscan.io/tx/0x025cf2858723369d606ee3abbc4ec01eab064a97cc9ec578bf91c6908679be75"
+    ],
+    "console_log_lines": [
+      "\"Earned %s ETH\", (address(this"
+    ]
+  },
+  "kind": "archive_provider",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [],
+  "poc_bytes_modified": false,
+  "profit_deltas": [],
+  "provider": "https://arbitrum.drpc.org",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "gamma",
+  "scope_change": null,
+  "seconds": null,
+  "self_validation": [],
+  "status": "blocked",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 1,
+    "test_function": "testExploit"
+  },
+  "test_rc": 1
+}

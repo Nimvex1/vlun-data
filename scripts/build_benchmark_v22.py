@@ -674,7 +674,13 @@ def main() -> int:
                 manifest["tasks"][BENCHMARK_FAMILIES[key][0]] = carried
                 log(f"  {BENCHMARK_FAMILIES[key][0]:34s} retired, entry carried")
             else:
-                log(f"  {BENCHMARK_FAMILIES[key][0]:34s} retired, no carried entry")
+                raise SystemExit(
+                    f"retired family {BENCHMARK_FAMILIES[key][0]} has no "
+                    "manifest entry to carry and its rows are not rebuilt by "
+                    "design: the retirement bookkeeping was lost upstream "
+                    "(an A-J pass rewrote benchmark/manifest.json without "
+                    "carrying foreign entries). Restore the committed "
+                    "manifest instead of dropping the entry.")
             continue
         rows = tasks[key]
         seen, uniq, dropped = set(), [], 0

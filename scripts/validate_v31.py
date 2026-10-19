@@ -55,6 +55,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
 
+# The worktree-dirt snapshot is machine-local and is written here rather than into
+# reports/v3/validation_v31.json, so the committed gate artefact stays byte-stable.
+WORKTREE_SNAPSHOT = V.REPORTS_V3 / "validation_v31_worktree.json"
+
 U = V.UNKNOWN
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
 EVIDENCE = ("observed_fact", "reported_claim", "derived_fact",
@@ -520,7 +524,11 @@ def main() -> int:
             detail="CRLF in a protected file would break byte-identity on "
                    "another platform; fix the writer (newline=\"\\n\")")
 
-    # Worktree dirt stays visible as a metric, never as the isolation proof.
+    # Worktree dirt stays visible as a metric, never as the isolation proof, and
+    # never in the committed report: `git status --porcelain` reports whatever this
+    # machine happens to have in flight, so pinning it made a generated artefact
+    # change on every run. The snapshot goes to a git-ignored sibling file instead.
+    snapshot = {"git_available": True, "dirty_entries": [], "foreign_entries": []}
     try:
         out = subprocess.run(
             ["git", "status", "--porcelain", "--",
@@ -529,20 +537,26 @@ def main() -> int:
              "reports/v3/"],
             capture_output=True, text=True, timeout=120, cwd=str(V.ROOT))
         dirty = [line for line in (out.stdout or "").splitlines() if line.strip()]
-        foreign = [line for line in dirty
-                   if not any(line.endswith("/" + n) or line.endswith(n)
-                              for n in v31_outputs)]
+        snapshot["dirty_entries"] = dirty[:200]
+        snapshot["foreign_entries"] = [
+            line for line in dirty
+            if not any(line.endswith("/" + n) or line.endswith(n)
+                       for n in v31_outputs)][:200]
         rep.add("isolation", "worktree_dirt_observed", True,
-                detail=f"{len(dirty)} dirty entries under data dirs, "
-                       f"{len(foreign)} not from V3.1 outputs "
-                       "(informational; isolation is proven above)",
+                detail=("machine-local; written to "
+                        f"{(WORKTREE_SNAPSHOT.relative_to(V.ROOT)).as_posix()} "
+                        "(git-ignored) because it varies by checkout and proves nothing "
+                        "about V3.1 isolation — byte-identity above is the proof"),
                 critical=False)
-        if foreign:
-            rep.checks[-1]["failures"] = foreign[:25]
-            rep.checks[-1]["failure_count"] = len(foreign)
     except Exception as exc:
+        snapshot["git_available"] = False
+        snapshot["error"] = f"{type(exc).__name__}: {exc}"
         rep.add("isolation", "worktree_dirt_observed", True,
                 detail=f"git unavailable: {exc}", critical=False)
+    WORKTREE_SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
+    WORKTREE_SNAPSHOT.write_text(
+        json.dumps(snapshot, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
 
     # ---- benchmark family T ------------------------------------------------------
     bench_path = V.BENCH / "retired_families" / "v3_T_taxonomy_explicit.jsonl"
@@ -635,10 +649,11 @@ def main() -> int:
     V.REPORTS_V3.mkdir(parents=True, exist_ok=True)
     # newline="\n": platform-stable LF output (CRLF on Windows would break
     # byte-identity; enforced by check_reproducibility.py §7a). Trailing
-    # "\n" keeps the file identical to a sort_keys redump.
+    # "\n" plus ensure_ascii=False keeps the file identical to the canonical
+    # redump that §7a compares against.
     with open(V.REPORTS_V3 / "validation_v31.json", "w",
               encoding="utf-8", newline="\n") as fh:
-        json.dump(out, fh, indent=2, sort_keys=True)
+        json.dump(out, fh, indent=2, sort_keys=True, ensure_ascii=False)
         fh.write("\n")
     V.log(f"validate_v31.py: {passed}/{total} checks passed, "
           f"{crit_fail} critical failures")

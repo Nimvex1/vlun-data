@@ -1,0 +1,55 @@
+Error: Compiler run failed:
+Error (2314): Expected identifier but got 'memory'
+ --> foundry-pp/DeployHelper105.sol:9:34:
+  |
+9 |         address _deployer; bytes memory foundry_pp_ctor_arg1;
+  |                                  ^^^^^^
+
+Error (6275): Source "test/src/WildcatArchController.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/WildcatArchController.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:7:1:
+  |
+7 | import {WildcatArchController} from "../src/WildcatArchController.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/src/HooksFactory.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/HooksFactory.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:8:1:
+  |
+8 | import {HooksFactory} from "../src/HooksFactory.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/src/access/AccessControlHooks.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/access/AccessControlHooks.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+  --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:11:1:
+   |
+11 | import {AccessControlHooks} from "../src/access/AccessControlHooks.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/src/interfaces/WildcatStructsAndEnums.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/interfaces/WildcatStructsAndEnums.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+  --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:12:1:
+   |
+12 | import {DeployMarketInputs} from "../src/interfaces/WildcatStructsAndEnums.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/src/types/HooksConfig.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/types/HooksConfig.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+  --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:13:1:
+   |
+13 | import {HooksConfig, encodeHooksConfig} from "../src/types/HooksConfig.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/test/shared/mocks/MockERC20.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/test/shared/mocks/MockERC20.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+  --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:15:1:
+   |
+15 | import {MockERC20} from "../test/shared/mocks/MockERC20.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "test/src/access/IRoleProvider.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+ParserError: Source "test/src/access/IRoleProvider.sol" not found: File not found. Searched the following locations: "/Users/jeet/Downloads/vlun-data-main/vlun-data-main/work/poc_reruns/code-423n4__2024-08-wildcat".
+  --> test/vlun_poc/2024-08-wildcat__M-07.t.sol:18:1:
+   |
+18 | import {IRoleProvider} from "../src/access/IRoleProvider.sol";
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

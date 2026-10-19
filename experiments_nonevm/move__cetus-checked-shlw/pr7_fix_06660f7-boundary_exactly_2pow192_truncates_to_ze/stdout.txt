@@ -1,0 +1,24 @@
+INCLUDING DEPENDENCY Sui
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING IntegerMate
+Running Move unit tests
+[ FAIL    ] integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero
+
+Test failures:
+
+Failures in integer_mate::nonevm_shlw_poc:
+
+â”Œâ”€â”€ nonevm_boundary_exactly_2pow192_truncates_to_zero â”€â”€â”€â”€â”€â”€
+â”‚ error[E11001]: test failure
+â”‚    â”Œâ”€ .\tests\nonevm_shlw_poc.move:21:9
+â”‚    â”‚
+â”‚ 18 â”‚     fun nonevm_boundary_exactly_2pow192_truncates_to_zero() {
+â”‚    â”‚         ------------------------------------------------- In this function in integer_mate::nonevm_shlw_poc
+â”‚    Â·
+â”‚ 21 â”‚         assert!(!oob, 104);
+â”‚    â”‚         ^^^^^^^^^^^^^^^^^^ Test was not expected to error, but it aborted with code 104 originating in the module integer_mate::nonevm_shlw_poc rooted here
+â”‚ 
+â”‚ 
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+Test result: FAILED. Total tests: 1; passed: 0; failed: 1

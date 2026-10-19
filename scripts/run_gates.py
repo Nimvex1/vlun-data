@@ -53,6 +53,32 @@ GATES = [
     # V4 licence fields must still match the recorded decision in V4/licensing.json.
     ("rights-consistency", [PY, "scripts/check_rights_consistency.py", "--quiet"]),
     ("v4-licensing-current", [PY, "scripts/reconcile_v4_licensing.py", "--check"]),
+    # Execution density (item 6) and the blocked-run recovery attempts (item 7):
+    # the queue and every attempt report must equal a regeneration from the
+    # artefacts on disk, so a run count cannot be edited by hand.
+    ("poc-triage-current", [PY, "scripts/build_poc_triage_queue.py", "--check"]),
+    ("poc-attempts-current", [PY, "scripts/rerun_v1_pocs.py", "--check"]),
+    ("v32-attempts-current", [PY, "scripts/unblock_v32_runs.py", "--check"]),
+    # Evidence-span task family (item 10).
+    ("span-audit-current", [PY, "scripts/audit_evidence_spans.py", "--check"]),
+    ("span-tasks-current", [PY, "scripts/build_span_tasks.py", "--check"]),
+    ("span-scoring-current", [PY, "scripts/score_span_tasks.py", "--check"]),
+    # Root-cause taxonomy (item 16) and the IAA study state (item 14).
+    ("taxonomy-current", [PY, "scripts/validate_taxonomy.py", "--check"]),
+    ("root-cause-assignments-current", [PY, "scripts/assign_root_causes.py", "--check"]),
+    ("iaa-sample-current", [PY, "scripts/sample_iaa.py", "--check"]),
+    ("iaa-stats-current", [PY, "scripts/iaa_statistics.py", "--check"]),
+    # API-sibling layer (item 11): the builder's candidates and the independent
+    # reviewer's admitted set must both equal a regeneration.
+    ("api-siblings-current", [PY, "scripts/build_api_siblings.py", "--check"]),
+    ("sibling-review-current", [PY, "scripts/review_sibling_pairs.py", "--check"]),
+    # The before/after summary is generated, so it cannot drift from the reports.
+    ("remediation-report-current",
+     [PY, "scripts/build_remediation_report.py", "--check"]),
+    # Same rule for the set-aside list: what the pipeline refused must be
+    # recomputed from the artefacts, not remembered in prose.
+    ("quarantine-report-current",
+     [PY, "scripts/build_quarantine_report.py", "--check"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
     # Packaging gates the CI workflow already ran separately. Without these
     # a local `run_gates.py` reported green while CI failed on a stale
@@ -90,6 +116,13 @@ ONLY_MAP = {
     "rejection": ["rejection-corpus-current", "negative-stats-current"],
     "prove": ["prove-split-current"],
     "rights": ["rights-consistency", "v4-licensing-current"],
+    "execution": ["poc-triage-current", "poc-attempts-current",
+                  "v32-attempts-current"],
+    "spans": ["span-audit-current", "span-tasks-current", "span-scoring-current"],
+    "taxonomy": ["taxonomy-current", "root-cause-assignments-current",
+                 "iaa-sample-current", "iaa-stats-current"],
+    "siblings": ["api-siblings-current", "sibling-review-current"],
+    "summary": ["remediation-report-current", "quarantine-report-current"],
     "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
     "catalog": ["catalog-current"],
     "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],

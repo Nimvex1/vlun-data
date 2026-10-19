@@ -1,0 +1,1 @@
+NOT RUN: build_time_exceeds_pilot_budget: the claim is about the Wasmer Singlepass compiler embedded in wasmvm; it needs a cgo wasmvm build (Wasmer plus a Go host) before any assertion can run

@@ -1,0 +1,15 @@
+{
+  "expected": {
+    "test_status": "FAIL",
+    "why": "v1.1.0/v1.1.1 keep the strict `n > mask` check; v1.1.2 uses `n >= mask`"
+  },
+  "kind": "named_test",
+  "met": true,
+  "name": "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+  "not_just_exit_code": true,
+  "observed": {
+    "suite_summary": "Test result: FAILED. Total tests: 1; passed: 0; failed: 1",
+    "test_status": "FAIL"
+  },
+  "statement": "IntegerMate v1.1.1, the incomplete PR #6 fix: expected FAIL for the named test"
+}

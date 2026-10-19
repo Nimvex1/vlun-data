@@ -1,0 +1,7 @@
+{
+  "toolchain": {
+    "tool": "cargo",
+    "version": "cargo 1.98.0"
+  },
+  "prerequisites": []
+}

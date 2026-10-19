@@ -1,0 +1,67 @@
+{
+  "dependency_configuration": {
+    "clone_head": "eea2c931b1cbce1da01586e42ba298814de40d31",
+    "clone_present": true,
+    "declared_dependency_count": 2,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "forge-std",
+      "panoptic-v1.1"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "wrapped_fragment",
+  "import_rewrites": [
+    "wrapped 1 test function(s) into contract VlunReconstructedHarness"
+  ],
+  "libs": true,
+  "node_modules_junction": true,
+  "overlay_path": "test/vlun_poc/2025-06-panoptic__H-01.t.sol",
+  "overlay_sha256": "02326f9fafac993ef6b2b36c930d2d48b71e5c5fbb99a1baf4b60de0fc663b6d",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "eea2c931b1cbce1da01586e42ba298814de40d31",
+  "project_subdir": "",
+  "quoted_code_sha256": "c9ac4810ff94150252d537c33b22beca1e50b0b0801733ee27708a176a20e36d",
+  "remappings": true,
+  "repository": "code-423n4/2025-06-panoptic",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2025-06-panoptic",
+    "clone_head": "eea2c931b1cbce1da01586e42ba298814de40d31",
+    "copied": [
+      "foundry.toml",
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "src",
+      "test"
+    ],
+    "error": null,
+    "junctions": [
+      "node_modules"
+    ],
+    "scratch": "work/poc_reruns/code-423n4__2025-06-panoptic",
+    "scratch_entries": [
+      "foundry.toml",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "src",
+      "test"
+    ],
+    "scratch_foundry_test_dir": "test",
+    "scratch_head": null,
+    "scratch_project_subdir": ""
+  }
+}

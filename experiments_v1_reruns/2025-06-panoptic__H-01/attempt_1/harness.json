@@ -1,0 +1,52 @@
+{
+  "dependency_configuration": {
+    "clone_head": "eea2c931b1cbce1da01586e42ba298814de40d31",
+    "clone_present": true,
+    "declared_dependency_count": 2,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "forge-std",
+      "panoptic-v1.1"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "eea2c931b1cbce1da01586e42ba298814de40d31",
+  "repository": "code-423n4/2025-06-panoptic",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2025-06-panoptic",
+    "clone_head": "eea2c931b1cbce1da01586e42ba298814de40d31",
+    "copied": [
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "src",
+      "test"
+    ],
+    "error": "copy_failed:foundry.toml:FileNotFoundError",
+    "junctions": [
+      "node_modules"
+    ],
+    "scratch": "work/poc_reruns/code-423n4__2025-06-panoptic",
+    "scratch_entries": [
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "src",
+      "test"
+    ],
+    "scratch_foundry_test_dir": null,
+    "scratch_head": null
+  }
+}

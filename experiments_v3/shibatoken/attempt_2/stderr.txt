@@ -1,0 +1,152 @@
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:134:9
+    │
+134 │         vm.createSelectFork("bsc", 33_528_882);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:158:9
+    │
+158 │         x55d3.balanceOf(r);
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:162:9
+    │
+162 │         xbb4c.balanceOf(r);
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:164:9
+    │
+164 │ ┏         x55d3.approve(
+165 │ ┃             address(xa422),
+166 │ ┃             115_792_089_237_316_195_423_570_985_008_687_907_853_269_984_665_640_564_039_457_584_007_913_129_639_935
+167 │ ┃         );
+    │ ┗━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:168:9
+    │
+168 │         x55d3.transfer(xb9bd, 0);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:170:9
+    │
+170 │         x13b1.balanceOf(r);
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:174:9
+    │
+174 │         x10ed.getAmountsOut(507_677_278_570_125_202_361_500_000, path);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:180:9
+    │
+180 │         x55d3.balanceOf(r);
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:181:9
+    │
+181 │ ┏         x55d3.approve(
+182 │ ┃             address(x10ed),
+183 │ ┃             115_792_089_237_316_195_423_570_985_008_687_907_853_269_984_665_640_564_039_457_584_007_913_129_639_935
+184 │ ┃         );
+    │ ┗━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:193:9
+    │
+193 │         xbb4c.transfer(address(xfeaf), 20_000_000_000_000_000_000);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:194:9
+    │
+194 │         xbb4c.balanceOf(r);
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value
+    ╭▸ src/test/2023-11/ShibaToken_exp.sol:195:9
+    │
+195 │         xbb4c.transfer(address(x1874), 101_697_224_718_492_366_219);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/test/basetest.sol:80:9
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/test/basetest.sol:80:44
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/test/basetest.sol:123:9
+    │
+123 │         emit log_string(string(abi.encodePacked("=== ", label, " ===")));
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:60
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:92
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/test/tokenhelper.sol:12:9
+   │
+12 │         require(success, "Failed to call token function");
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+
+[2m2026-10-18T18:41:45.122510Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `basic` [3merr[0m[2m=[0mfailed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32603: state at block #33528883 is pruned [3maddress[0m[2m=[0m0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73

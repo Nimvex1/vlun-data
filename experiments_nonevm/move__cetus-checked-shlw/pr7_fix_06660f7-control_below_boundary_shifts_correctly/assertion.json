@@ -1,0 +1,15 @@
+{
+  "expected": {
+    "test_status": "PASS",
+    "why": "v1.1.0/v1.1.1 keep the strict `n > mask` check; v1.1.2 uses `n >= mask`"
+  },
+  "kind": "named_test",
+  "met": true,
+  "name": "integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly",
+  "not_just_exit_code": true,
+  "observed": {
+    "suite_summary": "Test result: OK. Total tests: 1; passed: 1; failed: 0",
+    "test_status": "PASS"
+  },
+  "statement": "IntegerMate v1.1.2, the merged PR #7 fix: expected PASS for the named test"
+}

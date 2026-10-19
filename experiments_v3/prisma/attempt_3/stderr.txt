@@ -1,0 +1,89 @@
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-03/Prisma_exp.sol:102:9
+    │
+102 │         vm.createSelectFork("mainnet", 19532296);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-03/Prisma_exp.sol:146:9
+    │
+146 │         IMKUSDLoan(mkUSD).flashLoan(IERC3156FlashBorrower(address(MigrateTroveZap)), address(mkUSD), amount, data);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/test/basetest.sol:80:9
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/test/basetest.sol:80:44
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/test/basetest.sol:123:9
+    │
+123 │         emit log_string(string(abi.encodePacked("=== ", label, " ===")));
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-03/Prisma_exp.sol:168:9
+    │
+168 │         IERC20(wstETH).approve(address(BorrowerOperations), type(uint256).max);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-03/Prisma_exp.sol:200:9
+    │
+200 │         IMKUSDLoan(mkUSD).flashLoan(IERC3156FlashBorrower(address(MigrateTroveZap)), address(mkUSD), amount, data);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:60
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:92
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value
+    ╭▸ src/test/2024-03/Prisma_exp.sol:210:9
+    │
+210 │         IERC20(wstETH).transfer(address(vault), returnAmount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/test/tokenhelper.sol:12:9
+   │
+12 │         require(success, "Failed to call token function");
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+

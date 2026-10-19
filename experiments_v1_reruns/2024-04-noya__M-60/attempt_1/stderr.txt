@@ -1,0 +1,171 @@
+Error: Compiler run failed:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.20;"
+--> testFoundry/utils/mocks/EmergancyMock.sol
+
+Error (4126): Free functions cannot have visibility.
+ --> testFoundry/vlun_poc/2024-04-noya__M-06.t.sol:1:1:
+  |
+1 | function test_maxDepositCanBeIncorrect() public {
+  | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.20;"
+--> testFoundry/vlun_poc/2024-04-noya__M-06.t.sol
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> contracts/external/libraries/Silo/SolvencyV2.sol:61:65:
+   |
+61 |         returns (uint256 userLTV, uint256 LiquidationThreshold, bool isSolvent)
+   |                                                                 ^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> contracts/external/libraries/Silo/SolvencyV2.sol:47:5:
+   |
+47 |     function isSolvent(ISilo pool, address _user, uint256 liquidationThresholdMultilpier) public view returns (bool) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> testFoundry/vlun_poc/2024-04-noya__H-12.t.sol:37:17:
+   |
+37 |                 uint tvl = accountingManager.TVL();
+   |                 ^^^^^^^^
+Note: The shadowed declaration is here:
+  --> testFoundry/vlun_poc/2024-04-noya__H-12.t.sol:27:13:
+   |
+27 |             uint tvl = accountingManager.TVL();
+   |             ^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> testFoundry/vlun_poc/2024-04-noya__H-12.t.sol:45:17:
+   |
+45 |                 uint tvl = accountingManager.TVL();
+   |                 ^^^^^^^^
+Note: The shadowed declaration is here:
+  --> testFoundry/vlun_poc/2024-04-noya__H-12.t.sol:27:13:
+   |
+27 |             uint tvl = accountingManager.TVL();
+   |             ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:16:27:
+   |
+16 |             vm.startPrank(owner);
+   |                           ^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:18:13:
+   |
+18 |             addTokenToChainlinkOracle(address(USDC), address(840), address(USDC_USD_FEED));
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:18:47:
+   |
+18 |             addTokenToChainlinkOracle(address(USDC), address(840), address(USDC_USD_FEED));
+   |                                               ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:18:76:
+   |
+18 |             addTokenToChainlinkOracle(address(USDC), address(840), address(USDC_USD_FEED));
+   |                                                                            ^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:19:13:
+   |
+19 |             addTokenToChainlinkOracle(address(USDC), address(0), address(USDC_ETH_FEED));
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:19:47:
+   |
+19 |             addTokenToChainlinkOracle(address(USDC), address(0), address(USDC_ETH_FEED));
+   |                                               ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:19:74:
+   |
+19 |             addTokenToChainlinkOracle(address(USDC), address(0), address(USDC_ETH_FEED));
+   |                                                                          ^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:20:13:
+   |
+20 |             addTokenToChainlinkOracle(address(0), address(840), address(ETH_USD_FEED));
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:22:13:
+   |
+22 |             addTokenToNoyaOracle(address(USDC), address(chainlinkOracle));
+   |             ^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:22:42:
+   |
+22 |             addTokenToNoyaOracle(address(USDC), address(chainlinkOracle));
+   |                                          ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:22:57:
+   |
+22 |             addTokenToNoyaOracle(address(USDC), address(chainlinkOracle));
+   |                                                         ^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:23:13:
+   |
+23 |             addTokenToNoyaOracle(address(0), address(chainlinkOracle));
+   |             ^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:23:54:
+   |
+23 |             addTokenToNoyaOracle(address(0), address(chainlinkOracle));
+   |                                                      ^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:24:13:
+   |
+24 |             addTokenToNoyaOracle(address(840), address(chainlinkOracle));
+   |             ^^^^^^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:24:56:
+   |
+24 |             addTokenToNoyaOracle(address(840), address(chainlinkOracle));
+   |                                                        ^^^^^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:26:35:
+   |
+26 |             uint256 valueDirect = noyaOracle.getValue(address(USDC), address(840), 1e6);
+   |                                   ^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:26:63:
+   |
+26 |             uint256 valueDirect = noyaOracle.getValue(address(USDC), address(840), 1e6);
+   |                                                               ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:33:13:
+   |
+33 |             noyaOracle.updatePriceRoute(address(USDC), address(840), assets);
+   |             ^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:33:49:
+   |
+33 |             noyaOracle.updatePriceRoute(address(USDC), address(840), assets);
+   |                                                 ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:35:37:
+   |
+35 |             uint256 valueIndirect = noyaOracle.getValue(address(USDC), address(840), 1e6);
+   |                                     ^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__H-01.t.sol:35:65:
+   |
+35 |             uint256 valueIndirect = noyaOracle.getValue(address(USDC), address(840), 1e6);
+   |                                                                 ^^^^

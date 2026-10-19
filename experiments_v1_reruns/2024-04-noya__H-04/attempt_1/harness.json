@@ -1,0 +1,71 @@
+{
+  "dependency_configuration": {
+    "clone_head": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "forge-std"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "quoted_full_file",
+  "import_rewrites": [
+    "import \"./utils/testStarter.sol\" -> import \"..//utils/testStarter.sol\"",
+    "import \"./utils/resources/OptimismAddresses.sol\" -> import \"..//utils/resources/OptimismAddresses.sol\""
+  ],
+  "libs": true,
+  "node_modules_junction": true,
+  "overlay_path": "testFoundry/vlun_poc/2024-04-noya__H-04.t.sol",
+  "overlay_sha256": "bf60d27a4666b2367b3c90ad6ab18ab7e159a2b7fd036c08df0023442a711797",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "quoted_code_sha256": "fe00d65c7036c83054a25340f8c967291f225a63aca8fd86161dfce0e25eada2",
+  "remappings": true,
+  "repository": "code-423n4/2024-04-noya",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-04-noya",
+    "clone_head": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+    "copied": [
+      "contracts",
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "testFoundry",
+      "tsconfig.json",
+      "utils"
+    ],
+    "error": null,
+    "junctions": [
+      "node_modules"
+    ],
+    "scratch": "work/poc_reruns/code-423n4__2024-04-noya",
+    "scratch_entries": [
+      "contracts",
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "testFoundry",
+      "tsconfig.json",
+      "utils"
+    ],
+    "scratch_foundry_test_dir": "testFoundry",
+    "scratch_head": null
+  }
+}

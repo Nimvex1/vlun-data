@@ -31,6 +31,8 @@
     "mitigation commits are cumulative"
   ],
   "validation_checks": "78/78",
+  "validation_checks_passed": "78/78",
+  "validation_failed_checks": [],
   "validation_failures": 0,
   "validation_warnings": 0
 }

@@ -1,0 +1,222 @@
+{
+ "_broken": "both members live in one repository, and the record copies source text into the task",
+ "_fixture_note": "Deliberately broken fixture for tests/test_api_siblings.py: derived from a real layer record and corrupted in exactly the named way. It must be REJECTED by the shared validators.",
+ "api": "balanceOf",
+ "dataset_version": "2.2",
+ "family": "api_sibling_call_site",
+ "generated_by": "scripts/review_sibling_pairs.py",
+ "pair_id": "SIB::0690f975e92b2b682be2",
+ "pair_type": "cross_repository_api_sibling_call_site",
+ "project": {
+  "reference": {
+   "project": "prisma-contracts",
+   "read_from": "clone_head_read_only",
+   "repo": "Code4rena/2024-04-noya"
+  },
+  "vulnerable": {
+   "audit_repository": "2024-04-noya",
+   "project": "2024-04-noya",
+   "repo": "Code4rena/2024-04-noya",
+   "repository_url": "https://github.com/code-423n4/2024-04-noya"
+  }
+ },
+ "property": "externally_influenced_balance_as_source",
+ "property_note": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable",
+ "rationale": {
+  "contrast_rule": "same API symbol and same property in two repositories; the reference site carries the handling the vulnerable site omits",
+  "evidence_type": "derived_fact",
+  "rule_source": "scripts/build_api_siblings.py:classify_forms",
+  "why_reference_is_correct": "the same symbol is read against an account the caller does not steer AND cross-checked against another quantity in the same statement, so a third-party transfer cannot move the value that is used -- observed at the reference site: `curvePoolLp.balanceOf` at contracts/dao/FeeConverter.sol#processWeeklyFees line 290 reads the self account=False; argument=`receiver`",
+  "why_vulnerable": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable -- this is the risky form: `baseToken.balanceOf` at code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#TVL line 591 reads the self account=True; argument=`address(this)`"
+ },
+ "record_type": "api_sibling_task",
+ "review": {
+  "checks_passed": [
+   "contrast",
+   "cross_repository",
+   "reference_form",
+   "reference_span",
+   "root_cause_present",
+   "vulnerable_form",
+   "vulnerable_span"
+  ],
+  "review_version": "sibling-review-1",
+  "reviewed_by": "scripts/review_sibling_pairs.py",
+  "verdict": "agree"
+ },
+ "revisions": {
+  "fixed_revision": "unavailable",
+  "fixed_revision_state": "unavailable_in_the_canonical_layer",
+  "reference_fixed_revision": "unavailable",
+  "reference_revision": "63f3d08d6d7ae9fc74855a489eeae080b72a3f46",
+  "reference_revision_kind": "clone_head_read_only",
+  "vulnerable_revision": "9c79b332eff82011dcfa1e8fd51bad805159d758",
+  "vulnerable_revision_kind": "record_pinned_citation"
+ },
+ "rights": {
+  "decision": "citations_and_spans_only__no_source_text_redistributed",
+  "expressive_text_redistributed": false,
+  "reference_license_class": "redistributable",
+  "reference_license_evidence": {
+   "first_line": "MIT License",
+   "license_class": "redistributable",
+   "path": "LICENSE",
+   "read_from": "clone HEAD (read-only)",
+   "revision": "63f3d08d6d7ae9fc74855a489eeae080b72a3f46",
+   "sha256": "c8ba5c28864df67a111571ff09b76ef31f4c0d6d8802fbe41f3740e64f10fb9d"
+  },
+  "vulnerable_license_class": "unknown",
+  "vulnerable_license_note": "licence class of the cited repository at the pinned commit, from scripts/local_sources.py::classify_record_code; see NOTICE.md"
+ },
+ "root_cause": {
+  "evidence_type": "reported_claim",
+  "record_id": "2024-04-noya/H-02",
+  "record_sha256": "c870533a98e6ceec2fbae3c8d09cd9d49e0fe4e060c9d1c04e3dc3cf7da8e79c",
+  "source_field": "finding.title",
+  "value": "Base tokens like USDT, USDC having different decimals on different chains can have their TVL updated incorrectly",
+  "vulnerability_classes": [
+   "Accounting / Financial Logic/asset/share mismatch",
+   "Cross-Chain / Bridge/accounting mismatch",
+   "Accounting / Financial Logic/incorrect balance accounting",
+   "Token / ERC Standards/ERC4626"
+  ]
+ },
+ "spans": {
+  "reference": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    9390,
+    9398
+   ],
+   "byte_end": 9390,
+   "byte_start": 9368,
+   "call_line": 290,
+   "char_end": 9390,
+   "char_start": 9368,
+   "file": "contracts/dao/FeeConverter.sol",
+   "file_sha256": "80ce123a64238cedd8093095ef55f81690af0e93efdacc3a79c6cdbcfe3ca1f7",
+   "form": "controlled",
+   "function": "processWeeklyFees",
+   "function_decl_line": 267,
+   "mechanical_features": {
+    "arg0": "receiver",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     9390,
+     9398
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "receiver",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "processWeeklyFees",
+    "equality_comparison_in_statement": false,
+    "function_body_range": [
+     8669,
+     10607
+    ],
+    "function_decl_line": 267,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": true,
+    "reads_self_account": false,
+    "receiver": "curvePoolLp",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     9350,
+     9521
+    ],
+    "statement_shape_sha256": "4055e81d0491f3d3ad8125bcee5c571e99c4fa9f146045e13117e4bd33e7b288",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "prisma-fi/prisma-contracts",
+   "project": "prisma-contracts",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "63f3d08d6d7ae9fc74855a489eeae080b72a3f46",
+   "revision_kind": "clone_head_read_only",
+   "side": "reference",
+   "snippet": "        token.safeTransfer(recipient, amount);\n",
+   "source_bytes_sha256": "1f2b3670f02e09e240774db765af35d999c48b67470803e1f286eb9f171d583b",
+   "source_text_included": true,
+   "span_sha256": "dcbf9865fb99fbff67a027f6bc402db4bfa9c31f027f5677c2ac9777e505c127",
+   "statement_char_range": [
+    9350,
+    9521
+   ],
+   "statement_shape_sha256": "4055e81d0491f3d3ad8125bcee5c571e99c4fa9f146045e13117e4bd33e7b288"
+  },
+  "vulnerable": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    20911,
+    20924
+   ],
+   "byte_end": 20911,
+   "byte_start": 20891,
+   "call_line": 591,
+   "char_end": 20911,
+   "char_start": 20891,
+   "file": "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol",
+   "file_sha256": "39681d6cccd22704a5f495bd2d9e4f1ef819ba21f3b19d93565a40773d88be0d",
+   "form": "risky",
+   "function": "TVL",
+   "function_decl_line": 590,
+   "mechanical_features": {
+    "arg0": "address(this)",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     20911,
+     20924
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "address(this)",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "TVL",
+    "equality_comparison_in_statement": false,
+    "function_body_range": [
+     20817,
+     20974
+    ],
+    "function_decl_line": 590,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": true,
+    "receiver": "baseToken",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     20817,
+     20969
+    ],
+    "statement_shape_sha256": "a72be7fd4838793160d1cd302ee0f766485ba6c552fe07740fc0c8751bb549bf",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "Code4rena/2024-04-noya",
+   "project": "2024-04-noya",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "9c79b332eff82011dcfa1e8fd51bad805159d758",
+   "revision_kind": "record_pinned_citation",
+   "side": "vulnerable",
+   "source_bytes_sha256": "94a98cf1dfb5686aceab09a83cf42800faf85e97630fe9ad22b92d38d3959c28",
+   "source_text_included": false,
+   "span_sha256": "60a0dd01e935e0544064040ffa513c8264756d11d9c5b887e850c794a71ff799",
+   "statement_char_range": [
+    20817,
+    20969
+   ],
+   "statement_shape_sha256": "a72be7fd4838793160d1cd302ee0f766485ba6c552fe07740fc0c8751bb549bf"
+  }
+ },
+ "task_id": "SIBTASK::BROKENSAME0000000000"
+}

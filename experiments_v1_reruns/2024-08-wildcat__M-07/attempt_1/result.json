@@ -1,0 +1,30 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "no_assertion_in_quoted_poc",
+    "assertions": [],
+    "claimed_impact": "attacker: exploit the behaviour of `addRoleProvider` in 2024-08-wildcat/src/access/AccessControlHooks.sol",
+    "declared_test_functions": [
+      "test_PoC_EOA_provider"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "toolchain_missing",
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "detail": "scratch assembly failed: copy_failed:hardhat.config.ts:FileNotFoundError",
+  "evidence_level_supported": null,
+  "finding_id": "2024-08-wildcat/M-07",
+  "outcome": "blocked",
+  "output_sha256": {
+    "command.txt": "19fac9f213f24288e60429a09d3434f567fbab1986cb58a287291658efe02ac5",
+    "harness.json": "93b9ce042bfa8c42b9e5c03eb2bb780a1311b9e1935e1fc863fb28d7d1035cc3",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+  "recorded_at_utc": "2026-10-18T18:29:54Z",
+  "repository": "code-423n4/2024-08-wildcat",
+  "run_status": "not_run"
+}

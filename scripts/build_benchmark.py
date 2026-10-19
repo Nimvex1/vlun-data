@@ -28,7 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
     DATASET_VERSION, DERIVED, JSONL, REPORTS, RETIRED_FAMILIES, ROOT, SPLITS, WORK, log, read_jsonl,
-    retired_manifest_entry, write_json, write_jsonl,
+    carry_foreign_task_entries, retired_manifest_entry, write_json, write_jsonl,
 )
 
 BENCH = ROOT / "benchmark"
@@ -592,6 +592,10 @@ def main() -> int:
     except (OSError, ValueError):
         _prev_manifest = {}
     retired_carried = []
+    foreign = carry_foreign_task_entries(manifest, _prev_manifest,
+                                         set(names.values()))
+    if foreign:
+        log(f"  carried {len(foreign)} entry(ies) not built here: {foreign}")
     for key, name in names.items():
         if f"{name}.jsonl" in RETIRED_FAMILIES:
             # Retired families stay frozen under benchmark/retired_families/;
@@ -604,7 +608,13 @@ def main() -> int:
                 retired_carried.append(name)
                 log(f"  {name:28s} retired, entry carried")
             else:
-                log(f"  {name:28s} retired, no carried entry (manifest keeps none)")
+                raise SystemExit(
+                    f"retired family {name} has no manifest entry to carry "
+                    "and cannot be rebuilt by design: benchmark/manifest.json "
+                    "has lost the retirement bookkeeping. Restore it from the "
+                    "committed layer (git checkout -- benchmark/manifest.json) "
+                    "before rebuilding; dropping the entry silently would "
+                    "delete the only record that this family was retired.")
             continue
         # One record can appear several times in a split (finding row, exploit row,
         # patch row all carry the same finding id). A benchmark task is keyed by id,

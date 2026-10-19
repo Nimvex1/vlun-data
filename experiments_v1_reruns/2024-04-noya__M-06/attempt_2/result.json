@@ -1,0 +1,39 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertEq(accountingManager.maxDeposit(address(bob)), type(uint256).max)",
+      "expectRevert()",
+      "assertEq(accountingManager.maxDeposit(address(bob)), type(uint256).max)",
+      "expectRevert()"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `ERC4626` in openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol",
+    "declared_test_functions": [
+      "test_maxDepositCanBeIncorrect"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-04-noya__M-06/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "harness_reconstruction_required",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-04-noya) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Undeclared identifier.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-04-noya/M-06",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "205254722f64ed093a941601a73f0b75626d5c382a9abe0794f893ccd4f3bfa8",
+    "harness.json": "832b8e9e6d743c1808fbfc16b5374d0f1c7b4fcc3770bdc5790ae51c84119714",
+    "stderr.txt": "2f8e874a7299767709f73a77eaf19e5d676533746f55285788c3db5616267900",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "recorded_at_utc": "2026-10-18T18:37:55Z",
+  "repository": "code-423n4/2024-04-noya",
+  "run_status": "compile_error"
+}

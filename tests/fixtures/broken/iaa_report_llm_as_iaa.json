@@ -1,0 +1,37 @@
+{
+ "audit_violations": [],
+ "generated_by": "scripts/iaa_statistics.py",
+ "measured": true,
+ "measured_reason": null,
+ "notes": [
+  "two passes of the same model reported as inter-annotator agreement"
+ ],
+ "responses_present": 4,
+ "statistics": {
+  "annotators_seen": 2,
+  "human_rows": 0,
+  "measurable": true,
+  "non_human_rows_excluded": {
+   "llm_self_consistency": 0
+  },
+  "per_pair": {
+   "model-run-a|model-run-b": {
+    "kappa_primary_label": 1.0,
+    "n_common": 2,
+    "weighted_kappa_evidence_linear": 1.0,
+    "weighted_kappa_evidence_quadratic": 1.0,
+    "weighted_kappa_severity_linear": 1.0,
+    "weighted_kappa_severity_quadratic": 1.0
+   }
+  },
+  "pooled": {
+   "alpha_primary_label_nominal": {
+    "ci95_high": 1.0,
+    "ci95_low": 1.0,
+    "point": 1.0,
+    "replicates": 2000
+   }
+  }
+ },
+ "study": "fixture"
+}

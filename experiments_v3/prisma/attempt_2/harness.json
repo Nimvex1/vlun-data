@@ -1,0 +1,43 @@
+{
+  "attempt": 2,
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "compiler_version": {
+    "evm_version": "shanghai",
+    "hardfork": "cancun",
+    "solc_selected_by_forge": "0.8.37"
+  },
+  "dependency_lockfile": {
+    "lib/forge-std": "3353993420c6e488a2914ce02d88174e80ad80f8",
+    "lockfile_source": "git submodule status (pinned clone)"
+  },
+  "fork_block_derivation": null,
+  "fork_block_source": null,
+  "fork_target_pinned_by_poc": {
+    "alias": "mainnet",
+    "kind": "tx",
+    "value": "0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+  },
+  "fork_target_used": {
+    "alias": "mainnet",
+    "kind": "tx",
+    "value": "0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+  },
+  "kind": "rule_compat_hardfork",
+  "overlay": null,
+  "poc": "2024-03/Prisma_exp.sol",
+  "poc_sha256_original": "02481ff268e72e42b1a839122da095a8165547f97f0ec2c858665bb1acfc6d78",
+  "remappings": {
+    "forge-std/": "lib/forge-std/src/"
+  },
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "rpc_provider": {
+    "mainnet": "https://eth.drpc.org"
+  },
+  "run": "prisma",
+  "scope_change": "fork target unchanged (exact pinned transaction), but the EVM rule set is pinned to cancun, the rules in force at that height, because foundry 1.8.3 validates the replayed historical transaction with today's Prague rules (EIP-7623: gas floor 21680 > gas limit 21438). A PASS here shows the violation under the historical rule set, NOT under today's rules.",
+  "strategy_reason": "the run's own log shows a transaction-validation error during replay, not missing state: state IS available, the rule check is the blocker. Note the root attempt changed evm_version (compile target) only; this attempt changes the protocol rule set.",
+  "submodule_shas": {
+    "lib/forge-std": "3353993420c6e488a2914ce02d88174e80ad80f8"
+  },
+  "test_function": "test_exploit"
+}

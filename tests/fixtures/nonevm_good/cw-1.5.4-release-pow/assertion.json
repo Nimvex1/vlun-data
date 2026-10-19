@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "test_status": "failed"
+  },
+  "kind": "named_test",
+  "met": true,
+  "name": "tests::pow",
+  "not_just_exit_code": true,
+  "observed": {
+    "test_status": "failed"
+  }
+}

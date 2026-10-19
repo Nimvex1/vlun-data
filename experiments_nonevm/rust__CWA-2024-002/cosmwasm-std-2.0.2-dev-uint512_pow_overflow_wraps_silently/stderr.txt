@@ -1,0 +1,4 @@
+   Compiling nonevm_cw v0.1.0 (C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main\work\nonevm\runs\cw\cosmwasm-std-2.0.2-dev)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.65s
+     Running unittests src\lib.rs (C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main\work\nonevm\runs\cw-target\debug\deps\nonevm_cw-158b8b7566dd1e6d.exe)
+error: test failed, to rerun pass `--lib`

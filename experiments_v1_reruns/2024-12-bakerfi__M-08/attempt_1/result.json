@@ -1,0 +1,30 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "no_assertion_in_quoted_poc",
+    "assertions": [],
+    "claimed_impact": "attacker: exploit the behaviour of `dispatch` in 2024-12-bakerfi/contracts/core/VaultRouter.sol",
+    "declared_test_functions": [
+      "test_dispatch_action_impossible"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "toolchain_missing",
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "hardhat",
+  "detail": "the PoC targets hardhat; this runner only executes Foundry harnesses in the sandbox",
+  "evidence_level_supported": null,
+  "finding_id": "2024-12-bakerfi/M-08",
+  "outcome": "blocked",
+  "output_sha256": {
+    "command.txt": "19fac9f213f24288e60429a09d3434f567fbab1986cb58a287291658efe02ac5",
+    "harness.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a",
+  "recorded_at_utc": "2026-10-18T18:29:54Z",
+  "repository": "code-423n4/2024-12-bakerfi",
+  "run_status": "not_run"
+}

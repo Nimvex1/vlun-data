@@ -1,0 +1,34 @@
+{
+  "dependency_configuration": {
+    "clone_head": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+    "clone_present": true,
+    "declared_dependency_count": 1,
+    "foundry_toml": false,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [],
+    "lockfile_available": false,
+    "node_modules_present": false,
+    "remappings_available": false,
+    "unresolved_relative_imports": []
+  },
+  "patch_reference": {
+    "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+    "fixed_commit_note": "",
+    "patch_available": false,
+    "patch_record_present": true,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "repository": "code-423n4/2024-01-renft",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-01-renft",
+    "clone_head": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+    "copied": [],
+    "error": null,
+    "junctions": [],
+    "scratch": "work/poc_reruns/code-423n4__2024-01-renft",
+    "scratch_entries": [],
+    "scratch_foundry_test_dir": null,
+    "scratch_head": null
+  }
+}

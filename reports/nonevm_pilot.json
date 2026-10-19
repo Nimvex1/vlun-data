@@ -1,0 +1,1587 @@
+{
+  "counts": {
+    "blockers_overall": {
+      "build_time_exceeds_budget: the claim is about the Rust Cairo VM (starkware-libs/cairo-vm) and its AIR/prover divergence; a scoped cargo test needs the cairo-vm workspace build plus a prover run": 1,
+      "build_time_exceeds_budget: the vulnerable CFG construction lives in move-language/move's bytecode verifier (Rust); the era-matching commits are pinned but the workspace build exceeds the per-run budget": 1,
+      "build_time_exceeds_pilot_budget: gas mispricing is observed through cosmwasm-vm's metered instantiate, which needs the full cosmwasm-vm/Wasmer build graph": 1,
+      "build_time_exceeds_pilot_budget: the claim is about the Wasmer Singlepass compiler embedded in wasmvm; it needs a cgo wasmvm build (Wasmer plus a Go host) before any assertion can run": 1,
+      "compile_failed: scarb scarb 2.20.1 (dd18779a1 2026-08-21) no longer accepts the plain #[test] attribute in a cairo-test target (the runner is deprecated in favour of snforge, and snforge needs universal-sierra-compiler, which is absent). First diagnostic: error[E2200]: Plugin diagnostic: Unsupported attribute.": 1,
+      "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01": 1,
+      "dependency_resolution_uncached_sui_framework_rev: the Volo package pins an OtterSec-era Sui framework rev absent from the local cache": 1,
+      "dependency_resolution_uncached_sui_framework_rev: the audited Navi package pins a Sui framework revision that is not in the local git dependency cache, so resolving it means a full MystenLabs/sui clone": 1,
+      "native_runner_not_applicable: a crafted compressed script must be sent to a running Sui node; that needs a built sui-node binary plus a localnet, which exceeds this pilot's per-run budget": 1,
+      "native_runner_not_applicable: the affected component is NethermindEth/juno, a Go full node, not a Scarb package; reproducing the Sierra decompression loop needs a Go build of juno": 1,
+      "native_runner_not_applicable: the crash is reached through the JSON-RPC deserializer of a running node, not through `sui move test`": 1,
+      "native_runner_not_applicable_and_build_time_exceeds_budget: the fix is in MystenLabs/sui crates/sui-adapter (Rust full node); a scoped `cargo test` needs the whole Sui workspace build": 1,
+      "revision_unresolved: same CairoLib scope commit, same missing remote": 1,
+      "revision_unresolved: the Levana post-mortem names no commit, contract version or deployment, so no pin can be resolved": 1,
+      "revision_unresolved: the audit names CairoLib commits 99b1c0e3/d2d4dd7c but no public repository is identified in the source, so the pin cannot be resolved to a cloneable remote": 1,
+      "revision_unresolved: the post-mortem names no contract version, commit or deployment": 1,
+      "revision_unresolved: the report's Received Commit line is a 39-hex value with no leading 0x and is not resolvable, and the framework pin is not cached": 1,
+      "toolchain_missing: aptos-cli": 1,
+      "toolchain_missing: aptos-cli; and the component named by the record is the Aptos Move VM written in Rust, whose proof is a cargo test inside aptos-core (a workspace whose build exceeds this pilot's per-run budget)": 1,
+      "toolchain_missing: aptos-cli; the fix commit is in move-language/move's Rust bytecode verifier, so the assertion is a cargo test, not `aptos move test`": 1,
+      "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)": 3,
+      "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+      "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.1, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+      "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.6.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+      "toolchain_version_incompatible: v0.2.0 predates the Scarb workspace layout the 2.20.1 toolchain in work/tools expects, and no era-matching scarb is installed": 1
+    },
+    "candidates_by_platform": {
+      "aptos_move": 3,
+      "cairo_scarb": 8,
+      "cosmwasm": 4,
+      "solana_anchor": 3,
+      "sui_move": 12
+    },
+    "candidates_total": 30,
+    "executed_runs": 49,
+    "ladder_overall": {
+      "L1": 23,
+      "L2": 4,
+      "L4": 38,
+      "L5": 11
+    },
+    "outcomes_overall": {
+      "blocked": 23,
+      "claim_reproduced": 11,
+      "compile_failed": 4,
+      "executed_without_impact": 38
+    },
+    "runs_total": 76,
+    "unique_records_executed": 2,
+    "unique_records_with_runs": 27
+  },
+  "crashed_platforms": [],
+  "declared_behaviour_discrepancies": [
+    {
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "1.5.3",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "1.5.3",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "1.5.3",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "1.5.3",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently"
+    },
+    {
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "2.0.1",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "2.0.1",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "2.0.1",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently"
+    },
+    {
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "declared": "declared_vulnerable",
+      "expected": "ok",
+      "note": "declared behaviour and observed behaviour differ on this pin/profile",
+      "observed": "failed",
+      "pin": "2.0.1",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently"
+    }
+  ],
+  "evidence_ladder": {
+    "L0": "prose",
+    "L1": "quoted",
+    "L2": "reconstructed",
+    "L3": "compiles",
+    "L4": "executes",
+    "L5": "claimed violation reproduced",
+    "L6": "vulnerable reproduced and fixed revision blocked by same test"
+  },
+  "generated_utc": "2026-10-18T19:06:53Z",
+  "integrity": {
+    "clean": true,
+    "error_dirs": [],
+    "runs_validated": 76
+  },
+  "non_execution_note": "Counts are recomputed from experiments_nonevm/*/result.json. A run is only counted as executed when the platform's native test command produced a named test result; a compiler failure stays at L2.",
+  "outcome_vocabulary": [
+    "blocked",
+    "compile_failed",
+    "executed_without_impact",
+    "inconclusive",
+    "claim_reproduced"
+  ],
+  "platforms": {
+    "aptos_move": {
+      "blockers": {
+        "toolchain_missing: aptos-cli": 1,
+        "toolchain_missing: aptos-cli; and the component named by the record is the Aptos Move VM written in Rust, whose proof is a cargo test inside aptos-core (a workspace whose build exceeds this pilot's per-run budget)": 1,
+        "toolchain_missing: aptos-cli; the fix commit is in move-language/move's Rust bytecode verifier, so the assertion is a cargo test, not `aptos move test`": 1
+      },
+      "candidate_record_ids": [
+        "move:amnis-peg-1-fee-evasion",
+        "move:move-vm-value-depth",
+        "move:zellic-3.2-control-flow-graph-aptos"
+      ],
+      "candidates": 3,
+      "eligible_for_execution": 3,
+      "executed": 0,
+      "ladder": {
+        "L1": 3
+      },
+      "outcomes": {
+        "blocked": 3
+      },
+      "runs": 3,
+      "unique_records": 3
+    },
+    "cairo_scarb": {
+      "blockers": {
+        "build_time_exceeds_budget: the claim is about the Rust Cairo VM (starkware-libs/cairo-vm) and its AIR/prover divergence; a scoped cargo test needs the cairo-vm workspace build plus a prover run": 1,
+        "compile_failed: scarb scarb 2.20.1 (dd18779a1 2026-08-21) no longer accepts the plain #[test] attribute in a cairo-test target (the runner is deprecated in favour of snforge, and snforge needs universal-sierra-compiler, which is absent). First diagnostic: error[E2200]: Plugin diagnostic: Unsupported attribute.": 1,
+        "native_runner_not_applicable: the affected component is NethermindEth/juno, a Go full node, not a Scarb package; reproducing the Sierra decompression loop needs a Go build of juno": 1,
+        "revision_unresolved: same CairoLib scope commit, same missing remote": 1,
+        "revision_unresolved: the audit names CairoLib commits 99b1c0e3/d2d4dd7c but no public repository is identified in the source, so the pin cannot be resolved to a cloneable remote": 1,
+        "revision_unresolved: the post-mortem names no contract version, commit or deployment": 1,
+        "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+        "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.1, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+        "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.6.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error": 1,
+        "toolchain_version_incompatible: v0.2.0 predates the Scarb workspace layout the 2.20.1 toolchain in work/tools expects, and no era-matching scarb is installed": 1
+      },
+      "candidate_record_ids": [
+        "cairo:CS-HRDTCL-001",
+        "cairo:CS-HRDTCL-005",
+        "cairo:CVE-2022-31153",
+        "cairo:CVE-2023-23940",
+        "cairo:CVE-2024-45304",
+        "cairo:CVE-2025-29072",
+        "cairo:cairo-vm-sequencer-prover-inconsistency",
+        "cairo:zklend-2025-02-empty-market-accumulator"
+      ],
+      "candidates": 8,
+      "eligible_for_execution": 10,
+      "executed": 0,
+      "ladder": {
+        "L1": 6,
+        "L2": 4
+      },
+      "outcomes": {
+        "blocked": 6,
+        "compile_failed": 4
+      },
+      "runs": 10,
+      "unique_records": 8
+    },
+    "cosmwasm": {
+      "blockers": {
+        "build_time_exceeds_pilot_budget: gas mispricing is observed through cosmwasm-vm's metered instantiate, which needs the full cosmwasm-vm/Wasmer build graph": 1,
+        "build_time_exceeds_pilot_budget: the claim is about the Wasmer Singlepass compiler embedded in wasmvm; it needs a cgo wasmvm build (Wasmer plus a Go host) before any assertion can run": 1,
+        "revision_unresolved: the Levana post-mortem names no commit, contract version or deployment, so no pin can be resolved": 1
+      },
+      "candidate_record_ids": [
+        "rust:CWA-2024-002",
+        "rust:CWA-2024-004",
+        "rust:CWA-2026-006",
+        "rust:levana-2023-price-staleness"
+      ],
+      "candidates": 4,
+      "eligible_for_execution": 40,
+      "executed": 40,
+      "ladder": {
+        "L1": 3,
+        "L4": 32,
+        "L5": 8
+      },
+      "outcomes": {
+        "blocked": 3,
+        "claim_reproduced": 8,
+        "executed_without_impact": 32
+      },
+      "runs": 43,
+      "unique_records": 4
+    },
+    "solana_anchor": {
+      "blockers": {
+        "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)": 3
+      },
+      "candidate_record_ids": [
+        "rust:CVE-2026-45137",
+        "rust:GHSA-429q-fhh4-r6hj",
+        "rust:GHSA-6px8-6mw3-4hx4"
+      ],
+      "candidates": 3,
+      "eligible_for_execution": 3,
+      "executed": 0,
+      "ladder": {
+        "L1": 3
+      },
+      "outcomes": {
+        "blocked": 3
+      },
+      "runs": 3,
+      "unique_records": 3
+    },
+    "sui_move": {
+      "blockers": {
+        "build_time_exceeds_budget: the vulnerable CFG construction lives in move-language/move's bytecode verifier (Rust); the era-matching commits are pinned but the workspace build exceeds the per-run budget": 1,
+        "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01": 1,
+        "dependency_resolution_uncached_sui_framework_rev: the Volo package pins an OtterSec-era Sui framework rev absent from the local cache": 1,
+        "dependency_resolution_uncached_sui_framework_rev: the audited Navi package pins a Sui framework revision that is not in the local git dependency cache, so resolving it means a full MystenLabs/sui clone": 1,
+        "native_runner_not_applicable: a crafted compressed script must be sent to a running Sui node; that needs a built sui-node binary plus a localnet, which exceeds this pilot's per-run budget": 1,
+        "native_runner_not_applicable: the crash is reached through the JSON-RPC deserializer of a running node, not through `sui move test`": 1,
+        "native_runner_not_applicable_and_build_time_exceeds_budget: the fix is in MystenLabs/sui crates/sui-adapter (Rust full node); a scoped `cargo test` needs the whole Sui workspace build": 1,
+        "revision_unresolved: the report's Received Commit line is a 39-hex value with no leading 0x and is not resolvable, and the framework pin is not cached": 1
+      },
+      "candidate_record_ids": [
+        "move:CVE-2023-36184",
+        "move:CVE-2023-42374",
+        "move:cetus-checked-shlw",
+        "move:navi-lend-06-coin-type",
+        "move:navi-pool-01-withdraw-permission",
+        "move:openzeppelin-cetus-flash-receipt-order-id",
+        "move:openzeppelin-lombard-reference-assignment",
+        "move:openzeppelin-u256-mulmod-discarded-overflow",
+        "move:sui-amm-6.7-zero-liquidity",
+        "move:volo-os-vol-adv-00-roundupshares",
+        "move:zellic-3.1-usable-value-drop",
+        "move:zellic-3.2-control-flow-graph"
+      ],
+      "candidates": 12,
+      "eligible_for_execution": 17,
+      "executed": 9,
+      "ladder": {
+        "L1": 8,
+        "L4": 6,
+        "L5": 3
+      },
+      "outcomes": {
+        "blocked": 8,
+        "claim_reproduced": 3,
+        "executed_without_impact": 6
+      },
+      "runs": 17,
+      "unique_records": 9
+    }
+  },
+  "prerequisite_matrix": [
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "platform": "cosmwasm",
+      "tool": "cargo",
+      "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "platform": "cosmwasm",
+      "tool": "rustc",
+      "version": "rustc 1.98.0 (88d9e12ae 2026-08-18)"
+    },
+    {
+      "install_command": null,
+      "install_status": "assumed_available",
+      "note": "only the package registry is contacted; no chain RPC, no faucet, no deployment",
+      "platform": "cosmwasm",
+      "tool": "crates.io registry access",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest",
+      "install_status": "missing",
+      "platform": "solana_anchor",
+      "tool": "anchor-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+      "install_status": "missing",
+      "platform": "solana_anchor",
+      "tool": "solana-cli (incl. solana-test-validator)",
+      "version": null
+    },
+    {
+      "blocking": false,
+      "install_command": null,
+      "install_status": "installed",
+      "note": "present, and enough for a crate-level harness, but not for `anchor test`, which needs a BPF build and a local validator",
+      "platform": "solana_anchor",
+      "tool": "cargo",
+      "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+    },
+    {
+      "blocking": false,
+      "install_status": "not_used",
+      "note": "no key material, faucet claim or cluster RPC is used by this adapter; the pilot never touches a live network",
+      "platform": "solana_anchor",
+      "tool": "cryptography tooling note"
+    },
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "platform": "aptos_move",
+      "tool": "aptos-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "note": "the Sui Move compiler already in work/tools cannot be substituted: the packages import aptos_framework / std::vector with the Aptos VM's signature and dependency layout",
+      "platform": "aptos_move",
+      "tool": "aptos move test (local Move VM)",
+      "version": null
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "platform": "sui_move",
+      "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
+      "version": "sui 1.48.2-17a9eb8e1914"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "platform": "sui_move",
+      "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
+      "version": "sui 1.6.3-f4a70c8-dirty"
+    },
+    {
+      "install_command": "created on first `sui move` run that resolves a git dependency",
+      "install_status": "installed",
+      "platform": "sui_move",
+      "tool": "move git dependency cache (~/.move)",
+      "version": null
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+      "platform": "cairo_scarb",
+      "tool": "scarb (Cairo/Starknet)",
+      "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "note": "unused for these revisions: snforge 0.44 pairs with a newer scarb/snforge_std than the pinned tags declare",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
+      "platform": "cairo_scarb",
+      "tool": "snforge (starknet-foundry)",
+      "version": "snforge 0.44.0"
+    },
+    {
+      "blocking": true,
+      "install_command": "cargo install universal-sierra-compiler",
+      "install_status": "missing",
+      "note": "without it snforge refuses to run, and scarb cairo-test no longer accepts #[test] - see the control run's blocker",
+      "platform": "cairo_scarb",
+      "tool": "universal-sierra-compiler (required by snforge)",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh -s -- -v 2.7.2",
+      "install_status": "missing",
+      "note": "required to build the pinned v0.2/v0.6/v0.15 trees; the pilot does not install toolchain software",
+      "platform": "cairo_scarb",
+      "tool": "era-matching scarb for cairo-version 2.7.0",
+      "version": null
+    }
+  ],
+  "record_ladder_ceilings": {
+    "cairo:CS-HRDTCL-001": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "cairo:CS-HRDTCL-005": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "cairo:CVE-2022-31153": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "cairo:CVE-2023-23940": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L2",
+      "record_ceiling": "L2",
+      "runs": 1
+    },
+    "cairo:CVE-2024-45304": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L2",
+      "record_ceiling": "L2",
+      "runs": 3
+    },
+    "cairo:CVE-2025-29072": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "cairo:cairo-vm-sequencer-prover-inconsistency": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "cairo:zklend-2025-02-empty-market-accumulator": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:CVE-2023-36184": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:CVE-2023-42374": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:amnis-peg-1-fee-evasion": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:cetus-checked-shlw": {
+      "assertions_blocked_on_other_pin": [
+        "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+        "integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero"
+      ],
+      "assertions_reproduced": [
+        "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+        "integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero"
+      ],
+      "highest_run_ladder": "L6",
+      "record_ceiling": "L6",
+      "runs": 9
+    },
+    "move:move-vm-value-depth": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:navi-lend-06-coin-type": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:navi-pool-01-withdraw-permission": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:sui-amm-6.7-zero-liquidity": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:volo-os-vol-adv-00-roundupshares": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:zellic-3.1-usable-value-drop": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:zellic-3.2-control-flow-graph": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "move:zellic-3.2-control-flow-graph-aptos": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:CVE-2026-45137": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:CWA-2024-002": {
+      "assertions_blocked_on_other_pin": [
+        "tests::int256_neg_min_wraps_silently",
+        "tests::uint128_pow_overflow_wraps_silently",
+        "tests::uint256_pow_overflow_wraps_silently",
+        "tests::uint512_pow_overflow_wraps_silently"
+      ],
+      "assertions_reproduced": [
+        "tests::int256_neg_min_wraps_silently",
+        "tests::uint128_pow_overflow_wraps_silently",
+        "tests::uint256_pow_overflow_wraps_silently",
+        "tests::uint512_pow_overflow_wraps_silently"
+      ],
+      "highest_run_ladder": "L6",
+      "record_ceiling": "L6",
+      "runs": 40
+    },
+    "rust:CWA-2024-004": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:CWA-2026-006": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:GHSA-429q-fhh4-r6hj": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:GHSA-6px8-6mw3-4hx4": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    },
+    "rust:levana-2023-price-staleness": {
+      "assertions_blocked_on_other_pin": [],
+      "assertions_reproduced": [],
+      "highest_run_ladder": "L1",
+      "record_ceiling": "L1",
+      "runs": 1
+    }
+  },
+  "runs": [
+    {
+      "_dir": "experiments_nonevm/move__amnis-peg-1-fee-evasion/blocked-amnis-peg-1-fee-evasion",
+      "assertion": null,
+      "blocker": "toolchain_missing: aptos-cli",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "08239f04ca136224a2f563b4ff63d0469d00c106 / 7eb9708b22d67dd9e6e57f3ea4891d1f35cc17f1 (audit scope)",
+      "platform": "aptos_move",
+      "record_id": "move:amnis-peg-1-fee-evasion",
+      "run_slug": "blocked-amnis-peg-1-fee-evasion",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__move-vm-value-depth/blocked-move-vm-value-depth",
+      "assertion": null,
+      "blocker": "toolchain_missing: aptos-cli; and the component named by the record is the Aptos Move VM written in Rust, whose proof is a cargo test inside aptos-core (a workspace whose build exceeds this pilot's per-run budget)",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "47a0391c612407fe0b1051ef658a29e35d986963",
+      "platform": "aptos_move",
+      "record_id": "move:move-vm-value-depth",
+      "run_slug": "blocked-move-vm-value-depth",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__zellic-3.2-control-flow-graph-aptos/blocked-zellic-3.2-control-flow-graph-aptos",
+      "assertion": null,
+      "blocker": "toolchain_missing: aptos-cli; the fix commit is in move-language/move's Rust bytecode verifier, so the assertion is a cargo test, not `aptos move test`",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "1fa4ed20daaef28b47fe2c5a8d8f63b64523e16d",
+      "platform": "aptos_move",
+      "record_id": "move:zellic-3.2-control-flow-graph-aptos",
+      "run_slug": "blocked-zellic-3.2-control-flow-graph-aptos",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001",
+      "assertion": null,
+      "blocker": "revision_unresolved: the audit names CairoLib commits 99b1c0e3/d2d4dd7c but no public repository is identified in the source, so the pin cannot be resolved to a cloneable remote",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "CairoLib at audited scope commit 99b1c0e3b72e78a9db97e9c9e1a644304efc0e1f (Version 1, 19 September 2023)",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CS-HRDTCL-001",
+      "run_slug": "blocked-CS-HRDTCL-001",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005",
+      "assertion": null,
+      "blocker": "revision_unresolved: same CairoLib scope commit, same missing remote",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "CairoLib at audited scope commit 99b1c0e3b72e78a9db97e9c9e1a644304efc0e1f (Version 1, 19 September 2023)",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CS-HRDTCL-005",
+      "run_slug": "blocked-CS-HRDTCL-005",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2022-31153/blocked-CVE-2022-31153",
+      "assertion": null,
+      "blocker": "toolchain_version_incompatible: v0.2.0 predates the Scarb workspace layout the 2.20.1 toolchain in work/tools expects, and no era-matching scarb is installed",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "v0.2.0",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2022-31153",
+      "run_slug": "blocked-CVE-2022-31153",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable",
+      "assertion": null,
+      "blocker": "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.6.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error",
+      "ladder": "L2",
+      "outcome": "compile_failed",
+      "pin": "34bc9548e28882fc8fb3f511db03774be4250387",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2023-23940",
+      "run_slug": "scarb-v0.6.0-openzeppelin_account-declared_vulnerable",
+      "status": "compile_failed"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package",
+      "assertion": "nonevm_cairo_control::scaled_multiplies_by_three",
+      "blocker": "compile_failed: scarb scarb 2.20.1 (dd18779a1 2026-08-21) no longer accepts the plain #[test] attribute in a cairo-test target (the runner is deprecated in favour of snforge, and snforge needs universal-sierra-compiler, which is absent). First diagnostic: error[E2200]: Plugin diagnostic: Unsupported attribute.",
+      "ladder": "L2",
+      "outcome": "compile_failed",
+      "pin": "08fc90d799320029a9b0056cd91976292798052e5dd6744441ef6c9d02e97d78",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2024-45304",
+      "run_slug": "scarb-runtime-control-generated-package",
+      "status": "compile_failed"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable",
+      "assertion": null,
+      "blocker": "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.0, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error",
+      "ladder": "L2",
+      "outcome": "compile_failed",
+      "pin": "f57642960f1c8cffafefb88bfff418eca8510634",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2024-45304",
+      "run_slug": "scarb-v0.15.0-openzeppelin_access-declared_vulnerable",
+      "status": "compile_failed"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched",
+      "assertion": null,
+      "blocker": "toolchain_version_incompatible: the scarb in work/tools (scarb 2.20.1 (dd18779a1 2026-08-21)) cannot build v0.15.1, which declares cairo-version 2.7.0; 0 compiler diagnostics, no test binary built. First diagnostic: Error: `scarb metadata` exited with error",
+      "ladder": "L2",
+      "outcome": "compile_failed",
+      "pin": "2f8a93d762858714095a1d391afffa9e21df6983",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2024-45304",
+      "run_slug": "scarb-v0.15.1-openzeppelin_access-declared_patched",
+      "status": "compile_failed"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__CVE-2025-29072/blocked-CVE-2025-29072",
+      "assertion": null,
+      "blocker": "native_runner_not_applicable: the affected component is NethermindEth/juno, a Go full node, not a Scarb package; reproducing the Sierra decompression loop needs a Go build of juno",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "Nethermind Juno < 0.12.5 (GHSA); NVD wording 'before v.12.05'; other full-node implementations per their build configuration",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:CVE-2025-29072",
+      "run_slug": "blocked-CVE-2025-29072",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__cairo-vm-sequencer-prover-inconsistency/blocked-cairo-vm-sequencer-prover-inconsistency",
+      "assertion": null,
+      "blocker": "build_time_exceeds_budget: the claim is about the Rust Cairo VM (starkware-libs/cairo-vm) and its AIR/prover divergence; a scoped cargo test needs the cairo-vm workspace build plus a prover run",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "the Cairo VM as deployed in the Starknet sequencer before the January 2025 hotfix",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:cairo-vm-sequencer-prover-inconsistency",
+      "run_slug": "blocked-cairo-vm-sequencer-prover-inconsistency",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/cairo__zklend-2025-02-empty-market-accumulator/blocked-zklend-2025-02-empty-market-accumulator",
+      "assertion": null,
+      "blocker": "revision_unresolved: the post-mortem names no contract version, commit or deployment",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "not published - the post-mortem identifies no contract version, commit or deployment",
+      "platform": "cairo_scarb",
+      "record_id": "cairo:zklend-2025-02-empty-market-accumulator",
+      "run_slug": "blocked-zklend-2025-02-empty-market-accumulator",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-release-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =1.5.3",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-dev-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-release-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =1.5.4",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-release-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "crates.io cosmwasm-std =2.0.1",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-dev-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently",
+      "assertion": "tests::int256_neg_min_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-pow_in_range_control",
+      "assertion": "tests::pow_in_range_control",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-release-pow_in_range_control",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently",
+      "assertion": "tests::uint128_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently",
+      "assertion": "tests::uint256_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently",
+      "assertion": "tests::uint512_pow_overflow_wraps_silently",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "crates.io cosmwasm-std =2.0.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-002",
+      "run_slug": "cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2024-004/blocked-CWA-2024-004",
+      "assertion": null,
+      "blocker": "build_time_exceeds_pilot_budget: gas mispricing is observed through cosmwasm-vm's metered instantiate, which needs the full cosmwasm-vm/Wasmer build graph",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "cosmwasm-vm <1.5.7, >=2.0.0 <2.0.6, >=2.1.0 <2.1.3; wasmvm <1.5.4, >=2.0.0 <2.0.3, >=2.1.0 <2.1.2",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2024-004",
+      "run_slug": "blocked-CWA-2024-004",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CWA-2026-006/blocked-CWA-2026-006",
+      "assertion": null,
+      "blocker": "build_time_exceeds_pilot_budget: the claim is about the Wasmer Singlepass compiler embedded in wasmvm; it needs a cgo wasmvm build (Wasmer plus a Go host) before any assertion can run",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "wasmvm <=v3.0.7, <=v2.3.4, <=v2.2.8; wasmd <=v0.70.3, <=v0.61.14, <=v0.60.8, <=v0.54.9",
+      "platform": "cosmwasm",
+      "record_id": "rust:CWA-2026-006",
+      "run_slug": "blocked-CWA-2026-006",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__levana-2023-price-staleness/blocked-levana-2023-price-staleness",
+      "assertion": null,
+      "blocker": "revision_unresolved: the Levana post-mortem names no commit, contract version or deployment, so no pin can be resolved",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": null,
+      "platform": "cosmwasm",
+      "record_id": "rust:levana-2023-price-staleness",
+      "run_slug": "blocked-levana-2023-price-staleness",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__CVE-2026-45137/blocked-CVE-2026-45137",
+      "assertion": null,
+      "blocker": "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "v1.0.1 (declared affected) vs v1.0.2 (declared patched)",
+      "platform": "solana_anchor",
+      "record_id": "rust:CVE-2026-45137",
+      "run_slug": "blocked-CVE-2026-45137",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__GHSA-429q-fhh4-r6hj/blocked-GHSA-429q-fhh4-r6hj",
+      "assertion": null,
+      "blocker": "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "1.0.0-rc.1 (affected) vs 1.0.0-rc.2 (patched)",
+      "platform": "solana_anchor",
+      "record_id": "rust:GHSA-429q-fhh4-r6hj",
+      "run_slug": "blocked-GHSA-429q-fhh4-r6hj",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/rust__GHSA-6px8-6mw3-4hx4/blocked-GHSA-6px8-6mw3-4hx4",
+      "assertion": null,
+      "blocker": "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "v1.1.2 with feature lazy-account (confirmed by the report); no patched release published",
+      "platform": "solana_anchor",
+      "record_id": "rust:GHSA-6px8-6mw3-4hx4",
+      "run_slug": "blocked-GHSA-6px8-6mw3-4hx4",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__CVE-2023-36184/blocked-CVE-2023-36184",
+      "assertion": null,
+      "blocker": "native_runner_not_applicable: the crash is reached through the JSON-RPC deserializer of a running node, not through `sui move test`",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "Sui v1.2.0 (NVD description)",
+      "platform": "sui_move",
+      "record_id": "move:CVE-2023-36184",
+      "run_slug": "blocked-CVE-2023-36184",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__CVE-2023-42374/blocked-CVE-2023-42374",
+      "assertion": null,
+      "blocker": "native_runner_not_applicable: a crafted compressed script must be sent to a running Sui node; that needs a built sui-node binary plus a localnet, which exceeds this pilot's per-run budget",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "Sui before v1.6.3 (NVD scope wording: 'before v.1.6.3')",
+      "platform": "sui_move",
+      "record_id": "move:CVE-2023-42374",
+      "run_slug": "blocked-CVE-2023-42374",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "4d09c8ba0527274983c6664a5d5def2e784d4692",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "4d09c8ba0527274983c6664a5d5def2e784d4692",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-control_below_boundary_shifts_correctly",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "4d09c8ba0527274983c6664a5d5def2e784d4692",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "mask_era_4d09c8b-control_below_boundary_shifts_correctly",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "fc84a51c29fabfbfbdb8ed76506b61a07493d492",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L5",
+      "outcome": "claim_reproduced",
+      "pin": "fc84a51c29fabfbfbdb8ed76506b61a07493d492",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-control_below_boundary_shifts_correctly",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "fc84a51c29fabfbfbdb8ed76506b61a07493d492",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr6_era_fc84a51-control_below_boundary_shifts_correctly",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_above_boundary_3x2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "06660f704c4ac1d443ab62346a46b5b60d49df33",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_boundary_exactly_2pow192_truncates_to_zero",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "06660f704c4ac1d443ab62346a46b5b60d49df33",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-control_below_boundary_shifts_correctly",
+      "assertion": "integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly",
+      "blocker": null,
+      "ladder": "L4",
+      "outcome": "executed_without_impact",
+      "pin": "06660f704c4ac1d443ab62346a46b5b60d49df33",
+      "platform": "sui_move",
+      "record_id": "move:cetus-checked-shlw",
+      "run_slug": "pr7_fix_06660f7-control_below_boundary_shifts_correctly",
+      "status": "executed"
+    },
+    {
+      "_dir": "experiments_nonevm/move__navi-lend-06-coin-type/blocked-navi-lend-06-coin-type",
+      "assertion": null,
+      "blocker": "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "audit scope commits 838650c8471c5a6401022852222362e70dd455d1, 1e888f75fc385657bef13d4991655d5b29455346, 50b69ce6ed44b5b0da313a6689182992e63654b7, 6f7fe8f3241fbed6ca41a11537704fe60cd0bbda (as printed)",
+      "platform": "sui_move",
+      "record_id": "move:navi-lend-06-coin-type",
+      "run_slug": "blocked-navi-lend-06-coin-type",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__navi-pool-01-withdraw-permission/blocked-navi-pool-01-withdraw-permission",
+      "assertion": null,
+      "blocker": "dependency_resolution_uncached_sui_framework_rev: the audited Navi package pins a Sui framework revision that is not in the local git dependency cache, so resolving it means a full MystenLabs/sui clone",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "audit scope commits 838650c8471c5a6401022852222362e70dd455d1, 1e888f75fc385657bef13d4991655d5b29455346, 50b69ce6ed44b5b0da313a6689182992e63654b7, 6f7fe8f3241fbed6ca41a11537704fe60cd0bbda (as printed; the report does not distinguish received from last-reviewed)",
+      "platform": "sui_move",
+      "record_id": "move:navi-pool-01-withdraw-permission",
+      "run_slug": "blocked-navi-pool-01-withdraw-permission",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__sui-amm-6.7-zero-liquidity/blocked-sui-amm-6.7-zero-liquidity",
+      "assertion": null,
+      "blocker": "revision_unresolved: the report's Received Commit line is a 39-hex value with no leading 0x and is not resolvable, and the framework pin is not cached",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "report scope: Last Reviewed 09 May 2023; the report's Received Commit line shows a 39-hex value with no leading 0x and is not a resolvable GitHub sha, so we record it as unresolved",
+      "platform": "sui_move",
+      "record_id": "move:sui-amm-6.7-zero-liquidity",
+      "run_slug": "blocked-sui-amm-6.7-zero-liquidity",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__volo-os-vol-adv-00-roundupshares/blocked-volo-os-vol-adv-00-roundupshares",
+      "assertion": null,
+      "blocker": "dependency_resolution_uncached_sui_framework_rev: the Volo package pins an OtterSec-era Sui framework rev absent from the local cache",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "audit scope: Volo repo commits 5f8aef2 and 53ce9ab as printed in the report",
+      "platform": "sui_move",
+      "record_id": "move:volo-os-vol-adv-00-roundupshares",
+      "run_slug": "blocked-volo-os-vol-adv-00-roundupshares",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__zellic-3.1-usable-value-drop/blocked-zellic-3.1-usable-value-drop",
+      "assertion": null,
+      "blocker": "native_runner_not_applicable_and_build_time_exceeds_budget: the fix is in MystenLabs/sui crates/sui-adapter (Rust full node); a scoped `cargo test` needs the whole Sui workspace build",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "report scope: MystenLabs/sui commit 4265c59af41535939288a55db22062e73815e9b5",
+      "platform": "sui_move",
+      "record_id": "move:zellic-3.1-usable-value-drop",
+      "run_slug": "blocked-zellic-3.1-usable-value-drop",
+      "status": "blocked"
+    },
+    {
+      "_dir": "experiments_nonevm/move__zellic-3.2-control-flow-graph/blocked-zellic-3.2-control-flow-graph",
+      "assertion": null,
+      "blocker": "build_time_exceeds_budget: the vulnerable CFG construction lives in move-language/move's bytecode verifier (Rust); the era-matching commits are pinned but the workspace build exceeds the per-run budget",
+      "ladder": "L1",
+      "outcome": "blocked",
+      "pin": "report scope: move-language/move commit 2ee17339842417963d4050db10a0677c522dee52 and MystenLabs/sui commit 4265c59af41535939288a55db22062e73815e9b5",
+      "platform": "sui_move",
+      "record_id": "move:zellic-3.2-control-flow-graph",
+      "run_slug": "blocked-zellic-3.2-control-flow-graph",
+      "status": "blocked"
+    }
+  ],
+  "schema": "vlun-nonevm-run/1",
+  "spec_item": "9 non-EVM execution pilot",
+  "unexecuted_pool_audit": {
+    "eligibility_note": "V3/Vbeta layers are metadata-only: no prose or code from them is copied into any artefact of this pilot. They are excluded from the executed set because the upstream commit of each finding is not recorded, so nothing can be pinned or replayed.",
+    "exists": true,
+    "findings_total": 7060,
+    "non_solidity_by_language": {
+      "cairo": 22,
+      "circom": 4,
+      "go": 40,
+      "leo": 2,
+      "move": 32,
+      "noir": 1,
+      "rust": 86,
+      "typescript": 2,
+      "unknown": 730,
+      "vyper": 24
+    },
+    "non_solidity_total": 943,
+    "non_solidity_with_a_40_hex_sha_somewhere": 395,
+    "path": "Vbeta\\jsonl_vbeta\\findings.jsonl"
+  }
+}

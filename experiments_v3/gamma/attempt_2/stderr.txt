@@ -1,0 +1,296 @@
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:33:9
+   │
+33 │         vm.createSelectFork("arbitrum", 166_873_291);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:38:9
+   │
+38 │         I(usdt).approve(usdt_usdce_pool, type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:39:9
+   │
+39 │         I(usdce).approve(usdt_usdce_pool, type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:45:13
+   │
+45 │             int256(I(usdce).balanceOf(address(this))),
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:71:9
+   │
+71 │         I(usdt).transfer(weth_usdt_pool, 3_001_500_000_000);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:75:9
+   │
+75 │         I(usdce).transfer(weth_usdce_pool, uint256(amount1Delta));
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:75:44
+   │
+75 │         I(usdce).transfer(weth_usdce_pool, uint256(amount1Delta));
+   │                                            ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:80:13
+   │
+80 │             I(usdt).transfer(algebra_pool, uint256(amount0Delta));
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:80:44
+   │
+80 │             I(usdt).transfer(algebra_pool, uint256(amount0Delta));
+   │                                            ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:82:13
+   │
+82 │             I(usdce).transfer(algebra_pool, uint256(amount1Delta));
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:82:45
+   │
+82 │             I(usdce).transfer(algebra_pool, uint256(amount1Delta));
+   │                                             ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/test/basetest.sol:80:9
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/test/basetest.sol:80:44
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/test/basetest.sol:123:9
+    │
+123 │         emit log_string(string(abi.encodePacked("=== ", label, " ===")));
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:62
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:57:35
+   │
+57 │         I.GlobalState memory gs = I(algebra_pool).globalState();
+   │                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:13
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:60
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:92
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:101:27
+    │
+101 │             uint256 val = I(uniproxy).deposit(1, 300_000_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │                           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/test/tokenhelper.sol:12:9
+   │
+12 │         require(success, "Failed to call token function");
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:103:13
+    │
+103 │             I(usdt_usdce_pool).withdraw(val, address(this), address(this), empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:108:24
+    │
+108 │                 int256(I(usdce).balanceOf(address(this))),
+    │                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:105:13
+    │
+105 │ ┏             I(algebra_pool).swap(
+106 │ ┃                 address(this),
+107 │ ┃                 false,
+108 │ ┃                 int256(I(usdce).balanceOf(address(this))),
+109 │ ┃                 83_949_998_135_706_271_822_084_553_181,
+110 │ ┃                 ""
+111 │ ┃             );
+    │ ┗━━━━━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:112:13
+    │
+112 │             I(uniproxy).deposit(1, 1_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:55
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │                                                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/test/2024-01/Gamma_exp.sol:108:17
+    │
+108 │                 int256(I(usdce).balanceOf(address(this))),
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-01/Gamma_exp.sol:112:13
+    │
+112 │             I(uniproxy).deposit(1, 1_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/test/2024-01/Gamma_exp.sol:115:35
+    │
+115 │             address(this), true, -int256(amounts[0] - I(usdce).balanceOf(address(this))), calculatePrice(), ""
+    │                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-01/Gamma_exp.sol:118:9
+    │
+118 │         I(usdce).transfer(balancer, amounts[0]);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+
+[2m2026-10-18T18:40:47.896286Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `storage` [3merr[0m[2m=[0mfailed to get storage for 0x3AB5DD69950a948c55D1FBFb7500BF92B4Bd4C48 at 2588077117166263351284689902931333654327841381007133193817924669990258558654: Max retries exceeded HTTP error 429 with body: {"jsonrpc": "2.0", "id": null, "error": {"code": -32005, "message": "Rate limit exceeded on Nodies public endpoints. For higher limits, create a free account at https://nodies.app and use a private endpoint. Enterprise: sales@nodies.org"}}
+
+HTTP diagnostics:
+cf-ray: a4c9ac6edf663f85-BOM
+server: cloudflare
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=GdR%2BTRCNA7q9yf5Nmp%2BG153ahLRwcBtQTADX0QU0ushjuv0MaBwp4RlO%2BwYHofqjmjwDw6ixKoNEa27RkrIp8kmKZcmO4H17ZkN2X2wzjzIcDEt9NsGMXx%2B6ONB23e%2BnzPLvY1Q%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800} [3maddress[0m[2m=[0m0x3AB5DD69950a948c55D1FBFb7500BF92B4Bd4C48 [3mindex[0m[2m=[0m2588077117166263351284689902931333654327841381007133193817924669990258558654

@@ -1,0 +1,16 @@
+{
+  "isolation": "would be an isolated local cargo/chain-sandbox run",
+  "pin": {
+    "commit": null,
+    "requested_ref": "cosmwasm-vm <1.5.7, >=2.0.0 <2.0.6, >=2.1.0 <2.1.3; wasmvm <1.5.4, >=2.0.0 <2.0.3, >=2.1.0 <2.1.2",
+    "revision_unresolved": "build_time_exceeds_pilot_budget: gas mispricing is observed through cosmwasm-vm's metered instantiate, which needs the full cosmwasm-vm/Wasmer build graph"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "cargo test",
+    "runtime": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+    "tool": "cargo",
+    "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+  }
+}

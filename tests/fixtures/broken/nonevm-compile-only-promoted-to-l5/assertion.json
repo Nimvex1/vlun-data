@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "test_status": "ok"
+  },
+  "kind": "named_test",
+  "met": true,
+  "name": "tests::pow",
+  "not_just_exit_code": true,
+  "observed": {
+    "test_status": "ok"
+  }
+}

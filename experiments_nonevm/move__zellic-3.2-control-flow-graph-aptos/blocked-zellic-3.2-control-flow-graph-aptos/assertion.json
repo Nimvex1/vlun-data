@@ -1,0 +1,8 @@
+{
+  "expected": null,
+  "kind": "not_run",
+  "met": null,
+  "name": null,
+  "observed": null,
+  "statement": "aptos move test cannot be started until the Aptos CLI is installed"
+}

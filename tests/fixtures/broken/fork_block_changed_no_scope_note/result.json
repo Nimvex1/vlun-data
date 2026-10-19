@@ -1,0 +1,22 @@
+{
+  "run": "burgerswap",
+  "attempt": 99,
+  "kind": "block_fork_reconstruction",
+  "status": "blocked",
+  "failure_reason": "archive_state_unavailable",
+  "detail": "broken fixture: forked a different block than the pinned one, no scope_change note",
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "evidence_level_supported": "L3",
+  "recovered": false,
+  "provider": "https://example.invalid/bsc",
+  "fork_target_pinned_by_poc": {"alias": "bsc", "kind": "block", "value": 7781159},
+  "fork_target_used": {"kind": "block", "value": 7781160},
+  "hardfork": "backend default (today's rules)",
+  "test": {"command": "forge test --match-test testExploit -vv", "rc": 1, "test_function": "testExploit"},
+  "impact_check": {"claim_notes": [], "balance_log_labels": [], "console_log_lines": [], "assertions": []},
+  "profit_deltas": [],
+  "poc_bytes_modified": false,
+  "overlay_files": [],
+  "original_run": {"status": "blocked", "level_awarded": "L3", "failure_reason": "archive_state_unavailable"}
+}

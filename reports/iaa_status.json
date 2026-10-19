@@ -1,0 +1,21 @@
+{
+  "audit_violations": [],
+  "generated_by": "scripts/iaa_statistics.py",
+  "guard": "a numeric agreement is emitted only from >=2 distinct human annotator ids; LLM self-consistency or repeated passes by one annotator are never reported as IAA",
+  "measured": false,
+  "measured_reason": "no responses collected; annotation/iaa_v1/responses/ holds only blank templates",
+  "notes": [
+    "no completed response files in C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\annotation\\iaa_v1\\responses (only .template.csv blanks ship here)"
+  ],
+  "responses_dir": "annotation/iaa_v1/responses",
+  "responses_present": 0,
+  "statistics": {
+    "annotators_seen": 0,
+    "human_rows": 0,
+    "measurable": false,
+    "non_human_rows_excluded": {},
+    "reason": "no responses collected; annotation/iaa_v1/responses/ holds only blank templates"
+  },
+  "study": "annotation/iaa_v1 (item 14)",
+  "what_would_be_reported": "Cohen's kappa on the primary root-cause label, linear and quadratic weighted kappa on severity tier and evidence ceiling, Krippendorff's alpha (nominal + ordinal) with 2000-replicate percentile bootstrap CIs"
+}

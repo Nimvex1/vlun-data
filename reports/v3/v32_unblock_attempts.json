@@ -1,0 +1,367 @@
+{
+  "attempts": [
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+        "harness.json": "342bf12d0b6c4371e1a31b25b40d9018b62236e924ddb6ea4fc17d35fbbf9efb",
+        "stderr.txt": "58b03e597f1ec217dc6e5ffd162d1bfd8fe838ef9f5bf55e4714ccb939086701",
+        "stdout.txt": "9cf4b3f9a620494005d337b9ac24e25de58cdbec1fad23d4ce7f89b035ccdecb",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 2,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE: server returned an error response: error code -32000: state 0x0b6b5e6defc87a3c79b0c32558e1f493b68edc34e1fe02bd8811b7deac4f010d is not available] testExploit() (block: 7781159) (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "bsc",
+        "kind": "block",
+        "value": 7781159
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/burgerswap/attempt_2",
+      "profit_deltas": [],
+      "provider": "https://api.zan.top/bsc-mainnet",
+      "run": "burgerswap",
+      "scope_change": null,
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+        "harness.json": "15eb486f5815b487b57fdeba46e3fb8d6f4a3352a11bf46c12d6476aade3d8f3",
+        "stderr.txt": "daf805be0fcf85c3a3c04a4533bb1f261f959a91257e15386228dd0dfb7134e2",
+        "stdout.txt": "c517fd08346b9b814bf695a4c2b367f4b50c3e0962d6d5f804776914536cb879",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 3,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x72b61c6014342d914470eC7aC2975bE345796c2b: server returned an error response: error code -32603: state at block #7781160 is pruned] setUp() (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "bsc",
+        "kind": "block",
+        "value": 7781159
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/burgerswap/attempt_3",
+      "profit_deltas": [],
+      "provider": "https://bsc.drpc.org",
+      "run": "burgerswap",
+      "scope_change": null,
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+        "harness.json": "6a8c668b286d18ce5537a95e1b01069aa1d60e56faf7d6a6755e234adc6d5686",
+        "stderr.txt": "d0d7f3fded67bf2fa1c70273da745e3c731053711b23bab2af5882a6449fd1d9",
+        "stdout.txt": "09a0dcd6127f3c9b866065cf628c1be13e0c25fc45219a4694b1b7a2cecf8cbd",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 2,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EvmError: Revert] testExploit() (block: 166873291) (gas: 124775)",
+      "failure_reason": "poc_reverted_on_pinned_fork",
+      "fork_target_used": {
+        "alias": "arbitrum",
+        "kind": "block",
+        "value": 166873291
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/gamma/attempt_2",
+      "profit_deltas": [],
+      "provider": "https://arb-pokt.nodies.app",
+      "run": "gamma",
+      "scope_change": null,
+      "status": "test_failed",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+        "harness.json": "bd22f7c89ee544c05f0d7d18d2838c740703e6f663d4fcf5c429062f4a03891e",
+        "stderr.txt": "7f79d0eb72b6108a609f9fc8698f0adaea0171b17791357879b25e532342a874",
+        "stdout.txt": "e10a948a2ec3b553c75d5710eaa71cfdccc8833691bf275cec26d6925186b371",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 3,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0xA4b000000000000000000073657175656e636572: server returned an error response: error code -32000: historical state f62796e05e4d7f1bf3ebb3220b5abfaf6c2b6c045de409e9a2a230d4f2746b0e is not available] setUp() (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "arbitrum",
+        "kind": "block",
+        "value": 166873291
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/gamma/attempt_3",
+      "profit_deltas": [],
+      "provider": "https://arbitrum.drpc.org",
+      "run": "gamma",
+      "scope_change": null,
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "da7c8ca8ff53f40b0ef40d4a04fefe1097c53facdd435625e78882a2af13b064",
+        "harness.json": "e9166ae7b41cbfc02ae3a20c1275dfd18c85f3735e145838456849c489207eac",
+        "stderr.txt": "659cc1e8f72bb16cd3454e713c7c3d2c822037950db8851a7c3b4fbe3f5c1e91",
+        "stdout.txt": "4a979beed3e2d176b9f0e6408f61319fdb77db32bb5106cec699210521419f63",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 2,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: vm.createSelectFork: backend: failed replaying transaction; transaction validation error: gas floor (21680) exceeds the gas limit (21438)] setUp() (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "mainnet",
+        "kind": "tx",
+        "value": "0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+      },
+      "hardfork": "cancun",
+      "kind": "rule_compat_hardfork",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/prisma/attempt_2",
+      "profit_deltas": [],
+      "provider": "https://eth.drpc.org",
+      "run": "prisma",
+      "scope_change": "fork target unchanged (exact pinned transaction), but the EVM rule set is pinned to cancun, the rules in force at that height, because foundry 1.8.3 validates the replayed historical transaction with today's Prague rules (EIP-7623: gas floor 21680 > gas limit 21438). A PASS here shows the violation under the historical rule set, NOT under today's rules.",
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "26319933252b79669e3a0e155ae2de8e93dce10f0cc5baef2de7bcf42def3086",
+        "harness.json": "c86982aa9dcbc4f901d6223c1080ab89f3040ace62a169016095e014334901fd",
+        "overlay/overlay.json": "81f4d619c8a9f49410df6c4f73b18a82bb951100f241da8f2af1b643b9dec521",
+        "overlay/src/test/2024-03/Prisma_exp.sol": "eb76d4fd4e13c2d87f6f76869038ac954ecaa3a8994e278282efb9274ece5f1f",
+        "stderr.txt": "0d17ecfa028eb5ee0cc5e29e3184ae3b21c8887e7038ae32ca9c0b73e7a15da8",
+        "stdout.txt": "4fe567b09871b9c3855bbcdb83d8a9433e9254e09d94d24ec22c644c2d8c70a4",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 3,
+      "balance_deltas_by_subject": [
+        {
+          "after": 1.2817972083061306e+21,
+          "attacker_labelled": false,
+          "before": 0.0,
+          "label_after": "wstETH balance ~1281.79 ETH after attack",
+          "label_before": "start with wstETH balance before attack",
+          "matched_subjects": [
+            "wstETH"
+          ],
+          "profit": 1.2817972083061306e+21
+        }
+      ],
+      "detail": "",
+      "failure_reason": null,
+      "fork_target_used": {
+        "kind": "block",
+        "value": 19532296
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "block_fork_reconstruction",
+      "level": "L4",
+      "logs_excerpt": [
+        "Price Feed Price:  4155472023355548634105",
+        "Attacker start with ~1800 mkUSD:  1800000022022732637",
+        "start with wstETH balance before attack :  0",
+        "wstETH balance ~1281.79 ETH after attack:  1281797208306130557587"
+      ],
+      "path": "experiments_v3/prisma/attempt_3",
+      "profit_deltas": [
+        {
+          "after": 1.2817972083061306e+21,
+          "attacker_side": false,
+          "before": 0.0,
+          "label_after": "wstETH balance ~1281.79 ETH after attack",
+          "label_before": "start with wstETH balance before attack",
+          "matched_subjects": [
+            "wstETH"
+          ],
+          "profit": 1.2817972083061306e+21,
+          "valid_attacker_profit": false
+        }
+      ],
+      "provider": "https://eth-mainnet.public.blastapi.io",
+      "run": "prisma",
+      "scope_change": "fork expressed as the block immediately before the attack transaction instead of by transaction hash, so no historical transaction is replayed and today's rules can be used. Evidence scope narrowed: state at the pre-transaction block of that height rather than the exact pre-transaction state inside the block; the PoC's own calls are unchanged.",
+      "status": "executed_no_profit_evidence",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "bcbbcc5181ada2ffdf410e4964c0e0077dc2e56a93f1ba4f72181c7fad0257bf",
+        "harness.json": "3b9b448fe430cb5b465c02ec972e6bd74e8fe6d7e31c5c5a24dfc2eb3d143a5d",
+        "stderr.txt": "3d034791621a8c026a21039a291837757844cdb99d1f76be441134c9f07a587d",
+        "stdout.txt": "513804fd843fdf24769108bd9892e28748b8971417209c40d25ba34998ecf522",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 2,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32603: state at block #33528883 is pruned] setUp() (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "bsc",
+        "kind": "block",
+        "value": 33528882
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/shibatoken/attempt_2",
+      "profit_deltas": [],
+      "provider": "https://bsc.meowrpc.com",
+      "run": "shibatoken",
+      "scope_change": null,
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "bcbbcc5181ada2ffdf410e4964c0e0077dc2e56a93f1ba4f72181c7fad0257bf",
+        "harness.json": "6272cd60de53c4bda9179d8fd68f18b9ebc8d57a5f906fc07c00119f534b4fc6",
+        "stderr.txt": "1462e998f4f6687a5e11cd27ee210fed4821fc026ea1aa3a8c05b79952956c57",
+        "stdout.txt": "950ed4b24397d1a397999a67a4c4c658bbd753ce96cab444aafe7cc6b9520667",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 3,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: EVM error; database error: failed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32000: state 0x30a27539c501e040e6fa6d79035157e63e141baab6073125ebdc1e7fe9eadb4c is not available] setUp() (gas: 0)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "bsc",
+        "kind": "block",
+        "value": 33528882
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "archive_provider",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/shibatoken/attempt_3",
+      "profit_deltas": [],
+      "provider": "https://api.zan.top/bsc-mainnet",
+      "run": "shibatoken",
+      "scope_change": null,
+      "status": "blocked",
+      "validation_errors": []
+    },
+    {
+      "artifact_hashes": {
+        "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+        "command.txt": "bcbbcc5181ada2ffdf410e4964c0e0077dc2e56a93f1ba4f72181c7fad0257bf",
+        "harness.json": "7c921eec5fc3b3adc8686aa668532be602a3637be823b5ea99731e3813495dd5",
+        "overlay/overlay.json": "e88423f125a92b2370db30e75678c84387c70342117f43ef3c2e10a26fb7592f",
+        "overlay/src/test/2023-11/ShibaToken_exp.sol": "d2236bcb40d4ef610ab42528d3f0a8750f4274ed68a8231682c7e55c0d7e6de3",
+        "stderr.txt": "135ab01c5288fb80f79adc8ec3c83ff6ed10480dec945fad5b2dff1e2c33a367",
+        "stdout.txt": "b600728c791a221dc3cb23a9bb2c4fdfa7918b688f2266f6aaffb4f6a2e19ba6",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "attempt": 4,
+      "balance_deltas_by_subject": [],
+      "detail": "[FAIL: vm.prank: failed to get account for 0xb9bdc2537C6F4B587A5C81A67e7e3a4e6dDDa189: server returned an error response: error code -32000: state 0x30a27539c501e040e6fa6d79035157e63e141baab6073125ebdc1e7fe9eadb4c is not available] test() (block: 33528882) (gas: 3430)",
+      "failure_reason": "archive_state_unavailable",
+      "fork_target_used": {
+        "alias": "bsc",
+        "kind": "block",
+        "value": 33528882
+      },
+      "hardfork": "backend default (today's rules)",
+      "kind": "harness_reconstruction",
+      "level": "L3",
+      "logs_excerpt": [],
+      "path": "experiments_v3/shibatoken/attempt_4",
+      "profit_deltas": [],
+      "provider": "https://api.zan.top/bsc-mainnet",
+      "run": "shibatoken",
+      "scope_change": "the PoC's own commented-out vm.prank(attacker, attacker) line was enabled, inside overlay/ only. The evidence then covers a flash loan initiated BY the original attacker address (spoofed caller identity), which is a narrower claim than the unmodified PoC reproducing the theft as an independent caller.",
+      "status": "blocked",
+      "validation_errors": []
+    }
+  ],
+  "attempts_blocked": 8,
+  "attempts_recovered": 1,
+  "attempts_total": 9,
+  "attempts_with_scope_change": 3,
+  "best_level_per_run": {
+    "burgerswap": "L3",
+    "gamma": "L3",
+    "prisma": "L4",
+    "shibatoken": "L3"
+  },
+  "by_failure_reason": {
+    "archive_state_unavailable": 7,
+    "none": 1,
+    "poc_reverted_on_pinned_fork": 1
+  },
+  "by_kind": {
+    "archive_provider": 6,
+    "block_fork_reconstruction": 1,
+    "harness_reconstruction": 1,
+    "rule_compat_hardfork": 1
+  },
+  "by_status": {
+    "blocked": 7,
+    "executed_no_profit_evidence": 1,
+    "test_failed": 1
+  },
+  "note": "counts recomputed from the attempt artefacts on disk; levels awarded here are reported for integration and never written into a canonical layer by this script",
+  "provider_access": {
+    "key_gated_endpoints": {
+      "https://arbitrum-one.publicnode.com": "personal token required (403)",
+      "https://bsc-pokt.nodies.app": "paid subscription plan required (403)",
+      "https://bsc-rpc.publicnode.com": "personal token required (403)",
+      "https://ethereum-rpc.publicnode.com": "personal token required (403)",
+      "https://rpc.ankr.com/arbitrum": "API key required (401 Unauthorized)",
+      "https://rpc.ankr.com/bsc": "API key required (401 Unauthorized)"
+    },
+    "policy": "no signups, no API keys and no secrets are handled by this pipeline; a provider that needs a token is recorded as provider_access_unavailable and its runs keep their explicit blocker",
+    "tenderly": {
+      "available": false,
+      "keys_present": [],
+      "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+    }
+  },
+  "provider_access_unavailable": 0,
+  "runs_attempted": [
+    "burgerswap",
+    "gamma",
+    "prisma",
+    "shibatoken"
+  ],
+  "runs_recovered": [
+    "prisma"
+  ],
+  "runs_still_blocked": [
+    "burgerswap",
+    "gamma",
+    "shibatoken"
+  ],
+  "stage": "V3.2 blocked-run recovery attempts (spec item 7)",
+  "validation_error_count": 0
+}

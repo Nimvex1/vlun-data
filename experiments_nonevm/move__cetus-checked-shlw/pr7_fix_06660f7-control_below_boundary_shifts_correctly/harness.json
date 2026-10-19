@@ -1,0 +1,21 @@
+{
+  "isolation": "isolated scratch copy of the pinned package; local Move VM only - no gateway, no faucet, no chain",
+  "pin": {
+    "commit": "06660f704c4ac1d443ab62346a46b5b60d49df33",
+    "expected_commit": "06660f704c4ac1d443ab62346a46b5b60d49df33",
+    "package_manifest_sha256": "600b4c7ffef5581ec1c55ef0d228469e8f6ac92e3ff04ba4569e6832274010c4",
+    "poc_sha256": "50b7294bf159e3aeadd9a52beba374040dbe9a608a45f831d2d6929cd23ae394",
+    "repo": "https://github.com/CetusProtocol/integer-mate",
+    "requested_ref": "pr7_fix_06660f7",
+    "resolved_by": "git rev-parse on the local pinned worktree",
+    "revision_unresolved": null
+  },
+  "run_kind": "native_test",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "artefacts": {
+    "assertion.json": {
+      "bytes": 528,
+      "sha256": "6930b11aa64c50c36025ffa61289fbc5bdd3ff45edba5b73b12e877b181e4097"
+    },
+    "command.txt": {
+      "bytes": 171,
+      "sha256": "991d9fbf1ab20c8ef38e174e2307f733de917e717e8c5a4e4ef4b17fb1a47ada"
+    },
+    "harness.json": {
+      "bytes": 894,
+      "sha256": "831e8ce62c45383f7e0e73878d2cfeed3ffec7d05eccde6c6b87e4ae2feb46eb"
+    },
+    "stderr.txt": {
+      "bytes": 3892,
+      "sha256": "a1a536309764eda2e51adf76e6d16fbac26a38901d2c81d752c95be987580542"
+    },
+    "stdout.txt": {
+      "bytes": 222,
+      "sha256": "80a27efa0549f2a80e52cb778f1fe40368a108a693ce26c503ee898c621f1423"
+    },
+    "toolchain.txt": {
+      "bytes": 1063,
+      "sha256": "609ff73d3a7d3ba7a7541d3e7dbac53c5a1bba36b36db7a88095de5755459355"
+    }
+  },
+  "assertion": {
+    "expected": {
+      "test_status": "PASS",
+      "why": "v1.1.0/v1.1.1 keep the strict `n > mask` check; v1.1.2 uses `n >= mask`"
+    },
+    "kind": "named_test",
+    "met": true,
+    "name": "integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly",
+    "not_just_exit_code": true,
+    "observed": {
+      "suite_summary": "Test result: OK. Total tests: 1; passed: 1; failed: 0",
+      "test_status": "PASS"
+    },
+    "statement": "IntegerMate v1.1.0, the audited and exploited revision: expected PASS for the named test"
+  },
+  "blocker": null,
+  "claim": "integer-mate math_u256::checked_shlw truncated a 320-bit product silently, letting unbacked liquidity be minted (Cetus CLMM post-incident analyses; integer-mate PR #7)",
+  "evidence_note": "mask_era_4d09c8b: nonevm_control_below_boundary_shifts_correctly observed PASS (expected PASS). ",
+  "ladder": "L4",
+  "licence": {
+    "harness_origin": "the #[test] module is written by this adapter and is not copied from upstream",
+    "redistribution": "the audited package sources stay in the local scratch copy; no upstream file is copied into a distribution artefact",
+    "upstream": "MIT (CetusProtocol/integer-mate)",
+    "withheld": null
+  },
+  "outcome": "executed_without_impact",
+  "pin": {
+    "commit": "4d09c8ba0527274983c6664a5d5def2e784d4692",
+    "expected_commit": "4d09c8ba0527274983c6664a5d5def2e784d4692",
+    "package_manifest_sha256": "4c337cafcd4cdc2f6ec92c4e0d6ddb272f5db9329a0aed82cefd7751406044ac",
+    "poc_sha256": "50b7294bf159e3aeadd9a52beba374040dbe9a608a45f831d2d6929cd23ae394",
+    "repo": "https://github.com/CetusProtocol/integer-mate",
+    "requested_ref": "mask_era_4d09c8b",
+    "resolved_by": "git rev-parse on the local pinned worktree",
+    "revision_unresolved": null
+  },
+  "platform": "sui_move",
+  "prerequisites": [
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
+      "version": "sui 1.48.2-17a9eb8e1914"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
+      "version": "sui 1.6.3-f4a70c8-dirty"
+    },
+    {
+      "install_command": "created on first `sui move` run that resolves a git dependency",
+      "install_status": "installed",
+      "tool": "move git dependency cache (~/.move)",
+      "version": null
+    }
+  ],
+  "record_id": "move:cetus-checked-shlw",
+  "run": {
+    "argv": [
+      "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "move",
+      "test",
+      "nonevm_control_below_boundary_shifts_correctly"
+    ],
+    "cwd": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\mask_era_4d09c8b-control_below_boundary_shifts_correctly\\pkg",
+    "exit_code": 0,
+    "isolation": "isolated scratch copy of the pinned package; local Move VM only - no gateway, no faucet, no chain",
+    "run_kind": "native_test",
+    "seconds": 2.87,
+    "timeout_seconds": 280
+  },
+  "run_slug": "mask_era_4d09c8b-control_below_boundary_shifts_correctly",
+  "schema": "vlun-nonevm-run/1",
+  "status": "executed",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

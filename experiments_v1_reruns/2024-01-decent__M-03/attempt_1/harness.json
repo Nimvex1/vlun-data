@@ -1,0 +1,63 @@
+{
+  "dependency_configuration": {
+    "clone_head": "5d1962143ee566e7f9354b735bff3492b8f82761",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "decent-bridge",
+      "forge-std",
+      "forge-toolkit",
+      "solmate",
+      "swap-router-contracts",
+      "v3-core",
+      "v3-periphery"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": [
+      "solmate/tokens/ERC20.sol"
+    ]
+  },
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+  "repository": "code-423n4/2024-01-decent",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-01-decent",
+    "clone_head": "5d1962143ee566e7f9354b735bff3492b8f82761",
+    "copied": [
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "error": "copy_failed:hardhat.config.ts:FileNotFoundError",
+    "junctions": [
+      "node_modules"
+    ],
+    "scratch": "work/poc_reruns/code-423n4__2024-01-decent",
+    "scratch_entries": [
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "scratch_foundry_test_dir": null,
+    "scratch_head": null
+  }
+}

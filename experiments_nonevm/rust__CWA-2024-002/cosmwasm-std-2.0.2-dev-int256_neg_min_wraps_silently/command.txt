@@ -1,0 +1,1 @@
+cargo test --tests -- --exact tests::int256_neg_min_wraps_silently

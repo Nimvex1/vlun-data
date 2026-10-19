@@ -1,0 +1,41 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertEq(address(alice).balance, aliceETHBalanceBefore - feeAmount)",
+      "assertEq(cat.balanceOf(bob), 1)",
+      "assertEq(ERC20(src_usdc).balanceOf(address(cat)), cat.price())",
+      "assertEq(feeCollector.balance, feeAmount)",
+      "assertEq(ERC20(feeToken).balanceOf(feeCollector), feeAmount)"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `receiveFromBridge` in 2024-01-decent/src/UTB.sol",
+    "declared_test_functions": [
+      "testUTBReceiveFromBridge_SwapWethToUsdcAndMintAnNFTWithFees",
+      "testUTBReceiveFromBridge_BypassFeesAndSignature"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-decent__M-03/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "toolchain_missing",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-decent) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Expected multi-line comment-terminator.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-01-decent/M-03",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "5354799be49dcd71a40685ad08d89c590dfc10a8db3e434495926a4cc04b9dad",
+    "harness.json": "f92bc5f1175d279d0e64a73d661b9b12b0452b7c6162d1209927dc1f648d308a",
+    "stderr.txt": "ffd468d28eec4a7469b39e0217468720518b7340975748fb3248b1628004e968",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+  "recorded_at_utc": "2026-10-18T18:38:18Z",
+  "repository": "code-423n4/2024-01-decent",
+  "run_status": "compile_error"
+}

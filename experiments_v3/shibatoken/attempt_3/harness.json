@@ -1,0 +1,43 @@
+{
+  "attempt": 3,
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "compiler_version": {
+    "evm_version": "shanghai",
+    "hardfork": "backend default (today's rules)",
+    "solc_selected_by_forge": "0.8.37"
+  },
+  "dependency_lockfile": {
+    "lib/forge-std": "3353993420c6e488a2914ce02d88174e80ad80f8",
+    "lockfile_source": "git submodule status (pinned clone)"
+  },
+  "fork_block_derivation": null,
+  "fork_block_source": null,
+  "fork_target_pinned_by_poc": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "fork_target_used": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "kind": "archive_provider",
+  "overlay": null,
+  "poc": "2023-11/ShibaToken_exp.sol",
+  "poc_sha256_original": "dd42c6b5b6987f8d7abe1c18984e242c113925b8e3cb16682a5f0ba58f080aa7",
+  "remappings": {
+    "forge-std/": "lib/forge-std/src/"
+  },
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "rpc_provider": {
+    "bsc": "https://api.zan.top/bsc-mainnet"
+  },
+  "run": "shibatoken",
+  "scope_change": null,
+  "strategy_reason": "second archive provider for the pinned block",
+  "submodule_shas": {
+    "lib/forge-std": "3353993420c6e488a2914ce02d88174e80ad80f8"
+  },
+  "test_function": "test"
+}

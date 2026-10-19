@@ -1,0 +1,58 @@
+{
+  "dependency_configuration": {
+    "clone_head": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+    "clone_present": true,
+    "declared_dependency_count": 1,
+    "foundry_toml": false,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [],
+    "lockfile_available": false,
+    "node_modules_present": false,
+    "remappings_available": false,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "wrapped_fragment",
+  "import_rewrites": [
+    "wrapped 1 test function(s) into contract VlunReconstructedHarness"
+  ],
+  "libs": true,
+  "node_modules_junction": false,
+  "overlay_path": "test/vlun_poc/2024-01-renft__M-08.t.sol",
+  "overlay_sha256": "758e20ff4cd820c071efc69810d25175e88c4b3f156a54fa40febd44f02d4b21",
+  "patch_reference": {
+    "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+    "fixed_commit_note": "",
+    "patch_available": false,
+    "patch_record_present": true,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "project_subdir": "",
+  "quoted_code_sha256": "8883f760e925777e9951d7e4d355d7f75b2f1685a3b9ac905d0378972f34c7b9",
+  "remappings": false,
+  "repository": "code-423n4/2024-01-renft",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-01-renft",
+    "clone_head": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+    "copied": [],
+    "error": null,
+    "junctions": [],
+    "revision_substitution": {
+      "override": "the dataset's pinned commit is the Code4rena wrapper repo; the contracts and the reporter's harness live in the smart-contracts submodule at 3ddd3245",
+      "override_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+      "tree": "work/wt/renft-smart"
+    },
+    "scratch": "work/poc_reruns/code-423n4__2024-01-renft",
+    "scratch_entries": [
+      "foundry.toml",
+      "lib",
+      "src",
+      "test"
+    ],
+    "scratch_foundry_test_dir": "test",
+    "scratch_head": null,
+    "scratch_project_subdir": "",
+    "source_tree": "work/wt/renft-smart"
+  }
+}

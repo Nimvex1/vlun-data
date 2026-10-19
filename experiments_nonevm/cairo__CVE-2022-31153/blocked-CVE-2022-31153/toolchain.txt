@@ -1,0 +1,42 @@
+{
+  "prerequisites": [
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+      "tool": "scarb (Cairo/Starknet)",
+      "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
+    },
+    {
+      "install_command": null,
+      "install_status": "installed",
+      "note": "unused for these revisions: snforge 0.44 pairs with a newer scarb/snforge_std than the pinned tags declare",
+      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
+      "tool": "snforge (starknet-foundry)",
+      "version": "snforge 0.44.0"
+    },
+    {
+      "blocking": true,
+      "install_command": "cargo install universal-sierra-compiler",
+      "install_status": "missing",
+      "note": "without it snforge refuses to run, and scarb cairo-test no longer accepts #[test] - see the control run's blocker",
+      "tool": "universal-sierra-compiler (required by snforge)",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh -s -- -v 2.7.2",
+      "install_status": "missing",
+      "note": "required to build the pinned v0.2/v0.6/v0.15 trees; the pilot does not install toolchain software",
+      "tool": "era-matching scarb for cairo-version 2.7.0",
+      "version": null
+    }
+  ],
+  "toolchain": {
+    "cairo_version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3",
+    "native_command": "scarb cairo-test -p <package>",
+    "scarb_path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+    "tool": "scarb",
+    "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
+  }
+}

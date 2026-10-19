@@ -1,0 +1,1 @@
+forge test --match-test test_exploit -vv --hardfork cancun   # cwd: isolated forge project (foundry.toml in harness.json)

@@ -1,0 +1,15 @@
+{
+  "expected": {
+    "test_status": "failed",
+    "why": "2.0.2 is declared_patched; overflow-checks off"
+  },
+  "kind": "named_test",
+  "met": true,
+  "name": "tests::uint128_pow_overflow_wraps_silently",
+  "not_just_exit_code": true,
+  "observed": {
+    "suite_summary": "test result: FAILED. 0 passed; 1 failed",
+    "test_status": "failed"
+  },
+  "statement": "Uint128::pow with an overflowing exponent returns a wrapped value (the advisory scopes this to builds without overflow-checks)"
+}

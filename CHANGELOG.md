@@ -1,5 +1,119 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — global integrity roll-up (2026-10-19, unreleased)
+
+- **Two roll-ups added.** `reports/remediation_before_after.{md,json}` states, per spec
+  item, what the number was before and after and which claims were *retracted instead of
+  fixed* — the 331-negative conflation, "corroborated duplicate = false positive", "every
+  withheld citation keeps a sha256", METADATA_ONLY read as legal clearance,
+  "contamination-proof", the intra-contract 71 label, and the null `forge_reason`.
+  `reports/quarantine_report.{md,json}` collects the 11 groups that did not survive
+  verification rather than leaving them scattered: split quarantine 2/2/63, V4 duplicates 2,
+  extraction errors 36, PoC re-run blockers 56, V3.2 recovery blockers 9, non-EVM blockers
+  27, inconclusive experiments 2, and 12,416 withheld pointers.
+- **14 more freshness gates** are now in `scripts/run_gates.py`
+  (`rejection-corpus-current`, `negative-stats-current`, `rejection-consistency`,
+  `prove-split-current`, `rights-consistency`, `v4-licensing-current` plus the 8 layer
+  gates listed above and `quarantine-report-current`). Generated reports can no longer be
+  hand-edited without a gate going red.
+- **Reproducibility gap closed.** `reports/v3/validation_v31.json` used to embed a live
+  `git status` snapshot, so the committed gate artefact differed per checkout. The snapshot
+  moved to the git-ignored `reports/v3/validation_v31_worktree.json`, and the writer now
+  emits `ensure_ascii=False` so the file equals the canonical redump
+  `check_reproducibility.py` §7a compares against. The committed report is byte-stable.
+- **Attempt-recording test corrected.** `test_attempts_never_write_at_the_run_root` asserted
+  an untracked-only worktree, which stopped being meaningful once the attempt dirs were
+  staged. It now accepts an addition in either state (`??` or `A `) and adds a
+  `git diff --name-status HEAD` guard that rejects any modified, deleted or renamed tracked
+  artefact under `experiments_v3/` — the invariant it always claimed to test.
+- **Local tooling caches excluded.** `graphify-out/` and `.opencode/` were git-ignored; they
+  had injected 388 non-dataset files into the JSON catalog. Catalog now covers 759 files.
+- **Verification run at this checkpoint.** `python scripts/run_gates.py`: 41 gates, 41 pass,
+  0 fail, 0 skipped, exit 0. `python -m unittest discover -s tests -t .`: 390 tests, OK.
+  `python scripts/check_reproducibility.py`: 19 checks, 17 pass, 0 fail, 2 skipped
+  (`skipped_no_network`: pin resolution and the network build stages — recorded as skipped,
+  never as success).
+
+- **Two pipeline defects found by running the whole build, both now guarded.**
+  `build_all.py` re-runs every generator, and that surfaced what per-layer freshness
+  gates cannot see:
+  * `check_leakage.py --emit splits_v2` is **not idempotent**. Against splits that were
+    already post-processed it measures 0 near-duplicate and 0 semantic cross-split pairs,
+    so its next emit would replace the 63-row `splits_v2/quarantine.jsonl` with an empty
+    file (`sha d2f25d75… -> e3b0c442…`, measured 2026-10-19). The published quarantine is
+    reproducible only from pre-emit splits.
+  * `benchmark/manifest.json` is written by two builders in sequence; the A-J pass rebuilt
+    the dict from scratch and deleted the K-Q entries, and because retired entries were
+    carried only from that same file the retirement bookkeeping could not be recovered —
+    six retired families disappeared on the second full build.
+  Fixes: the A-J builder now carries entries it does not build
+  (`vlun.carry_foreign_task_entries`) and both builders **raise** rather than silently
+  drop a retired entry; `build_all.py` snapshots the published split/derived layers before
+  each stage, restores any layer a stage rewrote, records it in
+  `build_all.json:canonical_layer_rewrites_blocked` and exits 1, with
+  `--allow-canonical-rewrite` as the explicit migration path.
+  `tests/test_canonical_layer_guard.py` (9 tests) fails on the old behaviour — including
+  the case where the guard only logs the rewrite instead of restoring the bytes. Verified:
+  the two benchmark builders now reproduce `benchmark/manifest.json` byte-identically with
+  all 17 families present.
+
+## Remediation — execution density, new layers and held-out proof (items 6, 7, 9–11, 14, 16; 2026-10-19, unreleased)
+
+- **Item 6, execution density.** `derived_poc_queue/triage_queue.jsonl` queues every
+  exploit candidate by layer (155 v1/v2.1 records, 891 V3.1 PoC-bearing rows, reported
+  separately rather than summed); 8 of the 155 are eligible under the current standard and
+  27 were attempted, producing 56 recorded runs from 45 distinct sandboxed invocations
+  (41 compile failures, 13 blocked, 1 inconclusive, 1 claim reproduced, 0 executed without
+  impact). L6 awarded by this campaign: 0 — no fixed-revision leg was executed. The 500+
+  stretch is reported as missed with the per-record blocker that caused it, not closed by
+  relabelling; `reports/poc_execution_density.json` keeps unique records and total runs as
+  two separate numbers.
+- **Item 7, blocked-run recovery.** 9 new attempts across the 4 blocked V3.2 runs. Prisma
+  reached L4 by forking the block before the attack transaction instead of replaying the
+  historical transaction (the EIP-7623 gas floor is a rule change, and the attempt says so);
+  gamma's blocker was corrected from `archive_state_unavailable` to a PoC that reverts on a
+  fork whose archive state **is** served; the two BSC runs stay blocked on pruned 2021/2023
+  state. Every attempt records provider, fork block, hardfork, solc, remappings, submodule
+  SHA, log hashes, `scope_change` and `impact_check`. No canonical level was promoted by the
+  recording script.
+- **Item 9, non-EVM pilot.** `scripts/nonevm/` adds 5 platform adapters; 30 non-EVM
+  candidates produced 76 runs, 49 executed against a named assertion, 11 reproduced their
+  claim and 2 records reached the L6 ceiling (CosmWasm `Uint*_pow`/`Int256::MIN` wrap
+  reproduced on the affected pins, blocked on the fixed pins, with 8 recorded cases where
+  the advisory's own "regardless of overflow-checks" wording does not hold). Aptos and
+  Solana/Anchor report `toolchain_missing` with the exact install command rather than
+  pretending to run. `reports/nonevm_landscape.md` compares against PoPoC, PoCo, EVMbench
+  and SB-Curated and does **not** claim a unique multi-VM executed corpus.
+- **Item 10, evidence-span scoring.** `reports/evidence_span_audit.json` counts the V3.1
+  preview (12,504 rows): 7,037 carry a resolvable span, 1,807 a page/line pointer, 12,504 a
+  verified source ref, and only 1,074 spans can be hash-verified from pinned bytes — so
+  11,430 tasks expect abstention. `derived_span_tasks/` is an open-key scorer (the manifest
+  says so and why), answer/exactness/support/abstention are scored on separate axes, and the
+  published scores are mechanical baselines, explicitly not a model result.
+- **Item 11, API-sibling tasks.** 229 cross-repository sibling call-site pairs were built
+  from the pinned sources and re-read by an independent reviewer, admitting 221 tasks and
+  8 hard negatives with group-aware splits; 6 shared pinned files straddle splits and are
+  disclosed rather than claimed away. Fixing this also exposed a reviewer bug: it compared a
+  recorded *function declaration* line against the *call-site* line, which rejected every
+  honest pair; the check now verifies the declaration line and the enclosing body range.
+- **Item 16, root-cause taxonomy.** `taxonomy/root_cause_v1.jsonl` is a versioned
+  project-local closed vocabulary of 31 entries (23 assignable leaves) built by adjudicating
+  the 40 candidates — merges, splits and rejected labels are logged; 418 records assigned,
+  98 left unlabelled, evidence-level floors per leaf. The brief's SWC registry URL 404s, so
+  the mapping was frozen against the registry snapshot the gate checks and 5 leaves are
+  explicit `no_map`. It is not described as a community standard.
+- **Item 14, agreement study.** `annotation/iaa_v1/` ships the protocol, the guide, a
+  seeded 300-row stratified sample and three blank templates. `reports/iaa_status.json`
+  reports `measured: false`: no human annotations exist, none were invented, and the
+  statistics module refuses to emit a number without two distinct human annotator ids, so
+  LLM self-consistency cannot be reported as inter-annotator agreement.
+- New gates: `poc-triage-current`, `poc-attempts-current`, `v32-attempts-current`,
+  `span-audit-current`, `span-tasks-current`, `span-scoring-current`, `taxonomy-current`,
+  `root-cause-assignments-current`, `iaa-sample-current`, `iaa-stats-current`,
+  `api-siblings-current`, `sibling-review-current`, `remediation-report-current`. Each
+  compares a committed artefact against a regeneration, and the new tests fail on
+  deliberately broken fixtures.
+
 ## Remediation — rights, redistribution and the V4 licence contradiction (item 5, 2026-10-19, unreleased)
 
 - `V4/licensing.json` records what each V4 source actually declares about its own

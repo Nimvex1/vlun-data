@@ -1,0 +1,3 @@
+   Compiling nonevm_cw v0.1.0 (C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main\work\nonevm\runs\cw\cosmwasm-std-1.5.4-dev)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s
+     Running unittests src\lib.rs (C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main\work\nonevm\runs\cw-target\debug\deps\nonevm_cw-60c2226f7b12c0d3.exe)

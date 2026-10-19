@@ -1,0 +1,34 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "no_assertion_in_quoted_poc",
+    "assertions": [],
+    "claimed_impact": "attacker: exploit the behaviour of `depositIntoConvexBooster` in 2024-04-noya/contracts/connectors/CurveConnector.sol",
+    "declared_test_functions": [
+      "test_CurveConvexBoosterBug"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-04-noya__M-34/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "harness_reconstruction_required",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-04-noya) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Free functions cannot have visibility.; Undeclared identifier.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-04-noya/M-34",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "205254722f64ed093a941601a73f0b75626d5c382a9abe0794f893ccd4f3bfa8",
+    "harness.json": "55561142ff68e73b53cf297f59dfc4de1f7749f6ec4f36d29be028463e75c390",
+    "stderr.txt": "57fe7661230a6a914b11531e8e4a5196c0fa39ee7a9543d04ffab60a22c00d2a",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "recorded_at_utc": "2026-10-18T18:30:19Z",
+  "repository": "code-423n4/2024-04-noya",
+  "run_status": "compile_error"
+}

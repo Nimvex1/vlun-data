@@ -1,0 +1,44 @@
+{
+  "counts": {
+    "a_resolvable_span": 7037,
+    "b_page_or_line_pointer": 1807,
+    "c_verified_source_ref": 12504,
+    "d_all_three": 1807
+  },
+  "definitions": {
+    "page_or_line_pointer": "provenance.page_hint is set OR affected_lines is set",
+    "resolvable_span": "provenance.char_span=[s,e], ints, 0<=s<e",
+    "verified_source_ref": "file_sha256 present AND pinned source_location exists under repo root AND sha256(pinned bytes)==file_sha256 AND clone_head pin present (matches validate_v31 no-invention)"
+  },
+  "expected_preview_rows": 12504,
+  "generator": "scripts/audit_evidence_spans.py",
+  "overlap_matrix": {
+    "all_three": 1807,
+    "none_of_three": 0,
+    "pointer_and_ref_no_span": 0,
+    "pointer_only": 0,
+    "source_ref_only": 5467,
+    "span_and_pointer_no_ref": 0,
+    "span_and_ref_no_pointer": 0,
+    "span_only": 5230
+  },
+  "pairwise": {
+    "a_and_b": 1807,
+    "a_and_c": 7037,
+    "b_and_c": 1807
+  },
+  "preview_layer": "derived_v3/normalized_records_preview.jsonl",
+  "preview_rows": 12504,
+  "span_byte_availability": {
+    "byte_unavailable": 7027,
+    "byte_verifiable": 10,
+    "note": "V3 sources are METADATA_ONLY (NOTICE.md). A resolvable char_span over a PDF indexes an extractor output (source_span.text_basis in despaced_copy|source_text), not the raw pinned-file bytes; the referenced bytes cannot be hash-reproduced from the PDF, so the span is marked unavailable rather than guessed.",
+    "reasons": {
+      "extractor_relative_or_binary_bytes": 7027,
+      "ok": 10
+    },
+    "resolvable_spans": 7037
+  },
+  "spec_item": "10 evidence-span citation scoring",
+  "unavailable_spans_total": 5467
+}

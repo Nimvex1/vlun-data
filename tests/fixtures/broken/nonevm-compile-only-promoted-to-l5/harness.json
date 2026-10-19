@@ -1,0 +1,10 @@
+{
+  "isolation": "local scratch",
+  "pin": {
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "run_kind": "compile_only",
+  "toolchain": {
+    "tool": "cargo"
+  }
+}

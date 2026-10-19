@@ -1,0 +1,33 @@
+{
+  "blockers_per_record_class": {
+    "char_span_not_byte_reproducible": 0,
+    "extractor_relative_span_not_byte_reproducible": 7027,
+    "multi_finding_source_no_exact_anchor": 3509,
+    "unknown_severity_no_answer": 894,
+    "unverified_source_ref": 0
+  },
+  "citation_exactness_tolerance_bytes": 0,
+  "counts": {
+    "abstain_expected": 11430,
+    "answerable": 11610,
+    "total": 12504,
+    "unavailable": 11430,
+    "verified": 1074,
+    "verified_char_span_bytes": 10,
+    "verified_source_file_full_bytes": 1064
+  },
+  "family_version": "span_tasks_v1",
+  "generator": "scripts/build_span_tasks.py",
+  "held_out": false,
+  "held_out_reason": "answer_key.jsonl is published in this layer, so the family is an open-key scorer, not a held-out set: a model could read the expected labels from the same checkout. The isolation that matters here is prompt-level (the key never enters a model-facing prompt, enforced by _leak_check at build time). The held-out split is the VLUN-Prove family, whose answer key lives outside the repository and is pinned by hash in reports/prove_split_interface.json.",
+  "inputs": {
+    "pinned_sources": "V3/clones (READ-ONLY, git-ignored, never redistributed)",
+    "preview_layer": "derived_v3/normalized_records_preview.jsonl"
+  },
+  "leak_guard": "model-facing tasks.jsonl is checked (in build) to exclude expected labels, span offsets and hashes.",
+  "rights": "V3 sources METADATA_ONLY (NOTICE.md): offsets+hashes only, no span text copied.",
+  "separation": "answer correctness / citation existence / citation exactness / span support / abstention graded INDEPENDENTLY by scripts/score_span_tasks.py.",
+  "span_support": "graded by re-reading the PINNED source at the CITED byte bounds and comparing sha256 to expected span_sha256 -- verified against the source, never against the model's own quote.",
+  "spec_item": "10 evidence-span citation scoring",
+  "tolerance_note": "citation_exactness: |cited-start-expected-start| <=T and |cited-end-expected-end| <=T with T=0 here; documented so graders and callers agree."
+}

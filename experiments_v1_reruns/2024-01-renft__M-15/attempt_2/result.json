@@ -1,0 +1,42 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "expectRevert( abi.encodeWithSelector( Errors.PaymentEscrowModule_PaymentTransferFailed.selector, address(erc20s[0]), bob.addr, 100 ) )",
+      "assertEq(STORE.orders(payRentalOrderHash), true)",
+      "assertEq(STORE.isRentedOut(address(bob.safe), address(erc721s[0]), 0), true)",
+      "assertEq(erc721s[0].ownerOf(0), address(bob.safe))",
+      "assertEq(erc20s[0].balanceOf(alice.addr), uint256(9900))",
+      "assertEq(erc20s[0].balanceOf(bob.addr), uint256(10000))",
+      "assertEq(erc20s[0].balanceOf(address(ESCRW)), uint256(100))"
+    ],
+    "claimed_impact": "Anyone who is blocklisted by a ERC20 contract can grief any lender of a PAY order lending offer that offers this ERC20 as payment of their rental NFT.",
+    "declared_test_functions": [
+      "test_StopRent_PayOrder_InFull_StoppedByLender_RenterBlocklisted"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-renft__M-15/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "fixture_missing",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Identifier not found or not unique.; Undeclared identifier.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-01-renft/M-15",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "2212135f5d6503efe1eb3e8b373a6519f81e667e045ee18284dfbb06798108c4",
+    "harness.json": "e2a664a7d7e380ef3348a1438d42ab87262783e3281f993e6509c36e10436996",
+    "stderr.txt": "cffc89d76e0b5e40e90fe16a65f487cead67c1dd30308a4e1e79c883f28bf726",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "recorded_at_utc": "2026-10-18T18:37:35Z",
+  "repository": "code-423n4/2024-01-renft",
+  "run_status": "compile_error"
+}

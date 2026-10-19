@@ -1,0 +1,30 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "no_assertion_in_quoted_poc",
+    "assertions": [],
+    "claimed_impact": "For example, the following projects all have a `burn` function, and Safe's protected by `Guard.sol` that hold these NFTs will be vulnerable to loss of assets via a malicious renter:",
+    "declared_test_functions": [
+      "test_PoC"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-renft__M-08/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "toolchain_missing",
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "detail": "scratch assembly failed: None",
+  "evidence_level_supported": null,
+  "finding_id": "2024-01-renft/M-08",
+  "outcome": "blocked",
+  "output_sha256": {
+    "command.txt": "19fac9f213f24288e60429a09d3434f567fbab1986cb58a287291658efe02ac5",
+    "harness.json": "d7ceeb06c668a6701680eb3dccf62d4f247372d805efe42a938308f8da28ad97",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "recorded_at_utc": "2026-10-18T18:30:03Z",
+  "repository": "code-423n4/2024-01-renft",
+  "run_status": "not_run"
+}

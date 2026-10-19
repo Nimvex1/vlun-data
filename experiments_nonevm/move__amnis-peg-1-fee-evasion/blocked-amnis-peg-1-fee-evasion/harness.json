@@ -1,0 +1,19 @@
+{
+  "isolation": "no isolation needed: the runner never started",
+  "pin": {
+    "commit": null,
+    "package": "sources/pegging.move",
+    "repo": "https://github.com/tony001242/amnis-contract",
+    "requested_ref": "08239f04ca136224a2f563b4ff63d0469d00c106 / 7eb9708b22d67dd9e6e57f3ea4891d1f35cc17f1 (audit scope)",
+    "revision_unresolved": null
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+    "install_status": "missing",
+    "native_command": "aptos move test",
+    "tool": "aptos-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

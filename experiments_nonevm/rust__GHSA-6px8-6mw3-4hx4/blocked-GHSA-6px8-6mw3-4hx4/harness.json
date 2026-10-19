@@ -1,0 +1,21 @@
+{
+  "isolation": "no isolation needed: the runner never started; a real run would use a local validator, never a live cluster",
+  "pin": {
+    "commit": null,
+    "component": "lang/src/accounts/lazy_account.rs - LazyAccount::unload()",
+    "crate": "anchor-lang",
+    "repo": "https://github.com/coral-xyz/anchor",
+    "requested_ref": "v1.1.2 with feature lazy-account (confirmed by the report); no patched release published",
+    "revision_unresolved": null
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest ; sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+    "install_status": "missing",
+    "native_command": "anchor test",
+    "solana_version": "EXEC_FAILED [WinError 2] The system cannot find the file specified",
+    "tool": "anchor-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

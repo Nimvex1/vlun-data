@@ -1,0 +1,19 @@
+{
+  "isolation": "no isolation needed: the runner never started",
+  "pin": {
+    "commit": null,
+    "package": "language/tools/move-bytecode-verifier (Rust)",
+    "repo": "https://github.com/move-language/move",
+    "requested_ref": "1fa4ed20daaef28b47fe2c5a8d8f63b64523e16d",
+    "revision_unresolved": null
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+    "install_status": "missing",
+    "native_command": "aptos move test",
+    "tool": "aptos-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

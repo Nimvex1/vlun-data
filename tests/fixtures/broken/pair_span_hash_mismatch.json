@@ -1,0 +1,221 @@
+{
+ "_broken": "recorded span no longer hashes to, nor points at, the pinned source bytes",
+ "_fixture_note": "Deliberately broken fixture for tests/test_api_siblings.py: derived from a real layer record and corrupted in exactly the named way. It must be REJECTED by the shared validators.",
+ "api": "balanceOf",
+ "dataset_version": "2.2",
+ "family": "api_sibling_call_site",
+ "generated_by": "scripts/review_sibling_pairs.py",
+ "pair_id": "SIB::00e383102ac1ab9b6722",
+ "pair_type": "cross_repository_api_sibling_call_site",
+ "project": {
+  "reference": {
+   "project": "2025-06-panoptic",
+   "read_from": "clone_head_read_only",
+   "repo": "code-423n4/2025-06-panoptic"
+  },
+  "vulnerable": {
+   "audit_repository": "2022-05-alchemix",
+   "project": "2022-05-alchemix",
+   "repo": "Code4rena/2022-05-alchemix",
+   "repository_url": "https://github.com/code-423n4/2022-05-alchemix"
+  }
+ },
+ "property": "externally_influenced_balance_as_source",
+ "property_note": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable",
+ "rationale": {
+  "contrast_rule": "same API symbol and same property in two repositories; the reference site carries the handling the vulnerable site omits",
+  "evidence_type": "derived_fact",
+  "rule_source": "scripts/build_api_siblings.py:classify_forms",
+  "why_reference_is_correct": "the same symbol is read against an account the caller does not steer AND cross-checked against another quantity in the same statement, so a third-party transfer cannot move the value that is used -- observed at the reference site: `token0.balanceOf` at src/accountants/PanopticVaultAccountant.sol#computeNAV line 201 reads the self account=False; argument=`_vault`",
+  "why_vulnerable": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable -- this is the risky form: `threePoolToken.balanceOf` at code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol#_mintThreePoolTokens line 796 reads the self account=True; argument=`address(this)`"
+ },
+ "record_type": "api_sibling_task",
+ "review": {
+  "checks_passed": [
+   "contrast",
+   "cross_repository",
+   "reference_form",
+   "reference_span",
+   "root_cause_present",
+   "vulnerable_form",
+   "vulnerable_span"
+  ],
+  "review_version": "sibling-review-1",
+  "reviewed_by": "scripts/review_sibling_pairs.py",
+  "verdict": "agree"
+ },
+ "revisions": {
+  "fixed_revision": "unavailable",
+  "fixed_revision_state": "unavailable_in_the_canonical_layer",
+  "reference_fixed_revision": "unavailable",
+  "reference_revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+  "reference_revision_kind": "clone_head_read_only",
+  "vulnerable_revision": "de65c34c7b6e4e94662bf508e214dcbf327984f4",
+  "vulnerable_revision_kind": "record_pinned_citation"
+ },
+ "rights": {
+  "decision": "citations_and_spans_only__no_source_text_redistributed",
+  "expressive_text_redistributed": false,
+  "reference_license_class": "unknown",
+  "reference_license_evidence": {
+   "first_line": null,
+   "license_class": "unknown",
+   "path": null,
+   "read_from": "clone HEAD (read-only); no LICENSE file present",
+   "revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+   "sha256": null
+  },
+  "vulnerable_license_class": "unknown",
+  "vulnerable_license_note": "licence class of the cited repository at the pinned commit, from scripts/local_sources.py::classify_record_code; see NOTICE.md"
+ },
+ "root_cause": {
+  "evidence_type": "reported_claim",
+  "record_id": "2022-05-alchemix/M-06",
+  "record_sha256": "5e094e265d2f6995e20e79d9d430e0bc0292f73ad66e98e12ce66bd27cb4dd29",
+  "source_field": "security_reasoning.broken_behavior",
+  "value": "Both contracts treat meta assets as if they have fixed decimals of 18. Minting logic breaks when it's not the case. However, meta tokens decimals aren't controlled.",
+  "vulnerability_classes": [
+   "Accounting / Financial Logic/asset/share mismatch",
+   "DeFi/slippage failure",
+   "DeFi/AMM logic",
+   "Cross-Contract / Protocol Architecture/inconsistent state"
+  ]
+ },
+ "spans": {
+  "reference": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    6741,
+    6747
+   ],
+   "byte_end": 6741,
+   "byte_start": 6724,
+   "call_line": 201,
+   "char_end": 6741,
+   "char_start": 6724,
+   "file": "src/accountants/PanopticVaultAccountant.sol",
+   "file_sha256": "0acce6476a5f38f7335b767bbdcef3aa4b043465ccc9bd5a5edd58727998aa63",
+   "form": "controlled",
+   "function": "computeNAV",
+   "function_decl_line": 94,
+   "mechanical_features": {
+    "arg0": "_vault",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     6741,
+     6747
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "_vault",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "computeNAV",
+    "equality_comparison_in_statement": true,
+    "function_body_range": [
+     2397,
+     9088
+    ],
+    "function_decl_line": 94,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": false,
+    "receiver": "token0",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     6468,
+     6750
+    ],
+    "statement_shape_sha256": "2961891a93e312495c76a91f7b5928662fda6ec51a002fb55426f56c17f91342",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "code-423n4/2025-06-panoptic",
+   "project": "2025-06-panoptic",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+   "revision_kind": "clone_head_read_only",
+   "side": "reference",
+   "source_bytes_sha256": "5c2e6750ae0d8d9470605d398aa7f9fa261bbdc7c9968e449bc37b752b9fd196",
+   "source_text_included": false,
+   "span_sha256": "4015dd1eece209473e78992c3a6c532c6df6369c356d120fc02b80ac373ca215",
+   "statement_char_range": [
+    6468,
+    6750
+   ],
+   "statement_shape_sha256": "2961891a93e312495c76a91f7b5928662fda6ec51a002fb55426f56c17f91342"
+  },
+  "vulnerable": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    19048,
+    19061
+   ],
+   "byte_end": 19048,
+   "byte_start": 19023,
+   "call_line": 796,
+   "char_end": 19085,
+   "char_start": 19060,
+   "file": "code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol",
+   "file_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+   "form": "risky",
+   "function": "_mintThreePoolTokens",
+   "function_decl_line": 763,
+   "mechanical_features": {
+    "arg0": "address(this)",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     19048,
+     19061
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "address(this)",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "_mintThreePoolTokens",
+    "equality_comparison_in_statement": false,
+    "function_body_range": [
+     17934,
+     19279
+    ],
+    "function_decl_line": 763,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": true,
+    "receiver": "threePoolToken",
+    "result_enforced_in_statement": false,
+    "statement_char_range": [
+     18967,
+     19063
+    ],
+    "statement_shape_sha256": "c564bede344fff1290d766e921a1e6895f66162e45a8c839bf56e98072946584",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "Code4rena/2022-05-alchemix",
+   "project": "2022-05-alchemix",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "de65c34c7b6e4e94662bf508e214dcbf327984f4",
+   "revision_kind": "record_pinned_citation",
+   "side": "vulnerable",
+   "source_bytes_sha256": "443b0688789f01aea91078bb70444cd341813a4f95f1959b5e49459d30647738",
+   "source_text_included": false,
+   "span_sha256": "ec8bce7f6c2522b2640f2ef1cd44afc168bbe0d3b16eddd900e8e886b7f044dd",
+   "statement_char_range": [
+    18967,
+    19063
+   ],
+   "statement_shape_sha256": "c564bede344fff1290d766e921a1e6895f66162e45a8c839bf56e98072946584"
+  }
+ },
+ "task_id": "SIBTASK::BROKENHASH0000000000"
+}

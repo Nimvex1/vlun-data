@@ -1,0 +1,40 @@
+{
+  "prerequisites": [
+    {
+      "blocking": true,
+      "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest",
+      "install_status": "missing",
+      "tool": "anchor-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+      "install_status": "missing",
+      "tool": "solana-cli (incl. solana-test-validator)",
+      "version": null
+    },
+    {
+      "blocking": false,
+      "install_command": null,
+      "install_status": "installed",
+      "note": "present, and enough for a crate-level harness, but not for `anchor test`, which needs a BPF build and a local validator",
+      "tool": "cargo",
+      "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+    },
+    {
+      "blocking": false,
+      "install_status": "not_used",
+      "note": "no key material, faucet claim or cluster RPC is used by this adapter; the pilot never touches a live network",
+      "tool": "cryptography tooling note"
+    }
+  ],
+  "toolchain": {
+    "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest ; sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+    "install_status": "missing",
+    "native_command": "anchor test",
+    "solana_version": "EXEC_FAILED [WinError 2] The system cannot find the file specified",
+    "tool": "anchor-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

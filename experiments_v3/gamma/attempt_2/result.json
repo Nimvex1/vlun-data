@@ -1,0 +1,73 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+    "harness.json": "6a8c668b286d18ce5537a95e1b01069aa1d60e56faf7d6a6755e234adc6d5686",
+    "stderr.txt": "d0d7f3fded67bf2fa1c70273da745e3c731053711b23bab2af5882a6449fd1d9",
+    "stdout.txt": "09a0dcd6127f3c9b866065cf628c1be13e0c25fc45219a4694b1b7a2cecf8cbd",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 2,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: EvmError: Revert] testExploit() (block: 166873291) (gas: 124775)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "poc_reverted_on_pinned_fork",
+  "finding_id": "defihacklabs:2024-01/Gamma_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "arbitrum",
+    "kind": "block",
+    "value": 166873291
+  },
+  "fork_target_used": {
+    "alias": "arbitrum",
+    "kind": "block",
+    "value": 166873291
+  },
+  "hardfork": "backend default (today's rules)",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "@KeyInfo - Total Lost : ~$6.3m",
+      "Attacker : 0x5351536145610aa448a8bf85ba97c71caf31909c",
+      "Attack Tx : https://arbiscan.io/tx/0x025cf2858723369d606ee3abbc4ec01eab064a97cc9ec578bf91c6908679be75"
+    ],
+    "console_log_lines": [
+      "\"Earned %s ETH\", (address(this"
+    ]
+  },
+  "kind": "archive_provider",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [],
+  "poc_bytes_modified": false,
+  "profit_deltas": [],
+  "provider": "https://arb-pokt.nodies.app",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "gamma",
+  "scope_change": null,
+  "seconds": null,
+  "self_validation": [],
+  "status": "test_failed",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 1,
+    "test_function": "testExploit"
+  },
+  "test_rc": 1
+}

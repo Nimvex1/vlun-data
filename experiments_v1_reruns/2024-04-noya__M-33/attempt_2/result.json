@@ -1,0 +1,34 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "no_assertion_in_quoted_poc",
+    "assertions": [],
+    "claimed_impact": "attacker: Deposit 10e18 ETH as collateral; attacker: Borrow 1e18 Frax; attacker: Wait for 1 day; attacker: Try to repay, but fail due to `ERC20: transfer amount exceeds allowance`.",
+    "declared_test_functions": [
+      "testFraxRepayApproveNotEnough"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-04-noya__M-33/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "harness_reconstruction_required",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-04-noya) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Undeclared identifier.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-04-noya/M-33",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "205254722f64ed093a941601a73f0b75626d5c382a9abe0794f893ccd4f3bfa8",
+    "harness.json": "f2d6b56c48398fa7045a44c427ac8e2b592329ec6fc3f340978a5d6c3364fd35",
+    "stderr.txt": "75cbda9ffe7d228b2bb7de4216473de7072938d25dc5181c3d2c8157f05b5d8f",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "recorded_at_utc": "2026-10-18T18:39:10Z",
+  "repository": "code-423n4/2024-04-noya",
+  "run_status": "compile_error"
+}

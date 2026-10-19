@@ -1,0 +1,735 @@
+Compiling 22 files with Solc 0.8.37
+Solc 0.8.37 finished in 649.46ms
+Compiler run successful with warnings:
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:5:1:
+  |
+5 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdAssertions.sol:3:1:
+  |
+3 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdCheats.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/interfaces/IMulticall3.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdInvariant.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdJson.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdToml.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/StdUtils.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8506): Experimental pragma ABIEncoderV2 is deprecated and will be removed in a future release.
+ --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Test.sol:4:1:
+  |
+4 | pragma experimental ABIEncoderV2;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> src/test/basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> src/test/basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> C:/Users/jeet/Downloads/vlun-data-main/vlun-data-main/V3/clones/defihacklabs/lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/test/2024-01/Gamma_exp.sol:67:9:
+   |
+67 |         uint256 v2 = I(usdt).balanceOf(address(this)) - 3_001_500_000_000;
+   |         ^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/test/2024-01/Gamma_exp.sol:61:49:
+   |
+61 |     function uniswapV3FlashCallback(uint256 v1, uint256 v2, bytes memory) public {
+   |                                                 ^^^^^^^^^^
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:33:9
+   │
+33 │         vm.createSelectFork("arbitrum", 166_873_291);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:38:9
+   │
+38 │         I(usdt).approve(usdt_usdce_pool, type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:39:9
+   │
+39 │         I(usdce).approve(usdt_usdce_pool, type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:45:13
+   │
+45 │             int256(I(usdce).balanceOf(address(this))),
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:71:9
+   │
+71 │         I(usdt).transfer(weth_usdt_pool, 3_001_500_000_000);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:75:9
+   │
+75 │         I(usdce).transfer(weth_usdce_pool, uint256(amount1Delta));
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:75:44
+   │
+75 │         I(usdce).transfer(weth_usdce_pool, uint256(amount1Delta));
+   │                                            ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:80:13
+   │
+80 │             I(usdt).transfer(algebra_pool, uint256(amount0Delta));
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:80:44
+   │
+80 │             I(usdt).transfer(algebra_pool, uint256(amount0Delta));
+   │                                            ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2024-01/Gamma_exp.sol:82:13
+   │
+82 │             I(usdce).transfer(algebra_pool, uint256(amount1Delta));
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:82:45
+   │
+82 │             I(usdce).transfer(algebra_pool, uint256(amount1Delta));
+   │                                             ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/test/basetest.sol:80:9
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/test/basetest.sol:80:44
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/test/basetest.sol:123:9
+    │
+123 │         emit log_string(string(abi.encodePacked("=== ", label, " ===")));
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:62
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:57:35
+   │
+57 │         I.GlobalState memory gs = I(algebra_pool).globalState();
+   │                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:13
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:60
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:92
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:101:27
+    │
+101 │             uint256 val = I(uniproxy).deposit(1, 300_000_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │                           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/test/tokenhelper.sol:12:9
+   │
+12 │         require(success, "Failed to call token function");
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:103:13
+    │
+103 │             I(usdt_usdce_pool).withdraw(val, address(this), address(this), empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:108:24
+    │
+108 │                 int256(I(usdce).balanceOf(address(this))),
+    │                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:105:13
+    │
+105 │ ┏             I(algebra_pool).swap(
+106 │ ┃                 address(this),
+107 │ ┃                 false,
+108 │ ┃                 int256(I(usdce).balanceOf(address(this))),
+109 │ ┃                 83_949_998_135_706_271_822_084_553_181,
+110 │ ┃                 ""
+111 │ ┃             );
+    │ ┗━━━━━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+    ╭▸ src/test/2024-01/Gamma_exp.sol:112:13
+    │
+112 │             I(uniproxy).deposit(1, 1_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/test/2024-01/Gamma_exp.sol:99:55
+   │
+99 │             I(algebra_pool).swap(address(this), true, int256(I(usdt).balanceOf(address(this))), calculatePrice(), "");
+   │                                                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/test/2024-01/Gamma_exp.sol:108:17
+    │
+108 │                 int256(I(usdce).balanceOf(address(this))),
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-01/Gamma_exp.sol:112:13
+    │
+112 │             I(uniproxy).deposit(1, 1_000_000, address(this), usdt_usdce_pool, empty_arr);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/test/2024-01/Gamma_exp.sol:115:35
+    │
+115 │             address(this), true, -int256(amounts[0] - I(usdce).balanceOf(address(this))), calculatePrice(), ""
+    │                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/test/2024-01/Gamma_exp.sol:118:9
+    │
+118 │         I(usdce).transfer(balancer, amounts[0]);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+
+=== forge test ===
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2024-01/Gamma_exp.sol:ContractTest
+[FAIL: EvmError: Revert] testExploit() (block: 166873291) (gas: 124775)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 54.99s (52.73s CPU time)
+
+Ran 1 test suite in 55.00s (54.99s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in src/test/2024-01/Gamma_exp.sol:ContractTest
+[FAIL: EvmError: Revert] testExploit() (block: 166873291) (gas: 124775)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

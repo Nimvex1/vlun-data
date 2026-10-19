@@ -1,0 +1,26 @@
+{
+  "prerequisites": [
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "tool": "aptos-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "note": "the Sui Move compiler already in work/tools cannot be substituted: the packages import aptos_framework / std::vector with the Aptos VM's signature and dependency layout",
+      "tool": "aptos move test (local Move VM)",
+      "version": null
+    }
+  ],
+  "toolchain": {
+    "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+    "install_status": "missing",
+    "native_command": "aptos move test",
+    "tool": "aptos-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

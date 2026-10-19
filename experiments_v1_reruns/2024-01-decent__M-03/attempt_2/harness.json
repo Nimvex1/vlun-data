@@ -1,0 +1,88 @@
+{
+  "dependency_configuration": {
+    "clone_head": "5d1962143ee566e7f9354b735bff3492b8f82761",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "decent-bridge",
+      "forge-std",
+      "forge-toolkit",
+      "solmate",
+      "swap-router-contracts",
+      "v3-core",
+      "v3-periphery"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": [
+      "solmate/tokens/ERC20.sol"
+    ]
+  },
+  "foundry_toml": true,
+  "harness_mode": "quoted_full_file",
+  "import_rewrites": [
+    "import {XChainExactOutFixture} from \"./helpers/XChainExactOutFixture.sol\" -> import {XChainExactOutFixture} from \"..//helpers/XChainExactOutFixture.sol\""
+  ],
+  "libs": true,
+  "node_modules_junction": true,
+  "overlay_path": "test/vlun_poc/2024-01-decent__M-03.t.sol",
+  "overlay_sha256": "09800ff4dfee377c061204f535ba90edeb9c2d5d6839408b0685517a561c7b59",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+  "project_subdir": "",
+  "quoted_code_sha256": "f799897d55714ee79acfbca799831ad5cfb36476955da588f730909667c0337b",
+  "remappings": true,
+  "repository": "code-423n4/2024-01-decent",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-01-decent",
+    "clone_head": "5d1962143ee566e7f9354b735bff3492b8f82761",
+    "copied": [
+      "Makefile",
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "error": null,
+    "junctions": [
+      "node_modules"
+    ],
+    "revision_substitution": {
+      "override": null,
+      "override_commit": null,
+      "tree": "work/repos/code-423n4__2024-01-decent"
+    },
+    "scratch": "work/poc_reruns/code-423n4__2024-01-decent",
+    "scratch_entries": [
+      "Makefile",
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "scratch_foundry_test_dir": "test",
+    "scratch_head": null,
+    "scratch_project_subdir": "",
+    "source_tree": "work/repos/code-423n4__2024-01-decent"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "isolation": "would be an isolated local cargo/chain-sandbox run",
+  "pin": {
+    "commit": null,
+    "requested_ref": "wasmvm <=v3.0.7, <=v2.3.4, <=v2.2.8; wasmd <=v0.70.3, <=v0.61.14, <=v0.60.8, <=v0.54.9",
+    "revision_unresolved": "build_time_exceeds_pilot_budget: the claim is about the Wasmer Singlepass compiler embedded in wasmvm; it needs a cgo wasmvm build (Wasmer plus a Go host) before any assertion can run"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "cargo test",
+    "runtime": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+    "tool": "cargo",
+    "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+  }
+}

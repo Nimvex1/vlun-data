@@ -1,0 +1,109 @@
+{
+  "artefacts": {
+    "assertion.json": {
+      "bytes": 190,
+      "sha256": "4a1d878a73f61b60ea9b43f7f169e0b7edda84f47ab0442e5c25613bd672635e"
+    },
+    "command.txt": {
+      "bytes": 12,
+      "sha256": "b6f65dbfefdee711bcd5a011e031a8795ae8cc93481e7a9dd758fbd0541cb7cd"
+    },
+    "harness.json": {
+      "bytes": 1091,
+      "sha256": "316030260e324cd20097e0c1654c73507657583c75a42c21ff48703da8fe4c8c"
+    },
+    "stderr.txt": {
+      "bytes": 133,
+      "sha256": "c51af1680a9bc966682c079f2dc61375e447dc503b639c9db4ee402d82723cd1"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "toolchain.txt": {
+      "bytes": 1737,
+      "sha256": "de14fe9734dc23b2c38d48b2c6c8b5c19931db9ea8e5ef11d822cca45990fdd2"
+    }
+  },
+  "assertion": {
+    "expected": null,
+    "kind": "not_run",
+    "met": null,
+    "name": null,
+    "observed": null,
+    "statement": "anchor test cannot be started until the Anchor and Solana CLIs are installed"
+  },
+  "blocker": "toolchain_missing: solana-anchor (anchor-cli and solana-cli are both absent; `anchor test` needs the BPF build and a local solana-test-validator)",
+  "claim": "LazyAccount::unload() skips post-CPI owner and discriminator revalidation",
+  "evidence_note": "native runner probed on PATH: `anchor test` exited 127 and `solana --version` exited 127, which is the prerequisite recorded as data. Install: cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest ; sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+  "ladder": "L1",
+  "licence": {
+    "harness_origin": "none built; no upstream file is copied",
+    "redistribution": "not applicable",
+    "upstream": "Apache-2.0 or MIT (anchor-lang, dual licensed)",
+    "withheld": "not needed - no third-party source entered an artefact"
+  },
+  "outcome": "blocked",
+  "pin": {
+    "commit": null,
+    "component": "lang/src/accounts/lazy_account.rs - LazyAccount::unload()",
+    "crate": "anchor-lang",
+    "repo": "https://github.com/coral-xyz/anchor",
+    "requested_ref": "v1.1.2 with feature lazy-account (confirmed by the report); no patched release published",
+    "revision_unresolved": null
+  },
+  "platform": "solana_anchor",
+  "prerequisites": [
+    {
+      "blocking": true,
+      "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest",
+      "install_status": "missing",
+      "tool": "anchor-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+      "install_status": "missing",
+      "tool": "solana-cli (incl. solana-test-validator)",
+      "version": null
+    },
+    {
+      "blocking": false,
+      "install_command": null,
+      "install_status": "installed",
+      "note": "present, and enough for a crate-level harness, but not for `anchor test`, which needs a BPF build and a local validator",
+      "tool": "cargo",
+      "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+    },
+    {
+      "blocking": false,
+      "install_status": "not_used",
+      "note": "no key material, faucet claim or cluster RPC is used by this adapter; the pilot never touches a live network",
+      "tool": "cryptography tooling note"
+    }
+  ],
+  "record_id": "rust:GHSA-6px8-6mw3-4hx4",
+  "run": {
+    "argv": [
+      "anchor",
+      "test"
+    ],
+    "exit_code": 127,
+    "isolation": "no isolation needed: the runner never started; a real run would use a local validator, never a live cluster",
+    "run_kind": "none",
+    "seconds": 0.01,
+    "timeout_seconds": 60
+  },
+  "run_slug": "blocked-GHSA-6px8-6mw3-4hx4",
+  "schema": "vlun-nonevm-run/1",
+  "status": "blocked",
+  "toolchain": {
+    "install_command": "cargo install --git https://github.com/coral-xyz/anchor avm --force --locked && avm install latest && avm use latest ; sh -c \"$(curl -sSfL https://release.anza.xyz/stable/install)\" then add ~/.local/share/solana/install/active_release/bin to PATH",
+    "install_status": "missing",
+    "native_command": "anchor test",
+    "solana_version": "EXEC_FAILED [WinError 2] The system cannot find the file specified",
+    "tool": "anchor-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

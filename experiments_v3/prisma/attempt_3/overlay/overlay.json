@@ -1,0 +1,12 @@
+{
+  "files": {
+    "src/test/2024-03/Prisma_exp.sol": {
+      "changes": [
+        "vm.createSelectFork(\"mainnet\", <attackTx>) -> vm.createSelectFork(\"mainnet\", 19532296); all exploit calls, amounts and assertions unchanged"
+      ],
+      "original_poc_sha256": "02481ff268e72e42b1a839122da095a8165547f97f0ec2c858665bb1acfc6d78",
+      "overlay_poc_sha256": "eb76d4fd4e13c2d87f6f76869038ac954ecaa3a8994e278282efb9274ece5f1f"
+    }
+  },
+  "note": "all harness changes isolated here; the original staged PoC bytes are untouched"
+}

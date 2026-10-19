@@ -1,0 +1,36 @@
+Error: Compiler run failed:
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:12:13:
+   |
+12 |             erc20s[0].setBlock(bob.addr, true);
+   |             ^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:12:32:
+   |
+12 |             erc20s[0].setBlock(bob.addr, true);
+   |                                ^^^
+
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:15:13:
+   |
+15 |             createOrder({
+   |             ^^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:16:26:
+   |
+16 |                 offerer: alice,
+   |                          ^^^^^
+
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:17:28:
+   |
+17 |                 orderType: OrderType.PAY,
+   |                            ^^^^^^^^^
+
+Error (7920): Identifier not found or not unique.
+  --> test/vlun_poc/2024-01-renft__M-15.t.sol:28:17:
+   |
+28 |                 Order memory payOrder,
+   |                 ^^^^^

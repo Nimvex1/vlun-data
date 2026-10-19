@@ -1,0 +1,16 @@
+{
+  "isolation": "would be a local scratch copy plus the local Move VM",
+  "pin": {
+    "commit": null,
+    "requested_ref": "audit scope commits 838650c8471c5a6401022852222362e70dd455d1, 1e888f75fc385657bef13d4991655d5b29455346, 50b69ce6ed44b5b0da313a6689182992e63654b7, 6f7fe8f3241fbed6ca41a11537704fe60cd0bbda (as printed)",
+    "revision_unresolved": "dependency_resolution_uncached_sui_framework_rev: same audited repository and same uncached framework pin as POOL-01"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

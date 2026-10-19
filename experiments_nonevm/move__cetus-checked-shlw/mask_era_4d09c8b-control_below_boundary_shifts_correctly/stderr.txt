@@ -1,0 +1,51 @@
+INCLUDING DEPENDENCY Sui
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING IntegerMate
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+  [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:5:5
+  [0m[36mâ”‚[0m
+[0m[36m5[0m [0m[36mâ”‚[0m     [0m[33m/// Non-vacuity control: strictly below 2^192 shifts correctly on every[0m
+  [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+  [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:6:5
+  [0m[36mâ”‚[0m
+[0m[36m6[0m [0m[36mâ”‚[0m     [0m[33m/// revision.  If this fails, the two cells below prove nothing.[0m
+  [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:14:5
+   [0m[36mâ”‚[0m
+[0m[36m14[0m [0m[36mâ”‚[0m     [0m[33m/// The published violation: a product of exactly 2^192 passes the[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:15:5
+   [0m[36mâ”‚[0m
+[0m[36m15[0m [0m[36mâ”‚[0m     [0m[33m/// `n > mask` check, is shifted, and its top bits are discarded (r == 0,[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:16:5
+   [0m[36mâ”‚[0m
+[0m[36m16[0m [0m[36mâ”‚[0m     [0m[33m/// oob == false).  Expected to PASS on v1.1.0 and v1.1.1, FAIL on v1.1.2.[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:24:5
+   [0m[36mâ”‚[0m
+[0m[36m24[0m [0m[36mâ”‚[0m     [0m[33m/// The same truncation one step above the boundary (3 * 2^192).  It[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:25:5
+   [0m[36mâ”‚[0m
+[0m[36m25[0m [0m[36mâ”‚[0m     [0m[33m/// separates v1.1.0 from v1.1.1: the corrected mask catches this value,[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+
+[0m[1m[38;5;11mwarning[W01004][0m[1m: invalid documentation comment[0m
+   [0m[36mâ”Œâ”€[0m .\tests\nonevm_shlw_poc.move:26:5
+   [0m[36mâ”‚[0m
+[0m[36m26[0m [0m[36mâ”‚[0m     [0m[33m/// so this cell is expected to PASS only on the audited v1.1.0.[0m
+   [0m[36mâ”‚[0m     [0m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [0m[33mDocumentation comment cannot be matched to a language item[0m
+

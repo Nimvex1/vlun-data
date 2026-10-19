@@ -1,0 +1,99 @@
+{
+  "builder_version": "api-siblings-1",
+  "generated_by": "scripts/build_api_siblings.py",
+  "inputs": {
+    "reference_corpus": {
+      "blobs_absent_locally": 0,
+      "by_property": {
+        "caller_supplied_recipient": 246,
+        "externally_influenced_balance_as_source": 157,
+        "pair_balance_drain_via_skim": 5,
+        "unbound_signer_identity": 12,
+        "unbounded_allowance_grant": 11,
+        "unchecked_low_level_call": 82,
+        "unchecked_token_move": 118
+      },
+      "clones": 45,
+      "clones_without_head": [],
+      "files_listed": 3066,
+      "files_scanned": 3066,
+      "files_undecodable": 0,
+      "projects": 32,
+      "repo_filter": null,
+      "sites": 566
+    },
+    "vulnerable_corpus": {
+      "by_property": {
+        "caller_supplied_recipient": 11,
+        "externally_influenced_balance_as_source": 44,
+        "pair_balance_drain_via_skim": 8,
+        "unbound_signer_identity": 2,
+        "unchecked_low_level_call": 4,
+        "unchecked_token_move": 11
+      },
+      "cited_files_missing": 2,
+      "cited_files_read": 312,
+      "judged_high_medium": 204,
+      "record_cap": null,
+      "records": 264,
+      "records_contributing_sites": 26,
+      "rejected_class_mismatch": 27,
+      "rejected_wrong_function": 364,
+      "sites": 75
+    }
+  },
+  "pairing": {
+    "controlled_reference_sites": 70,
+    "pairs_built": 229,
+    "pairs_by_api": {
+      "approve": 4,
+      "balanceOf": 179,
+      "call": 4,
+      "recover": 3,
+      "safeTransfer": 4,
+      "safeTransferFrom": 3,
+      "transfer": 18,
+      "transferFrom": 14
+    },
+    "pairs_by_property": {
+      "caller_supplied_recipient": 19,
+      "externally_influenced_balance_as_source": 179,
+      "unbound_signer_identity": 3,
+      "unchecked_low_level_call": 4,
+      "unchecked_token_move": 24
+    },
+    "pairs_by_reference_project": {
+      "2022-05-alchemix": 9,
+      "2024-04-noya": 12,
+      "2024-04-renzo": 1,
+      "2024-12-bakerfi": 2,
+      "2025-06-panoptic": 42,
+      "balancer-v2-monorepo": 42,
+      "contracts": 6,
+      "morpho-blue-bundlers": 6,
+      "openzeppelin-contracts": 1,
+      "pendle-core-v2-public": 5,
+      "prisma-contracts": 46,
+      "silo-core-v1": 42,
+      "smart-contracts": 1,
+      "synthetix-v3": 3,
+      "v2-periphery": 10,
+      "v3-periphery": 1
+    },
+    "pairs_by_vulnerable_project": {
+      "2022-05-alchemix": 32,
+      "2024-01-decent": 51,
+      "2024-01-renft": 2,
+      "2024-04-noya": 127,
+      "2025-08-gte-perps": 17
+    },
+    "pairs_dropped_before_review": {
+      "missing_root_cause": 0,
+      "no_controlled_sibling_project": 8,
+      "no_risky_form": 3
+    },
+    "reference_sites": 566,
+    "vulnerable_sites": 75
+  },
+  "target_note": "spec item 11 asks to expand 71 toward 300+; this reports the yield the source pool actually supports, not a quota"
+}

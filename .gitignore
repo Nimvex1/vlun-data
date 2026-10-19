@@ -58,3 +58,6 @@ dist/
 # enter the committed JSON catalog.
 graphify-out/
 .opencode/
+
+# Machine-local git-status snapshot written by validate_v31.py. It records what this checkout has in flight, so committing it would make a generated gate artefact change on every run.
+reports/v3/validation_v31_worktree.json

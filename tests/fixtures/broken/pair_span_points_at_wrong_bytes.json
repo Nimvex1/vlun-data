@@ -1,0 +1,218 @@
+{
+ "_broken": "recorded offsets do not contain the claimed call",
+ "_fixture_note": "Deliberately broken fixture for tests/test_api_siblings.py: derived from a real layer record and corrupted in exactly the named way. It must be REJECTED by the shared validators.",
+ "api": "balanceOf",
+ "dataset_version": "2.2",
+ "family": "api_sibling_call_site",
+ "generated_by": "scripts/review_sibling_pairs.py",
+ "pair_id": "SIB::02bc4cb44f82b05312d0",
+ "pair_type": "cross_repository_api_sibling_call_site",
+ "project": {
+  "reference": {
+   "project": "balancer-v2-monorepo",
+   "read_from": "clone_head_read_only",
+   "repo": "balancer/balancer-v2-monorepo"
+  },
+  "vulnerable": {
+   "audit_repository": "2024-04-noya",
+   "project": "2024-04-noya",
+   "repo": "Code4rena/2024-04-noya",
+   "repository_url": "https://github.com/code-423n4/2024-04-noya"
+  }
+ },
+ "property": "externally_influenced_balance_as_source",
+ "property_note": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable",
+ "rationale": {
+  "contrast_rule": "same API symbol and same property in two repositories; the reference site carries the handling the vulnerable site omits",
+  "evidence_type": "derived_fact",
+  "rule_source": "scripts/build_api_siblings.py:classify_forms",
+  "why_reference_is_correct": "the same symbol is read against an account the caller does not steer AND cross-checked against another quantity in the same statement, so a third-party transfer cannot move the value that is used -- observed at the reference site: `_votingEscrow.balanceOf` at pkg/liquidity-mining/contracts/VotingEscrowRemapper.sol#setNetworkRemapping line 138 reads the self account=False; argument=`remoteUser`",
+  "why_vulnerable": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable -- this is the risky form: `_SY.balanceOf` at code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#_getPositionTVL line 188 reads the self account=True; argument=`address(this)`"
+ },
+ "record_type": "api_sibling_task",
+ "review": {
+  "checks_passed": [
+   "contrast",
+   "cross_repository",
+   "reference_form",
+   "reference_span",
+   "root_cause_present",
+   "vulnerable_form",
+   "vulnerable_span"
+  ],
+  "review_version": "sibling-review-1",
+  "reviewed_by": "scripts/review_sibling_pairs.py",
+  "verdict": "agree"
+ },
+ "revisions": {
+  "fixed_revision": "unavailable",
+  "fixed_revision_state": "unavailable_in_the_canonical_layer",
+  "reference_fixed_revision": "unavailable",
+  "reference_revision": "e91a2b643a49856f51a648d175667c1b48cf3377",
+  "reference_revision_kind": "clone_head_read_only",
+  "vulnerable_revision": "9c79b332eff82011dcfa1e8fd51bad805159d758",
+  "vulnerable_revision_kind": "record_pinned_citation"
+ },
+ "rights": {
+  "decision": "citations_and_spans_only__no_source_text_redistributed",
+  "expressive_text_redistributed": false,
+  "reference_license_class": "redistributable",
+  "reference_license_evidence": {
+   "first_line": "                    GNU GENERAL PUBLIC LICENSE",
+   "license_class": "redistributable",
+   "path": "LICENSE",
+   "read_from": "clone HEAD (read-only)",
+   "revision": "e91a2b643a49856f51a648d175667c1b48cf3377",
+   "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "vulnerable_license_class": "unknown",
+  "vulnerable_license_note": "licence class of the cited repository at the pinned commit, from scripts/local_sources.py::classify_record_code; see NOTICE.md"
+ },
+ "root_cause": {
+  "evidence_type": "reported_claim",
+  "record_id": "2024-04-noya/M-15",
+  "record_sha256": "6fd7c4ff4f9524146b84b45b3af5ad80408170976fcf680789a55b38af64c67c",
+  "source_field": "security_reasoning.broken_behavior",
+  "value": "Status: Sponsor disputed",
+  "vulnerability_classes": [
+   "DeFi/rewards/points accounting"
+  ]
+ },
+ "spans": {
+  "reference": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    4110,
+    4120
+   ],
+   "byte_end": 4110,
+   "byte_start": 4086,
+   "call_line": 138,
+   "char_end": 25,
+   "char_start": 5,
+   "file": "pkg/liquidity-mining/contracts/VotingEscrowRemapper.sol",
+   "file_sha256": "cbe2b25c1c41d17e3bb6f14edf4b7dbaae0f02ee6409051e5f68a9725c6cce14",
+   "form": "controlled",
+   "function": "setNetworkRemapping",
+   "function_decl_line": 91,
+   "mechanical_features": {
+    "arg0": "remoteUser",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     4110,
+     4120
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": true,
+    "destination_argument": "remoteUser",
+    "destination_is_function_parameter": true,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": true,
+    "enclosing_function": "setNetworkRemapping",
+    "equality_comparison_in_statement": true,
+    "function_body_range": [
+     2949,
+     5490
+    ],
+    "function_decl_line": 91,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": false,
+    "receiver": "_votingEscrow",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     4048,
+     4180
+    ],
+    "statement_shape_sha256": "5c2b190742c077e0b81449a83cdd7c6ec6a613ef3402e6384ae1471396d29f43",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "balancer/balancer-v2-monorepo",
+   "project": "balancer-v2-monorepo",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "e91a2b643a49856f51a648d175667c1b48cf3377",
+   "revision_kind": "clone_head_read_only",
+   "side": "reference",
+   "source_bytes_sha256": "55e7b7d0fddc6493735c14e88c1cf2342d307155b1cc888d42cffd362a1b3c0d",
+   "source_text_included": false,
+   "span_sha256": "1f589ebca6264fa720c1f4532055417d50afd904dea4962c986607a201bb6593",
+   "statement_char_range": [
+    4048,
+    4180
+   ],
+   "statement_shape_sha256": "5c2b190742c077e0b81449a83cdd7c6ec6a613ef3402e6384ae1471396d29f43"
+  },
+  "vulnerable": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    8301,
+    8314
+   ],
+   "byte_end": 8301,
+   "byte_start": 8287,
+   "call_line": 188,
+   "char_end": 8301,
+   "char_start": 8287,
+   "file": "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol",
+   "file_sha256": "3d7bddbdeee53f362a5201b88d8dd1dce22179f69e0bea169f3aadb4eb96d38b",
+   "form": "risky",
+   "function": "_getPositionTVL",
+   "function_decl_line": 180,
+   "mechanical_features": {
+    "arg0": "address(this)",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     8301,
+     8314
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "address(this)",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "_getPositionTVL",
+    "equality_comparison_in_statement": false,
+    "function_body_range": [
+     7815,
+     9119
+    ],
+    "function_decl_line": 180,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": true,
+    "receiver": "_SY",
+    "result_enforced_in_statement": false,
+    "statement_char_range": [
+     8254,
+     8316
+    ],
+    "statement_shape_sha256": "7771a880c5f54ab03f2ca48b6a7ac3d7d5e60b57a22e01e71ebc8b4edfa96f5b",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "Code4rena/2024-04-noya",
+   "project": "2024-04-noya",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "9c79b332eff82011dcfa1e8fd51bad805159d758",
+   "revision_kind": "record_pinned_citation",
+   "side": "vulnerable",
+   "source_bytes_sha256": "eedf0466299b1507b8ae5eeb41ffe85d62463176c50ac4e60b56ff6eb563b392",
+   "source_text_included": false,
+   "span_sha256": "11eaea988d022befe9305a89976b330abcc1f8c349ee4fa82220a1d8acc4e918",
+   "statement_char_range": [
+    8254,
+    8316
+   ],
+   "statement_shape_sha256": "7771a880c5f54ab03f2ca48b6a7ac3d7d5e60b57a22e01e71ebc8b4edfa96f5b"
+  }
+ },
+ "task_id": "SIBTASK::BROKENSPAN000000000"
+}

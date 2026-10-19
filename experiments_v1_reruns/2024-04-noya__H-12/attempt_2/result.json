@@ -1,0 +1,38 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertEq(tvl, 30e6)",
+      "assertEq(tvl, 30e6)",
+      "assertEq(tvl, 0)"
+    ],
+    "claimed_impact": "attacker: Create 3 connectors, with the order \\[1, 2, 3] (with a dummy connector up front), and deal 10e6 USDC to each of them.; attacker: Check that current TVL is 30e6.; attacker: Move all USDC from connector 1 to 3. This should remove connector 1's position. The current position array is \\[3, 2].; attacker: Move all USDC from connector 3 to 2. This should remove connector 3's position. However, since the `positionIndex` is not correctly updated in step 3, the connector 3's `positionIndex` is still 3. This in `updateHoldingPosition()` will result in popping the position at the back (which is",
+    "declared_test_functions": [
+      "testRemoveConnectorBug"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-04-noya__H-12/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "fixture_missing",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-04-noya) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Identifier not found or not unique.; Undeclared identifier.",
+  "evidence_level_supported": null,
+  "finding_id": "2024-04-noya/H-12",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "205254722f64ed093a941601a73f0b75626d5c382a9abe0794f893ccd4f3bfa8",
+    "harness.json": "3b0052a022167cca6494570bd9ae20d21ddc4be14d64da5c2a8632df3c59e12f",
+    "stderr.txt": "783ce814ce8b177b000dcc0ae2ac1df8d1ca4f34ec9658ac7f22b9854beddaa6",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "recorded_at_utc": "2026-10-18T18:38:54Z",
+  "repository": "code-423n4/2024-04-noya",
+  "run_status": "compile_error"
+}

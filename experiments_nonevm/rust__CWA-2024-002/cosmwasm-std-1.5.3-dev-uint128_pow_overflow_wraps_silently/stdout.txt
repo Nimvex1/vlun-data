@@ -1,0 +1,21 @@
+
+running 1 test
+test tests::uint128_pow_overflow_wraps_silently ... FAILED
+
+failures:
+
+---- tests::uint128_pow_overflow_wraps_silently stdout ----
+
+thread 'tests::uint128_pow_overflow_wraps_silently' (10560) panicked at /rustc/88d9e12ae178fab0fb5cc050a94da85685d449ea/library\core\src\num\mod.rs:1351:5:
+attempt to exponentiate with overflow
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'tests::uint128_pow_overflow_wraps_silently' (10560) panicked at src\lib.rs:29:9:
+Uint128::pow panicked: no silent wrap
+
+
+failures:
+    tests::uint128_pow_overflow_wraps_silently
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+

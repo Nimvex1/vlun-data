@@ -1,0 +1,19 @@
+{
+  "isolation": "no isolation needed: the runner never started",
+  "pin": {
+    "commit": null,
+    "package": "third_party/move (Move VM Rust crate, not a Move package)",
+    "repo": "https://github.com/aptos-labs/aptos-core",
+    "requested_ref": "47a0391c612407fe0b1051ef658a29e35d986963",
+    "revision_unresolved": null
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+    "install_status": "missing",
+    "native_command": "aptos move test",
+    "tool": "aptos-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

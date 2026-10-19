@@ -1,0 +1,16 @@
+{
+  "isolation": "would be a local scratch copy plus the local Move VM",
+  "pin": {
+    "commit": null,
+    "requested_ref": "report scope: Last Reviewed 09 May 2023; the report's Received Commit line shows a 39-hex value with no leading 0x and is not a resolvable GitHub sha, so we record it as unresolved",
+    "revision_unresolved": "revision_unresolved: the report's Received Commit line is a 39-hex value with no leading 0x and is not resolvable, and the framework pin is not cached"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

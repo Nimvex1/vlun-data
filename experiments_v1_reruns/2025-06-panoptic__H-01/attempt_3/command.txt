@@ -1,0 +1,1 @@
+forge build --quiet (cwd work/poc_reruns/code-423n4__2025-06-panoptic) -> rc=1

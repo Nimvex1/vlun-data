@@ -1,0 +1,37 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertEq(net, 250e18, \"Net premium should be 250 ether\")",
+      "assertApproxEqAbs( nav, expectedNavBase, tolerance, \"NAV should include underlying plus converted premiums\" )"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `computeNAV` in 2025-06-panoptic/src/accountants/PanopticVaultAccountant.sol",
+    "declared_test_functions": [
+      "test_submissionValidity"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3",
+  "attempt_n": 3,
+  "blocker_class": "fixture_missing",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2025-06-panoptic) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Identifier not found or not unique.",
+  "evidence_level_supported": null,
+  "finding_id": "2025-06-panoptic/H-01",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "e2d816b6a2879fb1f363f2020395547ab525620a261c6c328ac7a454e1edd178",
+    "harness.json": "b27e9e0504fea9fa2be5789951e7986a0f5a965200a06fbc07405b01d939969c",
+    "stderr.txt": "8101b0f89b065f2e45152825eb0c75f850afcc6b18c029bdd36ca112b54676d2",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "eea2c931b1cbce1da01586e42ba298814de40d31",
+  "recorded_at_utc": "2026-10-18T18:39:29Z",
+  "repository": "code-423n4/2025-06-panoptic",
+  "run_status": "compile_error"
+}

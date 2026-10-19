@@ -1,0 +1,12 @@
+{
+  "files": {
+    "src/test/2023-11/ShibaToken_exp.sol": {
+      "changes": [
+        "enabled the PoC's own commented line containing 'vm.prank('"
+      ],
+      "original_poc_sha256": "dd42c6b5b6987f8d7abe1c18984e242c113925b8e3cb16682a5f0ba58f080aa7",
+      "overlay_poc_sha256": "d2236bcb40d4ef610ab42528d3f0a8750f4274ed68a8231682c7e55c0d7e6de3"
+    }
+  },
+  "note": "all harness changes isolated here; the original staged PoC bytes are untouched"
+}

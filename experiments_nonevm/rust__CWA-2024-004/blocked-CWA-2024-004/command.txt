@@ -1,0 +1,1 @@
+NOT RUN: build_time_exceeds_pilot_budget: gas mispricing is observed through cosmwasm-vm's metered instantiate, which needs the full cosmwasm-vm/Wasmer build graph

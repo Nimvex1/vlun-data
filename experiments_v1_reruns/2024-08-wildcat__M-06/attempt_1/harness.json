@@ -1,0 +1,65 @@
+{
+  "dependency_configuration": {
+    "clone_head": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "ds-test",
+      "ethereum-access-token",
+      "forge-std",
+      "openzeppelin-contracts",
+      "sol-utils",
+      "solady",
+      "solmate",
+      "vulcan"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "wrapped_fragment",
+  "import_rewrites": [
+    "wrapped 1 test function(s) into contract VlunReconstructedHarness"
+  ],
+  "libs": true,
+  "node_modules_junction": false,
+  "overlay_path": "test/vlun_poc/2024-08-wildcat__M-06.t.sol",
+  "overlay_sha256": "7853d142e0f3e976781bb5962dfc07f1884b31e45c5bbac8836f1e16bff41a38",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+  "quoted_code_sha256": "b0efacd1a9579bb65f3cd05905586848e2d130d3cf9f9ce284aaf914bc551a9b",
+  "remappings": true,
+  "repository": "code-423n4/2024-08-wildcat",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-08-wildcat",
+    "clone_head": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+    "copied": [],
+    "error": null,
+    "junctions": [],
+    "scratch": "work/poc_reruns/code-423n4__2024-08-wildcat",
+    "scratch_entries": [
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "scratch_foundry_test_dir": "test",
+    "scratch_head": null
+  }
+}

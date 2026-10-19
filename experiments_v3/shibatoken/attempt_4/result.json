@@ -1,0 +1,75 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "bcbbcc5181ada2ffdf410e4964c0e0077dc2e56a93f1ba4f72181c7fad0257bf",
+    "harness.json": "7c921eec5fc3b3adc8686aa668532be602a3637be823b5ea99731e3813495dd5",
+    "overlay/overlay.json": "e88423f125a92b2370db30e75678c84387c70342117f43ef3c2e10a26fb7592f",
+    "overlay/src/test/2023-11/ShibaToken_exp.sol": "d2236bcb40d4ef610ab42528d3f0a8750f4274ed68a8231682c7e55c0d7e6de3",
+    "stderr.txt": "135ab01c5288fb80f79adc8ec3c83ff6ed10480dec945fad5b2dff1e2c33a367",
+    "stdout.txt": "b600728c791a221dc3cb23a9bb2c4fdfa7918b688f2266f6aaffb4f6a2e19ba6",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 4,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: vm.prank: failed to get account for 0xb9bdc2537C6F4B587A5C81A67e7e3a4e6dDDa189: server returned an error response: error code -32000: state 0x30a27539c501e040e6fa6d79035157e63e141baab6073125ebdc1e7fe9eadb4c is not available] test() (block: 33528882) (gas: 3430)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2023-11/ShibaToken_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "fork_target_used": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "hardfork": "backend default (today's rules)",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "@KeyInfo - Total Lost : ~$31K",
+      "Attacker : https://bscscan.com/address/0xb9bdc2537c6f4b587a5c81a67e7e3a4e6ddda189",
+      "Attack Tx : https://explorer.phalcon.xyz/tx/bsc/0x75a26224da9faf37c2b3a4a634a096af7fec561f631a02c93e11e4a19d159477"
+    ],
+    "console_log_lines": []
+  },
+  "kind": "harness_reconstruction",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [
+    "src/test/2023-11/ShibaToken_exp.sol"
+  ],
+  "poc_bytes_modified": true,
+  "profit_deltas": [],
+  "provider": "https://api.zan.top/bsc-mainnet",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "shibatoken",
+  "scope_change": "the PoC's own commented-out vm.prank(attacker, attacker) line was enabled, inside overlay/ only. The evidence then covers a flash loan initiated BY the original attacker address (spoofed caller identity), which is a narrower claim than the unmodified PoC reproducing the theft as an independent caller.",
+  "seconds": null,
+  "self_validation": [],
+  "status": "blocked",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test test -vv",
+    "rc": 1,
+    "test_function": "test"
+  },
+  "test_rc": 1
+}

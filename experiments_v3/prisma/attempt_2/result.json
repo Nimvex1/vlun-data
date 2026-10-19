@@ -1,0 +1,77 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "da7c8ca8ff53f40b0ef40d4a04fefe1097c53facdd435625e78882a2af13b064",
+    "harness.json": "e9166ae7b41cbfc02ae3a20c1275dfd18c85f3735e145838456849c489207eac",
+    "stderr.txt": "659cc1e8f72bb16cd3454e713c7c3d2c822037950db8851a7c3b4fbe3f5c1e91",
+    "stdout.txt": "4a979beed3e2d176b9f0e6408f61319fdb77db32bb5106cec699210521419f63",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 2,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: vm.createSelectFork: backend: failed replaying transaction; transaction validation error: gas floor (21680) exceeds the gas limit (21438)] setUp() (gas: 0)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2024-03/Prisma_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "mainnet",
+    "kind": "tx",
+    "value": "0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+  },
+  "fork_target_used": {
+    "alias": "mainnet",
+    "kind": "tx",
+    "value": "0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+  },
+  "hardfork": "cancun",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "@KeyInfo - Total Lost: ~$11M",
+      "Attacker: 0x7e39e3b3ff7adef2613d5cc49558eab74b9a4202",
+      "Attack Tx: https://etherscan.io/tx/0x00c503b595946bccaea3d58025b5f9b3726177bbdc9674e634244135282116c7"
+    ],
+    "console_log_lines": [
+      "\"Price Feed Price: \", price",
+      "\"Attacker start with ~1800 mkUSD: \", IERC20(mkUSD",
+      "\"start with wstETH balance before attack : \", IERC20(wstETH",
+      "\"mkUSD balance before closing the trove: \", IERC20(mkUSD",
+      "\"wstETH balance ~1281.79 ETH after attack: \", IERC20(wstETH"
+    ]
+  },
+  "kind": "rule_compat_hardfork",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [],
+  "poc_bytes_modified": false,
+  "profit_deltas": [],
+  "provider": "https://eth.drpc.org",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "prisma",
+  "scope_change": "fork target unchanged (exact pinned transaction), but the EVM rule set is pinned to cancun, the rules in force at that height, because foundry 1.8.3 validates the replayed historical transaction with today's Prague rules (EIP-7623: gas floor 21680 > gas limit 21438). A PASS here shows the violation under the historical rule set, NOT under today's rules.",
+  "seconds": null,
+  "self_validation": [],
+  "status": "blocked",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test test_exploit -vv --hardfork cancun",
+    "rc": 1,
+    "test_function": "test_exploit"
+  },
+  "test_rc": 1
+}

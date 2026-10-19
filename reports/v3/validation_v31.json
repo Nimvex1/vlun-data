@@ -372,12 +372,9 @@
     {
       "check": "worktree_dirt_observed",
       "critical": false,
-      "detail": "3 dirty entries under data dirs, 2 not from V3.1 outputs (informational; isolation is proven above)",
-      "failure_count": 2,
-      "failures": [
-        "A  derived_v3/patch_reviews.jsonl",
-        "A  reports/v3/patch_static_review.json"
-      ],
+      "detail": "machine-local; written to reports/v3/validation_v31_worktree.json (git-ignored) because it varies by checkout and proves nothing about V3.1 isolation — byte-identity above is the proof",
+      "failure_count": 0,
+      "failures": [],
       "group": "isolation",
       "ok": true
     },

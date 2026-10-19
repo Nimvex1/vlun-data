@@ -1,0 +1,79 @@
+{
+  "blocker_vocabulary": [
+    "source_unavailable",
+    "toolchain_missing",
+    "rpc_unavailable",
+    "fixture_missing",
+    "harness_reconstruction_required",
+    "licence_gated",
+    "not_exploit"
+  ],
+  "generated_by": "scripts/build_poc_triage_queue.py",
+  "layers": {
+    "ml_v2_2": {
+      "additional_exploit_poc_candidates": 0,
+      "note": "the ml layer carries finding records with a separate experiment runner (scripts/run_ml_pocs.py); it adds no exploit-PoC candidate rows to this queue",
+      "records": 137,
+      "source": "jsonl_ml/findings_*.jsonl"
+    },
+    "v1_v2_1": {
+      "attemptable": 24,
+      "blocker_counts": {
+        "fixture_missing": 4,
+        "harness_reconstruction_required": 144,
+        "none": 5,
+        "not_exploit": 32,
+        "rpc_unavailable": 3,
+        "toolchain_missing": 9
+      },
+      "candidates": 155,
+      "eligible": 5,
+      "not_eligible": 150,
+      "poc_class_counts": {
+        "already_runnable": 30,
+        "contract_patch_demonstration": 1,
+        "incomplete": 123,
+        "runnable_after_import_fix": 1
+      },
+      "repositories": {
+        "code-423n4/2022-05-alchemix": 10,
+        "code-423n4/2024-01-decent": 7,
+        "code-423n4/2024-01-renft": 16,
+        "code-423n4/2024-04-noya": 53,
+        "code-423n4/2024-08-wildcat": 26,
+        "code-423n4/2024-12-bakerfi": 25,
+        "code-423n4/2025-06-panoptic": 3,
+        "code-423n4/2025-08-gte-perps": 15
+      },
+      "source": "jsonl/exploits.jsonl",
+      "with_assertion_in_quoted_poc": 29,
+      "with_patch_reference": 28
+    },
+    "v3_1": {
+      "blocker_counts": {
+        "rpc_unavailable": 878,
+        "source_unavailable": 891
+      },
+      "eligible": 0,
+      "poc_bearing_candidates": 891,
+      "queued": 891,
+      "rows_read": 14651,
+      "source": "derived_v3/experiment_readiness.json"
+    },
+    "vbeta": {
+      "additional_exploit_poc_candidates": 0,
+      "note": "Vbeta is L0/L1 pointer-level by construction: no PoC bytes",
+      "records": 7060,
+      "source": "Vbeta/jsonl_vbeta/findings.jsonl"
+    }
+  },
+  "standard": "L3 requires a compiler run we performed; L4 requires that run to execute; L5 additionally requires the record's own assertion to be identified and to hold. Executing is not reproducing.",
+  "totals": {
+    "queued_rows": 1046,
+    "rpc_configured": false,
+    "v1_v2_1_attemptable": 24,
+    "v1_v2_1_candidates": 155,
+    "v1_v2_1_eligible": 5,
+    "v3_1_poc_bearing_candidates": 891
+  }
+}

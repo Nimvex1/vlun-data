@@ -212,13 +212,37 @@ def retired_manifest_entry(manifest: dict, task_key: str):
 
     Builders that skip retired families must still emit their manifest
     entries (gates iterate every known family), so the entry is copied
-    verbatim from the previous manifest — which on a fresh clone is the
-    committed one. Returns None when there is nothing to carry.
+    verbatim from the previous manifest. Returns None when there is nothing
+    to carry — callers must treat that as an error, not as licence to drop
+    the entry: the previous manifest is the file this builder is about to
+    overwrite, so any pass that deletes an entry makes every later pass
+    unable to recover it.
     """
     entry = ((manifest or {}).get("tasks") or {}).get(task_key)
     if entry is None:
         return None
     return dict(entry) if isinstance(entry, dict) else entry
+
+
+def carry_foreign_task_entries(manifest: dict, previous: dict,
+                               own_names: set[str]) -> list[str]:
+    """Keep task entries this builder does not own when rewriting a manifest.
+
+    `benchmark/manifest.json` is written by two builders in sequence (A-J,
+    then K-Q). A builder that rebuilds the dict from scratch deletes the other
+    layer's bookkeeping, and because the deleted entries were the only copy
+    the retirement record could not be carried forward afterwards. Seeding
+    the new manifest with the entries it does not build makes each pass
+    non-destructive. Returns the names carried through unchanged.
+    """
+    carried = []
+    for name, entry in ((previous or {}).get("tasks") or {}).items():
+        if name in own_names:
+            continue
+        manifest.setdefault("tasks", {})[name] = (
+            dict(entry) if isinstance(entry, dict) else entry)
+        carried.append(name)
+    return sorted(carried)
 
 
 def read_jsonl(path: Path) -> list[dict]:

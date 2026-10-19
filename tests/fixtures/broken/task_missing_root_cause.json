@@ -1,0 +1,218 @@
+{
+ "_broken": "root cause removed, so the pair would be an unattributed inference",
+ "_fixture_note": "Deliberately broken fixture for tests/test_api_siblings.py: derived from a real layer record and corrupted in exactly the named way. It must be REJECTED by the shared validators.",
+ "api": "balanceOf",
+ "dataset_version": "2.2",
+ "family": "api_sibling_call_site",
+ "generated_by": "scripts/review_sibling_pairs.py",
+ "pair_id": "SIB::053b71885b05766b24a8",
+ "pair_type": "cross_repository_api_sibling_call_site",
+ "project": {
+  "reference": {
+   "project": "2025-06-panoptic",
+   "read_from": "clone_head_read_only",
+   "repo": "code-423n4/2025-06-panoptic"
+  },
+  "vulnerable": {
+   "audit_repository": "2024-04-noya",
+   "project": "2024-04-noya",
+   "repo": "Code4rena/2024-04-noya",
+   "repository_url": "https://github.com/code-423n4/2024-04-noya"
+  }
+ },
+ "property": "externally_influenced_balance_as_source",
+ "property_note": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable",
+ "rationale": {
+  "contrast_rule": "same API symbol and same property in two repositories; the reference site carries the handling the vulnerable site omits",
+  "evidence_type": "derived_fact",
+  "rule_source": "scripts/build_api_siblings.py:classify_forms",
+  "why_reference_is_correct": "the same symbol is read against an account the caller does not steer AND cross-checked against another quantity in the same statement, so a third-party transfer cannot move the value that is used -- observed at the reference site: `token0.balanceOf` at src/accountants/PanopticVaultAccountant.sol#computeNAV line 201 reads the self account=False; argument=`_vault`",
+  "why_vulnerable": "an account balance the protocol does not control can be moved by a third party, so reading it as the source of a computation makes the computed value attacker-influenceable -- this is the risky form: `market.balanceOf` at code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#isMarketEmpty line 221 reads the self account=True; argument=`address(this)`"
+ },
+ "record_type": "api_sibling_task",
+ "review": {
+  "checks_passed": [
+   "contrast",
+   "cross_repository",
+   "reference_form",
+   "reference_span",
+   "root_cause_present",
+   "vulnerable_form",
+   "vulnerable_span"
+  ],
+  "review_version": "sibling-review-1",
+  "reviewed_by": "scripts/review_sibling_pairs.py",
+  "verdict": "agree"
+ },
+ "revisions": {
+  "fixed_revision": "unavailable",
+  "fixed_revision_state": "unavailable_in_the_canonical_layer",
+  "reference_fixed_revision": "unavailable",
+  "reference_revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+  "reference_revision_kind": "clone_head_read_only",
+  "vulnerable_revision": "main",
+  "vulnerable_revision_kind": "record_pinned_citation"
+ },
+ "rights": {
+  "decision": "citations_and_spans_only__no_source_text_redistributed",
+  "expressive_text_redistributed": false,
+  "reference_license_class": "unknown",
+  "reference_license_evidence": {
+   "first_line": null,
+   "license_class": "unknown",
+   "path": null,
+   "read_from": "clone HEAD (read-only); no LICENSE file present",
+   "revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+   "sha256": null
+  },
+  "vulnerable_license_class": "unknown",
+  "vulnerable_license_note": "licence class of the cited repository at the pinned commit, from scripts/local_sources.py::classify_record_code; see NOTICE.md"
+ },
+ "root_cause": {
+  "evidence_type": "reported_claim",
+  "record_id": "2024-04-noya/H-21",
+  "record_sha256": null,
+  "source_field": "security_reasoning.broken_behavior",
+  "value": "",
+  "vulnerability_classes": [
+   "Accounting / Financial Logic/incorrect balance accounting"
+  ]
+ },
+ "spans": {
+  "reference": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    6741,
+    6747
+   ],
+   "byte_end": 6741,
+   "byte_start": 6724,
+   "call_line": 201,
+   "char_end": 6741,
+   "char_start": 6724,
+   "file": "src/accountants/PanopticVaultAccountant.sol",
+   "file_sha256": "0acce6476a5f38f7335b767bbdcef3aa4b043465ccc9bd5a5edd58727998aa63",
+   "form": "controlled",
+   "function": "computeNAV",
+   "function_decl_line": 94,
+   "mechanical_features": {
+    "arg0": "_vault",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     6741,
+     6747
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "_vault",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "computeNAV",
+    "equality_comparison_in_statement": true,
+    "function_body_range": [
+     2397,
+     9088
+    ],
+    "function_decl_line": 94,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": false,
+    "receiver": "token0",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     6468,
+     6750
+    ],
+    "statement_shape_sha256": "2961891a93e312495c76a91f7b5928662fda6ec51a002fb55426f56c17f91342",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "code-423n4/2025-06-panoptic",
+   "project": "2025-06-panoptic",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "eea2c931b1cbce1da01586e42ba298814de40d31",
+   "revision_kind": "clone_head_read_only",
+   "side": "reference",
+   "source_bytes_sha256": "5c2e6750ae0d8d9470605d398aa7f9fa261bbdc7c9968e449bc37b752b9fd196",
+   "source_text_included": false,
+   "span_sha256": "4015dd1eece209473e78992c3a6c532c6df6369c356d120fc02b80ac373ca215",
+   "statement_char_range": [
+    6468,
+    6750
+   ],
+   "statement_shape_sha256": "2961891a93e312495c76a91f7b5928662fda6ec51a002fb55426f56c17f91342"
+  },
+  "vulnerable": {
+   "api": "balanceOf",
+   "argument_char_range": [
+    9697,
+    9710
+   ],
+   "byte_end": 9697,
+   "byte_start": 9680,
+   "call_line": 221,
+   "char_end": 9697,
+   "char_start": 9680,
+   "file": "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol",
+   "file_sha256": "3d7bddbdeee53f362a5201b88d8dd1dce22179f69e0bea169f3aadb4eb96d38b",
+   "form": "risky",
+   "function": "isMarketEmpty",
+   "function_decl_line": 217,
+   "mechanical_features": {
+    "arg0": "address(this)",
+    "arg1": "",
+    "arg2": "",
+    "argument_char_range": [
+     9697,
+     9710
+    ],
+    "argument_count": 1,
+    "argument_is_parameter": false,
+    "destination_argument": "address(this)",
+    "destination_is_function_parameter": false,
+    "destination_is_msg_sender": false,
+    "destination_is_storage_record": false,
+    "destination_references_caller_argument": false,
+    "enclosing_function": "isMarketEmpty",
+    "equality_comparison_in_statement": true,
+    "function_body_range": [
+     9416,
+     9732
+    ],
+    "function_decl_line": 217,
+    "is_safe_wrapper": false,
+    "ordering_comparison_in_statement": false,
+    "reads_self_account": true,
+    "receiver": "market",
+    "result_enforced_in_statement": true,
+    "statement_char_range": [
+     9523,
+     9727
+    ],
+    "statement_shape_sha256": "35eec6a8f17d3ee43aac62958c88ff6e644df13920b93b255232684ca0bef8fd",
+    "success_captured_as": null,
+    "success_enforced_later_in_function": false,
+    "unbounded_amount": false
+   },
+   "owner_repo": "Code4rena/2024-04-noya",
+   "project": "2024-04-noya",
+   "property": "externally_influenced_balance_as_source",
+   "revision": "main",
+   "revision_kind": "record_pinned_citation",
+   "side": "vulnerable",
+   "source_bytes_sha256": "eedf0466299b1507b8ae5eeb41ffe85d62463176c50ac4e60b56ff6eb563b392",
+   "source_text_included": false,
+   "span_sha256": "25de1883d9a8a4e4a836b41b46139a09d11bf0df16d5e2a6746bec6ad3df7687",
+   "statement_char_range": [
+    9523,
+    9727
+   ],
+   "statement_shape_sha256": "35eec6a8f17d3ee43aac62958c88ff6e644df13920b93b255232684ca0bef8fd"
+  }
+ },
+ "task_id": "SIBTASK::BROKENRC000000000000"
+}

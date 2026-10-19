@@ -1,0 +1,1 @@
+cargo test --tests -- --exact tests::uint128_pow_overflow_wraps_silently

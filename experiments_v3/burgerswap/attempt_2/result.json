@@ -1,0 +1,74 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "fcbf99a090ac9a64d770112208c111f8fd0fd863e689ffc9051991617b2d310a",
+    "harness.json": "342bf12d0b6c4371e1a31b25b40d9018b62236e924ddb6ea4fc17d35fbbf9efb",
+    "stderr.txt": "58b03e597f1ec217dc6e5ffd162d1bfd8fe838ef9f5bf55e4714ccb939086701",
+    "stdout.txt": "9cf4b3f9a620494005d337b9ac24e25de58cdbec1fad23d4ce7f89b035ccdecb",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 2,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE: server returned an error response: error code -32000: state 0x0b6b5e6defc87a3c79b0c32558e1f493b68edc34e1fe02bd8811b7deac4f010d is not available] testExploit() (block: 7781159) (gas: 0)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2021-05/BurgerSwap_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 7781159
+  },
+  "fork_target_used": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 7781159
+  },
+  "hardfork": "backend default (today's rules)",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "Attacker: 0x6c9f2b95ca3432e5ec5bcd9c19de0636a23a4994",
+      "Objective: Drain funds in the vulnerable Burger LP contract: 0x7ac55ac530f2c29659573bde0700c6758d69e677 (Demax WBNB<>BURGER pair)",
+      "Attack Tx: https://phalcon.xyz/tx/bsc/0xac8a739c1f668b13d065d56a03c37a686e0aa1c9339e79fcbc5a2d0a6311e333"
+    ],
+    "console_log_lines": [
+      "\"BURGER exploited:\", BURGER.balanceOf(address(this",
+      "\"WBNB exploited:\", WBNB.balanceOf(address(this"
+    ]
+  },
+  "kind": "archive_provider",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [],
+  "poc_bytes_modified": false,
+  "profit_deltas": [],
+  "provider": "https://api.zan.top/bsc-mainnet",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "burgerswap",
+  "scope_change": null,
+  "seconds": null,
+  "self_validation": [],
+  "status": "blocked",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 1,
+    "test_function": "testExploit"
+  },
+  "test_rc": 1
+}

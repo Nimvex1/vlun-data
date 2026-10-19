@@ -1,0 +1,16 @@
+{
+  "isolation": "would be an isolated local cargo/chain-sandbox run",
+  "pin": {
+    "commit": null,
+    "requested_ref": null,
+    "revision_unresolved": "revision_unresolved: the Levana post-mortem names no commit, contract version or deployment, so no pin can be resolved"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "cargo test",
+    "runtime": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+    "tool": "cargo",
+    "version": "cargo 1.98.0 (797e8a9bc 2026-08-05)"
+  }
+}

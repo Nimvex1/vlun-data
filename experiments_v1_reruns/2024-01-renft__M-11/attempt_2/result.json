@@ -1,0 +1,45 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertNotEq(rentalOrderTypeHash, rentalOrderTypeHashCorrect)",
+      "assertNotEq(rentalOrderTypeHash, correctTypeHash)",
+      "assertEq(rentalOrderTypeHashCorrect, correctTypeHash)"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `_deriveHookHash` in smart-contracts/src/packages/Signer.sol",
+    "declared_test_functions": [
+      "test_EIP712_encoding"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-renft__M-11/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": null,
+  "build_rc": 0,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=0",
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=0",
+    "forge test --match-path test/vlun_poc/2024-01-renft__M-11.t.sol --match-test test_EIP712_encoding -vv --json (cwd work/poc_reruns/code-423n4__2024-01-renft)"
+  ],
+  "decoded_logs": [],
+  "detail": "forge executed the declared test; forge reported Success for the reporter's own assertion(s): assertNotEq(rentalOrderTypeHash, rentalOrderTypeHashCorrect)",
+  "evidence_level_supported": "L5",
+  "finding_id": "2024-01-renft/M-11",
+  "outcome": "claim_reproduced",
+  "output_sha256": {
+    "command.txt": "f71cb65d5bf5adef5ba9a699cd43c416a10d34bbd1c5763a62568a28d9342956",
+    "harness.json": "68baf68193b2d0af9bf34d86b52fdb3dd2f2202c97c03ac18076906c7665b17f",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "3be30a1a7e711a11834d27d9982dbd295f77c0d8dbdc5c2f666c8f30f8d4959d",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "per_test_status": {
+    "test_EIP712_encoding()": "Success"
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "recorded_at_utc": "2026-10-18T18:38:50Z",
+  "repository": "code-423n4/2024-01-renft",
+  "run_status": "pass",
+  "test_rc": 0
+}

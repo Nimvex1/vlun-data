@@ -1,0 +1,2635 @@
+{
+  "builder": "scripts/build_api_siblings.py",
+  "builder_version": "api-siblings-1",
+  "by_api": {
+    "approve": 4,
+    "balanceOf": 179,
+    "call": 4,
+    "safeTransfer": 4,
+    "safeTransferFrom": 3,
+    "transfer": 18,
+    "transferFrom": 9
+  },
+  "by_property": {
+    "caller_supplied_recipient": 19,
+    "externally_influenced_balance_as_source": 179,
+    "unchecked_low_level_call": 4,
+    "unchecked_token_move": 19
+  },
+  "by_reference_project": {
+    "Synthetixio/synthetix-v3": 3,
+    "Uniswap/v2-periphery": 5,
+    "Uniswap/v3-periphery": 1,
+    "aerodrome-finance/contracts": 6,
+    "balancer/balancer-v2-monorepo": 42,
+    "code-423n4/2022-05-alchemix": 9,
+    "code-423n4/2024-04-noya": 12,
+    "code-423n4/2024-12-bakerfi": 2,
+    "code-423n4/2025-06-panoptic": 42,
+    "morpho-org/morpho-blue-bundlers": 6,
+    "pendle-finance/pendle-core-v2-public": 5,
+    "prisma-fi/prisma-contracts": 46,
+    "silo-finance/silo-core-v1": 42
+  },
+  "by_vulnerable_project": {
+    "Code4rena/2022-05-alchemix": 30,
+    "Code4rena/2024-01-decent": 48,
+    "Code4rena/2024-01-renft": 2,
+    "Code4rena/2024-04-noya": 124,
+    "Code4rena/2025-08-gte-perps": 17
+  },
+  "disclaimer": "leakage-audited under the recorded criteria; NOT contamination-proof. Hard negatives are real near-misses re-read from the same pinned sources, not invented contrasts. No expressive source text is redistributed: every member stores spans and hashes.",
+  "generated_by": "scripts/review_sibling_pairs.py",
+  "model_facing_note": "tasks.jsonl is the model-facing layer and carries no expected label; the admitted/rejected disposition lives in this report and in reports/sibling_review.json, which are separate clearly-named files",
+  "near_duplicate_leakage_audit": {
+    "identical_call_site_examples": {
+      "code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol#19023#balanceOf": [
+        "SIBTASK::00e383102ac1ab9b6722",
+        "SIBTASK::2924969546990971af5f",
+        "SIBTASK::3edeff053d12af704fb3",
+        "SIBTASK::74cc95d23ab9e057da02",
+        "SIBTASK::7a0f7855627e217f5ae5"
+      ],
+      "code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol#19164#balanceOf": [
+        "SIBTASK::23a51a1614f34e731937",
+        "SIBTASK::307a56b3e2e4181667b3",
+        "SIBTASK::4d8b4f1c5fbbec6c8eff",
+        "SIBTASK::9c4c4ad850114440c0c1",
+        "SIBTASK::bf6501c3e8b21de0c82b"
+      ],
+      "code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol#20226#balanceOf": [
+        "SIBTASK::422075da741340f4a536",
+        "SIBTASK::4c498633ed8fa3a4766f",
+        "SIBTASK::538b742c08bc5fb1c60c",
+        "SIBTASK::ed2ecbd7e62c0260ace1",
+        "SIBTASK::f003251cfe6831db0323"
+      ],
+      "code-423n4/2022-05-alchemix/contracts-full/ThreePoolAssetManager.sol#20523#balanceOf": [
+        "SIBTASK::2d1ba6770213a3b8996a",
+        "SIBTASK::69606d7dcdb3f1717b7d",
+        "SIBTASK::9692abd90e625dee8552",
+        "SIBTASK::96c18075cc7a4364afab",
+        "SIBTASK::b548be4394b28e1ebd81"
+      ],
+      "code-423n4/2022-05-alchemix/contracts-full/gALCX.sol#1833#balanceOf": [
+        "SIBTASK::08a73ceb7e732511c0db",
+        "SIBTASK::490326fa7b55103a0682",
+        "SIBTASK::5db814028c4c6eb2385b",
+        "SIBTASK::8521c4d0916ea95441d6",
+        "SIBTASK::c7e611d4ef1f2f713cb0"
+      ],
+      "code-423n4/2022-05-alchemix/contracts-hardhat/gALCX.sol#1833#balanceOf": [
+        "SIBTASK::2282370a170200c9eb1c",
+        "SIBTASK::23fae983db56dd34a42d",
+        "SIBTASK::5aea02c164750f9447ef",
+        "SIBTASK::bf7a95b6fc8cbc352011",
+        "SIBTASK::fe0a2ac9e2bedb644320"
+      ],
+      "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#11761#balanceOf": [
+        "SIBTASK::384146f9334436cc3061",
+        "SIBTASK::53b23c4341a02b137026",
+        "SIBTASK::58bb3b7b5726bb6e25e3",
+        "SIBTASK::940c5c0e26ae3938c6e1",
+        "SIBTASK::a5b8d611fbb9ff7fd0ca",
+        "SIBTASK::a714a0630f6b2ced3183",
+        "SIBTASK::d7b88dab4b9e4c16bded",
+        "SIBTASK::dcc6e040947d4e72cbb5"
+      ],
+      "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#18241#balanceOf": [
+        "SIBTASK::0f9db5791117399f2271",
+        "SIBTASK::154a1bc6dbcef8d1c6fe",
+        "SIBTASK::1726271f436e02806385",
+        "SIBTASK::49fe53a8afdbb389ba32",
+        "SIBTASK::b3045737b0e0bd0e32f2",
+        "SIBTASK::bb4c831e20026758d461",
+        "SIBTASK::d409ef77a16f3de1b7e5",
+        "SIBTASK::f0820f8c186b99259bd5"
+      ],
+      "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#18533#balanceOf": [
+        "SIBTASK::12961be3320c70153d73",
+        "SIBTASK::43a7ca5fadb328064ab6",
+        "SIBTASK::4afd58e527489ae30e01",
+        "SIBTASK::71fee6f737d5f427976f",
+        "SIBTASK::73b882b46c1c02e2259c",
+        "SIBTASK::78637f362e222ec9be81",
+        "SIBTASK::90d54948aeb2424932bc",
+        "SIBTASK::ca6b3d3f145e666a0fa3"
+      ],
+      "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#20395#balanceOf": [
+        "SIBTASK::6e48dc07d1e887eac92e",
+        "SIBTASK::8a812e61e074c82820b0",
+        "SIBTASK::a4aa8ebf389c25a06eca",
+        "SIBTASK::adaa8b4b12253255b645",
+        "SIBTASK::d86216b3f29248e76458",
+        "SIBTASK::dcdf636b79c053dbe3eb",
+        "SIBTASK::e480268423b8420818b7",
+        "SIBTASK::f6ec6d86f7a5c75ef638"
+      ],
+      "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol#20891#balanceOf": [
+        "SIBTASK::0690f975e92b2b682be2",
+        "SIBTASK::2cf54e3163f3ee771503",
+        "SIBTASK::32f111e860f3d0f47d3a",
+        "SIBTASK::41b47d66192ab49505c6",
+        "SIBTASK::493d14e9030a5ef842dd",
+        "SIBTASK::63c2068cc2b2b3b25887",
+        "SIBTASK::68b3270b428d10fa4911",
+        "SIBTASK::727d5b3a7e970c41acbf",
+        "SIBTASK::941c9dccdd78ffdc7400",
+        "SIBTASK::94adcc307c91a590a9c8",
+        "SIBTASK::9aa8f04a2f6daa9cc514",
+        "SIBTASK::a0c0b69ee0704816468a",
+        "SIBTASK::a2594e31a312bd61c6e3",
+        "SIBTASK::a892a415816dbe472392",
+        "SIBTASK::b13a0539d79ad5e3f63c",
+        "SIBTASK::c62f48798304222347d4",
+        "SIBTASK::dedb71cd518a44021980",
+        "SIBTASK::e6610c17cf25e8a35c0b",
+        "SIBTASK::eefa6c897e82fbe21701",
+        "SIBTASK::f8ba07bb9bdd307c7c3f"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#8287#balanceOf": [
+        "SIBTASK::02bc4cb44f82b05312d0",
+        "SIBTASK::218725071b67c806be8f",
+        "SIBTASK::2e5ce57e35636bdb7360",
+        "SIBTASK::50d2dbcf4c142a2a5f22",
+        "SIBTASK::883e955eb5f90eee422d",
+        "SIBTASK::9342230a6039dde9d8a3",
+        "SIBTASK::9ed054dfb43500020ec8",
+        "SIBTASK::a065a6cea267376925ed",
+        "SIBTASK::d0f3a2697a7f630df5b6",
+        "SIBTASK::df62b11883786dbf9145",
+        "SIBTASK::ec11dc213ca38ec09b00",
+        "SIBTASK::fab4e24e01a386fc9613"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#8645#balanceOf": [
+        "SIBTASK::239d20165765f1d3f7f5",
+        "SIBTASK::3276607605e07b26932d",
+        "SIBTASK::3c54f8f2ce640a856b74",
+        "SIBTASK::3d0b672c14852349b5a5",
+        "SIBTASK::4ddd9bbe8bba99998f56",
+        "SIBTASK::6a3b20d6794e8ced5ca5",
+        "SIBTASK::7a5891eee1f5783ea45c",
+        "SIBTASK::ac6b2a7d33535de09622",
+        "SIBTASK::ba98dea8b547ff857a6b",
+        "SIBTASK::c4e892ca96624fc5deed",
+        "SIBTASK::c571291442431e63ae22",
+        "SIBTASK::edba062c375dd6a4ab96"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#8807#balanceOf": [
+        "SIBTASK::23259951041f114a2ecf",
+        "SIBTASK::24aa2ca88b688482d1ad",
+        "SIBTASK::40301b0d243f2d2df710",
+        "SIBTASK::45cbc5752b292ca92e43",
+        "SIBTASK::4c899556a043a368a39f",
+        "SIBTASK::4d4c82aa60d88dab2c40",
+        "SIBTASK::7f4aaa7f588d3680765f",
+        "SIBTASK::87fc555c2c700a12f1ae",
+        "SIBTASK::93188dcc5050e0d5aecc",
+        "SIBTASK::bb23ab57fef041980ae8",
+        "SIBTASK::cd404047c62be9208bf8",
+        "SIBTASK::f367301a0bcc4e50bae7"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#9553#balanceOf": [
+        "SIBTASK::22eb8fd0231b4b391cd6",
+        "SIBTASK::5dae06e3e7eaacca13c8",
+        "SIBTASK::82dc64b5839774074b10",
+        "SIBTASK::96a4b8ed808a70eb08f8",
+        "SIBTASK::abffd194153dc7950f67",
+        "SIBTASK::c1e891d39452fbfcea35",
+        "SIBTASK::cc7ebe9b43a0ac751e7d",
+        "SIBTASK::d667abbfa354643ea7e9"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#9590#balanceOf": [
+        "SIBTASK::306919cc9c694c037dad",
+        "SIBTASK::3c3d4881596ceb79aa7d",
+        "SIBTASK::45570161d39a788403f0",
+        "SIBTASK::4bbb04ab90e5deb16524",
+        "SIBTASK::7aa5ca95638b2fe706f9",
+        "SIBTASK::7b9f52a523fd2d644821",
+        "SIBTASK::8c560569fa66f14b9b9e",
+        "SIBTASK::aa2a2387b61fe3895830",
+        "SIBTASK::b9dbcde11d4d2140d958",
+        "SIBTASK::def7c93ef8397e951b86",
+        "SIBTASK::f0c47a0fa34af81177c3",
+        "SIBTASK::f647605e18b93d5a4227"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#9627#balanceOf": [
+        "SIBTASK::0ff84e736c96d46c3267",
+        "SIBTASK::10524106f13a76c38a10",
+        "SIBTASK::1c21e74b49e0a962d3b3",
+        "SIBTASK::399acd48e381de8eeab8",
+        "SIBTASK::3f98110a59dda2a73e64",
+        "SIBTASK::63deb4113eaf3fa6117d",
+        "SIBTASK::775e2d2cfc3aec77c3e8",
+        "SIBTASK::793c91db0218687af354",
+        "SIBTASK::b00666e452190ea42ccb",
+        "SIBTASK::bb72c3626d0e35771369",
+        "SIBTASK::dfe819310b16d2f2d7e9",
+        "SIBTASK::f4b57691c2a380856614"
+      ],
+      "code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol#9680#balanceOf": [
+        "SIBTASK::053b71885b05766b24a8",
+        "SIBTASK::6b4aca3ebafb231ca491",
+        "SIBTASK::75dffec0fd580014d832",
+        "SIBTASK::81ef650dc0afb40eebdb"
+      ],
+      "code-423n4/2025-08-gte-perps/contracts/launchpad/Launchpad.sol#11134#safeTransferFrom": [
+        "SIBTASK::3f79ffc653cebd7d4cb0",
+        "SIBTASK::65a2b7c3f55daa7f766c",
+        "SIBTASK::6f44bf1648e6fd0bf9b2"
+      ],
+      "code-423n4/2025-08-gte-perps/contracts/launchpad/Launchpad.sol#11204#safeTransfer": [
+        "SIBTASK::09303d6be15c13f435ea",
+        "SIBTASK::534ed3a744bc18d5f0cc",
+        "SIBTASK::8c782575b881d6a4308b",
+        "SIBTASK::e24508f768e277ea4cf4"
+      ]
+    },
+    "identical_call_sites_in_more_than_one_task": 49,
+    "near_duplicate_examples": [
+      {
+        "a": "SIBTASK::00e383102ac1ab9b6722",
+        "a_split": "test",
+        "b": "SIBTASK::23a51a1614f34e731937",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::00e383102ac1ab9b6722",
+        "a_split": "test",
+        "b": "SIBTASK::4c498633ed8fa3a4766f",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::00e383102ac1ab9b6722",
+        "a_split": "test",
+        "b": "SIBTASK::b548be4394b28e1ebd81",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::02bc4cb44f82b05312d0",
+        "a_split": "train",
+        "b": "SIBTASK::45cbc5752b292ca92e43",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::02bc4cb44f82b05312d0",
+        "a_split": "train",
+        "b": "SIBTASK::6a3b20d6794e8ced5ca5",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::038c368f42e5ff80cd1b",
+        "a_split": "validation",
+        "b": "SIBTASK::07cb190ae1b6d0da0b6a",
+        "b_split": "validation",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::053b71885b05766b24a8",
+        "a_split": "train",
+        "b": "SIBTASK::7b9f52a523fd2d644821",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::053b71885b05766b24a8",
+        "a_split": "train",
+        "b": "SIBTASK::b00666e452190ea42ccb",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::053b71885b05766b24a8",
+        "a_split": "train",
+        "b": "SIBTASK::cc7ebe9b43a0ac751e7d",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::0c7b50a94bbabfb81d1d",
+        "a_split": "validation",
+        "b": "SIBTASK::0eb810fdadbbf91d77ab",
+        "b_split": "validation",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::0f9db5791117399f2271",
+        "a_split": "train",
+        "b": "SIBTASK::73b882b46c1c02e2259c",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::0ff84e736c96d46c3267",
+        "a_split": "train",
+        "b": "SIBTASK::75dffec0fd580014d832",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::0ff84e736c96d46c3267",
+        "a_split": "train",
+        "b": "SIBTASK::b9dbcde11d4d2140d958",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::0ff84e736c96d46c3267",
+        "a_split": "train",
+        "b": "SIBTASK::d667abbfa354643ea7e9",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::10524106f13a76c38a10",
+        "a_split": "train",
+        "b": "SIBTASK::7aa5ca95638b2fe706f9",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::12961be3320c70153d73",
+        "a_split": "train",
+        "b": "SIBTASK::bb4c831e20026758d461",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::154a1bc6dbcef8d1c6fe",
+        "a_split": "train",
+        "b": "SIBTASK::71fee6f737d5f427976f",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::16f0446adef23e578c63",
+        "a_split": "validation",
+        "b": "SIBTASK::6847bee482a1988012e8",
+        "b_split": "validation",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1726271f436e02806385",
+        "a_split": "train",
+        "b": "SIBTASK::78637f362e222ec9be81",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1803707ba2ec0bf70d68",
+        "a_split": "validation",
+        "b": "SIBTASK::4090f03019ee05fb9e46",
+        "b_split": "validation",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1862608edd25283e94e6",
+        "a_split": "validation",
+        "b": "SIBTASK::f2866c472ce233bf3504",
+        "b_split": "validation",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1c21e74b49e0a962d3b3",
+        "a_split": "train",
+        "b": "SIBTASK::22eb8fd0231b4b391cd6",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1c21e74b49e0a962d3b3",
+        "a_split": "train",
+        "b": "SIBTASK::6b4aca3ebafb231ca491",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::1c21e74b49e0a962d3b3",
+        "a_split": "train",
+        "b": "SIBTASK::f0c47a0fa34af81177c3",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::218725071b67c806be8f",
+        "a_split": "train",
+        "b": "SIBTASK::23259951041f114a2ecf",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::218725071b67c806be8f",
+        "a_split": "train",
+        "b": "SIBTASK::239d20165765f1d3f7f5",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::22eb8fd0231b4b391cd6",
+        "a_split": "train",
+        "b": "SIBTASK::6b4aca3ebafb231ca491",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::22eb8fd0231b4b391cd6",
+        "a_split": "train",
+        "b": "SIBTASK::f0c47a0fa34af81177c3",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::23259951041f114a2ecf",
+        "a_split": "train",
+        "b": "SIBTASK::239d20165765f1d3f7f5",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::23a51a1614f34e731937",
+        "a_split": "test",
+        "b": "SIBTASK::4c498633ed8fa3a4766f",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::23a51a1614f34e731937",
+        "a_split": "test",
+        "b": "SIBTASK::b548be4394b28e1ebd81",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::24aa2ca88b688482d1ad",
+        "a_split": "train",
+        "b": "SIBTASK::2e5ce57e35636bdb7360",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::24aa2ca88b688482d1ad",
+        "a_split": "train",
+        "b": "SIBTASK::edba062c375dd6a4ab96",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2924969546990971af5f",
+        "a_split": "test",
+        "b": "SIBTASK::538b742c08bc5fb1c60c",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2924969546990971af5f",
+        "a_split": "test",
+        "b": "SIBTASK::96c18075cc7a4364afab",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2924969546990971af5f",
+        "a_split": "test",
+        "b": "SIBTASK::9c4c4ad850114440c0c1",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2cf54e3163f3ee771503",
+        "a_split": "train",
+        "b": "SIBTASK::a0c0b69ee0704816468a",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2cf54e3163f3ee771503",
+        "a_split": "train",
+        "b": "SIBTASK::c62f48798304222347d4",
+        "b_split": "train",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2d1ba6770213a3b8996a",
+        "a_split": "test",
+        "b": "SIBTASK::3edeff053d12af704fb3",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      },
+      {
+        "a": "SIBTASK::2d1ba6770213a3b8996a",
+        "a_split": "test",
+        "b": "SIBTASK::bf6501c3e8b21de0c82b",
+        "b_split": "test",
+        "cross_split": false,
+        "jaccard": 1.0
+      }
+    ],
+    "near_duplicate_pairs": 2001,
+    "near_duplicate_pairs_cross_split": 0,
+    "note": "near-duplicate wording is reported, not removed: a sibling family that contrasts the same API necessarily repeats its own explanation. This layer is leakage-audited under the recorded criteria; it is not contamination-proof",
+    "pairs_compared": 24310,
+    "semantic_examples": [
+      {
+        "a": "SIBTASK::2cf54e3163f3ee771503",
+        "a_split": "train",
+        "b": "SIBTASK::a0c0b69ee0704816468a",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::2cf54e3163f3ee771503",
+        "a_split": "train",
+        "b": "SIBTASK::c62f48798304222347d4",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::32f111e860f3d0f47d3a",
+        "a_split": "train",
+        "b": "SIBTASK::63c2068cc2b2b3b25887",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::32f111e860f3d0f47d3a",
+        "a_split": "train",
+        "b": "SIBTASK::dedb71cd518a44021980",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::41b47d66192ab49505c6",
+        "a_split": "train",
+        "b": "SIBTASK::94adcc307c91a590a9c8",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::41b47d66192ab49505c6",
+        "a_split": "train",
+        "b": "SIBTASK::eefa6c897e82fbe21701",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::63c2068cc2b2b3b25887",
+        "a_split": "train",
+        "b": "SIBTASK::dedb71cd518a44021980",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::941c9dccdd78ffdc7400",
+        "a_split": "train",
+        "b": "SIBTASK::b13a0539d79ad5e3f63c",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::941c9dccdd78ffdc7400",
+        "a_split": "train",
+        "b": "SIBTASK::e6610c17cf25e8a35c0b",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::94adcc307c91a590a9c8",
+        "a_split": "train",
+        "b": "SIBTASK::eefa6c897e82fbe21701",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::a0c0b69ee0704816468a",
+        "a_split": "train",
+        "b": "SIBTASK::c62f48798304222347d4",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::b13a0539d79ad5e3f63c",
+        "a_split": "train",
+        "b": "SIBTASK::e6610c17cf25e8a35c0b",
+        "b_split": "train",
+        "cosine": 1.0,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::0c7b50a94bbabfb81d1d",
+        "a_split": "validation",
+        "b": "SIBTASK::0eb810fdadbbf91d77ab",
+        "b_split": "validation",
+        "cosine": 0.986,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::3445cffd80d2ea70fc01",
+        "a_split": "validation",
+        "b": "SIBTASK::96b372c5b54631ec087f",
+        "b_split": "validation",
+        "cosine": 0.986,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::3dbf42e3dc19b735901d",
+        "a_split": "validation",
+        "b": "SIBTASK::d99c0515ebebca5bc48c",
+        "b_split": "validation",
+        "cosine": 0.986,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::79147278cc154b59d8a7",
+        "a_split": "validation",
+        "b": "SIBTASK::929e1be7da62a1a7c72b",
+        "b_split": "validation",
+        "cosine": 0.986,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::bc158b8eab1d4fddbfce",
+        "a_split": "validation",
+        "b": "SIBTASK::cd7efa723e83caff3630",
+        "b_split": "validation",
+        "cosine": 0.986,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::038c368f42e5ff80cd1b",
+        "a_split": "validation",
+        "b": "SIBTASK::07cb190ae1b6d0da0b6a",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::1803707ba2ec0bf70d68",
+        "a_split": "validation",
+        "b": "SIBTASK::4090f03019ee05fb9e46",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::1862608edd25283e94e6",
+        "a_split": "validation",
+        "b": "SIBTASK::f2866c472ce233bf3504",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::68231e7117c6c3a63be4",
+        "a_split": "validation",
+        "b": "SIBTASK::be2ca590c5ba0b214123",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::70110a0a8e00adcee2bf",
+        "a_split": "validation",
+        "b": "SIBTASK::fd680cb027002aac6d4b",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::9c9c54aa9c628b144278",
+        "a_split": "validation",
+        "b": "SIBTASK::b6b0ddbc2d6f3e57f85c",
+        "b_split": "validation",
+        "cosine": 0.985,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::2282370a170200c9eb1c",
+        "a_split": "test",
+        "b": "SIBTASK::c7e611d4ef1f2f713cb0",
+        "b_split": "test",
+        "cosine": 0.981,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::23fae983db56dd34a42d",
+        "a_split": "test",
+        "b": "SIBTASK::5db814028c4c6eb2385b",
+        "b_split": "test",
+        "cosine": 0.981,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::490326fa7b55103a0682",
+        "a_split": "test",
+        "b": "SIBTASK::bf7a95b6fc8cbc352011",
+        "b_split": "test",
+        "cosine": 0.981,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::8521c4d0916ea95441d6",
+        "a_split": "test",
+        "b": "SIBTASK::fe0a2ac9e2bedb644320",
+        "b_split": "test",
+        "cosine": 0.981,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::08a73ceb7e732511c0db",
+        "a_split": "test",
+        "b": "SIBTASK::5aea02c164750f9447ef",
+        "b_split": "test",
+        "cosine": 0.98,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::0ff84e736c96d46c3267",
+        "a_split": "train",
+        "b": "SIBTASK::b9dbcde11d4d2140d958",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::0ff84e736c96d46c3267",
+        "a_split": "train",
+        "b": "SIBTASK::d667abbfa354643ea7e9",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::1c21e74b49e0a962d3b3",
+        "a_split": "train",
+        "b": "SIBTASK::22eb8fd0231b4b391cd6",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::1c21e74b49e0a962d3b3",
+        "a_split": "train",
+        "b": "SIBTASK::f0c47a0fa34af81177c3",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::22eb8fd0231b4b391cd6",
+        "a_split": "train",
+        "b": "SIBTASK::f0c47a0fa34af81177c3",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::399acd48e381de8eeab8",
+        "a_split": "train",
+        "b": "SIBTASK::3c3d4881596ceb79aa7d",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::399acd48e381de8eeab8",
+        "a_split": "train",
+        "b": "SIBTASK::82dc64b5839774074b10",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::3c3d4881596ceb79aa7d",
+        "a_split": "train",
+        "b": "SIBTASK::82dc64b5839774074b10",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::7b9f52a523fd2d644821",
+        "a_split": "train",
+        "b": "SIBTASK::b00666e452190ea42ccb",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::7b9f52a523fd2d644821",
+        "a_split": "train",
+        "b": "SIBTASK::cc7ebe9b43a0ac751e7d",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::b00666e452190ea42ccb",
+        "a_split": "train",
+        "b": "SIBTASK::cc7ebe9b43a0ac751e7d",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::b9dbcde11d4d2140d958",
+        "a_split": "train",
+        "b": "SIBTASK::d667abbfa354643ea7e9",
+        "b_split": "train",
+        "cosine": 0.976,
+        "cross_split": false
+      }
+    ],
+    "semantic_pairs": 5954,
+    "semantic_pairs_cross_split": 440,
+    "shared_pinned_file_examples": {
+      "balancer/balancer-v2-monorepo@e91a2b643a49856f51a648d175667c1b48cf3377#pkg/liquidity-mining/contracts/VotingEscrowRemapper.sol": [
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::02bc4cb44f82b05312d0"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::0ff84e736c96d46c3267"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::2cf54e3163f3ee771503"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::3c3e47a8000c24841b83"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::43a7ca5fadb328064ab6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::45cbc5752b292ca92e43"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::49fe53a8afdbb389ba32"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::4d8b4f1c5fbbec6c8eff"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::63deb4113eaf3fa6117d"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::67604a779eae82e17ea9"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::68b3270b428d10fa4911"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::6a3b20d6794e8ced5ca5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::75dffec0fd580014d832"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::79147278cc154b59d8a7"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::7a0f7855627e217f5ae5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::7a5891eee1f5783ea45c"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::8521c4d0916ea95441d6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::8c560569fa66f14b9b9e"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::929e1be7da62a1a7c72b"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::93188dcc5050e0d5aecc"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::940c5c0e26ae3938c6e1"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::9692abd90e625dee8552"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::96a4b8ed808a70eb08f8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::9ed054dfb43500020ec8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a0c0b69ee0704816468a"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a4aa8ebf389c25a06eca"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::adaa8b4b12253255b645"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::b9dbcde11d4d2140d958"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::c4e892ca96624fc5deed"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::c62f48798304222347d4"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::ca6b3d3f145e666a0fa3"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::cd404047c62be9208bf8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::d667abbfa354643ea7e9"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::d7b88dab4b9e4c16bded"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::daf27376c9c25cf102a6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::def7c93ef8397e951b86"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::df62b11883786dbf9145"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::ed2ecbd7e62c0260ace1"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f0820f8c186b99259bd5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f4b57691c2a380856614"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f8ba07bb9bdd307c7c3f"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::fe0a2ac9e2bedb644320"
+        }
+      ],
+      "code-423n4/2024-04-noya@7e7b0ffb53b516b95c7900d25fb00af8f108727f#testFoundry/PendleConnector.t.sol": [
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::23fae983db56dd34a42d"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::307a56b3e2e4181667b3"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::3445cffd80d2ea70fc01"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::422075da741340f4a536"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::5db814028c4c6eb2385b"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::69606d7dcdb3f1717b7d"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::74cc95d23ab9e057da02"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::8b36105ebf18715f4af0"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::96b372c5b54631ec087f"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::b8b60fce504c8e9d661e"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::bd952e9ffede7631ab1c"
+        }
+      ],
+      "code-423n4/2025-06-panoptic@eea2c931b1cbce1da01586e42ba298814de40d31#src/accountants/PanopticVaultAccountant.sol": [
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::00e383102ac1ab9b6722"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::053b71885b05766b24a8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::10524106f13a76c38a10"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::12961be3320c70153d73"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::2282370a170200c9eb1c"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::23a51a1614f34e731937"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::3276607605e07b26932d"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::32f111e860f3d0f47d3a"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::3d0b672c14852349b5a5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::3f98110a59dda2a73e64"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::493d14e9030a5ef842dd"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::4afd58e527489ae30e01"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::4bbb04ab90e5deb16524"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::4c498633ed8fa3a4766f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::4c899556a043a368a39f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::4ddd9bbe8bba99998f56"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::58bb3b7b5726bb6e25e3"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::63422a888db86d785fba"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::63c2068cc2b2b3b25887"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::70110a0a8e00adcee2bf"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::7aa5ca95638b2fe706f9"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::7b9f52a523fd2d644821"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::7f4aaa7f588d3680765f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::9342230a6039dde9d8a3"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::9aa8f04a2f6daa9cc514"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a5b8d611fbb9ff7fd0ca"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::b00666e452190ea42ccb"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::b548be4394b28e1ebd81"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::bb4c831e20026758d461"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::bfce2d82da5b7b06c431"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::c1e891d39452fbfcea35"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::c7e611d4ef1f2f713cb0"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::cc0801a6b2dea699eeca"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::cc7ebe9b43a0ac751e7d"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::d0f3a2697a7f630df5b6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::d409ef77a16f3de1b7e5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::dedb71cd518a44021980"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::e480268423b8420818b7"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f367301a0bcc4e50bae7"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f6ec6d86f7a5c75ef638"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::fab4e24e01a386fc9613"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::fd680cb027002aac6d4b"
+        }
+      ],
+      "pendle-finance/pendle-core-v2-public@87685c89d05087535e9b9647eeda0e3d297d1f06#contracts/offchain-helpers/Multicall2.sol": [
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::2eee22e249c0d7d68fe8"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::537b4b650a0fa171346b"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::9d1cd3f61666c2e00638"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::ce0a80f2008be05f1575"
+        }
+      ],
+      "prisma-fi/prisma-contracts@63f3d08d6d7ae9fc74855a489eeae080b72a3f46#contracts/dao/FeeConverter.sol": [
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::0690f975e92b2b682be2"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::09303d6be15c13f435ea"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::154a1bc6dbcef8d1c6fe"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::1726271f436e02806385"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::1862608edd25283e94e6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::1c21e74b49e0a962d3b3"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::218725071b67c806be8f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::22eb8fd0231b4b391cd6"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::23259951041f114a2ecf"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::239d20165765f1d3f7f5"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::2924969546990971af5f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::306919cc9c694c037dad"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::40301b0d243f2d2df710"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::41b47d66192ab49505c6"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::43a52b62262058b60714"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::45570161d39a788403f0"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::490326fa7b55103a0682"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::50d2dbcf4c142a2a5f22"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::538b742c08bc5fb1c60c"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::53b23c4341a02b137026"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::69b75fef31eba08e4838"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::6b4aca3ebafb231ca491"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::71fee6f737d5f427976f"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::727d5b3a7e970c41acbf"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::78637f362e222ec9be81"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::793c91db0218687af354"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::94adcc307c91a590a9c8"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::96c18075cc7a4364afab"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::9c4c4ad850114440c0c1"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a065a6cea267376925ed"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::abffd194153dc7950f67"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::ba98dea8b547ff857a6b"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::bb23ab57fef041980ae8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::bb72c3626d0e35771369"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::bf7a95b6fc8cbc352011"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::c571291442431e63ae22"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::d86216b3f29248e76458"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::dcc6e040947d4e72cbb5"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::dcdf636b79c053dbe3eb"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::eefa6c897e82fbe21701"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f0c47a0fa34af81177c3"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::f2866c472ce233bf3504"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::fdf3abd7574f8eb03288"
+        }
+      ],
+      "silo-finance/silo-core-v1@9eb2ce56106f11507964d02fb4aecf222b0c095d#contracts/BaseSilo.sol": [
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::038c368f42e5ff80cd1b"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::07cb190ae1b6d0da0b6a"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::08a73ceb7e732511c0db"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::0f9db5791117399f2271"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::1fc3d047af3ef2991e15"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::24aa2ca88b688482d1ad"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::2d1ba6770213a3b8996a"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::2e5ce57e35636bdb7360"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::384146f9334436cc3061"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::399acd48e381de8eeab8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::3c3d4881596ceb79aa7d"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::3c54f8f2ce640a856b74"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::3edeff053d12af704fb3"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::4a31d8692449ea4462c9"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::4d4c82aa60d88dab2c40"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::5aea02c164750f9447ef"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::5dae06e3e7eaacca13c8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::6e48dc07d1e887eac92e"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::73b882b46c1c02e2259c"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::775e2d2cfc3aec77c3e8"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::81ef650dc0afb40eebdb"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::82dc64b5839774074b10"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::87fc555c2c700a12f1ae"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::883e955eb5f90eee422d"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::8a812e61e074c82820b0"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::90d54948aeb2424932bc"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::941c9dccdd78ffdc7400"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a2594e31a312bd61c6e3"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a714a0630f6b2ced3183"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::a892a415816dbe472392"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::aa2a2387b61fe3895830"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::ac6b2a7d33535de09622"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::b13a0539d79ad5e3f63c"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::b3045737b0e0bd0e32f2"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::bf6501c3e8b21de0c82b"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::dfe819310b16d2f2d7e9"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::e6610c17cf25e8a35c0b"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::ec11dc213ca38ec09b00"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::edba062c375dd6a4ab96"
+        },
+        {
+          "side": "reference",
+          "split": "test",
+          "task_id": "SIBTASK::f003251cfe6831db0323"
+        },
+        {
+          "side": "reference",
+          "split": "validation",
+          "task_id": "SIBTASK::f3322fa0698dc47db9e0"
+        },
+        {
+          "side": "reference",
+          "split": "train",
+          "task_id": "SIBTASK::f647605e18b93d5a4227"
+        }
+      ]
+    },
+    "shared_pinned_files": 25,
+    "shared_pinned_files_cross_split": 6,
+    "thresholds": {
+      "cosine": 0.7,
+      "jaccard": 0.8
+    }
+  },
+  "project_holdout_audit": {
+    "group_unit": "vulnerable_side_audited_repository",
+    "note": "a vulnerable-side audited repository seen in two splits would let a model meet the same finding twice; none is. Reference-side repositories are shared library code and do straddle splits by construction -- that residual exposure is reported here rather than claimed away",
+    "reference_side_repositories": 13,
+    "reference_side_straddle_detail": {
+      "Synthetixio/synthetix-v3": [
+        "test",
+        "validation"
+      ],
+      "Uniswap/v2-periphery": [
+        "test",
+        "validation"
+      ],
+      "balancer/balancer-v2-monorepo": [
+        "test",
+        "train",
+        "validation"
+      ],
+      "code-423n4/2024-04-noya": [
+        "test",
+        "validation"
+      ],
+      "code-423n4/2025-06-panoptic": [
+        "test",
+        "train",
+        "validation"
+      ],
+      "pendle-finance/pendle-core-v2-public": [
+        "test",
+        "train",
+        "validation"
+      ],
+      "prisma-fi/prisma-contracts": [
+        "test",
+        "train",
+        "validation"
+      ],
+      "silo-finance/silo-core-v1": [
+        "test",
+        "train",
+        "validation"
+      ]
+    },
+    "reference_side_straddling_splits": 8,
+    "repositories_per_split": {
+      "test": [
+        "Code4rena/2022-05-alchemix",
+        "Code4rena/2025-08-gte-perps"
+      ],
+      "train": [
+        "Code4rena/2024-01-renft",
+        "Code4rena/2024-04-noya"
+      ],
+      "validation": [
+        "Code4rena/2024-01-decent"
+      ]
+    },
+    "test_only_repositories": [
+      "Code4rena/2022-05-alchemix",
+      "Code4rena/2025-08-gte-perps"
+    ],
+    "violation_count": 0,
+    "violations": {},
+    "vulnerable_side_repositories": 5
+  },
+  "review_version": "sibling-review-1",
+  "rights": {
+    "authority": "NOTICE.md: much of this corpus is source-available-but-not-redistributable or ships no licence at all; this layer therefore stores spans and hashes of the pinned bytes rather than the bytes",
+    "decision": "citations_and_spans_only__no_source_text_redistributed",
+    "expressive_text_redistributed": false,
+    "reference_side_classes": {
+      "redistributable": 103,
+      "source_available_but_not_redistributable": 63,
+      "unknown": 63
+    },
+    "vulnerable_side_classes": {
+      "source_available_but_not_redistributable": 2,
+      "unknown": 227
+    }
+  },
+  "splits": {
+    "assignment_by_group": {
+      "Code4rena/2022-05-alchemix": "test",
+      "Code4rena/2024-01-decent": "validation",
+      "Code4rena/2024-01-renft": "train",
+      "Code4rena/2024-04-noya": "train",
+      "Code4rena/2025-08-gte-perps": "test"
+    },
+    "counts": {
+      "test": 47,
+      "train": 126,
+      "validation": 48
+    },
+    "group_members": {
+      "Code4rena/2022-05-alchemix": [
+        "SIBTASK::00e383102ac1ab9b6722",
+        "SIBTASK::08a73ceb7e732511c0db",
+        "SIBTASK::2282370a170200c9eb1c",
+        "SIBTASK::23a51a1614f34e731937",
+        "SIBTASK::23fae983db56dd34a42d",
+        "SIBTASK::2924969546990971af5f",
+        "SIBTASK::2d1ba6770213a3b8996a",
+        "SIBTASK::307a56b3e2e4181667b3",
+        "SIBTASK::3edeff053d12af704fb3",
+        "SIBTASK::422075da741340f4a536",
+        "SIBTASK::490326fa7b55103a0682",
+        "SIBTASK::4c498633ed8fa3a4766f",
+        "SIBTASK::4d8b4f1c5fbbec6c8eff",
+        "SIBTASK::538b742c08bc5fb1c60c",
+        "SIBTASK::5aea02c164750f9447ef",
+        "SIBTASK::5db814028c4c6eb2385b",
+        "SIBTASK::69606d7dcdb3f1717b7d",
+        "SIBTASK::74cc95d23ab9e057da02",
+        "SIBTASK::7a0f7855627e217f5ae5",
+        "SIBTASK::8521c4d0916ea95441d6",
+        "SIBTASK::9692abd90e625dee8552",
+        "SIBTASK::96c18075cc7a4364afab",
+        "SIBTASK::9c4c4ad850114440c0c1",
+        "SIBTASK::b548be4394b28e1ebd81",
+        "SIBTASK::bf6501c3e8b21de0c82b",
+        "SIBTASK::bf7a95b6fc8cbc352011",
+        "SIBTASK::c7e611d4ef1f2f713cb0",
+        "SIBTASK::ed2ecbd7e62c0260ace1",
+        "SIBTASK::f003251cfe6831db0323",
+        "SIBTASK::fe0a2ac9e2bedb644320"
+      ],
+      "Code4rena/2024-01-decent": [
+        "SIBTASK::038c368f42e5ff80cd1b",
+        "SIBTASK::07cb190ae1b6d0da0b6a",
+        "SIBTASK::0c7b50a94bbabfb81d1d",
+        "SIBTASK::0eb810fdadbbf91d77ab",
+        "SIBTASK::16f0446adef23e578c63",
+        "SIBTASK::1803707ba2ec0bf70d68",
+        "SIBTASK::1862608edd25283e94e6",
+        "SIBTASK::2b59ae4a913732b80bf4",
+        "SIBTASK::337c90f998798f322ec7",
+        "SIBTASK::3445cffd80d2ea70fc01",
+        "SIBTASK::37c9b3826f6fd5bc94d5",
+        "SIBTASK::3b023257cfe63fe8947c",
+        "SIBTASK::3cb8fb56d5f2f602c3b6",
+        "SIBTASK::3dbf42e3dc19b735901d",
+        "SIBTASK::4090f03019ee05fb9e46",
+        "SIBTASK::43a52b62262058b60714",
+        "SIBTASK::537b4b650a0fa171346b",
+        "SIBTASK::63422a888db86d785fba",
+        "SIBTASK::63d11f6c9e36c53cd3da",
+        "SIBTASK::68231e7117c6c3a63be4",
+        "SIBTASK::6847bee482a1988012e8",
+        "SIBTASK::70110a0a8e00adcee2bf",
+        "SIBTASK::79147278cc154b59d8a7",
+        "SIBTASK::8009be5baa40a64e58cc",
+        "SIBTASK::86d50783b73c37b34323",
+        "SIBTASK::929e1be7da62a1a7c72b",
+        "SIBTASK::9538f1daea44fbb288ad",
+        "SIBTASK::96b372c5b54631ec087f",
+        "SIBTASK::9c9c54aa9c628b144278",
+        "SIBTASK::a7c4bbbf2438ed533059",
+        "SIBTASK::a9462690dd0023c81b4c",
+        "SIBTASK::b6b0ddbc2d6f3e57f85c",
+        "SIBTASK::b8b60fce504c8e9d661e",
+        "SIBTASK::bc158b8eab1d4fddbfce",
+        "SIBTASK::be2ca590c5ba0b214123",
+        "SIBTASK::c21e2f7d1e64bcbad198",
+        "SIBTASK::cd7efa723e83caff3630",
+        "SIBTASK::ce0a80f2008be05f1575",
+        "SIBTASK::d20defa212f8a29cafca",
+        "SIBTASK::d319ec89ce9912e4f275",
+        "SIBTASK::d99c0515ebebca5bc48c",
+        "SIBTASK::daf27376c9c25cf102a6",
+        "SIBTASK::e6a56f2601034bd94709",
+        "SIBTASK::e84891715ff37e2b549e",
+        "SIBTASK::f2866c472ce233bf3504",
+        "SIBTASK::f3322fa0698dc47db9e0",
+        "SIBTASK::f9acce8bd51b7bf98b29",
+        "SIBTASK::fd680cb027002aac6d4b"
+      ],
+      "Code4rena/2024-01-renft": [
+        "SIBTASK::2eee22e249c0d7d68fe8",
+        "SIBTASK::9d1cd3f61666c2e00638"
+      ],
+      "Code4rena/2024-04-noya": [
+        "SIBTASK::02bc4cb44f82b05312d0",
+        "SIBTASK::053b71885b05766b24a8",
+        "SIBTASK::0690f975e92b2b682be2",
+        "SIBTASK::0f9db5791117399f2271",
+        "SIBTASK::0ff84e736c96d46c3267",
+        "SIBTASK::10524106f13a76c38a10",
+        "SIBTASK::12961be3320c70153d73",
+        "SIBTASK::154a1bc6dbcef8d1c6fe",
+        "SIBTASK::1726271f436e02806385",
+        "SIBTASK::1c21e74b49e0a962d3b3",
+        "SIBTASK::218725071b67c806be8f",
+        "SIBTASK::22eb8fd0231b4b391cd6",
+        "SIBTASK::23259951041f114a2ecf",
+        "SIBTASK::239d20165765f1d3f7f5",
+        "SIBTASK::24aa2ca88b688482d1ad",
+        "SIBTASK::2cf54e3163f3ee771503",
+        "SIBTASK::2e5ce57e35636bdb7360",
+        "SIBTASK::306919cc9c694c037dad",
+        "SIBTASK::3276607605e07b26932d",
+        "SIBTASK::32f111e860f3d0f47d3a",
+        "SIBTASK::384146f9334436cc3061",
+        "SIBTASK::399acd48e381de8eeab8",
+        "SIBTASK::3c3d4881596ceb79aa7d",
+        "SIBTASK::3c54f8f2ce640a856b74",
+        "SIBTASK::3d0b672c14852349b5a5",
+        "SIBTASK::3f98110a59dda2a73e64",
+        "SIBTASK::40301b0d243f2d2df710",
+        "SIBTASK::41b47d66192ab49505c6",
+        "SIBTASK::43a7ca5fadb328064ab6",
+        "SIBTASK::45570161d39a788403f0",
+        "SIBTASK::45cbc5752b292ca92e43",
+        "SIBTASK::493d14e9030a5ef842dd",
+        "SIBTASK::49fe53a8afdbb389ba32",
+        "SIBTASK::4afd58e527489ae30e01",
+        "SIBTASK::4bbb04ab90e5deb16524",
+        "SIBTASK::4c899556a043a368a39f",
+        "SIBTASK::4d4c82aa60d88dab2c40",
+        "SIBTASK::4ddd9bbe8bba99998f56",
+        "SIBTASK::50d2dbcf4c142a2a5f22",
+        "SIBTASK::53b23c4341a02b137026",
+        "SIBTASK::58bb3b7b5726bb6e25e3",
+        "SIBTASK::5dae06e3e7eaacca13c8",
+        "SIBTASK::63c2068cc2b2b3b25887",
+        "SIBTASK::63deb4113eaf3fa6117d",
+        "SIBTASK::68b3270b428d10fa4911",
+        "SIBTASK::6a3b20d6794e8ced5ca5",
+        "SIBTASK::6b4aca3ebafb231ca491",
+        "SIBTASK::6e48dc07d1e887eac92e",
+        "SIBTASK::71fee6f737d5f427976f",
+        "SIBTASK::727d5b3a7e970c41acbf",
+        "SIBTASK::73b882b46c1c02e2259c",
+        "SIBTASK::75dffec0fd580014d832",
+        "SIBTASK::775e2d2cfc3aec77c3e8",
+        "SIBTASK::78637f362e222ec9be81",
+        "SIBTASK::793c91db0218687af354",
+        "SIBTASK::7a5891eee1f5783ea45c",
+        "SIBTASK::7aa5ca95638b2fe706f9",
+        "SIBTASK::7b9f52a523fd2d644821",
+        "SIBTASK::7f4aaa7f588d3680765f",
+        "SIBTASK::81ef650dc0afb40eebdb",
+        "SIBTASK::82dc64b5839774074b10",
+        "SIBTASK::87fc555c2c700a12f1ae",
+        "SIBTASK::883e955eb5f90eee422d",
+        "SIBTASK::8a812e61e074c82820b0",
+        "SIBTASK::8c560569fa66f14b9b9e",
+        "SIBTASK::90d54948aeb2424932bc",
+        "SIBTASK::93188dcc5050e0d5aecc",
+        "SIBTASK::9342230a6039dde9d8a3",
+        "SIBTASK::940c5c0e26ae3938c6e1",
+        "SIBTASK::941c9dccdd78ffdc7400",
+        "SIBTASK::94adcc307c91a590a9c8",
+        "SIBTASK::96a4b8ed808a70eb08f8",
+        "SIBTASK::9aa8f04a2f6daa9cc514",
+        "SIBTASK::9ed054dfb43500020ec8",
+        "SIBTASK::a065a6cea267376925ed",
+        "SIBTASK::a0c0b69ee0704816468a",
+        "SIBTASK::a2594e31a312bd61c6e3",
+        "SIBTASK::a4aa8ebf389c25a06eca",
+        "SIBTASK::a5b8d611fbb9ff7fd0ca",
+        "SIBTASK::a714a0630f6b2ced3183",
+        "SIBTASK::a892a415816dbe472392",
+        "SIBTASK::aa2a2387b61fe3895830",
+        "SIBTASK::abffd194153dc7950f67",
+        "SIBTASK::ac6b2a7d33535de09622",
+        "SIBTASK::adaa8b4b12253255b645",
+        "SIBTASK::b00666e452190ea42ccb",
+        "SIBTASK::b13a0539d79ad5e3f63c",
+        "SIBTASK::b3045737b0e0bd0e32f2",
+        "SIBTASK::b9dbcde11d4d2140d958",
+        "SIBTASK::ba98dea8b547ff857a6b",
+        "SIBTASK::bb23ab57fef041980ae8",
+        "SIBTASK::bb4c831e20026758d461",
+        "SIBTASK::bb72c3626d0e35771369",
+        "SIBTASK::c1e891d39452fbfcea35",
+        "SIBTASK::c4e892ca96624fc5deed",
+        "SIBTASK::c571291442431e63ae22",
+        "SIBTASK::c62f48798304222347d4",
+        "SIBTASK::ca6b3d3f145e666a0fa3",
+        "SIBTASK::cc7ebe9b43a0ac751e7d",
+        "SIBTASK::cd404047c62be9208bf8",
+        "SIBTASK::d0f3a2697a7f630df5b6",
+        "SIBTASK::d409ef77a16f3de1b7e5",
+        "SIBTASK::d667abbfa354643ea7e9",
+        "SIBTASK::d7b88dab4b9e4c16bded",
+        "SIBTASK::d86216b3f29248e76458",
+        "SIBTASK::dcc6e040947d4e72cbb5",
+        "SIBTASK::dcdf636b79c053dbe3eb",
+        "SIBTASK::dedb71cd518a44021980",
+        "SIBTASK::def7c93ef8397e951b86",
+        "SIBTASK::df62b11883786dbf9145",
+        "SIBTASK::dfe819310b16d2f2d7e9",
+        "SIBTASK::e480268423b8420818b7",
+        "SIBTASK::e6610c17cf25e8a35c0b",
+        "SIBTASK::ec11dc213ca38ec09b00",
+        "SIBTASK::edba062c375dd6a4ab96",
+        "SIBTASK::eefa6c897e82fbe21701",
+        "SIBTASK::f0820f8c186b99259bd5",
+        "SIBTASK::f0c47a0fa34af81177c3",
+        "SIBTASK::f367301a0bcc4e50bae7",
+        "SIBTASK::f4b57691c2a380856614",
+        "SIBTASK::f647605e18b93d5a4227",
+        "SIBTASK::f6ec6d86f7a5c75ef638",
+        "SIBTASK::f8ba07bb9bdd307c7c3f",
+        "SIBTASK::fab4e24e01a386fc9613"
+      ],
+      "Code4rena/2025-08-gte-perps": [
+        "SIBTASK::09303d6be15c13f435ea",
+        "SIBTASK::1fc3d047af3ef2991e15",
+        "SIBTASK::3c3e47a8000c24841b83",
+        "SIBTASK::3f79ffc653cebd7d4cb0",
+        "SIBTASK::4a31d8692449ea4462c9",
+        "SIBTASK::534ed3a744bc18d5f0cc",
+        "SIBTASK::65a2b7c3f55daa7f766c",
+        "SIBTASK::67604a779eae82e17ea9",
+        "SIBTASK::69b75fef31eba08e4838",
+        "SIBTASK::6f44bf1648e6fd0bf9b2",
+        "SIBTASK::8b36105ebf18715f4af0",
+        "SIBTASK::8c782575b881d6a4308b",
+        "SIBTASK::bd952e9ffede7631ab1c",
+        "SIBTASK::bfce2d82da5b7b06c431",
+        "SIBTASK::cc0801a6b2dea699eeca",
+        "SIBTASK::e24508f768e277ea4cf4",
+        "SIBTASK::fdf3abd7574f8eb03288"
+      ]
+    },
+    "group_of_task": {
+      "SIBTASK::00e383102ac1ab9b6722": "Code4rena/2022-05-alchemix",
+      "SIBTASK::02bc4cb44f82b05312d0": "Code4rena/2024-04-noya",
+      "SIBTASK::038c368f42e5ff80cd1b": "Code4rena/2024-01-decent",
+      "SIBTASK::053b71885b05766b24a8": "Code4rena/2024-04-noya",
+      "SIBTASK::0690f975e92b2b682be2": "Code4rena/2024-04-noya",
+      "SIBTASK::07cb190ae1b6d0da0b6a": "Code4rena/2024-01-decent",
+      "SIBTASK::08a73ceb7e732511c0db": "Code4rena/2022-05-alchemix",
+      "SIBTASK::09303d6be15c13f435ea": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::0c7b50a94bbabfb81d1d": "Code4rena/2024-01-decent",
+      "SIBTASK::0eb810fdadbbf91d77ab": "Code4rena/2024-01-decent",
+      "SIBTASK::0f9db5791117399f2271": "Code4rena/2024-04-noya",
+      "SIBTASK::0ff84e736c96d46c3267": "Code4rena/2024-04-noya",
+      "SIBTASK::10524106f13a76c38a10": "Code4rena/2024-04-noya",
+      "SIBTASK::12961be3320c70153d73": "Code4rena/2024-04-noya",
+      "SIBTASK::154a1bc6dbcef8d1c6fe": "Code4rena/2024-04-noya",
+      "SIBTASK::16f0446adef23e578c63": "Code4rena/2024-01-decent",
+      "SIBTASK::1726271f436e02806385": "Code4rena/2024-04-noya",
+      "SIBTASK::1803707ba2ec0bf70d68": "Code4rena/2024-01-decent",
+      "SIBTASK::1862608edd25283e94e6": "Code4rena/2024-01-decent",
+      "SIBTASK::1c21e74b49e0a962d3b3": "Code4rena/2024-04-noya",
+      "SIBTASK::1fc3d047af3ef2991e15": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::218725071b67c806be8f": "Code4rena/2024-04-noya",
+      "SIBTASK::2282370a170200c9eb1c": "Code4rena/2022-05-alchemix",
+      "SIBTASK::22eb8fd0231b4b391cd6": "Code4rena/2024-04-noya",
+      "SIBTASK::23259951041f114a2ecf": "Code4rena/2024-04-noya",
+      "SIBTASK::239d20165765f1d3f7f5": "Code4rena/2024-04-noya",
+      "SIBTASK::23a51a1614f34e731937": "Code4rena/2022-05-alchemix",
+      "SIBTASK::23fae983db56dd34a42d": "Code4rena/2022-05-alchemix",
+      "SIBTASK::24aa2ca88b688482d1ad": "Code4rena/2024-04-noya",
+      "SIBTASK::2924969546990971af5f": "Code4rena/2022-05-alchemix",
+      "SIBTASK::2b59ae4a913732b80bf4": "Code4rena/2024-01-decent",
+      "SIBTASK::2cf54e3163f3ee771503": "Code4rena/2024-04-noya",
+      "SIBTASK::2d1ba6770213a3b8996a": "Code4rena/2022-05-alchemix",
+      "SIBTASK::2e5ce57e35636bdb7360": "Code4rena/2024-04-noya",
+      "SIBTASK::2eee22e249c0d7d68fe8": "Code4rena/2024-01-renft",
+      "SIBTASK::306919cc9c694c037dad": "Code4rena/2024-04-noya",
+      "SIBTASK::307a56b3e2e4181667b3": "Code4rena/2022-05-alchemix",
+      "SIBTASK::3276607605e07b26932d": "Code4rena/2024-04-noya",
+      "SIBTASK::32f111e860f3d0f47d3a": "Code4rena/2024-04-noya",
+      "SIBTASK::337c90f998798f322ec7": "Code4rena/2024-01-decent",
+      "SIBTASK::3445cffd80d2ea70fc01": "Code4rena/2024-01-decent",
+      "SIBTASK::37c9b3826f6fd5bc94d5": "Code4rena/2024-01-decent",
+      "SIBTASK::384146f9334436cc3061": "Code4rena/2024-04-noya",
+      "SIBTASK::399acd48e381de8eeab8": "Code4rena/2024-04-noya",
+      "SIBTASK::3b023257cfe63fe8947c": "Code4rena/2024-01-decent",
+      "SIBTASK::3c3d4881596ceb79aa7d": "Code4rena/2024-04-noya",
+      "SIBTASK::3c3e47a8000c24841b83": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::3c54f8f2ce640a856b74": "Code4rena/2024-04-noya",
+      "SIBTASK::3cb8fb56d5f2f602c3b6": "Code4rena/2024-01-decent",
+      "SIBTASK::3d0b672c14852349b5a5": "Code4rena/2024-04-noya",
+      "SIBTASK::3dbf42e3dc19b735901d": "Code4rena/2024-01-decent",
+      "SIBTASK::3edeff053d12af704fb3": "Code4rena/2022-05-alchemix",
+      "SIBTASK::3f79ffc653cebd7d4cb0": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::3f98110a59dda2a73e64": "Code4rena/2024-04-noya",
+      "SIBTASK::40301b0d243f2d2df710": "Code4rena/2024-04-noya",
+      "SIBTASK::4090f03019ee05fb9e46": "Code4rena/2024-01-decent",
+      "SIBTASK::41b47d66192ab49505c6": "Code4rena/2024-04-noya",
+      "SIBTASK::422075da741340f4a536": "Code4rena/2022-05-alchemix",
+      "SIBTASK::43a52b62262058b60714": "Code4rena/2024-01-decent",
+      "SIBTASK::43a7ca5fadb328064ab6": "Code4rena/2024-04-noya",
+      "SIBTASK::45570161d39a788403f0": "Code4rena/2024-04-noya",
+      "SIBTASK::45cbc5752b292ca92e43": "Code4rena/2024-04-noya",
+      "SIBTASK::490326fa7b55103a0682": "Code4rena/2022-05-alchemix",
+      "SIBTASK::493d14e9030a5ef842dd": "Code4rena/2024-04-noya",
+      "SIBTASK::49fe53a8afdbb389ba32": "Code4rena/2024-04-noya",
+      "SIBTASK::4a31d8692449ea4462c9": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::4afd58e527489ae30e01": "Code4rena/2024-04-noya",
+      "SIBTASK::4bbb04ab90e5deb16524": "Code4rena/2024-04-noya",
+      "SIBTASK::4c498633ed8fa3a4766f": "Code4rena/2022-05-alchemix",
+      "SIBTASK::4c899556a043a368a39f": "Code4rena/2024-04-noya",
+      "SIBTASK::4d4c82aa60d88dab2c40": "Code4rena/2024-04-noya",
+      "SIBTASK::4d8b4f1c5fbbec6c8eff": "Code4rena/2022-05-alchemix",
+      "SIBTASK::4ddd9bbe8bba99998f56": "Code4rena/2024-04-noya",
+      "SIBTASK::50d2dbcf4c142a2a5f22": "Code4rena/2024-04-noya",
+      "SIBTASK::534ed3a744bc18d5f0cc": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::537b4b650a0fa171346b": "Code4rena/2024-01-decent",
+      "SIBTASK::538b742c08bc5fb1c60c": "Code4rena/2022-05-alchemix",
+      "SIBTASK::53b23c4341a02b137026": "Code4rena/2024-04-noya",
+      "SIBTASK::58bb3b7b5726bb6e25e3": "Code4rena/2024-04-noya",
+      "SIBTASK::5aea02c164750f9447ef": "Code4rena/2022-05-alchemix",
+      "SIBTASK::5dae06e3e7eaacca13c8": "Code4rena/2024-04-noya",
+      "SIBTASK::5db814028c4c6eb2385b": "Code4rena/2022-05-alchemix",
+      "SIBTASK::63422a888db86d785fba": "Code4rena/2024-01-decent",
+      "SIBTASK::63c2068cc2b2b3b25887": "Code4rena/2024-04-noya",
+      "SIBTASK::63d11f6c9e36c53cd3da": "Code4rena/2024-01-decent",
+      "SIBTASK::63deb4113eaf3fa6117d": "Code4rena/2024-04-noya",
+      "SIBTASK::65a2b7c3f55daa7f766c": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::67604a779eae82e17ea9": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::68231e7117c6c3a63be4": "Code4rena/2024-01-decent",
+      "SIBTASK::6847bee482a1988012e8": "Code4rena/2024-01-decent",
+      "SIBTASK::68b3270b428d10fa4911": "Code4rena/2024-04-noya",
+      "SIBTASK::69606d7dcdb3f1717b7d": "Code4rena/2022-05-alchemix",
+      "SIBTASK::69b75fef31eba08e4838": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::6a3b20d6794e8ced5ca5": "Code4rena/2024-04-noya",
+      "SIBTASK::6b4aca3ebafb231ca491": "Code4rena/2024-04-noya",
+      "SIBTASK::6e48dc07d1e887eac92e": "Code4rena/2024-04-noya",
+      "SIBTASK::6f44bf1648e6fd0bf9b2": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::70110a0a8e00adcee2bf": "Code4rena/2024-01-decent",
+      "SIBTASK::71fee6f737d5f427976f": "Code4rena/2024-04-noya",
+      "SIBTASK::727d5b3a7e970c41acbf": "Code4rena/2024-04-noya",
+      "SIBTASK::73b882b46c1c02e2259c": "Code4rena/2024-04-noya",
+      "SIBTASK::74cc95d23ab9e057da02": "Code4rena/2022-05-alchemix",
+      "SIBTASK::75dffec0fd580014d832": "Code4rena/2024-04-noya",
+      "SIBTASK::775e2d2cfc3aec77c3e8": "Code4rena/2024-04-noya",
+      "SIBTASK::78637f362e222ec9be81": "Code4rena/2024-04-noya",
+      "SIBTASK::79147278cc154b59d8a7": "Code4rena/2024-01-decent",
+      "SIBTASK::793c91db0218687af354": "Code4rena/2024-04-noya",
+      "SIBTASK::7a0f7855627e217f5ae5": "Code4rena/2022-05-alchemix",
+      "SIBTASK::7a5891eee1f5783ea45c": "Code4rena/2024-04-noya",
+      "SIBTASK::7aa5ca95638b2fe706f9": "Code4rena/2024-04-noya",
+      "SIBTASK::7b9f52a523fd2d644821": "Code4rena/2024-04-noya",
+      "SIBTASK::7f4aaa7f588d3680765f": "Code4rena/2024-04-noya",
+      "SIBTASK::8009be5baa40a64e58cc": "Code4rena/2024-01-decent",
+      "SIBTASK::81ef650dc0afb40eebdb": "Code4rena/2024-04-noya",
+      "SIBTASK::82dc64b5839774074b10": "Code4rena/2024-04-noya",
+      "SIBTASK::8521c4d0916ea95441d6": "Code4rena/2022-05-alchemix",
+      "SIBTASK::86d50783b73c37b34323": "Code4rena/2024-01-decent",
+      "SIBTASK::87fc555c2c700a12f1ae": "Code4rena/2024-04-noya",
+      "SIBTASK::883e955eb5f90eee422d": "Code4rena/2024-04-noya",
+      "SIBTASK::8a812e61e074c82820b0": "Code4rena/2024-04-noya",
+      "SIBTASK::8b36105ebf18715f4af0": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::8c560569fa66f14b9b9e": "Code4rena/2024-04-noya",
+      "SIBTASK::8c782575b881d6a4308b": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::90d54948aeb2424932bc": "Code4rena/2024-04-noya",
+      "SIBTASK::929e1be7da62a1a7c72b": "Code4rena/2024-01-decent",
+      "SIBTASK::93188dcc5050e0d5aecc": "Code4rena/2024-04-noya",
+      "SIBTASK::9342230a6039dde9d8a3": "Code4rena/2024-04-noya",
+      "SIBTASK::940c5c0e26ae3938c6e1": "Code4rena/2024-04-noya",
+      "SIBTASK::941c9dccdd78ffdc7400": "Code4rena/2024-04-noya",
+      "SIBTASK::94adcc307c91a590a9c8": "Code4rena/2024-04-noya",
+      "SIBTASK::9538f1daea44fbb288ad": "Code4rena/2024-01-decent",
+      "SIBTASK::9692abd90e625dee8552": "Code4rena/2022-05-alchemix",
+      "SIBTASK::96a4b8ed808a70eb08f8": "Code4rena/2024-04-noya",
+      "SIBTASK::96b372c5b54631ec087f": "Code4rena/2024-01-decent",
+      "SIBTASK::96c18075cc7a4364afab": "Code4rena/2022-05-alchemix",
+      "SIBTASK::9aa8f04a2f6daa9cc514": "Code4rena/2024-04-noya",
+      "SIBTASK::9c4c4ad850114440c0c1": "Code4rena/2022-05-alchemix",
+      "SIBTASK::9c9c54aa9c628b144278": "Code4rena/2024-01-decent",
+      "SIBTASK::9d1cd3f61666c2e00638": "Code4rena/2024-01-renft",
+      "SIBTASK::9ed054dfb43500020ec8": "Code4rena/2024-04-noya",
+      "SIBTASK::a065a6cea267376925ed": "Code4rena/2024-04-noya",
+      "SIBTASK::a0c0b69ee0704816468a": "Code4rena/2024-04-noya",
+      "SIBTASK::a2594e31a312bd61c6e3": "Code4rena/2024-04-noya",
+      "SIBTASK::a4aa8ebf389c25a06eca": "Code4rena/2024-04-noya",
+      "SIBTASK::a5b8d611fbb9ff7fd0ca": "Code4rena/2024-04-noya",
+      "SIBTASK::a714a0630f6b2ced3183": "Code4rena/2024-04-noya",
+      "SIBTASK::a7c4bbbf2438ed533059": "Code4rena/2024-01-decent",
+      "SIBTASK::a892a415816dbe472392": "Code4rena/2024-04-noya",
+      "SIBTASK::a9462690dd0023c81b4c": "Code4rena/2024-01-decent",
+      "SIBTASK::aa2a2387b61fe3895830": "Code4rena/2024-04-noya",
+      "SIBTASK::abffd194153dc7950f67": "Code4rena/2024-04-noya",
+      "SIBTASK::ac6b2a7d33535de09622": "Code4rena/2024-04-noya",
+      "SIBTASK::adaa8b4b12253255b645": "Code4rena/2024-04-noya",
+      "SIBTASK::b00666e452190ea42ccb": "Code4rena/2024-04-noya",
+      "SIBTASK::b13a0539d79ad5e3f63c": "Code4rena/2024-04-noya",
+      "SIBTASK::b3045737b0e0bd0e32f2": "Code4rena/2024-04-noya",
+      "SIBTASK::b548be4394b28e1ebd81": "Code4rena/2022-05-alchemix",
+      "SIBTASK::b6b0ddbc2d6f3e57f85c": "Code4rena/2024-01-decent",
+      "SIBTASK::b8b60fce504c8e9d661e": "Code4rena/2024-01-decent",
+      "SIBTASK::b9dbcde11d4d2140d958": "Code4rena/2024-04-noya",
+      "SIBTASK::ba98dea8b547ff857a6b": "Code4rena/2024-04-noya",
+      "SIBTASK::bb23ab57fef041980ae8": "Code4rena/2024-04-noya",
+      "SIBTASK::bb4c831e20026758d461": "Code4rena/2024-04-noya",
+      "SIBTASK::bb72c3626d0e35771369": "Code4rena/2024-04-noya",
+      "SIBTASK::bc158b8eab1d4fddbfce": "Code4rena/2024-01-decent",
+      "SIBTASK::bd952e9ffede7631ab1c": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::be2ca590c5ba0b214123": "Code4rena/2024-01-decent",
+      "SIBTASK::bf6501c3e8b21de0c82b": "Code4rena/2022-05-alchemix",
+      "SIBTASK::bf7a95b6fc8cbc352011": "Code4rena/2022-05-alchemix",
+      "SIBTASK::bfce2d82da5b7b06c431": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::c1e891d39452fbfcea35": "Code4rena/2024-04-noya",
+      "SIBTASK::c21e2f7d1e64bcbad198": "Code4rena/2024-01-decent",
+      "SIBTASK::c4e892ca96624fc5deed": "Code4rena/2024-04-noya",
+      "SIBTASK::c571291442431e63ae22": "Code4rena/2024-04-noya",
+      "SIBTASK::c62f48798304222347d4": "Code4rena/2024-04-noya",
+      "SIBTASK::c7e611d4ef1f2f713cb0": "Code4rena/2022-05-alchemix",
+      "SIBTASK::ca6b3d3f145e666a0fa3": "Code4rena/2024-04-noya",
+      "SIBTASK::cc0801a6b2dea699eeca": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::cc7ebe9b43a0ac751e7d": "Code4rena/2024-04-noya",
+      "SIBTASK::cd404047c62be9208bf8": "Code4rena/2024-04-noya",
+      "SIBTASK::cd7efa723e83caff3630": "Code4rena/2024-01-decent",
+      "SIBTASK::ce0a80f2008be05f1575": "Code4rena/2024-01-decent",
+      "SIBTASK::d0f3a2697a7f630df5b6": "Code4rena/2024-04-noya",
+      "SIBTASK::d20defa212f8a29cafca": "Code4rena/2024-01-decent",
+      "SIBTASK::d319ec89ce9912e4f275": "Code4rena/2024-01-decent",
+      "SIBTASK::d409ef77a16f3de1b7e5": "Code4rena/2024-04-noya",
+      "SIBTASK::d667abbfa354643ea7e9": "Code4rena/2024-04-noya",
+      "SIBTASK::d7b88dab4b9e4c16bded": "Code4rena/2024-04-noya",
+      "SIBTASK::d86216b3f29248e76458": "Code4rena/2024-04-noya",
+      "SIBTASK::d99c0515ebebca5bc48c": "Code4rena/2024-01-decent",
+      "SIBTASK::daf27376c9c25cf102a6": "Code4rena/2024-01-decent",
+      "SIBTASK::dcc6e040947d4e72cbb5": "Code4rena/2024-04-noya",
+      "SIBTASK::dcdf636b79c053dbe3eb": "Code4rena/2024-04-noya",
+      "SIBTASK::dedb71cd518a44021980": "Code4rena/2024-04-noya",
+      "SIBTASK::def7c93ef8397e951b86": "Code4rena/2024-04-noya",
+      "SIBTASK::df62b11883786dbf9145": "Code4rena/2024-04-noya",
+      "SIBTASK::dfe819310b16d2f2d7e9": "Code4rena/2024-04-noya",
+      "SIBTASK::e24508f768e277ea4cf4": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::e480268423b8420818b7": "Code4rena/2024-04-noya",
+      "SIBTASK::e6610c17cf25e8a35c0b": "Code4rena/2024-04-noya",
+      "SIBTASK::e6a56f2601034bd94709": "Code4rena/2024-01-decent",
+      "SIBTASK::e84891715ff37e2b549e": "Code4rena/2024-01-decent",
+      "SIBTASK::ec11dc213ca38ec09b00": "Code4rena/2024-04-noya",
+      "SIBTASK::ed2ecbd7e62c0260ace1": "Code4rena/2022-05-alchemix",
+      "SIBTASK::edba062c375dd6a4ab96": "Code4rena/2024-04-noya",
+      "SIBTASK::eefa6c897e82fbe21701": "Code4rena/2024-04-noya",
+      "SIBTASK::f003251cfe6831db0323": "Code4rena/2022-05-alchemix",
+      "SIBTASK::f0820f8c186b99259bd5": "Code4rena/2024-04-noya",
+      "SIBTASK::f0c47a0fa34af81177c3": "Code4rena/2024-04-noya",
+      "SIBTASK::f2866c472ce233bf3504": "Code4rena/2024-01-decent",
+      "SIBTASK::f3322fa0698dc47db9e0": "Code4rena/2024-01-decent",
+      "SIBTASK::f367301a0bcc4e50bae7": "Code4rena/2024-04-noya",
+      "SIBTASK::f4b57691c2a380856614": "Code4rena/2024-04-noya",
+      "SIBTASK::f647605e18b93d5a4227": "Code4rena/2024-04-noya",
+      "SIBTASK::f6ec6d86f7a5c75ef638": "Code4rena/2024-04-noya",
+      "SIBTASK::f8ba07bb9bdd307c7c3f": "Code4rena/2024-04-noya",
+      "SIBTASK::f9acce8bd51b7bf98b29": "Code4rena/2024-01-decent",
+      "SIBTASK::fab4e24e01a386fc9613": "Code4rena/2024-04-noya",
+      "SIBTASK::fd680cb027002aac6d4b": "Code4rena/2024-01-decent",
+      "SIBTASK::fdf3abd7574f8eb03288": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::fe0a2ac9e2bedb644320": "Code4rena/2022-05-alchemix"
+    },
+    "group_sizes": {
+      "Code4rena/2022-05-alchemix": 30,
+      "Code4rena/2024-01-decent": 48,
+      "Code4rena/2024-01-renft": 2,
+      "Code4rena/2024-04-noya": 124,
+      "Code4rena/2025-08-gte-perps": 17
+    },
+    "group_unit": "vulnerable_side_audited_repository",
+    "rule": "whole vulnerable-side audited repositories are assigned to one split each, so no audited project's finding is seen twice; reference-side repositories are shared library code by construction and their straddle is measured in the hold-out audit instead of claimed away",
+    "task_split": {
+      "SIBTASK::00e383102ac1ab9b6722": "test",
+      "SIBTASK::02bc4cb44f82b05312d0": "train",
+      "SIBTASK::038c368f42e5ff80cd1b": "validation",
+      "SIBTASK::053b71885b05766b24a8": "train",
+      "SIBTASK::0690f975e92b2b682be2": "train",
+      "SIBTASK::07cb190ae1b6d0da0b6a": "validation",
+      "SIBTASK::08a73ceb7e732511c0db": "test",
+      "SIBTASK::09303d6be15c13f435ea": "test",
+      "SIBTASK::0c7b50a94bbabfb81d1d": "validation",
+      "SIBTASK::0eb810fdadbbf91d77ab": "validation",
+      "SIBTASK::0f9db5791117399f2271": "train",
+      "SIBTASK::0ff84e736c96d46c3267": "train",
+      "SIBTASK::10524106f13a76c38a10": "train",
+      "SIBTASK::12961be3320c70153d73": "train",
+      "SIBTASK::154a1bc6dbcef8d1c6fe": "train",
+      "SIBTASK::16f0446adef23e578c63": "validation",
+      "SIBTASK::1726271f436e02806385": "train",
+      "SIBTASK::1803707ba2ec0bf70d68": "validation",
+      "SIBTASK::1862608edd25283e94e6": "validation",
+      "SIBTASK::1c21e74b49e0a962d3b3": "train",
+      "SIBTASK::1fc3d047af3ef2991e15": "test",
+      "SIBTASK::218725071b67c806be8f": "train",
+      "SIBTASK::2282370a170200c9eb1c": "test",
+      "SIBTASK::22eb8fd0231b4b391cd6": "train",
+      "SIBTASK::23259951041f114a2ecf": "train",
+      "SIBTASK::239d20165765f1d3f7f5": "train",
+      "SIBTASK::23a51a1614f34e731937": "test",
+      "SIBTASK::23fae983db56dd34a42d": "test",
+      "SIBTASK::24aa2ca88b688482d1ad": "train",
+      "SIBTASK::2924969546990971af5f": "test",
+      "SIBTASK::2b59ae4a913732b80bf4": "validation",
+      "SIBTASK::2cf54e3163f3ee771503": "train",
+      "SIBTASK::2d1ba6770213a3b8996a": "test",
+      "SIBTASK::2e5ce57e35636bdb7360": "train",
+      "SIBTASK::2eee22e249c0d7d68fe8": "train",
+      "SIBTASK::306919cc9c694c037dad": "train",
+      "SIBTASK::307a56b3e2e4181667b3": "test",
+      "SIBTASK::3276607605e07b26932d": "train",
+      "SIBTASK::32f111e860f3d0f47d3a": "train",
+      "SIBTASK::337c90f998798f322ec7": "validation",
+      "SIBTASK::3445cffd80d2ea70fc01": "validation",
+      "SIBTASK::37c9b3826f6fd5bc94d5": "validation",
+      "SIBTASK::384146f9334436cc3061": "train",
+      "SIBTASK::399acd48e381de8eeab8": "train",
+      "SIBTASK::3b023257cfe63fe8947c": "validation",
+      "SIBTASK::3c3d4881596ceb79aa7d": "train",
+      "SIBTASK::3c3e47a8000c24841b83": "test",
+      "SIBTASK::3c54f8f2ce640a856b74": "train",
+      "SIBTASK::3cb8fb56d5f2f602c3b6": "validation",
+      "SIBTASK::3d0b672c14852349b5a5": "train",
+      "SIBTASK::3dbf42e3dc19b735901d": "validation",
+      "SIBTASK::3edeff053d12af704fb3": "test",
+      "SIBTASK::3f79ffc653cebd7d4cb0": "test",
+      "SIBTASK::3f98110a59dda2a73e64": "train",
+      "SIBTASK::40301b0d243f2d2df710": "train",
+      "SIBTASK::4090f03019ee05fb9e46": "validation",
+      "SIBTASK::41b47d66192ab49505c6": "train",
+      "SIBTASK::422075da741340f4a536": "test",
+      "SIBTASK::43a52b62262058b60714": "validation",
+      "SIBTASK::43a7ca5fadb328064ab6": "train",
+      "SIBTASK::45570161d39a788403f0": "train",
+      "SIBTASK::45cbc5752b292ca92e43": "train",
+      "SIBTASK::490326fa7b55103a0682": "test",
+      "SIBTASK::493d14e9030a5ef842dd": "train",
+      "SIBTASK::49fe53a8afdbb389ba32": "train",
+      "SIBTASK::4a31d8692449ea4462c9": "test",
+      "SIBTASK::4afd58e527489ae30e01": "train",
+      "SIBTASK::4bbb04ab90e5deb16524": "train",
+      "SIBTASK::4c498633ed8fa3a4766f": "test",
+      "SIBTASK::4c899556a043a368a39f": "train",
+      "SIBTASK::4d4c82aa60d88dab2c40": "train",
+      "SIBTASK::4d8b4f1c5fbbec6c8eff": "test",
+      "SIBTASK::4ddd9bbe8bba99998f56": "train",
+      "SIBTASK::50d2dbcf4c142a2a5f22": "train",
+      "SIBTASK::534ed3a744bc18d5f0cc": "test",
+      "SIBTASK::537b4b650a0fa171346b": "validation",
+      "SIBTASK::538b742c08bc5fb1c60c": "test",
+      "SIBTASK::53b23c4341a02b137026": "train",
+      "SIBTASK::58bb3b7b5726bb6e25e3": "train",
+      "SIBTASK::5aea02c164750f9447ef": "test",
+      "SIBTASK::5dae06e3e7eaacca13c8": "train",
+      "SIBTASK::5db814028c4c6eb2385b": "test",
+      "SIBTASK::63422a888db86d785fba": "validation",
+      "SIBTASK::63c2068cc2b2b3b25887": "train",
+      "SIBTASK::63d11f6c9e36c53cd3da": "validation",
+      "SIBTASK::63deb4113eaf3fa6117d": "train",
+      "SIBTASK::65a2b7c3f55daa7f766c": "test",
+      "SIBTASK::67604a779eae82e17ea9": "test",
+      "SIBTASK::68231e7117c6c3a63be4": "validation",
+      "SIBTASK::6847bee482a1988012e8": "validation",
+      "SIBTASK::68b3270b428d10fa4911": "train",
+      "SIBTASK::69606d7dcdb3f1717b7d": "test",
+      "SIBTASK::69b75fef31eba08e4838": "test",
+      "SIBTASK::6a3b20d6794e8ced5ca5": "train",
+      "SIBTASK::6b4aca3ebafb231ca491": "train",
+      "SIBTASK::6e48dc07d1e887eac92e": "train",
+      "SIBTASK::6f44bf1648e6fd0bf9b2": "test",
+      "SIBTASK::70110a0a8e00adcee2bf": "validation",
+      "SIBTASK::71fee6f737d5f427976f": "train",
+      "SIBTASK::727d5b3a7e970c41acbf": "train",
+      "SIBTASK::73b882b46c1c02e2259c": "train",
+      "SIBTASK::74cc95d23ab9e057da02": "test",
+      "SIBTASK::75dffec0fd580014d832": "train",
+      "SIBTASK::775e2d2cfc3aec77c3e8": "train",
+      "SIBTASK::78637f362e222ec9be81": "train",
+      "SIBTASK::79147278cc154b59d8a7": "validation",
+      "SIBTASK::793c91db0218687af354": "train",
+      "SIBTASK::7a0f7855627e217f5ae5": "test",
+      "SIBTASK::7a5891eee1f5783ea45c": "train",
+      "SIBTASK::7aa5ca95638b2fe706f9": "train",
+      "SIBTASK::7b9f52a523fd2d644821": "train",
+      "SIBTASK::7f4aaa7f588d3680765f": "train",
+      "SIBTASK::8009be5baa40a64e58cc": "validation",
+      "SIBTASK::81ef650dc0afb40eebdb": "train",
+      "SIBTASK::82dc64b5839774074b10": "train",
+      "SIBTASK::8521c4d0916ea95441d6": "test",
+      "SIBTASK::86d50783b73c37b34323": "validation",
+      "SIBTASK::87fc555c2c700a12f1ae": "train",
+      "SIBTASK::883e955eb5f90eee422d": "train",
+      "SIBTASK::8a812e61e074c82820b0": "train",
+      "SIBTASK::8b36105ebf18715f4af0": "test",
+      "SIBTASK::8c560569fa66f14b9b9e": "train",
+      "SIBTASK::8c782575b881d6a4308b": "test",
+      "SIBTASK::90d54948aeb2424932bc": "train",
+      "SIBTASK::929e1be7da62a1a7c72b": "validation",
+      "SIBTASK::93188dcc5050e0d5aecc": "train",
+      "SIBTASK::9342230a6039dde9d8a3": "train",
+      "SIBTASK::940c5c0e26ae3938c6e1": "train",
+      "SIBTASK::941c9dccdd78ffdc7400": "train",
+      "SIBTASK::94adcc307c91a590a9c8": "train",
+      "SIBTASK::9538f1daea44fbb288ad": "validation",
+      "SIBTASK::9692abd90e625dee8552": "test",
+      "SIBTASK::96a4b8ed808a70eb08f8": "train",
+      "SIBTASK::96b372c5b54631ec087f": "validation",
+      "SIBTASK::96c18075cc7a4364afab": "test",
+      "SIBTASK::9aa8f04a2f6daa9cc514": "train",
+      "SIBTASK::9c4c4ad850114440c0c1": "test",
+      "SIBTASK::9c9c54aa9c628b144278": "validation",
+      "SIBTASK::9d1cd3f61666c2e00638": "train",
+      "SIBTASK::9ed054dfb43500020ec8": "train",
+      "SIBTASK::a065a6cea267376925ed": "train",
+      "SIBTASK::a0c0b69ee0704816468a": "train",
+      "SIBTASK::a2594e31a312bd61c6e3": "train",
+      "SIBTASK::a4aa8ebf389c25a06eca": "train",
+      "SIBTASK::a5b8d611fbb9ff7fd0ca": "train",
+      "SIBTASK::a714a0630f6b2ced3183": "train",
+      "SIBTASK::a7c4bbbf2438ed533059": "validation",
+      "SIBTASK::a892a415816dbe472392": "train",
+      "SIBTASK::a9462690dd0023c81b4c": "validation",
+      "SIBTASK::aa2a2387b61fe3895830": "train",
+      "SIBTASK::abffd194153dc7950f67": "train",
+      "SIBTASK::ac6b2a7d33535de09622": "train",
+      "SIBTASK::adaa8b4b12253255b645": "train",
+      "SIBTASK::b00666e452190ea42ccb": "train",
+      "SIBTASK::b13a0539d79ad5e3f63c": "train",
+      "SIBTASK::b3045737b0e0bd0e32f2": "train",
+      "SIBTASK::b548be4394b28e1ebd81": "test",
+      "SIBTASK::b6b0ddbc2d6f3e57f85c": "validation",
+      "SIBTASK::b8b60fce504c8e9d661e": "validation",
+      "SIBTASK::b9dbcde11d4d2140d958": "train",
+      "SIBTASK::ba98dea8b547ff857a6b": "train",
+      "SIBTASK::bb23ab57fef041980ae8": "train",
+      "SIBTASK::bb4c831e20026758d461": "train",
+      "SIBTASK::bb72c3626d0e35771369": "train",
+      "SIBTASK::bc158b8eab1d4fddbfce": "validation",
+      "SIBTASK::bd952e9ffede7631ab1c": "test",
+      "SIBTASK::be2ca590c5ba0b214123": "validation",
+      "SIBTASK::bf6501c3e8b21de0c82b": "test",
+      "SIBTASK::bf7a95b6fc8cbc352011": "test",
+      "SIBTASK::bfce2d82da5b7b06c431": "test",
+      "SIBTASK::c1e891d39452fbfcea35": "train",
+      "SIBTASK::c21e2f7d1e64bcbad198": "validation",
+      "SIBTASK::c4e892ca96624fc5deed": "train",
+      "SIBTASK::c571291442431e63ae22": "train",
+      "SIBTASK::c62f48798304222347d4": "train",
+      "SIBTASK::c7e611d4ef1f2f713cb0": "test",
+      "SIBTASK::ca6b3d3f145e666a0fa3": "train",
+      "SIBTASK::cc0801a6b2dea699eeca": "test",
+      "SIBTASK::cc7ebe9b43a0ac751e7d": "train",
+      "SIBTASK::cd404047c62be9208bf8": "train",
+      "SIBTASK::cd7efa723e83caff3630": "validation",
+      "SIBTASK::ce0a80f2008be05f1575": "validation",
+      "SIBTASK::d0f3a2697a7f630df5b6": "train",
+      "SIBTASK::d20defa212f8a29cafca": "validation",
+      "SIBTASK::d319ec89ce9912e4f275": "validation",
+      "SIBTASK::d409ef77a16f3de1b7e5": "train",
+      "SIBTASK::d667abbfa354643ea7e9": "train",
+      "SIBTASK::d7b88dab4b9e4c16bded": "train",
+      "SIBTASK::d86216b3f29248e76458": "train",
+      "SIBTASK::d99c0515ebebca5bc48c": "validation",
+      "SIBTASK::daf27376c9c25cf102a6": "validation",
+      "SIBTASK::dcc6e040947d4e72cbb5": "train",
+      "SIBTASK::dcdf636b79c053dbe3eb": "train",
+      "SIBTASK::dedb71cd518a44021980": "train",
+      "SIBTASK::def7c93ef8397e951b86": "train",
+      "SIBTASK::df62b11883786dbf9145": "train",
+      "SIBTASK::dfe819310b16d2f2d7e9": "train",
+      "SIBTASK::e24508f768e277ea4cf4": "test",
+      "SIBTASK::e480268423b8420818b7": "train",
+      "SIBTASK::e6610c17cf25e8a35c0b": "train",
+      "SIBTASK::e6a56f2601034bd94709": "validation",
+      "SIBTASK::e84891715ff37e2b549e": "validation",
+      "SIBTASK::ec11dc213ca38ec09b00": "train",
+      "SIBTASK::ed2ecbd7e62c0260ace1": "test",
+      "SIBTASK::edba062c375dd6a4ab96": "train",
+      "SIBTASK::eefa6c897e82fbe21701": "train",
+      "SIBTASK::f003251cfe6831db0323": "test",
+      "SIBTASK::f0820f8c186b99259bd5": "train",
+      "SIBTASK::f0c47a0fa34af81177c3": "train",
+      "SIBTASK::f2866c472ce233bf3504": "validation",
+      "SIBTASK::f3322fa0698dc47db9e0": "validation",
+      "SIBTASK::f367301a0bcc4e50bae7": "train",
+      "SIBTASK::f4b57691c2a380856614": "train",
+      "SIBTASK::f647605e18b93d5a4227": "train",
+      "SIBTASK::f6ec6d86f7a5c75ef638": "train",
+      "SIBTASK::f8ba07bb9bdd307c7c3f": "train",
+      "SIBTASK::f9acce8bd51b7bf98b29": "validation",
+      "SIBTASK::fab4e24e01a386fc9613": "train",
+      "SIBTASK::fd680cb027002aac6d4b": "validation",
+      "SIBTASK::fdf3abd7574f8eb03288": "test",
+      "SIBTASK::fe0a2ac9e2bedb644320": "test"
+    }
+  },
+  "target": "expand the API-sibling task family from 71 toward 300+",
+  "yield": {
+    "admitted_tasks": 221,
+    "baseline_v2_1_pairs": 71,
+    "candidates_proposed": 229,
+    "dropped": 0,
+    "growth_over_baseline": 3.2253521126760565,
+    "hard_negatives": 8,
+    "reviewed": 229,
+    "reviewed_and_agreed": 221,
+    "shortfall_explained": "the pool holds 229 real cross-repository sibling call sites; 0 could not be re-read from the pinned bytes and 8 failed the contrast under the independent reader, so 221 tasks are admitted. The binding limit is the number of confirmed findings whose cited code actually contains a call to a shared upstream API, not a processing step.",
+    "target_reached": false
+  }
+}

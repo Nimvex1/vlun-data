@@ -1,0 +1,37 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertEq(address(alice).balance, aliceETHBalanceBefore - feeAmount)",
+      "assertEq(cat.balanceOf(bob), 1)",
+      "assertEq(ERC20(src_usdc).balanceOf(address(cat)), cat.price())",
+      "assertEq(feeCollector.balance, feeAmount)",
+      "assertEq(ERC20(feeToken).balanceOf(feeCollector), feeAmount)"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `receiveFromBridge` in 2024-01-decent/src/UTB.sol",
+    "declared_test_functions": [
+      "testUTBReceiveFromBridge_SwapWethToUsdcAndMintAnNFTWithFees",
+      "testUTBReceiveFromBridge_BypassFeesAndSignature"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-decent__M-03/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "toolchain_missing",
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "detail": "scratch assembly failed: copy_failed:hardhat.config.ts:FileNotFoundError",
+  "evidence_level_supported": null,
+  "finding_id": "2024-01-decent/M-03",
+  "outcome": "blocked",
+  "output_sha256": {
+    "command.txt": "19fac9f213f24288e60429a09d3434f567fbab1986cb58a287291658efe02ac5",
+    "harness.json": "e09c2ec906ff8e3a21786456ecf3b6cd35abf435eee83e50e20fa5a83ed0d481",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "5d1962143ee566e7f9354b735bff3492b8f82761",
+  "recorded_at_utc": "2026-10-18T18:30:03Z",
+  "repository": "code-423n4/2024-01-decent",
+  "run_status": "not_run"
+}

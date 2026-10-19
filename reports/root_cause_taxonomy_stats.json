@@ -1,0 +1,116 @@
+{
+  "candidate_adjudication": {
+    "candidates": 40,
+    "labelled": 39,
+    "unlabelled": [
+      "2024-01-renft/H-05"
+    ],
+    "unlabelled_reasons": {
+      "2024-01-renft/H-05": "the candidate text is the report's editorial lead-in ('takes advantage of multiple bugs'); it states no cause, so no leaf's inclusion rule is satisfied"
+    }
+  },
+  "categories_defined": 23,
+  "categories_never_used": [],
+  "counts": {
+    "asserted_at_or_above_minimum_evidence": 69,
+    "candidates_total": 40,
+    "labelled": 320,
+    "multi_label": 99,
+    "provisional_below_minimum_evidence": 251,
+    "records_in_assignment_pool": 418,
+    "records_out_of_pool": 304,
+    "records_total": 722,
+    "unlabelled": 98
+  },
+  "generated_by": "scripts/assign_root_causes.py",
+  "note": "overlay only; derived/records.jsonl is untouched. Labels are a project-local closed vocabulary, not a community standard, and every v1_class_rule label is an unadjudicated draft pending the IAA study in annotation/iaa_v1/.",
+  "per_assignment_basis": {
+    "adjudicated_candidate": 40,
+    "no_class": 21,
+    "v1_class_rule": 357
+  },
+  "per_assignment_status": {
+    "asserted": 69,
+    "provisional": 251,
+    "unlabelled": 98
+  },
+  "per_evidence_level": {
+    "L0": 86,
+    "L2": 307,
+    "L4": 13,
+    "L5": 5,
+    "L6": 7
+  },
+  "per_facet": {
+    "RC-G-COMPUTE": 123,
+    "RC-G-DEPLOY": 1,
+    "RC-G-LIVENESS": 12,
+    "RC-G-ORDER": 44,
+    "RC-G-STATE": 26,
+    "RC-G-TRUST": 27,
+    "RC-G-VERIFY": 188
+  },
+  "per_label": {
+    "RC-01": 27,
+    "RC-02": 9,
+    "RC-03": 44,
+    "RC-04": 15,
+    "RC-05": 14,
+    "RC-06": 7,
+    "RC-07": 6,
+    "RC-08": 4,
+    "RC-09": 44,
+    "RC-10": 49,
+    "RC-11": 1,
+    "RC-12": 12,
+    "RC-13": 17,
+    "RC-14": 1,
+    "RC-15": 11,
+    "RC-16": 11,
+    "RC-17": 33,
+    "RC-18": 64,
+    "RC-19": 17,
+    "RC-20": 1,
+    "RC-21": 2,
+    "RC-22": 7,
+    "RC-23": 25,
+    "RC-99": 98
+  },
+  "provisional_by_label": {
+    "RC-01": 9,
+    "RC-02": 2,
+    "RC-03": 43,
+    "RC-04": 15,
+    "RC-05": 5,
+    "RC-07": 1,
+    "RC-08": 4,
+    "RC-09": 38,
+    "RC-10": 48,
+    "RC-12": 12,
+    "RC-13": 14,
+    "RC-14": 1,
+    "RC-15": 9,
+    "RC-16": 11,
+    "RC-17": 28,
+    "RC-18": 58,
+    "RC-19": 14,
+    "RC-20": 1,
+    "RC-22": 2,
+    "RC-23": 8
+  },
+  "taxonomy_version": "root-cause-1.0",
+  "unlabelled_reasons_top": {
+    "an absent operational control is not a defect in the code's ": 11,
+    "the candidate text is the report's editorial lead-in ('takes": 1,
+    "the class describes a governance posture, not a code-level c": 4,
+    "the record's v1 class 'None' carries no rule in this version": 21,
+    "the v1 class names an attack primitive (a way of funding and": 3,
+    "the v1 class names an attacker motive/primitive, not a cause": 5,
+    "the v1 class names the component (an AMM pair's logic), not ": 15,
+    "the v1 class names the impact (a permanent availability loss": 12,
+    "the v1 class names the impact (withdrawals stop); the cause ": 20,
+    "the v1 class names the impact of a failure whose cause is un": 4,
+    "the v1 class names the impact, not the cause": 1,
+    "the v1 class names the impact; the failing cause is not stat": 1
+  }
+}

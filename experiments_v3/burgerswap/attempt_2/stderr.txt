@@ -1,0 +1,139 @@
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:28:9
+   │
+28 │         vm.createSelectFork("bsc", 7_781_159);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:42:9
+   │
+42 │         WBNB.approve(address(demaxPlatform), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:43:9
+   │
+43 │         BURGER.approve(address(demaxPlatform), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:48:9
+   │
+48 │         demaxPlatform.swapExactTokensForTokens(WBNB.balanceOf(address(this)), 0, path, address(this), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:53:9
+   │
+53 │         FAKE.approve(address(demaxPlatform), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:54:9
+   │
+54 │         BURGER.approve(address(demaxDelegate), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:55:9
+   │
+55 │ …     demaxDelegate.addLiquidity(address(FAKE), address(BURGER), 100, 45_452 ether, 0, 0, type(uint256).max); // 47225 BURGER left aft…
+   │       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:73:9
+   │
+73 │ …     demaxPlatform.swapExactTokensForTokens(1 ether, 0, path2, address(this), type(uint256).max); // trigger transferFrom() hook in F…
+   │       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:78:9
+   │
+78 │         demaxPlatform.swapTokensForExactTokens(108_791 ether, 494 ether, path, address(this), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:81:9
+   │
+81 │         WBNB.transfer(address(USDT_WBNB), amount1 * 1000 / 997);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer
+
+warning[unused-return]: return value of an external call is not used
+   ╭▸ src/test/2021-05/BurgerSwap_exp.sol:89:9
+   │
+89 │         demaxPlatform.swapExactTokensForTokens(45_452 ether, 0, path, address(this), type(uint256).max);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/test/basetest.sol:80:9
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/test/basetest.sol:80:44
+   │
+80 │         emit log_named_decimal_uint(string(abi.encodePacked(label, " ", symbol, " Balance")), balance, decimals);
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/test/basetest.sol:123:9
+    │
+123 │         emit log_string(string(abi.encodePacked("=== ", label, " ===")));
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:60
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ src/test/tokenhelper.sol:11:92
+   │
+11 │         (bool success, bytes memory result) = staticCall ? tokenAddress.staticcall(data) : tokenAddress.call(data);
+   │                                                                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/test/tokenhelper.sol:12:9
+   │
+12 │         require(success, "Failed to call token function");
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+
+[2m2026-10-18T18:39:34.469968Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `storage` [3merr[0m[2m=[0mfailed to get storage for 0x7109709ECfa91a80626fF3989D68f67F5b1DD12D at 46308022326495007027972728677917914892729792999299745830475596687180801507328: server returned an error response: error code -32000: state 0x0b6b5e6defc87a3c79b0c32558e1f493b68edc34e1fe02bd8811b7deac4f010d is not available [3maddress[0m[2m=[0m0x7109709ECfa91a80626fF3989D68f67F5b1DD12D [3mindex[0m[2m=[0m46308022326495007027972728677917914892729792999299745830475596687180801507328
+[2m2026-10-18T18:39:34.589565Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `basic` [3merr[0m[2m=[0mfailed to get account for 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE: server returned an error response: error code -32000: state 0x0b6b5e6defc87a3c79b0c32558e1f493b68edc34e1fe02bd8811b7deac4f010d is not available [3maddress[0m[2m=[0m0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE

@@ -16,6 +16,7 @@ statistics must be regenerated before the gate compares them.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import subprocess
 import sys
@@ -32,6 +33,57 @@ PY = sys.executable
 # green build is the failure mode this constant exists to prevent. If a stage ever
 # genuinely cannot fail the build, add it here with a comment saying why.
 TOLERATED_FAILURES: set[str] = set()
+
+# Published layers whose committed bytes consumers (splits, benchmark, reports,
+# citations) are pinned to. A whole-tree build re-runs every generator, so a
+# stage-ordering difference shows up here as a rewrite of data that was not
+# asked to change. Such a rewrite is restored and reported, never absorbed
+# quietly; an intentional refresh is an explicit, reviewed migration and needs
+# --allow-canonical-rewrite.
+CANONICAL_LAYERS = (
+    "derived/records.jsonl", "derived/manifest.json",
+    "derived/hard_negatives.jsonl", "derived/counterexamples.jsonl",
+    "derived/root_cause_candidates.jsonl",
+    "splits_v2/train.jsonl", "splits_v2/validation.jsonl",
+    "splits_v2/test.jsonl", "splits_v2/quarantine.jsonl",
+    # Measured on the pre-emit splits: stage 16 quarantines the pairs it finds,
+    # so re-running it against its own output reports zero leakage and train
+    # 413 instead of 415. That number is the evidence the quarantine exists,
+    # so it is guarded with the layer it describes.
+    "reports/leakage_report.json",
+)
+
+
+def _layer_hashes(paths) -> dict[str, str]:
+    out = {}
+    for rel in paths:
+        p = ROOT / rel
+        if p.is_file():
+            out[rel] = hashlib.sha256(p.read_bytes()).hexdigest()
+    return out
+
+
+def guard_canonical_layers(stage: int, script: str, start_bytes: dict[str, bytes],
+                           allow_rewrite: bool) -> list[tuple[str, dict]]:
+    """Restore published layers a stage rewrote; report what it tried to do.
+
+    Returns the (path, record) pairs it blocked. `allow_rewrite` leaves the new
+    bytes in place — that is the reviewed-migration path, not the default.
+    """
+    blocked = []
+    after = _layer_hashes(start_bytes)
+    for rel in sorted(set(start_bytes) | set(after)):
+        want = start_bytes.get(rel)
+        if want is None or hashlib.sha256(want).hexdigest() == after.get(rel):
+            continue
+        rec = {"stage": stage, "script": script,
+               "before": hashlib.sha256(want).hexdigest(),
+               "after": after.get(rel), "restored": not allow_rewrite}
+        if not allow_rewrite:
+            (ROOT / rel).write_bytes(want)
+        blocked.append((rel, rec))
+    return blocked
+
 
 STAGES = [
     # (id, needs network, script, args, description)
@@ -150,15 +202,30 @@ def main() -> int:
     ap.add_argument("--from", dest="start", type=int, default=1)
     ap.add_argument("--to", dest="end", type=int, default=len(STAGES))
     ap.add_argument("--continue-on-failure", action="store_true", default=True)
+    ap.add_argument("--allow-canonical-rewrite", action="store_true",
+                    help="let stages rewrite published split/derived layers "
+                         "instead of restoring the bytes they started with "
+                         "(use only for a reviewed, documented migration)")
     args = ap.parse_args()
 
     results = []
+    blocked_rewrites: dict[str, dict] = {}
+    start_bytes = {rel: (ROOT / rel).read_bytes()
+                   for rel in CANONICAL_LAYERS if (ROOT / rel).is_file()}
     log("build_all")
     for nid, needs_net, script, sargs, desc in STAGES:
         if not (args.start <= nid <= args.end):
             continue
         log(f"\n=== stage {nid}: {script} — {desc}")
         r = run_stage(nid, script, sargs, desc, needs_net, args.with_network)
+        for rel, rec in guard_canonical_layers(nid, script, start_bytes,
+                                                args.allow_canonical_rewrite):
+            if rec["restored"]:
+                log(f"     BLOCKED canonical rewrite of {rel} by stage {nid} "
+                    f"({script}); bytes restored to the state this build "
+                    "started with. Re-run with --allow-canonical-rewrite only "
+                    "as a reviewed migration.")
+            blocked_rewrites.setdefault(rel, rec)
         results.append(r)
         log(f"  -> {r['status']}" + (f" rc={r['rc']}" if "rc" in r else "") +
             f" ({r['seconds']}s)")
@@ -168,11 +235,25 @@ def main() -> int:
     summary = {
         "generated_by": "scripts/build_all.py",
         "stages": results,
+        "canonical_layer_rewrites_blocked": blocked_rewrites,
+        "canonical_rewrite_allowed": bool(args.allow_canonical_rewrite),
         "by_status": {s: sum(1 for r in results if r["status"] == s)
                       for s in sorted({r["status"] for r in results})},
     }
     write_json(REPORTS / "build_all.json", summary)
     log(f"\nbuild_all.json: {summary['by_status']}")
+
+    if blocked_rewrites and not args.allow_canonical_rewrite:
+        for rel, rec in sorted(blocked_rewrites.items()):
+            log(f"CANONICAL REWRITE BLOCKED: {rel} — stage {rec['stage']} "
+                f"{rec['script']} would have replaced the published bytes "
+                f"(sha {str(rec['before'])[:12]} -> {str(rec['after'])[:12]}); "
+                "restored")
+        log("  this build cannot refresh published split/derived layers. A "
+            "whole-tree rebuild is not idempotent over them, so the drift is "
+            "reported instead of absorbed; refresh needs an explicit "
+            "--allow-canonical-rewrite migration.")
+        return 1
 
     # A stage that failed may have left downstream artefacts stale or absent.
     # Reporting success here is how a broken build ships as a green pipeline, so

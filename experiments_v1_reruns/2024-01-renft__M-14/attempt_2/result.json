@@ -1,0 +1,45 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "expectRevert(Errors.StopPolicy_ReclaimFailed.selector)",
+      "assertEq(STORE.orders(payRentalOrderHash), true)",
+      "assertEq(STORE.isRentedOut(address(bob.safe), address(erc721s[0]), 0), true)",
+      "assertEq(erc721s[0].ownerOf(0), address(bob.safe))",
+      "assertEq(erc20s[0].balanceOf(aliceAddr), uint256(9900))",
+      "assertEq(erc20s[0].balanceOf(bob.addr), uint256(10000))",
+      "assertEq(erc20s[0].balanceOf(address(ESCRW)), uint256(100))"
+    ],
+    "claimed_impact": "A malicious lender can use this vulnerability to grief a PAY order renter of their payment by having the `onERC721Received()` or `onERC1155BatchReceived()` callback function revert or not return the magic bytes4 value.",
+    "declared_test_functions": [
+      "test_stopRent_payOrder_inFull_stoppedByRenter_paymentGriefed"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-renft__M-14/attempt_2",
+  "attempt_n": 2,
+  "blocker_class": "toolchain_missing",
+  "build_rc": 0,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=0",
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=0",
+    "forge test --match-path test/vlun_poc/2024-01-renft__M-14.t.sol --match-test test_stopRent_payOrder_inFull_stoppedByRenter_paymentGriefed -vv --json (cwd work/poc_reruns/code-423n4__2024-01-renft)"
+  ],
+  "detail": "Nothing to compile\n",
+  "evidence_level_supported": "L3",
+  "finding_id": "2024-01-renft/M-14",
+  "outcome": "inconclusive",
+  "output_sha256": {
+    "command.txt": "9fe9070800523984d01219c79effdb8f5912ed8b93373931ddb9db0cec49c968",
+    "harness.json": "a784c5189864d8e759420fc8f4647418b1649a36fd5374f1982d6f963a2bf74f",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "ee0826c2bc3e985ec7da3d9b35eb6923cd2d0a3764f8b3e36de53d8503bac721",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "recorded_at_utc": "2026-10-18T18:33:50Z",
+  "repository": "code-423n4/2024-01-renft",
+  "run_status": "no_test_results",
+  "test_rc": 0
+}

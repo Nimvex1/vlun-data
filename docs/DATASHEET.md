@@ -44,5 +44,5 @@ ground truth. Governing rule: truth over scale.
 
 ## Maintenance
 
-- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (28 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
+- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (42 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
 - Contact/limitations: validation reports record every unknown, exclusion and failure reason; limitations are published in `reports/benchmark_metrics.md` and `reports/reproducibility_report.md`, not hidden.

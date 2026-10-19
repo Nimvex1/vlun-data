@@ -1,0 +1,16 @@
+{
+  "isolation": "would be a local scratch copy plus the local Move VM",
+  "pin": {
+    "commit": null,
+    "requested_ref": "audit scope: Volo repo commits 5f8aef2 and 53ce9ab as printed in the report",
+    "revision_unresolved": "dependency_resolution_uncached_sui_framework_rev: the Volo package pins an OtterSec-era Sui framework rev absent from the local cache"
+  },
+  "run_kind": "none",
+  "schema": "vlun-nonevm-run/1",
+  "toolchain": {
+    "native_command": "sui move test <test name>",
+    "tool": "sui",
+    "version_1_48_2": "sui 1.48.2-17a9eb8e1914",
+    "version_1_6_3": "sui 1.6.3-f4a70c8-dirty"
+  }
+}

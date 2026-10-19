@@ -1,0 +1,36 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "revert_expectation",
+    "assertions": [
+      "expectRevert(FixedTermLoanHooks.WithdrawBeforeTermEnd.selector)"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `onQueueWithdrawal` in 2024-08-wildcat/src/access/FixedTermLoanHooks.sol",
+    "declared_test_functions": [
+      "testAudit_SetAnnualInterestBeforeTermEnd"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1",
+  "attempt_n": 1,
+  "blocker_class": "harness_reconstruction_required",
+  "build_rc": 1,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-08-wildcat) -> rc=1"
+  ],
+  "detail": "Error: Compiler run failed:; Expected identifier but got 'memory'",
+  "evidence_level_supported": null,
+  "finding_id": "2024-08-wildcat/M-02",
+  "outcome": "compile_failed",
+  "output_sha256": {
+    "command.txt": "3928d4cca63e7dcca475d4838a69ee1992165faf6aaca428b74679d1a62f5371",
+    "harness.json": "2eed10688f858c0284f8d4338ee17375a22ff35211b15ac9a8f32d5f331256b1",
+    "stderr.txt": "1ba01626724ee9490ed3125f4d206a067145b3b6696544d42367d1a152672dfa",
+    "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "pinned_vulnerable_commit": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+  "recorded_at_utc": "2026-10-18T18:30:27Z",
+  "repository": "code-423n4/2024-08-wildcat",
+  "run_status": "compile_error"
+}

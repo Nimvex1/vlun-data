@@ -1,0 +1,6 @@
+INCLUDING DEPENDENCY Sui
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING IntegerMate
+Running Move unit tests
+[ PASS    ] integer_mate::nonevm_shlw_poc::nonevm_control_below_boundary_shifts_correctly
+Test result: OK. Total tests: 1; passed: 1; failed: 0

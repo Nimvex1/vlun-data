@@ -1,0 +1,86 @@
+{
+  "dependency_configuration": {
+    "clone_head": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "ds-test",
+      "ethereum-access-token",
+      "forge-std",
+      "openzeppelin-contracts",
+      "sol-utils",
+      "solady",
+      "solmate",
+      "vulcan"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "quoted_full_file",
+  "import_rewrites": [
+    "import {MockSanctionsSentinel} from \"./shared/mocks/MockSanctionsSentinel.sol\" -> import {MockSanctionsSentinel} from \"..//shared/mocks/MockSanctionsSentinel.sol\"",
+    "import {deployMockChainalysis} from \"./shared/mocks/MockChainalysis.sol\" -> import {deployMockChainalysis} from \"..//shared/mocks/MockChainalysis.sol\""
+  ],
+  "libs": true,
+  "node_modules_junction": true,
+  "overlay_path": "test/vlun_poc/2024-08-wildcat__M-07.t.sol",
+  "overlay_sha256": "3d29fd9adc9239cfc67e2c34d0dcdbb2e8efbc81c47b796f0baae0fbef052e85",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+  "project_subdir": "",
+  "quoted_code_sha256": "fc3a2a8494dd768c0ba994347f928be6762def1c11a1de90e9b93ee52b6f5f84",
+  "remappings": true,
+  "repository": "code-423n4/2024-08-wildcat",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-08-wildcat",
+    "clone_head": "7c5d8389b2a368ce6c4fc79e50c39eac3516ea5e",
+    "copied": [
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "error": null,
+    "junctions": [
+      "node_modules"
+    ],
+    "revision_substitution": {
+      "override": null,
+      "override_commit": null,
+      "tree": "work/repos/code-423n4__2024-08-wildcat"
+    },
+    "scratch": "work/poc_reruns/code-423n4__2024-08-wildcat",
+    "scratch_entries": [
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "script",
+      "src",
+      "test",
+      "tsconfig.json"
+    ],
+    "scratch_foundry_test_dir": "test",
+    "scratch_head": null,
+    "scratch_project_subdir": "",
+    "source_tree": "work/repos/code-423n4__2024-08-wildcat"
+  }
+}

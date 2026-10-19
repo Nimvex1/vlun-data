@@ -1,0 +1,96 @@
+{
+  "artefacts": {
+    "assertion.json": {
+      "bytes": 180,
+      "sha256": "58d965b1093775b57574dfa6f9849c2dfa9f148df77daa4a5d21963cc0b320f8"
+    },
+    "command.txt": {
+      "bytes": 23,
+      "sha256": "6af48cfc33795f9a5860ad7bd7ec0243c19459b888b0d5e085d0691e1453ebe2"
+    },
+    "harness.json": {
+      "bytes": 705,
+      "sha256": "2d200e03153bcf49772188ea65104c4cc233c8f4a7a893523c1171c5f2e1412a"
+    },
+    "stderr.txt": {
+      "bytes": 66,
+      "sha256": "c74f502f861b2788936be3771d1d95c2d0eaf24802f5b7bb83868440a441e1ef"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "toolchain.txt": {
+      "bytes": 1074,
+      "sha256": "205b59a623ea2c18b723d20ce8f4d4fb922928b94a9b302dd27d3138db315fc3"
+    }
+  },
+  "assertion": {
+    "expected": null,
+    "kind": "not_run",
+    "met": null,
+    "name": null,
+    "observed": null,
+    "statement": "aptos move test cannot be started until the Aptos CLI is installed"
+  },
+  "blocker": "toolchain_missing: aptos-cli; the fix commit is in move-language/move's Rust bytecode verifier, so the assertion is a cargo test, not `aptos move test`",
+  "claim": "The same bytecode verifier CFG bug in the Aptos branch of Move, explicitly fixed by commit 1fa4ed20 (Zellic finding 3.2, Aptos side)",
+  "evidence_note": "the native command was invoked and the spawn failed (exit 127), which is the prerequisite recorded as data; install command: curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+  "ladder": "L1",
+  "licence": {
+    "harness_origin": "none built; no upstream file is copied",
+    "redistribution": "not applicable - nothing was compiled",
+    "upstream": "Apache-2.0 (aptos-core) / unpublished for the Amnis audit scope repository",
+    "withheld": "no third-party code is redistributed; the WITHHELD.json pattern is not needed because no harness was written"
+  },
+  "outcome": "blocked",
+  "pin": {
+    "commit": null,
+    "package": "language/tools/move-bytecode-verifier (Rust)",
+    "repo": "https://github.com/move-language/move",
+    "requested_ref": "1fa4ed20daaef28b47fe2c5a8d8f63b64523e16d",
+    "revision_unresolved": null
+  },
+  "platform": "aptos_move",
+  "prerequisites": [
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "tool": "aptos-cli",
+      "version": null
+    },
+    {
+      "blocking": true,
+      "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+      "install_status": "missing",
+      "note": "the Sui Move compiler already in work/tools cannot be substituted: the packages import aptos_framework / std::vector with the Aptos VM's signature and dependency layout",
+      "tool": "aptos move test (local Move VM)",
+      "version": null
+    }
+  ],
+  "record_id": "move:zellic-3.2-control-flow-graph-aptos",
+  "run": {
+    "argv": [
+      "aptos",
+      "move",
+      "test",
+      "--help"
+    ],
+    "exit_code": 127,
+    "isolation": "no isolation needed: the runner never started",
+    "run_kind": "none",
+    "seconds": 0.01,
+    "timeout_seconds": 60
+  },
+  "run_slug": "blocked-zellic-3.2-control-flow-graph-aptos",
+  "schema": "vlun-nonevm-run/1",
+  "status": "blocked",
+  "toolchain": {
+    "install_command": "curl -fsSL \"https://get.aptos.dev/cli\" | bash   (Linux/macOS; on Windows the documented path is WSL)",
+    "install_status": "missing",
+    "native_command": "aptos move test",
+    "tool": "aptos-cli",
+    "version": "EXEC_FAILED [WinError 2] The system cannot find the file specified"
+  }
+}

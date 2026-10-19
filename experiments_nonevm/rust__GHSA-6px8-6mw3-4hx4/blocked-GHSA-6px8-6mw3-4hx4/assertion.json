@@ -1,0 +1,8 @@
+{
+  "expected": null,
+  "kind": "not_run",
+  "met": null,
+  "name": null,
+  "observed": null,
+  "statement": "anchor test cannot be started until the Anchor and Solana CLIs are installed"
+}

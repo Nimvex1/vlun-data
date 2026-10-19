@@ -1,0 +1,71 @@
+{
+  "artifact_hash_note": "sha256 over the artefact bytes in this attempt directory; result.json is written after hashing so it carries no self-hash",
+  "artifact_hashes": {
+    "build_command.txt": "3e271a803b494d5a21acd5b360238172ff4398d7a7657ccd8600730915e1e73f",
+    "command.txt": "bcbbcc5181ada2ffdf410e4964c0e0077dc2e56a93f1ba4f72181c7fad0257bf",
+    "harness.json": "3b9b448fe430cb5b465c02ec972e6bd74e8fe6d7e31c5c5a24dfc2eb3d143a5d",
+    "stderr.txt": "3d034791621a8c026a21039a291837757844cdb99d1f76be441134c9f07a587d",
+    "stdout.txt": "513804fd843fdf24769108bd9892e28748b8971417209c40d25ba34998ecf522",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "attempt": 2,
+  "balance_deltas_by_subject": [],
+  "build_rc": 0,
+  "detail": "[FAIL: EVM error; database error: failed to get account for 0x8b6C8fd93d6F4CeA42Bbb345DBc6F0DFdb5bEc73: server returned an error response: error code -32603: state at block #33528883 is pruned] setUp() (gas: 0)",
+  "evidence_level_supported": "L3",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2023-11/ShibaToken_exp.sol",
+  "fork_target_pinned_by_poc": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "fork_target_used": {
+    "alias": "bsc",
+    "kind": "block",
+    "value": 33528882
+  },
+  "hardfork": "backend default (today's rules)",
+  "impact_check": {
+    "assertions": [],
+    "balance_log_labels": [],
+    "claim_notes": [
+      "@KeyInfo - Total Lost : ~$31K",
+      "Attacker : https://bscscan.com/address/0xb9bdc2537c6f4b587a5c81a67e7e3a4e6ddda189",
+      "Attack Tx : https://explorer.phalcon.xyz/tx/bsc/0x75a26224da9faf37c2b3a4a634a096af7fec561f631a02c93e11e4a19d159477"
+    ],
+    "console_log_lines": []
+  },
+  "kind": "archive_provider",
+  "level_awarded": "L3",
+  "level_basis": "staged PoC still compiles (forge build rc=0); nothing new executed",
+  "logs_excerpt": [],
+  "original_run": {
+    "failure_reason": "archive_state_unavailable",
+    "level_awarded": "L3",
+    "status": "blocked"
+  },
+  "overlay_files": [],
+  "poc_bytes_modified": false,
+  "profit_deltas": [],
+  "provider": "https://bsc.meowrpc.com",
+  "record_note": "this record was re-derived from the committed log text in this directory; no forge command was executed by this call. Exit codes are inferred: test_rc=0 only when [PASS] <test> appears in the log",
+  "recovered": false,
+  "reused_log": true,
+  "run": "shibatoken",
+  "scope_change": null,
+  "seconds": null,
+  "self_validation": [],
+  "status": "blocked",
+  "tenderly_access": {
+    "available": false,
+    "keys_present": [],
+    "note": "no signups and no secrets are handled by this script; access is probed from the environment only"
+  },
+  "test": {
+    "command": "forge test --match-test test -vv",
+    "rc": 1,
+    "test_function": "test"
+  },
+  "test_rc": 1
+}

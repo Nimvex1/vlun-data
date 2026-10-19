@@ -1,0 +1,24 @@
+{
+  "run": "burgerswap",
+  "attempt": 99,
+  "kind": "archive_provider",
+  "status": "violation_observed",
+  "failure_reason": null,
+  "detail": null,
+  "level_awarded": "L5",
+  "level_basis": "broken fixture: L5 with only a same-contract, unlabelled delta",
+  "evidence_level_supported": "L5",
+  "recovered": true,
+  "provider": "https://example.invalid/bsc",
+  "fork_target_pinned_by_poc": {"alias": "bsc", "kind": "block", "value": 7781159},
+  "fork_target_used": {"alias": "bsc", "kind": "block", "value": 7781159},
+  "hardfork": "backend default (today's rules)",
+  "test": {"command": "forge test --match-test testExploit -vv", "rc": 0, "test_function": "testExploit"},
+  "impact_check": {"claim_notes": ["Objective: Drain funds in the vulnerable Burger LP contract"], "balance_log_labels": [], "console_log_lines": [], "assertions": []},
+  "profit_deltas": [
+    {"label_before": "BURGER exploited", "label_after": "WBNB exploited", "before": 0.0, "after": 100.0, "profit": 100.0, "attacker_side": false, "matched_subjects": [], "valid_attacker_profit": false}
+  ],
+  "poc_bytes_modified": false,
+  "overlay_files": [],
+  "original_run": {"status": "blocked", "level_awarded": "L3", "failure_reason": "archive_state_unavailable"}
+}
