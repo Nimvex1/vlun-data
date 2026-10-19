@@ -72,10 +72,14 @@ def apply_row(row: dict, by_id: dict, doc: dict) -> dict:
         "decided_by": doc["decided_by"],
         "not_a_legal_clearance": True,
     }
-    out["rights_migration"] = {"version": MIGRATION,
-                               "superseded_values": {
-                                   k: row.get(k) for k in ("license", "license_status")
-                                   if k in row}}
+    prior = row.get("rights_migration") or {}
+    already = (prior.get("version") == MIGRATION
+               and row.get("license") == src["license_status"]
+               and row.get("license_status") == src["license_status"])
+    out["rights_migration"] = prior if already else {
+        "version": MIGRATION,
+        "superseded_values": {k: row.get(k) for k in ("license", "license_status")
+                              if k in row}}
     return out
 
 
@@ -96,7 +100,7 @@ def migrate(path: Path, by_id: dict, doc: dict, write: bool) -> dict:
         bad = [k for k in touched if k not in LICENCE_FIELDS]
         if bad:
             offlimits.append(f"{path.name}:{row.get('record_id') or row.get('id')}: {bad}")
-        if touched:
+        if new != row:
             changed += 1
             stats[row.get("source_id") or "?"] = stats.get(row.get("source_id") or "?", 0) + 1
         out_rows.append(new)
@@ -107,9 +111,14 @@ def migrate(path: Path, by_id: dict, doc: dict, write: bool) -> dict:
                    for r in out_rows)
     if write:
         path.write_text(text, encoding="utf-8", newline="\n")
+    # `--check` compares rows, not bytes: the committed files are written by
+    # register_v4.py in its own key order, and reordering keys is not a licence
+    # contradiction. What must hold is that every row already carries the
+    # resolved decision.
     return {"file": path.relative_to(ROOT).as_posix(), "rows": len(rows),
             "rows_changed": changed, "by_source": stats,
-            "current_bytes_match_output": path.read_text(encoding="utf-8") == text}
+            "current_bytes_match_output": path.read_text(encoding="utf-8") == text,
+            "rows_already_reconciled": len(rows) - changed}
 
 
 def migrate_sources_json(by_id: dict, doc: dict, write: bool) -> dict:
@@ -159,7 +168,7 @@ def main() -> int:
             results.append(migrate(p, by_id, doc, write=not (args.check or args.dry_run)))
     results.append(migrate_sources_json(by_id, doc, write=not (args.check or args.dry_run)))
 
-    stale = [r["file"] for r in results if not r["current_bytes_match_output"]]
+    stale = [r["file"] for r in results if r["rows_changed"]]
     ledger = {
         "generated_by": "scripts/reconcile_v4_licensing.py",
         "migration_version": MIGRATION,
