@@ -1,0 +1,76 @@
+{
+  "commit_reference_quality": {
+    "by_length_characters": {
+      "10": 2,
+      "38": 1,
+      "39": 1,
+      "7": 202,
+      "8": 52,
+      "9": 11
+    },
+    "by_source": {
+      "coinfabrik_audit_reports": 2,
+      "halborn_public_reports": 257,
+      "oak_security_audit_reports": 10
+    },
+    "findings_stating_a_40_hex_object_id": 4999,
+    "findings_stating_an_abbreviated_or_truncated_reference": 269,
+    "measured_by": "scripts/inventory_rights.py",
+    "measured_utc": "2026-10-19",
+    "why_it_matters": "an abbreviation is a prefix of some commit, not an immutable reference: it resolves only inside a repository someone else controls, and can stop being unique or be rewritten. Each such value is carried as stated by the source and labelled by `commit_reference_kind` in the distribution view, and is never presented as a verified object id. The missing characters are not invented."
+  },
+  "decided_by": "the dataset builder, from each source's own stated terms and the files in its pinned repository",
+  "generated": "2026-10-19",
+  "policy_default": "METADATA_ONLY",
+  "sources": [
+    {
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'halborn_public_reports: no LICENSE file found'",
+        "the repository root at the pinned commit holds no LICENSE, COPYING or equivalent file"
+      ],
+      "legal_clearance": false,
+      "license_status": "none_declared",
+      "note": "the absence of a licence file is not a grant, so the public distribution keeps identifiers, locators and hashes plus an independently written digest, and withholds copied report prose",
+      "redistribution_right": "not_documented",
+      "source_id": "halborn_public_reports",
+      "source_name": "Halborn Security Public Reports",
+      "source_repository_commit": "4f3d1c6451ac01ba669a43072dd30b857ef9aa90",
+      "source_url": "https://github.com/HalbornSecurity/PublicReports"
+    },
+    {
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'oak_security_audit_reports: CC BY-ND 4.0'"
+      ],
+      "legal_clearance": false,
+      "license_status": "cc-by-nd-4.0",
+      "note": "CC BY-ND 4.0 permits redistributing the licensed work unchanged with attribution and expressly forbids derivatives, so a re-sectioned or rewritten report text is a derivative; that term must stay visible on the record instead of hidden behind license_status: unknown",
+      "redistribution_right": "verbatim_copy_only_with_attribution",
+      "source_id": "oak_security_audit_reports",
+      "source_name": "Oak Security audit reports",
+      "source_repository_commit": "00ad9f3fb9d9e62c711414777741dc588685fb56",
+      "source_url": "https://github.com/oak-security/audit-reports"
+    },
+    {
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'coinfabrik_audit_reports: no LICENSE file found'"
+      ],
+      "legal_clearance": false,
+      "license_status": "none_declared",
+      "note": "no licence file is published in the pinned repository, and two of this source's findings additionally state the vulnerable revision as a 38- or 39-character hex string rather than an object id; see commit_reference_quality",
+      "redistribution_right": "not_documented",
+      "source_id": "coinfabrik_audit_reports",
+      "source_name": "CoinFabrik audit reports",
+      "source_repository_commit": "051bbc276c90a0bd73295ec5dcd8b0da295141f8",
+      "source_url": "https://github.com/CoinFabrik/coinfabrik-audit-reports"
+    }
+  ],
+  "version": "v4-licensing-1.0",
+  "what_this_is": "A machine-readable record of what each V4 source declares about its own content, and of the data-handling policy this project applies because of it. It is a rights decision about redistribution, not legal advice and not a clearance: no permission was obtained from any source organisation, and none is claimed.",
+  "what_this_is_not": "It does not establish that any transformed or derived record may be redistributed. Two of the three sources publish no licence at all, which is the absence of a grant rather than a permissive default, and the third declares CC BY-ND 4.0, whose No-Derivatives term is the more restrictive fact that `license_status: unknown` had been hiding in every record."
+}

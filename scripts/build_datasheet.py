@@ -97,6 +97,7 @@ ground truth. Governing rule: truth over scale.
 - v2.2: advisories, audits, bounties, post-mortems across five languages.
 - V3: 18 cloned archives (audits, contests, incident PoCs, one research dataset); provenance is clone-HEAD + file sha256.
 - Vbeta: first-party audit pages observed live (URL + titles + date receipts) plus a Solodit HIGH+MEDIUM mirror (auditor originals canonical); PDFs mined in temp space and deleted (METADATA_ONLY).
+- METADATA_ONLY is this project's default data-handling policy, applied where no documented right to redistribute exists. It is not a claim and not a determination that any transformed, projected or digested record has been legally cleared; a hash plus a permalink identifies bytes and grants no reuse. Per-source rights decisions are recorded in `V4/licensing.json` and `distribution_v1/rights_source_registry.json` and enforced by `scripts/check_rights_consistency.py`.
 
 ## Preprocessing, cleaning, labeling
 

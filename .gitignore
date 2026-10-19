@@ -53,3 +53,8 @@ ai/
 build/
 dist/
 *.egg-info/
+# Local agent/tooling caches created on the operator's machine. Neither is read
+# by the pipeline, and both contain machine-specific state, so they must never
+# enter the committed JSON catalog.
+graphify-out/
+.opencode/

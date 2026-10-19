@@ -97,6 +97,31 @@ def main():
         ROOT / "work" / "cloned_conversion" / "v4" / "extracted_findings.jsonl",
         encoding="utf-8") if line.strip()]
 
+    # Rights come from the recorded decision file, never from a placeholder. The
+    # harvester leaves `license: "unknown"` on every row, which used to flow
+    # straight into the published layer and hide the one term that matters most
+    # (Oak's CC BY-ND No-Derivatives). A source with no decision on file stops the
+    # build rather than shipping an unresolved status.
+    licensing = json.loads((ROOT / "V4" / "licensing.json").read_text(encoding="utf-8"))
+    licence_by_source = {s["source_id"]: s for s in licensing.get("sources") or []}
+    unresolved = sorted({f.get("source_id") for f in findings} - set(licence_by_source))
+    if unresolved:
+        raise RuntimeError(
+            f"V4/licensing.json has no decision for source(s) {unresolved}; a licence "
+            "status may not be defaulted to unknown")
+    for f in findings:
+        src = licence_by_source[f["source_id"]]
+        f["license"] = src["license_status"]
+        f["license_status"] = src["license_status"]
+        f["derivatives_allowed"] = src["derivatives_allowed"]
+        f["redistribution_right"] = src["redistribution_right"]
+        f["legal_clearance"] = src["legal_clearance"]
+        f["data_handling_policy"] = src["data_handling_policy"]
+        f["rights_decision"] = {"version": licensing["version"],
+                                "basis": "V4/licensing.json#" + f["source_id"],
+                                "decided": licensing["generated"],
+                                "not_a_legal_clearance": True}
+
     # existing records
     existing = []
     for r in load_jsonl(ROOT / "jsonl" / "findings.jsonl"):
@@ -298,7 +323,10 @@ def main():
             "source_url": source_url,
             "source_type": "professional_audit_firm",
             "source_repository_commit": head,
-            "license_status": "unknown",
+            "license_status": licence_by_source[sid]["license_status"],
+            "rights_decision": {"version": licensing["version"],
+                                "basis": "V4/licensing.json#" + sid,
+                                "decided": licensing["generated"]},
             "record_type": "source_v4",
             "dataset_version": "4.0",
         })

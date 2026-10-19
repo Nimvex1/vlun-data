@@ -242,6 +242,12 @@ with its manifest fails the build.
    from the text itself in `reports/third_party_audit.json`). V3 keeps link + sha256 + attributed
    facts only (METADATA_ONLY). Vbeta keeps links + observed facts only (METADATA_ONLY) —
    full report prose is never copied in; `openzeppelin-cairo` rows carry observed MIT.
+   METADATA_ONLY is this project's **default data-handling policy**, applied where no
+   documented right to redistribute exists; it is not a claim and not a determination that
+   any transformed record has been legally cleared, and a permalink plus a sha256 identifies
+   bytes rather than granting reuse. Per-source rights decisions live in `V4/licensing.json`
+   and `distribution_v1/rights_source_registry.json`, enforced by
+   `scripts/check_rights_consistency.py`.
 - Vbeta sources are first-party audit pages plus a tier-2 Solodit mirror (auditor originals
   stay canonical). No operator-authored rows remain: the single interim one was retired and
   replaced by its harvested original (see `Vbeta/reports_vbeta/solodit_ingestion_report.md`).

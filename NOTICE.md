@@ -43,8 +43,22 @@ the original audit rather than as redistributable text.**
 
 Nothing was summarised, paraphrased or invented. For every withheld snippet the
 record keeps, under `code_reference_only`: the source file path, the commit SHA,
-the line range, the GitHub permalink and a sha256 of the content that
-`scripts/fetch_sources.py` retrieved locally.
+the line range and the GitHub permalink; a sha256 of the retrieved bytes is
+present wherever `scripts/fetch_sources.py` ran against that (commit, file) pair,
+and is absent where it did not — `reports/rights_inventory.json` counts which
+pointers carry a hash rather than implying all of them do.
+
+**METADATA_ONLY is a data-handling policy, not a clearance.** It is the default
+data-handling policy this project applies where no documented right to redistribute
+exists. It is not a claim, and not a determination, that any transformed, projected
+or digested record has been legally cleared for reuse: a permalink and a sha256
+identify bytes, they grant nothing. The decision for each V4 source — what it declares about its own
+content, what evidence says so, and what this project therefore withholds — is
+recorded in `V4/licensing.json`, mirrored into
+`distribution_v1/rights_source_registry.json`, and enforced by
+`scripts/check_rights_consistency.py`, which fails the build if a licence status
+contradicts itself across the layers or if a distribution artefact carries copied
+expressive content.
 
 ## What execution actually established in v2.1
 

@@ -48,6 +48,11 @@ GATES = [
     # private answer key must still match its published commitment. Skips (rc=2)
     # on a machine without the private split, because the split is not committed.
     ("prove-split-current", [PY, "scripts/build_prove_split.py", "--check"]),
+    # Rights: no contradictory licence status, no copied expressive content in the
+    # distribution view, no un-negotiated reuse claim, no drifted count. The
+    # V4 licence fields must still match the recorded decision in V4/licensing.json.
+    ("rights-consistency", [PY, "scripts/check_rights_consistency.py", "--quiet"]),
+    ("v4-licensing-current", [PY, "scripts/reconcile_v4_licensing.py", "--check"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
     # Packaging gates the CI workflow already ran separately. Without these
     # a local `run_gates.py` reported green while CI failed on a stale
@@ -84,6 +89,7 @@ ONLY_MAP = {
                "solodit-report-current", "repro-report-current"],
     "rejection": ["rejection-corpus-current", "negative-stats-current"],
     "prove": ["prove-split-current"],
+    "rights": ["rights-consistency", "v4-licensing-current"],
     "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
     "catalog": ["catalog-current"],
     "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],

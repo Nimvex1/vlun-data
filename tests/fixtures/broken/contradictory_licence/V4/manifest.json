@@ -1,0 +1,14 @@
+{
+  "admitted": 2,
+  "candidate_ledger": 2,
+  "dataset_version": "4.0",
+  "generated_by": "tests fixture",
+  "layer": "V4",
+  "licensing_risks": [
+    "halborn_public_reports: no LICENSE file found",
+    "oak_security_audit_reports: CC BY-ND 4.0"
+  ],
+  "verification_levels": {
+    "L0": 2
+  }
+}

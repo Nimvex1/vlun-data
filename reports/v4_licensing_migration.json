@@ -1,0 +1,77 @@
+{
+  "already_consistent": true,
+  "applied_utc": "2026-10-19T10:27:32Z",
+  "fields_touched": [
+    "data_handling_policy",
+    "derivatives_allowed",
+    "legal_clearance",
+    "license",
+    "license_status",
+    "redistribution_right",
+    "rights_decision",
+    "rights_migration"
+  ],
+  "files": [
+    {
+      "by_source": {
+        "coinfabrik_audit_reports": 226,
+        "halborn_public_reports": 1785,
+        "oak_security_audit_reports": 3257
+      },
+      "current_bytes_match_output": true,
+      "file": "jsonl_v4/findings.jsonl",
+      "rows": 5268,
+      "rows_changed": 5268
+    },
+    {
+      "by_source": {
+        "coinfabrik_audit_reports": 1,
+        "halborn_public_reports": 1,
+        "oak_security_audit_reports": 1
+      },
+      "current_bytes_match_output": true,
+      "file": "jsonl_v4/sources.jsonl",
+      "rows": 3,
+      "rows_changed": 3
+    },
+    {
+      "by_source": {
+        "coinfabrik_audit_reports": 226,
+        "halborn_public_reports": 1785,
+        "oak_security_audit_reports": 3257
+      },
+      "current_bytes_match_output": true,
+      "file": "derived_v4/admitted_ledger.jsonl",
+      "rows": 5268,
+      "rows_changed": 5268
+    },
+    {
+      "by_source": {
+        "oak_security_audit_reports": 2
+      },
+      "current_bytes_match_output": true,
+      "file": "derived_v4/duplicate_ledger.jsonl",
+      "rows": 2,
+      "rows_changed": 2
+    },
+    {
+      "by_source": {},
+      "current_bytes_match_output": true,
+      "file": "derived_v4/quarantined_ledger.jsonl",
+      "rows": 0,
+      "rows_changed": 0
+    },
+    {
+      "current_bytes_match_output": true,
+      "file": "V4/sources.json",
+      "rows": 3,
+      "rows_changed": 3
+    }
+  ],
+  "generated_by": "scripts/reconcile_v4_licensing.py",
+  "guarantee": "only licence and rights-decision fields were written; the migration aborts if any other field would change. Original values are preserved in each row's `rights_migration`.",
+  "migration_version": "v4-licensing-1.0",
+  "registry": "V4/licensing.json",
+  "registry_version": "v4-licensing-1.0",
+  "stale_files": []
+}

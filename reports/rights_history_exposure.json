@@ -1,0 +1,537 @@
+{
+  "commits_scanned": 74,
+  "current_exposure_items_in_history_scan": [
+    {
+      "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
+      "class": "copied_report_prose+personal_data",
+      "note": "published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible",
+      "path": "jsonl_v4/findings.jsonl",
+      "present_in_current_tree": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ]
+    },
+    {
+      "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
+      "class": "copied_report_prose+personal_data",
+      "note": "published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible",
+      "path": "derived_v4/admitted_ledger.jsonl",
+      "present_in_current_tree": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ]
+    },
+    {
+      "added_in_commit": "bd2f0fa0cf741e614ecf90a6f20a9b80ccc00467",
+      "class": "copied_report_prose+personal_data",
+      "note": "published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible",
+      "path": "training/canonical/severity.validation.part-000.jsonl",
+      "present_in_current_tree": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ]
+    },
+    {
+      "added_in_commit": "bd2f0fa0cf741e614ecf90a6f20a9b80ccc00467",
+      "class": "copied_report_prose+personal_data",
+      "note": "published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible",
+      "path": "training/canonical/language.validation.part-000.jsonl",
+      "present_in_current_tree": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ]
+    }
+  ],
+  "generated_by": "scripts/inventory_rights.py",
+  "historical_exposure_items": [
+    {
+      "added_in_commit": "cfc8466223c734dd1e18a8b293c756a24a60f7af",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/B_root_cause_reasoning.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 1697705,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "610805de61b14c71f619b8a55b742ab2a3504bddffffcbcc8fbb70ea2cb6af99",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "Apache-2.0",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "cfc8466223c734dd1e18a8b293c756a24a60f7af",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/E_exploit_verification.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 883748,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "152a984460c9b2572fee0a29ad3df41e3a882dd681608816e319457fa20649e7",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "Apache-2.0",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/K_language_ecosystem_routing.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 325579,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "MIT",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/L_severity_reconciliation.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 361836,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "8162d78299568a03c30db0e71a9951b733fe3f2dcd8cdc8358357c02dd9e0433",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "MIT",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/M_experiment_level_classification.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 197893,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "11a097d24a14a7d8c3444dbf6d3abfae100f8cc0753372f3d30fc2e8819785bb",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/N_attacker_identity_extraction.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 321620,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "b0db9e859fad72b315af93063616b93561d94d3fe8f2709eabe99b76c5bbc790",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "MIT",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/O_record_class_and_scope.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 343316,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": "MIT",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "abae0ef88c7748cf9f92835be8aafbb2e6b8b976",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/P_provenance_tier_and_rights.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 338549,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "036637c515992c648c8072c4da6b42389385034c",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/v3_S_contest_outcome.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 551514,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "728c0ca6c285821e09666a64da7753db6858505c1cfafe9e078b77d0f04873ea",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "21968836a33d7fc55dfa5434b479b4f050ae61e5",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "benchmark/v3_T_taxonomy_explicit.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 355666,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ],
+      "reachable_sha256": "06e7586ac05c949b4fd86faa1f292d65ea4572fe2c0b5159c472c895be8033f0",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "ac63d5f046619d4ac57f770114bee1a8284632bf",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "brag-output/composition-brief.md",
+      "present_in_current_tree": false,
+      "reachable_bytes": 6960,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ],
+      "reachable_sha256": "912ff8792ce51bd3bb0e9f003daf0f8cd83b275e71e50085fd0e77f046a81603",
+      "removed_in_commit": "4b0a9f695b3be55b410f1505cb49ea2e547f2840",
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "b4c02c04df1daa59247a8c61b92927b97bf667a9",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "docs/V3_1_NORMALIZATION.md",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2167,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "979a13deafb743534e23bbb0b65fb714b0fbef4b88d02de350eec8e7fed555b0",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "93af4b9c3aa635d04b4b83067269b441e3338441",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "experiments/2024-01-renft__H-01/vulnerable/harness/VlunMaliciousSeaportTip.t.sol",
+      "present_in_current_tree": false,
+      "reachable_bytes": 5664,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "14c55a8ec0b1ad9be295bd58726c1ad30fd5310e12522efa9d0ba8097c346056",
+      "removed_in_commit": "ac63d5f046619d4ac57f770114bee1a8284632bf",
+      "spdx_declared_in_historical_blob": "BUSL-1.1",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "4292c98d6262791b97df826e0dd10fd4544773aa",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "reports/reproducibility_checks.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2896,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main"
+      ],
+      "reachable_sha256": "7ca3f9d099a760cbb0d82409d3270395d100284d8ff1d2ab080b808574686a30",
+      "removed_in_commit": "3290be11ca5e03cb700b8750da65709309cb964b",
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "38ee6d05aba8150ce55da4a1ddb9dd25d6af5ccd",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "splits/test.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 1760911,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "9679794eb229d59a04e6e117ab8cb1d6983b7c4410a4273daf0f0f895fdfd50a",
+      "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
+      "spdx_declared_in_historical_blob": "UNLICENSED",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "38ee6d05aba8150ce55da4a1ddb9dd25d6af5ccd",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "splits/train.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 3699948,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "a5cee26ac3f6e905927e3e6d311a08f2d7911024efb232b4d6dad557f8190a42",
+      "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
+      "spdx_declared_in_historical_blob": "Apache-2.0",
+      "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "38ee6d05aba8150ce55da4a1ddb9dd25d6af5ccd",
+      "class": "third_party_code",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "splits/validation.jsonl",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2142625,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/v3.1-normalization"
+      ],
+      "reachable_sha256": "603cb01657c25e200d543d073d9cc4164e53379f303f62694aab5ea6996e3268",
+      "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
+      "spdx_declared_in_historical_blob": "BUSL-1.1",
+      "third_party_expression_historically_published": true
+    }
+  ],
+  "history_rewrite_statement": "No history was rewritten, no commit was amended, no branch was force-pushed and no ref was deleted. Rewriting published history would need explicit authorisation from the repository owner and is not performed by this remediation.",
+  "history_rewritten": false,
+  "method": "read-only git archaeology: git rev-list --all, git show --diff-filter=A/D --name-only, git show <commit>:<path>, git merge-base --is-ancestor",
+  "paths_added_then_removed": 17,
+  "published_surfaces": {
+    "assessment": "Every commit reachable from an origin/* ref is published on the remote named above, including blobs later deleted from the tip. A DOI is only exposure if the archival docs say one exists; docs/ARCHIVAL.md states that no DOI has been minted in this snapshot, so the Zenodo surface is prepared-but-unpublished.",
+    "doi_found_in_repo": false,
+    "doi_values": [],
+    "git_remotes": {
+      "origin": "https://github.com/Nimvex1/vlun-data.git"
+    },
+    "publish_manifest": {
+      "code_context_entries_removed": 1936,
+      "generated_by": "scripts/build_reproduction.py (v1 publish/redaction pass)",
+      "patch_diffs_removed": 76,
+      "records_written": 1898,
+      "records_written_breakdown": {
+        "jsonl_source_rows": 953,
+        "note": "the original v1 publication count: every jsonl/ row plus every splits_v2/ pointer row (945, including the 2 quarantined cross-split duplicates). It counts pointers, not distinct records: a finding and its exploit/patch rows share an id, and each split row points back at a jsonl row. Distinct canonical ids are 722 findings+negatives; jsonl/ holds 953 rows; derived/ holds 722 derived records. This key is kept as the historical publish figure because audit_pre_upgrade.py pins it (v1_manifest_records_written).",
+        "splits_v2_rows": 945
+      },
+      "records_written_is_not_a_record_count": true,
+      "source_lines_withheld": 46070
+    },
+    "publish_manifest_present": true,
+    "refs_published_to_origin": [
+      "refs/remotes/origin/HEAD",
+      "refs/remotes/origin/fix/v4-audit",
+      "refs/remotes/origin/main",
+      "refs/remotes/origin/v3.1-normalization"
+    ],
+    "zenodo_metadata": {
+      "access_right": "open",
+      "communities": [],
+      "creators": [
+        {
+          "name": "Nimvex1",
+          "role": "dataset compiler and pipeline author"
+        }
+      ],
+      "description": "A provenance-preserving corpus of smart-contract security findings across Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and Clarity. Every record traces to a public artefact and every claim carries its evidence type. Governing rule: truth over scale; unknown is a counted outcome. Data layers are CC BY 4.0; pipeline scripts are MIT; third-party source is not licensed here at all (see NOTICE.md).",
+      "keywords": [
+        "smart contracts",
+        "vulnerability detection",
+        "security auditing",
+        "software engineering",
+        "machine learning",
+        "blockchain"
+      ],
+      "license": "cc-by-4.0",
+      "notes": "DOI is minted by Zenodo on first publish (see docs/ARCHIVAL.md). After publishing, copy the DOI back into CITATION.cff (doi: + preferred-citation.doi) and regenerate the README so the citable artifact is pinned in-repo.",
+      "related_identifiers": [
+        {
+          "identifier": "https://github.com/Nimvex1/vlun-data",
+          "relation": "isSupplementTo",
+          "resource_type": "software",
+          "scheme": "url"
+        }
+      ],
+      "title": "VLUN: a provenance-preserving smart-contract security reasoning dataset",
+      "upload_type": "dataset",
+      "version": "2.2"
+    },
+    "zenodo_metadata_present": true
+  },
+  "refs_scanned": [
+    "refs/heads/fix/v4-audit",
+    "refs/heads/main",
+    "refs/heads/remediation/p0-credibility",
+    "refs/heads/v31-normalization",
+    "refs/heads/v32-experiments",
+    "refs/remotes/origin/HEAD",
+    "refs/remotes/origin/fix/v4-audit",
+    "refs/remotes/origin/main",
+    "refs/remotes/origin/v3.1-normalization"
+  ]
+}

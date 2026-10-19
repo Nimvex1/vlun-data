@@ -1,0 +1,307 @@
+{
+  "data_handling_policy_default": "METADATA_ONLY",
+  "generated_by": "scripts/inventory_rights.py",
+  "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant reuse or redistribution rights",
+  "policy_note": "METADATA_ONLY is the default data-handling policy applied when no documented right to redistribute exists. It is not a determination that any transformed record is legally cleared for reuse or redistribution, and no record in this view should be read as legally cleared.",
+  "registry_version": "rights-1.0",
+  "sources": [
+    {
+      "commit_reference_quality": {
+        "by_length_characters": {
+          "10": 2,
+          "38": 1,
+          "39": 1,
+          "7": 202,
+          "8": 52,
+          "9": 11
+        },
+        "by_source": {
+          "coinfabrik_audit_reports": 2,
+          "halborn_public_reports": 257,
+          "oak_security_audit_reports": 10
+        },
+        "findings_stating_a_40_hex_object_id": 4999,
+        "findings_stating_an_abbreviated_or_truncated_reference": 269,
+        "measured_by": "scripts/inventory_rights.py",
+        "measured_utc": "2026-10-19",
+        "why_it_matters": "an abbreviation is a prefix of some commit, not an immutable reference: it resolves only inside a repository someone else controls, and can stop being unique or be rewritten. Each such value is carried as stated by the source and labelled by `commit_reference_kind` in the distribution view, and is never presented as a verified object id. The missing characters are not invented."
+      },
+      "current_declared_status": "none_declared",
+      "data_handling_policy": "METADATA_ONLY",
+      "decision_version": "v4-licensing-1.0",
+      "derivatives_allowed": false,
+      "immutable_commit": "4f3d1c6451ac01ba669a43072dd30b857ef9aa90",
+      "legal_clearance": false,
+      "licence_evidence_artifact": "V4/licensing.json#halborn_public_reports",
+      "license_status_required": "none_declared",
+      "note": "the absence of a licence file is not a grant, so the public distribution keeps identifiers, locators and hashes plus an independently written digest, and withholds copied report prose",
+      "redistribution_right": "not_documented",
+      "redistribution_scope": null,
+      "registered_rows": 1785,
+      "source_id": "halborn_public_reports",
+      "source_name": "Halborn Security Public Reports",
+      "source_url": "https://github.com/HalbornSecurity/PublicReports",
+      "status_drift_in_published_records": [],
+      "upstream_licence_declared_in_manifest": "no LICENSE file found",
+      "upstream_licence_observed": null
+    },
+    {
+      "commit_reference_quality": {
+        "by_length_characters": {
+          "10": 2,
+          "38": 1,
+          "39": 1,
+          "7": 202,
+          "8": 52,
+          "9": 11
+        },
+        "by_source": {
+          "coinfabrik_audit_reports": 2,
+          "halborn_public_reports": 257,
+          "oak_security_audit_reports": 10
+        },
+        "findings_stating_a_40_hex_object_id": 4999,
+        "findings_stating_an_abbreviated_or_truncated_reference": 269,
+        "measured_by": "scripts/inventory_rights.py",
+        "measured_utc": "2026-10-19",
+        "why_it_matters": "an abbreviation is a prefix of some commit, not an immutable reference: it resolves only inside a repository someone else controls, and can stop being unique or be rewritten. Each such value is carried as stated by the source and labelled by `commit_reference_kind` in the distribution view, and is never presented as a verified object id. The missing characters are not invented."
+      },
+      "current_declared_status": "cc-by-nd-4.0",
+      "data_handling_policy": "METADATA_ONLY",
+      "decision_version": "v4-licensing-1.0",
+      "derivatives_allowed": false,
+      "immutable_commit": "00ad9f3fb9d9e62c711414777741dc588685fb56",
+      "legal_clearance": false,
+      "licence_evidence_artifact": "V4/licensing.json#oak_security_audit_reports",
+      "license_status_required": "cc-by-nd-4.0",
+      "note": "CC BY-ND 4.0 permits redistributing the licensed work unchanged with attribution and expressly forbids derivatives, so a re-sectioned or rewritten report text is a derivative; that term must stay visible on the record instead of hidden behind license_status: unknown",
+      "redistribution_right": "documented",
+      "redistribution_scope": "verbatim_copy_only_with_attribution",
+      "registered_rows": 3257,
+      "source_id": "oak_security_audit_reports",
+      "source_name": "Oak Security audit reports",
+      "source_url": "https://github.com/oak-security/audit-reports",
+      "status_drift_in_published_records": [],
+      "upstream_licence_declared_in_manifest": "CC BY-ND 4.0",
+      "upstream_licence_observed": "cc-by-nd-4.0"
+    },
+    {
+      "commit_reference_quality": {
+        "by_length_characters": {
+          "10": 2,
+          "38": 1,
+          "39": 1,
+          "7": 202,
+          "8": 52,
+          "9": 11
+        },
+        "by_source": {
+          "coinfabrik_audit_reports": 2,
+          "halborn_public_reports": 257,
+          "oak_security_audit_reports": 10
+        },
+        "findings_stating_a_40_hex_object_id": 4999,
+        "findings_stating_an_abbreviated_or_truncated_reference": 269,
+        "measured_by": "scripts/inventory_rights.py",
+        "measured_utc": "2026-10-19",
+        "why_it_matters": "an abbreviation is a prefix of some commit, not an immutable reference: it resolves only inside a repository someone else controls, and can stop being unique or be rewritten. Each such value is carried as stated by the source and labelled by `commit_reference_kind` in the distribution view, and is never presented as a verified object id. The missing characters are not invented."
+      },
+      "current_declared_status": "none_declared",
+      "data_handling_policy": "METADATA_ONLY",
+      "decision_version": "v4-licensing-1.0",
+      "derivatives_allowed": false,
+      "immutable_commit": "051bbc276c90a0bd73295ec5dcd8b0da295141f8",
+      "legal_clearance": false,
+      "licence_evidence_artifact": "V4/licensing.json#coinfabrik_audit_reports",
+      "license_status_required": "none_declared",
+      "note": "no licence file is published in the pinned repository, and two of this source's findings additionally state the vulnerable revision as a 38- or 39-character hex string rather than an object id; see commit_reference_quality",
+      "redistribution_right": "not_documented",
+      "redistribution_scope": null,
+      "registered_rows": 226,
+      "source_id": "coinfabrik_audit_reports",
+      "source_name": "CoinFabrik audit reports",
+      "source_url": "https://github.com/CoinFabrik/coinfabrik-audit-reports",
+      "status_drift_in_published_records": [],
+      "upstream_licence_declared_in_manifest": "no LICENSE file found",
+      "upstream_licence_observed": null
+    },
+    {
+      "current_declared_status": {
+        "redistributable": 1,
+        "unknown": 60
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "71abbe683dfd5c0686b7e594fb4f78a14b668d8b",
+        "de65c34c7b6e4e94662bf508e214dcbf327984f4",
+        "e8a0263b8208c5de22074361c1d64f59a3e767e5"
+      ],
+      "legal_clearance": false,
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 54,
+      "redistribution_right": "not_documented",
+      "registered_rows": 61,
+      "source_id": "code4rena/2022-05-alchemix",
+      "source_name": "Code4rena 2022-05-alchemix audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2022-05-alchemix",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": null
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 5,
+        "unknown": 95
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29",
+        "07ef78215e3d246d47a410651906287c6acec3ef",
+        "2a5e19ac03e627f78b24a0635cece7c33b0ccdb1",
+        "7f90fd4489551b69c20d11eeecb17a3f564afb18",
+        "d562762c3bf58cca7e24171873fb7b6fbfa7b2b5"
+      ],
+      "legal_clearance": false,
+      "license_status_required": "source_available_not_redistributable",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 74,
+      "redistribution_right": "not_documented",
+      "registered_rows": 100,
+      "source_id": "code4rena/2024-01-decent",
+      "source_name": "Code4rena 2024-01-decent audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-01-decent",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": "source_available_not_redistributable"
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 120,
+        "unknown": 9
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [],
+      "legal_clearance": false,
+      "license_status_required": "source_available_not_redistributable",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 0,
+      "redistribution_right": "not_documented",
+      "registered_rows": 129,
+      "source_id": "code4rena/2024-01-renft",
+      "source_name": "Code4rena 2024-01-renft audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-01-renft",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": "source_available_not_redistributable"
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 12,
+        "unknown": 273
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "9c79b332eff82011dcfa1e8fd51bad805159d758",
+        "cc3854f634a72bd4a8b597021887088ca2d6d29f"
+      ],
+      "legal_clearance": false,
+      "license_status_required": "source_available_not_redistributable",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 268,
+      "redistribution_right": "not_documented",
+      "registered_rows": 285,
+      "source_id": "code4rena/2024-04-noya",
+      "source_name": "Code4rena 2024-04-noya audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-04-noya",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": "source_available_not_redistributable"
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 67,
+        "unknown": 3
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [],
+      "legal_clearance": false,
+      "license_status_required": "source_available_not_redistributable",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 0,
+      "redistribution_right": "not_documented",
+      "registered_rows": 70,
+      "source_id": "code4rena/2024-08-wildcat",
+      "source_name": "Code4rena 2024-08-wildcat audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-08-wildcat",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": "source_available_not_redistributable"
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 21,
+        "unknown": 11
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [],
+      "legal_clearance": false,
+      "license_status_required": "source_available_not_redistributable",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 0,
+      "redistribution_right": "not_documented",
+      "registered_rows": 32,
+      "source_id": "code4rena/2024-12-bakerfi",
+      "source_name": "Code4rena 2024-12-bakerfi audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-12-bakerfi",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": "source_available_not_redistributable"
+    },
+    {
+      "current_declared_status": {
+        "unknown": 4
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "72836c0d5fc8a46052a5dce27cd09c299b7f6edb",
+        "8ef6d867a5fb6ffd1a6cc479a2380a611d452b4a"
+      ],
+      "legal_clearance": false,
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 4,
+      "redistribution_right": "not_documented",
+      "registered_rows": 4,
+      "source_id": "code4rena/2025-06-panoptic",
+      "source_name": "Code4rena 2025-06-panoptic audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2025-06-panoptic",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": null
+    },
+    {
+      "current_declared_status": {
+        "unknown": 41
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "0c943e7bd50eb51c1c6ac9729f0248d53d4a8911",
+        "9fb17ba2de649106c6310aa351226c9bfab7f40a",
+        "f43e1eedb65e7e0327cfaf4d7608a37d85d2fae7"
+      ],
+      "legal_clearance": false,
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "records_carrying_verbatim_source": 24,
+      "redistribution_right": "not_documented",
+      "registered_rows": 41,
+      "source_id": "code4rena/2025-08-gte-perps",
+      "source_name": "Code4rena 2025-08-gte-perps audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2025-08-gte-perps",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": null
+    }
+  ]
+}

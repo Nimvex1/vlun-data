@@ -1,5 +1,47 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — rights, redistribution and the V4 licence contradiction (item 5, 2026-10-19, unreleased)
+
+- `V4/licensing.json` records what each V4 source actually declares about its own
+  content and what this project therefore does with it: Halborn and CoinFabrik
+  publish no licence file (absence of a grant, not a permissive default), and Oak
+  Security states CC BY-ND 4.0, whose No-Derivatives term is the more restrictive
+  fact that `license_status: "unknown"` had been hiding on all 5,268 records.
+  `scripts/reconcile_v4_licensing.py` is the versioned migration that puts that
+  decision into `jsonl_v4/`, `derived_v4/` and `V4/sources.json`; it refuses to run
+  if any field outside the licence set would change, keeps each row's superseded
+  value, and writes `reports/v4_licensing_migration.json`. Verified after the run:
+  same row count, same ids in the same order, zero non-licence field changes.
+  `scripts/register_v4.py` no longer hardcodes `unknown`, so a future rebuild cannot
+  reintroduce the contradiction, and a source with no recorded decision stops the
+  build.
+- `distribution_v1/` is the versioned distribution-safe view (rights-1.0): copied
+  expressive content removed, factual metadata and independently written attributed
+  digests kept, withheld content represented by pointer records carrying the source
+  URL, locator, attribution, retrieval metadata and the sha256 of the bytes this
+  project retrieved, plus the applied rights decision and reason. 12,900 ledger rows.
+- A value filed under `immutable_reference` is now only ever a 40-hex object id.
+  269 V4 findings state the vulnerable revision as an abbreviated or truncated hex
+  string (202 of them seven characters); those are carried under
+  `stated_reference` with `reference_kind`, because a prefix resolves only inside
+  somebody else's repository and cannot pin bytes. The missing characters are not
+  invented.
+- `scripts/check_rights_consistency.py` is the gate: copied code or report prose in
+  a distribution artefact, a licence status that contradicts itself across layers,
+  missing attribution, a bad hash, a manifest that drifted, or a reuse claim the
+  corpus cannot support. The residual upstream-hash gap (2,288 of 12,358 pointers
+  have no publisher-recorded digest) is reported as a noted limitation, and becomes
+  a failure the moment a document claims every citation keeps a sha256 — NOTICE.md
+  now states which ones do.
+- Historical exposure is measured separately from the current tree in
+  `reports/history_exposure.md` / `reports/rights_history_exposure.json`: one
+  BUSL-1.1 harness file was published verbatim in the past and remains reachable in
+  history, nine further historical blobs quote Solidity, and the V4 report prose plus
+  named contact mailboxes are exposure on the *current* published branch, not only in
+  history. Nothing was rewritten and no history will be force-pushed without
+  authorisation. 5,454 named-contact rows in the V4 layers are locators and counts
+  only in every new artefact; no mailbox was copied into a new file.
+
 ## Remediation — VLUN-Prove and the private held-out split (2026-10-19, unreleased)
 
 - `reports/prove_split_interface.json` / `.md` publish a two-revision proof task family:

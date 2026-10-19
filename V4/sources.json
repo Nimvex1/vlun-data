@@ -1,8 +1,17 @@
 [
   {
     "dataset_version": "4.0",
-    "license_status": "unknown",
+    "license_status": "none_declared",
     "record_type": "source_v4",
+    "rights_decision": {
+      "basis": "V4/licensing.json#halborn_public_reports",
+      "decided": "2026-10-19",
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'halborn_public_reports: no LICENSE file found'",
+        "the repository root at the pinned commit holds no LICENSE, COPYING or equivalent file"
+      ],
+      "version": "v4-licensing-1.0"
+    },
     "source_id": "halborn_public_reports",
     "source_name": "Halborn Security Public Reports",
     "source_repository_commit": "4f3d1c6451ac01ba669a43072dd30b857ef9aa90",
@@ -11,8 +20,16 @@
   },
   {
     "dataset_version": "4.0",
-    "license_status": "unknown",
+    "license_status": "cc-by-nd-4.0",
     "record_type": "source_v4",
+    "rights_decision": {
+      "basis": "V4/licensing.json#oak_security_audit_reports",
+      "decided": "2026-10-19",
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'oak_security_audit_reports: CC BY-ND 4.0'"
+      ],
+      "version": "v4-licensing-1.0"
+    },
     "source_id": "oak_security_audit_reports",
     "source_name": "Oak Security audit reports",
     "source_repository_commit": "00ad9f3fb9d9e62c711414777741dc588685fb56",
@@ -21,8 +38,16 @@
   },
   {
     "dataset_version": "4.0",
-    "license_status": "unknown",
+    "license_status": "none_declared",
     "record_type": "source_v4",
+    "rights_decision": {
+      "basis": "V4/licensing.json#coinfabrik_audit_reports",
+      "decided": "2026-10-19",
+      "evidence": [
+        "V4/manifest.json#licensing_risks: 'coinfabrik_audit_reports: no LICENSE file found'"
+      ],
+      "version": "v4-licensing-1.0"
+    },
     "source_id": "coinfabrik_audit_reports",
     "source_name": "CoinFabrik audit reports",
     "source_repository_commit": "051bbc276c90a0bd73295ec5dcd8b0da295141f8",

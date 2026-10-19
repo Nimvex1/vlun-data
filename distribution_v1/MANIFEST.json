@@ -1,0 +1,81 @@
+{
+  "attributed_quotation_max_chars": 200,
+  "attributed_quotation_policy": "third-party prose is withheld above 200 characters; at or below that length a short passage may be carried as an attributed quotation of the primary artefact with its own rights_decision, reason and hash. No third-party code, PoC source, patch diff or mined report passage is carried in any length.",
+  "blanket_clearance_claimed": false,
+  "counts": {
+    "digests": 6,
+    "ledger_rows": 12900,
+    "personal_data_artefacts_redacted": 12,
+    "records_v1_projected": 722,
+    "records_v4_projected": 5268,
+    "registry_sources": 11,
+    "withheld_harness_files": 58,
+    "withheld_pointers_other_layers": 0,
+    "withheld_v1_citations": 2288,
+    "withheld_v4_passages": 10070
+  },
+  "data_handling_policy_default": "METADATA_ONLY",
+  "data_handling_policy_is_default_not_clearance": true,
+  "distribution_view": "distribution_v1",
+  "excluded_from_this_view": [
+    {
+      "path": "training/canonical/",
+      "why": "rows embed V4 mined passages and personal mailboxes; must be rebuilt from distribution_v1/records_v4.jsonl before release"
+    },
+    {
+      "path": "benchmark/",
+      "why": "several families quote third-party payloads inline; needs the same projection pass"
+    },
+    {
+      "path": "jsonl/, derived/, splits_v2/, derived_v3/, jsonl_v3/, jsonl_v4/, derived_v4/, Vbeta/, jsonl_ml/",
+      "why": "canonical evidence layers: immutable, never rewritten by this remediation"
+    }
+  ],
+  "files": {
+    "README.md": {
+      "bytes": 4237,
+      "sha256": "67fc26ba56abbecfbc1f297a32b6a7ea78ad654df8149c47bdc23c26f233b18f"
+    },
+    "digests.jsonl": {
+      "bytes": 5279,
+      "sha256": "14c166241f6eaf5b0d39c04a5ddfdf90df64c4fbc79307e6eb797a8b513ac812"
+    },
+    "licence_contradictions.json": {
+      "bytes": 118,
+      "sha256": "1e8f94af54db29cbd5e1fb893ccbd2aa823a4b59b7129575b9551269fef06de5"
+    },
+    "records_v1.jsonl": {
+      "bytes": 1993666,
+      "sha256": "1b70700dcaaa773d05f1771d1d7ebb049243e00d301913ceb7033d88aa68adbb"
+    },
+    "records_v1_withheld_pointers.jsonl": {
+      "bytes": 2864566,
+      "sha256": "3cff9c2d62671d18f1f29680fa7aeb060ccde7786bf90b4a8f58d90ed4ced629"
+    },
+    "records_v4.jsonl": {
+      "bytes": 15348137,
+      "sha256": "fb174facbf2a5178a9301c5dad20b08b83f713a163101e9d5a753de33948f332"
+    },
+    "records_v4_withheld_pointers.jsonl": {
+      "bytes": 17649335,
+      "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
+    },
+    "rights_ledger.jsonl": {
+      "bytes": 17029923,
+      "sha256": "f1e955c2052318db9cfaab2c733c04b7c380b7caa359a636b4970355bf2b24ab"
+    },
+    "rights_source_registry.json": {
+      "bytes": 15060,
+      "sha256": "612493543fcc8936dfa619b64a727aec285368876d8c664eff9707b768ab22ed"
+    },
+    "withheld_harness.jsonl": {
+      "bytes": 81954,
+      "sha256": "416cc4eebdf42cccd5b015ff843c26336bc0842eb1700d370b2401f25692ddc7"
+    }
+  },
+  "generated_by": "scripts/inventory_rights.py",
+  "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant reuse or redistribution rights",
+  "legal_clearance_claimed": false,
+  "policy_note": "METADATA_ONLY is the default data-handling policy applied when no documented right to redistribute exists. It is not a determination that any transformed record is legally cleared for reuse or redistribution, and no record in this view should be read as legally cleared.",
+  "rights_transformation_version": "rights-1.0"
+}

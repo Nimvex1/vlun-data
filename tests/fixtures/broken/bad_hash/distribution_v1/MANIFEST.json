@@ -1,0 +1,28 @@
+{
+  "attributed_quotation_max_chars": 200,
+  "blanket_clearance_claimed": false,
+  "counts": {
+    "digests": 0,
+    "ledger_rows": 0,
+    "personal_data_artefacts_redacted": 0,
+    "records_v1_projected": 0,
+    "records_v4_projected": 0,
+    "registry_sources": 0,
+    "withheld_v1_citations": 0,
+    "withheld_v4_passages": 1
+  },
+  "data_handling_policy_default": "METADATA_ONLY",
+  "data_handling_policy_is_default_not_clearance": true,
+  "distribution_view": "distribution_v1",
+  "files": {
+    "records_v4_withheld_pointers.jsonl": {
+      "bytes": 11000,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "generated_by": "tests fixture",
+  "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant rights",
+  "legal_clearance_claimed": false,
+  "policy_note": "METADATA_ONLY is a default data-handling policy, not a clearance claim.",
+  "rights_transformation_version": "rights-1.0"
+}
