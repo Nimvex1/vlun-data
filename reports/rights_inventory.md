@@ -10,10 +10,10 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 668 (299638755 bytes)
-- head: `66390e69bde87a1777b4f78a2b7291a08d001249` (remediation/p0-credibility)
-- record layers scanned for expressive content: 107
-- the audit covers **all** layers, not only the 11524 v1 self-flagged quotation rows
+- tracked files: 701 (355092682 bytes)
+- head: `a0e65a3e8de7a1c1daabadd416bf4cc7fa6296f3` (remediation/p0-credibility)
+- record layers scanned for expressive content: 121
+- the audit covers **all** layers, not only the 11525 v1 self-flagged quotation rows
 
 ## Totals by rights class
 
@@ -21,13 +21,13 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 71672 | 4029 |
-| `copied_short_prose` | 258291 | 5990 |
+| `copied_report_prose` | 71678 | 4029 |
+| `copied_short_prose` | 258296 | 5990 |
 | `personal_data` | 5697 | - |
 | `poc_source` | 1730 | 346 |
-| `third_party_code` | 11524 | 2378 |
+| `third_party_code` | 11525 | 2378 |
 
-Rows holding expressive content across every scanned layer: **135619** in 73 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **135631** in 78 record layers. Detail-scanned records materialised for the projection: **5990**.
 
 ## Per-layer breakdown
 
@@ -91,6 +91,14 @@ Rows holding expressive content across every scanned layer: **135619** in 73 rec
 | `derived_v4/candidate_ledger.jsonl` |  |
 | `derived_v4/duplicate_ledger.jsonl` | copied_report_prose=5, copied_short_prose=5, third_party_code=2 |
 | `derived_v4/quarantined_ledger.jsonl` |  |
+| `distribution_v1/digests.jsonl` | copied_report_prose=6 |
+| `distribution_v1/records_v1.jsonl` |  |
+| `distribution_v1/records_v1_withheld_pointers.jsonl` |  |
+| `distribution_v1/records_v4.jsonl` |  |
+| `distribution_v1/records_v4_withheld_pointers.jsonl` |  |
+| `distribution_v1/rights_ledger.jsonl` |  |
+| `distribution_v1/withheld_harness.jsonl` |  |
+| `distribution_v1/withheld_pointers_other_layers.jsonl` |  |
 | `experiments/reconstruction_log.jsonl` | copied_short_prose=1 |
 | `jsonl/errors.jsonl` | copied_report_prose=7, copied_short_prose=12 |
 | `jsonl/exploits.jsonl` | copied_short_prose=155, third_party_code=332 |
@@ -122,6 +130,12 @@ Rows holding expressive content across every scanned layer: **135619** in 73 rec
 | `splits_v2_2/train.jsonl` |  |
 | `splits_v2_2/validation.jsonl` |  |
 | `splits_v3/quarantine.jsonl` |  |
+| `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` |  |
+| `tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl` | copied_short_prose=1 |
+| `tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl` |  |
+| `tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl` | copied_short_prose=2 |
+| `tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl` | third_party_code=1 |
+| `tests/fixtures/good/jsonl_v4/findings.jsonl` | copied_short_prose=2 |
 | `training/attacker_reasoning.jsonl` | copied_short_prose=302 |
 | `training/canonical/detection.test.part-000.jsonl` | copied_report_prose=25, copied_short_prose=52 |
 | `training/canonical/detection.train.part-000.jsonl` | copied_report_prose=97, copied_short_prose=135 |
@@ -174,6 +188,6 @@ Total artefacts holding personal contact data: **12**.
 
 ## History
 
-- commits scanned: 74
+- commits scanned: 75
 - paths added then removed: 17
 - full findings: `reports/history_exposure.md`

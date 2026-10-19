@@ -24,7 +24,7 @@ A sha256 and a permalink identify bytes. They do not grant reuse or redistributi
 | `withheld_harness.jsonl` | 58 | one pointer per withheld harness file, mirroring the repo's existing `WITHHELD.json` licence-gating pattern |
 | `digests.jsonl` | 6 | short factual summaries written by the VLUN authors, marked `independently_written` |
 | `rights_source_registry.json` | 11 sources | the single machine-readable licence registry |
-| `rights_ledger.jsonl` | 12900 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
+| `rights_ledger.jsonl` | 12905 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
 | `licence_contradictions.json` | 0 | unresolved licence-status contradictions the gate fails on |
 
 ## Every withheld pointer record carries
@@ -35,9 +35,9 @@ Short third-party prose at or below `200` characters may be carried as an attrib
 
 ## Measured basis (recomputed from the full tracked tree)
 
-- tracked files scanned: 668 (299638755 bytes)
-- record layers scanned for expressive content: 107
-- expressive items by class: copied_report_prose=71672, copied_short_prose=258291, personal_data=5697, poc_source=1730, third_party_code=11524
+- tracked files scanned: 701 (355092682 bytes)
+- record layers scanned for expressive content: 121
+- expressive items by class: copied_report_prose=71678, copied_short_prose=258296, personal_data=5697, poc_source=1730, third_party_code=11525
 - artefacts holding personal contact data: 12 (mailboxes and named-contact rows are removed here; the canonical layers are not modified)
 
 ## What is deliberately NOT in this view yet

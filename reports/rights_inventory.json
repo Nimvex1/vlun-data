@@ -16,11 +16,11 @@
       "sha256": "e33819b8aa906e0ebe3dcdb21f171d4b61de5d0aff9dc2c3def5142023934b3a"
     },
     {
-      "bytes": 2150,
+      "bytes": 2371,
       "kind": "other",
       "layer": "root",
       "path": ".gitignore",
-      "sha256": "42dc51fdaab3fb4eccdfbd1b3fbddc439bced3295485d44cd7ee884d3033084f"
+      "sha256": "ef7a589f6399a991a09b8745bae455b627abf7541d06bbf2683f5955cf074397"
     },
     {
       "bytes": 3369,
@@ -45,11 +45,11 @@
       "sha256": "75abd4f975177fc109805f55086ba5320e17686857d1392b1aa687000f7072de"
     },
     {
-      "bytes": 6364,
+      "bytes": 9441,
       "kind": "project_document",
       "layer": "root",
       "path": "CHANGELOG.md",
-      "sha256": "de983d6f90dfb908b5a5ebdcdcd43d6d276da54b96b2ce4a8bf6c7071aa15df2"
+      "sha256": "17a4462503cb6e3226ee35afe6d2939d77454bf60d4a893006cdab2088bed60c"
     },
     {
       "bytes": 1372,
@@ -73,11 +73,11 @@
       "sha256": "2638823d0b93c7f0b651e6457463862797d5c120c63f0b440078ad779227f865"
     },
     {
-      "bytes": 6910,
+      "bytes": 6931,
       "kind": "project_document",
       "layer": "root",
       "path": "NOTICE.md",
-      "sha256": "fe275c259333321418c82245431da8662d9da798a5848a125a33931d59f1afbb"
+      "sha256": "50f70555015ed8d293cf5a974c79267d82f3381f7a0c4f592ce4a3ddb1a8daf8"
     },
     {
       "bytes": 24514,
@@ -142,6 +142,14 @@
       "layer": "v3_research_notes",
       "path": "V3/sources.json",
       "sha256": "a1b53cc17b9b360162cefc69522397fb5b538e478ea2c914f8527b874375f836"
+    },
+    {
+      "bytes": 4458,
+      "json_rows": 76,
+      "kind": "dataset_manifest",
+      "layer": "v4_manifests",
+      "path": "V4/licensing.json",
+      "sha256": "619f7fa0faeabb214b7d2ca9f0c87a1e51e9d4079517edb8d8b5a5ecce3379a3"
     },
     {
       "bytes": 847,
@@ -1192,6 +1200,101 @@
       "kind": "dataset_records",
       "layer": "v4_ledgers",
       "path": "derived_v4/quarantined_ledger.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3495,
+      "json_rows": 81,
+      "kind": "dataset_manifest",
+      "layer": "root",
+      "path": "distribution_v1/MANIFEST.json",
+      "sha256": "7b2fd58c68b6fd2a9cf3e6890674b486db83bfc6dfd8614cfefd40ee327c5d16"
+    },
+    {
+      "bytes": 4237,
+      "kind": "other",
+      "layer": "root",
+      "path": "distribution_v1/README.md",
+      "sha256": "67fc26ba56abbecfbc1f297a32b6a7ea78ad654df8149c47bdc23c26f233b18f"
+    },
+    {
+      "bytes": 5279,
+      "json_rows": 6,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/digests.jsonl",
+      "sha256": "14c166241f6eaf5b0d39c04a5ddfdf90df64c4fbc79307e6eb797a8b513ac812"
+    },
+    {
+      "bytes": 118,
+      "json_rows": 5,
+      "kind": "dataset_manifest",
+      "layer": "root",
+      "path": "distribution_v1/licence_contradictions.json",
+      "sha256": "1e8f94af54db29cbd5e1fb893ccbd2aa823a4b59b7129575b9551269fef06de5"
+    },
+    {
+      "bytes": 1993666,
+      "json_rows": 722,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/records_v1.jsonl",
+      "sha256": "1b70700dcaaa773d05f1771d1d7ebb049243e00d301913ceb7033d88aa68adbb"
+    },
+    {
+      "bytes": 2864566,
+      "json_rows": 2288,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/records_v1_withheld_pointers.jsonl",
+      "sha256": "3cff9c2d62671d18f1f29680fa7aeb060ccde7786bf90b4a8f58d90ed4ced629"
+    },
+    {
+      "bytes": 15348137,
+      "json_rows": 5268,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/records_v4.jsonl",
+      "sha256": "fb174facbf2a5178a9301c5dad20b08b83f713a163101e9d5a753de33948f332"
+    },
+    {
+      "bytes": 17649335,
+      "json_rows": 10070,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/records_v4_withheld_pointers.jsonl",
+      "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
+    },
+    {
+      "bytes": 17029923,
+      "json_rows": 12900,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/rights_ledger.jsonl",
+      "sha256": "f1e955c2052318db9cfaab2c733c04b7c380b7caa359a636b4970355bf2b24ab"
+    },
+    {
+      "bytes": 15060,
+      "json_rows": 307,
+      "kind": "dataset_manifest",
+      "layer": "root",
+      "path": "distribution_v1/rights_source_registry.json",
+      "sha256": "612493543fcc8936dfa619b64a727aec285368876d8c664eff9707b768ab22ed"
+    },
+    {
+      "bytes": 81954,
+      "json_rows": 58,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/withheld_harness.jsonl",
+      "sha256": "416cc4eebdf42cccd5b015ff843c26336bc0842eb1700d370b2401f25692ddc7"
+    },
+    {
+      "bytes": 0,
+      "json_rows": 0,
+      "kind": "dataset_records",
+      "layer": "root",
+      "path": "distribution_v1/withheld_pointers_other_layers.jsonl",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
@@ -3363,6 +3466,13 @@
       "sha256": "096b68ad3d7674180a0ab69543b848dcae7d98d4ae51f6ed066fa5ff8058db22"
     },
     {
+      "bytes": 14671,
+      "kind": "generated_report",
+      "layer": "reports",
+      "path": "reports/history_exposure.md",
+      "sha256": "d7b373f0c8704f311b38a059af68cc4a41fe69adf2a913d00a1c6fa1e56dac4c"
+    },
+    {
       "bytes": 66795,
       "json_rows": 2400,
       "kind": "generated_report",
@@ -3378,19 +3488,19 @@
       "sha256": "fb6b13480e537f088f0d78f6747ac23dbf36321671c83180d68fdb95159b020a"
     },
     {
-      "bytes": 640941,
-      "json_rows": 22793,
+      "bytes": 420931,
+      "json_rows": 15893,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/json_catalog.json",
-      "sha256": "1f08af96d8fd29f8e96e1590e11995c9696b351979cc0e15663ee2d145e45e9b"
+      "sha256": "1f3d6685957ad8e4f59487355e7ff8b22079258b75ce330927ad7148aced8e28"
     },
     {
-      "bytes": 143683,
+      "bytes": 82514,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/json_catalog.md",
-      "sha256": "b8e4bff19d5cb7ef93b8640ecc84b860b59a0dcef80859d934f4438b1855c800"
+      "sha256": "1fd92c4be867ba46be6bb66fcdab8c2496ece9c6da59181ac001eb53df7f0636"
     },
     {
       "bytes": 141515,
@@ -3554,6 +3664,29 @@
       "layer": "reports",
       "path": "reports/reproduction_stats.json",
       "sha256": "fab3fb7ade10043df374b0b2f3e201c5c0b64d7c709f24c00dc9188a13f36faa"
+    },
+    {
+      "bytes": 25107,
+      "json_rows": 537,
+      "kind": "generated_report",
+      "layer": "reports",
+      "path": "reports/rights_history_exposure.json",
+      "sha256": "51caca666244ded207b9e1d15138b9c2c8daeea68daaa95bf32de04ef40e554e"
+    },
+    {
+      "bytes": 514129,
+      "json_rows": 13419,
+      "kind": "generated_report",
+      "layer": "reports",
+      "path": "reports/rights_inventory.json",
+      "sha256": "51e1c1f342a4b048d44118b2380ae032542e59e75e83e3deb558febbb1652576"
+    },
+    {
+      "bytes": 11770,
+      "kind": "generated_report",
+      "layer": "reports",
+      "path": "reports/rights_inventory.md",
+      "sha256": "5b8b446a24d59bba7514111d5b81b1f5812f0de45d9bdc3e6e4b71ce5cbfa1ea"
     },
     {
       "bytes": 4055,
@@ -3790,6 +3923,14 @@
       "layer": "reports",
       "path": "reports/v32_provenance_closure.md",
       "sha256": "57a7aa2727da4503b411fccb934bbc0e3d91992bcec2c9328d47aebbe03c05f2"
+    },
+    {
+      "bytes": 2096,
+      "json_rows": 77,
+      "kind": "generated_report",
+      "layer": "reports",
+      "path": "reports/v4_licensing_migration.json",
+      "sha256": "9701977b388cca0b99405c672c0ec6b6a4b4146bc408b33c83acaefa2a94d4fd"
     },
     {
       "bytes": 18811,
@@ -4108,6 +4249,13 @@
       "sha256": "e7469e602cd6a7e9dc34353c840919d6982934b3798034d355f4f2572cbc512d"
     },
     {
+      "bytes": 39876,
+      "kind": "pipeline_code",
+      "layer": "pipeline",
+      "path": "scripts/check_rights_consistency.py",
+      "sha256": "f2b47d79bcbf7c0ab69a7dcccc84199f45e924d5d258c262b2a4aa380fa70a41"
+    },
+    {
       "bytes": 11164,
       "kind": "pipeline_code",
       "layer": "pipeline",
@@ -4171,11 +4319,11 @@
       "sha256": "55c5f647fbda7b12cf75ca088a9caef10360529a12faa0b3d3a9602f5209961e"
     },
     {
-      "bytes": 51491,
+      "bytes": 51512,
       "kind": "pipeline_code",
       "layer": "pipeline",
       "path": "scripts/generate_readme.py",
-      "sha256": "d1f047166305d1722ee2b5f59df0cbc6066c0feb3eaeb903970797f847e6cdd0"
+      "sha256": "61174c7c5f2e9181f97ca61f830a1b91b849d42c953bcc7b8f75fb2725dc41a4"
     },
     {
       "bytes": 34006,
@@ -4218,6 +4366,13 @@
       "layer": "pipeline",
       "path": "scripts/ingest_audit_sources.py",
       "sha256": "25c1738b55a32f5c656e5beb4451dc4dbe97d078ea475b0c12a7f4785c28693f"
+    },
+    {
+      "bytes": 96870,
+      "kind": "pipeline_code",
+      "layer": "pipeline",
+      "path": "scripts/inventory_rights.py",
+      "sha256": "6f61798111afc90b68cde327ba45bb045b82da811d141aafb118825f43728ed1"
     },
     {
       "bytes": 11891,
@@ -4281,6 +4436,13 @@
       "layer": "pipeline",
       "path": "scripts/reconcile_proof_artefact_hashes.py",
       "sha256": "13b62c5b730476e22d44d0b3abdef7631eca027d75f39311809e5a1018024052"
+    },
+    {
+      "bytes": 8942,
+      "kind": "pipeline_code",
+      "layer": "pipeline",
+      "path": "scripts/reconcile_v4_licensing.py",
+      "sha256": "f8a0da8a3b16b881a25c47a511703d0017062dfc6a5d2f2b4dedfaf15c33a50b"
     },
     {
       "bytes": 14487,
@@ -4574,6 +4736,14 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
+      "bytes": 918,
+      "json_rows": 1,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
+      "sha256": "f680fb9aeb589eec91a368bdd683205aad2c2795ae5c9b03d8903e13f50e1b3d"
+    },
+    {
       "bytes": 122,
       "json_rows": 7,
       "kind": "test_code",
@@ -4582,12 +4752,68 @@
       "sha256": "073c4e1ad20c3735944efc50218ca14c195d77ea3146bbbfc866964c7c0244ae"
     },
     {
+      "bytes": 352,
+      "json_rows": 1,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
+      "sha256": "59afafb5574263588ffacbf923a872731432876751c7b002870ff9237a014b4b"
+    },
+    {
+      "bytes": 964,
+      "json_rows": 28,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/bad_hash/distribution_v1/MANIFEST.json",
+      "sha256": "8dea718a03f0b57750374cfc0f1ba30e725917de356083aab8b1de167566c345"
+    },
+    {
+      "bytes": 1024,
+      "json_rows": 1,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
+      "sha256": "225e75181b457a245ce61d3756fcedf2bd021fabb59fa2194eaf1e0b42638a28"
+    },
+    {
       "bytes": 1060,
       "json_rows": 27,
       "kind": "test_code",
       "layer": "tests",
       "path": "tests/fixtures/broken/bad_hash_verified_key.json",
       "sha256": "c6de6152f08ead1f7fa980b4b3424fdbfe010685257f799d8dd07ba151738371"
+    },
+    {
+      "bytes": 297,
+      "json_rows": 14,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/contradictory_licence/V4/manifest.json",
+      "sha256": "3a190d08e36803bec6c79a094898b635cb9e61ea19b696326843e7281fd97284"
+    },
+    {
+      "bytes": 783,
+      "json_rows": 22,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/contradictory_licence/V4/sources.json",
+      "sha256": "34d3bb00bfde0257f82d782f92cdedc94a30b2acca7374636ab3f8d6ccffb9e9"
+    },
+    {
+      "bytes": 1047,
+      "json_rows": 2,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
+      "sha256": "099a1350301815c3801f28bac889e9c30f827cdd86e0fdff49942ba4d1cae32d"
+    },
+    {
+      "bytes": 833,
+      "json_rows": 1,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl",
+      "sha256": "fddb03d87a287fdf7be6988525b81c9d4bc9ae7e70f82a183ccc49d522f83545"
     },
     {
       "bytes": 198,
@@ -4668,6 +4894,30 @@
       "layer": "tests",
       "path": "tests/fixtures/broken/rejection/verdict_overwritten.json",
       "sha256": "c17504a35d75c54c1805ae2e9c39a2cccde9f73e8eaa68c29a09acbd6086532e"
+    },
+    {
+      "bytes": 297,
+      "json_rows": 14,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/good/V4/manifest.json",
+      "sha256": "3a190d08e36803bec6c79a094898b635cb9e61ea19b696326843e7281fd97284"
+    },
+    {
+      "bytes": 794,
+      "json_rows": 22,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/good/V4/sources.json",
+      "sha256": "ee7b73da0cf39030b397d896fdb9cbb0fb763cb4a3f993091dc88c64bf3185a8"
+    },
+    {
+      "bytes": 1069,
+      "json_rows": 2,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/fixtures/good/jsonl_v4/findings.jsonl",
+      "sha256": "b3447e5ce9b6407e068e8c40bb489a6d1f0f7cdd785d963d576e1e7f5730fa83"
     },
     {
       "bytes": 6911,
@@ -4801,6 +5051,13 @@
       "layer": "tests",
       "path": "tests/test_reproducibility.py",
       "sha256": "0a450396d7ba1f252868ef85965a040ccd5a90c5196c3ef1a59008a82cc1b322"
+    },
+    {
+      "bytes": 9699,
+      "kind": "test_code",
+      "layer": "tests",
+      "path": "tests/test_rights_gate.py",
+      "sha256": "61a3ec5a7bcbf6c781e75bf224f7432e339c48f987386fc34db0e906fa1ca56e"
     },
     {
       "bytes": 5076,
@@ -5418,7 +5675,7 @@
   ],
   "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant reuse or redistribution rights",
   "history_exposure_summary": {
-    "commits_scanned": 74,
+    "commits_scanned": 75,
     "historical_exposure_items": [
       {
         "added_in_commit": "cfc8466223c734dd1e18a8b293c756a24a60f7af",
@@ -6486,6 +6743,66 @@
       "scanned_with_item_detail": false,
       "total_chars_by_class": {}
     },
+    "distribution_v1/digests.jsonl": {
+      "json_rows": 6,
+      "max_chars_by_class": {
+        "copied_report_prose": 804
+      },
+      "rows_holding_expressive_content": 6,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {
+        "copied_report_prose": 3319
+      }
+    },
+    "distribution_v1/records_v1.jsonl": {
+      "json_rows": 722,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/records_v1_withheld_pointers.jsonl": {
+      "json_rows": 2288,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/records_v4.jsonl": {
+      "json_rows": 5268,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/records_v4_withheld_pointers.jsonl": {
+      "json_rows": 10070,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/rights_ledger.jsonl": {
+      "json_rows": 12900,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/withheld_harness.jsonl": {
+      "json_rows": 58,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "distribution_v1/withheld_pointers_other_layers.jsonl": {
+      "json_rows": 0,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
     "experiments/reconstruction_log.jsonl": {
       "json_rows": 155,
       "max_chars_by_class": {
@@ -6842,6 +7159,64 @@
       "rows_holding_expressive_content": 0,
       "scanned_with_item_detail": false,
       "total_chars_by_class": {}
+    },
+    "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl": {
+      "json_rows": 1,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl": {
+      "json_rows": 1,
+      "max_chars_by_class": {
+        "copied_short_prose": 133
+      },
+      "rows_holding_expressive_content": 1,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {
+        "copied_short_prose": 133
+      }
+    },
+    "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl": {
+      "json_rows": 1,
+      "max_chars_by_class": {},
+      "rows_holding_expressive_content": 0,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {}
+    },
+    "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl": {
+      "json_rows": 2,
+      "max_chars_by_class": {
+        "copied_short_prose": 22
+      },
+      "rows_holding_expressive_content": 2,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {
+        "copied_short_prose": 41
+      }
+    },
+    "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl": {
+      "json_rows": 1,
+      "max_chars_by_class": {
+        "third_party_code": 219
+      },
+      "rows_holding_expressive_content": 1,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {
+        "third_party_code": 219
+      }
+    },
+    "tests/fixtures/good/jsonl_v4/findings.jsonl": {
+      "json_rows": 2,
+      "max_chars_by_class": {
+        "copied_short_prose": 22
+      },
+      "rows_holding_expressive_content": 2,
+      "scanned_with_item_detail": false,
+      "total_chars_by_class": {
+        "copied_short_prose": 41
+      }
     },
     "training/attacker_reasoning.jsonl": {
       "json_rows": 302,
@@ -9893,7 +10268,7 @@
   },
   "scan": {
     "branch": "remediation/p0-credibility",
-    "head_commit": "66390e69bde87a1777b4f78a2b7291a08d001249",
+    "head_commit": "a0e65a3e8de7a1c1daabadd416bf4cc7fa6296f3",
     "record_layers_list": [
       "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
       "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
@@ -9953,6 +10328,14 @@
       "derived_v4/candidate_ledger.jsonl",
       "derived_v4/duplicate_ledger.jsonl",
       "derived_v4/quarantined_ledger.jsonl",
+      "distribution_v1/digests.jsonl",
+      "distribution_v1/records_v1.jsonl",
+      "distribution_v1/records_v1_withheld_pointers.jsonl",
+      "distribution_v1/records_v4.jsonl",
+      "distribution_v1/records_v4_withheld_pointers.jsonl",
+      "distribution_v1/rights_ledger.jsonl",
+      "distribution_v1/withheld_harness.jsonl",
+      "distribution_v1/withheld_pointers_other_layers.jsonl",
       "experiments/reconstruction_log.jsonl",
       "jsonl/errors.jsonl",
       "jsonl/exploits.jsonl",
@@ -9984,6 +10367,12 @@
       "splits_v2_2/train.jsonl",
       "splits_v2_2/validation.jsonl",
       "splits_v3/quarantine.jsonl",
+      "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
+      "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
+      "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
+      "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
+      "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl",
+      "tests/fixtures/good/jsonl_v4/findings.jsonl",
       "training/attacker_reasoning.jsonl",
       "training/canonical/detection.test.part-000.jsonl",
       "training/canonical/detection.train.part-000.jsonl",
@@ -10003,10 +10392,10 @@
       "training/patch_reasoning.jsonl",
       "training/vulnerability_detection.jsonl"
     ],
-    "record_layers_scanned": 107,
-    "text_artefacts_scanned": 344,
-    "tracked_bytes": 299638755,
-    "tracked_files": 668
+    "record_layers_scanned": 121,
+    "text_artefacts_scanned": 351,
+    "tracked_bytes": 355092682,
+    "tracked_files": 701
   },
   "source_registry": {
     "data_handling_policy_default": "METADATA_ONLY",
@@ -10341,7 +10730,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 6324,
+      "chars": 9397,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "CHANGELOG.md",
@@ -10365,7 +10754,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 6892,
+      "chars": 6913,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "NOTICE.md",
@@ -10721,6 +11110,14 @@
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "benchmark/CANARY.md",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
+      "chars": 4229,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "distribution_v1/README.md",
       "possible_third_party_code_blocks": 0,
       "triage_hits": 0
     },
@@ -12005,6 +12402,14 @@
       "triage_hits": 0
     },
     {
+      "chars": 14633,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "reports/history_exposure.md",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
       "chars": 19965,
       "email_hits": 0,
       "fenced_code_blocks": 0,
@@ -12013,7 +12418,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 143683,
+      "chars": 82514,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "reports/json_catalog.md",
@@ -12057,6 +12462,14 @@
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "reports/reproducibility_report.md",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
+      "chars": 11770,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "reports/rights_inventory.md",
       "possible_third_party_code_blocks": 0,
       "triage_hits": 0
     },
@@ -12445,6 +12858,14 @@
       "triage_hits": 0
     },
     {
+      "chars": 39876,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "scripts/check_rights_consistency.py",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
       "chars": 11162,
       "email_hits": 0,
       "fenced_code_blocks": 0,
@@ -12517,7 +12938,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 50562,
+      "chars": 50583,
       "email_hits": 0,
       "fenced_code_blocks": 3,
       "path": "scripts/generate_readme.py",
@@ -12569,6 +12990,14 @@
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "scripts/ingest_audit_sources.py",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
+      "chars": 96852,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "scripts/inventory_rights.py",
       "possible_third_party_code_blocks": 0,
       "triage_hits": 0
     },
@@ -12641,6 +13070,14 @@
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "scripts/reconcile_proof_artefact_hashes.py",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
+      "chars": 8938,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "scripts/reconcile_v4_licensing.py",
       "possible_third_party_code_blocks": 0,
       "triage_hits": 0
     },
@@ -13029,6 +13466,14 @@
       "triage_hits": 0
     },
     {
+      "chars": 9699,
+      "email_hits": 0,
+      "fenced_code_blocks": 0,
+      "path": "tests/test_rights_gate.py",
+      "possible_third_party_code_blocks": 0,
+      "triage_hits": 0
+    },
+    {
       "chars": 5076,
       "email_hits": 0,
       "fenced_code_blocks": 0,
@@ -13072,20 +13517,20 @@
   "totals_by_class": {
     "affected_records_total": 5990,
     "expressive_items": {
-      "copied_report_prose": 71672,
-      "copied_short_prose": 258291,
+      "copied_report_prose": 71678,
+      "copied_short_prose": 258296,
       "personal_data": 5697,
       "poc_source": 1730,
-      "third_party_code": 11524
+      "third_party_code": 11525
     },
-    "record_layers_holding_expressive_content": 73,
+    "record_layers_holding_expressive_content": 78,
     "records_holding_class_detail_layers": {
       "copied_report_prose": 4029,
       "copied_short_prose": 5990,
       "poc_source": 346,
       "third_party_code": 2378
     },
-    "rows_holding_expressive_content_all_layers": 135619
+    "rows_holding_expressive_content_all_layers": 135631
   },
   "totals_by_layer": {
     "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": {
@@ -13248,6 +13693,16 @@
       "third_party_code": 2
     },
     "derived_v4/quarantined_ledger.jsonl": {},
+    "distribution_v1/digests.jsonl": {
+      "copied_report_prose": 6
+    },
+    "distribution_v1/records_v1.jsonl": {},
+    "distribution_v1/records_v1_withheld_pointers.jsonl": {},
+    "distribution_v1/records_v4.jsonl": {},
+    "distribution_v1/records_v4_withheld_pointers.jsonl": {},
+    "distribution_v1/rights_ledger.jsonl": {},
+    "distribution_v1/withheld_harness.jsonl": {},
+    "distribution_v1/withheld_pointers_other_layers.jsonl": {},
     "experiments/reconstruction_log.jsonl": {
       "copied_short_prose": 1
     },
@@ -13352,6 +13807,20 @@
     "splits_v2_2/train.jsonl": {},
     "splits_v2_2/validation.jsonl": {},
     "splits_v3/quarantine.jsonl": {},
+    "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl": {},
+    "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl": {
+      "copied_short_prose": 1
+    },
+    "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl": {},
+    "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl": {
+      "copied_short_prose": 2
+    },
+    "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl": {
+      "third_party_code": 1
+    },
+    "tests/fixtures/good/jsonl_v4/findings.jsonl": {
+      "copied_short_prose": 2
+    },
     "training/attacker_reasoning.jsonl": {
       "copied_short_prose": 302
     },

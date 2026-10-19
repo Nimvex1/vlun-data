@@ -302,8 +302,8 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
 | `reports/reproduction_manifest.json` | multi | 28,437 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,420 | object, 14 keys | yes |
-| `reports/rights_history_exposure.json` | multi | 25,107 | object, 10 keys | no |
-| `reports/rights_inventory.json` | multi | 514,129 | object, 17 keys | no |
+| `reports/rights_history_exposure.json` | multi | 25,107 | object, 10 keys | yes |
+| `reports/rights_inventory.json` | multi | 529,718 | object, 17 keys | yes |
 | `reports/root_cause_taxonomy_stats.json` | multi | 3,190 | object, 14 keys | no |
 | `reports/run_artefacts_index.json` | multi | 4,055 | object, 5 keys | yes |
 | `reports/sibling_review.json` | multi | 407,251 | object, 13 keys | no |
@@ -326,7 +326,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/poc_extraction_report.json` | multi | 287 | object, 7 keys | yes |
 | `reports/v3/v32_unblock_attempts.json` | multi | 17,264 | object, 17 keys | no |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
-| `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | no |
+| `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | yes |
 | `reports/validation_report.json` | multi | 18,811 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 27,811 | object, 3 keys | yes |
@@ -401,7 +401,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 1,363 | object, 11 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
-| `V4/licensing.json` | meta | 4,458 | object, 8 keys | no |
+| `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
 | `Vbeta/present_snapshot.json` | meta | 692 | object, 3 keys | yes |
@@ -428,17 +428,17 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v4/duplicate_ledger.jsonl` | meta | 9,162 | 2 rows | yes |
 | `derived_v4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `derived_v4/quarantined_ledger.jsonl` | meta | 0 | 0 rows | yes |
-| `distribution_v1/MANIFEST.json` | meta | 3,495 | object, 14 keys | no |
-| `distribution_v1/digests.jsonl` | meta | 5,279 | 6 rows | no |
-| `distribution_v1/licence_contradictions.json` | meta | 118 | object, 3 keys | no |
-| `distribution_v1/records_v1.jsonl` | meta | 1,993,666 | 722 rows | no |
-| `distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 2,864,566 | 2288 rows | no |
-| `distribution_v1/records_v4.jsonl` | meta | 15,348,137 | 5268 rows | no |
-| `distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 17,649,335 | 10070 rows | no |
-| `distribution_v1/rights_ledger.jsonl` | meta | 17,029,923 | 12900 rows | no |
-| `distribution_v1/rights_source_registry.json` | meta | 15,060 | object, 6 keys | no |
-| `distribution_v1/withheld_harness.jsonl` | meta | 81,954 | 58 rows | no |
-| `distribution_v1/withheld_pointers_other_layers.jsonl` | meta | 0 | 0 rows | no |
+| `distribution_v1/MANIFEST.json` | meta | 3,495 | object, 14 keys | yes |
+| `distribution_v1/digests.jsonl` | meta | 5,279 | 6 rows | yes |
+| `distribution_v1/licence_contradictions.json` | meta | 118 | object, 3 keys | yes |
+| `distribution_v1/records_v1.jsonl` | meta | 1,993,666 | 722 rows | yes |
+| `distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 2,864,566 | 2288 rows | yes |
+| `distribution_v1/records_v4.jsonl` | meta | 15,348,137 | 5268 rows | yes |
+| `distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 17,649,335 | 10070 rows | yes |
+| `distribution_v1/rights_ledger.jsonl` | meta | 17,033,456 | 12905 rows | yes |
+| `distribution_v1/rights_source_registry.json` | meta | 15,060 | object, 6 keys | yes |
+| `distribution_v1/withheld_harness.jsonl` | meta | 81,954 | 58 rows | yes |
+| `distribution_v1/withheld_pointers_other_layers.jsonl` | meta | 0 | 0 rows | yes |
 | `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/harness.json` | meta | 1,032 | object, 5 keys | no |
 | `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/result.json` | meta | 4,419 | object, 17 keys | no |
 | `experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005/harness.json` | meta | 923 | object, 5 keys | no |
@@ -768,7 +768,7 @@ also excluded: reports/v3/validation_v31.json.
 | `publish_manifest.json` | meta | 882 | object, 7 keys | yes |
 | `taxonomy/assignments_v1.jsonl` | meta | 212,013 | 418 rows | no |
 | `taxonomy/root_cause_v1.jsonl` | meta | 116,154 | 31 rows | no |
-| `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 918 | 1 rows | no |
+| `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 918 | 1 rows | yes |
 | `tests/fixtures/broken/abstain_on_verified_task.json` | meta | 122 | object, 2 keys | yes |
 | `tests/fixtures/broken/assignments_evidence_mismatch.jsonl` | meta | 452 | 1 rows | no |
 | `tests/fixtures/broken/assignments_exclusive_pair.jsonl` | meta | 457 | 1 rows | no |
@@ -776,15 +776,15 @@ also excluded: reports/v3/validation_v31.json.
 | `tests/fixtures/broken/assignments_unknown_category.jsonl` | meta | 424 | 1 rows | no |
 | `tests/fixtures/broken/assignments_unknown_record.jsonl` | meta | 441 | 1 rows | no |
 | `tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl` | meta | 420 | 1 rows | no |
-| `tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl` | meta | 352 | 1 rows | no |
-| `tests/fixtures/broken/bad_hash/distribution_v1/MANIFEST.json` | meta | 964 | object, 12 keys | no |
-| `tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 1,024 | 1 rows | no |
+| `tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl` | meta | 352 | 1 rows | yes |
+| `tests/fixtures/broken/bad_hash/distribution_v1/MANIFEST.json` | meta | 964 | object, 12 keys | yes |
+| `tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 1,024 | 1 rows | yes |
 | `tests/fixtures/broken/bad_hash_verified_key.json` | meta | 1,060 | object, 11 keys | yes |
 | `tests/fixtures/broken/claims_recovery_with_blocker/result.json` | meta | 1,249 | object, 20 keys | no |
-| `tests/fixtures/broken/contradictory_licence/V4/manifest.json` | meta | 297 | object, 7 keys | no |
-| `tests/fixtures/broken/contradictory_licence/V4/sources.json` | meta | 783 | array[2] | no |
-| `tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl` | meta | 1,047 | 2 rows | no |
-| `tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl` | meta | 833 | 1 rows | no |
+| `tests/fixtures/broken/contradictory_licence/V4/manifest.json` | meta | 297 | object, 7 keys | yes |
+| `tests/fixtures/broken/contradictory_licence/V4/sources.json` | meta | 783 | array[2] | yes |
+| `tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl` | meta | 1,047 | 2 rows | yes |
+| `tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl` | meta | 833 | 1 rows | yes |
 | `tests/fixtures/broken/exact_bounds_bad_hash_submission.json` | meta | 198 | object, 3 keys | yes |
 | `tests/fixtures/broken/fork_block_changed_no_scope_note/result.json` | meta | 1,039 | object, 20 keys | no |
 | `tests/fixtures/broken/hash_mismatch/result.json` | meta | 1,240 | object, 22 keys | no |
@@ -834,9 +834,9 @@ also excluded: reports/v3/validation_v31.json.
 | `tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl` | meta | 116,127 | 31 rows | no |
 | `tests/fixtures/broken/taxonomy_unjustified_swc.jsonl` | meta | 116,020 | 31 rows | no |
 | `tests/fixtures/broken/taxonomy_valid.jsonl` | meta | 116,154 | 31 rows | no |
-| `tests/fixtures/good/V4/manifest.json` | meta | 297 | object, 7 keys | no |
-| `tests/fixtures/good/V4/sources.json` | meta | 794 | array[2] | no |
-| `tests/fixtures/good/jsonl_v4/findings.jsonl` | meta | 1,069 | 2 rows | no |
+| `tests/fixtures/good/V4/manifest.json` | meta | 297 | object, 7 keys | yes |
+| `tests/fixtures/good/V4/sources.json` | meta | 794 | array[2] | yes |
+| `tests/fixtures/good/jsonl_v4/findings.jsonl` | meta | 1,069 | 2 rows | yes |
 | `tests/fixtures/nonevm_good/cw-1.5.3-release-pow/assertion.json` | meta | 186 | object, 6 keys | no |
 | `tests/fixtures/nonevm_good/cw-1.5.3-release-pow/harness.json` | meta | 180 | object, 4 keys | no |
 | `tests/fixtures/nonevm_good/cw-1.5.3-release-pow/result.json` | meta | 1,676 | object, 16 keys | no |

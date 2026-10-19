@@ -84,7 +84,7 @@
       "parse": "ok",
       "path": "V4/licensing.json",
       "sha256": "619f7fa0faeabb214b7d2ca9f0c87a1e51e9d4079517edb8d8b5a5ecce3379a3",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 847,
@@ -1649,8 +1649,8 @@
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "7b2fd58c68b6fd2a9cf3e6890674b486db83bfc6dfd8614cfefd40ee327c5d16",
-      "tracked": false
+      "sha256": "8ef9724689eb38607854869a191cf18460e7d25d983e5a06b343f96576ffb648",
+      "tracked": true
     },
     {
       "bytes": 5279,
@@ -1660,7 +1660,7 @@
       "path": "distribution_v1/digests.jsonl",
       "rows": 6,
       "sha256": "14c166241f6eaf5b0d39c04a5ddfdf90df64c4fbc79307e6eb797a8b513ac812",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 118,
@@ -1675,7 +1675,7 @@
       "parse": "ok",
       "path": "distribution_v1/licence_contradictions.json",
       "sha256": "1e8f94af54db29cbd5e1fb893ccbd2aa823a4b59b7129575b9551269fef06de5",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1993666,
@@ -1685,7 +1685,7 @@
       "path": "distribution_v1/records_v1.jsonl",
       "rows": 722,
       "sha256": "1b70700dcaaa773d05f1771d1d7ebb049243e00d301913ceb7033d88aa68adbb",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 2864566,
@@ -1695,7 +1695,7 @@
       "path": "distribution_v1/records_v1_withheld_pointers.jsonl",
       "rows": 2288,
       "sha256": "3cff9c2d62671d18f1f29680fa7aeb060ccde7786bf90b4a8f58d90ed4ced629",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 15348137,
@@ -1705,7 +1705,7 @@
       "path": "distribution_v1/records_v4.jsonl",
       "rows": 5268,
       "sha256": "fb174facbf2a5178a9301c5dad20b08b83f713a163101e9d5a753de33948f332",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 17649335,
@@ -1715,17 +1715,17 @@
       "path": "distribution_v1/records_v4_withheld_pointers.jsonl",
       "rows": 10070,
       "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876",
-      "tracked": false
+      "tracked": true
     },
     {
-      "bytes": 17029923,
+      "bytes": 17033456,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/rights_ledger.jsonl",
-      "rows": 12900,
-      "sha256": "f1e955c2052318db9cfaab2c733c04b7c380b7caa359a636b4970355bf2b24ab",
-      "tracked": false
+      "rows": 12905,
+      "sha256": "f4f5617adfa8474d495dc48b43b4ef33a9de609d28759706d78c1925ea975940",
+      "tracked": true
     },
     {
       "bytes": 15060,
@@ -1743,7 +1743,7 @@
       "parse": "ok",
       "path": "distribution_v1/rights_source_registry.json",
       "sha256": "612493543fcc8936dfa619b64a727aec285368876d8c664eff9707b768ab22ed",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 81954,
@@ -1753,7 +1753,7 @@
       "path": "distribution_v1/withheld_harness.jsonl",
       "rows": 58,
       "sha256": "416cc4eebdf42cccd5b015ff843c26336bc0842eb1700d370b2401f25692ddc7",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 0,
@@ -1763,7 +1763,7 @@
       "path": "distribution_v1/withheld_pointers_other_layers.jsonl",
       "rows": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1014,
@@ -13568,11 +13568,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "51caca666244ded207b9e1d15138b9c2c8daeea68daaa95bf32de04ef40e554e",
-      "tracked": false
+      "sha256": "30568c1caa9d601758879697fdea9a48186486c9a000f4294bae802309e02480",
+      "tracked": true
     },
     {
-      "bytes": 514129,
+      "bytes": 529718,
       "category": "reports",
       "keys": [
         "data_handling_policy_default",
@@ -13597,8 +13597,8 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_inventory.json",
-      "sha256": "51e1c1f342a4b048d44118b2380ae032542e59e75e83e3deb558febbb1652576",
-      "tracked": false
+      "sha256": "be1cfb06f25a54a10a379c3b0074a92470af6595753695b2a98163f879eba68c",
+      "tracked": true
     },
     {
       "bytes": 3190,
@@ -14110,7 +14110,7 @@
       "parse": "ok",
       "path": "reports/v4_licensing_migration.json",
       "sha256": "9701977b388cca0b99405c672c0ec6b6a4b4146bc408b33c83acaefa2a94d4fd",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 18811,
@@ -14422,7 +14422,7 @@
       "path": "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
       "rows": 1,
       "sha256": "f680fb9aeb589eec91a368bdd683205aad2c2795ae5c9b03d8903e13f50e1b3d",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 122,
@@ -14506,7 +14506,7 @@
       "path": "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
       "rows": 1,
       "sha256": "59afafb5574263588ffacbf923a872731432876751c7b002870ff9237a014b4b",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 964,
@@ -14530,7 +14530,7 @@
       "parse": "ok",
       "path": "tests/fixtures/broken/bad_hash/distribution_v1/MANIFEST.json",
       "sha256": "8dea718a03f0b57750374cfc0f1ba30e725917de356083aab8b1de167566c345",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1024,
@@ -14540,7 +14540,7 @@
       "path": "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
       "rows": 1,
       "sha256": "225e75181b457a245ce61d3756fcedf2bd021fabb59fa2194eaf1e0b42638a28",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1060,
@@ -14614,7 +14614,7 @@
       "parse": "ok",
       "path": "tests/fixtures/broken/contradictory_licence/V4/manifest.json",
       "sha256": "3a190d08e36803bec6c79a094898b635cb9e61ea19b696326843e7281fd97284",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 783,
@@ -14625,7 +14625,7 @@
       "parse": "ok",
       "path": "tests/fixtures/broken/contradictory_licence/V4/sources.json",
       "sha256": "34d3bb00bfde0257f82d782f92cdedc94a30b2acca7374636ab3f8d6ccffb9e9",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1047,
@@ -14635,7 +14635,7 @@
       "path": "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
       "rows": 2,
       "sha256": "099a1350301815c3801f28bac889e9c30f827cdd86e0fdff49942ba4d1cae32d",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 833,
@@ -14645,7 +14645,7 @@
       "path": "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl",
       "rows": 1,
       "sha256": "fddb03d87a287fdf7be6988525b81c9d4bc9ae7e70f82a183ccc49d522f83545",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 198,
@@ -15532,7 +15532,7 @@
       "parse": "ok",
       "path": "tests/fixtures/good/V4/manifest.json",
       "sha256": "3a190d08e36803bec6c79a094898b635cb9e61ea19b696326843e7281fd97284",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 794,
@@ -15543,7 +15543,7 @@
       "parse": "ok",
       "path": "tests/fixtures/good/V4/sources.json",
       "sha256": "ee7b73da0cf39030b397d896fdb9cbb0fb763cb4a3f993091dc88c64bf3185a8",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1069,
@@ -15553,7 +15553,7 @@
       "path": "tests/fixtures/good/jsonl_v4/findings.jsonl",
       "rows": 2,
       "sha256": "b3447e5ce9b6407e068e8c40bb489a6d1f0f7cdd785d963d576e1e7f5730fa83",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 186,
