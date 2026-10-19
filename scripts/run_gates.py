@@ -44,6 +44,10 @@ GATES = [
     ("negative-stats-current", [PY, "scripts/classify_negatives.py", "--check"]),
     # ...and the two must agree with the corpus on every axis, or the gate fails.
     ("rejection-consistency", [PY, "scripts/check_rejection_consistency.py", "--quiet"]),
+    # VLUN-Prove: the published interface must equal a regeneration, and the
+    # private answer key must still match its published commitment. Skips (rc=2)
+    # on a machine without the private split, because the split is not committed.
+    ("prove-split-current", [PY, "scripts/build_prove_split.py", "--check"]),
     ("field-coverage-current", [PY, "scripts/field_coverage.py", "--check"]),
     # Packaging gates the CI workflow already ran separately. Without these
     # a local `run_gates.py` reported green while CI failed on a stale
@@ -79,6 +83,7 @@ ONLY_MAP = {
     "readme": ["readme-current", "stats-current", "field-coverage-current",
                "solodit-report-current", "repro-report-current"],
     "rejection": ["rejection-corpus-current", "negative-stats-current"],
+    "prove": ["prove-split-current"],
     "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
     "catalog": ["catalog-current"],
     "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],

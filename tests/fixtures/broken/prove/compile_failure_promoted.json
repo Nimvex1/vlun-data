@@ -1,0 +1,37 @@
+{
+  "expected": {
+    "failing_tests": [
+      "test_Exploit()"
+    ],
+    "signals": [
+      {
+        "assertion_messages": [
+          "Error: a == b not satisfied"
+        ],
+        "forge_reason": null,
+        "test": "test_Exploit()"
+      }
+    ]
+  },
+  "fixed": {
+    "build_rc": 0,
+    "dependency_ok": true,
+    "per_test_status": {
+      "test_Exploit()": "Success"
+    },
+    "ran_tests": true,
+    "signals": []
+  },
+  "submission": {
+    "files": {
+      "a.t.sol": "// submitted test"
+    }
+  },
+  "vulnerable": {
+    "build_rc": 1,
+    "dependency_ok": true,
+    "per_test_status": {},
+    "ran_tests": false,
+    "signals": []
+  }
+}

@@ -383,10 +383,23 @@ def forge_test(spec: RepoSpec, test_path: str | None, match_test: str | None,
     res.per_test = {
         name: {"status": t.get("status"),
                "logs": [_dec(d)[:600] for d in (t.get("decoded_logs") or [])][:12],
-               "reason": _fail_reason((out or "") + "\n" + (err or ""), name)}
+               "reason": per_test_reason(t, name, (out or "") + "\n" + (err or ""))}
         for name, t in results.items()
     }
     return res, " ".join(cmd)
+
+
+def per_test_reason(entry: dict, test_name: str, raw_output: str) -> str | None:
+    """Why forge says this test failed.
+
+    `forge test --json` puts the reason on the test entry; the human
+    `[FAIL: reason] test()` line only exists when `--json` is absent. Reading the
+    JSON field first is what keeps the reason in the record — reading only the
+    human line left `reason: null` on every JSON run, which made an observed
+    violation indistinguishable from a test that failed for an unrelated reason.
+    """
+    return (entry.get("reason") or (entry.get("items") or {}).get("reason")
+            or _fail_reason(raw_output, test_name))
 
 
 _FAIL_LINE = re.compile(r"\[FAIL:\s*([^\]]*)\]\s*(\S+)")

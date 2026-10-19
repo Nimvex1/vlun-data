@@ -1,0 +1,31 @@
+{
+  "tasks": [
+    {
+      "finding_id": "x/y",
+      "fixed_commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+      "framework": "foundry",
+      "prompt": "write a test",
+      "repository": "https://github.com/re-nft/smart-contracts.git",
+      "stages": [
+        "generated"
+      ],
+      "submission_contract": {
+        "files": [
+          "*.t.sol"
+        ]
+      },
+      "task_id": "prove-broken",
+      "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+    },
+    {
+      "finding_id": "x/z",
+      "framework": "foundry",
+      "prompt": "the fix landed in 1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+      "stages": [
+        "generated"
+      ],
+      "task_id": "prove-broken-2",
+      "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+    }
+  ]
+}

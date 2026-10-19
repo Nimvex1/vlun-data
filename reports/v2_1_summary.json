@@ -19,7 +19,8 @@
   "negative_cases_verified": 0,
   "negatives_attributed": 9,
   "negatives_corroborated": 193,
-  "negatives_unknown": null,
+  "negatives_technical_reason": 6,
+  "negatives_unknown": 256,
   "patches_not_testable": 31,
   "patches_verified": 7,
   "records_processed": 155,
@@ -29,8 +30,7 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks_passed": "78/78",
-  "validation_failed_checks": [],
+  "validation_checks": "78/78",
   "validation_failures": 0,
   "validation_warnings": 0
 }

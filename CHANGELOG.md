@@ -1,5 +1,32 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — VLUN-Prove and the private held-out split (2026-10-19, unreleased)
+
+- `reports/prove_split_interface.json` / `.md` publish a two-revision proof task family:
+  a submission is credited through `generated → compiles → executes → impact_reproduced →
+  patch_verified`, where `impact_reproduced` requires the *expected assertion* to be what
+  broke, and a compile or dependency failure stops the ladder instead of being relabelled
+  as a failed proof. `scripts/prove_grader.py` runs the same bytes on the vulnerable and
+  the undisclosed second revision, and preserves the submission, both logs and their hashes.
+- The answer key (fixed revisions, expected assertions, harness digests) is written outside
+  this repository and pinned by SHA-256 in the published interface; `--check` verifies the
+  key has not moved rather than regenerating it. No path inside the repo may hold it, and the
+  model-facing task list is leak-checked for hidden revisions, test names and assertions.
+- **The ~200 executed held-out tasks are not reported as met.** The pool is
+  8 tasks with both revisions executed (7 Foundry pairs from the v1 layer, 1 Hardhat pair
+  from V3.2), all from 2 repositories, so it cannot be called project-held-out. The gap,
+  the reason, and the unsupported Hardhat runner are recorded in the interface rather than
+  closed by padding.
+- Defect found and fixed at the source: `scripts/experiments.py` read a test's failure reason
+  only from forge's human `[FAIL: …]` line, which `forge test --json` does not print, so every
+  recorded run stored `reason: null` — an observed violation was indistinguishable from a test
+  that failed for an unrelated reason. Reasons now come from the JSON entry
+  (`per_test_reason`), with the human line as fallback. Recorded artefacts are evidence and
+  were not rewritten; the self-check recovers the reason for 4 of 7 runs by replaying the
+  preserved stdout through the grader's own parser, and says so.
+- Grader self-check (validates the grader, not any model): 7 recorded runs replayed through
+  the stage rules, all reaching `patch_verified`.
+
 ## Remediation — rejection evidence (2026-10-19, unreleased)
 
 - Rejection evidence for all 458 negatives rebuilt as six independent,

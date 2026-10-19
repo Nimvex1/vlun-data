@@ -185,6 +185,7 @@ def render() -> str:
     pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     negs = jread(REPORTS / "negative_verification_stats.json", {}) or {}
     _negm = negs.get("metrics") or {}
+    prove = jread(REPORTS / "prove_split_interface.json", {}) or {}
     _vpath = DERIVED / "records.jsonl"
     _derived_total = _derived_mutable = 0
     if _vpath.exists():
@@ -536,6 +537,21 @@ forge reported `Success`, and no patch is called effective without the controlle
   review states what changed, not whether the fix works
   ([`derived_v3/patch_reviews.jsonl`](derived_v3/patch_reviews.jsonl),
   [`reports/v3/patch_static_review.json`](reports/v3/patch_static_review.json)).
+- **VLUN-Prove:** {n(len(prove.get('tasks') or []))} two-revision proof tasks published as a
+  scoring interface ([`reports/prove_split_interface.md`](reports/prove_split_interface.md)).
+  A submission is credited stage by stage — generated → compiles → executes → impact reproduced
+  → patch verified — where `impact_reproduced` requires the *expected assertion* to be what
+  broke, and a compile or dependency failure stops the ladder instead of being relabelled as a
+  failed proof. The answer key (fixed revisions, expected assertions) lives outside this
+  repository and is pinned by hash
+  ({n(len(((prove.get('private_commitment') or {}).get('files') or {})))} files committed in
+  [`reports/prove_split_interface.json`](reports/prove_split_interface.json)).
+  Self-check: the project's own recorded runs were replayed through the grader's rules
+  (`{(prove.get('grader_self_check') or {}).get('stage_reached_distribution')}`), which is a
+  check of the grader, not of any model. The ~200-task held-out split is **not** reported as
+  met: only {n((prove.get('pool') or {}).get('tasks_with_two_revisions_executed'))} tasks have
+  both revisions executed today, and each further task needs a pinned fix and a test run on
+  both sides before it can be counted.
 - **Vbeta:** {n(vbm.get('record_count', 0))} admitted records from {n(vbm.get('candidate_count', 0))} candidates
   ({n(_vbdec.get('IMPORT', 0))} IMPORT, {n(_vbdec.get('IMPORT_AS_UNVERIFIED', 0))} unverified,
   {n(_vbdec.get('IMPORT_AS_NEGATIVE', 0))} negatives, {n(_vbdec.get('RESEARCH_ONLY', 0))} research-only);

@@ -188,6 +188,7 @@ def main() -> int:
     patches = J("patch_verification_v2.json", {})
     negs = J("negative_verification_stats.json", {})
     hn = J("hard_negative_stats.json", {})
+    vrep = J("validation_report.json", {})
     exps = J("verified_experiments.json", {})
     static = J("static_analysis.json", {})
     cites = J("citation_resolution.json", {})
@@ -402,7 +403,8 @@ def main() -> int:
         "negative_cases_verified": negs.get("experimentally_verified"),
         "negatives_corroborated": negs.get("corroborated_by_confirmed_finding"),
         "negatives_attributed": negs.get("attributed_by_named_source"),
-        "negatives_unknown": negs.get("by_class", {}).get("unknown"),
+        "negatives_unknown": (negs.get("metrics") or {}).get("unknown_or_insufficient_evidence"),
+        "negatives_technical_reason": negs.get("technical_reason_why_the_claim_is_false"),
         "immutable_citations_resolved": cites.get("occurrences_by_status", {}).get("resolved"),
         "immutable_citations_remaining_mutable": cites.get("remaining_mutable_occurrences"),
         "leakage_detected": {
@@ -414,7 +416,9 @@ def main() -> int:
         },
         "benchmark_scorable_tasks": bench["totals"]["scorable"],
         "benchmark_experimentally_grounded": bench["experimentally_grounded_tasks"],
-        "validation_failures": None,
+        "validation_failures": (vrep.get("checks", 0) - vrep.get("passed", 0)),
+        "validation_checks": f"{vrep.get('passed', 0)}/{vrep.get('checks', 0)}",
+        "validation_warnings": vrep.get("warnings", 0),
         "remaining_blockers": [b["blocker"] for b in BLOCKERS],
     }
     write_json(REPORTS / "v2_1_summary.json", summary)

@@ -112,6 +112,21 @@ forge reported `Success`, and no patch is called effective without the controlle
   review states what changed, not whether the fix works
   ([`derived_v3/patch_reviews.jsonl`](derived_v3/patch_reviews.jsonl),
   [`reports/v3/patch_static_review.json`](reports/v3/patch_static_review.json)).
+- **VLUN-Prove:** 8 two-revision proof tasks published as a
+  scoring interface ([`reports/prove_split_interface.md`](reports/prove_split_interface.md)).
+  A submission is credited stage by stage — generated → compiles → executes → impact reproduced
+  → patch verified — where `impact_reproduced` requires the *expected assertion* to be what
+  broke, and a compile or dependency failure stops the ladder instead of being relabelled as a
+  failed proof. The answer key (fixed revisions, expected assertions) lives outside this
+  repository and is pinned by hash
+  (2 files committed in
+  [`reports/prove_split_interface.json`](reports/prove_split_interface.json)).
+  Self-check: the project's own recorded runs were replayed through the grader's rules
+  (`{'patch_verified': 7}`), which is a
+  check of the grader, not of any model. The ~200-task held-out split is **not** reported as
+  met: only 8 tasks have
+  both revisions executed today, and each further task needs a pinned fix and a test run on
+  both sides before it can be counted.
 - **Vbeta:** 6,935 admitted records from 7,060 candidates
   (64 IMPORT, 6,866 unverified,
   5 negatives, 62 research-only);
