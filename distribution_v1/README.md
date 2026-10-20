@@ -35,7 +35,7 @@ Short third-party prose at or below `200` characters may be carried as an attrib
 
 ## Measured basis (recomputed from the full tracked tree)
 
-- tracked files scanned: 1775 (390805782 bytes)
+- tracked files scanned: 1775 (390831352 bytes)
 - record layers scanned for expressive content: 154
 - expressive items by class: copied_report_prose=71716, copied_short_prose=259598, personal_data=5698, poc_source=1730, third_party_code=11804
 - artefacts holding personal contact data: 13 (mailboxes and named-contact rows are removed here; the canonical layers are not modified)

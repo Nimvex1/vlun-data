@@ -43,6 +43,7 @@ stdlib only; writes nothing.
 
 from __future__ import annotations
 
+import json
 from pathlib import Path, PurePosixPath
 
 # The runner's SKIPPED code. Never 0 (that would be a pass), never 1 (that
@@ -85,6 +86,39 @@ def absent(root, paths) -> list[str]:
     return out
 
 
+def referenced_paths(jsonl_path, *keys) -> list[str]:
+    """Distinct non-empty values found at a nested key across JSONL rows.
+
+    Used to enumerate the pinned files a regeneration re-reads: the span gates
+    store them per row under ``provenance.source_location`` /
+    ``expected_span.source_location``, so the input list comes from the committed
+    artefact itself rather than from a guessed filename. Order-preserving,
+    de-duplicated, silently empty when the JSONL is absent (the caller's own
+    comparison reports that as a failure, not a skip).
+    """
+    out: list[str] = []
+    seen: set[str] = set()
+    p = Path(jsonl_path)
+    if not p.is_file():
+        return out
+    for line in p.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            cur = json.loads(line)
+        except ValueError:
+            continue
+        for k in keys:
+            cur = cur.get(k) if isinstance(cur, dict) else None
+            if cur is None:
+                break
+        if isinstance(cur, str) and cur and cur not in seen:
+            seen.add(cur)
+            out.append(cur)
+    return out
+
+
 def parents(paths, depth: int = 3) -> list[str]:
     """Collapse repo-relative input names to their first ``depth`` components.
 
@@ -111,22 +145,23 @@ def skip_line(*, tool: str, what: str, missing, total=None,
     ``tool`` is the gate script's own repo-relative path (so the log identifies
     the emitter, not just the symptom), ``what`` names the input class, and
     ``remedy`` states what a maintainer with the ignored inputs must run
-    instead. When the line will not fit the runner's tail window the remedy is
-    shortened first and then the example names are dropped -- the marker, the
-    tool, the count and at least one missing input always survive.
+    instead. The remedy is load-bearing, so it is kept and example names are
+    dropped until the line fits the runner's tail window; at least the count of
+    missing inputs always survives.
     """
     missing = list(missing)
     n = len(missing)
     count = f"{n}" if total in (None, n) else f"{n} of {total}"
     stem = f"{MARKER} {tool}: {what} absent ({count})"
     tail = f" -- maintainer: {remedy}" if remedy else ""
-    for k in range(max_names, 0, -1):
-        for rem in (tail, ""):
-            line = f"{stem}: {_names(missing, k)}{rem}"
-            if len(line) <= MAX_LINE:
-                return line
-    # Nothing fits: name one missing input and keep as much stem as possible.
-    return f"{stem}: {missing[0] if missing else 'none named'}"[:MAX_LINE]
+    for k in range(max(max_names, 0), -1, -1):
+        names = _names(missing, k)
+        line = f"{stem}: {names}{tail}" if names else f"{stem}{tail}"
+        if len(line) <= MAX_LINE:
+            return line
+    # Even the stem and remedy do not fit: keep the marker, the tool and the
+    # count, which is what a log search for `skipped_no_network` needs.
+    return f"{stem}{tail}"[:MAX_LINE]
 
 
 def _names(missing, k: int) -> str:

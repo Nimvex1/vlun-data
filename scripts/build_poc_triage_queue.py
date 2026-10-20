@@ -53,6 +53,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import poc_classification as pc  # noqa: E402
 from vlun import JSONL, REPORTS, ROOT, WORK, owner_repo  # noqa: E402
 from vlun_io import read_jsonl, write_json, write_jsonl  # noqa: E402
@@ -623,6 +624,25 @@ def main() -> int:
     ap.add_argument("--rpc", default=os.environ.get("VLUN_RPC_URL"),
                     help="read-only archive RPC to assume (default $VLUN_RPC_URL)")
     args = ap.parse_args()
+
+    # Precondition, before the queue is rebuilt: repo_facts() / clone_dir()
+    # reconnoitres the read-only clones under work/repos/ to decide
+    # toolchain_missing, fixture_missing and source_unavailable per record. One
+    # clone short is legitimate data and stays a queue row, but the whole tree
+    # missing -- every fresh clone, work/ being git-ignored and not
+    # redistributed -- rewrites the blocker counts of the entire queue, so the
+    # committed layer reads as drift. That is a skip (rc=2), never a pass and
+    # never a failure. With the tree present the byte comparison below is
+    # exactly as strict as it always was.
+    if args.check:
+        missing = GI.absent(ROOT, [CLONES])
+        if missing:
+            print(GI.skip_line(
+                tool="scripts/build_poc_triage_queue.py",
+                what="pinned clone tree", missing=missing,
+                remedy="run --check on a machine holding work/repos "
+                       "(scripts/fetch_sources.py)"))
+            return GI.SKIP_RC
 
     rows, stats = build(args.rpc)
     errs = validate_queue_rows(rows, expected_v1=len(read_jsonl(JSONL / "exploits.jsonl")))

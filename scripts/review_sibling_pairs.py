@@ -41,20 +41,18 @@ Writes: derived_siblings/{tasks,hard_negatives}.jsonl, derived_siblings/splits.j
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-import os
 import re
-import subprocess
 import sys
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 import build_api_siblings as B  # noqa: E402  (shared constants + read-only git helpers)
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import local_sources as ls  # noqa: E402
 import solidity_facts as sf  # noqa: E402
-from vlun_io import read_jsonl, sha256_bytes, sha256_text  # noqa: E402
+from vlun_io import read_jsonl, sha256_bytes  # noqa: E402
 
 ROOT = B.ROOT
 DERIVED_SIBLINGS = B.DERIVED_SIBLINGS
@@ -656,6 +654,26 @@ def main(argv=None) -> int:
     if not CANDIDATES.exists():
         print(f"FATAL: {CANDIDATES} missing; run scripts/build_api_siblings.py first")
         return 1
+
+    # Precondition, before any re-derivation or comparison: the independent
+    # reader re-reads the bytes at each site's recorded revision
+    # (_read_vulnerable_bytes via scripts/local_sources.py, _read_reference_bytes
+    # via the clones under work/repos). Both are git-ignored and not
+    # redistributed, so on a fresh clone every candidate is dropped as
+    # unreadable and the whole task layer drifts. Absent inputs are a skip
+    # (rc=2); with them present every span hash and form verdict below is
+    # checked exactly as before and can still fail.
+    if args.check:
+        need = B.regeneration_inputs()
+        missing = GI.absent(ROOT, need)
+        if missing:
+            print(GI.skip_line(
+                tool="scripts/review_sibling_pairs.py",
+                what="pinned source trees", missing=missing,
+                remedy="run scripts/fetch_sources.py, then --check on that "
+                       "checkout"))
+            return GI.SKIP_RC
+
     cands = read_jsonl(CANDIDATES)
     reviews = review_all(cands)
     by_id = {r["pair_id"]: r for r in reviews}

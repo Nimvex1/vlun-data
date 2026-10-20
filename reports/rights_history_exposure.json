@@ -1,5 +1,5 @@
 {
-  "commits_scanned": 78,
+  "commits_scanned": 79,
   "current_exposure_items_in_history_scan": [
     {
       "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
@@ -13,7 +13,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ]
     },
     {
@@ -28,7 +29,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ]
     },
     {
@@ -43,7 +45,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ]
     },
     {
@@ -58,7 +61,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ]
     }
   ],
@@ -81,6 +85,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "610805de61b14c71f619b8a55b742ab2a3504bddffffcbcc8fbb70ea2cb6af99",
@@ -105,6 +110,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "152a984460c9b2572fee0a29ad3df41e3a882dd681608816e319457fa20649e7",
@@ -129,6 +135,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
@@ -153,6 +160,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "8162d78299568a03c30db0e71a9951b733fe3f2dcd8cdc8358357c02dd9e0433",
@@ -177,6 +185,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "11a097d24a14a7d8c3444dbf6d3abfae100f8cc0753372f3d30fc2e8819785bb",
@@ -201,6 +210,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "b0db9e859fad72b315af93063616b93561d94d3fe8f2709eabe99b76c5bbc790",
@@ -225,6 +235,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
@@ -249,6 +260,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
@@ -273,6 +285,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "728c0ca6c285821e09666a64da7753db6858505c1cfafe9e078b77d0f04873ea",
@@ -296,7 +309,8 @@
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "06e7586ac05c949b4fd86faa1f292d65ea4572fe2c0b5159c472c895be8033f0",
       "removed_in_commit": null,
@@ -317,7 +331,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "912ff8792ce51bd3bb0e9f003daf0f8cd83b275e71e50085fd0e77f046a81603",
       "removed_in_commit": "4b0a9f695b3be55b410f1505cb49ea2e547f2840",
@@ -357,6 +372,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "14c55a8ec0b1ad9be295bd58726c1ad30fd5310e12522efa9d0ba8097c346056",
@@ -378,7 +394,8 @@
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
-        "refs/remotes/origin/main"
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "7ca3f9d099a760cbb0d82409d3270395d100284d8ff1d2ab080b808574686a30",
       "removed_in_commit": "3290be11ca5e03cb700b8750da65709309cb964b",
@@ -402,6 +419,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "9679794eb229d59a04e6e117ab8cb1d6983b7c4410a4273daf0f0f895fdfd50a",
@@ -426,6 +444,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "a5cee26ac3f6e905927e3e6d311a08f2d7911024efb232b4d6dad557f8190a42",
@@ -450,6 +469,7 @@
         "refs/remotes/origin/HEAD",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
         "refs/remotes/origin/v3.1-normalization"
       ],
       "reachable_sha256": "603cb01657c25e200d543d073d9cc4164e53379f303f62694aab5ea6996e3268",
@@ -487,6 +507,7 @@
       "refs/remotes/origin/HEAD",
       "refs/remotes/origin/fix/v4-audit",
       "refs/remotes/origin/main",
+      "refs/remotes/origin/remediation/p0-credibility",
       "refs/remotes/origin/v3.1-normalization"
     ],
     "zenodo_metadata": {
@@ -532,6 +553,7 @@
     "refs/remotes/origin/HEAD",
     "refs/remotes/origin/fix/v4-audit",
     "refs/remotes/origin/main",
+    "refs/remotes/origin/remediation/p0-credibility",
     "refs/remotes/origin/v3.1-normalization"
   ]
 }

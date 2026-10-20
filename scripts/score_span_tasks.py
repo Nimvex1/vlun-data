@@ -42,12 +42,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import vlun_v3 as V  # noqa: E402
 
 AK = ROOT / "derived_span_tasks" / "answer_key.jsonl"
@@ -109,6 +109,30 @@ def pinned_span_hash(source_location: str, s: int, e: int):
     if e > len(raw):
         return None
     return sha256_bytes(raw[s:e])
+
+
+def verified_pinned_sources(keys: list[dict]) -> list[str]:
+    """The pinned files this scorer must re-read, and only those.
+
+    span_support re-hashes the pinned bytes at the cited bounds for keys whose
+    ``span_availability`` is ``verified`` and that carry a ``span_sha256``; an
+    ``unavailable`` key expects an abstention and is never opened. Listing only
+    the first group keeps the precondition narrow: a missing file the scorer
+    never reads must not turn the gate into a skip.
+    """
+    out: list[str] = []
+    seen: set[str] = set()
+    for k in keys:
+        if k.get("span_availability") != "verified":
+            continue
+        exp = k.get("expected_span") or {}
+        if not exp.get("span_sha256"):
+            continue
+        loc = exp.get("source_location")
+        if isinstance(loc, str) and loc and loc not in seen:
+            seen.add(loc)
+            out.append(loc)
+    return out
 
 
 def score_one(sub: dict, key: dict, tolerance: int) -> dict:
@@ -331,6 +355,24 @@ def main() -> int:
         return 2
 
     keys = _read_jsonl(Path(args.answer_key))
+
+    # Precondition, before any scoring or comparison: span_support is measured
+    # against the pinned bytes under git-ignored V3/clones/, so on a fresh clone
+    # every supported span would score 0 and the committed report would look
+    # stale. That is a skip (rc=2), not a failure -- and with the pinned files
+    # present the four axes are computed and byte-compared exactly as before.
+    if args.check:
+        need = verified_pinned_sources(keys)
+        missing = GI.absent(ROOT, need)
+        if missing:
+            V.log(GI.skip_line(
+                tool="scripts/score_span_tasks.py",
+                what="pinned V3 span sources",
+                missing=GI.parents(missing, 3), total=len(need),
+                remedy="run on a checkout with V3/clones (git-ignored; "
+                       "scripts/fetch_sources.py)"))
+            return GI.SKIP_RC
+
     tolerance = args.tolerance
     if tolerance is None:
         if MANIFEST.is_file():

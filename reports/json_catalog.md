@@ -304,8 +304,8 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/remediation_before_after.json` | multi | 5,358 | object, 3 keys | yes |
 | `reports/reproduction_manifest.json` | multi | 28,437 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,420 | object, 14 keys | yes |
-| `reports/rights_history_exposure.json` | multi | 25,107 | object, 10 keys | yes |
-| `reports/rights_inventory.json` | multi | 1,013,168 | object, 17 keys | yes |
+| `reports/rights_history_exposure.json` | multi | 26,377 | object, 10 keys | yes |
+| `reports/rights_inventory.json` | multi | 1,014,289 | object, 17 keys | yes |
 | `reports/root_cause_taxonomy_stats.json` | multi | 3,190 | object, 14 keys | yes |
 | `reports/run_artefacts_index.json` | multi | 4,055 | object, 5 keys | yes |
 | `reports/sibling_review.json` | multi | 407,251 | object, 13 keys | yes |

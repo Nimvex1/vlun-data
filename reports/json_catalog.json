@@ -1651,7 +1651,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "7470ee7a0c817273c702bf41749adf7ec4127b1cc9ce258db2ef1456249fd34d",
+      "sha256": "0c6ff4721901f489e58a1ea524e5218cf56afbb939789e2f99544884ea03f299",
       "tracked": true
     },
     {
@@ -13468,7 +13468,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/quarantine_report.json",
-      "sha256": "be1a35ae19467c39ad3367679d2dc6192c51ee20b150d4e96e5660e5e700fa76",
+      "sha256": "1dfd34630d17519c2591da947b07c0ec2fee4e683a38ea8ee56cd20c9e9359fa",
       "tracked": true
     },
     {
@@ -13583,7 +13583,7 @@
       "tracked": true
     },
     {
-      "bytes": 25107,
+      "bytes": 26377,
       "category": "reports",
       "keys": [
         "commits_scanned",
@@ -13601,11 +13601,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "665835167106d8e91cbd523517bb58d18b12568aca8d27ba74b438c0e54b2f74",
+      "sha256": "facd891fbd85e392ef11a0d9b4a31be2680c6ef2e1387080dbe8e5005edd6c03",
       "tracked": true
     },
     {
-      "bytes": 1013168,
+      "bytes": 1014289,
       "category": "reports",
       "keys": [
         "data_handling_policy_default",
@@ -13630,7 +13630,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_inventory.json",
-      "sha256": "4640979dcf8d6cc1383e168a2a49846b8ff2dfffe0894d6c919bd49b38749a78",
+      "sha256": "a1d2fb740e0e94c96e21a227163f5dc226b3653b3a7b38642970e6b5773be888",
       "tracked": true
     },
     {

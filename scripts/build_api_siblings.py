@@ -71,6 +71,8 @@ import local_sources as ls  # noqa: E402
 import solidity_facts as sf  # noqa: E402
 from vlun_io import read_jsonl, sha256_bytes, sha256_text  # noqa: E402
 
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
+
 ROOT = SCRIPTS.parent
 JSONL = ROOT / "jsonl"
 DERIVED_SIBLINGS = ROOT / "derived_siblings"
@@ -913,6 +915,21 @@ def _write(path: Path, data: bytes) -> None:
     tmp.replace(path)
 
 
+def regeneration_inputs() -> list[Path]:
+    """The git-ignored inputs a regeneration re-reads, and nothing else.
+
+    ``vulnerable_corpus()`` resolves each record's cited (commit, file) through
+    ``scripts/local_sources.py`` -- ``work/source_manifest.json`` indexing the
+    bytes under ``work/sources/`` -- and ``reference_corpus()`` walks the
+    ``--filter=blob:none`` clones under ``work/repos/``. Nothing here is
+    redistributed (NOTICE.md), so a fresh clone has none of it and cannot
+    regenerate ``derived_siblings/candidates.jsonl`` at all. Tracked inputs
+    (``jsonl/findings.jsonl``) are deliberately NOT listed: their absence is a
+    real failure, not a skip.
+    """
+    return [WORK / "source_manifest.json", WORK / "sources", REPOS]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(
         prog="build_api_siblings.py",
@@ -925,6 +942,23 @@ def main(argv=None) -> int:
                     help="report the yield of the pool without writing any file")
     ap.add_argument("--quiet", action="store_true", help="suppress the JSON summary")
     args = ap.parse_args(argv)
+
+    # Precondition, before any regeneration or comparison: without the pinned
+    # bytes both corpora come back empty, so the regeneration is not merely
+    # smaller, it is a different artefact -- and every one of the committed 229
+    # candidates would read as drift. Absent inputs are a skip (rc=2), never a
+    # pass and never a failure. With them present the byte comparison below is
+    # exactly as strict as it always was.
+    if args.check:
+        need = regeneration_inputs()
+        missing = GI.absent(ROOT, need)
+        if missing:
+            print(GI.skip_line(
+                tool="scripts/build_api_siblings.py",
+                what="pinned source trees", missing=missing,
+                remedy="run scripts/fetch_sources.py, then --check on that "
+                       "checkout"))
+            return GI.SKIP_RC
 
     vuln, vnote = vulnerable_corpus()
     refs, rnote = reference_corpus()

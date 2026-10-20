@@ -54,6 +54,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import vlun_v3 as V  # noqa: E402
 
 PREVIEW = V.DERIVED_V3 / "normalized_records_preview.jsonl"
@@ -401,6 +402,25 @@ def main() -> int:
                     help="do not write; fail (exit 1) if on-disk outputs "
                          "differ from a deterministic rebuild")
     args = ap.parse_args()
+
+    # Precondition, before the family is rebuilt: span_availability is decided
+    # by re-hashing the pinned report bytes each preview row cites
+    # (`provenance.source_location`, all under git-ignored V3/clones/). Without
+    # them every span would come out `unavailable` and the rebuild would differ
+    # from the committed layer for a reason that is about the checkout, not the
+    # data. Absent pinned sources are a skip (rc=2); with them present the
+    # byte comparison below is exactly as strict as it always was.
+    if args.check:
+        need = GI.referenced_paths(PREVIEW, "provenance", "source_location")
+        missing = GI.absent(ROOT, need)
+        if missing:
+            V.log(GI.skip_line(
+                tool="scripts/build_span_tasks.py",
+                what="pinned V3 report sources",
+                missing=GI.parents(missing, 3), total=len(need),
+                remedy="run on a checkout with V3/clones (git-ignored; "
+                       "scripts/fetch_sources.py)"))
+            return GI.SKIP_RC
 
     want = outputs()
     if args.check:

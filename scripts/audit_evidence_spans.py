@@ -43,6 +43,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import vlun_v3 as V  # noqa: E402  (paths + clone_head helper only; stdlib-backed)
 
 PREVIEW = V.DERIVED_V3 / "normalized_records_preview.jsonl"
@@ -103,6 +104,25 @@ def main() -> int:
                     help="recompute and fail (exit 1) if the committed "
                          "reports/evidence_span_audit.json differs")
     args = ap.parse_args()
+
+    # Precondition, before anything is counted or compared: dimension (c)
+    # re-hashes every pinned report file named by the preview layer, and the
+    # byte-availability pass reads them again. They all live under
+    # V3/clones/, which is git-ignored and never redistributed, so a fresh
+    # clone cannot reproduce the committed counts. Absent pinned sources are a
+    # skip (rc=2), not a stale report; when they are present the full
+    # hash-and-compare below runs unchanged and can still fail.
+    if args.check:
+        need = GI.referenced_paths(PREVIEW, "provenance", "source_location")
+        missing = GI.absent(ROOT, need)
+        if missing:
+            V.log(GI.skip_line(
+                tool="scripts/audit_evidence_spans.py",
+                what="pinned V3 report sources",
+                missing=GI.parents(missing, 3), total=len(need),
+                remedy="run on a checkout with V3/clones (git-ignored; "
+                       "scripts/fetch_sources.py)"))
+            return GI.SKIP_RC
 
     rows = load_preview()
     file_hash_cache: dict[str, str] = {}

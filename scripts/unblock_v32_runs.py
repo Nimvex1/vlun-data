@@ -63,9 +63,10 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 import vlun_v3 as V  # noqa: E402
-from run_dhl_experiments import (ARCHIVE_MARKERS, RPC_MARKERS, profit_deltas,
-                                 test_fns)  # noqa: E402
+from run_dhl_experiments import (ARCHIVE_MARKERS, RPC_MARKERS,
+                                 profit_deltas)  # noqa: E402
 
 ROOT = V.ROOT
 CLONE = V.CLONES / "defihacklabs"
@@ -387,6 +388,21 @@ def run_spec(slug: str) -> dict:
 
 
 RUNS = ("burgerswap", "gamma", "prisma", "shibatoken")
+
+
+def pinned_poc_sources(runs) -> list[Path]:
+    """The PoC files --check must re-read to print each run's pinned sha256.
+
+    These live under ``V3/clones/`` (git-ignored, never redistributed), so a
+    fresh clone cannot have them; ``--check`` then reports a skip rather than a
+    crash or a pass. See scripts/gate_inputs.py.
+    """
+    out = []
+    for slug in runs:
+        spec = run_spec(slug)
+        if spec:
+            out.append(TEST / spec["poc"])
+    return out
 
 
 # ---------------------------------------------------------------------- stage
@@ -1163,6 +1179,19 @@ def main() -> int:
         return 2
 
     if args.check:
+        # Precondition, before any printing or comparison: the pinned PoC bytes
+        # are the inputs this check hashes. Absent clones are a skip (rc=2),
+        # never a pass and never a failure.
+        need = pinned_poc_sources(runs)
+        missing = GI.absent(ROOT, need)
+        if missing:
+            V.log(GI.skip_line(
+                tool="scripts/unblock_v32_runs.py",
+                what="pinned V3.2 PoC sources",
+                missing=GI.parents(missing, 5), total=len(need),
+                remedy="run on a checkout with V3/clones (git-ignored, "
+                       "rebuilt by scripts/fetch_sources.py)"))
+            return GI.SKIP_RC
         V.log("unblock_v32_runs --check (nothing executed)")
         for r in runs:
             spec = run_spec(r)

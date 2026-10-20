@@ -45,6 +45,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
 from vlun import (JSONL, REPORTS, ROOT, WORK, log, read_jsonl,  # noqa: E402
                   sha256_text)
 
@@ -744,7 +745,6 @@ def summarise(rows: list[dict]) -> dict:
         "corroboration_by_method": dict(corr_method),
         "code_gate_axis": dict(gate),
         "code_gate_demotion_reasons": dict(gate_why),
-        "code_gate_demotion_reasons": dict(gate_why),
         "is_false_positive": collections.Counter(
             str(r["is_false_positive"]) for r in rows),
         "exploit_attempt_status": collections.Counter(
@@ -853,6 +853,24 @@ def main() -> int:
 
     repos_root = Path(args.repos_root)
     repos_root = repos_root if repos_root.is_dir() else None
+
+    # Precondition, before any comparison: the code axis re-reads each gate
+    # declaration from the pinned commit inside work/repos/. A single absent
+    # clone is legitimate data (verify_gate records `source_clone_absent` for
+    # that record), but the WHOLE tree missing -- which is every fresh clone,
+    # since work/ is git-ignored and not redistributed -- turns every verified
+    # blocker into a blocker-free verdict and the layer reads as stale. That is
+    # a skip (rc=2), not a pass and not a failure. With the tree present the
+    # byte comparison below is exactly as strict as it always was.
+    if args.check:
+        missing = GI.absent(ROOT, [Path(args.repos_root)])
+        if missing:
+            log(GI.skip_line(
+                tool="scripts/build_rejection_corpus.py",
+                what="pinned clone tree", missing=missing,
+                remedy="run --check on a machine holding work/repos "
+                       "(scripts/fetch_sources.py), or pass --repos-root"))
+            return GI.SKIP_RC
 
     negatives = read_jsonl(JSONL / "negative_findings.jsonl")
     findings = read_jsonl(JSONL / "findings.jsonl")
