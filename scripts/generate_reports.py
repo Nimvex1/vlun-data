@@ -161,7 +161,6 @@ def build_benchmark_metrics() -> str:
     man = jread(BENCH / "manifest.json", {}) or {}
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     patch = jread(REPORTS / "patch_verification.json", {}) or {}
-    hn = jread(REPORTS / "hard_negative_stats.json", {}) or {}
     neg = jread(REPORTS / "negative_verification_stats.json", {}) or {}
     negm = neg.get("metrics") or {}
     ce = jread(REPORTS / "counterexample_stats.json", {}) or {}

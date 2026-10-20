@@ -167,11 +167,14 @@ def main() -> int:
                         encoding="utf-8", newline="\n")
     out_md.write_text("\n".join(lines) + "\n", encoding="utf-8",
                       newline="\n")
+    # Computed outside the f-string: a line break inside a replacement field is
+    # PEP 701 syntax, valid from Python 3.12, and this pipeline must run on the
+    # 3.10 baseline the CI matrix declares.
+    under_50 = sum(1 for c in rep.values()
+                   if isinstance(c["known_pct"], (int, float))
+                   and c["known_pct"] < 50)
     print(f"wrote {len(rep)} field coverages "
-          f"({sum(1 for c in rep.values()
-                    if isinstance(c['known_pct'], (int, float))
-                    and c['known_pct'] < 50)} "
-          f"fields under 50% known)")
+          f"({under_50} fields under 50% known)")
     return 0
 
 

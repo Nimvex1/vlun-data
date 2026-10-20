@@ -129,7 +129,8 @@ def prerequisites() -> list[dict]:
         {"tool": "crates.io registry access",
          "install_status": "assumed_available" if cargo else "missing",
          "version": None,
-         "install_command": None,
+         "install_command": None if cargo
+         else "cargo search serde --limit 1   # proves the registry is reachable",
          "note": "only the package registry is contacted; no chain RPC, "
                  "no faucet, no deployment"},
     ]

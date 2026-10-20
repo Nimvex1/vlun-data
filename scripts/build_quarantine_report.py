@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import REPORTS, ROOT, log, write_json  # noqa: E402
+from vlun import REPORTS, ROOT, log  # noqa: E402
 
 MD = REPORTS / "quarantine_report.md"
 JS = REPORTS / "quarantine_report.json"
@@ -97,9 +97,9 @@ def collect() -> dict:
             sum(kinds.values()), "reports/extraction_errors.json", detail=kinds)
 
     # --- execution attempts that did not establish anything --------------------
-    attempts = [json.loads(l) for l in
+    attempts = [json.loads(line) for line in
                 (REPORTS / "poc_attempts.jsonl").read_text(encoding="utf-8").splitlines()
-                if l.strip()] if (REPORTS / "poc_attempts.jsonl").is_file() else []
+                if line.strip()] if (REPORTS / "poc_attempts.jsonl").is_file() else []
     by_status: dict[str, int] = {}
     for a in attempts:
         s = str(a.get("status") or "unknown")

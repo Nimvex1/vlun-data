@@ -123,7 +123,6 @@ def load_jsonl(path):
 
 
 def check_taxonomy(entries, record_ids, errors):
-    ids = [e.get("id") for e in entries]
     if any("__parse_error__" in e for e in entries):
         errors.extend(e["__parse_error__"] for e in entries if "__parse_error__" in e)
         return {}, set()

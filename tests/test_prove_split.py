@@ -10,7 +10,9 @@ commitment was published, and a private split written inside the repo.
 from __future__ import annotations
 
 import json
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -231,6 +233,55 @@ class InterfaceHonesty(unittest.TestCase):
     def test_the_interface_is_byte_reproducible(self):
         js = json.dumps(self.i, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         self.assertEqual(js, INTERFACE.read_text(encoding="utf-8"))
+
+
+class LiveForgeRunPath(unittest.TestCase):
+    """`run_forge` is the only grader path that touches a toolchain, so the
+    stage-ladder tests never executed it. It used to end in
+    `time.time() - t0` where `t0` was local to a nested helper — a NameError on
+    every real grading run, invisible to every offline test. These stub
+    subprocess so that return path actually runs."""
+
+    class _P:
+        def __init__(self, rc=0, out="", err=""):
+            self.returncode, self.stdout, self.stderr = rc, out, err
+
+    def setUp(self):
+        self._real_run = G.subprocess.run
+        self.tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
+
+    def tearDown(self):
+        G.subprocess.run = self._real_run
+
+    def _call(self, fake):
+        G.subprocess.run = fake
+        return G.run_forge(self.tmp, self.tmp / "t.sol", "test_x", timeout=5)
+
+    def test_returns_duration_after_a_successful_build(self):
+        res = self._call(lambda cmd, **kw: self._P(
+            0, '[{"test_results":{}}]', ""))
+        self.assertEqual(res["build_rc"], 0)
+        self.assertIsInstance(res["duration_s"], float)
+
+    def test_build_failure_path_also_reports_duration(self):
+        res = self._call(lambda cmd, **kw: self._P(1, "", "compiler error"))
+        self.assertEqual(res["build_rc"], 1)
+        self.assertFalse(res["ran_tests"])
+        self.assertIsInstance(res["duration_s"], float)
+
+    def test_timeout_is_a_recorded_rc_not_an_exception(self):
+        def fake(cmd, **kw):
+            raise G.subprocess.TimeoutExpired(cmd, kw.get("timeout", 0))
+        res = self._call(fake)
+        self.assertEqual(res["build_rc"], 124)
+        self.assertIn("timeout", res["stderr"])
+
+    def test_missing_toolchain_is_rc_127_not_a_crash(self):
+        def fake(cmd, **kw):
+            raise FileNotFoundError("forge")
+        res = self._call(fake)
+        self.assertEqual(res["build_rc"], 127)
 
 
 if __name__ == "__main__":

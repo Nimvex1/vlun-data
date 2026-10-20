@@ -47,6 +47,22 @@ def _answer_key_by_id() -> dict:
     return out
 
 
+def pinned_bytes_readable(key: dict) -> bool:
+    """Can the pinned source behind this key's expected span be re-read?
+
+    `source_location` points into ``V3/clones/``, which is git-ignored and never
+    redistributed, so a fresh CI checkout has none of those bytes. Asking
+    ``score_span_tasks.pinned_span_hash`` -- the very helper the scorer under test
+    uses -- means a guarded assertion skips when and only when the input is
+    genuinely absent, and still runs (and still fails) wherever the clones are.
+    """
+    sp = key.get("expected_span") or {}
+    start, end = sp.get("start_byte"), sp.get("end_byte")
+    if not (isinstance(start, int) and isinstance(end, int) and 0 <= start < end):
+        return False
+    return S.pinned_span_hash(sp.get("source_location"), start, end) is not None
+
+
 class LeakGuardTests(unittest.TestCase):
     def test_leaking_prompt_is_rejected(self):
         """A prompt carrying the expected label + span bounds must raise."""
@@ -84,7 +100,13 @@ class LeakGuardTests(unittest.TestCase):
 
 class SupportVerificationTests(unittest.TestCase):
     def test_verified_label_with_nonmatching_bytes_is_not_supported(self):
-        """The crux: support is checked against the pinned bytes, not the flag."""
+        """The crux: support is checked against the pinned bytes, not the flag.
+
+        Not skipped anywhere. The expected (tampered) hash is recorded in the key,
+        so "a span that does not hash-match is NOT credited" is enforced on any
+        machine: with the pinned bytes present the hash genuinely mismatches, and
+        with them absent the scorer has nothing to credit and still returns False.
+        """
         bad_key = _load(BROKEN / "bad_hash_verified_key.json")
         sub = _load(BROKEN / "exact_bounds_bad_hash_submission.json")
         res = S.score_one(sub, bad_key, tolerance=0)
@@ -101,6 +123,19 @@ class SupportVerificationTests(unittest.TestCase):
         bad_key = _load(BROKEN / "bad_hash_verified_key.json")
         good = real[bad_key["task_id"]]
         sub = _load(BROKEN / "exact_bounds_bad_hash_submission.json")
+        # Crediting a correct hash is only a verdict if the cited bytes can be
+        # re-read; the positive control is what gives the negative test above its
+        # teeth. Without V3/clones/ the scorer honestly reports "nothing to match",
+        # so this is recorded as a skip -- never as a pass, never as a failure
+        # (the rule scripts/check_reproducibility.py applies to absent inputs).
+        if not pinned_bytes_readable(good):
+            sp = good["expected_span"]
+            self.skipTest(
+                "skipped_no_network: V3/clones/ absent; this assertion needs the "
+                "pinned source bytes at "
+                f"{sp.get('source_location')}@{sp.get('clone_head')} "
+                f"[{sp.get('start_byte')}:{sp.get('end_byte')}] to be re-read, and a "
+                "fresh checkout never has them")
         res = S.score_one(sub, good, tolerance=0)
         self.assertTrue(res["axis_span_support"]["supported"])
         self.assertTrue(res["axis_citation_exactness"]["exact"])

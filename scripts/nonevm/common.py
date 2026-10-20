@@ -31,7 +31,6 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 import time
 from pathlib import Path
 
@@ -512,17 +511,17 @@ def render_md(rep: dict) -> str:
     L.append("")
     L.append("## Headline")
     L.append("")
-    L.append(f"* candidates by platform: " + ", ".join(
+    L.append("* candidates by platform: " + ", ".join(
         f"{p} {n}" for p, n in c["candidates_by_platform"].items()))
     L.append(f"* total runs: **{c['runs_total']}** across "
              f"**{c['unique_records_with_runs']}** unique records; "
              f"executed runs: **{c['executed_runs']}** "
              f"({c['unique_records_executed']} records executed at all)")
-    L.append(f"* outcomes: " + ", ".join(f"{k} {v}" for k, v in
+    L.append("* outcomes: " + ", ".join(f"{k} {v}" for k, v in
                                         c["outcomes_overall"].items()))
-    L.append(f"* ladder reached: " + ", ".join(f"{k} {v}" for k, v in
+    L.append("* ladder reached: " + ", ".join(f"{k} {v}" for k, v in
                                                c["ladder_overall"].items()))
-    L.append(f"* artefact integrity: " + ("all runs self-consistent"
+    L.append("* artefact integrity: " + ("all runs self-consistent"
                                           if rep["integrity"]["clean"]
                                           else "ERRORS - see integrity section"))
     L.append("")

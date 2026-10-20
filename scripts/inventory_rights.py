@@ -46,6 +46,17 @@ redistribution rights.
     python scripts/inventory_rights.py --help
 
 Stdlib only, deterministic, no network, no git writes.
+
+ENVIRONMENT INDEPENDENCE (measured on CI, 2026-10): every path written into
+``reports/rights_inventory.json``, ``reports/rights_history_exposure.json``
+and ``distribution_v1/`` is a repo-relative posix path, never a machine-local
+absolute path, and the committed quantities are checked only against values a
+fresh checkout recomputes identically (``scripts/check_rights_consistency.py``
+validates internal consistency of this artefact, not this machine's git index
+or HEAD). ``scan.head_commit`` and ``scan.branch`` are recorded as measurement
+provenance only; no gate may require them to equal the checking checkout,
+because the commit that carries this artefact is by construction always newer
+than the commit recorded inside it, and that made the gate impossible to pass.
 """
 
 from __future__ import annotations
@@ -195,6 +206,29 @@ def read_jsonl(path: Path) -> list[dict]:
 
 def json_dumps(obj) -> str:
     return json.dumps(obj, sort_keys=True, ensure_ascii=False)
+
+
+# Machine-local absolute paths must never enter a committed artefact: an
+# absolute root or per-file path ties the artefact to the one checkout that
+# generated it, which is precisely how the rights gate became impossible to
+# pass on CI. The drive-letter form requires a non-word character before it
+# so that `https://` (whose trailing `s:/` would otherwise match) is not a
+# false positive.
+MACHINE_LOCAL_RE = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z]:[\\/]|/home/|/Users/")
+
+
+def assert_environment_independent(rel_out: str, text: str) -> None:
+    """Fail the generator if an artefact is about to embed a local absolute
+    path. Catalog paths stay repo-relative posix; nothing is dropped."""
+    for lineno, line in enumerate(text.splitlines(), 1):
+        m = MACHINE_LOCAL_RE.search(line)
+        if m:
+            raise SystemExit(
+                f"inventory_rights.py: refusing to write {rel_out}: line "
+                f"{lineno} embeds a machine-local absolute path "
+                f"({m.group(0)!r}); the artefact must be environment-"
+                f"independent")
 
 
 # --------------------------------------------------------------------------
@@ -1013,8 +1047,14 @@ def build_inventory(root: Path) -> tuple:
         "hash_grants_nothing": ("a sha256 and a permalink identify bytes; they "
                                 "do not grant reuse or redistribution rights"),
         "scan": {
+            # Provenance of the measurement checkout. No check may require
+            # these to equal the checking checkout's state: on a fresh clone
+            # they never can (see the module docstring).
             "head_commit": head.stdout.strip() or None,
             "branch": branch.stdout.strip() or None,
+            # Stable repo-relative marker replacing any absolute root: every
+            # path in this artefact is relative to this marker.
+            "path_style": "repo-relative-posix",
             "tracked_files": len(files),
             "tracked_bytes": sum(r["bytes"] for r in file_rows),
             "record_layers_scanned": len(record_scanned),
@@ -1527,6 +1567,7 @@ def build_distribution(root: Path, inv: dict, affected: list[dict]) -> dict:
     digests = digest_entries(reg)
 
     def write(rel: str, text: str) -> None:
+        assert_environment_independent(f"distribution_v1/{rel}", text)
         p = out_dir / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text, encoding="utf-8", newline="\n")
@@ -1753,16 +1794,19 @@ def main() -> int:
         return 0
 
     (root / "reports").mkdir(exist_ok=True)
+    inv_json = json.dumps(inv, indent=2, sort_keys=True) + "\n"
+    hist_json = json.dumps(history, indent=2, sort_keys=True) + "\n"
+    assert_environment_independent("reports/rights_inventory.json", inv_json)
+    assert_environment_independent("reports/rights_history_exposure.json",
+                                   hist_json)
     (root / "reports" / "rights_inventory.json").write_text(
-        json.dumps(inv, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8", newline="\n")
+        inv_json, encoding="utf-8", newline="\n")
     (root / "reports" / "rights_inventory.md").write_text(
         inventory_markdown(inv), encoding="utf-8", newline="\n")
     (root / "reports" / "history_exposure.md").write_text(
         history_markdown(history, inv), encoding="utf-8", newline="\n")
     (root / "reports" / "rights_history_exposure.json").write_text(
-        json.dumps(history, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8", newline="\n")
+        hist_json, encoding="utf-8", newline="\n")
     if not args.no_distribution:
         built = build_distribution(root, inv, affected)
         if not args.quiet:

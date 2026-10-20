@@ -15,6 +15,7 @@ Run:  python -m unittest tests.test_rights_gate
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -112,15 +113,15 @@ class RightsGateBrokenFixtures(unittest.TestCase):
         code, payload = run_gate(BROKEN / "abbrev_commit_as_immutable")
         self.assertEqual(code, 1, payload)
         self.assertIn("INVALID_COMMIT_REF", codes(payload))
-        row = next(json.loads(l) for l in (BROKEN / "abbrev_commit_as_immutable" /
-                                           "distribution_v1" /
-                                           "records_v1_withheld_pointers.jsonl")
-                   .read_text(encoding="utf-8").splitlines() if l.strip())
+        row = next(json.loads(ln) for ln in (BROKEN / "abbrev_commit_as_immutable" /
+                                              "distribution_v1" /
+                                              "records_v1_withheld_pointers.jsonl")
+                   .read_text(encoding="utf-8").splitlines() if ln.strip())
         self.assertEqual(row["immutable_reference"]["vulnerable_commit"], "64d3a2d")
         # and the projection this repo actually ships keeps them apart
-        live = next(json.loads(l) for l in
+        live = next(json.loads(ln) for ln in
                     (ROOT / "distribution_v1" / "records_v4_withheld_pointers.jsonl")
-                    .read_text(encoding="utf-8").splitlines() if l.strip())
+                    .read_text(encoding="utf-8").splitlines() if ln.strip())
         for key, value in (live.get("immutable_reference") or {}).items():
             self.assertRegex(str(value), r"^[0-9a-f]{40}$", key)
         self.assertNotIn("64d3a2d", json.dumps(live.get("immutable_reference") or {}))
@@ -161,7 +162,7 @@ class RightsGateLiveTree(unittest.TestCase):
         self.assertNotIn("UNKNOWN_MASKS_DECLARED_LICENCE", found)
         self.assertNotIn("POLICY_FRAMING_MISSING", found)
         # what is still true is reported as a limitation, not silently dropped
-        limits = {l["code"] for l in payload.get("noted_limitations", [])}
+        limits = {item["code"] for item in payload.get("noted_limitations", [])}
         self.assertIn("UPSTREAM_HASH_NOT_RECORDED", limits)
 
     def test_distribution_view_carries_no_copied_expression(self) -> None:
@@ -180,6 +181,21 @@ class RightsGateLiveTree(unittest.TestCase):
         self.assertEqual(copied, [], f"the view must be clean: {copied}")
 
     def test_inventory_counts_are_recomputed_not_typed(self) -> None:
+        """The committed inventory must be internally consistent, not
+        self-referential.
+
+        The old form of this test compared the stored `scan.tracked_files`
+        with `len(git ls-files)` in THIS checkout. That value describes the
+        generating machine's git index; a fresh clone legitimately differs,
+        so the assertion could only pass on the exact staging state that
+        generated the artefact (it failed on all four CI matrix jobs). The
+        portable rule, shared with scripts/check_rights_consistency.py: a
+        check may only compare quantities that any checkout computes
+        identically. So: the inventory's stated tracked-file count equals
+        the number of file rows it itself enumerates, its byte total equals
+        the sum of its rows, its per-layer counts are internally consistent,
+        and every repo-relative path it cites exists in this checkout.
+        """
         inv_path = ROOT / "reports" / "rights_inventory.json"
         if not inv_path.is_file():
             self.skipTest("inventory not generated")
@@ -188,12 +204,51 @@ class RightsGateLiveTree(unittest.TestCase):
                         for c in inv["totals_by_layer"].values())
         total = sum(inv["totals_by_class"]["expressive_items"].values())
         self.assertEqual(per_layer, total)
-        self.assertEqual(inv["scan"]["tracked_files"],
-                         len(subprocess.run(
-                             ["git", "ls-files"], cwd=str(ROOT),
-                             capture_output=True, text=True).stdout.split()))
+        self.assertEqual(inv["scan"]["tracked_files"], len(inv["files"]))
+        self.assertEqual(inv["scan"]["tracked_bytes"],
+                         sum(r["bytes"] for r in inv["files"]))
+        self.assertEqual(inv["scan"]["record_layers_scanned"],
+                         len(inv["scan"]["record_layers_list"]))
+        self.assertEqual(inv["scan"]["text_artefacts_scanned"],
+                         len(inv["text_artefact_scan"]))
+        missing = [r["path"] for r in inv["files"]
+                   if not (ROOT / r["path"]).is_file()]
+        self.assertEqual(missing, [],
+                         "every path the inventory cites must exist in any "
+                         "checkout of the commit that carries it")
         # the audit must not be limited to the 424 self-flagged v1 rows
         self.assertGreater(len(inv["totals_by_layer"]), 40)
+
+    def test_committed_artefacts_carry_no_machine_local_paths(self) -> None:
+        """Regression guard: the committed rights artefacts must stay
+        environment-independent.
+
+        A machine-local absolute path (Windows drive-letter, `/home/`,
+        `/Users/`) baked into reports/rights_inventory.json ties the gate to
+        the one checkout that generated it, which is the flaw that made
+        rights-consistency permanently red on GitHub Actions. The scan uses a
+        boundary before the drive letter so `https://` URLs — which are
+        legitimate repo-relative content pointers — are not false positives.
+        """
+        drive_local = re.compile(r"(?<![A-Za-z0-9])[A-Za-z]:[\\/]")
+        artefacts = [ROOT / "reports" / "rights_inventory.json",
+                     ROOT / "reports" / "rights_history_exposure.json",
+                     ROOT / "distribution_v1" / "MANIFEST.json"]
+        for p in artefacts:
+            if not p.is_file():
+                self.skipTest(f"{p.name} not generated")
+            text = p.read_text(encoding="utf-8", errors="replace")
+            for lineno, line in enumerate(text.splitlines(), 1):
+                for needle in ("/home/", "/Users/"):
+                    self.assertNotIn(
+                        needle, line,
+                        f"{p.name}:{lineno} embeds a machine-local path "
+                        f"({needle!r}); the artefact must be environment-"
+                        f"independent")
+                self.assertIsNone(
+                    drive_local.search(line),
+                    f"{p.name}:{lineno} embeds a drive-letter absolute path; "
+                    f"catalogue paths must stay repo-relative")
 
 
 if __name__ == "__main__":

@@ -148,21 +148,23 @@ def run_forge(worktree: Path, test_file: Path, match: str, timeout: int) -> dict
         try:
             p = subprocess.run(cmd, cwd=str(worktree), capture_output=True, text=True,
                                timeout=timeout, errors="replace")
-            return p.returncode, p.stdout, p.stderr
+            return p.returncode, p.stdout, p.stderr, time.time() - t0
         except subprocess.TimeoutExpired:
-            return 124, "", f"timeout after {timeout}s"
+            return 124, "", f"timeout after {timeout}s", time.time() - t0
         except FileNotFoundError as exc:
-            return 127, "", str(exc)
-    rc, out, err = _run(["forge", "build"])
+            return 127, "", str(exc), time.time() - t0
+    rc, out, err, build_s = _run(["forge", "build"])
     if rc != 0:
         return {"build_rc": rc, "dependency_ok": True, "ran_tests": False,
-                "per_test_status": {}, "signals": [], "stdout": out, "stderr": err}
-    rc, out, err = _run(["forge", "test", "--match", match, str(test_file), "--json"])
+                "per_test_status": {}, "signals": [], "stdout": out, "stderr": err,
+                "duration_s": round(build_s, 2)}
+    rc, out, err, test_s = _run(
+        ["forge", "test", "--match", match, str(test_file), "--json"])
     status, signals = _parse_forge(out)
     return {"build_rc": 0, "dependency_ok": True, "ran_tests": bool(status),
             "per_test_status": status, "signals": signals,
             "stdout": out, "stderr": err, "exit_code": rc,
-            "duration_s": round(time.time() - t0, 2)}
+            "duration_s": round(test_s, 2)}
 
 
 def _test_name(name: str) -> str:
@@ -298,10 +300,11 @@ def main() -> int:
                            {k: v for k, v in runs["vulnerable"].items()},
                            {k: v for k, v in runs["fixed"].items()},
                            key.get("expected_assertion") or {})
-    payload = preserve(Path(args.out) / args.task_id, args.task_id, sub_dir, runs,
-                       verdict, key_hash)
+    preserve(Path(args.out) / args.task_id, args.task_id, sub_dir, runs,
+             verdict, key_hash)
     log(json.dumps({"task_id": args.task_id, "stage_reached": verdict["stage_reached"],
-                    "stages": verdict["stages"], "reasons": verdict["reasons"]}, indent=2))
+                    "stages": verdict["stages"], "reasons": verdict["reasons"],
+                    "preserved_to": str(Path(args.out) / args.task_id)}, indent=2))
     return 0 if verdict["stages"]["patch_verified"] else 1
 
 

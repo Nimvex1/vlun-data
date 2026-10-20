@@ -35,7 +35,7 @@ SHA40 = re.compile(r"^[0-9a-f]{40}$")
 
 
 def _rows(path: Path) -> list[dict]:
-    return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def recompute_axes(row: dict) -> dict:

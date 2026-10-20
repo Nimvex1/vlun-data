@@ -129,7 +129,12 @@ def prerequisites() -> list[dict]:
          "version": C.tool_version([str(ROOT / "work" / "tools" /
                                         "starknet-foundry-v0.44.0-x86_64-pc-windows-msvc" /
                                         "bin" / "snforge.exe"), "--version"]),
-         "install_command": None,
+         "install_command": None if (ROOT / "work" / "tools" /
+                                     "starknet-foundry-v0.44.0-x86_64-pc-"
+                                     "windows-msvc" / "bin" / "snforge.exe").exists()
+         else "curl -L <https://github.com/foundry-rs/starknet-foundry/releases/"
+              "download/v0.44.0/starknet-foundry-v0.44.0-x86_64-unknown-linux-gnu."
+              "tar.gz> | tar xz   # snforge 0.44.0 release bundle",
          "note": "unused for these revisions: snforge 0.44 pairs with a newer "
                  "scarb/snforge_std than the pinned tags declare"},
         {"tool": "universal-sierra-compiler (required by snforge)",
@@ -313,10 +318,8 @@ def execute(spec: dict) -> dict:
 
 def _execute_generated_control(spec: dict, rid: str, pre: list[dict]) -> dict:
     """Prove the Scarb runner works here, without claiming anything upstream."""
-    import json
     tree = C.ensure_scratch() / spec["run_slug"] / "gen"
     (tree / "src").mkdir(parents=True, exist_ok=True)
-    cairo_ver = json.dumps(C.tool_version([str(SCARB), "--version"]))
     C.write_text(tree / "Scarb.toml", GEN_PACKAGE.format(cairo="2.20.0"))
     C.write_text(tree / "src" / "lib.cairo", GEN_LIB.format(cairo="2.20.0"))
     argv = [str(SCARB), "cairo-test"]

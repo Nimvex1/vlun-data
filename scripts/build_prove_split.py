@@ -368,7 +368,7 @@ def build(home: Path) -> tuple[dict, dict]:
             "match_test": exp.get("match_test") or spec.get("match_test"),
             "expected_assertion": sig,
             "expected_fixed_status": "pass",
-            "harness": {"registry_declared": bool(spec)},
+            "registry_declared": bool(spec),
             "harness": {label: harness_manifest(spec, label,
                                                 (revs.get(label) or {}).get("commit"))
                         for label in ("vulnerable", "fixed")},

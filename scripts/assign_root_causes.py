@@ -271,7 +271,7 @@ def assign(rec, candidate_ids, l6_ids, taxonomy):
             if lab in blocked or (blocked & set(labels)):
                 continue
             labels.append(lab)
-    labels = [l for l in labels if l != SENTINEL][:3]
+    labels = [line for line in labels if line != SENTINEL][:3]
     unlabelled = not labels
     if unlabelled:
         labels = [SENTINEL]
@@ -298,7 +298,7 @@ def assign(rec, candidate_ids, l6_ids, taxonomy):
         "evidence_level": level,
         "evidence_basis": basis,
         "meets_minimum_evidence": meets,
-        "provisional_labels": sorted(l for l, ok in meets.items() if not ok),
+        "provisional_labels": sorted(label for label, ok in meets.items() if not ok),
         "v1_class": str((rec.get("taxonomy") or {}).get("class") or ""),
     }
     if unlabelled:

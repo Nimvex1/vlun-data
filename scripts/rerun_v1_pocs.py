@@ -54,7 +54,6 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import poc_classification as pc  # noqa: E402
 from vlun import JSONL, REPORTS, ROOT, WORK  # noqa: E402
 from vlun_io import read_jsonl, write_json  # noqa: E402
 
@@ -125,11 +124,11 @@ def assert_command_is_sandboxed(cmd: list[str]) -> None:
     for f in FORBIDDEN:
         if f in joined:
             raise RuntimeError(f"refusing to run a non-sandboxed command: {f!r}")
-    if not any(joined.startswith(a) or f"--{k}" for k in ()) and \
-            not any(joined.startswith(a.split(" ")[0]) for a in ALLOWED_COMMANDS):
+    # Prefix-exact on purpose. Matching only the `forge` token would also admit
+    # `forge snapshot`, `forge inspect` and any future subcommand, none of which
+    # this campaign needs.
+    if not any(joined.startswith(a) for a in ALLOWED_COMMANDS):
         raise RuntimeError(f"command outside the allowlist: {joined[:200]}")
-    if "forge" not in cmd:
-        raise RuntimeError(f"only forge invocations are permitted: {joined[:200]}")
 
 
 # ---------------------------------------------------------------------------
@@ -898,8 +897,8 @@ def build_density(write: bool = True) -> tuple[dict, str]:
 def _read_ledger() -> list[dict]:
     if not LEDGER.exists():
         return []
-    return [json.loads(l) for l in LEDGER.read_text(encoding="utf-8").splitlines()
-            if l.strip()]
+    return [json.loads(line) for line in LEDGER.read_text(encoding="utf-8").splitlines()
+            if line.strip()]
 
 
 def main() -> int:

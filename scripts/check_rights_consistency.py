@@ -51,14 +51,29 @@ Checks (each emits machine-readable reasons on stdout as JSON):
                                      is a default data-handling policy and not a
                                      claim of legal clearance
     COUNT_MISMATCH                   a published count that does not equal the
-                                     recomputed value
+                                     recomputed value. Portability rule: only
+                                     quantities any checkout computes
+                                     identically are compared — the inventory
+                                     artefact is checked for INTERNAL
+                                     consistency (row counts vs the entries it
+                                     enumerates), never against this
+                                     checkout's git index or HEAD
     MISSING_DISTRIBUTION_ARTEFACT    a required file of the view is absent
+    INVENTORY_PATH_MISSING           the inventory catalogue cites a repo-
+                                     relative path that is not in this tree
 
     python scripts/check_rights_consistency.py
     python scripts/check_rights_consistency.py --json
     python scripts/check_rights_consistency.py --root tests/fixtures/broken/x --partial
 
 Exit 0 only when every applicable check passes. Stdlib only, read-only.
+
+The report is environment-independent on purpose: it records `"root": "."`
+(repo-relative marker) instead of a machine-local absolute path, and no check
+compares a committed quantity against this checkout's git index or HEAD. A
+gate that can only pass on the exact machine that generated its artefact is
+not a gate (measured on CI, 2026-10: this is what made rights-consistency
+permanently red on every fresh clone).
 """
 
 from __future__ import annotations
@@ -715,28 +730,68 @@ def check_counts(g: Gate, view: Path) -> None:
             g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
                    f"sum over layers ({per_layer}) != the reported grand "
                    f"total ({total})", expected=total, observed=per_layer)
-        tracked = len(tracked_files(g.root))
-        if inv.get("scan", {}).get("tracked_files") not in (None, tracked):
+        # PORTABILITY RULE (measured on CI 2026-10, all four matrix jobs):
+        # a check may only compare quantities that any checkout computes
+        # identically. The previous version compared the stored
+        # `scan.tracked_files` with `len(git ls-files)` HERE and the stored
+        # `scan.head_commit` with `git rev-parse HEAD` HERE. Both stored
+        # values describe the generating checkout: the index legitimately
+        # differs on a fresh clone, and the commit that carries the artefact
+        # is by construction always newer than the commit recorded inside
+        # it, so the equality could only ever hold on the exact machine and
+        # exact staging state that generated the file. That is not a gate.
+        # CHOSEN SEMANTICS: internal consistency (option (b) of the design
+        # note), not like-for-like recomputation — the inventory's own row
+        # count must equal the number of entries it enumerates, its totals
+        # must equal the sums of those entries, and every path it cites must
+        # exist in this checkout. `scan.head_commit` and `scan.branch` stay
+        # as measurement provenance and are never compared against the
+        # checking checkout.
+        scan = inv.get("scan", {})
+        catalog = inv.get("files") or []
+        if scan.get("tracked_files") != len(catalog):
             g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
-                   "the inventory was computed against a different tracked "
-                   "file count than the tree now has; rerun "
+                   "the inventory states a tracked-file count that does not "
+                   "equal the number of file rows it itself enumerates; the "
+                   "artefact is internally inconsistent, rerun "
                    "scripts/inventory_rights.py",
-                   expected=tracked,
-                   observed=inv.get("scan", {}).get("tracked_files"))
-        head = inv.get("scan", {}).get("head_commit")
-        if head:
-            try:
-                import subprocess
-                now = subprocess.run(["git", "rev-parse", "HEAD"],
-                                     cwd=str(g.root), capture_output=True,
-                                     text=True).stdout.strip()
-            except Exception:
-                now = ""
-            if now and now != head:
-                g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
-                       "the inventory is stale for this commit; rerun "
-                       "scripts/inventory_rights.py", expected=now,
-                       observed=head)
+                   expected=len(catalog), observed=scan.get("tracked_files"))
+        catalog_bytes = sum(int(r.get("bytes") or 0) for r in catalog)
+        if scan.get("tracked_bytes") not in (None, catalog_bytes):
+            g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
+                   "the inventory's tracked-bytes total does not equal the "
+                   "sum of the byte counts of its own file rows",
+                   expected=catalog_bytes, observed=scan.get("tracked_bytes"))
+        layers_list = scan.get("record_layers_list") or []
+        if scan.get("record_layers_scanned") != len(layers_list):
+            g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
+                   "the inventory states a record-layer count that does not "
+                   "equal the number of layers it enumerates",
+                   expected=len(layers_list),
+                   observed=scan.get("record_layers_scanned"))
+        text_rows = inv.get("text_artefact_scan") or []
+        if scan.get("text_artefacts_scanned") != len(text_rows):
+            g.fail("COUNT_MISMATCH", "reports/rights_inventory.json",
+                   "the inventory states a text-artefact count that does not "
+                   "equal the number of text rows it enumerates",
+                   expected=len(text_rows),
+                   observed=scan.get("text_artefacts_scanned"))
+        # every path the inventory cites must exist in this checkout; the
+        # catalogue is repo-relative so this holds identically on any clone
+        # of a commit whose inventory was regenerated for that tree.
+        missing = sorted({str(r.get("path")) for r in catalog
+                          if r.get("path") and not (g.root / str(r["path"])).is_file()})
+        for rel in missing[:20]:
+            g.fail("INVENTORY_PATH_MISSING", "reports/rights_inventory.json",
+                   f"the inventory catalogue cites `{rel}`, which is not a "
+                   f"file in this checkout; the inventory was generated "
+                   f"against a different tree, rerun "
+                   f"scripts/inventory_rights.py", path=rel)
+        if len(missing) > 20:
+            g.fail("INVENTORY_PATH_MISSING", "reports/rights_inventory.json",
+                   f"{len(missing)} inventoried paths are absent from this "
+                   f"checkout (first 20 reported separately)",
+                   path_count=len(missing))
 
 
 # ---------------------------------------------------------------------------
@@ -807,7 +862,11 @@ def main() -> int:
     payload = {
         "generated_by": "scripts/check_rights_consistency.py",
         "rights_transformation_version": TRANSFORMATION_VERSION,
-        "root": root.as_posix(),
+        # repo-relative marker, never an absolute machine path (see the
+        # module docstring): artefact paths in every finding below are
+        # relative to this checkout root.
+        "root": ".",
+        "path_style": "repo-relative-posix",
         "policy_default": POLICY_DEFAULT,
         "policy_is_default_not_clearance": True,
         "reasons": reasons,

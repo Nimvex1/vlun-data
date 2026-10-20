@@ -45,7 +45,7 @@ TIER_RANK = {"qa": 1, "low": 1, "medium": 2, "high": 3, "critical": 3, "": 0, "i
 
 def load_jsonl(path):
     with open(path, encoding="utf-8") as fh:
-        return [json.loads(l) for l in fh if l.strip()]
+        return [json.loads(line) for line in fh if line.strip()]
 
 
 def severity_band(sev):

@@ -48,6 +48,35 @@ def fixture(name: str) -> dict:
     return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
 
 
+# -- what each test below needs to reach a verdict -----------------------------
+# Class (a): pure logic over tracked inputs -- LayerIsPresent, TasksAreComplete
+# (validate_task is structural only), SplitsAreGroupAware, LeakageLanguageIsHonest,
+# ScriptSurface, and the split/rationale/root-cause/cross-repo fixtures. They run,
+# pass and can fail on any machine, clones or not.
+# Class (b): the span re-hash fixtures, whose inputs are the git-ignored retrieval
+# trees (work/ + work/repos/ + V3/clones/). There the direction of each assertion
+# decides what happens without those bytes:
+#   * an assertion that a bad span is REFUSED stays enforced everywhere, because
+#     refusing an unverifiable span is the correct behaviour in both worlds;
+#   * an assertion that depends on the reason given, or that a good span is
+#     AGREED, can only be settled by the real bytes, so it is recorded as a skip
+#     with the missing input named -- never as a pass, never as a failure (the rule
+#     scripts/check_reproducibility.py applies to absent citation inputs).
+def pinned_bytes_readable(site: dict) -> bool:
+    """Can the pinned source this span cites actually be re-read from disk?
+
+    The vulnerable side resolves through ``local_sources`` to the retrieval
+    manifest and retrieved files under ``work/``; the reference side through the
+    pinned clone under ``work/repos/<owner>__<repo>``. Both trees are git-ignored
+    and never redistributed, so a fresh ``actions/checkout`` holds neither. This
+    asks ``read_back`` -- the code's own answer to "can these bytes be re-read" --
+    so a test guarded by it skips when and only when the input is genuinely
+    absent.
+    """
+    text, _how = R.read_back(site)
+    return text is not None
+
+
 class LayerIsPresent(unittest.TestCase):
     def test_all_four_layer_files_exist(self):
         for name in ("tasks.jsonl", "hard_negatives.jsonl", "splits.json", "manifest.json"):
@@ -169,16 +198,38 @@ class BrokenFixturesAreCaught(unittest.TestCase):
 
     def test_span_that_does_not_hash_match_the_pinned_source_is_rejected(self):
         bad = fixture("pair_span_hash_mismatch.json")
-        agree, detail = R.span_rehash_disagreement(bad["spans"]["vulnerable"])
+        bad_site = bad["spans"]["vulnerable"]
+        good_site = TASKS[0]["spans"]["vulnerable"]
+        agree, detail = R.span_rehash_disagreement(bad_site)
+        # This half needs no clones and stays enforced everywhere: a span whose
+        # bytes cannot be verified is never agreed.
         self.assertFalse(agree, detail)
+        # The rest of the verdict does need the bytes. Without them the validator
+        # honestly reports "pinned source could not be re-read", which is not the
+        # hash mismatch this fixture exists to prove -- so it is a skip, never a
+        # pass and never a failure (see scripts/check_reproducibility.py).
+        if not (pinned_bytes_readable(bad_site) and pinned_bytes_readable(good_site)):
+            cited = "{}@{} {}".format(
+                bad_site.get("owner_repo"),
+                bad_site.get("revision") or bad_site.get("commit_sha"),
+                bad_site.get("file"))
+            self.skipTest(
+                "skipped_no_network: V3/clones/ and work/ absent (citation inputs are "
+                "git-ignored and never redistributed); this assertion needs the pinned "
+                f"source bytes of {cited} plus those of the shipped task they are "
+                "compared with, so neither the hash-mismatch reason nor the positive "
+                "re-hash can be reached")
         self.assertIn("hash", detail)
         # and the real one still agrees
-        good = TASKS[0]
-        a2, _ = R.span_rehash_disagreement(good["spans"]["vulnerable"])
+        a2, _ = R.span_rehash_disagreement(good_site)
         self.assertTrue(a2)
 
     def test_span_pointing_at_the_wrong_bytes_is_rejected(self):
         bad = fixture("pair_span_points_at_wrong_bytes.json")
+        # Deliberately NOT skipped: this assertion only requires the refusal, and
+        # the refusal is correct in both worlds -- a reference span that cannot be
+        # re-read must not be agreed either. If the guard is weakened so that an
+        # unverifiable span is agreed, this test still goes red on a fresh clone.
         agree, detail = R.span_rehash_disagreement(bad["spans"]["reference"])
         self.assertFalse(agree, detail)
 

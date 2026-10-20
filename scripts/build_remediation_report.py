@@ -96,7 +96,7 @@ def rows(d: dict) -> list[tuple]:
     rej, prove = d["rejection"], d["prove"]
     dens, unb = d["density"], d["unblock"]
     nv, sp = d["nonevm"], d["spans"]
-    sib, sibrev = d["siblings"], d["sibling_review"]
+    sib = d["siblings"]
     tax, iaa = d["taxonomy"], d["iaa"]
     rights, mig = d["rights"], d["migration"]
     return [

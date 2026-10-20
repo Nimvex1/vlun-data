@@ -65,7 +65,8 @@ def prerequisites() -> list[dict]:
          "install_command": None if solana else SOLANA_INSTALL, "blocking": True},
         {"tool": "cargo", "install_status": "installed" if C.which("cargo")
          else "missing", "version": C.tool_version(["cargo", "--version"]),
-         "install_command": None, "blocking": False,
+         "install_command": None if C.which("cargo") else "https://rustup.rs",
+         "blocking": False,
          "note": "present, and enough for a crate-level harness, but not for "
                  "`anchor test`, which needs a BPF build and a local validator"},
         {"tool": "cryptography tooling note", "install_status": "not_used",

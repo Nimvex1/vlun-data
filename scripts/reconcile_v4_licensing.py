@@ -89,7 +89,7 @@ def diff_fields(before: dict, after: dict) -> list[str]:
 
 
 def migrate(path: Path, by_id: dict, doc: dict, write: bool) -> dict:
-    rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     changed = 0
     offlimits = []
     stats: dict[str, int] = {}

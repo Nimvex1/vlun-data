@@ -31,8 +31,8 @@ FIXTURES = ROOT / "tests" / "fixtures" / "broken" / "poc_triage"
 
 
 def load_rows(p: Path) -> list[dict]:
-    return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines()
-            if l.strip()]
+    return [json.loads(line) for line in p.read_text(encoding="utf-8").splitlines()
+            if line.strip()]
 
 
 class TestCommittedQueue(unittest.TestCase):
@@ -43,8 +43,8 @@ class TestCommittedQueue(unittest.TestCase):
     def test_covers_every_exploit_record(self):
         rows = load_rows(QUEUE)
         v1 = [r for r in rows if r["candidate_layer"] == bq.LAYER_V1]
-        n_exploit = len([l for l in EXPLOITS.read_text(encoding="utf-8").splitlines()
-                         if l.strip()])
+        n_exploit = len([line for line in EXPLOITS.read_text(encoding="utf-8").splitlines()
+                         if line.strip()])
         self.assertEqual(len(v1), n_exploit,
                          "the queue must hold exactly one row per exploit record, "
                          "no silent subsetting")
@@ -64,9 +64,9 @@ class TestCommittedQueue(unittest.TestCase):
     def test_committed_queue_validates(self):
         rows = load_rows(QUEUE)
         errs = bq.validate_queue_rows(
-            rows, expected_v1=len([l for l in
+            rows, expected_v1=len([line for line in
                                    EXPLOITS.read_text(encoding="utf-8").splitlines()
-                                   if l.strip()]))
+                                   if line.strip()]))
         self.assertEqual(errs, [], "queue breaches: " + "; ".join(errs[:5]))
 
     def test_every_row_names_a_pointer_not_code(self):

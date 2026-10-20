@@ -31,8 +31,8 @@ FIXTURES = ROOT / "tests" / "fixtures" / "broken" / "poc_attempts"
 
 
 def load_rows(p: Path) -> list[dict]:
-    return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines()
-            if l.strip()]
+    return [json.loads(line) for line in p.read_text(encoding="utf-8").splitlines()
+            if line.strip()]
 
 
 class TestCommittedLedger(unittest.TestCase):
