@@ -1,0 +1,149 @@
+{
+  "blocking_counts": {
+    "cross_file_separation_without_root_cause_evidence": 16510,
+    "same_root_cause_label": 542,
+    "shared_function_target": 501
+  },
+  "corpus_records": 458,
+  "definitions_version": "rejection-definitions-1.0",
+  "fa": {
+    "assessability": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": 458,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": 458,
+      "reason_attributed_to_judge_or_sponsor": 458,
+      "reason_supported_by_cited_code": 292,
+      "rejection_status_publicly_reported": 458,
+      "unknown_or_insufficient_evidence": 458
+    },
+    "axes_supported": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": 193,
+      "reason_attributed_to_judge_or_sponsor": 9,
+      "reason_supported_by_cited_code": 1,
+      "rejection_status_publicly_reported": 458,
+      "unknown_or_insufficient_evidence": 256
+    },
+    "by_answer_key_status": {
+      "labeled": 292,
+      "partial": 166
+    },
+    "by_split": {
+      "test": 38,
+      "train": 232,
+      "validation": 188
+    },
+    "per_axis_assessable_crosscheck": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": 458,
+      "exploit_attempted_and_claimed_violation_not_demonstrated": 458,
+      "reason_attributed_to_judge_or_sponsor": 458,
+      "reason_supported_by_cited_code": 292,
+      "rejection_status_publicly_reported": 458,
+      "unknown_or_insufficient_evidence": 458
+    },
+    "per_axis_metrics": {
+      "claim_corroborated_as_duplicate_of_confirmed_finding": {
+        "coverage": 458,
+        "evidence_given_in_packet": true,
+        "majority_baseline_accuracy": 0.5786,
+        "supported_rate": 0.4214,
+        "unknown_rate": 0.0
+      },
+      "exploit_attempted_and_claimed_violation_not_demonstrated": {
+        "coverage": 458,
+        "evidence_given_in_packet": true,
+        "majority_baseline_accuracy": 1.0,
+        "supported_rate": 0.0,
+        "unknown_rate": 0.0
+      },
+      "reason_attributed_to_judge_or_sponsor": {
+        "coverage": 458,
+        "evidence_given_in_packet": false,
+        "majority_baseline_accuracy": 0.9803,
+        "supported_rate": 0.0197,
+        "unknown_rate": 0.0
+      },
+      "reason_supported_by_cited_code": {
+        "coverage": 292,
+        "evidence_given_in_packet": false,
+        "majority_baseline_accuracy": 0.9966,
+        "supported_rate": 0.0034,
+        "unknown_rate": 0.0
+      },
+      "rejection_status_publicly_reported": {
+        "coverage": 458,
+        "evidence_given_in_packet": true,
+        "majority_baseline_accuracy": 1.0,
+        "supported_rate": 1.0,
+        "unknown_rate": 0.0
+      },
+      "unknown_or_insufficient_evidence": {
+        "coverage": 458,
+        "evidence_given_in_packet": false,
+        "majority_baseline_accuracy": 0.559,
+        "supported_rate": 0.559,
+        "unknown_rate": 0.0
+      }
+    },
+    "rows": 458,
+    "scorable_rows": 292,
+    "status_accounting": {
+      "labeled": 292,
+      "partial": 166
+    },
+    "technical_explanation_rows": 6,
+    "unique_source_records": 458
+  },
+  "fb": {
+    "adjudicated_distinct_pairs": 258,
+    "ambiguous_class_pairs": 111,
+    "ambiguous_unscorable_pairs": 0,
+    "by_relationship": {
+      "ambiguous": 111,
+      "distinct_vulnerability": 258,
+      "same_vulnerability": 184
+    },
+    "by_split": {
+      "test": 31,
+      "train": 323,
+      "validation": 199
+    },
+    "confirmed_duplicate_pairs": 184,
+    "corpus_pointer_evidence": {
+      "explicit_pointer": 193,
+      "no_duplicate_pointer_at_all": 120,
+      "pointer_names_an_unresolved_issue": 145
+    },
+    "corpus_records_with_no_positive_pair": 265,
+    "distinct_independent_projects": 5,
+    "excluded_pairs": {
+      "judgement_phrase_in_model_input": 68
+    },
+    "pair_rows": 553,
+    "unique_candidate_submissions": 386,
+    "unique_canonical_findings": 119
+  },
+  "generated_by": "scripts/build_f_extension.py",
+  "independent_projects_in_corpus": {
+    "2022-05-alchemix": 33,
+    "2024-01-decent": 88,
+    "2024-01-renft": 100,
+    "2024-04-noya": 199,
+    "2024-08-wildcat": 38
+  },
+  "non_additivity": "axis totals overlap and are not additive; a record may support several axes at once",
+  "schema_version": "vlun-f-extension/1.0",
+  "split_grouping": {
+    "audits": 8,
+    "audits_straddling_split": 0,
+    "by_split_records": {
+      "test": 147,
+      "train": 344,
+      "validation": 229
+    },
+    "cluster_members": 730,
+    "clusters": 8,
+    "clusters_straddling_split": 0,
+    "limitation": "8 audit projects exist in this corpus, so the split is project-disjoint (measured, not assumed) but a project-held-out split rests on a handful of projects and per-project metrics stay noisy",
+    "method": "inherits the published splits_v2 assignment; clusters are submission + canonical finding + audit and are measured against that assignment rather than re-derived",
+    "project_held_out_credible": false
+  }
+}

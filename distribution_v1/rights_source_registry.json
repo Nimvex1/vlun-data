@@ -138,8 +138,12 @@
         "e8a0263b8208c5de22074361c1d64f59a3e767e5"
       ],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "redistributable": 1,
+        "unknown": 60
+      },
       "license_status_required": "none_declared",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 54,
       "redistribution_right": "not_documented",
       "registered_rows": 61,
@@ -164,8 +168,12 @@
         "d562762c3bf58cca7e24171873fb7b6fbfa7b2b5"
       ],
       "legal_clearance": false,
-      "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 5,
+        "unknown": 95
+      },
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 74,
       "redistribution_right": "not_documented",
       "registered_rows": 100,
@@ -173,7 +181,7 @@
       "source_name": "Code4rena 2024-01-decent audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-01-decent",
       "upstream_licence_declared_in_manifest": null,
-      "upstream_licence_observed": "source_available_not_redistributable"
+      "upstream_licence_observed": null
     },
     {
       "current_declared_status": {
@@ -184,8 +192,12 @@
       "derivatives_allowed": false,
       "immutable_commits": [],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 120,
+        "unknown": 9
+      },
       "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 0,
       "redistribution_right": "not_documented",
       "registered_rows": 129,
@@ -207,8 +219,12 @@
         "cc3854f634a72bd4a8b597021887088ca2d6d29f"
       ],
       "legal_clearance": false,
-      "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 12,
+        "unknown": 273
+      },
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 268,
       "redistribution_right": "not_documented",
       "registered_rows": 285,
@@ -216,7 +232,7 @@
       "source_name": "Code4rena 2024-04-noya audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-04-noya",
       "upstream_licence_declared_in_manifest": null,
-      "upstream_licence_observed": "source_available_not_redistributable"
+      "upstream_licence_observed": null
     },
     {
       "current_declared_status": {
@@ -227,8 +243,12 @@
       "derivatives_allowed": false,
       "immutable_commits": [],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 67,
+        "unknown": 3
+      },
       "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 0,
       "redistribution_right": "not_documented",
       "registered_rows": 70,
@@ -247,8 +267,12 @@
       "derivatives_allowed": false,
       "immutable_commits": [],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 21,
+        "unknown": 11
+      },
       "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 0,
       "redistribution_right": "not_documented",
       "registered_rows": 32,
@@ -269,8 +293,11 @@
         "8ef6d867a5fb6ffd1a6cc479a2380a611d452b4a"
       ],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "unknown": 4
+      },
       "license_status_required": "none_declared",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 4,
       "redistribution_right": "not_documented",
       "registered_rows": 4,
@@ -292,8 +319,11 @@
         "f43e1eedb65e7e0327cfaf4d7608a37d85d2fae7"
       ],
       "legal_clearance": false,
+      "license_classification_counts": {
+        "unknown": 41
+      },
       "license_status_required": "none_declared",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 24,
       "redistribution_right": "not_documented",
       "registered_rows": 41,

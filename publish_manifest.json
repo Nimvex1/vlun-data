@@ -1,6 +1,16 @@
 {
+  "attribution_is_not_a_right_grant": true,
   "code_context_entries_removed": 1936,
+  "covers_third_party_material": false,
   "generated_by": "scripts/build_reproduction.py (v1 publish/redaction pass)",
+  "hash_or_url_is_not_a_right_grant": true,
+  "legal_clearance_claimed": false,
+  "licences_of_released_paths": {
+    "code": "MIT",
+    "data": "CC-BY-4.0",
+    "note": "these are the licences of the released paths only. The per-path statement is RELEASE_MANIFEST.json's `path_licences`; no third-party material is licensed here, wherever it occurs."
+  },
+  "not_a_legal_clearance": true,
   "patch_diffs_removed": 76,
   "records_written": 1898,
   "records_written_breakdown": {
@@ -9,5 +19,9 @@
     "splits_v2_rows": 945
   },
   "records_written_is_not_a_record_count": true,
+  "release_manifest": "RELEASE_MANIFEST.json",
+  "release_manifest_version": "release-1.0",
+  "released_set_rule": "a tracked path that is not listed in RELEASE_MANIFEST.json with a released rights status is not licensed here and is not cleared for redistribution",
+  "release_scope_note": "This file records the v1 publish/redaction pass. It is not the statement of what may be redistributed: RELEASE_MANIFEST.json is, path by path, and it is the only statement of the release boundary. The v1 counts below describe what the redactor removed from the v1 layer; they do not count the third-party material that is still present in the research tree, which the manifest marks as withheld or as an internal research artefact.",
   "source_lines_withheld": 46070
 }

@@ -299,18 +299,32 @@ class TestAdditiveAndReproducible(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
     def test_holdout_tasks_carry_no_label_in_their_group(self):
-        """The written tasks must not smuggle the answer in `group`."""
+        """The written tasks must not smuggle the answer in `group` or `gold`.
+
+        The answer key is a SEPARATE file now, and it is committed in this
+        repository, so the model-facing task row must carry the input and a
+        task id and nothing else: not the label, not the original record id,
+        not the group key (which is the answer for families K and R/U/V).
+        """
         p = ROOT / "benchmark" / "independent" / "secondary_holdout_tasks.jsonl"
+        k = ROOT / "benchmark" / "independent" / "secondary_holdout_keys.jsonl"
         seen = 0
         for line in p.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
             r = json.loads(line)
             self.assertIn(r["holdout"], ("group_disjoint", "class_disjoint"))
-            self.assertIn("gold", r)
+            for field in ("gold", "original_id", "original_split", "group"):
+                self.assertNotIn(field, r)
             if r["holdout"] == "class_disjoint":
                 seen += 1
         self.assertGreater(seen, 0)
+        keys = [json.loads(x) for x in
+                k.read_text(encoding="utf-8").splitlines() if x.strip()]
+        self.assertTrue(keys)
+        for row in keys:
+            self.assertIn("gold", row)
+            self.assertEqual(row["key_status"], "OPEN_KEY")
 
     def test_no_family_is_silently_counted_as_zero(self):
         """Non-scorable families must carry a reason, not a zero score."""

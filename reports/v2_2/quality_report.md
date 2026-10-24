@@ -85,21 +85,23 @@ Every v2.2 pointer records the sha256 of its record; `scripts/validate.py` recom
 
 ## Benchmark
 
-- families: **17** (A-J v1, K-Q v2.2)
-- tasks: **4972**, labeled: **2122**, partial: **432**, unlabeled: **2416**
+- families: **19** (A-J v1, K-Q v2.2)
+- tasks: **5981**, labeled: **3198**, partial: **182**, unlabeled: **2599**
 
 | family | layer | tasks | labeled | partial | unlabeled | train/val/test |
 |---|---|---|---|---|---|---|
 | A | v1 | 720 | 720 | 0 | 0 | 344/229/147 |
-| B | v1 | 720 | 0 | 416 | 304 | 344/229/147 |
+| B | v1 | 720 | 228 | 0 | 492 | 344/229/147 |
 | C | v1 | 720 | 290 | 0 | 430 | 344/229/147 |
 | D | v1 | 720 | 346 | 0 | 374 | 344/229/147 |
 | E | v1 | 720 | 7 | 0 | 713 | 344/229/147 |
 | F | v1 | 458 | 17 | 0 | 441 | 232/188/38 |
-| G | v1 | 38 | 0 | 0 | 38 | 0/18/20 |
+| FA | v1 | 458 | 292 | 166 | 0 | 232/188/38 |
+| FB | v1 | 553 | 553 | 0 | 0 | 323/199/31 |
+| G | v1 | 38 | 5 | 0 | 33 | 0/18/20 |
 | H | v1 | 7 | 7 | 0 | 0 | 0/7/0 |
 | I | v1 | 3 | 1 | 0 | 0 | 0/3/0 |
-| J | v1 | 7 | 7 | 0 | 0 | 0/7/0 |
+| J | v1 | 5 | 5 | 0 | 0 | 0/5/0 |
 | K | v2.2 | 137 | 137 | 0 | 0 | 76/30/31 |
 | L | v2.2 | 137 | 128 | 6 | 3 | 76/30/31 |
 | M | v2.2 | 37 | 37 | 0 | 0 | 31/5/1 |
@@ -114,7 +116,7 @@ families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2
 
 - report: `reports/leakage_report_v22.json`
 - sources spanning splits: `0`
-- validation gate: 66/66 checks passed, 0 critical failures
+- validation gate: 75/78 checks passed, 3 critical failures
 
 ## Honest limitations
 

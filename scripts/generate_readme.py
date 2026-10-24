@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,19 +25,99 @@ README = ROOT / "README.md"
 NOTICE = ROOT / "NOTICE.md"
 
 
+#: How a source's declared terms are rendered in the notice's attribution
+#: table. The vocabulary comes from the rights registry
+#: (`distribution_v1/rights_source_registry.json`), not from prose.
+NOTICE_TERMS = {
+    "none_declared": "no licence found",
+    "cc-by-nd-4.0": "CC BY-ND 4.0",
+    "source_available_not_redistributable":
+        "source-available, not redistributable",
+}
+
+#: How a source's redistribution right is rendered.
+NOTICE_RIGHTS = {
+    "not_documented": "not documented",
+    "documented": "documented (share with attribution; no derivatives)",
+}
+
+
+#: The open questions the notice's table can show, keyed by the identifier
+#: the release manifest uses.  The prose is written here; WHICH of them the
+#: notice lists is read from the manifest, so a question that is closed
+#: disappears from the notice without anyone editing a table row by hand.
+NOTICE_QUESTIONS = {
+    "OQ-001": (
+        "May the {flagged} v1 records' quoted Solidity ({ctx_text} "
+        "`code_context` entries carrying text) be redistributed at all?",
+        "The upstream repositories declare no licence, so there is no term to "
+        "read and no permission to point at. The absence of a licence is not "
+        "a grant, and no permission was obtained from the protocol authors.",
+    ),
+    "OQ-002": (
+        "May the Code4rena contestant proof-of-concept code be redistributed "
+        "as quoted evidence?",
+        "The code belongs to the contestants. No licence or permission was "
+        "conveyed to the pipeline. The contest terms and the applicable law "
+        "have to be read by a human.",
+    ),
+    "OQ-003": (
+        "Does the BUSL-1.1 Change Date convert the reNFT/BakerFi/Wildcat "
+        "citations to an open licence, and does the project want to rely on "
+        "it?",
+        "That is a question about each upstream commit and about the owner's "
+        "intent, not something a script can decide.",
+    ),
+    "OQ-004": (
+        "Is every transformation this pipeline applies to an Oak Security "
+        "report a derivative barred by No-Derivatives?",
+        "Whether a mined field, a projection or a digest is a derivative is "
+        "a legal question that turns on the term and the jurisdiction. The "
+        "passages are withheld rather than argued.",
+    ),
+    "OQ-005": (
+        "How may the named individuals' work addresses mined out of the "
+        "Halborn reports be handled?",
+        "Redaction is a data-protection decision, not a copyright one, and "
+        "the project's own legal basis for processing them has to be "
+        "confirmed.",
+    ),
+}
+
+
 def render_notice() -> str:
-    """NOTICE.md is generated because its numbers change with every build."""
+    """NOTICE.md is generated because its numbers change with every build.
+
+    The template is this project's own statement of the release boundary: what
+    is released and what is not, the attribution table, the statement that
+    attribution is not a redistribution right, and the open questions that need
+    human legal review. Every count in it is read from the artefact that owns
+    it; the prose is hand-written, because prose is not a number.
+    """
     man = jread(ROOT / "publish_manifest.json", {}) or {}
     ver = jread(REPORTS / "verification_stats.json", {}) or {}
     dm = jread(DERIVED / "manifest.json", {}) or {}
+    reg = jread(ROOT / "distribution_v1" / "rights_source_registry.json", {}) or {}
+    relman = jread(ROOT / "RELEASE_MANIFEST.json", {}) or {}
+    exp = jread(REPORTS / "verified_experiments.json", {}) or {}
+    pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     tot = ver.get("totals", {})
     comp = ver.get("poc_compilation_rate", {})
     flagged = dm.get("redistribution_flagged", {}).get(
         "source_redistributed_without_declared_license", 0)
-    ex = sum(1 for _ in open(DERIVED / "records.jsonl", encoding="utf-8")) \
-        if (DERIVED / "records.jsonl").exists() else 0
-    exp = jread(REPORTS / "verified_experiments.json", {}) or {}
-    pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
+    # The derived records are counted from the records themselves: how many
+    # there are, and how many of them carry a `code_context` entry that still
+    # holds text. The second number is the one the rights gate's open
+    # questions quote, so it cannot be typed in here.
+    ex = 0
+    ctx_text = 0
+    _vpath = DERIVED / "records.jsonl"
+    if _vpath.exists():
+        for _rec in read_jsonl(_vpath):
+            ex += 1
+            for _e in (_rec.get("code_context") or []):
+                if isinstance(_e, dict) and (_e.get("snippet") or "").strip():
+                    ctx_text += 1
     exp_verdicts: dict = {}
     for _e in exp.get("experiments", []):
         exp_verdicts[_e.get("verdict")] = exp_verdicts.get(_e.get("verdict"), 0) + 1
@@ -44,19 +125,76 @@ def render_notice() -> str:
     def n(x) -> str:
         return f"{x:,}" if isinstance(x, int) else str(x)
 
-    return f"""# NOTICE — third-party source code, and what was verified
+    def _display(sid: str, name: str) -> str:
+        if sid.startswith("code4rena/"):
+            return "Code4rena " + sid.split("/", 1)[1]
+        return name
+
+    attrib_rows = "\n".join(
+        f"| `{s.get('source_id')}` | "
+        f"{_display(s.get('source_id') or '', s.get('source_name') or '')} | "
+        f"{NOTICE_TERMS.get(s.get('license_status_required') or '', 'unknown')} | "
+        f"{NOTICE_RIGHTS.get(s.get('redistribution_right') or '', 'unknown')} | "
+        f"{n(s.get('registered_rows') or 0)} | "
+        f"{n(s.get('records_carrying_verbatim_source') or 0)} |"
+        for s in (reg.get("sources") or []))
+
+    # The open-question table follows the release manifest: the rows are the
+    # questions the manifest declares, in the manifest's order, and the prose
+    # for each is written here.  A question the manifest closes (its
+    # contradiction is measured and gone) therefore disappears from the
+    # notice without anyone deleting a row by hand.
+    _oq_rows = "\n".join(
+        f"| {qid} | {qtext.format(flagged=n(flagged), ctx_text=n(ctx_text))} | "
+        f"{why} |"
+        for qid, (qtext, why) in (
+            (q["id"], NOTICE_QUESTIONS.get(q["id"], (q.get("question", ""),
+                                                     q.get("why_not_mechanically_resolvable", ""))))
+            for q in (relman.get("open_questions") or [])
+        ))
+
+    text = f"""# NOTICE — third-party source code, and what was verified
 
 This repository is a **redacted** copy of a Code4rena-derived smart-contract
 security dataset. The reasoning, validation and exploit data are present; a
 portion of the embedded Solidity source has been removed for licensing reasons.
 
+## What is released, and what is not
+
+`RELEASE_MANIFEST.json` is the authoritative statement of what this project
+licenses for redistribution. It is generated by
+`scripts/build_release_manifest.py` and enforced by
+`scripts/check_rights_consistency.py`.
+
+- A path listed with a released rights status (`project_own`,
+  `metadata_only`, `attribution_required`) is inside the released set and is
+  covered by `LICENSE` parts 1 and 2.
+- A path listed as `withheld_third_party_no_redistribution_rights` carries
+  copied third-party material whose redistribution right was never
+  established. It is retained in the research tree and is **not** licensed
+  here.
+- A path listed as `internal_research_artefact_not_cleared` is the project's
+  own working artefact whose rights position is not established. It is
+  retained in the research tree and is **not** licensed here.
+
+The short version: the released set is the pipeline, the tests, the schemas,
+the documentation, the decision records, the analysis reports and the
+rights-redacted `distribution_v1/` view. The evidence corpus
+(`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `training/`, `datasets/`,
+`Vbeta/`) and the run logs under `experiments*/` are not in it.
+
 ## What was withheld from the published copy
 
 | | |
 |---|---|
-| `code_context` entries removed | {man.get('code_context_entries_removed', 0):,} |
-| Solidity lines withheld | {man.get('source_lines_withheld', 0):,} |
-| Fixing diffs withheld | {man.get('patch_diffs_removed', 0):,} |
+| `code_context` entries removed | {n(man.get('code_context_entries_removed', 0))} |
+| Solidity lines withheld | {n(man.get('source_lines_withheld', 0))} |
+| Fixing diffs withheld | {n(man.get('patch_diffs_removed', 0))} |
+
+These are the figures of the v1 publish/redaction pass recorded in
+`publish_manifest.json`. They are *not* a count of the material still
+present in this repository: {n(flagged)} of the {n(ex)} derived records still carry
+source text, and the counting is stated below.
 
 ## Why
 
@@ -78,12 +216,42 @@ redistributed upstream. That is a deliberate, upstream decision, not a
 determination that the terms are permissive.
 
 `python scripts/fetch_sources.py` reads the LICENSE file at each cited commit and
-reports what it finds. {flagged} of {ex:,} derived records carry source text from
+reports what it finds. {n(flagged)} of {n(ex)} derived records carry source text from
 a repository that declares **no licence at all**: their terms are unstated rather
 than permissive. Each is flagged at `redistribution.flag` in
 `derived/records.jsonl`. **If you need a strictly licence-clean corpus, treat
 every `code_context[].snippet` in this repository as a citation to resolve from
 the original audit rather than as redistributable text.**
+
+The per-record classification inside one repository is not uniform: the same
+repository is classified `unknown` on most of its records and
+`source_available_but_not_redistributable` on a few. The counts are published
+per repository in `distribution_v1/rights_source_registry.json`
+(`license_classification_counts`) so the mixture is visible rather than
+flattened into one verdict, and the repository-level status follows the records
+that actually carry verbatim source.
+
+## Attribution — and what attribution is not
+
+`distribution_v1/rights_source_registry.json` is the machine-readable
+attribution table: one row per upstream source, with its URL, the pinned
+commit, the terms it declares about its own content, the number of records
+registered from it, and the number that carry verbatim source. The per-record
+pointers (path, commit, line range, permalink, sha256) are in
+`distribution_v1/records_v1_withheld_pointers.jsonl` and
+`distribution_v1/records_v4_withheld_pointers.jsonl`.
+
+| source id | source | declared terms | redistribution right | records registered | records carrying verbatim source |
+|---|---|---|---|---|---|
+{attrib_rows}
+
+**Attribution is not a redistribution right.** Naming an author, linking to
+their audit, or recording the sha256 of the bytes they published identifies
+whose work it is. It does not license it, does not substitute for the terms
+they set, and does not become a grant by being repeated. Where a source has
+declared no terms at all, there is nothing to comply with and nothing that
+attribution can supply. The tables above are an obligation this project
+discharges; they are not a clearance the upstream authors gave.
 
 ## Provenance is intact
 
@@ -106,9 +274,26 @@ recorded in `V4/licensing.json`, mirrored into
 contradicts itself across the layers or if a distribution artefact carries copied
 expressive content.
 
+## Open questions — human legal review required
+
+These cannot be closed mechanically and are not closed here. They are
+reproduced with their reasons in `RELEASE_MANIFEST.json` under
+`open_questions`; the identifiers match.
+
+| id | question | why it cannot be resolved here |
+|---|---|---|
+{_oq_rows}
+
+The blanket-licence case that used to be open here is closed: `README.md`,
+`docs/DATASHEET.md`, `CITATION.cff` and `.zenodo.json` now state the release
+scope instead of granting rights over the whole tree, and
+`RELEASE_MANIFEST.json` records that measurement under
+`foreign_statement_scan` — it is probed, not asserted, so a contradiction
+that comes back fails the rights gate instead of being tolerated.
+
 ## What execution actually established in v2.1
 
-v2 executed 155 PoCs with a weak criterion (any forge run) and reported 5 as "reproduced"
+v2 executed {tot.get('exploit_records', 0)} PoCs with a weak criterion (any forge run) and reported {tot.get('reproduced', 0)} as "reproduced"
 without recording the assertion that failed. v2.1 replaces that with pinpoint experiments:
 
 | | |
@@ -131,7 +316,7 @@ is not rewritten. Execution evidence lives in `reports/reproduction_stats.json`,
 
 ## What v2 execution established (superseded, kept for comparison)
 
-`jsonl/` is the original v1 layer and its `poc.reproducible` flags remain
+`jsonl/` is still the original v1 layer and its `poc.reproducible` flags remain
 `false` — that layer is not rewritten. Execution evidence lives in the derived
 layer:
 
@@ -180,6 +365,19 @@ Built entirely from public sources: `github.com/code-423n4/*` audit repositories
 the dependency repositories their reports cite, and the published reports at
 `code4rena.com`. No source URL in any record is synthesised.
 """
+    # The notice's open-question table is prose, but its identifiers are not:
+    # every question the release manifest declares must be listed here, and
+    # nothing else may be. The rights gate checks the same thing; this check
+    # makes the generator fail loudly instead of shipping a notice that has
+    # fallen behind the manifest.
+    declared = {q.get("id") for q in (relman.get("open_questions") or [])}
+    mentioned = set(re.findall(r"\bOQ-\d{3}\b", text))
+    if declared and declared != mentioned:
+        raise SystemExit(
+            "generate_readme.py: the notice's open-question table "
+            f"({sorted(mentioned)}) does not match the release manifest's "
+            f"({sorted(declared)}); the two must list the same cases")
+    return text
 
 
 def jread(p: Path, default=None):
@@ -199,6 +397,12 @@ def render() -> str:
     pv = jread(REPORTS / "patch_verification_v2.json", {}) or {}
     negs = jread(REPORTS / "negative_verification_stats.json", {}) or {}
     _negm = negs.get("metrics") or {}
+    # The technical-reason count is read from the rejection-corpus statistics
+    # artefact, which is the one the rights gate compares the prose against
+    # (scripts/check_rejection_consistency.py). The other negative report
+    # restates the same axes; if the two ever disagree the gate fails, so the
+    # prose quotes the corpus.
+    _rejstats = jread(REPORTS / "rejection_evidence_stats.json", {}) or {}
     prove = jread(REPORTS / "prove_split_interface.json", {}) or {}
     _vpath = DERIVED / "records.jsonl"
     _derived_total = _derived_mutable = 0
@@ -302,6 +506,24 @@ def render() -> str:
     def _one(d):
         return json.dumps(d, sort_keys=True)
 
+    # The critical-failure count of every layer gate, read from the gates'
+    # own reports. The README used to assert "0 critical failures everywhere"
+    # as prose; a count that is recomputed cannot be wrong.
+    def _crit(_p: Path) -> int:
+        _d = jread(_p, {}) or {}
+        if isinstance(_d.get("critical_failures"), int):
+            return _d["critical_failures"]
+        if isinstance(_d.get("failed_critical"), int):
+            return _d["failed_critical"]
+        return sum(1 for _x in (_d.get("details") or [])
+                   if _x.get("critical", True) and not _x.get("ok"))
+
+    _crit_failures = sum(_crit(_p) for _p in (
+        REPORTS / "validation_report.json",
+        REPORTS / "v3" / "validation_v3.json",
+        REPORTS / "v3" / "validation_v31.json",
+        ROOT / "Vbeta" / "reports_vbeta" / "validation_vbeta.json"))
+
     rc = s.get("record_counts", {})
     # Live cross-manifest check count (written by check_manifests.py). Never a
     # literal: the README previously hard-coded 101 while the gate ran 171.
@@ -333,27 +555,49 @@ def render() -> str:
             return base.split("_")[1]
         return base.split("_")[0]
 
-    _sat_letters = set()
+    # The benchmark's family statuses come from the scorer's own report. The
+    # old scheme (RETIRED / EXPLORATORY / SATURATED) was decided by a
+    # hand-written retirement list plus a directory listing; the new one is
+    # computed at run time by scripts/benchmark_status.py from the independent
+    # audit's own measurements. Every letter and every count below is read out
+    # of that report -- never typed in.
     _bl_base = jread(REPORTS / "baselines" / "baseline_majority.json", {}) or {}
     _bl_rand = jread(REPORTS / "baselines" / "baseline_random_seed7.json", {}) or {}
     _bl_freq = jread(REPORTS / "baselines" / "baseline_frequency_seed7.json", {}) or {}
     _bl_fp = jread(REPORTS / "baselines" / "baseline_first_published.json", {}) or {}
     _bl_mp = jread(REPORTS / "baselines" / "baseline_majority_published.json", {}) or {}
     _bl_ret = jread(REPORTS / "baselines" / "baseline_retrieval.json", {}) or {}
+    _metrics = jread(REPORTS / "benchmark_metrics.json", {}) or {}
     _depth = jread(REPORTS / "depth_dashboard.json", {}) or {}
-    for _fam, _s in ((_bl_base.get("families") or {}).items()):
-        # None accuracy (nothing predicted) is not saturation; an explicit
-        # None check keeps a real 0.0 comparable and a missing value out.
-        if (isinstance(_s, dict)
-                and isinstance(_s.get("accuracy"), (int, float))
-                and _s["accuracy"] >= 0.94):
-            _sat_letters.add(_fam_letter(_fam))
-    # Exploratory families (below the 100-row headline floor) come from the
-    # same committed report, never typed in.
-    _expl_letters = {_fam_letter(_f) for _f in
-                     (_bl_base.get("families_exploratory") or {})}
+    # The model-visible corpus hygiene report: what `training/` ships and how
+    # many of its rows a benchmark family holds out.
+    _leakrep = jread(REPORTS / "eval_leakage_report.json", {}) or {}
+    _corpus = _leakrep.get("model_visible_corpus_hygiene") or {}
+    # The per-family status block: status, rows, labels, validity flags and
+    # the train-only shortcut floor of every family the scorer knows about.
+    _fstatus = _bl_base.get("family_status") or _metrics.get("family_status") or {}
+    _status_rules = _bl_base.get("status_rules") or _metrics.get("status_rules") or {}
+    _status_thresholds = (_bl_base.get("status_thresholds")
+                           or _metrics.get("status_thresholds") or {})
+
+    def _letters(families) -> str:
+        return ", ".join(sorted({_fam_letter(_f) for _f in families}))
+
+    _primary_fams = sorted(_bl_base.get("families") or {})
+    _expl_fams = sorted(_bl_base.get("families_exploratory") or {})
+    _invalid_fams = sorted(_bl_base.get("families_invalid") or {})
+    _retired_fams = sorted(_bl_base.get("families_retired") or {})
+    _primary_letters = _letters(_primary_fams)
+    _expl_letters = _letters(_expl_fams)
+    _invalid_letters = _letters(_invalid_fams)
+    _retired_block_letters = _letters(_retired_fams)
     _expl_scorable = (_bl_base.get("micro_exploratory") or {}).get(
         "scorable", 0) or 0
+    _invalid_scorable = (_bl_base.get("micro_invalid") or {}).get(
+        "scorable", 0) or 0
+    _retired_block_scorable = (_bl_base.get("micro_retired") or {}).get(
+        "scorable", 0) or 0
+
     def _retired(fam_key: str) -> bool:
         # Manifest task keys (A_vulnerability_detection, R_v3_source_tier_routing)
         # vs retired task-file names (A_vulnerability_detection.jsonl,
@@ -362,14 +606,9 @@ def render() -> str:
             return True
         return V3_FAMILY_FILES.get(fam_key, "") in RETIRED_FAMILIES
 
-    # Manifest-scorable universe vs scorer-covered headline set, reconciled
-    # live: the gap is the retired families' scorable rows, the exploratory
-    # families' sub-floor rows, plus the three out-of-scope families
-    # (D generative, H descriptive, Q judge-graded).
-    _excl_reasoned = sum(
-        (_spec.get("scorable", 0) if isinstance(_spec, dict) else _spec)
-        for _fam, _spec in _btasks.items()
-        if _fam_letter(_fam) in ("D", "H", "Q"))
+    # The retired roster is a location, not a verdict: the files under
+    # benchmark/retired_families/ are still shipped, audited and scored, and
+    # their status is computed from the data like every other family's.
     _retired_scorable = sum(
         (_spec.get("scorable", 0) if isinstance(_spec, dict) else _spec)
         for _fam, _spec in _btasks.items() if _retired(_fam))
@@ -379,33 +618,70 @@ def render() -> str:
     _retired_letters = ", ".join(
         sorted({_fam_letter(_f) for _f in RETIRED_FAMILIES}))
 
-    def _status(fam: str) -> str:
-        if _retired(fam):
-            return "RETIRED"
-        if _fam_letter(fam) in _expl_letters:
-            return "EXPLORATORY"
-        if _fam_letter(fam) in _sat_letters:
-            return "SATURATED"
-        return ""
+    # The three families with no exactly-matchable scalar key (D generative,
+    # H descriptive, Q judge-graded). Their exclusion is recorded per family
+    # in the scorer's own coverage block, with a reason.
+    _excl = (_bl_base.get("coverage") or {}).get("excluded_families") or {}
+    _excl_reasoned = sum(int(v.get("tasks") or 0) for v in _excl.values())
+    _excl_fams = _letters(_excl)
 
-    _bench_rows = "\n".join(
-        f"| `{fam}` | {n((spec if isinstance(spec, dict) else {}).get('tasks', 0))} | "
-        f"{n((spec if isinstance(spec, dict) else {}).get('scorable', 'n/a'))} | "
-        f"{_status(fam)} | v1/A-Q |"
-        for fam, spec in sorted(_btasks.items()))
-    _v3bench_rows = "\n".join(
-        f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
-        f"{_status(fam)} | v3 |"
-        for fam, tasks in sorted(_v3tasks.items()))
-    _vbbench_rows = "\n".join(
-        f"| `{fam}` | {n(tasks)} | {n(tasks)} | "
-        f"{_status(fam)} | Vbeta |"
-        for fam, tasks in sorted(_vbm_tasks.items()))
+    def _status(fam_file: str) -> str:
+        """The audited status of one family, from the scorer's status block."""
+        _st = _fstatus.get(fam_file) or {}
+        return _st.get("status") or "UNKNOWN"
+
+    def _rows_of(fam_file: str) -> tuple:
+        _st = _fstatus.get(fam_file) or {}
+        return (n(_st.get("rows_total") or 0),
+                n(_st.get("rows_scorable") or 0))
+
+    def _layer(fam_key: str) -> str:
+        if fam_key.startswith("v3_") or fam_key.startswith(("R_v3", "S_v3", "T_v3")):
+            _layer_name = "v3"
+        elif fam_key.startswith("vbeta_"):
+            _layer_name = "Vbeta"
+        else:
+            _layer_name = "v1/A-Q"
+        return _layer_name + (" (retired)" if _retired(fam_key) else "")
+
+    def _fam_rows() -> str:
+        """One row per family: the manifest key, the audited row counts and
+        the audited status. The task file name is the link to the status
+        block, so the table cannot disagree with the scorer."""
+        out = []
+        for fam_key in (sorted(_btasks) + sorted(_v3tasks) + sorted(_vbm_tasks)):
+            fam_file = V3_FAMILY_FILES.get(fam_key, f"{fam_key}.jsonl")
+            _tasks, _scorable = _rows_of(fam_file)
+            out.append(f"| `{fam_key}` | {_tasks} | {_scorable} | "
+                       f"{_status(fam_file)} | {_layer(fam_key)} |")
+        return "\n".join(out)
+
+    _bench_rows = _fam_rows()
     _v22_lvl = d22m.get("experiment_levels", {}) or {}
     _v22_verified = sum(v for k, v in _v22_lvl.items() if k in ("L5", "L6"))
     _vb_lvl = vbm.get("candidate_verification_levels", {}) or {}
     _vb_verified = sum(v for k, v in _vb_lvl.items() if k in ("L5", "L6"))
     _cov = (_bl_base.get("coverage") or {})
+
+    # The primary metric and its held-out floor, from the scorer's own
+    # metric report. The floor is fitted on the train rows only.
+    _pm = _metrics.get("primary_metric") or {}
+    _prim_fams = _pm.get("families") or _primary_fams
+    _prim_denominator = _pm.get("denominator") or (
+        _bl_base.get("micro") or {}).get("scorable", 0) or 0
+    _prim_splits = _pm.get("by_split") or {}
+    _bl_floors = (_metrics.get("baselines") or {})
+
+    def _floor(kind: str) -> dict:
+        for _fam, _f in ((_bl_floors.get(kind) or {}).get("primary") or {}).items():
+            if _fam in _prim_fams:
+                return _f
+        return {}
+
+    def _floor_acc(kind: str) -> str:
+        _f = _floor(kind)
+        _a = _f.get("test_accuracy")
+        return f"{_a:.4f}" if isinstance(_a, (int, float)) else "n/a"
 
     def _acc(x):
         return f"{x:.4f}" if isinstance(x, (int, float)) else "n/a"
@@ -455,7 +731,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced thefts, {(proof32.get('by_level') or {}).get('L3', 0)} blocked at L3 |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates ({_crit_failures} critical failures): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_l5)}/{n(v3m.get('record_count', 0))} · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_executed)}/{n(v3m.get('record_count', 0))} · Vbeta 0/{n(vbm.get('record_count', 0))}. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -477,7 +753,7 @@ datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
 benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
-benchmark/retired_families/  retired headline-excluded families ({_retired_letters}), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
+benchmark/retired_families/  retired families ({_retired_letters}) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
@@ -519,7 +795,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   and not additive): {n(_negm.get('reason_attributed_to_judge_or_sponsor'))} carry a reason
   attributed to a named judge or sponsor, {n(_negm.get('reason_supported_by_cited_code'))} where
   a gate in the cited code removes the standing the claim itself asserts,
-  **{n(negs.get('technical_reason_why_the_claim_is_false'))}** in total have a technical reason
+  **{n(_rejstats.get('technical_reason_for_why_the_claim_is_false', 0))}** in total have a technical reason
   the claim is false, {n(_negm.get('claim_corroborated_as_duplicate_of_confirmed_finding'))} are
   corroborated as duplicates of an accepted finding (redundancy, not falsity),
   {n(_negm.get('exploit_attempted_and_claimed_violation_not_demonstrated'))} had an exploit
@@ -602,46 +878,77 @@ families that need experimentally produced ground truth only admit rows that hav
 | Family | Tasks | Scorable | Status | Layer |
 |---|---|---|---|---|
 {_bench_rows}
-{_v3bench_rows}
-{_vbbench_rows}
 
-`Scorable` is the manifest count (answer key present); `Status` marks
-families retired to `benchmark/retired_families/`, demoted to EXPLORATORY
-(fewer than 100 headline scorable rows) or SATURATED (headline majority >=
-0.94). The exact-match scorer
-(`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
+`Tasks` is every row of the family file; `Scorable` is the number of those rows that carry a
+real scalar answer key. `Status` is computed from the data at run time by
+`scripts/benchmark_status.py` — never from a hand-written list, because a list cannot justify
+an evaluation claim:
+
+| status | meaning | in the headline? |
+|---|---|---|
+| `PRIMARY` | no validity flag, at least {_status_thresholds.get('min_primary_rows', 100)} scorable rows, at least {_status_thresholds.get('min_labels', 2)} observed labels, and no train-only shortcut at or above {_status_thresholds.get('shortcut_dominance_accuracy', 0.9)} on a holdout of at least {_status_thresholds.get('min_shortcut_holdout_rows', 30)} rows | yes |
+| `EXPLORATORY` | shipped and scored, but demoted: too few rows, a holdout too small to estimate on, or a single observed label | no |
+| `INVALID` | a validity flag makes the family unusable as evaluation evidence: answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
+| `NOT_SCORABLE` | no exactly-matchable scalar key | no |
+| `UNKNOWN` | a family file on disk that no rule covers — fail-closed, never primary | no |
+
+The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers {_cov.get('scorer_covered', 0):,} of
-{_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks; the rest are the
-{len(RETIRED_FAMILIES)} retired families' {_retired_scorable:,} scorable rows (scored only in
-the continuity twin below), the {len(_expl_letters)} exploratory families' {_expl_scorable:,} sub-floor
-rows (scored per-family and in the continuity twin), plus D generative, H
-descriptive and Q judge-graded tasks
-({_excl_reasoned:,} rows), excluded with stated reasons.
+{_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks in its primary metric. The
+rest are reported in their own blocks and never in the headline: the
+{len(_invalid_fams)} INVALID families' {_invalid_scorable:,} scorable rows ({_invalid_letters}),
+the {len(_expl_fams)} EXPLORATORY families' {_expl_scorable:,} sub-floor rows ({_expl_letters}),
+the {len(RETIRED_FAMILIES)} retired families' {_retired_scorable:,} scorable rows ({_retired_letters} —
+retirement is a location, not a verdict), plus the {_excl_fams} families that have no
+exactly-matchable key ({_excl_reasoned:,} rows), excluded with stated reasons. The four blocks
+partition every scored family, and the continuity twin below covers all
+{n((_bl_base.get('micro_all_families') or {}).get('scorable', 0))} of them.
+
+**The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
+file as its input, and those files are committed in this public repository, so the keys are
+reachable by repository-wide retrieval. No family may be described as hidden, protected
+against repository-level leakage, or not accessible. The only genuinely protected evaluation in
+this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree
+and is pinned by hash in
+[`reports/prove_split_interface.json`](reports/prove_split_interface.json). The secondary
+holdout in `benchmark/independent/` is OPEN-KEY too: its key file is a tracked file, labelled
+`OPEN_KEY` in its own manifest.
 
 Published deterministic baselines. `acc @ predicted/scorable` is micro-accuracy on
 the tasks the baseline actually predicted, shown with its coverage; the `over scorable`
 column counts unpredicted tasks as wrong, so abstention is visible, never silent.
-Headline rows exclude the retired and exploratory families (see Status marks
-above and `benchmark/retired_families/`); continuity rows cover **all families
-ever shipped** (headline + exploratory + retired), comparable to prior releases.
+The primary column covers the PRIMARY families only; the continuity column covers **all
+families ever shipped** (primary + exploratory + invalid + retired), comparable to prior
+releases.
 
-| Baseline | Headline acc @ predicted/scorable | Headline acc over scorable | Continuity acc @ predicted/scorable |
+| Baseline | Primary acc @ predicted/scorable | Primary acc over scorable | Continuity acc @ predicted/scorable |
 |---|---|---|---|
 {_bl_rows}
 
 first-published and majority-published are L-only predictors over a retired family:
-they emit nothing on headline families by construction, so their headline accuracy is
+they emit nothing on the primary set by construction, so their primary accuracy is
 **n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
 `over scorable` column is where the abstention shows as 0.0000 of
-{_cov.get('scorer_covered', 0):,} headline scorable tasks.
-Families marked SATURATED (headline majority >= 0.94: {", ".join(sorted(_sat_letters))})
-carry no signal — a model beat there proves nothing. The
-{len(_expl_letters)} exploratory families ({", ".join(sorted(_expl_letters))}) are below the
-100-row floor where a family score is interpretable, so they carry no
-headline claim either — their rows stay scored per-family and in the
-continuity twin. Family A majority accuracy
-differs by split (see baseline reports); a split-blind floor is a validity
-hazard. `scripts/check_manifests.py` recomputes every one of these
+{_cov.get('scorer_covered', 0):,} primary scorable tasks.
+The {len(_invalid_fams)} INVALID families ({_invalid_letters}) carry no headline claim: a
+validity flag makes them unusable as evaluation evidence, and a model score there would be
+a score on a task that is not a task. Their rows stay in the dataset and stay scored, in
+`families_invalid`, and are never counted in the headline.
+The {len(_expl_fams)} EXPLORATORY families ({_expl_letters}) are demoted: below the
+{_status_thresholds.get('min_primary_rows', 100)}-row floor, a holdout too small to estimate
+on, or a single observed label. A family whose scorable rows carry one label is **not
+evaluable** for accuracy at all — its accuracy is null with the reason
+`single_label_not_evaluable`, because one label makes any accuracy a restatement of the
+label distribution.
+
+The headline number is a label-distribution diagnostic over the primary set's scorable rows
+(train, validation and test together). The number a model result has to beat is the held-out
+one: on the primary family's {_prim_splits.get('test', 0)} test rows the train-only majority
+floor is {_floor_acc('majority')}, the seeded random {_floor_acc('random')}, the
+label-frequency {_floor_acc('frequency')} and the retrieval {_floor_acc('retrieval')}. Every
+floor is fitted on the train rows only; a floor fitted on the held-out rows would have seen
+the answers it is scored against. A split-blind floor is a validity hazard.
+`scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records
 (manifest-file agreement, task-record resolution, split coverage, RESEARCH_ONLY
 leak scans, L5/L6-without-artefact and `verified_patch` scans). A family whose file disagrees
@@ -649,26 +956,42 @@ with its manifest fails the build.
 
 ## Licensing
 
-- `LICENSE` is three-way: data under `jsonl*/`, `derived*/`, `splits*/`, `benchmark/`,
-  `datasets/`, `training/`, `reports/` is **CC BY 4.0**; `scripts/` is **MIT**; third-party
-  source is **not licensed here at all**.
+- The authoritative release boundary is `RELEASE_MANIFEST.json`: a tracked path that is not
+  listed there with a released rights status is **not licensed here**. `LICENSE` states the
+  same rule in five parts and says what it does not cover.
+
+- The released set is the pipeline (`scripts/`, MIT) and the authors' own documents, schemas,
+  decision records, analysis reports, test code and rights-redacted `distribution_v1/` view
+  (CC BY 4.0). The manifest names every path and the licence that applies to it.
+
+- The evidence corpus (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `training/`,
+  `datasets/`, `Vbeta/`) and the run logs under `experiments*/` are **not licensed here**:
+  they stay in the research tree, and this project grants no redistribution right over them.
+  Third-party source is not licensed here at all.
+
 - {dm.get('redistribution_flagged', {}).get('source_redistributed_without_declared_license', 0)} v1 records
   carry verbatim source from repositories declaring no licence (flagged per record; re-measured
-   from the text itself in `reports/third_party_audit.json`). V3 keeps link + sha256 + attributed
-   facts only (METADATA_ONLY). Vbeta keeps links + observed facts only (METADATA_ONLY) —
-   full report prose is never copied in; `openzeppelin-cairo` rows carry observed MIT.
-   METADATA_ONLY is this project's **default data-handling policy**, applied where no
-   documented right to redistribute exists; it is not a claim and not a determination that
-   any transformed record has been legally cleared, and a permalink plus a sha256 identifies
-   bytes rather than granting reuse. Per-source rights decisions live in `V4/licensing.json`
-   and `distribution_v1/rights_source_registry.json`, enforced by
-   `scripts/check_rights_consistency.py`.
+   from the text itself in `reports/third_party_audit.json`).
+
+- V3 keeps link + sha256 + attributed facts only (METADATA_ONLY). Vbeta keeps links + observed
+  facts only (METADATA_ONLY) — full report prose is never copied in; `openzeppelin-cairo` rows
+  carry observed MIT.
+
+- METADATA_ONLY is this project's **default data-handling policy**, applied where no
+  documented right to redistribute exists; it is not a claim and not a determination that
+  any transformed record has been legally cleared, and a permalink plus a sha256 identifies
+  bytes rather than granting reuse. Per-source rights decisions live in `V4/licensing.json`
+  and `distribution_v1/rights_source_registry.json`, enforced by
+  `scripts/check_rights_consistency.py`.
+
 - Vbeta sources are first-party audit pages plus a tier-2 Solodit mirror (auditor originals
   stay canonical). No operator-authored rows remain: the single interim one was retired and
   replaced by its harvested original (see `Vbeta/reports_vbeta/solodit_ingestion_report.md`).
-- No permission has been obtained from upstream protocol authors. For redistribution or
-  commercial training, pull sources yourself via `scripts/fetch_sources.py` under your own
-  compliance process. See [`NOTICE.md`](NOTICE.md).
+
+- No permission has been obtained from upstream protocol authors, and attribution is not a
+  redistribution right. For redistribution or commercial training, pull sources yourself via
+  `scripts/fetch_sources.py` under your own compliance process. See
+  [`NOTICE.md`](NOTICE.md).
 
 ## Reproduce
 
@@ -810,9 +1133,14 @@ entries they do not own and raise instead of dropping, and
 
 ## ML quickstart
 
-- Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files) and
-  `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
-  rebuild from the records).
+- Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files, **TRAIN-ONLY**)
+  and `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
+  rebuild from the records). The held-out partitions were moved out of the model-visible
+  training view into `benchmark/independent/`: `training/` ships the train partition only
+  ({n(_corpus.get('rows', 0))} rows, of which {n(_corpus.get('rows_carrying_a_protected_record', 0))}
+  carry a record that any benchmark family holds out), and the held-out shards are committed
+  under `benchmark/independent/` instead — open-key, but not model-visible. Measured in
+  [`reports/eval_leakage_report.md`](reports/eval_leakage_report.md).
 - Admission-filtered records: `datasets/` (each row carries a published
   `admission_rule`), `derived_v3/records.jsonl` (each row carries `decision`,
   `verification_level`, `language`, `ecosystem`, `benchmark_split`),

@@ -12,6 +12,10 @@ A redacted projection of the canonical layers. It carries this project's own met
 
 A sha256 and a permalink identify bytes. They do not grant reuse or redistribution rights. Nothing in this directory has been cleared by a rights holder, and no permission request has been granted.
 
+## The release boundary
+
+This directory is part of the released set. `RELEASE_MANIFEST.json` is the authoritative per-path statement of what may be redistributed; the paths it marks as withheld or as internal research artefacts are not licensed here, wherever they sit in the tree. **Attribution is not a redistribution right.**
+
 ## Contents
 
 | file | rows | what it holds |
@@ -24,7 +28,7 @@ A sha256 and a permalink identify bytes. They do not grant reuse or redistributi
 | `withheld_harness.jsonl` | 58 | one pointer per withheld harness file, mirroring the repo's existing `WITHHELD.json` licence-gating pattern |
 | `digests.jsonl` | 6 | short factual summaries written by the VLUN authors, marked `independently_written` |
 | `rights_source_registry.json` | 11 sources | the single machine-readable licence registry |
-| `rights_ledger.jsonl` | 12919 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
+| `rights_ledger.jsonl` | 12909 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
 | `licence_contradictions.json` | 0 | unresolved licence-status contradictions the gate fails on |
 
 ## Every withheld pointer record carries
@@ -35,10 +39,10 @@ Short third-party prose at or below `200` characters may be carried as an attrib
 
 ## Measured basis (recomputed from the full tracked tree)
 
-- tracked files scanned: 1775 (390831352 bytes)
-- record layers scanned for expressive content: 154
-- expressive items by class: copied_report_prose=71716, copied_short_prose=259598, personal_data=5698, poc_source=1730, third_party_code=11804
-- artefacts holding personal contact data: 13 (mailboxes and named-contact rows are removed here; the canonical layers are not modified)
+- tracked files scanned: 1769 (374939230 bytes)
+- record layers scanned for expressive content: 146
+- expressive items by class: copied_report_prose=57681, copied_short_prose=256117, personal_data=4358, poc_source=1730, third_party_code=11769
+- artefacts holding personal contact data: 11 (mailboxes and named-contact rows are removed here; the canonical layers are not modified)
 
 ## What is deliberately NOT in this view yet
 

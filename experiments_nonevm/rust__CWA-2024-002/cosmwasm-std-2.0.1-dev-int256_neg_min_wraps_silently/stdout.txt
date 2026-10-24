@@ -6,7 +6,7 @@ failures:
 
 ---- tests::int256_neg_min_wraps_silently stdout ----
 
-thread 'tests::int256_neg_min_wraps_silently' (14320) panicked at C:\Users\jeet\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\bnum-0.10.0\src\bint\const_trait_fillers.rs:94:1:
+thread 'tests::int256_neg_min_wraps_silently' (14320) panicked at C:\Users\REDACTED\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\bnum-0.10.0\src\bint\const_trait_fillers.rs:94:1:
 (bnum) attempt to negate with overflow
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 

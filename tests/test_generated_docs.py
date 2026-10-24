@@ -240,16 +240,17 @@ class TestBaselineFiguresInDocsAreLive(unittest.TestCase):
 
 
 class TestExploratoryDemotionIsLive(unittest.TestCase):
-    """F, G, I, J (17/7/1/7 scorable rows) are below the 100-row floor for a
-    headline family score, so they were demoted from the headline: scored
-    per-family and in continuity, never in the headline micro. The docs must
-    mark them EXPLORATORY and quote the live headline arithmetic."""
+    """The family statuses are computed from the data at run time
+    (`scripts/benchmark_status.py`), so the headline set is decided by
+    measurements, not by a list. F, G, I, J are demoted to EXPLORATORY and
+    C, R, U, V are INVALID; only A is PRIMARY. The docs must mark them with
+    the audited status and quote the live headline arithmetic."""
 
     EXPL = {
-        "F_false_positive_rejection.jsonl": 17,
-        "G_patch_verification.jsonl": 7,
-        "I_verified_non_exploit.jsonl": 1,
-        "J_verified_patch.jsonl": 7,
+        "F_false_positive_rejection.jsonl",
+        "G_patch_verification.jsonl",
+        "I_verified_non_exploit.jsonl",
+        "J_verified_patch.jsonl",
     }
 
     def setUp(self):
@@ -263,32 +264,129 @@ class TestExploratoryDemotionIsLive(unittest.TestCase):
         self.rubric = (ROOT / "docs" / "RUBRIC.md").read_text(
             encoding="utf-8")
 
-    def test_headline_and_exploratory_sets_are_disjoint(self):
+    def test_primary_exploratory_and_invalid_sets_are_disjoint(self):
+        """The status-derived invariant that replaced the old row arithmetic.
+
+        The retired assertion `primary + exploratory == 19,663` encoded the
+        OLD scheme, in which the headline set was "every family that is not
+        retired and has at least 100 rows". The audit-driven statuses
+        removed that invariant by design, so it is replaced by one that is
+        derived from the report's own `family_status` block:
+
+          * the primary, exploratory, invalid and retired blocks are pairwise
+            disjoint;
+          * their union is exactly the set of families the scorer knows about
+            that have scorable rows -- nothing is silently dropped;
+          * each block's membership agrees with the status the status block
+            records for that family;
+          * no family the status block flags INVALID is in the primary set.
+        """
         for name, d in self.bl.items():
-            fams = set(d["families"])
+            status = d["family_status"]
+            primary = set(d["families"])
             expl = set(d["families_exploratory"])
+            invalid = set(d["families_invalid"])
+            retired = set(d["families_retired"])
+            blocks = (primary, expl, invalid, retired)
+            for i, a in enumerate(blocks):
+                for b in blocks[i + 1:]:
+                    self.assertFalse(a & b, f"{name}: {a & b} is in two blocks")
+            scored = {f for f, s in status.items() if s.get("rows_scorable")}
+            self.assertEqual(primary | expl | invalid | retired, scored,
+                             f"{name}: the blocks do not cover every scored "
+                             f"family")
+            for f in primary:
+                self.assertEqual(status[f]["status"], "PRIMARY",
+                                 f"{name}: {f} is in the primary block but "
+                                 f"its status is {status[f]['status']}")
+            for f in expl:
+                self.assertEqual(status[f]["status"], "EXPLORATORY",
+                                 f"{name}: {f} is in the exploratory block but "
+                                 f"its status is {status[f]['status']}")
+            for f in invalid:
+                self.assertEqual(status[f]["status"], "INVALID",
+                                 f"{name}: {f} is in the invalid block but "
+                                 f"its status is {status[f]['status']}")
+            for f in retired:
+                self.assertTrue(status[f]["retired"],
+                                f"{name}: {f} is in the retired block but is "
+                                f"not marked retired")
+            flagged = {f for f, s in status.items()
+                       if s["status"] == "INVALID"}
+            self.assertFalse(primary & flagged,
+                             f"{name}: an invalid family is in the primary set")
             self.assertEqual(expl, set(self.EXPL), name)
-            self.assertFalse(fams & expl, name)
-            self.assertFalse(
-                {k for k, v in d["families_exploratory"].items()
-                 if v["scorable"] and k not in self.EXPL}, name)
-            self.assertEqual(
-                sum(v["scorable"]
-                    for v in d["families_exploratory"].values()),
-                sum(self.EXPL.values()), name)
-            self.assertEqual(d["micro_exploratory"]["scorable"],
-                             sum(self.EXPL.values()), name)
-            # Demotion must not lose rows: headline + exploratory equals the
-            # pre-demotion headline scorable set, and the continuity twin is
-            # untouched (headline + exploratory + retired).
-            self.assertEqual(
-                d["micro"]["scorable"] + d["micro_exploratory"]["scorable"],
-                19_663, name)
-            self.assertEqual(d["micro_all_families"]["scorable"], 22_149,
-                             name)
-            self.assertEqual(
-                d["micro"]["scorable"] + d["micro_exploratory"]["scorable"]
-                + d["micro_retired"]["scorable"], 22_149, name)
+
+    def test_no_shortcut_dominated_family_is_primary(self):
+        """A family a train-only shortcut solves is not evaluation evidence.
+
+        The threshold comes from the report's own `status_thresholds`, so
+        this fails if a shortcut-dominated family ever enters the primary
+        set -- the failure the old row arithmetic could not see, because it
+        only counted rows.
+        """
+        for name, d in self.bl.items():
+            thr = d["status_thresholds"]["shortcut_dominance_accuracy"]
+            min_holdout = d["status_thresholds"]["min_shortcut_holdout_rows"]
+            for fam in d["families"]:
+                st = d["family_status"][fam]
+                floor = (st.get("shortcut_floor") or {})
+                best = floor.get("best_train_only_accuracy")
+                heldout = floor.get("heldout_rows") or 0
+                if isinstance(best, (int, float)) and heldout >= min_holdout:
+                    self.assertLess(
+                        best, thr,
+                        f"{name}: {fam} is solved by a train-only shortcut "
+                        f"({best}) but is in the primary set")
+                self.assertFalse(st.get("validity_flags"),
+                                 f"{name}: {fam} carries validity flags "
+                                 f"{st.get('validity_flags')} but is primary")
+                self.assertGreaterEqual(
+                    st.get("rows_scorable") or 0,
+                    d["status_thresholds"]["min_primary_rows"],
+                    f"{name}: {fam} is below the headline floor but is primary")
+                self.assertGreaterEqual(
+                    st.get("n_labels") or 0,
+                    d["status_thresholds"]["min_labels"],
+                    f"{name}: {fam} has fewer than two observed labels but is "
+                    f"primary")
+
+    def test_single_label_families_report_no_accuracy(self):
+        """A family with one observed label has no meaningful accuracy.
+
+        Its accuracy must be null with the stated reason in every block --
+        otherwise a 1.000 would be published as predictive performance when
+        it is only the label distribution restated.
+        """
+        for name, d in self.bl.items():
+            for block in ("families", "families_exploratory",
+                          "families_invalid", "families_retired"):
+                for fam, entry in d[block].items():
+                    st = d["family_status"][fam]
+                    if st.get("evaluable"):
+                        continue
+                    self.assertIsNone(
+                        entry.get("accuracy"),
+                        f"{name}: {fam} has one observed label but reports an "
+                        f"accuracy of {entry.get('accuracy')!r}")
+                    self.assertIsNone(entry.get("accuracy_scorable"),
+                                      f"{name}: {fam}")
+                    self.assertIn("single_label_not_evaluable",
+                                  str(entry.get("accuracy_reason")),
+                                  f"{name}: {fam}")
+            # a block whose families are all single-label has no accuracy
+            for fams, micro in (("families_exploratory", "micro_exploratory"),
+                                ("families", "micro"),
+                                ("families_invalid", "micro_invalid"),
+                                ("families_retired", "micro_retired")):
+                entries = d[fams]
+                if entries and all(
+                        not d["family_status"][f].get("evaluable")
+                        for f in entries):
+                    self.assertIsNone(
+                        d[micro].get("accuracy"),
+                        f"{name}: {micro} has no evaluable family but reports "
+                        f"an accuracy")
 
     def test_scorer_loads_exploratory_only_for_continuity(self):
         import sys
@@ -300,20 +398,39 @@ class TestExploratoryDemotionIsLive(unittest.TestCase):
             self.assertNotIn(fam, headline, fam)
             self.assertIn(fam, everything, fam)
 
-    def test_readme_marks_exploratory_not_saturated(self):
+    def test_readme_marks_the_audited_status(self):
+        """The README's family table must carry the audited status.
+
+        The old scheme (RETIRED / EXPLORATORY / SATURATED) is gone: a family
+        is PRIMARY, EXPLORATORY, INVALID or NOT_SCORABLE, and retirement is
+        a location rather than a verdict.
+        """
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from vlun_v3 import V3_FAMILY_FILES
+        file_to_key = {v: k for k, v in V3_FAMILY_FILES.items()}
+
+        def key_of(fam_file):
+            if fam_file in file_to_key:
+                return file_to_key[fam_file]
+            return (fam_file[:-6] if fam_file.endswith(".jsonl")
+                    else fam_file)
+
         for fam in self.EXPL:
             row = re.search(rf"^\| `{re.escape(fam[:-6])}` \| .* \| EXPLORATORY \|",
                             self.readme, re.M)
             self.assertIsNotNone(row, f"{fam}: README row not marked EXPLORATORY")
-        vtasks = json.loads(
-            (ROOT / "Vbeta" / "benchmark_vbeta" / "vbeta_manifest.json")
-            .read_text(encoding="utf-8"))["tasks"]
-        for fam, key in (("vbeta_U_language_routing", "vbeta_U_language_routing"),
-                         ("vbeta_V_source_tier_routing",
-                          "vbeta_V_source_tier_routing")):
-            n = vtasks[key]
-            self.assertIn(f"| `{fam}` | {n:,} | {n:,} | SATURATED |",
-                          self.readme)
+        for name, d in self.bl.items():
+            for fam, st in d["family_status"].items():
+                key = key_of(fam)
+                row = re.search(
+                    rf"^\| `{re.escape(key)}` \| [\d,]+ \| [\d,]+ \| "
+                    rf"([A-Z_]+) \|", self.readme, re.M)
+                self.assertIsNotNone(row, f"{name}: no README row for {key}")
+                self.assertEqual(row.group(1), st["status"],
+                                 f"{name}: README marks {key} as "
+                                 f"{row.group(1)}, the status block says "
+                                 f"{st['status']}")
 
     def test_docs_quote_live_headline_arithmetic(self):
         d = self.bl["majority"]

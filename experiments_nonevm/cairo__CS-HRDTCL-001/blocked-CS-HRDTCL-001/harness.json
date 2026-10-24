@@ -10,7 +10,7 @@
   "toolchain": {
     "cairo_version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3",
     "native_command": "scarb cairo-test -p <package>",
-    "scarb_path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+    "scarb_path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
     "tool": "scarb",
     "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
   }

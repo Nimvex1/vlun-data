@@ -1,12 +1,12 @@
 {
   "artefacts": {
     "command.txt": {
-      "bytes": 127,
-      "sha256": "9f449e0ac3cea6d29297a0dbbef8e40d8862a297645eb4d0807f25e0fe07fb5c"
+      "bytes": 131,
+      "sha256": "9d9fc780dad084fc0ffabab382bf175ae71095228d8edf146b05ec8a986ade7e"
     },
     "harness.json": {
-      "bytes": 1025,
-      "sha256": "a23ec42134cb6267151b3b28ebea9bd256c66a478097ed5fa4355f8805c646b9"
+      "bytes": 1029,
+      "sha256": "9ba967a2f94c4fe68d2af8831119974ba72ccee93d1e450805d494ad66f4ccf4"
     },
     "stderr.txt": {
       "bytes": 0,
@@ -17,8 +17,8 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "toolchain.txt": {
-      "bytes": 2158,
-      "sha256": "ed53bdb26fc7c4ce3df7b3219e3a69a22a0b86203339de8e40834a0cb074470f"
+      "bytes": 2170,
+      "sha256": "b3235a95c530d7287981a2122dafc085832d768fd4493c35fa434cad7c9302ad"
     }
   },
   "assertion": null,
@@ -43,7 +43,7 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
       "tool": "scarb (Cairo/Starknet)",
       "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
     },
@@ -51,7 +51,7 @@
       "install_command": null,
       "install_status": "installed",
       "note": "unused for these revisions: snforge 0.44 pairs with a newer scarb/snforge_std than the pinned tags declare",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
       "tool": "snforge (starknet-foundry)",
       "version": "snforge 0.44.0"
     },
@@ -75,7 +75,7 @@
   "record_id": "cairo:cairo-vm-sequencer-prover-inconsistency",
   "run": {
     "argv": [
-      "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+      "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
       "cairo-test"
     ],
     "isolation": "would be an isolated scratch clone; local runner only",
@@ -87,7 +87,7 @@
   "toolchain": {
     "cairo_version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3",
     "native_command": "scarb cairo-test -p <package>",
-    "scarb_path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+    "scarb_path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
     "tool": "scarb",
     "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
   }

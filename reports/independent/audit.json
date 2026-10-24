@@ -602,13 +602,23 @@
         "holdout_too_small"
       ]
     },
+    "Fa_rejection_evidence_axis_vector.jsonl": {
+      "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
+      "rows": 458,
+      "verdict": "skipped_no_scorable_key"
+    },
+    "Fb_duplicate_radar_pair.jsonl": {
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "rows": 553,
+      "verdict": "skipped_no_scorable_key"
+    },
     "G_patch_verification.jsonl": {
       "answer_leakage": {
         "answer_literal_in_evidence": 0,
         "answer_only_in_instruction": 0,
         "evidence_leak_rate": 0.0,
         "examples": [],
-        "rows_checked": 7,
+        "rows_checked": 5,
         "severity": "none",
         "verdict": "clean"
       },
@@ -623,12 +633,12 @@
       "degeneracy": {
         "inv_gini": 0.0,
         "label_distribution": {
-          "effective": 7
+          "effective": 5
         },
         "majority_fraction": 1.0,
         "majority_label": "effective",
         "n_labels": 1,
-        "rows": 7,
+        "rows": 5,
         "verdict": "single_label"
       },
       "group_overlap": {
@@ -651,13 +661,13 @@
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
       },
-      "rows_scorable": 7,
+      "rows_scorable": 5,
       "rows_total": 38,
-      "rows_unlabeled": 31,
+      "rows_unlabeled": 33,
       "split_drift": {
         "per_split_label_distribution": {
           "validation": {
-            "effective": 7
+            "effective": 5
           }
         },
         "train_majority_probe": {}
@@ -742,10 +752,10 @@
     "J_verified_patch.jsonl": {
       "answer_leakage": {
         "answer_literal_in_evidence": 0,
-        "answer_only_in_instruction": 7,
+        "answer_only_in_instruction": 5,
         "evidence_leak_rate": 0.0,
         "examples": [],
-        "rows_checked": 7,
+        "rows_checked": 5,
         "severity": "none",
         "verdict": "clean"
       },
@@ -760,12 +770,12 @@
       "degeneracy": {
         "inv_gini": 0.0,
         "label_distribution": {
-          "effective": 7
+          "effective": 5
         },
         "majority_fraction": 1.0,
         "majority_label": "effective",
         "n_labels": 1,
-        "rows": 7,
+        "rows": 5,
         "verdict": "single_label"
       },
       "group_overlap": {
@@ -788,13 +798,13 @@
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
       },
-      "rows_scorable": 7,
-      "rows_total": 7,
+      "rows_scorable": 5,
+      "rows_total": 5,
       "rows_unlabeled": 0,
       "split_drift": {
         "per_split_label_distribution": {
           "validation": {
-            "effective": 7
+            "effective": 5
           }
         },
         "train_majority_probe": {}

@@ -5,7 +5,7 @@
   "measured": false,
   "measured_reason": "no responses collected; annotation/iaa_v1/responses/ holds only blank templates",
   "notes": [
-    "no completed response files in C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\annotation\\iaa_v1\\responses (only .template.csv blanks ship here)"
+    "no completed response files in annotation/iaa_v1/responses (only .template.csv blanks ship here)"
   ],
   "responses_dir": "annotation/iaa_v1/responses",
   "responses_present": 0,

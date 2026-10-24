@@ -45,6 +45,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_obj, redact_text  # noqa: E402  (one redaction convention, repo-wide)
 from vlun import ROOT, WORK, sha256_text, write_json  # noqa: E402
 
 WT = WORK / "wt"          # working clones used for experiments
@@ -426,7 +427,11 @@ def capture_human(spec: RepoSpec, test_path: str | None, match_test: str | None,
     try:
         r = subprocess.run(cmd, cwd=str(worktree(spec)), capture_output=True,
                            text=True, timeout=timeout, env=env, errors="replace")
-        return (r.stdout or "") + "\n" + (r.stderr or "")
+        # Redacted HERE, at the capture, not at the write: the caller stores
+        # this text verbatim (stdout_human.txt), and a caller that is not
+        # this module would otherwise put the operator's home directory into
+        # a committed transcript.
+        return redact_text((r.stdout or "") + "\n" + (r.stderr or ""))
     except subprocess.TimeoutExpired:
         return f"human-readable capture exceeded {timeout}s"
 
@@ -486,7 +491,8 @@ def capture_trace(spec: RepoSpec, test_path: str | None, match_test: str | None,
     try:
         r = subprocess.run(cmd, cwd=str(worktree(spec)), capture_output=True,
                            text=True, timeout=timeout, env=env, errors="replace")
-        return (r.stdout or "")[:MAX_STREAM]
+        # Redacted at the capture, for the same reason as capture_human.
+        return redact_text((r.stdout or "")[:MAX_STREAM])
     except subprocess.TimeoutExpired:
         return f"trace capture exceeded {timeout}s"
 
@@ -528,11 +534,17 @@ def write_artifacts(finding_id: str, revision_label: str, harness: dict[str, str
             "commit": commit,
             "files": split["withheld"],
         })
-    (d / "command.txt").write_text(command + "\n", encoding="utf-8")
-    (d / "stdout.txt").write_text(result.stdout[:MAX_STREAM], encoding="utf-8")
-    (d / "stderr.txt").write_text(result.stderr[:MAX_STREAM], encoding="utf-8")
+    # The captured output is redacted BEFORE it is written: a transcript that
+    # quotes the operator's home directory ties the artefact to one checkout
+    # and publishes the account name.
+    stdout = redact_text(result.stdout[:MAX_STREAM])
+    stderr = redact_text(result.stderr[:MAX_STREAM])
+    (d / "command.txt").write_text(redact_text(command) + "\n", encoding="utf-8")
+    (d / "stdout.txt").write_text(stdout, encoding="utf-8")
+    (d / "stderr.txt").write_text(stderr, encoding="utf-8")
     if trace:
-        (d / "trace.txt").write_text(trace[:MAX_STREAM], encoding="utf-8")
+        (d / "trace.txt").write_text(redact_text(trace[:MAX_STREAM]),
+                                     encoding="utf-8")
     payload = {
         "finding_id": finding_id,
         "revision_label": revision_label,
@@ -541,8 +553,8 @@ def write_artifacts(finding_id: str, revision_label: str, harness: dict[str, str
         "exit_code": result.exit_code,
         "duration_s": result.duration_s,
         "gas_used": result.gas_used,
-        "detail": result.detail[:2000],
-        "command": command,
+        "detail": redact_text(result.detail[:2000]),
+        "command": redact_text(command),
         "harness_digest": digest_files(harness),
         "harness_files": split["authored"],
         "harness_files_withheld_for_licence": [f["path"] for f in split["withheld"]],
@@ -550,10 +562,12 @@ def write_artifacts(finding_id: str, revision_label: str, harness: dict[str, str
                                  for f in split["withheld"] + [
                                      {"path": n, "sha256": sha256_text(harness[n])}
                                      for n in split["authored"]]},
-        "decoded_logs": result.decoded_logs[:20],
+        "decoded_logs": [redact_text(x) for x in result.decoded_logs[:20]],
         "per_test": {k: {"status": v.get("status"),
-                         "reason": v.get("reason"),
-                         "logs": (v.get("logs") or [])[:6]}
+                         "reason": (redact_text(v["reason"])
+                                    if v.get("reason") else v.get("reason")),
+                         "logs": [redact_text(x)
+                                  for x in (v.get("logs") or [])[:6]]}
                      for k, v in (result.per_test or {}).items()},
         "repository": repo_info or {},
         "environment_requirements": TOOLCHAIN,
@@ -569,7 +583,9 @@ def write_artifacts(finding_id: str, revision_label: str, harness: dict[str, str
             payload["artifact_sha256"][name] = sha256_text(
                 f.read_text(encoding="utf-8", errors="replace"))
     if extra:
-        payload.update(extra)
+        # The caller's own fields can carry captured text too (a decoded
+        # forge log, a git status), so they go through the same convention.
+        payload.update(redact_obj(extra))
     write_json(d / "result.json", payload)
     return d
 

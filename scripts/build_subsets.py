@@ -28,6 +28,8 @@ Every row keeps `canonical_record_id` so a consumer can join back to
 from __future__ import annotations
 
 import argparse
+import hashlib
+import importlib.util
 import json
 import sys
 from collections import Counter
@@ -38,6 +40,15 @@ from vlun import DERIVED, REPORTS, ROOT, log, read_jsonl, write_json, write_json
 
 DATASETS = ROOT / "datasets"
 TRAINING = ROOT / "training"
+# Held-out task rows are evaluation material and live outside training/.
+HOLDOUT_DIR = ROOT / "benchmark" / "independent" / "v1_task_holdout"
+
+# One definition of "protected evaluation record", shared with the leakage
+# report and the gate.
+_leak_spec = importlib.util.spec_from_file_location(
+    "_leak", ROOT / "scripts" / "build_eval_leakage_report.py")
+_leak = importlib.util.module_from_spec(_leak_spec)
+_leak_spec.loader.exec_module(_leak)
 
 
 def _load(path: Path):
@@ -297,8 +308,58 @@ def main() -> int:
                        "fixed_revision_result": p["fixed_revision_result"]},
             "evidence_type": "experimentally_verified",
         })
+    # ---------------------------------------------------------------- training
+    # The task files are a MODEL-VISIBLE corpus, so a record that a benchmark
+    # family holds out does not belong in them: the row carries the very
+    # answer the benchmark is scored on (vulnerable or not, attacker kind,
+    # fix effectiveness, observed failure). The split systems differ per
+    # layer, so the protected set is a property of the RECORD, taken from
+    # scripts/build_eval_leakage_report.py -- the same definition the gate
+    # checks against.
+    #
+    # Nothing is deleted: the excluded rows are written, with their
+    # provenance intact, to benchmark/independent/v1_task_holdout/, which is
+    # outside training/ and therefore outside a corpus consumer's reach.
+    protected = _leak.protected_identifiers()
+    held_out: dict[str, list] = {}
+    for name, rows in list(training.items()):
+        keep, drop = [], []
+        for r in rows:
+            rid = r.get("canonical_record_id")
+            (drop if rid in protected else keep).append(r)
+        training[name] = keep
+        held_out[name] = drop
     for name, rows in training.items():
         write_jsonl(TRAINING / f"{name}.jsonl", rows)
+
+    held_files = []
+    HOLDOUT_DIR.mkdir(parents=True, exist_ok=True)
+    for old in sorted(HOLDOUT_DIR.glob("*.jsonl")):
+        old.unlink()
+    for name, rows in sorted(held_out.items()):
+        path = HOLDOUT_DIR / f"{name}.jsonl"
+        write_jsonl(path, rows)
+        held_files.append({"path": f"benchmark/independent/v1_task_holdout/{name}.jsonl",
+                           "task_file": name, "rows": len(rows),
+                           "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+    write_json(HOLDOUT_DIR / "manifest.json", {
+        "generated_by": "scripts/build_subsets.py",
+        "MODEL_VISIBLE": False,
+        "warning": (
+            "NOT MODEL-VISIBLE. These task rows are records that a "
+            "benchmark family holds out (split test or validation). They "
+            "carry the labels the benchmark is scored on. They live outside "
+            "training/ so that a corpus consumer globbing the training "
+            "directory cannot reach them. Do not train on them."),
+        "rule": ("a record that ANY benchmark family holds out is excluded "
+                 "from the model-visible task files, whatever the layer's "
+                 "own split label says"),
+        "protected_identifiers": len(protected),
+        "source": "scripts/build_eval_leakage_report.py::protected_identifiers",
+        "excluded_rows": sum(len(v) for v in held_out.values()),
+        "counts": {k: len(v) for k, v in sorted(held_out.items())},
+        "files": held_files,
+    })
 
     summary = {
         "generated_by": "scripts/build_subsets.py",
@@ -309,6 +370,13 @@ def main() -> int:
             "verified_negatives": len(verified_negatives),
         },
         "training": {k: len(v) for k, v in training.items()},
+        "training_held_out_of_model_view": {
+            "rule": ("records held out by a benchmark family are excluded "
+                     "from the model-visible task files"),
+            "excluded_rows": sum(len(v) for v in held_out.values()),
+            "counts": {k: len(v) for k, v in sorted(held_out.items())},
+            "written_to": "benchmark/independent/v1_task_holdout/",
+        },
         "admission_rules": {
             "verified_findings": findings[0]["admission_rule"] if findings else None,
             "verified_exploits": exploits[0]["admission_rule"] if exploits else None,

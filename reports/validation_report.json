@@ -77,11 +77,37 @@
     {
       "check": "derived_commit_pins_are_immutable",
       "critical": true,
-      "detail": "2034/2034 citations in derived/records.jsonl are pinned to a 40-hex commit and are therefore reproducible over time; every one is written by scripts/resolve_citations.py, which records original_reference, source_url_original, resolution_method and resolution_confidence inline",
-      "failure_count": 0,
-      "failures": [],
+      "detail": "1561/2034 citations in derived/records.jsonl are pinned to a 40-hex commit and are therefore reproducible over time; every one is written by scripts/resolve_citations.py, which records original_reference, source_url_original, resolution_method and resolution_confidence inline",
+      "failure_count": 473,
+      "failures": [
+        "2024-04-noya/H-03 code_context code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-03 code_context_expanded code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-04 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-09 code_context code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-10 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-10 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context_expanded Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context_expanded Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_reference_only Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_reference_only Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-12 code_context code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-13 code_context code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-13 code_context code-423n4/2024-04-noya/testFoundry/BalancerConnector.t.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-20 code_context code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-21 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-21 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-22 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-23 code_context code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/M-05 code_context_expanded OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-05 code_reference_only OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-06 code_context_expanded OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-06 code_reference_only OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-08 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/M-09 code_context code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main' url_ref='main'"
+      ],
       "group": "provenance",
-      "ok": true
+      "ok": false
     },
     {
       "check": "line_ranges_sane",
@@ -105,10 +131,36 @@
       "check": "provenance_urls_immutable_or_declared",
       "critical": true,
       "detail": "29 derived records declare a mutable-URL residual; jsonl/ frozen residual: 176 mutable-URL lines (never rewritten, disclosed here)",
-      "failure_count": 0,
-      "failures": [],
+      "failure_count": 471,
+      "failures": [
+        "2024-04-noya/H-03 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/helpers/valueOracle/NoyaValueOracle.s",
+        "2024-04-noya/H-03 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/helpers/valueOracle/NoyaValueOracle.s",
+        "2024-04-noya/H-04 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.s",
+        "2024-04-noya/H-09 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/PrismaConnector.sol#L11",
+        "2024-04-noya/H-10 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.s",
+        "2024-04-noya/H-10 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.s",
+        "2024-04-noya/H-11 source_url mutable: https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Pool.sol",
+        "2024-04-noya/H-11 source_url mutable: https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Account.s",
+        "2024-04-noya/H-11 source_url mutable: https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Pool.sol",
+        "2024-04-noya/H-11 source_url mutable: https://github.com/Synthetixio/synthetix-v3/blob/main/protocol/synthetix/contracts/storage/Account.s",
+        "2024-04-noya/H-11 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/SNXConnector.sol#L121-L126",
+        "2024-04-noya/H-12 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/Registry.sol#L353",
+        "2024-04-noya/H-13 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/testFoundry/BalancerConnector.t.sol#L96-L125",
+        "2024-04-noya/H-13 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/BalancerConnector.sol#L162",
+        "2024-04-noya/H-20 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/UNIv3Connector.sol#L136-L1",
+        "2024-04-noya/H-21 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/PendleConnector.sol#L223-L",
+        "2024-04-noya/H-21 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/PendleConnector.sol#L303-L",
+        "2024-04-noya/H-22 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/PendleConnector.sol#L257-L",
+        "2024-04-noya/H-23 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/Dolomite.sol#L77-L96",
+        "2024-04-noya/M-05 source_url mutable: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/",
+        "2024-04-noya/M-05 source_url mutable: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/",
+        "2024-04-noya/M-06 source_url mutable: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/",
+        "2024-04-noya/M-06 source_url mutable: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/",
+        "2024-04-noya/M-08 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/AccountingManager.s",
+        "2024-04-noya/M-09 source_url mutable: https://github.com/code-423n4/2024-04-noya/blob/main/contracts/accountingManager/Registry.sol#L33-L3"
+      ],
       "group": "provenance",
-      "ok": true
+      "ok": false
     },
     {
       "check": "reported_statistics_equal_computed",
@@ -438,10 +490,36 @@
       "check": "no_mutable_branch_citations_remain",
       "critical": true,
       "detail": "counted from derived/records.jsonl, not read from reports/citation_resolution.json; the resolver's self-reported count is compared against it so the two cannot silently disagree",
-      "failure_count": 0,
-      "failures": [],
+      "failure_count": 474,
+      "failures": [
+        "2024-04-noya/H-03 code_context code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-03 code_context_expanded code-423n4/2024-04-noya/contracts/helpers/valueOracle/NoyaValueOracle.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-04 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-09 code_context code-423n4/2024-04-noya/contracts/connectors/PrismaConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-10 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-10 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context code-423n4/2024-04-noya/contracts/connectors/SNXConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context_expanded Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_context_expanded Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_reference_only Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Account.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-11 code_reference_only Synthetixio/synthetix-v3/protocol/synthetix/contracts/storage/Pool.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-12 code_context code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-13 code_context code-423n4/2024-04-noya/contracts/connectors/BalancerConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-13 code_context code-423n4/2024-04-noya/testFoundry/BalancerConnector.t.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-20 code_context code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-21 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-21 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-22 code_context code-423n4/2024-04-noya/contracts/connectors/PendleConnector.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/H-23 code_context code-423n4/2024-04-noya/contracts/connectors/Dolomite.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/M-05 code_context_expanded OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-05 code_reference_only OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-06 code_context_expanded OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-06 code_reference_only OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol commit_sha='master' url_ref='master'",
+        "2024-04-noya/M-08 code_context code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol commit_sha='main' url_ref='main'",
+        "2024-04-noya/M-09 code_context code-423n4/2024-04-noya/contracts/accountingManager/Registry.sol commit_sha='main' url_ref='main'"
+      ],
       "group": "v2.1",
-      "ok": true
+      "ok": false
     },
     {
       "check": "subsets_respect_their_admission_rule",
@@ -626,7 +704,7 @@
     {
       "check": "benchmark_manifest_covers_every_family",
       "critical": true,
-      "detail": "17 families in the manifest; vlun.BENCHMARK_FAMILIES declares 17",
+      "detail": "19 families in the manifest; vlun.BENCHMARK_FAMILIES declares 19",
       "failure_count": 0,
       "failures": [],
       "group": "v2.2",
@@ -705,7 +783,7 @@
       "ok": true
     }
   ],
-  "failed_critical": 0,
+  "failed_critical": 3,
   "generated_by": "scripts/validate.py",
   "groups": {
     "audit_sources": 5,
@@ -717,6 +795,6 @@
     "v2.1": 28,
     "v2.2": 13
   },
-  "passed": 78,
+  "passed": 75,
   "warnings": 0
 }

@@ -44,10 +44,25 @@ GATES = [
     ("negative-stats-current", [PY, "scripts/classify_negatives.py", "--check"]),
     # ...and the two must agree with the corpus on every axis, or the gate fails.
     ("rejection-consistency", [PY, "scripts/check_rejection_consistency.py", "--quiet"]),
+    # The F-extension (F-A six-axis vectors, F-B duplicate-radar pairs) is emitted
+    # from the same canonical corpus, so its rows, answer keys, manifest entries and
+    # reports are checked by recomputing from that corpus and the `jsonl/` layer:
+    # axis gold, duplicate-is-not-technical, packet/pair leakage, pair adjudication,
+    # inherited splits and every published count.
+    ("f-extension-consistency", [PY, "scripts/check_f_extension.py", "--check"]),
+    # ...and the emitted rows and the published floors must equal a regeneration,
+    # so a hand-edited task file or a stale baseline number fails on its own.
+    ("f-extension-current", [PY, "scripts/build_f_extension.py", "--check"]),
+    ("f-extension-baselines-current",
+     [PY, "scripts/score_f_extension.py", "--check"]),
     # VLUN-Prove: the published interface must equal a regeneration, and the
     # private answer key must still match its published commitment. Skips (rc=2)
     # on a machine without the private split, because the split is not committed.
     ("prove-split-current", [PY, "scripts/build_prove_split.py", "--check"]),
+    # The candidate ledger is what stops the Prove pool from being described by its
+    # run count: a row may only claim `qualified` with the admission-gate fields, and
+    # blocked rows keep their blocker.
+    ("prove-ledger-current", [PY, "scripts/build_prove_ledger.py", "--check"]),
     # Rights: no contradictory licence status, no copied expressive content in the
     # distribution view, no un-negotiated reuse claim, no drifted count. The
     # V4 licence fields must still match the recorded decision in V4/licensing.json.
@@ -96,6 +111,28 @@ GATES = [
      [PY, "scripts/independent_benchmark_audit.py", "--check"]),
     ("benchmark-holdout-current",
      [PY, "scripts/build_secondary_holdout.py", "--check"]),
+    # The published scores must equal a fresh calculation: the six baseline
+    # reports and the metric report are regenerated and compared, so a
+    # hand-edited number fails here.
+    ("benchmark-baselines-current",
+     [PY, "scripts/score_benchmark.py", "--check"]),
+    ("benchmark-metrics-current",
+     [PY, "scripts/score_benchmark.py", "--check-metrics"]),
+    # Model inputs must be separable from evaluation answers: no protected
+    # evaluation record, answer or payload may be reachable from the
+    # model-visible corpus, and the task files must not carry their keys.
+    ("eval-leakage", [PY, "scripts/check_eval_leakage.py", "--quiet"]),
+    ("eval-leakage-report-current",
+     [PY, "scripts/build_eval_leakage_report.py", "--check"]),
+    # No generated file may carry a machine-specific path, and the
+    # redaction that removes them must itself be reproducible.
+    ("no-machine-paths", [PY, "scripts/check_no_machine_paths.py", "--quiet"]),
+    ("redaction-current",
+     [PY, "scripts/redact_machine_paths.py", "--check"]),
+    # The release manifest is the machine-readable answer to "may this file
+    # be redistributed?"; it must equal a fresh classification.
+    ("release-manifest-current",
+     [PY, "scripts/build_release_manifest.py", "--check"]),
     # V3.2 execution provenance: every recorded artefact hash must match
     # the committed bytes (network-free, machine-independent).
     ("proof-hashes-current",
@@ -113,8 +150,15 @@ ONLY_MAP = {
     "tests": ["unit-tests", "vbeta-tests"],
     "readme": ["readme-current", "stats-current", "field-coverage-current",
                "solodit-report-current", "repro-report-current"],
-    "rejection": ["rejection-corpus-current", "negative-stats-current"],
-    "prove": ["prove-split-current"],
+    # `rejection`, not `benchmark`: the F-extension's authority is the canonical
+    # rejection corpus and the negative-record layer that the other two rejection
+    # gates already read, and its gold is that corpus's six axes re-expressed. The
+    # `benchmark` group is the scoring/holdout/leakage layer, which reads the rows
+    # but does not define them.
+    "rejection": ["rejection-corpus-current", "negative-stats-current",
+                  "f-extension-consistency", "f-extension-current",
+                  "f-extension-baselines-current"],
+    "prove": ["prove-split-current", "prove-ledger-current"],
     "rights": ["rights-consistency", "v4-licensing-current"],
     "execution": ["poc-triage-current", "poc-attempts-current",
                   "v32-attempts-current"],
@@ -125,7 +169,11 @@ ONLY_MAP = {
     "summary": ["remediation-report-current", "quarantine-report-current"],
     "packaging": ["schemas-current", "datasheet-current", "vbeta-build-current"],
     "catalog": ["catalog-current"],
-    "benchmark": ["benchmark-audit-current", "benchmark-holdout-current"],
+    "benchmark": ["benchmark-audit-current", "benchmark-holdout-current",
+                  "benchmark-baselines-current", "benchmark-metrics-current",
+                  "eval-leakage", "eval-leakage-report-current"],
+    "paths": ["no-machine-paths", "redaction-current"],
+    "release": ["release-manifest-current"],
     "proof": ["proof-hashes-current"],
 }
 

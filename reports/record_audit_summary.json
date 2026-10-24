@@ -1,11 +1,5 @@
 {
-  "by_attacker_kind": {
-    "honest_but_misconfigured": 3,
-    "malicious_dependency": 11,
-    "privileged": 133,
-    "unknown": 432,
-    "unprivileged": 143
-  },
+  "by_attacker_kind": {},
   "by_code_context": {
     "none": 45,
     "reference_only": 240,
@@ -16,7 +10,8 @@
   },
   "by_split": {
     "test": 147,
-    "train": 346,
+    "train": 344,
+    "unassigned": 2,
     "validation": 229
   },
   "by_verification": {

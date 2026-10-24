@@ -26,7 +26,9 @@ Rules that keep this honest:
 
 from __future__ import annotations
 
+import argparse
 import collections
+import copy
 import json
 import re
 import sys
@@ -37,8 +39,55 @@ import local_sources as ls  # noqa: E402
 import solidity_facts as sf  # noqa: E402
 import taxonomy as tx  # noqa: E402
 from vlun import (  # noqa: E402
-    ATTACKER_KINDS, DATASET_VERSION, DERIVED, INVARIANT_SOURCES, JSONL, confidence_from_evidence, log, rec_id, sha256_text, write_json, write_jsonl,
+    ATTACKER_KINDS, DATASET_VERSION, DERIVED, INVARIANT_SOURCES, JSONL, REPORTS, ROOT, confidence_from_evidence, log, rec_id, sha256_text, write_json, write_jsonl,
 )
+
+# ---------------------------------------------------------------------------
+# record hash scheme (versioned)
+# ---------------------------------------------------------------------------
+#
+# `original_evidence.record_sha256` is the digest that identifies the v1 row a
+# derived record was built from. Two schemes have been used, and a digest
+# alone does not say which one produced it, so every record now states the
+# scheme it follows. The three scheme ids:
+#
+#   "v1-committed-row"
+#       sha256(json.dumps(row, sort_keys=True, ensure_ascii=False)) over the
+#       v1 row exactly as it is committed in jsonl/. Reproducible from a
+#       fresh checkout on any machine.
+#
+#   "v1-builder-row+verification-verdict"
+#       the same digest, but over the row AS THE BUILDER SAW IT: before
+#       hashing, the builder injects the private key "_verification_verdict"
+#       into the row, taken from work/poc_runs/ - a git-ignored, machine-local
+#       directory of PoC verdicts. The digest therefore covers a byte space
+#       that is NOT reconstructible from the repository alone: a fresh
+#       checkout has no work/poc_runs/, so the builder would hash a
+#       different row and get a different digest. 155 of the 722 committed v1
+#       records carry such a digest; the other 567 carry a plain
+#       committed-row digest.
+#
+#   "v2-committed-row" (current scheme)
+#       sha256(json.dumps(committed_row, sort_keys=True, ensure_ascii=False))
+#       over the v1 row exactly as it is committed in jsonl/, with no
+#       builder-injected key of any kind. The value depends only on committed
+#       bytes, so it is reproducible from a fresh checkout on any machine.
+#
+# The historical `record_sha256` values are NOT rewritten and are never
+# recomputed from a machine-local directory: they are carried forward
+# verbatim from the committed layer, and `record_sha256_version` states which
+# scheme each one follows. `record_sha256_v2` is the new, unambiguous digest
+# and is recomputed on every build. A digest is only ever reported as
+# reproduced when the bytes it claims to identify are available; see
+# `verify_record_hashes`.
+RECORD_HASH_SCHEME_COMMITTED_ROW = "v1-committed-row"
+RECORD_HASH_SCHEME_BUILDER_ROW = "v1-builder-row+verification-verdict"
+RECORD_HASH_SCHEME_V2 = "v2-committed-row"
+RECORD_HASH_SCHEME_UNKNOWN = "v1-unknown"
+
+# The private key the builder injects before hashing (see the scheme notes).
+_VERIFICATION_KEY = "_verification_verdict"
+
 
 # ---------------------------------------------------------------------------
 # evidence helpers
@@ -78,6 +127,13 @@ def pin_provenance_urls(prov: dict, source: dict) -> dict:
     source_urls itself keeps every URL — leakage, permalink and split
     consumers read that array, and moving entries would silently change
     their counts.
+
+    The result belongs in the record's TOP-LEVEL provenance: that is the
+    layer the project owns and rewrites, and it is what
+    scripts/validate_checks.py checks (provenance.source_urls must be
+    immutable, or declared in provenance.source_urls_unpinned). The
+    original_evidence.v1_schema.provenance mirror stays verbatim v1 - it is
+    the frozen source layer, and the permalink gate exempts it by design.
     """
     prov = dict(prov or {})
     if prov.get("source_urls") is None:
@@ -274,25 +330,32 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
     for p in (row.get("security_reasoning") or {}).get("environment_assumptions") or []:
         prereqs.append({"value": p, "evidence_type": "reported_claim"})
 
+    # A pointer is stated only when there is something to point at. The
+    # published layer carries `source_refs` on exactly the 147 records whose
+    # identity was derived by a rule, and no `source_refs` key at all on the
+    # 575 whose identity was quoted from a source or left unknown. An empty
+    # list would claim a pointer that does not exist, so the key is omitted
+    # instead of emitted empty.
+    identity = {
+        "value": kind,
+        "evidence_type": basis if kind != "unknown" else "unknown",
+        "basis": basis,
+        "why": why,
+        "attributed_sentence": rep_sentence if basis == "reported_claim" else None,
+        "vocabulary": list(ATTACKER_KINDS),
+        "rule": "role modifier present -> privileged; tx.origin authorisation -> "
+                "honest_but_misconfigured; an explicit attacker-controlled-external-contract "
+                "statement -> malicious_dependency; an explicit configuration-error statement -> "
+                "honest_but_misconfigured; unprivileged only when a source asserts it AND an "
+                "open gate was actually observed. Everything else is unknown.",
+        "unprivileged_claimed_in_prose": unprivileged_claim,
+        "external_dependencies_involved": external_deps,
+    }
+    if kind != "unknown" and basis == "derived_fact":
+        identity["source_refs"] = ["rule:build_derived.py:attacker_model"]
+
     return {
-        "attacker_identity": {
-            "value": kind,
-            "evidence_type": basis if kind != "unknown" else "unknown",
-            "source_refs": (["rule:build_derived.py:attacker_model"]
-                            if kind != "unknown" and basis == "derived_fact"
-                            else []),
-            "basis": basis,
-            "why": why,
-            "attributed_sentence": rep_sentence if basis == "reported_claim" else None,
-            "vocabulary": list(ATTACKER_KINDS),
-            "rule": "role modifier present -> privileged; tx.origin authorisation -> "
-                    "honest_but_misconfigured; an explicit attacker-controlled-external-contract "
-                    "statement -> malicious_dependency; an explicit configuration-error statement -> "
-                    "honest_but_misconfigured; unprivileged only when a source asserts it AND an "
-                    "open gate was actually observed. Everything else is unknown.",
-            "unprivileged_claimed_in_prose": unprivileged_claim,
-            "external_dependencies_involved": external_deps,
-        },
+        "attacker_identity": identity,
         "attacker_capabilities": caps[:12],
         "attacker_prerequisites": prereqs[:12],
         "attacker_constraints": (row.get("security_reasoning") or {}).get("attacker_limitations") or [],
@@ -497,7 +560,335 @@ def quality_block(row: dict, ctx: list[dict], att: dict, st: dict, inv: dict,
 # record assembly
 # ---------------------------------------------------------------------------
 
-def build_record(row: dict, verification_index: dict) -> dict:
+def canonical_row_hash(row: dict) -> str:
+    """The v2 digest: sha256 over the canonical JSON of a committed row.
+
+    Canonical means `json.dumps(row, sort_keys=True, ensure_ascii=False)`
+    encoded as UTF-8 - the same serialisation `scripts/check_manifests.py`
+    uses for the v1 split pointers, so a v1 row and its derived record can
+    be checked with one function.
+    """
+    return sha256_text(json.dumps(row, sort_keys=True, ensure_ascii=False))
+
+
+def determine_record_hash_scheme(digest: str, committed_sha: str,
+                                 committed_row: dict | None,
+                                 verdict: str | None) -> str:
+    """Which scheme produced `digest`? Proved, not guessed.
+
+    `committed_sha` is the v2 digest of the v1 row as it is committed in
+    jsonl/. `committed_row` is that same pristine row (needed to rebuild the
+    injected variant) and `verdict` is the PoC verdict the builder would
+    have injected, when it has one.
+    """
+    if digest == committed_sha:
+        return RECORD_HASH_SCHEME_COMMITTED_ROW
+    if verdict is not None and committed_row is not None:
+        injected = dict(committed_row)
+        injected[_VERIFICATION_KEY] = verdict
+        if digest == canonical_row_hash(injected):
+            return RECORD_HASH_SCHEME_BUILDER_ROW
+    return RECORD_HASH_SCHEME_UNKNOWN
+
+
+def load_legacy_record_hashes(path: Path | None = None) -> dict[str, dict]:
+    """The historical digests of the committed layer, by record id.
+
+    The historical `record_sha256` of a record may cover a byte space that
+    cannot be rebuilt from the repository (a digest over a row with a
+    machine-local PoC verdict injected into it). Such a digest is a
+    historical fact, not a computed value: it is carried forward verbatim
+    and never silently recalculated. This reads the committed layer so a
+    rebuild reproduces it byte for byte on any machine.
+    """
+    path = path or (DERIVED / "records.jsonl")
+    out: dict[str, dict] = {}
+    if not path.exists():
+        return out
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return out
+    for line in text.splitlines():
+        if not line.strip():
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        rid = rec.get("id")
+        ev = rec.get("original_evidence") or {}
+        if rid and ev.get("record_sha256"):
+            out[rid] = {
+                "record_sha256": ev.get("record_sha256"),
+                "record_sha256_version": ev.get("record_sha256_version"),
+            }
+    return out
+
+
+def committed_source_rows() -> dict[str, dict]:
+    """The v1 rows as they are committed in jsonl/, by record id.
+
+    These are the bytes the record hashes identify. They are read from the
+    committed source layer, never from a working copy.
+    """
+    out: dict[str, dict] = {}
+    for fam in ("findings.jsonl", "negative_findings.jsonl"):
+        path = JSONL / fam
+        if not path.exists():
+            continue
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                out[rec_id(row)] = row
+    return out
+
+
+def migrate_record_hashes(path: Path | None = None) -> dict:
+    """Add the versioned record-hash fields to the committed layer in place.
+
+    The derived layer is not a clean rebuild on an arbitrary machine. A
+    rebuild re-resolves the cited code against the git-ignored work/ state;
+    where that state is missing the rebuild degrades the immutable commit
+    pins (473 citations fall back to a branch name) and re-introduces the
+    taxonomy drift the committed layer was migrated away from. The
+    repository's own practice is therefore that a builder change is carried
+    into the committed layer surgically, with the builder's own function, so
+    the layer keeps the pins it already has.
+
+    This is that migration for the record hash scheme. It rewrites exactly
+    three fields per record - `original_evidence.record_sha256_version`,
+    `.record_sha256_v2` and `.record_sha256_v2_version` - and never the
+    historical `.record_sha256`. The scheme of a historical digest is proved
+    from committed bytes alone: the v1 source row, and the record's own
+    `verification.verdict` for the records whose digest covers a row with a
+    PoC verdict injected into it. No machine-local state is consulted, so
+    the migration produces the same bytes on every machine.
+    """
+    path = path or (DERIVED / "records.jsonl")
+    records = [json.loads(line) for line in
+               path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    committed = committed_source_rows()
+    counts: collections.Counter = collections.Counter()
+    for rec in records:
+        rid = rec.get("id")
+        row = committed.get(rid)
+        ev = dict(rec.get("original_evidence") or {})
+        digest = ev.get("record_sha256")
+        version = ev.get("record_sha256_version")
+        if not version and digest and row is not None:
+            version = determine_record_hash_scheme(
+                digest, canonical_row_hash(row), row,
+                (rec.get("verification") or {}).get("verdict"))
+        if not version:
+            version = RECORD_HASH_SCHEME_UNKNOWN
+        ev["record_sha256_version"] = version
+        ev["record_sha256_v2"] = (canonical_row_hash(row)
+                                  if row is not None else None)
+        ev["record_sha256_v2_version"] = RECORD_HASH_SCHEME_V2
+        rec["original_evidence"] = ev
+        counts[version] += 1
+    write_jsonl(path, records)
+    # The manifest is the layer's own index; it states the same scheme mix
+    # the full build writes, so a reader sees it without reading 722 rows.
+    man_path = path.parent / "manifest.json"
+    if man_path.exists():
+        man = json.loads(man_path.read_text(encoding="utf-8"))
+        man["record_hash_scheme"] = dict(counts)
+        man["record_hash_scheme_v2"] = RECORD_HASH_SCHEME_V2
+        write_json(man_path, man)
+    return {"records": len(records), "schemes": dict(counts)}
+
+
+def record_hash_report(records: list[dict],
+                       committed_rows: dict[str, dict]) -> dict:
+    """The verification result for the record hashes, as a report.
+
+    It says, per record, whether the historical digest reproduces against
+    the bytes it claims to identify, under the scheme the record states. A
+    digest is never reported as reproduced when the bytes it covers are not
+    available.
+    """
+    reproduced: collections.Counter = collections.Counter()
+    schemes: collections.Counter = collections.Counter()
+    problems = verify_record_hashes(records, committed_rows)
+    for rec in records:
+        ev = rec.get("original_evidence") or {}
+        version = ev.get("record_sha256_version") or RECORD_HASH_SCHEME_UNKNOWN
+        schemes[version] += 1
+        row = committed_rows.get(rec.get("id"))
+        digest = ev.get("record_sha256")
+        ok = False
+        if row is not None and digest:
+            if version == RECORD_HASH_SCHEME_COMMITTED_ROW:
+                ok = digest == canonical_row_hash(row)
+            elif version == RECORD_HASH_SCHEME_BUILDER_ROW:
+                verdict = (rec.get("verification") or {}).get("verdict")
+                if verdict is not None:
+                    injected = dict(row)
+                    injected[_VERIFICATION_KEY] = verdict
+                    ok = digest == canonical_row_hash(injected)
+            elif version == RECORD_HASH_SCHEME_V2:
+                ok = digest == canonical_row_hash(row)
+        reproduced["reproduced" if ok else "not_reproduced"] += 1
+    return {
+        "generated_by": "scripts/build_derived.py",
+        "layer": "derived/records.jsonl",
+        "records": len(records),
+        "scheme": {
+            RECORD_HASH_SCHEME_COMMITTED_ROW:
+                "sha256(json.dumps(row, sort_keys=True, ensure_ascii=False)) "
+                "over the v1 row exactly as it is committed in jsonl/. "
+                "Reproducible from a fresh checkout on any machine.",
+            RECORD_HASH_SCHEME_BUILDER_ROW:
+                "the same digest over the row as the builder saw it: the "
+                "builder injects the private key '_verification_verdict' "
+                "into the row before hashing it, from work/poc_runs/ - a "
+                "git-ignored, machine-local directory. The digest therefore "
+                "covers a byte space that a fresh checkout cannot rebuild. "
+                "The verdict itself is committed data (verification.verdict), "
+                "so the digest is still checkable everywhere.",
+            RECORD_HASH_SCHEME_V2:
+                "sha256(json.dumps(committed_row, sort_keys=True, "
+                "ensure_ascii=False)) over the v1 row exactly as it is "
+                "committed in jsonl/, with no builder-injected key. The value "
+                "depends only on committed bytes.",
+            RECORD_HASH_SCHEME_UNKNOWN:
+                "the digest matches neither scheme; it is carried forward "
+                "unchanged and is not reported as verified.",
+        },
+        "fields": {
+            "record_sha256": "the historical digest, carried forward "
+                             "verbatim; never recalculated",
+            "record_sha256_version": "the scheme the historical digest "
+                                     "follows",
+            "record_sha256_v2": "the digest under the current scheme",
+            "record_sha256_v2_version": "the scheme of record_sha256_v2",
+        },
+        "by_scheme": dict(sorted(schemes.items())),
+        "historical_digest": {
+            "reproduced": reproduced["reproduced"],
+            "not_reproduced": reproduced["not_reproduced"],
+            "note": "reproduced means the historical digest was recomputed "
+                    "from the bytes it claims to identify, under the scheme "
+                    "the record states, and matched. A digest whose bytes are "
+                    "not available is counted as not reproduced, never as "
+                    "verified.",
+        },
+        "v2_digest": {
+            "reproduced": sum(
+                1 for rec in records
+                if (rec.get("original_evidence") or {}).get("record_sha256_v2")
+                == canonical_row_hash(committed_rows[rec["id"]])
+                if rec.get("id") in committed_rows),
+            "not_reproduced": sum(
+                1 for rec in records
+                if rec.get("id") not in committed_rows
+                or (rec.get("original_evidence") or {}).get("record_sha256_v2")
+                != canonical_row_hash(committed_rows[rec["id"]])),
+        },
+        "problems": problems[:50],
+        "problem_count": len(problems),
+    }
+
+
+def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
+                         verdicts: dict[str, str] | None = None
+                         ) -> list[dict]:
+    """Check every derived record's digests against the bytes they claim.
+
+    `committed_rows` maps a record id to the v1 row as it is committed in
+    jsonl/. `verdicts` maps a record id to the PoC verdict the builder
+    injects; when it is absent the record's own `verification.verdict` is
+    used, which is committed data and therefore available everywhere.
+
+    Returns one dict per problem, each with the record id, the field at
+    fault and what was expected. A record is accepted only when it states a
+    scheme, its `record_sha256` reproduces under that scheme (or is carried
+    forward as a historical digest whose scheme is stated), and its
+    `record_sha256_v2` reproduces under the v2 scheme. A digest is never
+    reported as reproduced when the bytes it covers are not available.
+    """
+    verdicts = verdicts or {}
+    problems: list[dict] = []
+    for rec in records:
+        rid = rec.get("id")
+        ev = rec.get("original_evidence") or {}
+        version = ev.get("record_sha256_version")
+        digest = ev.get("record_sha256")
+        v2 = ev.get("record_sha256_v2")
+        v2_version = ev.get("record_sha256_v2_version")
+        row = committed_rows.get(rid)
+        if not version:
+            problems.append({"id": rid, "field": "record_sha256_version",
+                             "problem": "missing scheme marker: a digest "
+                                        "without a stated scheme is not "
+                                        "checkable"})
+            continue
+        if version not in (RECORD_HASH_SCHEME_COMMITTED_ROW,
+                           RECORD_HASH_SCHEME_BUILDER_ROW,
+                           RECORD_HASH_SCHEME_V2,
+                           RECORD_HASH_SCHEME_UNKNOWN):
+            problems.append({"id": rid, "field": "record_sha256_version",
+                             "problem": f"unknown scheme {version!r}"})
+            continue
+        if v2_version != RECORD_HASH_SCHEME_V2:
+            problems.append({"id": rid, "field": "record_sha256_v2_version",
+                             "problem": f"expected {RECORD_HASH_SCHEME_V2!r}, "
+                                        f"got {v2_version!r}"})
+        if row is None:
+            problems.append({"id": rid, "field": "record_sha256",
+                             "problem": "no committed source row: the bytes "
+                                        "the digest claims to identify are "
+                                        "not available, so the digest cannot "
+                                        "be verified"})
+            continue
+        want_v2 = canonical_row_hash(row)
+        if v2 != want_v2:
+            problems.append({"id": rid, "field": "record_sha256_v2",
+                             "problem": "does not match the committed source "
+                                        "row under the v2 scheme"})
+        if version == RECORD_HASH_SCHEME_COMMITTED_ROW:
+            if digest != want_v2:
+                problems.append({"id": rid, "field": "record_sha256",
+                                 "problem": "does not match the committed "
+                                            "source row"})
+        elif version == RECORD_HASH_SCHEME_BUILDER_ROW:
+            # The PoC verdict is committed data: the record carries it in
+            # `verification.verdict`, so the historical digest can be
+            # checked on any machine, not only where work/poc_runs/ exists.
+            verdict = (verdicts.get(rid)
+                       or (rec.get("verification") or {}).get("verdict"))
+            if verdict is None:
+                problems.append({"id": rid, "field": "record_sha256",
+                                 "problem": "historical digest over a row "
+                                            "with an injected PoC verdict; "
+                                            "the verdict is not available on "
+                                            "this machine, so the digest is "
+                                            "carried forward and not claimed "
+                                            "to be verified"})
+            else:
+                injected = dict(row)
+                injected[_VERIFICATION_KEY] = verdict
+                if digest != canonical_row_hash(injected):
+                    problems.append({"id": rid, "field": "record_sha256",
+                                     "problem": "does not match the source "
+                                                "row with the injected PoC "
+                                                "verdict"})
+        elif version == RECORD_HASH_SCHEME_V2:
+            if digest != want_v2:
+                problems.append({"id": rid, "field": "record_sha256",
+                                 "problem": "does not match the committed "
+                                            "source row under the v2 scheme"})
+    return problems
+
+
+def build_record(row: dict, verification_index: dict,
+                 committed_sha: str | None = None,
+                 committed_row: dict | None = None,
+                 legacy: dict | None = None) -> dict:
     finding = row.get("finding") or {}
     rid = rec_id(row)
     license_class = ls.classify_record_code(row)
@@ -507,6 +898,28 @@ def build_record(row: dict, verification_index: dict) -> dict:
     st = state_transition(row, ex, ctx)
     inv = invariants_block(row, ctx)
     row_v = row.get("_verification_verdict")
+
+    # The v2 digest: over the committed source row, with no injected key.
+    if committed_sha is None and committed_row is not None:
+        committed_sha = canonical_row_hash(committed_row)
+
+    # The historical digest. When the committed layer already carries one it
+    # is carried forward verbatim and never recomputed: for 155 of the 722
+    # committed records it covers a byte space (the source row with a
+    # machine-local PoC verdict injected into it) that cannot be rebuilt from
+    # the repository alone. A digest whose scheme is not stated is proved
+    # from the bytes instead of assumed.
+    legacy_digest = (legacy or {}).get("record_sha256")
+    legacy_version = (legacy or {}).get("record_sha256_version")
+    if not legacy_digest:
+        legacy_digest = sha256_text(json.dumps(row, sort_keys=True,
+                                                ensure_ascii=False))
+    if not legacy_version and committed_sha is not None:
+        legacy_version = determine_record_hash_scheme(
+            legacy_digest, committed_sha, committed_row,
+            row.get(_VERIFICATION_KEY))
+    if not legacy_version:
+        legacy_version = RECORD_HASH_SCHEME_UNKNOWN
 
     overall = confidence_from_evidence(
         [att["attacker_identity"]["evidence_type"]] +
@@ -556,7 +969,14 @@ def build_record(row: dict, verification_index: dict) -> dict:
         "quality": quality_block(row, ctx, att, st, inv, license_class),
         "protocol": row.get("protocol") or {},
         "source": row.get("source") or {},
-        "provenance": row.get("provenance") or {},
+        # The pinned provenance lives at the TOP level: this is the layer the
+        # project owns and rewrites, so the immutable permalinks belong here.
+        # scripts/validate_checks.py reads exactly these two fields
+        # (provenance.source_urls / provenance.source_urls_unpinned) and
+        # exempts the original_evidence mirror, so a pin written only into the
+        # mirror would leave the shipped layer citing a mutable branch.
+        "provenance": pin_provenance_urls(row.get("provenance"),
+                                          row.get("source")),
         "original_evidence": {
             # A pointer, not an embedding. The verbatim record lives in jsonl/ and
             # is never rewritten; embedding a second copy here would triple the
@@ -566,7 +986,15 @@ def build_record(row: dict, verification_index: dict) -> dict:
             "file": "jsonl/negative_findings.jsonl" if row.get("negative_analysis")
             else "jsonl/findings.jsonl",
             "record_id": rid,
-            "record_sha256": sha256_text(json.dumps(row, sort_keys=True, ensure_ascii=False)),
+            # The historical digest, carried forward verbatim, and the scheme
+            # it follows. See the record hash scheme notes at the top of this
+            # file: a digest alone does not say which bytes it covers.
+            "record_sha256": legacy_digest,
+            "record_sha256_version": legacy_version,
+            # The current scheme: the digest of the committed source row, with
+            # no builder-injected key. Reproducible from a fresh checkout.
+            "record_sha256_v2": committed_sha,
+            "record_sha256_v2_version": RECORD_HASH_SCHEME_V2,
             "negative_analysis": row.get("negative_analysis"),
             "classifier_evidence": row.get("classifier_evidence"),
             "confidence_v1": row.get("confidence"),
@@ -575,7 +1003,11 @@ def build_record(row: dict, verification_index: dict) -> dict:
                 "patch": row.get("patch") or {},
                 "validation": row.get("validation") or {},
                 "security_reasoning": row.get("security_reasoning") or {},
-        "provenance": pin_provenance_urls(row.get("provenance"), row.get("source")),
+                # The mirror is verbatim: it is the v1 row as it was
+                # committed, mutable branch refs and all. Pinning happens in
+                # the top-level provenance; a mirror that had been rewritten
+                # would no longer be evidence of what v1 said.
+                "provenance": row.get("provenance") or {},
             },
         },
     }
@@ -615,17 +1047,53 @@ def load_verification_index() -> dict:
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--write-record-hash-report", action="store_true",
+                    help="write reports/record_hash_verification.json")
+    ap.add_argument("--migrate-record-hashes", action="store_true",
+                    help="add the versioned record-hash fields to the "
+                         "committed derived layer in place, without a "
+                         "rebuild (see migrate_record_hashes)")
+    args = ap.parse_args()
+    if args.migrate_record_hashes:
+        res = migrate_record_hashes()
+        log(f"migrated record hashes in derived/records.jsonl: {res}")
+        return 0
+    if args.write_record_hash_report:
+        records = [json.loads(line) for line in
+                   (DERIVED / "records.jsonl").read_text(
+                       encoding="utf-8").splitlines() if line.strip()]
+        rep = record_hash_report(records, committed_source_rows())
+        out = REPORTS / "record_hash_verification.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        write_json(out, rep)
+        log(f"wrote {out.relative_to(ROOT)}: {rep['records']} records, "
+            f"reproduced={rep['historical_digest']['reproduced']} "
+            f"not_reproduced={rep['historical_digest']['not_reproduced']}")
+        return 0
     vidx = load_verification_index()
+    # The historical digests of the committed layer, carried forward verbatim.
+    legacy_hashes = load_legacy_record_hashes()
     out = []
     for fam in ("findings.jsonl", "negative_findings.jsonl"):
         for line in open(JSONL / fam, encoding="utf-8"):
             if not line.strip():
                 continue
             row = json.loads(line)
+            rid = rec_id(row)
+            # The digest of the row as it is committed, computed before the
+            # builder injects anything into it. The pristine row is kept so
+            # the injected variant can be rebuilt when a verdict exists.
+            committed_sha = canonical_row_hash(row)
+            committed_row = None
             v = vidx.get(row.get("finding", {}).get("id"))
             if v:
-                row["_verification_verdict"] = v["verdict"]
-            out.append(build_record(row, {row.get("finding", {}).get("id"): v} if v else {}))
+                committed_row = copy.deepcopy(row)
+                row[_VERIFICATION_KEY] = v["verdict"]
+            out.append(build_record(row, {rid: v} if v else {},
+                                    committed_sha=committed_sha,
+                                    committed_row=committed_row,
+                                    legacy=legacy_hashes.get(rid)))
     write_jsonl(DERIVED / "records.jsonl", out)
 
     man = {
@@ -656,6 +1124,13 @@ def main() -> int:
         "dynamic_verification": dict(collections.Counter(r["quality"]["dynamic_verification"] for r in out)),
         "invariants_invented": 0,
         "numeric_state_values_invented": 0,
+        # The record hash scheme is stated per record (original_evidence.
+        # record_sha256_version); the counters say how many records follow
+        # each scheme, so a reader can see the mix without reading 722 rows.
+        "record_hash_scheme": dict(collections.Counter(
+            (r["original_evidence"] or {}).get("record_sha256_version")
+            or "none" for r in out)),
+        "record_hash_scheme_v2": RECORD_HASH_SCHEME_V2,
     }
     write_json(DERIVED / "manifest.json", man)
     log(f"wrote derived/records.jsonl ({len(out)})")

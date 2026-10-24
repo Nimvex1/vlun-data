@@ -3,7 +3,6 @@ title: "VLUN: a provenance-preserving smart-contract security reasoning dataset"
 version: 2.2
 date-released: 2026-10-07
 repository-code: "https://github.com/Nimvex1/vlun-data"
-license: CC-BY-4.0
 keywords:
   - smart contracts
   - vulnerability detection
@@ -23,10 +22,15 @@ abstract: >
   Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and
   Clarity. Every record traces to a public artefact and every claim carries
   its evidence type. Governing rule: truth over scale; unknown is a counted
-  outcome. Data layers are CC BY 4.0; pipeline scripts are MIT; third-party
-  source is not licensed here at all (see NOTICE.md).
+  outcome. The licence is scoped, not blanket: this project grants MIT over
+  its own code and CC BY 4.0 over its own documents and data, and only for
+  the paths RELEASE_MANIFEST.json lists with a released rights status. The
+  evidence corpus and every piece of third-party material are not licensed
+  here at all, and attribution is not a redistribution right (see LICENSE and
+  NOTICE.md).
 preferred-citation:
   type: dataset
   title: "VLUN: a provenance-preserving smart-contract security reasoning dataset"
   version: 2.2
+  date-released: 2026-10-07
   repository-code: "https://github.com/Nimvex1/vlun-data"

@@ -502,7 +502,7 @@
     },
     {
       "argv": [
-        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "python",
         "scripts/run_vyper_poc.py",
         "--id",
         "optimizer_ternary"
@@ -518,7 +518,7 @@
         }
       },
       "assertion_stdout_captured": true,
-      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id optimizer_ternary",
+      "command": "python scripts/run_vyper_poc.py --id optimizer_ternary",
       "cwd": "<repo>",
       "description": "the optimizer folds `msg.value | 2` to 1: IR differential plus a deployed call returning 1 at -O gas and 7 at -O none",
       "exit_code": 0,
@@ -556,7 +556,7 @@
     },
     {
       "argv": [
-        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "python",
         "scripts/run_vyper_poc.py",
         "--id",
         "rawcall_value"
@@ -572,7 +572,7 @@
         }
       },
       "assertion_stdout_captured": true,
-      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id rawcall_value",
+      "command": "python scripts/run_vyper_poc.py --id rawcall_value",
       "cwd": "<repo>",
       "description": "value= on a delegate call: accepted by 0.3.10, rejected by 0.4.0, with a control that compiles on both",
       "exit_code": 0,
@@ -610,7 +610,7 @@
     },
     {
       "argv": [
-        "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "python",
         "scripts/run_move_poc.py",
         "--id",
         "cetus_checked_shlw"
@@ -626,7 +626,7 @@
         }
       },
       "assertion_stdout_captured": true,
-      "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_move_poc.py --id cetus_checked_shlw",
+      "command": "python scripts/run_move_poc.py --id cetus_checked_shlw",
       "cwd": "<repo>",
       "description": "checked_shlw silently truncates a product of exactly 2^192 on the audited revision and on the insufficient PR #6 revision, and reports overflow on the PR #7 fix, with a below-boundary control passing on all three",
       "exit_code": 0,

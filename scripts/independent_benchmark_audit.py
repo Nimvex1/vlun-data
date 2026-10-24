@@ -155,6 +155,23 @@ NOT_SCORABLE = {
         "descriptive reference answers, no scalar label",
     "Q_evidence_type_and_quality_rubric.jsonl":
         "judge-graded rubric dict",
+    # The F-extension families are shipped and registered, and they are scored - but
+    # by their own per-axis / three-class scorer in scripts/score_f_extension.py, not
+    # by the scalar exact-match projection that drives the headline micro-average.
+    # Declaring them here keeps them out of the headline by rule and out of the
+    # silence by name: they are reported as not scorable *by this scorer*, with the
+    # reason, never scored 0 and read as a result.
+    "Fa_rejection_evidence_axis_vector.jsonl":
+        "not scorable by the headline exact-match projection: the gold is a vector of "
+        "six axes plus per-axis assessability, so there is no single label to match. "
+        "scripts/score_f_extension.py scores it per axis over the assessed axes only, "
+        "and publishes the per-axis majority floor with it",
+    "Fb_duplicate_radar_pair.jsonl":
+        "not promoted into the headline: same_vulnerability / distinct_vulnerability / "
+        "ambiguous is scalar in shape, but joining the micro-average would move the "
+        "published denominator while the pair floor is still 0.4665 from a trivial "
+        "predictor. scripts/score_f_extension.py scores it (with the published floors) "
+        "and its row ids carry the split segment the shared row contract requires",
 }
 
 WORD = re.compile(r"[a-z0-9]+")

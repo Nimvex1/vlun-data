@@ -1,0 +1,633 @@
+{
+  "fa": {
+    "baselines": [
+      {
+        "axis_accuracy": 0.8431,
+        "axis_decisions": 2582,
+        "per_axis": {
+          "claim_corroborated_as_duplicate_of_confirmed_finding": {
+            "accuracy": 0.5786,
+            "accuracy_95ci": [
+              0.5329,
+              0.623
+            ],
+            "f1": 0.7331,
+            "fn": 0,
+            "fp": 193,
+            "precision": 0.5786,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 265
+          },
+          "exploit_attempted_and_claimed_violation_not_demonstrated": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9917,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 458
+          },
+          "reason_attributed_to_judge_or_sponsor": {
+            "accuracy": 0.9803,
+            "accuracy_95ci": [
+              0.9631,
+              0.9896
+            ],
+            "f1": 0.9901,
+            "fn": 0,
+            "fp": 9,
+            "precision": 0.9803,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 449
+          },
+          "reason_supported_by_cited_code": {
+            "accuracy": 0.9966,
+            "accuracy_95ci": [
+              0.9809,
+              0.9994
+            ],
+            "f1": 0.9983,
+            "fn": 0,
+            "fp": 1,
+            "precision": 0.9966,
+            "recall": 1.0,
+            "support": 292,
+            "tp": 291
+          },
+          "rejection_status_publicly_reported": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9917,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 458
+          },
+          "unknown_or_insufficient_evidence": {
+            "accuracy": 0.559,
+            "accuracy_95ci": [
+              0.5132,
+              0.6037
+            ],
+            "f1": 0.7171,
+            "fn": 0,
+            "fp": 202,
+            "precision": 0.559,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 256
+          }
+        },
+        "predictor": "majority_axis",
+        "rows_scored": 458,
+        "technical_explanation_field": {
+          "answered_duplicate_as_technical": 0,
+          "answered_status_as_technical": 0,
+          "exact_match_rate": 0.9869
+        }
+      },
+      {
+        "axis_accuracy": 0.3552,
+        "axis_decisions": 2582,
+        "per_axis": {
+          "claim_corroborated_as_duplicate_of_confirmed_finding": {
+            "accuracy": 0.4214,
+            "accuracy_95ci": [
+              0.377,
+              0.4671
+            ],
+            "f1": 0.5929,
+            "fn": 0,
+            "fp": 265,
+            "precision": 0.4214,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 193
+          },
+          "exploit_attempted_and_claimed_violation_not_demonstrated": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          },
+          "reason_attributed_to_judge_or_sponsor": {
+            "accuracy": 0.0197,
+            "accuracy_95ci": [
+              0.0104,
+              0.0369
+            ],
+            "f1": 0.0385,
+            "fn": 0,
+            "fp": 449,
+            "precision": 0.0197,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 9
+          },
+          "reason_supported_by_cited_code": {
+            "accuracy": 0.0034,
+            "accuracy_95ci": [
+              0.0006,
+              0.0191
+            ],
+            "f1": 0.0068,
+            "fn": 0,
+            "fp": 291,
+            "precision": 0.0034,
+            "recall": 1.0,
+            "support": 292,
+            "tp": 1
+          },
+          "rejection_status_publicly_reported": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9917,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 458
+          },
+          "unknown_or_insufficient_evidence": {
+            "accuracy": 0.559,
+            "accuracy_95ci": [
+              0.5132,
+              0.6037
+            ],
+            "f1": 0.7171,
+            "fn": 0,
+            "fp": 202,
+            "precision": 0.559,
+            "recall": 1.0,
+            "support": 458,
+            "tp": 256
+          }
+        },
+        "predictor": "all_supported",
+        "rows_scored": 458,
+        "technical_explanation_field": {
+          "answered_duplicate_as_technical": 458,
+          "answered_status_as_technical": 458,
+          "exact_match_rate": 0.0
+        }
+      },
+      {
+        "axis_accuracy": 0.0,
+        "axis_decisions": 2582,
+        "per_axis": {
+          "claim_corroborated_as_duplicate_of_confirmed_finding": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          },
+          "exploit_attempted_and_claimed_violation_not_demonstrated": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          },
+          "reason_attributed_to_judge_or_sponsor": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          },
+          "reason_supported_by_cited_code": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.013
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 292,
+            "precision": 0.0,
+            "recall": null,
+            "support": 292,
+            "tp": 0
+          },
+          "rejection_status_publicly_reported": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          },
+          "unknown_or_insufficient_evidence": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0083
+            ],
+            "f1": 0.0,
+            "fn": 0,
+            "fp": 458,
+            "precision": 0.0,
+            "recall": null,
+            "support": 458,
+            "tp": 0
+          }
+        },
+        "predictor": "all_unknown",
+        "rows_scored": 458,
+        "technical_explanation_field": {
+          "answered_duplicate_as_technical": 0,
+          "answered_status_as_technical": 0,
+          "exact_match_rate": 0.9869
+        }
+      }
+    ],
+    "floor_axis_accuracy": 0.8431,
+    "rows_scored": 458,
+    "tasks": 458
+  },
+  "fb": {
+    "baselines": [
+      {
+        "accuracy": 0.3327,
+        "accuracy_95ci": [
+          0.2947,
+          0.373
+        ],
+        "by_hardness": {
+          "different_file_and_different_root_cause": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 72
+          },
+          "different_function_same_file": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 139
+          },
+          "different_function_same_file_and_different_root_cause": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 47
+          },
+          "not_applicable": {
+            "accuracy": 0.6237,
+            "correct": 184,
+            "total": 295
+          }
+        },
+        "by_project": {
+          "2022-05-alchemix": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 31
+          },
+          "2024-01-decent": {
+            "accuracy": 0.2451,
+            "correct": 25,
+            "total": 102
+          },
+          "2024-01-renft": {
+            "accuracy": 0.6701,
+            "correct": 65,
+            "total": 97
+          },
+          "2024-04-noya": {
+            "accuracy": 0.274,
+            "correct": 80,
+            "total": 292
+          },
+          "2024-08-wildcat": {
+            "accuracy": 0.4516,
+            "correct": 14,
+            "total": 31
+          }
+        },
+        "confusion": {
+          "ambiguous->same_vulnerability": 111,
+          "distinct_vulnerability->same_vulnerability": 258,
+          "same_vulnerability->same_vulnerability": 184
+        },
+        "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is counted as an error, never skipped",
+        "pairs_scored": 553,
+        "per_class": {
+          "ambiguous": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0335
+            ],
+            "f1": 0.0,
+            "fn": 111,
+            "fp": 111,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 111,
+            "tp": 0
+          },
+          "distinct_vulnerability": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0147
+            ],
+            "f1": 0.0,
+            "fn": 258,
+            "fp": 258,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 258,
+            "tp": 0
+          },
+          "same_vulnerability": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9795,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 184,
+            "tp": 184
+          }
+        },
+        "predictor": "always_duplicate"
+      },
+      {
+        "accuracy": 0.4665,
+        "accuracy_95ci": [
+          0.4253,
+          0.5082
+        ],
+        "by_hardness": {
+          "different_file_and_different_root_cause": {
+            "accuracy": 1.0,
+            "correct": 72,
+            "total": 72
+          },
+          "different_function_same_file": {
+            "accuracy": 1.0,
+            "correct": 139,
+            "total": 139
+          },
+          "different_function_same_file_and_different_root_cause": {
+            "accuracy": 1.0,
+            "correct": 47,
+            "total": 47
+          },
+          "not_applicable": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 295
+          }
+        },
+        "by_project": {
+          "2022-05-alchemix": {
+            "accuracy": 0.6774,
+            "correct": 21,
+            "total": 31
+          },
+          "2024-01-decent": {
+            "accuracy": 0.4314,
+            "correct": 44,
+            "total": 102
+          },
+          "2024-01-renft": {
+            "accuracy": 0.3299,
+            "correct": 32,
+            "total": 97
+          },
+          "2024-04-noya": {
+            "accuracy": 0.4932,
+            "correct": 144,
+            "total": 292
+          },
+          "2024-08-wildcat": {
+            "accuracy": 0.5484,
+            "correct": 17,
+            "total": 31
+          }
+        },
+        "confusion": {
+          "ambiguous->distinct_vulnerability": 111,
+          "distinct_vulnerability->distinct_vulnerability": 258,
+          "same_vulnerability->distinct_vulnerability": 184
+        },
+        "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is counted as an error, never skipped",
+        "pairs_scored": 553,
+        "per_class": {
+          "ambiguous": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0335
+            ],
+            "f1": 0.0,
+            "fn": 111,
+            "fp": 111,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 111,
+            "tp": 0
+          },
+          "distinct_vulnerability": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9853,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 258,
+            "tp": 258
+          },
+          "same_vulnerability": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0205
+            ],
+            "f1": 0.0,
+            "fn": 184,
+            "fp": 184,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 184,
+            "tp": 0
+          }
+        },
+        "predictor": "never_duplicate"
+      },
+      {
+        "accuracy": 0.2007,
+        "accuracy_95ci": [
+          0.1695,
+          0.2361
+        ],
+        "by_hardness": {
+          "different_file_and_different_root_cause": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 72
+          },
+          "different_function_same_file": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 139
+          },
+          "different_function_same_file_and_different_root_cause": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 47
+          },
+          "not_applicable": {
+            "accuracy": 0.3763,
+            "correct": 111,
+            "total": 295
+          }
+        },
+        "by_project": {
+          "2022-05-alchemix": {
+            "accuracy": 0.3226,
+            "correct": 10,
+            "total": 31
+          },
+          "2024-01-decent": {
+            "accuracy": 0.3235,
+            "correct": 33,
+            "total": 102
+          },
+          "2024-01-renft": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 97
+          },
+          "2024-04-noya": {
+            "accuracy": 0.2329,
+            "correct": 68,
+            "total": 292
+          },
+          "2024-08-wildcat": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 31
+          }
+        },
+        "confusion": {
+          "ambiguous->ambiguous": 111,
+          "distinct_vulnerability->ambiguous": 258,
+          "same_vulnerability->ambiguous": 184
+        },
+        "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is counted as an error, never skipped",
+        "pairs_scored": 553,
+        "per_class": {
+          "ambiguous": {
+            "accuracy": 1.0,
+            "accuracy_95ci": [
+              0.9665,
+              1.0
+            ],
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 111,
+            "tp": 111
+          },
+          "distinct_vulnerability": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0147
+            ],
+            "f1": 0.0,
+            "fn": 258,
+            "fp": 258,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 258,
+            "tp": 0
+          },
+          "same_vulnerability": {
+            "accuracy": 0.0,
+            "accuracy_95ci": [
+              0.0,
+              0.0205
+            ],
+            "f1": 0.0,
+            "fn": 184,
+            "fp": 184,
+            "precision": 0.0,
+            "recall": 0.0,
+            "support": 184,
+            "tp": 0
+          }
+        },
+        "predictor": "always_ambiguous"
+      }
+    ],
+    "floor_accuracy": 0.4665,
+    "rows_scored": 553,
+    "tasks": 553
+  },
+  "generated_by": "scripts/score_f_extension.py",
+  "reading": "a model result is only a result if it beats the floor on the same denominators; the floor is per-axis for F-A and overall plus per-class for F-B"
+}

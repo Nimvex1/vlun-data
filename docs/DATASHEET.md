@@ -14,7 +14,7 @@ ground truth. Governing rule: truth over scale.
 - v2.2 (five languages): 137 derived records.
 - V3.0: 5,467 admitted of 7,712 candidates across 18 sources; levels {"L0": 4586, "L1": 754, "L3": 125, "L5": 2}.
 - Vbeta (isolated): 6,935 admitted of 7,060 candidates across 15 sources; levels {"L0": 6981, "L1": 79}.
-- Benchmark: 19,631 exactly-scorable tasks (majority micro-accuracy 0.8736). 864 further tasks across 3 families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
+- Benchmark: the primary metric covers 720 exactly-scorable rows of the PRIMARY set (1 family: A_vulnerability_detection.jsonl); the train-only majority floor on the 147 held-out test rows is 0.5510 (macro-F1 0.3553). The family status is computed at run time from the independent audit's measurements, not from a list: 28 rows sit in EXPLORATORY families (demoted: too few rows, a holdout too small to estimate on, or a single observed label), 18,911 rows in INVALID families (a validity flag makes them unusable as evaluation evidence), 2,486 in retired families (retirement is a location, not a verdict) and 1,875 in families with no exactly-matchable key — the exclusion is recorded per family, never silent. The continuity twin covers all 22,145 scorable rows ever shipped. **The benchmark is OPEN-KEY**: every benchmark family row carries its answer key in the same file as its input; the key is committed, so every family is OPEN-KEY and no family may be described as hidden or protected against repository-level leakage. The only protected evaluation in this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is committed to by hash (2 files).
 - Field coverage: 11 of 28 tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process
@@ -35,14 +35,17 @@ ground truth. Governing rule: truth over scale.
 
 - Past uses: vulnerability detection/reasoning benchmarks (families A–V), exploit-verification and patch-verification studies on executed subsets.
 - Intended: training and evaluating security-reasoning models with honest abstention (`unknown`, `unlabeled`, quarantine).
-- Out of scope: production audit decisions; L0/L1 rows are not executable proof; saturated families (majority >= 0.94, see `docs/RUBRIC.md`) carry no signal.
+- Out of scope: production audit decisions; L0/L1 rows are not executable proof; the families the independent audit flags INVALID carry no signal, and a family whose scorable rows carry a single observed label is not evaluable for accuracy at all (`docs/RUBRIC.md`).
 
 ## Distribution
 
-- Data layers (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `datasets/`, `training/`, `reports/`): CC BY 4.0. `scripts/`: MIT. Third-party source: not licensed here at all (see `NOTICE.md`).
-- 424 v1 records carry verbatim source from repositories declaring no licence (flagged per record). For strictly licence-clean use, resolve `code_context[].snippet` entries from the original audits.
+- The release boundary is `RELEASE_MANIFEST.json`: a tracked path that is not listed there with a released rights status is **not licensed here**. The released set is the pipeline (`scripts/`, MIT) and the authors' own documents, schemas, decision records, analysis reports, test code and rights-redacted `distribution_v1/` view (CC BY 4.0). The manifest names every path and the licence that applies to it.
+
+- The evidence corpus (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `datasets/`, `training/`, `reports/`, `Vbeta/`) is not in the released set, and this project grants no redistribution right over it. Third-party source: not licensed here at all (see `NOTICE.md` and `LICENSE`).
+
+- 424 v1 records carry verbatim source from repositories declaring no licence (flagged per record). For strictly licence-clean use, resolve `code_context[].snippet` entries from the original audits. Attribution is not a redistribution right.
 
 ## Maintenance
 
-- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (42 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
+- Maintained via `scripts/build_all.py` stages with `scripts/run_gates.py` (53 gates) as the release bar; README, stats and field coverage regenerate from artefacts (`--check` enforced in CI).
 - Contact/limitations: validation reports record every unknown, exclusion and failure reason; limitations are published in `reports/benchmark_metrics.md` and `reports/reproducibility_report.md`, not hidden.

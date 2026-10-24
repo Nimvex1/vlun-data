@@ -150,10 +150,54 @@
       "unlabeled": 441,
       "unscorable": 441
     },
+    "Fa_rejection_evidence_axis_vector": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 458
+      },
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
+      "labeled": 292,
+      "partial": 166,
+      "scorable": 292,
+      "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
+      "scoring_status": "partial",
+      "status": "headline",
+      "tasks": 458,
+      "unlabeled": 0,
+      "unscorable": 166
+    },
+    "Fb_duplicate_radar_pair": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 258,
+        "externally_attributed": 184,
+        "unknown": 111
+      },
+      "by_split": {
+        "test": 31,
+        "train": 323,
+        "validation": 199
+      },
+      "duplicate_rows_dropped": 0,
+      "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
+      "labeled": 553,
+      "partial": 0,
+      "scorable": 553,
+      "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
+      "scoring_status": "scorable",
+      "status": "headline",
+      "tasks": 553,
+      "unlabeled": 0,
+      "unscorable": 0
+    },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7,
-        "not_recorded": 31
+        "experimentally_verified": 5,
+        "not_recorded": 33
       },
       "by_split": {
         "test": 20,
@@ -161,16 +205,16 @@
       },
       "duplicate_rows_dropped": 66,
       "file": "benchmark/G_patch_verification.jsonl",
-      "judge_graded_rows": 31,
-      "labeled": 7,
+      "judge_graded_rows": 33,
+      "labeled": 5,
       "partial": 0,
-      "scorable": 7,
-      "scoring_note": "scores the L6-verified subset; the 31 not_testable rows have no answer key",
+      "scorable": 5,
+      "scoring_note": "scores the 5 L6-verified patches; the 33 rows without an answer key are 31 not_testable, 2 not_verified_two_revision",
       "scoring_status": "partial",
       "status": "headline",
       "tasks": 38,
-      "unlabeled": 31,
-      "unscorable": 31
+      "unlabeled": 33,
+      "unscorable": 33
     },
     "H_verified_exploit": {
       "answer_key_evidence_levels": {
@@ -212,18 +256,18 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7
+        "experimentally_verified": 5
       },
       "by_split": {
-        "validation": 7
+        "validation": 5
       },
-      "duplicate_rows_dropped": 12,
+      "duplicate_rows_dropped": 9,
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 7,
+      "labeled": 5,
       "partial": 0,
-      "scorable": 7,
+      "scorable": 5,
       "status": "headline",
-      "tasks": 7,
+      "tasks": 5,
       "unlabeled": 0,
       "unscorable": 0
     },

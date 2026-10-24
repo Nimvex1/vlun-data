@@ -9,6 +9,9 @@ import time if a copy ever drifts.
 Ownership map (do not redefine these elsewhere):
   evidence levels + ranks  -> scripts/vlun.py (EVIDENCE_TYPES)
   benchmark families A-Q    -> scripts/vlun.py (BENCHMARK_FAMILIES)
+    (+ the F-extension families FA/FB, same dict, same single source; family
+     names are not a generated schema enum — schema/benchmark-task.schema.json
+     keeps `task` a free string, so registering a family never edits schema/)
   PoC classes + L0-L6      -> scripts/poc_classification.py (POC_LEVELS is the
                              single literal; vlun_v3/vlun_vbeta/vlun_ml/
                              audit_sources derive via tuple(POC_LEVELS))

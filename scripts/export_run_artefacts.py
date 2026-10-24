@@ -32,6 +32,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_obj  # noqa: E402  (one redaction convention, repo-wide)
 from vlun import EXPERIMENTS, REPORTS, WORK, log, write_json  # noqa: E402
 
 EXECUTED = {"reproduced", "not_reproduced", "inconclusive"}
@@ -157,17 +158,23 @@ def main() -> int:
                 written += 1
                 continue
             d.mkdir(parents=True, exist_ok=True)
-            write_json(d / "result.json", result)
+            # The exported record copies free text out of the machine-local
+            # run log (a forge reason, a materialised file's location). It is
+            # redacted on the way in, so a committed artefact never carries
+            # the operator's home directory.
+            write_json(d / "result.json", redact_obj(result))
             (d / "PROVENANCE.md").write_text(
-                f"# {fid} — single-revision PoC run\n\n"
-                f"- verdict: `{verdict}` — {POLARITY.get(verdict, '')}\n"
-                f"- forge status: `{ev.get('forge_status')}`\n"
-                f"- test: `{ev.get('test_name')}`\n"
-                f"- repository: `{repo}` at commit `{head}`\n"
-                f"- PoC type: `{v.get('poc_type')}` — {POC_TYPE_NOTE.get(v.get('poc_type'), '')}\n"
-                f"- body committed: **no** — {result['body_note']}\n"
-                f"- fixed-revision leg: **no** — {result['fixed_revision_note']}\n\n"
-                f"Full record: [`result.json`](result.json)\n",
+                redact_obj(
+                    f"# {fid} — single-revision PoC run\n\n"
+                    f"- verdict: `{verdict}` — {POLARITY.get(verdict, '')}\n"
+                    f"- forge status: `{ev.get('forge_status')}`\n"
+                    f"- test: `{ev.get('test_name')}`\n"
+                    f"- repository: `{repo}` at commit `{head}`\n"
+                    f"- PoC type: `{v.get('poc_type')}` — "
+                    f"{POC_TYPE_NOTE.get(v.get('poc_type'), '')}\n"
+                    f"- body committed: **no** — {result['body_note']}\n"
+                    f"- fixed-revision leg: **no** — {result['fixed_revision_note']}\n\n"
+                    f"Full record: [`result.json`](result.json)\n"),
                 encoding="utf-8", newline="\n")
             written += 1
 

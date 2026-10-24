@@ -1,6 +1,6 @@
 {
   "argv": [
-    "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "python",
     "scripts/run_move_poc.py",
     "--id",
     "cetus_checked_shlw"
@@ -16,7 +16,7 @@
     }
   },
   "assertion_stdout_captured": true,
-  "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_move_poc.py --id cetus_checked_shlw",
+  "command": "python scripts/run_move_poc.py --id cetus_checked_shlw",
   "cwd": "<repo>",
   "description": "checked_shlw silently truncates a product of exactly 2^192 on the audited revision and on the insufficient PR #6 revision, and reports overflow on the PR #7 fix, with a below-boundary control passing on all three",
   "exit_code": 0,

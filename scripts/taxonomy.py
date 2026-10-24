@@ -13,6 +13,26 @@ that produced it. The original C4 string is kept untouched in
 
 Labels are only assigned when the v1 class supports them. A record whose class
 is unknown stays unknown rather than being forced into the nearest bucket.
+
+The shape of the block this function returns is fixed by the published layer:
+`derived/records.jsonl` is the artefact of record, and the builder has to
+reproduce it byte for byte (scripts/check_reproducibility.py, the
+`derived/ rebuild parity` check). Two consequences, both measured against the
+722 committed records:
+
+  * a record with no vulnerability class carries no `labels`, `multi_label`
+    or `vocabulary` at all - the block states the absence and stops there;
+  * a record with classes carries `source_refs` (the rule pointer) and
+    `labels`, and the rule that fired is stated per label. There is no
+    second copy of it at the top level, and no second copy of the original
+    C4 string inside a label (`c4_string` already carries it verbatim).
+
+An earlier revision of this module emitted a superset (a top-level `rule`,
+a `c4_original` per label, and empty `labels`/`multi_label`/`vocabulary`
+scaffolding for class-less records). No consumer reads those keys - the
+derived layer, `derived_v2_2/records.jsonl` and the taxonomy gate all read
+the block above - and keeping them made every rebuild differ from the
+published layer in all 722 records.
 """
 
 from __future__ import annotations
@@ -133,10 +153,8 @@ def classify(finding: dict) -> dict:
     classes = finding.get("vulnerability_classes") or []
     if not classes:
         return {"category": "Unknown", "family": None, "class": None, "subtype": None,
-                "evidence_type": "unknown", "rule": "no-class",
+                "evidence_type": "unknown",
                 "c4_original": [],
-                "labels": [], "multi_label": False,
-                "vocabulary": {"top_level": list(TOP_LEVEL)},
                 "note": "the record carries no vulnerability class; nothing is inferred"}
 
     labels = []
@@ -150,14 +168,14 @@ def classify(finding: dict) -> dict:
                            "subtype": None, "evidence_type": "derived_fact",
                            "source_refs": ["rule:taxonomy.py:classify"],
                            "rule": "top-level matched, lower levels not attested",
-                           "c4_original": raw, "c4_string": raw})
+                           "c4_string": raw})
             continue
         cat, fam, cls, sub = hit
         labels.append({"category": cat, "family": fam, "class": cls, "subtype": sub,
                        "evidence_type": "derived_fact",
                        "source_refs": ["rule:taxonomy.py:classify"],
                        "rule": "exact match against the taxonomy table in scripts/taxonomy.py",
-                       "c4_original": raw, "c4_string": raw})
+                       "c4_string": raw})
 
     primary = labels[0]
     return {
@@ -167,7 +185,6 @@ def classify(finding: dict) -> dict:
         "subtype": primary["subtype"],
         "evidence_type": primary["evidence_type"],
         "source_refs": ["rule:taxonomy.py:classify"],
-        "rule": primary["rule"],
         "labels": labels,
         "multi_label": len(labels) > 1,
         "c4_original": classes,

@@ -146,6 +146,17 @@ TRUSTED_ROLES = (
 # benchmark/, and the model-facing payload of every task is its `input` object -
 # task ids and `source` blocks carry the record id for traceability and are not
 # meant to be shown to a model.
+#
+# FA/FB (the F-extension) are built by scripts/build_f_extension.py over the
+# same v1 Code4rena evidence layer, but they are deliberately NOT tagged
+# "v2.2": that string is a build set, not just a label. build_benchmark_v22.py
+# selects layer == "v2.2" and rebuilds it byte-for-byte, and validate_checks.py
+# re-runs that rebuild and demands equality, so a v2.2-tagged family that
+# build_benchmark_v22 does not construct fails the rebuild gate. "v1" is safe
+# because build_benchmark.py iterates its own literal A-J name map rather than
+# a layer filter, and build_benchmark_v22 only requires that v1-layer families
+# EXIST in the manifest - which they do, and its manifest pass is in-place, so
+# neither builder claims or drops FA/FB.
 # ---------------------------------------------------------------------------
 BENCHMARK_FAMILIES = {
     "A": ("A_vulnerability_detection", "v1",
@@ -160,6 +171,12 @@ BENCHMARK_FAMILIES = {
           "does this test demonstrate the claimed impact?"),
     "F": ("F_false_positive_rejection", "v1",
           "is this claim a valid vulnerability, and what blocks it if not?"),
+    "FA": ("Fa_rejection_evidence_axis_vector", "v1",
+           "which of the six rejection-evidence axes does this evidence packet "
+           "support?"),
+    "FB": ("Fb_duplicate_radar_pair", "v1",
+           "same vulnerability, distinct vulnerability, or ambiguous for this "
+           "candidate/comparison pair?"),
     "G": ("G_patch_verification", "v1",
           "does the fix address the vulnerability?"),
     "H": ("H_verified_exploit", "v1",

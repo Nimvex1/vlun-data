@@ -385,7 +385,7 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
       "platform": "sui_move",
       "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
       "version": "sui 1.48.2-17a9eb8e1914"
@@ -393,7 +393,7 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
       "platform": "sui_move",
       "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
       "version": "sui 1.6.3-f4a70c8-dirty"
@@ -408,7 +408,7 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\scarb-v2.20.1-x86_64-pc-windows-msvc\\bin\\scarb.exe",
       "platform": "cairo_scarb",
       "tool": "scarb (Cairo/Starknet)",
       "version": "scarb 2.20.1 (dd18779a1 2026-08-21) / cairo: 2.20.0 (https://crates.io/crates/cairo-lang-compiler/2.20.0) / sierra: 1.9.3"
@@ -417,7 +417,7 @@
       "install_command": null,
       "install_status": "installed",
       "note": "unused for these revisions: snforge 0.44 pairs with a newer scarb/snforge_std than the pinned tags declare",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\starknet-foundry-v0.44.0-x86_64-pc-windows-msvc\\bin\\snforge.exe",
       "platform": "cairo_scarb",
       "tool": "snforge (starknet-foundry)",
       "version": "snforge 0.44.0"

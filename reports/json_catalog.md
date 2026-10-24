@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-759 files across 11 categories.
+772 files across 11 categories.
 
 ## source (21)
 
@@ -52,9 +52,9 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/derived_vbeta/records.jsonl` | vbeta | 11,334,826 | 6935 rows | yes |
 | `Vbeta/derived_vbeta/source_ledger.json` | vbeta | 1,042 | object, 2 keys | yes |
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
-| `derived/hard_negatives.jsonl` | v1 | 3,643,242 | 458 rows | yes |
-| `derived/manifest.json` | v1 | 1,631 | object, 20 keys | yes |
-| `derived/records.jsonl` | v1 | 17,199,694 | 722 rows | yes |
+| `derived/hard_negatives.jsonl` | v1 | 3,640,038 | 458 rows | yes |
+| `derived/manifest.json` | v1 | 1,785 | object, 22 keys | yes |
+| `derived/records.jsonl` | v1 | 17,140,851 | 722 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
@@ -97,7 +97,7 @@ also excluded: reports/v3/validation_v31.json.
 | `splits_v3/quarantine.jsonl` | v3 | 0 | 0 rows | yes |
 | `splits_v3/split.json` | v3 | 314,661 | object, 3 keys | yes |
 
-## benchmark (37)
+## benchmark (50)
 
 *task files, family manifests and holdouts.*
 
@@ -110,14 +110,27 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/C_attacker_reasoning.jsonl` | multi | 1,601,415 | 720 rows | yes |
 | `benchmark/D_exploit_construction.jsonl` | multi | 1,850,418 | 720 rows | yes |
 | `benchmark/F_false_positive_rejection.jsonl` | multi | 1,045,751 | 458 rows | yes |
-| `benchmark/G_patch_verification.jsonl` | multi | 38,261 | 38 rows | yes |
-| `benchmark/H_verified_exploit.jsonl` | multi | 27,164 | 7 rows | yes |
+| `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | multi | 3,415,457 | 458 rows | no |
+| `benchmark/Fb_duplicate_radar_pair.jsonl` | multi | 2,968,946 | 553 rows | no |
+| `benchmark/G_patch_verification.jsonl` | multi | 38,031 | 38 rows | yes |
+| `benchmark/H_verified_exploit.jsonl` | multi | 26,937 | 7 rows | yes |
 | `benchmark/I_verified_non_exploit.jsonl` | multi | 2,881 | 3 rows | yes |
-| `benchmark/J_verified_patch.jsonl` | multi | 22,182 | 7 rows | yes |
+| `benchmark/J_verified_patch.jsonl` | multi | 15,646 | 5 rows | yes |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | multi | 1,042,196 | 137 rows | yes |
-| `benchmark/independent/secondary_holdout_manifest.json` | multi | 40,166 | object, 10 keys | yes |
-| `benchmark/independent/secondary_holdout_tasks.jsonl` | multi | 1,628,454 | 2716 rows | yes |
-| `benchmark/manifest.json` | multi | 12,930 | object, 8 keys | yes |
+| `benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl` | multi | 52,728 | 90 rows | no |
+| `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | multi | 2,107,106 | 2048 rows | no |
+| `benchmark/independent/canonical_holdout/manifest.json` | multi | 1,828 | object, 9 keys | no |
+| `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | multi | 2,905,903 | 2766 rows | no |
+| `benchmark/independent/secondary_holdout_keys.jsonl` | multi | 762,221 | 2716 rows | no |
+| `benchmark/independent/secondary_holdout_manifest.json` | multi | 41,999 | object, 14 keys | yes |
+| `benchmark/independent/secondary_holdout_tasks.jsonl` | multi | 1,098,901 | 2716 rows | yes |
+| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | multi | 67,771 | 257 rows | no |
+| `benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl` | multi | 2,911 | 5 rows | no |
+| `benchmark/independent/v1_task_holdout/manifest.json` | multi | 2,022 | object, 9 keys | no |
+| `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` | multi | 23,813 | 106 rows | no |
+| `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` | multi | 1,907 | 5 rows | no |
+| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | multi | 96,536 | 257 rows | no |
+| `benchmark/manifest.json` | multi | 15,056 | object, 8 keys | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | multi | 1,738,887 | 720 rows | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.retirement.json` | multi | 586 | object, 9 keys | yes |
 | `benchmark/retired_families/E_exploit_verification.jsonl` | multi | 780,615 | 720 rows | yes |
@@ -126,7 +139,7 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/retired_families/K_language_ecosystem_routing.retirement.json` | multi | 817 | object, 9 keys | yes |
 | `benchmark/retired_families/L_severity_reconciliation.jsonl` | multi | 361,836 | 137 rows | yes |
 | `benchmark/retired_families/L_severity_reconciliation.retirement.json` | multi | 773 | object, 9 keys | yes |
-| `benchmark/retired_families/M_experiment_level_classification.jsonl` | multi | 204,677 | 37 rows | yes |
+| `benchmark/retired_families/M_experiment_level_classification.jsonl` | multi | 204,479 | 37 rows | yes |
 | `benchmark/retired_families/M_experiment_level_classification.retirement.json` | multi | 585 | object, 9 keys | yes |
 | `benchmark/retired_families/N_attacker_identity_extraction.jsonl` | multi | 321,620 | 137 rows | yes |
 | `benchmark/retired_families/N_attacker_identity_extraction.retirement.json` | multi | 563 | object, 9 keys | yes |
@@ -202,13 +215,13 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments/2024-04-noya__M-37__poc_run/result.json` | v1 | 1,721 | object, 24 keys | yes |
 | `experiments/2024-04-noya__M-60__poc_run/result.json` | v1 | 1,704 | object, 24 keys | yes |
 | `experiments/2025-06-panoptic__H-01__poc_run/result.json` | v1 | 1,737 | object, 24 keys | yes |
-| `experiments/reconstruction_log.jsonl` | v1 | 53,415 | 155 rows | yes |
-| `experiments_v2_2/index.json` | v2.2 | 22,758 | object, 3 keys | yes |
+| `experiments/reconstruction_log.jsonl` | v1 | 53,410 | 155 rows | yes |
+| `experiments_v2_2/index.json` | v2.2 | 22,362 | object, 3 keys | yes |
 | `experiments_v2_2/kerf-auditpoc/result.json` | v2.2 | 1,548 | object, 18 keys | yes |
-| `experiments_v2_2/move-cetus-checked-shlw/result.json` | v2.2 | 2,053 | object, 18 keys | yes |
+| `experiments_v2_2/move-cetus-checked-shlw/result.json` | v2.2 | 1,921 | object, 18 keys | yes |
 | `experiments_v2_2/quantillon-emergencyunstake/result.json` | v2.2 | 1,452 | object, 18 keys | yes |
-| `experiments_v2_2/vyper-optimizer-ternary/result.json` | v2.2 | 1,843 | object, 18 keys | yes |
-| `experiments_v2_2/vyper-rawcall-value/result.json` | v2.2 | 1,832 | object, 18 keys | yes |
+| `experiments_v2_2/vyper-optimizer-ternary/result.json` | v2.2 | 1,711 | object, 18 keys | yes |
+| `experiments_v2_2/vyper-rawcall-value/result.json` | v2.2 | 1,700 | object, 18 keys | yes |
 | `experiments_v2_2/zentory-contractaudit-cancel/result.json` | v2.2 | 1,406 | object, 18 keys | yes |
 | `experiments_v2_2/zentory-contractaudit-supply/result.json` | v2.2 | 1,468 | object, 18 keys | yes |
 | `experiments_v2_2/zentory-modea-accountingl2/result.json` | v2.2 | 1,526 | object, 18 keys | yes |
@@ -251,72 +264,78 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (75)
+## reports (81)
 
 *validation, stats, quality and baseline reports.*
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
-| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
+| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,440 | object, 4 keys | yes |
 | `reports/api_sibling_stats.json` | multi | 92,890 | object, 16 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
-| `reports/baselines/baseline_first_published.json` | multi | 11,886 | object, 11 keys | yes |
-| `reports/baselines/baseline_frequency_seed7.json` | multi | 12,931 | object, 11 keys | yes |
-| `reports/baselines/baseline_majority.json` | multi | 12,846 | object, 11 keys | yes |
-| `reports/baselines/baseline_majority_published.json` | multi | 11,889 | object, 11 keys | yes |
-| `reports/baselines/baseline_random_seed7.json` | multi | 12,933 | object, 11 keys | yes |
-| `reports/baselines/baseline_retrieval.json` | multi | 12,860 | object, 11 keys | yes |
-| `reports/benchmark_metrics.json` | multi | 11,820 | object, 5 keys | yes |
-| `reports/benchmark_quality.json` | multi | 10,323 | object, 6 keys | yes |
+| `reports/baselines/baseline_first_published.json` | multi | 85,653 | object, 24 keys | yes |
+| `reports/baselines/baseline_frequency_seed7.json` | multi | 108,730 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority.json` | multi | 106,591 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority_published.json` | multi | 85,660 | object, 24 keys | yes |
+| `reports/baselines/baseline_random_seed7.json` | multi | 109,693 | object, 24 keys | yes |
+| `reports/baselines/baseline_retrieval.json` | multi | 109,896 | object, 24 keys | yes |
+| `reports/benchmark_metrics.json` | multi | 72,953 | object, 13 keys | yes |
+| `reports/benchmark_quality.json` | multi | 11,118 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
 | `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
-| `reports/dataset_stats.json` | multi | 17,161 | object, 20 keys | yes |
+| `reports/dataset_stats.json` | multi | 17,335 | object, 20 keys | yes |
 | `reports/depth_dashboard.json` | multi | 1,880 | object, 6 keys | yes |
+| `reports/eval_leakage_report.json` | multi | 48,033 | object, 11 keys | no |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
 | `reports/extraction_errors.json` | multi | 35,478 | object, 7 keys | yes |
+| `reports/f_extension_baselines.json` | multi | 16,537 | object, 4 keys | no |
+| `reports/f_extension_stats.json` | multi | 4,935 | object, 10 keys | no |
 | `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 1,264 | object, 13 keys | yes |
-| `reports/iaa_status.json` | multi | 1,139 | object, 11 keys | yes |
-| `reports/independent/audit.json` | multi | 66,795 | object, 4 keys | yes |
+| `reports/iaa_status.json` | multi | 1,077 | object, 11 keys | yes |
+| `reports/independent/audit.json` | multi | 67,717 | object, 4 keys | yes |
 | `reports/leakage_report.json` | multi | 141,515 | object, 11 keys | yes |
 | `reports/leakage_report_v2.json` | multi | 141,706 | object, 12 keys | yes |
 | `reports/leakage_report_v22.json` | multi | 1,288 | object, 7 keys | yes |
 | `reports/legacy/dataset_stats_v1_reported.json` | multi | 6,410 | object, 51 keys | yes |
+| `reports/machine_path_scan.json` | multi | 1,009,046 | object, 9 keys | no |
 | `reports/manifest_checks.json` | multi | 361 | object, 6 keys | yes |
 | `reports/negative_experiments.json` | multi | 3,370 | object, 3 keys | yes |
 | `reports/negative_verification_stats.json` | multi | 1,653,285 | object, 22 keys | yes |
-| `reports/nonevm_pilot.json` | multi | 71,429 | object, 15 keys | yes |
-| `reports/patch_verification.json` | multi | 19,526 | object, 6 keys | yes |
-| `reports/patch_verification_v2.json` | multi | 128,821 | object, 8 keys | yes |
-| `reports/poc_attempts.jsonl` | multi | 95,722 | 56 rows | yes |
+| `reports/nonevm_pilot.json` | multi | 71,445 | object, 15 keys | yes |
+| `reports/patch_verification.json` | multi | 24,412 | object, 6 keys | yes |
+| `reports/patch_verification_v2.json` | multi | 131,399 | object, 8 keys | yes |
+| `reports/poc_attempts.jsonl` | multi | 95,734 | 56 rows | yes |
 | `reports/poc_execution_density.json` | multi | 3,386 | object, 12 keys | yes |
 | `reports/poc_triage_queue.json` | multi | 2,487 | object, 5 keys | yes |
 | `reports/pre_upgrade_audit.json` | multi | 28,885 | object, 16 keys | yes |
-| `reports/prove_split_interface.json` | multi | 14,235 | object, 15 keys | yes |
+| `reports/prove_candidate_ledger.json` | multi | 2,401 | object, 11 keys | no |
+| `reports/prove_split_interface.json` | multi | 12,847 | object, 15 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
 | `reports/quarantine_report.json` | multi | 8,827 | object, 4 keys | yes |
-| `reports/record_audit_summary.json` | multi | 701 | object, 11 keys | yes |
+| `reports/record_audit_summary.json` | multi | 585 | object, 11 keys | yes |
+| `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | no |
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
 | `reports/remediation_before_after.json` | multi | 5,358 | object, 3 keys | yes |
 | `reports/reproduction_manifest.json` | multi | 28,437 | object, 3 keys | yes |
-| `reports/reproduction_stats.json` | multi | 203,420 | object, 14 keys | yes |
-| `reports/rights_history_exposure.json` | multi | 26,377 | object, 10 keys | yes |
-| `reports/rights_inventory.json` | multi | 1,014,289 | object, 17 keys | yes |
+| `reports/reproduction_stats.json` | multi | 203,443 | object, 14 keys | yes |
+| `reports/rights_history_exposure.json` | multi | 35,804 | object, 10 keys | yes |
+| `reports/rights_inventory.json` | multi | 963,577 | object, 18 keys | yes |
 | `reports/root_cause_taxonomy_stats.json` | multi | 3,190 | object, 14 keys | yes |
 | `reports/run_artefacts_index.json` | multi | 4,055 | object, 5 keys | yes |
 | `reports/sibling_review.json` | multi | 407,251 | object, 13 keys | yes |
 | `reports/source_fetch_verification.json` | multi | 59 | object, 3 keys | yes |
 | `reports/span_scoring_report.json` | multi | 6,751 | object, 15 keys | yes |
-| `reports/static_analysis.json` | multi | 17,960 | object, 7 keys | yes |
-| `reports/subsets.json` | multi | 1,477 | object, 7 keys | yes |
+| `reports/static_analysis.json` | multi | 18,020 | object, 7 keys | yes |
+| `reports/subsets.json` | multi | 1,888 | object, 8 keys | yes |
 | `reports/third_party_audit.json` | multi | 13,289 | object, 16 keys | yes |
-| `reports/v2_1_summary.json` | multi | 1,111 | object, 25 keys | yes |
-| `reports/v2_2/benchmark.json` | multi | 10,133 | object, 4 keys | yes |
-| `reports/v2_2/dataset_summary.json` | multi | 23,036 | object, 11 keys | yes |
+| `reports/v2_1_summary.json` | multi | 12,655 | object, 25 keys | yes |
+| `reports/v2_2/benchmark.json` | multi | 11,461 | object, 4 keys | yes |
+| `reports/v2_2/dataset_summary.json` | multi | 24,452 | object, 11 keys | yes |
 | `reports/v3/compile_sweep.json` | multi | 15,231 | object, 1 keys | yes |
 | `reports/v3/dataset_summary.json` | multi | 3,083 | object, 21 keys | yes |
 | `reports/v3/experimental_proof.json` | multi | 12,455 | object, 5 keys | yes |
@@ -329,9 +348,9 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/v32_unblock_attempts.json` | multi | 17,264 | object, 17 keys | yes |
 | `reports/v3/validation_v3.json` | multi | 8,665 | object, 5 keys | yes |
 | `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | yes |
-| `reports/validation_report.json` | multi | 18,811 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 30,018 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
-| `reports/verified_experiments.json` | multi | 27,811 | object, 3 keys | yes |
+| `reports/verified_experiments.json` | multi | 85,542 | object, 3 keys | yes |
 
 ## schema (5)
 
@@ -351,36 +370,28 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `datasets/verified_exploits.jsonl` | multi | 4,046 | 5 rows | yes |
+| `datasets/verified_exploits.jsonl` | multi | 4,047 | 5 rows | yes |
 | `datasets/verified_findings.jsonl` | multi | 258,614 | 302 rows | yes |
 | `datasets/verified_negatives.jsonl` | multi | 704,578 | 202 rows | yes |
-| `datasets/verified_patches.jsonl` | multi | 8,500 | 7 rows | yes |
+| `datasets/verified_patches.jsonl` | multi | 6,201 | 5 rows | yes |
 
-## training (19)
+## training (11)
 
 *task-oriented training files.*
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `training/attacker_reasoning.jsonl` | multi | 79,919 | 302 rows | yes |
-| `training/canonical/detection.test.part-000.jsonl` | multi | 58,773 | 77 rows | yes |
+| `training/attacker_reasoning.jsonl` | multi | 12,148 | 45 rows | yes |
 | `training/canonical/detection.train.part-000.jsonl` | multi | 184,784 | 232 rows | yes |
-| `training/canonical/detection.validation.part-000.jsonl` | multi | 52,728 | 90 rows | yes |
-| `training/canonical/language.test.part-000.jsonl` | multi | 4,585,458 | 5000 rows | yes |
-| `training/canonical/language.test.part-001.jsonl` | multi | 878,313 | 960 rows | yes |
-| `training/canonical/language.train.part-000.jsonl` | multi | 6,719,812 | 5000 rows | yes |
-| `training/canonical/language.train.part-001.jsonl` | multi | 3,899,473 | 3928 rows | yes |
-| `training/canonical/language.validation.part-000.jsonl` | multi | 2,107,106 | 2048 rows | yes |
-| `training/canonical/manifest.json` | multi | 5,983 | object, 13 keys | yes |
-| `training/canonical/severity.test.part-000.jsonl` | multi | 4,552,706 | 5000 rows | yes |
-| `training/canonical/severity.test.part-001.jsonl` | multi | 180,777 | 183 rows | yes |
+| `training/canonical/language.train.part-000.jsonl` | multi | 6,789,782 | 5000 rows | yes |
+| `training/canonical/language.train.part-001.jsonl` | multi | 3,109,957 | 3050 rows | yes |
+| `training/canonical/manifest.json` | multi | 4,572 | object, 16 keys | yes |
 | `training/canonical/severity.train.part-000.jsonl` | multi | 6,839,871 | 5000 rows | yes |
 | `training/canonical/severity.train.part-001.jsonl` | multi | 2,428,233 | 2661 rows | yes |
-| `training/canonical/severity.validation.part-000.jsonl` | multi | 2,905,903 | 2766 rows | yes |
-| `training/exploit_reasoning.jsonl` | multi | 2,911 | 5 rows | yes |
-| `training/negative_reasoning.jsonl` | multi | 45,472 | 202 rows | yes |
-| `training/patch_reasoning.jsonl` | multi | 2,673 | 7 rows | yes |
-| `training/vulnerability_detection.jsonl` | multi | 178,861 | 302 rows | yes |
+| `training/exploit_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `training/negative_reasoning.jsonl` | multi | 21,659 | 96 rows | yes |
+| `training/patch_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `training/vulnerability_detection.jsonl` | multi | 82,325 | 45 rows | yes |
 
 ## harvest (6)
 
@@ -395,24 +406,26 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/solodit_candidates.json` | vbeta | 1,963,958 | array[733] | yes |
 | `Vbeta/web3bugs_candidates.json` | vbeta | 633,436 | array[491] | yes |
 
-## meta (444)
+## meta (446)
 
 *repo-level registries, snapshots, packaging and reviews.*
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `.zenodo.json` | meta | 1,363 | object, 11 keys | yes |
+| `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 439,266 | object, 19 keys | no |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 811 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 971 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
 | `_audit/legal_hygiene.json` | meta | 712 | object, 11 keys | yes |
-| `annotation/iaa_v1/sample.jsonl` | meta | 745,904 | 301 rows | yes |
+| `annotation/iaa_v1/sample.jsonl` | meta | 746,155 | 301 rows | yes |
 | `derived_poc_queue/triage_queue.jsonl` | meta | 1,896,966 | 1046 rows | yes |
+| `derived_prove/candidate_ledger.jsonl` | meta | 411,163 | 210 rows | no |
 | `derived_rejections/definitions.json` | meta | 4,583 | object, 6 keys | yes |
 | `derived_rejections/rejection_corpus.jsonl` | meta | 1,795,476 | 458 rows | yes |
 | `derived_siblings/candidates.jsonl` | meta | 1,723,108 | 229 rows | yes |
@@ -430,217 +443,217 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v4/duplicate_ledger.jsonl` | meta | 9,162 | 2 rows | yes |
 | `derived_v4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `derived_v4/quarantined_ledger.jsonl` | meta | 0 | 0 rows | yes |
-| `distribution_v1/MANIFEST.json` | meta | 3,495 | object, 14 keys | yes |
+| `distribution_v1/MANIFEST.json` | meta | 3,735 | object, 17 keys | yes |
 | `distribution_v1/digests.jsonl` | meta | 5,279 | 6 rows | yes |
 | `distribution_v1/licence_contradictions.json` | meta | 118 | object, 3 keys | yes |
 | `distribution_v1/records_v1.jsonl` | meta | 1,993,666 | 722 rows | yes |
 | `distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 2,864,566 | 2288 rows | yes |
 | `distribution_v1/records_v4.jsonl` | meta | 15,348,137 | 5268 rows | yes |
 | `distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 17,649,335 | 10070 rows | yes |
-| `distribution_v1/rights_ledger.jsonl` | meta | 17,043,153 | 12919 rows | yes |
-| `distribution_v1/rights_source_registry.json` | meta | 15,060 | object, 6 keys | yes |
+| `distribution_v1/rights_ledger.jsonl` | meta | 17,037,175 | 12909 rows | yes |
+| `distribution_v1/rights_source_registry.json` | meta | 17,374 | object, 6 keys | yes |
 | `distribution_v1/withheld_harness.jsonl` | meta | 81,954 | 58 rows | yes |
 | `distribution_v1/withheld_pointers_other_layers.jsonl` | meta | 0 | 0 rows | yes |
-| `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/harness.json` | meta | 1,032 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/result.json` | meta | 4,419 | object, 17 keys | yes |
-| `experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005/harness.json` | meta | 923 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005/result.json` | meta | 4,207 | object, 17 keys | yes |
-| `experiments_nonevm/cairo__CVE-2022-31153/blocked-CVE-2022-31153/harness.json` | meta | 914 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2022-31153/blocked-CVE-2022-31153/result.json` | meta | 4,297 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/harness.json` | meta | 1,036 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/result.json` | meta | 4,435 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005/harness.json` | meta | 927 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CS-HRDTCL-005/blocked-CS-HRDTCL-005/result.json` | meta | 4,223 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2022-31153/blocked-CVE-2022-31153/harness.json` | meta | 918 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2022-31153/blocked-CVE-2022-31153/result.json` | meta | 4,313 | object, 17 keys | yes |
 | `experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable/assertion.json` | meta | 207 | object, 6 keys | yes |
-| `experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable/harness.json` | meta | 975 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable/result.json` | meta | 5,124 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable/harness.json` | meta | 979 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2023-23940/scarb-v0.6.0-openzeppelin_account-declared_vulnerable/result.json` | meta | 5,144 | object, 17 keys | yes |
 | `experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package/assertion.json` | meta | 347 | object, 7 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package/harness.json` | meta | 950 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package/result.json` | meta | 5,236 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package/harness.json` | meta | 954 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-runtime-control-generated-package/result.json` | meta | 5,256 | object, 17 keys | yes |
 | `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable/assertion.json` | meta | 207 | object, 6 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable/harness.json` | meta | 1,038 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable/result.json` | meta | 5,225 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable/harness.json` | meta | 1,042 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.0-openzeppelin_access-declared_vulnerable/result.json` | meta | 5,245 | object, 17 keys | yes |
 | `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched/assertion.json` | meta | 207 | object, 6 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched/harness.json` | meta | 1,038 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched/result.json` | meta | 5,154 | object, 17 keys | yes |
-| `experiments_nonevm/cairo__CVE-2025-29072/blocked-CVE-2025-29072/harness.json` | meta | 1,054 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__CVE-2025-29072/blocked-CVE-2025-29072/result.json` | meta | 4,455 | object, 17 keys | yes |
-| `experiments_nonevm/cairo__cairo-vm-sequencer-prover-inconsistency/blocked-cairo-vm-sequencer-prover-inconsistency/harness.json` | meta | 1,025 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__cairo-vm-sequencer-prover-inconsistency/blocked-cairo-vm-sequencer-prover-inconsistency/result.json` | meta | 4,504 | object, 17 keys | yes |
-| `experiments_nonevm/cairo__zklend-2025-02-empty-market-accumulator/blocked-zklend-2025-02-empty-market-accumulator/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/cairo__zklend-2025-02-empty-market-accumulator/blocked-zklend-2025-02-empty-market-accumulator/result.json` | meta | 4,279 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched/harness.json` | meta | 1,042 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2024-45304/scarb-v0.15.1-openzeppelin_access-declared_patched/result.json` | meta | 5,174 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__CVE-2025-29072/blocked-CVE-2025-29072/harness.json` | meta | 1,058 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__CVE-2025-29072/blocked-CVE-2025-29072/result.json` | meta | 4,471 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__cairo-vm-sequencer-prover-inconsistency/blocked-cairo-vm-sequencer-prover-inconsistency/harness.json` | meta | 1,029 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__cairo-vm-sequencer-prover-inconsistency/blocked-cairo-vm-sequencer-prover-inconsistency/result.json` | meta | 4,520 | object, 17 keys | yes |
+| `experiments_nonevm/cairo__zklend-2025-02-empty-market-accumulator/blocked-zklend-2025-02-empty-market-accumulator/harness.json` | meta | 923 | object, 5 keys | yes |
+| `experiments_nonevm/cairo__zklend-2025-02-empty-market-accumulator/blocked-zklend-2025-02-empty-market-accumulator/result.json` | meta | 4,295 | object, 17 keys | yes |
 | `experiments_nonevm/index.json` | meta | 11,147 | object, 4 keys | yes |
 | `experiments_nonevm/move__CVE-2023-36184/blocked-CVE-2023-36184/harness.json` | meta | 567 | object, 5 keys | yes |
-| `experiments_nonevm/move__CVE-2023-36184/blocked-CVE-2023-36184/result.json` | meta | 3,169 | object, 17 keys | yes |
+| `experiments_nonevm/move__CVE-2023-36184/blocked-CVE-2023-36184/result.json` | meta | 3,181 | object, 17 keys | yes |
 | `experiments_nonevm/move__CVE-2023-42374/blocked-CVE-2023-42374/harness.json` | meta | 650 | object, 5 keys | yes |
-| `experiments_nonevm/move__CVE-2023-42374/blocked-CVE-2023-42374/result.json` | meta | 3,354 | object, 17 keys | yes |
+| `experiments_nonevm/move__CVE-2023-42374/blocked-CVE-2023-42374/result.json` | meta | 3,366 | object, 17 keys | yes |
 | `experiments_nonevm/move__amnis-peg-1-fee-evasion/blocked-amnis-peg-1-fee-evasion/assertion.json` | meta | 180 | object, 6 keys | yes |
 | `experiments_nonevm/move__amnis-peg-1-fee-evasion/blocked-amnis-peg-1-fee-evasion/harness.json` | meta | 745 | object, 5 keys | yes |
 | `experiments_nonevm/move__amnis-peg-1-fee-evasion/blocked-amnis-peg-1-fee-evasion/result.json` | meta | 3,631 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze/assertion.json` | meta | 531 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze/harness.json` | meta | 894 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,577 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,593 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze/assertion.json` | meta | 531 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze/harness.json` | meta | 894 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,577 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,593 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-control_below_boundary_shifts_correctly/assertion.json` | meta | 528 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-control_below_boundary_shifts_correctly/harness.json` | meta | 894 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-control_below_boundary_shifts_correctly/result.json` | meta | 4,513 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/mask_era_4d09c8b-control_below_boundary_shifts_correctly/result.json` | meta | 4,529 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze/assertion.json` | meta | 525 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,483 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,499 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze/assertion.json` | meta | 521 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,531 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,547 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-control_below_boundary_shifts_correctly/assertion.json` | meta | 518 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-control_below_boundary_shifts_correctly/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-control_below_boundary_shifts_correctly/result.json` | meta | 4,467 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr6_era_fc84a51-control_below_boundary_shifts_correctly/result.json` | meta | 4,483 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze/assertion.json` | meta | 521 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,616 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-above_boundary_3x2pow192_truncates_to_ze/result.json` | meta | 4,632 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze/assertion.json` | meta | 521 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,616 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-boundary_exactly_2pow192_truncates_to_ze/result.json` | meta | 4,632 | object, 17 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-control_below_boundary_shifts_correctly/assertion.json` | meta | 514 | object, 7 keys | yes |
 | `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-control_below_boundary_shifts_correctly/harness.json` | meta | 893 | object, 5 keys | yes |
-| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-control_below_boundary_shifts_correctly/result.json` | meta | 4,600 | object, 17 keys | yes |
+| `experiments_nonevm/move__cetus-checked-shlw/pr7_fix_06660f7-control_below_boundary_shifts_correctly/result.json` | meta | 4,616 | object, 17 keys | yes |
 | `experiments_nonevm/move__move-vm-value-depth/blocked-move-vm-value-depth/assertion.json` | meta | 180 | object, 6 keys | yes |
 | `experiments_nonevm/move__move-vm-value-depth/blocked-move-vm-value-depth/harness.json` | meta | 721 | object, 5 keys | yes |
 | `experiments_nonevm/move__move-vm-value-depth/blocked-move-vm-value-depth/result.json` | meta | 3,795 | object, 17 keys | yes |
 | `experiments_nonevm/move__navi-lend-06-coin-type/blocked-navi-lend-06-coin-type/harness.json` | meta | 723 | object, 5 keys | yes |
-| `experiments_nonevm/move__navi-lend-06-coin-type/blocked-navi-lend-06-coin-type/result.json` | meta | 3,365 | object, 17 keys | yes |
+| `experiments_nonevm/move__navi-lend-06-coin-type/blocked-navi-lend-06-coin-type/result.json` | meta | 3,377 | object, 17 keys | yes |
 | `experiments_nonevm/move__navi-pool-01-withdraw-permission/blocked-navi-pool-01-withdraw-permission/harness.json` | meta | 869 | object, 5 keys | yes |
-| `experiments_nonevm/move__navi-pool-01-withdraw-permission/blocked-navi-pool-01-withdraw-permission/result.json` | meta | 3,626 | object, 17 keys | yes |
+| `experiments_nonevm/move__navi-pool-01-withdraw-permission/blocked-navi-pool-01-withdraw-permission/result.json` | meta | 3,638 | object, 17 keys | yes |
 | `experiments_nonevm/move__sui-amm-6.7-zero-liquidity/blocked-sui-amm-6.7-zero-liquidity/harness.json` | meta | 738 | object, 5 keys | yes |
-| `experiments_nonevm/move__sui-amm-6.7-zero-liquidity/blocked-sui-amm-6.7-zero-liquidity/result.json` | meta | 3,420 | object, 17 keys | yes |
+| `experiments_nonevm/move__sui-amm-6.7-zero-liquidity/blocked-sui-amm-6.7-zero-liquidity/result.json` | meta | 3,432 | object, 17 keys | yes |
 | `experiments_nonevm/move__volo-os-vol-adv-00-roundupshares/blocked-volo-os-vol-adv-00-roundupshares/harness.json` | meta | 616 | object, 5 keys | yes |
-| `experiments_nonevm/move__volo-os-vol-adv-00-roundupshares/blocked-volo-os-vol-adv-00-roundupshares/result.json` | meta | 3,271 | object, 17 keys | yes |
+| `experiments_nonevm/move__volo-os-vol-adv-00-roundupshares/blocked-volo-os-vol-adv-00-roundupshares/result.json` | meta | 3,283 | object, 17 keys | yes |
 | `experiments_nonevm/move__zellic-3.1-usable-value-drop/blocked-zellic-3.1-usable-value-drop/harness.json` | meta | 667 | object, 5 keys | yes |
-| `experiments_nonevm/move__zellic-3.1-usable-value-drop/blocked-zellic-3.1-usable-value-drop/result.json` | meta | 3,414 | object, 17 keys | yes |
+| `experiments_nonevm/move__zellic-3.1-usable-value-drop/blocked-zellic-3.1-usable-value-drop/result.json` | meta | 3,426 | object, 17 keys | yes |
 | `experiments_nonevm/move__zellic-3.2-control-flow-graph-aptos/blocked-zellic-3.2-control-flow-graph-aptos/assertion.json` | meta | 180 | object, 6 keys | yes |
 | `experiments_nonevm/move__zellic-3.2-control-flow-graph-aptos/blocked-zellic-3.2-control-flow-graph-aptos/harness.json` | meta | 705 | object, 5 keys | yes |
 | `experiments_nonevm/move__zellic-3.2-control-flow-graph-aptos/blocked-zellic-3.2-control-flow-graph-aptos/result.json` | meta | 3,774 | object, 17 keys | yes |
 | `experiments_nonevm/move__zellic-3.2-control-flow-graph/blocked-zellic-3.2-control-flow-graph/harness.json` | meta | 756 | object, 5 keys | yes |
-| `experiments_nonevm/move__zellic-3.2-control-flow-graph/blocked-zellic-3.2-control-flow-graph/result.json` | meta | 3,523 | object, 17 keys | yes |
+| `experiments_nonevm/move__zellic-3.2-control-flow-graph/blocked-zellic-3.2-control-flow-graph/result.json` | meta | 3,535 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CVE-2026-45137/blocked-CVE-2026-45137/assertion.json` | meta | 190 | object, 6 keys | yes |
 | `experiments_nonevm/rust__CVE-2026-45137/blocked-CVE-2026-45137/harness.json` | meta | 1,075 | object, 5 keys | yes |
 | `experiments_nonevm/rust__CVE-2026-45137/blocked-CVE-2026-45137/result.json` | meta | 4,543 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently/assertion.json` | meta | 428 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,930 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,934 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-pow_in_range_control/assertion.json` | meta | 440 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-pow_in_range_control/result.json` | meta | 3,870 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-pow_in_range_control/result.json` | meta | 3,874 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 495 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,120 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,124 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 476 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,990 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,994 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 458 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,972 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,976 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently/assertion.json` | meta | 420 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently/result.json` | meta | 3,830 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-int256_neg_min_wraps_silently/result.json` | meta | 3,834 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-pow_in_range_control/assertion.json` | meta | 441 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-pow_in_range_control/result.json` | meta | 3,902 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-pow_in_range_control/result.json` | meta | 3,906 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 487 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,019 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,023 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 468 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,890 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,894 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 450 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,872 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.3-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,876 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently/assertion.json` | meta | 428 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,821 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,825 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-pow_in_range_control/assertion.json` | meta | 437 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-pow_in_range_control/result.json` | meta | 3,864 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-pow_in_range_control/result.json` | meta | 3,868 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 495 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,011 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,015 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 476 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,880 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,884 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 458 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,863 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,867 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently/assertion.json` | meta | 429 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently/result.json` | meta | 3,853 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-int256_neg_min_wraps_silently/result.json` | meta | 3,857 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-pow_in_range_control/assertion.json` | meta | 438 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-pow_in_range_control/result.json` | meta | 3,896 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-pow_in_range_control/result.json` | meta | 3,900 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 496 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,043 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,047 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 477 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,913 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,917 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 459 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,895 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-1.5.4-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,899 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently/assertion.json` | meta | 428 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,930 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,934 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-pow_in_range_control/assertion.json` | meta | 440 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-pow_in_range_control/result.json` | meta | 3,870 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-pow_in_range_control/result.json` | meta | 3,874 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 495 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,120 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,124 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 476 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,990 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,994 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 458 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,972 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,976 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently/assertion.json` | meta | 420 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently/result.json` | meta | 3,830 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-int256_neg_min_wraps_silently/result.json` | meta | 3,834 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-pow_in_range_control/assertion.json` | meta | 441 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-pow_in_range_control/result.json` | meta | 3,902 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-pow_in_range_control/result.json` | meta | 3,906 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 487 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,020 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,024 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 468 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,890 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,894 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 450 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,872 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.1-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,876 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently/assertion.json` | meta | 428 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,820 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-int256_neg_min_wraps_silently/result.json` | meta | 3,824 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-pow_in_range_control/assertion.json` | meta | 437 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-pow_in_range_control/result.json` | meta | 3,864 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-pow_in_range_control/result.json` | meta | 3,868 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 495 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,011 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,015 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 476 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,881 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,885 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 458 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,863 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-dev-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,867 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently/assertion.json` | meta | 429 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently/result.json` | meta | 3,853 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-int256_neg_min_wraps_silently/result.json` | meta | 3,857 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-pow_in_range_control/assertion.json` | meta | 438 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-pow_in_range_control/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-pow_in_range_control/result.json` | meta | 3,896 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-pow_in_range_control/result.json` | meta | 3,900 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently/assertion.json` | meta | 496 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,043 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint128_pow_overflow_wraps_silently/result.json` | meta | 4,047 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently/assertion.json` | meta | 477 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,913 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint256_pow_overflow_wraps_silently/result.json` | meta | 3,917 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently/assertion.json` | meta | 459 | object, 7 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently/harness.json` | meta | 919 | object, 5 keys | yes |
-| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,895 | object, 17 keys | yes |
+| `experiments_nonevm/rust__CWA-2024-002/cosmwasm-std-2.0.2-release-uint512_pow_overflow_wraps_silently/result.json` | meta | 3,899 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-004/blocked-CWA-2024-004/harness.json` | meta | 655 | object, 5 keys | yes |
 | `experiments_nonevm/rust__CWA-2024-004/blocked-CWA-2024-004/result.json` | meta | 2,781 | object, 17 keys | yes |
 | `experiments_nonevm/rust__CWA-2026-006/blocked-CWA-2026-006/harness.json` | meta | 673 | object, 5 keys | yes |
@@ -746,7 +759,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/harness.json` | meta | 1,547 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/result.json` | meta | 1,345 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/harness.json` | meta | 2,608 | object, 15 keys | yes |
-| `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/result.json` | meta | 2,627 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/result.json` | meta | 2,655 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/harness.json` | meta | 3 | object, 0 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/result.json` | meta | 1,356 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_2/harness.json` | meta | 3 | object, 0 keys | yes |
@@ -767,8 +780,8 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/result.json` | meta | 1,670 | object, 17 keys | yes |
 | `jsonl_v4/findings.jsonl` | meta | 21,405,193 | 5268 rows | yes |
 | `jsonl_v4/sources.jsonl` | meta | 3,120 | 3 rows | yes |
-| `publish_manifest.json` | meta | 882 | object, 7 keys | yes |
-| `taxonomy/assignments_v1.jsonl` | meta | 212,013 | 418 rows | yes |
+| `publish_manifest.json` | meta | 2,081 | object, 17 keys | yes |
+| `taxonomy/assignments_v1.jsonl` | meta | 211,872 | 418 rows | yes |
 | `taxonomy/root_cause_v1.jsonl` | meta | 116,154 | 31 rows | yes |
 | `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 918 | 1 rows | yes |
 | `tests/fixtures/broken/abstain_on_verified_task.json` | meta | 122 | object, 2 keys | yes |

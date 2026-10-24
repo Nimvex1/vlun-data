@@ -45,6 +45,11 @@
     "high": 130,
     "none": 592
   },
+  "record_hash_scheme": {
+    "v1-builder-row+verification-verdict": 155,
+    "v1-committed-row": 567
+  },
+  "record_hash_scheme_v2": "v2-committed-row",
   "records": 722,
   "redistribution_flagged": {
     "none": 298,

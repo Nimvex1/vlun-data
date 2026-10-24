@@ -184,7 +184,16 @@ class InterfaceHonesty(unittest.TestCase):
         self.assertFalse(self.i["pool"]["target_met"])
         self.assertEqual(self.i["pool"]["tasks_with_two_revisions_executed"],
                          len(self.i["tasks"]))
-        self.assertIn("bounded by", self.i["pool"]["why_smaller"])
+        self.assertIn("not padded", self.i["pool"]["why_smaller"])
+        # the headline counts only what the published grader can run, and the rest is
+        # still accounted for instead of quietly dropped
+        pool = self.i["pool"]
+        self.assertEqual(pool["qualified_pool_size"],
+                         sum(1 for t in self.i["tasks"] if t["gradable_by_the_published_grader"]))
+        self.assertEqual(pool["qualified_pool_size"]
+                         + sum(pool["excluded_for_a_missing_grader"].values()),
+                         pool["tasks_with_two_revisions_executed"])
+        self.assertEqual(pool["headline"], "qualified_pool_size")
 
     def test_the_self_check_is_labelled_as_not_a_model_result(self):
         sc = self.i["grader_self_check"]
@@ -233,6 +242,32 @@ class InterfaceHonesty(unittest.TestCase):
     def test_the_interface_is_byte_reproducible(self):
         js = json.dumps(self.i, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         self.assertEqual(js, INTERFACE.read_text(encoding="utf-8"))
+
+
+class RepositoryResolution(unittest.TestCase):
+    """The grader must be able to check out a second codebase, and must refuse to
+    invent one."""
+
+    def test_a_clone_url_in_the_key_is_used_directly(self):
+        url = G._repo_url({"finding_id": "some-new-protocol/H-01",
+                           "repository": "https://github.com/example/protocol.git"})
+        self.assertEqual(url, "https://github.com/example/protocol.git")
+
+    def test_an_explicit_repository_url_wins(self):
+        url = G._repo_url({"finding_id": "x/H-01", "repository": "local-artefact-dir",
+                           "repository_url": "https://github.com/example/other.git"})
+        self.assertEqual(url, "https://github.com/example/other.git")
+
+    def test_a_non_url_that_is_not_registered_fails_loudly(self):
+        with self.assertRaises(SystemExit) as caught:
+            G._repo_url({"finding_id": "not-in-any-registry/H-99",
+                         "repository": "experiments_v3/some-local-dir"})
+        self.assertIn("cannot resolve a clone URL", str(caught.exception))
+
+    def test_registry_findings_still_resolve(self):
+        registered = [t for t in B.load_evidence().values()
+                      if t.get("revisions", {}).get("vulnerable")]
+        self.assertTrue(registered, "the experiment registry is empty: nothing to resolve")
 
 
 class LiveForgeRunPath(unittest.TestCase):

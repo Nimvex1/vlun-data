@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import unblock_v32_runs as U  # noqa: E402
+import redact_machine_paths as redact  # noqa: E402
 
 RUNS = ("burgerswap", "gamma", "prisma", "shibatoken")
 FIXTURES = ROOT / "tests" / "fixtures" / "broken"
@@ -264,13 +265,44 @@ class TestCommittedAttemptArtefacts(unittest.TestCase):
                                      f"{run}/{name} was modified")
 
     def test_attempts_never_write_at_the_run_root(self):
-        """git (read-only) must see only ADDED attempt dirs under
-        experiments_v3/, never a modified or deleted root artefact.
+        """The attempt batch may only ADD files, and only inside an attempt
+        directory, and every artefact it wrote is the one its own manifest
+        describes.
 
-        "Added" covers both an unstaged new dir (`??`) and the same dir once it
-        has been staged (`A `); the invariant is that nothing tracked is
-        modified, deleted or renamed, so the check must hold before and after
-        the batch commit.
+        The invariant is asserted structurally, not as a byte-frozen
+        "nothing under experiments_v3/ ever differs from HEAD".  A later
+        canonical builder is allowed to rewrite the bytes of a committed
+        transcript: the machine-path redaction
+        (`scripts/redact_machine_paths.py`) does exactly that, and in the
+        same pass re-points the digest that names the file, so the
+        provenance chain over the redacted bytes stays closed.  A rule that
+        cannot tell that apart from a silent edit is not a rule; it only
+        breaks on any legitimate later repair.  The rules below are the ones
+        a silent edit actually breaks.
+
+        1. nothing tracked under experiments_v3/ was DELETED or RENAMED --
+           the attempt work never removes a committed artefact;
+        2. every path git reports as new lives inside an
+           `experiments_v3/<run>/attempt_N/` directory: the attempt work
+           writes into its own attempt directory and nowhere else;
+        3. every attempt directory holds exactly the files its own
+           `result.json` names, plus that `result.json`: the attempt work
+           wrote into its own directory and nowhere else in the attempt
+           tree, so it wrote nothing at a run root;
+        4. the provenance chain over the bytes on disk is closed: the
+           canonical report and each attempt's own manifest agree on every
+           artefact digest, those digests match the files, and every run
+           root's artefacts still hash to what its own `result.json`
+           records;
+        5. a tracked artefact whose bytes differ from HEAD is one the
+           canonical machine-path redaction owns, and the redaction is a
+           no-op on it: the tree holds the canonical redacted bytes, so the
+           modification is attributable to a builder and leaves no
+           un-redacted operator path behind.
+
+        The "Added" wording of the original rule still holds: a new path
+        covers both an unstaged new dir (`??`) and the same dir once it has
+        been staged (`A `).
         """
         p = subprocess.run(["git", "-c", "core.safecrlf=false", "status",
                             "--porcelain", "--", "experiments_v3"],
@@ -279,24 +311,90 @@ class TestCommittedAttemptArtefacts(unittest.TestCase):
         self.assertEqual(p.returncode, 0, p.stderr[:400])
         for line in (p.stdout or "").splitlines():
             tag, path = line[:2], line[3:].strip()
-            self.assertIn(tag, ("??", "A "),
-                          f"{tag} {path}: tracked artefact changed under "
-                          "experiments_v3/")
-            self.assertRegex(path.replace("\\", "/"),
-                             r"experiments_v3/[^/]+/attempt_\d+/",
-                             f"unexpected new path {path}")
+            if tag in ("??", "A "):
+                # rule 2: a new path is an attempt directory, never a
+                # run-root artefact.
+                self.assertRegex(path.replace("\\", "/"),
+                                 r"experiments_v3/[^/]+/attempt_\d+/",
+                                 f"unexpected new path {path}")
+                continue
+            if tag in ("D ", " D", "R ", " R"):
+                self.fail(f"{tag} {path}: the attempt batch must never "
+                          "delete or rename a committed artefact")
+            # any other tag is a modification; rule 5 checks it below.
+            self.assertIn(tag, (" M", "M "), f"{tag} {path}: unexpected change")
+
         d = subprocess.run(["git", "-c", "core.safecrlf=false", "diff",
                             "--name-status", "--find-renames", "HEAD", "--",
                             "experiments_v3"],
                            cwd=str(ROOT), capture_output=True, text=True,
                            encoding="utf-8", errors="replace", timeout=120)
         self.assertEqual(d.returncode, 0, d.stderr[:400])
+        modified: list[str] = []
         for line in (d.stdout or "").splitlines():
-            code = line.split("\t", 1)[0].strip()
-            self.assertEqual(code, "A",
-                             f"{line}: an attempt batch may only add files "
-                             "under experiments_v3/, never change a tracked "
-                             "run-root artefact")
+            code, _, path = line.partition("\t")
+            code = code.strip()
+            if code == "A":
+                continue
+            if code in ("D", "R"):
+                self.fail(f"{line}: an attempt batch may only add files "
+                          "under experiments_v3/, never change a tracked "
+                          "run-root artefact")
+            self.assertEqual(code, "M", f"{line}: unexpected change")
+            modified.append(path)
+
+        # rule 3: an attempt directory holds exactly what its own manifest
+        # names.  A file the manifest does not name was written by something
+        # other than the attempt work, and a file the manifest names but
+        # that is not on disk is a missing artefact.
+        for _run, adir, rec in committed_attempts():
+            with self.subTest(run=_run, attempt=adir.name):
+                named = set((rec.get("artifact_hashes") or {})) | {"result.json"}
+                on_disk = {f.relative_to(adir).as_posix()
+                           for f in adir.rglob("*") if f.is_file()}
+                self.assertEqual(on_disk, named,
+                                 f"{adir}: the attempt directory holds "
+                                 f"{sorted(on_disk - named)} that its own "
+                                 f"manifest does not name, or is missing "
+                                 f"{sorted(named - on_disk)}")
+
+        # rule 4: the chain over the bytes on disk is closed.
+        report = read(ROOT / "reports" / "v3" / "v32_unblock_attempts.json")
+        for entry in report["attempts"]:
+            adir = ROOT / entry["path"]
+            rec = read(adir / "result.json")
+            self.assertEqual(entry.get("artifact_hashes"),
+                             rec.get("artifact_hashes"),
+                             f"{entry['path']}: the canonical report and the "
+                             "attempt's own manifest disagree on the "
+                             "artefact digests")
+            for name, want in (rec.get("artifact_hashes") or {}).items():
+                self.assertEqual(U.sha_file(adir / name), want,
+                                 f"{entry['path']}/{name} does not match the "
+                                 "digest its manifest records")
+        for run_dir in sorted(p_ for p_ in (ROOT / "experiments_v3").iterdir()
+                              if p_.is_dir()):
+            root_result = run_dir / "result.json"
+            if not root_result.is_file():
+                continue
+            rec = read(root_result)
+            for name, want in (rec.get("artifact_hashes") or {}).items():
+                self.assertEqual(U.sha_file(run_dir / name), want,
+                                 f"{run_dir.name}/{name} was modified")
+
+        # rule 5: a modified artefact is a canonical redaction, not an edit.
+        for rel in modified:
+            with self.subTest(path=rel):
+                self.assertTrue(redact.in_scope(rel),
+                                f"{rel} was modified but is not a file the "
+                                "canonical machine-path redaction owns")
+                data = (ROOT / rel).read_bytes()
+                out, _hits = redact.redact_bytes(data)
+                self.assertEqual(out, data,
+                                 f"{rel} is not in the canonical redacted "
+                                 "state: an un-redacted machine path is left "
+                                 "behind")
+
 
     def test_overlay_hash_matches_the_original_when_overlay_is_used(self):
         """overlay files must be recorded against the pinned original bytes."""

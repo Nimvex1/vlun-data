@@ -1,9 +1,10 @@
 {
   "by_fix_effectiveness": {
-    "effective": 7,
-    "not_testable": 31
+    "effective": 5,
+    "not_testable": 31,
+    "not_verified_two_revision": 2
   },
-  "experimentally_confirmed_pairs": 7,
+  "experimentally_confirmed_pairs": 5,
   "fix_category_vocabulary": [
     "authorization",
     "input_validation",
@@ -22,7 +23,7 @@
     "other"
   ],
   "generated_by": "scripts/verify_patches.py",
-  "guarantee": "a patch is called effective only when the same test observed the violation on the audited revision and the property held on the fixed revision. A merged PR, a remediation label or a diff is never sufficient.",
+  "guarantee": "a patch is called effective only when the same test, the same assertions and byte-identical harness bytes observed the violation on the audited revision and the property held on the fixed revision. A merged PR, a remediation label or a diff is never sufficient, and a run whose two sides did not run the same harness bytes is reported as not_verified_two_revision.",
   "licence_note": "diffs are read from local clones for analysis only; no diff text is redistributed for the BUSL-1.1 repositories",
   "patch_records": 38,
   "records": [
@@ -256,11 +257,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_MaliciousSeaportTip",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "high",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -603,11 +605,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "high",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -661,11 +664,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "high",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -1038,11 +1042,15 @@
           "upgradeability": 5
         }
       },
-      "fix_effectiveness": "effective",
+      "fix_effectiveness": "not_verified_two_revision",
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
       "fixing_commit_discrepancy": null,
+      "missing_evidence": [
+        "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
+        "the two revisions did not run the same test file bytes"
+      ],
       "patch_delta": {
         "added_lines": 329,
         "added_sample": [
@@ -1242,11 +1250,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol); the two revisions did not run the same test file bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
+      "two_revision_evidence": "PARTIAL",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -1678,11 +1687,15 @@
           "upgradeability": 3
         }
       },
-      "fix_effectiveness": "effective",
+      "fix_effectiveness": "not_verified_two_revision",
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
       "fixing_commit_discrepancy": null,
+      "missing_evidence": [
+        "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
+        "the two revisions did not run the same test file bytes"
+      ],
       "patch_delta": {
         "added_lines": 168,
         "added_sample": [
@@ -1859,11 +1872,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol); the two revisions did not run the same test file bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
+      "two_revision_evidence": "PARTIAL",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -2075,11 +2089,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -2177,11 +2192,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_VlunEip712",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },

@@ -69,8 +69,9 @@ def private_home(home: Path) -> Path:
     if resolved == root or root in resolved.parents:
         raise SystemExit(
             f"refusing to write the answer key inside the repository: {resolved}\n"
-            "the private split must live outside the tracked tree (e.g. "
-            "C:/Users/jeet/vlun-private)")
+            "the private split must live outside the tracked tree; point "
+            "VLUN_PRIVATE_HOME (or --home) at a directory outside this "
+            "checkout")
     return resolved / PRIVATE_DIRNAME
 
 
@@ -374,6 +375,11 @@ def build(home: Path) -> tuple[dict, dict]:
                         for label in ("vulnerable", "fixed")},
             "evidence_artifact": exp.get("artifact"),
         })
+    # The headline is what the published grader can actually run, not how many runs
+    # happen to be on disk: a framework the grader refuses to credit cannot be
+    # advertised as part of the pool.
+    gradable_tasks = sum(1 for t in tasks if t["gradable_by_the_published_grader"])
+    ungradable = [t for t in tasks if not t["gradable_by_the_published_grader"]]
     interface = {
         "schema_version": SCHEMA,
         "generated_by": "scripts/build_prove_split.py",
@@ -402,16 +408,31 @@ def build(home: Path) -> tuple[dict, dict]:
         },
         "pool": {
             "tasks_with_two_revisions_executed": len(tasks),
+            "qualified_pool_size": gradable_tasks,
+            "excluded_for_a_missing_grader": _count(ungradable, "framework"),
             "by_framework": _count(tasks, "framework"),
             "by_repository": _count(tasks, "repository"),
+            "distinct_repositories": len({t["repository"] for t in tasks}),
+            "distinct_qualified_repositories": len(
+                {t["repository"] for t in tasks if t["gradable_by_the_published_grader"]}),
             "target_claimed": 200,
-            "target_met": len(tasks) >= 200,
+            "target_met": gradable_tasks >= 200,
+            "headline": "qualified_pool_size",
+            "ledger": ledger_summary(),
             "why_smaller": (
-                "the pool is bounded by the two-revision evidence that exists in this tree: "
-                "seven executed vulnerable/fixed pairs in the v1 layer plus one hardhat "
-                "two-side run in the V3.2 layer. Every additional task needs a pinned fixed "
-                "revision and a test that was actually run on both sides, so the private "
-                "split is recorded at its real size rather than padded to 200."),
+                f"the qualified pool is {gradable_tasks}: the tasks whose framework the "
+                f"published grader can actually run. A further {len(ungradable)} task(s) "
+                "carry recorded two-side evidence in a framework the grader does not "
+                "implement, so they are listed as candidates and excluded from the "
+                "headline rather than advertised as gradable. Every additional task needs a "
+                "pinned fixed revision and one identical test that was run on both sides, so "
+                "the pool is recorded at its real size and not padded to 200."),
+            "diversity_limit": (
+                "the qualified pool rests on "
+                f"{len({t['repository'] for t in tasks if t['gradable_by_the_published_grader']})}"
+                " distinct repository/repositories, so the eight-codebase target is not met "
+                "and a project-held-out split is not credible at this size; this is reported "
+                "as a limit, not as a contamination-proof pool."),
         },
         "dates": {"evidence_cutoff_utc": CUTOFF,
                   "note": ("no generation timestamp is recorded: this file must be "
@@ -496,11 +517,22 @@ def render_md(interface: dict) -> str:
                f"`grader_reads_the_assertion_not_the_exit_code` = "
                f"{interface['grader_reads_the_assertion_not_the_exit_code']}.\n")
     out.append("## Pool as it actually stands\n")
+    out.append(f"- **qualified pool (gradable by the published grader): "
+               f"{p['qualified_pool_size']}**")
     out.append(f"- tasks with both revisions executed: **{p['tasks_with_two_revisions_executed']}**")
+    out.append(f"- excluded for a missing grader: `{p['excluded_for_a_missing_grader']}`")
     out.append(f"- by framework: `{p['by_framework']}`")
     out.append(f"- by repository (one group each): `{p['by_repository']}`")
+    out.append(f"- distinct repositories: {p['distinct_repositories']} "
+               f"({p['distinct_qualified_repositories']} qualified)")
     out.append(f"- stretch target {p['target_claimed']} met: **{p['target_met']}**")
-    out.append(f"- why smaller: {p['why_smaller']}\n")
+    led = p.get("ledger") or {}
+    out.append(f"- candidate ledger: {led.get('ledger_qualified')} qualified of "
+               f"{led.get('ledger_rows')} rows across {led.get('ledger_qualified_repositories')} "
+               f"codebases, {led.get('ledger_blocked')} blocked — "
+               f"{led.get('relationship')}")
+    out.append(f"- why smaller: {p['why_smaller']}")
+    out.append(f"- diversity limit: {p['diversity_limit']}\n")
     out.append("## Isolation\n")
     out.append(f"- the model sees: `{interface['isolation']['model_sees']}`")
     out.append(f"- the model must not see: `{interface['isolation']['model_must_not_see']}`\n")
@@ -558,12 +590,43 @@ def verified_private_commitment(home: Path) -> dict:
     return doc
 
 
+def ledger_summary() -> dict:
+    """What the candidate ledger says, so the published pool cannot read as the whole truth.
+
+    A run recorded in the ledger is NOT part of this split until the experiment recorder
+    commits its artefacts into the recorded layers and the private key is rebuilt with it.
+    Both numbers are published side by side rather than quietly reconciled.
+    """
+    path = REPORTS / "prove_candidate_ledger.json"
+    if not path.exists():
+        return {"status": "no ledger report on disk"}
+    try:
+        stats = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        return {"status": f"ledger report unreadable: {exc}"}
+    counts = stats.get("counts") or {}
+    return {
+        "generated_by": "scripts/build_prove_ledger.py",
+        "ledger_rows": counts.get("candidate_rows"),
+        "ledger_qualified": (counts.get("by_stage") or {}).get("qualified"),
+        "ledger_qualified_repositories": counts.get(
+            "distinct_repositories_with_a_qualified_task"),
+        "ledger_blocked": (counts.get("by_stage") or {}).get("blocked"),
+        "relationship": ("the qualified pool above counts only tasks whose artefacts are in "
+                         "the recorded layers this grader reads; a ledger qualification is a "
+                         "verified run awaiting the recorder, and is never added to the pool "
+                         "headcount until then"),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--home", default=os.environ.get("VLUN_PRIVATE_HOME")
                     or str(Path.home() / "vlun-private"),
-                    help="private location for the answer key; must be outside this repo "
-                         "(or set VLUN_PRIVATE_HOME)")
+                    help="private location for the answer key; must be outside "
+                         "this repo. Read from the VLUN_PRIVATE_HOME "
+                         "environment variable when it is set, otherwise "
+                         "<user home>/vlun-private")
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
 

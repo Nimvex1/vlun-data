@@ -158,177 +158,26 @@ def build_extraction_errors() -> dict:
 # ---------------------------------------------------------------------------
 
 def build_benchmark_metrics() -> str:
-    man = jread(BENCH / "manifest.json", {}) or {}
-    ver = jread(REPORTS / "verification_stats.json", {}) or {}
-    patch = jread(REPORTS / "patch_verification.json", {}) or {}
-    neg = jread(REPORTS / "negative_verification_stats.json", {}) or {}
-    negm = neg.get("metrics") or {}
-    ce = jread(REPORTS / "counterexample_stats.json", {}) or {}
-    leak = jread(REPORTS / "leakage_report.json", {}) or {}
-    tasks = man.get("tasks", {})
+    """The benchmark-metric artefacts belong to the scorer.
 
-    det = jl(BENCH / "A_vulnerability_detection.jsonl")
-    fp = jl(BENCH / "F_false_positive_rejection.jsonl")
-    ev = jl(BENCH / "retired_families" / "E_exploit_verification.jsonl")
-    d_t = jl(BENCH / "D_exploit_construction.jsonl")
-    # Majority-baseline accuracy per family (recomputed by the scorer, read
-    # here — never typed). Families at >= 0.94 carry no signal: beating
-    # majority there proves nothing about a model. Exploratory families
-    # (below the 100-row headline floor) and retired families are read from
-    # their own blocks and tagged EXPLORATORY / RETIRED instead of
-    # SATURATED.
-    maj = {}
-    _expl = set()
-    _ret = set()
-    try:
-        _bl = json.loads((REPORTS / "baselines"
-                          / "baseline_majority.json").read_text(
-                              encoding="utf-8"))
-        for _blk in ("families", "families_exploratory", "families_retired"):
-            for _fam, _s in (_bl.get(_blk, {}) or {}).items():
-                if isinstance(_s, dict) and _s.get("accuracy") is not None:
-                    maj[_fam[:-6] if _fam.endswith(".jsonl") else _fam] = \
-                        _s["accuracy"]
-        _expl = {(_f[:-6] if _f.endswith(".jsonl") else _f)
-                 for _f in (_bl.get("families_exploratory") or {})}
-        _ret = {(_f[:-6] if _f.endswith(".jsonl") else _f)
-                for _f in (_bl.get("families_retired") or {})}
-    except (OSError, json.JSONDecodeError):
-        maj = {}
-        _expl = set()
-        _ret = set()
-
-    test_det = [t for t in det if t["split"] == "test"]
-    test_pos = sum(1 for t in test_det if t["answer_key"]["label"] == "vulnerable")
-    test_neg = len(test_det) - test_pos
-
-    totals = ver.get("totals", {})
-    ex_n = totals.get("exploit_records", 0)
-    comp = ver.get("poc_compilation_rate", {})
-
-    test_fp = [t for t in fp if t["split"] == "test" and t["answer_key_status"] == "labeled"]
-
-    rows = [
-        ("precision", "not measurable",
-         "no model has been run against this benchmark; precision is a property of a predictor, "
-         "not of the dataset. What the dataset provides is the labelled set needed to compute it."),
-        ("recall", "not measurable", "same reason as precision."),
-        ("F1", "not measurable", "same reason as precision."),
-        ("false-positive rate", "not measurable",
-         "requires a predictor. The benchmark supplies "
-         f"{len(test_fp)} scorable false-positive-rejection tasks in the held-out split."),
-        ("false-negative rate", "not measurable", "requires a predictor."),
-        ("PoC compilation rate",
-         pct(comp.get("repos_compiled", 0), comp.get("repos_attempted", 0)) + " repositories",
-         f"{comp.get('poc_files_materialised', 0)} PoC files were written from the code quoted in "
-         f"the reports; {comp.get('poc_files_skipped', 0)} could not be expressed as a Solidity "
-         "test body."),
-        ("PoC execution rate",
-         pct(totals.get("reproduced", 0) + totals.get("not_reproduced", 0)
-             + totals.get("inconclusive", 0), ex_n),
-         "reproduced + not_reproduced + inconclusive over all exploit records."),
-        ("exploit confirmation rate", pct(totals.get("reproduced", 0), ex_n),
-         "A PoC counts only when forge reported Success for that test. Nothing else is promoted."),
-        ("patch verification rate", pct(patch.get("evaluated", 0), patch.get("patch_records", 0)),
-         f"{patch.get('fix_confirmed_effective', 0)} fixes confirmed effective by running the same "
-         "PoC against vulnerable and fixed revisions."),
-        ("negative-example accuracy", "not measurable",
-         f"the held-out split has {len(test_fp)} scorable false-positive tasks; of "
-         f"{neg.get('total', 0)} negatives only {negm.get('reason_attributed_to_judge_or_sponsor', 0)}"
-         " carry a reason attributed to a named judge or sponsor and "
-         f"{negm.get('reason_supported_by_cited_code', 0)} are blocked by a gate in the cited "
-         f"code, while {negm.get('unknown_or_insufficient_evidence', 0)} rest on a public "
-         "label alone, so scoring them would reward guessing."),
-        ("duplicate detection accuracy",
-         f"{leak.get('near_duplicate_overlap', {}).get('count', 0)} near-duplicate and "
-         f"{leak.get('semantic_overlap', {}).get('count', 0)} semantic cross-split pairs found",
-         "detector recall is not validated against a hand-labelled set; the two pairs it found "
-         "were checked by hand and are genuine."),
-    ]
-
-    lines = [
-        "# Benchmark metrics",
-        "",
-        "Generated by `scripts/generate_reports.py` from `reports/benchmark_metrics.json` and the",
-        "files under `benchmark/`. Nothing in this file is estimated.",
-        "",
-        "## What can be measured",
-        "",
-        "| metric | value | basis |",
-        "|---|---|---|",
-    ]
-    for name, value, basis in rows:
-        lines.append(f"| {name} | {value} | {basis} |")
-
-    lines += [
-        "",
-        "## Task coverage",
-        "",
-        "A task is *scorable* only where an answer key genuinely exists. Unlabelled tasks are",
-        "written to `benchmark/*.jsonl` with `answer_key_status` and a reason, and are excluded",
-        "from any metric, because a key invented to fill a slot would measure the generator, not",
-        "the model.",
-        "",
-        "| task | tasks | scorable | partial | unlabelled | train | validation | test | majority |",
-        "|---|---|---|---|---|---|---|---|---|",
-    ]
-    for name, t in sorted(tasks.items()):
-        bs = t.get("by_split", {})
-        ma = maj.get(name)
-        if ma is None:
-            flag = "n/a"
-        else:
-            tag = ""
-            if name in _expl:
-                tag = " EXPLORATORY"
-            elif name in _ret:
-                tag = " RETIRED"
-            elif ma >= 0.94:
-                tag = " SATURATED"
-            flag = f"{ma:.3f}{tag}"
-        lines.append(f"| `{name}` | {t['tasks']} | {t['scorable']} | {t.get('partial', 0)} | "
-                     f"{t.get('unlabeled', 0)} | {bs.get('train', 0)} | {bs.get('validation', 0)} | "
-                     f"{bs.get('test', 0)} | {flag} |")
-
-    lines += [
-        "",
-        "## Held-out split composition (task A)",
-        "",
-        f"- `vulnerable` (judged, confirmed): **{test_pos}**",
-        f"- `no_confirmed_vulnerability` (rejected / disputed / duplicate / QA): **{test_neg}**",
-        "",
-        "A detector evaluated on this split is rewarded for saying `vulnerable` only when the",
-        "Code4rena judge confirmed it, and penalised for flagging the rejected submissions. The",
-        f"whole-split base rate is {100.0 * test_pos / len(test_det):.1f}% positive, so a trivial",
-        "always-positive baseline scores that. Report it alongside any F1.",
-        "",
-        "## Known limitations of this benchmark",
-        "",
-        f"- Task D supplies {len(d_t)} PoC bodies quoted from reports. Their correctness is not "
-        "established: only the fraction counted under *exploit confirmation rate* has been run.",
-        f"- Task E is labelled on its {sum(1 for t in ev if t['answer_key_status'] == 'labeled')} "
-        f"rows with an executed verdict; the other {sum(1 for t in ev if t['answer_key_status'] != 'labeled')} "
-        "are unlabelled — a PoC verification task needs an executed ground truth, and executing "
-        "them needs an archive RPC and a working toolchain.",
-        f"- Task G is labelled on its {tasks.get('G_patch_verification', {}).get('scorable', 0)} "
-        "rows where the same exploit was run against both the vulnerable and the fixed revision "
-        f"(L6); the other {tasks.get('G_patch_verification', {}).get('unlabeled', 0)} are "
-        "`not_testable` — no executable PoC on either side, so their effectiveness is genuinely "
-        "unestablished.",
-        f"- Counterexamples exist for only {ce.get('records_with_at_least_one_counterexample', 0)} "
-        f"of {ce.get('confirmed_high_medium_records', 0)} confirmed High/Medium findings. The "
-        "reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
-        "- Baseline predictors have been run (`reports/baselines/`, rubric in "
-        "`docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, "
-        "TF-IDF retrieval and seeded random. Families with majority accuracy "
-        ">= 0.94 are marked SATURATED above; the four exploratory families "
-        "(F, G, I, J) are marked EXPLORATORY — below the 100-row floor where "
-        "a family score is interpretable — and a model beat there carries no "
-        "signal either.",
-        "",
-    ]
-    (MD / "benchmark_metrics.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
-    return "\n".join(lines)
+    `reports/benchmark_metrics.json` and `reports/benchmark_metrics.md` are
+    generated by `scripts/score_benchmark.py --build-metrics`, which owns the
+    audited family status, the primary metric's denominator and the
+    train-only baseline floors. This module used to write a second, thinner
+    version of the same two files: two builders for one artefact, so
+    whichever ran last won, and the two versions disagreed about which
+    families count. The delegation keeps one builder and one artefact.
+    """
+    import benchmark_status as bstatus  # noqa: PLC0415
+    import score_benchmark as sb  # noqa: PLC0415
+    status_rep = bstatus.cached_status_report()
+    fam_data = sb.load_families(status_rep)
+    rep = sb.build_metrics_report(status_rep, fam_data)
+    jtext = json.dumps(rep, indent=2, sort_keys=True) + "\n"
+    mtext = sb.render_metrics_md(rep) + "\n"
+    sb._write(sb.METRICS_JSON, jtext)  # noqa: SLF001
+    sb._write(sb.METRICS_MD, mtext)  # noqa: SLF001
+    return mtext
 
 
 # ---------------------------------------------------------------------------
@@ -600,14 +449,8 @@ def main() -> int:
     log(f"wrote reports/extraction_errors.json ({ee['total']} entries, {ee['by_origin']})")
 
     md = build_benchmark_metrics()
-    write_json(REPORTS / "benchmark_metrics.json",
-               {"generated_by": "scripts/generate_reports.py",
-                "note": "see reports/benchmark_metrics.md; metrics that need a predictor are "
-                        "reported as not measurable rather than estimated",
-                "task_coverage": (jread(BENCH / "manifest.json", {}) or {}).get("tasks", {}),
-                "verification_totals": (jread(REPORTS / "verification_stats.json", {}) or {}).get("totals", {}),
-                "markdown_lines": len(md.splitlines())})
-    log("wrote reports/benchmark_metrics.md")
+    log(f"wrote reports/benchmark_metrics.md and reports/benchmark_metrics.json "
+        f"via scripts/score_benchmark.py ({len(md.splitlines())} lines)")
 
     fr = build_final_report()
     log(f"wrote reports/final_quality_report.md ({len(fr.splitlines())} lines)")

@@ -9,13 +9,18 @@ Verifies, without rebuilding the world:
      and is explicitly skipped_no_network when unavailable)
   5. generated files correspond to declared inputs (generated_by + inputs exist)
   6. no read-only layer can be written by any build stage (static scan)
-  7. generation is deterministic (byte-stability + Vbeta rebuild parity)
+  7. generation is deterministic (byte-stability + Vbeta rebuild parity + the
+     derived/ and derived_v2_2/ layers replayed through the pipeline that
+     produced them)
   8. every declared output is actually produced
   9. every produced artifact belongs to the correct layer (version check)
- 10. git-ignored work/ artefacts are never required for a fresh-clone build
+  10. git-ignored work/ artefacts are never required for a fresh-clone build
 
-Writes nothing. A skipped network stage stays `skipped_no_network` — never a
-pass, never a failure.
+Writes nothing but its own report. A skipped network stage stays
+`skipped_no_network` — never a pass, never a failure. A layer that cannot be
+reproduced FAILS and names the exact field paths that differ: a reproducibility
+gate that cannot go red is not a gate.
+
 
     python scripts/check_reproducibility.py
     python scripts/check_reproducibility.py --quiet
@@ -29,6 +34,7 @@ import json
 import re
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -36,6 +42,42 @@ from schema_terms import READ_ONLY_LAYERS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
+
+# ---------------------------------------------------------------------------
+# the documented pipelines that produced the published layers
+# ---------------------------------------------------------------------------
+#
+# scripts/build_all.py fixes the canonical stage order. derived/ is written
+# by more than one of those stages, so its reproduction check must replay
+# them in order - a single stage is not like for like.
+#
+#   stage 2  build_derived.py    "evidence semantics, attacker model, state
+#                                transition, expanded code context, taxonomy"
+#   stage 5  resolve_citations.py "replace every mutable branch citation with
+#                                the commit that holds the cited content" -
+#                                writes the pinned commit SHAs and the
+#                                resolution metadata BACK into
+#                                derived/records.jsonl
+#
+# plus the record-hash migration (build_derived.py --migrate-record-hashes),
+# which rewrites only the new record-hash fields from committed bytes and is
+# therefore deterministic on any machine.
+DERIVED_CHAIN = [
+    ("scripts/build_derived.py", []),                  # build_all stage 2
+    ("scripts/resolve_citations.py", []),              # build_all stage 5
+    ("scripts/build_derived.py", ["--migrate-record-hashes"]),
+]
+# Every file that chain writes, so the check can snapshot and restore them.
+DERIVED_FILES = [
+    "derived/records.jsonl",
+    "derived/manifest.json",
+    "reports/citation_resolution.json",
+]
+DERIVED_V22_CHAIN = [("scripts/build_derived_v22.py", [])]
+DERIVED_V22_FILES = ["derived_v2_2/records.jsonl", "derived_v2_2/manifest.json"]
+# The citation inputs the replay needs. Absent on a fresh clone: the rebuild
+# would then emit mutable branch refs, not the committed immutable pins.
+DERIVED_CITATION_INPUTS = ("work/source_manifest.json", "work/repos")
 
 
 def jl(path):
@@ -77,6 +119,194 @@ class Gate:
 
     def skip(self, name, detail="skipped_no_network"):
         self.verdict(name, "SKIPPED", detail)
+
+
+# ---------------------------------------------------------------------------
+# rebuild parity
+# ---------------------------------------------------------------------------
+#
+# A layer is reproducible when replaying the pipeline that produced it yields
+# the committed bytes. The CHAIN matters, and a single-stage rebuild is not
+# like for like:
+#
+#   * scripts/build_all.py's canonical stage order writes derived/records.jsonl
+#     more than once. Stage 2 (build_derived.py) builds it; stage 5
+#     (resolve_citations.py, "replace every mutable branch citation with the
+#     commit that holds the cited content") writes the pinned commit SHAs and
+#     the resolution metadata BACK into it. A stage-2-only rebuild therefore
+#     emits the mutable branch ref "main" for every citation, which is not
+#     drift in the layer - it is drift in the replay.
+#   * the record-hash scheme is applied as a documented surgical migration
+#     (build_derived.py --migrate-record-hashes), which computes the new
+#     digest fields from committed bytes alone and so is deterministic on any
+#     machine.
+#
+# The helper below therefore takes an ordered chain, snapshots every file the
+# chain writes, runs the chain, snapshots again, compares, and restores the
+# committed bytes in a `finally`: the check observes, it must never leave a
+# degraded layer behind.
+#
+# When the bytes still differ, the difference is NAMED (which field paths, on
+# how many records) rather than summarised as "outputs differ". A gate that
+# only says "different" cannot be acted on, and a gate that hides the
+# difference behind a skip is worse than no gate.
+
+def _jsonl_records(blob: bytes) -> dict:
+    """JSONL bytes -> {record id: parsed record}."""
+    out: dict = {}
+    for line in blob.decode("utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except ValueError:
+            continue
+        out[rec.get("id")] = rec
+    return out
+
+
+def _diff_paths(a, b, prefix: str = "", out: list | None = None,
+                depth: int = 0) -> list:
+    """JSON paths whose values differ between two parsed documents."""
+    if out is None:
+        out = []
+    if depth > 8:
+        if a != b:
+            out.append(prefix or "<root>")
+        return out
+    if isinstance(a, dict) and isinstance(b, dict):
+        for k in sorted(set(a) | set(b)):
+            _diff_paths(a.get(k, "<<absent>>"), b.get(k, "<<absent>>"),
+                        f"{prefix}.{k}" if prefix else k, out, depth + 1)
+    elif isinstance(a, list) and isinstance(b, list):
+        if len(a) != len(b):
+            out.append(f"{prefix}[]")
+            return out
+        for i, (x, y) in enumerate(zip(a, b)):
+            _diff_paths(x, y, f"{prefix}[{i}]", out, depth + 1)
+    elif a != b:
+        out.append(prefix or "<root>")
+    return out
+
+
+def residual_summary(committed: bytes, rebuilt: bytes, *, jsonl: bool = True,
+                     top: int = 6) -> str:
+    """Name the exact residual difference between two versions of a file.
+
+    For a JSONL layer (`jsonl=True`) the unit is the record; for a single
+    JSON document (`jsonl=False`) it is the document. Returns a one-line
+    summary: how many records differ, how many distinct field paths differ,
+    and the most frequent paths.
+    """
+    if committed == rebuilt:
+        return "no residual"
+    if not jsonl:
+        try:
+            paths = _diff_paths(json.loads(committed.decode("utf-8")),
+                                json.loads(rebuilt.decode("utf-8")))
+        except ValueError as exc:
+            return f"unparseable JSON ({exc})"
+        counts = Counter(paths)
+        head = ", ".join(f"{p} ({n})" for p, n in counts.most_common(top))
+        more = "" if len(counts) <= top else f", +{len(counts) - top} more"
+        return (f"1 document differs, {len(counts)} distinct field paths; "
+                f"top: {head}{more}")
+    a, b = _jsonl_records(committed), _jsonl_records(rebuilt)
+    counts = Counter()
+    differing = 0
+    for rid in sorted(set(a) | set(b)):
+        if a.get(rid) == b.get(rid):
+            continue
+        differing += 1
+        for p in _diff_paths(a.get(rid, "<<absent>>"), b.get(rid, "<<absent>>")):
+            counts[p] += 1
+    head = ", ".join(f"{p} ({n})" for p, n in counts.most_common(top))
+    more = "" if len(counts) <= top else f", +{len(counts) - top} more"
+    return (f"{differing}/{len(set(a) | set(b))} records differ, "
+            f"{len(counts)} distinct field paths; top: {head}{more}")
+
+
+def rebuild_parity(gate, label: str, chain, files, missing_inputs,
+                   root=None, timeout: int = 1800):
+    """Replay `chain` and compare the bytes it writes with the committed ones.
+
+    `chain` is an ordered list of (script, args) commands, run in order.
+    `files` is every file the chain writes: they are snapshotted before,
+    compared after, and the committed bytes are restored in a `finally`, so a
+    failed or drifting replay never leaves the working tree changed.
+
+    Returns a dict describing the comparison (for the report); the gate
+    verdict is recorded on `gate`.
+    """
+    root = Path(root) if root is not None else ROOT
+    if missing_inputs:
+        gate.skip(f"{label} rebuild parity",
+                  "skipped_no_network: citation inputs absent "
+                  f"({', '.join(missing_inputs)}); rebuild would emit "
+                  "mutable branch refs, not the committed immutable pins")
+        return {"status": "skipped", "reason": "skipped_no_network",
+                "missing_inputs": list(missing_inputs)}
+
+    saved = {f: (root / f).read_bytes() for f in files if (root / f).is_file()}
+    strays = {f: (root / f).with_suffix((root / f).suffix + ".tmp")
+              for f in files}
+    stray_before = {f: p.is_file() for f, p in strays.items()}
+    rebuilt: dict = {}
+    rc = None
+    failed_step = None
+    try:
+        for script, args in chain:
+            proc = subprocess.run([sys.executable, script, *args],
+                                  cwd=str(root), capture_output=True,
+                                  text=True, timeout=timeout)
+            rc = proc.returncode
+            if rc != 0:
+                failed_step = script
+                break
+        rebuilt = {f: (root / f).read_bytes() for f in files
+                   if (root / f).is_file()}
+    finally:
+        for f in files:
+            p = root / f
+            if f in saved:
+                p.write_bytes(saved[f])
+            elif p.is_file():
+                p.unlink()
+        # a crashed writer can leave a .tmp sibling behind; the check must
+        # not add a stray file to the tree either.
+        for f, p in strays.items():
+            if not stray_before.get(f) and p.is_file():
+                p.unlink()
+
+    changed = [f for f in files
+               if saved.get(f) != rebuilt.get(f)]
+    replayed = " -> ".join(
+        " ".join([Path(c[0]).name, *c[1]]) for c in chain)
+    result = {"status": "ok", "chain": [c[0] for c in chain],
+              "files": list(files), "changed": changed}
+    if rc != 0:
+        gate.fail(f"{label} rebuild parity",
+                  f"rebuild rc={rc} at step {failed_step} "
+                  "(rebuilt bytes restored; committed layer untouched)")
+        result["status"] = "failed"
+        return result
+    if changed:
+        detail = []
+        for f in changed[:5]:
+            res = residual_summary(saved.get(f, b""), rebuilt.get(f, b""),
+                                   jsonl=f.endswith(".jsonl"))
+            detail.append(f"{f}: {res}")
+        gate.fail(f"{label} rebuild parity",
+                  f"outputs differ: {changed[:5]} after replaying [{replayed}] "
+                  "(rebuilt bytes restored; committed layer untouched); "
+                  "residual: " + " | ".join(detail))
+        result["status"] = "differs"
+        return result
+    gate.ok(f"{label} rebuild parity",
+            f"{len(rebuilt)} artefacts byte-identical after replaying "
+            f"[{replayed}]")
+    return result
 
 
 def main() -> int:
@@ -357,50 +587,17 @@ def main() -> int:
     # REQUIRES its citation inputs, skips when they are absent, and always
     # RESTORES the committed bytes afterwards: this gate observes, it must
     # never leave a degraded layer behind.
-    def _snap_files(rels):
-        return {r: hashlib.sha256((ROOT / r).read_bytes()).hexdigest()
-                for r in rels if (ROOT / r).is_file()}
-
-    _derived_missing = [p for p in ("work/source_manifest.json", "work/repos")
+    #
+    # The replay is the DOCUMENTED PIPELINE, not one stage: see DERIVED_CHAIN
+    # for the stage-by-stage reason.
+    _derived_missing = [p for p in DERIVED_CITATION_INPUTS
                         if not (ROOT / p).exists()]
 
-    def _rebuild_parity(label, script, files, missing_inputs):
-        if missing_inputs:
-            G.skip(f"{label} rebuild parity",
-                   "skipped_no_network: citation inputs absent "
-                   f"({', '.join(missing_inputs)}); rebuild would emit "
-                   "mutable branch refs, not the committed immutable pins")
-            return
-        before = _snap_files(files)
-        saved = {f: (ROOT / f).read_bytes() for f in files
-                 if (ROOT / f).is_file()}
-        try:
-            r = subprocess.run([sys.executable, script], cwd=str(ROOT),
-                               capture_output=True, text=True, timeout=1800)
-        finally:
-            for f, blob in saved.items():
-                (ROOT / f).write_bytes(blob)
-        after = _snap_files(files)
-        if r.returncode != 0:
-            G.fail(f"{label} rebuild parity", f"rebuild rc={r.returncode}")
-        elif before != after:
-            diff = [k for k in set(before) | set(after)
-                    if before.get(k) != after.get(k)]
-            G.fail(f"{label} rebuild parity",
-                   f"outputs differ: {diff[:5]} (rebuilt bytes restored; "
-                   "committed layer untouched)")
-        else:
-            G.ok(f"{label} rebuild parity",
-                 f"{len(after)} artefacts byte-identical across rebuilds")
-
-    _rebuild_parity("derived/", "scripts/build_derived.py",
-                    ["derived/records.jsonl", "derived/manifest.json"],
-                    _derived_missing)
-    _rebuild_parity("derived_v2_2/", "scripts/build_derived_v22.py",
-                    ["derived_v2_2/records.jsonl",
-                     "derived_v2_2/manifest.json"],
-                    [])
-
+    parity = []
+    parity.append(rebuild_parity(G, "derived/", DERIVED_CHAIN, DERIVED_FILES,
+                                 _derived_missing))
+    parity.append(rebuild_parity(G, "derived_v2_2/", DERIVED_V22_CHAIN,
+                                 DERIVED_V22_FILES, []))
     # ---- 8. declared outputs produced -------------------------------------------
     declared = {
         "derived_v3": ["candidate_ledger.jsonl", "records.jsonl",
@@ -564,6 +761,7 @@ def main() -> int:
         "checks_passed": sum(1 for r in G.rows if r["status"] == "PASS"),
         "checks_failed": len(fails),
         "checks_skipped": sum(1 for r in G.rows if r["status"] == "SKIPPED"),
+        "rebuild_parity": parity,
         "note": ("skipped_no_network entries are honest skips, never passes: "
                  "they need git-ignored clones or work/ inputs that are not "
                  "redistributed"),

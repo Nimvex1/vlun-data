@@ -33,6 +33,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_argv, redact_text  # noqa: E402
 from vlun import ROOT, log  # noqa: E402
 from vlun_io import sha256_file  # noqa: E402  (shared hash primitive; was a local copy)
 
@@ -49,21 +50,21 @@ def vyper_python(tag: str) -> Path | None:
 
 # The audited repositories, outside this checkout. Absolute on purpose: these
 # are the machine's copies of third-party code, not dataset content. Each is
-# overridable via VLUN_<NAME> so another machine can point at its own copies;
-# a missing path degrades to an explicit not_run/source_unavailable, never a
-# silent skip.
-def _ext(env: str, default: str) -> Path:
-    return Path(os.environ.get(env, default))
+# named by a VLUN_<NAME> environment variable so any machine can point at its
+# own copies. There is deliberately NO default: a default would be one
+# operator's home directory, and a recorded command that carries it ties the
+# artefact to that one checkout and publishes the account name. A missing
+# path degrades to an explicit not_run/source_unavailable, never a silent
+# skip and never a run against an unintended directory.
+def _ext(env: str) -> Path | None:
+    value = os.environ.get(env, "")
+    return Path(value) if value else None
 
 
-ZENTORY_A = _ext("VLUN_ZENTORY_MODE_A_REPO",
-                 r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts")
-ZENTORY_B = _ext("VLUN_ZENTORY_SELF_REPO",
-                 r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts")
-KERF = _ext("VLUN_KERF_REPO",
-            r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main")
-QUANTILLON = _ext("VLUN_QUANTILLON_REPO",
-                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main\quantillon-protocol")
+ZENTORY_A = _ext("VLUN_ZENTORY_MODE_A_REPO")
+ZENTORY_B = _ext("VLUN_ZENTORY_SELF_REPO")
+KERF = _ext("VLUN_KERF_REPO")
+QUANTILLON = _ext("VLUN_QUANTILLON_REPO")
 
 # (id, repo, cwd-relative, argv, source report, what it proves, expectation)
 # `expect` is what the report itself predicts, so a run is judged against the
@@ -312,16 +313,22 @@ def judge(parsed: dict, expect: dict, text: str = "") -> dict:
 
 def run_one(spec, timeout: int) -> dict:
     sid, repo, cwd, argv, report, desc, expect = spec
-    work = repo / cwd
+    work = (repo / cwd) if repo is not None else None
     d = OUT / sid
     d.mkdir(parents=True, exist_ok=True)
     log(f"\n=== {sid}")
     log(f"    {argv[0]} {' '.join(argv[1:])}")
     log(f"    cwd: {work}")
-    if not work.exists():
+    if work is None or not work.exists():
+        # The audited repository is named by a VLUN_<NAME> environment
+        # variable. Unset means this machine does not hold that copy, which
+        # is an explicit not_run, never a run against the wrong directory.
         result = {"experiment_id": sid, "status": "not_run",
                   "failure_reason": "source_unavailable",
-                  "detail": f"repository path missing: {work}"}
+                  "detail": ("the audited repository is not available on this "
+                             "machine (set the matching VLUN_* environment "
+                             "variable to its path)" if work is None else
+                             f"repository path missing: {work}")}
         (d / "result.json").write_text(json.dumps(result, indent=2) + "\n",
                                        encoding="utf-8")
         log("    -> not_run (repository missing)")
@@ -338,6 +345,10 @@ def run_one(spec, timeout: int) -> dict:
         rc, out, err, timed_out = 127, "", str(exc), False
     secs = round(time.time() - t0, 1)
 
+    # The captured output and the recorded command are redacted BEFORE they
+    # are written: a transcript that quotes the operator's home directory
+    # ties the artefact to one checkout and publishes the account name.
+    out, err = redact_text(out), redact_text(err)
     (d / "stdout.txt").write_text(out, encoding="utf-8")
     (d / "stderr.txt").write_text(err, encoding="utf-8")
     parsed = parse_result(out, err, rc)
@@ -351,14 +362,18 @@ def run_one(spec, timeout: int) -> dict:
     else:
         status = "ok"
 
+    # The recorded command is the portable form of the command that ran: an
+    # absolute interpreter path becomes `python`, so the line can be re-run
+    # on any machine.
+    recorded_argv = redact_argv(argv)
     result = {
         "experiment_id": sid,
         "source_report": report,
         "description": desc,
         "status": status,
         "expectation": verdict,
-        "command": " ".join(argv),
-        "argv": argv,
+        "command": " ".join(recorded_argv),
+        "argv": recorded_argv,
         "cwd": "<repo>",
         "timeout_seconds": timeout,
         "seconds": secs,

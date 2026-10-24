@@ -37,6 +37,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import experiments as ex  # noqa: E402
+import reconcile_proof_artefact_hashes as rpa  # noqa: E402  (the hashing scheme)
 from vlun import REPORTS, ROOT, log, write_json  # noqa: E402
 
 # ---------------------------------------------------------------------------
@@ -846,6 +847,258 @@ def resolve_repo(key: str) -> ex.RepoSpec:
     raise KeyError(key)
 
 
+# ---------------------------------------------------------------------------
+# two-revision evidence
+# ---------------------------------------------------------------------------
+# `l6_verified_patch` claims more than "the vulnerable run failed and the fixed
+# run passed": it claims the two runs differ in the code under test and in
+# nothing else. That is only demonstrable when both revisions ran the same
+# test, the same assertions and byte-identical harness bytes. The two
+# committed result.json artefacts are the only evidence for the claim, so the
+# verdict is derived from them rather than from the registry's intent, and it
+# is recomputed on every run: a later regeneration cannot silently restore an
+# over-stated verdict.
+#
+#   VERIFIED_TWO_REVISION  both sides recorded, byte-identical harness, both
+#                           commits named, the declared polarity held
+#   PARTIAL                one side missing, or the two sides did not run the
+#                           same harness bytes
+#   UNVERIFIABLE          nothing in the repository demonstrates the claim
+TWO_REVISION_EVIDENCE_STATUSES = ("VERIFIED_TWO_REVISION", "PARTIAL",
+                                  "UNVERIFIABLE")
+
+VERDICT_FOR_EVIDENCE = {
+    "VERIFIED_TWO_REVISION": "l6_verified_patch",
+    "PARTIAL": "l6_partial_two_revision_evidence",
+    "UNVERIFIABLE": "l6_unverifiable_two_revision_evidence",
+}
+
+SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
+
+# A run that completed with a recorded outcome is cached, whatever that outcome
+# is. Re-running a completed run rewrites the committed evidence (new
+# timestamps, new durations) without adding anything, so a regeneration of the
+# report must not do it. A run that never completed (timeout, not_run) is not
+# cached: retrying it is the point of running it again.
+CACHEABLE_STATUSES = ("pass", "fail", "compile_error", "toolchain_failure")
+
+
+def artefact_hash_record(finding_id: str, label: str,
+                         prior: dict | None) -> tuple[dict, list]:
+    """Digest every committed artefact of a revision under sha256-v2.
+
+    The L6 evidence names the bytes it rests on, so the report carries the
+    digest of each committed artefact together with the scheme version: a
+    reader never has to guess how a digest was computed. A digest that the
+    artefact's own record states but that cannot be reproduced from the
+    committed bytes is reported next to it, with the reason, instead of being
+    dropped or quietly rewritten.
+    """
+    d = ex.EXPERIMENTS / finding_id.replace("/", "__") / label
+    hashes = {}
+    for f in sorted(d.rglob("*")):
+        if not f.is_file() or f.name == "result.json":
+            continue
+        rel = f.relative_to(d).as_posix()
+        hashes[rel] = {"sha256": rpa.digest_normalised(f.read_bytes()),
+                       "hash_version": rpa.HASH_VERSION}
+    mismatches = []
+    for name, want in ((prior or {}).get("artifact_sha256") or {}).items():
+        f = d / name
+        if not f.is_file():
+            mismatches.append({"artefact": name, "status": "missing",
+                               "recorded_sha256": want})
+            continue
+        ok, _ = rpa.matches(want, f.read_bytes(), "sha256-v1-text")
+        if not ok:
+            mismatches.append({
+                "artefact": name,
+                "status": "unresolved",
+                "recorded_sha256": want,
+                "committed_sha256": rpa.digest_normalised(f.read_bytes()),
+                "recorded_hash_version": "sha256-v1-text",
+                "reason": ("the committed artefact was edited after the run, so the "
+                           "digest recorded with the run does not describe the "
+                           "committed bytes; the original value and the commit whose "
+                           "blob reproduces it are recorded in "
+                           "scripts/reconcile_proof_artefact_hashes.py "
+                           "::UNRESOLVED_ARTEFACT_HASHES"),
+            })
+    return hashes, mismatches
+
+
+def stored_run_failure(finding_id: str, label: str, prior: dict) -> tuple[str, str | None]:
+    """Re-derive the controlled failure reason from a stored artefact.
+
+    A cached run has no RunResult any more, but the reason a run failed to
+    compile is a property of its committed stdout/stderr, so it is recomputed
+    from those bytes rather than being dropped from the report.
+    """
+    d = ex.EXPERIMENTS / finding_id.replace("/", "__") / label
+
+    def _read(name: str) -> str:
+        f = d / name
+        return f.read_text(encoding="utf-8", errors="replace") if f.is_file() else ""
+
+    class _Stored:
+        status = prior.get("status")
+        stdout = _read("stdout.txt")
+        stderr = _read("stderr.txt")
+
+    return ex.classify_run_failure(_Stored)
+
+
+def _test_files(digests: dict) -> dict:
+    return {n: d for n, d in (digests or {}).items() if n.endswith(".t.sol")}
+
+
+def classify_two_revision_evidence(finding_id: str) -> dict:
+    """Classify an experiment's two-revision evidence from its committed artefacts."""
+    safe = finding_id.replace("/", "__")
+    sides: dict[str, dict | None] = {}
+    for label in ("vulnerable", "fixed"):
+        d = ex.EXPERIMENTS / safe / label / "result.json"
+        sides[label] = (json.loads(d.read_text(encoding="utf-8"))
+                        if d.is_file() else None)
+
+    out: dict = {
+        "status": "UNVERIFIABLE",
+        "missing_evidence": [],
+        "harness_digests_match": False,
+        "test_file_digests_match": False,
+        "vulnerable": None,
+        "fixed": None,
+        "commit_resolution": {},
+    }
+    absent = [lbl for lbl, d in sides.items() if not d]
+    if absent:
+        out["missing_evidence"].append(
+            "no committed result.json for the " + " and ".join(absent)
+            + " revision, so the comparison cannot be checked")
+        return out
+
+    for label, d in sides.items():
+        repo = d.get("repository") or {}
+        commits = repo.get("commit")
+        out[label] = {
+            "commit": commits,
+            "status": d.get("status"),
+            "declared_expected_status": d.get("declared_expected_status"),
+            "harness_digest": d.get("harness_digest"),
+            "harness_file_count": len(d.get("harness_file_digests") or {}),
+            "harness_file_digests": d.get("harness_file_digests") or {},
+            "per_test_status": d.get("per_test") or {},
+            "artifact": f"experiments/{safe}/{label}",
+        }
+
+    v, f = out["vulnerable"], out["fixed"]
+    missing: list[str] = []
+
+    if not (v["commit"] and f["commit"]):
+        missing.append("at least one revision does not name the commit it ran")
+    else:
+        for lbl in ("vulnerable", "fixed"):
+            if not SHA1_RE.match(v["commit"] if lbl == "vulnerable" else f["commit"]):
+                missing.append(f"the {lbl} revision's commit id is not a full sha1")
+
+    v_digests = v["harness_file_digests"]
+    f_digests = f["harness_file_digests"]
+    out["harness_digests_match"] = bool(v["harness_digest"]) and \
+        v["harness_digest"] == f["harness_digest"]
+    only_v = sorted(set(v_digests) - set(f_digests))
+    only_f = sorted(set(f_digests) - set(v_digests))
+    differing = sorted(n for n in set(v_digests) & set(f_digests)
+                       if v_digests[n] != f_digests[n])
+    out["harness_files_only_on_vulnerable_side"] = only_v
+    out["harness_files_only_on_fixed_side"] = only_f
+    out["harness_files_with_different_digest"] = differing
+
+    v_tests = _test_files(v_digests)
+    f_tests = _test_files(f_digests)
+    out["test_file_digests_match"] = bool(v_tests) and v_tests == f_tests
+    out["test_files"] = sorted(set(v_tests) | set(f_tests))
+
+    if not out["harness_digests_match"]:
+        if differing:
+            missing.append(
+                "the two revisions did not run byte-identical harness bytes: "
+                + ", ".join(differing)
+                + (" (and the vulnerable side additionally carried "
+                   + ", ".join(only_v) + ")" if only_v else ""))
+        else:
+            missing.append(
+                "the two revisions did not run byte-identical harness bytes "
+                f"(vulnerable {v['harness_digest']}, fixed {f['harness_digest']})")
+    if not out["test_file_digests_match"]:
+        missing.append("the two revisions did not run the same test file bytes")
+
+    out["commit_resolution"] = resolve_recorded_commits(
+        [v["commit"], f["commit"]])
+    if out["commit_resolution"].get("status") == "unresolvable":
+        missing.append(
+            "the recorded revisions do not resolve in the local clone of "
+            + str(out["commit_resolution"].get("repository")))
+
+    out["missing_evidence"] = missing
+    if missing:
+        out["status"] = "PARTIAL" if sides["vulnerable"] and sides["fixed"] \
+            else "UNVERIFIABLE"
+        return out
+
+    declared_v = v.get("declared_expected_status")
+    declared_f = f.get("declared_expected_status")
+    property_polarity = (declared_v == "fail" and declared_f == "pass"
+                         and v["status"] == "fail" and f["status"] == "pass")
+    assertion_polarity = (declared_v == "pass" and declared_f == "fail"
+                          and v["status"] == "pass" and f["status"] == "fail")
+    if property_polarity or assertion_polarity:
+        out["status"] = "VERIFIED_TWO_REVISION"
+        return out
+    out["missing_evidence"].append(
+        "the recorded run outcomes do not show the declared polarity "
+        f"(vulnerable {v['status']} vs declared {declared_v}; "
+        f"fixed {f['status']} vs declared {declared_f})")
+    return out
+
+
+def resolve_recorded_commits(commits: list) -> dict:
+    """Resolve the recorded revision commits against the local clone.
+
+    A clean checkout has no clone of the audited repository, so this is a
+    SKIP there, not a pass and not a failure: the caller records it as such
+    and the commit ids are still checked for presence and shape.
+    """
+    commits = [c for c in commits if c]
+    if not commits:
+        return {"status": "no_commits_recorded", "repository": None,
+                "resolved": [], "unresolved": []}
+    try:
+        clone = ex.worktree(REPOS["renft-vulnerable"])
+    except Exception:
+        clone = None
+    if clone is None or not (clone / ".git").exists():
+        return {"status": "skipped_clone_unavailable",
+                "repository": "renft-smart",
+                "resolved": [], "unresolved": list(commits),
+                "note": "the audited repository is not cloned here; the commit ids "
+                        "are recorded and well-formed but were not resolved "
+                        "against a local clone"}
+    import subprocess
+    r = subprocess.run(["git", "cat-file", "--batch-check=%(objectname) %(objecttype)"],
+                       cwd=str(clone), input="\n".join(commits) + "\n",
+                       capture_output=True, text=True, timeout=300, errors="replace")
+    resolved, unresolved = [], []
+    for line, want in zip(r.stdout.splitlines(), commits):
+        parts = line.split()
+        if len(parts) == 2 and parts[1] == "commit":
+            resolved.append(want)
+        else:
+            unresolved.append(want)
+    return {"status": "resolved" if not unresolved else "unresolvable",
+            "repository": "renft-smart",
+            "resolved": resolved, "unresolved": unresolved}
+
+
 def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
     fid = exp["finding_id"]
     out: dict = {"finding_id": fid, "classification": exp["classification"],
@@ -863,7 +1116,7 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
         eid = ex.experiment_id(fid, spec.slug, spec.commit, harness, exp["match_test"])
         prior = ex.load_done(fid, label)
         if prior and not rerun and prior.get("experiment_id") == eid \
-                and prior.get("status") in ("pass", "fail"):
+                and prior.get("status") in CACHEABLE_STATUSES:
             log(f"  [{fid}] {label}: cached ({prior['status']})")
             # The cached branch must carry the same fields as a fresh run, or the
             # downstream reports lose the declared expectation and the observed
@@ -871,6 +1124,8 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
             per_test = prior.get("per_test") or {}
             failing = [k for k, v in per_test.items()
                        if str(v.get("status")) not in ("Success", "success")]
+            run_reason, run_detail = stored_run_failure(fid, label, prior)
+            ahashes, amismatches = artefact_hash_record(fid, label, prior)
             out["revisions"][label] = {
                 "status": prior["status"],
                 "experiment_id": eid,
@@ -885,10 +1140,15 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
                      "assertion_messages": ((per_test.get(k) or {}).get("logs") or [])[:4]}
                     for k in failing[:6]],
                 "per_test_status": {k: v.get("status") for k, v in per_test.items()},
+                "harness_digest": prior.get("harness_digest"),
+                "harness_file_digests": prior.get("harness_file_digests") or {},
                 "production_files_modified":
                     (prior.get("forensics") or {}).get("production_files_modified_count"),
-                "run_failure_reason": None,
-                "run_failure_detail": None,
+                "run_failure_reason": run_reason or None,
+                "run_failure_detail": run_detail,
+                "detail": (prior.get("detail") or "")[:400],
+                "artifact_hashes": ahashes,
+                "artifact_hash_mismatches": amismatches,
             }
             outcomes[label] = prior["status"]
             continue
@@ -932,6 +1192,8 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
             (Path(d) / "stdout_human.txt").write_text(human[:ex.MAX_STREAM],
                                                      encoding="utf-8")
         run_reason, run_detail = ex.classify_run_failure(result)
+        afresh = json.loads((Path(d) / "result.json").read_text(encoding="utf-8"))
+        ahashes, amismatches = artefact_hash_record(fid, label, afresh)
         log(f"  [{fid}] {label}: {result.status} ({result.duration_s}s) -> {d}")
         if run_reason:
             log(f"      reason: {run_reason}"
@@ -952,13 +1214,21 @@ def run_one(exp: dict, rerun: bool, trace: bool) -> dict:
                                    "observed_failure": observed,
                                    "per_test_status": {k: v.get("status")
                                                        for k, v in (result.per_test or {}).items()},
+                                   "harness_digest": ex.digest_files(harness),
+                                   "harness_file_digests": {
+                                       n: ex.sha256_text(harness[n])
+                                       for n in sorted(harness)},
                                    "production_files_modified":
                                        forensics.get("production_files_modified_count"),
                                    "run_failure_reason": run_reason,
                                    "run_failure_detail": run_detail,
-                                   "detail": result.detail[:400]}
+                                   "detail": result.detail[:400],
+                                   "artifact_hashes": ahashes,
+                                   "artifact_hash_mismatches": amismatches}
         outcomes[label] = result.status
-    out["verdict"] = verdict_for(exp, outcomes)
+    evidence = classify_two_revision_evidence(fid)
+    out["two_revision_evidence"] = evidence
+    out["verdict"] = verdict_for(exp, outcomes, evidence)
     _controlled, _why = same_test_on_both_revisions(exp)
     out["controlled_comparison"] = _controlled
     if not _controlled:
@@ -1022,7 +1292,8 @@ def same_test_on_both_revisions(exp: dict) -> tuple[bool, str]:
     return True, ""
 
 
-def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
+def verdict_for(exp: dict, outcomes: dict[str, str],
+                evidence: dict | None = None) -> str:
     """Compare what forge did against what was declared *before* the run.
 
     Polarity is declared, never inferred: a test that asserts the exploit succeeds
@@ -1030,6 +1301,12 @@ def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
     that asserts the security property must fail on the vulnerable revision and
     pass on the fixed one. Both patterns are legitimate; mixing them up would
     invert the result, so the direction lives in the registry.
+
+    A satisfied polarity is not yet a verified patch: the two runs also have to
+    be a controlled comparison over identical harness bytes. When the recorded
+    artefacts do not show that, the verdict is downgraded to the status the
+    evidence actually supports, and the missing evidence is named in the
+    record instead of the run being called an effectiveness claim.
     """
     expv = exp["revisions"]["vulnerable"].get("expected_status")
     expf = exp["revisions"]["fixed"].get("expected_status")
@@ -1046,10 +1323,17 @@ def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
     controlled, why = same_test_on_both_revisions(exp)
     if not controlled:
         return "inconclusive_not_a_controlled_comparison"
+
+    def _verified() -> str:
+        if evidence is None:
+            return "l6_verified_patch"
+        return VERDICT_FOR_EVIDENCE.get(evidence.get("status"),
+                                         "l6_unverifiable_two_revision_evidence")
+
     # property polarity: fail on vulnerable, pass on fixed
     if expv == "fail" and expf == "pass":
         if v == "fail" and f == "pass":
-            return "l6_verified_patch"
+            return _verified()
         if v == "fail" and f == "fail":
             return "reproduced_but_not_blocked"
         if v == "pass":
@@ -1058,7 +1342,7 @@ def verdict_for(exp: dict, outcomes: dict[str, str]) -> str:
     # assertion polarity: pass on vulnerable, fail on fixed
     if expv == "pass" and expf == "fail":
         if v == "pass" and f == "fail":
-            return "l6_verified_patch"
+            return _verified()
         if v == "pass" and f == "pass":
             return "reproduced_but_not_blocked"
         if v == "fail":
@@ -1121,6 +1405,17 @@ def main() -> int:
             log(f"  merged {len(merged) - len(results)} previously recorded verdict(s) "
                 f"from outside this filtered run")
         results = merged
+    # The two-revision verdict is derived from the committed artefacts, never
+    # from a previous report, so a filtered run cannot carry an over-stated
+    # verdict forward and a downgrade cannot be undone by a later regeneration.
+    for r in results:
+        ev = classify_two_revision_evidence(r.get("finding_id"))
+        r["two_revision_evidence"] = ev
+        if r.get("verdict") in ("l6_verified_patch",
+                                "l6_partial_two_revision_evidence",
+                                "l6_unverifiable_two_revision_evidence"):
+            r["verdict"] = VERDICT_FOR_EVIDENCE.get(
+                ev.get("status"), "l6_unverifiable_two_revision_evidence")
     doc = {
         "generated_by": "scripts/run_verified_experiments.py",
         "experiments": results,

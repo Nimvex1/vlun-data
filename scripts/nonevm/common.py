@@ -31,8 +31,24 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from redact_machine_paths import (  # noqa: E402  (one redaction convention, repo-wide)
+    redact_obj as _redact_obj, redact_text as _redact_text,
+)
+
+
+def redact_obj(obj):
+    """Redact every string in a JSON-like structure."""
+    return _redact_obj(obj)
+
+
+def redact_text(text: str) -> str:
+    """Redact the operator's home directory out of a captured text."""
+    return _redact_text(text)
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 RECORDS_V22 = ROOT / "derived_v2_2" / "records.jsonl"
@@ -252,6 +268,11 @@ def make_run(*, platform: str, record_id: str, run_slug: str, claim: str,
 
 
 def write_run_artefacts(rec: dict) -> Path:
+    # The whole record is redacted BEFORE anything is written: a captured
+    # transcript that quotes the operator's home directory ties the artefact
+    # to one checkout and publishes the account name. The toolchain paths,
+    # the command line and the captured output are all part of the record.
+    rec = redact_obj(rec)
     d = ARTEFACT_ROOT / slug(rec["record_id"]) / rec["run_slug"]
     d.mkdir(parents=True, exist_ok=True)
     argv = (rec.get("run") or {}).get("argv") or []

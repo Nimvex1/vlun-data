@@ -18,14 +18,14 @@
   "commands": [
     "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-04-noya) -> rc=1"
   ],
-  "detail": "Error: Compiler error (C:\\Users\\circleci\\project\\libyul\\backends\\evm\\AsmCodeGen.cpp:68):Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: ; Error: Compiler run failed:",
+  "detail": "Error: Compiler error (C:\\Users\\REDACTED\\project\\libyul\\backends\\evm\\AsmCodeGen.cpp:68):Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: ; Error: Compiler run failed:",
   "evidence_level_supported": null,
   "finding_id": "2024-04-noya/H-04",
   "outcome": "compile_failed",
   "output_sha256": {
     "command.txt": "205254722f64ed093a941601a73f0b75626d5c382a9abe0794f893ccd4f3bfa8",
     "harness.json": "b785f84e35437c66a81639a6a4e2301c5ca24b285be18418fe7d56d06475cabb",
-    "stderr.txt": "b09d3f860033ce7a4b872cca5ad4918645a7b511f7c6ff55e42349ea47815ec6",
+    "stderr.txt": "2b488258e2d5ed928b7bd899de05afcff90ab8b8fa8d8e6cd49da5aaaf3059b9",
     "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
   },

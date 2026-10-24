@@ -12,11 +12,11 @@
   "categories_defined": 23,
   "categories_never_used": [],
   "counts": {
-    "asserted_at_or_above_minimum_evidence": 69,
+    "asserted_at_or_above_minimum_evidence": 68,
     "candidates_total": 40,
     "labelled": 320,
     "multi_label": 99,
-    "provisional_below_minimum_evidence": 251,
+    "provisional_below_minimum_evidence": 252,
     "records_in_assignment_pool": 418,
     "records_out_of_pool": 304,
     "records_total": 722,
@@ -30,16 +30,16 @@
     "v1_class_rule": 357
   },
   "per_assignment_status": {
-    "asserted": 69,
-    "provisional": 251,
+    "asserted": 68,
+    "provisional": 252,
     "unlabelled": 98
   },
   "per_evidence_level": {
-    "L0": 86,
+    "L0": 87,
     "L2": 307,
-    "L4": 13,
+    "L4": 14,
     "L5": 5,
-    "L6": 7
+    "L6": 5
   },
   "per_facet": {
     "RC-G-COMPUTE": 123,
@@ -91,8 +91,8 @@
     "RC-14": 1,
     "RC-15": 9,
     "RC-16": 11,
-    "RC-17": 28,
-    "RC-18": 58,
+    "RC-17": 29,
+    "RC-18": 59,
     "RC-19": 14,
     "RC-20": 1,
     "RC-22": 2,

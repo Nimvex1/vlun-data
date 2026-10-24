@@ -309,6 +309,17 @@ def main() -> int:
 
 
 def _repo_url(key: dict) -> str:
+    """Resolve the clone URL for a task's pinned revisions.
+
+    The private key carries the repository for every task, so a task from any codebase
+    can be graded, not only the nine findings the experiment registry happens to know.
+    A repository string that is not a clone URL (a local artefact directory, for
+    example) still has to resolve through the registry: an unresolvable URL is a hard
+    failure, never a guessed checkout.
+    """
+    candidate = str(key.get("repository_url") or key.get("repository") or "")
+    if candidate.startswith(("https://", "http://", "git@", "ssh://", "file://")):
+        return candidate
     import run_verified_experiments as rve  # noqa: E402
     for e in rve.build_registry():
         if e["finding_id"] == key["finding_id"]:

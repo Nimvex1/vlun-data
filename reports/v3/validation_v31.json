@@ -354,7 +354,7 @@
     {
       "check": "protected_files_byte_identical",
       "critical": true,
-      "detail": "17 pipeline-written protected files byte-identical to canonical form; 9 read-only evidence files parse as JSONL and are checked for writability by check_reproducibility.py; 4 declared non-canonical (prose reports)",
+      "detail": "19 pipeline-written protected files byte-identical to canonical form; 9 read-only evidence files parse as JSONL and are checked for writability by check_reproducibility.py; 4 declared non-canonical (prose reports)",
       "failure_count": 0,
       "failures": [],
       "group": "isolation",

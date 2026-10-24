@@ -335,6 +335,25 @@ def _stdout_tail(exp: dict, limit: int = 4000) -> str | None:
     return text
 
 
+def _portable_command(command) -> str | None:
+    """The recorded command, with the machine's interpreter path removed.
+
+    The experiment record stores the command as it was typed, which on a
+    developer machine begins with an absolute interpreter path
+    ("C:\\Users\\<name>\\...\\python.exe scripts/run_vyper_poc.py ...").
+    That path is machine-specific: it leaks the operator's home directory and
+    makes the published task file differ from what any other machine
+    rebuilds. The command is the same everywhere, so the interpreter is
+    recorded as the portable name "python".
+    """
+    if not isinstance(command, str) or not command:
+        return command
+    parts = command.split(" ", 1)
+    if len(parts) == 2 and re.match(r"^[A-Za-z]:[\\/]", parts[0]):
+        return "python " + parts[1]
+    return command
+
+
 def task_m(split: str, bundle: dict, rec: dict, finding: dict) -> dict | None:
     exp = finding.get("experiment")
     if not exp:
@@ -343,6 +362,8 @@ def task_m(split: str, bundle: dict, rec: dict, finding: dict) -> dict | None:
         "command", "commit_sha", "executed", "exit_code", "experiment_ids",
         "fixed_revision_executed", "fixed_version", "match_kinds", "seconds",
         "tests_in_suite", "tests_observed", "toolchain", "verdict_met")}
+    if run.get("command") is not None:
+        run["command"] = _portable_command(run["command"])
     run["artefacts"] = [{"path": exp.get(k), "exists": (ROOT / exp[k]).exists()}
                         for k in ("result_artifact", "stdout_artifact",
                                   "stderr_artifact") if exp.get(k)]

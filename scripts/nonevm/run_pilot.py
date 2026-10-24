@@ -244,8 +244,10 @@ def main() -> int:
         "Counts are recomputed from experiments_nonevm/*/result.json. A run is "
         "only counted as executed when the platform's native test command "
         "produced a named test result; a compiler failure stays at L2.")
-    C.write_json(C.REPORT_JSON, rep)
-    C.write_text(C.REPORT_MD, C.render_md(rep))
+    # The report is a committed artefact, so it is redacted on the way out:
+    # it quotes the toolchain paths of the machine that ran the pilot.
+    C.write_json(C.REPORT_JSON, C.redact_obj(rep))
+    C.write_text(C.REPORT_MD, C.redact_text(C.render_md(rep)))
     C.write_json(C.ARTEFACT_ROOT / "index.json", {
         "schema": C.SCHEMA, "generated_utc": rep["generated_utc"],
         "runs": sorted(f"{r['record_id']}/{r['run_slug']}" for r in runs),

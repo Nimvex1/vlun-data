@@ -91,6 +91,10 @@ from inventory_rights import (  # noqa: E402
     TRANSFORMATION_VERSION, licence_contradictions, read_jsonl,
     scan_records_file, sha256_file, sha256_text, tracked_files,
 )
+from build_release_manifest import (  # noqa: E402
+    LICENCE_CC_BY, LICENCE_MIT, MANIFEST_NAME, RELEASED_STATUSES,
+    STATUS_VOCABULARY, build as build_release_manifest,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -114,6 +118,48 @@ WORD_WINDOW = 10  # contiguous words that make a copy, not a coincidence
 COPYABLE_PROSE_KEYS = PROSE_KEYS - {"text"}
 # reason/source codes look like field values; they are never expressive content
 CODE_LIKE = re.compile(r"^[A-Z0-9_]{4,64}$")
+
+# ---------------------------------------------------------------------------
+# release manifest
+# ---------------------------------------------------------------------------
+# The licence tokens a document may use to grant a licence.  A grant that
+# names a path the release manifest does not release (or releases under a
+# different licence) is a contradiction, not a style question.
+GRANT_TOKENS = (
+    ("CC-BY-4.0", re.compile(r"cc[ _-]?by[ _-]?4\.0", re.I)),
+    ("MIT", re.compile(r"\bmit\b", re.I)),
+)
+# A path token: a directory-looking token that is not part of a URL.
+PATH_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_.*\-/])([A-Za-z0-9_*.\-]+)/")
+# A negation in front of a licence token makes the token a mention, not a
+# grant.
+NEGATION_RE = re.compile(r"\b(not|no|never|without|nor)\b", re.I)
+# The prose documents the grant scan applies to.  A JSON manifest states its
+# licences in fields, and those are checked field by field instead.
+PROSE_SUFFIXES = (".md", ".cff", ".txt", ".rst")
+# Whole-repository licence declarations (CITATION.cff, .zenodo.json).
+REPO_LICENCE_FIELDS = ("CITATION.cff", ".zenodo.json")
+# The phrases the licence and the notice must contain, whitespace-collapsed.
+PHRASE_RELEASE_MANIFEST = "release_manifest.json"
+PHRASE_RELEASED_SET = "released set"
+PHRASE_NOT_LICENSED = "not licensed here"
+PHRASE_NON_COVERAGE = (
+    "does not cover",
+    "not licensed here",
+    "no licence is applied",
+    "licenses nothing",
+)
+PHRASE_ATTRIBUTION_NOT_A_GRANT = (
+    "attribution is not a redistribution right",
+    "attribution is not a licence",
+    "attribution does not grant",
+)
+PHRASE_THIRD_PARTY = (
+    "third-party source",
+    "proof-of-concept",
+    "report prose",
+    "personal data",
+)
 
 
 class Gate:
@@ -795,6 +841,436 @@ def check_counts(g: Gate, view: Path) -> None:
 
 
 # ---------------------------------------------------------------------------
+# release manifest
+# ---------------------------------------------------------------------------
+
+def collapse_text(text: str) -> str:
+    return " ".join(text.lower().split())
+
+
+def paragraphs(text: str) -> list[str]:
+    return [p for p in re.split(r"\n\s*\n", text) if p.strip()]
+
+
+SENTENCE_BREAK_RE = re.compile(r"(?<=[.!?])\s+|\n")
+
+
+def sentence_before(paragraph: str, start: int) -> str:
+    """The part of the sentence that precedes a token."""
+    left = 0
+    for m in SENTENCE_BREAK_RE.finditer(paragraph, 0, start):
+        left = m.end()
+    return paragraph[left:start]
+
+
+def grant_licences(paragraph: str) -> set[str]:
+    """The licences a paragraph actually grants.
+
+    A mention is not a grant: "it is **not** covered by the MIT grant" names
+    MIT and grants nothing, so a negation in the same sentence removes it.
+    """
+    out = set()
+    for name, rx in GRANT_TOKENS:
+        for m in rx.finditer(paragraph):
+            if NEGATION_RE.search(sentence_before(paragraph, m.start())):
+                continue
+            out.add(name)
+    return out
+
+
+def path_tokens(paragraph: str) -> set[str]:
+    return {m.group(1) for m in PATH_TOKEN_RE.finditer(paragraph)}
+
+
+def group_matches(group: str, top: str) -> bool:
+    """Does a top-level directory belong to a named path group?
+
+    `jsonl*` matches jsonl/, jsonl_v3/, jsonl_ml/ and jsonl_v4/; `reports`
+    matches only reports/.
+    """
+    if group.endswith("*"):
+        return top.startswith(group[:-1])
+    return top == group
+
+
+def manifest_groups(manifest: dict) -> dict:
+    """Named path group -> the manifest paths it covers."""
+    out: dict[str, list[str]] = {}
+    for path in manifest.get("paths") or {}:
+        top = path.split("/")[0]
+        for group in {p.split("/")[0] for p in manifest.get("paths") or {}}:
+            if group_matches(group, top):
+                out.setdefault(group, []).append(path)
+    return out
+
+
+def check_release_manifest(g: Gate) -> dict | None:
+    """The release manifest must exist, be reproducible, and describe the tree."""
+    target = g.root / MANIFEST_NAME
+    if not target.is_file():
+        if not g.partial:
+            g.fail("RELEASE_MANIFEST_MISSING", MANIFEST_NAME,
+                   "there is no release manifest, so nothing states which "
+                   "paths may be redistributed; run "
+                   "python scripts/build_release_manifest.py")
+        return None
+    try:
+        committed = json.loads(target.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        g.fail("INVALID_JSON", MANIFEST_NAME, str(exc))
+        return None
+    recomputed = build_release_manifest(g.root)
+    if json.dumps(committed, sort_keys=True) != json.dumps(recomputed, sort_keys=True):
+        g.fail("RELEASE_MANIFEST_NOT_REPRODUCIBLE", MANIFEST_NAME,
+               "the committed release manifest differs from the manifest the "
+               "builder recomputes from this tree; rerun "
+               "python scripts/build_release_manifest.py")
+    paths = committed.get("paths") or {}
+    statuses = committed.get("statuses") or {}
+    licences = committed.get("path_licences") or {}
+    for path, status in sorted(paths.items()):
+        if status not in STATUS_VOCABULARY:
+            g.fail("RELEASE_STATUS_UNKNOWN", MANIFEST_NAME,
+                   f"path {path!r} carries the unknown rights status "
+                   f"{status!r}", path=path)
+        if not (g.root / path).is_file():
+            g.fail("RELEASE_PATH_MISSING", MANIFEST_NAME,
+                   f"the manifest releases {path!r}, but that file is not in "
+                   f"this checkout", path=path)
+    # every file in the tree must be classified: a path that is neither
+    # released nor explicitly withheld is an accident, not a decision
+    for path in tracked_files(g.root):
+        if path not in paths:
+            g.fail("RELEASE_PATH_UNCLASSIFIED", MANIFEST_NAME,
+                   f"{path!r} is in the tree but carries no rights status in "
+                   f"the release manifest; rerun "
+                   f"python scripts/build_release_manifest.py", path=path)
+    # the per-path licence must follow the manifest's own documented rule
+    rule = (committed.get("policy") or {}).get("licence_assignment_rule")
+    if not rule:
+        g.fail("POLICY_FRAMING_MISSING", MANIFEST_NAME,
+               "the manifest does not state the rule that assigns a licence "
+               "to each released path")
+    for path, status in sorted(paths.items()):
+        if status not in RELEASED_STATUSES:
+            if path in licences:
+                g.fail("RELEASE_LICENCE_MISMATCH", MANIFEST_NAME,
+                       f"{path!r} is not released but carries a licence",
+                       path=path)
+            continue
+        want = LICENCE_MIT if path.startswith(("scripts/", "tests/")) \
+            else LICENCE_CC_BY
+        if licences.get(path) != want:
+            g.fail("RELEASE_LICENCE_MISMATCH", MANIFEST_NAME,
+                   f"{path!r} is released with licence "
+                   f"{licences.get(path)!r}; the manifest's own rule assigns "
+                   f"{want!r}", path=path, expected=want,
+                   observed=licences.get(path))
+    # a released path's content must not contradict its declared status
+    detail = recomputed.get("path_status_detail") or {}
+    for path, status in sorted(paths.items()):
+        if status not in RELEASED_STATUSES:
+            continue
+        ev = (detail.get(path) or {}).get("evidence") or {}
+        longest = int(ev.get("longest_verbatim_span_chars") or 0)
+        code_spans = int(ev.get("verbatim_code_spans") or 0)
+        if ev.get("personal_data_strings"):
+            g.fail("RELEASED_PATH_CONTAINS_PERSONAL_DATA", path,
+                   f"the manifest releases this path, but it carries "
+                   f"{ev['personal_data_strings']} string(s) with named "
+                   f"individuals' mailbox addresses")
+        if code_spans:
+            g.fail("RELEASED_PATH_CONTAINS_COPIED_CONTENT", path,
+                   f"the manifest releases this path, but it carries "
+                   f"{code_spans} verbatim run(s) of third-party source "
+                   f"code; the project's own policy never carries "
+                   f"third-party code, not even a short quotation of it")
+        elif longest > KEEP_QUOTE_MAX_CHARS:
+            g.fail("RELEASED_PATH_CONTAINS_COPIED_CONTENT", path,
+                   f"the manifest releases this path, but it carries a "
+                   f"verbatim run of {longest} characters of third-party "
+                   f"text, above the {KEEP_QUOTE_MAX_CHARS}-character "
+                   f"attributed-quotation quota")
+        if ev.get("verbatim_third_party_strings") and status in (
+                "project_own", "metadata_only"):
+            g.fail("RELEASED_PATH_STATUS_CONTRADICTION", path,
+                   f"the manifest declares this path {status!r}, but the "
+                   f"file carries {ev['verbatim_third_party_strings']} "
+                   f"verbatim third-party quotation(s)")
+    return committed
+
+
+def grant_contradictions(g: Gate, manifest: dict, text: str, rel: str) -> list[dict]:
+    """Grants in a document that contradict the release manifest."""
+    if not (rel.endswith(PROSE_SUFFIXES) or rel == "LICENSE"):
+        return []
+    groups = manifest_groups(manifest)
+    statuses = manifest.get("paths") or {}
+    licences = manifest.get("path_licences") or {}
+    out = []
+    for para in paragraphs(text):
+        granted = grant_licences(para)
+        if not granted:
+            continue
+        for group in sorted(path_tokens(para)):
+            covered = groups.get(group) or []
+            if not covered:
+                continue
+            for path in covered:
+                status = statuses.get(path)
+                if status not in RELEASED_STATUSES:
+                    out.append({"path": path, "group": group, "status": status,
+                                "granted": sorted(granted),
+                                "why": "the path is not released"})
+                    break
+                if licences.get(path) not in granted:
+                    out.append({"path": path, "group": group, "status": status,
+                                "granted": sorted(granted),
+                                "why": f"the path is released under "
+                                       f"{licences.get(path)!r}, which this "
+                                       f"grant does not name"})
+                    break
+    return out
+
+
+def repo_level_licence_claim(g: Gate, rel: str) -> str | None:
+    """A whole-repository licence field (CITATION.cff, .zenodo.json)."""
+    p = g.root / rel
+    if not p.is_file():
+        return None
+    text = p.read_text(encoding="utf-8", errors="replace")
+    if rel.endswith(".cff"):
+        m = re.search(r"^license:\s*(\S+)\s*$", text, re.M)
+        return m.group(1) if m else None
+    try:
+        doc = json.loads(text)
+    except (OSError, json.JSONDecodeError):
+        return None
+    value = doc.get("license")
+    return value if isinstance(value, str) else None
+
+
+def check_licence_scope(g: Gate, manifest: dict) -> None:
+    """LICENSE must state the release scope and must not over-grant."""
+    p = g.root / "LICENSE"
+    if not p.is_file():
+        if not g.partial:
+            g.fail("MISSING_DISTRIBUTION_ARTEFACT", "LICENSE",
+                   "the licence is absent")
+        return
+    text = p.read_text(encoding="utf-8", errors="replace")
+    low = collapse_text(text)
+    if PHRASE_RELEASE_MANIFEST not in low:
+        g.fail("LICENCE_MISSING_RELEASE_MANIFEST", "LICENSE",
+               "the licence does not point at the release manifest, so it "
+               "cannot state which paths are licensed")
+    if PHRASE_RELEASED_SET not in low or PHRASE_NOT_LICENSED not in low:
+        g.fail("LICENCE_MISSING_RELEASED_SET_RULE", "LICENSE",
+               "the licence does not state the rule that a path outside the "
+               "released set is not licensed here")
+    if not any(p in low for p in PHRASE_NON_COVERAGE):
+        g.fail("LICENCE_MISSING_NON_COVERAGE", "LICENSE",
+               "the licence does not say that it does not cover the material "
+               "it does not own")
+    if not any(p in low for p in PHRASE_THIRD_PARTY):
+        g.fail("LICENCE_MISSING_NON_COVERAGE", "LICENSE",
+               "the licence does not name the third-party material it does "
+               "not license")
+    if not any(p in low for p in PHRASE_ATTRIBUTION_NOT_A_GRANT):
+        g.fail("LICENCE_MISSING_ATTRIBUTION_NOT_A_GRANT", "LICENSE",
+               "the licence does not say that attribution is not a "
+               "redistribution right")
+    for c in grant_contradictions(g, manifest, text, "LICENSE"):
+        g.fail("LICENCE_GRANTS_OVER_WITHHELD_PATH", "LICENSE",
+               f"the licence grants {c['granted']} over `{c['group']}`, but "
+               f"{c['path']} is {c['status']!r} in the release manifest: "
+               f"{c['why']}", path=c["path"], group=c["group"],
+               granted=c["granted"])
+
+
+def check_notice_scope(g: Gate, manifest: dict) -> None:
+    p = g.root / "NOTICE.md"
+    if not p.is_file():
+        if not g.partial:
+            g.fail("MISSING_DISTRIBUTION_ARTEFACT", "NOTICE.md",
+                   "the notice is absent")
+        return
+    text = p.read_text(encoding="utf-8", errors="replace")
+    low = collapse_text(text)
+    if not any(phrase in low for phrase in PHRASE_ATTRIBUTION_NOT_A_GRANT):
+        g.fail("NOTICE_MISSING_ATTRIBUTION_NOT_A_GRANT", "NOTICE.md",
+               "the notice does not say that attribution is not a "
+               "redistribution right")
+    declared = {q.get("id") for q in (manifest.get("open_questions") or [])}
+    mentioned = set(re.findall(r"\bOQ-\d{3}\b", text))
+    if not mentioned:
+        g.fail("NOTICE_MISSING_OPEN_QUESTIONS", "NOTICE.md",
+               "the notice lists no open question, so the cases that need "
+               "human legal review are not published")
+    for oid in sorted(declared - mentioned):
+        g.fail("NOTICE_OPEN_QUESTION_MISSING", "NOTICE.md",
+               f"open question {oid} is declared in the release manifest but "
+               f"is not listed in the notice")
+    for oid in sorted(mentioned - declared):
+        g.fail("NOTICE_OPEN_QUESTION_MISMATCH", "NOTICE.md",
+               f"the notice lists {oid}, which the release manifest does not "
+               f"declare")
+    for c in grant_contradictions(g, manifest, text, "NOTICE.md"):
+        g.fail("NOTICE_GRANTS_OVER_WITHHELD_PATH", "NOTICE.md",
+               f"the notice grants {c['granted']} over `{c['group']}`, but "
+               f"{c['path']} is {c['status']!r} in the release manifest: "
+               f"{c['why']}", path=c["path"], group=c["group"],
+               granted=c["granted"])
+    # the attribution table must name every source the registry records
+    reg = g.root / "distribution_v1" / "rights_source_registry.json"
+    if reg.is_file():
+        try:
+            registry = json.loads(reg.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return
+        for s in registry.get("sources") or []:
+            sid = s.get("source_id")
+            if sid and sid not in text:
+                g.fail("NOTICE_ATTRIBUTION_MISSING", "NOTICE.md",
+                       f"the notice does not attribute the source {sid!r}, "
+                       f"which the rights registry records")
+
+
+def check_publish_manifest_scope(g: Gate, manifest: dict) -> None:
+    p = g.root / "publish_manifest.json"
+    if not p.is_file():
+        if not g.partial:
+            g.fail("MISSING_DISTRIBUTION_ARTEFACT", "publish_manifest.json",
+                   "the publish manifest is absent")
+        return
+    try:
+        doc = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        g.fail("INVALID_JSON", "publish_manifest.json", str(exc))
+        return
+    if doc.get("release_manifest") != MANIFEST_NAME:
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               "the publish manifest does not point at the release manifest",
+               observed=doc.get("release_manifest"))
+    if doc.get("release_manifest_version") != manifest.get("manifest_version"):
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               "the publish manifest states a different release-manifest "
+               "version than the manifest itself",
+               expected=manifest.get("manifest_version"),
+               observed=doc.get("release_manifest_version"))
+    for key in ("covers_third_party_material", "legal_clearance_claimed",
+                "attribution_is_not_a_right_grant",
+                "hash_or_url_is_not_a_right_grant", "not_a_legal_clearance"):
+        if key not in doc:
+            g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+                   f"the publish manifest does not state {key!r}")
+    if doc.get("covers_third_party_material") is not False:
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               "the publish manifest claims it covers third-party material")
+    if doc.get("legal_clearance_claimed") is not False:
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               "the publish manifest claims a legal clearance")
+    if doc.get("attribution_is_not_a_right_grant") is not True:
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               "the publish manifest does not state that attribution is not a "
+               "redistribution right")
+    stated = doc.get("licences_of_released_paths") or {}
+    known = set((manifest.get("licences") or {}).keys())
+    for key, value in stated.items():
+        if key == "note":
+            continue
+        if value not in known:
+            g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+                   f"the publish manifest names the licence {value!r}, which "
+                   f"the release manifest does not know", observed=value)
+    for c in grant_contradictions(g, manifest, p.read_text(encoding="utf-8"),
+                                  "publish_manifest.json"):
+        g.fail("PUBLISH_MANIFEST_MISMATCH", "publish_manifest.json",
+               f"the publish manifest grants {c['granted']} over "
+               f"`{c['group']}`, but {c['path']} is {c['status']!r} in the "
+               f"release manifest", path=c["path"])
+
+
+def check_foreign_statements(g: Gate, manifest: dict) -> None:
+    """Statements this remediation does not own must not over-grant silently.
+
+    A contradiction in a document this remediation cannot edit is a declared
+    open case: it is published in the manifest and in NOTICE.md, and the
+    gate reports it.  A contradiction that is NOT declared is a failure: the
+    statement would otherwise pass unnoticed.
+    """
+    declared_paths = set()
+    for q in manifest.get("open_questions") or []:
+        for path in q.get("paths") or []:
+            declared_paths.add(path)
+    statements = (manifest.get("shipped_rights_statements") or {}).get(
+        "not_owned_by_this_remediation") or []
+    for rel in statements:
+        p = g.root / rel
+        if not p.is_file():
+            continue
+        text = p.read_text(encoding="utf-8", errors="replace")
+        found = grant_contradictions(g, manifest, text, rel)
+        claim = repo_level_licence_claim(g, rel)
+        if claim and any(s not in RELEASED_STATUSES
+                         for s in (manifest.get("paths") or {}).values()):
+            found.append({"path": rel, "group": "(whole repository)",
+                          "status": "repository-level licence claim",
+                          "granted": [claim],
+                          "why": "the manifest releases only part of the tree"})
+        if not found:
+            continue
+        if rel in declared_paths:
+            g.limits.append({
+                "code": "DECLARED_OPEN_RIGHTS_CONTRADICTION",
+                "artifact": rel,
+                "detail": (f"{rel} still grants rights the release manifest "
+                           f"does not support: "
+                           + "; ".join(sorted({c['why'] + ' (' + c['path'] + ')'
+                                               for c in found}))
+                           + ". The contradiction is declared as an open "
+                             "question and needs the document's owner to fix "
+                             "the text; see NOTICE.md."),
+            })
+            continue
+        for c in found:
+            g.fail("UNDECLARED_RIGHTS_CONTRADICTION", rel,
+                   f"{rel} grants {c['granted']} over {c['path']} "
+                   f"({c['status']!r} in the release manifest) and the "
+                   f"contradiction is not declared as an open question",
+                   path=c["path"])
+
+
+def check_inventory_agreement(g: Gate, manifest: dict) -> None:
+    """The inventory must agree with the release manifest about the policy."""
+    p = g.root / "reports" / "rights_inventory.json"
+    if not p.is_file():
+        return
+    try:
+        inv = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if inv.get("data_handling_policy_default") != POLICY_DEFAULT:
+        g.fail("POLICY_FRAMING_MISSING", "reports/rights_inventory.json",
+               "the inventory does not state METADATA_ONLY as its default "
+               "data-handling policy")
+    if inv.get("hash_grants_nothing") is None:
+        g.fail("POLICY_FRAMING_MISSING", "reports/rights_inventory.json",
+               "the inventory does not state that a hash grants nothing")
+    reg = g.root / "distribution_v1" / "rights_source_registry.json"
+    if reg.is_file():
+        try:
+            registry = json.loads(reg.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return
+        if registry.get("data_handling_policy_default") != POLICY_DEFAULT:
+            g.fail("POLICY_FRAMING_MISSING",
+                   "distribution_v1/rights_source_registry.json",
+                   "the registry does not state METADATA_ONLY as its default "
+                   "data-handling policy")
+
+
+# ---------------------------------------------------------------------------
 
 def run(root: Path, partial: bool = False) -> tuple:
     g = Gate(root, partial)
@@ -812,6 +1288,13 @@ def run(root: Path, partial: bool = False) -> tuple:
     check_licence_status(g)
     check_withheld_files_really_absent(g)
     check_claims_and_framing(g)
+    manifest = check_release_manifest(g)
+    if manifest is not None:
+        check_licence_scope(g, manifest)
+        check_notice_scope(g, manifest)
+        check_publish_manifest_scope(g, manifest)
+        check_foreign_statements(g, manifest)
+        check_inventory_agreement(g, manifest)
     return (1 if g.reasons else 0), collapse(g.reasons), g.limits
 
 

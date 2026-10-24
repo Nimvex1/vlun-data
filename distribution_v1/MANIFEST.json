@@ -4,8 +4,8 @@
   "blanket_clearance_claimed": false,
   "counts": {
     "digests": 6,
-    "ledger_rows": 12919,
-    "personal_data_artefacts_redacted": 13,
+    "ledger_rows": 12909,
+    "personal_data_artefacts_redacted": 11,
     "records_v1_projected": 722,
     "records_v4_projected": 5268,
     "registry_sources": 11,
@@ -33,8 +33,8 @@
   ],
   "files": {
     "README.md": {
-      "bytes": 4238,
-      "sha256": "b99863d16d01dc1d1b662943202377cdcc41d1363447cd704efe92fc3ccf9777"
+      "bytes": 4568,
+      "sha256": "615cfabc90de25b65c0b34018ad58566d683314ee4947aecec08029c1d28ca81"
     },
     "digests.jsonl": {
       "bytes": 5279,
@@ -61,12 +61,12 @@
       "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
     },
     "rights_ledger.jsonl": {
-      "bytes": 17043153,
-      "sha256": "93ceb4cb5dd89c561a09706287afc74c9f1e22f9e4c65b507ae201120b2baff5"
+      "bytes": 17037175,
+      "sha256": "bbf8899f63a775003d98ae25dc5bf8a409a5f6d077ce3011426a83db6f2443d5"
     },
     "rights_source_registry.json": {
-      "bytes": 15060,
-      "sha256": "612493543fcc8936dfa619b64a727aec285368876d8c664eff9707b768ab22ed"
+      "bytes": 17374,
+      "sha256": "6b75a2fb62d9ff0c93b3dae6fc121991d63392f9d2880fce29bf87fd50cdb8a5"
     },
     "withheld_harness.jsonl": {
       "bytes": 81954,
@@ -77,5 +77,8 @@
   "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant reuse or redistribution rights",
   "legal_clearance_claimed": false,
   "policy_note": "METADATA_ONLY is the default data-handling policy applied when no documented right to redistribute exists. It is not a determination that any transformed record is legally cleared for reuse or redistribution, and no record in this view should be read as legally cleared.",
+  "release_manifest": "RELEASE_MANIFEST.json",
+  "release_manifest_version": "release-1.0",
+  "rights_status_of_this_view": "this view is part of the released set; RELEASE_MANIFEST.json states the per-path rights status of the whole tree",
   "rights_transformation_version": "rights-1.0"
 }

@@ -416,13 +416,16 @@ def task_g_patch(derived: dict, split: str, rec: dict, patches: dict,
                  patch_verification: dict, experiment: dict | None) -> dict | None:
     """G_patch_verification.
 
-    38 tasks. Seven of them ARE experimentally settled: the same exploit ran
-    against the vulnerable revision (failing as declared) and against the
-    fixed revision (passing) -- L6, both legs on disk. Those rows carry a
-    real answer key and are scored. The other 31 have no executable PoC on
-    either side (patch_verification_v2 records them `not_testable`), so
-    their effectiveness is genuinely unestablished and they stay
-    unlabeled: a claim about a diff is not ground truth.
+    One task per patch record. A task is scored only when the fix was
+    established experimentally: the same exploit ran against the vulnerable
+    revision (failing as declared) and against the fixed revision (passing)
+    -- L6, both legs on disk. Those rows carry a real answer key. Every
+    other row is left unlabeled, because a claim about a diff is not ground
+    truth: `reports/patch_verification_v2.json` records the reason
+    (`not_testable` when no PoC ran on either side,
+    `not_verified_two_revision` when the two legs did not run the same
+    harness bytes), and the split is read from that file rather than
+    hardcoded here, so the counts follow the evidence.
     """
     fid = derived["finding"]["id"]
     p = patches.get(fid)
@@ -472,6 +475,26 @@ def task_g_patch(derived: dict, split: str, rec: dict, patches: dict,
         task["patch_category"] = ((p["patch"].get("fix_category") or {})
                                   .get("category"))
     return task
+
+
+def g_scoring_note(rows: list[dict], patch_verification: dict) -> str:
+    """Describe family G's answer-key coverage from the evidence on disk.
+
+    The breakdown is read from reports/patch_verification_v2.json rather
+    than hardcoded, so the manifest cannot keep claiming a count the
+    evidence no longer supports.
+    """
+    labelled = sum(1 for r in rows if r["answer_key_status"] == "labeled")
+    reasons = collections.Counter()
+    for r in rows:
+        if r["answer_key_status"] == "labeled":
+            continue
+        fid = (r.get("source") or {}).get("finding_id")
+        eff = (patch_verification.get(fid) or {}).get("fix_effectiveness")
+        reasons[eff or "unrecorded"] += 1
+    parts = [f"{n} {reason}" for reason, n in sorted(reasons.items())]
+    return (f"scores the {labelled} L6-verified patches; the {len(rows) - labelled} "
+            f"rows without an answer key are " + ", ".join(parts))
 
 
 def main() -> int:
@@ -575,13 +598,11 @@ def main() -> int:
     # explicit so a 0-scorable family never reads as missing keys.
     # Every family now admits at least one exactly-scorable row. B scores
     # the scalar recognition question (is an invariant stated at all); G
-    # scores the 7 L6-verified patches. What remains unscorable inside a
+    # scores the L6-verified patches. What remains unscorable inside a
     # family is its free-text remainder, which stays judge-graded.
     SCORING_NOTES = {
         "B_root_cause_reasoning": "scores invariant_stated only; root_cause "
                                   "and violated_invariant are judge-graded",
-        "G_patch_verification": "scores the L6-verified subset; the 31 "
-                                "not_testable rows have no answer key",
         "D_exploit_construction": "generative: write the PoC test, needs a judge",
         "H_verified_exploit": "descriptive reference, no label field",
         "Q_evidence_type_and_quality_rubric": "judge-graded rubric dict",
@@ -648,10 +669,12 @@ def main() -> int:
             "by_split": dict(collections.Counter(r["split"] for r in rows)),
             "duplicate_rows_dropped": dropped,
         }
-        if name in SCORING_NOTES:
+        if name in SCORING_NOTES or name == "G_patch_verification":
             entry["scoring_status"] = (
                 "partial" if scorable < len(rows) else "scorable")
-            entry["scoring_note"] = SCORING_NOTES[name]
+            entry["scoring_note"] = (
+                SCORING_NOTES[name] if name in SCORING_NOTES
+                else g_scoring_note(rows, patch_verification))
             entry["judge_graded_rows"] = len(rows) - scorable
         manifest["tasks"][name] = entry
         log(f"  {name:28s} tasks={len(rows):4d} scorable={manifest['tasks'][name]['scorable']:4d}")

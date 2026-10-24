@@ -17,6 +17,12 @@ Honesty guards, which are the point of this script as much as the maths:
     never presented as inter-annotator agreement;
   * fewer than two distinct human annotator ids -> `measured: false`.
 
+Portability: the report is byte-identical on every machine, so the
+`iaa-stats-current` gate means the same thing on a CI runner as it does on
+the machine that committed the file. Every path the report prints is
+repository-relative with forward slashes; a responses directory outside the
+repository is named, never spelled out.
+
 usage:
     python scripts/iaa_statistics.py                 # write reports/iaa_status.json
     python scripts/iaa_statistics.py --responses DIR # fixtures
@@ -185,15 +191,82 @@ def bootstrap_ci(stat_fn, units, seed=20261018, reps=2000, alpha=0.05):
     return {"point": point, "ci95_low": lo, "ci95_high": hi, "replicates": len(draws)}
 
 
+# --------------------------------------------------------------- path handling
+def _abs_parts(path):
+    """(drive, parts) of `path` resolved to absolute and split on separators.
+
+    `os.path.abspath` collapses "." and "..", so the parts never contain a
+    parent reference. The drive is compared case-insensitively by the caller,
+    because Windows paths are case-insensitive.
+    """
+    drive, rest = os.path.splitdrive(os.path.abspath(path))
+    parts = [p for p in rest.replace("\\", "/").split("/") if p not in ("", ".")]
+    return drive, parts
+
+
+def repo_relative(path, root):
+    """`path` relative to `root` with forward slashes, or None if it is outside.
+
+    The result never contains an absolute path and never depends on the
+    current working directory. `os.path.relpath` is deliberately not used:
+    it raises ValueError on Windows when the two paths sit on different
+    drives, and it compares path components case-sensitively on a
+    case-insensitive filesystem.
+    """
+    drive_path, parts_path = _abs_parts(path)
+    drive_root, parts_root = _abs_parts(root)
+    if os.path.normcase(drive_path) != os.path.normcase(drive_root):
+        return None
+    n = min(len(parts_path), len(parts_root))
+    i = 0
+    while i < n and os.path.normcase(parts_path[i]) == os.path.normcase(parts_root[i]):
+        i += 1
+    if i < len(parts_root):
+        return None
+    return "/".join(parts_path[i:]) or "."
+
+
+def responses_display(path, root):
+    """(display, outside) for a responses directory.
+
+    `display` is the repository-relative forward-slash path when the
+    directory lives under `root`. Otherwise it is the directory's bare name
+    and `outside` is True, because a path that leaves the repository would
+    otherwise have to be spelled with this machine's absolute prefix. Either
+    way the value contains no absolute path and does not depend on the
+    current working directory, so the report is byte-identical on every
+    machine and on every operating system.
+    """
+    rel = repo_relative(path, root)
+    if rel is not None:
+        return rel, False
+    name = os.path.basename(os.path.abspath(path))
+    return (name or "responses"), True
+
+
 # --------------------------------------------------------------- response loading
-def read_responses(dirpath):
+def read_responses(dirpath, root=None):
+    """Load the completed response rows in `dirpath`, with explanatory notes.
+
+    `root` is the repository root and is used only to render those notes
+    with a repository-relative path; it defaults to the repository this
+    script lives in, so a one-argument call still gets a machine-independent
+    note.
+    """
     rows = []
+    if root is None:
+        root = ROOT
+    display, outside = responses_display(dirpath, root)
+    suffix = ("" if not outside else
+              "; the responses directory is outside the repository root, so "
+              "only its name is shown")
     if not os.path.isdir(dirpath):
-        return rows, ["responses directory absent: %s" % os.path.relpath(dirpath, os.getcwd()).replace("\\", "/")]
+        return rows, ["responses directory absent: %s%s" % (display, suffix)]
     notes = []
     files = sorted(f for f in os.listdir(dirpath) if f.endswith(".csv") and not f.endswith(".template.csv"))
     if not files:
-        notes.append("no completed response files in %s (only .template.csv blanks ship here)" % dirpath)
+        notes.append("no completed response files in %s (only .template.csv blanks "
+                     "ship here)%s" % (display, suffix))
     for f in files:
         with open(os.path.join(dirpath, f), newline="", encoding="utf-8") as fh:
             rd = csv.DictReader(fh)
@@ -274,7 +347,7 @@ def analyse(rows):
 NON_HUMAN_KINDS = {"llm", "llm_self_consistency", "model", "self_consistency", "agent", "automated"}
 
 
-def audit_report(doc, responses_dir=None):
+def audit_report(doc, responses_dir=None, root=None):
     """Return a list of reasons a report's agreement claim is unsupported.
 
     Guards the two failure modes this study must not ship:
@@ -290,7 +363,7 @@ def audit_report(doc, responses_dir=None):
         ids = set()
         all_rows = []
         if responses_dir:
-            all_rows, _ = read_responses(responses_dir)
+            all_rows, _ = read_responses(responses_dir, root=root)
             hu = [r for r in all_rows if str(r.get("annotator_kind", "")).lower() == "human"]
             humans = len(hu)
             ids = {r.get("annotator_id") for r in hu}
@@ -315,9 +388,10 @@ def audit_report(doc, responses_dir=None):
 
 
 def report(responses_dir, root=ROOT):
-    rows, notes = read_responses(responses_dir)
+    rows, notes = read_responses(responses_dir, root=root)
+    display, _outside = responses_display(responses_dir, root)
     a = analyse(rows) if rows else {"measurable": False,
-                                   "reason": "no responses collected; annotation/iaa_v1/responses/ holds only blank templates",
+                                   "reason": "no responses collected; %s/ holds only blank templates" % display,
                                    "annotators_seen": 0, "human_rows": 0, "non_human_rows_excluded": {}}
     doc = {
         "generated_by": "scripts/iaa_statistics.py",
@@ -329,12 +403,12 @@ def report(responses_dir, root=ROOT):
                                    "alpha (nominal + ordinal) with 2000-replicate percentile bootstrap CIs"),
         "guard": ("a numeric agreement is emitted only from >=2 distinct human annotator ids; LLM "
                   "self-consistency or repeated passes by one annotator are never reported as IAA"),
-        "responses_dir": os.path.relpath(responses_dir, root).replace("\\", "/"),
+        "responses_dir": display,
         "responses_present": len(rows),
         "notes": notes,
         "statistics": a,
     }
-    doc["audit_violations"] = audit_report(doc, responses_dir)
+    doc["audit_violations"] = audit_report(doc, responses_dir, root=root)
     if doc["audit_violations"]:
         doc["measured"] = False
         doc["measured_reason"] = "audit blocked the claim: " + "; ".join(doc["audit_violations"])

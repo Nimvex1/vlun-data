@@ -9,16 +9,16 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 
 | Layer | Source | Records | Strongest evidence |
 |---|---|---|---|
-| v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **7** L6 verified patches |
+| v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **5** L6 verified patches |
 | v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` |
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 4586, "L1": 754, "L3": 125, "L5": 2}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures everywhere): v2 78/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (4 critical failures): v2 74/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 5/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 5/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -37,8 +37,8 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        17 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,154 tasks)
-benchmark/retired_families/  retired headline-excluded families (B, E, K, L, M, N, O, P, S, T), frozen byte-identical with per-family retirement.json; still shipped, audited and scored for continuity
+benchmark/        19 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,154 tasks)
+benchmark/retired_families/  retired families (B, E, K, L, M, N, O, P, S, T) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
@@ -75,7 +75,7 @@ forge reported `Success`, and no patch is called effective without the controlle
 
 - **v1/v2:** 9 pinpoint experiments
   (2 inconclusive, missing symbol recorded);
-  **7** patches verified effective;
+  **5** patches verified effective;
   rejection evidence over 458 rejected submissions (axes are independent
   and not additive): 9 carry a reason
   attributed to a named judge or sponsor, 1 where
@@ -112,7 +112,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   review states what changed, not whether the fix works
   ([`derived_v3/patch_reviews.jsonl`](derived_v3/patch_reviews.jsonl),
   [`reports/v3/patch_static_review.json`](reports/v3/patch_static_review.json)).
-- **VLUN-Prove:** 8 two-revision proof tasks published as a
+- **VLUN-Prove:** 6 two-revision proof tasks published as a
   scoring interface ([`reports/prove_split_interface.md`](reports/prove_split_interface.md)).
   A submission is credited stage by stage — generated → compiles → executes → impact reproduced
   → patch verified — where `impact_reproduced` requires the *expected assertion* to be what
@@ -122,9 +122,9 @@ forge reported `Success`, and no patch is called effective without the controlle
   (2 files committed in
   [`reports/prove_split_interface.json`](reports/prove_split_interface.json)).
   Self-check: the project's own recorded runs were replayed through the grader's rules
-  (`{'patch_verified': 7}`), which is a
+  (`{'patch_verified': 5}`), which is a
   check of the grader, not of any model. The ~200-task held-out split is **not** reported as
-  met: only 8 tasks have
+  met: only 6 tasks have
   both revisions executed today, and each further task needs a pinned fix and a test run on
   both sides before it can be counted.
 - **Vbeta:** 6,935 admitted records from 7,060 candidates
@@ -162,71 +162,106 @@ families that need experimentally produced ground truth only admit rows that hav
 
 | Family | Tasks | Scorable | Status | Layer |
 |---|---|---|---|---|
-| `A_vulnerability_detection` | 720 | 720 |  | v1/A-Q |
-| `B_root_cause_reasoning` | 720 | 228 | RETIRED | v1/A-Q |
-| `C_attacker_reasoning` | 720 | 290 |  | v1/A-Q |
-| `D_exploit_construction` | 720 | 346 |  | v1/A-Q |
-| `E_exploit_verification` | 720 | 7 | RETIRED | v1/A-Q |
+| `A_vulnerability_detection` | 720 | 720 | PRIMARY | v1/A-Q |
+| `B_root_cause_reasoning` | 720 | 228 | EXPLORATORY | v1/A-Q (retired) |
+| `C_attacker_reasoning` | 720 | 290 | INVALID | v1/A-Q |
+| `D_exploit_construction` | 720 | 0 | NOT_SCORABLE | v1/A-Q |
+| `E_exploit_verification` | 720 | 7 | INVALID | v1/A-Q (retired) |
 | `F_false_positive_rejection` | 458 | 17 | EXPLORATORY | v1/A-Q |
-| `G_patch_verification` | 38 | 7 | EXPLORATORY | v1/A-Q |
-| `H_verified_exploit` | 7 | 7 |  | v1/A-Q |
+| `Fa_rejection_evidence_axis_vector` | 458 | 0 | NOT_SCORABLE | v1/A-Q |
+| `Fb_duplicate_radar_pair` | 553 | 0 | NOT_SCORABLE | v1/A-Q |
+| `G_patch_verification` | 38 | 5 | EXPLORATORY | v1/A-Q |
+| `H_verified_exploit` | 7 | 0 | NOT_SCORABLE | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | EXPLORATORY | v1/A-Q |
-| `J_verified_patch` | 7 | 7 | EXPLORATORY | v1/A-Q |
-| `K_language_ecosystem_routing` | 137 | 137 | RETIRED | v1/A-Q |
-| `L_severity_reconciliation` | 137 | 128 | RETIRED | v1/A-Q |
-| `M_experiment_level_classification` | 37 | 37 | RETIRED | v1/A-Q |
-| `N_attacker_identity_extraction` | 137 | 14 | RETIRED | v1/A-Q |
-| `O_record_class_and_scope` | 137 | 137 | RETIRED | v1/A-Q |
-| `P_provenance_tier_and_rights` | 137 | 137 | RETIRED | v1/A-Q |
-| `Q_evidence_type_and_quality_rubric` | 137 | 137 |  | v1/A-Q |
-| `R_v3_source_tier_routing` | 5,467 | 5,467 |  | v3 |
-| `S_v3_contest_outcome` | 1,072 | 1,072 | RETIRED | v3 |
-| `T_v31_taxonomy_explicit` | 589 | 589 | RETIRED | v3 |
-| `vbeta_U_language_routing` | 6,219 | 6,219 | SATURATED | Vbeta |
-| `vbeta_V_source_tier_routing` | 6,935 | 6,935 | SATURATED | Vbeta |
+| `J_verified_patch` | 5 | 5 | EXPLORATORY | v1/A-Q |
+| `K_language_ecosystem_routing` | 137 | 137 | INVALID | v1/A-Q (retired) |
+| `L_severity_reconciliation` | 137 | 128 | INVALID | v1/A-Q (retired) |
+| `M_experiment_level_classification` | 37 | 37 | EXPLORATORY | v1/A-Q (retired) |
+| `N_attacker_identity_extraction` | 137 | 14 | INVALID | v1/A-Q (retired) |
+| `O_record_class_and_scope` | 137 | 137 | INVALID | v1/A-Q (retired) |
+| `P_provenance_tier_and_rights` | 137 | 137 | INVALID | v1/A-Q (retired) |
+| `Q_evidence_type_and_quality_rubric` | 137 | 0 | NOT_SCORABLE | v1/A-Q |
+| `R_v3_source_tier_routing` | 5,467 | 5,467 | INVALID | v3 |
+| `S_v3_contest_outcome` | 1,072 | 1,072 | INVALID | v3 (retired) |
+| `T_v31_taxonomy_explicit` | 589 | 589 | INVALID | v3 (retired) |
+| `vbeta_U_language_routing` | 6,219 | 6,219 | INVALID | Vbeta |
+| `vbeta_V_source_tier_routing` | 6,935 | 6,935 | INVALID | Vbeta |
 
-`Scorable` is the manifest count (answer key present); `Status` marks
-families retired to `benchmark/retired_families/`, demoted to EXPLORATORY
-(fewer than 100 headline scorable rows) or SATURATED (headline majority >=
-0.94). The exact-match scorer
-(`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 19,631 of
-22,639 manifest-scorable tasks; the rest are the
-10 retired families' 2,486 scorable rows (scored only in
-the continuity twin below), the 4 exploratory families' 32 sub-floor
-rows (scored per-family and in the continuity twin), plus D generative, H
-descriptive and Q judge-graded tasks
-(490 rows), excluded with stated reasons.
+`Tasks` is every row of the family file; `Scorable` is the number of those rows that carry a
+real scalar answer key. `Status` is computed from the data at run time by
+`scripts/benchmark_status.py` — never from a hand-written list, because a list cannot justify
+an evaluation claim:
+
+| status | meaning | in the headline? |
+|---|---|---|
+| `PRIMARY` | no validity flag, at least 100 scorable rows, at least 2 observed labels, and no train-only shortcut at or above 0.9 on a holdout of at least 30 rows | yes |
+| `EXPLORATORY` | shipped and scored, but demoted: too few rows, a holdout too small to estimate on, or a single observed label | no |
+| `INVALID` | a validity flag makes the family unusable as evaluation evidence: answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
+| `NOT_SCORABLE` | no exactly-matchable scalar key | no |
+| `UNKNOWN` | a family file on disk that no rule covers — fail-closed, never primary | no |
+
+The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
+`docs/ANSWER_KEY.md`) covers 720 of
+23,480 manifest-scorable tasks in its primary metric. The
+rest are reported in their own blocks and never in the headline: the
+4 INVALID families' 18,911 scorable rows (C, R, U, V),
+the 4 EXPLORATORY families' 28 sub-floor rows (F, G, I, J),
+the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
+retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
+exactly-matchable key (1,875 rows), excluded with stated reasons. The four blocks
+partition every scored family, and the continuity twin below covers all
+22,145 of them.
+
+**The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
+file as its input, and those files are committed in this public repository, so the keys are
+reachable by repository-wide retrieval. No family may be described as hidden, protected
+against repository-level leakage, or not accessible. The only genuinely protected evaluation in
+this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree
+and is pinned by hash in
+[`reports/prove_split_interface.json`](reports/prove_split_interface.json). The secondary
+holdout in `benchmark/independent/` is OPEN-KEY too: its key file is a tracked file, labelled
+`OPEN_KEY` in its own manifest.
 
 Published deterministic baselines. `acc @ predicted/scorable` is micro-accuracy on
 the tasks the baseline actually predicted, shown with its coverage; the `over scorable`
 column counts unpredicted tasks as wrong, so abstention is visible, never silent.
-Headline rows exclude the retired and exploratory families (see Status marks
-above and `benchmark/retired_families/`); continuity rows cover **all families
-ever shipped** (headline + exploratory + retired), comparable to prior releases.
+The primary column covers the PRIMARY families only; the continuity column covers **all
+families ever shipped** (primary + exploratory + invalid + retired), comparable to prior
+releases.
 
-| Baseline | Headline acc @ predicted/scorable | Headline acc over scorable | Continuity acc @ predicted/scorable |
+| Baseline | Primary acc @ predicted/scorable | Primary acc over scorable | Continuity acc @ predicted/scorable |
 |---|---|---|---|
-| majority | 0.8736 @ 19,631/19,631 | 0.8736 | 0.8725 @ 22,149/22,149 |
-| random-seed7 | 0.3457 @ 19,631/19,631 | 0.3457 | 0.3608 @ 22,149/22,149 |
-| frequency-seed7 | 0.8107 @ 19,631/19,631 | 0.8107 | 0.8135 @ 22,149/22,149 |
-| first-published (L only, retired family) | n/a @ 0/19,631 | 0.0000 | 1.0000 @ 71/22,149 |
-| majority-published (L only, retired family) | n/a @ 0/19,631 | 0.0000 | 1.0000 @ 71/22,149 |
-| TF-IDF retrieval | 0.8889 @ 19,631/19,631 | 0.8889 | 0.8949 @ 22,134/22,149 |
+| majority | 0.7306 @ 720/720 | 0.7306 | 0.8687 @ 22,134/22,145 |
+| random-seed7 | 0.5042 @ 720/720 | 0.5042 | 0.3980 @ 22,134/22,145 |
+| frequency-seed7 | 0.6042 @ 720/720 | 0.6042 | 0.8161 @ 22,134/22,145 |
+| first-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
+| majority-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
+| TF-IDF retrieval | 0.4361 @ 720/720 | 0.4361 | 0.8937 @ 22,134/22,145 |
 
 first-published and majority-published are L-only predictors over a retired family:
-they emit nothing on headline families by construction, so their headline accuracy is
+they emit nothing on the primary set by construction, so their primary accuracy is
 **n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
 `over scorable` column is where the abstention shows as 0.0000 of
-19,631 headline scorable tasks.
-Families marked SATURATED (headline majority >= 0.94: U, V)
-carry no signal — a model beat there proves nothing. The
-4 exploratory families (F, G, I, J) are below the
-100-row floor where a family score is interpretable, so they carry no
-headline claim either — their rows stay scored per-family and in the
-continuity twin. Family A majority accuracy
-differs by split (see baseline reports); a split-blind floor is a validity
-hazard. `scripts/check_manifests.py` recomputes every one of these
+720 primary scorable tasks.
+The 4 INVALID families (C, R, U, V) carry no headline claim: a
+validity flag makes them unusable as evaluation evidence, and a model score there would be
+a score on a task that is not a task. Their rows stay in the dataset and stay scored, in
+`families_invalid`, and are never counted in the headline.
+The 4 EXPLORATORY families (F, G, I, J) are demoted: below the
+100-row floor, a holdout too small to estimate
+on, or a single observed label. A family whose scorable rows carry one label is **not
+evaluable** for accuracy at all — its accuracy is null with the reason
+`single_label_not_evaluable`, because one label makes any accuracy a restatement of the
+label distribution.
+
+The headline number is a label-distribution diagnostic over the primary set's scorable rows
+(train, validation and test together). The number a model result has to beat is the held-out
+one: on the primary family's 147 test rows the train-only majority
+floor is 0.5510, the seeded random 0.5238, the
+label-frequency 0.4966 and the retrieval 0.2925. Every
+floor is fitted on the train rows only; a floor fitted on the held-out rows would have seen
+the answers it is scored against. A split-blind floor is a validity hazard.
+`scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records
 (manifest-file agreement, task-record resolution, split coverage, RESEARCH_ONLY
 leak scans, L5/L6-without-artefact and `verified_patch` scans). A family whose file disagrees
@@ -234,26 +269,42 @@ with its manifest fails the build.
 
 ## Licensing
 
-- `LICENSE` is three-way: data under `jsonl*/`, `derived*/`, `splits*/`, `benchmark/`,
-  `datasets/`, `training/`, `reports/` is **CC BY 4.0**; `scripts/` is **MIT**; third-party
-  source is **not licensed here at all**.
+- The authoritative release boundary is `RELEASE_MANIFEST.json`: a tracked path that is not
+  listed there with a released rights status is **not licensed here**. `LICENSE` states the
+  same rule in five parts and says what it does not cover.
+
+- The released set is the pipeline (`scripts/`, MIT) and the authors' own documents, schemas,
+  decision records, analysis reports, test code and rights-redacted `distribution_v1/` view
+  (CC BY 4.0). The manifest names every path and the licence that applies to it.
+
+- The evidence corpus (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `training/`,
+  `datasets/`, `Vbeta/`) and the run logs under `experiments*/` are **not licensed here**:
+  they stay in the research tree, and this project grants no redistribution right over them.
+  Third-party source is not licensed here at all.
+
 - 424 v1 records
   carry verbatim source from repositories declaring no licence (flagged per record; re-measured
-   from the text itself in `reports/third_party_audit.json`). V3 keeps link + sha256 + attributed
-   facts only (METADATA_ONLY). Vbeta keeps links + observed facts only (METADATA_ONLY) —
-   full report prose is never copied in; `openzeppelin-cairo` rows carry observed MIT.
-   METADATA_ONLY is this project's **default data-handling policy**, applied where no
-   documented right to redistribute exists; it is not a claim and not a determination that
-   any transformed record has been legally cleared, and a permalink plus a sha256 identifies
-   bytes rather than granting reuse. Per-source rights decisions live in `V4/licensing.json`
-   and `distribution_v1/rights_source_registry.json`, enforced by
-   `scripts/check_rights_consistency.py`.
+   from the text itself in `reports/third_party_audit.json`).
+
+- V3 keeps link + sha256 + attributed facts only (METADATA_ONLY). Vbeta keeps links + observed
+  facts only (METADATA_ONLY) — full report prose is never copied in; `openzeppelin-cairo` rows
+  carry observed MIT.
+
+- METADATA_ONLY is this project's **default data-handling policy**, applied where no
+  documented right to redistribute exists; it is not a claim and not a determination that
+  any transformed record has been legally cleared, and a permalink plus a sha256 identifies
+  bytes rather than granting reuse. Per-source rights decisions live in `V4/licensing.json`
+  and `distribution_v1/rights_source_registry.json`, enforced by
+  `scripts/check_rights_consistency.py`.
+
 - Vbeta sources are first-party audit pages plus a tier-2 Solodit mirror (auditor originals
   stay canonical). No operator-authored rows remain: the single interim one was retired and
   replaced by its harvested original (see `Vbeta/reports_vbeta/solodit_ingestion_report.md`).
-- No permission has been obtained from upstream protocol authors. For redistribution or
-  commercial training, pull sources yourself via `scripts/fetch_sources.py` under your own
-  compliance process. See [`NOTICE.md`](NOTICE.md).
+
+- No permission has been obtained from upstream protocol authors, and attribution is not a
+  redistribution right. For redistribution or commercial training, pull sources yourself via
+  `scripts/fetch_sources.py` under your own compliance process. See
+  [`NOTICE.md`](NOTICE.md).
 
 ## Reproduce
 
@@ -262,7 +313,7 @@ python scripts/build_all.py --with-network   # everything
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
-python scripts/check_manifests.py            # 172 count/reference checks, recomputed from canonical records
+python scripts/check_manifests.py            # 180 count/reference checks, recomputed from canonical records
 python scripts/check_reproducibility.py      # provenance, determinism, isolation (skips stay skipped_no_network)
 python -m unittest discover -s tests        # terminology, invariants, fixtures (incl. intentionally-broken)
 python scripts/generate_readme.py --check    # this file is generated; stays current only if regenerated
@@ -395,9 +446,14 @@ entries they do not own and raise instead of dropping, and
 
 ## ML quickstart
 
-- Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files) and
-  `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
-  rebuild from the records).
+- Vulnerability detection / reasoning tasks: `training/*.jsonl` (v1 task files, **TRAIN-ONLY**)
+  and `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
+  rebuild from the records). The held-out partitions were moved out of the model-visible
+  training view into `benchmark/independent/`: `training/` ships the train partition only
+  (16,129 rows, of which 0
+  carry a record that any benchmark family holds out), and the held-out shards are committed
+  under `benchmark/independent/` instead — open-key, but not model-visible. Measured in
+  [`reports/eval_leakage_report.md`](reports/eval_leakage_report.md).
 - Admission-filtered records: `datasets/` (each row carries a published
   `admission_rule`), `derived_v3/records.jsonl` (each row carries `decision`,
   `verification_level`, `language`, `ecosystem`, `benchmark_split`),

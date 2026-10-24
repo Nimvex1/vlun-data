@@ -12,12 +12,42 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__H-01/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "33540e088f8952f3bdfd51a24fc6c5f3f34d095b54098850a20b008e4f75fb0e"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "b77747d0db1601f9c5e4d2d07fe47f60978c5604e9add031432c414e0114cafc"
+            },
+            "trace.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "68aedb2e3aa157ba05b7e9fc1b21803a5b1d5e0ed29730deb1ab9cf4030a0ebb"
+            }
+          },
           "cached": true,
           "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "bfd06d78b7c1dc0e5ef34b00",
+          "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
+          "harness_file_digests": {
+            "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+            "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_MaliciousSeaportTip_Exploit()": "Success"
@@ -29,12 +59,42 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__H-01/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6130713bca4d707856cbc1f47ed7ec813e746ba450c77ce3166a1af5f4cb6f75"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "2f88ff0947400455abaf9d67b117ed8c1d94e98381362c3a5909dabb6794f1bc"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6a85587b8042bb5d0bcd0443fd60a622554bfd03923dc8fce4bd806a85412d88"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "693553430e002c34676cf13d3d09a730333036a87a9d33991538b3a7aa2fd89d"
+            }
+          },
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
+          "detail": "",
           "exit_code": 1,
           "experiment_id": "a40672192f84a36a15e82eea",
+          "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
+          "harness_file_digests": {
+            "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+            "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
@@ -52,6 +112,67 @@
         }
       },
       "security_property": "a fulfilment's ERC-20 consideration item can never make a rental order unstoppable once the assets have been transferred to the rental safe",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "1783237cf05c9369c271b6f3a388b8d57d03ecc8"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__H-01/fixed",
+          "commit": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+          "declared_expected_status": "pass",
+          "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
+          "harness_file_count": 3,
+          "harness_file_digests": {
+            "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+            "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
+          },
+          "per_test_status": {
+            "test_MaliciousSeaportTip_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__prevented-exploits__MaliciousSeaportTip.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__H-01/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
+          "harness_file_count": 3,
+          "harness_file_digests": {
+            "integration__prevented-exploits__MaliciousSeaportTip.t.sol": "66d53c75784d6640619820e5025acb1b08d94b81ce070ee46b600784580f46ff",
+            "mocks__tokens__weird__MockAlwaysRevertERC20.sol": "70045e6a60adf488f8623e6224e0b97e71415c891e34a7ee94ed41f8b26c5faa",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb"
+          },
+          "per_test_status": {
+            "test_MaliciousSeaportTip_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
       "verdict": "l6_verified_patch"
     },
     {
@@ -73,29 +194,83 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__H-06/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "2fa6d7111daad3340fb7c74b7bf440218986a2b915959dafb2731474073fabbd"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "59fc30d9938d262bad5f0e774546c9ffd9e32ae9c935149e9d948c27dea3921d"
+            },
+            "trace.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "c80a73cb62c4a134000505795c9350109c83d22705a9465b8e6b3a794983f407"
+            }
+          },
+          "cached": true,
           "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
           "detail": "",
           "exit_code": 0,
           "experiment_id": "713c24071e41be52408d19d6",
+          "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+          "harness_file_digests": {
+            "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_PreapproveToBypassGuard_Exploit()": "Success"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": "",
+          "run_failure_reason": null,
           "status": "pass"
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__H-06/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "c0c131af1928b212bfdf86f8e038072f48ae3b932d1db147bca1442e57c0d146"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "af773efa75ea409c2c666da4d0b7c6072b2000059ed2119e9df635e9df68eef1"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "b4f3456f14ea466112b352b71ce1f69e396a32aed4082e4855d2621df5a7d3f2"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
           "detail": "Error: Compiler run failed:\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PreapproveToBypassGuard.t.sol:195:9:\n    |\n195 |         withZone(address(maliciousZone));\n    |         ^^^^^^^^\n",
           "exit_code": 1,
           "experiment_id": "3b801601eff8511c097f8490",
+          "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+          "harness_file_digests": {
+            "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {},
           "production_files_modified": 0,
@@ -105,6 +280,61 @@
         }
       },
       "security_property": "a fulfiller cannot pre-approve the protocol so that a later rental settlement bypasses the guard's per-selector checks",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "32e4df787a85534745b86eaea2d58d75a73e2edc"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__H-06/fixed",
+          "commit": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+          "declared_expected_status": "pass",
+          "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_PreapproveToBypassGuard_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [
+          "the recorded run outcomes do not show the declared polarity (vulnerable compile_error vs declared fail; fixed pass vs declared pass)"
+        ],
+        "status": "UNVERIFIABLE",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__prevented-exploits__PreapproveToBypassGuard.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__H-06/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__PreapproveToBypassGuard.t.sol": "6aee6693641daf6ab4f300307e125c314427a3bf52cf84f7f6d97980f6274c67",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {},
+          "status": "compile_error"
+        }
+      },
       "verdict": "inconclusive"
     },
     {
@@ -119,12 +349,40 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-11/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "829f93b9ce60a1801b8f8364947222e8d9b2f08f395640126efab15ca6b1169f"
+            },
+            "harness/VlunEip712.t.sol": {
+              "hash_version": "sha256-v2",
+              "sha256": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "058b4ebbef584278efa6025de4e10e57ab0a4d15b8eda3ca4ffb6a04ceee453e"
+            },
+            "trace.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "53b163df58642d22ef85e1451ec8a71441ebee4ade6df42d423af6b11c6575d7"
+            }
+          },
           "cached": true,
           "commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
           "declared_expectation": "the three EIP-712 property assertions PASS: the protocol computes the canonical digest",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "9d26a1d8d91193bc723ca787",
+          "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+          "harness_file_digests": {
+            "VlunEip712.t.sol": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_VlunEip712_EncodingsDiffer()": "Success",
@@ -139,12 +397,44 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-11/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "829f93b9ce60a1801b8f8364947222e8d9b2f08f395640126efab15ca6b1169f"
+            },
+            "harness/VlunEip712.t.sol": {
+              "hash_version": "sha256-v2",
+              "sha256": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "1aa12c0f67c354f2a813380be2e20bb35dd8188d01231cde799a178e3f325436"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "cd21c55b97de0e5d06e9b3cddcca2e8031037cfe2d69d74e0c22957b0cbc9998"
+            },
+            "trace.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "8855a111a51e29bb7baf626d6e1134498b84bc89b98b12c32a9db9e80cc81847"
+            }
+          },
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "the three EIP-712 property assertions FAIL: the protocol computes a non-canonical digest",
           "declared_expected_status": "fail",
+          "detail": "",
           "exit_code": 1,
           "experiment_id": "34993ff5a996b055ce1eca55",
+          "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+          "harness_file_digests": {
+            "VlunEip712.t.sol": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+          },
           "observed_failure": [
             {
               "assertion_messages": [
@@ -186,6 +476,104 @@
         }
       },
       "security_property": "the protocol's EIP-712 type hash of a rental order equals the hash of the canonical type string, so a signature over the order can never be replayed into a different type domain",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "6c4124bdb7acc52a84d008d6d3cf62b01c85a933"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__M-11/fixed",
+          "commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
+          "declared_expected_status": "pass",
+          "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+          "harness_file_count": 1,
+          "harness_file_digests": {
+            "VlunEip712.t.sol": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+          },
+          "per_test_status": {
+            "test_VlunEip712_EncodingsDiffer()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_VlunEip712_HookExtraDataIsHashed()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_VlunEip712_RentalOrderTypeHashIsCanonical()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_VlunEip712_RentalWalletIsBoundByTheDigest()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
+        "test_files": [
+          "VlunEip712.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__M-11/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+          "harness_file_count": 1,
+          "harness_file_digests": {
+            "VlunEip712.t.sol": "cdb04d7296e31d241a80a0011f37570109d8ef1a327800226e9eb9749a580f92"
+          },
+          "per_test_status": {
+            "test_VlunEip712_EncodingsDiffer()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_VlunEip712_HookExtraDataIsHashed()": {
+              "logs": [
+                "Error: a == b not satisfied [bytes32]",
+                "      Left: 0x00ce0c89f0ff2f371279dee3f9e5c0eab0017ce37052cd8b4eb65af2ceb19def",
+                "     Right: 0xe48fc53f4a9ad5f4a7cf8f1166775f2e212ae2d1382f768852661e164873d576"
+              ],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_VlunEip712_RentalOrderTypeHashIsCanonical()": {
+              "logs": [
+                "Error: a == b not satisfied [bytes32]",
+                "      Left: 0x3ed82f3a702f9be472dfaac401d861c9fd2ba6a8313066522128d1793c32302c",
+                "     Right: 0x136317b5d1776ee565433492ded25e83d8ae8d93642cd665ab18247728b00be3"
+              ],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_VlunEip712_RentalWalletIsBoundByTheDigest()": {
+              "logs": [
+                "Error: two rental orders differing only in rentalWallet produced the same digest",
+                "Error: Assertion Failed"
+              ],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
       "verdict": "l6_verified_patch"
     },
     {
@@ -200,12 +588,37 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-09/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "f189c4b5414d240a253a0347dde1b0b205f05dc6bdefc5c7d287f67274c3ac22"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "c91a49821c4a1885aaa47e0796212782d726afbcf987f714d528a59907a45617"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "f689fac5edf106aeb50e2846ce9349198aa68d0189f187a0da123e6494460855"
+            }
+          },
           "cached": true,
           "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "31799b7b15941a4ccab84415",
+          "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+          "harness_file_digests": {
+            "integration__guarded-transactions__Safe.t.sol": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_Success_TransferETH()": "Success"
@@ -217,12 +630,50 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-09/vulnerable",
+          "artifact_hash_mismatches": [
+            {
+              "artefact": "stderr.txt",
+              "committed_sha256": "6aebb40821548041d891f81cbc533fa3914f862ddc0c0541a07b4673564821cd",
+              "reason": "the committed artefact was edited after the run, so the digest recorded with the run does not describe the committed bytes; the original value and the commit whose blob reproduces it are recorded in scripts/reconcile_proof_artefact_hashes.py ::UNRESOLVED_ARTEFACT_HASHES",
+              "recorded_hash_version": "sha256-v1-text",
+              "recorded_sha256": "ef7b55c879a552d9602ea950b8bfd7520ace96fab4adea912d2530d48f06b8b0",
+              "status": "unresolved"
+            }
+          ],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "f189c4b5414d240a253a0347dde1b0b205f05dc6bdefc5c7d287f67274c3ac22"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "d328ee52831476e4157eed9279f982e3e8d083ebadc090a7c2214bac72fc4f4f"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6aebb40821548041d891f81cbc533fa3914f862ddc0c0541a07b4673564821cd"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6cbe9a917dcd0b0c9fe36a841ffe139b13419e19ba57b7e32632a5a4a241101d"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "21b5119c16f65af1f11f666945f3554989f9cf4d38b4a589d1f41b6fbe2ae61b"
+            }
+          },
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
+          "detail": "",
           "exit_code": 1,
           "experiment_id": "ff37fd91acee655cf53846c3",
+          "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+          "harness_file_digests": {
+            "integration__guarded-transactions__Safe.t.sol": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
@@ -240,6 +691,65 @@
         }
       },
       "security_property": "an owner of a rental safe can transfer native ETH out of the safe; the guard must not block it",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "f0484bfa15c68cad921a8d8abe93f2cef1ad493c"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__M-09/fixed",
+          "commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+          "declared_expected_status": "pass",
+          "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__guarded-transactions__Safe.t.sol": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Success_TransferETH()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__guarded-transactions__Safe.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__M-09/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__guarded-transactions__Safe.t.sol": "3d7cb08141d1bf4fa8aad8e16a093a8a3086a0f1ddae61fa706d5a919b5a0004",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Success_TransferETH()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
       "verdict": "l6_verified_patch"
     },
     {
@@ -254,12 +764,38 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-01/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "ad140aed522afa8b5a26307170fef8a13b0a95c79a567528becab4594dfffb9e"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "6aae45c1b8854aa0168ca8335aa9c31e678d279e43494d08696ab8eeede63723"
+            }
+          },
+          "cached": true,
           "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
           "detail": "",
           "exit_code": 0,
           "experiment_id": "2b20559ad0adda3f5a3bcbb8",
+          "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+          "harness_file_digests": {
+            "integration__guarded-transactions__ERC1155.t.sol": "1f15f45519f3e2cd1eed7b73759b28a62ec6a28f695591acdc1d5b9568d03506",
+            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": "Success",
@@ -272,17 +808,54 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": "",
+          "run_failure_reason": null,
           "status": "pass"
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-01/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "eb5e78230c8b1d0aebbb55cdd810b225815e4fd202f922a84c35606547ac83d9"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "d8fc146dbf3652a567b38c5caf6c61e68fc5613c005276cc4d0416ffad63e5b2"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "13c117d49f0cefd4fb38035b125c926345d4066bc1cb561281b326b69dc15855"
+            }
+          },
+          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
           "detail": "",
           "exit_code": 1,
           "experiment_id": "49f98270284e8d3eb7e70dcf",
+          "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
+          "harness_file_digests": {
+            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
+            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
+            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
+            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
+            "fixtures__protocol__AccountCreator.sol": "5c084a201ef769696e201bf382b79dfaa9ae15d69cd9e4e0c317d57e36ea9276",
+            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
+            "integration__guarded-transactions__ERC1155.t.sol": "620e2310598313404bdbec7a35a448923ef52dbf4f14ceaff6b00f4cf1d6df71",
+            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
@@ -296,17 +869,17 @@
             },
             {
               "assertion_messages": [],
-              "forge_reason": "next call did not revert as expected",
+              "forge_reason": null,
               "test": "test_Reverts_ERC1155_BurnBatch_Always()"
             },
             {
               "assertion_messages": [],
-              "forge_reason": "next call did not revert as expected",
+              "forge_reason": null,
               "test": "test_Reverts_ERC1155_Burn_Rented()"
             },
             {
               "assertion_messages": [],
-              "forge_reason": "Error != expected error: GuardPolicy_UnauthorizedSelector(0xf242432a) != GuardPolicy_UnauthorizedAssetAmount(0xf242432a, 10, 0)",
+              "forge_reason": null,
               "test": "test_Success_ERC1155_SafeTransferFrom_Rented()"
             }
           ],
@@ -321,12 +894,153 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": "",
+          "run_failure_reason": null,
           "status": "fail"
         }
       },
       "security_property": "a lender cannot freeze a borrower's ERC-1155: a burn or transfer up to the rented amount stays possible",
-      "verdict": "l6_verified_patch"
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "45ef41123b65d67b7f83cad8bc9d35917b9da30f"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__M-01/fixed",
+          "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+          "declared_expected_status": "pass",
+          "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+          "harness_file_count": 3,
+          "harness_file_digests": {
+            "integration__guarded-transactions__ERC1155.t.sol": "1f15f45519f3e2cd1eed7b73759b28a62ec6a28f695591acdc1d5b9568d03506",
+            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Reverts_ERC1155_BurnBatch_Always()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Reverts_ERC1155_Burn_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC1155_Burn_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC1155_SafeTransferFrom_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC1155_SafeTransferFrom_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": false,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [
+          "BaseTest.sol",
+          "fixtures__engine__BaseEngine.sol",
+          "fixtures__engine__OrderCreator.sol",
+          "fixtures__engine__OrderFulfiller.sol",
+          "fixtures__protocol__AccountCreator.sol",
+          "fixtures__protocol__BaseProtocol.sol",
+          "src__libraries__Errors.sol"
+        ],
+        "harness_files_with_different_digest": [
+          "integration__guarded-transactions__ERC1155.t.sol"
+        ],
+        "missing_evidence": [
+          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
+          "the two revisions did not run the same test file bytes"
+        ],
+        "status": "PARTIAL",
+        "test_file_digests_match": false,
+        "test_files": [
+          "integration__guarded-transactions__ERC1155.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__M-01/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
+          "harness_file_count": 10,
+          "harness_file_digests": {
+            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
+            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
+            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
+            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
+            "fixtures__protocol__AccountCreator.sol": "5c084a201ef769696e201bf382b79dfaa9ae15d69cd9e4e0c317d57e36ea9276",
+            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
+            "integration__guarded-transactions__ERC1155.t.sol": "620e2310598313404bdbec7a35a448923ef52dbf4f14ceaff6b00f4cf1d6df71",
+            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
+            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_Reverts_ERC1155_BurnBatch_Always()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_Reverts_ERC1155_Burn_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_Success_ERC1155_Burn_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC1155_SafeTransferFrom_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC1155_SafeTransferFrom_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
+      "verdict": "l6_partial_two_revision_evidence"
     },
     {
       "blocked_behaviour": "the guard rejects an unguarded destructive call against the safe",
@@ -340,12 +1054,38 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-08/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "4d37a97ea437159cfeb1e7fa321247b25037a84bc5e870431ce73e1a801a7f2d"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
+            }
+          },
+          "cached": true,
           "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
           "detail": "",
           "exit_code": 0,
           "experiment_id": "5cfbc6de626afbb8e9e932ff",
+          "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+          "harness_file_digests": {
+            "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
+            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_Reverts_ERC721_Burn_Rented()": "Success",
@@ -353,21 +1093,57 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": "",
+          "run_failure_reason": null,
           "status": "pass"
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-08/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "aaddd01ad3492b2cac3f42b5a09f7ef406689ab0f1c3a754a86267014be420b3"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "b5f8b21c35b596e8d518966cbf4ea5d59f5c90ab95dbf00c527d835df59fb5a9"
+            }
+          },
+          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
           "detail": "",
           "exit_code": 1,
           "experiment_id": "9c2eee4eeaf7d9912f8aff83",
+          "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
+          "harness_file_digests": {
+            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
+            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
+            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
+            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
+            "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
+            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
+            "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
+            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
-              "forge_reason": "next call did not revert as expected",
+              "forge_reason": null,
               "test": "test_Reverts_ERC721_Burn_Rented()"
             }
           ],
@@ -377,12 +1153,101 @@
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": "",
+          "run_failure_reason": null,
           "status": "fail"
         }
       },
       "security_property": "assets held by a rental safe cannot be destroyed by the renter or the lender; the guard blocks unguarded destructive selectors",
-      "verdict": "l6_verified_patch"
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "fb8013111b57c1e09482fb3193db58cb892229e9"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__M-08/fixed",
+          "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+          "declared_expected_status": "pass",
+          "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+          "harness_file_count": 3,
+          "harness_file_digests": {
+            "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
+            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Reverts_ERC721_Burn_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_ERC721_Burn_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": false,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [
+          "BaseTest.sol",
+          "fixtures__engine__BaseEngine.sol",
+          "fixtures__engine__OrderCreator.sol",
+          "fixtures__engine__OrderFulfiller.sol",
+          "fixtures__protocol__AccountCreator.sol",
+          "fixtures__protocol__BaseProtocol.sol"
+        ],
+        "harness_files_with_different_digest": [
+          "integration__guarded-transactions__ERC721.t.sol"
+        ],
+        "missing_evidence": [
+          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
+          "the two revisions did not run the same test file bytes"
+        ],
+        "status": "PARTIAL",
+        "test_file_digests_match": false,
+        "test_files": [
+          "integration__guarded-transactions__ERC721.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__M-08/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
+          "harness_file_count": 9,
+          "harness_file_digests": {
+            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
+            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
+            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
+            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
+            "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
+            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
+            "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
+            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Reverts_ERC721_Burn_Rented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            },
+            "test_Success_ERC721_Burn_NotRented()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "fail"
+        }
+      },
+      "verdict": "l6_partial_two_revision_evidence"
     },
     {
       "blocked_behaviour": "the escrow enforces its balance invariant against the settled state, so the intermediate transfer cannot inflate the withdrawable amount",
@@ -396,12 +1261,37 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__H-03/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "5ae6b13659b10ff8a59ac1aca7eb357c864c69b9f43bf4037be6c73aa208b76c"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "9e8b6fe03029fdeea579ba367448e9b770682f8664eec9e26cae2666aa4bc4a8"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "9e62d36b8d6ed1c62f18a3e1ba25aff9efc875873f47ddc3e367a3daa0d78040"
+            }
+          },
           "cached": true,
           "commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "d0f3ee3c4300b339c0379578",
+          "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+          "harness_file_digests": {
+            "integration__prevented-exploits__BypassInvariantChecks.t.sol": "99677034bd4b8e7bf50727b519380c6531363a0b72549ce1c05d9ebeb341f51f",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_BypassInvariantChecks_Exploit()": "Success"
@@ -413,12 +1303,50 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__H-03/vulnerable",
+          "artifact_hash_mismatches": [
+            {
+              "artefact": "stderr.txt",
+              "committed_sha256": "2db60f784c9e53c73eea228832dbeb4b17e2953547093e1f7edb208054e6ecb8",
+              "reason": "the committed artefact was edited after the run, so the digest recorded with the run does not describe the committed bytes; the original value and the commit whose blob reproduces it are recorded in scripts/reconcile_proof_artefact_hashes.py ::UNRESOLVED_ARTEFACT_HASHES",
+              "recorded_hash_version": "sha256-v1-text",
+              "recorded_sha256": "2adedc5f8aeee70cd0d0aec67089e8ac7854b9c52ffcae5fd042d41df4c7b05c",
+              "status": "unresolved"
+            }
+          ],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "5ae6b13659b10ff8a59ac1aca7eb357c864c69b9f43bf4037be6c73aa208b76c"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "8be9e9671685f6b02fd02eef2ec726d3011f97524330c445609cb5d0ac8a5cff"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "2db60f784c9e53c73eea228832dbeb4b17e2953547093e1f7edb208054e6ecb8"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e4bce23dfecf40745c6d22be8dc1d4eb0b15c1fc26e14e360f921905b3ef8ed9"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "b8cc9f51166f4358e1260b4bfabc20e57483e18d31418da192d53e7d30f25da6"
+            }
+          },
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
+          "detail": "",
           "exit_code": 1,
           "experiment_id": "7d99a0620fb6a8583af7acdc",
+          "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+          "harness_file_digests": {
+            "integration__prevented-exploits__BypassInvariantChecks.t.sol": "99677034bd4b8e7bf50727b519380c6531363a0b72549ce1c05d9ebeb341f51f",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
@@ -436,6 +1364,65 @@
         }
       },
       "security_property": "the payment escrow cannot be drained by an account whose temporary allowance exceeds its balance",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "e4cdac74c7565d41dc7882d3837dde2cf930e9d7"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__H-03/fixed",
+          "commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
+          "declared_expected_status": "pass",
+          "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__BypassInvariantChecks.t.sol": "99677034bd4b8e7bf50727b519380c6531363a0b72549ce1c05d9ebeb341f51f",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_BypassInvariantChecks_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__prevented-exploits__BypassInvariantChecks.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__H-03/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__BypassInvariantChecks.t.sol": "99677034bd4b8e7bf50727b519380c6531363a0b72549ce1c05d9ebeb341f51f",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_BypassInvariantChecks_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
       "verdict": "l6_verified_patch"
     },
     {
@@ -457,12 +1444,37 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-02/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "cf34dedda237aae3b61c43cd0c288624f2154084bbaf030e65bc4a02be3d9904"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "424e5152d5fc08a5dcdd5544955695d49d378528ef6e72e6d9b783123186fe05"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "7db42d35df584e8d1f67d2572b6f87d5fc529b4619ebf5d1bbb0609ddf90a0b5"
+            }
+          },
           "cached": true,
           "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "3704e4529028a44f52d03226",
+          "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+          "harness_file_digests": {
+            "integration__prevented-exploits__PermitTokens.t.sol": "2706e911aad8de63652abc16a55d54c07fcd7291697e7996ce3060b64517eec5",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_Reverts_Permit_Whitelisted()": "Success",
@@ -476,12 +1488,37 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-02/vulnerable",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "cf34dedda237aae3b61c43cd0c288624f2154084bbaf030e65bc4a02be3d9904"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "e46678903f165fc4a38136528a67a5f2a5a2c659a0619723f7a0c3d0f36e6d69"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "0a509c105a438e797d070025f2c84b981584feae26bf962ea08ec9d11f82a2b3"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
           "detail": "vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:178:27:\n    |\n178 |         bytes32 msgHash = fallbackPolicy.getMessageHashForSafe(alice.safe, digest);\n    |                           ^^^^^^^^^^^^^^\n\nError (7576): Undeclared identifier.\n   --> test/vlun_poc/integration__prevented-exploits__PermitTokens.t.sol:185:64:\n    |\n185 |         kernel.executeAction(Actions.DeactivatePolicy, ad",
           "exit_code": 1,
           "experiment_id": "44a992831fe888870b5dd020",
+          "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+          "harness_file_digests": {
+            "integration__prevented-exploits__PermitTokens.t.sol": "2706e911aad8de63652abc16a55d54c07fcd7291697e7996ce3060b64517eec5",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {},
           "production_files_modified": 0,
@@ -491,6 +1528,71 @@
         }
       },
       "security_property": "a caller cannot settle a rental into an arbitrary account by triggering an ERC-721 permit transfer",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "12bdab416447b51b43b7053be7b55b5b932336e5"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__M-02/fixed",
+          "commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
+          "declared_expected_status": "pass",
+          "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__PermitTokens.t.sol": "2706e911aad8de63652abc16a55d54c07fcd7291697e7996ce3060b64517eec5",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_Reverts_Permit_Whitelisted()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_FallbackCanBeDeactivated()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            },
+            "test_Success_Permit_NotWhitelisted()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [
+          "the recorded run outcomes do not show the declared polarity (vulnerable compile_error vs declared fail; fixed pass vs declared pass)"
+        ],
+        "status": "UNVERIFIABLE",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__prevented-exploits__PermitTokens.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__M-02/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__prevented-exploits__PermitTokens.t.sol": "2706e911aad8de63652abc16a55d54c07fcd7291697e7996ce3060b64517eec5",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {},
+          "status": "compile_error"
+        }
+      },
       "verdict": "inconclusive"
     },
     {
@@ -505,12 +1607,37 @@
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__H-04/fixed",
+          "artifact_hash_mismatches": [],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e85b01d0dc7da248b4a500b444d2a5a778df0dfcca564bc0d7319b9aa60e950a"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "bd64478682a41f7854e84eeb397c070ebaab664f61eb26fb921a8a92be598022"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "a995f2cf268f91df10cc56fcbaab82ba25cc97d2786d0cbefe70d89613cfd6f7"
+            }
+          },
           "cached": true,
           "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
           "declared_expectation": "test PASSES: the guard blocks the exploit",
           "declared_expected_status": "pass",
+          "detail": "",
           "exit_code": 0,
           "experiment_id": "cd692d8d73d2308433475043",
+          "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+          "harness_file_digests": {
+            "integration__Exploits.t.sol": "575c7eb11c5cf5815488ea7f24839889c915c8c113bb8ce9545cc8e7c64cdee1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [],
           "per_test_status": {
             "test_DisableModule_Exploit()": "Success"
@@ -522,12 +1649,50 @@
         },
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__H-04/vulnerable",
+          "artifact_hash_mismatches": [
+            {
+              "artefact": "stderr.txt",
+              "committed_sha256": "05fcbeaee2e6e2ddb2663663d2a61e4a826047395a8b46ef0332e09b3d7b0e60",
+              "reason": "the committed artefact was edited after the run, so the digest recorded with the run does not describe the committed bytes; the original value and the commit whose blob reproduces it are recorded in scripts/reconcile_proof_artefact_hashes.py ::UNRESOLVED_ARTEFACT_HASHES",
+              "recorded_hash_version": "sha256-v1-text",
+              "recorded_sha256": "ca934e321fb6c32a1df6c90dddcdb4637ae494d3b2ee751e09661758e7844775",
+              "status": "unresolved"
+            }
+          ],
+          "artifact_hashes": {
+            "command.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "e85b01d0dc7da248b4a500b444d2a5a778df0dfcca564bc0d7319b9aa60e950a"
+            },
+            "harness/WITHHELD.json": {
+              "hash_version": "sha256-v2",
+              "sha256": "5b691700fce412b5b539f3a3bd9e007256626fdeb352df9ad9d6942fc3681144"
+            },
+            "stderr.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "05fcbeaee2e6e2ddb2663663d2a61e4a826047395a8b46ef0332e09b3d7b0e60"
+            },
+            "stdout.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "3cb1295bedd8347d4b3d71a670fca64a71118d97f61ce666f9e6f972bd0cf5b3"
+            },
+            "stdout_human.txt": {
+              "hash_version": "sha256-v2",
+              "sha256": "aface09c67784f20af1ed35d5e8047787b716aca84e2fabf26f14ab0008a6b51"
+            }
+          },
           "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expectation": "test FAILS: the guard does not block the exploit",
           "declared_expected_status": "fail",
+          "detail": "",
           "exit_code": 1,
           "experiment_id": "5dc26789c4771b4a93c4e0d6",
+          "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+          "harness_file_digests": {
+            "integration__Exploits.t.sol": "575c7eb11c5cf5815488ea7f24839889c915c8c113bb8ce9545cc8e7c64cdee1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
           "observed_failure": [
             {
               "assertion_messages": [],
@@ -545,6 +1710,65 @@
         }
       },
       "security_property": "a renter cannot disable the payment-escrow module and bypass the guard, because the calldata offset used to address the module must be the real one",
+      "two_revision_evidence": {
+        "commit_resolution": {
+          "repository": "renft-smart",
+          "resolved": [
+            "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "f358c1738dae359d83f7f5e1c074c988a9577e80"
+          ],
+          "status": "resolved",
+          "unresolved": []
+        },
+        "fixed": {
+          "artifact": "experiments/2024-01-renft__H-04/fixed",
+          "commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+          "declared_expected_status": "pass",
+          "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__Exploits.t.sol": "575c7eb11c5cf5815488ea7f24839889c915c8c113bb8ce9545cc8e7c64cdee1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_DisableModule_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Success"
+            }
+          },
+          "status": "pass"
+        },
+        "harness_digests_match": true,
+        "harness_files_only_on_fixed_side": [],
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
+        "test_files": [
+          "integration__Exploits.t.sol"
+        ],
+        "vulnerable": {
+          "artifact": "experiments/2024-01-renft__H-04/vulnerable",
+          "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+          "declared_expected_status": "fail",
+          "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+          "harness_file_count": 2,
+          "harness_file_digests": {
+            "integration__Exploits.t.sol": "575c7eb11c5cf5815488ea7f24839889c915c8c113bb8ce9545cc8e7c64cdee1",
+            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+          },
+          "per_test_status": {
+            "test_DisableModule_Exploit()": {
+              "logs": [],
+              "reason": null,
+              "status": "Failure"
+            }
+          },
+          "status": "fail"
+        }
+      },
       "verdict": "l6_verified_patch"
     }
   ],
@@ -553,7 +1777,8 @@
     "experiments": 9,
     "fixed_pass": 9,
     "inconclusive": 2,
-    "l6_verified_patch": 7,
+    "l6_partial_two_revision_evidence": 2,
+    "l6_verified_patch": 5,
     "vulnerable_compile_error": 2,
     "vulnerable_fail": 7
   }

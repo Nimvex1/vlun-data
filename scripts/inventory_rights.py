@@ -172,13 +172,23 @@ def sha256_file(path: Path) -> str:
 
 
 def tracked_files(root: Path) -> list[str]:
-    """True tracked-file list. git ls-files is read-only; fall back to a walk."""
+    """True tracked-file list. git ls-files is read-only; fall back to a walk.
+
+    The git index and the working tree can disagree while a deletion is
+    pending: `git ls-files` still names a path that has been removed from
+    the working tree, and such a path is not part of the repository's
+    content.  The inventory cites every path it enumerates, and the rights
+    gate fails when a cited path is not a file in the checkout, so an
+    index-only path would make the gate fail for a reason that has nothing
+    to do with rights.  The list is therefore the tracked files that are
+    actually present in the tree.
+    """
     try:
         out = subprocess.run(["git", "ls-files", "-z"], cwd=str(root),
                              capture_output=True, check=True).stdout
         names = sorted(p for p in out.decode("utf-8").split("\0") if p)
         if names:
-            return names
+            return [p for p in names if (root / p).is_file()]
     except Exception:
         pass
     names = []
@@ -858,17 +868,33 @@ def build_source_registry(root: Path) -> dict:
         none_declared = d["flags"].get(
             "source_redistributed_without_declared_license", 0)
         busl = d["classes"].get("source_available_but_not_redistributable", 0)
+        # The repository-level status follows the records that actually carry
+        # verbatim source.  A repository whose own records say
+        # `source_redistributed_without_declared_license` quotes bytes from a
+        # repository that declares no licence; that is the status that
+        # governs the quoted bytes, and it is the status NOTICE.md states.
+        # The per-record classification is mixed for some repositories (the
+        # same repository is classified both ways across its records); the
+        # counts are published so the mixture is visible rather than
+        # flattened into one verdict.
+        if none_declared:
+            required = "none_declared"
+            observed = None
+        elif busl:
+            required = "source_available_not_redistributable"
+            observed = "source_available_not_redistributable"
+        else:
+            required = "none_declared"
+            observed = None
         entries.append({
             "source_id": f"code4rena/{repo}",
             "source_name": f"Code4rena {repo} audited protocol repository",
             "source_url": sorted(d["urls"])[0] if d["urls"] else None,
             "immutable_commits": sorted(d["commits"])[:12],
             "upstream_licence_declared_in_manifest": None,
-            "upstream_licence_observed": (
-                "source_available_not_redistributable" if busl else None),
-            "license_status_required": (
-                "source_available_not_redistributable" if busl else
-                "none_declared"),
+            "upstream_licence_observed": observed,
+            "license_status_required": required,
+            "license_classification_counts": dict(sorted(d["classes"].items())),
             "current_declared_status": dict(d["classes"]),
             "records_carrying_verbatim_source": none_declared,
             "redistribution_right": "not_documented",
@@ -878,7 +904,10 @@ def build_source_registry(root: Path) -> dict:
             "registered_rows": d["records"],
             "note": ("scripts/fetch_sources.py read a LICENSE file at the pinned "
                      "commit and found the stated value; no upstream permission "
-                     "was requested or obtained"),
+                     "was requested or obtained. The per-record classification "
+                     "is mixed for this repository: the status above is the "
+                     "status of the records that carry verbatim source, and "
+                     "`license_classification_counts` publishes the mixture"),
         })
     return {
         "registry_version": TRANSFORMATION_VERSION,
@@ -995,9 +1024,31 @@ def build_inventory(root: Path) -> tuple:
                             "copied_report_prose", "copied_short_prose"):
                     for item in h["items_by_class"].get(cls, [])[:1]:
                         if len(samples[cls]) < 25:
-                            samples[cls].append(
-                                {"path": rel, "record_id": h["record_id"],
-                                 **item})
+                            # The sample records WHERE the copied bytes are,
+                            # how long they are and what they hash to.  It
+                            # does not reproduce them: this artefact is
+                            # published, and a verbatim third-party passage
+                            # inside a rights report is still a copy of it.
+                            # The bytes stay in the canonical layer and are
+                            # identified by the sha256 recorded here.
+                            samples[cls].append({
+                                "path": rel,
+                                "record_id": h["record_id"],
+                                "pointer": item["pointer"],
+                                "chars": item["chars"],
+                                "sha256_stored_bytes": item["sha256_stored_bytes"],
+                                "source_urls": item["source_urls"],
+                                "commit_refs": item["commit_refs"],
+                                "locator": item["locator"],
+                                "recorded_hashes": item["recorded_hashes"],
+                                "attribution": item["attribution"],
+                                "retrieval": item["retrieval"],
+                                "value_withheld": True,
+                                "value_note": (
+                                    "the copied bytes are not reproduced in "
+                                    "this report; the sha256 above identifies "
+                                    "them in the canonical layer"),
+                            })
             affected_records.extend(hits)
 
     # ---- text artefacts --------------------------------------------------
@@ -1042,6 +1093,7 @@ def build_inventory(root: Path) -> tuple:
     inventory = {
         "generated_by": "scripts/inventory_rights.py",
         "rights_transformation_version": TRANSFORMATION_VERSION,
+        "release_manifest": "RELEASE_MANIFEST.json",
         "data_handling_policy_default": POLICY_DEFAULT,
         "policy_note": POLICY_NOTE,
         "hash_grants_nothing": ("a sha256 and a permalink identify bytes; they "
@@ -1527,6 +1579,11 @@ def build_distribution(root: Path, inv: dict, affected: list[dict]) -> dict:
         "policy_note": POLICY_NOTE,
         "legal_clearance_claimed": False,
         "blanket_clearance_claimed": False,
+        "release_manifest": "RELEASE_MANIFEST.json",
+        "release_manifest_version": "release-1.0",
+        "rights_status_of_this_view": (
+            "this view is part of the released set; RELEASE_MANIFEST.json "
+            "states the per-path rights status of the whole tree"),
         "attributed_quotation_max_chars": KEEP_QUOTE_MAX_CHARS,
         "attributed_quotation_policy": (
             "third-party prose is withheld above "
@@ -1664,6 +1721,14 @@ def distribution_readme(inv: dict, manifest: dict, reg: dict) -> str:
         "A sha256 and a permalink identify bytes. They do not grant reuse or "
         "redistribution rights. Nothing in this directory has been cleared by "
         "a rights holder, and no permission request has been granted.",
+        "",
+        "## The release boundary",
+        "",
+        "This directory is part of the released set. `RELEASE_MANIFEST.json` "
+        "is the authoritative per-path statement of what may be "
+        "redistributed; the paths it marks as withheld or as internal "
+        "research artefacts are not licensed here, wherever they sit in the "
+        "tree. **Attribution is not a redistribution right.**",
         "",
         "## Contents",
         "",
@@ -1992,6 +2057,14 @@ def inventory_markdown(inv: dict) -> str:
         "",
         "A sha256 and a permalink identify bytes; they do not grant reuse or "
         "redistribution rights.",
+        "",
+        "## The release boundary",
+        "",
+        "`RELEASE_MANIFEST.json` states, path by path, what may be "
+        "redistributed. This report measures the content; the manifest decides "
+        "the status of each path, and `scripts/check_rights_consistency.py` "
+        "fails the build when the two disagree. **Attribution is not a "
+        "redistribution right.**",
         "",
         "## Scope",
         "",

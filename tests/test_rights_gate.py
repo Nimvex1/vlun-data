@@ -9,6 +9,17 @@ both the exit code and the code are asserted.
 The good fixture under tests/fixtures/good/ is the reconciled shape of the
 same inputs: it must exit 0, which proves the checks are not vacuous.
 
+The release-manifest tests build a small tree, generate its manifest with
+scripts/build_release_manifest.py, then break one thing at a time and assert
+that the gate names that thing:
+
+  * a shipped rights statement that contradicts the actual manifest
+    (a licence that grants a withheld path; a status that contradicts the
+    file's content);
+  * a path the manifest releases that is missing, and a file in the tree that
+    the manifest does not classify;
+  * a manifest that no longer matches what the builder computes.
+
 Run:  python -m unittest tests.test_rights_gate
 """
 
@@ -16,8 +27,10 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -27,8 +40,25 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from vlun_io import read_jsonl  # noqa: E402
 
 GATE = ROOT / "scripts" / "check_rights_consistency.py"
+BUILDER = ROOT / "scripts" / "build_release_manifest.py"
 BROKEN = ROOT / "tests" / "fixtures" / "broken"
 GOOD = ROOT / "tests" / "fixtures" / "good"
+
+# A sentence long enough to be a verbatim third-party run (> 200 characters,
+# so a file that carries it is withheld, not merely quoted).
+COPIED = (
+    "The withdrawn contract lets any caller drain the vault without checking "
+    "the owner gate that the auditor described in the published finding, and "
+    "the published remediation advice did not mention the missing check at "
+    "all, so the text is carried here to prove the detector can see it."
+)
+# Verbatim third-party SOURCE CODE.  The project's own policy never carries
+# third-party code, not even a short quotation of it.
+COPIED_CODE = (
+    "contract Vault is Ownable { function withdraw() external onlyOwner { "
+    "(bool ok, ) = msg.sender.call{value: address(this).balance}(\"\"); "
+    "require(ok); } }"
+)
 
 
 def run_gate(fixture: Path) -> tuple[int, dict]:
@@ -143,6 +173,358 @@ class RightsGateGoodFixture(unittest.TestCase):
         code, payload = run_gate(GOOD)
         self.assertEqual(code, 0, json.dumps(payload, indent=2)[:2000])
         self.assertEqual(payload["reasons"], [])
+
+
+# ---------------------------------------------------------------------------
+# the release manifest
+# ---------------------------------------------------------------------------
+
+def build_fixture(root: Path, open_question_ids: list[str]) -> None:
+    """A small, self-consistent tree with one copied third-party passage.
+
+    ``open_question_ids`` are the cases that need human legal review and
+    that the release manifest declares for this tree; the notice lists
+    exactly those, because the rights gate requires the notice and the
+    manifest to declare the same set.
+    """
+    (root / "derived").mkdir(parents=True, exist_ok=True)
+    (root / "reports").mkdir(parents=True, exist_ok=True)
+    (root / "scripts").mkdir(parents=True, exist_ok=True)
+    # the canonical third-party corpus layer: one code_context snippet
+    (root / "derived" / "records.jsonl").write_text(
+        json.dumps({"id": "2024-01-example/H-01",
+                    "code_context": [{"snippet": COPIED,
+                                      "file": "src/Vault.sol"},
+                                     {"snippet": COPIED_CODE,
+                                      "file": "src/Code.sol"}]},
+                   sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+    # a report that carries the same bytes
+    (root / "reports" / "example.json").write_text(
+        json.dumps({"note": COPIED}, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+    # a report that carries the same third-party SOURCE CODE
+    (root / "reports" / "code.json").write_text(
+        json.dumps({"note": COPIED_CODE}, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+    (root / "scripts" / "run.py").write_text(
+        "print('the authors own this')\n", encoding="utf-8", newline="\n")
+    (root / "LICENSE").write_text(LICENCE_TEXT, encoding="utf-8", newline="\n")
+    (root / "NOTICE.md").write_text(
+        "NOTICE\n\nAttribution is not a redistribution right.\n\n"
+        "- example_public_reports: an upstream report collection\n"
+        "- code4rena/2024-04-noya: an audited protocol repository\n\n"
+        + "".join(OPEN_QUESTION_LINE.format(oid=oid)
+                  for oid in open_question_ids),
+        encoding="utf-8", newline="\n")
+    (root / "publish_manifest.json").write_text(
+        json.dumps({
+            "release_manifest": "RELEASE_MANIFEST.json",
+            "release_manifest_version": "release-1.0",
+            "covers_third_party_material": False,
+            "legal_clearance_claimed": False,
+            "attribution_is_not_a_right_grant": True,
+            "hash_or_url_is_not_a_right_grant": True,
+            "not_a_legal_clearance": True,
+            "licences_of_released_paths": {"code": "MIT", "data": "CC-BY-4.0"},
+        }, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+    # the machine-readable attribution table the notice must match
+    (root / "distribution_v1").mkdir(parents=True, exist_ok=True)
+    (root / "distribution_v1" / "rights_source_registry.json").write_text(
+        json.dumps({
+            "registry_version": "rights-1.0",
+            "data_handling_policy_default": "METADATA_ONLY",
+            "sources": [
+                {"source_id": "example_public_reports",
+                 "legal_clearance": False,
+                 "redistribution_right": "not_documented"},
+                {"source_id": "code4rena/2024-04-noya",
+                 "legal_clearance": False,
+                 "redistribution_right": "not_documented"},
+            ],
+        }, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+
+
+OPEN_QUESTION_LINE = "- {oid}: needs human legal review.\n"
+
+LICENCE_TEXT = """VLUN fixture licence
+
+0. WHAT IS LICENSED HERE AT ALL
+
+This licence covers ONLY the material the VLUN authors authored, and ONLY the
+part of that material that is released. The released set is enumerated, path
+by path, in `RELEASE_MANIFEST.json`. A path that is not listed there with a
+released rights status is not licensed here.
+
+1. THE RELEASED DATA AND DOCUMENTATION - CC BY 4.0
+
+The Creative Commons Attribution 4.0 International licence (CC BY 4.0) covers
+the material the VLUN authors authored inside the released set.
+
+SPDX-License-Identifier: CC-BY-4.0
+
+This grant does not cover copied third-party source text, proof-of-concept
+code, third-party report prose or personal data, wherever it occurs.
+
+2. THE PIPELINE - MIT
+
+Everything under `scripts/` is licensed under the MIT licence.
+
+SPDX-License-Identifier: MIT
+
+3. THIRD-PARTY SOURCE - NOT LICENSED HERE
+
+The dataset quotes source from repositories whose terms this project does not
+own. This licence does not grant you any right to that source, and it cannot.
+
+4. ATTRIBUTION
+
+Attribution is not a redistribution right. Naming an author identifies whose
+work it is; it does not license it.
+"""
+
+
+def generate_manifest(root: Path) -> list[str]:
+    """Run the builder over the tree and return the open questions it declares."""
+    proc = subprocess.run(
+        [sys.executable, str(BUILDER), "--root", str(root)],
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    manifest = json.loads(
+        (root / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
+    return [q["id"] for q in manifest["open_questions"]]
+
+
+def make_tree() -> Path:
+    """Build the fixture tree and generate its release manifest.
+
+    Which open questions the manifest declares is a property of the TREE,
+    not a constant of the fixture.  The builder closes a case once the
+    contradiction it describes is gone: OQ-006 (the blanket-licence case
+    over README.md, docs/DATASHEET.md, CITATION.cff and .zenodo.json) is
+    declared only while one of those four documents really still
+    over-grants, and this fixture contains none of them, so the builder
+    closes it.  The notice therefore lists the ids that the generated
+    manifest declares -- read back from that manifest, then re-generated so
+    the tree and the manifest agree -- instead of a hard-coded range.  A
+    hard-coded list goes stale the moment the builder's rule changes and
+    would then fail the gate for a reason that has nothing to do with what
+    this fixture is testing.
+    """
+    tmp = Path(tempfile.mkdtemp(prefix="vlun-rights-"))
+    build_fixture(tmp, open_question_ids=[])
+    declared = generate_manifest(tmp)
+    assert declared, (
+        "the builder must declare at least one open question for this tree; "
+        "if that rule changed, the fixture's notice has to list something "
+        "for the gate's NOTICE_MISSING_OPEN_QUESTIONS check")
+    build_fixture(tmp, open_question_ids=declared)
+    again = generate_manifest(tmp)
+    assert again == declared, (
+        "the fixture's open questions must converge: "
+        f"{declared} then {again}")
+    return tmp
+
+
+def gate_on(root: Path) -> tuple[int, dict]:
+    proc = subprocess.run(
+        [sys.executable, str(GATE), "--root", str(root), "--partial",
+         "--quiet", "--json"],
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
+    try:
+        payload = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        raise AssertionError(
+            f"gate printed no JSON for {root}\n"
+            f"stdout={proc.stdout[:800]!r}\nstderr={proc.stderr[:900]!r}")
+    return proc.returncode, payload
+
+
+def write_manifest(root: Path, manifest: dict) -> None:
+    (root / "RELEASE_MANIFEST.json").write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
+
+
+class ReleaseManifestGate(unittest.TestCase):
+    """The manifest, the licence and the content must agree."""
+
+    def setUp(self) -> None:
+        self.root = make_tree()
+        self.addCleanup(shutil.rmtree, self.root, True)
+        self.manifest = json.loads(
+            (self.root / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
+
+    def test_the_generated_tree_passes(self) -> None:
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 0, json.dumps(payload, indent=2)[:3000])
+
+    def test_manifest_marks_the_copied_file_as_withheld(self) -> None:
+        self.assertEqual(
+            self.manifest["paths"]["reports/example.json"],
+            "withheld_third_party_no_redistribution_rights")
+
+    def test_manifest_withholds_a_file_that_carries_third_party_code(self) -> None:
+        """A short quotation of third-party code is still a copy of code."""
+        self.assertEqual(
+            self.manifest["paths"]["reports/code.json"],
+            "withheld_third_party_no_redistribution_rights")
+
+    def test_a_notice_that_drops_an_attribution_row_fails(self) -> None:
+        notice = (self.root / "NOTICE.md").read_text(encoding="utf-8")
+        notice = notice.replace(
+            "- code4rena/2024-04-noya: an audited protocol repository\n", "")
+        (self.root / "NOTICE.md").write_text(notice, encoding="utf-8",
+                                            newline="\n")
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("NOTICE_ATTRIBUTION_MISSING", codes(payload))
+
+    def test_a_licence_that_grants_a_withheld_path_fails(self) -> None:
+        licence = (self.root / "LICENSE").read_text(encoding="utf-8")
+        licence = licence.replace(
+            "the material the VLUN authors authored inside the released set.",
+            "the material the VLUN authors authored inside the released set, "
+            "including the released paths under `reports/`.")
+        (self.root / "LICENSE").write_text(licence, encoding="utf-8",
+                                           newline="\n")
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("LICENCE_GRANTS_OVER_WITHHELD_PATH", codes(payload))
+
+    def test_a_status_that_contradicts_the_content_fails(self) -> None:
+        manifest = dict(self.manifest)
+        paths = dict(manifest["paths"])
+        paths["reports/example.json"] = "metadata_only"
+        manifest["paths"] = paths
+        write_manifest(self.root, manifest)
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("RELEASED_PATH_STATUS_CONTRADICTION", codes(payload))
+        self.assertIn("RELEASED_PATH_CONTAINS_COPIED_CONTENT", codes(payload))
+
+    def test_a_released_path_that_is_missing_fails(self) -> None:
+        manifest = dict(self.manifest)
+        paths = dict(manifest["paths"])
+        paths["reports/not-in-the-tree.json"] = "project_own"
+        manifest["paths"] = paths
+        write_manifest(self.root, manifest)
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("RELEASE_PATH_MISSING", codes(payload))
+
+    def test_a_tree_path_the_manifest_does_not_classify_fails(self) -> None:
+        (self.root / "reports" / "unclassified.json").write_text(
+            "{}\n", encoding="utf-8", newline="\n")
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("RELEASE_PATH_UNCLASSIFIED", codes(payload))
+
+    def test_a_manifest_that_is_not_reproducible_fails(self) -> None:
+        manifest = dict(self.manifest)
+        manifest["counts"] = dict(manifest["counts"])
+        manifest["counts"]["released_paths"] = 999
+        write_manifest(self.root, manifest)
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("RELEASE_MANIFEST_NOT_REPRODUCIBLE", codes(payload))
+
+    def test_the_builders_check_mode_fails_on_a_drifted_manifest(self) -> None:
+        manifest = dict(self.manifest)
+        manifest["counts"] = dict(manifest["counts"])
+        manifest["counts"]["released_paths"] = 999
+        write_manifest(self.root, manifest)
+        proc = subprocess.run(
+            [sys.executable, str(BUILDER), "--root", str(self.root), "--check"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn("not reproducible", proc.stdout + proc.stderr)
+
+    def test_the_builders_check_mode_passes_on_the_generated_manifest(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(BUILDER), "--root", str(self.root), "--check"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_a_notice_that_drops_an_open_question_fails(self) -> None:
+        # drop one of the open questions the manifest really declares, so
+        # the fixture stays valid however the builder's rule changes
+        declared = [q["id"] for q in self.manifest["open_questions"]]
+        self.assertTrue(declared, "the fixture must declare an open question")
+        oid = declared[0]
+        notice = (self.root / "NOTICE.md").read_text(encoding="utf-8")
+        line = OPEN_QUESTION_LINE.format(oid=oid)
+        self.assertIn(line, notice, f"{oid} must be listed in the notice")
+        notice = notice.replace(line, "")
+        (self.root / "NOTICE.md").write_text(notice, encoding="utf-8",
+                                             newline="\n")
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("NOTICE_OPEN_QUESTION_MISSING", codes(payload))
+
+    def test_a_licence_that_drops_the_attribution_warning_fails(self) -> None:
+        licence = (self.root / "LICENSE").read_text(encoding="utf-8")
+        licence = licence.replace(
+            "Attribution is not a redistribution right.", "Attribution applies.")
+        (self.root / "LICENSE").write_text(licence, encoding="utf-8",
+                                           newline="\n")
+        code, payload = gate_on(self.root)
+        self.assertEqual(code, 1, json.dumps(payload, indent=2)[:2000])
+        self.assertIn("LICENCE_MISSING_ATTRIBUTION_NOT_A_GRANT", codes(payload))
+
+
+class LiveReleaseManifest(unittest.TestCase):
+    """Read-only checks against the real repository."""
+
+    def test_the_committed_manifest_is_reproducible(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(BUILDER), "--check", "--quiet"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+            cwd=str(ROOT))
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_every_path_carries_a_status_and_a_licence(self) -> None:
+        manifest = json.loads(
+            (ROOT / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
+        for path, status in manifest["paths"].items():
+            self.assertIn(status, manifest["statuses"], path)
+            self.assertTrue((ROOT / path).is_file(), path)
+            if status in ("project_own", "metadata_only", "attribution_required"):
+                self.assertIn(path, manifest["path_licences"], path)
+            else:
+                self.assertNotIn(path, manifest["path_licences"], path)
+
+    def test_the_licence_does_not_grant_a_withheld_path(self) -> None:
+        manifest = json.loads(
+            (ROOT / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
+        released = {p for p, s in manifest["paths"].items()
+                    if s in ("project_own", "metadata_only",
+                             "attribution_required")}
+        for prefix in ("jsonl", "derived", "splits", "benchmark", "training",
+                       "datasets", "experiments", "Vbeta"):
+            covered = {p for p in manifest["paths"]
+                       if p.split("/")[0].startswith(prefix)}
+            self.assertTrue(covered, prefix)
+            self.assertFalse(covered & released,
+                             f"{prefix} must not be inside the released set")
+        licence = (ROOT / "LICENSE").read_text(encoding="utf-8")
+        low = " ".join(licence.lower().split())
+        self.assertIn("not licensed here", low)
+        self.assertIn("does not cover", low)
+
+    def test_the_open_questions_are_published(self) -> None:
+        manifest = json.loads(
+            (ROOT / "RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
+        notice = (ROOT / "NOTICE.md").read_text(encoding="utf-8")
+        questions = manifest["open_questions"]
+        self.assertGreaterEqual(len(questions), 5)
+        for q in questions:
+            self.assertTrue(q["human_review_required"], q["id"])
+            self.assertTrue(q["why_not_mechanically_resolvable"], q["id"])
+            self.assertIn(q["id"], notice, q["id"])
+
 
 
 class RightsGateLiveTree(unittest.TestCase):

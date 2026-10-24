@@ -127,16 +127,31 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
             self.assertEqual(stats["scorable"], _labeled(p), fam)
 
     def test_scopes_reconcile_to_all_families(self):
+        """The four family blocks partition every scored family.
+
+        The report has four blocks -- primary, exploratory, invalid and
+        retired -- plus the all-families continuity twin. The reconciliation
+        is computed from the report's own fields: each block must equal the
+        sum of the families it names, and the four blocks must sum to the
+        twin. No number is typed in, so the check follows the data.
+        """
+        blocks = (("micro", "families"),
+                  ("micro_exploratory", "families_exploratory"),
+                  ("micro_invalid", "families_invalid"),
+                  ("micro_retired", "families_retired"))
         for n in ("majority", "random_seed7", "frequency_seed7",
                   "first_published", "majority_published", "retrieval"):
             rep = json.loads((BASE / f"baseline_{n}.json")
                              .read_text(encoding="utf-8"))
-            parts = (rep["micro"]["scorable"]
-                     + rep["micro_exploratory"]["scorable"]
-                     + rep["micro_retired"]["scorable"])
+            for micro, fams in blocks:
+                self.assertEqual(
+                    rep[micro]["scorable"],
+                    sum(s["scorable"] for s in rep[fams].values()),
+                    f"baseline_{n}.json: {micro} != the sum of {fams}")
+            parts = sum(rep[micro]["scorable"] for micro, _f in blocks)
             self.assertEqual(parts, rep["micro_all_families"]["scorable"],
-                             f"baseline_{n}.json: headline + exploratory + "
-                             f"retired != all families")
+                             f"baseline_{n}.json: primary + exploratory + "
+                             f"invalid + retired != all families")
 
 
 if __name__ == "__main__":

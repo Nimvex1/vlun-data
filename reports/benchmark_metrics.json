@@ -1,7 +1,1163 @@
 {
-  "generated_by": "scripts/generate_reports.py",
-  "markdown_lines": 65,
-  "note": "see reports/benchmark_metrics.md; metrics that need a predictor are reported as not measurable rather than estimated",
+  "baselines": {
+    "first_published": {
+      "fitted_on": "train",
+      "kind": "first_published",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [],
+          "fitted_on": "input (no label is read)",
+          "test_accuracy": null,
+          "test_correct": 0,
+          "test_coverage": 0.0,
+          "test_macro_f1": null,
+          "test_only_labels": [],
+          "test_predicted": 0,
+          "test_rows": 147,
+          "train_rows": 0
+        }
+      },
+      "seed": 7
+    },
+    "frequency": {
+      "fitted_on": "train",
+      "kind": "frequency",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [
+            "no_confirmed_vulnerability",
+            "vulnerable"
+          ],
+          "fitted_on": "train",
+          "test_accuracy": 0.4965986394557823,
+          "test_correct": 73,
+          "test_coverage": 1.0,
+          "test_macro_f1": 0.46988304093567257,
+          "test_only_labels": [],
+          "test_predicted": 147,
+          "test_rows": 147,
+          "train_rows": 344
+        }
+      },
+      "seed": 7
+    },
+    "majority": {
+      "fitted_on": "train",
+      "kind": "majority",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [
+            "no_confirmed_vulnerability",
+            "vulnerable"
+          ],
+          "fitted_on": "train",
+          "test_accuracy": 0.5510204081632653,
+          "test_correct": 81,
+          "test_coverage": 1.0,
+          "test_macro_f1": 0.35526315789473684,
+          "test_only_labels": [],
+          "test_predicted": 147,
+          "test_rows": 147,
+          "train_rows": 344
+        }
+      },
+      "seed": 7
+    },
+    "majority_published": {
+      "fitted_on": "train",
+      "kind": "majority_published",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [],
+          "fitted_on": "input (no label is read)",
+          "test_accuracy": null,
+          "test_correct": 0,
+          "test_coverage": 0.0,
+          "test_macro_f1": null,
+          "test_only_labels": [],
+          "test_predicted": 0,
+          "test_rows": 147,
+          "train_rows": 0
+        }
+      },
+      "seed": 7
+    },
+    "random": {
+      "fitted_on": "train",
+      "kind": "random",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [
+            "no_confirmed_vulnerability",
+            "vulnerable"
+          ],
+          "fitted_on": "train",
+          "test_accuracy": 0.5238095238095238,
+          "test_correct": 77,
+          "test_coverage": 1.0,
+          "test_macro_f1": 0.5187991021324354,
+          "test_only_labels": [],
+          "test_predicted": 147,
+          "test_rows": 147,
+          "train_rows": 344
+        }
+      },
+      "seed": 7
+    },
+    "retrieval": {
+      "fitted_on": "train",
+      "kind": "retrieval",
+      "primary": {
+        "A_vulnerability_detection.jsonl": {
+          "fitted_label_space": [
+            "no_confirmed_vulnerability",
+            "vulnerable"
+          ],
+          "fitted_on": "train",
+          "test_accuracy": 0.2925170068027211,
+          "test_correct": 43,
+          "test_coverage": 1.0,
+          "test_macro_f1": 0.2850729517396184,
+          "test_only_labels": [],
+          "test_predicted": 147,
+          "test_rows": 147,
+          "train_rows": 344
+        }
+      },
+      "seed": 7
+    }
+  },
+  "family_floors": {
+    "A_vulnerability_detection.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "no_confirmed_vulnerability": 526,
+        "vulnerable": 194
+      },
+      "majority_fraction": 0.7306,
+      "n_labels": 2,
+      "rows_scorable": 720,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.551,
+        "best_train_only_baseline": "majority_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 147,
+        "train_only_baselines": {
+          "frequency_from_train": 0.5102,
+          "input_retrieval": 0.3469,
+          "majority_from_train": 0.551,
+          "random_from_train_space": 0.551,
+          "source_only_lookup": 0.551,
+          "title_retrieval": 0.551
+        }
+      },
+      "status": "PRIMARY",
+      "test_only_labels": [],
+      "test_rows": 147,
+      "train_only_majority_floor_on_test": 0.5510204081632653,
+      "train_rows": 344
+    },
+    "B_root_cause_reasoning.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "evaluable": false,
+      "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
+      "label_distribution": {
+        "invariant_stated": 228
+      },
+      "majority_fraction": 1.0,
+      "n_labels": 1,
+      "rows_scorable": 228,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "frequency_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 59,
+        "train_only_baselines": {
+          "frequency_from_train": 1.0,
+          "input_retrieval": 1.0,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 1.0,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 59,
+      "train_only_majority_floor_on_test": null,
+      "train_rows": 104
+    },
+    "C_attacker_reasoning.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "honest_but_misconfigured": 3,
+        "malicious_dependency": 11,
+        "privileged": 133,
+        "unprivileged": 143
+      },
+      "majority_fraction": 0.4931,
+      "n_labels": 4,
+      "rows_scorable": 290,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.5641,
+        "best_train_only_baseline": "input_retrieval",
+        "fitted_on": "train",
+        "heldout_rows": 39,
+        "train_only_baselines": {
+          "frequency_from_train": 0.3846,
+          "input_retrieval": 0.5641,
+          "majority_from_train": 0.3333,
+          "random_from_train_space": 0.1282,
+          "source_only_lookup": 0.3333,
+          "title_retrieval": 0.3333
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 39,
+      "train_only_majority_floor_on_test": 0.3333333333333333,
+      "train_rows": 132
+    },
+    "E_exploit_verification.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "fails": 2,
+        "passes": 5
+      },
+      "majority_fraction": 0.7143,
+      "n_labels": 2,
+      "rows_scorable": 7,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "frequency_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 1,
+        "train_only_baselines": {
+          "frequency_from_train": 1.0,
+          "input_retrieval": 0.0,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 1.0,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 1,
+      "train_only_majority_floor_on_test": 1.0,
+      "train_rows": 6
+    },
+    "F_false_positive_rejection.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "evaluable": false,
+      "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
+      "label_distribution": {
+        "invalid": 17
+      },
+      "majority_fraction": 1.0,
+      "n_labels": 1,
+      "rows_scorable": 17,
+      "shortcut_floor": {
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 0,
+      "train_only_majority_floor_on_test": null,
+      "train_rows": 16
+    },
+    "G_patch_verification.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "evaluable": false,
+      "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
+      "label_distribution": {
+        "effective": 5
+      },
+      "majority_fraction": 1.0,
+      "n_labels": 1,
+      "rows_scorable": 5,
+      "shortcut_floor": {
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 0,
+      "train_only_majority_floor_on_test": null,
+      "train_rows": 0
+    },
+    "I_verified_non_exploit.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "evaluable": false,
+      "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
+      "label_distribution": {
+        "exploitable": 1
+      },
+      "majority_fraction": 1.0,
+      "n_labels": 1,
+      "rows_scorable": 1,
+      "shortcut_floor": {
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 0,
+      "train_only_majority_floor_on_test": null,
+      "train_rows": 0
+    },
+    "J_verified_patch.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "evaluable": false,
+      "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
+      "label_distribution": {
+        "effective": 5
+      },
+      "majority_fraction": 1.0,
+      "n_labels": 1,
+      "rows_scorable": 5,
+      "shortcut_floor": {
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 0,
+      "train_only_majority_floor_on_test": null,
+      "train_rows": 0
+    },
+    "K_language_ecosystem_routing.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "cairo": 8,
+        "move": 15,
+        "rust": 18,
+        "solidity": 45,
+        "vyper": 51
+      },
+      "majority_fraction": 0.3723,
+      "n_labels": 5,
+      "rows_scorable": 137,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "source_only_lookup",
+        "fitted_on": "train",
+        "heldout_rows": 31,
+        "shortcut_dominance_reason": "a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 0.3871,
+          "input_retrieval": 0.8387,
+          "majority_from_train": 0.1935,
+          "random_from_train_space": 0.1613,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 0.1935
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 31,
+      "train_only_majority_floor_on_test": 0.1935483870967742,
+      "train_rows": 76
+    },
+    "L_severity_reconciliation.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "critical": 16,
+        "high": 40,
+        "informational": 4,
+        "low": 24,
+        "medium": 41,
+        "unknown": 3
+      },
+      "majority_fraction": 0.3203,
+      "n_labels": 6,
+      "rows_scorable": 128,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.5172,
+        "best_train_only_baseline": "input_retrieval",
+        "fitted_on": "train",
+        "heldout_rows": 29,
+        "train_only_baselines": {
+          "frequency_from_train": 0.2414,
+          "input_retrieval": 0.5172,
+          "majority_from_train": 0.1034,
+          "random_from_train_space": 0.2414,
+          "source_only_lookup": 0.3103,
+          "title_retrieval": 0.1034
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 29,
+      "train_only_majority_floor_on_test": 0.10344827586206896,
+      "train_rows": 72
+    },
+    "M_experiment_level_classification.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "l3": 1,
+        "l5": 35,
+        "l6": 1
+      },
+      "majority_fraction": 0.9459,
+      "n_labels": 3,
+      "rows_scorable": 37,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "frequency_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 1,
+        "train_only_baselines": {
+          "frequency_from_train": 1.0,
+          "input_retrieval": 1.0,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 1.0,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "EXPLORATORY",
+      "test_only_labels": [],
+      "test_rows": 1,
+      "train_only_majority_floor_on_test": 1.0,
+      "train_rows": 31
+    },
+    "N_attacker_identity_extraction.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "false": 4,
+        "true": 10
+      },
+      "majority_fraction": 0.7143,
+      "n_labels": 2,
+      "rows_scorable": 14,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "majority_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 3,
+        "train_only_baselines": {
+          "frequency_from_train": 0.6667,
+          "input_retrieval": 0.6667,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 0.6667,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 3,
+      "train_only_majority_floor_on_test": 1.0,
+      "train_rows": 10
+    },
+    "O_record_class_and_scope.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "advisory": 51,
+        "audit_finding": 39,
+        "incident": 2,
+        "judged": 8,
+        "negative_control": 1,
+        "observation": 2,
+        "out_of_scope": 1,
+        "overstated_by_the_report": 1,
+        "scope_risk": 1,
+        "vulnerability": 31
+      },
+      "majority_fraction": 0.3723,
+      "n_labels": 10,
+      "rows_scorable": 137,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "source_only_lookup",
+        "fitted_on": "train",
+        "heldout_rows": 31,
+        "shortcut_dominance_reason": "a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 0.2903,
+          "input_retrieval": 0.9355,
+          "majority_from_train": 0.1935,
+          "random_from_train_space": 0.2258,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 0.1935
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 31,
+      "train_only_majority_floor_on_test": 0.1935483870967742,
+      "train_rows": 76
+    },
+    "P_provenance_tier_and_rights.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "0": 79,
+        "1": 10,
+        "3": 48
+      },
+      "majority_fraction": 0.5766,
+      "n_labels": 3,
+      "rows_scorable": 137,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.9032,
+        "best_train_only_baseline": "source_only_lookup",
+        "fitted_on": "train",
+        "heldout_rows": 31,
+        "shortcut_dominance_reason": "a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 0.4839,
+          "input_retrieval": 0.871,
+          "majority_from_train": 0.2903,
+          "random_from_train_space": 0.5161,
+          "source_only_lookup": 0.9032,
+          "title_retrieval": 0.2903
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 31,
+      "train_only_majority_floor_on_test": 0.2903225806451613,
+      "train_rows": 76
+    },
+    "v3_R_source_tier_routing.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "0": 878,
+        "1": 3517,
+        "2": 1072
+      },
+      "majority_fraction": 0.6433,
+      "n_labels": 3,
+      "rows_scorable": 5467,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.1086,
+        "best_train_only_baseline": "input_retrieval",
+        "fitted_on": "train",
+        "heldout_rows": 985,
+        "train_only_baselines": {
+          "frequency_from_train": 0.0274,
+          "input_retrieval": 0.1086,
+          "majority_from_train": 0.0,
+          "random_from_train_space": 0.0548,
+          "source_only_lookup": 0.0,
+          "title_retrieval": 0.0244
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [
+        "0"
+      ],
+      "test_rows": 985,
+      "train_only_majority_floor_on_test": 0.0,
+      "train_rows": 4482
+    },
+    "v3_S_contest_outcome.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "finding": 1056,
+        "negative": 16
+      },
+      "majority_fraction": 0.9851,
+      "n_labels": 2,
+      "rows_scorable": 1072,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "frequency_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 107,
+        "shortcut_dominance_reason": "a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 1.0,
+          "input_retrieval": 1.0,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 1.0,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 107,
+      "train_only_majority_floor_on_test": 1.0,
+      "train_rows": 611
+    },
+    "v3_T_taxonomy_explicit.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "access control": 1,
+        "business logic": 588
+      },
+      "majority_fraction": 0.9983,
+      "n_labels": 2,
+      "rows_scorable": 589,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 1.0,
+        "best_train_only_baseline": "frequency_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 2,
+        "train_only_baselines": {
+          "frequency_from_train": 1.0,
+          "input_retrieval": 1.0,
+          "majority_from_train": 1.0,
+          "random_from_train_space": 0.5,
+          "source_only_lookup": 1.0,
+          "title_retrieval": 1.0
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 2,
+      "train_only_majority_floor_on_test": 1.0,
+      "train_rows": 587
+    },
+    "vbeta_U_language_routing.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "cairo": 19,
+        "go": 38,
+        "move": 20,
+        "rust": 55,
+        "solidity": 6063,
+        "vyper": 24
+      },
+      "majority_fraction": 0.9749,
+      "n_labels": 6,
+      "rows_scorable": 6219,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.9834,
+        "best_train_only_baseline": "majority_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 5596,
+        "shortcut_dominance_reason": "a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 0.9076,
+          "input_retrieval": 0.8999,
+          "majority_from_train": 0.9834,
+          "random_from_train_space": 0.1596,
+          "source_only_lookup": 0.9834,
+          "title_retrieval": 0.8987
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 5596,
+      "train_only_majority_floor_on_test": 0.9833809864188706,
+      "train_rows": 589
+    },
+    "vbeta_V_source_tier_routing.jsonl": {
+      "evaluable": true,
+      "label_distribution": {
+        "1": 35,
+        "2": 6900
+      },
+      "majority_fraction": 0.995,
+      "n_labels": 2,
+      "rows_scorable": 6935,
+      "shortcut_floor": {
+        "available": true,
+        "best_train_only_accuracy": 0.9998,
+        "best_train_only_baseline": "majority_from_train",
+        "fitted_on": "train",
+        "heldout_rows": 5668,
+        "shortcut_dominance_reason": "a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
+        "shortcut_dominated": true,
+        "train_only_baselines": {
+          "frequency_from_train": 0.9889,
+          "input_retrieval": 0.9926,
+          "majority_from_train": 0.9998,
+          "random_from_train_space": 0.4875,
+          "source_only_lookup": 0.9998,
+          "title_retrieval": 0.9894
+        }
+      },
+      "status": "INVALID",
+      "test_only_labels": [],
+      "test_rows": 5668,
+      "train_only_majority_floor_on_test": 0.9998235709244884,
+      "train_rows": 683
+    }
+  },
+  "family_status": {
+    "A_vulnerability_detection.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
+      "retired": false,
+      "rows_scorable": 720,
+      "status": "PRIMARY",
+      "validity_flags": []
+    },
+    "B_root_cause_reasoning.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "n_labels": 1,
+      "reason": "demoted: single_label: every scorable row carries the label 'invariant_stated'",
+      "retired": true,
+      "rows_scorable": 228,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "single_label"
+      ]
+    },
+    "C_attacker_reasoning.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 4,
+      "reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40)",
+      "retired": false,
+      "rows_scorable": 290,
+      "status": "INVALID",
+      "validity_flags": [
+        "split_composition_drift"
+      ]
+    },
+    "D_exploit_construction.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "generative task, needs a judge rather than string match",
+      "n_labels": 0,
+      "reason": "generative task, needs a judge rather than string match",
+      "retired": false,
+      "rows_scorable": 0,
+      "status": "NOT_SCORABLE",
+      "validity_flags": []
+    },
+    "E_exploit_verification.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30)",
+      "retired": true,
+      "rows_scorable": 7,
+      "status": "INVALID",
+      "validity_flags": [
+        "too_small_to_score",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "F_false_positive_rejection.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "n_labels": 1,
+      "reason": "demoted: single_label: every scorable row carries the label 'invalid'; holdout_too_small: 0 held-out rows (< 30)",
+      "retired": false,
+      "rows_scorable": 17,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "Fa_rejection_evidence_axis_vector.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
+      "n_labels": 0,
+      "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
+      "retired": false,
+      "rows_scorable": 0,
+      "status": "NOT_SCORABLE",
+      "validity_flags": []
+    },
+    "Fb_duplicate_radar_pair.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "n_labels": 0,
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "retired": false,
+      "rows_scorable": 0,
+      "status": "NOT_SCORABLE",
+      "validity_flags": []
+    },
+    "G_patch_verification.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "n_labels": 1,
+      "reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
+      "retired": false,
+      "rows_scorable": 5,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "H_verified_exploit.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "descriptive reference answers, no scalar label",
+      "n_labels": 0,
+      "reason": "descriptive reference answers, no scalar label",
+      "retired": false,
+      "rows_scorable": 0,
+      "status": "NOT_SCORABLE",
+      "validity_flags": []
+    },
+    "I_verified_non_exploit.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "n_labels": 1,
+      "reason": "demoted: single_label: every scorable row carries the label 'exploitable'; holdout_too_small: 0 held-out rows (< 30)",
+      "retired": false,
+      "rows_scorable": 1,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "J_verified_patch.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "n_labels": 1,
+      "reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
+      "retired": false,
+      "rows_scorable": 5,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "K_language_ecosystem_routing.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 5,
+      "reason": "invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 76 of 137 rows (rate 0.5547); group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+      "retired": true,
+      "rows_scorable": 137,
+      "status": "INVALID",
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "L_severity_reconciliation.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 6,
+      "reason": "invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 94 of 128 rows (rate 0.7344); group_overlap: 29 of 29 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.5316 (>= 0.40); holdout_too_small: 29 held-out rows (< 30)",
+      "retired": true,
+      "rows_scorable": 128,
+      "status": "INVALID",
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "M_experiment_level_classification.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 3,
+      "reason": "demoted: holdout_too_small: 1 held-out rows (< 30)",
+      "retired": true,
+      "rows_scorable": 37,
+      "status": "EXPLORATORY",
+      "validity_flags": [
+        "holdout_too_small"
+      ]
+    },
+    "N_attacker_identity_extraction.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "invalid as evaluation evidence: group_overlap: 2 of 3 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.6 (>= 0.40); too_small_to_score: 14 scorable rows (< 30); holdout_too_small: 3 held-out rows (< 30)",
+      "retired": true,
+      "rows_scorable": 14,
+      "status": "INVALID",
+      "validity_flags": [
+        "too_small_to_score",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
+    },
+    "O_record_class_and_scope.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 10,
+      "reason": "invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+      "retired": true,
+      "rows_scorable": 137,
+      "status": "INVALID",
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "P_provenance_tier_and_rights.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 3,
+      "reason": "invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.4864 (>= 0.40); a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9",
+      "retired": true,
+      "rows_scorable": 137,
+      "status": "INVALID",
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
+    },
+    "Q_evidence_type_and_quality_rubric.jsonl": {
+      "evaluable": false,
+      "evaluable_reason": "judge-graded rubric dict",
+      "n_labels": 0,
+      "reason": "judge-graded rubric dict",
+      "retired": false,
+      "rows_scorable": 0,
+      "status": "NOT_SCORABLE",
+      "validity_flags": []
+    },
+    "v3_R_source_tier_routing.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 3,
+      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.7827 (>= 0.40)",
+      "retired": false,
+      "rows_scorable": 5467,
+      "status": "INVALID",
+      "validity_flags": [
+        "held_out_labels_unseen_in_train",
+        "split_composition_drift"
+      ]
+    },
+    "v3_S_contest_outcome.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9851 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+      "retired": true,
+      "rows_scorable": 1072,
+      "status": "INVALID",
+      "validity_flags": [
+        "saturated"
+      ]
+    },
+    "v3_T_taxonomy_explicit.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "invalid as evaluation evidence: saturated: majority class 'business logic' covers 0.9983 of the rows; near_duplicate_leak: 2 of 2 sampled held-out rows are near-duplicates of a train row; holdout_too_small: 2 held-out rows (< 30)",
+      "retired": true,
+      "rows_scorable": 589,
+      "status": "INVALID",
+      "validity_flags": [
+        "saturated",
+        "near_duplicate_leak",
+        "holdout_too_small"
+      ]
+    },
+    "vbeta_U_language_routing.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 6,
+      "reason": "invalid as evaluation evidence: saturated: majority class 'solidity' covers 0.9749 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
+      "retired": false,
+      "rows_scorable": 6219,
+      "status": "INVALID",
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
+    },
+    "vbeta_V_source_tier_routing.jsonl": {
+      "evaluable": true,
+      "evaluable_reason": null,
+      "n_labels": 2,
+      "reason": "invalid as evaluation evidence: saturated: majority class '2' covers 0.995 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
+      "retired": false,
+      "rows_scorable": 6935,
+      "status": "INVALID",
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
+    }
+  },
+  "generated_by": "scripts/score_benchmark.py --build-metrics",
+  "known_limitations": [
+    "Task D supplies 720 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.",
+    "Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.",
+    "Task G is labelled on its 5 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 33 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.",
+    "Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
+    "Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.",
+    "A family whose scorable rows carry one observed label is not evaluable for accuracy: its accuracy is null with the reason `single_label_not_evaluable`, in every table, and a model beating it would mean nothing."
+  ],
+  "note": "family status, denominators and baseline floors are computed by scripts/benchmark_status.py and scripts/score_benchmark.py; metrics that need a predictor are reported as not measurable rather than estimated",
+  "primary_metric": {
+    "accuracy": null,
+    "accuracy_reason": "not measurable: no predictor has been run against this benchmark",
+    "by_split": {
+      "test": 147,
+      "train": 344,
+      "validation": 229
+    },
+    "denominator": 720,
+    "families": [
+      "A_vulnerability_detection.jsonl"
+    ],
+    "label_distribution": {
+      "no_confirmed_vulnerability": 526,
+      "vulnerable": 194
+    },
+    "macro_f1": null,
+    "macro_f1_reason": "not measurable: no predictor has been run against this benchmark",
+    "scorable_rows": 720,
+    "test_label_distribution": {
+      "no_confirmed_vulnerability": 81,
+      "vulnerable": 66
+    },
+    "test_rows": 147
+  },
+  "retracted_claims": [
+    {
+      "claim": "the headline micro-average covers 19,631 scorable rows across 5 families",
+      "reason": "the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination",
+      "replacement": "the headline micro-average covers 720 scorable rows across 1 family (A_vulnerability_detection.jsonl)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "families F, G, I and J score 1.000 (majority accuracy 1.000 in the coverage table)",
+      "reason": "every scorable row of those families carries one label, so the published 1.000 was the label distribution, not predictive performance",
+      "replacement": "accuracy is null with the reason 'single_label_not_evaluable'; their row counts and label distributions are kept",
+      "status": "DOWNGRADED"
+    },
+    {
+      "claim": "the published majority baseline is a test-set floor",
+      "reason": "the old baselines were fitted over every labelled row of a family, held-out rows included, so the predictor had already seen the answers it was scored against",
+      "replacement": "the baselines are fitted on train rows only and applied to the held-out rows; the floors are reported per family with the rows they were fitted on",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "a family is in the headline because its name is not on a retirement list",
+      "reason": "a hard-coded list cannot justify an evaluation claim",
+      "replacement": "the status of every family is computed at run time from the independent audit's own measurements; an uncovered family file defaults to UNKNOWN and is never primary",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "C_attacker_reasoning.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "E_exploit_verification.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "K_language_ecosystem_routing.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 76 of 137 rows (rate 0.5547); group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "L_severity_reconciliation.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 94 of 128 rows (rate 0.7344); group_overlap: 29 of 29 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.5316 (>= 0.40); holdout_too_small: 29 held-out rows (< 30)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "N_attacker_identity_extraction.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: group_overlap: 2 of 3 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.6 (>= 0.40); too_small_to_score: 14 scorable rows (< 30); holdout_too_small: 3 held-out rows (< 30)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "O_record_class_and_scope.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "P_provenance_tier_and_rights.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.4864 (>= 0.40); a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "v3_R_source_tier_routing.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.7827 (>= 0.40)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "v3_S_contest_outcome.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9851 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "v3_T_taxonomy_explicit.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: saturated: majority class 'business logic' covers 0.9983 of the rows; near_duplicate_leak: 2 of 2 sampled held-out rows are near-duplicates of a train row; holdout_too_small: 2 held-out rows (< 30)",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "vbeta_U_language_routing.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: saturated: majority class 'solidity' covers 0.9749 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "vbeta_V_source_tier_routing.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: saturated: majority class '2' covers 0.995 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
+      "status": "RETRACTED"
+    }
+  ],
+  "status_rules": {
+    "exploratory": "shipped and scored, but demoted: too small, holdout too small, or a single observed label (accuracy is null with a reason)",
+    "invalid": "a validity flag makes the family unusable as evaluation evidence: answer_literal_leak, group_overlap, held_out_labels_unseen_in_train, near_duplicate_leak, record_id_overlap, saturated, shared_code, split_composition_drift",
+    "not_scorable": "no exactly-matchable scalar answer key",
+    "primary": "no validity flag, at least 100 scorable rows, at least 2 observed labels, and no train-only shortcut at or above 0.9 on a holdout of at least 30 rows",
+    "shortcut_baselines": [
+      "majority_from_train",
+      "random_from_train_space",
+      "frequency_from_train",
+      "title_retrieval",
+      "input_retrieval",
+      "source_only_lookup"
+    ],
+    "shortcut_note": "a baseline fitted on the held-out rows measures nothing, so only train-fitted baselines count as floors",
+    "unknown": "a family file on disk that no rule covers: fail-closed, never primary"
+  },
+  "status_thresholds": {
+    "min_labels": 2,
+    "min_primary_rows": 100,
+    "min_scorable_rows": 30,
+    "min_shortcut_holdout_rows": 30,
+    "shortcut_dominance_accuracy": 0.9
+  },
   "task_coverage": {
     "A_vulnerability_detection": {
       "answer_key_evidence_levels": {
@@ -13,14 +1169,19 @@
         "validation": 229
       },
       "duplicate_rows_dropped": 193,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/A_vulnerability_detection.jsonl",
       "labeled": 720,
       "partial": 0,
+      "retired": false,
       "scorable": 720,
-      "status": "headline",
+      "status": "PRIMARY",
+      "status_reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
       "tasks": 720,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": []
     },
     "B_root_cause_reasoning": {
       "answer_key_evidence_levels": {
@@ -33,17 +1194,24 @@
         "validation": 229
       },
       "duplicate_rows_dropped": 193,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
       "judge_graded_rows": 492,
       "labeled": 228,
       "partial": 0,
+      "retired": true,
       "scorable": 228,
       "scoring_note": "scores invariant_stated only; root_cause and violated_invariant are judge-graded",
       "scoring_status": "partial",
-      "status": "retired",
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: single_label: every scorable row carries the label 'invariant_stated'",
       "tasks": 720,
       "unlabeled": 492,
-      "unscorable": 492
+      "unscorable": 492,
+      "validity_flags": [
+        "single_label"
+      ]
     },
     "C_attacker_reasoning": {
       "answer_key_evidence_levels": {
@@ -55,14 +1223,21 @@
         "validation": 229
       },
       "duplicate_rows_dropped": 193,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/C_attacker_reasoning.jsonl",
       "labeled": 290,
       "partial": 0,
+      "retired": false,
       "scorable": 290,
-      "status": "headline",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40)",
       "tasks": 720,
       "unlabeled": 430,
-      "unscorable": 430
+      "unscorable": 430,
+      "validity_flags": [
+        "split_composition_drift"
+      ]
     },
     "D_exploit_construction": {
       "answer_key_evidence_levels": {
@@ -74,17 +1249,22 @@
         "validation": 229
       },
       "duplicate_rows_dropped": 193,
+      "evaluable": false,
+      "evaluable_reason": "generative task, needs a judge rather than string match",
       "file": "benchmark/D_exploit_construction.jsonl",
       "judge_graded_rows": 374,
       "labeled": 346,
       "partial": 0,
+      "retired": false,
       "scorable": 346,
       "scoring_note": "generative: write the PoC test, needs a judge",
       "scoring_status": "partial",
-      "status": "headline",
+      "status": "NOT_SCORABLE",
+      "status_reason": "generative task, needs a judge rather than string match",
       "tasks": 720,
       "unlabeled": 374,
-      "unscorable": 374
+      "unscorable": 374,
+      "validity_flags": []
     },
     "E_exploit_verification": {
       "answer_key_evidence_levels": {
@@ -96,14 +1276,23 @@
         "validation": 229
       },
       "duplicate_rows_dropped": 193,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/E_exploit_verification.jsonl",
       "labeled": 7,
       "partial": 0,
+      "retired": true,
       "scorable": 7,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30)",
       "tasks": 720,
       "unlabeled": 713,
-      "unscorable": 713
+      "unscorable": 713,
+      "validity_flags": [
+        "too_small_to_score",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
     },
     "F_false_positive_rejection": {
       "answer_key_evidence_levels": {
@@ -115,36 +1304,106 @@
         "validation": 188
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/F_false_positive_rejection.jsonl",
       "labeled": 17,
       "partial": 0,
+      "retired": false,
       "scorable": 17,
-      "status": "headline",
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: single_label: every scorable row carries the label 'invalid'; holdout_too_small: 0 held-out rows (< 30)",
       "tasks": 458,
       "unlabeled": 441,
-      "unscorable": 441
+      "unscorable": 441,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
+    },
+    "Fa_rejection_evidence_axis_vector": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 458
+      },
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "duplicate_rows_dropped": 0,
+      "evaluable": false,
+      "evaluable_reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
+      "file": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
+      "labeled": 292,
+      "partial": 166,
+      "retired": false,
+      "scorable": 292,
+      "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
+      "scoring_status": "partial",
+      "status": "NOT_SCORABLE",
+      "status_reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
+      "tasks": 458,
+      "unlabeled": 0,
+      "unscorable": 166,
+      "validity_flags": []
+    },
+    "Fb_duplicate_radar_pair": {
+      "answer_key_evidence_levels": {
+        "derived_fact": 258,
+        "externally_attributed": 184,
+        "unknown": 111
+      },
+      "by_split": {
+        "test": 31,
+        "train": 323,
+        "validation": 199
+      },
+      "duplicate_rows_dropped": 0,
+      "evaluable": false,
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
+      "labeled": 553,
+      "partial": 0,
+      "retired": false,
+      "scorable": 553,
+      "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
+      "scoring_status": "scorable",
+      "status": "NOT_SCORABLE",
+      "status_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "tasks": 553,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": []
     },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7,
-        "not_recorded": 31
+        "experimentally_verified": 5,
+        "not_recorded": 33
       },
       "by_split": {
         "test": 20,
         "validation": 18
       },
       "duplicate_rows_dropped": 66,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/G_patch_verification.jsonl",
-      "judge_graded_rows": 31,
-      "labeled": 7,
+      "judge_graded_rows": 33,
+      "labeled": 5,
       "partial": 0,
-      "scorable": 7,
-      "scoring_note": "scores the L6-verified subset; the 31 not_testable rows have no answer key",
+      "retired": false,
+      "scorable": 5,
+      "scoring_note": "scores the 5 L6-verified patches; the 33 rows without an answer key are 31 not_testable, 2 not_verified_two_revision",
       "scoring_status": "partial",
-      "status": "headline",
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
       "tasks": 38,
-      "unlabeled": 31,
-      "unscorable": 31
+      "unlabeled": 33,
+      "unscorable": 33,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
     },
     "H_verified_exploit": {
       "answer_key_evidence_levels": {
@@ -154,17 +1413,22 @@
         "validation": 7
       },
       "duplicate_rows_dropped": 12,
+      "evaluable": false,
+      "evaluable_reason": "descriptive reference answers, no scalar label",
       "file": "benchmark/H_verified_exploit.jsonl",
       "judge_graded_rows": 0,
       "labeled": 7,
       "partial": 0,
+      "retired": false,
       "scorable": 7,
       "scoring_note": "descriptive reference, no label field",
       "scoring_status": "scorable",
-      "status": "headline",
+      "status": "NOT_SCORABLE",
+      "status_reason": "descriptive reference answers, no scalar label",
       "tasks": 7,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": []
     },
     "I_verified_non_exploit": {
       "answer_key_evidence_levels": {
@@ -175,31 +1439,47 @@
         "validation": 3
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/I_verified_non_exploit.jsonl",
       "labeled": 1,
       "partial": 0,
+      "retired": false,
       "scorable": 1,
-      "status": "headline",
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: single_label: every scorable row carries the label 'exploitable'; holdout_too_small: 0 held-out rows (< 30)",
       "tasks": 3,
       "unlabeled": 0,
-      "unscorable": 2
+      "unscorable": 2,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7
+        "experimentally_verified": 5
       },
       "by_split": {
-        "validation": 7
+        "validation": 5
       },
-      "duplicate_rows_dropped": 12,
+      "duplicate_rows_dropped": 9,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 7,
+      "labeled": 5,
       "partial": 0,
-      "scorable": 7,
-      "status": "headline",
-      "tasks": 7,
+      "retired": false,
+      "scorable": 5,
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
+      "tasks": 5,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": [
+        "single_label",
+        "holdout_too_small"
+      ]
     },
     "K_language_ecosystem_routing": {
       "answer_key_evidence_levels": {
@@ -219,6 +1499,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
       "labeled": 137,
       "languages_allowed": [
@@ -231,11 +1513,18 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "which language and which ecosystem does this finding concern?",
+      "retired": true,
       "scorable": 137,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 76 of 137 rows (rate 0.5547); group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
       "tasks": 137,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "split_composition_drift"
+      ]
     },
     "L_severity_reconciliation": {
       "answer_key_evidence_levels": {
@@ -255,6 +1544,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/L_severity_reconciliation.jsonl",
       "labeled": 128,
       "languages_allowed": [
@@ -267,11 +1558,19 @@
       "layer": "v2.2",
       "partial": 6,
       "question": "what severity do the publishers agree on, and who says so?",
+      "retired": true,
       "scorable": 128,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 94 of 128 rows (rate 0.7344); group_overlap: 29 of 29 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.5316 (>= 0.40); holdout_too_small: 29 held-out rows (< 30)",
       "tasks": 137,
       "unlabeled": 3,
-      "unscorable": 9
+      "unscorable": 9,
+      "validity_flags": [
+        "answer_literal_leak",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
     },
     "M_experiment_level_classification": {
       "answer_key_evidence_levels": {
@@ -288,6 +1587,8 @@
         "validation": 5
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/M_experiment_level_classification.jsonl",
       "labeled": 37,
       "languages_allowed": [
@@ -300,11 +1601,16 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "which L0-L6 level and which outcome does this executed run earn?",
+      "retired": true,
       "scorable": 37,
-      "status": "retired",
+      "status": "EXPLORATORY",
+      "status_reason": "demoted: holdout_too_small: 1 held-out rows (< 30)",
       "tasks": 37,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": [
+        "holdout_too_small"
+      ]
     },
     "N_attacker_identity_extraction": {
       "answer_key_evidence_levels": {
@@ -324,6 +1630,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
       "labeled": 14,
       "languages_allowed": [
@@ -336,11 +1644,19 @@
       "layer": "v2.2",
       "partial": 10,
       "question": "who does a source sentence say can act, and what is the sentence?",
+      "retired": true,
       "scorable": 14,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: group_overlap: 2 of 3 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.6 (>= 0.40); too_small_to_score: 14 scorable rows (< 30); holdout_too_small: 3 held-out rows (< 30)",
       "tasks": 137,
       "unlabeled": 113,
-      "unscorable": 123
+      "unscorable": 123,
+      "validity_flags": [
+        "too_small_to_score",
+        "group_overlap",
+        "holdout_too_small",
+        "split_composition_drift"
+      ]
     },
     "O_record_class_and_scope": {
       "answer_key_evidence_levels": {
@@ -361,6 +1677,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/O_record_class_and_scope.jsonl",
       "labeled": 137,
       "languages_allowed": [
@@ -373,11 +1691,17 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "what kind of record is this: advisory, incident, judged finding, audit finding, or out of scope?",
+      "retired": true,
       "scorable": 137,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9",
       "tasks": 137,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
     },
     "P_provenance_tier_and_rights": {
       "answer_key_evidence_levels": {
@@ -396,6 +1720,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": true,
+      "evaluable_reason": null,
       "file": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
       "labeled": 137,
       "languages_allowed": [
@@ -408,11 +1734,17 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "what tier and origin does each source admit under, and may it be redistributed?",
+      "retired": true,
       "scorable": 137,
-      "status": "retired",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.4864 (>= 0.40); a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9",
       "tasks": 137,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": [
+        "group_overlap",
+        "split_composition_drift"
+      ]
     },
     "Q_evidence_type_and_quality_rubric": {
       "answer_key_evidence_levels": {
@@ -431,6 +1763,8 @@
         "validation": 30
       },
       "duplicate_rows_dropped": 0,
+      "evaluable": false,
+      "evaluable_reason": "judge-graded rubric dict",
       "file": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
       "labeled": 137,
       "languages_allowed": [
@@ -443,20 +1777,199 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "type every claim's evidence and apply the published quality rubric",
+      "retired": false,
       "scorable": 137,
       "scoring_note": "judge-graded rubric dict (partial credit by definition)",
       "scoring_status": "descriptive/non-scorable",
-      "status": "headline",
+      "status": "NOT_SCORABLE",
+      "status_reason": "judge-graded rubric dict",
       "tasks": 137,
       "unlabeled": 0,
-      "unscorable": 0
+      "unscorable": 0,
+      "validity_flags": []
+    },
+    "v3_R_source_tier_routing": {
+      "by_split": {
+        "test": 985,
+        "train": 4482
+      },
+      "evaluable": true,
+      "evaluable_reason": null,
+      "file": "benchmark/v3_R_source_tier_routing.jsonl",
+      "labeled": 5467,
+      "partial": 0,
+      "retired": false,
+      "scorable": 5467,
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.7827 (>= 0.40)",
+      "tasks": 5467,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": [
+        "held_out_labels_unseen_in_train",
+        "split_composition_drift"
+      ]
+    },
+    "v3_S_contest_outcome": {
+      "by_split": {
+        "test": 107,
+        "train": 611,
+        "validation": 354
+      },
+      "evaluable": true,
+      "evaluable_reason": null,
+      "file": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
+      "labeled": 1072,
+      "partial": 0,
+      "retired": true,
+      "scorable": 1072,
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9851 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+      "tasks": 1072,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": [
+        "saturated"
+      ]
+    },
+    "v3_T_taxonomy_explicit": {
+      "by_split": {
+        "test": 2,
+        "train": 587
+      },
+      "evaluable": true,
+      "evaluable_reason": null,
+      "file": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
+      "labeled": 589,
+      "partial": 0,
+      "retired": true,
+      "scorable": 589,
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: saturated: majority class 'business logic' covers 0.9983 of the rows; near_duplicate_leak: 2 of 2 sampled held-out rows are near-duplicates of a train row; holdout_too_small: 2 held-out rows (< 30)",
+      "tasks": 589,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": [
+        "saturated",
+        "near_duplicate_leak",
+        "holdout_too_small"
+      ]
+    },
+    "vbeta_U_language_routing": {
+      "by_split": {
+        "test": 5596,
+        "train": 589,
+        "validation": 34
+      },
+      "evaluable": true,
+      "evaluable_reason": null,
+      "file": "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
+      "labeled": 6219,
+      "partial": 0,
+      "retired": false,
+      "scorable": 6219,
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: saturated: majority class 'solidity' covers 0.9749 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
+      "tasks": 6219,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
+    },
+    "vbeta_V_source_tier_routing": {
+      "by_split": {
+        "test": 5668,
+        "train": 683,
+        "validation": 584
+      },
+      "evaluable": true,
+      "evaluable_reason": null,
+      "file": "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
+      "labeled": 6935,
+      "partial": 0,
+      "retired": false,
+      "scorable": 6935,
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: saturated: majority class '2' covers 0.995 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
+      "tasks": 6935,
+      "unlabeled": 0,
+      "unscorable": 0,
+      "validity_flags": [
+        "saturated",
+        "record_id_overlap"
+      ]
     }
   },
   "verification_totals": {
+    "confirmed_high_medium": 204,
+    "counterexamples": 43,
     "exploit_records": 155,
     "inconclusive": 8,
     "not_executed": 140,
     "not_reproduced": 2,
-    "reproduced": 5
-  }
+    "poc_files": 720,
+    "poc_labelled_rows": 7,
+    "poc_unlabelled_rows": 713,
+    "reproduced": 5,
+    "test_vulnerable": 66
+  },
+  "what_can_be_measured": [
+    [
+      "precision",
+      "not measurable",
+      "no model has been run against this benchmark; precision is a property of a predictor, not of the dataset. What the dataset provides is the labelled set needed to compute it."
+    ],
+    [
+      "recall",
+      "not measurable",
+      "same reason as precision."
+    ],
+    [
+      "F1",
+      "not measurable",
+      "same reason as precision."
+    ],
+    [
+      "false-positive rate",
+      "not measurable",
+      "requires a predictor. The benchmark supplies 0 scorable false-positive-rejection tasks in the held-out split."
+    ],
+    [
+      "false-negative rate",
+      "not measurable",
+      "requires a predictor."
+    ],
+    [
+      "PoC compilation rate",
+      "4/8 (50.0%) repositories",
+      "20 PoC files were written from the code quoted in the reports; 133 could not be expressed as a Solidity test body."
+    ],
+    [
+      "PoC execution rate",
+      "15/155 (9.7%)",
+      "reproduced + not_reproduced + inconclusive over all exploit records."
+    ],
+    [
+      "exploit confirmation rate",
+      "5/155 (3.2%)",
+      "A PoC counts only when forge reported Success for that test. Nothing else is promoted."
+    ],
+    [
+      "patch verification rate",
+      "5/38 (13.2%)",
+      "5 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions."
+    ],
+    [
+      "negative-example accuracy",
+      "not measurable",
+      "the held-out split has 0 scorable false-positive tasks; of 458 negatives only 9 carry a reason attributed to a named judge or sponsor and 1 are blocked by a gate in the cited code, while 256 rest on a public label alone, so scoring them would reward guessing."
+    ],
+    [
+      "duplicate detection accuracy",
+      "0 near-duplicate and 2 semantic cross-split pairs found",
+      "detector recall is not validated against a hand-labelled set; the pairs it found were checked by hand and are genuine."
+    ]
+  ]
 }

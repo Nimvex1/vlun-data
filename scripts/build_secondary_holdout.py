@@ -31,6 +31,26 @@ A family with fewer than two labels, or with a minority class below
 `--min-minority`, cannot support an honest class-disjoint evaluation. That
 is reported as `skipped_*` with the reason, never silently faked.
 
+TASKS AND KEYS ARE SEPARATE FILES
+----------------------------------
+The model-facing task list carries the input payload and a task id that
+reveals nothing. The answer key is a separate file. Nothing in the task
+row exposes the answer: the record id and the group key are both withheld,
+because for several families they ARE the answer (family K groups by the
+record id's language prefix, families R/U/V group by the publishing source
+whose tier is being asked).
+
+THE KEY IS OPEN-KEY
+-------------------
+The key is committed in this repository, so anybody with the repository can
+read it. This holdout is therefore OPEN-KEY: it measures whether a model
+that has never been given the key can learn the task, and it does NOT
+protect against a retrieval-augmented model that can search the repository.
+It is not a hidden, protected or held-out-in-secret evaluation set, and
+nothing in this layer may be described as one. The only genuinely private
+evaluation in this repository is the VLUN-Prove private split, whose key
+lives outside the tracked tree (scripts/build_prove_split.py).
+
 Usage:
     python scripts/build_secondary_holdout.py            # build
     python scripts/build_secondary_holdout.py --check    # verify current
@@ -40,14 +60,19 @@ from __future__ import annotations
 
 import argparse
 import collections
+import hashlib
 import importlib.util
 import json
 import pathlib
 import random
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "benchmark" / "independent"
+TASKS_NAME = "secondary_holdout_tasks.jsonl"
+KEYS_NAME = "secondary_holdout_keys.jsonl"
+MANIFEST_NAME = "secondary_holdout_manifest.json"
 
 # Reuse the audit's family registry, projections and group function so the
 # holdout and the audit cannot drift apart.
@@ -58,6 +83,12 @@ _spec.loader.exec_module(_audit)
 
 HOLDOUT_VERSION = "1"
 HOLDOUT_FRACTION = 0.30
+
+# Fields the model-facing task row must not carry. The check below enforces
+# it, and the gate (scripts/check_eval_leakage.py) enforces it again.
+ANSWER_FIELDS = ("gold", "label", "answer", "answer_key", "expected",
+                 "original_id", "original_split", "group", "split")
+
 
 
 def group_disjoint_split(fname: str, rows: list[dict], seed: int,
@@ -291,8 +322,25 @@ def evaluate_shortcuts_on(fname: str, kept: list[dict], held: list[dict],
     return out
 
 
-def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:
+def task_pseudonym(fname: str, holdout: str, original_id: str) -> str:
+    """A task id that carries no information about the answer.
+
+    The original task id is withheld because it names the record, and for
+    several families the record id (or the group the record belongs to) IS
+    the answer. The pseudonym is a stable digest of the same three facts, so
+    a grader can join the task file to the key file, and a reader of the
+    task file learns nothing beyond the fact that the row exists.
+    """
+    digest = hashlib.sha256(
+        f"{fname}|{holdout}|{original_id}".encode("utf-8")).hexdigest()
+    return f"holdout-{digest[:16]}"
+
+
+def _build(seed: int, min_minority: int) -> tuple[dict, list[dict], list[dict]]:
     tasks: list[dict] = []
+    keys: list[dict] = []
+    payload_leaks: dict[str, int] = {}
+    payload_leak_rows = 0
     manifest: dict = {
         "holdout_version": HOLDOUT_VERSION,
         "generated_by": "scripts/build_secondary_holdout.py",
@@ -312,6 +360,30 @@ def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:
         "additive": (
             "This layer is separate from benchmark/. No source benchmark "
             "file, split, answer key or score is modified by this script."),
+        "model_facing_tasks": {
+            "file": f"benchmark/independent/{TASKS_NAME}",
+            "carries": ["holdout_task_id", "family_file", "holdout", "input"],
+            "does_not_carry": list(ANSWER_FIELDS),
+            "task_id": ("a digest of (family, holdout, original id): stable, "
+                        "joinable to the key file, and it names nothing the "
+                        "answer depends on"),
+        },
+        "answer_key": {
+            "file": f"benchmark/independent/{KEYS_NAME}",
+            "key_status": "OPEN_KEY",
+            "committed_in_repository": True,
+            "retrievable_by": ("anyone with this repository: the key file is "
+                               "a tracked file"),
+            "implication": (
+                "this holdout is OPEN-KEY. It measures whether a model that "
+                "has not been handed the key can learn the task. It does NOT "
+                "protect against a retrieval-augmented model that can search "
+                "the repository, and it must never be described as hidden, "
+                "protected against repository-level leakage, or not "
+                "accessible. The only genuinely private evaluation in this "
+                "repository is the VLUN-Prove private split, whose key lives "
+                "outside the tracked tree."),
+        },
         "families": {},
     }
     for fname in sorted(_audit.FAMILIES):
@@ -352,30 +424,55 @@ def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:
             len(hl) > 1
             and entry["group_disjoint"].get("verdict") == "built")
         manifest["families"][fname] = entry
-        for r in gd.get("_held", []):
-            tasks.append({
-                "holdout_task_id": f"{fname}::group_disjoint::{_audit.task_id(r, spec['id'])}",
-                "family_file": fname,
-                "holdout": "group_disjoint",
-                "original_id": _audit.task_id(r, spec["id"]),
-                "original_split": str(r.get("split")),
-                "group": _audit.group_key(r, spec),
-                "gold": _audit.gold_of(r, spec["projection"]),
-                "input": r.get("input"),
-            })
-        if cd.get("verdict") == "built":
-            for r in cd["_held"]:
+        for holdout, held in (("group_disjoint", gd.get("_held", [])),
+                              ("class_disjoint", cd.get("_held", []))):
+            if holdout == "class_disjoint" and cd.get("verdict") != "built":
+                continue
+            for r in held:
+                original_id = _audit.task_id(r, spec["id"])
+                tid = task_pseudonym(fname, holdout, original_id)
                 tasks.append({
-                    "holdout_task_id": f"{fname}::class_disjoint::{_audit.task_id(r, spec['id'])}",
+                    "holdout_task_id": tid,
                     "family_file": fname,
-                    "holdout": "class_disjoint",
-                    "original_id": _audit.task_id(r, spec["id"]),
+                    "holdout": holdout,
+                    "input": r.get("input"),
+                })
+                keys.append({
+                    "holdout_task_id": tid,
+                    "family_file": fname,
+                    "holdout": holdout,
+                    "original_id": original_id,
                     "original_split": str(r.get("split")),
                     "group": _audit.group_key(r, spec),
                     "gold": _audit.gold_of(r, spec["projection"]),
-                    "input": r.get("input"),
+                    "key_status": "OPEN_KEY",
                 })
+                gold = _audit.gold_of(r, spec["projection"])
+                if (gold and gold not in ("true", "false") and len(gold) >= 3
+                        and re.search(r"(?<![a-z0-9])" + re.escape(gold)
+                                      + r"(?![a-z0-9])",
+                                      _audit.evidence_text(r).lower())):
+                    payload_leaks[fname] = payload_leaks.get(fname, 0) + 1
+                    payload_leak_rows += 1
     manifest["tasks_written"] = len(tasks)
+    manifest["keys_written"] = len(keys)
+    manifest["payload_answer_literal_overlap"] = {
+        "rows": payload_leak_rows,
+        "by_family": dict(sorted(payload_leaks.items())),
+        "note": ("the model-facing payload is copied verbatim from the "
+                 "benchmark, so a family whose own evidence names the answer "
+                 "leaks it here too. That is a benchmark defect, measured "
+                 "by scripts/independent_benchmark_audit.py (K and L are the "
+                 "high-severity cases), and it is reported here rather than "
+                 "hidden: this holdout is open-key and is not claimed to be "
+                 "leakage-proof"),
+    }
+    return manifest, tasks, keys
+
+
+def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:
+    """The manifest and the model-facing task rows (no answer material)."""
+    manifest, tasks, _keys = _build(seed, min_minority)
     return manifest, tasks
 
 
@@ -385,16 +482,24 @@ def main() -> int:
     ap.add_argument("--min-minority", type=int, default=5)
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
-    manifest, tasks = build(args.seed, args.min_minority)
+    manifest, tasks, keys = _build(args.seed, args.min_minority)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    mpath = OUT_DIR / "secondary_holdout_manifest.json"
-    tpath = OUT_DIR / "secondary_holdout_tasks.jsonl"
+    mpath = OUT_DIR / MANIFEST_NAME
+    tpath = OUT_DIR / TASKS_NAME
+    kpath = OUT_DIR / KEYS_NAME
     mtext = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     ttext = "".join(json.dumps(t, sort_keys=True, ensure_ascii=False) + "\n"
                     for t in tasks)
+    ktext = "".join(json.dumps(k, sort_keys=True, ensure_ascii=False) + "\n"
+                    for k in keys)
+    leaked = sorted({f for t in tasks for f in ANSWER_FIELDS if f in t})
+    if leaked:
+        print("model-facing task rows carry answer material: "
+              + ", ".join(leaked), file=sys.stderr)
+        return 1
     if args.check:
         bad = []
-        for p, want in ((mpath, mtext), (tpath, ttext)):
+        for p, want in ((mpath, mtext), (tpath, ttext), (kpath, ktext)):
             if not p.is_file():
                 bad.append(f"missing {p}")
             elif p.read_text(encoding="utf-8") != want:
@@ -407,13 +512,15 @@ def main() -> int:
         return 0
     mpath.write_text(mtext, encoding="utf-8", newline="\n")
     tpath.write_text(ttext, encoding="utf-8", newline="\n")
+    kpath.write_text(ktext, encoding="utf-8", newline="\n")
     built = sum(1 for v in manifest["families"].values()
                 if v.get("class_disjoint", {}).get("verdict") == "built")
     skipped = sum(1 for v in manifest["families"].values()
                   if v.get("class_disjoint", {}).get("verdict", "").startswith(
                       "skipped"))
     print(f"wrote {mpath}")
-    print(f"wrote {tpath} ({len(tasks)} tasks)")
+    print(f"wrote {tpath} ({len(tasks)} model-facing tasks, no answer fields)")
+    print(f"wrote {kpath} ({len(keys)} OPEN-KEY rows, committed in-repo)")
     print(f"class-disjoint built for {built} families; skipped for {skipped}")
     return 0
 

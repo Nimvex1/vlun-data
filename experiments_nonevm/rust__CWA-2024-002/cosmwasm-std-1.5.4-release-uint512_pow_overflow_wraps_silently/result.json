@@ -13,12 +13,12 @@
       "sha256": "ff2e6e421964d0712ec61f2585a0de6d5c2a3130bf791179d771fcb40e6869c1"
     },
     "stderr.txt": {
-      "bytes": 398,
-      "sha256": "1ac3b3457a72a139d90668a5fadeb66b77e0c3225b57e22ab749bd30761be16c"
+      "bytes": 406,
+      "sha256": "f83cdd01a9669f03533270128873f3a50ae033720351ae10571edcfd8d44b364"
     },
     "stdout.txt": {
-      "bytes": 737,
-      "sha256": "cc2eed17adaf6c1ad5af2dca56e2481b07b4138b56cad1e330996543d94d3c40"
+      "bytes": 741,
+      "sha256": "82104b600204449dae301aab2352aca8eda702e5dfa0c8698b2413aae1f24447"
     },
     "toolchain.txt": {
       "bytes": 782,
@@ -97,7 +97,7 @@
       "--exact",
       "tests::uint512_pow_overflow_wraps_silently"
     ],
-    "cwd": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\cw\\cosmwasm-std-1.5.4-release",
+    "cwd": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\cw\\cosmwasm-std-1.5.4-release",
     "exit_code": 101,
     "isolation": "generated crate in an isolated scratch dir; local test harness only - no chain, no funds, no node",
     "run_kind": "test_harness",

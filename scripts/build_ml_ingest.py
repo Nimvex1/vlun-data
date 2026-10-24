@@ -38,17 +38,21 @@ from vlun_ml import (  # noqa: E402
     ML_JSONL, claim, finding_record, source_record, unknown, validate_finding,
     validate_source, write_jsonl,
 )
+from redact_machine_paths import redact_text  # noqa: E402  (one redaction convention, repo-wide)
 
 
-def _ext(env: str, default: str) -> str:
-    """External (non-repo) source path, overridable for other machines.
+def _ext(env: str) -> str:
+    """External (non-repo) source path, named by an environment variable.
 
     These reports live outside the checkout by design (third-party audit
-    material is not vendored). The default is the operator's layout; any
-    other machine exports VLUN_<NAME> to point at its own copies. Missing
-    paths are reported as MISSING and skipped, never fabricated.
+    material is not vendored). There is deliberately NO default: a default
+    would be one operator's home directory, and a committed artefact that
+    carries it ties the dataset to that one checkout and publishes the
+    account name. Every machine exports VLUN_<NAME> to point at its own
+    copies. Missing paths are reported as MISSING and skipped, never
+    fabricated.
     """
-    return os.environ.get(env, default)
+    return os.environ.get(env, "")
 
 TODAY = "2026-10-05"
 EXPERIMENTS = Path(__file__).resolve().parent.parent / "experiments_v2_2"
@@ -61,10 +65,10 @@ REPORTS = [
     dict(
         report_id="zentory-mode-a",
         title="Zentory Protocol - Security Audit Report (Mode A, HIGH+)",
-        path=_ext("VLUN_ZENTORY_MODE_A_REPORT",
-                  r"C:\Users\jeet\Documents\zentory-protocol-main\report.md"),
-        repo=_ext("VLUN_ZENTORY_MODE_A_REPO",
-                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts"),
+        path_env="VLUN_ZENTORY_MODE_A_REPORT",
+        path=_ext("VLUN_ZENTORY_MODE_A_REPORT"),
+        repo_env="VLUN_ZENTORY_MODE_A_REPO",
+        repo=_ext("VLUN_ZENTORY_MODE_A_REPO"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
         category="Perpetuals / vaults / signals (HyperEVM)",
@@ -76,13 +80,13 @@ REPORTS = [
     dict(
         report_id="zentory-contracts-audit",
         title="Zentory Protocol - Smart Contract Security Audit (High/Critical focus)",
-        path=_ext("VLUN_ZENTORY_CONTRACTS_REPORT",
-                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts\report.md"),
-        repo=_ext("VLUN_ZENTORY_CONTRACTS_REPO",
-                  r"C:\Users\jeet\Documents\zentory-protocol-main\zentory-protocol-main\contracts"),
+        path_env="VLUN_ZENTORY_CONTRACTS_REPORT",
+        path=_ext("VLUN_ZENTORY_CONTRACTS_REPORT"),
+        repo_env="VLUN_ZENTORY_CONTRACTS_REPO",
+        repo=_ext("VLUN_ZENTORY_CONTRACTS_REPO"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
-        category="Perpets / vaults / signals (HyperEVM)",
+        category="Perpetuals / vaults / signals (HyperEVM)",
         tier=3,
         origin="audit",
         author="AI-assisted audit (skill `smart-contract-security-audit`, no named human auditor)",
@@ -91,10 +95,10 @@ REPORTS = [
     dict(
         report_id="zentory-self-audit",
         title="Zentory Protocol - Self-Audit Report",
-        path=_ext("VLUN_ZENTORY_SELF_REPORT",
-                  r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\report.md"),
-        repo=_ext("VLUN_ZENTORY_SELF_REPO",
-                  r"C:\Users\jeet\Downloads\zentory-protocol-main\zentory-protocol-main\contracts"),
+        path_env="VLUN_ZENTORY_SELF_REPORT",
+        path=_ext("VLUN_ZENTORY_SELF_REPORT"),
+        repo_env="VLUN_ZENTORY_SELF_REPO",
+        repo=_ext("VLUN_ZENTORY_SELF_REPO"),
         protocol="Zentory Protocol",
         ecosystem="hyperevm",
         category="Perpetuals / vaults / signals (HyperEVM)",
@@ -106,10 +110,10 @@ REPORTS = [
     dict(
         report_id="kerf-report",
         title="Kerf Contracts - Security Audit Report",
-        path=_ext("VLUN_KERF_REPORT",
-                  r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main\REPORT.md"),
-        repo=_ext("VLUN_KERF_REPO",
-                  r"C:\Users\jeet\Downloads\kerf-contracts-main\kerf-contracts-main"),
+        path_env="VLUN_KERF_REPORT",
+        path=_ext("VLUN_KERF_REPORT"),
+        repo_env="VLUN_KERF_REPO",
+        repo=_ext("VLUN_KERF_REPO"),
         protocol="Kerf",
         ecosystem="evm",
         category="Perp / LP vaults / structured notes",
@@ -121,12 +125,10 @@ REPORTS = [
     dict(
         report_id="quantillon-report",
         title="Quantillon Protocol - Independent Security Review (Live Findings)",
-        path=_ext("VLUN_QUANTILLON_REPORT",
-                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
-                  r"\quantillon-protocol\report.md"),
-        repo=_ext("VLUN_QUANTILLON_REPO",
-                  r"C:\Users\jeet\Downloads\smart-contracts-main\smart-contracts-main"
-                  r"\quantillon-protocol"),
+        path_env="VLUN_QUANTILLON_REPORT",
+        path=_ext("VLUN_QUANTILLON_REPORT"),
+        repo_env="VLUN_QUANTILLON_REPO",
+        repo=_ext("VLUN_QUANTILLON_REPO"),
         protocol="Quantillon Protocol",
         ecosystem="base",
         category="EURO stablecoin / hedged vaults (Base)",
@@ -449,6 +451,41 @@ def project_relative(rep: dict, p: Path) -> str:
     return p.name
 
 
+def portable_path(rep: dict, p: Path | None, cited: str) -> str | None:
+    """A machine-independent path for a resolved file.
+
+    The absolute path of a file inside a third-party clone on the operator's
+    disk is not a fact about the audited code; it is a fact about the machine
+    that happened to hold the clone. What IS a fact about the code is the
+    path relative to the audited repository's root - and, when the file is
+    outside that root, the path the report itself cited.
+    """
+    if p is None:
+        return None
+    for r in reversed(project_roots(rep)):
+        try:
+            return p.relative_to(r).as_posix()
+        except ValueError:
+            continue
+    return cited
+
+
+def local_path(p: Path) -> str:
+    """A machine-independent form of a path on this machine.
+
+    The absolute path of a local file is a fact about the machine that holds
+    it, so the account component is replaced by the repository's redaction
+    token - the same convention the committed layers already use for a local
+    report URL.
+    """
+    return redact_text(str(p))
+
+
+def local_uri(p: Path) -> str:
+    """The file URI of a local path, with the account component redacted."""
+    return Path(local_path(p)).as_uri()
+
+
 def resolve_code_context(rep: dict, locs: list[dict]) -> list[dict]:
     """Prove the cited file and line range exist - the reports have no .git, so
     the commit cannot be pinned. Existence is checkable, so it is checked and
@@ -472,8 +509,8 @@ def resolve_code_context(rep: dict, locs: list[dict]) -> list[dict]:
                     "several files share this name; candidates are listed and "
                     "none was chosen",
             }.get(how),
-            "resolved_path": str(p) if p else None,
-            "candidates": cands[:6],
+            "resolved_path": portable_path(rep, p, loc["file"]),
+            "candidates": [local_path(Path(c)) for c in cands[:6]],
             "commit_sha": None,
             "commit_note": "the audited tree carries no .git metadata, so no "
                            "commit can be pinned; the citation is path-and-line only",
@@ -612,9 +649,16 @@ def build(check_only: bool) -> tuple[list, list]:
             group_index[m] = gid
 
     for rep in REPORTS:
-        p = Path(rep["path"])
-        if not p.exists():
-            log(f"  MISSING report: {p}")
+        p = Path(rep["path"]) if rep["path"] else None
+        if p is None or not p.is_file():
+            # The path comes from the environment; there is no default to
+            # fall back on, so an unset variable is a MISSING source, never
+            # a fabricated one.
+            log(f"  MISSING report: {rep['path_env']} is not set to an "
+                "existing file")
+            continue
+        if not rep["repo"]:
+            log(f"  MISSING repository: {rep['repo_env']} is not set")
             continue
         text = p.read_text(encoding="utf-8", errors="replace")
         digest = sha256_file(p)
@@ -626,13 +670,13 @@ def build(check_only: bool) -> tuple[list, list]:
             title=rep["title"],
             source_tier=rep["tier"],
             evidence_origin=rep["origin"],
-            url=p.as_uri(),
+            url=local_uri(p),
             repository=None,
             retrieved_at=TODAY,
             verification_status="retrieved_and_read",
             retrieval={
                 "method": "local_file_read",
-                "path": str(p),
+                "path": local_path(p),
                 "sha256": digest,
                 "bytes": p.stat().st_size,
             },
@@ -654,7 +698,7 @@ def build(check_only: bool) -> tuple[list, list]:
         # rather than being dressed up as a URL it does not have.
         src["url_scheme"] = "local_file"
         src["protocol"] = {"name": rep["protocol"], "category": rep["category"]}
-        src["report"] = {"path": str(p), "sha256": digest,
+        src["report"] = {"path": local_path(p), "sha256": digest,
                          "bytes": p.stat().st_size,
                          "parsed_findings": 0}
         src["author_note"] = rep["author"]
@@ -672,7 +716,7 @@ def build(check_only: bool) -> tuple[list, list]:
             for s in f["script_locations"]:
                 sp, how, _ = resolve_path(rep, s["file"])
                 offchain.append({"file": s["file"],
-                                 "resolved_path": str(sp) if sp else None,
+                                 "resolved_path": portable_path(rep, sp, s["file"]),
                                  "resolution": how,
                                  "line_start": s["line_start"],
                                  "line_end": s["line_end"]})
@@ -740,7 +784,7 @@ def build(check_only: bool) -> tuple[list, list]:
                     "organization": rep["author"],
                     "repository": None,
                     "repository_url": None,
-                    "report_path": str(p),
+                    "report_path": local_path(p),
                     "report_sha256": digest,
                     "protocol": rep["protocol"],
                     "audit_date": None,
@@ -761,7 +805,7 @@ def build(check_only: bool) -> tuple[list, list]:
                 },
                 evidence=evidence,
                 provenance={
-                    "source_urls": [p.as_uri()],
+                    "source_urls": [local_uri(p)],
                     "retrieved_at": TODAY,
                     "evidence_origin": rep["origin"],
                     "source_tier": rep["tier"],

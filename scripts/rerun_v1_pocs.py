@@ -54,6 +54,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_text  # noqa: E402  (one redaction convention, repo-wide)
 from vlun import JSONL, REPORTS, ROOT, WORK  # noqa: E402
 from vlun_io import read_jsonl, write_json  # noqa: E402
 
@@ -580,15 +581,26 @@ def write_attempt_artefacts(fid: str, res: dict) -> tuple[str, dict]:
     harness = res.pop("harness", {})
     stdout = res.pop("stdout", "")
     stderr = res.pop("stderr", "")
+    # Everything captured from the tool is redacted BEFORE it is written: a
+    # transcript that quotes the operator's home directory ties the artefact
+    # to one checkout and publishes the account name. The compiler message
+    # that names the CI builder's home directory is the same kind of path.
+    stdout = redact_text(stdout[-MAX_STREAM:])
+    stderr = redact_text(stderr[-MAX_STREAM:])
+    if res.get("detail"):
+        res["detail"] = redact_text(res["detail"])
+    if res.get("commands"):
+        res["commands"] = [redact_text(c) for c in res["commands"]]
     (d / "command.txt").write_text(
         "\n".join(res.get("commands") or ["(no command executed)"]) + "\n",
         encoding="utf-8", newline="\n")
-    (d / "toolchain.txt").write_text(toolchain_versions(d), encoding="utf-8",
-                                     newline="\n")
-    (d / "harness.json").write_text(json.dumps(harness, indent=2, sort_keys=True)
-                                    + "\n", encoding="utf-8", newline="\n")
-    (d / "stdout.txt").write_text(stdout[-MAX_STREAM:], encoding="utf-8", newline="\n")
-    (d / "stderr.txt").write_text(stderr[-MAX_STREAM:], encoding="utf-8", newline="\n")
+    (d / "toolchain.txt").write_text(redact_text(toolchain_versions(d)),
+                                     encoding="utf-8", newline="\n")
+    (d / "harness.json").write_text(
+        redact_text(json.dumps(harness, indent=2, sort_keys=True) + "\n"),
+        encoding="utf-8", newline="\n")
+    (d / "stdout.txt").write_text(stdout, encoding="utf-8", newline="\n")
+    (d / "stderr.txt").write_text(stderr, encoding="utf-8", newline="\n")
     hashes = {}
     for name in ("command.txt", "toolchain.txt", "harness.json", "stdout.txt",
                  "stderr.txt"):
@@ -643,8 +655,11 @@ def _attempt_label(res: dict) -> str:
 
 def append_ledger(line: dict) -> None:
     REPORTS.mkdir(parents=True, exist_ok=True)
+    # The ledger is a committed artefact, so it is redacted on the way in:
+    # every string it carries is a place a machine path could hide.
+    text = redact_text(json.dumps(line, sort_keys=True, ensure_ascii=False))
     with open(LEDGER, "a", encoding="utf-8", newline="\n") as fh:
-        fh.write(json.dumps(line, sort_keys=True, ensure_ascii=False) + "\n")
+        fh.write(text + "\n")
 
 
 # ---------------------------------------------------------------------------

@@ -17,7 +17,7 @@ Every commit reachable from an origin/* ref is published on the remote named abo
 
 ## Third-party material added in history and no longer in the tree
 
-Commits scanned: 79. Paths that appear in history but not in the current tree (code/prose suffixes): 17. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
+Commits scanned: 81. Paths that appear in history but not in the current tree (code/prose suffixes): 25. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
 
 ### Historically published third-party expression
 
@@ -130,6 +130,14 @@ Commits scanned: 79. Paths that appear in history but not in the current tree (c
 - `brag-output/composition-brief.md` — added `ac63d5f04`, absent from the current tree; 6960 bytes, sha256 `912ff8792ce51bd3…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
 - `docs/V3_1_NORMALIZATION.md` — added `b4c02c04d`, absent from the current tree; 2167 bytes, sha256 `979a13deafb74353…`; reachable from 1 local ref(s). No upstream source signature detected in the historical blob.
 - `reports/reproducibility_checks.json` — added `4292c98d6`, absent from the current tree; 2896 bytes, sha256 `7ca3f9d099a760cb…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/detection.test.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 58773 bytes, sha256 `a531164869b5bdfa…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/detection.validation.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 52728 bytes, sha256 `42a98db515415462…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/language.test.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 4585458 bytes, sha256 `868b4b9d5cb76831…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/language.test.part-001.jsonl` — added `bd2f0fa0c`, absent from the current tree; 878313 bytes, sha256 `7eaea2de7a79ae81…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/language.validation.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 2107106 bytes, sha256 `92beb2436767dba9…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/severity.test.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 4552706 bytes, sha256 `89b4197c062e3ef2…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/severity.test.part-001.jsonl` — added `bd2f0fa0c`, absent from the current tree; 180777 bytes, sha256 `f2f31b0ede7ca2df…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
+- `training/canonical/severity.validation.part-000.jsonl` — added `bd2f0fa0c`, absent from the current tree; 2905903 bytes, sha256 `1148ab3a53a70d26…`; reachable from 7 local ref(s). No upstream source signature detected in the historical blob.
 
 ## Material added in history that is still in the current tree
 
@@ -137,8 +145,6 @@ Reported as **current** exposure, not historical: it is in the tip and therefore
 
 - `jsonl_v4/findings.jsonl` (class `copied_report_prose+personal_data`) added in `c88f3026c`, reachable from `refs/heads/fix/v4-audit`, `refs/heads/main`, `refs/heads/remediation/p0-credibility`, `refs/remotes/origin/HEAD`, `refs/remotes/origin/fix/v4-audit`, `refs/remotes/origin/main`, `refs/remotes/origin/remediation/p0-credibility` — published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible
 - `derived_v4/admitted_ledger.jsonl` (class `copied_report_prose+personal_data`) added in `c88f3026c`, reachable from `refs/heads/fix/v4-audit`, `refs/heads/main`, `refs/heads/remediation/p0-credibility`, `refs/remotes/origin/HEAD`, `refs/remotes/origin/fix/v4-audit`, `refs/remotes/origin/main`, `refs/remotes/origin/remediation/p0-credibility` — published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible
-- `training/canonical/severity.validation.part-000.jsonl` (class `copied_report_prose+personal_data`) added in `bd2f0fa0c`, reachable from `refs/heads/fix/v4-audit`, `refs/heads/main`, `refs/heads/remediation/p0-credibility`, `refs/remotes/origin/HEAD`, `refs/remotes/origin/fix/v4-audit`, `refs/remotes/origin/main`, `refs/remotes/origin/remediation/p0-credibility` — published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible
-- `training/canonical/language.validation.part-000.jsonl` (class `copied_report_prose+personal_data`) added in `bd2f0fa0c`, reachable from `refs/heads/fix/v4-audit`, `refs/heads/main`, `refs/heads/remediation/p0-credibility`, `refs/remotes/origin/HEAD`, `refs/remotes/origin/fix/v4-audit`, `refs/remotes/origin/main`, `refs/remotes/origin/remediation/p0-credibility` — published as part of the current tip; this is current exposure, listed here so the historical and current surfaces are both visible
 
 ## Mitigating fact about the first commit
 

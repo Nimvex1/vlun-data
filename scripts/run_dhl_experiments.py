@@ -40,6 +40,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_text  # noqa: E402  (one redaction convention, repo-wide)
 import vlun_v3 as V  # noqa: E402
 
 U = V.UNKNOWN
@@ -332,17 +333,23 @@ def _write_artifacts(out_dir: Path, cmd, so: str, se: str, rec: dict,
                      manifest: dict) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     rec["seconds"] = round(time.time() - rec.pop("_t0", time.time()), 1)
+    # The captured output is redacted BEFORE it is written: a transcript that
+    # quotes the operator's home directory ties the artefact to one checkout
+    # and publishes the account name.
     (out_dir / "command.txt").write_text(
-        " ".join(cmd) + "\n" if isinstance(cmd, list) else str(cmd) + "\n",
+        redact_text(" ".join(cmd) if isinstance(cmd, list) else str(cmd)) + "\n",
         encoding="utf-8", newline="\n")
-    (out_dir / "stdout.txt").write_text(rec.pop("_stdout", so)[-200000:],
-                                        encoding="utf-8", newline="\n")
-    (out_dir / "stderr.txt").write_text(rec.pop("_stderr", se)[-200000:],
-                                        encoding="utf-8", newline="\n")
-    (out_dir / "toolchain.txt").write_text(_forge_version() + "\n",
-                                           encoding="utf-8", newline="\n")
+    (out_dir / "stdout.txt").write_text(
+        redact_text(rec.pop("_stdout", so)[-200000:]),
+        encoding="utf-8", newline="\n")
+    (out_dir / "stderr.txt").write_text(
+        redact_text(rec.pop("_stderr", se)[-200000:]),
+        encoding="utf-8", newline="\n")
+    (out_dir / "toolchain.txt").write_text(
+        redact_text(_forge_version() + "\n"),
+        encoding="utf-8", newline="\n")
     (out_dir / "harness.json").write_text(
-        json.dumps(manifest, indent=2, sort_keys=True),
+        redact_text(json.dumps(manifest, indent=2, sort_keys=True)),
         encoding="utf-8", newline="\n")
     result = dict(rec)
     result["artifact_hashes"] = {

@@ -1,7 +1,8 @@
 {
   "experiment_outcomes": {
     "inconclusive": 2,
-    "l6_verified_patch": 7
+    "l6_partial_two_revision_evidence": 2,
+    "l6_verified_patch": 5
   },
   "experiments_attempted": 9,
   "exploit_records": 155,
@@ -28,7 +29,7 @@
   "guard": "no record is above L2 unless scripts/run_verified_experiments.py executed something at the audited revision",
   "levels_l4_or_higher": 5,
   "levels_l5_or_higher": 5,
-  "levels_l6": 5,
+  "levels_l6": 4,
   "per_record": [
     {
       "experiment": {
@@ -2311,13 +2312,13 @@
         "observed_failure": [
           {
             "assertion_messages": [],
-            "forge_reason": "next call did not revert as expected",
+            "forge_reason": null,
             "test": "test_Reverts_ERC721_Burn_Rented()"
           }
         ],
         "run_failure_detail": null,
         "run_failure_reason": null,
-        "verdict": "l6_verified_patch",
+        "verdict": "l6_partial_two_revision_evidence",
         "vulnerable_revision": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
         "vulnerable_status": "fail"
       },
@@ -2338,8 +2339,8 @@
         "test_file_declared": "CheckTransaction.t.sol, test/unit/Guard/CheckTransaction.t.sol",
         "test_function_count": 1
       },
-      "poc_level": "L6",
-      "poc_level_basis": "the declared exploit outcome was observed on the audited revision and the security property held on the fixed revision",
+      "poc_level": "L5",
+      "poc_level_basis": "the declared security-property assertion failed on the audited revision, which is the observed violation",
       "poc_level_evidence": "experimentally_verified",
       "repository": "2024-01-renft",
       "severity": "medium",
@@ -5849,6 +5850,7 @@
   "poc_level_distribution": {
     "L0": 120,
     "L1": 30,
-    "L6": 5
+    "L5": 1,
+    "L6": 4
   }
 }

@@ -53,6 +53,23 @@ def main() -> int:
             {}) or {}
     micro = (bl.get("micro") or {})
     cov = (bl.get("coverage") or {})
+    # The primary metric, its denominator and the held-out floor come from the
+    # scorer's own metric report; the four family blocks come from the
+    # baseline report that carries them. Nothing here is typed in.
+    metrics = js(ROOT / "reports" / "benchmark_metrics.json", {}) or {}
+    pm = metrics.get("primary_metric") or {}
+    prim_families = pm.get("families") or sorted(bl.get("families") or {})
+    prim_den = pm.get("denominator") or micro.get("scorable") or 0
+    prim_splits = pm.get("by_split") or {}
+    _floors = (metrics.get("baselines") or {}).get("majority") or {}
+    _maj = (_floors.get("primary") or {})
+    _maj_fam = next((v for k, v in _maj.items() if k in prim_families), {})
+    _maj_acc = _maj_fam.get("test_accuracy")
+    _maj_f1 = _maj_fam.get("test_macro_f1")
+    expl_n = (bl.get("micro_exploratory") or {}).get("scorable", 0) or 0
+    inval_n = (bl.get("micro_invalid") or {}).get("scorable", 0) or 0
+    ret_n = (bl.get("micro_retired") or {}).get("scorable", 0) or 0
+    all_n = (bl.get("micro_all_families") or {}).get("scorable", 0) or 0
     leak = (m3.get("admitted_verification_levels", {}) or {})
     lvl = (mvb.get("candidate_verification_levels", {}) or {})
     # Judge-only / unlabelled tasks. Counted from the scorer's own
@@ -62,6 +79,15 @@ def main() -> int:
     # scorer counts labeled rows, so the difference is not a task count.
     _excl = (cov.get("excluded_families") or {})
     _judged_n = sum(int(v.get("tasks") or 0) for v in _excl.values())
+    # The open-key statement: the answer keys of the benchmark families are
+    # committed in this repository, so they are reachable by repository-wide
+    # retrieval. The only protected evaluation is the VLUN-Prove private
+    # split, whose key lives outside the tracked tree.
+    _leakrep = js(ROOT / "reports" / "eval_leakage_report.json", {}) or {}
+    _rb = ((_leakrep.get("release_boundary") or {}).get("open_key") or {})
+    _open_key = (_rb.get("benchmark_families") or {}).get("statement", "")
+    _prove = js(ROOT / "reports" / "prove_split_interface.json", {}) or {}
+    _priv = (_prove.get("private_commitment") or {}).get("files") or {}
     try:
         import importlib.util as _ilu
         _spec = _ilu.spec_from_file_location(
@@ -88,7 +114,7 @@ ground truth. Governing rule: truth over scale.
 - v2.2 (five languages): {n(m22.get('records', 0))} derived records.
 - V3.0: {n(m3.get('record_count', 0))} admitted of {n(m3.get('candidate_count', 0))} candidates across {n(m3.get('source_count', 0))} sources; levels {json.dumps(leak, sort_keys=True)}.
 - Vbeta (isolated): {n(mvb.get('record_count', 0))} admitted of {n(mvb.get('candidate_count', 0))} candidates across {n(mvb.get('source_count', 0))} sources; levels {json.dumps(lvl, sort_keys=True)}.
-- Benchmark: {n(micro.get('scorable', 0))} exactly-scorable tasks (majority micro-accuracy {round(micro.get('accuracy') or 0.0, 4)}). {_judged_n} further tasks across {len(_excl)} families are excluded from exact match because they are generative, judge-graded or descriptive (`docs/RUBRIC.md`); the exclusion is recorded per family, never silent.
+- Benchmark: the primary metric covers {n(prim_den)} exactly-scorable rows of the PRIMARY set ({len(prim_families)} famil{'y' if len(prim_families) == 1 else 'ies'}: {', '.join(prim_families)}); the train-only majority floor on the {n(prim_splits.get('test', 0))} held-out test rows is {('%.4f' % _maj_acc) if isinstance(_maj_acc, (int, float)) else 'n/a'} (macro-F1 {('%.4f' % _maj_f1) if isinstance(_maj_f1, (int, float)) else 'n/a'}). The family status is computed at run time from the independent audit's measurements, not from a list: {n(expl_n)} rows sit in EXPLORATORY families (demoted: too few rows, a holdout too small to estimate on, or a single observed label), {n(inval_n)} rows in INVALID families (a validity flag makes them unusable as evaluation evidence), {n(ret_n)} in retired families (retirement is a location, not a verdict) and {n(_judged_n)} in families with no exactly-matchable key — the exclusion is recorded per family, never silent. The continuity twin covers all {n(all_n)} scorable rows ever shipped. **The benchmark is OPEN-KEY**: {_open_key.rstrip('.')}. The only protected evaluation in this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is committed to by hash ({n(len(_priv))} files).
 - Field coverage: {n(thin)} of {n(len(fields))} tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process
@@ -109,12 +135,15 @@ ground truth. Governing rule: truth over scale.
 
 - Past uses: vulnerability detection/reasoning benchmarks (families A–V), exploit-verification and patch-verification studies on executed subsets.
 - Intended: training and evaluating security-reasoning models with honest abstention (`unknown`, `unlabeled`, quarantine).
-- Out of scope: production audit decisions; L0/L1 rows are not executable proof; saturated families (majority >= 0.94, see `docs/RUBRIC.md`) carry no signal.
+- Out of scope: production audit decisions; L0/L1 rows are not executable proof; the families the independent audit flags INVALID carry no signal, and a family whose scorable rows carry a single observed label is not evaluable for accuracy at all (`docs/RUBRIC.md`).
 
 ## Distribution
 
-- Data layers (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `datasets/`, `training/`, `reports/`): CC BY 4.0. `scripts/`: MIT. Third-party source: not licensed here at all (see `NOTICE.md`).
-- 424 v1 records carry verbatim source from repositories declaring no licence (flagged per record). For strictly licence-clean use, resolve `code_context[].snippet` entries from the original audits.
+- The release boundary is `RELEASE_MANIFEST.json`: a tracked path that is not listed there with a released rights status is **not licensed here**. The released set is the pipeline (`scripts/`, MIT) and the authors' own documents, schemas, decision records, analysis reports, test code and rights-redacted `distribution_v1/` view (CC BY 4.0). The manifest names every path and the licence that applies to it.
+
+- The evidence corpus (`jsonl*/`, `derived*/`, `splits*/`, `benchmark/`, `datasets/`, `training/`, `reports/`, `Vbeta/`) is not in the released set, and this project grants no redistribution right over it. Third-party source: not licensed here at all (see `NOTICE.md` and `LICENSE`).
+
+- 424 v1 records carry verbatim source from repositories declaring no licence (flagged per record). For strictly licence-clean use, resolve `code_context[].snippet` entries from the original audits. Attribution is not a redistribution right.
 
 ## Maintenance
 

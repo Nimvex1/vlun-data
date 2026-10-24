@@ -1,8 +1,8 @@
 {
   "artefacts": {
     "command.txt": {
-      "bytes": 94,
-      "sha256": "605ae54cc02c7067cd07b5f937004f251fb8ecce1d0a379bd12d046683972f93"
+      "bytes": 98,
+      "sha256": "a7248b726584e6ea6aaab1674ec1a3f75078c52b9588e0cd335e6fc9824085e2"
     },
     "harness.json": {
       "bytes": 738,
@@ -17,8 +17,8 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "toolchain.txt": {
-      "bytes": 1063,
-      "sha256": "609ff73d3a7d3ba7a7541d3e7dbac53c5a1bba36b36db7a88095de5755459355"
+      "bytes": 1071,
+      "sha256": "f0a2a5f01f6e0b0ce29db6ba29d7be44ce45fa4d7be5bcfc59771eec51c35b8e"
     }
   },
   "assertion": null,
@@ -43,14 +43,14 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
       "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
       "version": "sui 1.48.2-17a9eb8e1914"
     },
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
       "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
       "version": "sui 1.6.3-f4a70c8-dirty"
     },
@@ -64,7 +64,7 @@
   "record_id": "move:sui-amm-6.7-zero-liquidity",
   "run": {
     "argv": [
-      "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
       "move",
       "test"
     ],

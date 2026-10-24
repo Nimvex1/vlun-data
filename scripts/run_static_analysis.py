@@ -29,6 +29,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact_machine_paths import redact_obj  # noqa: E402  (one redaction convention, repo-wide)
 from vlun import REPORTS, WORK, log, write_json  # noqa: E402
 
 WT = WORK / "wt"
@@ -183,7 +184,7 @@ def main() -> int:
         "by_status": dict(Counter(r["static_analysis_status"] for r in records)),
         "repositories": records,
     }
-    write_json(REPORTS / "static_analysis.json", doc)
+    write_json(REPORTS / "static_analysis.json", redact_obj(doc))
     log(f"static_analysis.json: {doc['by_status']}")
     return 0
 

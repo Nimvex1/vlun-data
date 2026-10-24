@@ -150,9 +150,17 @@ STAGES = [
     (31, True, "run_dhl_experiments.py", ["--max-attempts", "6"],
      "V3.2 DeFiHackLabs pilots: staged build + fork execution with full "
      "artefacts (needs network for forge-std/solc fetches and fork RPC)"),
-    (32, False, "generate_readme.py", [],
+    (32, False, "build_f_extension.py", [],
+     "F-extension over the v1 rejection corpus: F-A six-axis evidence vectors and "
+     "F-B duplicate-radar pairs, merged into benchmark/manifest.json"),
+    (33, False, "score_f_extension.py", ["--baselines"],
+     "the trivial predictors a model must beat on the F-extension denominators"),
+    (34, False, "build_prove_ledger.py", [],
+     "VLUN-Prove candidate ledger: recorded two-revision evidence plus discovered "
+     "candidates, policed against the admission-gate fields"),
+    (35, False, "generate_readme.py", [],
      "README.md and NOTICE.md, with every figure read from the reports"),
-    (33, False, "validate.py", [], "the gate"),
+    (36, False, "validate.py", [], "the gate"),
 ]
 
 

@@ -64,6 +64,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gate_inputs as GI  # noqa: E402  (skipped_no_network precondition guard)
+from redact_machine_paths import redact_text  # noqa: E402  (one redaction convention, repo-wide)
 import vlun_v3 as V  # noqa: E402
 from run_dhl_experiments import (ARCHIVE_MARKERS, RPC_MARKERS,
                                  profit_deltas)  # noqa: E402
@@ -667,20 +668,27 @@ def execute_attempt(run: str, idx: int, strat: dict, timeout: int,
                 KEY_GATED[probe_key]
 
         adir.mkdir(parents=True, exist_ok=True)
+        # The captured output is redacted BEFORE it is written: a transcript
+        # that quotes the operator's home directory ties the artefact to one
+        # checkout and publishes the account name.
         (adir / "command.txt").write_text(
-            f"{tcode}   # cwd: isolated forge project (foundry.toml in "
-            f"harness.json)\n", encoding="utf-8", newline="\n")
-        (adir / "build_command.txt").write_text(" ".join(cmd) + "\n",
-                                                encoding="utf-8", newline="\n")
-        (adir / "stdout.txt").write_text((bso + bse + "\n=== forge test ===\n"
-                                          + so)[-200000:],
-                                         encoding="utf-8", newline="\n")
-        (adir / "stderr.txt").write_text((bse + "\n" + se)[-200000:],
-                                         encoding="utf-8", newline="\n")
+            redact_text(f"{tcode}   # cwd: isolated forge project "
+                        "(foundry.toml in harness.json)\n"),
+            encoding="utf-8", newline="\n")
+        (adir / "build_command.txt").write_text(
+            redact_text(" ".join(cmd) + "\n"),
+            encoding="utf-8", newline="\n")
+        (adir / "stdout.txt").write_text(
+            redact_text((bso + bse + "\n=== forge test ===\n" + so)[-200000:]),
+            encoding="utf-8", newline="\n")
+        (adir / "stderr.txt").write_text(
+            redact_text((bse + "\n" + se)[-200000:]),
+            encoding="utf-8", newline="\n")
         (adir / "toolchain.txt").write_text(
-            (subprocess.run(["forge", "--version"], capture_output=True,
-                             text=True, encoding="utf-8", errors="replace",
-                             timeout=60).stdout or "").strip() + "\n",
+            redact_text((subprocess.run(["forge", "--version"], capture_output=True,
+                                        text=True, encoding="utf-8",
+                                        errors="replace", timeout=60).stdout
+                         or "").strip() + "\n"),
             encoding="utf-8", newline="\n")
         harness = {
             "attempt": idx + 2,

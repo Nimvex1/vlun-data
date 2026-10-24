@@ -13,12 +13,12 @@
       "sha256": "cd710341e245a1f0c1ccc95c1fdd52a8fc92b2a2f0578779a356bfba46a38000"
     },
     "stderr.txt": {
-      "bytes": 403,
-      "sha256": "783df75819e7d174846d9c1fca03f8d8fa2017925507ec67c894e8dc6b6d18be"
+      "bytes": 411,
+      "sha256": "fe60efb3d6459585ec5b469540182ffdbadfd137e960e147dce5282b015db9e7"
     },
     "stdout.txt": {
-      "bytes": 700,
-      "sha256": "e2bd4899007eb0f964def17aa8ce38e1755cf84b7f34b9cfd94169c1c5a7aa71"
+      "bytes": 704,
+      "sha256": "072a537f4281a89ce03eb285dbb0214d1403253c20e2fdc01f6a638633869f79"
     },
     "toolchain.txt": {
       "bytes": 782,
@@ -96,7 +96,7 @@
       "--exact",
       "tests::int256_neg_min_wraps_silently"
     ],
-    "cwd": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\cw\\cosmwasm-std-2.0.2-dev",
+    "cwd": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\cw\\cosmwasm-std-2.0.2-dev",
     "exit_code": 101,
     "isolation": "generated crate in an isolated scratch dir; local test harness only - no chain, no funds, no node",
     "run_kind": "test_harness",

@@ -1,5 +1,12 @@
 {
   "additive": "This layer is separate from benchmark/. No source benchmark file, split, answer key or score is modified by this script.",
+  "answer_key": {
+    "committed_in_repository": true,
+    "file": "benchmark/independent/secondary_holdout_keys.jsonl",
+    "implication": "this holdout is OPEN-KEY. It measures whether a model that has not been handed the key can learn the task. It does NOT protect against a retrieval-augmented model that can search the repository, and it must never be described as hidden, protected against repository-level leakage, or not accessible. The only genuinely private evaluation in this repository is the VLUN-Prove private split, whose key lives outside the tracked tree.",
+    "key_status": "OPEN_KEY",
+    "retrievable_by": "anyone with this repository: the key file is a tracked file"
+  },
   "families": {
     "A_vulnerability_detection.jsonl": {
       "class_disjoint": {
@@ -151,26 +158,26 @@
       "class_disjoint": {
         "kind": "class_disjoint",
         "label_counts": {
-          "effective": 7
+          "effective": 5
         },
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "group_disjoint": {
-        "groups_total": 7,
+        "groups_total": 5,
         "kind": "group_disjoint",
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
       },
-      "rows_available": 7,
+      "rows_available": 5,
       "shortcuts_class_disjoint": {
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -205,26 +212,26 @@
       "class_disjoint": {
         "kind": "class_disjoint",
         "label_counts": {
-          "effective": 7
+          "effective": 5
         },
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "group_disjoint": {
-        "groups_total": 7,
+        "groups_total": 5,
         "kind": "group_disjoint",
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
       },
-      "rows_available": 7,
+      "rows_available": 5,
       "shortcuts_class_disjoint": {
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -1096,8 +1103,39 @@
   "holdout_fraction": 0.3,
   "holdout_version": "1",
   "independence_guarantee": "Built only from the committed benchmark files. No model, prompt or threshold was tuned against it, and it did not exist while any published score was produced.",
+  "keys_written": 2716,
   "method": "group_disjoint: whole groups partitioned with a seeded shuffle, stratified by each group's label set. class_disjoint: all rows of the two rarest labels held out, then every group touching a held-out row removed from the retained side, so retained labels and retained groups are both disjoint from the holdout.",
   "min_minority": 5,
+  "model_facing_tasks": {
+    "carries": [
+      "holdout_task_id",
+      "family_file",
+      "holdout",
+      "input"
+    ],
+    "does_not_carry": [
+      "gold",
+      "label",
+      "answer",
+      "answer_key",
+      "expected",
+      "original_id",
+      "original_split",
+      "group",
+      "split"
+    ],
+    "file": "benchmark/independent/secondary_holdout_tasks.jsonl",
+    "task_id": "a digest of (family, holdout, original id): stable, joinable to the key file, and it names nothing the answer depends on"
+  },
+  "payload_answer_literal_overlap": {
+    "by_family": {
+      "K_language_ecosystem_routing.jsonl": 20,
+      "L_severity_reconciliation.jsonl": 9,
+      "O_record_class_and_scope.jsonl": 3
+    },
+    "note": "the model-facing payload is copied verbatim from the benchmark, so a family whose own evidence names the answer leaks it here too. That is a benchmark defect, measured by scripts/independent_benchmark_audit.py (K and L are the high-severity cases), and it is reported here rather than hidden: this holdout is open-key and is not claimed to be leakage-proof",
+    "rows": 32
+  },
   "seed": 7,
   "tasks_written": 2716
 }

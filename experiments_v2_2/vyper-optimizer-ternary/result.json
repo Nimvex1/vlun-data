@@ -1,6 +1,6 @@
 {
   "argv": [
-    "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "python",
     "scripts/run_vyper_poc.py",
     "--id",
     "optimizer_ternary"
@@ -16,7 +16,7 @@
     }
   },
   "assertion_stdout_captured": true,
-  "command": "C:\\Users\\jeet\\AppData\\Local\\Programs\\Python\\Python312\\python.exe scripts/run_vyper_poc.py --id optimizer_ternary",
+  "command": "python scripts/run_vyper_poc.py --id optimizer_ternary",
   "cwd": "<repo>",
   "description": "the optimizer folds `msg.value | 2` to 1: IR differential plus a deployed call returning 1 at -O gas and 7 at -O none",
   "exit_code": 0,

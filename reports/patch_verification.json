@@ -1,10 +1,11 @@
 {
   "by_status": {
-    "effective": 7,
-    "not_testable": 31
+    "effective": 5,
+    "not_testable": 31,
+    "not_verified_two_revision": 2
   },
-  "evaluated": 7,
-  "fix_confirmed_effective": 7,
+  "evaluated": 5,
+  "fix_confirmed_effective": 5,
   "generated_by": "scripts/verify_patches.py (v2 compatibility view)",
   "patch_records": 38,
   "records": [
@@ -12,9 +13,11 @@
       "finding_id": "2024-01-renft/H-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
         "regression_test_passed": true,
         "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
@@ -25,9 +28,11 @@
       "finding_id": "2024-01-renft/H-02",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "b917057e20b25db8a592991cd7a50e50205ec5e8",
@@ -38,9 +43,11 @@
       "finding_id": "2024-01-renft/H-03",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
         "regression_test_passed": true,
         "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
@@ -51,9 +58,11 @@
       "finding_id": "2024-01-renft/H-04",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
         "regression_test_passed": true,
         "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "f358c1738dae359d83f7f5e1c074c988a9577e80",
@@ -64,12 +73,14 @@
       "finding_id": "2024-01-renft/H-06",
       "fix_verification": {
         "fixed_revision_result": "pass",
+        "missing_evidence": null,
         "reason": {
           "fixed": "pass",
           "vulnerable": "reconstruction_failed"
         },
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
@@ -80,9 +91,11 @@
       "finding_id": "2024-01-renft/H-07",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "2e3e8dbca1330ca66d32a8bb9d3509abf043a758",
@@ -93,9 +106,14 @@
       "finding_id": "2024-01-renft/M-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
-        "regression_test_passed": true,
-        "status": "effective",
+        "missing_evidence": [
+          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
+          "the two revisions did not run the same test file bytes"
+        ],
+        "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol); the two revisions did not run the same test file bytes",
+        "regression_test_passed": false,
+        "status": "not_verified_two_revision",
+        "two_revision_evidence": "PARTIAL",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
@@ -106,12 +124,14 @@
       "finding_id": "2024-01-renft/M-02",
       "fix_verification": {
         "fixed_revision_result": "pass",
+        "missing_evidence": null,
         "reason": {
           "fixed": "pass",
           "vulnerable": "reconstruction_failed"
         },
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": "compile_error"
       },
       "fixed_commit": "12bdab416447b51b43b7053be7b55b5b932336e5",
@@ -122,9 +142,11 @@
       "finding_id": "2024-01-renft/M-04",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "a4000839b111a3dc2e7b191e8fd098a6130b6151",
@@ -135,9 +157,11 @@
       "finding_id": "2024-01-renft/M-05",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
@@ -148,9 +172,11 @@
       "finding_id": "2024-01-renft/M-06",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "9bcee7b5f18c2ef2323551eebcbcbe258672fac8",
@@ -161,9 +187,14 @@
       "finding_id": "2024-01-renft/M-08",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
-        "regression_test_passed": true,
-        "status": "effective",
+        "missing_evidence": [
+          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
+          "the two revisions did not run the same test file bytes"
+        ],
+        "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol); the two revisions did not run the same test file bytes",
+        "regression_test_passed": false,
+        "status": "not_verified_two_revision",
+        "two_revision_evidence": "PARTIAL",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
@@ -174,9 +205,11 @@
       "finding_id": "2024-01-renft/M-09",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
         "regression_test_passed": true,
         "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
@@ -187,9 +220,11 @@
       "finding_id": "2024-01-renft/M-10",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "393ebb9f1b58bf9e0c52fb2a3867bb364b574bba",
@@ -200,9 +235,11 @@
       "finding_id": "2024-01-renft/M-11",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
         "regression_test_passed": true,
         "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
@@ -213,9 +250,11 @@
       "finding_id": "2024-01-renft/M-12",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "97e5753e5398da65d3d26735e9d6439c757720f5",
@@ -226,9 +265,11 @@
       "finding_id": "2024-01-renft/M-13",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "2e3e8dbca1330ca66d32a8bb9d3509abf043a758",
@@ -239,9 +280,11 @@
       "finding_id": "2024-01-renft/M-16",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "28d647bd663aebdce618806fc63d9f22a9ffddf7",
@@ -252,9 +295,11 @@
       "finding_id": "2024-12-bakerfi/H-01",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "ce9d853ff1c24840fd02e4e8b352022b8f09c401",
@@ -265,9 +310,11 @@
       "finding_id": "2024-12-bakerfi/H-02",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "e11abaf1aa03fae283441485a3cd25f91232ff60",
@@ -278,9 +325,11 @@
       "finding_id": "2024-12-bakerfi/H-03",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "1662f58d7505868a9c5be2683915159cf0547e10",
@@ -291,9 +340,11 @@
       "finding_id": "2024-12-bakerfi/H-04",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "0a356c2d32593344f06907c0fc74b460f13cbdff",
@@ -304,9 +355,11 @@
       "finding_id": "2024-12-bakerfi/H-05",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "67f943e05baf38da14a9def43348ea768cf89dc4",
@@ -317,9 +370,11 @@
       "finding_id": "2024-12-bakerfi/H-06",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "f7bc5337d7afcaa479bae4c89662416b311abd52",
@@ -330,9 +385,11 @@
       "finding_id": "2024-12-bakerfi/H-07",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "0e2f3089983af3a37959b0658f26406d64526ce2",
@@ -343,9 +400,11 @@
       "finding_id": "2024-12-bakerfi/M-01",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "edfeec0dd08b32a7596a05410facd911646897ea",
@@ -356,9 +415,11 @@
       "finding_id": "2024-12-bakerfi/M-02",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "679350d3075f15b18f8b697e0332e152da5a548f",
@@ -369,9 +430,11 @@
       "finding_id": "2024-12-bakerfi/M-03",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "e44fd4582fdefb62f06fbe1ef2fa7bf2a86fafcb",
@@ -382,9 +445,11 @@
       "finding_id": "2024-12-bakerfi/M-06",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "defdde33a0dbe78fb086909bd7bebef502193acb",
@@ -395,9 +460,11 @@
       "finding_id": "2024-12-bakerfi/M-07",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "4752a6a00f542316dba7c212829192616066d876",
@@ -408,9 +475,11 @@
       "finding_id": "2024-12-bakerfi/M-08",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "55132644126ca7c7d4b638b599e5c3635315791d",
@@ -421,9 +490,11 @@
       "finding_id": "2024-12-bakerfi/M-09",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "23fe3624c48f008e0f0d6e1dcaca8abafd51f86f",
@@ -434,9 +505,11 @@
       "finding_id": "2024-12-bakerfi/M-10",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "1a9b78d7bb28bdf3f7b74e71966bdcc7399d1ff9",
@@ -447,9 +520,11 @@
       "finding_id": "2024-12-bakerfi/M-11",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "e80920956980ce24c4551a960739280f90cd775c",
@@ -460,9 +535,11 @@
       "finding_id": "2024-12-bakerfi/M-13",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "50ecbf5d854bf9d5c0ddecd09f64895f1c6f1fb9",
@@ -473,9 +550,11 @@
       "finding_id": "2024-12-bakerfi/M-14",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "eeb7ad84f99c54ead1af22c330905b028aa242df",
@@ -486,9 +565,11 @@
       "finding_id": "2024-12-bakerfi/M-15",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "4752a6a00f542316dba7c212829192616066d876",
@@ -499,9 +580,11 @@
       "finding_id": "2024-12-bakerfi/M-16",
       "fix_verification": {
         "fixed_revision_result": null,
+        "missing_evidence": null,
         "reason": "no experiment ran both revisions for this finding",
         "regression_test_passed": false,
         "status": "not_testable",
+        "two_revision_evidence": null,
         "vulnerable_revision_result": null
       },
       "fixed_commit": "273c2834dc96a440293c25c8d9deef923e44e744",

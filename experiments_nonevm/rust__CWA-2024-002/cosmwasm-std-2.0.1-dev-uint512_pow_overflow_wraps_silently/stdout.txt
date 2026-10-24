@@ -6,7 +6,7 @@ failures:
 
 ---- tests::uint512_pow_overflow_wraps_silently stdout ----
 
-thread 'tests::uint512_pow_overflow_wraps_silently' (12388) panicked at C:\Users\jeet\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\bnum-0.10.0\src\buint\mod.rs:697:1:
+thread 'tests::uint512_pow_overflow_wraps_silently' (12388) panicked at C:\Users\REDACTED\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\bnum-0.10.0\src\buint\mod.rs:697:1:
 (bnum) attempt to calculate power with overflow
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 

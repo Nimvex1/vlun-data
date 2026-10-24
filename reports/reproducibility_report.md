@@ -17,7 +17,7 @@ machine.
 | v3 gate | `scripts/validate_v3.py` | 42 checks | 0 |
 | v3.1 gate | `scripts/validate_v31.py` | 44 checks | 0 |
 | Vbeta gate | `Vbeta/scripts/validate_vbeta.py` | 35 checks | 0 |
-| cross-manifest | `scripts/check_manifests.py` | 172 checks | 0 |
+| cross-manifest | `scripts/check_manifests.py` | 180 checks | 0 |
 | reproducibility | `scripts/check_reproducibility.py` | 19 checks | 0 |
 
 ## Where the per-check matrix lives

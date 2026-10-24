@@ -140,15 +140,39 @@ def effectiveness(exp: dict | None) -> dict:
     vs = (v.get("vulnerable") or {}).get("status")
     fs = (v.get("fixed") or {}).get("status")
     verdict = exp.get("verdict")
-    if verdict == "l6_verified_patch":
+    evidence = exp.get("two_revision_evidence") or {}
+    ev_status = evidence.get("status")
+    if verdict == "l6_verified_patch" and ev_status == "VERIFIED_TWO_REVISION":
         return {
             "fix_effectiveness": "effective",
             "vulnerable_revision_result": vs,
             "fixed_revision_result": fs,
             "failure_reason_on_fixed": ((v.get("fixed") or {}).get("declared_expectation")),
             "regression_test": (exp.get("match_test")),
+            "two_revision_evidence": ev_status,
             "reason": ("the same test observed the violation on the audited revision and "
-                       "the property held on the fixed revision"),
+                       "the property held on the fixed revision, on byte-identical "
+                       "harness bytes"),
+        }
+    if verdict in ("l6_partial_two_revision_evidence",
+                   "l6_unverifiable_two_revision_evidence") or \
+            (verdict == "l6_verified_patch" and ev_status != "VERIFIED_TWO_REVISION"):
+        # The run happened, but the committed artefacts do not show a controlled
+        # comparison, so the fix effectiveness is not established. The missing
+        # evidence is named rather than the claim being kept.
+        missing = evidence.get("missing_evidence") or []
+        return {
+            "fix_effectiveness": "not_verified_two_revision",
+            "vulnerable_revision_result": vs,
+            "fixed_revision_result": fs,
+            "failure_reason_on_fixed": ((v.get("fixed") or {}).get("declared_expectation")),
+            "regression_test": (exp.get("match_test")),
+            "two_revision_evidence": ev_status,
+            "missing_evidence": missing,
+            "reason": ("the two revisions were executed, but the committed artefacts "
+                       "do not show a controlled two-revision comparison: "
+                       + ("; ".join(missing) if missing else
+                          "the two-revision evidence was not recorded")),
         }
     if verdict == "reproduced_but_not_blocked":
         return {"fix_effectiveness": "ineffective", "vulnerable_revision_result": vs,
@@ -239,10 +263,12 @@ def main() -> int:
         "by_fix_effectiveness": dict(tally),
         "experimentally_confirmed_pairs": tally.get("effective", 0),
         "fix_category_vocabulary": list(FIX_CATEGORIES),
-        "guarantee": ("a patch is called effective only when the same test observed the "
-                      "violation on the audited revision and the property held on the fixed "
-                      "revision. A merged PR, a remediation label or a diff is never "
-                      "sufficient."),
+        "guarantee": ("a patch is called effective only when the same test, the same "
+                      "assertions and byte-identical harness bytes observed the "
+                      "violation on the audited revision and the property held on the "
+                      "fixed revision. A merged PR, a remediation label or a diff is "
+                      "never sufficient, and a run whose two sides did not run the same "
+                      "harness bytes is reported as not_verified_two_revision."),
         "licence_note": ("diffs are read from local clones for analysis only; no diff text "
                          "is redistributed for the BUSL-1.1 repositories"),
         "records": rows,
@@ -264,6 +290,8 @@ def main() -> int:
                                  "vulnerable_revision_result": r.get("vulnerable_revision_result"),
                                  "fixed_revision_result": r.get("fixed_revision_result"),
                                  "regression_test_passed": r["fix_effectiveness"] == "effective",
+                                 "two_revision_evidence": r.get("two_revision_evidence"),
+                                 "missing_evidence": r.get("missing_evidence"),
                                  "reason": r.get("reason")},
         } for r in rows],
     }

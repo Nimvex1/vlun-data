@@ -5,8 +5,8 @@
       "sha256": "0d1761df9c9a064b9142d235b4cf15e4b78b4ddcf9918e7f69b254472bb349ae"
     },
     "command.txt": {
-      "bytes": 174,
-      "sha256": "1bc2c93c173543fabaef4ed4ff993c52d1d4e7723bf8b5c1ac565d533866488c"
+      "bytes": 178,
+      "sha256": "2783266d85b018b5be87b752d6c7e05d33ead47cca1ae3e8bcfb80ef632503eb"
     },
     "harness.json": {
       "bytes": 894,
@@ -21,8 +21,8 @@
       "sha256": "d1e3a87bba5c5ab78788d4a7383df72c0528e1fa2479d5079812400ab15e02ac"
     },
     "toolchain.txt": {
-      "bytes": 1063,
-      "sha256": "609ff73d3a7d3ba7a7541d3e7dbac53c5a1bba36b36db7a88095de5755459355"
+      "bytes": 1071,
+      "sha256": "f0a2a5f01f6e0b0ce29db6ba29d7be44ce45fa4d7be5bcfc59771eec51c35b8e"
     }
   },
   "assertion": {
@@ -66,14 +66,14 @@
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\tools\\sui-1.48.2\\sui.exe",
       "tool": "sui cli: sui 1.48.2 (era-matching for v1.1.1/v1.1.2)",
       "version": "sui 1.48.2-17a9eb8e1914"
     },
     {
       "install_command": null,
       "install_status": "installed",
-      "path": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "path": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
       "tool": "sui cli: sui 1.6.3 (era-matching for v1.1.0)",
       "version": "sui 1.6.3-f4a70c8-dirty"
     },
@@ -87,12 +87,12 @@
   "record_id": "move:cetus-checked-shlw",
   "run": {
     "argv": [
-      "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
+      "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\toolchains-1.6.3\\target\\release\\sui-windows-x86_64.exe",
       "move",
       "test",
       "nonevm_boundary_exactly_2pow192_truncates_to_zero"
     ],
-    "cwd": "C:\\Users\\jeet\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze\\pkg",
+    "cwd": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\nonevm\\runs\\mask_era_4d09c8b-boundary_exactly_2pow192_truncates_to_ze\\pkg",
     "exit_code": 0,
     "isolation": "isolated scratch copy of the pinned package; local Move VM only - no gateway, no faucet, no chain",
     "run_kind": "native_test",

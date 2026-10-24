@@ -22,7 +22,8 @@
     },
     {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 492,
+        "reported_claim": 228
       },
       "by_language": null,
       "by_split": {
@@ -31,14 +32,14 @@
         "validation": 229
       },
       "family": "B",
-      "file": "benchmark/B_root_cause_reasoning.jsonl",
-      "labeled": 0,
+      "file": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
+      "labeled": 228,
       "layer": "v1",
-      "partial": 416,
+      "partial": 0,
       "question": "what is the root cause and which invariant does it violate?",
-      "scorable": 0,
+      "scorable": 228,
       "tasks": 720,
-      "unlabeled": 304
+      "unlabeled": 492
     },
     {
       "answer_key_evidence_levels": {
@@ -91,7 +92,7 @@
         "validation": 229
       },
       "family": "E",
-      "file": "benchmark/E_exploit_verification.jsonl",
+      "file": "benchmark/retired_families/E_exploit_verification.jsonl",
       "labeled": 7,
       "layer": "v1",
       "partial": 0,
@@ -122,7 +123,50 @@
     },
     {
       "answer_key_evidence_levels": {
-        "not_recorded": 38
+        "derived_fact": 458
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 38,
+        "train": 232,
+        "validation": 188
+      },
+      "family": "FA",
+      "file": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
+      "labeled": 292,
+      "layer": "v1",
+      "partial": 166,
+      "question": "which of the six rejection-evidence axes does this evidence packet support?",
+      "scorable": 292,
+      "tasks": 458,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "derived_fact": 258,
+        "externally_attributed": 184,
+        "unknown": 111
+      },
+      "by_language": null,
+      "by_split": {
+        "test": 31,
+        "train": 323,
+        "validation": 199
+      },
+      "family": "FB",
+      "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
+      "labeled": 553,
+      "layer": "v1",
+      "partial": 0,
+      "question": "same vulnerability, distinct vulnerability, or ambiguous for this candidate/comparison pair?",
+      "scorable": 553,
+      "tasks": 553,
+      "unlabeled": 0
+    },
+    {
+      "answer_key_evidence_levels": {
+        "experimentally_verified": 5,
+        "not_recorded": 33
       },
       "by_language": null,
       "by_split": {
@@ -131,13 +175,13 @@
       },
       "family": "G",
       "file": "benchmark/G_patch_verification.jsonl",
-      "labeled": 0,
+      "labeled": 5,
       "layer": "v1",
       "partial": 0,
       "question": "does the fix address the vulnerability?",
-      "scorable": 0,
+      "scorable": 5,
       "tasks": 38,
-      "unlabeled": 38
+      "unlabeled": 33
     },
     {
       "answer_key_evidence_levels": {
@@ -178,20 +222,20 @@
     },
     {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7
+        "experimentally_verified": 5
       },
       "by_language": null,
       "by_split": {
-        "validation": 7
+        "validation": 5
       },
       "family": "J",
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 7,
+      "labeled": 5,
       "layer": "v1",
       "partial": 0,
       "question": "does the exploit pass on the vulnerable revision and fail on the fixed one?",
-      "scorable": 7,
-      "tasks": 7,
+      "scorable": 5,
+      "tasks": 5,
       "unlabeled": 0
     },
     {
@@ -212,7 +256,7 @@
         "validation": 30
       },
       "family": "K",
-      "file": "benchmark/K_language_ecosystem_routing.jsonl",
+      "file": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
       "labeled": 137,
       "layer": "v2.2",
       "partial": 0,
@@ -239,7 +283,7 @@
         "validation": 30
       },
       "family": "L",
-      "file": "benchmark/L_severity_reconciliation.jsonl",
+      "file": "benchmark/retired_families/L_severity_reconciliation.jsonl",
       "labeled": 128,
       "layer": "v2.2",
       "partial": 6,
@@ -263,7 +307,7 @@
         "validation": 5
       },
       "family": "M",
-      "file": "benchmark/M_experiment_level_classification.jsonl",
+      "file": "benchmark/retired_families/M_experiment_level_classification.jsonl",
       "labeled": 37,
       "layer": "v2.2",
       "partial": 0,
@@ -290,7 +334,7 @@
         "validation": 30
       },
       "family": "N",
-      "file": "benchmark/N_attacker_identity_extraction.jsonl",
+      "file": "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
       "labeled": 14,
       "layer": "v2.2",
       "partial": 10,
@@ -318,7 +362,7 @@
         "validation": 30
       },
       "family": "O",
-      "file": "benchmark/O_record_class_and_scope.jsonl",
+      "file": "benchmark/retired_families/O_record_class_and_scope.jsonl",
       "labeled": 137,
       "layer": "v2.2",
       "partial": 0,
@@ -344,7 +388,7 @@
         "validation": 30
       },
       "family": "P",
-      "file": "benchmark/P_provenance_tier_and_rights.jsonl",
+      "file": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
       "labeled": 137,
       "layer": "v2.2",
       "partial": 0,
@@ -383,12 +427,12 @@
   "generated_by": "scripts/generate_v22_reports.py",
   "policy": "families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2_2 over splits_v2_2, one task per v2.2 record (M only for records with a run). A task is labeled only where the record actually holds the answer, partial where half of it exists, and unlabeled with a stated reason otherwise; only labeled tasks are scored. The model-facing payload is the task's `input` object - ids and source blocks are traceability and carry the language prefix.",
   "totals": {
-    "families": 17,
-    "labeled": 2122,
-    "partial": 432,
-    "scorable": 2122,
-    "tasks": 4972,
-    "unlabeled": 2416,
+    "families": 19,
+    "labeled": 3198,
+    "partial": 182,
+    "scorable": 3198,
+    "tasks": 5981,
+    "unlabeled": 2599,
     "v2_2_families": 7,
     "v2_2_tasks": 859
   }

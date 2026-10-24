@@ -1,7 +1,7 @@
 {
   "title": "VLUN: a provenance-preserving smart-contract security reasoning dataset",
   "version": "2.2",
-  "description": "A provenance-preserving corpus of smart-contract security findings across Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and Clarity. Every record traces to a public artefact and every claim carries its evidence type. Governing rule: truth over scale; unknown is a counted outcome. Data layers are CC BY 4.0; pipeline scripts are MIT; third-party source is not licensed here at all (see NOTICE.md).",
+  "description": "A provenance-preserving corpus of smart-contract security findings across Solidity, Rust, Move, Cairo, Circom, Noir, Leo, TypeScript, Go, Vyper and Clarity. Every record traces to a public artefact and every claim carries its evidence type. Governing rule: truth over scale; unknown is a counted outcome. The licence is scoped, not blanket: this project grants MIT over its own code and CC BY 4.0 over its own documents and data, and only for the paths RELEASE_MANIFEST.json lists with a released rights status. The evidence corpus and every piece of third-party material are not licensed here at all, and attribution is not a redistribution right (see LICENSE and NOTICE.md).",
   "creators": [
     {
       "name": "Nimvex1",
@@ -16,7 +16,18 @@
     "machine learning",
     "blockchain"
   ],
-  "license": "cc-by-4.0",
+  "rights": {
+    "release_manifest": "RELEASE_MANIFEST.json",
+    "released_set_rule": "a tracked path that is not listed in RELEASE_MANIFEST.json with a released rights status is not licensed here, and this project grants no redistribution right over it",
+    "licences_of_released_paths": {
+      "code": "MIT",
+      "data": "CC-BY-4.0",
+      "note": "these are the licences of the released paths only. The per-path statement is RELEASE_MANIFEST.json's `path_licences`; no third-party material is licensed here, wherever it occurs."
+    },
+    "covers_third_party_material": false,
+    "legal_clearance_claimed": false,
+    "attribution_is_not_a_right_grant": true
+  },
   "upload_type": "dataset",
   "access_right": "open",
   "communities": [],
@@ -28,5 +39,5 @@
       "scheme": "url"
     }
   ],
-  "notes": "DOI is minted by Zenodo on first publish (see docs/ARCHIVAL.md). After publishing, copy the DOI back into CITATION.cff (doi: + preferred-citation.doi) and regenerate the README so the citable artifact is pinned in-repo."
+  "notes": "There is no single repository-wide licence: the licence is per path, and RELEASE_MANIFEST.json is the authoritative statement of what may be redistributed. Fill the deposition's licence field from that manifest's `path_licences` for the released paths, and do not claim a licence over the evidence corpus. DOI is minted by Zenodo on first publish (see docs/ARCHIVAL.md). After publishing, copy the DOI back into CITATION.cff (doi: + preferred-citation.doi) and regenerate the README so the citable artifact is pinned in-repo."
 }

@@ -1,0 +1,32 @@
+{
+  "by_scheme": {
+    "v1-builder-row+verification-verdict": 155,
+    "v1-committed-row": 567
+  },
+  "fields": {
+    "record_sha256": "the historical digest, carried forward verbatim; never recalculated",
+    "record_sha256_v2": "the digest under the current scheme",
+    "record_sha256_v2_version": "the scheme of record_sha256_v2",
+    "record_sha256_version": "the scheme the historical digest follows"
+  },
+  "generated_by": "scripts/build_derived.py",
+  "historical_digest": {
+    "not_reproduced": 0,
+    "note": "reproduced means the historical digest was recomputed from the bytes it claims to identify, under the scheme the record states, and matched. A digest whose bytes are not available is counted as not reproduced, never as verified.",
+    "reproduced": 722
+  },
+  "layer": "derived/records.jsonl",
+  "problem_count": 0,
+  "problems": [],
+  "records": 722,
+  "scheme": {
+    "v1-builder-row+verification-verdict": "the same digest over the row as the builder saw it: the builder injects the private key '_verification_verdict' into the row before hashing it, from work/poc_runs/ - a git-ignored, machine-local directory. The digest therefore covers a byte space that a fresh checkout cannot rebuild. The verdict itself is committed data (verification.verdict), so the digest is still checkable everywhere.",
+    "v1-committed-row": "sha256(json.dumps(row, sort_keys=True, ensure_ascii=False)) over the v1 row exactly as it is committed in jsonl/. Reproducible from a fresh checkout on any machine.",
+    "v1-unknown": "the digest matches neither scheme; it is carried forward unchanged and is not reported as verified.",
+    "v2-committed-row": "sha256(json.dumps(committed_row, sort_keys=True, ensure_ascii=False)) over the v1 row exactly as it is committed in jsonl/, with no builder-injected key. The value depends only on committed bytes."
+  },
+  "v2_digest": {
+    "not_reproduced": 0,
+    "reproduced": 722
+  }
+}
