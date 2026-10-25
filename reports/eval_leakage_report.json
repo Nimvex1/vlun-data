@@ -1274,7 +1274,9 @@
       },
       "secondary_holdout": {
         "key_file": "benchmark/independent/secondary_holdout_keys.jsonl",
-        "statement": "the answer key is a separate file, committed in this repository and labelled OPEN-KEY; the model-facing task file carries the input and a task id only"
+        "note": "whether the key file is present in a given checkout does not change its status: it is open, not private",
+        "statement": "the answer key is a separate file labelled OPEN-KEY: it is not a secret because the split is deterministic and reproducible from the committed benchmark files. It is not tracked in this repository; the model-facing task file carries the input and a task id only",
+        "tracked_in_git": false
       },
       "v1_task_holdout_rows": {
         "location": "benchmark/independent/v1_task_holdout/",

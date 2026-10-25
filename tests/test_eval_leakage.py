@@ -145,6 +145,11 @@ class TestProtectedRecordsStayOutOfTheCorpus(unittest.TestCase):
                              f"record id: {r.stdout}{r.stderr}")
 
 
+_KEY_PRESENT = KEYS.is_file()
+requires_key = unittest.skipUnless(
+    _KEY_PRESENT, "the holdout answer key is local-only and absent in this checkout")
+
+
 class TestTaskPayloadAndKeyStatus(unittest.TestCase):
     """(b) task inputs must not expose their gold; the key must say it is open."""
 
@@ -165,6 +170,7 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
             self.assertIn("input", row)
             self.assertIn("holdout_task_id", row)
 
+    @requires_key
     def test_the_task_id_reveals_nothing(self):
         """The task id must be a digest, not the record id."""
         keys = {r["holdout_task_id"]: r for r in read_jsonl(KEYS)}
@@ -179,11 +185,13 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
             if len(gold) >= 3:
                 self.assertNotIn(gold, tid)
 
+    @requires_key
     def test_the_key_file_is_labelled_open_key(self):
         for row in read_jsonl(KEYS):
             self.assertEqual(str(row.get("key_status", "")).lower(), "open_key")
             self.assertIn("gold", row)
 
+    @requires_key
     def test_the_manifest_describes_the_key_as_it_actually_is(self):
         # The key file is withheld from the repository (it is regenerable from
         # the committed sources, so the holdout stays open-key). The manifest
@@ -198,6 +206,7 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
             self.assertIs(ak["tracked_in_git"], tracked)
         self.assertEqual(gate.key_status_violations(read_jsonl(KEYS), man), [])
 
+    @requires_key
     def test_a_manifest_claiming_a_committed_untracked_key_is_rejected(self):
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         man["answer_key"]["committed_in_repository"] = True
@@ -207,6 +216,7 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
             self.assertTrue(bad, "a manifest claiming a committed key the "
                                  "repository does not carry was accepted")
 
+    @requires_key
     def test_a_manifest_claiming_a_hidden_key_is_rejected(self):
         """A claim of hiddenness for a committed key must fail the check."""
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -215,6 +225,7 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
         self.assertTrue(bad, "a manifest claiming a hidden answer key was "
                              "accepted")
 
+    @requires_key
     def test_a_key_row_without_the_open_key_label_is_rejected(self):
         rows = read_jsonl(KEYS)
         rows[0] = dict(rows[0])

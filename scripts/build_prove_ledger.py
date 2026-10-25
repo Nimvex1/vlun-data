@@ -518,6 +518,16 @@ def main() -> int:
         if r.get("candidate_stage") == "qualified"))
 
     if args.check:
+        local_inputs = (list(CANDIDATE_DIR.glob("*ledger*.jsonl"))
+                        + list(CANDIDATE_DIR.glob("*runs*.jsonl")))
+        if not local_inputs:
+            # The discovery ledgers live in the git-ignored work/ tree. Without
+            # them only the recorded-evidence side can be rebuilt, so the
+            # committed ledger is not re-derivable in a fresh checkout: say so
+            # and skip instead of reporting a false staleness.
+            log("skipped_no_local_inputs: work/prove_candidates is absent; the "
+                "committed ledger is not re-derivable in this checkout")
+            return 0
         current = _load(LEDGER) if LEDGER.exists() else []
         if json.loads(json.dumps(rows)) != current:
             log("STALE: derived_prove/candidate_ledger.jsonl -- run: "

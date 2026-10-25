@@ -136,7 +136,7 @@ These files live outside `training/`, so a consumer globbing the training direct
 
 - **benchmark families** — every benchmark family row carries its answer key in the same file as its input; the key is committed, so every family is OPEN-KEY and no family may be described as hidden or protected against repository-level leakage
 - **canonical held out shards** — the held-out partitions of the training views are committed, and are not model-visible because they live outside training/
-- **secondary holdout** — the answer key is a separate file, committed in this repository and labelled OPEN-KEY; the model-facing task file carries the input and a task id only
+- **secondary holdout** — the answer key is a separate file labelled OPEN-KEY: it is not a secret because the split is deterministic and reproducible from the committed benchmark files. It is not tracked in this repository; the model-facing task file carries the input and a task id only
 - **v1 task holdout rows** — the task rows whose records a benchmark family holds out are committed, and are not model-visible because they live outside training/
 - **vlun prove private split** — the key lives OUTSIDE the tracked tree and is committed to by SHA-256, so this evaluation IS protected against repository-level retrieval. scripts/build_prove_split.py refuses to write it inside the repository
 

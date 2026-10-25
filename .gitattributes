@@ -1,3 +1,8 @@
+# Every tracked text file is checked out as LF on every platform, including
+# extensionless files (LICENSE, .gitignore). Per-extension rules below are
+# kept for clarity; the execution-evidence directories stay untranslated.
+* text=auto eol=lf
+
 # Data files are committed with LF. Without this, Windows checkouts rewrite the
 # whole dataset to CRLF and every file shows as modified, which hides real edits
 # and makes the repository impossible to review.

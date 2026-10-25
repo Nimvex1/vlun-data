@@ -241,8 +241,27 @@ def check_task_payload_and_key() -> list[str]:
         problems.append(f"missing {TASKS.relative_to(ROOT)}")
         return problems
     if not KEYS.is_file():
-        problems.append(f"missing {KEYS.relative_to(ROOT)} (the answer key must "
-                        f"exist as its own file, labelled OPEN-KEY)")
+        # The key is local-only: a fresh checkout legitimately has no key file.
+        # That is not a leak. What must hold is (a) the manifest does not claim
+        # a committed key the checkout does not carry, and (b) the model-facing
+        # tasks still carry no answer field. The key join is skipped because the
+        # key is absent, not because the check passed.
+        manifest = (json.loads(HOLDOUT_MANIFEST.read_text(encoding="utf-8"))
+                    if HOLDOUT_MANIFEST.is_file() else {})
+        ak = manifest.get("answer_key") or {}
+        tracked = key_file_is_tracked()
+        if tracked is True or ak.get("committed_in_repository") is True:
+            problems.append(
+                "the holdout key file is absent but the manifest declares it "
+                "committed; the claim and the checkout disagree")
+        for line in TASKS.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            for field in answer_fields_in_task_row(row):
+                problems.append(
+                    f"model-facing task {row.get('holdout_task_id')!r} carries "
+                    f"the answer field {field!r}")
         return problems
 
     key_rows = [json.loads(line) for line

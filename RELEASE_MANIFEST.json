@@ -31,13 +31,13 @@
       "internal_research_artefact_not_cleared": 1205,
       "metadata_only": 1,
       "project_own": 454,
-      "withheld_third_party_no_redistribution_rights": 140
+      "withheld_third_party_no_redistribution_rights": 142
     },
-    "not_released_paths": 1345,
-    "paths_with_measured_personal_data": 11,
-    "paths_with_measured_verbatim_third_party_content": 140,
+    "not_released_paths": 1347,
+    "paths_with_measured_personal_data": 13,
+    "paths_with_measured_verbatim_third_party_content": 142,
     "released_paths": 469,
-    "tracked_paths": 1814
+    "tracked_paths": 1816
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -126,7 +126,9 @@
     "benchmark/J_verified_patch.jsonl",
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
     "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+    "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
     "benchmark/independent/canonical_holdout/manifest.json",
+    "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
     "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
     "benchmark/independent/secondary_holdout_manifest.json",
     "benchmark/independent/secondary_holdout_tasks.jsonl",
@@ -2194,6 +2196,30 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 5 run(s) of at most 629 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 800,
+        "longest_verbatim_span_chars": 900,
+        "personal_data_strings": 641,
+        "verbatim_code_spans": 101,
+        "verbatim_third_party_strings": 2024
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 101 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 800,
+        "longest_verbatim_span_chars": 900,
+        "personal_data_strings": 699,
+        "verbatim_code_spans": 108,
+        "verbatim_third_party_strings": 2787
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 108 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3609,7 +3635,9 @@
     "benchmark/J_verified_patch.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/canonical_holdout/manifest.json": "internal_research_artefact_not_cleared",
+    "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/secondary_holdout_manifest.json": "internal_research_artefact_not_cleared",
     "benchmark/independent/secondary_holdout_tasks.jsonl": "withheld_third_party_no_redistribution_rights",

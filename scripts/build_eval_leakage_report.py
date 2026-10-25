@@ -43,6 +43,7 @@ import collections
 import hashlib
 import importlib.util
 import json
+import subprocess
 import pathlib
 import re
 import sys
@@ -927,6 +928,13 @@ def release_boundary() -> dict:
         in_tree.append(p.relative_to(ROOT).as_posix())
     holdout_keys = (ROOT / "benchmark" / "independent"
                     / "secondary_holdout_keys.jsonl")
+    try:
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch",
+             holdout_keys.relative_to(ROOT).as_posix()],
+            cwd=str(ROOT), capture_output=True, text=True).returncode == 0
+    except (OSError, ValueError, subprocess.SubprocessError):
+        tracked = None
     return {
         "open_key": {
             "benchmark_families": {
@@ -938,12 +946,16 @@ def release_boundary() -> dict:
                 "families": families,
             },
             "secondary_holdout": {
-                "statement": ("the answer key is a separate file, committed "
-                              "in this repository and labelled OPEN-KEY; the "
-                              "model-facing task file carries the input and a "
-                              "task id only"),
-                "key_file": ("benchmark/independent/secondary_holdout_keys.jsonl"
-                             if holdout_keys.is_file() else None),
+                "statement": ("the answer key is a separate file labelled "
+                              "OPEN-KEY: it is not a secret because the split "
+                              "is deterministic and reproducible from the "
+                              "committed benchmark files. It is not tracked in "
+                              "this repository; the model-facing task file "
+                              "carries the input and a task id only"),
+                "key_file": "benchmark/independent/secondary_holdout_keys.jsonl",
+                "tracked_in_git": tracked,
+                "note": ("whether the key file is present in a given checkout "
+                         "does not change its status: it is open, not private"),
             },
             "canonical_held_out_shards": {
                 "statement": ("the held-out partitions of the training views "

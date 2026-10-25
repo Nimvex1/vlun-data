@@ -14,9 +14,9 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1814 (384705368 bytes)
-- head: `20e2286fefda09926382d03a85ded01223d104bb` (remediation/p0-credibility)
-- record layers scanned for expressive content: 156
+- tracked files: 1816 (389733803 bytes)
+- head: `a28170d75781de0423e46f7a9c0dc854f9884fc5` (remediation/p0-credibility)
+- record layers scanned for expressive content: 158
 - the audit covers **all** layers, not only the 13123 v1 self-flagged quotation rows
 
 ## Totals by rights class
@@ -25,13 +25,13 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 57703 | 4029 |
-| `copied_short_prose` | 258265 | 5990 |
-| `personal_data` | 4355 | - |
+| `copied_report_prose` | 60077 | 4029 |
+| `copied_short_prose` | 260705 | 5990 |
+| `personal_data` | 5695 | - |
 | `poc_source` | 1730 | 346 |
 | `third_party_code` | 13123 | 2378 |
 
-Rows holding expressive content across every scanned layer: **120477** in 89 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **125291** in 91 record layers. Detail-scanned records materialised for the projection: **5990**.
 
 ## Per-layer breakdown
 
@@ -61,6 +61,8 @@ Rows holding expressive content across every scanned layer: **120477** in 89 rec
 | `benchmark/J_verified_patch.jsonl` |  |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | copied_report_prose=125, copied_short_prose=465, personal_data=102 |
 | `benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl` | copied_report_prose=22, copied_short_prose=68 |
+| `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | copied_report_prose=897, copied_short_prose=1151, personal_data=641 |
+| `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | copied_report_prose=1477, copied_short_prose=1289, personal_data=699 |
 | `benchmark/independent/secondary_holdout_exploratory_tasks.jsonl` | copied_report_prose=29, copied_short_prose=119 |
 | `benchmark/independent/secondary_holdout_tasks.jsonl` | copied_report_prose=20, copied_short_prose=2746, personal_data=2 |
 | `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | copied_short_prose=257 |
@@ -208,6 +210,8 @@ Values are **not** reproduced here. For each artefact the locator, the occurrenc
 | artefact | occurrences | distinct personal | named-contact block |
 |---|---|---|---|
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | 102 | 2 | yes |
+| `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | 641 | 38 | yes |
+| `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | 699 | 46 | yes |
 | `benchmark/independent/secondary_holdout_tasks.jsonl` | 2 | 1 | no |
 | `benchmark/retired_families/K_language_ecosystem_routing.jsonl` | 5 | 1 | no |
 | `benchmark/retired_families/L_severity_reconciliation.jsonl` | 17 | 1 | no |
@@ -219,7 +223,7 @@ Values are **not** reproduced here. For each artefact the locator, the occurrenc
 | `jsonl_ml/findings_vyper.jsonl` | 96 | 1 | no |
 | `jsonl_v4/findings.jsonl` | 2059 | 59 | yes |
 
-Total artefacts holding personal contact data: **11**.
+Total artefacts holding personal contact data: **13**.
 
 ## Harness licence gating
 
@@ -227,6 +231,6 @@ Total artefacts holding personal contact data: **11**.
 
 ## History
 
-- commits scanned: 83
+- commits scanned: 84
 - paths added then removed: 25
 - full findings: `reports/history_exposure.md`

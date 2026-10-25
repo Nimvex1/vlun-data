@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 450475,
+      "bytes": 452451,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "109d556d12a1d02736fe694400d05c6cdb2619b1e4f92db186550515da0f70df",
+      "sha256": "ce91d04dc6bca1d31463ea30d5a110835e3feedda30affcdb6741d4d89c19344",
       "tracked": true
     },
     {
@@ -690,7 +690,7 @@
       "path": "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
       "rows": 2048,
       "sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 1828,
@@ -721,7 +721,7 @@
       "path": "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
       "rows": 2766,
       "sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
-      "tracked": false
+      "tracked": true
     },
     {
       "bytes": 9804,
@@ -1902,7 +1902,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "f7357618dfd7c710e7e8fcecc231483ab30fde4c95739e372b0cd5e727a32f29",
+      "sha256": "f0a7ec8e415a554ab8270262e9542e0158b0c72f93643a248d1c1e2be9525b0b",
       "tracked": true
     },
     {
@@ -1971,13 +1971,13 @@
       "tracked": true
     },
     {
-      "bytes": 17041687,
+      "bytes": 17044892,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/rights_ledger.jsonl",
-      "rows": 12915,
-      "sha256": "3e8859d30861c0782e2eebbce94b4babdb5b2e3341b842fec84e199242e3d93b",
+      "rows": 12919,
+      "sha256": "a914be51b87da16153a4c0862db30e32f82e2256c6d05b50c73ade47562e3b60",
       "tracked": true
     },
     {
@@ -13280,7 +13280,7 @@
       "tracked": true
     },
     {
-      "bytes": 48178,
+      "bytes": 48445,
       "category": "reports",
       "keys": [
         "corpora",
@@ -13299,7 +13299,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/eval_leakage_report.json",
-      "sha256": "354743ded3c5d58cf4258091b17989053d548206455bf1d92b18ffea111fe029",
+      "sha256": "2590b506997efba941d5eb3553dbaa9a8bd3e02ff6883b0a47df014c07e5a95b",
       "tracked": true
     },
     {
@@ -14075,11 +14075,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "d7de9c04303df90b8dde1122892c1884f942ce1f51a22483bc7117488af4d191",
+      "sha256": "a6f321092b3c48d9a4adb085e1945053acf5aff36fe4199f2192389fee3acbc3",
       "tracked": true
     },
     {
-      "bytes": 984876,
+      "bytes": 989560,
       "category": "reports",
       "keys": [
         "data_handling_policy_default",
@@ -14105,7 +14105,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_inventory.json",
-      "sha256": "850a2d4f7b45912d97996376e6cf974d4f95956f1826150361fd317b53a1f401",
+      "sha256": "cf5d5b2534fa5624a5110ef16a009c9e62dfa942a829832b592b040903a1585a",
       "tracked": true
     },
     {
