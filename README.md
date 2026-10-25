@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (4 critical failures): v2 74/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (0 critical failures): v2 78/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 5/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 5/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -169,7 +169,7 @@ families that need experimentally produced ground truth only admit rows that hav
 | `E_exploit_verification` | 720 | 7 | INVALID | v1/A-Q (retired) |
 | `F_false_positive_rejection` | 458 | 17 | EXPLORATORY | v1/A-Q |
 | `Fa_rejection_evidence_axis_vector` | 458 | 0 | NOT_SCORABLE | v1/A-Q |
-| `Fb_duplicate_radar_pair` | 553 | 0 | NOT_SCORABLE | v1/A-Q |
+| `Fb_duplicate_radar_pair` | 554 | 0 | NOT_SCORABLE | v1/A-Q |
 | `G_patch_verification` | 38 | 5 | EXPLORATORY | v1/A-Q |
 | `H_verified_exploit` | 7 | 0 | NOT_SCORABLE | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | EXPLORATORY | v1/A-Q |
@@ -202,13 +202,13 @@ an evaluation claim:
 
 The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers 720 of
-23,480 manifest-scorable tasks in its primary metric. The
+23,198 manifest-scorable tasks in its primary metric. The
 rest are reported in their own blocks and never in the headline: the
 4 INVALID families' 18,911 scorable rows (C, R, U, V),
 the 4 EXPLORATORY families' 28 sub-floor rows (F, G, I, J),
 the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
 retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
-exactly-matchable key (1,875 rows), excluded with stated reasons. The four blocks
+exactly-matchable key (1,876 rows), excluded with stated reasons. The four blocks
 partition every scored family, and the continuity twin below covers all
 22,145 of them.
 

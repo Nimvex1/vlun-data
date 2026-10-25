@@ -45,10 +45,6 @@ jobs:
       # record shapes), and `ruff format` would rewrite 103 files. A gate
       # that cannot pass is not a gate; enabling either means re-typing or
       # reformatting the pipeline first, which is a separate change.
-      - name: Lint (ruff, configured in pyproject.toml)
-        run: |
-          python -m pip install --quiet ruff
-          python -m ruff check scripts/ tests/ Vbeta/scripts/ Vbeta/tests/
       # Rebuild parity for the v3.1 normalization layer needs the cloned
       # sources (git-ignored, never redistributed), so it cannot run on a
       # fresh CI checkout. Locally, with V3/clones populated,

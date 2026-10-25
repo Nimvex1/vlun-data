@@ -14,10 +14,10 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1769 (374939230 bytes)
-- head: `985f7a537d5a40bc2a8e6ba72b64aea24a6d72a2` (remediation/p0-credibility)
-- record layers scanned for expressive content: 146
-- the audit covers **all** layers, not only the 11769 v1 self-flagged quotation rows
+- tracked files: 1800 (384384881 bytes)
+- head: `e1e51ab1984ee4d56c9f7177b33b296a161a171f` (remediation/p0-credibility)
+- record layers scanned for expressive content: 149
+- the audit covers **all** layers, not only the 13087 v1 self-flagged quotation rows
 
 ## Totals by rights class
 
@@ -25,13 +25,13 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 57681 | 4029 |
-| `copied_short_prose` | 256117 | 5990 |
-| `personal_data` | 4358 | - |
+| `copied_report_prose` | 57652 | 4029 |
+| `copied_short_prose` | 257564 | 5990 |
+| `personal_data` | 4355 | - |
 | `poc_source` | 1730 | 346 |
-| `third_party_code` | 11769 | 2378 |
+| `third_party_code` | 13087 | 2378 |
 
-Rows holding expressive content across every scanned layer: **118861** in 83 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **119841** in 85 record layers. Detail-scanned records materialised for the projection: **5990**.
 
 ## Per-layer breakdown
 
@@ -48,17 +48,19 @@ Rows holding expressive content across every scanned layer: **118861** in 83 rec
 | `Vbeta/jsonl_vbeta/findings.jsonl` | copied_short_prose=7060 |
 | `Vbeta/jsonl_vbeta/sources.jsonl` |  |
 | `Vbeta/splits_vbeta/quarantine.jsonl` | copied_short_prose=63 |
-| `annotation/iaa_v1/sample.jsonl` | copied_report_prose=38, copied_short_prose=358, third_party_code=279 |
+| `annotation/iaa_v1/sample.jsonl` | copied_report_prose=38, copied_short_prose=358, third_party_code=278 |
 | `benchmark/A_vulnerability_detection.jsonl` | third_party_code=821 |
 | `benchmark/C_attacker_reasoning.jsonl` | third_party_code=821 |
 | `benchmark/D_exploit_construction.jsonl` | poc_source=346, third_party_code=821 |
 | `benchmark/F_false_positive_rejection.jsonl` | third_party_code=542 |
+| `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | copied_short_prose=458, third_party_code=542 |
+| `benchmark/Fb_duplicate_radar_pair.jsonl` | copied_short_prose=1108, third_party_code=777 |
 | `benchmark/G_patch_verification.jsonl` |  |
 | `benchmark/H_verified_exploit.jsonl` |  |
 | `benchmark/I_verified_non_exploit.jsonl` |  |
 | `benchmark/J_verified_patch.jsonl` |  |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | copied_report_prose=125, copied_short_prose=465, personal_data=102 |
-| `benchmark/independent/secondary_holdout_tasks.jsonl` | copied_report_prose=49, copied_short_prose=2865, personal_data=5 |
+| `benchmark/independent/secondary_holdout_tasks.jsonl` | copied_report_prose=20, copied_short_prose=2746, personal_data=2 |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | copied_short_prose=306, third_party_code=821 |
 | `benchmark/retired_families/E_exploit_verification.jsonl` |  |
 | `benchmark/retired_families/K_language_ecosystem_routing.jsonl` | copied_report_prose=125, copied_short_prose=349, personal_data=5 |
@@ -79,6 +81,7 @@ Rows holding expressive content across every scanned layer: **118861** in 83 rec
 | `derived/records.jsonl` | copied_report_prose=762, copied_short_prose=2277, poc_source=692, third_party_code=827 |
 | `derived/root_cause_candidates.jsonl` | copied_report_prose=25, copied_short_prose=55 |
 | `derived_poc_queue/triage_queue.jsonl` |  |
+| `derived_prove/candidate_ledger.jsonl` |  |
 | `derived_rejections/rejection_corpus.jsonl` |  |
 | `derived_siblings/candidates.jsonl` | copied_short_prose=458 |
 | `derived_siblings/hard_negatives.jsonl` |  |
@@ -198,7 +201,7 @@ Values are **not** reproduced here. For each artefact the locator, the occurrenc
 | artefact | occurrences | distinct personal | named-contact block |
 |---|---|---|---|
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | 102 | 2 | yes |
-| `benchmark/independent/secondary_holdout_tasks.jsonl` | 5 | 1 | no |
+| `benchmark/independent/secondary_holdout_tasks.jsonl` | 2 | 1 | no |
 | `benchmark/retired_families/K_language_ecosystem_routing.jsonl` | 5 | 1 | no |
 | `benchmark/retired_families/L_severity_reconciliation.jsonl` | 17 | 1 | no |
 | `benchmark/retired_families/N_attacker_identity_extraction.jsonl` | 5 | 1 | no |
@@ -217,6 +220,6 @@ Total artefacts holding personal contact data: **11**.
 
 ## History
 
-- commits scanned: 81
+- commits scanned: 82
 - paths added then removed: 25
 - full findings: `reports/history_exposure.md`

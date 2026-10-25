@@ -17,8 +17,16 @@ whose test errors during setup, or whose failure assertion is not the expected
 one, never reaches `impact_reproduced` — and never reaches `patch_verified`
 unless the same bytes passed on the second revision.
 
+`patch_verified` alone is not a fully effective patch: a fix that deletes or
+disables the affected feature also blocks the exploit. `behaviour_preserved` is
+therefore the top stage and needs a recorded fixed-revision regression run with a
+vulnerable-revision baseline, no new failures, passing positive-path assertions,
+and evidence that the feature still exists. The grader never runs (and never
+invents) that suite itself: pass it with `--regression-evidence <json>`.
+
     python scripts/prove_grader.py --task-id prove-2024-01-renft__H-04 \
-        --submission dir/with/test/files --out work/prove_runs/<id> [--home ...]
+        --submission dir/with/test/files --out work/prove_runs/<id> [--home ...] \
+        [--regression-evidence recorded_regression.json]
 """
 
 from __future__ import annotations
@@ -36,11 +44,20 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import ROOT, log  # noqa: E402
 
-STAGES = ("generated", "compiles", "executes", "impact_reproduced", "patch_verified")
+STAGES = ("generated", "compiles", "executes", "impact_reproduced", "patch_verified",
+          "behaviour_preserved")
 UNRELATED_REASONS = re.compile(
     r"compiler error|source not found|not found: |no tests ran|could not find|"
     r"old artifact|bad artifact|weird: cannot assign|tracing error|"
     r"insufficient funds|gas", re.I)
+
+# A behaviour-preservation record must describe the project's own suite. A command
+# that selects only the submitted PoC overlay proves the exploit is blocked; it
+# says nothing about the rest of the project, so it may not be presented as a
+# regression run.
+SUBMISSION_ONLY_COMMAND = re.compile(r"test[/\\]vlun_poc", re.I)
+_HEX64 = re.compile(r"^[0-9a-f]{64}$")
+PASS_STATUSES = ("success", "pass", "passed")
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -64,35 +81,130 @@ def read_key(home: Path, task_id: str) -> dict:
     raise SystemExit(f"task {task_id!r} is not in the private split")
 
 
-def stage_ladder(submission: dict, vulnerable: dict, fixed: dict, expected: dict) -> dict:
-    """Decide the five stages from recorded run evidence. Pure, so it is testable.
+def behaviour_verdict(regression: dict | None, expected: dict | None = None) -> tuple[bool, str]:
+    """Decide whether the fix preserves the project's intended behaviour.
+
+    `regression` is a recorded run, never a claim:
+
+        {"baseline": {"revision": <vulnerable sha>, "test_command": str,
+                      "test_artifact_sha256": <64-hex>, "failures": [test, ...]},
+         "fixed":    {"revision": <fixed sha>, "test_command": str,
+                      "test_artifact_sha256": <64-hex>, "failures": [test, ...],
+                      "feature_present": bool, "disabled": bool,
+                      "removed_symbols": [str, ...]},
+         "positive_path": [{"name": str, "status": "Success"|"Failure"}, ...]}
+
+    Refused when the baseline is absent, when the failures list is missing (a
+    missing list is not a green suite), when the fixed revision adds a failure,
+    when the two revisions did not run the same hash-pinned artifact, when the
+    fixed revision is not the pinned fix, when the feature was removed/disabled,
+    or when a targeted positive-path assertion did not pass. Returns
+    (ok, reason).
+    """
+    if not isinstance(regression, dict) or not regression:
+        return (False, "no behaviour-preservation run recorded: the project's existing "
+                       "test suite was not executed on the fixed revision, so a blocked "
+                       "exploit is the only evidence and the feature may be gone")
+    if regression.get("available") is False:
+        return (False, str(regression.get("reason")
+                           or "behaviour-preservation evidence is not available"))
+    baseline = regression.get("baseline")
+    fixed = regression.get("fixed")
+    if not isinstance(baseline, dict):
+        return (False, "the vulnerable-revision baseline is missing: pre-existing "
+                       "failures cannot be separated from regressions introduced by "
+                       "the fix")
+    if not isinstance(fixed, dict):
+        return (False, "the fixed-revision regression run is missing")
+
+    for label, run in (("baseline", baseline), ("fixed", fixed)):
+        if not str(run.get("test_command") or "").strip():
+            return (False, f"{label}: no test command was recorded")
+        if SUBMISSION_ONLY_COMMAND.search(str(run.get("test_command") or "")):
+            return (False, f"{label}: the command selects only the submitted PoC overlay "
+                           "(test/vlun_poc); that is not the project's existing suite")
+        if not _HEX64.match(str(run.get("test_artifact_sha256") or "")):
+            return (False, f"{label}: the test artifact is not hash-pinned "
+                           "(need a 64-hex sha256)")
+        if "failures" not in run or not isinstance(run.get("failures"), list):
+            return (False, f"{label}: the failures list was not recorded; an absent "
+                           "baseline is not a green baseline")
+        if not run.get("revision"):
+            return (False, f"{label}: no pinned revision was recorded")
+
+    if baseline.get("test_artifact_sha256") != fixed.get("test_artifact_sha256"):
+        return (False, "the two revisions did not run the same hash-pinned test artifact")
+    pinned = (expected or {}).get("fixed_revision")
+    if pinned and fixed.get("revision") != pinned:
+        return (False, f"fixed: the regression ran at {str(fixed.get('revision'))[:10]}, "
+                       f"not the pinned fix {str(pinned)[:10]}")
+
+    base_failures = {str(t) for t in baseline["failures"]}
+    fixed_failures = {str(t) for t in fixed["failures"]}
+    new_failures = sorted(fixed_failures - base_failures)
+    if new_failures:
+        return (False, "the fix introduced regression failures: "
+                       + ", ".join(new_failures))
+
+    if fixed.get("feature_present") is False or regression.get("feature_removed") is True:
+        return (False, "the affected feature is absent from the fixed revision: blocking "
+                       "the exploit by deleting the feature is not a fix")
+    if fixed.get("disabled") is True:
+        return (False, "the affected feature is recorded as disabled on the fixed revision")
+    removed = [str(s) for s in (fixed.get("removed_symbols") or []) if s]
+    if removed:
+        return (False, "the fix removed the feature's symbols: " + ", ".join(removed))
+
+    positive = regression.get("positive_path") or []
+    if not positive:
+        return (False, "no targeted positive-path assertion was recorded on the fixed "
+                       "revision")
+    failed_positive = [str((item or {}).get("name") or "<unnamed>") for item in positive
+                       if str((item or {}).get("status") or "").lower() not in PASS_STATUSES]
+    if failed_positive:
+        return (False, "positive-path assertions did not pass on the fixed revision: "
+                       + ", ".join(failed_positive))
+    return (True, f"{len(fixed_failures)} failure(s) on the fixed revision, none new "
+                  f"against a baseline of {len(base_failures)}; "
+                  f"{len(positive)} positive-path assertion(s) passed")
+
+
+def stage_ladder(submission: dict, vulnerable: dict, fixed: dict, expected: dict,
+                 regression: dict | None = None) -> dict:
+    """Decide the stages from recorded run evidence. Pure, so it is testable.
 
     `submission`: {"files": {path: bytes-hex-free text}, }
     `vulnerable`/`fixed`: {"build_rc": int, "dependency_ok": bool, "ran_tests": bool,
                            "per_test_status": {test: "Success"|"Failure"},
                            "signals": [{"test","forge_reason","assertion_messages"}]}
-    `expected`: {"failing_tests": [...], "signals": [...], "security_property": str}
+    `expected`: {"failing_tests": [...], "signals": [...], "security_property": str,
+                 "fixed_revision": <optional pinned sha>}
+    `regression`: the optional `behaviour_verdict()` record. Absent means the run
+    stops at `patch_verified` and is not fully verified — never a guessed pass.
     """
     out = {s: False for s in STAGES}
     why: dict[str, str] = {}
+
+    def verdict(stage: str) -> dict:
+        return {"stages": out, "reasons": why, "stage_reached": stage,
+                "fully_verified": out["behaviour_preserved"]}
 
     files = {k: v for k, v in (submission.get("files") or {}).items() if v.strip()}
     out["generated"] = bool(files)
     if not files:
         why["generated"] = "the submission contained no non-empty test file"
-        return {"stages": out, "reasons": why, "stage_reached": "none"}
+        return verdict("none")
 
     for label, run in (("vulnerable", vulnerable), ("fixed", fixed)):
         if run.get("build_rc") not in (0, None) or not run.get("dependency_ok", True):
             why["compiles"] = f"{label}: build rc={run.get('build_rc')}, " \
                               f"dependencies {run.get('dependency_ok')}"
-            out["stage_reached"] = "generated"
-            return {"stages": out, "reasons": why, "stage_reached": "generated"}
+            return verdict("generated")
     out["compiles"] = True
 
     if not (vulnerable.get("ran_tests") and vulnerable.get("per_test_status")):
         why["executes"] = "no test from the submission executed on the vulnerable revision"
-        return {"stages": out, "reasons": why, "stage_reached": "compiles"}
+        return verdict("compiles")
     out["executes"] = True
 
     want = set(expected.get("failing_tests") or [])
@@ -103,7 +215,7 @@ def stage_ladder(submission: dict, vulnerable: dict, fixed: dict, expected: dict
         why["impact_reproduced"] = (
             f"expected one of {sorted(want)} to fail on the vulnerable revision; "
             f"observed failures {sorted(got_fail) or 'none'}")
-        return {"stages": out, "reasons": why, "stage_reached": "executes"}
+        return verdict("executes")
 
     sig = {s.get("test"): s for s in (vulnerable.get("signals") or [])}
     assertion_ok = False
@@ -124,21 +236,26 @@ def stage_ladder(submission: dict, vulnerable: dict, fixed: dict, expected: dict
         break
     if not assertion_ok:
         why["impact_reproduced"] = detail
-        return {"stages": out, "reasons": why, "stage_reached": "executes"}
+        return verdict("executes")
     out["impact_reproduced"] = True
     why["impact_reproduced"] = detail
 
     if not fixed.get("ran_tests"):
         why["patch_verified"] = "the second-revision run did not execute the test"
-        return {"stages": out, "reasons": why, "stage_reached": "impact_reproduced"}
+        return verdict("impact_reproduced")
     same = {t: s for t, s in (fixed.get("per_test_status") or {}).items() if t in matched}
     if not same or any(s != "Success" for s in same.values()):
         why["patch_verified"] = f"second revision did not block the same test: {same}"
-        return {"stages": out, "reasons": why, "stage_reached": "impact_reproduced"}
+        return verdict("impact_reproduced")
     out["patch_verified"] = True
     why["patch_verified"] = f"{sorted(same)} passed unmodified on the second revision"
-    top = "patch_verified"
-    return {"stages": out, "reasons": why, "stage_reached": top}
+
+    preserved, preservation_detail = behaviour_verdict(regression, expected)
+    why["behaviour_preserved"] = preservation_detail
+    if not preserved:
+        return verdict("patch_verified")
+    out["behaviour_preserved"] = True
+    return verdict("behaviour_preserved")
 
 
 def run_forge(worktree: Path, test_file: Path, match: str, timeout: int) -> dict:
@@ -229,9 +346,11 @@ _parse_forge = parse_forge_output
 
 
 def preserve(outdir: Path, task_id: str, submission_dir: Path, runs: dict,
-             verdict: dict, key_hash: str) -> dict:
+             verdict: dict, key_hash: str,
+             regression: dict | None = None) -> dict:
     outdir.mkdir(parents=True, exist_ok=True)
     payload = {"task_id": task_id, "verdict": verdict, "answer_key_sha256": key_hash,
+               "regression_evidence": regression,
                "revisions": {k: v for k, v in runs.items()
                              if k != "submission"}, "generated_by": "scripts/prove_grader.py"}
     files = {}
@@ -268,11 +387,21 @@ def main() -> int:
     ap.add_argument("--out", default=str(ROOT / "work" / "prove_runs"),
                     help="artefact directory (git-ignored; preserved per run)")
     ap.add_argument("--timeout", type=int, default=900)
+    ap.add_argument("--regression-evidence", default=None,
+                    help="JSON file with a recorded behaviour-preservation run "
+                         "(baseline + fixed-revision suite); without it the verdict "
+                         "stops at patch_verified and is not fully verified")
     args = ap.parse_args()
 
     if not args.home:
         raise SystemExit("--home or VLUN_PRIVATE_HOME must point at the private split; "
                          "the grader will not read an answer key from inside the repository")
+    regression = None
+    if args.regression_evidence:
+        path = Path(args.regression_evidence)
+        if not path.is_file():
+            raise SystemExit(f"no regression evidence at {path}")
+        regression = json.loads(path.read_text(encoding="utf-8"))
     key = read_key(Path(args.home), args.task_id)
     key_hash = sha256_bytes(Path(args.home).resolve().joinpath(
         "vlun_prove", "prove_tasks_private.jsonl").read_bytes())
@@ -299,13 +428,14 @@ def main() -> int:
     verdict = stage_ladder({"files": files},
                            {k: v for k, v in runs["vulnerable"].items()},
                            {k: v for k, v in runs["fixed"].items()},
-                           key.get("expected_assertion") or {})
+                           key.get("expected_assertion") or {}, regression)
     preserve(Path(args.out) / args.task_id, args.task_id, sub_dir, runs,
-             verdict, key_hash)
+             verdict, key_hash, regression)
     log(json.dumps({"task_id": args.task_id, "stage_reached": verdict["stage_reached"],
+                    "fully_verified": verdict["fully_verified"],
                     "stages": verdict["stages"], "reasons": verdict["reasons"],
                     "preserved_to": str(Path(args.out) / args.task_id)}, indent=2))
-    return 0 if verdict["stages"]["patch_verified"] else 1
+    return 0 if verdict["stages"]["behaviour_preserved"] else 1
 
 
 def _repo_url(key: dict) -> str:

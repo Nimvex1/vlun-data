@@ -148,6 +148,21 @@ FAMILIES: dict[str, dict] = {
 }
 
 # Families with no exactly-scorable scalar key: reported, never zero-filled.
+def _pair_floor_text() -> str:
+    """The published F-B floor, read from the baseline file, never hard-coded."""
+    path = pathlib.Path(__file__).resolve().parent.parent / "reports" / "f_extension_baselines.json"
+    try:
+        floor = json.loads(path.read_text(encoding="utf-8"))["fb"]["reference_floor"]
+    except (OSError, KeyError, ValueError):
+        return "the published trivial-predictor floor"
+    value = floor.get("micro_accuracy")
+    if value is None:
+        return "the published trivial-predictor floor"
+    return f"{value:.4f} from the train-fitted trivial predictor"
+
+
+PAIR_FLOOR_TEXT = _pair_floor_text()
+
 NOT_SCORABLE = {
     "D_exploit_construction.jsonl":
         "generative task, needs a judge rather than string match",
@@ -169,8 +184,8 @@ NOT_SCORABLE = {
     "Fb_duplicate_radar_pair.jsonl":
         "not promoted into the headline: same_vulnerability / distinct_vulnerability / "
         "ambiguous is scalar in shape, but joining the micro-average would move the "
-        "published denominator while the pair floor is still 0.4665 from a trivial "
-        "predictor. scripts/score_f_extension.py scores it (with the published floors) "
+        f"published denominator while the pair floor is still {PAIR_FLOOR_TEXT}. "
+        "scripts/score_f_extension.py scores it (with the published floors) "
         "and its row ids carry the split segment the shared row contract requires",
 }
 

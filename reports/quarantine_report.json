@@ -55,11 +55,12 @@
         "private_audit_no_public_submissions": 3,
         "rejection_discussion_without_attributed_verdict": 1,
         "rejection_without_reasoning": 1,
-        "source_unavailable": 3
+        "source_unavailable": 3,
+        "validation_failure": 3
       },
       "group": "extraction errors by kind",
       "meaning": "rows the extractor could not read, citations it could not retrieve, and labels it refused to rely on",
-      "records": 36
+      "records": 39
     },
     {
       "counted_from": "reports/poc_attempts.jsonl",

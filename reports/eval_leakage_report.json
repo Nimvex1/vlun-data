@@ -24,12 +24,12 @@
       {
         "path": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
         "rows": 458,
-        "sha256": "cd5065e62878c1d06f67d49071bbcdefab2574dd0081a489ee6837435612902a"
+        "sha256": "d85988c1b97f87c7373849af098724e9921ab504b3e32b79f0095b0a00665868"
       },
       {
         "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-        "rows": 553,
-        "sha256": "9efd6eb5048bc5340f3759ed9f2816a32cd710cae926442a273809f4a692ebe9"
+        "rows": 554,
+        "sha256": "65dd6fd50615d82a2904e4af755597666fa95c964e79d6cb1ce308f0a9338140"
       },
       {
         "path": "benchmark/G_patch_verification.jsonl",
@@ -204,6 +204,8 @@
       "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
       "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
       "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
+      "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
+      "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
       "benchmark/independent/secondary_holdout_keys.jsonl",
       "benchmark/independent/secondary_holdout_tasks.jsonl",
       "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
@@ -455,12 +457,12 @@
       "benchmark/Fb_duplicate_radar_pair.jsonl": {
         "by_split": {
           "test": 31,
-          "train": 323,
+          "train": 324,
           "validation": 199
         },
         "heldout_records": 631,
         "heldout_rows": 230,
-        "identifiers": 1492,
+        "identifiers": 1494,
         "overlap_with_model_visible_corpus": {
           "heldout": {
             "rows_sharing_only_a_commit_sha": 0,
@@ -474,13 +476,13 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 253,
+            "rows_with_id_overlap": 254,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 100
+            "rows_with_text_overlap": 101
           }
         },
         "records": 386,
-        "rows": 553
+        "rows": 554
       },
       "benchmark/G_patch_verification.jsonl": {
         "by_split": {
@@ -967,7 +969,7 @@
         "rows": 45,
         "train_code_hits": 0,
         "train_id_hits": 289,
-        "train_text_hits": 222
+        "train_text_hits": 223
       },
       "training/canonical/detection.train.part-000.jsonl": {
         "by_split": {
@@ -1062,7 +1064,7 @@
         "heldout_text_hits": 0,
         "rows": 96,
         "train_code_hits": 0,
-        "train_id_hits": 822,
+        "train_id_hits": 823,
         "train_text_hits": 0
       },
       "training/patch_reasoning.jsonl": {
@@ -1105,11 +1107,11 @@
     },
     "train": {
       "note": "expected: the training corpus is the train partition",
-      "rows_with_id_overlap": 8466
+      "rows_with_id_overlap": 8467
     }
   },
   "protected_evaluation_set": {
-    "all_benchmark_records": 40664,
+    "all_benchmark_records": 40666,
     "by_family": {
       "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": 11260,
       "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl": 12504,
@@ -1170,8 +1172,8 @@
           },
           {
             "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-            "rows": 553,
-            "rows_with_a_committed_answer_key": 553
+            "rows": 554,
+            "rows_with_a_committed_answer_key": 554
           },
           {
             "path": "benchmark/G_patch_verification.jsonl",

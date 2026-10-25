@@ -37,7 +37,7 @@ UNKNOWN, which is never primary.
 | `E_exploit_verification.jsonl` | INVALID | 7 | 2 | 1.0000 | invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30) |
 | `F_false_positive_rejection.jsonl` | EXPLORATORY | 17 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'invalid'; holdout_too_small: 0 held-out rows (< 30) |
 | `Fa_rejection_evidence_axis_vector.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it |
-| `Fb_duplicate_radar_pair.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires |
+| `Fb_duplicate_radar_pair.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires |
 | `G_patch_verification.jsonl` | EXPLORATORY | 5 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
 | `H_verified_exploit.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | descriptive reference answers, no scalar label |
 | `I_verified_non_exploit.jsonl` | EXPLORATORY | 1 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'exploitable'; holdout_too_small: 0 held-out rows (< 30) |
@@ -117,8 +117,8 @@ not the model.
 | `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 | NOT_SCORABLE |
 | `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 | INVALID |
 | `F_false_positive_rejection` | 458 | 17 | 0 | 441 | 232 | 188 | 38 | EXPLORATORY |
-| `Fa_rejection_evidence_axis_vector` | 458 | 292 | 166 | 0 | 232 | 188 | 38 | NOT_SCORABLE |
-| `Fb_duplicate_radar_pair` | 553 | 553 | 0 | 0 | 323 | 199 | 31 | NOT_SCORABLE |
+| `Fa_rejection_evidence_axis_vector` | 458 | 9 | 449 | 0 | 232 | 188 | 38 | NOT_SCORABLE |
+| `Fb_duplicate_radar_pair` | 554 | 554 | 0 | 0 | 324 | 199 | 31 | NOT_SCORABLE |
 | `G_patch_verification` | 38 | 5 | 0 | 33 | 0 | 18 | 20 | EXPLORATORY |
 | `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | NOT_SCORABLE |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 | EXPLORATORY |

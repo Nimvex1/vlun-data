@@ -34,6 +34,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 from collections import Counter
 from pathlib import Path
 
@@ -62,6 +63,15 @@ SHA40 = re.compile(r"^[0-9a-f]{40}$")
 # plus the record-hash migration (build_derived.py --migrate-record-hashes),
 # which rewrites only the new record-hash fields from committed bytes and is
 # therefore deterministic on any machine.
+# The replay writes into the committed layer, so it must be safe when the process
+# is killed (a killed replay used to leave the layer rebuilt and unpinned) and
+# safe when two replays overlap (each one restores its own snapshot, so they
+# deleted each other's files). A lock serialises the replay and a disk backup
+# lets the next run heal a replay that died mid-chain.
+REPLAY_LOCK = ROOT / "work" / ".repro_replay.lock"
+REPLAY_BACKUP = ROOT / "work" / ".repro_backup"
+REPLAY_LOCK_MAX_AGE_S = 7200
+
 DERIVED_CHAIN = [
     ("scripts/build_derived.py", []),                  # build_all stage 2
     ("scripts/resolve_citations.py", []),              # build_all stage 5
@@ -227,6 +237,67 @@ def residual_summary(committed: bytes, rebuilt: bytes, *, jsonl: bool = True,
             f"{len(counts)} distinct field paths; top: {head}{more}")
 
 
+def _backup_name(rel: str) -> str:
+    return rel.replace("/", "__") + ".bak"
+
+
+def _write_replay_backup(files: list[str], saved: dict[str, bytes]) -> None:
+    """Persist the committed bytes so a killed replay can be healed later."""
+    REPLAY_BACKUP.mkdir(parents=True, exist_ok=True)
+    for rel, blob in saved.items():
+        (REPLAY_BACKUP / _backup_name(rel)).write_bytes(blob)
+    (REPLAY_BACKUP / "ACTIVE.json").write_text(
+        json.dumps({"files": list(files), "saved": list(saved)}), encoding="utf-8")
+
+
+def _clear_replay_backup() -> None:
+    if not REPLAY_BACKUP.is_dir():
+        return
+    for path in REPLAY_BACKUP.glob("*"):
+        try:
+            path.unlink()
+        except OSError:
+            pass
+
+
+def recover_interrupted_replay() -> list[str]:
+    """Restore the committed layer if a previous replay was killed mid-chain.
+
+    A replay that dies between the rebuild and the restore leaves the layer in
+    its rebuilt state, which for `derived/` means the immutable commit pins are
+    gone. The next run heals it from the on-disk backup.
+    """
+    marker = REPLAY_BACKUP / "ACTIVE.json"
+    if not marker.is_file():
+        return []
+    try:
+        data = json.loads(marker.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    restored = []
+    for rel in data.get("saved") or []:
+        bak = REPLAY_BACKUP / _backup_name(rel)
+        if not bak.is_file():
+            continue
+        target = ROOT / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(bak.read_bytes())
+        restored.append(rel)
+    _clear_replay_backup()
+    return restored
+
+
+def _replay_lock_held() -> bool:
+    """True when another replay holds the lock (a fresh lock, not a stale one)."""
+    if not REPLAY_LOCK.is_file():
+        return False
+    try:
+        age = time.time() - REPLAY_LOCK.stat().st_mtime
+    except OSError:
+        return False
+    return age < REPLAY_LOCK_MAX_AGE_S
+
+
 def rebuild_parity(gate, label: str, chain, files, missing_inputs,
                    root=None, timeout: int = 1800):
     """Replay `chain` and compare the bytes it writes with the committed ones.
@@ -248,7 +319,16 @@ def rebuild_parity(gate, label: str, chain, files, missing_inputs,
         return {"status": "skipped", "reason": "skipped_no_network",
                 "missing_inputs": list(missing_inputs)}
 
+    if _replay_lock_held():
+        gate.skip(f"{label} rebuild parity",
+                  "skipped_concurrent_replay: another rebuild-parity replay holds "
+                  "the lock; two overlapping replays would restore each other's "
+                  "snapshots and delete the committed layer")
+        return {"status": "skipped", "reason": "skipped_concurrent_replay"}
+    REPLAY_LOCK.parent.mkdir(parents=True, exist_ok=True)
+    REPLAY_LOCK.write_text(str(time.time()), encoding="utf-8")
     saved = {f: (root / f).read_bytes() for f in files if (root / f).is_file()}
+    _write_replay_backup(files, saved)
     strays = {f: (root / f).with_suffix((root / f).suffix + ".tmp")
               for f in files}
     stray_before = {f: p.is_file() for f, p in strays.items()}
@@ -273,6 +353,11 @@ def rebuild_parity(gate, label: str, chain, files, missing_inputs,
                 p.write_bytes(saved[f])
             elif p.is_file():
                 p.unlink()
+        _clear_replay_backup()
+        try:
+            REPLAY_LOCK.unlink()
+        except OSError:
+            pass
         # a crashed writer can leave a .tmp sibling behind; the check must
         # not add a stray file to the tree either.
         for f, p in strays.items():
@@ -315,6 +400,9 @@ def main() -> int:
     args = ap.parse_args()
     G = Gate(args.quiet)
     print("check_reproducibility.py")
+    healed = recover_interrupted_replay()
+    if healed:
+        print(f"recovered an interrupted rebuild-parity replay: {healed}")
 
     # ---- 1. required inputs -------------------------------------------------
     required = [

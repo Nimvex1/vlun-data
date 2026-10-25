@@ -184,12 +184,28 @@ class TestTaskPayloadAndKeyStatus(unittest.TestCase):
             self.assertEqual(str(row.get("key_status", "")).lower(), "open_key")
             self.assertIn("gold", row)
 
-    def test_the_manifest_declares_the_key_committed(self):
+    def test_the_manifest_describes_the_key_as_it_actually_is(self):
+        # The key file is withheld from the repository (it is regenerable from
+        # the committed sources, so the holdout stays open-key). The manifest
+        # may not claim a committed key the repository does not carry, nor a
+        # withheld key it does carry.
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         ak = man["answer_key"]
         self.assertEqual(ak["key_status"], "OPEN_KEY")
-        self.assertIs(ak["committed_in_repository"], True)
+        tracked = gate.key_file_is_tracked()
+        if tracked is not None:
+            self.assertIs(ak["committed_in_repository"], tracked)
+            self.assertIs(ak["tracked_in_git"], tracked)
         self.assertEqual(gate.key_status_violations(read_jsonl(KEYS), man), [])
+
+    def test_a_manifest_claiming_a_committed_untracked_key_is_rejected(self):
+        man = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        man["answer_key"]["committed_in_repository"] = True
+        man["answer_key"]["tracked_in_git"] = True
+        bad = gate.key_status_violations(read_jsonl(KEYS), man)
+        if gate.key_file_is_tracked() is False:
+            self.assertTrue(bad, "a manifest claiming a committed key the "
+                                 "repository does not carry was accepted")
 
     def test_a_manifest_claiming_a_hidden_key_is_rejected(self):
         """A claim of hiddenness for a committed key must fail the check."""

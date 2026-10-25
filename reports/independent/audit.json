@@ -608,8 +608,8 @@
       "verdict": "skipped_no_scorable_key"
     },
     "Fb_duplicate_radar_pair.jsonl": {
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.4665 from a trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-      "rows": 553,
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "rows": 554,
       "verdict": "skipped_no_scorable_key"
     },
     "G_patch_verification.jsonl": {

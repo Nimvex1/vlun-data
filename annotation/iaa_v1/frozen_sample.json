@@ -1,0 +1,18 @@
+{
+  "draw_version": "iaa-draw-1.0",
+  "frozen_at": "2026-10-19",
+  "frozen_reason": "the three blank annotator templates were generated from this draw and distributed before any labelling started; the draw is therefore a frozen study artefact, not a regenerable output",
+  "seed": 20261018,
+  "target_n": 300,
+  "population": 722,
+  "pool_with_assignments": 418,
+  "realised_n": 300,
+  "selection": "proportional largest-remainder stratified draw over (severity band, evidence band, root-cause label status); stratum members sorted, seeded shuffle, ties broken lexicographically",
+  "sample_sha256": "0cbb921753349d1dc30d4c4046da3629f1ec96c14c479e920e7bdfe2ec8d0a9b",
+  "templates": {
+    "annotator_1.template.csv": "4ebf1fa92f751cdc83d1cb10162ec2dbc5de5fccd99cb194e5c35311873853f2",
+    "annotator_2.template.csv": "4ebf1fa92f751cdc83d1cb10162ec2dbc5de5fccd99cb194e5c35311873853f2",
+    "annotator_3.template.csv": "4ebf1fa92f751cdc83d1cb10162ec2dbc5de5fccd99cb194e5c35311873853f2"
+  },
+  "redraw_policy": "annotation/iaa_v1/sample.jsonl is frozen and is never regenerated in place. A new draw requires --redraw --out annotation/iaa_v<N> --draw-version iaa-draw-<N>.0 --seed <explicit> --rationale <text>; it creates a separately versioned sample and its own frozen manifest while leaving v1 untouched."
+}

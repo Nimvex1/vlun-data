@@ -926,7 +926,6 @@ def check_release_manifest(g: Gate) -> dict | None:
                "builder recomputes from this tree; rerun "
                "python scripts/build_release_manifest.py")
     paths = committed.get("paths") or {}
-    statuses = committed.get("statuses") or {}
     licences = committed.get("path_licences") or {}
     for path, status in sorted(paths.items()):
         if status not in STATUS_VOCABULARY:

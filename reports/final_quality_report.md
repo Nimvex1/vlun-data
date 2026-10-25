@@ -7,7 +7,7 @@ readable report in `reports/`. Where a measurement was not possible the line say
 
 | dimension | BEFORE (published v1) | AFTER (this pipeline) |
 |---|---|---|
-| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 78/78 gate checks pass and `reported_statistics == computed_statistics` is enforced |
+| reported statistics trustworthy | no — 4 of the 24 checked v1 statistics disagreed with the JSONL | yes — 75/78 gate checks pass and `reported_statistics == computed_statistics` is enforced |
 | per-field evidence type | absent | 7-value closed vocabulary on every derived field |
 | audit of the original repository | none published | reports/pre_upgrade_audit.json, mechanical, reproducible |
 | cited source retrieved | 0 files (the raw dump is not published) | 321/326 pinned (commit, file) pairs, hash-verified |
@@ -22,7 +22,7 @@ readable report in `reports/`. Where a measurement was not possible the line say
 | patch effectiveness tested | 0 | 5 of 38 evaluated; 5 confirmed effective |
 | leakage detection | 3 hard checks (repo, id, file::function) | 4 detectors; found 0 near-duplicate and 2 semantic cross-split pairs, both hand-checked and quarantined |
 | taxonomy depth | 2 levels, inconsistent names | 4 levels (category/family/class/subtype) mapped onto a stated table, C4 strings kept |
-| benchmark | none | 4970 tasks across 7 families, 2353 scorable |
+| benchmark | none | 5982 tasks across 7 families, 2916 scorable |
 
 ## WHAT IMPROVED
 
@@ -146,4 +146,4 @@ python scripts/generate_reports.py
 python scripts/validate.py             # the gate
 ```
 
-Last validation: 78/78 checks passed, 0 critical failures, 0 warnings.
+Last validation: 75/78 checks passed, 3 critical failures, 0 warnings.

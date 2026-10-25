@@ -4,7 +4,7 @@
   "blanket_clearance_claimed": false,
   "counts": {
     "digests": 6,
-    "ledger_rows": 12909,
+    "ledger_rows": 12911,
     "personal_data_artefacts_redacted": 11,
     "records_v1_projected": 722,
     "records_v4_projected": 5268,
@@ -34,7 +34,7 @@
   "files": {
     "README.md": {
       "bytes": 4568,
-      "sha256": "615cfabc90de25b65c0b34018ad58566d683314ee4947aecec08029c1d28ca81"
+      "sha256": "af369feff75bf6f6301bcce807275050a76a7e60f3779b742bb3cfb831ecf512"
     },
     "digests.jsonl": {
       "bytes": 5279,
@@ -61,8 +61,8 @@
       "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
     },
     "rights_ledger.jsonl": {
-      "bytes": 17037175,
-      "sha256": "bbf8899f63a775003d98ae25dc5bf8a409a5f6d077ce3011426a83db6f2443d5"
+      "bytes": 17038634,
+      "sha256": "24e6e4460e341b80975528111ad73d8e4f96f6e525e6125673ac6519ca5265fa"
     },
     "rights_source_registry.json": {
       "bytes": 17374,

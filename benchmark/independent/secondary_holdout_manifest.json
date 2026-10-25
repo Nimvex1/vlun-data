@@ -1,12 +1,52 @@
 {
   "additive": "This layer is separate from benchmark/. No source benchmark file, split, answer key or score is modified by this script.",
   "answer_key": {
-    "committed_in_repository": true,
+    "ci_verification": "--check verifies the manifest and both task files without reading the key. If the key file is absent (fresh checkout or CI) its contents are reported as local-only and unverified, not treated as missing evidence",
+    "committed_in_repository": false,
+    "exploratory_file": "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
     "file": "benchmark/independent/secondary_holdout_keys.jsonl",
-    "implication": "this holdout is OPEN-KEY. It measures whether a model that has not been handed the key can learn the task. It does NOT protect against a retrieval-augmented model that can search the repository, and it must never be described as hidden, protected against repository-level leakage, or not accessible. The only genuinely private evaluation in this repository is the VLUN-Prove private split, whose key lives outside the tracked tree.",
+    "implication": "the key file exists only in a local working tree and is not tracked by git. It is withheld from the repository but it is not secret, because the same key is reproducible from public committed sources. This layer must never be described as a private or protected evaluation; the only genuinely private evaluation in this repository is the VLUN-Prove private split, whose key lives outside the tracked tree.",
     "key_status": "OPEN_KEY",
-    "retrievable_by": "anyone with this repository: the key file is a tracked file"
+    "key_status_meaning": "OPEN_KEY means the key provides no confidentiality: the split is deterministic and the key is regenerable from the committed benchmark files at the recorded seed. It does NOT mean the key file is tracked or published in this repository",
+    "retrievable_by": "anyone who can run scripts/build_secondary_holdout.py against the committed benchmark files; the key file itself is not part of the repository",
+    "tracked_in_git": false,
+    "visibility": "local_only_untracked",
+    "withheld_from_repository": true
   },
+  "clean_holdout": {
+    "by_family": {
+      "L_severity_reconciliation.jsonl": 6,
+      "N_attacker_identity_extraction.jsonl": 2,
+      "O_record_class_and_scope.jsonl": 15,
+      "P_provenance_tier_and_rights.jsonl": 109,
+      "v3_R_source_tier_routing.jsonl": 1950,
+      "v3_S_contest_outcome.jsonl": 36,
+      "v3_T_taxonomy_explicit.jsonl": 2,
+      "vbeta_U_language_routing.jsonl": 564
+    },
+    "claim": "every row in this file has ZERO known literal-answer overlap. This is the only partition in this layer claimed leakage-free",
+    "literal_answer_overlap": 0,
+    "rows": 2684,
+    "tasks_file": "benchmark/independent/secondary_holdout_tasks.jsonl",
+    "verification": "recomputed from the written payload and the committed benchmark families by scripts/build_secondary_holdout.py --check, without reading the answer key; a row is leaking when evidence_text() contains the gold scalar as a word-boundary literal"
+  },
+  "exploratory_holdout": {
+    "by_family": {
+      "K_language_ecosystem_routing.jsonl": 23,
+      "L_severity_reconciliation.jsonl": 9
+    },
+    "claim": "these rows are EXPLORATORY. Their model-facing payload carries the answer literal because the source family's evidence names it. They are not independent, not leakage-free and must not be reported as holdout evidence",
+    "clean_rows_excluded_with_family": 3,
+    "contaminated_by_family": {
+      "K_language_ecosystem_routing.jsonl": 20,
+      "L_severity_reconciliation.jsonl": 9
+    },
+    "contaminated_rows": 29,
+    "rows": 32,
+    "tasks_file": "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl"
+  },
+  "exploratory_keys_written": 32,
+  "exploratory_tasks_written": 32,
   "families": {
     "A_vulnerability_detection.jsonl": {
       "class_disjoint": {
@@ -24,6 +64,7 @@
         "rows_retained": 0,
         "verdict": "skipped_empty_retained_side"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 720,
         "kind": "group_disjoint",
@@ -31,6 +72,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 720,
       "shortcuts_class_disjoint": {
@@ -51,6 +103,7 @@
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 228,
         "kind": "group_disjoint",
@@ -58,6 +111,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 228,
       "shortcuts_class_disjoint": {
@@ -81,6 +145,7 @@
         "reason": "rarest label 'honest_but_misconfigured' has n=3, below the --min-minority floor of 5; a holdout of 3 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 290,
         "kind": "group_disjoint",
@@ -88,6 +153,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 290,
       "shortcuts_class_disjoint": {
@@ -109,6 +185,7 @@
         "reason": "rarest label 'fails' has n=2, below the --min-minority floor of 5; a holdout of 2 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 7,
         "kind": "group_disjoint",
@@ -116,6 +193,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 7,
       "shortcuts_class_disjoint": {
@@ -136,6 +224,7 @@
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 17,
         "kind": "group_disjoint",
@@ -143,6 +232,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 17,
       "shortcuts_class_disjoint": {
@@ -163,6 +263,7 @@
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 5,
         "kind": "group_disjoint",
@@ -170,6 +271,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 5,
       "shortcuts_class_disjoint": {
@@ -190,6 +302,7 @@
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 1,
         "kind": "group_disjoint",
@@ -197,6 +310,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 1,
       "shortcuts_class_disjoint": {
@@ -217,6 +341,7 @@
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 5,
         "kind": "group_disjoint",
@@ -224,6 +349,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 5,
       "shortcuts_class_disjoint": {
@@ -238,11 +374,12 @@
     "K_language_ecosystem_routing.jsonl": {
       "class_disjoint": {
         "group_disjoint_verified": true,
-        "held_out_labels": [
+        "held_out_labels": {},
+        "held_out_labels_absent_from_retained": true,
+        "held_out_labels_before_filter": [
           "cairo",
           "move"
         ],
-        "held_out_labels_absent_from_retained": true,
         "kind": "class_disjoint",
         "label_counts": {
           "cairo": 8,
@@ -251,11 +388,18 @@
           "solidity": 45,
           "vyper": 51
         },
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "every held-out row either carries its own answer literal in the model-facing payload or belongs to a family excluded for that reason; no row of this split can enter the clean partition",
         "retained_contains_held_out_label": [],
-        "rows_held_out": 23,
+        "rows_excluded_contaminated": 20,
+        "rows_excluded_with_family_clean": 3,
+        "rows_held_out": 0,
+        "rows_held_out_before_filter": 23,
         "rows_retained": 114,
-        "verdict": "built"
+        "rows_transformed_and_clean": 0,
+        "verdict": "skipped_all_held_rows_answer_leaking"
       },
+      "clean_holdout_status": "excluded_family_contaminated",
       "group_disjoint": {
         "group_label_map": {
           "cairo": "cairo",
@@ -272,43 +416,21 @@
         "usable_for_comparison": false,
         "verdict": "skipped_group_determines_label"
       },
+      "payload_leakage": {
+        "clean_holdout_status": "excluded_family_contaminated",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "the gold is the language name and the model-facing evidence IS that name: repository slugs (OpenZeppelin/cairo-contracts), file extensions (*.cairo, *.move), component names and prose ('Cairo VM', 'Move bytecode verifier'). Redacting every literal occurrence truncates the routing evidence itself, and the remaining ecosystem names (Sui/Aptos/Starknet) still determine the language. 20 of the 23 held-out rows leak; the family is therefore reported as exploratory, not repaired by cosmetic redaction",
+        "rows_excluded_contaminated": 20,
+        "rows_excluded_with_family_clean": 3,
+        "rows_held_out": 23,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 20
+      },
       "rows_available": 137,
       "shortcuts_class_disjoint": {
-        "best_shortcut_accuracy": 0.6522,
-        "frequency_from_retained": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "group_lookup": {
-          "accuracy": 0.0,
-          "coverage": 0.0,
-          "macro_f1": 0.0
-        },
-        "held_out_rows": 23,
-        "input_retrieval": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "kept_label_space": 3,
-        "kept_rows": 114,
-        "majority_from_retained": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "majority_heldout_oracle_peek": {
-          "accuracy": 0.6522,
-          "coverage": 1.0,
-          "macro_f1": 0.3947
-        },
-        "random_from_retained_space": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "worst_honest_shortcut_accuracy": 0.0
+        "reason": "every held-out row either carries its own answer literal in the model-facing payload or belongs to a family excluded for that reason; no row of this split can enter the clean partition",
+        "verdict": "skipped_all_held_rows_answer_leaking"
       },
       "shortcuts_group_disjoint": {
         "reason": "every one of the 5 multi-row language groups carries exactly one label, so the group key determines the answer. Holding out a group would leak its label to every row removed; a group-disjoint split here measures the lookup, not the task",
@@ -329,17 +451,25 @@
         "reason": "rarest label 'unknown' has n=3, below the --min-minority floor of 5; a holdout of 3 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "partially_contaminated",
       "group_disjoint": {
+        "clean_holdout_too_small": true,
         "group_disjoint_verified": true,
         "groups_held_out": 1,
         "groups_total": 4,
         "held_out_labels": {
+          "high": 3,
+          "medium": 1,
+          "unknown": 2
+        },
+        "held_out_labels_before_filter": {
           "critical": 6,
           "high": 6,
           "medium": 1,
           "unknown": 2
         },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "critical": 10,
           "high": 34,
@@ -348,11 +478,26 @@
           "medium": 40,
           "unknown": 1
         },
-        "rows_held_out": 15,
+        "rows_excluded_contaminated": 9,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 6,
+        "rows_held_out_before_filter": 15,
         "rows_retained": 113,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": false,
-        "usable_for_comparison": true,
+        "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "partially_contaminated",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 9,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 15,
+        "rows_in_clean_holdout": 6,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 9
       },
       "rows_available": 128,
       "shortcuts_class_disjoint": {
@@ -360,41 +505,41 @@
         "verdict": "skipped_insufficient_minority_support"
       },
       "shortcuts_group_disjoint": {
-        "best_shortcut_accuracy": 0.4,
+        "best_shortcut_accuracy": 0.5,
         "frequency_from_retained": {
-          "accuracy": 0.2667,
+          "accuracy": 0.3333,
           "coverage": 1.0,
-          "macro_f1": 0.175
+          "macro_f1": 0.2133
         },
         "group_lookup": {
-          "accuracy": 0.0667,
+          "accuracy": 0.1667,
           "coverage": 0.0,
-          "macro_f1": 0.0312
+          "macro_f1": 0.0952
         },
-        "held_out_rows": 15,
+        "held_out_rows": 6,
         "input_retrieval": {
-          "accuracy": 0.2,
+          "accuracy": 0.0,
           "coverage": 1.0,
-          "macro_f1": 0.1227
+          "macro_f1": 0.0
         },
         "kept_label_space": 6,
         "kept_rows": 113,
         "majority_from_retained": {
-          "accuracy": 0.0667,
+          "accuracy": 0.1667,
           "coverage": 1.0,
-          "macro_f1": 0.0312
+          "macro_f1": 0.0952
         },
         "majority_heldout_oracle_peek": {
-          "accuracy": 0.4,
+          "accuracy": 0.5,
           "coverage": 1.0,
-          "macro_f1": 0.1429
+          "macro_f1": 0.2222
         },
         "random_from_retained_space": {
-          "accuracy": 0.2667,
+          "accuracy": 0.0,
           "coverage": 1.0,
-          "macro_f1": 0.1806
+          "macro_f1": 0.0
         },
-        "worst_honest_shortcut_accuracy": 0.0667
+        "worst_honest_shortcut_accuracy": 0.0
       }
     },
     "M_experiment_level_classification.jsonl": {
@@ -408,6 +553,7 @@
         "reason": "rarest label 'l3' has n=1, below the --min-minority floor of 5; a holdout of 1 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "groups_total": 37,
         "kind": "group_disjoint",
@@ -415,6 +561,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 37,
       "shortcuts_class_disjoint": {
@@ -436,23 +593,44 @@
         "reason": "rarest label 'false' has n=4, below the --min-minority floor of 5; a holdout of 4 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
+        "clean_holdout_too_small": true,
         "group_disjoint_verified": true,
         "groups_held_out": 1,
         "groups_total": 5,
         "held_out_labels": {
           "true": 2
         },
+        "held_out_labels_before_filter": {
+          "true": 2
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "false": 4,
           "true": 8
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 2,
+        "rows_held_out_before_filter": 2,
         "rows_retained": 12,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": true,
         "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 2,
+        "rows_in_clean_holdout": 2,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 14,
       "shortcuts_class_disjoint": {
@@ -515,7 +693,9 @@
         "reason": "rarest label 'negative_control' has n=1, below the --min-minority floor of 5; a holdout of 1 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "clean_after_redaction",
       "group_disjoint": {
+        "clean_holdout_too_small": true,
         "group_disjoint_verified": true,
         "groups_held_out": 1,
         "groups_total": 5,
@@ -523,7 +703,12 @@
           "incident": 1,
           "vulnerability": 14
         },
+        "held_out_labels_before_filter": {
+          "incident": 1,
+          "vulnerability": 14
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "advisory": 51,
           "audit_finding": 39,
@@ -536,11 +721,26 @@
           "scope_risk": 1,
           "vulnerability": 17
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 15,
+        "rows_held_out_before_filter": 15,
         "rows_retained": 122,
+        "rows_transformed_and_clean": 3,
         "single_class_holdout": false,
-        "usable_for_comparison": true,
+        "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean_after_redaction",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 15,
+        "rows_in_clean_holdout": 15,
+        "rows_transformed_and_clean": 3,
+        "rows_with_overlap_before": 3
       },
       "rows_available": 137,
       "shortcuts_class_disjoint": {
@@ -588,22 +788,34 @@
     "P_provenance_tier_and_rights.jsonl": {
       "class_disjoint": {
         "group_disjoint_verified": true,
-        "held_out_labels": [
+        "held_out_labels": {
+          "1": 10,
+          "3": 48
+        },
+        "held_out_labels_absent_from_retained": true,
+        "held_out_labels_before_filter": [
           "1",
           "3"
         ],
-        "held_out_labels_absent_from_retained": true,
         "kind": "class_disjoint",
         "label_counts": {
           "0": 79,
           "1": 10,
           "3": 48
         },
+        "literal_answer_overlap_in_clean": 0,
         "retained_contains_held_out_label": [],
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 58,
+        "rows_held_out_before_filter": 58,
         "rows_retained": 69,
+        "rows_transformed_and_clean": 0,
+        "single_class_holdout": false,
+        "usable_for_comparison": true,
         "verdict": "built"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
         "group_disjoint_verified": true,
         "groups_held_out": 1,
@@ -611,17 +823,36 @@
         "held_out_labels": {
           "0": 51
         },
+        "held_out_labels_before_filter": {
+          "0": 51
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "0": 28,
           "1": 10,
           "3": 48
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 51,
+        "rows_held_out_before_filter": 51,
         "rows_retained": 86,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": true,
         "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 109,
+        "rows_in_clean_holdout": 109,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 137,
       "shortcuts_class_disjoint": {
@@ -702,22 +933,34 @@
     "v3_R_source_tier_routing.jsonl": {
       "class_disjoint": {
         "group_disjoint_verified": true,
-        "held_out_labels": [
+        "held_out_labels": {
+          "0": 878,
+          "2": 1072
+        },
+        "held_out_labels_absent_from_retained": true,
+        "held_out_labels_before_filter": [
           "0",
           "2"
         ],
-        "held_out_labels_absent_from_retained": true,
         "kind": "class_disjoint",
         "label_counts": {
           "0": 878,
           "1": 3517,
           "2": 1072
         },
+        "literal_answer_overlap_in_clean": 0,
         "retained_contains_held_out_label": [],
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 1950,
+        "rows_held_out_before_filter": 1950,
         "rows_retained": 3517,
+        "rows_transformed_and_clean": 0,
+        "single_class_holdout": false,
+        "usable_for_comparison": true,
         "verdict": "built"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
         "group_label_map": {
           "c4-phi-findings": "2",
@@ -735,6 +978,17 @@
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_group_determines_label"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 1950,
+        "rows_in_clean_holdout": 1950,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 5467,
       "shortcuts_class_disjoint": {
@@ -795,6 +1049,7 @@
         "rows_retained": 0,
         "verdict": "skipped_empty_retained_side"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
         "group_disjoint_verified": true,
         "groups_held_out": 1,
@@ -802,16 +1057,35 @@
         "held_out_labels": {
           "finding": 36
         },
+        "held_out_labels_before_filter": {
+          "finding": 36
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "finding": 1020,
           "negative": 16
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 36,
+        "rows_held_out_before_filter": 36,
         "rows_retained": 1036,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": true,
         "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 36,
+        "rows_in_clean_holdout": 36,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 1072,
       "shortcuts_class_disjoint": {
@@ -866,23 +1140,44 @@
         "reason": "rarest label 'access control' has n=1, below the --min-minority floor of 5; a holdout of 1 rows cannot support a stable class-disjoint estimate",
         "verdict": "skipped_insufficient_minority_support"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
+        "clean_holdout_too_small": true,
         "group_disjoint_verified": true,
         "groups_held_out": 1,
         "groups_total": 2,
         "held_out_labels": {
           "business logic": 2
         },
+        "held_out_labels_before_filter": {
+          "business logic": 2
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "access control": 1,
           "business logic": 586
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 2,
+        "rows_held_out_before_filter": 2,
         "rows_retained": 587,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": true,
         "usable_for_comparison": false,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 2,
+        "rows_in_clean_holdout": 2,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 589,
       "shortcuts_class_disjoint": {
@@ -930,11 +1225,15 @@
     "vbeta_U_language_routing.jsonl": {
       "class_disjoint": {
         "group_disjoint_verified": true,
-        "held_out_labels": [
+        "held_out_labels": {
+          "cairo": 19,
+          "move": 20
+        },
+        "held_out_labels_absent_from_retained": true,
+        "held_out_labels_before_filter": [
           "cairo",
           "move"
         ],
-        "held_out_labels_absent_from_retained": true,
         "kind": "class_disjoint",
         "label_counts": {
           "cairo": 19,
@@ -944,11 +1243,19 @@
           "solidity": 6063,
           "vyper": 24
         },
+        "literal_answer_overlap_in_clean": 0,
         "retained_contains_held_out_label": [],
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 39,
+        "rows_held_out_before_filter": 39,
         "rows_retained": 505,
+        "rows_transformed_and_clean": 0,
+        "single_class_holdout": false,
+        "usable_for_comparison": true,
         "verdict": "built"
       },
+      "clean_holdout_status": "clean",
       "group_disjoint": {
         "group_disjoint_verified": true,
         "groups_held_out": 3,
@@ -959,7 +1266,14 @@
           "rust": 6,
           "solidity": 507
         },
+        "held_out_labels_before_filter": {
+          "go": 2,
+          "move": 10,
+          "rust": 6,
+          "solidity": 507
+        },
         "kind": "group_disjoint",
+        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
           "cairo": 19,
           "go": 36,
@@ -968,11 +1282,26 @@
           "solidity": 5556,
           "vyper": 24
         },
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
         "rows_held_out": 525,
+        "rows_held_out_before_filter": 525,
         "rows_retained": 5694,
+        "rows_transformed_and_clean": 0,
         "single_class_holdout": false,
         "usable_for_comparison": true,
         "verdict": "built"
+      },
+      "payload_leakage": {
+        "clean_holdout_status": "clean",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 564,
+        "rows_in_clean_holdout": 564,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
       },
       "rows_available": 6219,
       "shortcuts_class_disjoint": {
@@ -1066,6 +1395,7 @@
         "rows_retained": 0,
         "verdict": "skipped_empty_retained_side"
       },
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "group_label_map": {
           "cantina-portfolio": "2",
@@ -1088,6 +1418,17 @@
         "usable_for_comparison": false,
         "verdict": "skipped_group_determines_label"
       },
+      "payload_leakage": {
+        "clean_holdout_status": "no_holdout_rows",
+        "literal_answer_overlap_in_clean": 0,
+        "reason": "",
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
+        "rows_transformed_and_clean": 0,
+        "rows_with_overlap_before": 0
+      },
       "rows_available": 6935,
       "shortcuts_class_disjoint": {
         "reason": "holding out the two rarest labels removed every row (6935 of 6935); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
@@ -1101,10 +1442,10 @@
   },
   "generated_by": "scripts/build_secondary_holdout.py",
   "holdout_fraction": 0.3,
-  "holdout_version": "1",
-  "independence_guarantee": "Built only from the committed benchmark files. No model, prompt or threshold was tuned against it, and it did not exist while any published score was produced.",
-  "keys_written": 2716,
-  "method": "group_disjoint: whole groups partitioned with a seeded shuffle, stratified by each group's label set. class_disjoint: all rows of the two rarest labels held out, then every group touching a held-out row removed from the retained side, so retained labels and retained groups are both disjoint from the holdout.",
+  "holdout_version": "2",
+  "independence_guarantee": "The clean partition is built only from the committed benchmark files. No model, prompt or threshold was tuned against it, and it did not exist while any published score was produced. This guarantee applies to rows in secondary_holdout_tasks.jsonl only; the exploratory file is not independent evidence.",
+  "keys_written": 2684,
+  "method": "group_disjoint: whole groups partitioned with a seeded shuffle, stratified by each group's label set. class_disjoint: all rows of the two rarest labels held out, then every group touching a held-out row removed from the retained side, so retained labels and retained groups are both disjoint from the holdout. Held-out rows whose payload contains the gold scalar are then either redacted (only where the literal sits in non-essential provenance text) or excluded from the clean partition.",
   "min_minority": 5,
   "model_facing_tasks": {
     "carries": [
@@ -1124,18 +1465,155 @@
       "group",
       "split"
     ],
+    "exploratory_file": "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
+    "exploratory_note": "rows in the exploratory file still carry their answer in the payload because the source family's evidence names it. They are labelled exploratory and must never be counted as clean, independent or leakage-free holdout results",
     "file": "benchmark/independent/secondary_holdout_tasks.jsonl",
     "task_id": "a digest of (family, holdout, original id): stable, joinable to the key file, and it names nothing the answer depends on"
   },
   "payload_answer_literal_overlap": {
-    "by_family": {
+    "by_family_before": {
       "K_language_ecosystem_routing.jsonl": 20,
       "L_severity_reconciliation.jsonl": 9,
       "O_record_class_and_scope.jsonl": 3
     },
-    "note": "the model-facing payload is copied verbatim from the benchmark, so a family whose own evidence names the answer leaks it here too. That is a benchmark defect, measured by scripts/independent_benchmark_audit.py (K and L are the high-severity cases), and it is reported here rather than hidden: this holdout is open-key and is not claimed to be leakage-proof",
-    "rows": 32
+    "by_family_excluded_contaminated": {
+      "K_language_ecosystem_routing.jsonl": 20,
+      "L_severity_reconciliation.jsonl": 9
+    },
+    "by_family_excluded_with_family_clean": {
+      "K_language_ecosystem_routing.jsonl": 3
+    },
+    "by_family_transformed": {
+      "O_record_class_and_scope.jsonl": 3
+    },
+    "claim": "the clean holdout contains zero rows with a known literal-answer overlap. Contaminated rows remain only in the exploratory file (K_language_ecosystem_routing.jsonl: 20, L_severity_reconciliation.jsonl: 9) and are not clean, independent or leakage-free",
+    "contaminated_task_ids": [
+      "holdout-0fbbd069e1c4b08d",
+      "holdout-15813176a15346ff",
+      "holdout-192467301fef7f20",
+      "holdout-2731e61e62804a2a",
+      "holdout-2b6bdb3ae083f719",
+      "holdout-350d3cb378a5f5ba",
+      "holdout-3dbeb872c979abc8",
+      "holdout-3eb951382617aafc",
+      "holdout-58ae7c7be8cd913c",
+      "holdout-660533749d94102a",
+      "holdout-6ad35b599db9e420",
+      "holdout-6b2694103b39cf06",
+      "holdout-6fdd1e86b428767c",
+      "holdout-7b609e8cc4bf8a48",
+      "holdout-7ce8ca1d324f5636",
+      "holdout-8d9848c19879c6ee",
+      "holdout-8eee00d72a8e0883",
+      "holdout-94f66dd51636972e",
+      "holdout-98e4067ad2dee579",
+      "holdout-9a1c5f791fc009db",
+      "holdout-ac8a5605b9fe06c0",
+      "holdout-ae1d0ca80cc23252",
+      "holdout-b1eb3cb5dc3a76da",
+      "holdout-b9da41b7f5c804ee",
+      "holdout-bbb5195a81914d2b",
+      "holdout-c62201227556baca",
+      "holdout-d2104ffea2f619f4",
+      "holdout-db7186042d8b2fa0",
+      "holdout-f11c844f04da34b1"
+    ],
+    "definition": "word-boundary literal occurrence of the gold scalar in evidence_text(input), the audit's model-facing evidence: instruction scaffolding (prompt, class_vocabulary, taxonomy, tier_rules, prompt_to_answer) and nested prompt/question keys are excluded because they describe the label space to every row",
+    "exploratory_task_ids": [
+      "holdout-0fbbd069e1c4b08d",
+      "holdout-15813176a15346ff",
+      "holdout-192467301fef7f20",
+      "holdout-2731e61e62804a2a",
+      "holdout-2b6bdb3ae083f719",
+      "holdout-2d7235ee13c28afa",
+      "holdout-350d3cb378a5f5ba",
+      "holdout-3dbeb872c979abc8",
+      "holdout-3eb951382617aafc",
+      "holdout-58ae7c7be8cd913c",
+      "holdout-620bc064836b61cb",
+      "holdout-660533749d94102a",
+      "holdout-6ad35b599db9e420",
+      "holdout-6b2694103b39cf06",
+      "holdout-6fdd1e86b428767c",
+      "holdout-7b609e8cc4bf8a48",
+      "holdout-7ce8ca1d324f5636",
+      "holdout-8d9848c19879c6ee",
+      "holdout-8eee00d72a8e0883",
+      "holdout-94f66dd51636972e",
+      "holdout-96b9a812453b330d",
+      "holdout-98e4067ad2dee579",
+      "holdout-9a1c5f791fc009db",
+      "holdout-ac8a5605b9fe06c0",
+      "holdout-ae1d0ca80cc23252",
+      "holdout-b1eb3cb5dc3a76da",
+      "holdout-b9da41b7f5c804ee",
+      "holdout-bbb5195a81914d2b",
+      "holdout-c62201227556baca",
+      "holdout-d2104ffea2f619f4",
+      "holdout-db7186042d8b2fa0",
+      "holdout-f11c844f04da34b1"
+    ],
+    "families_excluded_from_clean": {
+      "K_language_ecosystem_routing.jsonl": "the gold is the language name and the model-facing evidence IS that name: repository slugs (OpenZeppelin/cairo-contracts), file extensions (*.cairo, *.move), component names and prose ('Cairo VM', 'Move bytecode verifier'). Redacting every literal occurrence truncates the routing evidence itself, and the remaining ecosystem names (Sui/Aptos/Starknet) still determine the language. 20 of the 23 held-out rows leak; the family is therefore reported as exploratory, not repaired by cosmetic redaction"
+    },
+    "families_transformed_for_clean": {
+      "O_record_class_and_scope.jsonl": "the record-class word occurs only in a source title or URL slug ('... DoS vulnerability needs to be applied', '... Incident Report ...'); the scope evidence (components, prose, other sources) is untouched, so the literal can be redacted without weakening the task"
+    },
+    "rows_excluded_contaminated": 29,
+    "rows_excluded_with_family_clean": 3,
+    "rows_held_out_total": 2716,
+    "rows_in_clean_holdout": 2684,
+    "rows_in_exploratory_holdout": 32,
+    "rows_transformed_and_clean": 3,
+    "rows_with_overlap_after_in_clean_holdout": 0,
+    "rows_with_overlap_before": 32
   },
   "seed": 7,
-  "tasks_written": 2716
+  "tasks_written": 2684,
+  "transforms": [
+    {
+      "after_sha256": "ef49754a47ee57334a3473a911624e3784691be970bc753bf1eabf7b8ecf6711",
+      "before_sha256": "d203c91cd75cc6226e23e47db49dc2209716b6f19501e84a4c5b10fdc8f286af",
+      "family_file": "O_record_class_and_scope.jsonl",
+      "field": "input.sources[0].title",
+      "holdout": "group_disjoint",
+      "holdout_task_id": "holdout-37c417f254fa4e8c",
+      "occurrences": 1,
+      "replacement": "[redacted]",
+      "rule": "word_boundary_answer_literal_redaction_v1"
+    },
+    {
+      "after_sha256": "b9134dc877d8efed84744ace5da4b8b8d3eead90fc1793bed37c93f0388d0e0e",
+      "before_sha256": "8817f17f17826b76b24c94c18fcb2d1b09b6c2e98fb96bdcf5a35541bebca378",
+      "family_file": "O_record_class_and_scope.jsonl",
+      "field": "input.sources[0].url",
+      "holdout": "group_disjoint",
+      "holdout_task_id": "holdout-37c417f254fa4e8c",
+      "occurrences": 1,
+      "replacement": "[redacted]",
+      "rule": "word_boundary_answer_literal_redaction_v1"
+    },
+    {
+      "after_sha256": "e1cedb14ebd026f1da1cfa3b2fda5d598482fd2a6729830094e8eda0a82001db",
+      "before_sha256": "b1d3c9c357920118b0a876bacca0365a8ab055118cb018a232b47a30e92a8196",
+      "family_file": "O_record_class_and_scope.jsonl",
+      "field": "input.sources[1].title",
+      "holdout": "group_disjoint",
+      "holdout_task_id": "holdout-5eb0f8854184f8cb",
+      "occurrences": 1,
+      "replacement": "[redacted]",
+      "rule": "word_boundary_answer_literal_redaction_v1"
+    },
+    {
+      "after_sha256": "e1cedb14ebd026f1da1cfa3b2fda5d598482fd2a6729830094e8eda0a82001db",
+      "before_sha256": "b1d3c9c357920118b0a876bacca0365a8ab055118cb018a232b47a30e92a8196",
+      "family_file": "O_record_class_and_scope.jsonl",
+      "field": "input.sources[1].title",
+      "holdout": "group_disjoint",
+      "holdout_task_id": "holdout-f6ad92bb270a915d",
+      "occurrences": 1,
+      "replacement": "[redacted]",
+      "rule": "word_boundary_answer_literal_redaction_v1"
+    }
+  ]
 }

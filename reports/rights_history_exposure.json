@@ -1,5 +1,5 @@
 {
-  "commits_scanned": 81,
+  "commits_scanned": 82,
   "current_exposure_items_in_history_scan": [
     {
       "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
@@ -463,7 +463,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "a531164869b5bdfaa9c3e27c9bea17d0e534bcf49bfbbd56bdba001916f327ff",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -485,7 +485,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -507,7 +507,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "868b4b9d5cb76831bb791597b14d5c400ca96b20ee28098513d1df6dedb40eb0",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -529,7 +529,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "7eaea2de7a79ae81af992a4d515cc456ccde0bdac2dbc24cc5dc21ac6535f445",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -551,7 +551,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -573,7 +573,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "89b4197c062e3ef2aa69c7e150ac624cc64f35f9a378d2c39499fb4d7cc3a4cc",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -595,7 +595,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "f2f31b0ede7ca2dfc1182b3d202355415897c71de71ec4f76d3010f27f06fa62",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -617,7 +617,7 @@
         "refs/remotes/origin/remediation/p0-credibility"
       ],
       "reachable_sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
-      "removed_in_commit": null,
+      "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     }

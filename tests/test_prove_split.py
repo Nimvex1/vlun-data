@@ -105,7 +105,14 @@ class StageLadderRules(unittest.TestCase):
         blocked = run(status={"test_Exploit()": "Success"})
         v = G.stage_ladder({"files": {"a.t.sol": "contract X"}}, good, blocked, EXPECTED)
         self.assertEqual(v["stage_reached"], "patch_verified")
-        self.assertTrue(all(v["stages"][s] for s in G.STAGES))
+        for stage in G.STAGES:
+            if stage == "behaviour_preserved":
+                # blocking the exploit is not a fix: without a recorded
+                # behaviour-preservation run the task is not fully verified
+                self.assertFalse(v["stages"][stage], stage)
+            else:
+                self.assertTrue(v["stages"][stage], stage)
+        self.assertFalse(v["fully_verified"])
 
     def test_a_patch_that_does_not_block_stops_at_impact(self):
         good = run(status={"test_Exploit()": "Failure"},

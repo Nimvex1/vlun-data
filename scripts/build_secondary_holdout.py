@@ -31,25 +31,61 @@ A family with fewer than two labels, or with a minority class below
 `--min-minority`, cannot support an honest class-disjoint evaluation. That
 is reported as `skipped_*` with the reason, never silently faked.
 
+CLEAN AND EXPLORATORY PARTITIONS
+--------------------------------
+A holdout row is only model-facing-safe if its copied payload does not
+contain its own gold scalar as a literal token. `evidence_text()` (the
+same definition the independent audit uses) removes instruction scaffolding
+and label vocabularies, then a word-boundary match is run against the gold.
+
+  clean
+      `secondary_holdout_tasks.jsonl` -- zero known literal-answer overlap,
+      recomputed from the written payload and the committed benchmark files
+      by `--check`. This is the only partition claimed leakage-free.
+
+  exploratory
+      `secondary_holdout_exploratory_tasks.jsonl` -- rows that still carry
+      their answer in the payload because the SOURCE family's evidence names
+      it. They are kept, separately and explicitly labelled, so the failure
+      is visible rather than silently dropped. They are NOT independent,
+      leakage-free or usable as headline evidence.
+
+Three response modes are used, per family and per row:
+
+  * clean rows are copied unchanged;
+  * rows whose answer literal occurs only in non-essential provenance text
+    (family O: the word appears in a source title / URL slug, not in the
+    scope evidence) are transformed: the literal span is replaced by
+    `[redacted]` and a provenance record (field, rule, before/after SHA-256)
+    is written to the manifest;
+  * rows whose answer literal is the evidence the task asks the model to
+    reconcile (family L: the published severity IS the answer) or whose
+    evidence IS the language name (family K: repositories, file extensions
+    and titles) are excluded from the clean partition. Transforming them
+    would destroy the task, so they are reported as exploratory instead.
+
 TASKS AND KEYS ARE SEPARATE FILES
 ----------------------------------
 The model-facing task list carries the input payload and a task id that
-reveals nothing. The answer key is a separate file. Nothing in the task
-row exposes the answer: the record id and the group key are both withheld,
-because for several families they ARE the answer (family K groups by the
-record id's language prefix, families R/U/V group by the publishing source
-whose tier is being asked).
+reveals nothing. The answer keys are separate files, one per partition.
+Nothing in a task row exposes the answer: the record id and the group key
+are both withheld, because for several families they ARE the answer
+(family K groups by the record id's language prefix, families R/U/V group
+by the publishing source whose tier is being asked).
 
-THE KEY IS OPEN-KEY
--------------------
-The key is committed in this repository, so anybody with the repository can
-read it. This holdout is therefore OPEN-KEY: it measures whether a model
-that has never been given the key can learn the task, and it does NOT
-protect against a retrieval-augmented model that can search the repository.
-It is not a hidden, protected or held-out-in-secret evaluation set, and
-nothing in this layer may be described as one. The only genuinely private
-evaluation in this repository is the VLUN-Prove private split, whose key
-lives outside the tracked tree (scripts/build_prove_split.py).
+THE KEY IS NOT COMMITTED IN THIS REPOSITORY
+--------------------------------------------
+`secondary_holdout_keys.jsonl` is generated in the local working tree and
+is NOT tracked by git (`git ls-files` does not list it). It is withheld
+from the repository, but it is NOT secret: the split is deterministic
+(seed in the manifest) and the key is regenerable from the committed
+benchmark files by running this script. `OPEN_KEY` therefore means "no
+confidentiality", not "published here". `--check` verifies the manifest and
+both task files without reading the key; if the key file is absent (as in a
+fresh checkout or CI) that part is reported as local-only rather than
+failed. Nothing in this layer may be described as a private or protected
+evaluation; the only genuinely private evaluation in this repository is the
+VLUN-Prove private split, whose key lives outside the tracked tree.
 
 Usage:
     python scripts/build_secondary_holdout.py            # build
@@ -60,6 +96,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import copy
 import hashlib
 import importlib.util
 import json
@@ -72,6 +109,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "benchmark" / "independent"
 TASKS_NAME = "secondary_holdout_tasks.jsonl"
 KEYS_NAME = "secondary_holdout_keys.jsonl"
+EXPLORATORY_TASKS_NAME = "secondary_holdout_exploratory_tasks.jsonl"
+EXPLORATORY_KEYS_NAME = "secondary_holdout_exploratory_keys.jsonl"
 MANIFEST_NAME = "secondary_holdout_manifest.json"
 
 # Reuse the audit's family registry, projections and group function so the
@@ -81,15 +120,51 @@ _spec = importlib.util.spec_from_file_location(
 _audit = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_audit)
 
-HOLDOUT_VERSION = "1"
+HOLDOUT_VERSION = "2"
 HOLDOUT_FRACTION = 0.30
 
 # Fields the model-facing task row must not carry. The check below enforces
 # it, and the gate (scripts/check_eval_leakage.py) enforces it again.
 ANSWER_FIELDS = ("gold", "label", "answer", "answer_key", "expected",
                  "original_id", "original_split", "group", "split")
+TASK_FIELDS = ("holdout_task_id", "family_file", "holdout", "input")
+PARTITIONS = ("group_disjoint", "class_disjoint")
+CLEAN_STATUSES = ("clean", "transformed")
+
+REDACTION_RULE = "word_boundary_answer_literal_redaction_v1"
+REDACTION_PLACEHOLDER = "[redacted]"
+
+# Families whose held-out rows cannot be made literal-clean without deleting
+# the artefact the task asks the model to read. They are excluded from the
+# clean partition as a family and kept only as labelled exploratory rows.
+EXCLUDED_FAMILIES = {
+    "K_language_ecosystem_routing.jsonl": (
+        "the gold is the language name and the model-facing evidence IS that "
+        "name: repository slugs (OpenZeppelin/cairo-contracts), file "
+        "extensions (*.cairo, *.move), component names and prose "
+        "('Cairo VM', 'Move bytecode verifier'). Redacting every literal "
+        "occurrence truncates the routing evidence itself, and the remaining "
+        "ecosystem names (Sui/Aptos/Starknet) still determine the language. "
+        "20 of the 23 held-out rows leak; the family is therefore reported "
+        "as exploratory, not repaired by cosmetic redaction"),
+}
+
+# Families where the answer word appears ONLY in source provenance (a title
+# or URL slug), never in the evidence the task is about. Redacting those
+# fields leaves the components, prose and remaining sources intact.
+TRANSFORM_FAMILIES = {
+    "O_record_class_and_scope.jsonl": (
+        "the record-class word occurs only in a source title or URL slug "
+        "('... DoS vulnerability needs to be applied', '... Incident Report "
+        "...'); the scope evidence (components, prose, other sources) is "
+        "untouched, so the literal can be redacted without weakening the "
+        "task"),
+}
 
 
+# ---------------------------------------------------------------------------
+# Group/class-disjoint split construction
+# ---------------------------------------------------------------------------
 
 def group_disjoint_split(fname: str, rows: list[dict], seed: int,
                          fraction: float = HOLDOUT_FRACTION) -> dict:
@@ -336,11 +411,211 @@ def task_pseudonym(fname: str, holdout: str, original_id: str) -> str:
     return f"holdout-{digest[:16]}"
 
 
-def _build(seed: int, min_minority: int) -> tuple[dict, list[dict], list[dict]]:
+# ---------------------------------------------------------------------------
+# Payload leakage: detection, redaction and provenance
+# ---------------------------------------------------------------------------
+
+def _sha256(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def answer_pattern(gold: str) -> re.Pattern | None:
+    """The audit's own word-boundary answer matcher, or None if too short."""
+    if not gold or gold in ("true", "false") or len(gold) < 3:
+        return None
+    return re.compile(r"(?<![a-z0-9])" + re.escape(gold) + r"(?![a-z0-9])",
+                      re.IGNORECASE)
+
+
+def _evidence_leaves(value, path=(), top=False):
+    """Yield (path_tuple, string) for every string `evidence_text` reads.
+
+    Mirrors `audit.evidence_text`: instruction scaffolding at the top level
+    and prompt/question keys at any depth are excluded. Those name the whole
+    label space and are not evidence.
+    """
+    if isinstance(value, dict):
+        for k, v in value.items():
+            if top and k in _audit.INSTRUCTION_KEYS:
+                continue
+            if k in _audit.DROP_KEYS:
+                continue
+            yield from _evidence_leaves(v, path + (k,), False)
+    elif isinstance(value, list):
+        for i, v in enumerate(value):
+            yield from _evidence_leaves(v, path + (i,), False)
+    elif isinstance(value, str):
+        yield path, value
+
+
+def _render_path(parts) -> str:
+    out = ""
+    for p in parts:
+        if isinstance(p, int):
+            out += f"[{p}]"
+        else:
+            out += ("." if out else "") + p
+    return "input." + out if out else "input"
+
+
+def _parse_path(path: str) -> list:
+    if path.startswith("input."):
+        path = path[len("input."):]
+    parts: list = []
+    for seg in path.split("."):
+        m = re.match(r"^([^\[]*)((?:\[\d+\])*)$", seg)
+        name, idxs = m.group(1), m.group(2)
+        if name:
+            parts.append(name)
+        parts.extend(int(x) for x in re.findall(r"\[(\d+)\]", idxs))
+    return parts
+
+
+def _leaf_at(node, path: str):
+    for part in _parse_path(path):
+        node = node[part]
+    return node
+
+
+def find_answer_leaks(input_obj, gold: str) -> list[tuple[str, str]]:
+    """(field path, field text) where the gold literal occurs in evidence."""
+    pat = answer_pattern(gold)
+    if pat is None:
+        return []
+    return [(_render_path(path), text)
+            for path, text in _evidence_leaves(input_obj, (), True)
+            if pat.search(text)]
+
+
+def redact_answer_literals(input_obj, gold: str,
+                           leaking: list[tuple[str, str]]):
+    """Replace the gold literal in the leaking evidence fields only.
+
+    Returns the transformed input and one provenance record per touched
+    field. The record stores the field path, the rule, and before/after
+    SHA-256 hashes -- never the answer text itself.
+    """
+    pat = answer_pattern(gold)
+    targets = {field for field, _ in leaking}
+    records: list[dict] = []
+
+    def walk(value, path):
+        if isinstance(value, dict):
+            return {k: walk(v, path + (k,)) for k, v in value.items()}
+        if isinstance(value, list):
+            return [walk(v, path + (i,)) for i, v in enumerate(value)]
+        if isinstance(value, str):
+            field = _render_path(path)
+            if field in targets:
+                replaced, count = pat.subn(REDACTION_PLACEHOLDER, value)
+                if count:
+                    records.append({
+                        "field": field,
+                        "rule": REDACTION_RULE,
+                        "before_sha256": _sha256(value),
+                        "after_sha256": _sha256(replaced),
+                        "occurrences": count,
+                        "replacement": REDACTION_PLACEHOLDER,
+                    })
+                    return replaced
+        return value
+
+    transformed = walk(input_obj, ())
+    records.sort(key=lambda r: r["field"])
+    return transformed, records
+
+
+def classify_held_row(fname: str, holdout: str, row: dict) -> dict:
+    """Decide clean / transformed / contaminated for one held-out row."""
+    spec = _audit.FAMILIES[fname]
+    gold = _audit.gold_of(row, spec["projection"])
+    original = copy.deepcopy(row.get("input"))
+    leaks = find_answer_leaks(original, gold)
+    payload = original
+    transforms: list[dict] = []
+    status = "clean"
+    reason = ""
+    if fname in EXCLUDED_FAMILIES:
+        if leaks:
+            status = "contaminated"
+            reason = "excluded_family_answer_leaking"
+        else:
+            status = "family_excluded_clean"
+            reason = "clean_row_but_family_excluded"
+    elif leaks:
+        if fname in TRANSFORM_FAMILIES:
+            payload, transforms = redact_answer_literals(original, gold, leaks)
+            if find_answer_leaks(payload, gold):
+                # The redaction did not close every occurrence: keep the
+                # untouched payload and report it as exploratory.
+                payload = original
+                transforms = []
+                status = "contaminated"
+                reason = "redaction_incomplete"
+            else:
+                status = "transformed"
+                reason = "answer_literal_redacted_in_provenance_text"
+        else:
+            status = "contaminated"
+            reason = "answer_literal_in_payload"
+    return {
+        "row": row,
+        "gold": gold,
+        "payload": payload,
+        "leaks_before": leaks,
+        "status": status,
+        "reason": reason,
+        "transforms": transforms,
+        "holdout": holdout,
+        "original_id": _audit.task_id(row, spec["id"]),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
+
+def _apply_clean_stats(split: dict, classified: list[dict],
+                       clean: list[dict]) -> dict:
+    """Attach clean-partition counts to a split definition, in place."""
+    labels = dict(sorted(collections.Counter(
+        c["gold"] for c in clean).items()))
+    stats = {
+        "rows_held_out_before_filter": len(classified),
+        "held_out_labels_before_filter": split.get("held_out_labels", {}),
+        "rows_held_out": len(clean),
+        "held_out_labels": labels,
+        "rows_transformed_and_clean": sum(
+            1 for c in classified if c["status"] == "transformed"),
+        "rows_excluded_contaminated": sum(
+            1 for c in classified if c["status"] == "contaminated"),
+        "rows_excluded_with_family_clean": sum(
+            1 for c in classified if c["status"] == "family_excluded_clean"),
+        "literal_answer_overlap_in_clean": sum(
+            1 for c in clean if find_answer_leaks(c["payload"], c["gold"])),
+    }
+    split.update(stats)
+    if not clean:
+        split["verdict"] = "skipped_all_held_rows_answer_leaking"
+        split["reason"] = (
+            "every held-out row either carries its own answer literal in the "
+            "model-facing payload or belongs to a family excluded for that "
+            "reason; no row of this split can enter the clean partition")
+    elif len(clean) < 30:
+        split["clean_holdout_too_small"] = True
+    return stats
+
+
+def _build(seed: int, min_minority: int) -> tuple[dict, list, list, list, list]:
     tasks: list[dict] = []
     keys: list[dict] = []
-    payload_leaks: dict[str, int] = {}
-    payload_leak_rows = 0
+    exploratory_tasks: list[dict] = []
+    exploratory_keys: list[dict] = []
+    transforms: list[dict] = []
+    contaminated_ids: list[str] = []
+    exploratory_ids: list[str] = []
+    overlap_before: collections.Counter = collections.Counter()
+    by_family_counts: dict[str, dict] = {}
     manifest: dict = {
         "holdout_version": HOLDOUT_VERSION,
         "generated_by": "scripts/build_secondary_holdout.py",
@@ -352,37 +627,66 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list[dict], list[dict]]:
             "stratified by each group's label set. class_disjoint: all rows of "
             "the two rarest labels held out, then every group touching a "
             "held-out row removed from the retained side, so retained labels "
-            "and retained groups are both disjoint from the holdout."),
+            "and retained groups are both disjoint from the holdout. Held-out "
+            "rows whose payload contains the gold scalar are then either "
+            "redacted (only where the literal sits in non-essential "
+            "provenance text) or excluded from the clean partition."),
         "independence_guarantee": (
-            "Built only from the committed benchmark files. No model, "
-            "prompt or threshold was tuned against it, and it did not exist "
-            "while any published score was produced."),
+            "The clean partition is built only from the committed benchmark "
+            "files. No model, prompt or threshold was tuned against it, and "
+            "it did not exist while any published score was produced. This "
+            "guarantee applies to rows in secondary_holdout_tasks.jsonl only; "
+            "the exploratory file is not independent evidence."),
         "additive": (
             "This layer is separate from benchmark/. No source benchmark "
             "file, split, answer key or score is modified by this script."),
         "model_facing_tasks": {
             "file": f"benchmark/independent/{TASKS_NAME}",
-            "carries": ["holdout_task_id", "family_file", "holdout", "input"],
+            "carries": list(TASK_FIELDS),
             "does_not_carry": list(ANSWER_FIELDS),
             "task_id": ("a digest of (family, holdout, original id): stable, "
                         "joinable to the key file, and it names nothing the "
                         "answer depends on"),
+            "exploratory_file": (
+                f"benchmark/independent/{EXPLORATORY_TASKS_NAME}"),
+            "exploratory_note": (
+                "rows in the exploratory file still carry their answer in the "
+                "payload because the source family's evidence names it. They "
+                "are labelled exploratory and must never be counted as clean, "
+                "independent or leakage-free holdout results"),
         },
         "answer_key": {
             "file": f"benchmark/independent/{KEYS_NAME}",
+            "exploratory_file": (
+                f"benchmark/independent/{EXPLORATORY_KEYS_NAME}"),
             "key_status": "OPEN_KEY",
-            "committed_in_repository": True,
-            "retrievable_by": ("anyone with this repository: the key file is "
-                               "a tracked file"),
+            "key_status_meaning": (
+                "OPEN_KEY means the key provides no confidentiality: the split "
+                "is deterministic and the key is regenerable from the "
+                "committed benchmark files at the recorded seed. It does NOT "
+                "mean the key file is tracked or published in this "
+                "repository"),
+            "committed_in_repository": False,
+            "tracked_in_git": False,
+            "visibility": "local_only_untracked",
+            "withheld_from_repository": True,
+            "retrievable_by": (
+                "anyone who can run scripts/build_secondary_holdout.py against "
+                "the committed benchmark files; the key file itself is not "
+                "part of the repository"),
+            "ci_verification": (
+                "--check verifies the manifest and both task files without "
+                "reading the key. If the key file is absent (fresh checkout or "
+                "CI) its contents are reported as local-only and unverified, "
+                "not treated as missing evidence"),
             "implication": (
-                "this holdout is OPEN-KEY. It measures whether a model that "
-                "has not been handed the key can learn the task. It does NOT "
-                "protect against a retrieval-augmented model that can search "
-                "the repository, and it must never be described as hidden, "
-                "protected against repository-level leakage, or not "
-                "accessible. The only genuinely private evaluation in this "
-                "repository is the VLUN-Prove private split, whose key lives "
-                "outside the tracked tree."),
+                "the key file exists only in a local working tree and is not "
+                "tracked by git. It is withheld from the repository but it is "
+                "not secret, because the same key is reproducible from public "
+                "committed sources. This layer must never be described as a "
+                "private or protected evaluation; the only genuinely private "
+                "evaluation in this repository is the VLUN-Prove private "
+                "split, whose key lives outside the tracked tree."),
         },
         "families": {},
     }
@@ -400,7 +704,86 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list[dict], list[dict]]:
             continue
         gd = group_disjoint_split(fname, rows, seed)
         cd = class_disjoint_split(fname, rows, min_minority)
-        gd_built = gd.get("verdict") == "built"
+        clean_rows: dict[str, list[dict]] = {}
+        fam_counts = {
+            "rows_held_out": 0,
+            "rows_with_overlap_before": 0,
+            "rows_transformed_and_clean": 0,
+            "rows_excluded_contaminated": 0,
+            "rows_excluded_with_family_clean": 0,
+            "rows_in_clean_holdout": 0,
+            "literal_answer_overlap_in_clean": 0,
+        }
+        for holdout, split in (("group_disjoint", gd),
+                               ("class_disjoint", cd)):
+            if split.get("verdict") != "built":
+                continue
+            held = split["_held"]
+            classified = [classify_held_row(fname, holdout, r) for r in held]
+            clean = [c for c in classified if c["status"] in CLEAN_STATUSES]
+            clean_rows[holdout] = [dict(c["row"], input=c["payload"])
+                                   for c in clean]
+            stats = _apply_clean_stats(split, classified, clean)
+            fam_counts["rows_held_out"] += stats["rows_held_out_before_filter"]
+            fam_counts["rows_with_overlap_before"] += len(
+                [c for c in classified if c["leaks_before"]])
+            fam_counts["rows_transformed_and_clean"] += stats[
+                "rows_transformed_and_clean"]
+            fam_counts["rows_excluded_contaminated"] += stats[
+                "rows_excluded_contaminated"]
+            fam_counts["rows_excluded_with_family_clean"] += stats[
+                "rows_excluded_with_family_clean"]
+            fam_counts["rows_in_clean_holdout"] += stats["rows_held_out"]
+            fam_counts["literal_answer_overlap_in_clean"] += stats[
+                "literal_answer_overlap_in_clean"]
+            for c in classified:
+                tid = task_pseudonym(fname, holdout, c["original_id"])
+                task = {
+                    "holdout_task_id": tid,
+                    "family_file": fname,
+                    "holdout": holdout,
+                    "input": c["payload"],
+                }
+                key = {
+                    "holdout_task_id": tid,
+                    "family_file": fname,
+                    "holdout": holdout,
+                    "original_id": c["original_id"],
+                    "original_split": str(c["row"].get("split")),
+                    "group": _audit.group_key(c["row"], spec),
+                    "gold": c["gold"],
+                    "key_status": "OPEN_KEY",
+                    "partition": ("clean" if c["status"] in CLEAN_STATUSES
+                                  else "exploratory"),
+                }
+                if c["status"] in CLEAN_STATUSES:
+                    tasks.append(task)
+                    keys.append(key)
+                else:
+                    exploratory_tasks.append(task)
+                    exploratory_keys.append(key)
+                    exploratory_ids.append(tid)
+                    if find_answer_leaks(task["input"], c["gold"]):
+                        contaminated_ids.append(tid)
+                for tr in c["transforms"]:
+                    transforms.append({
+                        "holdout_task_id": tid,
+                        "family_file": fname,
+                        "holdout": holdout,
+                        **tr,
+                    })
+        for holdout, split in (("group_disjoint", gd),
+                               ("class_disjoint", cd)):
+            if split.get("verdict") == "built":
+                clean_held = clean_rows.get(holdout, [])
+                split["single_class_holdout"] = (
+                    len(split.get("held_out_labels", {})) == 1)
+                split["usable_for_comparison"] = (
+                    len(split.get("held_out_labels", {})) > 1
+                    and len(clean_held) >= 30)
+            elif split.get("kind") == "group_disjoint":
+                split.setdefault("single_class_holdout", False)
+                split.setdefault("usable_for_comparison", False)
         entry = {
             "rows_available": len(rows),
             "group_disjoint": {k: v for k, v in gd.items()
@@ -408,72 +791,330 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list[dict], list[dict]]:
             "class_disjoint": {k: v for k, v in cd.items()
                                if not k.startswith("_")},
             "shortcuts_group_disjoint": (
-                evaluate_shortcuts_on(fname, gd["_kept"], gd["_held"], seed)
-                if gd_built
-                else {"verdict": gd["verdict"], "reason": gd["reason"]}),
+                evaluate_shortcuts_on(fname, gd["_kept"],
+                                      clean_rows.get("group_disjoint", []),
+                                      seed)
+                if gd.get("verdict") == "built"
+                and clean_rows.get("group_disjoint")
+                else {"verdict": gd.get("verdict"),
+                      "reason": gd.get("reason")}),
             "shortcuts_class_disjoint": (
-                evaluate_shortcuts_on(fname, cd["_kept"], cd["_held"], seed)
+                evaluate_shortcuts_on(fname, cd["_kept"],
+                                      clean_rows.get("class_disjoint", []),
+                                      seed)
                 if cd.get("verdict") == "built"
-                else {"verdict": cd.get("verdict"), "reason": cd.get("reason")}),
+                and clean_rows.get("class_disjoint")
+                else {"verdict": cd.get("verdict"),
+                      "reason": cd.get("reason")}),
         }
-# A holdout that is one class cannot discriminate between models,
-        # so it must never be quoted as a headline result.
-        hl = entry["group_disjoint"].get("held_out_labels") or {}
-        entry["group_disjoint"]["single_class_holdout"] = len(hl) == 1
-        entry["group_disjoint"]["usable_for_comparison"] = (
-            len(hl) > 1
-            and entry["group_disjoint"].get("verdict") == "built")
+        if (fam_counts["rows_excluded_contaminated"]
+                and not fam_counts["rows_in_clean_holdout"]):
+            status = "excluded_family_contaminated"
+        elif fam_counts["rows_excluded_contaminated"]:
+            status = "partially_contaminated"
+        elif fam_counts["rows_transformed_and_clean"]:
+            status = "clean_after_redaction"
+        elif fam_counts["rows_in_clean_holdout"]:
+            status = "clean"
+        else:
+            status = "no_holdout_rows"
+        entry["clean_holdout_status"] = status
+        entry["payload_leakage"] = {
+            **fam_counts,
+            "clean_holdout_status": status,
+            "reason": EXCLUDED_FAMILIES.get(fname, ""),
+        }
         manifest["families"][fname] = entry
-        for holdout, held in (("group_disjoint", gd.get("_held", [])),
-                              ("class_disjoint", cd.get("_held", []))):
-            if holdout == "class_disjoint" and cd.get("verdict") != "built":
-                continue
-            for r in held:
-                original_id = _audit.task_id(r, spec["id"])
-                tid = task_pseudonym(fname, holdout, original_id)
-                tasks.append({
-                    "holdout_task_id": tid,
-                    "family_file": fname,
-                    "holdout": holdout,
-                    "input": r.get("input"),
-                })
-                keys.append({
-                    "holdout_task_id": tid,
-                    "family_file": fname,
-                    "holdout": holdout,
-                    "original_id": original_id,
-                    "original_split": str(r.get("split")),
-                    "group": _audit.group_key(r, spec),
-                    "gold": _audit.gold_of(r, spec["projection"]),
-                    "key_status": "OPEN_KEY",
-                })
-                gold = _audit.gold_of(r, spec["projection"])
-                if (gold and gold not in ("true", "false") and len(gold) >= 3
-                        and re.search(r"(?<![a-z0-9])" + re.escape(gold)
-                                      + r"(?![a-z0-9])",
-                                      _audit.evidence_text(r).lower())):
-                    payload_leaks[fname] = payload_leaks.get(fname, 0) + 1
-                    payload_leak_rows += 1
+        overlap_before[fname] = fam_counts["rows_with_overlap_before"]
+        by_family_counts[fname] = fam_counts
+
+    contaminated_ids = sorted(contaminated_ids)
+    exploratory_ids = sorted(exploratory_ids)
+    clean_by_family = {f: c["rows_in_clean_holdout"]
+                       for f, c in by_family_counts.items()
+                       if c["rows_in_clean_holdout"]}
+    transformed_by_family = {
+        f: c["rows_transformed_and_clean"] for f, c in by_family_counts.items()
+        if c["rows_transformed_and_clean"]}
+    contaminated_by_family = {
+        f: c["rows_excluded_contaminated"] for f, c in by_family_counts.items()
+        if c["rows_excluded_contaminated"]}
+    family_excluded_by_family = {
+        f: c["rows_excluded_with_family_clean"]
+        for f, c in by_family_counts.items()
+        if c["rows_excluded_with_family_clean"]}
+    clean_leaks = sum(c["literal_answer_overlap_in_clean"]
+                      for c in by_family_counts.values())
+    manifest["clean_holdout"] = {
+        "tasks_file": f"benchmark/independent/{TASKS_NAME}",
+        "rows": len(tasks),
+        "by_family": dict(sorted(clean_by_family.items())),
+        "literal_answer_overlap": clean_leaks,
+        "verification": (
+            "recomputed from the written payload and the committed benchmark "
+            "families by scripts/build_secondary_holdout.py --check, without "
+            "reading the answer key; a row is leaking when evidence_text() "
+            "contains the gold scalar as a word-boundary literal"),
+        "claim": (
+            "every row in this file has ZERO known literal-answer overlap. "
+            "This is the only partition in this layer claimed leakage-free"),
+    }
+    manifest["exploratory_holdout"] = {
+        "tasks_file": f"benchmark/independent/{EXPLORATORY_TASKS_NAME}",
+        "rows": len(exploratory_tasks),
+        "contaminated_rows": len(contaminated_ids),
+        "clean_rows_excluded_with_family": sum(
+            family_excluded_by_family.values()),
+        "by_family": dict(sorted(collections.Counter(
+            t["family_file"] for t in exploratory_tasks).items())),
+        "contaminated_by_family": dict(sorted(contaminated_by_family.items())),
+        "claim": (
+            "these rows are EXPLORATORY. Their model-facing payload carries "
+            "the answer literal because the source family's evidence names "
+            "it. They are not independent, not leakage-free and must not be "
+            "reported as holdout evidence"),
+    }
+    manifest["payload_answer_literal_overlap"] = {
+        "definition": (
+            "word-boundary literal occurrence of the gold scalar in "
+            "evidence_text(input), the audit's model-facing evidence: "
+            "instruction scaffolding (prompt, class_vocabulary, taxonomy, "
+            "tier_rules, prompt_to_answer) and nested prompt/question keys "
+            "are excluded because they describe the label space to every "
+            "row"),
+        "rows_held_out_total": len(tasks) + len(exploratory_tasks),
+        "rows_with_overlap_before": sum(overlap_before.values()),
+        "by_family_before": dict(sorted(
+            (f, n) for f, n in overlap_before.items() if n)),
+        "rows_transformed_and_clean": sum(transformed_by_family.values()),
+        "by_family_transformed": dict(sorted(transformed_by_family.items())),
+        "rows_excluded_contaminated": len(contaminated_ids),
+        "by_family_excluded_contaminated": dict(
+            sorted(contaminated_by_family.items())),
+        "rows_excluded_with_family_clean": sum(
+            family_excluded_by_family.values()),
+        "by_family_excluded_with_family_clean": dict(
+            sorted(family_excluded_by_family.items())),
+        "rows_in_clean_holdout": len(tasks),
+        "rows_in_exploratory_holdout": len(exploratory_tasks),
+        "rows_with_overlap_after_in_clean_holdout": clean_leaks,
+        "contaminated_task_ids": contaminated_ids,
+        "exploratory_task_ids": exploratory_ids,
+        "claim": (
+            "the clean holdout contains zero rows with a known literal-answer "
+            "overlap. Contaminated rows remain only in the exploratory file ("
+            + ", ".join(f"{f}: {n}" for f, n in
+                        sorted(contaminated_by_family.items()))
+            + ") and are not clean, independent or leakage-free"),
+        "families_excluded_from_clean": dict(sorted(
+            (f, r) for f, r in EXCLUDED_FAMILIES.items())),
+        "families_transformed_for_clean": dict(sorted(
+            (f, r) for f, r in TRANSFORM_FAMILIES.items())),
+    }
+    manifest["transforms"] = sorted(
+        transforms, key=lambda t: (t["family_file"], t["holdout"],
+                                   t["holdout_task_id"], t["field"]))
     manifest["tasks_written"] = len(tasks)
     manifest["keys_written"] = len(keys)
-    manifest["payload_answer_literal_overlap"] = {
-        "rows": payload_leak_rows,
-        "by_family": dict(sorted(payload_leaks.items())),
-        "note": ("the model-facing payload is copied verbatim from the "
-                 "benchmark, so a family whose own evidence names the answer "
-                 "leaks it here too. That is a benchmark defect, measured "
-                 "by scripts/independent_benchmark_audit.py (K and L are the "
-                 "high-severity cases), and it is reported here rather than "
-                 "hidden: this holdout is open-key and is not claimed to be "
-                 "leakage-proof"),
-    }
-    return manifest, tasks, keys
+    manifest["exploratory_tasks_written"] = len(exploratory_tasks)
+    manifest["exploratory_keys_written"] = len(exploratory_keys)
+    return manifest, tasks, keys, exploratory_tasks, exploratory_keys
 
 
 def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:
-    """The manifest and the model-facing task rows (no answer material)."""
-    manifest, tasks, _keys = _build(seed, min_minority)
+    """The manifest and the CLEAN model-facing task rows."""
+    manifest, tasks, _keys, _et, _ek = _build(seed, min_minority)
     return manifest, tasks
+
+
+# ---------------------------------------------------------------------------
+# Verification from the written files (never trusts manifest prose, never
+# reads the answer key)
+# ---------------------------------------------------------------------------
+
+def _task_source_map() -> dict[str, tuple[str, str, dict]]:
+    """task id -> (family, holdout, source row), rebuilt from committed files."""
+    out: dict[str, tuple[str, str, dict]] = {}
+    for fname in sorted(_audit.FAMILIES):
+        if fname in _audit.NOT_SCORABLE:
+            continue
+        spec = _audit.FAMILIES[fname]
+        for row in _audit.scorable_rows(fname, _audit.load_family(fname)):
+            original_id = _audit.task_id(row, spec["id"])
+            for holdout in PARTITIONS:
+                out[task_pseudonym(fname, holdout, original_id)] = (
+                    fname, holdout, row)
+    return out
+
+
+def _read_jsonl(path: pathlib.Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in
+            path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def verify_written_holdout() -> dict:
+    """Recompute the leakage claims from the written files and sources.
+
+    Returns {"errors": [...], counts...}. An empty error list means every
+    row in the clean task file has zero known literal-answer overlap, every
+    task row has only model-facing fields, and the manifest's before/after
+    counts match the files. The answer key is never read.
+    """
+    manifest = json.loads((OUT_DIR / MANIFEST_NAME).read_text(encoding="utf-8"))
+    tasks = _read_jsonl(OUT_DIR / TASKS_NAME)
+    exploratory = _read_jsonl(OUT_DIR / EXPLORATORY_TASKS_NAME)
+    smap = _task_source_map()
+    errors: list[str] = []
+    task_by_id = {t.get("holdout_task_id"): t for t in tasks}
+    source_leaks = 0
+    clean_leaks = 0
+    transformed = 0
+    contaminated: list[str] = []
+    exploratory_ids: list[str] = []
+    transform_ids = {tr.get("holdout_task_id")
+                     for tr in manifest.get("transforms", [])}
+
+    def check_row(row: dict, label: str) -> tuple | None:
+        tid = row.get("holdout_task_id")
+        extra = set(row) - set(TASK_FIELDS)
+        if extra:
+            errors.append(f"{label} task {tid!r} carries non-task fields "
+                          f"{sorted(extra)}")
+        if tid not in smap:
+            errors.append(f"{label} task {tid!r} does not join to any "
+                          f"committed scorable row")
+            return None
+        fname, holdout, src = smap[tid]
+        if row.get("family_file") != fname or row.get("holdout") != holdout:
+            errors.append(f"{label} task {tid!r} family/holdout mismatch")
+        return fname, holdout, src
+
+    for row in tasks:
+        joined = check_row(row, "clean")
+        if joined is None:
+            continue
+        fname, _holdout, src = joined
+        gold = _audit.gold_of(src, _audit.FAMILIES[fname]["projection"])
+        if find_answer_leaks(src.get("input"), gold):
+            source_leaks += 1
+            if not find_answer_leaks(row.get("input"), gold):
+                transformed += 1
+                if row["holdout_task_id"] not in transform_ids:
+                    errors.append(
+                        f"clean task {row['holdout_task_id']!r} was "
+                        f"transformed but has no manifest provenance record")
+            else:
+                errors.append(
+                    f"clean task {row['holdout_task_id']!r} still carries "
+                    f"its answer literal")
+        if find_answer_leaks(row.get("input"), gold):
+            clean_leaks += 1
+    for row in exploratory:
+        joined = check_row(row, "exploratory")
+        exploratory_ids.append(row.get("holdout_task_id"))
+        if joined is None:
+            continue
+        fname, _holdout, src = joined
+        gold = _audit.gold_of(src, _audit.FAMILIES[fname]["projection"])
+        if find_answer_leaks(src.get("input"), gold):
+            source_leaks += 1
+            if find_answer_leaks(row.get("input"), gold):
+                contaminated.append(row["holdout_task_id"])
+            else:
+                errors.append(
+                    f"exploratory task {row['holdout_task_id']!r} is not "
+                    f"leaking; it belongs in the clean partition")
+
+    for tr in manifest.get("transforms", []):
+        tid = tr.get("holdout_task_id")
+        if tid not in task_by_id or tid not in smap:
+            errors.append(f"transform for unknown task {tid!r}")
+            continue
+        src = smap[tid][2]
+        try:
+            before = _leaf_at(src.get("input"), tr["field"])
+            after = _leaf_at(task_by_id[tid].get("input"), tr["field"])
+        except (KeyError, IndexError, TypeError):
+            errors.append(f"transform field {tr.get('field')!r} missing for "
+                          f"task {tid!r}")
+            continue
+        if _sha256(before) != tr.get("before_sha256"):
+            errors.append(f"transform before-hash mismatch for {tid!r} "
+                          f"{tr.get('field')!r}")
+        if _sha256(after) != tr.get("after_sha256"):
+            errors.append(f"transform after-hash mismatch for {tid!r} "
+                          f"{tr.get('field')!r}")
+        if tr.get("rule") != REDACTION_RULE:
+            errors.append(f"unknown transform rule {tr.get('rule')!r}")
+        if before == after:
+            errors.append(f"transform did not change {tid!r} "
+                          f"{tr.get('field')!r}")
+
+    expected = {
+        "tasks": len(tasks),
+        "exploratory": len(exploratory),
+        "rows_with_overlap_before": source_leaks,
+        "rows_with_overlap_after_in_clean_holdout": clean_leaks,
+        "rows_transformed_and_clean": transformed,
+        "rows_excluded_contaminated": len(contaminated),
+    }
+    claims = manifest.get("payload_answer_literal_overlap", {})
+    pairs = (
+        ("rows_in_clean_holdout", expected["tasks"]),
+        ("rows_in_exploratory_holdout", expected["exploratory"]),
+        ("rows_with_overlap_before", expected["rows_with_overlap_before"]),
+        ("rows_with_overlap_after_in_clean_holdout",
+         expected["rows_with_overlap_after_in_clean_holdout"]),
+        ("rows_transformed_and_clean", expected["rows_transformed_and_clean"]),
+        ("rows_excluded_contaminated", expected["rows_excluded_contaminated"]),
+    )
+    for name, actual in pairs:
+        if claims.get(name) != actual:
+            errors.append(
+                f"manifest {name}={claims.get(name)!r} but recomputation "
+                f"gives {actual!r}")
+    if set(claims.get("contaminated_task_ids", [])) != set(contaminated):
+        errors.append("manifest contaminated_task_ids does not match the "
+                      "recomputation")
+    if set(claims.get("exploratory_task_ids", [])) != set(exploratory_ids):
+        errors.append("manifest exploratory_task_ids does not match the "
+                      "task file")
+    if clean_leaks:
+        errors.append(f"{clean_leaks} row(s) in the clean holdout carry "
+                      f"their answer literal")
+    return {**expected, "errors": errors}
+
+
+# ---------------------------------------------------------------------------
+# Rendering and CLI
+# ---------------------------------------------------------------------------
+
+def rendered_files(seed: int, min_minority: int) -> dict[pathlib.Path, str]:
+    manifest, tasks, keys, exploratory_tasks, exploratory_keys = _build(
+        seed, min_minority)
+    leaked = sorted({f for t in tasks + exploratory_tasks
+                     for f in ANSWER_FIELDS if f in t})
+    if leaked:
+        raise SystemExit("model-facing task rows carry answer material: "
+                         + ", ".join(leaked))
+    return {
+        OUT_DIR / MANIFEST_NAME:
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        OUT_DIR / TASKS_NAME:
+            "".join(json.dumps(t, sort_keys=True, ensure_ascii=False) + "\n"
+                    for t in tasks),
+        OUT_DIR / KEYS_NAME:
+            "".join(json.dumps(k, sort_keys=True, ensure_ascii=False) + "\n"
+                    for k in keys),
+        OUT_DIR / EXPLORATORY_TASKS_NAME:
+            "".join(json.dumps(t, sort_keys=True, ensure_ascii=False) + "\n"
+                    for t in exploratory_tasks),
+        OUT_DIR / EXPLORATORY_KEYS_NAME:
+            "".join(json.dumps(k, sort_keys=True, ensure_ascii=False) + "\n"
+                    for k in exploratory_keys),
+    }
 
 
 def main() -> int:
@@ -482,46 +1123,60 @@ def main() -> int:
     ap.add_argument("--min-minority", type=int, default=5)
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
-    manifest, tasks, keys = _build(args.seed, args.min_minority)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    mpath = OUT_DIR / MANIFEST_NAME
-    tpath = OUT_DIR / TASKS_NAME
-    kpath = OUT_DIR / KEYS_NAME
-    mtext = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
-    ttext = "".join(json.dumps(t, sort_keys=True, ensure_ascii=False) + "\n"
-                    for t in tasks)
-    ktext = "".join(json.dumps(k, sort_keys=True, ensure_ascii=False) + "\n"
-                    for k in keys)
-    leaked = sorted({f for t in tasks for f in ANSWER_FIELDS if f in t})
-    if leaked:
-        print("model-facing task rows carry answer material: "
-              + ", ".join(leaked), file=sys.stderr)
-        return 1
+    rendered = rendered_files(args.seed, args.min_minority)
     if args.check:
         bad = []
-        for p, want in ((mpath, mtext), (tpath, ttext), (kpath, ktext)):
-            if not p.is_file():
-                bad.append(f"missing {p}")
-            elif p.read_text(encoding="utf-8") != want:
-                bad.append(f"STALE {p}")
+        for path, want in rendered.items():
+            if path.name in (KEYS_NAME, EXPLORATORY_KEYS_NAME):
+                # The key is local-only and untracked; a checkout/CI without
+                # it is the expected state, not a failure.
+                if path.is_file() and path.read_text(
+                        encoding="utf-8") != want:
+                    bad.append(f"STALE local key {path}")
+                continue
+            if not path.is_file():
+                bad.append(f"missing {path}")
+            elif path.read_text(encoding="utf-8") != want:
+                bad.append(f"STALE {path}")
+        verification = verify_written_holdout()
+        bad.extend(verification["errors"])
         if bad:
             print("; ".join(bad) + " -- run: python "
                   "scripts/build_secondary_holdout.py", file=sys.stderr)
             return 1
-        print("secondary holdout is current")
+        key_state = ("present locally" if (OUT_DIR / KEYS_NAME).is_file()
+                     else "absent locally (untracked, not required)")
+        print("secondary holdout is current: "
+              f"{verification['tasks']} clean rows with zero literal "
+              f"overlap, {verification['exploratory']} exploratory rows "
+              f"({verification['rows_excluded_contaminated']} contaminated); "
+              f"answer key {key_state}")
         return 0
-    mpath.write_text(mtext, encoding="utf-8", newline="\n")
-    tpath.write_text(ttext, encoding="utf-8", newline="\n")
-    kpath.write_text(ktext, encoding="utf-8", newline="\n")
+    for path, text in rendered.items():
+        path.write_text(text, encoding="utf-8", newline="\n")
+    manifest = json.loads(rendered[OUT_DIR / MANIFEST_NAME])
+    verification = verify_written_holdout()
+    print(f"wrote {OUT_DIR / MANIFEST_NAME}")
+    print(f"wrote {OUT_DIR / TASKS_NAME} "
+          f"({manifest['tasks_written']} clean model-facing tasks, "
+          f"zero literal-answer overlap)")
+    print(f"wrote {OUT_DIR / EXPLORATORY_TASKS_NAME} "
+          f"({manifest['exploratory_tasks_written']} exploratory tasks; "
+          f"{manifest['payload_answer_literal_overlap']['rows_excluded_contaminated']} "
+          f"contaminated)")
+    print(f"wrote {OUT_DIR / KEYS_NAME} and {OUT_DIR / EXPLORATORY_KEYS_NAME} "
+          f"(local-only, untracked)")
     built = sum(1 for v in manifest["families"].values()
                 if v.get("class_disjoint", {}).get("verdict") == "built")
     skipped = sum(1 for v in manifest["families"].values()
                   if v.get("class_disjoint", {}).get("verdict", "").startswith(
                       "skipped"))
-    print(f"wrote {mpath}")
-    print(f"wrote {tpath} ({len(tasks)} model-facing tasks, no answer fields)")
-    print(f"wrote {kpath} ({len(keys)} OPEN-KEY rows, committed in-repo)")
-    print(f"class-disjoint built for {built} families; skipped for {skipped}")
+    print(f"class-disjoint clean for {built} families; skipped for {skipped}")
+    if verification["errors"]:
+        for err in verification["errors"]:
+            print("VERIFY: " + err, file=sys.stderr)
+        return 1
     return 0
 
 

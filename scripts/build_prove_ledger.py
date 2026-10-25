@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
-from vlun import DERIVED, REPORTS, log, read_jsonl, write_json, write_jsonl  # noqa: E402
+from vlun import REPORTS, log, read_jsonl, write_json, write_jsonl  # noqa: E402
 
 CANDIDATE_DIR = ROOT / "work" / "prove_candidates"
 OUT_DIR = ROOT / "derived_prove"
@@ -287,7 +287,26 @@ def seed_from_recorded_evidence() -> list[dict]:
     return rows
 
 
+# A ledger row ships in the repository, so it must not carry the absolute path of
+# the machine that produced it. A local artefact path is rewritten to its
+# repo-relative form; nothing else about the row changes.
+
+def _relativize(value):
+    if isinstance(value, str):
+        text = value.replace("\\", "/")
+        prefix = str(ROOT).replace("\\", "/")
+        if text[:len(prefix)].lower() == prefix.lower():
+            text = text[len(prefix):].lstrip("/")
+        return text.replace("\\", "/")
+    if isinstance(value, list):
+        return [_relativize(item) for item in value]
+    if isinstance(value, dict):
+        return {k: _relativize(v) for k, v in value.items()}
+    return value
+
+
 def normalize(row: dict, origin: str) -> dict:
+    row = _relativize(row)
     out = {k: v for k, v in row.items() if v not in (None, "", [], {})}
     out.setdefault("candidate_stage", "candidate")
     out["origin"] = out.get("origin") or origin

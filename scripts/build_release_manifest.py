@@ -86,9 +86,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from inventory_rights import (  # noqa: E402
-    CODE_KEYS, DIFF_KEYS, EMAIL_RE, HEX64_RE, KEEP_QUOTE_MAX_CHARS, ORG_MAILBOX_DOMAINS,
+    CODE_KEYS, DIFF_KEYS, EMAIL_RE, KEEP_QUOTE_MAX_CHARS, ORG_MAILBOX_DOMAINS,
     POC_KEYS, PROSE_KEYS, SHORT_PROSE_KEYS, THIRD_PARTY_CODE_RE,
-    base_context_of, authored_by_project_row, read_jsonl, sha256_text,
+    base_context_of, authored_by_project_row, read_jsonl,
     tracked_files, walk_leaves,
 )
 

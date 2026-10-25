@@ -47,8 +47,21 @@ contain dataset answers and would leak the key.
 
 ## 3. Sampling design
 
-Produced by `scripts/sample_iaa.py` (deterministic; `--seed 20261018`, `--target 300`,
-`--check` verifies the committed draw byte-for-byte).
+Produced by `scripts/sample_iaa.py` (`--seed 20261018`, `--target 300`). The sample is a
+**frozen artefact**: the three blank annotator templates were generated from this exact
+draw and distributed, so `--check` validates it against
+`annotation/iaa_v1/frozen_sample.json` (sample and template sha256, header metadata, and
+row identity) instead of redrawing it from the current inputs. The draw is never
+regenerated in place. A future draw requires an explicit new version:
+
+```bash
+python scripts/sample_iaa.py --redraw --out annotation/iaa_v2 \
+    --draw-version iaa-draw-2.0 --seed 20261024 --rationale "why a new draw exists" \
+    --write-templates
+```
+
+That command leaves v1 untouched and writes its own `frozen_sample.json` with the new
+seed, population, selection method and rationale.
 
 - **Population:** the 722 records in `derived/records.jsonl` (v2.2 derived layer).
 - **Target n = 300; realised n = 300** (see the header line of `sample.jsonl`).

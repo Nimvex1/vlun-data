@@ -118,15 +118,47 @@ def key_status_violations(key_rows: list[dict], manifest: dict) -> list[str]:
     if str(ak.get("key_status", "")).upper() != "OPEN_KEY":
         bad.append("the holdout manifest does not declare "
                    "answer_key.key_status = OPEN_KEY")
-    if ak.get("committed_in_repository") is not True:
+    # The manifest must describe the key file as it actually is. A key that is
+    # committed and a key that is withheld are different facts, and the manifest
+    # may not claim the wrong one: the key is withheld from the repository here,
+    # and the holdout stays open-key because the key is regenerable from the
+    # committed sources at the recorded seed.
+    tracked = key_file_is_tracked()
+    declared = ak.get("committed_in_repository")
+    if tracked is True and declared is not True:
         bad.append("the holdout manifest does not declare "
-                   "answer_key.committed_in_repository = true")
+                   "answer_key.committed_in_repository = true although the key "
+                   "file is tracked")
+    if tracked is False and declared is not False:
+        bad.append("the holdout manifest declares the answer key committed but "
+                   "the key file is not tracked by git")
+    if declared is False and ak.get("tracked_in_git") is not False:
+        bad.append("the holdout manifest declares an uncommitted key but still "
+                   "claims answer_key.tracked_in_git")
     for name, value in _walk_claims(manifest):
         if name in HIDDENNESS_CLAIM_KEYS and value:
             bad.append(
                 f"the holdout manifest claims {name!r} for an answer key that "
-                f"is committed in this repository")
+                f"is open: it is regenerable from the committed sources")
     return bad
+
+
+def key_file_is_tracked() -> bool | None:
+    """Is the holdout answer key tracked by git? None when git cannot say."""
+    try:
+        rel = KEYS.relative_to(ROOT).as_posix()
+    except ValueError:
+        return None
+    try:
+        out = subprocess.run(["git", "ls-files", "--error-unmatch", rel],
+                             cwd=str(ROOT), capture_output=True, text=True)
+    except (OSError, ValueError):
+        return None
+    if out.returncode == 0:
+        return True
+    if out.returncode == 1 or "did not match" in (out.stderr or ""):
+        return False
+    return None
 
 
 def _walk_claims(node, path="$"):

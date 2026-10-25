@@ -10,7 +10,7 @@
     "assessability": {
       "claim_corroborated_as_duplicate_of_confirmed_finding": 458,
       "exploit_attempted_and_claimed_violation_not_demonstrated": 458,
-      "reason_attributed_to_judge_or_sponsor": 458,
+      "reason_attributed_to_judge_or_sponsor": 9,
       "reason_supported_by_cited_code": 292,
       "rejection_status_publicly_reported": 458,
       "unknown_or_insufficient_evidence": 458
@@ -23,8 +23,8 @@
       "unknown_or_insufficient_evidence": 256
     },
     "by_answer_key_status": {
-      "labeled": 292,
-      "partial": 166
+      "labeled": 9,
+      "partial": 449
     },
     "by_split": {
       "test": 38,
@@ -34,7 +34,7 @@
     "per_axis_assessable_crosscheck": {
       "claim_corroborated_as_duplicate_of_confirmed_finding": 458,
       "exploit_attempted_and_claimed_violation_not_demonstrated": 458,
-      "reason_attributed_to_judge_or_sponsor": 458,
+      "reason_attributed_to_judge_or_sponsor": 9,
       "reason_supported_by_cited_code": 292,
       "rejection_status_publicly_reported": 458,
       "unknown_or_insufficient_evidence": 458
@@ -55,10 +55,10 @@
         "unknown_rate": 0.0
       },
       "reason_attributed_to_judge_or_sponsor": {
-        "coverage": 458,
+        "coverage": 9,
         "evidence_given_in_packet": false,
-        "majority_baseline_accuracy": 0.9803,
-        "supported_rate": 0.0197,
+        "majority_baseline_accuracy": 1.0,
+        "supported_rate": 1.0,
         "unknown_rate": 0.0
       },
       "reason_supported_by_cited_code": {
@@ -84,26 +84,35 @@
       }
     },
     "rows": 458,
-    "scorable_rows": 292,
+    "scorable_rows": 9,
     "status_accounting": {
-      "labeled": 292,
-      "partial": 166
+      "labeled": 9,
+      "partial": 449
     },
     "technical_explanation_rows": 6,
     "unique_source_records": 458
   },
   "fb": {
-    "adjudicated_distinct_pairs": 258,
-    "ambiguous_class_pairs": 111,
+    "ambiguous_class_pairs": 249,
     "ambiguous_unscorable_pairs": 0,
+    "by_label_cohort": {
+      "exploratory": 138,
+      "primary": 416
+    },
+    "by_label_tier": {
+      "ambiguous_shared_target_no_pointer": 111,
+      "ambiguous_target_separation_without_root_cause": 138,
+      "pointer_supported_positive": 184,
+      "rule_derived_target_and_root_cause_negative": 121
+    },
     "by_relationship": {
-      "ambiguous": 111,
-      "distinct_vulnerability": 258,
+      "ambiguous": 249,
+      "distinct_vulnerability": 121,
       "same_vulnerability": 184
     },
     "by_split": {
       "test": 31,
-      "train": 323,
+      "train": 324,
       "validation": 199
     },
     "confirmed_duplicate_pairs": 184,
@@ -115,11 +124,12 @@
     "corpus_records_with_no_positive_pair": 265,
     "distinct_independent_projects": 5,
     "excluded_pairs": {
-      "judgement_phrase_in_model_input": 68
+      "judgement_phrase_in_model_input": 67
     },
-    "pair_rows": 553,
+    "pair_rows": 554,
+    "rule_derived_distinct_pairs": 121,
     "unique_candidate_submissions": 386,
-    "unique_canonical_findings": 119
+    "unique_canonical_findings": 120
   },
   "generated_by": "scripts/build_f_extension.py",
   "independent_projects_in_corpus": {
@@ -130,7 +140,7 @@
     "2024-08-wildcat": 38
   },
   "non_additivity": "axis totals overlap and are not additive; a record may support several axes at once",
-  "schema_version": "vlun-f-extension/1.0",
+  "schema_version": "vlun-f-extension/2.0",
   "split_grouping": {
     "audits": 8,
     "audits_straddling_split": 0,

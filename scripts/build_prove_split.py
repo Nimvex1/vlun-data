@@ -7,12 +7,21 @@ violation must appear, and against the fixed revision, where it must be blocked.
 Stage by stage:
 
     generated -> compiles -> executes -> impact_reproduced -> patch_verified
+              -> behaviour_preserved
 
 Two rules make the ladder mean something. A compile or dependency failure stops
 the run at the stage it reached — it is never re-labelled as a failed proof. And
 `impact_reproduced` requires the *expected assertion* to be the thing that broke:
 a test that fails for an unrelated reason (wrong interface, missing fixture, a
 gas issue) does not count, even when forge exits non-zero.
+
+`patch_verified` alone is not a fully effective patch: deleting or disabling the
+feature also blocks the exploit. `behaviour_preserved` is therefore the top stage
+and needs recorded fixed-revision regression evidence — the project's existing
+test suite, a vulnerable-revision baseline, no new failures, passing targeted
+positive-path assertions, and proof the feature still exists. When that evidence
+is absent the task is reported as `patch_verified` (not fully verified) with the
+reason; no run is invented.
 
 Everything the grader needs in order to judge — the fixed revision, the harness
 sources, the expected assertion signature — is the answer key, so it is written
@@ -23,7 +32,8 @@ without being able to read it.
 
 Nothing here claims contamination-proof: the split is leakage-audited under the
 criteria recorded in `reports/prove_split_interface.json`, and the pool is what
-the executed two-revision evidence supports today — not a target number.
+the executed two-revision evidence supports today — not a target number, and not
+the candidate-ledger row count.
 
     python scripts/build_prove_split.py --home /path/outside/the/repo [--check]
 """
@@ -39,14 +49,20 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import REPORTS, ROOT, log, write_json  # noqa: E402
+from vlun import REPORTS, ROOT, log, read_jsonl, write_json  # noqa: E402
 
-SCHEMA = "vlun-prove/1.0"
+SCHEMA = "vlun-prove/2.0"
 INTERFACE_JSON = REPORTS / "prove_split_interface.json"
+LEDGER_PATH = ROOT / "derived_prove" / "candidate_ledger.jsonl"
 INTERFACE_MD = REPORTS / "prove_split_interface.md"
 PRIVATE_DIRNAME = "vlun_prove"
 CUTOFF = "2026-10-19"          # evidence available in this tree as of this date
-STAGES = ("generated", "compiles", "executes", "impact_reproduced", "patch_verified")
+STAGES = ("generated", "compiles", "executes", "impact_reproduced", "patch_verified",
+          "behaviour_preserved")
+COUNT_KEYS = ("candidate_ledger_rows", "technically_qualified_experiments",
+              "gradable_tasks", "release_eligible_tasks")
+RIGHTS_STATUSES = ("cleared_for_redistribution", "withheld_pending_permission",
+                  "unclassified")
 FORBIDDEN_IN_PUBLIC = ("fixed_commit", "expected_assertion", "harness_source",
                        "per_test_status", "expectation")
 
@@ -320,6 +336,72 @@ def grader_self_check(evidence: dict) -> dict:
             "per_task": per_task}
 
 
+def _ledger_rights() -> dict[str, str]:
+    """repository -> rights status, from the candidate ledger.
+
+    The same rule the ledger builder applies: an MIT-classified repository may
+    redistribute its harness, a repository with another or unknown licence keeps
+    its artefacts local, and a repository nobody classified stays unclassified.
+    """
+    out: dict[str, str] = {}
+    for row in read_jsonl(LEDGER_PATH):
+        repo = str(row.get("repository") or "").strip().rstrip("/").lower()
+        if not repo:
+            continue
+        status = row.get("rights_status")
+        if status not in RIGHTS_STATUSES:
+            licence = str(row.get("licence_code") or "").strip()
+            if licence.startswith("MIT"):
+                status = "cleared_for_redistribution"
+            elif licence:
+                status = "withheld_pending_permission"
+            else:
+                status = "unclassified"
+        out[repo] = status
+    return out
+
+
+def _pool_counts(tasks: list[dict], gradable_tasks: int) -> dict:
+    """The four counts, each derived from its own canonical source.
+
+    A ledger row is a candidate, not a published task, so the ledger count can
+    never raise the published pool. The ordering is checked here, not asserted in
+    prose: a release-eligible task must be gradable, and a gradable task must be
+    backed by a technically qualified experiment.
+    """
+    ledger = read_jsonl(LEDGER_PATH)
+    rights = _ledger_rights()
+    qualified = sum(1 for row in ledger if row.get("candidate_stage") == "qualified")
+    release_eligible = sum(
+        1 for task in tasks
+        if task.get("gradable_by_the_published_grader")
+        and rights.get(str(task.get("repository") or "").strip().rstrip("/").lower())
+        == "cleared_for_redistribution")
+    counts = {
+        "candidate_ledger_rows": len(ledger),
+        "technically_qualified_experiments": qualified,
+        "gradable_tasks": gradable_tasks,
+        "release_eligible_tasks": release_eligible,
+        "derivation": {
+            "candidate_ledger_rows": "rows in derived_prove/candidate_ledger.jsonl",
+            "technically_qualified_experiments": "ledger rows whose candidate_stage is "
+                                                  "qualified (both revisions executed)",
+            "gradable_tasks": "tasks in this interface the published grader can run",
+            "release_eligible_tasks": "gradable tasks whose repository is cleared for "
+                                      "redistribution in the candidate ledger",
+        },
+        "separation_note": ("a ledger row is a candidate, not a published task; the "
+                            "published pool is the gradable count and never the ledger "
+                            "count"),
+    }
+    if counts["release_eligible_tasks"] > counts["gradable_tasks"]:
+        raise SystemExit("release-eligible tasks cannot exceed the gradable pool")
+    if counts["gradable_tasks"] > counts["technically_qualified_experiments"]:
+        raise SystemExit("the gradable pool cannot exceed the technically qualified "
+                         "experiments")
+    return counts
+
+
 def build(home: Path) -> tuple[dict, dict]:
     evidence = load_evidence()
     self_check = grader_self_check(evidence)
@@ -380,6 +462,7 @@ def build(home: Path) -> tuple[dict, dict]:
     # advertised as part of the pool.
     gradable_tasks = sum(1 for t in tasks if t["gradable_by_the_published_grader"])
     ungradable = [t for t in tasks if not t["gradable_by_the_published_grader"]]
+    counts = _pool_counts(tasks, gradable_tasks)
     interface = {
         "schema_version": SCHEMA,
         "generated_by": "scripts/build_prove_split.py",
@@ -392,6 +475,15 @@ def build(home: Path) -> tuple[dict, dict]:
             "impact_reproduced": "on the vulnerable revision the expected test failed with "
                                  "the expected assertion signature, not an unrelated error",
             "patch_verified": "the same test file, unmodified, passed on the second revision",
+            "behaviour_preserved": (
+                "the fixed revision still does what the feature did: the project's own "
+                "test suite ran on the fixed revision, its result is compared against a "
+                "vulnerable-revision baseline so pre-existing failures are not attributed "
+                "to the fix, no new failure appeared, the targeted positive-path "
+                "assertions passed, and the affected function is still present. A patch "
+                "that deletes or disables the feature does not earn this stage. Without "
+                "recorded regression evidence the task stops at `patch_verified` and is "
+                "reported as not fully verified"),
         },
         "grader_reads_the_assertion_not_the_exit_code": True,
         "grader_runner_coverage": {
@@ -419,6 +511,7 @@ def build(home: Path) -> tuple[dict, dict]:
             "target_met": gradable_tasks >= 200,
             "headline": "qualified_pool_size",
             "ledger": ledger_summary(),
+            "counts": counts,
             "why_smaller": (
                 f"the qualified pool is {gradable_tasks}: the tasks whose framework the "
                 f"published grader can actually run. A further {len(ungradable)} task(s) "
@@ -533,6 +626,15 @@ def render_md(interface: dict) -> str:
                f"{led.get('relationship')}")
     out.append(f"- why smaller: {p['why_smaller']}")
     out.append(f"- diversity limit: {p['diversity_limit']}\n")
+    counts = p.get("counts") or {}
+    out.append("## The four counts, kept apart\n")
+    out.append("| count | value | derived from |")
+    out.append("|---|---|---|")
+    for key in ("candidate_ledger_rows", "technically_qualified_experiments",
+                "gradable_tasks", "release_eligible_tasks"):
+        out.append(f"| {key} | {counts.get(key)} | "
+                   f"{(counts.get('derivation') or {}).get(key, '')} |")
+    out.append(f"\n{counts.get('separation_note', '')}\n")
     out.append("## Isolation\n")
     out.append(f"- the model sees: `{interface['isolation']['model_sees']}`")
     out.append(f"- the model must not see: `{interface['isolation']['model_must_not_see']}`\n")

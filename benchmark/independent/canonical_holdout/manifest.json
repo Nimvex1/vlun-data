@@ -1,0 +1,51 @@
+{
+  "MODEL_VISIBLE": false,
+  "counts_by_task_and_layer_split": {
+    "detection": {
+      "validation": 90
+    },
+    "language": {
+      "validation": 2048
+    },
+    "severity": {
+      "validation": 2766
+    }
+  },
+  "excluded_rows": 17002,
+  "files": [
+    {
+      "part": 0,
+      "path": "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+      "rows": 90,
+      "sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
+      "split": "heldout",
+      "task": "detection"
+    },
+    {
+      "part": 0,
+      "path": "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
+      "rows": 2048,
+      "sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
+      "split": "heldout",
+      "task": "language"
+    },
+    {
+      "part": 0,
+      "path": "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
+      "rows": 2766,
+      "sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
+      "split": "heldout",
+      "task": "severity"
+    }
+  ],
+  "generated_by": "scripts/build_canonical_training.py",
+  "protected_identifiers": 23893,
+  "reasons": {
+    "held_out_split": 3867,
+    "held_out_split_and_protected_record": 12257,
+    "model_visible": 15943,
+    "protected_record": 878
+  },
+  "source_of_truth": "scripts/build_canonical_training.py; the same split selection the model-visible corpus uses",
+  "warning": "NOT MODEL-VISIBLE. These rows are the held-out partitions of the benchmark families expressed in the canonical training schema. They carry the labels the benchmark is scored on. They live outside training/ so that a corpus consumer globbing the training directory cannot reach them, and they are NOT listed in training/canonical/manifest.json. Do not train on them."
+}

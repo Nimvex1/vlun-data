@@ -68,13 +68,26 @@ class TestFAxisVector(unittest.TestCase):
         for row in self.rows:
             self.assertEqual(sorted(row["input"]["axes_to_answer"]), sorted(fx.AXES))
 
-    def test_gold_equals_corpus_metrics(self):
+    def test_gold_equals_corpus_metrics_on_assessed_axes_only(self):
+        # An unassessable axis gets `unknown`, never a `not_supported` gold: an
+        # empty statement list is missing evidence, not proof of absence.
         for row in self.rows:
             record = self.corpus[row["source"]["record_id"]]
             for axis in fx.AXES:
-                expected = "supported" if record["metrics"][axis] else "not_supported"
-                self.assertEqual(row["answer_key"]["axes"][axis], expected,
-                                 f"{row['id']} {axis}")
+                gold = row["answer_key"]["axes"][axis]
+                if axis in row["assessed_axes"]:
+                    expected = "supported" if record["metrics"][axis] else "not_supported"
+                    self.assertEqual(gold, expected, f"{row['id']} {axis}")
+                else:
+                    self.assertEqual(gold, "unknown", f"{row['id']} {axis}")
+                    self.assertIn(axis, row["answer_key"]["withheld_gold_axes"])
+
+    def test_unassessed_axes_are_documented(self):
+        for row in self.rows:
+            for axis in row["unassessed_axes"]:
+                self.assertIn(axis, fx.AXES, row["id"])
+                self.assertNotIn(axis, row["assessed_axes"], row["id"])
+                self.assertTrue(row["unassessed_axes"][axis], row["id"])
 
     def test_axes_are_not_forced_mutually_exclusive(self):
         multi = [r for r in self.rows
@@ -107,6 +120,13 @@ class TestFAxisVector(unittest.TestCase):
                 self.assertTrue(row["unassessed_axes"], row["id"])
                 self.assertTrue(row["unlabelled_reason"], row["id"])
                 self.assertNotEqual(row["answer_key_status"], "unlabeled")
+
+    def test_every_axis_documents_its_assessability_contract(self):
+        self.assertEqual(sorted(fx.AXIS_ASSESSABILITY), sorted(fx.AXES))
+        for axis, contract in fx.AXIS_ASSESSABILITY.items():
+            for field in ("evidence_required", "evidenced_negative", "unassessable_when",
+                          "reasoning_kind"):
+                self.assertTrue(contract.get(field), f"{axis}.{field}")
 
     def test_packet_carries_no_derived_conclusion(self):
         for row in self.rows:
@@ -168,25 +188,52 @@ class TestFDuplicateRadar(unittest.TestCase):
             self.assertIn(tid, self.findings, f"{row['id']} target is not an accepted finding")
             self.assertIn(self.findings[tid]["validation"]["status"],
                           ("confirmed", "acknowledged"))
+            self.assertEqual(row["answer_key"]["label_provenance"]["tier"],
+                             "pointer_supported_positive", row["id"])
 
-    def test_negatives_have_distinctness_evidence(self):
+    def test_negatives_need_more_than_a_different_target(self):
+        # A different code target alone does not prove a distinct root cause: the
+        # primary cohort requires a recorded root-cause difference as well.
         for row in self.rows:
+            provenance = row["answer_key"]["label_provenance"]
             if row["answer_key"]["relationship"] != "distinct_vulnerability":
                 continue
+            self.assertEqual(provenance["tier"],
+                             "rule_derived_target_and_root_cause_negative", row["id"])
+            self.assertEqual(provenance["cohort"], "primary", row["id"])
             evidence = row["answer_key"]["distinctness_evidence"]
             self.assertTrue(evidence and all(evidence), row["id"])
+            self.assertTrue(any("root-cause labels differ" in item for item in evidence),
+                            f"{row['id']} distinct without a root-cause difference")
             cid = row["source"]["candidate_record_id"]
             tid = row["source"]["comparison_record_id"]
             pointer = self.negatives[cid]["validation"].get("duplicate_of")
             if pointer:
                 self.assertNotEqual(pointer, tid, f"{row['id']} negative is the pointer target")
-            candidate_files = {c["file"] for c in row["input"]["candidate_submission"]
-                               ["code_citations"] if c["file"]}
-            comparison_files = {c["file"] for c in row["input"]["comparison_finding"]
-                                ["code_citations"] if c["file"]}
-            self.assertFalse(candidate_files & comparison_files and
-                             row["answer_key"]["hardness"] == "different_file",
-                             f"{row['id']} labelled different_file but shares a file")
+
+    def test_target_separation_without_root_cause_is_ambiguous_and_exploratory(self):
+        weak = [r for r in self.rows
+                if r["answer_key"]["label_provenance"]["tier"]
+                == "ambiguous_target_separation_without_root_cause"]
+        self.assertTrue(weak)
+        for row in weak:
+            self.assertEqual(row["answer_key"]["relationship"], "ambiguous", row["id"])
+            self.assertEqual(row["answer_key"]["label_provenance"]["cohort"],
+                             "exploratory", row["id"])
+
+    def test_no_pair_claims_human_adjudication(self):
+        for row in self.rows:
+            provenance = row["answer_key"]["label_provenance"]
+            self.assertFalse(provenance["human_reviewed"], row["id"])
+            self.assertIn(provenance["cohort"], ("primary", "exploratory"), row["id"])
+
+    def test_shared_target_without_a_pointer_is_ambiguous(self):
+        shared = [r for r in self.rows
+                  if r["answer_key"]["label_provenance"]["tier"]
+                  == "ambiguous_shared_target_no_pointer"]
+        self.assertTrue(shared)
+        for row in shared:
+            self.assertEqual(row["answer_key"]["relationship"], "ambiguous", row["id"])
 
     def test_ambiguous_is_never_counted_as_distinct(self):
         for row in self.rows:
@@ -194,10 +241,6 @@ class TestFDuplicateRadar(unittest.TestCase):
             self.assertIn(relationship, fx.PAIR_ANSWERS)
             if relationship == "ambiguous":
                 self.assertNotIn("distinctness_evidence", row["input"])
-        unresolved = [r for r in self.rows
-                      if r["source"]["comparison_record_id"] == "unresolved"]
-        for row in unresolved:
-            self.assertEqual(row["answer_key_status"], "unlabeled", row["id"])
 
     def test_input_withholds_label_pointer_and_ids(self):
         for row in self.rows:
@@ -256,6 +299,18 @@ class TestBuilderContract(unittest.TestCase):
         self.assertEqual(rows_out[0]["answer_key_status"], "unlabeled")
         self.assertEqual(rows_out[0]["answer_key"]["relationship"], "ambiguous")
 
+    def test_a_shared_target_without_a_pointer_is_not_a_duplicate(self):
+        # Different functions can share a root cause, and a shared target is not
+        # the same claim: the label must stay ambiguous, not same_vulnerability.
+        label = fx.pair_label(shared_target=True)
+        self.assertEqual(label["relationship"], "ambiguous")
+        self.assertEqual(label["tier"], "ambiguous_shared_target_no_pointer")
+
+    def test_target_separation_without_root_cause_is_exploratory(self):
+        label = fx.pair_label(neg_rc="RC-01", fin_rc=None)
+        self.assertEqual(label["relationship"], "ambiguous")
+        self.assertEqual(label["cohort"], "exploratory")
+
     def test_rows_are_canonically_ordered_and_reproducible(self):
         result = subprocess.run(
             [sys.executable, str(ROOT / "scripts" / "build_f_extension.py"), "--check"],
@@ -289,6 +344,16 @@ class TestBuilderContract(unittest.TestCase):
         prose = (ROOT / "reports" / "f_extension.md").read_text(encoding="utf-8")
         self.assertIn("unique candidate submissions", prose)
 
+    def test_the_report_does_not_call_rule_derived_labels_adjudicated(self):
+        prose = (ROOT / "reports" / "f_extension.md").read_text(encoding="utf-8")
+        self.assertNotIn("adjudicated distinct", prose)
+
+
+def _fb_task(task_id: str, gold: str, split: str = "train") -> dict:
+    return {"id": task_id, "split": split, "answer_key_status": "labeled",
+            "answer_key": {"relationship": gold, "hardness": "not_applicable"},
+            "source": {"candidate_record_id": task_id.split("::")[-1]}}
+
 
 class TestScorer(unittest.TestCase):
     """The scorer must reward an oracle and punish a guesser, or its numbers mean nothing."""
@@ -310,16 +375,14 @@ class TestScorer(unittest.TestCase):
             predict[row["id"]] = {"relationship": row["answer_key"]["relationship"]}
         fa_result = self.scorer.score_fa(self.fa, predict, "oracle")
         fb_result = self.scorer.score_fb(self.fb, predict, "oracle")
-        self.assertEqual(fa_result["axis_accuracy"], 1.0)
-        self.assertEqual(fa_result["technical_explanation_field"]["exact_match_rate"], 1.0)
-        self.assertEqual(
-            fa_result["technical_explanation_field"]["answered_duplicate_as_technical"], 0)
-        self.assertEqual(
-            fa_result["technical_explanation_field"]["answered_status_as_technical"], 0)
+        self.assertEqual(fa_result["micro_accuracy"], 1.0)
+        self.assertEqual(fa_result["aggregates"]["all"]["correct_decisions"],
+                         fa_result["aggregates"]["all"]["evaluated_decisions"])
         self.assertEqual(fb_result["accuracy"], 1.0)
+        self.assertEqual(fb_result["macro_f1"], 1.0)
 
     def test_unassessed_axis_is_out_of_the_denominator(self):
-        row = {"id": "Fa::x", "answer_key_status": "partial",
+        row = {"id": "Fa::x", "split": "train", "answer_key_status": "partial",
                "assessed_axes": [fx.AXES[0]],
                "answer_key": {"axes": {a: "supported" for a in fx.AXES},
                               "technical_explanation_axes": []}}
@@ -327,26 +390,195 @@ class TestScorer(unittest.TestCase):
                                                        "technical_explanation_axes": []}},
                                       "probe")
         self.assertEqual(result["axis_decisions"], 1)
-        self.assertEqual(result["per_axis"][fx.AXES[1]]["support"], 0)
+        self.assertEqual(result["per_axis"][fx.AXES[1]]["assessed_decisions"], 0)
+        self.assertEqual(result["per_axis"][fx.AXES[1]]["evaluated"], 0)
 
-    def test_ambiguous_guesser_is_not_a_result(self):
-        predict = self.scorer.baseline_predictions(self.fb, "always_ambiguous")
-        result = self.scorer.score_fb(self.fb, predict, "always_ambiguous")
-        self.assertLess(result["accuracy"], 0.5)
-        self.assertEqual(result["confusion"].get("same_vulnerability->ambiguous"),
-                         sum(1 for r in self.fb
-                             if r["answer_key"]["relationship"] == "same_vulnerability"
-                             and r["answer_key_status"] == "labeled"))
+    def test_a_correct_negative_is_not_a_true_positive(self):
+        # The old scorer banked any correct answer as a true positive, so a model
+        # that always answered `not_supported` looked perfect.
+        row = {"id": "Fa::y", "split": "train", "answer_key_status": "labeled",
+               "assessed_axes": [fx.AXES[0]],
+               "answer_key": {"axes": {fx.AXES[0]: "not_supported"},
+                              "technical_explanation_axes": []}}
+        result = self.scorer.score_fa([row], {"Fa::y": {"axes": {fx.AXES[0]: "not_supported"},
+                                                       "technical_explanation_axes": []}},
+                                      "always_negative")
+        block = result["per_axis"][fx.AXES[0]]
+        self.assertEqual(block["per_class"]["not_supported"]["tp"], 1)
+        self.assertEqual(block["per_class"]["not_supported"]["fp"], 0)
+        self.assertEqual(block["per_class"]["not_supported"]["fn"], 0)
+        self.assertEqual(block["per_class"]["supported"]["support"], 0)
+        self.assertIsNone(block["per_class"]["supported"]["f1"])
+        self.assertEqual(block["accuracy"], 1.0)
+        self.assertEqual(block["macro_f1"], 1.0)
+
+    def test_missing_prediction_is_a_miss_for_the_gold_class(self):
+        row = {"id": "Fa::z", "split": "train", "answer_key_status": "labeled",
+               "assessed_axes": [fx.AXES[0]],
+               "answer_key": {"axes": {fx.AXES[0]: "supported"},
+                              "technical_explanation_axes": []}}
+        result = self.scorer.score_fa([row], {}, "silent")
+        block = result["per_axis"][fx.AXES[0]]
+        self.assertEqual(block["missing_predictions"], 1)
+        self.assertEqual(block["per_class"]["supported"]["fn"], 1)
+        self.assertEqual(block["per_class"]["supported"]["tp"], 0)
+        self.assertEqual(block["accuracy"], 0.0)
+        self.assertEqual(result["coverage"]["prediction_coverage"], 0.0)
+
+    def test_malformed_label_is_rejected_not_turned_into_unknown(self):
+        row = {"id": "Fa::m", "split": "train", "answer_key_status": "labeled",
+               "assessed_axes": [fx.AXES[0]],
+               "answer_key": {"axes": {fx.AXES[0]: "supported"},
+                              "technical_explanation_axes": []}}
+        result = self.scorer.score_fa([row], {"Fa::m": {"axes": {fx.AXES[0]: "probably"},
+                                                        "technical_explanation_axes": []}},
+                                      "malformed")
+        block = result["per_axis"][fx.AXES[0]]
+        self.assertEqual(sum(block["invalid_predictions"].values()), 1)
+        self.assertEqual(block["valid_predictions"], 0)
+        self.assertEqual(result["coverage"]["invalid_predictions"], 1)
+
+    def test_fb_always_distinct_is_scored_against_the_predicted_class(self):
+        # 2 same, 2 distinct, 2 ambiguous gold; every pair predicted distinct.
+        tasks = []
+        for i, gold in enumerate(["same_vulnerability", "distinct_vulnerability", "ambiguous",
+                                  "same_vulnerability", "distinct_vulnerability", "ambiguous"]):
+            tasks.append(_fb_task(f"FB::t::c{i}", gold))
+        predict = {t["id"]: {"relationship": "distinct_vulnerability"} for t in tasks}
+        result = self.scorer.score_fb(tasks, predict, "always_distinct", bootstrap=False)
+        classes = result["per_class"]
+        self.assertEqual(classes["distinct_vulnerability"]["tp"], 2)
+        self.assertEqual(classes["distinct_vulnerability"]["fp"], 4)
+        self.assertEqual(classes["distinct_vulnerability"]["fn"], 0)
+        self.assertEqual(classes["distinct_vulnerability"]["support"], 2)
+        self.assertAlmostEqual(classes["distinct_vulnerability"]["precision"], 0.3333, places=4)
+        self.assertEqual(classes["distinct_vulnerability"]["recall"], 1.0)
+        self.assertAlmostEqual(classes["distinct_vulnerability"]["f1"], 0.5, places=4)
+        self.assertEqual(classes["same_vulnerability"]["tp"], 0)
+        self.assertEqual(classes["same_vulnerability"]["fn"], 2)
+        self.assertEqual(classes["same_vulnerability"]["fp"], 0)
+        self.assertEqual(classes["ambiguous"]["fn"], 2)
+        self.assertEqual(classes["ambiguous"]["fp"], 0)
+        self.assertEqual(result["accuracy"], 0.3333)
+        self.assertAlmostEqual(result["macro_f1"], 0.1667, places=4)
+
+    def test_fb_always_same_is_scored_against_the_predicted_class(self):
+        tasks = [_fb_task(f"FB::t::s{i}", gold) for i, gold in enumerate(
+            ["same_vulnerability", "distinct_vulnerability", "ambiguous"])]
+        predict = {t["id"]: {"relationship": "same_vulnerability"} for t in tasks}
+        result = self.scorer.score_fb(tasks, predict, "always_same", bootstrap=False)
+        classes = result["per_class"]
+        self.assertEqual(classes["same_vulnerability"]["tp"], 1)
+        self.assertEqual(classes["same_vulnerability"]["fp"], 2)
+        self.assertEqual(classes["same_vulnerability"]["fn"], 0)
+        self.assertEqual(classes["distinct_vulnerability"]["fn"], 1)
+        self.assertEqual(classes["distinct_vulnerability"]["fp"], 0)
+        self.assertEqual(classes["ambiguous"]["fn"], 1)
+        self.assertEqual(classes["ambiguous"]["fp"], 0)
+        self.assertEqual(result["accuracy"], 0.3333)
+
+    def test_fb_always_ambiguous_and_perfect_predictions(self):
+        tasks = [_fb_task(f"FB::t::a{i}", gold) for i, gold in enumerate(
+            ["same_vulnerability", "distinct_vulnerability", "ambiguous"])]
+        ambiguous = self.scorer.score_fb(
+            tasks, {t["id"]: {"relationship": "ambiguous"} for t in tasks},
+            "always_ambiguous", bootstrap=False)
+        self.assertEqual(ambiguous["per_class"]["ambiguous"]["tp"], 1)
+        self.assertEqual(ambiguous["per_class"]["ambiguous"]["fp"], 2)
+        self.assertEqual(ambiguous["per_class"]["same_vulnerability"]["fn"], 1)
+        perfect = self.scorer.score_fb(
+            tasks, {t["id"]: {"relationship": t["answer_key"]["relationship"]} for t in tasks},
+            "oracle", bootstrap=False)
+        self.assertEqual(perfect["accuracy"], 1.0)
+        for label in self.scorer.RELATIONS:
+            self.assertEqual(perfect["per_class"][label]["fp"], 0)
+            self.assertEqual(perfect["per_class"][label]["fn"], 0)
+            self.assertEqual(perfect["per_class"][label]["f1"], 1.0)
+
+    def test_fb_missing_and_malformed_predictions_are_not_scored_as_correct(self):
+        tasks = [_fb_task(f"FB::t::x{i}", gold) for i, gold in enumerate(
+            ["same_vulnerability", "distinct_vulnerability", "ambiguous"])]
+        predict = {tasks[0]["id"]: {"relationship": "same_vulnerability"},
+                   tasks[1]["id"]: {"relationship": "not_a_class"}}
+        result = self.scorer.score_fb(tasks, predict, "partial", bootstrap=False)
+        self.assertEqual(result["rows_without_prediction"], 1)
+        self.assertEqual(result["rows_invalid_prediction"], 1)
+        self.assertEqual(result["per_class"]["same_vulnerability"]["tp"], 1)
+        self.assertEqual(result["per_class"]["distinct_vulnerability"]["fn"], 1)
+        self.assertEqual(result["per_class"]["ambiguous"]["fn"], 1)
+        self.assertEqual(result["accuracy"], 0.3333)
+        self.assertLess(result["coverage"]["prediction_coverage"], 1.0)
+
+    def test_fb_absent_class_has_no_denominator(self):
+        tasks = [_fb_task("FB::t::only1", "same_vulnerability"),
+                 _fb_task("FB::t::only2", "same_vulnerability")]
+        result = self.scorer.score_fb(
+            tasks, {t["id"]: {"relationship": "same_vulnerability"} for t in tasks},
+            "oracle", bootstrap=False)
+        for label in ("distinct_vulnerability", "ambiguous"):
+            self.assertEqual(result["per_class"][label]["support"], 0)
+            self.assertIsNone(result["per_class"][label]["precision"])
+            self.assertIsNone(result["per_class"][label]["f1"])
+
+    def test_cluster_bootstrap_is_deterministic(self):
+        predict = {row["id"]: {"relationship": row["answer_key"]["relationship"]}
+                   for row in self.fb}
+        first = self.scorer.cluster_bootstrap(self.fb, predict)
+        second = self.scorer.cluster_bootstrap(self.fb, predict)
+        self.assertEqual(first, second)
+        self.assertTrue(first["available"])
+        self.assertEqual(first["seed"], self.scorer.BOOTSTRAP_SEED)
+        self.assertEqual(first["unit"], self.scorer.BOOTSTRAP_UNIT)
+        self.assertLessEqual(first["accuracy_95ci"][0], first["accuracy_95ci"][1])
+        self.assertLessEqual(first["macro_f1_95ci"][0], first["macro_f1_95ci"][1])
+
+    def test_the_frequency_baseline_never_sees_validation_or_test_labels(self):
+        tasks = []
+        for i in range(4):
+            tasks.append({"id": f"FA::train::t{i}", "split": "train",
+                          "answer_key_status": "labeled", "assessed_axes": [fx.AXES[0]],
+                          "answer_key": {"axes": {fx.AXES[0]: "supported"},
+                                         "technical_explanation_axes": []}})
+        for i in range(4):
+            tasks.append({"id": f"FA::test::t{i}", "split": "test",
+                          "answer_key_status": "labeled", "assessed_axes": [fx.AXES[0]],
+                          "answer_key": {"axes": {fx.AXES[0]: "not_supported"},
+                                         "technical_explanation_axes": []}})
+        predictions, meta = self.scorer.frequency_baseline(tasks, "majority_axis")
+        self.assertEqual(meta["fit_split"], "train")
+        self.assertEqual(meta["fit_rows"], 4)
+        self.assertEqual(predictions["FA::test::t0"]["axes"][fx.AXES[0]], "supported")
+        self.assertEqual(meta["fitted_counts"][fx.AXES[0]]["supported"], 4)
+        self.assertEqual(meta["fitted_counts"][fx.AXES[0]]["not_supported"], 0)
 
     def test_published_baselines_match_recomputation(self):
         published = json.loads((ROOT / "reports" / "f_extension_baselines.json")
                                .read_text(encoding="utf-8"))
-        recomputed = [self.scorer.score_fa(self.fa,
-                                           self.scorer.baseline_predictions(self.fa, kind), kind)
-                      for kind in ("majority_axis", "all_supported", "all_unknown")]
-        self.assertEqual(published["fa"]["baselines"], recomputed)
-        self.assertEqual(published["fa"]["floor_axis_accuracy"],
-                         max(b["axis_accuracy"] or 0 for b in recomputed))
+        self.assertIn("fa", published)
+        self.assertIn("fb", published)
+        fa_predictions = self.scorer.baseline_predictions(self.fa, "majority_axis")
+        recomputed = self.scorer.score_fa(self.fa, fa_predictions, "majority_axis",
+                                          split="validation")
+        self.assertEqual(published["fa"]["frequency_baseline"]["by_split"]["validation"],
+                         recomputed)
+        fb_predictions = self.scorer.baseline_predictions(self.fb, "majority_pair")
+        recomputed_fb = self.scorer.score_fb(self.fb, fb_predictions, "majority_pair",
+                                             split="validation")
+        self.assertEqual(published["fb"]["frequency_baseline"]["by_split"]["validation"],
+                         recomputed_fb)
+        # the frequency baseline is fitted on train only, and the floor is the
+        # train-fitted predictor on validation - never a maximum over predictors
+        # and never a test-selected number
+        self.assertEqual(published["fa"]["frequency_baseline"]["fit_split"], "train")
+        self.assertEqual(published["fb"]["frequency_baseline"]["fit_split"], "train")
+        self.assertEqual(published["fa"]["reference_floor"]["selected_on"], "validation")
+        self.assertEqual(published["fb"]["reference_floor"]["selected_on"], "validation")
+        self.assertIn("test_reported_not_used_for_selection",
+                      published["fa"]["reference_floor"])
+        self.assertEqual(published["fa"]["reference_floor"]["micro_accuracy"],
+                         recomputed["micro_accuracy"])
+        self.assertEqual(published["fb"]["reference_floor"]["micro_accuracy"],
+                         recomputed_fb["accuracy"])
 
 
 if __name__ == "__main__":

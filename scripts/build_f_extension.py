@@ -52,8 +52,9 @@ ROOT_CAUSES = ROOT / "taxonomy" / "assignments_v1.jsonl"
 
 FA_NAME = "Fa_rejection_evidence_axis_vector"
 FB_NAME = "Fb_duplicate_radar_pair"
-EXTENSION_VERSION = "vlun-f-extension/1.0"
+EXTENSION_VERSION = "vlun-f-extension/2.0"
 DEFINITIONS_VERSION = "rejection-definitions-1.0"
+LABEL_PROVENANCE_VERSION = "fb-label-provenance-1.0"
 
 # The six axes, in the order the corpus defines them. Names are the metric names
 # from scripts/build_rejection_corpus.py METRICS - they are not renamed here.
@@ -66,17 +67,90 @@ AXES = (
     "unknown_or_insufficient_evidence",
 )
 
-# What each axis needs inside the packet before it can be scored at all. A missing
-# requirement makes the axis non-assessable, which keeps the row unlabelled rather
-# than turning an absent answer into "not_supported".
+# What each axis needs inside the packet before it can be scored at all, and what
+# an evidenced negative looks like. A requirement with no observed evidence makes
+# the axis non-assessable; an unassessable axis gets no `not_supported` gold.
 AXIS_REQUIREMENTS = {
     "rejection_status_publicly_reported": ("public_statuses",),
-    "reason_attributed_to_judge_or_sponsor": ("attributed_statements",
-                                              "participant_statements"),
+    "reason_attributed_to_judge_or_sponsor": ("attributed_statements",),
     "reason_supported_by_cited_code": ("claim_code_targets", "code_citations"),
     "claim_corroborated_as_duplicate_of_confirmed_finding": ("duplicate_pointer",),
     "exploit_attempted_and_claimed_violation_not_demonstrated": ("exploit_attempt",),
     "unknown_or_insufficient_evidence": (),
+}
+
+# The assessability contract, published in the stats file and the report. The
+# judge/sponsor axis is the load-bearing case: the source layer records no
+# completeness signal for the public comment thread, so an empty statement list
+# cannot establish "no attribution exists" and the axis is unassessable.
+AXIS_ASSESSABILITY = {
+    "rejection_status_publicly_reported": {
+        "evidence_required": (
+            "a public status list or public label phrase carried in the packet"),
+        "evidenced_negative": (
+            "a packet carrying a non-duplicate public status (rejected/disputed) and no "
+            "duplicate label"),
+        "unassessable_when": "the packet carries neither a status nor a label phrase",
+        "reasoning_kind": "input_observable",
+    },
+    "reason_attributed_to_judge_or_sponsor": {
+        "evidence_required": (
+            "at least one attributed statement with author/role/URL, or an authoritative "
+            "completeness record showing the full public thread carries none"),
+        "evidenced_negative": (
+            "an authoritative completeness record that the public thread was fully "
+            "captured and holds no judge or sponsor statement"),
+        "unassessable_when": (
+            "the statement list is empty: `jsonl/negative_findings.jsonl` records no "
+            "comment-count or crawl-completeness field, and `rejection_basis: label_only` "
+            "describes the extraction, not the public record, so absence is not proof"),
+        "reasoning_kind": "reasoning",
+    },
+    "reason_supported_by_cited_code": {
+        "evidence_required": (
+            "a claim code target plus a citation whose body is cleared for "
+            "redistribution or whose mechanical structure is carried"),
+        "evidenced_negative": (
+            "a cleared citation or observed structure on the claimed target with no "
+            "refuting gate"),
+        "unassessable_when": (
+            "no code target, no citation, or every citation body withheld with no "
+            "observed structure"),
+        "reasoning_kind": "reasoning",
+    },
+    "claim_corroborated_as_duplicate_of_confirmed_finding": {
+        "evidence_required": (
+            "a published duplicate pointer that resolves to an accepted confirmed or "
+            "acknowledged finding, or a public status record that was expected to carry "
+            "a pointer and carries none"),
+        "evidenced_negative": (
+            "no pointer on a record whose public status is rejected/disputed and whose "
+            "status labels name no duplicate: the source records a status for every "
+            "submission in this corpus, so it was expected to carry a pointer if the "
+            "submission had been deduplicated"),
+        "unassessable_when": (
+            "no pointer and no public status, or a duplicate-labelled record with no "
+            "pointer string"),
+        "reasoning_kind": "input_observable",
+    },
+    "exploit_attempted_and_claimed_violation_not_demonstrated": {
+        "evidence_required": (
+            "a recorded exploit-attempt status (including `not_attempted`)"),
+        "evidenced_negative": (
+            "a recorded attempt whose blocker or result shows the violation was not "
+            "demonstrated"),
+        "unassessable_when": "the exploit-attempt record is absent",
+        "reasoning_kind": "input_observable",
+    },
+    "unknown_or_insufficient_evidence": {
+        "evidence_required": (
+            "the corpus synthesis of the axes above over the public record"),
+        "evidenced_negative": (
+            "a positive evidence axis is supported, so the record is not merely "
+            "unknown"),
+        "unassessable_when": "never: the synthesis is defined for every corpus record",
+        "reasoning_kind": "meta",
+    },
 }
 
 TECHNICAL_AXES = (
@@ -87,6 +161,81 @@ TECHNICAL_AXES = (
 
 ANSWERS = ("supported", "not_supported", "unknown")
 PAIR_ANSWERS = ("same_vulnerability", "distinct_vulnerability", "ambiguous")
+
+# F-B label provenance. There are no human reviews of these pairs: every label is
+# either carried by a published pointer or derived by a documented rule. The tiers
+# keep those two apart, and the cohort separates the labels the evidence supports
+# from the weak, target-only labels that are reported but not a headline.
+PAIR_LABEL_TIERS = (
+    "pointer_supported_positive",
+    "rule_derived_target_and_root_cause_negative",
+    "ambiguous_shared_target_no_pointer",
+    "ambiguous_target_separation_without_root_cause",
+    "ambiguous_pointer_unresolved",
+)
+PRIMARY_COHORT = "primary"
+EXPLORATORY_COHORT = "exploratory"
+
+
+def pair_label(*, pointer_resolved: bool = False, shared_target: bool = False,
+               neg_rc: str | None = None, fin_rc: str | None = None) -> dict | None:
+    """The documented label rule, in one place.
+
+    * a resolved published pointer is a pointer-supported positive;
+    * a shared code target without a pointer is ambiguous - a shared target is not
+      the same claim;
+    * a distinct label needs disjoint targets AND a documented root-cause/scope
+      difference; targets alone do not prove distinct root causes, so a target-only
+      pair is an exploratory ambiguous label;
+    * equal root-cause labels block the pair entirely (it is a duplicate shape).
+    """
+    if pointer_resolved:
+        return {
+            "relationship": "same_vulnerability",
+            "tier": "pointer_supported_positive",
+            "cohort": PRIMARY_COHORT,
+            "adjudication": "pointer_resolved_to_accepted_finding",
+            "basis": ["published duplicate_of pointer resolves to an accepted finding"],
+        }
+    if shared_target:
+        return {
+            "relationship": "ambiguous",
+            "tier": "ambiguous_shared_target_no_pointer",
+            "cohort": PRIMARY_COHORT,
+            "adjudication": "shared_code_target_without_pointer",
+            "basis": ["shared file::function target in the same audit with no pointer; "
+                      "a shared target is not the same claim"],
+        }
+    if neg_rc and fin_rc and neg_rc == fin_rc:
+        return None
+    if neg_rc and fin_rc:
+        return {
+            "relationship": "distinct_vulnerability",
+            "tier": "rule_derived_target_and_root_cause_negative",
+            "cohort": PRIMARY_COHORT,
+            "adjudication": "rule_derived_target_separation_and_root_cause_difference",
+            "basis": ["cited code targets are disjoint",
+                      f"recorded root-cause labels differ ({neg_rc} vs {fin_rc})"],
+        }
+    return {
+        "relationship": "ambiguous",
+        "tier": "ambiguous_target_separation_without_root_cause",
+        "cohort": EXPLORATORY_COHORT,
+        "adjudication": "target_separation_without_root_cause_rule",
+        "basis": ["cited code targets are disjoint",
+                  "at least one side has no root-cause label, so target separation "
+                  "alone does not establish a distinct root cause"],
+    }
+
+
+def unresolved_label() -> dict:
+    return {
+        "relationship": "ambiguous",
+        "tier": "ambiguous_pointer_unresolved",
+        "cohort": EXPLORATORY_COHORT,
+        "adjudication": "pointer_does_not_resolve",
+        "basis": ["the published pointer names a finding absent from the accepted layer"],
+    }
 
 # A duplicate-radar input must not state the answer. Contest report titles and
 # narratives sometimes carry the triage outcome ("duplicate of #12", "not a
@@ -283,9 +432,28 @@ def build_packet(corpus_row: dict, negative: dict,
         if axis == "rejection_status_publicly_reported":
             absent = [] if packet["public_statuses"] or packet["public_label_phrases"] else ["public_statuses"]
         if axis == "reason_attributed_to_judge_or_sponsor":
-            absent = []  # the two statement lists are always carried, empty or not
+            # No completeness signal exists for the public comment thread: the record
+            # layer carries no comment count or crawl marker, and `rejection_basis`
+            # describes the extraction. An empty statement list therefore cannot
+            # establish "no attribution exists" and the axis stays unassessable.
+            absent = ([] if packet["attributed_statements"]
+                      else ["attributed_statement_or_thread_completeness_record"])
         if axis == "claim_corroborated_as_duplicate_of_confirmed_finding":
-            absent = []  # absence of a pointer is itself the evidence for this axis
+            # Absence of a pointer is evidence only where the source was expected to
+            # carry one. Every record in this corpus carries a public status; a
+            # rejected/disputed record with no duplicate label and no pointer is an
+            # evidenced negative. A duplicate-labelled record with no pointer is not.
+            if packet["duplicate_pointer"] is None:
+                duplicate_labelled = (
+                    "duplicate" in packet["public_statuses"]
+                    or any("duplicate" in phrase.lower()
+                           for phrase in packet["public_label_phrases"]))
+                if not packet["public_statuses"] and not packet["public_label_phrases"]:
+                    absent = ["duplicate_pointer_or_public_status_record"]
+                elif duplicate_labelled:
+                    absent = ["duplicate_pointer_for_duplicate_labelled_record"]
+                else:
+                    absent = []
         assessable[axis] = not absent
         if absent:
             missing[axis] = absent
@@ -340,6 +508,13 @@ def build_fa_rows(corpus: list[dict], negatives_by_id: dict, hard_by_id: dict,
                                                   hard_by_id.get(fid))
         gold = axis_gold(record)
         unassessed = [axis for axis in AXES if not assessable[axis]]
+        # An unassessable axis gets no gold: the corpus boolean is not evidence, so
+        # the answer key records `unknown` and lists the axis as withheld instead of
+        # emitting a `not_supported` gold from an empty evidence list.
+        for axis in unassessed:
+            gold["axes"][axis] = "unknown"
+        gold["technical_explanation_axes"] = [
+            axis for axis in gold["technical_explanation_axes"] if axis not in unassessed]
         for axis in AXES:
             if assessable[axis]:
                 per_axis_assessable[axis] += 1
@@ -366,7 +541,8 @@ def build_fa_rows(corpus: list[dict], negatives_by_id: dict, hard_by_id: dict,
                           "the six axes are independent and overlapping; a duplicate "
                           "corroboration is not proof that the underlying claim is "
                           "false, and a status label is not a technical reason")},
-            "answer_key": {**gold, "assessed_axes": assessed},
+            "answer_key": {**gold, "assessed_axes": assessed,
+                           "withheld_gold_axes": unassessed},
             "answer_key_status": status,
             "answer_key_evidence_level": "derived_fact",
             "assessed_axes": assessed,
@@ -404,12 +580,12 @@ def build_fb_pairs(corpus: list[dict], negatives_by_id: dict, findings_by_id: di
             target = findings_by_id.get(target_id)
             if target is None:
                 ambiguous.append((negative, None, {
-                    "pair_class": "ambiguous",
-                    "why": "published pointer names a finding absent from the accepted layer"}))
+                    **unresolved_label(),
+                    "why": "published pointer names a finding absent from the accepted layer",
+                }))
                 continue
             positives.append((negative, target, {
-                "pair_class": "same_vulnerability",
-                "adjudication": "explicit_duplicate_of_pointer_resolved",
+                **pair_label(pointer_resolved=True),
                 "target_status": explicit[0].get("corroborating_status"),
                 "confidence": explicit[0].get("confidence"),
             }))
@@ -426,15 +602,15 @@ def build_fb_pairs(corpus: list[dict], negatives_by_id: dict, findings_by_id: di
             for method in chosen:
                 target = findings_by_id[method["corroborating_finding"]]
                 ambiguous.append((negative, target, {
-                    "pair_class": "ambiguous",
+                    **pair_label(shared_target=True),
                     "why": "shared code target in the same audit without a pointer; "
                            "a shared target is not the same claim",
                     "method": method.get("method"),
                 }))
 
-    negatives, blocked = build_distinct_pairs(corpus, negatives_by_id, findings_by_id,
-                                              pointer_by_negative)
-    return positives, negatives, ambiguous, pointer_by_negative, blocked
+    negatives, weak, blocked = build_distinct_pairs(corpus, negatives_by_id,
+                                                    findings_by_id, pointer_by_negative)
+    return positives, negatives, ambiguous + weak, pointer_by_negative, blocked
 
 
 def _targets(rec: dict) -> set[str]:
@@ -451,8 +627,13 @@ def _files(rec: dict) -> set[str]:
 
 def build_distinct_pairs(corpus: list[dict], negatives_by_id: dict,
                          findings_by_id: dict, pointer_by_negative: dict):
-    """Adjudicated-distinct pairs: an accepted finding that is not this submission's
-    canonical target, separated by code target and, where recorded, root cause."""
+    """Rule-derived negative candidates and weak target-only pairs.
+
+    A distinct label needs disjoint cited targets AND a recorded root-cause
+    difference on both sides. A pair separated only by its code target is returned
+    in the weak pool as an exploratory ambiguous label: different code targets do
+    not prove distinct root causes. No human reviewed any pair.
+    """
     root_cause = {}
     for row in _load(ROOT_CAUSES):
         if not row.get("unlabelled") and row.get("primary") != "RC-99":
@@ -464,6 +645,7 @@ def build_distinct_pairs(corpus: list[dict], negatives_by_id: dict,
 
     corpus_by_id = {r["finding_id"]: r for r in corpus}
     pairs: list[tuple[dict, dict, dict]] = []
+    weak: list[tuple[dict, dict, dict]] = []
     blocked = collections.Counter()
     for fid, negative in negatives_by_id.items():
         record = corpus_by_id.get(fid)
@@ -494,15 +676,13 @@ def build_distinct_pairs(corpus: list[dict], negatives_by_id: dict,
             if similarity > 0.6:
                 blocked["claim_text_too_similar"] += 1
                 continue
-            evidence = ["comparison finding is separately accepted in this audit and is "
-                        "not the pointer target of the candidate"]
+            label = pair_label(neg_rc=neg_rc, fin_rc=finding_rc)
+            if label is None:
+                blocked["same_root_cause_label"] += 1
+                continue
             hardness = "different_function_same_file" if shared_files else "different_file"
             if neg_rc and finding_rc:
-                evidence.append(f"root-cause labels differ ({neg_rc} vs {finding_rc})")
                 hardness += "_and_different_root_cause"
-            else:
-                evidence.append("at least one side has no root-cause label, so distinctness "
-                                "rests on the separated code target")
             if hardness == "different_file":
                 # A pair separated only by "different file, no root-cause label on
                 # either side" is an easy negative: it tests nothing a keyword search
@@ -513,27 +693,33 @@ def build_distinct_pairs(corpus: list[dict], negatives_by_id: dict,
                 "finding": finding,
                 "hardness": hardness,
                 "similarity": round(similarity, 3),
-                "evidence": evidence,
+                "label": label,
                 "shared_file": sorted(shared_files)[:1],
             })
-        # One pair per candidate submission, hardest first: same file with a
-        # different function, and a recorded root-cause separation where both sides
-        # have one. Two negatives per submission would turn one submission into two
-        # "independent" examples, which is exactly the inflation this task forbids.
+        # One pair per candidate submission, strongest label first: a documented
+        # root-cause difference outranks a target-only pair, then same-file hardness.
+        # Two pairs per submission would turn one submission into two "independent"
+        # examples, which is exactly the inflation this task forbids.
         candidates.sort(key=lambda c: (
+            0 if c["label"]["relationship"] == "distinct_vulnerability" else 1,
             0 if c["hardness"].startswith("different_function_same_file") else 1,
             0 if "different_root_cause" in c["hardness"] else 1,
             c["similarity"] * -1,
             (c["finding"].get("finding") or {}).get("id", "")))
         for candidate in candidates[:1]:
-            pairs.append((negative, candidate["finding"], {
-                "pair_class": "distinct_vulnerability",
-                "adjudication": "separately_accepted_and_target_disjoint",
-                "hardness": candidate["hardness"],
-                "distinctness_evidence": candidate["evidence"],
-                "claim_text_overlap": candidate["similarity"],
-            }))
-    return pairs, blocked
+            meta = {**candidate["label"], "hardness": candidate["hardness"],
+                    "claim_text_overlap": candidate["similarity"]}
+            if candidate["label"]["relationship"] == "distinct_vulnerability":
+                meta["distinctness_evidence"] = candidate["label"]["basis"]
+                pairs.append((negative, candidate["finding"], meta))
+            else:
+                weak.append((negative, candidate["finding"], {
+                    **meta,
+                    "why": "disjoint code targets but no recorded root-cause difference "
+                           "on both sides; target separation alone does not establish a "
+                           "distinct root cause",
+                }))
+    return pairs, weak, blocked
 
 
 def _side(rec: dict | None, hard_by_id: dict, label: str) -> dict:
@@ -588,7 +774,19 @@ def build_fb_rows(positives, negatives, ambiguous, hard_by_id, splits) -> tuple[
             skipped["pair_straddles_the_published_split"] += 1
             return
         split = split_candidate or "unknown"
-        gold = meta["pair_class"]
+        gold = meta.get("relationship") or meta["pair_class"]
+        tier = meta.get("tier")
+        if tier is None:
+            tier = ("ambiguous_pointer_unresolved" if gold == "ambiguous" and target is None
+                    else "pointer_supported_positive" if gold == "same_vulnerability"
+                    else "rule_derived_target_and_root_cause_negative"
+                    if gold == "distinct_vulnerability"
+                    else "ambiguous_target_separation_without_root_cause")
+        cohort = meta.get("cohort") or (
+            EXPLORATORY_COHORT if tier.startswith("ambiguous_pointer")
+            or tier == "ambiguous_target_separation_without_root_cause"
+            else PRIMARY_COHORT)
+        basis = meta.get("basis") or ([meta["why"]] if meta.get("why") else [])
         evidence = {"same_vulnerability": "externally_attributed",
                     "distinct_vulnerability": "derived_fact",
                     "ambiguous": "unknown"}[gold]
@@ -609,9 +807,22 @@ def build_fb_rows(positives, negatives, ambiguous, hard_by_id, splits) -> tuple[
                           "whether the relevant files or endpoints differ")},
             "answer_key": {"relationship": gold,
                            "adjudication_rule": meta.get("adjudication") or meta.get("why"),
+                           "label_provenance": {
+                               "version": LABEL_PROVENANCE_VERSION,
+                               "tier": tier,
+                               "cohort": cohort,
+                               "basis": basis,
+                               "human_reviewed": False,
+                               "rule": (
+                                   "a published duplicate_of pointer that resolves to an "
+                                   "accepted finding" if tier == "pointer_supported_positive"
+                                   else "documented builder rule applied to public evidence; "
+                                   "no human review"),
+                           },
                            "distinctness_evidence": meta.get("distinctness_evidence"),
                            "hardness": meta.get("hardness"),
-                           "claim_text_overlap": meta.get("similarity")},
+                           "claim_text_overlap": meta.get("claim_text_overlap",
+                                                         meta.get("similarity"))},
             "answer_key_status": "labeled" if target is not None else "unlabeled",
             "answer_key_evidence_level": evidence,
             "unlabelled_reason": (None if target is not None else
@@ -634,15 +845,23 @@ def build_fb_rows(positives, negatives, ambiguous, hard_by_id, splits) -> tuple[
 
     rows.sort(key=lambda r: r["id"])
     classes = collections.Counter(r["answer_key"]["relationship"] for r in rows)
+    tiers = collections.Counter(
+        (r["answer_key"].get("label_provenance") or {}).get("tier", "unrecorded")
+        for r in rows)
+    cohorts = collections.Counter(
+        (r["answer_key"].get("label_provenance") or {}).get("cohort", "unrecorded")
+        for r in rows)
     stats = {
         "pair_rows": len(rows),
         "by_relationship": dict(classes),
+        "by_label_tier": dict(tiers),
+        "by_label_cohort": dict(cohorts),
         "by_split": dict(collections.Counter(r["split"] for r in rows)),
         "unique_candidate_submissions": len({r["source"]["candidate_record_id"] for r in rows}),
         "unique_canonical_findings": len({r["source"]["comparison_record_id"] for r in rows
                                          if r["source"]["comparison_record_id"] != "unresolved"}),
         "confirmed_duplicate_pairs": classes["same_vulnerability"],
-        "adjudicated_distinct_pairs": classes["distinct_vulnerability"],
+        "rule_derived_distinct_pairs": classes["distinct_vulnerability"],
         "ambiguous_unscorable_pairs": sum(1 for r in rows if r["answer_key_status"] == "unlabeled"),
         "ambiguous_class_pairs": classes["ambiguous"],
         "excluded_pairs": dict(skipped),
@@ -961,9 +1180,13 @@ def render_markdown(stats: dict, manifest: dict) -> str:
         "## F-B pre-submission duplicate radar",
         "",
         f"- pairs: {fb['pair_rows']}",
-        f"- confirmed duplicate pairs: {fb['confirmed_duplicate_pairs']}",
-        f"- adjudicated distinct pairs: {fb['adjudicated_distinct_pairs']}",
+        f"- confirmed duplicate pairs (published pointer resolves): "
+        f"{fb['confirmed_duplicate_pairs']}",
+        f"- rule-derived distinct pairs (disjoint targets AND a recorded root-cause "
+        f"difference; no human adjudication): {fb['rule_derived_distinct_pairs']}",
         f"- ambiguous class: {fb['ambiguous_class_pairs']}",
+        f"- label tiers: {fb['by_label_tier']}",
+        f"- label cohorts: {fb['by_label_cohort']}",
         f"- pairs whose pointer does not resolve (unscorable): "
         f"{fb['ambiguous_unscorable_pairs']}",
         f"- unique candidate submissions: {fb['unique_candidate_submissions']}",
@@ -997,11 +1220,11 @@ def render_markdown(stats: dict, manifest: dict) -> str:
         "inter-annotator agreement is claimed anywhere in these numbers; the gold is the "
         "documented rule applied to public evidence, and the published floors are what a "
         "trivial predictor reaches on the same denominators,",
-        "- F-A `observed_code_structure` is projected from `derived/hard_negatives.jsonl`, a "
-        "layer with a known non-reproducible field (`observed_code_facts[].guards` shape "
-        "differs between the shipped rows and a rebuild, `check_reproducibility.py` fails it "
-        "on 8 records): if that layer is regenerated, F-A packets change and must be rebuilt "
-        "with it,",
+        "- F-A `observed_code_structure` is projected from `derived/hard_negatives.jsonl`; "
+        "that layer rebuilds byte-identically (re-verified 2026-10-24: `python "
+        "scripts/build_hard_negatives.py` reproduces the committed file exactly), so a "
+        "change to it must be rebuilt into the F-A packets with "
+        "`python scripts/build_f_extension.py`",
         "- the pool is drawn from public Code4rena contest records, so the underlying "
         "statuses are memorizable; this is an open-key evaluation, not a holdout,",
         "- with the projects available here a project-held-out split is not credible and "
@@ -1069,7 +1292,7 @@ def main() -> int:
         print(f"built F-A {len(fa_rows)} rows (scorable "
               f"{stats['fa']['scorable_rows']}), F-B {len(fb_rows)} pairs "
               f"(duplicate {fb_stats['confirmed_duplicate_pairs']}, distinct "
-              f"{fb_stats['adjudicated_distinct_pairs']}, ambiguous "
+              f"{fb_stats['rule_derived_distinct_pairs']}, ambiguous "
               f"{fb_stats['ambiguous_class_pairs']})")
     return 0
 

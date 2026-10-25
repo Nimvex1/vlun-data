@@ -62,6 +62,19 @@
       "experiments_v3/1inch-lop-m01": 1,
       "https://github.com/re-nft/smart-contracts.git": 5
     },
+    "counts": {
+      "candidate_ledger_rows": 210,
+      "derivation": {
+        "candidate_ledger_rows": "rows in derived_prove/candidate_ledger.jsonl",
+        "gradable_tasks": "tasks in this interface the published grader can run",
+        "release_eligible_tasks": "gradable tasks whose repository is cleared for redistribution in the candidate ledger",
+        "technically_qualified_experiments": "ledger rows whose candidate_stage is qualified (both revisions executed)"
+      },
+      "gradable_tasks": 5,
+      "release_eligible_tasks": 0,
+      "separation_note": "a ledger row is a candidate, not a published task; the published pool is the gradable count and never the ledger count",
+      "technically_qualified_experiments": 11
+    },
     "distinct_qualified_repositories": 1,
     "distinct_repositories": 2,
     "diversity_limit": "the qualified pool rests on 1 distinct repository/repositories, so the eight-codebase target is not met and a project-held-out split is not credible at this size; this is reported as a limit, not as a contamination-proof pool.",
@@ -86,9 +99,9 @@
   "private_commitment": {
     "files": {
       "grader_self_check.json": {
-        "bytes": 2609,
+        "bytes": 3689,
         "records": 5,
-        "sha256": "44cb8746dae25c5ea6767e30899267cbbc22592b2e8fbd816798b5bc5f52acf5"
+        "sha256": "fd332b4d85e2f89c7fce1f2293cbedb9e988303fcbbe6c0fe8d6f1ae9e42221b"
       },
       "prove_tasks_private.jsonl": {
         "bytes": 16068,
@@ -98,11 +111,12 @@
     },
     "location": "outside the repository (path deliberately not published)",
     "note": "publish this commitment before a run so that a later comparison shows whether the answer key moved; the key itself stays out of the repo",
-    "schema_version": "vlun-prove/1.0"
+    "schema_version": "vlun-prove/2.0"
   },
   "registry_blocker": null,
-  "schema_version": "vlun-prove/1.0",
+  "schema_version": "vlun-prove/2.0",
   "stage_rules": {
+    "behaviour_preserved": "the fixed revision still does what the feature did: the project's own test suite ran on the fixed revision, its result is compared against a vulnerable-revision baseline so pre-existing failures are not attributed to the fix, no new failure appeared, the targeted positive-path assertions passed, and the affected function is still present. A patch that deletes or disables the feature does not earn this stage. Without recorded regression evidence the task stops at `patch_verified` and is reported as not fully verified",
     "compiles": "the toolchain build succeeded; a compile or dependency failure stops the run at this stage and never counts as a failed proof",
     "executes": "forge (or hardhat) ran at least one test from the submission",
     "generated": "the submission contains at least one non-empty test file",
@@ -114,7 +128,8 @@
     "compiles",
     "executes",
     "impact_reproduced",
-    "patch_verified"
+    "patch_verified",
+    "behaviour_preserved"
   ],
   "tasks": [
     {
@@ -130,7 +145,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [
@@ -155,7 +171,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [
@@ -180,7 +197,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [
@@ -205,7 +223,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [
@@ -230,7 +249,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [
@@ -255,7 +275,8 @@
         "compiles",
         "executes",
         "impact_reproduced",
-        "patch_verified"
+        "patch_verified",
+        "behaviour_preserved"
       ],
       "submission_contract": {
         "files": [

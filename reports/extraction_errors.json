@@ -15,11 +15,12 @@
     "private_audit_no_public_submissions": 3,
     "rejection_discussion_without_attributed_verdict": 1,
     "rejection_without_reasoning": 1,
-    "source_unavailable": 3
+    "source_unavailable": 3,
+    "validation_failure": 3
   },
   "by_origin": {
     "v1": 19,
-    "v2": 17
+    "v2": 20
   },
   "description": "Every known limitation of this dataset. `origin: v1` entries were recorded by the original builder; `origin: v2` entries were surfaced by the hardening pipeline. Nothing is marked resolved unless a check proves it.",
   "entries": [
@@ -853,9 +854,39 @@
       "still_true": true,
       "summary": "2 cross-split near-duplicate pair(s) detected by token/shingle similarity",
       "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "473 failures",
+      "kind": "validation_failure",
+      "origin": "v2",
+      "repository": "dataset",
+      "still_true": true,
+      "summary": "validation gate: derived_commit_pins_are_immutable",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "471 failures",
+      "kind": "validation_failure",
+      "origin": "v2",
+      "repository": "dataset",
+      "still_true": true,
+      "summary": "validation gate: provenance_urls_immutable_or_declared",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "474 failures",
+      "kind": "validation_failure",
+      "origin": "v2",
+      "repository": "dataset",
+      "still_true": true,
+      "summary": "validation gate: no_mutable_branch_citations_remain",
+      "urls": []
     }
   ],
   "generated_by": "scripts/generate_reports.py",
   "resolved_entries": 0,
-  "total": 36
+  "total": 39
 }

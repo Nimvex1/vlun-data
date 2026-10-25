@@ -271,9 +271,25 @@ def _assessable(packet: dict) -> tuple[dict[str, bool], dict[str, list[str]]]:
         if axis == "rejection_status_publicly_reported":
             absent_fields = [] if packet["public_statuses"] or packet["public_label_phrases"] \
                 else ["public_statuses"]
-        if axis in ("reason_attributed_to_judge_or_sponsor",
-                    "claim_corroborated_as_duplicate_of_confirmed_finding"):
-            absent_fields = []
+        if axis == "reason_attributed_to_judge_or_sponsor":
+            # No completeness signal exists for the public comment thread, so an
+            # empty statement list cannot establish "no attribution exists".
+            absent_fields = ([] if packet["attributed_statements"]
+                             else ["attributed_statement_or_thread_completeness_record"])
+        if axis == "claim_corroborated_as_duplicate_of_confirmed_finding":
+            # Absence of a pointer is evidence only where the source was expected
+            # to carry one; a duplicate-labelled record with no pointer is not.
+            if packet["duplicate_pointer"] is None:
+                duplicate_labelled = (
+                    "duplicate" in packet["public_statuses"]
+                    or any("duplicate" in phrase.lower()
+                           for phrase in packet["public_label_phrases"]))
+                if not packet["public_statuses"] and not packet["public_label_phrases"]:
+                    absent_fields = ["duplicate_pointer_or_public_status_record"]
+                elif duplicate_labelled:
+                    absent_fields = ["duplicate_pointer_for_duplicate_labelled_record"]
+                else:
+                    absent_fields = []
         assessable[axis] = not absent_fields
         if absent_fields:
             missing[axis] = absent_fields
@@ -379,16 +395,30 @@ def check_fa_axes(fa: list[dict], corpus_by_id: dict) -> list[str]:
             continue
         key = row.get("answer_key") or {}
         gold = _expected_gold(record)
+        assessed = set(row.get("assessed_axes") or [])
+        withheld = set(key.get("withheld_gold_axes") or [])
         for axis in AXES:
-            if key.get("axes", {}).get(axis) != gold["axes"][axis]:
+            if axis in assessed:
+                expected_gold = gold["axes"][axis]
+            else:
+                # An unassessable axis is missing evidence, not a proven negative:
+                # its gold is `unknown` and the axis is named in withheld_gold_axes.
+                expected_gold = "unknown"
+                if axis not in withheld:
+                    bad.append(f"{fid}: axis {axis} is unassessable but is not named in "
+                               "withheld_gold_axes")
+            if key.get("axes", {}).get(axis) != expected_gold:
                 bad.append(f"{fid}: axis {axis} gold {key.get('axes', {}).get(axis)!r} "
-                           f"but corpus metrics give {gold['axes'][axis]!r} "
-                           f"(metrics[{axis}]={ (record.get('metrics') or {}).get(axis)!r})")
-        if sorted(key.get("technical_explanation_axes") or []) != sorted(
-                gold["technical_explanation_axes"]):
+                           f"but the reassessed gold is {expected_gold!r} "
+                           f"(corpus metrics[{axis}]="
+                           f"{(record.get('metrics') or {}).get(axis)!r})")
+        expected_technical = sorted(
+            axis for axis in gold["technical_explanation_axes"]
+            if key.get("axes", {}).get(axis) == "supported")
+        if sorted(key.get("technical_explanation_axes") or []) != expected_technical:
             bad.append(f"{fid}: technical_explanation_axes "
                        f"{sorted(key.get('technical_explanation_axes') or [])} but the "
-                       f"corpus gives {sorted(gold['technical_explanation_axes'])}")
+                       f"corpus gives {expected_technical}")
         if bool(key.get("counts_as_technical_reason_for_falsity")) != bool(
                 gold["counts_as_technical_reason_for_falsity"]):
             bad.append(f"{fid}: counts_as_technical_reason_for_falsity "
@@ -592,10 +622,19 @@ def check_fb_positives(fb: list[dict], negatives_by_id: dict,
         if pointer != tid:
             bad.append(f"{row.get('id')}: comparison record is {tid} but the pointer "
                        f"resolves to {pointer}")
-        if (row.get("answer_key") or {}).get("adjudication_rule") != \
-                "explicit_duplicate_of_pointer_resolved":
+        key = row.get("answer_key") or {}
+        provenance = key.get("label_provenance") or {}
+        if key.get("adjudication_rule") != "pointer_resolved_to_accepted_finding":
             bad.append(f"{row.get('id')}: positive adjudication rule is "
-                       f"{(row.get('answer_key') or {}).get('adjudication_rule')!r}")
+                       f"{key.get('adjudication_rule')!r}")
+        if provenance.get("tier") != "pointer_supported_positive":
+            bad.append(f"{row.get('id')}: positive label tier is "
+                       f"{provenance.get('tier')!r}")
+        if provenance.get("cohort") != "primary":
+            bad.append(f"{row.get('id')}: positive label cohort is "
+                       f"{provenance.get('cohort')!r}")
+        if provenance.get("human_reviewed"):
+            bad.append(f"{row.get('id')}: positive claims a human review; none was done")
         if row.get("answer_key_status") != "labeled":
             bad.append(f"{row.get('id')}: a resolved positive must be labeled")
     return bad
@@ -613,6 +652,21 @@ def check_fb_negatives(fb: list[dict], negatives_by_id: dict, findings_by_id: di
         if not key.get("distinctness_evidence"):
             bad.append(f"{row.get('id')}: distinct_vulnerability with no "
                        "answer_key.distinctness_evidence")
+        provenance = key.get("label_provenance") or {}
+        if provenance.get("tier") != "rule_derived_target_and_root_cause_negative":
+            bad.append(f"{row.get('id')}: distinct label tier is "
+                       f"{provenance.get('tier')!r}; a distinct label needs disjoint "
+                       "targets AND a recorded root-cause difference")
+        if provenance.get("cohort") != "primary":
+            bad.append(f"{row.get('id')}: distinct label cohort is "
+                       f"{provenance.get('cohort')!r}")
+        if provenance.get("human_reviewed"):
+            bad.append(f"{row.get('id')}: distinct label claims a human review; "
+                       "these labels are rule-derived")
+        if not any("root-cause labels differ" in item
+                   for item in (key.get("distinctness_evidence") or [])):
+            bad.append(f"{row.get('id')}: distinct label without a recorded "
+                       "root-cause difference")
         negative = negatives_by_id.get(cid) or {}
         pointer = (negative.get("validation") or {}).get("duplicate_of")
         if pointer and pointer == tid:
@@ -653,8 +707,21 @@ def check_fb_ambiguous(fb: list[dict]) -> list[str]:
             if key.get("distinctness_evidence"):
                 bad.append(f"{row.get('id')}: ambiguous row carries distinctness evidence; "
                            "the ambiguous class is never counted as distinct")
-            if key.get("adjudication_rule") == "separately_accepted_and_target_disjoint":
-                bad.append(f"{row.get('id')}: ambiguous row adjudicated as a distinct pair")
+            provenance = key.get("label_provenance") or {}
+            tier = provenance.get("tier")
+            if tier not in ("ambiguous_shared_target_no_pointer",
+                            "ambiguous_target_separation_without_root_cause",
+                            "ambiguous_pointer_unresolved"):
+                bad.append(f"{row.get('id')}: ambiguous row has label tier {tier!r}")
+            if tier == "ambiguous_target_separation_without_root_cause"                     and provenance.get("cohort") != "exploratory":
+                bad.append(f"{row.get('id')}: a target-separation-only label is not in "
+                           "the primary cohort")
+            if tier == "ambiguous_shared_target_no_pointer"                     and provenance.get("cohort") != "primary":
+                bad.append(f"{row.get('id')}: a shared-target label is not in the "
+                           "primary cohort")
+            if provenance.get("human_reviewed"):
+                bad.append(f"{row.get('id')}: ambiguous row claims a human review; "
+                           "none was done")
         if src.get("comparison_record_id") == "unresolved":
             if row.get("answer_key_status") != "unlabeled":
                 bad.append(f"{row.get('id')}: unresolved comparison must be unlabeled, not "
@@ -975,8 +1042,8 @@ def check_fb_counts(fb: list[dict], stats: dict, manifest: dict,
                    f"{len(unique_comps)} findings")
     if fb_stats.get("confirmed_duplicate_pairs") != classes.get("same_vulnerability", 0):
         bad.append("stats fb.confirmed_duplicate_pairs is not the same_vulnerability recount")
-    if fb_stats.get("adjudicated_distinct_pairs") != classes.get("distinct_vulnerability", 0):
-        bad.append("stats fb.adjudicated_distinct_pairs is not the distinct recount")
+    if fb_stats.get("rule_derived_distinct_pairs") != classes.get("distinct_vulnerability", 0):
+        bad.append("stats fb.rule_derived_distinct_pairs is not the distinct recount")
     if fb_stats.get("ambiguous_class_pairs") != classes.get("ambiguous", 0):
         bad.append("stats fb.ambiguous_class_pairs is not the ambiguous recount")
     if fb_stats.get("ambiguous_unscorable_pairs") != statuses.get("unlabeled", 0):
