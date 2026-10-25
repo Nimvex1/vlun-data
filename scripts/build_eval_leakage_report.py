@@ -194,8 +194,12 @@ def non_model_visible_evaluation_files() -> list[str]:
     base = ROOT / "benchmark" / "independent"
     if not base.is_dir():
         return []
+    # Answer-key files are not evaluation shards: the key is local-only and
+    # reproducible, so whether it happens to be present in a checkout must not
+    # change this inventory (or the committed report would differ on CI).
     return sorted(p.relative_to(ROOT).as_posix()
-                  for p in base.rglob("*.jsonl"))
+                  for p in base.rglob("*.jsonl")
+                  if not p.name.endswith("_keys.jsonl"))
 
 
 def protected_identifiers() -> set[str]:

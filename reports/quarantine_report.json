@@ -128,7 +128,7 @@
       "counted_from": "distribution_v1/*_withheld_pointers.jsonl, withheld_harness.jsonl",
       "detail": {
         "licence_contradictions": 0,
-        "personal_data_artefacts": 11,
+        "personal_data_artefacts": 13,
         "registered_sources": 11
       },
       "group": "withheld expressive content",

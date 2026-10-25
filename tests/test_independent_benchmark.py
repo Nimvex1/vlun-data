@@ -319,6 +319,8 @@ class TestAdditiveAndReproducible(unittest.TestCase):
             if r["holdout"] == "class_disjoint":
                 seen += 1
         self.assertGreater(seen, 0)
+        if not k.is_file():
+            self.skipTest("the holdout answer key is local-only and absent here")
         keys = [json.loads(x) for x in
                 k.read_text(encoding="utf-8").splitlines() if x.strip()]
         self.assertTrue(keys)

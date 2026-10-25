@@ -346,11 +346,11 @@
       "sha256": "061093b3385d65054b7df88226574195a9fbc73c6f761e733dea87c44a8e67b0"
     },
     {
-      "bytes": 2775,
+      "bytes": 2821,
       "kind": "generated_report",
       "layer": "vbeta",
       "path": "Vbeta/reports_vbeta/quality_report.md",
-      "sha256": "1d064195b5d552843faf93e5a8491439ea6d6d9e47d32c9b53fea64e79532106"
+      "sha256": "85b968c26f1efb19f53cf537994b7c8245e31c77ba38ed66cdde3d72ec3f90a5"
     },
     {
       "bytes": 1457,
@@ -1298,7 +1298,7 @@
       "kind": "dataset_records",
       "layer": "v2_2_derived",
       "path": "derived_v2_2/records.jsonl",
-      "sha256": "5d49ffed8f325673f64306d382ee71b8f0c1d8082705e2b9885ef3c75b5c1ac9"
+      "sha256": "d399bcfdbea897df9e2ff7e63013492ed1f94e8642df19130e89b29e6d85c95c"
     },
     {
       "bytes": 19420647,
@@ -1474,14 +1474,14 @@
       "kind": "dataset_manifest",
       "layer": "root",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "f7357618dfd7c710e7e8fcecc231483ab30fde4c95739e372b0cd5e727a32f29"
+      "sha256": "f0a7ec8e415a554ab8270262e9542e0158b0c72f93643a248d1c1e2be9525b0b"
     },
     {
       "bytes": 4568,
       "kind": "other",
       "layer": "root",
       "path": "distribution_v1/README.md",
-      "sha256": "d432fe666fc2fae78a58ecdd2318f46587050a2116424e1bd9afc4a1cffcb323"
+      "sha256": "b6cb0b36dc9300ded402e36c7f125cb38176c303a1658e71d514bd0ae03650dc"
     },
     {
       "bytes": 5279,
@@ -1532,12 +1532,12 @@
       "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
     },
     {
-      "bytes": 17041687,
-      "json_rows": 12915,
+      "bytes": 17044892,
+      "json_rows": 12919,
       "kind": "dataset_records",
       "layer": "root",
       "path": "distribution_v1/rights_ledger.jsonl",
-      "sha256": "3e8859d30861c0782e2eebbce94b4babdb5b2e3341b842fec84e199242e3d93b"
+      "sha256": "a914be51b87da16153a4c0862db30e32f82e2256c6d05b50c73ade47562e3b60"
     },
     {
       "bytes": 17374,
@@ -10588,7 +10588,7 @@
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/history_exposure.md",
-      "sha256": "76451dc6068a85b01a96710814dace06658edf43e3e4711a86cc03c7d4493028"
+      "sha256": "16cfee77ee8b4a09ff1040ff2f75c783bb7f1dcbb19fb593ce8f22738175580f"
     },
     {
       "bytes": 1077,
@@ -10614,19 +10614,19 @@
       "sha256": "3dbb1aa5c7cacdd575e22e676c3ecf6029a01b39ff40e2d3663aad8ed443dbb8"
     },
     {
-      "bytes": 432174,
+      "bytes": 432172,
       "json_rows": 16327,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/json_catalog.json",
-      "sha256": "0f9d647c753865610ea87fabdfe0cfe0e5e57f2fffe960c72cedc04b237b10ed"
+      "sha256": "e3b2761784f2626312db1c0b8b47f8282305079111f92851548bc901d7310dbc"
     },
     {
-      "bytes": 84608,
+      "bytes": 84610,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/json_catalog.md",
-      "sha256": "47f847724cb75b25135ed09507fbb3776c2c82299a50d5e957094e6f98a03107"
+      "sha256": "79ec3331932c7fef833a6f5ba5aa231a3809f2a0127db0ed6d0000903c3f87b0"
     },
     {
       "bytes": 141515,
@@ -10880,14 +10880,14 @@
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/remediation_before_after.json",
-      "sha256": "ee22b315265ffb71fb5acb706a89f9b317e510d59df0b3be3ac8c240f5e1835b"
+      "sha256": "8ab062c071abe19c82483693c405df5233da13bb74c6719c0d1ce884fc851a4b"
     },
     {
       "bytes": 5729,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/remediation_before_after.md",
-      "sha256": "8fa7e08069d3bda50810425f3ff400a5acb0b791ffbc3b99b2af644d9eb36aa4"
+      "sha256": "c2ef8625889aaaf3e419edda52a0a07d84478892571ee3685ee0601de5116893"
     },
     {
       "bytes": 2205,
@@ -10918,22 +10918,22 @@
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "d7de9c04303df90b8dde1122892c1884f942ce1f51a22483bc7117488af4d191"
+      "sha256": "a6f321092b3c48d9a4adb085e1945053acf5aff36fe4199f2192389fee3acbc3"
     },
     {
-      "bytes": 984876,
-      "json_rows": 28203,
+      "bytes": 989560,
+      "json_rows": 28341,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/rights_inventory.json",
-      "sha256": "850a2d4f7b45912d97996376e6cf974d4f95956f1826150361fd317b53a1f401"
+      "sha256": "cf5d5b2534fa5624a5110ef16a009c9e62dfa942a829832b592b040903a1585a"
     },
     {
-      "bytes": 15358,
+      "bytes": 15845,
       "kind": "generated_report",
       "layer": "reports",
       "path": "reports/rights_inventory.md",
-      "sha256": "73b1f02ee45468b51397ca561ce936f4e0aeccc6c1a1a8cc04ee3d584c126e88"
+      "sha256": "bce1b978477e4d4336af8772473db8b9c4de8e0ff82a30d21f864b35e71dcd80"
     },
     {
       "bytes": 3190,
@@ -11423,11 +11423,11 @@
       "sha256": "42b6d425b0c0fd53cedce9c56b4912396add6ebfc76c268b2811f28c6a129f2b"
     },
     {
-      "bytes": 52957,
+      "bytes": 53246,
       "kind": "pipeline_code",
       "layer": "pipeline",
       "path": "scripts/build_eval_leakage_report.py",
-      "sha256": "73c4827e73bee2d8e816e4afa11168968db7bac94f4eaf637d74d29bf7e61040"
+      "sha256": "7037628be7aac21cb146585aebd35ae3e02e908f475d22fc5e60bdc857238f81"
     },
     {
       "bytes": 64475,
@@ -11990,11 +11990,11 @@
       "sha256": "fa9c0f2838fb6ed44acd5d9adef74bdd0cfac83411d1d20da9263afdcbec3ad7"
     },
     {
-      "bytes": 68932,
+      "bytes": 70763,
       "kind": "pipeline_code",
       "layer": "pipeline",
       "path": "scripts/run_verified_experiments.py",
-      "sha256": "5f8b80303cef464d0227a19f85201bda2171606462239ed1ad39ce7f8135d0e6"
+      "sha256": "7bbc1f9d7084db98e5744bae9db42e9ea4ef4f398489dba1a38766c428ca5a6c"
     },
     {
       "bytes": 10293,
@@ -13191,11 +13191,11 @@
       "sha256": "7c2f901a2295f2e80485a0adf53d843fb3e3e34dd2b8760a8b6d4cbba8954668"
     },
     {
-      "bytes": 15804,
+      "bytes": 16262,
       "kind": "test_code",
       "layer": "tests",
       "path": "tests/test_independent_benchmark.py",
-      "sha256": "e900990fff9d687da86d9fe1fdae7c0b83e186e0948ffade5619064f30fd9d69"
+      "sha256": "55a1c8d894a6284d5d0f0b0971dc60fea64e39c304d6ae18f308a89ad51a06ed"
     },
     {
       "bytes": 5283,
@@ -13917,7 +13917,7 @@
   ],
   "hash_grants_nothing": "a sha256 and a permalink identify bytes; they do not grant reuse or redistribution rights",
   "history_exposure_summary": {
-    "commits_scanned": 84,
+    "commits_scanned": 85,
     "historical_exposure_items": [
       {
         "added_in_commit": "cfc8466223c734dd1e18a8b293c756a24a60f7af",
@@ -15435,7 +15435,7 @@
       "total_chars_by_class": {}
     },
     "distribution_v1/rights_ledger.jsonl": {
-      "json_rows": 12915,
+      "json_rows": 12919,
       "max_chars_by_class": {},
       "rows_holding_expressive_content": 0,
       "scanned_with_item_detail": false,
@@ -19163,7 +19163,7 @@
   },
   "scan": {
     "branch": "remediation/p0-credibility",
-    "head_commit": "a28170d75781de0423e46f7a9c0dc854f9884fc5",
+    "head_commit": "a546e60c3e6c5e0310318d1d911cdc272f1b31e8",
     "path_style": "repo-relative-posix",
     "record_layers_list": [
       "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
@@ -19327,7 +19327,7 @@
     ],
     "record_layers_scanned": 158,
     "text_artefacts_scanned": 1029,
-    "tracked_bytes": 389733803,
+    "tracked_bytes": 389744803,
     "tracked_files": 1816
   },
   "source_registry": {
@@ -26069,7 +26069,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 84608,
+      "chars": 84610,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "reports/json_catalog.md",
@@ -26173,7 +26173,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 15358,
+      "chars": 15845,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "reports/rights_inventory.md",
@@ -26445,7 +26445,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 51783,
+      "chars": 52068,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "scripts/build_eval_leakage_report.py",
@@ -27093,7 +27093,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 68932,
+      "chars": 69314,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "scripts/run_verified_experiments.py",
@@ -27661,7 +27661,7 @@
       "triage_hits": 0
     },
     {
-      "chars": 15804,
+      "chars": 15914,
       "email_hits": 0,
       "fenced_code_blocks": 0,
       "path": "tests/test_independent_benchmark.py",

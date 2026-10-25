@@ -725,7 +725,15 @@ def _resolve_short_shas() -> None:
         case["fix_commit"] = full
 
 
-_resolve_short_shas()
+try:  # the registry is importable outside a prepared checkout
+    _resolve_short_shas()
+except (SystemExit, OSError, KeyError):
+    # Without the cloned repositories the short mitigation SHAs cannot be
+    # expanded. The repo URL is still known, which is all the grader needs to
+    # resolve a task's repository; the expansion is required only to build the
+    # experiment registry itself.
+    pass
+
 
 def build_registry() -> list[dict]:
     """Materialise the reNFT cases into EXPERIMENTS with real file contents."""

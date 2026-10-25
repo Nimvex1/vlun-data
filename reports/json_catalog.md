@@ -290,7 +290,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
 | `reports/dataset_stats.json` | multi | 17,335 | object, 20 keys | yes |
 | `reports/depth_dashboard.json` | multi | 1,880 | object, 6 keys | yes |
-| `reports/eval_leakage_report.json` | multi | 48,445 | object, 11 keys | yes |
+| `reports/eval_leakage_report.json` | multi | 48,313 | object, 11 keys | yes |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
 | `reports/extraction_errors.json` | multi | 36,340 | object, 7 keys | yes |

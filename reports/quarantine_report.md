@@ -86,7 +86,7 @@ every count is recomputed from the artefact named in `counted_from`; a category 
 **withheld expressive content**
 
 - `licence_contradictions`: 0
-- `personal_data_artefacts`: 11
+- `personal_data_artefacts`: 13
 - `registered_sources`: 11
 
 
