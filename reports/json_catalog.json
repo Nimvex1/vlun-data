@@ -1,12 +1,12 @@
 {
   "by_category": {
-    "benchmark": 52,
+    "benchmark": 50,
     "datasets": 4,
     "derived": 32,
     "experiments": 103,
     "harvest": 6,
     "meta": 447,
-    "reports": 81,
+    "reports": 82,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 775,
+  "file_count": 774,
   "files": [
     {
       "bytes": 2573,
@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 452451,
+      "bytes": 453237,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "ce91d04dc6bca1d31463ea30d5a110835e3feedda30affcdb6741d4d89c19344",
+      "sha256": "f25c912accd61c3f3597cb7e0633ddab606bf8c5e9ae57f5eec0b835bee50e1f",
       "tracked": true
     },
     {
@@ -337,7 +337,7 @@
       "tracked": true
     },
     {
-      "bytes": 732,
+      "bytes": 895,
       "category": "meta",
       "keys": [
         "note",
@@ -348,7 +348,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "9a4627682cb2b31f4692b2d4a82ce7326daae84dca0cfe20010829d67d04c310",
+      "sha256": "420ae02373032c9273bee82c64bd86d35706034b7f89ae3b5e360cd35468a297",
       "tracked": true
     },
     {
@@ -724,16 +724,6 @@
       "tracked": true
     },
     {
-      "bytes": 9804,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
-      "rows": 32,
-      "sha256": "57bd490afabde29fb81e0d69323f15f877647598aace357cd01787572d916a70",
-      "tracked": false
-    },
-    {
       "bytes": 48915,
       "category": "benchmark",
       "layer": "multi",
@@ -742,16 +732,6 @@
       "rows": 32,
       "sha256": "a48fb08f5ba6c00afaeed32f1d813cade3e6c4f75acab9cf78075a64bc35e3b0",
       "tracked": true
-    },
-    {
-      "bytes": 812361,
-      "category": "benchmark",
-      "layer": "multi",
-      "parse": "ok",
-      "path": "benchmark/independent/secondary_holdout_keys.jsonl",
-      "rows": 2684,
-      "sha256": "f47baf6cca9b34f13f252fdfbd9ab08583260414a854ad484f0be17a465a0453",
-      "tracked": false
     },
     {
       "bytes": 63182,
@@ -866,7 +846,7 @@
       "tracked": true
     },
     {
-      "bytes": 15052,
+      "bytes": 15124,
       "category": "benchmark",
       "keys": [
         "canary",
@@ -882,7 +862,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/manifest.json",
-      "sha256": "85e364abd8c0515b8eef19dd303de522c6acadd3be40a9b6264174b6eb6d4944",
+      "sha256": "3f74e4b99fa6574f2d92c932c5c5e504575cdac77e86945e213c0cc012550814",
       "tracked": true
     },
     {
@@ -14016,6 +13996,22 @@
       "tracked": true
     },
     {
+      "bytes": 310,
+      "category": "reports",
+      "keys": [
+        "checks_failed_critical",
+        "checks_total",
+        "generated_by",
+        "note"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/reproducibility_checks_summary.json",
+      "sha256": "16b3862ebeab790ba3ec7e4b4b989423c0fb5638271876b5fd9e6eeb6ece08fa",
+      "tracked": true
+    },
+    {
       "bytes": 28437,
       "category": "reports",
       "keys": [
@@ -14857,7 +14853,7 @@
       "parse": "ok",
       "path": "splits_v2_2/test.jsonl",
       "rows": 284,
-      "sha256": "3d395d6c4c7d6ad2f847a594ef4e91b16891e41ff29fa760d6072e882515b9b7",
+      "sha256": "17b270513c27a9de29d6458d648a90cd9f50c02f173b9f641428dfebb6a8aea7",
       "tracked": true
     },
     {
@@ -14867,7 +14863,7 @@
       "parse": "ok",
       "path": "splits_v2_2/train.jsonl",
       "rows": 489,
-      "sha256": "abb35f8a4e4922d9f212fc64d994b1693c59a16921ee91e62a353995147aa40f",
+      "sha256": "b52820a4f5057223bc6fbfd09234f2aaec5a21f4f30eecb3124968ce4902d9b5",
       "tracked": true
     },
     {
@@ -14877,7 +14873,7 @@
       "parse": "ok",
       "path": "splits_v2_2/validation.jsonl",
       "rows": 307,
-      "sha256": "516310123b3816ae77abacf12126d5929aafb0dd7b8216772c4c69c9778c7622",
+      "sha256": "e237537387de3b705a56e96ef916000e6811e2f3c3c4e3571a0e783ff573839e",
       "tracked": true
     },
     {
@@ -16320,7 +16316,7 @@
     }
   ],
   "generated_by": "scripts/build_json_catalog.py",
-  "scope_note": "every .json/.jsonl under the repo root except the catalog's own outputs, machine-local trees, git-ignored files (their bytes vary by machine), and volatile gate outputs (bytes vary run-to-run by design); hashes and sizes are over LF-normalized bytes so the catalog is identical on every platform; nothing is moved, this file is a map",
+  "scope_note": "every COMMITTED .json/.jsonl under the repo root except the catalog's own outputs, machine-local trees, git-ignored files (their bytes vary by machine), untracked working-tree files (same reason: scratch exports and regenerable answer keys stay local), and volatile gate outputs (bytes vary run-to-run by design); hashes and sizes are over LF-normalized bytes so the catalog is identical on every platform; nothing is moved, this file is a map",
   "volatile_outputs": [
     "reports/v3/validation_v31.json"
   ]

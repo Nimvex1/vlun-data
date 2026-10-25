@@ -118,5 +118,56 @@ class TestJsonCatalogComplete(unittest.TestCase):
             self.assertIn(entry["category"], catalog["by_category"])
 
 
+class TestCatalogIsMachineIndependent(unittest.TestCase):
+    """The catalog must be computable from the git tree alone.
+
+    Regression (2026-10-25): the two secondary-holdout answer-key files are
+    generated into the operator's working tree and deliberately never
+    committed, but they were not git-ignored and the scan hashed whatever it
+    found. Their entries shipped in reports/json_catalog.json and every
+    fresh checkout reported `entry differs` from `--check`. Untracked
+    working-tree files are machine-local by definition and must not enter
+    the map.
+    """
+
+    KEYS = ("benchmark/independent/secondary_holdout_keys.jsonl",
+            "benchmark/independent/secondary_holdout_exploratory_keys.jsonl")
+
+    def test_the_holdout_keys_are_declared_machine_local(self):
+        gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        for rel in self.KEYS:
+            self.assertIn(rel, gitignore,
+                          f"{rel} must be declared machine-local in .gitignore")
+        catalog = json.loads(
+            (ROOT / "reports" / "json_catalog.json").read_text(encoding="utf-8"))
+        paths = {e["path"] for e in catalog["files"]}
+        for rel in self.KEYS:
+            self.assertNotIn(rel, paths)
+
+    def test_an_untracked_stray_json_cannot_change_the_catalog(self):
+        import subprocess
+        stray = ROOT / "reports" / "untracked_stray_probe.json"
+        self.assertFalse(stray.exists(), "probe path already occupied")
+        stray.write_text('{"probe": true}\n', encoding="utf-8")
+        try:
+            r = subprocess.run(
+                [sys.executable, "scripts/build_json_catalog.py", "--check"],
+                cwd=str(ROOT), capture_output=True, text=True, timeout=600)
+            self.assertEqual(
+                r.returncode, 0,
+                "an untracked working-tree JSON changed the catalog: "
+                + r.stdout + r.stderr)
+        finally:
+            stray.unlink()
+
+    def test_the_committed_catalog_lists_no_untracked_entry(self):
+        catalog = json.loads(
+            (ROOT / "reports" / "json_catalog.json").read_text(encoding="utf-8"))
+        untracked = [e["path"] for e in catalog["files"]
+                     if not e.get("tracked")]
+        self.assertEqual(untracked, [],
+                         "the committed catalog must describe tracked files only")
+
+
 if __name__ == "__main__":
     unittest.main()

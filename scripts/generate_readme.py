@@ -618,12 +618,25 @@ def render() -> str:
     _retired_letters = ", ".join(
         sorted({_fam_letter(_f) for _f in RETIRED_FAMILIES}))
 
-    # The three families with no exactly-matchable scalar key (D generative,
-    # H descriptive, Q judge-graded). Their exclusion is recorded per family
-    # in the scorer's own coverage block, with a reason.
+    # The families with no exactly-matchable scalar key (D generative, H
+    # descriptive, Q judge-graded, plus the F-extension families, whose gold
+    # is a six-axis vector / a three-class pair adjudication). Their exclusion
+    # is recorded per family in the scorer's own coverage block, with a
+    # reason. Two of them are scored under their own contracts below.
     _excl = (_bl_base.get("coverage") or {}).get("excluded_families") or {}
     _excl_reasoned = sum(int(v.get("tasks") or 0) for v in _excl.values())
     _excl_fams = _letters(_excl)
+
+    # The F-extension reconciliation (traced 2026-10-25 to the canonical
+    # inputs): the manifest's `scorable` counts and the table's `Scorable`
+    # column are different measurements, and a reader who sees 0 + NOT_SCORABLE
+    # next to 458/554 rows can conclude the rows were never scored. They are
+    # scored - by scripts/score_f_extension.py under their own task contracts.
+    # Every number here is read from those contracts' own artefacts.
+    _fx = jread(REPORTS / "f_extension_stats.json", {}) or {}
+    _fa_ent = _btasks.get("Fa_rejection_evidence_axis_vector") or {}
+    _fb_ent = _btasks.get("Fb_duplicate_radar_pair") or {}
+    _fb_rel = ((_fx.get("fb") or {}).get("by_relationship") or {})
 
     def _status(fam_file: str) -> str:
         """The audited status of one family, from the scorer's status block."""
@@ -880,7 +893,9 @@ families that need experimentally produced ground truth only admit rows that hav
 {_bench_rows}
 
 `Tasks` is every row of the family file; `Scorable` is the number of those rows that carry a
-real scalar answer key. `Status` is computed from the data at run time by
+real scalar answer key for the headline exact-match projection — a family graded under a
+non-scalar contract reads 0 there even when its own scorer covers every row (see below).
+`Status` is computed from the data at run time by
 `scripts/benchmark_status.py` — never from a hand-written list, because a list cannot justify
 an evaluation claim:
 
@@ -900,7 +915,18 @@ rest are reported in their own blocks and never in the headline: the
 the {len(_expl_fams)} EXPLORATORY families' {_expl_scorable:,} sub-floor rows ({_expl_letters}),
 the {len(RETIRED_FAMILIES)} retired families' {_retired_scorable:,} scorable rows ({_retired_letters} —
 retirement is a location, not a verdict), plus the {_excl_fams} families that have no
-exactly-matchable key ({_excl_reasoned:,} rows), excluded with stated reasons. The four blocks
+exactly-matchable key ({_excl_reasoned:,} rows), excluded with stated reasons. Two of those
+families are not left unscored: the F-extension is graded by its own scorer under its own
+task contracts — `Fa_rejection_evidence_axis_vector` per axis over the assessed axes
+({_fa_ent.get('scorable', 0)} of {n(_fa_ent.get('tasks', 0))} rows carry evidence for every
+axis; {n(_fa_ent.get('partial', 0))} partial) and `Fb_duplicate_radar_pair` as a three-class
+pair adjudication ({n(_fb_ent.get('tasks', 0))} pairs: {n(_fb_rel.get('same_vulnerability', 0))}
+same, {n(_fb_rel.get('distinct_vulnerability', 0))} distinct,
+{n(_fb_rel.get('ambiguous', 0))} ambiguous), with published trivial-predictor floors
+([`reports/f_extension.md`](reports/f_extension.md),
+[`reports/f_extension_baselines.json`](reports/f_extension_baselines.json)). The table's 0
+for both is a scope statement about the headline projection, never a claim that the rows
+went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
 {n((_bl_base.get('micro_all_families') or {}).get('scorable', 0))} of them.
 

@@ -37,6 +37,7 @@ import argparse
 import collections
 import hashlib
 import json
+import math
 import pathlib
 import re
 import sys
@@ -590,7 +591,9 @@ def macro_f1(gold: list[str], pred: list[str]) -> float | None:
         prec = tp / (tp + fp) if tp + fp else 0.0
         rec = tp / (tp + fn) if tp + fn else 0.0
         scores.append(2 * prec * rec / (prec + rec) if prec + rec else 0.0)
-    return round(sum(scores) / len(scores), 4)
+    # fsum, not sum(): exactly rounded and version-stable across the
+    # supported CPython matrix (3.12 changed builtin sum() accuracy).
+    return round(math.fsum(scores) / len(scores), 4)
 
 
 def baselines(fname: str, rows: list[dict], seed: int = 7) -> dict:

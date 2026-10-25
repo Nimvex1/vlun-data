@@ -54,6 +54,18 @@ from vlun import (  # noqa: E402
 )
 from vlun_ml import DERIVED_V22, SPLITS_V22  # noqa: E402
 
+def _render_jsonl(rows: list[dict]) -> str:
+    """Canonical JSONL bytes as text: byte-for-byte the writer's output."""
+    return "".join(
+        json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n"
+        for row in rows)
+
+
+def _render_json(obj) -> str:
+    """Canonical JSON bytes as text: byte-for-byte the writer's output."""
+    return json.dumps(obj, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+
 PROPORTION = {"train": 44, "validation": 29, "test": 27}
 
 
@@ -494,17 +506,7 @@ def main() -> int:
         log("refusing to write splits_v2_2 with violations")
         return 1
 
-    if args.check:
-        log(f"--check: {counts} built, nothing written")
-        for k in ("rules", "post_check", "quarantine", "counts"):
-            log(f"  {k}: {json.dumps(manifest[k])[:400]}")
-        return 0
-
-    for split in SPLITS:
-        write_jsonl(SPLITS_V22 / f"{split}.jsonl", pointers[split])
-    write_jsonl(SPLITS_V22 / "quarantine.jsonl", quarantine)
-    write_json(SPLITS_V22 / "manifest.json", manifest)
-    write_json(REPORTS / "leakage_report_v22.json", {
+    leakage = {
         "generated_by": "scripts/build_splits_v22.py",
         "splits_dir": "splits_v2_2",
         "counts": counts,
@@ -516,7 +518,44 @@ def main() -> int:
              **(q.get("_quarantine_evidence") or {}),
              "reason": q.get("_quarantine_reason")}
             for q in quarantine],
-    })
+    }
+
+    if args.check:
+        log(f"--check: {counts} built, nothing written")
+        for k in ("rules", "post_check", "quarantine", "counts"):
+            log(f"  {k}: {json.dumps(manifest[k])[:400]}")
+        # Byte-parity with the committed layer. The rule this closes
+        # (regression 2026-10-25): every pointer's record_sha256 must equal a
+        # hash of the derived_v2_2 record as it exists NOW. The derived layer
+        # was rebuilt after the experiment-artefact `bytes` field landed, the
+        # split pointers kept the old digests, and this script's --check
+        # happily reported "0 problems" because it never looked at the
+        # committed bytes. A stale pointer file must fail here, not only in
+        # validate.py.
+        outputs = {**{f"{s}.jsonl": _render_jsonl(pointers[s]) for s in SPLITS},
+                   "quarantine.jsonl": _render_jsonl(quarantine),
+                   "manifest.json": _render_json(manifest)}
+        stale = []
+        for name, want in outputs.items():
+            path = SPLITS_V22 / name
+            have = path.read_text(encoding="utf-8") if path.exists() else None
+            if have != want:
+                stale.append(f"splits_v2_2/{name}")
+        have = ((REPORTS / "leakage_report_v22.json").read_text(encoding="utf-8")
+                if (REPORTS / "leakage_report_v22.json").exists() else None)
+        if have != _render_json(leakage):
+            stale.append("reports/leakage_report_v22.json")
+        if stale:
+            log(f"STALE {', '.join(stale)} — run: python scripts/build_splits_v22.py")
+            return 1
+        log("splits_v2_2 and reports/leakage_report_v22.json are current")
+        return 0
+
+    for split in SPLITS:
+        write_jsonl(SPLITS_V22 / f"{split}.jsonl", pointers[split])
+    write_jsonl(SPLITS_V22 / "quarantine.jsonl", quarantine)
+    write_json(SPLITS_V22 / "manifest.json", manifest)
+    write_json(REPORTS / "leakage_report_v22.json", leakage)
     log(f"wrote {SPLITS_V22} ({counts})")
     log(f"  post_check: {json.dumps(post)}")
     log(f"  quarantine: {manifest['quarantine']}")

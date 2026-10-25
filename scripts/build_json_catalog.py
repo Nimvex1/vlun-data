@@ -10,10 +10,13 @@ so a reader can answer "where does this kind of data live" in one place.
     python scripts/build_json_catalog.py --check    # verify current, write nothing
 
 Writes reports/json_catalog.json (machine-readable) and
-reports/json_catalog.md (per-category tables). The catalog excludes its own
-two outputs: hashing them would make --check fail on every run.
-Machine-local trees (work/, V3/clones/, scrape caches, ai/) are out of
-scope and recorded as excluded, never scanned.
+reports/json_catalog.md (per-category tables). The catalog describes the
+committed corpus only: it excludes its own two outputs (hashing them would
+make --check fail on every run), machine-local trees (work/, V3/clones/,
+scrape caches, ai/) which are recorded as excluded and never scanned, and
+any file git does not track (scratch exports, regenerable answer keys —
+their bytes vary by machine, so cataloguing them makes --check fail on
+every checkout that does not hold them).
 """
 
 from __future__ import annotations
@@ -142,6 +145,7 @@ def ignored_set() -> set[str]:
 
 def scan() -> list[str]:
     ignored = ignored_set()
+    tracked = tracked_set()
     out = []
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.suffix not in (".json", ".jsonl"):
@@ -152,6 +156,18 @@ def scan() -> list[str]:
         if rel in VOLATILE_OUTPUTS:
             continue
         if rel in ignored:
+            continue
+        if tracked and rel not in tracked:
+            # The catalog describes the COMMITTED corpus, nothing else.
+            # An untracked file is machine-local by definition: a scratch
+            # export, a regenerable answer key (benchmark/independent/
+            # secondary_holdout_*keys.jsonl), or work in progress. Hashing it
+            # makes --check fail on every machine that does not hold the same
+            # local bytes (regression 2026-10-25: the two holdout key files
+            # were catalogued from the operator's working tree and every
+            # fresh checkout reported `entry differs`). When git is not
+            # available (a source export), `tracked` is empty and the scan
+            # falls back to the tree minus the excluded/ignored paths.
             continue
         if any(rel == pre[:-1] or rel.startswith(pre)
                for pre in EXCLUDED_PREFIXES):
@@ -227,9 +243,11 @@ def build() -> dict:
         by_category[entry["category"]] = by_category.get(entry["category"], 0) + 1
     return {
         "generated_by": "scripts/build_json_catalog.py",
-        "scope_note": ("every .json/.jsonl under the repo root except the "
-                       "catalog's own outputs, machine-local trees, "
-                       "git-ignored files (their bytes vary by machine), and "
+        "scope_note": ("every COMMITTED .json/.jsonl under the repo root except "
+                       "the catalog's own outputs, machine-local trees, "
+                       "git-ignored files (their bytes vary by machine), "
+                       "untracked working-tree files (same reason: scratch "
+                       "exports and regenerable answer keys stay local), and "
                        "volatile gate outputs (bytes vary run-to-run by "
                        "design); hashes and sizes are over LF-normalized "
                        "bytes so the catalog is identical on every platform; "

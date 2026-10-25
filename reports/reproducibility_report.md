@@ -32,6 +32,10 @@ other one.
 - This run: `python scripts/check_reproducibility.py` prints the full
   matrix and writes `reports/reproducibility_checks.json`
   (git-ignored: a machine-local snapshot, not a published fact).
+  Its machine-independent counts (gate size, critical failures)
+  are committed as
+  `reports/reproducibility_checks_summary.json`, which is what the
+  table above quotes.
 - The authoritative live matrix is the CI run for the commit, plus
   `python scripts/run_gates.py` locally.
 

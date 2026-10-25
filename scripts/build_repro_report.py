@@ -13,8 +13,14 @@ so the numbers cannot go stale. Gates that write a report:
     reports/v3/validation_v3.json               scripts/validate_v3.py
     reports/v3/validation_v31.json              scripts/validate_v31.py
     reports/manifest_checks.json                scripts/check_manifests.py
-    reports/reproducibility_checks.json         scripts/check_reproducibility.py
+    reports/reproducibility_checks_summary.json scripts/check_reproducibility.py
     Vbeta/reports_vbeta/validation_vbeta.json   Vbeta/scripts/validate_vbeta.py
+
+The reproducibility gate's counts come from its COMMITTED summary, not the
+git-ignored per-check snapshot: a fresh clone must be able to regenerate
+this report byte-identically (regression 2026-10-25: the snapshot's absence
+rendered the row as SKIPPED and failed the doc test on every clean
+checkout).
 
 A gate report that is missing is rendered as SKIPPED, never as a pass.
 
@@ -42,7 +48,7 @@ SOURCES = [
     ("cross-manifest", "scripts/check_manifests.py",
      "reports/manifest_checks.json", "checks_total"),
     ("reproducibility", "scripts/check_reproducibility.py",
-     "reports/reproducibility_checks.json", "checks_total"),
+     "reports/reproducibility_checks_summary.json", "checks_total"),
 ]
 
 
@@ -117,6 +123,10 @@ def render() -> str:
           "- This run: `python scripts/check_reproducibility.py` prints the full",
           "  matrix and writes `reports/reproducibility_checks.json`",
           "  (git-ignored: a machine-local snapshot, not a published fact).",
+          "  Its machine-independent counts (gate size, critical failures)",
+          "  are committed as",
+          "  `reports/reproducibility_checks_summary.json`, which is what the",
+          "  table above quotes.",
           "- The authoritative live matrix is the CI run for the commit, plus",
           "  `python scripts/run_gates.py` locally.", "",
           "## Skips are honest", "",

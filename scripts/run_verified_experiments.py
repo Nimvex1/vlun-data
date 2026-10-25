@@ -835,6 +835,24 @@ def build_registry() -> list[dict]:
 # ---------------------------------------------------------------------------
 # execution
 # ---------------------------------------------------------------------------
+def declared_repo_url(finding_id: str) -> str | None:
+    """The clone URL a declared finding resolves to, without touching disk.
+
+    Resolving a task's repository must never require materialising
+    `build_registry()`: that reads test bytes out of the pinned local clone
+    (`work/wt/...`), which a grading machine or a fresh CI checkout may not
+    hold — see the note on `_resolve_short_shas` above. Every declared reNFT
+    case runs both revisions out of the single `renft-vulnerable` clone
+    (fixed revisions share the slug and URL via `fixed()`), so the URL is
+    fully known from the static declarations. `None` means the finding is not
+    registered; callers must fail loudly rather than guess a checkout.
+    """
+    for case in RENFT_CASES:
+        if case.get("finding_id") == finding_id:
+            return REPOS["renft-vulnerable"].url
+    return None
+
+
 def resolve_repo(key: str) -> ex.RepoSpec:
     if key in REPOS:
         return REPOS[key]

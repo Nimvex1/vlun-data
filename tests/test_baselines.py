@@ -154,5 +154,74 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
                              f"invalid + retired != all families")
 
 
+class TestFloatAggregationIsVersionStable(unittest.TestCase):
+    """Metric float aggregation must be exactly rounded, on every CPython.
+
+    Regression (2026-10-25): `macro_f1` averaged per-class F1s with builtin
+    `sum()`. CPython 3.12 changed `sum()` to Neumaier-compensated float
+    summation, so the published baseline reports rendered one ULP different
+    under 3.10/3.11 than under 3.12/3.13 — `--check` gates that regenerate
+    and byte-compare could not be green across the supported matrix. The
+    scorers now aggregate floats with `math.fsum`, which is exactly rounded
+    and identical on every version. These tests pin that property on inputs
+    where naive summation provably drifts (6 per-class F1s of 0.4).
+    """
+
+    def _pairs(self) -> tuple[list, list]:
+        # 6 labels, each with tp=1, fp=1, fn=2 -> per-class F1 = 0.4.
+        pairs = []
+        labels = [f"l{i}" for i in range(6)]
+        for i, lab in enumerate(labels):
+            nxt = labels[(i + 1) % 6]
+            pairs.append((lab, lab))          # tp
+            pairs.append((lab, nxt))          # fn (gold=lab, pred=other)
+            pairs.append((lab, nxt))          # fn
+            pairs.append((nxt, lab))          # fp (gold=other, pred=lab)
+        scores = []
+        for lab in labels:
+            tp = sum(1 for g, p in pairs if g == lab and p == lab)
+            fp = sum(1 for g, p in pairs if g != lab and p == lab)
+            fn = sum(1 for g, p in pairs if g == lab and p != lab)
+            prec = tp / (tp + fp)
+            rec = tp / (tp + fn)
+            scores.append(2 * prec * rec / (prec + rec))
+        return pairs, scores
+
+    def test_macro_f1_is_exactly_rounded(self):
+        import math
+        import score_benchmark as sb
+        pairs, scores = self._pairs()
+        self.assertEqual(len(scores), 6)
+        # On this input naive `sum(scores) / len(scores)` renders
+        # 0.39999999999999997 on CPython <= 3.11 while the exactly-rounded
+        # (fsum) average is 0.4000000000000001 -- both "near 0.4", so only
+        # exact equality with the fsum reference pins the implementation.
+        self.assertEqual(sb.macro_f1(pairs), math.fsum(scores) / len(scores))
+
+    def test_cosine_is_exactly_rounded(self):
+        import math
+        import score_benchmark as sb
+        # 6-dim vectors with weight 0.3: sum(v*v) = 6 * 0.09, which naive
+        # summation renders 0.5399999999999999 and fsum renders 0.54 -- the
+        # norm (and therefore the cosine) differs at the ULP level.
+        a = {f"k{i}": 0.3 for i in range(6)}
+        b = {f"k{i}": 0.3 for i in range(6)}
+        dot = math.fsum(v * b.get(k, 0.0) for k, v in a.items())
+        na = math.sqrt(math.fsum(v * v for v in a.values()))
+        nb = math.sqrt(math.fsum(v * v for v in b.values()))
+        self.assertEqual(sb.cosine(a, b), dot / (na * nb))
+        # Exactly-rounded aggregation of 6 * 0.09 is 0.54; anything that
+        # rounds through a different summation path can miss that value.
+        self.assertEqual(math.fsum(v * v for v in a.values()), 0.54)
+
+    def test_the_published_reports_are_unchanged_by_the_fix(self):
+        # The fsum fix must reproduce the committed baseline bytes exactly:
+        # the reports were generated with exactly-rounded summation already.
+        want = (BASE / "baseline_majority.json").read_text(encoding="utf-8")
+        rep = json.loads(want)
+        self.assertAlmostEqual(
+            rep["micro_retired"]["macro_f1"], 0.18752334805774482, places=15)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -854,6 +854,23 @@ def main() -> int:
                  "they need git-ignored clones or work/ inputs that are not "
                  "redistributed"),
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    # The machine-INDEPENDENT subset is also written to a COMMITTED summary,
+    # so generated documents can quote this gate's size and critical failures
+    # on a fresh clone (regression 2026-10-25: reports/reproducibility_report.md
+    # rendered "SKIPPED" for this gate whenever the git-ignored snapshot was
+    # absent, and every fresh checkout failed its own doc test). The per-check
+    # PASS/SKIP split stays in the snapshot above: it depends on which
+    # optional git-ignored inputs this machine holds.
+    _sum = ROOT / "reports" / "reproducibility_checks_summary.json"
+    _sum.write_text(json.dumps({
+        "generated_by": "scripts/check_reproducibility.py",
+        "checks_total": len(G.rows),
+        "checks_failed_critical": len(fails),
+        "note": ("counts only, committed: gate size and critical failures do "
+                 "not depend on the machine. The per-check PASS/SKIP split "
+                 "does, and lives in the git-ignored "
+                 "reports/reproducibility_checks.json"),
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     return 1 if fails else 0
 
 

@@ -266,10 +266,59 @@ class RepositoryResolution(unittest.TestCase):
         self.assertEqual(url, "https://github.com/example/other.git")
 
     def test_a_non_url_that_is_not_registered_fails_loudly(self):
+        # Regression (2026-10-25): this used to die inside
+        # run_verified_experiments.build_registry() with FileNotFoundError
+        # from `work/wt/renft-smart` whenever the pinned local clone was
+        # absent — the hard failure for an unregistered finding never fired.
+        # Resolution is now static, so the contract holds on a fresh checkout.
         with self.assertRaises(SystemExit) as caught:
             G._repo_url({"finding_id": "not-in-any-registry/H-99",
                          "repository": "experiments_v3/some-local-dir"})
         self.assertIn("cannot resolve a clone URL", str(caught.exception))
+
+    def test_a_registered_finding_resolves_without_a_local_clone(self):
+        # The clone URL is statically declared; resolving it must not consult
+        # the working tree (which CI and any grading machine may not hold).
+        import experiments as ex
+        import run_verified_experiments  # noqa: F401  (import before patching:
+        # importing this module runs _resolve_short_shas(), which calls
+        # ex.worktree() once and swallows OSError; do that before the guard)
+        real = ex.worktree
+
+        def _forbidden(spec):  # pragma: no cover - must never run
+            raise AssertionError(
+                "repo resolution touched work/wt; it must read the "
+                "statically declared registry only")
+
+        ex.worktree = _forbidden
+        try:
+            url = G._repo_url({"finding_id": "2024-01-renft/H-01",
+                               "repository": "experiments_v3/some-local-dir"})
+        finally:
+            ex.worktree = real
+        self.assertEqual(url,
+                         "https://github.com/re-nft/smart-contracts.git")
+
+    def test_resolution_never_guessed_a_checkout_for_the_unregistered_finding(self):
+        # Same contract as the hard-failure test, pinned through the worktree
+        # guard: even while failing, resolution must not touch work/wt.
+        import experiments as ex
+        import run_verified_experiments  # noqa: F401  (import before patching)
+        real = ex.worktree
+        touched = []
+
+        def _spy(spec):
+            touched.append(spec)
+            raise AssertionError("resolution touched work/wt")
+
+        ex.worktree = _spy
+        try:
+            with self.assertRaises(SystemExit):
+                G._repo_url({"finding_id": "not-in-any-registry/H-99",
+                             "repository": "experiments_v3/some-local-dir"})
+        finally:
+            ex.worktree = real
+        self.assertEqual(touched, [])
 
     def test_registry_findings_still_resolve(self):
         registered = [t for t in B.load_evidence().values()

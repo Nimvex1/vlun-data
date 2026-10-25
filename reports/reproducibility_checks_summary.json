@@ -1,0 +1,6 @@
+{
+  "checks_failed_critical": 0,
+  "checks_total": 19,
+  "generated_by": "scripts/check_reproducibility.py",
+  "note": "counts only, committed: gate size and critical failures do not depend on the machine. The per-check PASS/SKIP split does, and lives in the git-ignored reports/reproducibility_checks.json"
+}

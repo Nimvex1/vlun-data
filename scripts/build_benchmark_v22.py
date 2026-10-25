@@ -156,6 +156,18 @@ QUALITY_RUBRIC = {
 _PAYLOAD_HASH_RE = re.compile(r'"[a-z_]*sha256"\s*:\s*"[0-9a-f]{64}"', re.I)
 
 
+def _render_jsonl(rows: list[dict]) -> str:
+    """Canonical JSONL bytes as text: byte-for-byte the writer's output."""
+    return "".join(
+        json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n"
+        for row in rows)
+
+
+def _render_json(obj) -> str:
+    """Canonical JSON bytes as text: byte-for-byte the writer's output."""
+    return json.dumps(obj, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+
 # ---------------------------------------------------------------------------
 # loading
 # ---------------------------------------------------------------------------
@@ -685,10 +697,12 @@ def main() -> int:
         return 1
 
     BENCH.mkdir(parents=True, exist_ok=True)
+    uniq_by_key: dict[str, list[dict]] = {}
     for key in V22_FAMILIES:
         if f"{BENCHMARK_FAMILIES[key][0]}.jsonl" in RETIRED_FAMILIES:
             # Frozen under benchmark/retired_families/; carry the manifest
             # entry, rebuild no rows.
+            uniq_by_key[key] = tasks[key]
             carried = retired_manifest_entry(manifest, BENCHMARK_FAMILIES[key][0])
             if carried is not None:
                 carried["status"] = "retired"
@@ -714,6 +728,7 @@ def main() -> int:
         entry = manifest_entry(key, uniq)
         entry["duplicate_rows_dropped"] = dropped
         manifest["tasks"][BENCHMARK_FAMILIES[key][0]] = entry
+        uniq_by_key[key] = uniq
         if not args.check:
             write_jsonl(BENCH / f"{BENCHMARK_FAMILIES[key][0]}.jsonl", uniq)
         log(f"  {BENCHMARK_FAMILIES[key][0]:34s} tasks={entry['tasks']:4d} "
@@ -743,6 +758,32 @@ def main() -> int:
 
     if args.check:
         log("--check: everything built, nothing written")
+        # Byte-parity with the committed benchmark: a task file or manifest
+        # entry that differs from this regeneration is stale, in either
+        # direction (regression 2026-10-25 — a stale splits_v2_2 pointer made
+        # the rebuild refuse to produce rows, and the drift surfaced only as a
+        # critical validate.py failure later; catch it at the owner script).
+        # Retired families are compared too: their rows are frozen, and the
+        # strongest statement of "frozen" is that a rebuild still reproduces
+        # them byte for byte.
+        stale = []
+        for key in V22_FAMILIES:
+            name = BENCHMARK_FAMILIES[key][0]
+            entry = (manifest.get("tasks") or {}).get(name) or {}
+            rel = entry.get("file") or f"benchmark/{name}.jsonl"
+            path = ROOT / rel
+            want = _render_jsonl(uniq_by_key.get(key, []))
+            have = (path.read_text(encoding="utf-8") if path.exists() else None)
+            if have != want:
+                stale.append(rel)
+        have = (manifest_path.read_text(encoding="utf-8")
+                if manifest_path.exists() else None)
+        if have != _render_json(manifest):
+            stale.append("benchmark/manifest.json")
+        if stale:
+            log(f"STALE {', '.join(stale)} — run: python scripts/build_benchmark_v22.py")
+            return 1
+        log("benchmark K-Q and manifest.json are current")
         return 0
     write_json(manifest_path, manifest)
     log(f"wrote {manifest_path}")

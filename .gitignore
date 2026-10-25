@@ -1,4 +1,4 @@
-﻿__pycache__/
+__pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
@@ -48,6 +48,15 @@ brag-output/
 # generated training JSONL). Not part of the dataset; nothing here is read
 # by the pipeline or the gates.
 ai/
+
+# Secondary-holdout answer keys: generated in the working tree by
+# `scripts/build_secondary_holdout.py`, deliberately not committed (see its
+# header: OPEN_KEY, regenerable from the committed benchmark files —
+# withheld from the repository, but not secret). Kept out of git like every
+# other machine-local artefact so `git status` and the catalog cannot pick
+# them up from one machine's checkout.
+benchmark/independent/secondary_holdout_keys.jsonl
+benchmark/independent/secondary_holdout_exploratory_keys.jsonl
 
 # PEP 517 build artefacts: regenerable with `python -m build`, never source.
 build/
