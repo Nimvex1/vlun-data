@@ -446,14 +446,21 @@ def _repo_url(key: dict) -> str:
     A repository string that is not a clone URL (a local artefact directory, for
     example) still has to resolve through the registry: an unresolvable URL is a hard
     failure, never a guessed checkout.
+
+    Resolution reads the statically declared registry only. It must not call
+    `build_registry()`: materialising the registry reads test bytes out of the
+    pinned local clone (`work/wt/...`), and a missing clone then surfaces as a
+    `FileNotFoundError` from the working-tree lookup instead of the documented
+    hard failure for an unregistered finding — and the materialised entries key
+    the revision by `repo_key`, not `repo`, so the URL is in `REPOS` either way.
     """
     candidate = str(key.get("repository_url") or key.get("repository") or "")
     if candidate.startswith(("https://", "http://", "git@", "ssh://", "file://")):
         return candidate
     import run_verified_experiments as rve  # noqa: E402
-    for e in rve.build_registry():
-        if e["finding_id"] == key["finding_id"]:
-            return (e.get("revisions") or {}).get("vulnerable", {}).get("repo").url
+    url = rve.declared_repo_url(key["finding_id"])
+    if url:
+        return url
     raise SystemExit(f"no registry entry for {key['finding_id']}: cannot resolve a clone URL")
 
 

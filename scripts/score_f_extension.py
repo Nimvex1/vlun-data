@@ -80,6 +80,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import math
 import random
 import sys
 from pathlib import Path
@@ -173,7 +174,9 @@ def _class_scores(support: int, tp: int, fp: int, fn: int) -> dict:
 
 def _macro_f1(per_class: dict[str, dict]) -> float | None:
     values = [scores["f1"] for scores in per_class.values() if scores["f1"] is not None]
-    return round(sum(values) / len(values), 4) if values else None
+    # fsum, not sum(): exactly rounded and version-stable across the
+    # supported CPython matrix (3.12 changed builtin sum() accuracy).
+    return round(math.fsum(values) / len(values), 4) if values else None
 
 
 def _confusion_counts(confusion: collections.Counter, labels: tuple[str, ...],
@@ -247,8 +250,9 @@ def _fa_aggregate(axes_block: dict[str, dict], axes: tuple[str, ...]) -> dict:
         "evaluated_decisions": evaluated,
         "correct_decisions": correct,
         "micro_accuracy": round(correct / evaluated, 4) if evaluated else None,
-        "macro_accuracy": round(sum(accuracies) / len(accuracies), 4) if accuracies else None,
-        "macro_f1": round(sum(f1s) / len(f1s), 4) if f1s else None,
+        # fsum, not sum(): version-stable float aggregation (see _macro_f1).
+        "macro_accuracy": round(math.fsum(accuracies) / len(accuracies), 4) if accuracies else None,
+        "macro_f1": round(math.fsum(f1s) / len(f1s), 4) if f1s else None,
     }
 
 

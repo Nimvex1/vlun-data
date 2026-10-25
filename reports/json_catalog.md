@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-775 files across 11 categories.
+774 files across 11 categories.
 
 ## source (21)
 
@@ -97,7 +97,7 @@ also excluded: reports/v3/validation_v31.json.
 | `splits_v3/quarantine.jsonl` | v3 | 0 | 0 rows | yes |
 | `splits_v3/split.json` | v3 | 314,661 | object, 3 keys | yes |
 
-## benchmark (52)
+## benchmark (50)
 
 *task files, family manifests and holdouts.*
 
@@ -121,9 +121,7 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | multi | 2,107,106 | 2048 rows | yes |
 | `benchmark/independent/canonical_holdout/manifest.json` | multi | 1,828 | object, 9 keys | yes |
 | `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | multi | 2,905,903 | 2766 rows | yes |
-| `benchmark/independent/secondary_holdout_exploratory_keys.jsonl` | multi | 9,804 | 32 rows | no |
 | `benchmark/independent/secondary_holdout_exploratory_tasks.jsonl` | multi | 48,915 | 32 rows | yes |
-| `benchmark/independent/secondary_holdout_keys.jsonl` | multi | 812,361 | 2684 rows | no |
 | `benchmark/independent/secondary_holdout_manifest.json` | multi | 63,182 | object, 19 keys | yes |
 | `benchmark/independent/secondary_holdout_tasks.jsonl` | multi | 1,049,984 | 2684 rows | yes |
 | `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | multi | 67,771 | 257 rows | yes |
@@ -132,7 +130,7 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` | multi | 23,813 | 106 rows | yes |
 | `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` | multi | 1,907 | 5 rows | yes |
 | `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | multi | 96,536 | 257 rows | yes |
-| `benchmark/manifest.json` | multi | 15,052 | object, 8 keys | yes |
+| `benchmark/manifest.json` | multi | 15,124 | object, 8 keys | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | multi | 1,738,887 | 720 rows | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.retirement.json` | multi | 586 | object, 9 keys | yes |
 | `benchmark/retired_families/E_exploit_verification.jsonl` | multi | 780,615 | 720 rows | yes |
@@ -266,7 +264,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (81)
+## reports (82)
 
 *validation, stats, quality and baseline reports.*
 
@@ -323,6 +321,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | yes |
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
 | `reports/remediation_before_after.json` | multi | 5,358 | object, 3 keys | yes |
+| `reports/reproducibility_checks_summary.json` | multi | 310 | object, 4 keys | yes |
 | `reports/reproduction_manifest.json` | multi | 28,437 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,443 | object, 14 keys | yes |
 | `reports/rights_history_exposure.json` | multi | 36,108 | object, 10 keys | yes |
@@ -415,12 +414,12 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 452,451 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 453,237 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 732 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 895 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

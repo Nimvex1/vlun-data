@@ -1,5 +1,52 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — baseline-drift repair, reproducibility hardening (2026-10-25, unreleased)
+
+- **v2.2 split-pointer drift repaired (37 records).** Commit `cb6a2a8` added
+  `bytes` to experiment artefacts without rebuilding `splits_v2_2/`; every
+  experiment-bearing record's `record_sha256` went stale and the K-Q rebuild
+  refused to build. Split assignment is deterministic and unchanged (0 rows
+  move). Regression net: `tests/test_v22_split_pointers.py`, and both owner
+  builders' `--check` modes now byte-compare against committed bytes.
+  `benchmark/manifest.json`'s `families` array also gained the F-extension
+  entries it was missing. Full trace: `docs/EVIDENCE_LEDGER.md` E-2/E-3/E-15.
+- **Grader repository resolution no longer needs a local clone.**
+  `prove_grader._repo_url` used to materialise the reNFT registry (reading
+  `work/wt/renft-smart`) and crash with `FileNotFoundError` instead of the
+  documented hard failure; registered findings would have hit
+  `AttributeError` on the `repo_key` shape. Resolution is now static
+  (`run_verified_experiments.declared_repo_url`), assertions untouched,
+  two regression tests added (E-4).
+- **Published baselines are now reproducible on every supported Python.**
+  CPython 3.12 changed builtin `sum()` accuracy; macro-F1 aggregation
+  differed by 1 ULP across the 3.10–3.13 matrix. All metric float
+  aggregation uses `math.fsum` now — the committed report bytes are
+  unchanged (E-7).
+- **JSON catalog covers the committed corpus only.** Two untracked
+  machine-local holdout answer keys had been hashed into
+  `reports/json_catalog.json`, making `catalog-current` fail on every fresh
+  checkout. The keys are declared machine-local in `.gitignore` and the
+  scan is `git ls-files`-based (775 → 774 entries) (E-5).
+- **Reproducibility report renders on a fresh clone.** The gate's
+  machine-independent counts are committed as
+  `reports/reproducibility_checks_summary.json`; the per-check PASS/SKIP
+  split stays machine-local. `build_repro_report.py --check` no longer
+  depends on having run the gate first (E-8).
+- **F-extension scoreability reconciled in the README** (no labels changed):
+  F-A is 9 of 458 rows fully assessed (per-axis scoring) and F-B is 554
+  three-class pairs (184/121/249), both scored by
+  `scripts/score_f_extension.py`; the table's `Scorable 0` is scoped to the
+  headline exact-match projection (E-6).
+- **Quality documentation added** (authored, not generated):
+  `docs/TASK_CONTRACTS.md` (what every task measures),
+  `docs/QUALITY_CHECKLIST.md` (phase status, before/after, separate
+  assessments, blockers with owners), `docs/EVIDENCE_LEDGER.md` (every
+  finding with method and remedy), `docs/HANDOFF.md` (blinded IAA study +
+  licence-clearance packages). OPEN blockers: family A's 14
+  contradictory-gold input groups (E-1), V4 table-of-contents extraction
+  (E-9, ≥1,971 rows re-measured), IAA and licence clearance (BLOCKED on
+  humans), AI-export audit (assets absent).
+
 ## Remediation — global integrity roll-up (2026-10-19, unreleased)
 
 - **Two roll-ups added.** `reports/remediation_before_after.{md,json}` states, per spec

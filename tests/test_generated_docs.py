@@ -490,6 +490,58 @@ class TestReproducibilityReportIsGenerated(unittest.TestCase):
                          r.stdout + r.stderr +
                          "; run python scripts/build_repro_report.py")
 
+    def test_report_renders_on_a_fresh_clone(self):
+        """The doc test must pass with the git-ignored snapshot ABSENT.
+
+        Regression (2026-10-25): the reproducibility row was rendered from
+        reports/reproducibility_checks.json, a machine-local file that only
+        exists after someone runs the gate. A fresh clone (or the first
+        standalone `python -m unittest discover -s tests`) rendered the row
+        as SKIPPED, the --check failed, and the documented verification
+        command did not pass on the tree it documents. The counts now come
+        from the committed summary.
+        """
+        import subprocess
+        import sys
+        snap = ROOT / "reports" / "reproducibility_checks.json"
+        backup = snap.read_bytes() if snap.is_file() else None
+        if snap.is_file():
+            snap.unlink()
+        try:
+            r = subprocess.run([sys.executable,
+                                "scripts/build_repro_report.py", "--check"],
+                               cwd=str(ROOT), capture_output=True,
+                               text=True, timeout=300)
+            self.assertEqual(
+                r.returncode, 0,
+                "build_repro_report --check must pass without the "
+                "machine-local snapshot: " + r.stdout + r.stderr)
+        finally:
+            if backup is not None:
+                snap.write_bytes(backup)
+
+    def test_the_reproducibility_counts_are_committed_and_status_free(self):
+        import subprocess
+        summary = ROOT / "reports" / "reproducibility_checks_summary.json"
+        self.assertTrue(summary.is_file())
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch",
+             "reports/reproducibility_checks_summary.json"],
+            cwd=str(ROOT), capture_output=True, text=True)
+        self.assertEqual(
+            tracked.returncode, 0,
+            "the counts summary must be in the git index: a fresh clone "
+            "cannot render the report without it")
+        doc = json.loads(summary.read_text(encoding="utf-8"))
+        self.assertIn("checks_total", doc)
+        self.assertIn("checks_failed_critical", doc)
+        for banned in ("checks", "checks_passed", "checks_skipped",
+                       "rebuild_parity"):
+            self.assertNotIn(
+                banned, doc,
+                "per-check outcomes are machine-dependent and must stay in "
+                "the git-ignored snapshot")
+
     def test_report_quotes_live_gate_counts(self):
         text = (ROOT / "reports" / "reproducibility_report.md").read_text(
             encoding="utf-8")

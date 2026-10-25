@@ -188,7 +188,9 @@ families that need experimentally produced ground truth only admit rows that hav
 | `vbeta_V_source_tier_routing` | 6,935 | 6,935 | INVALID | Vbeta |
 
 `Tasks` is every row of the family file; `Scorable` is the number of those rows that carry a
-real scalar answer key. `Status` is computed from the data at run time by
+real scalar answer key for the headline exact-match projection — a family graded under a
+non-scalar contract reads 0 there even when its own scorer covers every row (see below).
+`Status` is computed from the data at run time by
 `scripts/benchmark_status.py` — never from a hand-written list, because a list cannot justify
 an evaluation claim:
 
@@ -208,7 +210,18 @@ rest are reported in their own blocks and never in the headline: the
 the 4 EXPLORATORY families' 28 sub-floor rows (F, G, I, J),
 the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
 retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
-exactly-matchable key (1,876 rows), excluded with stated reasons. The four blocks
+exactly-matchable key (1,876 rows), excluded with stated reasons. Two of those
+families are not left unscored: the F-extension is graded by its own scorer under its own
+task contracts — `Fa_rejection_evidence_axis_vector` per axis over the assessed axes
+(9 of 458 rows carry evidence for every
+axis; 449 partial) and `Fb_duplicate_radar_pair` as a three-class
+pair adjudication (554 pairs: 184
+same, 121 distinct,
+249 ambiguous), with published trivial-predictor floors
+([`reports/f_extension.md`](reports/f_extension.md),
+[`reports/f_extension_baselines.json`](reports/f_extension_baselines.json)). The table's 0
+for both is a scope statement about the headline projection, never a claim that the rows
+went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
 22,145 of them.
 

@@ -140,9 +140,16 @@ def tfidf_vec(tokens: list[str], df: dict[str, int], n_docs: int
 
 
 def cosine(a: dict[str, float], b: dict[str, float]) -> float:
-    dot = sum(v * b.get(k, 0.0) for k, v in a.items())
-    na = math.sqrt(sum(v * v for v in a.values()))
-    nb = math.sqrt(sum(v * v for v in b.values()))
+    # Float aggregates use math.fsum everywhere in this scorer: CPython's
+    # builtin sum() changed float summation accuracy in 3.12 (Neumaier), so a
+    # naive sum() makes the published reports differ by an ULP across the
+    # supported 3.10-3.13 matrix. fsum is exactly rounded and identical on
+    # every version (regression 2026-10-25: baseline_majority.json rendered
+    # 0.18752334805774482 under 3.12's sum() and 0.1875233480577448 under
+    # 3.11's, so the "regenerate and compare" gates could not all be green).
+    dot = math.fsum(v * b.get(k, 0.0) for k, v in a.items())
+    na = math.sqrt(math.fsum(v * v for v in a.values()))
+    nb = math.sqrt(math.fsum(v * v for v in b.values()))
     return dot / (na * nb) if na and nb else 0.0
 
 
@@ -161,7 +168,9 @@ def macro_f1(pairs: list[tuple[str, str]]) -> float | None:
         prec = tp / (tp + fp) if tp + fp else 0.0
         rec = tp / (tp + fn) if tp + fn else 0.0
         scores.append(2 * prec * rec / (prec + rec) if prec + rec else 0.0)
-    return sum(scores) / len(scores)
+    # fsum, not sum(): exactly rounded and version-stable across the
+    # supported CPython matrix (see the note in cosine()).
+    return math.fsum(scores) / len(scores)
 
 
 def per_class_metrics(pairs: list[tuple[str, str]]) -> dict:
@@ -494,7 +503,7 @@ def _retrieval_predictions(rows: list[dict]) -> dict[str, str]:
         for tok in set(toks[r["tid"]]):
             df[tok] = df.get(tok, 0) + 1
     vecs = {r["tid"]: tfidf_vec(toks[r["tid"]], df, len(train)) for r in rows}
-    norm_of = {t: math.sqrt(sum(v * v for v in vec.values()))
+    norm_of = {t: math.sqrt(math.fsum(v * v for v in vec.values()))
                for t, vec in vecs.items()}
     # inverted index over the train rows, so a query only scores the train
     # rows that share a token with it

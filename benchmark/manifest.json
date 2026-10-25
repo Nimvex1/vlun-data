@@ -8,6 +8,8 @@
     "D_exploit_construction",
     "E_exploit_verification",
     "F_false_positive_rejection",
+    "Fa_rejection_evidence_axis_vector",
+    "Fb_duplicate_radar_pair",
     "G_patch_verification",
     "H_verified_exploit",
     "I_verified_non_exploit",
