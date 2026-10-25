@@ -134,11 +134,17 @@ class TestSecondaryHoldout(unittest.TestCase):
                            if leaks(task["input"], by_id[task["holdout_task_id"]].get("gold")))
         self.assertEqual(contaminated, self.manifest["exploratory_holdout"]["contaminated_rows"])
 
-    def test_the_key_is_not_claimed_to_be_committed(self):
+    def test_the_key_tracking_claim_matches_git(self):
+        # The manifest must describe the key as git actually has it: tracked in
+        # a local commit, or untracked. Either way it is not a secret.
         key_block = self.manifest["answer_key"]
-        self.assertFalse(key_block["committed_in_repository"])
-        self.assertFalse(key_block["tracked_in_git"])
         self.assertEqual(key_block["key_status"], "OPEN_KEY")
+        tracked = subprocess.run(
+            ["git", "ls-files", "--error-unmatch",
+             "benchmark/independent/secondary_holdout_keys.jsonl"],
+            cwd=ROOT, capture_output=True, text=True).returncode == 0
+        self.assertIs(key_block["committed_in_repository"], tracked)
+        self.assertIs(key_block["tracked_in_git"], tracked)
         self.assertIn("never be described as a private", key_block["implication"])
 
     def test_every_redaction_is_recorded_without_the_answer_text(self):

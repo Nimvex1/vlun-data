@@ -14,10 +14,10 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1800 (384384881 bytes)
-- head: `e1e51ab1984ee4d56c9f7177b33b296a161a171f` (remediation/p0-credibility)
-- record layers scanned for expressive content: 149
-- the audit covers **all** layers, not only the 13087 v1 self-flagged quotation rows
+- tracked files: 1814 (384705368 bytes)
+- head: `20e2286fefda09926382d03a85ded01223d104bb` (remediation/p0-credibility)
+- record layers scanned for expressive content: 156
+- the audit covers **all** layers, not only the 13123 v1 self-flagged quotation rows
 
 ## Totals by rights class
 
@@ -25,13 +25,13 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 57652 | 4029 |
-| `copied_short_prose` | 257564 | 5990 |
+| `copied_report_prose` | 57703 | 4029 |
+| `copied_short_prose` | 258265 | 5990 |
 | `personal_data` | 4355 | - |
 | `poc_source` | 1730 | 346 |
-| `third_party_code` | 13087 | 2378 |
+| `third_party_code` | 13123 | 2378 |
 
-Rows holding expressive content across every scanned layer: **119841** in 85 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **120477** in 89 record layers. Detail-scanned records materialised for the projection: **5990**.
 
 ## Per-layer breakdown
 
@@ -60,7 +60,14 @@ Rows holding expressive content across every scanned layer: **119841** in 85 rec
 | `benchmark/I_verified_non_exploit.jsonl` |  |
 | `benchmark/J_verified_patch.jsonl` |  |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | copied_report_prose=125, copied_short_prose=465, personal_data=102 |
+| `benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl` | copied_report_prose=22, copied_short_prose=68 |
+| `benchmark/independent/secondary_holdout_exploratory_tasks.jsonl` | copied_report_prose=29, copied_short_prose=119 |
 | `benchmark/independent/secondary_holdout_tasks.jsonl` | copied_report_prose=20, copied_short_prose=2746, personal_data=2 |
+| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | copied_short_prose=257 |
+| `benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl` |  |
+| `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` |  |
+| `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` |  |
+| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | copied_short_prose=257, third_party_code=36 |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | copied_short_prose=306, third_party_code=821 |
 | `benchmark/retired_families/E_exploit_verification.jsonl` |  |
 | `benchmark/retired_families/K_language_ecosystem_routing.jsonl` | copied_report_prose=125, copied_short_prose=349, personal_data=5 |
@@ -220,6 +227,6 @@ Total artefacts holding personal contact data: **11**.
 
 ## History
 
-- commits scanned: 82
+- commits scanned: 83
 - paths added then removed: 25
 - full findings: `reports/history_exposure.md`

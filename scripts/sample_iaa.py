@@ -55,8 +55,15 @@ def load_jsonl(path):
 
 
 def sha256_file(path):
+    """SHA-256 of the canonical (LF) bytes.
+
+    Git normalises text line endings on checkout, so hashing raw bytes makes a
+    frozen artefact drift on a CRLF checkout without its content changing. The
+    repository's canonical form is LF (scripts/check_line_endings.py), so the
+    gate hashes that form.
+    """
     with open(path, "rb") as fh:
-        return hashlib.sha256(fh.read()).hexdigest()
+        return hashlib.sha256(fh.read().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def severity_band(sev):

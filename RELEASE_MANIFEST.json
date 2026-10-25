@@ -23,21 +23,21 @@
   ],
   "counts": {
     "by_licence": {
-      "CC-BY-4.0": 197,
-      "MIT": 267
+      "CC-BY-4.0": 198,
+      "MIT": 271
     },
     "by_rights_status": {
       "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1201,
+      "internal_research_artefact_not_cleared": 1205,
       "metadata_only": 1,
-      "project_own": 449,
-      "withheld_third_party_no_redistribution_rights": 135
+      "project_own": 454,
+      "withheld_third_party_no_redistribution_rights": 140
     },
-    "not_released_paths": 1336,
+    "not_released_paths": 1345,
     "paths_with_measured_personal_data": 11,
-    "paths_with_measured_verbatim_third_party_content": 135,
-    "released_paths": 464,
-    "tracked_paths": 1800
+    "paths_with_measured_verbatim_third_party_content": 140,
+    "released_paths": 469,
+    "tracked_paths": 1814
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -125,8 +125,17 @@
     "benchmark/I_verified_non_exploit.jsonl",
     "benchmark/J_verified_patch.jsonl",
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
+    "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+    "benchmark/independent/canonical_holdout/manifest.json",
+    "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
     "benchmark/independent/secondary_holdout_manifest.json",
     "benchmark/independent/secondary_holdout_tasks.jsonl",
+    "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
+    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
+    "benchmark/independent/v1_task_holdout/manifest.json",
+    "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl",
+    "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
+    "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl",
     "benchmark/manifest.json",
     "benchmark/retired_families/B_root_cause_reasoning.jsonl",
     "benchmark/retired_families/B_root_cause_reasoning.retirement.json",
@@ -1515,6 +1524,7 @@
     "annotation/iaa_v1/blank/annotator_1.template.csv": "CC-BY-4.0",
     "annotation/iaa_v1/blank/annotator_2.template.csv": "CC-BY-4.0",
     "annotation/iaa_v1/blank/annotator_3.template.csv": "CC-BY-4.0",
+    "annotation/iaa_v1/frozen_sample.json": "CC-BY-4.0",
     "annotation/iaa_v1/guide.md": "CC-BY-4.0",
     "annotation/iaa_v1/protocol.md": "CC-BY-4.0",
     "annotation/iaa_v1/responses/README.md": "CC-BY-4.0",
@@ -1905,6 +1915,7 @@
     "tests/test_field_coverage.py": "MIT",
     "tests/test_gate_hardening.py": "MIT",
     "tests/test_generated_docs.py": "MIT",
+    "tests/test_iaa_sample.py": "MIT",
     "tests/test_iaa_statistics.py": "MIT",
     "tests/test_independent_benchmark.py": "MIT",
     "tests/test_json_catalog.py": "MIT",
@@ -1919,13 +1930,16 @@
     "tests/test_poc_triage.py": "MIT",
     "tests/test_prove_ledger.py": "MIT",
     "tests/test_prove_split.py": "MIT",
+    "tests/test_prove_verification.py": "MIT",
     "tests/test_publish_manifest.py": "MIT",
     "tests/test_rejection_corpus.py": "MIT",
+    "tests/test_replay_safety.py": "MIT",
     "tests/test_reproducibility.py": "MIT",
     "tests/test_reproducibility_parity.py": "MIT",
     "tests/test_rights_gate.py": "MIT",
     "tests/test_sandbox_guard.py": "MIT",
     "tests/test_schema_terms.py": "MIT",
+    "tests/test_secondary_holdout.py": "MIT",
     "tests/test_solodit_harvest.py": "MIT",
     "tests/test_span_scoring.py": "MIT",
     "tests/test_splits.py": "MIT",
@@ -2169,6 +2183,26 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 5 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 629,
+        "longest_verbatim_span_chars": 629,
+        "verbatim_code_spans": 5,
+        "verbatim_third_party_strings": 52
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 5 run(s) of at most 629 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 471,
+        "verbatim_third_party_strings": 71
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 71 string(s) carry a run of at most 471 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
     "benchmark/independent/secondary_holdout_tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -2178,6 +2212,36 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 772 string(s) carry a run of at most 3353 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 226,
+        "verbatim_third_party_strings": 127
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 127 string(s) carry a run of at most 226 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 120,
+        "verbatim_third_party_strings": 2
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 2 string(s) carry a run of at most 120 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 945,
+        "longest_verbatim_span_chars": 945,
+        "third_party_code_fields": 35,
+        "verbatim_code_spans": 25,
+        "verbatim_third_party_strings": 160
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 25 run(s) of at most 945 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/retired_families/B_root_cause_reasoning.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3527,6 +3591,7 @@
     "annotation/iaa_v1/blank/annotator_1.template.csv": "project_own",
     "annotation/iaa_v1/blank/annotator_2.template.csv": "project_own",
     "annotation/iaa_v1/blank/annotator_3.template.csv": "project_own",
+    "annotation/iaa_v1/frozen_sample.json": "project_own",
     "annotation/iaa_v1/guide.md": "project_own",
     "annotation/iaa_v1/protocol.md": "project_own",
     "annotation/iaa_v1/responses/README.md": "project_own",
@@ -3543,8 +3608,17 @@
     "benchmark/I_verified_non_exploit.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/J_verified_patch.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/canonical_holdout/manifest.json": "internal_research_artefact_not_cleared",
+    "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/secondary_holdout_manifest.json": "internal_research_artefact_not_cleared",
     "benchmark/independent/secondary_holdout_tasks.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/v1_task_holdout/manifest.json": "internal_research_artefact_not_cleared",
+    "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl": "internal_research_artefact_not_cleared",
+    "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl": "internal_research_artefact_not_cleared",
+    "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/manifest.json": "internal_research_artefact_not_cleared",
     "benchmark/retired_families/B_root_cause_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/retired_families/B_root_cause_reasoning.retirement.json": "internal_research_artefact_not_cleared",
@@ -5198,6 +5272,7 @@
     "tests/test_field_coverage.py": "project_own",
     "tests/test_gate_hardening.py": "project_own",
     "tests/test_generated_docs.py": "project_own",
+    "tests/test_iaa_sample.py": "project_own",
     "tests/test_iaa_statistics.py": "project_own",
     "tests/test_independent_benchmark.py": "project_own",
     "tests/test_json_catalog.py": "project_own",
@@ -5212,13 +5287,16 @@
     "tests/test_poc_triage.py": "project_own",
     "tests/test_prove_ledger.py": "project_own",
     "tests/test_prove_split.py": "project_own",
+    "tests/test_prove_verification.py": "project_own",
     "tests/test_publish_manifest.py": "project_own",
     "tests/test_rejection_corpus.py": "project_own",
+    "tests/test_replay_safety.py": "project_own",
     "tests/test_reproducibility.py": "project_own",
     "tests/test_reproducibility_parity.py": "project_own",
     "tests/test_rights_gate.py": "project_own",
     "tests/test_sandbox_guard.py": "project_own",
     "tests/test_schema_terms.py": "project_own",
+    "tests/test_secondary_holdout.py": "project_own",
     "tests/test_solodit_harvest.py": "project_own",
     "tests/test_span_scoring.py": "project_own",
     "tests/test_splits.py": "project_own",
@@ -5295,6 +5373,7 @@
     "annotation/iaa_v1/blank/annotator_1.template.csv",
     "annotation/iaa_v1/blank/annotator_2.template.csv",
     "annotation/iaa_v1/blank/annotator_3.template.csv",
+    "annotation/iaa_v1/frozen_sample.json",
     "annotation/iaa_v1/guide.md",
     "annotation/iaa_v1/protocol.md",
     "annotation/iaa_v1/responses/README.md",
@@ -5685,6 +5764,7 @@
     "tests/test_field_coverage.py",
     "tests/test_gate_hardening.py",
     "tests/test_generated_docs.py",
+    "tests/test_iaa_sample.py",
     "tests/test_iaa_statistics.py",
     "tests/test_independent_benchmark.py",
     "tests/test_json_catalog.py",
@@ -5699,13 +5779,16 @@
     "tests/test_poc_triage.py",
     "tests/test_prove_ledger.py",
     "tests/test_prove_split.py",
+    "tests/test_prove_verification.py",
     "tests/test_publish_manifest.py",
     "tests/test_rejection_corpus.py",
+    "tests/test_replay_safety.py",
     "tests/test_reproducibility.py",
     "tests/test_reproducibility_parity.py",
     "tests/test_rights_gate.py",
     "tests/test_sandbox_guard.py",
     "tests/test_schema_terms.py",
+    "tests/test_secondary_holdout.py",
     "tests/test_solodit_harvest.py",
     "tests/test_span_scoring.py",
     "tests/test_splits.py",

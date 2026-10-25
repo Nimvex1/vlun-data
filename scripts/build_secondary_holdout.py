@@ -103,6 +103,7 @@ import json
 import pathlib
 import random
 import re
+import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -616,6 +617,7 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list, list, list, list]:
     exploratory_ids: list[str] = []
     overlap_before: collections.Counter = collections.Counter()
     by_family_counts: dict[str, dict] = {}
+    _tracked = _key_tracking(f"benchmark/independent/{KEYS_NAME}")
     manifest: dict = {
         "holdout_version": HOLDOUT_VERSION,
         "generated_by": "scripts/build_secondary_holdout.py",
@@ -666,27 +668,40 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list, list, list, list]:
                 "committed benchmark files at the recorded seed. It does NOT "
                 "mean the key file is tracked or published in this "
                 "repository"),
-            "committed_in_repository": False,
-            "tracked_in_git": False,
-            "visibility": "local_only_untracked",
-            "withheld_from_repository": True,
+            "committed_in_repository": _tracked,
+            "tracked_in_git": _tracked,
+            "visibility": (
+                "local_only_untracked" if _tracked is False
+                else "tracked_in_local_commit" if _tracked is True
+                else "unknown_git_state"),
+            "withheld_from_repository": _tracked is False,
+            "publish_note": (
+                "the key is reached only through a local commit and has not "
+                "been pushed. If the withheld posture is intended, untrack it "
+                "before any push: the manifest and the eval-leakage gate read "
+                "this flag and the real git state, so they cannot disagree"
+                if _tracked else
+                "the key file is not tracked by git; it is reproducible from "
+                "the committed benchmark files at the recorded seed"),
             "retrievable_by": (
                 "anyone who can run scripts/build_secondary_holdout.py against "
-                "the committed benchmark files; the key file itself is not "
-                "part of the repository"),
+                "the committed benchmark files; it is not a secret"),
             "ci_verification": (
                 "--check verifies the manifest and both task files without "
                 "reading the key. If the key file is absent (fresh checkout or "
                 "CI) its contents are reported as local-only and unverified, "
                 "not treated as missing evidence"),
             "implication": (
-                "the key file exists only in a local working tree and is not "
-                "tracked by git. It is withheld from the repository but it is "
-                "not secret, because the same key is reproducible from public "
-                "committed sources. This layer must never be described as a "
-                "private or protected evaluation; the only genuinely private "
-                "evaluation in this repository is the VLUN-Prove private "
-                "split, whose key lives outside the tracked tree."),
+                "the key is not a secret: the split is deterministic and the "
+                "same key is reproducible from public committed sources at the "
+                "recorded seed. What varies is git tracking: "
+                + ("it is tracked in the current local commit and has not been "
+                   "pushed." if _tracked else
+                   "it is not tracked by git.")
+                + " This layer must never be described as a private or "
+                "protected evaluation; the only genuinely private evaluation "
+                "in this repository is the VLUN-Prove private split, whose key "
+                "lives outside the tracked tree."),
         },
         "families": {},
     }
@@ -919,6 +934,20 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list, list, list, list]:
     manifest["exploratory_tasks_written"] = len(exploratory_tasks)
     manifest["exploratory_keys_written"] = len(exploratory_keys)
     return manifest, tasks, keys, exploratory_tasks, exploratory_keys
+
+
+def _key_tracking(rel: str) -> bool | None:
+    """Whether git tracks the key file; None when git cannot answer."""
+    try:
+        out = subprocess.run(["git", "ls-files", "--error-unmatch", rel],
+                             cwd=str(ROOT), capture_output=True, text=True)
+    except (OSError, ValueError):
+        return None
+    if out.returncode == 0:
+        return True
+    if out.returncode == 1 or "did not match" in (out.stderr or ""):
+        return False
+    return None
 
 
 def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:

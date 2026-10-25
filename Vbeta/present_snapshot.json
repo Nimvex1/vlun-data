@@ -1,6 +1,6 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "F-extension, Prove and holdout artifacts regenerated 2026-10-24; README/NOTICE/DATASHEET and rights inventory prose moved",
+  "resnapshot_reason": "holdout keys untracked before the main-branch push; F v2 and Prove artifacts regenerated",
   "sentinel_sha256": {
     "README.md": "9850d127ea1fc8d83454fb6cd84f4b57672fdb770ff715e016fbe2af32975064",
     "benchmark/manifest.json": "85e364abd8c0515b8eef19dd303de522c6acadd3be40a9b6264174b6eb6d4944",

@@ -5,10 +5,11 @@
     "committed_in_repository": false,
     "exploratory_file": "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
     "file": "benchmark/independent/secondary_holdout_keys.jsonl",
-    "implication": "the key file exists only in a local working tree and is not tracked by git. It is withheld from the repository but it is not secret, because the same key is reproducible from public committed sources. This layer must never be described as a private or protected evaluation; the only genuinely private evaluation in this repository is the VLUN-Prove private split, whose key lives outside the tracked tree.",
+    "implication": "the key is not a secret: the split is deterministic and the same key is reproducible from public committed sources at the recorded seed. What varies is git tracking: it is not tracked by git. This layer must never be described as a private or protected evaluation; the only genuinely private evaluation in this repository is the VLUN-Prove private split, whose key lives outside the tracked tree.",
     "key_status": "OPEN_KEY",
     "key_status_meaning": "OPEN_KEY means the key provides no confidentiality: the split is deterministic and the key is regenerable from the committed benchmark files at the recorded seed. It does NOT mean the key file is tracked or published in this repository",
-    "retrievable_by": "anyone who can run scripts/build_secondary_holdout.py against the committed benchmark files; the key file itself is not part of the repository",
+    "publish_note": "the key file is not tracked by git; it is reproducible from the committed benchmark files at the recorded seed",
+    "retrievable_by": "anyone who can run scripts/build_secondary_holdout.py against the committed benchmark files; it is not a secret",
     "tracked_in_git": false,
     "visibility": "local_only_untracked",
     "withheld_from_repository": true
