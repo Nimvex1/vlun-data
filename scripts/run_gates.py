@@ -3,7 +3,8 @@
 
 Runs every validator in dependency order and prints a unified PASS/FAIL/
 SKIPPED matrix. Network/toolchain-dependent stages report SKIPPED
-(skipped_no_network), never silent. Writes nothing.
+(skipped_no_network), never silent. Writes only the git-ignored
+`reports/gate_run.json` machine-readable matrix (not a committed artefact).
 
     python scripts/run_gates.py
     python scripts/run_gates.py --quiet
@@ -13,6 +14,7 @@ SKIPPED matrix. Network/toolchain-dependent stages report SKIPPED
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -36,6 +38,10 @@ GATES = [
      [PY, "Vbeta/scripts/build_solodit_report.py", "--check"]),
     ("repro-report-current", [PY, "scripts/build_repro_report.py", "--check"]),
     ("stats-current", [PY, "scripts/generate_stats.py", "--check"]),
+    # Report freshness is independent of semantic validation: this gate
+    # proves extraction_errors.json and final_quality_report.md equal a
+    # regeneration. Finding resolution state lives in the JSON itself.
+    ("reports-current", [PY, "scripts/generate_reports.py", "--check"]),
     # Rejection evidence: the canonical corpus and the report that reads it.
     # Both must be current, and the corpus is what the six rejection axes are
     # defined by, so a hand-edited negative count fails here.
@@ -137,6 +143,9 @@ GATES = [
     # the committed bytes (network-free, machine-independent).
     ("proof-hashes-current",
      [PY, "scripts/reconcile_proof_artefact_hashes.py", "--check"]),
+    # Risk-based inventory: every script is classified, and production
+    # mutation/publication paths are either gated or explicitly excepted.
+    ("gate-coverage", [PY, "scripts/gate_coverage.py", "--check"]),
 ]
 
 ONLY_MAP = {
@@ -150,12 +159,15 @@ ONLY_MAP = {
     "tests": ["unit-tests", "vbeta-tests"],
     "readme": ["readme-current", "stats-current", "field-coverage-current",
                "solodit-report-current", "repro-report-current"],
+    "reports": ["reports-current"],
+    "inventory": ["gate-coverage"],
     # `rejection`, not `benchmark`: the F-extension's authority is the canonical
     # rejection corpus and the negative-record layer that the other two rejection
     # gates already read, and its gold is that corpus's six axes re-expressed. The
     # `benchmark` group is the scoring/holdout/leakage layer, which reads the rows
     # but does not define them.
     "rejection": ["rejection-corpus-current", "negative-stats-current",
+                  "rejection-consistency",
                   "f-extension-consistency", "f-extension-current",
                   "f-extension-baselines-current"],
     "prove": ["prove-split-current", "prove-ledger-current"],
@@ -180,8 +192,55 @@ ONLY_MAP = {
 # Exit code 2 means SKIPPED (missing optional inputs, no network): recorded
 # as skipped, never as pass and never as failure. check_ml_layer.py returns
 # 2 when jsonl_ml/ is absent; network-gated validators use the same
-# convention via skipped_no_network.
+# convention via skipped_no_network. Exit 0 is PASS; any other code, a
+# timeout, or a launch error is FAIL. A skip message with exit 0 is a
+# defect in the child, not a skip.
 SKIPPED_CODES = {2}
+
+# Machine-local matrix. Committed reports must not depend on which optional
+# inputs this checkout holds, so this file is git-ignored.
+GATE_RUN_PATH = ROOT / "reports" / "gate_run.json"
+
+
+def classify_status(returncode: int | None, *, error: str | None = None) -> str:
+    """Map a child process outcome to PASS / FAIL / SKIPPED.
+
+    Unexpected return codes, launch failures and timeouts are FAIL, never
+    SKIPPED: converting a failure into a skip to keep a run green is
+    forbidden.
+    """
+    if error:
+        return "FAIL"
+    if returncode == 0:
+        return "PASS"
+    if returncode in SKIPPED_CODES:
+        return "SKIPPED"
+    return "FAIL"
+
+
+def write_gate_run(*, configured: int, selected: list[tuple[str, list]],
+                   results: list[tuple[str, str]], records: list[dict]) -> None:
+    """Write the git-ignored per-run matrix. Never a committed artefact."""
+    nfail = sum(1 for _, st in results if st == "FAIL")
+    nskip = sum(1 for _, st in results if st == "SKIPPED")
+    npass = sum(1 for _, st in results if st == "PASS")
+    payload = {
+        "generated_by": "scripts/run_gates.py",
+        "configured_gates": configured,
+        "selected_gates": len(selected),
+        "pass": npass,
+        "fail": nfail,
+        "skipped": nskip,
+        "reconciles": (npass + nfail + nskip) == len(selected),
+        "results": records,
+        "note": ("PASS + FAIL + SKIPPED must equal selected_gates. A skip "
+                 "records the child's skip line, the missing input it named, "
+                 "and that the check did not verify the claim."),
+    }
+    GATE_RUN_PATH.parent.mkdir(parents=True, exist_ok=True)
+    GATE_RUN_PATH.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n")
 
 
 def main() -> int:
@@ -208,27 +267,42 @@ def main() -> int:
         selected = [(n, c) for n, c in GATES if n in keep]
 
     results = []
+    records = []
     print("run_gates.py")
+    print(f"configured={len(GATES)} selected={len(selected)}")
     for name, cmd in selected:
         out = ""
-        status = "FAIL"
+        tail = ""
+        error = None
+        returncode: int | None = None
         try:
             p = subprocess.run(cmd, cwd=str(ROOT), capture_output=True,
                                text=True, timeout=1200, errors="replace")
-            if p.returncode == 0:
-                status = "PASS"
-            elif p.returncode in SKIPPED_CODES:
-                status = "SKIPPED"
-            else:
-                status = "FAIL"
+            returncode = p.returncode
             out = ((p.stdout or "") + (p.stderr or "")).strip()
             tail = " | ".join(t.strip() for t in out.splitlines()[-2:]
                               if t.strip())
         except subprocess.TimeoutExpired:
-            status, tail = "FAIL", "timeout after 1200s"
+            error, tail = "timeout after 1200s", "timeout after 1200s"
         except OSError as exc:
-            status, tail = "FAIL", f"cannot start: {exc}"
+            error = f"cannot start: {exc}"
+            tail = error
+        status = classify_status(returncode, error=error)
+        rec = {
+            "name": name,
+            "status": status,
+            "returncode": returncode,
+            "error": error,
+            "tail": (tail or "")[:160],
+        }
+        if status == "SKIPPED":
+            rec["skip_reason"] = tail
+            rec["missing_input"] = tail
+            rec["reproducibility_limitation"] = (
+                "optional inputs named in the skip line are absent; this "
+                "check did not run and its claim is unverified here")
         results.append((name, status))
+        records.append(rec)
         if args.quiet:
             continue
         print(f"  [{status}] {name}"
@@ -249,6 +323,11 @@ def main() -> int:
     npass = len(results) - nfail - nskip
     print(f"gates={len(results)} pass={npass} "
           f"fail={nfail} skipped={nskip}")
+    if npass + nfail + nskip != len(selected):
+        print("FAIL: PASS + FAIL + SKIPPED does not equal selected gates",
+              file=sys.stderr)
+    write_gate_run(configured=len(GATES), selected=selected,
+                   results=results, records=records)
     return overall_rc(results)
 
 

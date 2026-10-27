@@ -19,6 +19,8 @@ drops or relocates any cross-split pair above threshold.
 
     python scripts/check_leakage.py
     python scripts/check_leakage.py --emit splits_v2
+    python scripts/check_leakage.py --emit splits_v2 --dry-run
+    python scripts/check_leakage.py --emit splits_v2 --allow-quarantine-rewrite
 """
 
 from __future__ import annotations
@@ -26,6 +28,7 @@ from __future__ import annotations
 import argparse
 import collections
 import itertools
+import json
 import math
 import re
 import sys
@@ -307,9 +310,70 @@ def repository_isolation(rows_by_split: dict[str, list[dict]]) -> dict:
 
 SPLIT_PRIORITY = {"train": 0, "validation": 1, "test": 2}
 PRIORITY_NAME = {0: "train", 1: "validation", 2: "test"}
+QUARANTINE_PATH = ROOT / "splits_v2" / "quarantine.jsonl"
 
 
-def emit_splits_v2(report: dict, rows_by_split: dict[str, list[dict]]) -> dict:
+def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
+                               *, allow_rewrite: bool) -> dict:
+    """Decide whether a curated quarantine write is safe.
+
+    Removals (including emptying) require `--allow-quarantine-rewrite`.
+    Additions and no-ops do not. A simple 'must be a superset' rule is not
+    used as the only safeguard: removals are previewed, and additions are
+    logged even when allowed.
+    """
+    existing_ids = [rec_id(r) for r in existing]
+    proposed_ids = [rec_id(r) for r in proposed]
+    existing_counts = collections.Counter(existing_ids)
+    proposed_counts = collections.Counter(proposed_ids)
+    # Multiplicity-aware: two rows with the same id shrinking to one is a
+    # removal. Set membership alone would treat that as a no-op.
+    removed: list[str] = []
+    for i, n in existing_counts.items():
+        drop = n - proposed_counts.get(i, 0)
+        if drop > 0:
+            removed.extend([i] * drop)
+    added: list[str] = []
+    for i, n in proposed_counts.items():
+        extra = n - existing_counts.get(i, 0)
+        if extra > 0:
+            added.extend([i] * extra)
+    emptying = bool(existing) and not proposed
+    shrinking = len(proposed) < len(existing)
+    blocked = bool(removed) and not allow_rewrite
+    if blocked:
+        if emptying:
+            reason = (f"refusing to replace {len(existing)} curated "
+                      "quarantine row(s) with an empty file; pass "
+                      "--allow-quarantine-rewrite after reviewing the diff")
+        else:
+            reason = (f"refusing to remove {len(removed)} curated "
+                      f"quarantine row(s) ({len(existing)} -> {len(proposed)}); "
+                      "pass --allow-quarantine-rewrite after reviewing the diff")
+    else:
+        reason = "ok"
+    return {
+        "blocked": blocked,
+        "emptying": emptying,
+        "shrinking": shrinking,
+        "removed": removed,
+        "added": added,
+        "existing_n": len(existing),
+        "proposed_n": len(proposed),
+        "duplicate_ids": sorted(i for i, n in existing_counts.items() if n > 1),
+        "existing_sha256": sha256_text(
+            "".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n"
+                    for r in existing)),
+        "proposed_sha256": sha256_text(
+            "".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n"
+                    for r in proposed)),
+        "reason": reason,
+    }
+
+
+def emit_splits_v2(report: dict, rows_by_split: dict[str, list[dict]],
+                   *, allow_rewrite: bool = False,
+                   dry_run: bool = False) -> dict:
     """Quarantine the redundant copy of every cross-split duplicate.
 
     Records are quarantined, never moved. Moving a record into another split
@@ -352,11 +416,47 @@ def emit_splits_v2(report: dict, rows_by_split: dict[str, list[dict]]) -> dict:
                 continue
             new[s].append(r)
 
+    existing_q = (read_jsonl(QUARANTINE_PATH)
+                  if QUARANTINE_PATH.exists() else [])
+    decision = curated_overwrite_decision(
+        existing_q, quarantine, allow_rewrite=allow_rewrite)
+    log(f"quarantine write preview: existing={decision['existing_n']} "
+        f"proposed={decision['proposed_n']} removed={len(decision['removed'])} "
+        f"added={len(decision['added'])} "
+        f"before={decision['existing_sha256'][:12]} "
+        f"after={decision['proposed_sha256'][:12]}")
+    if decision["removed"]:
+        log(f"quarantine removals: {decision['removed'][:20]}")
+    if decision["added"]:
+        log(f"quarantine additions: {decision['added'][:20]}")
+    if decision["blocked"]:
+        log(decision["reason"])
+        return {
+            "blocked": True,
+            "decision": decision,
+            "offending_pairs": [],
+            "records_quarantined": len(quarantine),
+            "quarantined": sorted(drop),
+            "counts": {k: len(v) for k, v in new.items()},
+        }
+    if dry_run:
+        log("dry-run: no splits_v2 files written")
+        return {
+            "blocked": False,
+            "dry_run": True,
+            "decision": decision,
+            "offending_pairs": [],
+            "records_quarantined": len(quarantine),
+            "quarantined": sorted(drop),
+            "counts": {k: len(v) for k, v in new.items()},
+        }
     write_jsonl(ROOT / "splits_v2" / "train.jsonl", new["train"])
     write_jsonl(ROOT / "splits_v2" / "validation.jsonl", new["validation"])
     write_jsonl(ROOT / "splits_v2" / "test.jsonl", new["test"])
     write_jsonl(ROOT / "splits_v2" / "quarantine.jsonl", quarantine)
     return {
+        "blocked": False,
+        "decision": decision,
         "offending_pairs": [{"a": a, "b": b, "detector": g, "similarity": p}
                             for a, b, _, _, g, p in pairs],
         "records_quarantined": len(quarantine),
@@ -374,6 +474,10 @@ def main() -> int:
     ap.add_argument("--emit", choices=["", "splits_v2"], default="", metavar="splits_v2",
                     help="write a re-split with cross-split duplicates relocated")
     ap.add_argument("--input", default="splits_v2", help="splits directory to audit")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="with --emit, preview quarantine changes and write nothing")
+    ap.add_argument("--allow-quarantine-rewrite", action="store_true",
+                    help="with --emit, allow curated quarantine removals after preview")
     args = ap.parse_args()
     emit = bool(args.emit)
 
@@ -388,7 +492,13 @@ def main() -> int:
     report["generated_by"] = "scripts/check_leakage.py"
 
     if emit:
-        report["splits_v2"] = emit_splits_v2(report, rows_by_split)
+        report["splits_v2"] = emit_splits_v2(
+            report, rows_by_split,
+            allow_rewrite=args.allow_quarantine_rewrite,
+            dry_run=args.dry_run)
+        if report["splits_v2"].get("blocked") or report["splits_v2"].get("dry_run"):
+            log("emit aborted or dry-run: splits_v2 and leakage_report.json not written")
+            return 1 if report["splits_v2"].get("blocked") else 0
         after = build({s: read_jsonl(ROOT / "splits_v2" / f"{s}.jsonl") for s in SPLITS})
         report["splits_v2"]["post_check"] = {
             "near_duplicate_overlap": after["near_duplicate_overlap"]["count"],

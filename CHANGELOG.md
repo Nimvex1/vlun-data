@@ -1,5 +1,45 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — P0 CI follow-up (2026-10-27, unreleased)
+
+- Licence/source extraction findings are never marked `resolved` just because
+  `work/source_manifest.json` exists or live generation omitted them; resolution
+  requires a per-repository measurement.
+- Prove-ledger skip tests use `VLUN_PROVE_CANDIDATES`, not the real git-ignored
+  tree. `count_source_layer_mutable` returns `None` on a missing layer (tested).
+- `check_leakage.py` treats duplicate-id multiplicity drops as removals.
+- Eight new P0 paths classified by `build_release_manifest.py` as `project_own`
+  (authors' own tests, scripts, reports, audit notes). Not-released count
+  unchanged (1,347). Datasheet gate count 53→55. Vbeta PRESENT snapshot
+  refreshed via `validate_vbeta.py --resnapshot` for the README quarantine
+  correction.
+
+## Remediation — P0 gate integrity (2026-10-27, unreleased)
+
+- **Skip is never PASS (G1).** `build_prove_ledger.py --check` returns exit
+  code 2 when `work/prove_candidates` is absent; `run_gates.py` records
+  SKIPPED. Regression: `tests/test_gate_exit_codes.py`.
+- **Report freshness is gated (G2).** `generate_reports.py --check` rebuilds
+  `extraction_errors.json` and `final_quality_report.md` in memory and
+  compares. Findings keep an explicit `state` (`open` / `resolved` /
+  `superseded` / `unverifiable`) and are never deleted; the three
+  `validation_failure` entries that contradicted a green
+  `validation_report.json` are marked resolved with evidence.
+- **Curated quarantine cannot be emptied by `--emit` (G3).**
+  `check_leakage.py --emit splits_v2` refuses removals unless
+  `--allow-quarantine-rewrite` is passed after a preview. Writes stay
+  atomic. Regression: `tests/test_leakage_emit_guard.py`.
+- **Vbeta quality report is LF-canonical (G4).** `build_vbeta.py` writes
+  with `newline="\\n"`; the reproducibility snapshot includes
+  `reports_vbeta/quality_report.md`.
+- **`remaining_mutable_in_source_layer` has a producer (G5).** Measured
+  from jsonl/ (453 mutable `commit_sha` values); never defaulted to 0 when
+  the layer is absent.
+- **Gate-coverage inventory (G6).** `scripts/gate_coverage.py` classifies
+  every script; CI uploads `reports/gate_run.json`.
+- **README quarantine count.** `splits_v2/quarantine.jsonl` is 2 rows; the
+  63-row file is `Vbeta/splits_vbeta/quarantine.jsonl`.
+
 ## Remediation — baseline-drift repair, reproducibility hardening (2026-10-25, unreleased)
 
 - **v2.2 split-pointer drift repaired (37 records).** Commit `cb6a2a8` added

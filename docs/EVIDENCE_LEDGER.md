@@ -1,5 +1,39 @@
 # VLUN evidence ledger — 2026-10-25 pass
 
+## 2026-10-27 P0 integrity (this session)
+
+Baseline: `_audit/baseline_2026-10-27.md` at commit
+`6933f3f3f1a6d9270f405bf317d3d6d6de8fc7ee`. Working tree was clean; the two
+pre-existing uncommitted report edits named in the plan were **not present**.
+
+| ID | Status | Notes |
+|---|---|---|
+| G1 skip→pass (`build_prove_ledger.py --check` exit 0) | FIXED | exit 2 + `tests/test_gate_exit_codes.py` |
+| G2 stale `extraction_errors.json` / no `--check` | FIXED | merge+state ledger; `reports-current` gate |
+| G3 `--emit` emptying `splits_v2/quarantine.jsonl` | FIXED | in-script curated-write guard |
+| G4 Vbeta `write_text` CRLF | FIXED | `newline="\\n"` + snapshot |
+| G5 `remaining_mutable_in_source_layer` null | FIXED | producer counts jsonl/; value 453 |
+| G6 gate-coverage inventory | FIXED | `scripts/gate_coverage.py` |
+| README 63-row `splits_v2/quarantine.jsonl` | FIXED | live count is 2; 63 is Vbeta |
+
+Labels, splits and answer keys were not rewritten. Family A, V4 overlay,
+executable expansion and rights clearance remain OPEN (P1/P2).
+
+CI follow-up on PR #4 (commit after 209deeb):
+
+- Licence/source `resolved` without per-repo evidence: FIXED (`unverifiable`
+  unless that repository is measured licensed / retrieved).
+- Skip tests assumed `work/prove_candidates` absent: FIXED (`VLUN_PROVE_CANDIDATES`).
+- Missing-layer metric test was a no-op: FIXED (temp dir → `None`).
+- 8 unclassified paths: FIXED by regenerating `RELEASE_MANIFEST.json`
+  (project_own for VLUN-authored files; 1347 not-released unchanged).
+- `datasheet-current` 53 vs 55 gates: FIXED via `build_datasheet.py`.
+- Catalog / `validation_vbeta.json`: vbeta-gate rewrites that report; README
+  sentinel drift made the bytes differ mid-run. FIXED by authorized
+  `--resnapshot` of `Vbeta/present_snapshot.json`.
+- Duplicate-id quarantine shrink: FIXED (Counter multiplicity).
+
+
 Every finding: scope (file / record ids), measurement method, remedy, and
 status. Historical claims from `_audit/INDEPENDENT_REVIEW.md`, `BASELINE.md`
 and `improve.md` are re-measured here, never quoted. Machine-local run logs

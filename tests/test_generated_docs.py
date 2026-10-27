@@ -595,6 +595,20 @@ class TestReproducibilityReportIsGenerated(unittest.TestCase):
         self.assertIn("machine-dependent", text)
 
 
+class TestQuarantineCountIsLive(unittest.TestCase):
+    def test_readme_quotes_splits_v2_quarantine_row_count(self):
+        n = sum(1 for line in (ROOT / "splits_v2" / "quarantine.jsonl")
+                .read_text(encoding="utf-8").splitlines() if line.strip())
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(f"{n}-row `splits_v2/quarantine.jsonl`", readme)
+        self.assertNotIn("63-row `splits_v2/quarantine.jsonl`", readme)
+        vb = sum(1 for line in (
+            ROOT / "Vbeta" / "splits_vbeta" / "quarantine.jsonl")
+            .read_text(encoding="utf-8").splitlines() if line.strip())
+        self.assertIn(f"{vb}-row file is `Vbeta/splits_vbeta/quarantine.jsonl`",
+                      readme)
+
+
 if __name__ == "__main__":
     import sys
     sys.path.insert(0, str(ROOT / "scripts"))

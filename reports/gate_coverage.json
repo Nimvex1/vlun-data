@@ -1,0 +1,1047 @@
+{
+  "by_category": {
+    "evaluation": 25,
+    "legacy": 3,
+    "library": 18,
+    "production_builder": 53,
+    "production_validator": 18,
+    "release_rights": 5,
+    "research_harvest": 10
+  },
+  "description": "Risk-based inventory of scripts/ and Vbeta/scripts/. Not every script is a gate. Production builders/validators/release tools that can mutate labels, splits, answer keys, manifests or committed reports must be gated or listed in UNGATED_REASONS.",
+  "gated_script_count": 52,
+  "generated_by": "scripts/gate_coverage.py",
+  "missing_ungated_reason": [],
+  "script_count": 132,
+  "scripts": [
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/__init__.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "root-cause-assignments-current"
+      ],
+      "path": "scripts/assign_root_causes.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "span-audit-current"
+      ],
+      "path": "scripts/audit_evidence_spans.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "legacy",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/audit_pre_upgrade.py",
+      "ungated_reason": "historical audit; committed report is frozen"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/audit_records.py",
+      "ungated_reason": "one-off audit writer; does not mutate labels or splits"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/audit_sources.py",
+      "ungated_reason": "source registry helper; ingest report is committed separately"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/audit_third_party.py",
+      "ungated_reason": "rights census helper; check_rights_consistency.py is the gate"
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/benchmark_status.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_all.py",
+      "ungated_reason": "orchestrator; canonical-layer guard is in-process, not a --check gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "api-siblings-current"
+      ],
+      "path": "scripts/build_api_siblings.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_benchmark.py",
+      "ungated_reason": "rebuilds frozen family rows; gated indirectly via benchmark --check freshness of emitted task files and score_benchmark.py"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_benchmark_v22.py",
+      "ungated_reason": "v2.2 family builder; freshness covered by v2.2 split/manifest checks"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_benchmark_v31.py",
+      "ungated_reason": "family T builder; taxonomy-current / v31 gates cover the outputs"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_canonical_training.py",
+      "ungated_reason": "training view builder; eval-leakage is the publication gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_counterexamples.py",
+      "ungated_reason": "derived helper; counterexample_stats.json consumed by reports, not a gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "datasheet-current"
+      ],
+      "path": "scripts/build_datasheet.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_derived.py",
+      "ungated_reason": "needs local clones; canonical derived/ is guarded by build_all.py"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_derived_v22.py",
+      "ungated_reason": "v2.2 derived builder; split-pointer --check covers the published hashes"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "eval-leakage-report-current"
+      ],
+      "path": "scripts/build_eval_leakage_report.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "f-extension-current"
+      ],
+      "path": "scripts/build_f_extension.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_hard_negatives.py",
+      "ungated_reason": "derived helper; hard_negative_stats.json consumed by reports"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "catalog-current"
+      ],
+      "path": "scripts/build_json_catalog.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_ml_ingest.py",
+      "ungated_reason": "jsonl_ml builder; check_ml_layer.py is the gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "poc-triage-current"
+      ],
+      "path": "scripts/build_poc_triage_queue.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "prove-ledger-current"
+      ],
+      "path": "scripts/build_prove_ledger.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "prove-split-current"
+      ],
+      "path": "scripts/build_prove_split.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "quarantine-report-current"
+      ],
+      "path": "scripts/build_quarantine_report.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "rejection-corpus-current"
+      ],
+      "path": "scripts/build_rejection_corpus.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "release_rights",
+      "gated": true,
+      "gates": [
+        "release-manifest-current"
+      ],
+      "path": "scripts/build_release_manifest.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "remediation-report-current"
+      ],
+      "path": "scripts/build_remediation_report.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "repro-report-current"
+      ],
+      "path": "scripts/build_repro_report.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_reproduction.py",
+      "ungated_reason": "derived helper; reproduction reports are gated elsewhere"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "schemas-current"
+      ],
+      "path": "scripts/build_schemas.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "benchmark-holdout-current"
+      ],
+      "path": "scripts/build_secondary_holdout.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_source_sha_index.py",
+      "ungated_reason": "local sha index over git-ignored clones"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "span-tasks-current"
+      ],
+      "path": "scripts/build_span_tasks.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_splits_v22.py",
+      "ungated_reason": "v2.2 split builder; pointer --check covers published hashes"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_subsets.py",
+      "ungated_reason": "subset builder; validate.py subset admission checks are the gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_v3.py",
+      "ungated_reason": "needs V3/clones; validate_v3.py is the gate on the published layer"
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_v3_harvest.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/build_vyper_ml.py",
+      "ungated_reason": "language-specific ingest; ml-layer gate covers jsonl_ml/"
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "eval-leakage"
+      ],
+      "path": "scripts/check_eval_leakage.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "f-extension-consistency"
+      ],
+      "path": "scripts/check_f_extension.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/check_leakage.py",
+      "ungated_reason": "--emit is a migration; in-script curated-write guard refuses quarantine shrink/empty; build_all.py still rolls back canonical rewrites"
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "line-endings"
+      ],
+      "path": "scripts/check_line_endings.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "manifests"
+      ],
+      "path": "scripts/check_manifests.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "ml-layer"
+      ],
+      "path": "scripts/check_ml_layer.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "no-machine-paths"
+      ],
+      "path": "scripts/check_no_machine_paths.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "rejection-consistency"
+      ],
+      "path": "scripts/check_rejection_consistency.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "reproducibility"
+      ],
+      "path": "scripts/check_reproducibility.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "release_rights",
+      "gated": true,
+      "gates": [
+        "rights-consistency"
+      ],
+      "path": "scripts/check_rights_consistency.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "negative-stats-current"
+      ],
+      "path": "scripts/classify_negatives.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/counterexample_pairs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/crawl_solodit.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/depth_dashboard.py",
+      "ungated_reason": "coverage dashboard; field-coverage-current is the gate"
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/experiments.py",
+      "ungated_reason": "library of experiment runners, not a publisher"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/export_run_artefacts.py",
+      "ungated_reason": "artefact exporter; proof-hashes-current is the gate"
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/extract_cloned_findings.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/fetch_sources.py",
+      "ungated_reason": "network harvest; skipped_no_network, never a CI freshness gate"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "field-coverage-current"
+      ],
+      "path": "scripts/field_coverage.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "gate-coverage"
+      ],
+      "path": "scripts/gate_coverage.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/gate_inputs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "readme-current"
+      ],
+      "path": "scripts/generate_readme.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "reports-current"
+      ],
+      "path": "scripts/generate_reports.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "stats-current"
+      ],
+      "path": "scripts/generate_stats.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "legacy",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/generate_v21_reports.py",
+      "ungated_reason": "legacy v2.1 report writer; superseded by generate_reports.py"
+    },
+    {
+      "category": "legacy",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/generate_v22_reports.py",
+      "ungated_reason": "legacy v2.2 report writer; superseded by layer-specific --check gates"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "iaa-stats-current"
+      ],
+      "path": "scripts/iaa_statistics.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "benchmark-audit-current"
+      ],
+      "path": "scripts/independent_benchmark_audit.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/ingest_audit_sources.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "release_rights",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/inventory_rights.py",
+      "ungated_reason": "builds rights_inventory.json; check_rights_consistency.py is the gate"
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/local_sources.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/aptos_move.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/cairo_scarb.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/common.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/cosmwasm.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/run_pilot.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/solana_anchor.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/nonevm/sui_move.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/normalize_v3.py",
+      "ungated_reason": "needs V3/clones; validate_v31.py is the gate on the published layer"
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/normalize_v3_lib.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/pdf_cmap.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/pdf_decode.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/pdf_text.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/poc_classification.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/prove_grader.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "proof-hashes-current"
+      ],
+      "path": "scripts/reconcile_proof_artefact_hashes.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "release_rights",
+      "gated": true,
+      "gates": [
+        "v4-licensing-current"
+      ],
+      "path": "scripts/reconcile_v4_licensing.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "release_rights",
+      "gated": true,
+      "gates": [
+        "redaction-current"
+      ],
+      "path": "scripts/redact_machine_paths.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/register_v4.py",
+      "ungated_reason": "V4 registration; v4-licensing-current is the gate"
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "poc-attempts-current"
+      ],
+      "path": "scripts/rerun_v1_pocs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/resolve_citations.py",
+      "ungated_reason": "needs local clones; remaining_mutable_in_source_layer is tested from jsonl/ and stored in citation_resolution.json"
+    },
+    {
+      "category": "production_builder",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/review_patch_candidates.py",
+      "ungated_reason": "review helper; does not publish splits or labels"
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "sibling-review-current"
+      ],
+      "path": "scripts/review_sibling_pairs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_dhl_experiments.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_gates.py",
+      "ungated_reason": "umbrella runner; it is not a child of itself"
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_ml_pocs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_move_poc.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_negative_experiments.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_static_analysis.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_verified_experiments.py",
+      "ungated_reason": "execution; needs work/wt clones; not a --check gate"
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/run_vyper_poc.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "iaa-sample-current"
+      ],
+      "path": "scripts/sample_iaa.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/schema_terms.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "benchmark-baselines-current",
+        "benchmark-metrics-current"
+      ],
+      "path": "scripts/score_benchmark.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "f-extension-baselines-current"
+      ],
+      "path": "scripts/score_f_extension.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "span-scoring-current"
+      ],
+      "path": "scripts/score_span_tasks.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/solidity_facts.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/taxonomy.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": true,
+      "gates": [
+        "v32-attempts-current"
+      ],
+      "path": "scripts/unblock_v32_runs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/v31_extract.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/v32_execution.py",
+      "ungated_reason": "execution helper; unblock_v32_runs --check is the gate"
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "v1-authorship"
+      ],
+      "path": "scripts/validate.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/validate_checks.py",
+      "ungated_reason": "implementation module of validate.py; the v1-authorship gate covers it"
+    },
+    {
+      "category": "production_validator",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/validate_schema.py",
+      "ungated_reason": "schema helper; schemas-current and validate.py cover published schemas"
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "taxonomy-current"
+      ],
+      "path": "scripts/validate_taxonomy.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "v3"
+      ],
+      "path": "scripts/validate_v3.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "v31"
+      ],
+      "path": "scripts/validate_v31.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/verify_patches.py",
+      "ungated_reason": "execution; patch_verification.json is the published artefact"
+    },
+    {
+      "category": "evaluation",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/verify_pocs.py",
+      "ungated_reason": "execution; artefacts gated by proof-hashes / verified-experiments reports"
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/vlun.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/vlun_io.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/vlun_ml.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "scripts/vlun_v3.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "solodit-report-current"
+      ],
+      "path": "Vbeta/scripts/build_solodit_report.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_builder",
+      "gated": true,
+      "gates": [
+        "vbeta-build-current"
+      ],
+      "path": "Vbeta/scripts/build_vbeta.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "Vbeta/scripts/harvest_lisabench.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "Vbeta/scripts/harvest_scabench.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "Vbeta/scripts/harvest_solodit.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "research_harvest",
+      "gated": false,
+      "gates": [],
+      "path": "Vbeta/scripts/harvest_web3bugs.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "production_validator",
+      "gated": true,
+      "gates": [
+        "vbeta-gate"
+      ],
+      "path": "Vbeta/scripts/validate_vbeta.py",
+      "ungated_reason": null
+    },
+    {
+      "category": "library",
+      "gated": false,
+      "gates": [],
+      "path": "Vbeta/scripts/vlun_vbeta.py",
+      "ungated_reason": null
+    }
+  ]
+}
