@@ -64,18 +64,21 @@ REF_KEYS = ("code_context", "vulnerable_code", "code_reference_only",
             "code_context_expanded")
 
 
-def count_source_layer_mutable() -> int | None:
+def count_source_layer_mutable(jsonl_dir: Path | None = None) -> int | None:
     """Mutable commit_sha values in the read-only jsonl/ source layer.
 
     Scope: `code_context` + `vulnerable_code` + `code_reference_only`
     entries (see `vlun.code_entries`) whose `commit_sha` is present and
-    not a 40-hex pin. Returns None when jsonl/ is absent so a missing
-    layer is not reported as zero findings.
+    not a 40-hex pin. Returns None when the layer directory is absent or
+    contains none of the core files, so a missing layer is not reported
+    as zero findings. ``jsonl_dir`` is a test seam; production uses
+    ``vlun.JSONL``.
     """
+    base = jsonl_dir if jsonl_dir is not None else JSONL
     seen_any = False
     n = 0
     for name in CORE_FILES.values():
-        path = JSONL / name
+        path = base / name
         if not path.exists():
             continue
         seen_any = True

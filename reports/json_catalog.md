@@ -415,12 +415,12 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 453,237 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 454,349 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 895 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 860 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

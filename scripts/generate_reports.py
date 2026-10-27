@@ -75,6 +75,105 @@ def _validation_detail(check_name: str) -> dict | None:
     return None
 
 
+def _repo_in_source_manifest(srcman: dict, repo: str | None) -> dict | None:
+    if not repo:
+        return None
+    for r in srcman.get("repos") or []:
+        if isinstance(r, dict) and r.get("repo") == repo:
+            return r
+    return None
+
+
+def _adjudicate_source_finding(row: dict, kind: str) -> dict:
+    """Licence/source findings need per-repo evidence, not a present file.
+
+    A source_manifest existing, or live generation omitting the row, is not
+    enough to mark the finding resolved.
+    """
+    srcman_path = WORK / "source_manifest.json"
+    if not srcman_path.exists():
+        row["state"] = "unverifiable"
+        row["still_true"] = None
+        row["resolution"] = {
+            "reason": ("work/source_manifest.json is unavailable; live "
+                       "generation cannot confirm or refute this finding"),
+            "evidence": "work/source_manifest.json",
+            "missing_input": "work/source_manifest.json",
+        }
+        return row
+    srcman = jread(srcman_path, {}) or {}
+    repo = row.get("repository")
+    match = _repo_in_source_manifest(srcman, repo)
+    if match is None:
+        row["state"] = "unverifiable"
+        row["still_true"] = None
+        row["resolution"] = {
+            "reason": (f"source_manifest.json does not contain a measured "
+                       f"entry for repository {repo!r}; absence from live "
+                       f"generation is not resolution evidence"),
+            "evidence": "work/source_manifest.json",
+            "repository": repo,
+        }
+        return row
+    if kind == "license_not_declared":
+        lic = match.get("license") or {}
+        if lic.get("found"):
+            row["state"] = "resolved"
+            row["still_true"] = False
+            row["resolution"] = {
+                "reason": (f"source_manifest.json records a LICENSE for "
+                           f"{repo} at a cited commit"),
+                "evidence": "work/source_manifest.json",
+                "repository": repo,
+                "license_found": True,
+            }
+            return row
+        row["state"] = "unverifiable"
+        row["still_true"] = None
+        row["resolution"] = {
+            "reason": (f"{repo} is in source_manifest.json but still has no "
+                       f"declared LICENSE; the finding is not resolved"),
+            "evidence": "work/source_manifest.json",
+            "repository": repo,
+            "license_found": False,
+        }
+        return row
+    if kind == "source_unavailable":
+        missing = match.get("files_missing") or 0
+        if match.get("status") != "clone_failed" and not missing:
+            row["state"] = "resolved"
+            row["still_true"] = False
+            row["resolution"] = {
+                "reason": (f"source_manifest.json records {repo} as retrieved "
+                           f"with no missing cited files"),
+                "evidence": "work/source_manifest.json",
+                "repository": repo,
+                "status": match.get("status"),
+                "files_missing": 0,
+            }
+            return row
+        row["state"] = "unverifiable"
+        row["still_true"] = None
+        row["resolution"] = {
+            "reason": (f"{repo} is still missing source in "
+                       f"source_manifest.json"),
+            "evidence": "work/source_manifest.json",
+            "repository": repo,
+            "status": match.get("status"),
+            "files_missing": missing,
+        }
+        return row
+    row["state"] = "unverifiable"
+    row["still_true"] = None
+    row["resolution"] = {
+        "reason": "no finding-specific positive evidence for this kind",
+        "evidence": "work/source_manifest.json",
+        "repository": repo,
+        "kind": kind,
+    }
+    return row
+
+
 def adjudicate_absent(previous: dict, fid: str) -> dict:
     """Keep a historical finding that live generation no longer emits.
 
@@ -111,25 +210,7 @@ def adjudicate_absent(previous: dict, fid: str) -> dict:
         }
         return row
     if kind in INPUT_DEPENDENT_KINDS:
-        srcman = WORK / "source_manifest.json"
-        if not srcman.exists():
-            row["state"] = "unverifiable"
-            row["still_true"] = None
-            row["resolution"] = {
-                "reason": ("work/source_manifest.json is unavailable; live "
-                           "generation cannot confirm or refute this finding"),
-                "evidence": "work/source_manifest.json",
-                "missing_input": "work/source_manifest.json",
-            }
-            return row
-        row["state"] = "resolved"
-        row["still_true"] = False
-        row["resolution"] = {
-            "reason": ("source_manifest.json is present and live generation "
-                       "no longer emits this finding"),
-            "evidence": "work/source_manifest.json",
-        }
-        return row
+        return _adjudicate_source_finding(row, kind)
     row["state"] = "unverifiable"
     row["resolution"] = {
         "reason": ("not emitted by live generation; no independent evidence "

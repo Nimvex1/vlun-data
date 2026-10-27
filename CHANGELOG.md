@@ -1,5 +1,19 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — P0 CI follow-up (2026-10-27, unreleased)
+
+- Licence/source extraction findings are never marked `resolved` just because
+  `work/source_manifest.json` exists or live generation omitted them; resolution
+  requires a per-repository measurement.
+- Prove-ledger skip tests use `VLUN_PROVE_CANDIDATES`, not the real git-ignored
+  tree. `count_source_layer_mutable` returns `None` on a missing layer (tested).
+- `check_leakage.py` treats duplicate-id multiplicity drops as removals.
+- Eight new P0 paths classified by `build_release_manifest.py` as `project_own`
+  (authors' own tests, scripts, reports, audit notes). Not-released count
+  unchanged (1,347). Datasheet gate count 53→55. Vbeta PRESENT snapshot
+  refreshed via `validate_vbeta.py --resnapshot` for the README quarantine
+  correction.
+
 ## Remediation — P0 gate integrity (2026-10-27, unreleased)
 
 - **Skip is never PASS (G1).** `build_prove_ledger.py --check` returns exit

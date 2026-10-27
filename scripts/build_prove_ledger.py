@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -27,7 +28,15 @@ if str(ROOT / "scripts") not in sys.path:
 from gate_inputs import SKIP_RC, skip_line  # noqa: E402
 from vlun import REPORTS, log, read_jsonl, write_json, write_jsonl  # noqa: E402
 
-CANDIDATE_DIR = ROOT / "work" / "prove_candidates"
+def candidate_dir() -> Path:
+    """Discovery ledgers. Overridable so tests do not depend on the real tree."""
+    override = os.environ.get("VLUN_PROVE_CANDIDATES")
+    if override:
+        return Path(override)
+    return ROOT / "work" / "prove_candidates"
+
+
+CANDIDATE_DIR = candidate_dir()
 OUT_DIR = ROOT / "derived_prove"
 LEDGER = OUT_DIR / "candidate_ledger.jsonl"
 STATS_JSON = REPORTS / "prove_candidate_ledger.json"
@@ -505,6 +514,8 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
+    global CANDIDATE_DIR
+    CANDIDATE_DIR = candidate_dir()
 
     recorded = seed_from_recorded_evidence()
     discovered, loaded = load_input_ledgers()

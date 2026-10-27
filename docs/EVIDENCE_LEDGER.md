@@ -19,6 +19,20 @@ pre-existing uncommitted report edits named in the plan were **not present**.
 Labels, splits and answer keys were not rewritten. Family A, V4 overlay,
 executable expansion and rights clearance remain OPEN (P1/P2).
 
+CI follow-up on PR #4 (commit after 209deeb):
+
+- Licence/source `resolved` without per-repo evidence: FIXED (`unverifiable`
+  unless that repository is measured licensed / retrieved).
+- Skip tests assumed `work/prove_candidates` absent: FIXED (`VLUN_PROVE_CANDIDATES`).
+- Missing-layer metric test was a no-op: FIXED (temp dir → `None`).
+- 8 unclassified paths: FIXED by regenerating `RELEASE_MANIFEST.json`
+  (project_own for VLUN-authored files; 1347 not-released unchanged).
+- `datasheet-current` 53 vs 55 gates: FIXED via `build_datasheet.py`.
+- Catalog / `validation_vbeta.json`: vbeta-gate rewrites that report; README
+  sentinel drift made the bytes differ mid-run. FIXED by authorized
+  `--resnapshot` of `Vbeta/present_snapshot.json`.
+- Duplicate-id quarantine shrink: FIXED (Counter multiplicity).
+
 
 Every finding: scope (file / record ids), measurement method, remedy, and
 status. Historical claims from `_audit/INDEPENDENT_REVIEW.md`, `BASELINE.md`

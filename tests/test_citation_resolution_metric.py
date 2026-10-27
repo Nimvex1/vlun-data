@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -26,12 +27,16 @@ class TestSourceLayerMutableMetric(unittest.TestCase):
         self.assertIsNotNone(recorded)
         self.assertEqual(recorded, rc.count_source_layer_mutable())
 
-    def test_field_is_not_silently_zero_when_layer_missing(self):
-        # The producer returns None when jsonl/ is absent; it must not
-        # invent 0. The layer is present in this checkout, so we assert
-        # the contract on the function's missing-data branch via the
-        # documented None return, not by deleting jsonl/.
-        self.assertTrue(callable(rc.count_source_layer_mutable))
+    def test_missing_layer_returns_none_not_zero(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            absent = Path(tmp) / "jsonl_not_here"
+            self.assertFalse(absent.exists())
+            self.assertIsNone(rc.count_source_layer_mutable(absent))
+
+    def test_empty_layer_directory_returns_none_not_zero(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            empty = Path(tmp)
+            self.assertIsNone(rc.count_source_layer_mutable(empty))
 
 
 if __name__ == "__main__":

@@ -324,9 +324,20 @@ def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
     """
     existing_ids = [rec_id(r) for r in existing]
     proposed_ids = [rec_id(r) for r in proposed]
-    existing_set, proposed_set = set(existing_ids), set(proposed_ids)
-    removed = [i for i in existing_ids if i not in proposed_set]
-    added = [i for i in proposed_ids if i not in existing_set]
+    existing_counts = collections.Counter(existing_ids)
+    proposed_counts = collections.Counter(proposed_ids)
+    # Multiplicity-aware: two rows with the same id shrinking to one is a
+    # removal. Set membership alone would treat that as a no-op.
+    removed: list[str] = []
+    for i, n in existing_counts.items():
+        drop = n - proposed_counts.get(i, 0)
+        if drop > 0:
+            removed.extend([i] * drop)
+    added: list[str] = []
+    for i, n in proposed_counts.items():
+        extra = n - existing_counts.get(i, 0)
+        if extra > 0:
+            added.extend([i] * extra)
     emptying = bool(existing) and not proposed
     shrinking = len(proposed) < len(existing)
     blocked = bool(removed) and not allow_rewrite
@@ -349,6 +360,7 @@ def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
         "added": added,
         "existing_n": len(existing),
         "proposed_n": len(proposed),
+        "duplicate_ids": sorted(i for i, n in existing_counts.items() if n > 1),
         "existing_sha256": sha256_text(
             "".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n"
                     for r in existing)),

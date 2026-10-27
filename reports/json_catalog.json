@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 453237,
+      "bytes": 454349,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "f25c912accd61c3f3597cb7e0633ddab606bf8c5e9ae57f5eec0b835bee50e1f",
+      "sha256": "fc0c1487677f30cbde1c902d8d8d69457e4abd70d0d6680f803ece88a386e660",
       "tracked": true
     },
     {
@@ -337,7 +337,7 @@
       "tracked": true
     },
     {
-      "bytes": 895,
+      "bytes": 860,
       "category": "meta",
       "keys": [
         "note",
@@ -348,7 +348,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "420ae02373032c9273bee82c64bd86d35706034b7f89ae3b5e360cd35468a297",
+      "sha256": "3f1799331b9da6ff17b934aef144e8f149030cb147b2ca4d646f3334fe14ff74",
       "tracked": true
     },
     {

@@ -67,6 +67,46 @@ class TestExtractionErrorsFreshness(unittest.TestCase):
             if e.get("state") != "open":
                 self.assertTrue(e.get("resolution"), e)
 
+    def test_license_finding_not_resolved_just_because_manifest_exists(self):
+        import tempfile
+        from unittest import mock
+        prev = {
+            "origin": "v2",
+            "kind": "license_not_declared",
+            "repository": "acme/unlicensed",
+            "summary": "acme/unlicensed has no LICENSE file at any cited commit",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            man = Path(tmp) / "source_manifest.json"
+            man.write_text(json.dumps({
+                "repos": [{"repo": "other/x", "license": {"found": True}}],
+            }), encoding="utf-8")
+            with mock.patch.object(gr, "WORK", Path(tmp)):
+                row = gr.adjudicate_absent(prev, gr.finding_id(prev))
+        self.assertEqual(row["state"], "unverifiable", row)
+        self.assertNotEqual(row.get("still_true"), False)
+
+    def test_license_resolved_only_with_that_repo_license(self):
+        import tempfile
+        from unittest import mock
+        prev = {
+            "origin": "v2",
+            "kind": "license_not_declared",
+            "repository": "acme/now-licensed",
+            "summary": "acme/now-licensed has no LICENSE file at any cited commit",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            man = Path(tmp) / "source_manifest.json"
+            man.write_text(json.dumps({
+                "repos": [{"repo": "acme/now-licensed",
+                           "license": {"found": True, "spdx": "MIT"}}],
+            }), encoding="utf-8")
+            with mock.patch.object(gr, "WORK", Path(tmp)):
+                row = gr.adjudicate_absent(prev, gr.finding_id(prev))
+        self.assertEqual(row["state"], "resolved", row)
+        self.assertFalse(row["still_true"])
+        self.assertEqual(row["resolution"]["repository"], "acme/now-licensed")
+
     def test_historical_entries_are_not_dropped(self):
         doc = json.loads(
             (ROOT / "reports" / "extraction_errors.json").read_text(

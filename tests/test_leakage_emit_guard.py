@@ -57,6 +57,23 @@ class TestCuratedOverwriteDecision(unittest.TestCase):
             [_row("a")], [_row("b")], allow_rewrite=True)
         self.assertNotEqual(d["existing_sha256"], d["proposed_sha256"])
 
+    def test_duplicate_id_multiplicity_drop_is_blocked(self):
+        """Two rows with the same id shrinking to one is a removal."""
+        d = cl.curated_overwrite_decision(
+            [_row("a"), _row("a")], [_row("a")], allow_rewrite=False)
+        self.assertTrue(d["blocked"])
+        self.assertTrue(d["shrinking"])
+        self.assertEqual(d["existing_n"], 2)
+        self.assertEqual(d["proposed_n"], 1)
+        self.assertEqual(d["removed"], [cl.rec_id(_row("a"))])
+        self.assertEqual(d["duplicate_ids"], [cl.rec_id(_row("a"))])
+
+    def test_duplicate_id_kept_at_same_multiplicity_is_allowed(self):
+        rows = [_row("a"), _row("a")]
+        d = cl.curated_overwrite_decision(rows, rows, allow_rewrite=False)
+        self.assertFalse(d["blocked"])
+        self.assertEqual(d["removed"], [])
+
 
 class TestCommittedQuarantineUntouchedByDecision(unittest.TestCase):
     def test_live_quarantine_has_two_rows(self):

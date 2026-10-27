@@ -2,12 +2,15 @@
 
 Covers the path from a --check script's exit code through run_gates.py
 status classification, including unexpected exits, launch errors and
-timeouts.
+timeouts. Missing-input tests use a controlled path, not the real
+git-ignored work/prove_candidates tree.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -44,23 +47,40 @@ class TestClassifyStatus(unittest.TestCase):
 
 
 class TestProveLedgerSkipCode(unittest.TestCase):
+    def _absent_env(self) -> dict[str, str]:
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(lambda: None)
+        env = os.environ.copy()
+        env["VLUN_PROVE_CANDIDATES"] = str(Path(tmp) / "prove_candidates_absent")
+        return env
+
     def test_missing_local_inputs_exit_two(self):
-        """A fresh checkout without work/prove_candidates must SKIP, not PASS."""
-        candidates = ROOT / "work" / "prove_candidates"
-        self.assertFalse(candidates.exists(),
-                         "this test assumes the git-ignored input is absent")
+        env = self._absent_env()
+        self.assertFalse(Path(env["VLUN_PROVE_CANDIDATES"]).exists())
         r = subprocess.run(
             [sys.executable, "scripts/build_prove_ledger.py", "--check"],
-            cwd=str(ROOT), capture_output=True, text=True, timeout=60)
+            cwd=str(ROOT), capture_output=True, text=True, timeout=60,
+            env=env)
         self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
         combined = (r.stdout or "") + (r.stderr or "")
         self.assertIn("skipped_no_network", combined)
-        self.assertIn("work/prove_candidates", combined)
+
+    def test_empty_candidate_dir_is_still_a_skip(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            env = os.environ.copy()
+            env["VLUN_PROVE_CANDIDATES"] = tmp
+            r = subprocess.run(
+                [sys.executable, "scripts/build_prove_ledger.py", "--check"],
+                cwd=str(ROOT), capture_output=True, text=True, timeout=60,
+                env=env)
+            self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
 
     def test_run_gates_records_skip_not_pass(self):
+        env = self._absent_env()
         r = subprocess.run(
             [sys.executable, "scripts/run_gates.py", "--only", "prove"],
-            cwd=str(ROOT), capture_output=True, text=True, timeout=180)
+            cwd=str(ROOT), capture_output=True, text=True, timeout=180,
+            env=env)
         out = r.stdout + r.stderr
         self.assertIn("prove-ledger-current", out)
         self.assertRegex(out, r"\[SKIPPED\] prove-ledger-current")
