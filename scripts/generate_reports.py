@@ -8,12 +8,20 @@
 Nothing here computes a number that a source does not support. Metrics whose
 denominator is zero are reported as "not measurable" rather than as 0% or 100%.
 
+Freshness (`--check`) is independent of semantic validation: a byte-identical
+regeneration can still contain a resolved or unverifiable finding. Findings are
+never deleted; each carries `state` in {open, resolved, superseded,
+unverifiable} with evidence for any non-open state.
+
     python scripts/generate_reports.py
+    python scripts/generate_reports.py --check
 """
 
 from __future__ import annotations
 
+import argparse
 import collections
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -41,16 +49,155 @@ def pct(n, d):
     return "not measurable" if not d else f"{n}/{d} ({100.0 * n / d:.1f}%)"
 
 
+FINDING_STATES = ("open", "resolved", "superseded", "unverifiable")
+INPUT_DEPENDENT_KINDS = ("license_not_declared", "source_unavailable")
+
+
+def finding_id(entry: dict) -> str:
+    """Stable identity for an extraction-error finding across regenerations."""
+    payload = {
+        "origin": entry.get("origin"),
+        "kind": entry.get("kind"),
+        "repository": entry.get("repository"),
+        "summary": entry.get("summary"),
+        "audit": entry.get("audit"),
+        "source": entry.get("source"),
+    }
+    blob = json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()
+    return hashlib.sha256(blob).hexdigest()[:16]
+
+
+def _validation_detail(check_name: str) -> dict | None:
+    vrep = jread(REPORTS / "validation_report.json", {}) or {}
+    for c in vrep.get("details") or []:
+        if c.get("check") == check_name:
+            return c
+    return None
+
+
+def adjudicate_absent(previous: dict, fid: str) -> dict:
+    """Keep a historical finding that live generation no longer emits.
+
+    Never delete. Never invent a still_true=false resolution without
+    evidence. Missing inputs are unverifiable, not zero findings.
+    """
+    row = dict(previous)
+    row["finding_id"] = fid
+    existing_state = row.get("state")
+    if existing_state in ("resolved", "superseded", "unverifiable") and row.get("resolution"):
+        return row
+    kind = row.get("kind")
+    if kind == "validation_failure":
+        check = (row.get("summary") or "").removeprefix("validation gate: ").strip()
+        detail = _validation_detail(check)
+        if detail is not None and detail.get("ok") and detail.get("failure_count") == 0:
+            row["state"] = "resolved"
+            row["still_true"] = False
+            row["resolution"] = {
+                "reason": ("validation_report.json records this check as ok "
+                           "with failure_count=0"),
+                "evidence": "reports/validation_report.json",
+                "check": check,
+                "failure_count": 0,
+            }
+            return row
+        row["state"] = "unverifiable"
+        row["still_true"] = None
+        row["resolution"] = {
+            "reason": ("live generation no longer emits this validation_failure "
+                       "and the named check is not independently confirmed"),
+            "evidence": "reports/validation_report.json",
+            "check": check,
+        }
+        return row
+    if kind in INPUT_DEPENDENT_KINDS:
+        srcman = WORK / "source_manifest.json"
+        if not srcman.exists():
+            row["state"] = "unverifiable"
+            row["still_true"] = None
+            row["resolution"] = {
+                "reason": ("work/source_manifest.json is unavailable; live "
+                           "generation cannot confirm or refute this finding"),
+                "evidence": "work/source_manifest.json",
+                "missing_input": "work/source_manifest.json",
+            }
+            return row
+        row["state"] = "resolved"
+        row["still_true"] = False
+        row["resolution"] = {
+            "reason": ("source_manifest.json is present and live generation "
+                       "no longer emits this finding"),
+            "evidence": "work/source_manifest.json",
+        }
+        return row
+    row["state"] = "unverifiable"
+    row["resolution"] = {
+        "reason": ("not emitted by live generation; no independent evidence "
+                   "to resolve or refute"),
+        "evidence": "scripts/generate_reports.py",
+    }
+    return row
+
+
+def merge_extraction_errors(live_entries: list[dict], previous: dict | None) -> dict:
+    prev_entries = list((previous or {}).get("entries") or [])
+    live_by_id: dict[str, dict] = {}
+    for e in live_entries:
+        row = dict(e)
+        fid = finding_id(row)
+        row["finding_id"] = fid
+        row["state"] = "open"
+        row["still_true"] = True
+        live_by_id[fid] = row
+
+    merged: list[dict] = []
+    seen: set[str] = set()
+    for e in prev_entries:
+        fid = e.get("finding_id") or finding_id(e)
+        if fid in seen:
+            continue
+        seen.add(fid)
+        if fid in live_by_id:
+            merged.append(live_by_id[fid])
+        else:
+            merged.append(adjudicate_absent(e, fid))
+    for fid, row in live_by_id.items():
+        if fid in seen:
+            continue
+        merged.append(row)
+
+    by_kind = collections.Counter(e.get("kind") for e in merged)
+    by_origin = collections.Counter(e.get("origin") for e in merged)
+    by_state = collections.Counter(e.get("state") or "open" for e in merged)
+    return {
+        "generated_by": "scripts/generate_reports.py",
+        "description": "Every known limitation of this dataset. `origin: v1` "
+                       "entries were recorded by the original builder; "
+                       "`origin: v2` entries were surfaced by the hardening "
+                       "pipeline. Findings are never deleted. `state` is "
+                       "open / resolved / superseded / unverifiable; a "
+                       "non-open state requires a `resolution` record naming "
+                       "reason and evidence. `still_true` is not inferred "
+                       "from a newer green report alone.",
+        "total": len(merged),
+        "by_kind": dict(sorted((k or "", n) for k, n in by_kind.items())),
+        "by_origin": dict(by_origin),
+        "by_state": dict(sorted(by_state.items())),
+        "resolved_entries": int(by_state.get("resolved", 0)),
+        "entries": merged,
+    }
+
+
 # ---------------------------------------------------------------------------
 # extraction errors
 # ---------------------------------------------------------------------------
 
-def build_extraction_errors() -> dict:
+def live_extraction_entries() -> list[dict]:
     """v1's error records plus every limitation discovered while hardening.
 
     v1 records are kept verbatim and marked `origin: v1`; anything this pipeline
-    discovered is `origin: v2`. A researcher can therefore see which limitations
-    were known to the builder and which the upgrade surfaced.
+    discovered is `origin: v2`. Historical findings that this function no
+    longer emits are preserved by `merge_extraction_errors`, not deleted.
     """
     v1 = jl(JSONL / "errors.jsonl")
     entries = []
@@ -137,20 +284,13 @@ def build_extraction_errors() -> dict:
             add("validation_failure", f"validation gate: {c['check']}",
                 f"{c['failure_count']} failures", "dataset")
 
-    by_kind = collections.Counter(e["kind"] for e in entries)
-    by_origin = collections.Counter(e["origin"] for e in entries)
-    return {
-        "generated_by": "scripts/generate_reports.py",
-        "description": "Every known limitation of this dataset. `origin: v1` entries were "
-                       "recorded by the original builder; `origin: v2` entries were surfaced by "
-                       "the hardening pipeline. Nothing is marked resolved unless a check "
-                       "proves it.",
-        "total": len(entries),
-        "by_kind": dict(sorted(by_kind.items())),
-        "by_origin": dict(by_origin),
-        "resolved_entries": 0,
-        "entries": entries,
-    }
+    return entries
+
+
+def build_extraction_errors() -> dict:
+    live = live_extraction_entries()
+    previous = jread(REPORTS / "extraction_errors.json", {}) or {}
+    return merge_extraction_errors(live, previous)
 
 
 # ---------------------------------------------------------------------------
@@ -439,21 +579,63 @@ def build_final_report() -> str:
         f"{vrep.get('failed_critical', 0)} critical failures, {vrep.get('warnings', 0)} warnings.",
         "",
     ]
-    (MD / "final_quality_report.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
     return "\n".join(lines)
 
 
-def main() -> int:
-    ee = build_extraction_errors()
-    write_json(REPORTS / "extraction_errors.json", ee)
-    log(f"wrote reports/extraction_errors.json ({ee['total']} entries, {ee['by_origin']})")
+def check_outputs(ee: dict) -> int:
+    """Compare extraction_errors.json to committed bytes. Writes nothing.
 
+    `final_quality_report.md` reads `work/source_manifest.json` (git-ignored).
+    A missing manifest is not zero retrievals, and this --check must be
+    reproducible on a fresh clone, so that file is not part of the
+    byte-identity gate. Semantic staleness of the quality report is a
+    separate defect from report freshness.
+    """
+    ee_path = REPORTS / "extraction_errors.json"
+    if not ee_path.exists():
+        log("MISSING reports/extraction_errors.json")
+        return 1
+    on_disk = jread(ee_path, {}) or {}
+    if on_disk != ee:
+        log("STALE reports/extraction_errors.json — run: "
+            "python scripts/generate_reports.py")
+        return 1
+    log(f"ok: extraction_errors.json ({ee['total']} entries) is current")
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="rebuild in memory and compare to committed artefacts")
+    args = ap.parse_args()
+
+    ee = build_extraction_errors()
+    if args.check:
+        return check_outputs(ee)
+
+    write_json(REPORTS / "extraction_errors.json", ee)
+    log(f"wrote reports/extraction_errors.json ({ee['total']} entries, "
+        f"{ee.get('by_origin')}, by_state={ee.get('by_state')})")
+
+    # benchmark_metrics.* belong to score_benchmark.py; keep the historical
+    # delegation on a write run so an operator who runs this script still
+    # refreshes them. --check does not touch them.
     md = build_benchmark_metrics()
     log(f"wrote reports/benchmark_metrics.md and reports/benchmark_metrics.json "
         f"via scripts/score_benchmark.py ({len(md.splitlines())} lines)")
 
-    fr = build_final_report()
-    log(f"wrote reports/final_quality_report.md ({len(fr.splitlines())} lines)")
+    # final_quality_report.md interpolates work/source_manifest.json. Writing
+    # it on a checkout without that file would replace measured retrieval
+    # counts with 0/0. Only rewrite it when the optional input is present.
+    if (WORK / "source_manifest.json").exists():
+        fr = build_final_report()
+        (MD / "final_quality_report.md").write_text(
+            fr, encoding="utf-8", newline="\n")
+        log(f"wrote reports/final_quality_report.md ({len(fr.splitlines())} lines)")
+    else:
+        log("skipped writing final_quality_report.md: "
+            "work/source_manifest.json absent (not 0 retrievals)")
     return 0
 
 

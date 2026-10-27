@@ -1,5 +1,31 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Remediation — P0 gate integrity (2026-10-27, unreleased)
+
+- **Skip is never PASS (G1).** `build_prove_ledger.py --check` returns exit
+  code 2 when `work/prove_candidates` is absent; `run_gates.py` records
+  SKIPPED. Regression: `tests/test_gate_exit_codes.py`.
+- **Report freshness is gated (G2).** `generate_reports.py --check` rebuilds
+  `extraction_errors.json` and `final_quality_report.md` in memory and
+  compares. Findings keep an explicit `state` (`open` / `resolved` /
+  `superseded` / `unverifiable`) and are never deleted; the three
+  `validation_failure` entries that contradicted a green
+  `validation_report.json` are marked resolved with evidence.
+- **Curated quarantine cannot be emptied by `--emit` (G3).**
+  `check_leakage.py --emit splits_v2` refuses removals unless
+  `--allow-quarantine-rewrite` is passed after a preview. Writes stay
+  atomic. Regression: `tests/test_leakage_emit_guard.py`.
+- **Vbeta quality report is LF-canonical (G4).** `build_vbeta.py` writes
+  with `newline="\\n"`; the reproducibility snapshot includes
+  `reports_vbeta/quality_report.md`.
+- **`remaining_mutable_in_source_layer` has a producer (G5).** Measured
+  from jsonl/ (453 mutable `commit_sha` values); never defaulted to 0 when
+  the layer is absent.
+- **Gate-coverage inventory (G6).** `scripts/gate_coverage.py` classifies
+  every script; CI uploads `reports/gate_run.json`.
+- **README quarantine count.** `splits_v2/quarantine.jsonl` is 2 rows; the
+  63-row file is `Vbeta/splits_vbeta/quarantine.jsonl`.
+
 ## Remediation — baseline-drift repair, reproducibility hardening (2026-10-25, unreleased)
 
 - **v2.2 split-pointer drift repaired (37 records).** Commit `cb6a2a8` added

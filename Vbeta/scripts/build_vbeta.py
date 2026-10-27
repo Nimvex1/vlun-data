@@ -448,7 +448,8 @@ def main() -> int:
     report_path = V.assert_inside_vbeta(
         V.REPORTS_VB / "quality_report.md")
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
+    report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8",
+                           newline="\n")
     V.log(f"  wrote {len(outputs)} artefacts + quality report "
           f"({len(ledger)} candidates, {len(records)} records)")
     return 0

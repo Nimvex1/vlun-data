@@ -6,7 +6,7 @@
     "experiments": 103,
     "harvest": 6,
     "meta": 447,
-    "reports": 82,
+    "reports": 83,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 774,
+  "file_count": 775,
   "files": [
     {
       "bytes": 2573,
@@ -13157,7 +13157,7 @@
       "tracked": true
     },
     {
-      "bytes": 508808,
+      "bytes": 508807,
       "category": "reports",
       "keys": [
         "applied",
@@ -13181,7 +13181,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/citation_resolution.json",
-      "sha256": "a6e84e454ae479ebbe29fb51ec6fdf2a384600882c299a24e2c4c90b702d88e2",
+      "sha256": "ac4863680c7f672e6f805f3dd95d9ecc1edf92d164cad4988ab326fa9662e116",
       "tracked": true
     },
     {
@@ -13325,11 +13325,12 @@
       "tracked": true
     },
     {
-      "bytes": 36340,
+      "bytes": 43445,
       "category": "reports",
       "keys": [
         "by_kind",
         "by_origin",
+        "by_state",
         "description",
         "entries",
         "generated_by",
@@ -13340,7 +13341,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/extraction_errors.json",
-      "sha256": "aa22f4139e73ffb1985797a13a312cefdec0d24f52237bef1bf564ff04238336",
+      "sha256": "d58279c1656d6d929bbaeebc04891b5a941bab7797b674e00c2b844d51eae83d",
       "tracked": true
     },
     {
@@ -13393,6 +13394,25 @@
       "parse": "ok",
       "path": "reports/field_coverage.json",
       "sha256": "4c1b1c57b80a466f2d1941a5f71209d3110dc83698ae07240a5bd56783c237ff",
+      "tracked": true
+    },
+    {
+      "bytes": 26696,
+      "category": "reports",
+      "keys": [
+        "by_category",
+        "description",
+        "gated_script_count",
+        "generated_by",
+        "missing_ungated_reason",
+        "script_count",
+        "scripts"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/gate_coverage.json",
+      "sha256": "54b5dd5e5314b778b6a31cfb7189f9bcbfc6c1e29de3d2f0c498ed9196df1c7a",
       "tracked": true
     },
     {

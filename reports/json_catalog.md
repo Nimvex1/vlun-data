@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-774 files across 11 categories.
+775 files across 11 categories.
 
 ## source (21)
 
@@ -264,7 +264,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/swappstaking/harness.json` | v3 | 275 | object, 4 keys | yes |
 | `experiments_v3/swappstaking/result.json` | v3 | 2,294 | object, 16 keys | yes |
 
-## reports (82)
+## reports (83)
 
 *validation, stats, quality and baseline reports.*
 
@@ -284,17 +284,18 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/benchmark_metrics.json` | multi | 73,009 | object, 13 keys | yes |
 | `reports/benchmark_quality.json` | multi | 11,118 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
-| `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
+| `reports/citation_resolution.json` | multi | 508,807 | object, 16 keys | yes |
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
 | `reports/dataset_stats.json` | multi | 17,335 | object, 20 keys | yes |
 | `reports/depth_dashboard.json` | multi | 1,880 | object, 6 keys | yes |
 | `reports/eval_leakage_report.json` | multi | 48,313 | object, 11 keys | yes |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
-| `reports/extraction_errors.json` | multi | 36,340 | object, 7 keys | yes |
+| `reports/extraction_errors.json` | multi | 43,445 | object, 8 keys | yes |
 | `reports/f_extension_baselines.json` | multi | 211,870 | object, 4 keys | yes |
 | `reports/f_extension_stats.json` | multi | 5,235 | object, 10 keys | yes |
 | `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
+| `reports/gate_coverage.json` | multi | 26,696 | object, 7 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 1,264 | object, 13 keys | yes |
 | `reports/iaa_status.json` | multi | 1,077 | object, 11 keys | yes |
 | `reports/independent/audit.json` | multi | 67,732 | object, 4 keys | yes |

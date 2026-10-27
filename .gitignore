@@ -23,6 +23,12 @@ work/
 # matrix for whoever ran it. Enforced by scripts/check_reproducibility.py.
 reports/reproducibility_checks.json
 
+# Machine-LOCAL gate matrix written by run_gates.py. PASS/SKIP split
+# depends on which git-ignored inputs this checkout holds, so committing
+# one machine's matrix would make the published report stale everywhere
+# else. Uploaded as a CI artefact instead.
+reports/gate_run.json
+
 # V3 third-party clones (~3 GB, PDF-heavy, must NOT be redistributed).
 # The harvester reads them from disk; provenance survives via clone-HEAD pins
 # + file sha256 in jsonl_v3/derived_v3. Only the manifest + research docs are

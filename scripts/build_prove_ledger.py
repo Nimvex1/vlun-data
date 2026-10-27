@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
+from gate_inputs import SKIP_RC, skip_line  # noqa: E402
 from vlun import REPORTS, log, read_jsonl, write_json, write_jsonl  # noqa: E402
 
 CANDIDATE_DIR = ROOT / "work" / "prove_candidates"
@@ -524,10 +525,14 @@ def main() -> int:
             # The discovery ledgers live in the git-ignored work/ tree. Without
             # them only the recorded-evidence side can be rebuilt, so the
             # committed ledger is not re-derivable in a fresh checkout: say so
-            # and skip instead of reporting a false staleness.
-            log("skipped_no_local_inputs: work/prove_candidates is absent; the "
-                "committed ledger is not re-derivable in this checkout")
-            return 0
+            # and SKIP (exit 2). Returning 0 here used to make run_gates.py
+            # record PASS for a check that did not run.
+            log(skip_line(
+                tool="scripts/build_prove_ledger.py",
+                what="prove discovery ledgers",
+                missing=["work/prove_candidates"],
+                remedy="run on a checkout with work/prove_candidates/*.jsonl"))
+            return SKIP_RC
         current = _load(LEDGER) if LEDGER.exists() else []
         if json.loads(json.dumps(rows)) != current:
             log("STALE: derived_prove/candidate_ledger.jsonl -- run: "

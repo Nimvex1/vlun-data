@@ -36,6 +36,13 @@ jobs:
           python -m ruff check scripts/ tests/ Vbeta/scripts/ Vbeta/tests/
       - name: Run all gates
         run: python scripts/run_gates.py
+      - name: Upload gate matrix
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-run-${{ matrix.python-version }}
+          path: reports/gate_run.json
+          if-no-files-found: warn
       # run_gates.py includes the datasheet/schema/field-coverage/stats/
       # readme/line-ending checks, so local and CI run the same set. See
       # the gate list in scripts/run_gates.py.

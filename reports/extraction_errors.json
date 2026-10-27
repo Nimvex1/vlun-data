@@ -22,12 +22,18 @@
     "v1": 19,
     "v2": 20
   },
-  "description": "Every known limitation of this dataset. `origin: v1` entries were recorded by the original builder; `origin: v2` entries were surfaced by the hardening pipeline. Nothing is marked resolved unless a check proves it.",
+  "by_state": {
+    "open": 22,
+    "resolved": 3,
+    "unverifiable": 14
+  },
+  "description": "Every known limitation of this dataset. `origin: v1` entries were recorded by the original builder; `origin: v2` entries were surfaced by the hardening pipeline. Findings are never deleted. `state` is open / resolved / superseded / unverifiable; a non-open state requires a `resolution` record naming reason and evidence. `still_true` is not inferred from a newer green report alone.",
   "entries": [
     {
       "affected_files": [],
       "audit": "",
       "detail": "2024-12-bakerfi is a private Code4rena audit repository: it contains the source code and the audit rules but no findings issues. Findings were taken from the published report instead.",
+      "finding_id": "6b364f25983bc041",
       "kind": "private_audit_no_public_submissions",
       "origin": "v1",
       "repository": "2024-12-bakerfi",
@@ -40,6 +46,7 @@
         "repository": "2024-12-bakerfi",
         "repository_url": "https://github.com/code-423n4/2024-12-bakerfi"
       },
+      "state": "open",
       "still_true": true,
       "summary": "no per-submission judge or sponsor verdict is recoverable, so validation.status for these findings rests on their presence in the final published report, and code4rena/audits/<slug>/submissions/... pages could not be machine-read (client-rendered, no public API found).",
       "urls": [
@@ -50,6 +57,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "2025-08-gte-perps is a private Code4rena audit repository: it contains the source code and the audit rules but no findings issues. Findings were taken from the published report instead.",
+      "finding_id": "f605407199d93142",
       "kind": "private_audit_no_public_submissions",
       "origin": "v1",
       "repository": "2025-08-gte-perps",
@@ -62,6 +70,7 @@
         "repository": "2025-08-gte-perps",
         "repository_url": "https://github.com/code-423n4/2025-08-gte-perps"
       },
+      "state": "open",
       "still_true": true,
       "summary": "no per-submission judge or sponsor verdict is recoverable, so validation.status for these findings rests on their presence in the final published report, and code4rena/audits/<slug>/submissions/... pages could not be machine-read (client-rendered, no public API found).",
       "urls": [
@@ -72,6 +81,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "2025-06-panoptic is a private Code4rena audit repository: it contains the source code and the audit rules but no findings issues. Findings were taken from the published report instead.",
+      "finding_id": "e514a33508972623",
       "kind": "private_audit_no_public_submissions",
       "origin": "v1",
       "repository": "2025-06-panoptic",
@@ -84,6 +94,7 @@
         "repository": "2025-06-panoptic",
         "repository_url": "https://github.com/code-423n4/2025-06-panoptic"
       },
+      "state": "open",
       "still_true": true,
       "summary": "no per-submission judge or sponsor verdict is recoverable, so validation.status for these findings rests on their presence in the final published report, and code4rena/audits/<slug>/submissions/... pages could not be machine-read (client-rendered, no public API found).",
       "urls": [
@@ -105,6 +116,7 @@
       ],
       "audit": "",
       "detail": "10 of 740 GitHub blob permalinks referenced by the reports could not be resolved to file contents (repository renamed, deleted, or the referenced revision unreachable).",
+      "finding_id": "d22025fe95c85424",
       "kind": "code_file_not_retrieved",
       "origin": "v1",
       "repository": "multiple",
@@ -117,6 +129,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "code_context entries for these references carry the permalink and the claimed line range but no snippet; line_range_verified is false and line_start/line_end are the reporter's claim, not a verified range.",
       "urls": [
@@ -141,6 +154,7 @@
       ],
       "audit": "",
       "detail": "4 findings cite a line range that does not exist in the file at the commit their permalink points to.",
+      "finding_id": "14cbae4177173780",
       "kind": "permalinked_line_range_not_verifiable",
       "origin": "v1",
       "repository": "multiple",
@@ -153,6 +167,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "those code_context entries keep the reporter's line numbers and the permalink, carry no snippet, and set line_range_verified false with a range_source explaining why. The claim is not silently accepted.",
       "urls": []
@@ -202,6 +217,7 @@
       ],
       "audit": "",
       "detail": "40 of 264 canonical findings have no permalink-resolved source attached.",
+      "finding_id": "036afede4942a496",
       "kind": "finding_without_code_context",
       "origin": "v1",
       "repository": "multiple",
@@ -214,6 +230,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "these records carry the report prose only, so a model cannot verify the claim against code; confidence is downgraded accordingly.",
       "urls": []
@@ -303,6 +320,7 @@
       ],
       "audit": "",
       "detail": "109 of 264 findings have no PoC code in the published report.",
+      "finding_id": "254dcbd4731a5e13",
       "kind": "no_public_poc",
       "origin": "v1",
       "repository": "multiple",
@@ -315,6 +333,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "poc.available is false for these; nothing is inferred. Several audits (notably 2025-06-panoptic and 2025-08-gte-perps) link the PoC to a code4rena.com submission page that is client-rendered and was not machine-readable, so its contents are absent from this dataset.",
       "urls": []
@@ -323,6 +342,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "22 negative findings have public discussion on the issue but no comment that Code4rena itself attributes to the judge or the sponsor.",
+      "finding_id": "e153d18295c67f0d",
       "kind": "rejection_discussion_without_attributed_verdict",
       "origin": "v1",
       "repository": "multiple",
@@ -335,6 +355,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "rejection_basis is 'public_discussion_no_verdict_attributed' and the comments are left as role='participant' rather than being assigned to a judge or sponsor.",
       "urls": []
@@ -404,6 +425,7 @@
       ],
       "audit": "",
       "detail": "427 of 458 negative findings have only a rejection label and no public comment explaining the rejection.",
+      "finding_id": "06edaa5b53e98312",
       "kind": "rejection_without_reasoning",
       "origin": "v1",
       "repository": "multiple",
@@ -416,6 +438,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "why_it_is_not_a_vulnerability states this explicitly instead of inventing a rationale; for duplicates the pointer to the primary finding is the substantive evidence.",
       "urls": []
@@ -485,6 +508,7 @@
       ],
       "audit": "",
       "detail": "155 exploit records quote PoC code that was never compiled or executed during dataset construction.",
+      "finding_id": "7e1581af614446cf",
       "kind": "poc_not_executed",
       "origin": "v1",
       "repository": "multiple",
@@ -497,6 +521,7 @@
         "repository": "multiple",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "poc.reproducible and exploit.reproducible_in_dataset are false for every record. The audited repository at the recorded commit and each audit's own test harness would be needed to run them.",
       "urls": []
@@ -505,6 +530,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "The BakerFi mitigation review lists 20 of 23 findings; M-04, M-05 and M-12 are listed as sponsor-acknowledged (wontfix) and were out of the review scope.",
+      "finding_id": "f42ee62e7db0e62f",
       "kind": "mitigation_review_partial",
       "origin": "v1",
       "repository": "2024-12-bakerfi",
@@ -517,6 +543,7 @@
         "repository": "2024-12-bakerfi",
         "repository_url": "https://github.com/code-423n4/2024-12-bakerfi"
       },
+      "state": "open",
       "still_true": true,
       "summary": "those three findings have patch.available false and are recorded as acknowledged rather than fixed.",
       "urls": [
@@ -527,6 +554,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "reNFT's mitigation review lives in code-423n4/2024-02-renft-mitigation-findings, which was not part of the requested repository set and was not cloned.",
+      "finding_id": "c5c0b26ad3addd2b",
       "kind": "mitigation_in_separate_repository",
       "origin": "v1",
       "repository": "2024-01-renft",
@@ -539,6 +567,7 @@
         "repository": "2024-01-renft",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "patch status for reNFT findings comes from the final report's own mitigation table; the individual mitigation-review issues were not read.",
       "urls": []
@@ -547,6 +576,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "the audited repository has no LICENSE file and GitHub reports no SPDX licence id",
+      "finding_id": "146ba09d8f248e7c",
       "kind": "license_not_declared",
       "origin": "v1",
       "repository": "2024-04-noya",
@@ -559,6 +589,7 @@
         "repository": "2024-04-noya",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "provenance.license is empty and license_verified is false; source snippets are included for research/audit-reference purposes with that status recorded rather than an assumed licence.",
       "urls": []
@@ -567,6 +598,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "the audited repository has no LICENSE file and GitHub reports no SPDX licence id",
+      "finding_id": "e30430a2186d893d",
       "kind": "license_not_declared",
       "origin": "v1",
       "repository": "2024-01-decent",
@@ -579,6 +611,7 @@
         "repository": "2024-01-decent",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "provenance.license is empty and license_verified is false; source snippets are included for research/audit-reference purposes with that status recorded rather than an assumed licence.",
       "urls": []
@@ -587,6 +620,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "the audited repository has no LICENSE file and GitHub reports no SPDX licence id",
+      "finding_id": "23d636a627ff0681",
       "kind": "license_not_declared",
       "origin": "v1",
       "repository": "2022-05-alchemix",
@@ -599,6 +633,7 @@
         "repository": "2022-05-alchemix",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "provenance.license is empty and license_verified is false; source snippets are included for research/audit-reference purposes with that status recorded rather than an assumed licence.",
       "urls": []
@@ -607,6 +642,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "the audited repository has no LICENSE file and GitHub reports no SPDX licence id",
+      "finding_id": "2f051b8bce74ad04",
       "kind": "license_not_declared",
       "origin": "v1",
       "repository": "2025-06-panoptic",
@@ -619,6 +655,7 @@
         "repository": "2025-06-panoptic",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "provenance.license is empty and license_verified is false; source snippets are included for research/audit-reference purposes with that status recorded rather than an assumed licence.",
       "urls": []
@@ -627,6 +664,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "the audited repository has no LICENSE file and GitHub reports no SPDX licence id",
+      "finding_id": "1e174cb76778f13d",
       "kind": "license_not_declared",
       "origin": "v1",
       "repository": "2025-08-gte-perps",
@@ -639,6 +677,7 @@
         "repository": "2025-08-gte-perps",
         "repository_url": ""
       },
+      "state": "open",
       "still_true": true,
       "summary": "provenance.license is empty and license_verified is false; source snippets are included for research/audit-reference purposes with that status recorded rather than an assumed licence.",
       "urls": []
@@ -649,6 +688,7 @@
       ],
       "audit": "",
       "detail": "Judging outcomes are read from Code4rena's public GitHub labels ('invalid', 'duplicate-N', 'sponsor disputed', 'out of scope', 'nullified', 'withdrawn by warden', 'selected for report', 'sponsor confirmed', 'sponsor acknowledged', 'upgraded/downgraded by judge') together with the decision blocks quoted verbatim in the final reports.",
+      "finding_id": "083eaf34aa353f96",
       "kind": "label_semantics_relied_upon",
       "origin": "v1",
       "repository": "multiple",
@@ -661,6 +701,7 @@
         "repository": "multiple",
         "repository_url": "https://github.com/code-423n4"
       },
+      "state": "open",
       "still_true": true,
       "summary": "validation.evidence records the exact label or quoted decision for every status, so each assignment is traceable. No status is asserted without one. The mapping from label to status is implemented in scripts/assemble_findings.py::validation_status.",
       "urls": []
@@ -669,6 +710,7 @@
       "affected_files": [],
       "audit": "",
       "detail": "reNFT's report does not enumerate deployment networks.",
+      "finding_id": "6650c735e40743eb",
       "kind": "network_list_not_documented",
       "origin": "v1",
       "repository": "2024-01-renft",
@@ -681,6 +723,7 @@
         "repository": "2024-01-renft",
         "repository_url": "https://github.com/code-423n4/2024-01-renft"
       },
+      "state": "open",
       "still_true": true,
       "summary": "protocol.networks is left empty for this repository rather than filled in from knowledge outside the source material.",
       "urls": []
@@ -688,9 +731,11 @@
     {
       "affected_files": [],
       "detail": "failure reasons: {'broken_original_test': 7, 'dependency_unavailable': 7, 'environment_unavailable': 8, 'poc_invalid': 126}. The dominant blocker is that the published PoC is not a runnable test. The Code4rena reports publish two kinds of proof: executable test functions, and suggested *contract* patches — a function the reporter asks you to add to the vulnerable contract in order to demonstrate the issue. The second kind is real evidence and it is preserved in `poc.code`, but it cannot be executed as published, so it is recorded as `poc_invalid` rather than dressed up as a test.",
+      "finding_id": "d4e90e76973f25fc",
       "kind": "poc_not_executed",
       "origin": "v2",
       "repository": "all",
+      "state": "open",
       "still_true": true,
       "summary": "140 of 155 PoCs could not be executed at all",
       "urls": []
@@ -698,149 +743,249 @@
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "a6faecbc1a5c9fd8",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "FraxFinance/fraxlend",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "FraxFinance/fraxlend has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "1710e51babe5121f",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "LayerZero-Labs/solidity-examples",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "LayerZero-Labs/solidity-examples has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol @ release-v5: cat_file_failed:fatal: invalid object name 'release-v5.0'.",
+      "finding_id": "bc0838185a60b494",
       "kind": "source_unavailable",
       "origin": "v2",
       "repository": "OpenZeppelin/openzeppelin-contracts",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "1 cited file(s) could not be retrieved from OpenZeppelin/openzeppelin-contracts",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "d945f7f4ffdee09d",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2022-05-alchemix",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2022-05-alchemix has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "3d1d956240bf9d8a",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2024-01-curves",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2024-01-curves has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "code-423n4/2024-01-decent/lib/decent-bridge/src/DecentBridgeExecutor.sol @ main: path_missing_at_commit; code-423n4/2024-01-decent/lib/decent-bridge/src/DecentEthRouter.sol @ main: path_missing_at_commit",
+      "finding_id": "2bd1e1b93799d226",
       "kind": "source_unavailable",
       "origin": "v2",
       "repository": "code-423n4/2024-01-decent",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "2 cited file(s) could not be retrieved from code-423n4/2024-01-decent",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "b53ba454b2b9fea3",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2024-01-decent",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2024-01-decent has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "25afef70f64cc3f3",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2024-04-dyad",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2024-04-dyad has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "3e586749c9cb3edd",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2024-04-noya",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2024-04-noya has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "58f8c99ab54ba7c3",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2025-06-panoptic",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2025-06-panoptic has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "b33550e08635d722",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "code-423n4/2025-08-gte-perps",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "code-423n4/2025-08-gte-perps has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "3da36c1cf4480078",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "decentxyz/decent-bridge",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "decentxyz/decent-bridge has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "clone failed georgiIvanov/noya-audit: rc=128 remote: Repository not found.\nfatal: repository 'https://github.com/georgiIvanov/noya-audit.git/' not found",
+      "finding_id": "beebd02112e46138",
       "kind": "source_unavailable",
       "origin": "v2",
       "repository": "georgiIvanov/noya-audit",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "repository georgiIvanov/noya-audit could not be cloned",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "finding_id": "6453e61501aa9a01",
       "kind": "license_not_declared",
       "origin": "v2",
       "repository": "georgiIvanov/noya-audit",
-      "still_true": true,
+      "resolution": {
+        "evidence": "work/source_manifest.json",
+        "missing_input": "work/source_manifest.json",
+        "reason": "work/source_manifest.json is unavailable; live generation cannot confirm or refute this finding"
+      },
+      "state": "unverifiable",
+      "still_true": null,
       "summary": "georgiIvanov/noya-audit has no LICENSE file at any cited commit",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "the shared ref is a third-party dependency commit (`main`) cited by findings in two different audited repositories. It is reported rather than suppressed: a model can see the same dependency helper in both splits.",
+      "finding_id": "cc694e4dd9211110",
       "kind": "cross_split_commit_reference",
       "origin": "v2",
       "repository": null,
+      "state": "open",
       "still_true": true,
       "summary": "1 commit is cited from two splits",
       "urls": []
@@ -848,9 +993,11 @@
     {
       "affected_files": [],
       "detail": "boilerplate submissions (for example 'Unsafe use of transfer()/transferFrom() with IERC20') were filed by the same submitter against two different audits. scripts/check_leakage.py --emit splits_v2 quarantines the redundant train copy.",
+      "finding_id": "af7524251f27b46a",
       "kind": "cross_split_near_duplicate",
       "origin": "v2",
       "repository": "cross-repo",
+      "state": "open",
       "still_true": true,
       "summary": "2 cross-split near-duplicate pair(s) detected by token/shingle similarity",
       "urls": []
@@ -858,35 +1005,59 @@
     {
       "affected_files": [],
       "detail": "473 failures",
+      "finding_id": "7b888061f4c16f47",
       "kind": "validation_failure",
       "origin": "v2",
       "repository": "dataset",
-      "still_true": true,
+      "resolution": {
+        "check": "derived_commit_pins_are_immutable",
+        "evidence": "reports/validation_report.json",
+        "failure_count": 0,
+        "reason": "validation_report.json records this check as ok with failure_count=0"
+      },
+      "state": "resolved",
+      "still_true": false,
       "summary": "validation gate: derived_commit_pins_are_immutable",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "471 failures",
+      "finding_id": "5bf8fcac7338a9dc",
       "kind": "validation_failure",
       "origin": "v2",
       "repository": "dataset",
-      "still_true": true,
+      "resolution": {
+        "check": "provenance_urls_immutable_or_declared",
+        "evidence": "reports/validation_report.json",
+        "failure_count": 0,
+        "reason": "validation_report.json records this check as ok with failure_count=0"
+      },
+      "state": "resolved",
+      "still_true": false,
       "summary": "validation gate: provenance_urls_immutable_or_declared",
       "urls": []
     },
     {
       "affected_files": [],
       "detail": "474 failures",
+      "finding_id": "be9d615c996256d5",
       "kind": "validation_failure",
       "origin": "v2",
       "repository": "dataset",
-      "still_true": true,
+      "resolution": {
+        "check": "no_mutable_branch_citations_remain",
+        "evidence": "reports/validation_report.json",
+        "failure_count": 0,
+        "reason": "validation_report.json records this check as ok with failure_count=0"
+      },
+      "state": "resolved",
+      "still_true": false,
       "summary": "validation gate: no_mutable_branch_citations_remain",
       "urls": []
     }
   ],
   "generated_by": "scripts/generate_reports.py",
-  "resolved_entries": 0,
+  "resolved_entries": 3,
   "total": 39
 }

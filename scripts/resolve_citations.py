@@ -49,7 +49,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from vlun import (  # noqa: E402
-    DERIVED, REPORTS, WORK, log, read_jsonl, write_json, write_jsonl,
+    CORE_FILES, DERIVED, JSONL, REPORTS, WORK, code_entries, log, read_jsonl,
+    write_json, write_jsonl,
 )
 
 BLOB_URL = re.compile(
@@ -61,6 +62,31 @@ MUTABLE = set(MUTABLE_REFS)
 
 REF_KEYS = ("code_context", "vulnerable_code", "code_reference_only",
             "code_context_expanded")
+
+
+def count_source_layer_mutable() -> int | None:
+    """Mutable commit_sha values in the read-only jsonl/ source layer.
+
+    Scope: `code_context` + `vulnerable_code` + `code_reference_only`
+    entries (see `vlun.code_entries`) whose `commit_sha` is present and
+    not a 40-hex pin. Returns None when jsonl/ is absent so a missing
+    layer is not reported as zero findings.
+    """
+    seen_any = False
+    n = 0
+    for name in CORE_FILES.values():
+        path = JSONL / name
+        if not path.exists():
+            continue
+        seen_any = True
+        for rec in read_jsonl(path):
+            for entry in code_entries(rec):
+                sha = entry.get("commit_sha")
+                if sha and not SHA40.match(str(sha)):
+                    n += 1
+    if not seen_any:
+        return None
+    return n
 
 
 # ---------------------------------------------------------------------------
@@ -856,7 +882,9 @@ def main() -> int:
     }
     doc["remaining_mutable_occurrences_after_apply"] = still_mutable
     doc["remaining_mutable_by_context_key"] = dict(still_by_file)
-    doc["remaining_mutable_in_source_layer"] = None   # filled by validate.py
+    # Source-layer count: jsonl/ code entries whose commit_sha is present
+    # and not a 40-hex pin. None if jsonl/ is absent (missing data, never 0).
+    doc["remaining_mutable_in_source_layer"] = count_source_layer_mutable()
     write_json(Path(args.out), doc)
     log(f"  mutable citations still present in {args.records}: {still_mutable} "
         f"{dict(still_by_file)}")

@@ -7127,7 +7127,7 @@
   },
   "policy": "A mutable citation is only replaced when a mechanical content or date identity test succeeded. No SHA is invented; unresolved citations stay mutable and are counted.",
   "remaining_mutable_by_context_key": {},
-  "remaining_mutable_in_source_layer": null,
+  "remaining_mutable_in_source_layer": 453,
   "remaining_mutable_occurrences": 0,
   "remaining_mutable_occurrences_after_apply": 0,
   "targets": [

@@ -448,9 +448,13 @@ rolled back and the build fails rather than absorbing the change — an intentio
 is an explicit `--allow-canonical-rewrite` migration. The measured case:
 `check_leakage.py --emit splits_v2` is **not idempotent**. Run against splits that were
 already post-processed it finds 0 near-duplicate and 0 semantic cross-split pairs, so its
-next `--emit` would replace the 63-row `splits_v2/quarantine.jsonl` with an empty file. The
-published quarantine is therefore reproducible only from the pre-emit splits, and the guard
-blocks the second pass instead of letting it ship. `benchmark/manifest.json` had a related
+next `--emit` would replace the 2-row `splits_v2/quarantine.jsonl` with an empty
+file (the 63-row file is `Vbeta/splits_vbeta/quarantine.jsonl`). The writer now
+refuses to shrink or empty that curated quarantine unless
+`--allow-quarantine-rewrite` is passed after a preview; `build_all.py` still rolls back
+any rewrite of canonical layers that is not an explicit `--allow-canonical-rewrite`
+migration. The published quarantine is therefore reproducible only from the pre-emit
+splits. `benchmark/manifest.json` had a related
 bug: the A-J builder rebuilt the manifest from scratch and deleted the K-Q bookkeeping, and
 because retired-family entries were carried *only* from that same file the loss was
 unrecoverable — six retired families vanished on the second full build. Builders now carry
