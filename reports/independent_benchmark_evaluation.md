@@ -117,8 +117,9 @@ The audit is read-only with respect to benchmark rows, splits, and keys. `--chec
 
 - Full `python scripts/run_gates.py` run: **PASS**, 55 configured; 45 passed, 0 failed, 10 skipped. Skips are missing-input checks (private split/ledgers, pinned source clones, V3 PoC/span sources, API-sibling sources); they are not passes. The subsequent documentation-only family-count correction was checked separately below.
 - At that full-run snapshot, `python -m unittest discover -s tests` passed with 19 skipped (761 tests at that point); `python Vbeta/tests/test_vbeta.py` passed all 38 tests. After the final README count correction, the complete `tests.test_generated_docs` module passed all 31 tests and Vbeta validation again reported 0 critical failures with 38 Vbeta tests passing.
-- `/tmp/ruff-venv/bin/ruff check scripts/ tests/ Vbeta/scripts/ Vbeta/tests/`: **PASS**.
+- Ruff 0.17.3 (`ruff check scripts/ tests/ Vbeta/scripts/ Vbeta/tests/`): **PASS** (checked in an isolated temporary environment; Ruff is not a project dependency).
 - After the metrics-renderer cleanup, all 6 benchmark gates passed. The later README family-count-only correction passed the 31-test generated-doc suite, README/datasheet checks, the 775-file JSON-catalog check, Vbeta validation/tests, Ruff, and `git diff --check`.
+- An accidental machine-local path in this report was then removed; `tests.test_no_machine_paths` passed 19 tests and `python scripts/run_gates.py --only paths` passed 2/2 gates.
 
 Canonical outputs:
 
