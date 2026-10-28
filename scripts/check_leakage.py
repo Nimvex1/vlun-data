@@ -317,10 +317,10 @@ def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
                                *, allow_rewrite: bool) -> dict:
     """Decide whether a curated quarantine write is safe.
 
-    Removals (including emptying) require `--allow-quarantine-rewrite`.
-    Additions and no-ops do not. A simple 'must be a superset' rule is not
-    used as the only safeguard: removals are previewed, and additions are
-    logged even when allowed.
+    Removals (including emptying) and same-id content edits require
+    `--allow-quarantine-rewrite`. Additions and no-ops do not. A simple
+    'must be a superset' rule is not used as the only safeguard: removals,
+    edits and additions are previewed and logged.
     """
     existing_ids = [rec_id(r) for r in existing]
     proposed_ids = [rec_id(r) for r in proposed]
@@ -338,17 +338,38 @@ def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
         extra = n - existing_counts.get(i, 0)
         if extra > 0:
             added.extend([i] * extra)
+    # A stable id is not proof that the curated row stayed the same. Compare
+    # row-content multisets per id so harmless reordering is a no-op, while
+    # edits (or same-id replacement rows) require the explicit override.
+    existing_rows: dict[str, collections.Counter] = collections.defaultdict(
+        collections.Counter)
+    proposed_rows: dict[str, collections.Counter] = collections.defaultdict(
+        collections.Counter)
+    for row in existing:
+        existing_rows[rec_id(row)][json.dumps(
+            row, sort_keys=True, ensure_ascii=False, separators=(",", ":"))] += 1
+    for row in proposed:
+        proposed_rows[rec_id(row)][json.dumps(
+            row, sort_keys=True, ensure_ascii=False, separators=(",", ":"))] += 1
+    modified = sorted(
+        i for i in existing_counts.keys() & proposed_counts.keys()
+        if existing_rows[i] != proposed_rows[i])
     emptying = bool(existing) and not proposed
     shrinking = len(proposed) < len(existing)
-    blocked = bool(removed) and not allow_rewrite
+    blocked = (bool(removed) or bool(modified)) and not allow_rewrite
     if blocked:
         if emptying:
             reason = (f"refusing to replace {len(existing)} curated "
                       "quarantine row(s) with an empty file; pass "
                       "--allow-quarantine-rewrite after reviewing the diff")
+        elif modified and not removed:
+            reason = (f"refusing to alter {len(modified)} curated "
+                      "quarantine row(s) without an id change; pass "
+                      "--allow-quarantine-rewrite after reviewing the diff")
         else:
-            reason = (f"refusing to remove {len(removed)} curated "
-                      f"quarantine row(s) ({len(existing)} -> {len(proposed)}); "
+            reason = (f"refusing to remove {len(removed)} or alter "
+                      f"{len(modified)} curated quarantine row(s) "
+                      f"({len(existing)} -> {len(proposed)}); "
                       "pass --allow-quarantine-rewrite after reviewing the diff")
     else:
         reason = "ok"
@@ -358,6 +379,7 @@ def curated_overwrite_decision(existing: list[dict], proposed: list[dict],
         "shrinking": shrinking,
         "removed": removed,
         "added": added,
+        "modified": modified,
         "existing_n": len(existing),
         "proposed_n": len(proposed),
         "duplicate_ids": sorted(i for i, n in existing_counts.items() if n > 1),
@@ -429,6 +451,8 @@ def emit_splits_v2(report: dict, rows_by_split: dict[str, list[dict]],
         log(f"quarantine removals: {decision['removed'][:20]}")
     if decision["added"]:
         log(f"quarantine additions: {decision['added'][:20]}")
+    if decision["modified"]:
+        log(f"quarantine same-id modifications: {decision['modified'][:20]}")
     if decision["blocked"]:
         log(decision["reason"])
         return {

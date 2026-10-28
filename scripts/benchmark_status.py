@@ -112,6 +112,10 @@ HARD_FLAGS = {
         "the held-out label mix does not resemble the train mix",
     "saturated":
         "one class covers at least 95% of the scorable rows",
+    "conflicting_gold_for_identical_input":
+        "identical model-facing inputs carry conflicting scalar gold labels",
+    "required_code_missing":
+        "one or more scorable rows omit code required by the task contract",
 }
 
 #: Flags that demote a family to EXPLORATORY. The family stays shipped and
@@ -258,6 +262,20 @@ def _flag_reasons(flags: list[str], entry: dict) -> list[str]:
                 f"near_duplicate_leak: {nd.get('test_rows_sim_ge_0.9')} of "
                 f"{nd.get('test_rows_sampled')} sampled held-out rows are "
                 f"near-duplicates of a train row")
+        elif flag == "conflicting_gold_for_identical_input":
+            consistency = entry.get("input_gold_consistency") or {}
+            out.append(
+                "conflicting_gold_for_identical_input: "
+                f"{consistency.get('conflicting_groups')} identical-input "
+                "groups carry different gold labels, affecting "
+                f"{consistency.get('rows_in_conflicting_groups')} rows")
+        elif flag == "required_code_missing":
+            completeness = entry.get("required_input_completeness") or {}
+            out.append(
+                "required_code_missing: "
+                f"{completeness.get('rows_missing_code')} of "
+                f"{completeness.get('rows_checked')} scorable rows omit "
+                "non-empty code")
         else:
             out.append(flag)
     return out
@@ -412,7 +430,7 @@ def status_report(seed: int = 7,
     by_status = {st: sorted(f for f, s in families.items()
                             if s["status"] == st) for st in ALL_STATUSES}
     return {
-        "status_version": "1",
+        "status_version": "2",
         "seed": seed,
         "thresholds": dict(sorted(THRESHOLDS.items())),
         "rules": {

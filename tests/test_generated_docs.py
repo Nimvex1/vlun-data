@@ -45,6 +45,24 @@ class TestReadmeCheckCountIsLive(unittest.TestCase):
         for s in stale:
             self.assertEqual(int(s), reported)
 
+    def test_readme_layout_quotes_live_benchmark_file_count(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        paths = (
+            ROOT / "benchmark" / "manifest.json",
+            ROOT / "benchmark" / "v3_manifest.json",
+            ROOT / "Vbeta" / "benchmark_vbeta" / "vbeta_manifest.json",
+        )
+        counts = [len(json.loads(p.read_text(encoding="utf-8"))["tasks"])
+                  for p in paths]
+        match = re.search(
+            r"benchmark/\s+(\d+) audited task files "
+            r"\(A-Q: (\d+); R-S/T: (\d+); U-V: (\d+);", readme)
+        self.assertIsNotNone(match, "README benchmark layout count is missing")
+        actual = tuple(map(int, match.groups()))
+        self.assertEqual(actual, (sum(counts), *counts),
+                         "README task-file counts are stale; run "
+                         "python scripts/generate_readme.py")
+
 
 class TestVbetaFiguresAreCurrent(unittest.TestCase):
     def setUp(self):
@@ -242,9 +260,9 @@ class TestBaselineFiguresInDocsAreLive(unittest.TestCase):
 class TestExploratoryDemotionIsLive(unittest.TestCase):
     """The family statuses are computed from the data at run time
     (`scripts/benchmark_status.py`), so the headline set is decided by
-    measurements, not by a list. F, G, I, J are demoted to EXPLORATORY and
-    C, R, U, V are INVALID; only A is PRIMARY. The docs must mark them with
-    the audited status and quote the live headline arithmetic."""
+    measurements, not by a list. F, G, I, J are demoted to EXPLORATORY;
+    A, C, R, U, V are INVALID. The docs must mark them with the audited
+    status and quote the live headline arithmetic."""
 
     EXPL = {
         "F_false_positive_rejection.jsonl",
@@ -440,6 +458,23 @@ class TestExploratoryDemotionIsLive(unittest.TestCase):
                       self.rubric)
         self.assertIn(f"{d['micro_exploratory']['scorable']} sub-floor rows",
                       self.rubric)
+
+    def test_empty_primary_and_invalid_family_floor_are_explicit(self):
+        metrics = json.loads((ROOT / "reports" / "benchmark_metrics.json")
+                             .read_text(encoding="utf-8"))
+        fam = "A_vulnerability_detection.jsonl"
+        self.assertEqual(metrics["primary_metric"]["families"], [])
+        self.assertEqual(metrics["primary_metric"]["denominator"], 0)
+        self.assertEqual(metrics["family_status"][fam]["status"], "INVALID")
+        self.assertEqual(metrics["family_floors"][fam]["floor_eligibility"],
+                         "diagnostic_only_invalid")
+        self.assertIn("No family currently qualifies as `PRIMARY`",
+                      self.readme)
+        metrics_md = (ROOT / "reports" / "benchmark_metrics.md").read_text(
+            encoding="utf-8")
+        self.assertIn("not a valid evaluation floor", metrics_md)
+        self.assertFalse(any(line.endswith(" ") for line in metrics_md.splitlines()),
+                         "generated metrics markdown has trailing whitespace")
 
 
 class TestCountDomainsAreExplicit(unittest.TestCase):

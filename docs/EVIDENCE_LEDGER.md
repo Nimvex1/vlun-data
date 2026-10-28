@@ -16,8 +16,10 @@ pre-existing uncommitted report edits named in the plan were **not present**.
 | G6 gate-coverage inventory | FIXED | `scripts/gate_coverage.py` |
 | README 63-row `splits_v2/quarantine.jsonl` | FIXED | live count is 2; 63 is Vbeta |
 
-Labels, splits and answer keys were not rewritten. Family A, V4 overlay,
-executable expansion and rights clearance remain OPEN (P1/P2).
+Labels, splits and answer keys were not rewritten. The new independent audit
+now flags Family A INVALID (identical-input gold conflicts and missing code);
+its data-repair finding remains OPEN. V4 overlay, executable expansion and
+rights clearance also remain OPEN (P1/P2).
 
 CI follow-up on PR #4 (commit after 209deeb):
 

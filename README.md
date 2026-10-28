@@ -37,7 +37,7 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        19 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,154 tasks)
+benchmark/        24 audited task files (A-Q: 19; R-S/T: 3; U-V: 2; includes Fa/Fb extensions); Vbeta tasks: 13,154
 benchmark/retired_families/  retired families (B, E, K, L, M, N, O, P, S, T) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
@@ -162,7 +162,7 @@ families that need experimentally produced ground truth only admit rows that hav
 
 | Family | Tasks | Scorable | Status | Layer |
 |---|---|---|---|---|
-| `A_vulnerability_detection` | 720 | 720 | PRIMARY | v1/A-Q |
+| `A_vulnerability_detection` | 720 | 720 | INVALID | v1/A-Q |
 | `B_root_cause_reasoning` | 720 | 228 | EXPLORATORY | v1/A-Q (retired) |
 | `C_attacker_reasoning` | 720 | 290 | INVALID | v1/A-Q |
 | `D_exploit_construction` | 720 | 0 | NOT_SCORABLE | v1/A-Q |
@@ -198,15 +198,17 @@ an evaluation claim:
 |---|---|---|
 | `PRIMARY` | no validity flag, at least 100 scorable rows, at least 2 observed labels, and no train-only shortcut at or above 0.9 on a holdout of at least 30 rows | yes |
 | `EXPLORATORY` | shipped and scored, but demoted: too few rows, a holdout too small to estimate on, or a single observed label | no |
-| `INVALID` | a validity flag makes the family unusable as evaluation evidence: answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
+| `INVALID` | a validity flag makes the family unusable as evaluation evidence: conflicting gold on identical inputs, required task input missing, answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
 | `NOT_SCORABLE` | no exactly-matchable scalar key | no |
 | `UNKNOWN` | a family file on disk that no rule covers — fail-closed, never primary | no |
 
+**No family currently qualifies as `PRIMARY`; no headline score or held-out floor is available.**
+
 The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 720 of
+`docs/ANSWER_KEY.md`) covers 0 of
 23,198 manifest-scorable tasks in its primary metric. The
 rest are reported in their own blocks and never in the headline: the
-4 INVALID families' 18,911 scorable rows (C, R, U, V),
+5 INVALID families' 19,631 scorable rows (A, C, R, U, V),
 the 4 EXPLORATORY families' 28 sub-floor rows (F, G, I, J),
 the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
 retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
@@ -225,15 +227,15 @@ went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
 22,145 of them.
 
-**The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
-file as its input, and those files are committed in this public repository, so the keys are
-reachable by repository-wide retrieval. No family may be described as hidden, protected
-against repository-level leakage, or not accessible. The only genuinely protected evaluation in
-this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree
-and is pinned by hash in
-[`reports/prove_split_interface.json`](reports/prove_split_interface.json). The secondary
-holdout in `benchmark/independent/` is OPEN-KEY too: its key file is a tracked file, labelled
-`OPEN_KEY` in its own manifest.
+**The benchmark is OPEN-KEY.** Every official benchmark family row carries its answer key in
+its task file, and those files are committed in this public repository, so the keys are reachable
+by repository-wide retrieval. No family may be described as hidden, protected against
+repository-level leakage, or inaccessible. The only genuinely protected evaluation in this
+project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is
+pinned by hash in [`reports/prove_split_interface.json`](reports/prove_split_interface.json).
+The secondary holdout in `benchmark/independent/` is OPEN-KEY too: its generated key file is
+not tracked, but is reproducible from the committed benchmark sources and recorded seed, so it
+is not secret or private.
 
 Published deterministic baselines. `acc @ predicted/scorable` is micro-accuracy on
 the tasks the baseline actually predicted, shown with its coverage; the `over scorable`
@@ -244,19 +246,16 @@ releases.
 
 | Baseline | Primary acc @ predicted/scorable | Primary acc over scorable | Continuity acc @ predicted/scorable |
 |---|---|---|---|
-| majority | 0.7306 @ 720/720 | 0.7306 | 0.8687 @ 22,134/22,145 |
-| random-seed7 | 0.5042 @ 720/720 | 0.5042 | 0.3980 @ 22,134/22,145 |
-| frequency-seed7 | 0.6042 @ 720/720 | 0.6042 | 0.8161 @ 22,134/22,145 |
-| first-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
-| majority-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
-| TF-IDF retrieval | 0.4361 @ 720/720 | 0.4361 | 0.8937 @ 22,134/22,145 |
+| majority | n/a @ 0/0 | n/a | 0.8687 @ 22,134/22,145 |
+| random-seed7 | n/a @ 0/0 | n/a | 0.3980 @ 22,134/22,145 |
+| frequency-seed7 | n/a @ 0/0 | n/a | 0.8161 @ 22,134/22,145 |
+| first-published (L only, retired family) | n/a @ 0/0 | n/a | 1.0000 @ 71/22,145 |
+| majority-published (L only, retired family) | n/a @ 0/0 | n/a | 1.0000 @ 71/22,145 |
+| TF-IDF retrieval | n/a @ 0/0 | n/a | 0.8937 @ 22,134/22,145 |
 
 first-published and majority-published are L-only predictors over a retired family:
-they emit nothing on the primary set by construction, so their primary accuracy is
-**n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
-`over scorable` column is where the abstention shows as 0.0000 of
-720 primary scorable tasks.
-The 4 INVALID families (C, R, U, V) carry no headline claim: a
+they emit nothing on the primary set by construction. The current primary set is empty: zero-prediction baselines show n/a at 0/0, not a score. If eligible primary rows return, the accuracy-over-scorable column will make abstention visible.
+The 5 INVALID families (A, C, R, U, V) carry no headline claim: a
 validity flag makes them unusable as evaluation evidence, and a model score there would be
 a score on a task that is not a task. Their rows stay in the dataset and stay scored, in
 `families_invalid`, and are never counted in the headline.
@@ -267,13 +266,14 @@ evaluable** for accuracy at all — its accuracy is null with the reason
 `single_label_not_evaluable`, because one label makes any accuracy a restatement of the
 label distribution.
 
-The headline number is a label-distribution diagnostic over the primary set's scorable rows
-(train, validation and test together). The number a model result has to beat is the held-out
-one: on the primary family's 147 test rows the train-only majority
-floor is 0.5510, the seeded random 0.5238, the
-label-frequency 0.4966 and the retrieval 0.2925. Every
-floor is fitted on the train rows only; a floor fitted on the held-out rows would have seen
-the answers it is scored against. A split-blind floor is a validity hazard.
+When a primary set exists, its headline number is a label-distribution diagnostic over all
+scorable rows (train, validation and test together), not a held-out result. A model comparison
+requires a held-out result against the train-only floors for an eligible primary family. On the
+current primary family's 0 test rows the train-only majority floor
+is n/a, the seeded random n/a, the label-frequency
+n/a and the retrieval n/a. Every floor is fitted on
+the train rows only; a floor fitted on held-out rows would have seen the answers it is scored
+against. A split-blind floor is a validity hazard.
 `scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records
 (manifest-file agreement, task-record resolution, split coverage, RESEARCH_ONLY

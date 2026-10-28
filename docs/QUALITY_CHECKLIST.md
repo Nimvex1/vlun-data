@@ -23,8 +23,9 @@ Task definitions: `docs/TASK_CONTRACTS.md`.
 - [x] DONE — missing-evidence behaviour is explicit (`unknown` counted,
   abstention/ineligibility recorded, never a fabricated negative).
 - [ ] OPEN — family A: 14 identical-input groups with conflicting gold
-  (E-1). Blocks any family-A leaderboard claim. Owner: dataset
-  maintainers.
+  and scorable rows missing required code (E-1). The audit now marks A
+  INVALID; the underlying task data still needs claim-level repair. Blocks
+  any family-A leaderboard claim. Owner: dataset maintainers.
 
 ## Phase 2 — evidence-qualified core
 
@@ -162,12 +163,12 @@ python scripts/validate.py --quiet # after: 78/78 checks passed; BUILD OK
    classification/contrastive training with the documented caveats; not a
    substitute for execution-grounded pairs (which exist only in the
    reNFT/1inch/v3.2 sets).
-2. **Benchmark validity — one defensible track, many diagnostics.** Family
-   A (720 rows) is the only PRIMARY family and carries the OPEN label-
-   conflict defect (E-1); everything else is exploratory, invalid,
-   retired or judge-graded by rule. Shortcut floors are published; leakage
-   gates are green; F-A/F-B are honestly scoped (E-6). Defensible as a
-   *diagnostic corpus*; not yet as a leaderboard.
+2. **Benchmark validity — no defensible headline track yet.** Family A
+   (720 rows) is INVALID until its identical-input gold conflicts and
+   missing-code rows are repaired (E-1); no family currently qualifies as
+   PRIMARY. Everything else is exploratory, invalid, retired or judge-graded
+   by rule. Shortcut floors are published; F-A/F-B are honestly scoped
+   (E-6). Defensible as a *diagnostic corpus*; not as a leaderboard.
 3. **Executable grounding — strong where it exists, small.** The
    two-revision contract is well enforced (stage ladder, artefact digests,
    same-test identity). Coverage is the limiting factor (9 reNFT findings +

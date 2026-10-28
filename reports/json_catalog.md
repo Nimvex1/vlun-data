@@ -275,13 +275,13 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/api_sibling_stats.json` | multi | 92,890 | object, 16 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 23,927 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
-| `reports/baselines/baseline_first_published.json` | multi | 85,743 | object, 24 keys | yes |
-| `reports/baselines/baseline_frequency_seed7.json` | multi | 108,820 | object, 24 keys | yes |
-| `reports/baselines/baseline_majority.json` | multi | 106,681 | object, 24 keys | yes |
-| `reports/baselines/baseline_majority_published.json` | multi | 85,750 | object, 24 keys | yes |
-| `reports/baselines/baseline_random_seed7.json` | multi | 109,783 | object, 24 keys | yes |
-| `reports/baselines/baseline_retrieval.json` | multi | 109,986 | object, 24 keys | yes |
-| `reports/benchmark_metrics.json` | multi | 73,009 | object, 13 keys | yes |
+| `reports/baselines/baseline_first_published.json` | multi | 85,363 | object, 24 keys | yes |
+| `reports/baselines/baseline_frequency_seed7.json` | multi | 108,348 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority.json` | multi | 106,196 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority_published.json` | multi | 85,370 | object, 24 keys | yes |
+| `reports/baselines/baseline_random_seed7.json` | multi | 109,306 | object, 24 keys | yes |
+| `reports/baselines/baseline_retrieval.json` | multi | 109,513 | object, 24 keys | yes |
+| `reports/benchmark_metrics.json` | multi | 71,581 | object, 13 keys | yes |
 | `reports/benchmark_quality.json` | multi | 11,118 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
 | `reports/citation_resolution.json` | multi | 508,807 | object, 16 keys | yes |
@@ -298,7 +298,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/gate_coverage.json` | multi | 26,696 | object, 7 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 1,264 | object, 13 keys | yes |
 | `reports/iaa_status.json` | multi | 1,077 | object, 11 keys | yes |
-| `reports/independent/audit.json` | multi | 67,732 | object, 4 keys | yes |
+| `reports/independent/audit.json` | multi | 89,745 | object, 4 keys | yes |
 | `reports/leakage_report.json` | multi | 141,515 | object, 11 keys | yes |
 | `reports/leakage_report_v2.json` | multi | 141,706 | object, 12 keys | yes |
 | `reports/leakage_report_v22.json` | multi | 1,288 | object, 7 keys | yes |
@@ -420,7 +420,7 @@ also excluded: reports/v3/validation_v31.json.
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 860 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 746 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

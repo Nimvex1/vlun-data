@@ -686,7 +686,18 @@ def render() -> str:
     _prim_fams = _pm.get("families") or _primary_fams
     _prim_denominator = _pm.get("denominator") or (
         _bl_base.get("micro") or {}).get("scorable", 0) or 0
+    _abstention_note = (
+        "The current primary set is empty: zero-prediction baselines show "
+        "n/a at 0/0, not a score. If eligible primary rows return, the "
+        "accuracy-over-scorable column will make abstention visible."
+        if not _prim_denominator else
+        "A baseline that predicts nothing shows n/a at 0/scorable coverage, "
+        "and accuracy-over-scorable counts abstentions as wrong.")
     _prim_splits = _pm.get("by_split") or {}
+    _primary_status_note = (
+        "**No family currently qualifies as `PRIMARY`; no headline score or "
+        "held-out floor is available.**\n\n"
+        if not _prim_fams else "")
     _bl_floors = (_metrics.get("baselines") or {})
 
     def _floor(kind: str) -> dict:
@@ -769,7 +780,7 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
+benchmark/        {fam_n + len(_v3tasks) + len(_vbm_tasks)} audited task files (A-Q: {fam_n}; R-S/T: {len(_v3tasks)}; U-V: {len(_vbm_tasks)}; includes Fa/Fb extensions); Vbeta tasks: {n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)}
 benchmark/retired_families/  retired families ({_retired_letters}) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
@@ -907,11 +918,11 @@ an evaluation claim:
 |---|---|---|
 | `PRIMARY` | no validity flag, at least {_status_thresholds.get('min_primary_rows', 100)} scorable rows, at least {_status_thresholds.get('min_labels', 2)} observed labels, and no train-only shortcut at or above {_status_thresholds.get('shortcut_dominance_accuracy', 0.9)} on a holdout of at least {_status_thresholds.get('min_shortcut_holdout_rows', 30)} rows | yes |
 | `EXPLORATORY` | shipped and scored, but demoted: too few rows, a holdout too small to estimate on, or a single observed label | no |
-| `INVALID` | a validity flag makes the family unusable as evaluation evidence: answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
+| `INVALID` | a validity flag makes the family unusable as evaluation evidence: conflicting gold on identical inputs, required task input missing, answer literal leak, near-duplicate leak, group or record overlap, held-out labels unseen in train, split-composition drift, saturation, or a train-only shortcut that solves the held-out split | no |
 | `NOT_SCORABLE` | no exactly-matchable scalar key | no |
 | `UNKNOWN` | a family file on disk that no rule covers — fail-closed, never primary | no |
 
-The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
+{_primary_status_note}The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers {_cov.get('scorer_covered', 0):,} of
 {_cov.get('manifest_scorable_total', 0):,} manifest-scorable tasks in its primary metric. The
 rest are reported in their own blocks and never in the headline: the
@@ -934,15 +945,15 @@ went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
 {n((_bl_base.get('micro_all_families') or {}).get('scorable', 0))} of them.
 
-**The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
-file as its input, and those files are committed in this public repository, so the keys are
-reachable by repository-wide retrieval. No family may be described as hidden, protected
-against repository-level leakage, or not accessible. The only genuinely protected evaluation in
-this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree
-and is pinned by hash in
-[`reports/prove_split_interface.json`](reports/prove_split_interface.json). The secondary
-holdout in `benchmark/independent/` is OPEN-KEY too: its key file is a tracked file, labelled
-`OPEN_KEY` in its own manifest.
+**The benchmark is OPEN-KEY.** Every official benchmark family row carries its answer key in
+its task file, and those files are committed in this public repository, so the keys are reachable
+by repository-wide retrieval. No family may be described as hidden, protected against
+repository-level leakage, or inaccessible. The only genuinely protected evaluation in this
+project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is
+pinned by hash in [`reports/prove_split_interface.json`](reports/prove_split_interface.json).
+The secondary holdout in `benchmark/independent/` is OPEN-KEY too: its generated key file is
+not tracked, but is reproducible from the committed benchmark sources and recorded seed, so it
+is not secret or private.
 
 Published deterministic baselines. `acc @ predicted/scorable` is micro-accuracy on
 the tasks the baseline actually predicted, shown with its coverage; the `over scorable`
@@ -956,10 +967,7 @@ releases.
 {_bl_rows}
 
 first-published and majority-published are L-only predictors over a retired family:
-they emit nothing on the primary set by construction, so their primary accuracy is
-**n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
-`over scorable` column is where the abstention shows as 0.0000 of
-{_cov.get('scorer_covered', 0):,} primary scorable tasks.
+they emit nothing on the primary set by construction. {_abstention_note}
 The {len(_invalid_fams)} INVALID families ({_invalid_letters}) carry no headline claim: a
 validity flag makes them unusable as evaluation evidence, and a model score there would be
 a score on a task that is not a task. Their rows stay in the dataset and stay scored, in
@@ -971,13 +979,14 @@ evaluable** for accuracy at all — its accuracy is null with the reason
 `single_label_not_evaluable`, because one label makes any accuracy a restatement of the
 label distribution.
 
-The headline number is a label-distribution diagnostic over the primary set's scorable rows
-(train, validation and test together). The number a model result has to beat is the held-out
-one: on the primary family's {_prim_splits.get('test', 0)} test rows the train-only majority
-floor is {_floor_acc('majority')}, the seeded random {_floor_acc('random')}, the
-label-frequency {_floor_acc('frequency')} and the retrieval {_floor_acc('retrieval')}. Every
-floor is fitted on the train rows only; a floor fitted on the held-out rows would have seen
-the answers it is scored against. A split-blind floor is a validity hazard.
+When a primary set exists, its headline number is a label-distribution diagnostic over all
+scorable rows (train, validation and test together), not a held-out result. A model comparison
+requires a held-out result against the train-only floors for an eligible primary family. On the
+current primary family's {_prim_splits.get('test', 0)} test rows the train-only majority floor
+is {_floor_acc('majority')}, the seeded random {_floor_acc('random')}, the label-frequency
+{_floor_acc('frequency')} and the retrieval {_floor_acc('retrieval')}. Every floor is fitted on
+the train rows only; a floor fitted on held-out rows would have seen the answers it is scored
+against. A split-blind floor is a validity hazard.
 `scripts/check_manifests.py` recomputes every one of these
 counts from the canonical records
 (manifest-file agreement, task-record resolution, split coverage, RESEARCH_ONLY

@@ -12,6 +12,10 @@ The distinction it exists to enforce: `scripts/score_benchmark.py` asks
 what it claims, or does a shortcut get the right answer?".
 
 What it measures, per family:
+  * exact-input gold consistency -- identical model-facing inputs may not
+    carry conflicting scalar labels;
+  * required-input completeness -- rows must carry inputs required by the
+    task contract (for example, non-empty code for code detection);
   * answer-literal leakage -- the answer string appears in the
     model-facing `input`, so string search alone scores;
   * label degeneracy -- a single class, or a majority class above 0.95;
@@ -54,6 +58,7 @@ FAMILIES: dict[str, dict] = {
     "A_vulnerability_detection.jsonl": {
         "dir": "benchmark", "projection": "label",
         "group": "record", "id": "id",
+        "requires_nonempty_code": True,
         "why": "detect a confirmed vulnerability from code",
     },
     "B_root_cause_reasoning.jsonl": {
@@ -313,6 +318,80 @@ def scorable_rows(fname: str, rows: list[dict]) -> list[dict]:
     return [r for r in rows
             if r.get("answer_key_status") == "labeled"
             and gold_of(r, spec["projection"]) not in ("", "none", "null")]
+
+
+def audit_input_gold_consistency(fname: str, rows: list[dict]) -> dict:
+    """Find identical model inputs carrying different scalar gold labels.
+
+    The model-facing input is the complete `input` object. IDs, source
+    metadata and split names are intentionally excluded: they are not part
+    of the task contract. If the same input has two gold labels, a scorer
+    cannot tell which answer is correct from the supplied task.
+    """
+    spec = FAMILIES[fname]
+    by_input: dict[str, list[dict]] = collections.defaultdict(list)
+    for row in scorable_rows(fname, rows):
+        canonical = json.dumps(
+            row.get("input"), sort_keys=True, ensure_ascii=False,
+            separators=(",", ":"))
+        by_input[canonical].append(row)
+
+    conflicts = []
+    for canonical, group in by_input.items():
+        labels = sorted({gold_of(row, spec["projection"]) for row in group})
+        if len(labels) < 2:
+            continue
+        conflicts.append({
+            "input_sha256": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+            "rows": len(group),
+            "labels": labels,
+            "task_ids": sorted(task_id(row, spec["id"]) for row in group)[:20],
+            "splits": dict(sorted(collections.Counter(
+                str(row.get("split", "unknown")) for row in group).items())),
+            "repositories": sorted({repo_of(row) for row in group}),
+        })
+    conflicts.sort(key=lambda item: item["input_sha256"])
+    return {
+        "rows_checked": sum(len(group) for group in by_input.values()),
+        "unique_inputs": len(by_input),
+        "conflicting_groups": len(conflicts),
+        "rows_in_conflicting_groups": sum(item["rows"] for item in conflicts),
+        "examples": conflicts[:20],
+        "verdict": "conflicting_gold" if conflicts else "consistent",
+    }
+
+
+def audit_required_input_completeness(fname: str, rows: list[dict]) -> dict:
+    """Check that rows include task inputs the family contract requires."""
+    spec = FAMILIES[fname]
+    if not spec.get("requires_nonempty_code"):
+        return {"code_required": False, "rows_checked": 0,
+                "rows_missing_code": 0, "missing_code_rate": None,
+                "verdict": "not_applicable"}
+
+    checked = scorable_rows(fname, rows)
+    missing = []
+    for row in checked:
+        has_code = any(
+            isinstance(block, dict)
+            and isinstance(block.get("code"), str)
+            and bool(block["code"].strip())
+            for block in code_blocks(row))
+        if not has_code:
+            missing.append(row)
+    n = len(checked)
+    split_counts = collections.Counter(str(row.get("split", "unknown"))
+                                       for row in missing)
+    return {
+        "code_required": True,
+        "rows_checked": n,
+        "rows_with_code": n - len(missing),
+        "rows_missing_code": len(missing),
+        "missing_code_rate": round(len(missing) / n, 4) if n else None,
+        "missing_code_by_split": dict(sorted(split_counts.items())),
+        "examples": sorted(task_id(row, spec["id"]) for row in missing)[:20],
+        "verdict": "required_input_missing" if missing else "complete",
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -751,6 +830,10 @@ def run_audit(seed: int = 7) -> dict:
             "rows_total": len(rows_all),
             "rows_scorable": len(rows),
             "rows_unlabeled": len(rows_all) - len(rows),
+            "input_gold_consistency": audit_input_gold_consistency(
+                fname, rows_all),
+            "required_input_completeness": audit_required_input_completeness(
+                fname, rows_all),
             "answer_leakage": audit_answer_leakage(fname, rows),
             "degeneracy": audit_degeneracy(fname, rows),
             "split_drift": audit_split_drift(fname, rows),
@@ -778,6 +861,10 @@ def run_audit(seed: int = 7) -> dict:
             flags.append("record_id_overlap")
         if entry["record_overlap"]["test_rows_with_identical_code_block"]:
             flags.append("shared_code")
+        if entry["input_gold_consistency"]["conflicting_groups"]:
+            flags.append("conflicting_gold_for_identical_input")
+        if entry["required_input_completeness"]["rows_missing_code"]:
+            flags.append("required_code_missing")
         probe = entry["split_drift"]["train_majority_probe"]
         if probe.get("test_labels_absent_from_train"):
             flags.append("held_out_labels_unseen_in_train")
@@ -792,7 +879,7 @@ def run_audit(seed: int = 7) -> dict:
         entry["usable_as_evidence"] = not flags
         families[fname] = entry
     return {
-        "audit_version": "1",
+        "audit_version": "2",
         "seed": seed,
         "scoring_rule": (
             "identical to scripts/score_benchmark.py: exact match on the "

@@ -1,5 +1,5 @@
 {
-  "audit_version": "1",
+  "audit_version": "2",
   "families": {
     "A_vulnerability_detection.jsonl": {
       "answer_leakage": {
@@ -90,6 +90,367 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 344
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 14,
+        "examples": [
+          {
+            "input_sha256": "1739b73f8388775e806f876a8292e7fc19fef719985290b22cd57954ef30cffd",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 8,
+            "splits": {
+              "train": 8
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/H-16",
+              "A::train::2024-04-noya/H-17",
+              "A::train::2024-04-noya/M-16",
+              "A::train::2024-04-noya/M-17",
+              "A::train::2024-04-noya/submission-1399",
+              "A::train::2024-04-noya/submission-210",
+              "A::train::2024-04-noya/submission-212",
+              "A::train::2024-04-noya/submission-416"
+            ]
+          },
+          {
+            "input_sha256": "28470ed5a41804f01b365b4e928a2f2b7a89739087d714f6f8dc2c0b7f19dc3e",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 4,
+            "splits": {
+              "train": 4
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-42",
+              "A::train::2024-04-noya/submission-1448",
+              "A::train::2024-04-noya/submission-1538",
+              "A::train::2024-04-noya/submission-263"
+            ]
+          },
+          {
+            "input_sha256": "52a4746546074949bd16e8162047152d01f867a4abb617ad0d1ebbe0ebf16e05",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 4,
+            "splits": {
+              "train": 4
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-03",
+              "A::train::2024-04-noya/M-24",
+              "A::train::2024-04-noya/submission-1496",
+              "A::train::2024-04-noya/submission-492"
+            ]
+          },
+          {
+            "input_sha256": "5854d054717a2c437b39e02ca0547336c280038c4a9af9e7ed93b8d6dd263982",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-01-decent"
+            ],
+            "rows": 27,
+            "splits": {
+              "validation": 27
+            },
+            "task_ids": [
+              "A::validation::2024-01-decent/H-01",
+              "A::validation::2024-01-decent/H-02",
+              "A::validation::2024-01-decent/H-04",
+              "A::validation::2024-01-decent/M-05",
+              "A::validation::2024-01-decent/submission-106",
+              "A::validation::2024-01-decent/submission-13",
+              "A::validation::2024-01-decent/submission-630",
+              "A::validation::2024-01-decent/submission-631",
+              "A::validation::2024-01-decent/submission-633",
+              "A::validation::2024-01-decent/submission-653",
+              "A::validation::2024-01-decent/submission-668",
+              "A::validation::2024-01-decent/submission-67",
+              "A::validation::2024-01-decent/submission-670",
+              "A::validation::2024-01-decent/submission-672",
+              "A::validation::2024-01-decent/submission-693",
+              "A::validation::2024-01-decent/submission-697",
+              "A::validation::2024-01-decent/submission-698",
+              "A::validation::2024-01-decent/submission-7",
+              "A::validation::2024-01-decent/submission-701",
+              "A::validation::2024-01-decent/submission-703"
+            ]
+          },
+          {
+            "input_sha256": "5bc758bb44d184076c534bd1c9556fb1735ed1ecfd97e94cea2b2edf8938aecf",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 2,
+            "splits": {
+              "train": 2
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/H-07",
+              "A::train::2024-04-noya/submission-1382"
+            ]
+          },
+          {
+            "input_sha256": "5cb6a7d33095a892d811c3d0f2cd7a75b2c9f35758e696025b527bb133f09603",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 2,
+            "splits": {
+              "train": 2
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-08",
+              "A::train::2024-04-noya/submission-839"
+            ]
+          },
+          {
+            "input_sha256": "662bce96f52b16b3e7a2a91a712de36478d255f456dd3422a156f7548351e8d4",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 2,
+            "splits": {
+              "train": 2
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-59",
+              "A::train::2024-04-noya/submission-796"
+            ]
+          },
+          {
+            "input_sha256": "783e23b9a99c1abc169f7b0c6dd9a5a6b8637e59368b053dda68273dfe6c47f5",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-12-bakerfi"
+            ],
+            "rows": 32,
+            "splits": {
+              "test": 32
+            },
+            "task_ids": [
+              "A::test::2024-12-bakerfi/01",
+              "A::test::2024-12-bakerfi/02",
+              "A::test::2024-12-bakerfi/03",
+              "A::test::2024-12-bakerfi/04",
+              "A::test::2024-12-bakerfi/05",
+              "A::test::2024-12-bakerfi/06",
+              "A::test::2024-12-bakerfi/07",
+              "A::test::2024-12-bakerfi/08",
+              "A::test::2024-12-bakerfi/09",
+              "A::test::2024-12-bakerfi/H-01",
+              "A::test::2024-12-bakerfi/H-02",
+              "A::test::2024-12-bakerfi/H-03",
+              "A::test::2024-12-bakerfi/H-04",
+              "A::test::2024-12-bakerfi/H-05",
+              "A::test::2024-12-bakerfi/H-06",
+              "A::test::2024-12-bakerfi/H-07",
+              "A::test::2024-12-bakerfi/M-01",
+              "A::test::2024-12-bakerfi/M-02",
+              "A::test::2024-12-bakerfi/M-03",
+              "A::test::2024-12-bakerfi/M-04"
+            ]
+          },
+          {
+            "input_sha256": "7a57236490b8bd017ff13f36ba19fd056b10307fa0b291451489ed62eb6f196c",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 3,
+            "splits": {
+              "train": 3
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-61",
+              "A::train::2024-04-noya/submission-1539",
+              "A::train::2024-04-noya/submission-259"
+            ]
+          },
+          {
+            "input_sha256": "db24057b0d5720b23c9c616ad3a88a77fae73bd4500657a15001517a81e3c4a6",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-01-renft"
+            ],
+            "rows": 129,
+            "splits": {
+              "validation": 129
+            },
+            "task_ids": [
+              "A::validation::2024-01-renft/H-01",
+              "A::validation::2024-01-renft/H-02",
+              "A::validation::2024-01-renft/H-03",
+              "A::validation::2024-01-renft/H-04",
+              "A::validation::2024-01-renft/H-05",
+              "A::validation::2024-01-renft/H-06",
+              "A::validation::2024-01-renft/H-07",
+              "A::validation::2024-01-renft/L-01",
+              "A::validation::2024-01-renft/L-02",
+              "A::validation::2024-01-renft/L-03",
+              "A::validation::2024-01-renft/L-04",
+              "A::validation::2024-01-renft/L-05",
+              "A::validation::2024-01-renft/L-06",
+              "A::validation::2024-01-renft/M-01",
+              "A::validation::2024-01-renft/M-02",
+              "A::validation::2024-01-renft/M-03",
+              "A::validation::2024-01-renft/M-04",
+              "A::validation::2024-01-renft/M-05",
+              "A::validation::2024-01-renft/M-06",
+              "A::validation::2024-01-renft/M-07"
+            ]
+          },
+          {
+            "input_sha256": "e0b0bd543da625ed3131130b56d2e3d46e9b681f26819cc595ee27609afd24c0",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-08-wildcat"
+            ],
+            "rows": 70,
+            "splits": {
+              "test": 70
+            },
+            "task_ids": [
+              "A::test::2024-08-wildcat/01",
+              "A::test::2024-08-wildcat/02",
+              "A::test::2024-08-wildcat/03",
+              "A::test::2024-08-wildcat/04",
+              "A::test::2024-08-wildcat/05",
+              "A::test::2024-08-wildcat/06",
+              "A::test::2024-08-wildcat/07",
+              "A::test::2024-08-wildcat/08",
+              "A::test::2024-08-wildcat/09",
+              "A::test::2024-08-wildcat/10",
+              "A::test::2024-08-wildcat/11",
+              "A::test::2024-08-wildcat/12",
+              "A::test::2024-08-wildcat/13",
+              "A::test::2024-08-wildcat/14",
+              "A::test::2024-08-wildcat/15",
+              "A::test::2024-08-wildcat/16",
+              "A::test::2024-08-wildcat/17",
+              "A::test::2024-08-wildcat/18",
+              "A::test::2024-08-wildcat/19",
+              "A::test::2024-08-wildcat/20"
+            ]
+          },
+          {
+            "input_sha256": "e40fed5ef52c6fee564a9eca38546be0d35e38b06c95722bfc8bc900f92a45ab",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 2,
+            "splits": {
+              "train": 2
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-23",
+              "A::train::2024-04-noya/submission-1365"
+            ]
+          },
+          {
+            "input_sha256": "f371890bf32dc396df85e63a8af15ebf1da65049f2473f3282ff4ca190d4db3a",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2025-08-gte-perps"
+            ],
+            "rows": 19,
+            "splits": {
+              "test": 19
+            },
+            "task_ids": [
+              "A::test::2025-08-gte-perps/H-01",
+              "A::test::2025-08-gte-perps/H-02",
+              "A::test::2025-08-gte-perps/L-01",
+              "A::test::2025-08-gte-perps/L-02",
+              "A::test::2025-08-gte-perps/L-03",
+              "A::test::2025-08-gte-perps/L-04",
+              "A::test::2025-08-gte-perps/L-05",
+              "A::test::2025-08-gte-perps/L-06",
+              "A::test::2025-08-gte-perps/M-01",
+              "A::test::2025-08-gte-perps/M-02",
+              "A::test::2025-08-gte-perps/M-05",
+              "A::test::2025-08-gte-perps/M-06",
+              "A::test::2025-08-gte-perps/M-17",
+              "A::test::2025-08-gte-perps/M-18",
+              "A::test::2025-08-gte-perps/M-20",
+              "A::test::2025-08-gte-perps/M-21",
+              "A::test::2025-08-gte-perps/M-23",
+              "A::test::2025-08-gte-perps/M-24",
+              "A::test::2025-08-gte-perps/M-25"
+            ]
+          },
+          {
+            "input_sha256": "f81c01f5616457be7609a4a9f7de528b4445fd3bb126e6ac5c55dfb689d3cc78",
+            "labels": [
+              "no_confirmed_vulnerability",
+              "vulnerable"
+            ],
+            "repositories": [
+              "2024-04-noya"
+            ],
+            "rows": 2,
+            "splits": {
+              "train": 2
+            },
+            "task_ids": [
+              "A::train::2024-04-noya/M-19",
+              "A::train::2024-04-noya/submission-1518"
+            ]
+          }
+        ],
+        "rows_checked": 720,
+        "rows_in_conflicting_groups": 306,
+        "unique_inputs": 384,
+        "verdict": "conflicting_gold"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.4545,
         "nearest_train_similarity_median": 0.4348,
@@ -105,6 +466,41 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": true,
+        "examples": [
+          "A::test::2024-08-wildcat/01",
+          "A::test::2024-08-wildcat/02",
+          "A::test::2024-08-wildcat/03",
+          "A::test::2024-08-wildcat/04",
+          "A::test::2024-08-wildcat/05",
+          "A::test::2024-08-wildcat/06",
+          "A::test::2024-08-wildcat/07",
+          "A::test::2024-08-wildcat/08",
+          "A::test::2024-08-wildcat/09",
+          "A::test::2024-08-wildcat/10",
+          "A::test::2024-08-wildcat/11",
+          "A::test::2024-08-wildcat/12",
+          "A::test::2024-08-wildcat/13",
+          "A::test::2024-08-wildcat/14",
+          "A::test::2024-08-wildcat/15",
+          "A::test::2024-08-wildcat/16",
+          "A::test::2024-08-wildcat/17",
+          "A::test::2024-08-wildcat/18",
+          "A::test::2024-08-wildcat/19",
+          "A::test::2024-08-wildcat/20"
+        ],
+        "missing_code_by_split": {
+          "test": 121,
+          "train": 13,
+          "validation": 156
+        },
+        "missing_code_rate": 0.4028,
+        "rows_checked": 720,
+        "rows_missing_code": 290,
+        "rows_with_code": 430,
+        "verdict": "required_input_missing"
       },
       "rows_scorable": 720,
       "rows_total": 720,
@@ -133,8 +529,11 @@
           "train_majority_accuracy_on_test": 0.551
         }
       },
-      "usable_as_evidence": true,
-      "validity_flags": []
+      "usable_as_evidence": false,
+      "validity_flags": [
+        "conflicting_gold_for_identical_input",
+        "required_code_missing"
+      ]
     },
     "B_root_cause_reasoning.jsonl": {
       "answer_leakage": {
@@ -212,6 +611,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 104
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 228,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 225,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.3902,
         "nearest_train_similarity_median": 0.2963,
@@ -227,6 +634,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 228,
       "rows_total": 720,
@@ -344,6 +758,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 132
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 290,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 287,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.4545,
         "nearest_train_similarity_median": 0.3226,
@@ -359,6 +781,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 290,
       "rows_total": 720,
@@ -486,6 +915,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 6
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 7,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 7,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.027,
         "nearest_train_similarity_median": 0.027,
@@ -501,6 +938,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 7,
       "rows_total": 720,
@@ -571,6 +1015,14 @@
         "test_rows_in_shared_group_pct": null,
         "train_groups": 16
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 17,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 17,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "verdict": "skipped_no_scorable_key"
       },
@@ -581,6 +1033,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 17,
       "rows_total": 458,
@@ -650,6 +1109,14 @@
         "test_rows_in_shared_group_pct": null,
         "train_groups": 0
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 5,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 5,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "verdict": "skipped_no_scorable_key"
       },
@@ -660,6 +1127,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 5,
       "rows_total": 38,
@@ -721,6 +1195,14 @@
         "test_rows_in_shared_group_pct": null,
         "train_groups": 0
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 1,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 1,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "verdict": "skipped_no_scorable_key"
       },
@@ -731,6 +1213,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 1,
       "rows_total": 3,
@@ -787,6 +1276,14 @@
         "test_rows_in_shared_group_pct": null,
         "train_groups": 0
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 5,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 5,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "verdict": "skipped_no_scorable_key"
       },
@@ -797,6 +1294,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 5,
       "rows_total": 5,
@@ -916,6 +1420,14 @@
         "test_rows_in_shared_group_pct": 100.0,
         "train_groups": 5
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 137,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 137,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.1593,
         "nearest_train_similarity_median": 0.0741,
@@ -931,6 +1443,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 25
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 137,
       "rows_total": 137,
@@ -1070,6 +1589,14 @@
         "test_rows_in_shared_group_pct": 100.0,
         "train_groups": 4
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 128,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 128,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.2615,
         "nearest_train_similarity_median": 0.1386,
@@ -1085,6 +1612,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 23
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 128,
       "rows_total": 137,
@@ -1215,6 +1749,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 31
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 37,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 37,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.224,
         "nearest_train_similarity_median": 0.224,
@@ -1230,6 +1772,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 37,
       "rows_total": 37,
@@ -1343,6 +1892,14 @@
         "test_rows_in_shared_group_pct": 66.67,
         "train_groups": 4
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 14,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 14,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.1878,
         "nearest_train_similarity_median": 0.1838,
@@ -1358,6 +1915,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 14,
       "rows_total": 137,
@@ -1495,6 +2059,14 @@
         "test_rows_in_shared_group_pct": 100.0,
         "train_groups": 5
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 137,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 137,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.2924,
         "nearest_train_similarity_median": 0.1918,
@@ -1510,6 +2082,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 25
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 137,
       "rows_total": 137,
@@ -1647,6 +2226,14 @@
         "test_rows_in_shared_group_pct": 100.0,
         "train_groups": 5
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 137,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 94,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.761,
         "nearest_train_similarity_median": 0.7277,
@@ -1662,6 +2249,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 25
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 137,
       "rows_total": 137,
@@ -1795,6 +2389,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 5
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 5467,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 5467,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.0833,
         "nearest_train_similarity_median": 0.0526,
@@ -1810,6 +2412,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 5467,
       "rows_total": 5467,
@@ -1931,6 +2540,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 2
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 1072,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 1072,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.0833,
         "nearest_train_similarity_median": 0.0526,
@@ -1946,6 +2563,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 1072,
       "rows_total": 1072,
@@ -2060,6 +2684,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 1
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 589,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 577,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 1.0,
         "nearest_train_similarity_median": 1.0,
@@ -2075,6 +2707,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 589,
       "rows_total": 589,
@@ -2208,6 +2847,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 4
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 6219,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 6141,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.0909,
         "nearest_train_similarity_median": 0.05,
@@ -2223,6 +2870,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 5596
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 6219,
       "rows_total": 6219,
@@ -2355,6 +3009,14 @@
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 4
       },
+      "input_gold_consistency": {
+        "conflicting_groups": 0,
+        "examples": [],
+        "rows_checked": 6935,
+        "rows_in_conflicting_groups": 0,
+        "unique_inputs": 6857,
+        "verdict": "consistent"
+      },
       "near_duplicates": {
         "nearest_train_similarity_max": 0.0909,
         "nearest_train_similarity_median": 0.05,
@@ -2370,6 +3032,13 @@
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 5668
+      },
+      "required_input_completeness": {
+        "code_required": false,
+        "missing_code_rate": null,
+        "rows_checked": 0,
+        "rows_missing_code": 0,
+        "verdict": "not_applicable"
       },
       "rows_scorable": 6935,
       "rows_total": 6935,

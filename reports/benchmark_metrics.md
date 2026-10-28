@@ -28,9 +28,11 @@ the data; no family is in the headline because its name is absent
 from a list. A family file that no rule covers defaults to
 UNKNOWN, which is never primary.
 
-| family | status | scorable | labels | train-only floor on test | why |
+A train-only test accuracy shown for an INVALID family is a diagnostic used to explain its status, not a valid evaluation floor or model-comparison threshold. Only a PRIMARY family's floor is eligible for a predictive claim.
+
+| family | status | scorable | labels | train-only majority accuracy on test | why |
 |---|---|---|---|---|---|
-| `A_vulnerability_detection.jsonl` | PRIMARY | 720 | 2 | 0.5510 | no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is) |
+| `A_vulnerability_detection.jsonl` | INVALID | 720 | 2 | 0.5510 | invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code |
 | `B_root_cause_reasoning.jsonl` | EXPLORATORY | 228 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'invariant_stated' |
 | `C_attacker_reasoning.jsonl` | INVALID | 290 | 4 | 0.3333 | invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40) |
 | `D_exploit_construction.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | generative task, needs a judge rather than string match |
@@ -57,10 +59,10 @@ UNKNOWN, which is never primary.
 
 ## Primary metric
 
-- families: A_vulnerability_detection.jsonl
-- denominator: 720 scorable rows
-- by split: test=147, train=344, validation=229
-- label distribution: no_confirmed_vulnerability=526, vulnerable=194
+- families: none
+- denominator: 0 scorable rows
+- by split: none
+- label distribution: none
 - accuracy: not measurable: no predictor has been run against this benchmark
 - macro-F1: not measurable: no predictor has been run against this benchmark
 
@@ -73,21 +75,16 @@ believed.
 
 | baseline | family | fitted on | train rows | test rows | accuracy | macro-F1 | coverage |
 |---|---|---|---|---|---|---|---|
-| first_published | `A_vulnerability_detection.jsonl` | input (no label is read) | 0 | 147 | n/a | n/a | 0.0000 |
-| frequency | `A_vulnerability_detection.jsonl` | train | 344 | 147 | 0.4966 | 0.4699 | 1.0000 |
-| majority | `A_vulnerability_detection.jsonl` | train | 344 | 147 | 0.5510 | 0.3553 | 1.0000 |
-| majority_published | `A_vulnerability_detection.jsonl` | input (no label is read) | 0 | 147 | n/a | n/a | 0.0000 |
-| random | `A_vulnerability_detection.jsonl` | train | 344 | 147 | 0.5238 | 0.5188 | 1.0000 |
-| retrieval | `A_vulnerability_detection.jsonl` | train | 344 | 147 | 0.2925 | 0.2851 | 1.0000 |
 
 ## Claims withdrawn by this change
 
 | claim | status | replacement | why |
 |---|---|---|---|
-| the headline micro-average covers 19,631 scorable rows across 5 families | RETRACTED | the headline micro-average covers 720 scorable rows across 1 family (A_vulnerability_detection.jsonl) | the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination |
+| the headline micro-average covers 19,631 scorable rows across 5 families | RETRACTED | the headline micro-average covers 0 scorable rows across 0 family () | the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination |
 | families F, G, I and J score 1.000 (majority accuracy 1.000 in the coverage table) | DOWNGRADED | accuracy is null with the reason 'single_label_not_evaluable'; their row counts and label distributions are kept | every scorable row of those families carries one label, so the published 1.000 was the label distribution, not predictive performance |
 | the published majority baseline is a test-set floor | RETRACTED | the baselines are fitted on train rows only and applied to the held-out rows; the floors are reported per family with the rows they were fitted on | the old baselines were fitted over every labelled row of a family, held-out rows included, so the predictor had already seen the answers it was scored against |
 | a family is in the headline because its name is not on a retirement list | RETRACTED | the status of every family is computed at run time from the independent audit's own measurements; an uncovered family file defaults to UNKNOWN and is never primary | a hard-coded list cannot justify an evaluation claim |
+| A_vulnerability_detection.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code | validity flags measured by the independent audit |
 | C_attacker_reasoning.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40) | validity flags measured by the independent audit |
 | E_exploit_verification.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30) | validity flags measured by the independent audit |
 | K_language_ecosystem_routing.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 76 of 137 rows (rate 0.5547); group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9 | validity flags measured by the independent audit |
@@ -111,7 +108,7 @@ not the model.
 
 | task | tasks | scorable | partial | unlabelled | train | validation | test | status |
 |---|---|---|---|---|---|---|---|---|
-| `A_vulnerability_detection` | 720 | 720 | 0 | 0 | 344 | 229 | 147 | PRIMARY |
+| `A_vulnerability_detection` | 720 | 720 | 0 | 0 | 344 | 229 | 147 | INVALID |
 | `B_root_cause_reasoning` | 720 | 228 | 0 | 492 | 344 | 229 | 147 | EXPLORATORY |
 | `C_attacker_reasoning` | 720 | 290 | 0 | 430 | 344 | 229 | 147 | INVALID |
 | `D_exploit_construction` | 720 | 346 | 0 | 374 | 344 | 229 | 147 | NOT_SCORABLE |
@@ -138,8 +135,6 @@ not the model.
 
 ## Held-out split composition (task A)
 
-- `no_confirmed_vulnerability`: **81**
-- `vulnerable`: **66**
 
 A detector evaluated on this split is rewarded for saying
 `vulnerable` only when the Code4rena judge confirmed it, and
