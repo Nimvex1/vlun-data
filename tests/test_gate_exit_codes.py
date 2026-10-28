@@ -48,10 +48,11 @@ class TestClassifyStatus(unittest.TestCase):
 
 class TestProveLedgerSkipCode(unittest.TestCase):
     def _absent_env(self) -> dict[str, str]:
-        tmp = tempfile.mkdtemp()
-        self.addCleanup(lambda: None)
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
         env = os.environ.copy()
-        env["VLUN_PROVE_CANDIDATES"] = str(Path(tmp) / "prove_candidates_absent")
+        env["VLUN_PROVE_CANDIDATES"] = str(
+            Path(tmp.name) / "prove_candidates_absent")
         return env
 
     def test_missing_local_inputs_exit_two(self):

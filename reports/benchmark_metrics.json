@@ -3,133 +3,44 @@
     "first_published": {
       "fitted_on": "train",
       "kind": "first_published",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [],
-          "fitted_on": "input (no label is read)",
-          "test_accuracy": null,
-          "test_correct": 0,
-          "test_coverage": 0.0,
-          "test_macro_f1": null,
-          "test_only_labels": [],
-          "test_predicted": 0,
-          "test_rows": 147,
-          "train_rows": 0
-        }
-      },
+      "primary": {},
       "seed": 7
     },
     "frequency": {
       "fitted_on": "train",
       "kind": "frequency",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [
-            "no_confirmed_vulnerability",
-            "vulnerable"
-          ],
-          "fitted_on": "train",
-          "test_accuracy": 0.4965986394557823,
-          "test_correct": 73,
-          "test_coverage": 1.0,
-          "test_macro_f1": 0.46988304093567257,
-          "test_only_labels": [],
-          "test_predicted": 147,
-          "test_rows": 147,
-          "train_rows": 344
-        }
-      },
+      "primary": {},
       "seed": 7
     },
     "majority": {
       "fitted_on": "train",
       "kind": "majority",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [
-            "no_confirmed_vulnerability",
-            "vulnerable"
-          ],
-          "fitted_on": "train",
-          "test_accuracy": 0.5510204081632653,
-          "test_correct": 81,
-          "test_coverage": 1.0,
-          "test_macro_f1": 0.35526315789473684,
-          "test_only_labels": [],
-          "test_predicted": 147,
-          "test_rows": 147,
-          "train_rows": 344
-        }
-      },
+      "primary": {},
       "seed": 7
     },
     "majority_published": {
       "fitted_on": "train",
       "kind": "majority_published",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [],
-          "fitted_on": "input (no label is read)",
-          "test_accuracy": null,
-          "test_correct": 0,
-          "test_coverage": 0.0,
-          "test_macro_f1": null,
-          "test_only_labels": [],
-          "test_predicted": 0,
-          "test_rows": 147,
-          "train_rows": 0
-        }
-      },
+      "primary": {},
       "seed": 7
     },
     "random": {
       "fitted_on": "train",
       "kind": "random",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [
-            "no_confirmed_vulnerability",
-            "vulnerable"
-          ],
-          "fitted_on": "train",
-          "test_accuracy": 0.5238095238095238,
-          "test_correct": 77,
-          "test_coverage": 1.0,
-          "test_macro_f1": 0.5187991021324354,
-          "test_only_labels": [],
-          "test_predicted": 147,
-          "test_rows": 147,
-          "train_rows": 344
-        }
-      },
+      "primary": {},
       "seed": 7
     },
     "retrieval": {
       "fitted_on": "train",
       "kind": "retrieval",
-      "primary": {
-        "A_vulnerability_detection.jsonl": {
-          "fitted_label_space": [
-            "no_confirmed_vulnerability",
-            "vulnerable"
-          ],
-          "fitted_on": "train",
-          "test_accuracy": 0.2925170068027211,
-          "test_correct": 43,
-          "test_coverage": 1.0,
-          "test_macro_f1": 0.2850729517396184,
-          "test_only_labels": [],
-          "test_predicted": 147,
-          "test_rows": 147,
-          "train_rows": 344
-        }
-      },
+      "primary": {},
       "seed": 7
     }
   },
   "family_floors": {
     "A_vulnerability_detection.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "no_confirmed_vulnerability": 526,
         "vulnerable": 194
@@ -152,7 +63,7 @@
           "title_retrieval": 0.551
         }
       },
-      "status": "PRIMARY",
+      "status": "INVALID",
       "test_only_labels": [],
       "test_rows": 147,
       "train_only_majority_floor_on_test": 0.5510204081632653,
@@ -162,6 +73,7 @@
       "accuracy": null,
       "accuracy_reason": "single_label_not_evaluable",
       "evaluable": false,
+      "floor_eligibility": "not_eligible_primary",
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
         "invariant_stated": 228
@@ -192,6 +104,7 @@
     },
     "C_attacker_reasoning.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "honest_but_misconfigured": 3,
         "malicious_dependency": 11,
@@ -224,6 +137,7 @@
     },
     "E_exploit_verification.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "fails": 2,
         "passes": 5
@@ -256,6 +170,7 @@
       "accuracy": null,
       "accuracy_reason": "single_label_not_evaluable",
       "evaluable": false,
+      "floor_eligibility": "not_eligible_primary",
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
         "invalid": 17
@@ -277,6 +192,7 @@
       "accuracy": null,
       "accuracy_reason": "single_label_not_evaluable",
       "evaluable": false,
+      "floor_eligibility": "not_eligible_primary",
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
         "effective": 5
@@ -298,6 +214,7 @@
       "accuracy": null,
       "accuracy_reason": "single_label_not_evaluable",
       "evaluable": false,
+      "floor_eligibility": "not_eligible_primary",
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
         "exploitable": 1
@@ -319,6 +236,7 @@
       "accuracy": null,
       "accuracy_reason": "single_label_not_evaluable",
       "evaluable": false,
+      "floor_eligibility": "not_eligible_primary",
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
         "effective": 5
@@ -338,6 +256,7 @@
     },
     "K_language_ecosystem_routing.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "cairo": 8,
         "move": 15,
@@ -373,6 +292,7 @@
     },
     "L_severity_reconciliation.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "critical": 16,
         "high": 40,
@@ -407,6 +327,7 @@
     },
     "M_experiment_level_classification.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "not_eligible_primary",
       "label_distribution": {
         "l3": 1,
         "l5": 35,
@@ -438,6 +359,7 @@
     },
     "N_attacker_identity_extraction.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "false": 4,
         "true": 10
@@ -468,6 +390,7 @@
     },
     "O_record_class_and_scope.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "advisory": 51,
         "audit_finding": 39,
@@ -508,6 +431,7 @@
     },
     "P_provenance_tier_and_rights.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "0": 79,
         "1": 10,
@@ -541,6 +465,7 @@
     },
     "v3_R_source_tier_routing.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "0": 878,
         "1": 3517,
@@ -574,6 +499,7 @@
     },
     "v3_S_contest_outcome.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "finding": 1056,
         "negative": 16
@@ -606,6 +532,7 @@
     },
     "v3_T_taxonomy_explicit.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "access control": 1,
         "business logic": 588
@@ -636,6 +563,7 @@
     },
     "vbeta_U_language_routing.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "cairo": 19,
         "go": 38,
@@ -672,6 +600,7 @@
     },
     "vbeta_V_source_tier_routing.jsonl": {
       "evaluable": true,
+      "floor_eligibility": "diagnostic_only_invalid",
       "label_distribution": {
         "1": 35,
         "2": 6900
@@ -708,11 +637,14 @@
       "evaluable": true,
       "evaluable_reason": null,
       "n_labels": 2,
-      "reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
+      "reason": "invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code",
       "retired": false,
       "rows_scorable": 720,
-      "status": "PRIMARY",
-      "validity_flags": []
+      "status": "INVALID",
+      "validity_flags": [
+        "conflicting_gold_for_identical_input",
+        "required_code_missing"
+      ]
     },
     "B_root_cause_reasoning.jsonl": {
       "evaluable": false,
@@ -1015,33 +947,21 @@
   "primary_metric": {
     "accuracy": null,
     "accuracy_reason": "not measurable: no predictor has been run against this benchmark",
-    "by_split": {
-      "test": 147,
-      "train": 344,
-      "validation": 229
-    },
-    "denominator": 720,
-    "families": [
-      "A_vulnerability_detection.jsonl"
-    ],
-    "label_distribution": {
-      "no_confirmed_vulnerability": 526,
-      "vulnerable": 194
-    },
+    "by_split": {},
+    "denominator": 0,
+    "families": [],
+    "label_distribution": {},
     "macro_f1": null,
     "macro_f1_reason": "not measurable: no predictor has been run against this benchmark",
-    "scorable_rows": 720,
-    "test_label_distribution": {
-      "no_confirmed_vulnerability": 81,
-      "vulnerable": 66
-    },
-    "test_rows": 147
+    "scorable_rows": 0,
+    "test_label_distribution": {},
+    "test_rows": 0
   },
   "retracted_claims": [
     {
       "claim": "the headline micro-average covers 19,631 scorable rows across 5 families",
       "reason": "the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination",
-      "replacement": "the headline micro-average covers 720 scorable rows across 1 family (A_vulnerability_detection.jsonl)",
+      "replacement": "the headline micro-average covers 0 scorable rows across 0 family ()",
       "status": "RETRACTED"
     },
     {
@@ -1060,6 +980,12 @@
       "claim": "a family is in the headline because its name is not on a retirement list",
       "reason": "a hard-coded list cannot justify an evaluation claim",
       "replacement": "the status of every family is computed at run time from the independent audit's own measurements; an uncovered family file defaults to UNKNOWN and is never primary",
+      "status": "RETRACTED"
+    },
+    {
+      "claim": "A_vulnerability_detection.jsonl is usable as evaluation evidence",
+      "reason": "validity flags measured by the independent audit",
+      "replacement": "status INVALID: invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code",
       "status": "RETRACTED"
     },
     {
@@ -1137,7 +1063,7 @@
   ],
   "status_rules": {
     "exploratory": "shipped and scored, but demoted: too small, holdout too small, or a single observed label (accuracy is null with a reason)",
-    "invalid": "a validity flag makes the family unusable as evaluation evidence: answer_literal_leak, group_overlap, held_out_labels_unseen_in_train, near_duplicate_leak, record_id_overlap, saturated, shared_code, split_composition_drift",
+    "invalid": "a validity flag makes the family unusable as evaluation evidence: answer_literal_leak, conflicting_gold_for_identical_input, group_overlap, held_out_labels_unseen_in_train, near_duplicate_leak, record_id_overlap, required_code_missing, saturated, shared_code, split_composition_drift",
     "not_scorable": "no exactly-matchable scalar answer key",
     "primary": "no validity flag, at least 100 scorable rows, at least 2 observed labels, and no train-only shortcut at or above 0.9 on a holdout of at least 30 rows",
     "shortcut_baselines": [
@@ -1176,12 +1102,15 @@
       "partial": 0,
       "retired": false,
       "scorable": 720,
-      "status": "PRIMARY",
-      "status_reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
+      "status": "INVALID",
+      "status_reason": "invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code",
       "tasks": 720,
       "unlabeled": 0,
       "unscorable": 0,
-      "validity_flags": []
+      "validity_flags": [
+        "conflicting_gold_for_identical_input",
+        "required_code_missing"
+      ]
     },
     "B_root_cause_reasoning": {
       "answer_key_evidence_levels": {

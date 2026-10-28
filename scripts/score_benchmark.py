@@ -1129,6 +1129,11 @@ def build_metrics_report(status_rep: dict, fam_data: dict[str, dict]) -> dict:
                       and norm(maj_preds[r["tid"]]) == r["gold"])
         entry = {
             "status": st["status"],
+            "floor_eligibility": (
+                "eligible_primary" if st["status"] == bstatus.STATUS_PRIMARY
+                else "diagnostic_only_invalid"
+                if st["status"] == bstatus.STATUS_INVALID
+                else "not_eligible_primary"),
             "evaluable": st["evaluable"],
             "rows_scorable": st["rows_scorable"],
             "n_labels": st["n_labels"],
@@ -1349,7 +1354,9 @@ def render_metrics_md(rep: dict) -> str:
         "from a list. A family file that no rule covers defaults to",
         "UNKNOWN, which is never primary.",
         "",
-        "| family | status | scorable | labels | train-only floor on test | why |",
+        "A train-only test accuracy shown for an INVALID family is a diagnostic used to explain its status, not a valid evaluation floor or model-comparison threshold. Only a PRIMARY family's floor is eligible for a predictive claim.",
+        "",
+        "| family | status | scorable | labels | train-only majority accuracy on test | why |",
         "|---|---|---|---|---|---|",
     ]
     for fam, s in sorted(rep["family_status"].items()):
@@ -1368,12 +1375,13 @@ def render_metrics_md(rep: dict) -> str:
         "",
         "## Primary metric",
         "",
-        f"- families: {', '.join(pm['families'])}",
+        f"- families: {', '.join(pm['families']) or 'none'}",
         f"- denominator: {pm['denominator']} scorable rows",
-        "- by split: " + ", ".join(f"{k}={v}" for k, v in
-                                   pm["by_split"].items()),
-        "- label distribution: " + ", ".join(
-            f"{k}={v}" for k, v in pm["label_distribution"].items()),
+        "- by split: " + (", ".join(f"{k}={v}" for k, v in
+                                     pm["by_split"].items()) or "none"),
+        "- label distribution: " + (", ".join(
+            f"{k}={v}" for k, v in pm["label_distribution"].items())
+            or "none"),
         f"- accuracy: {pm['accuracy_reason']}",
         f"- macro-F1: {pm['macro_f1_reason']}",
         "",

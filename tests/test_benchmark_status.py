@@ -128,12 +128,16 @@ class TestStatusComesFromEvidence(StatusFixture):
             if st["validity_flags"]:
                 self.assertNotIn(fam, primary, fam)
 
-    def test_an_unflagged_family_can_still_be_primary(self):
-        """The status must not condemn everything: family A is the control."""
-        primary = self.status["primary_families"]
-        self.assertIn("A_vulnerability_detection.jsonl", primary)
-        self.assertEqual(self.status_of("A_vulnerability_detection.jsonl")
-                         ["validity_flags"], [])
+    def test_family_a_is_demoted_for_input_conflicts_and_missing_code(self):
+        """A must stay out of the headline until its task contract is repaired."""
+        fam = "A_vulnerability_detection.jsonl"
+        status = self.status_of(fam)
+        self.assertEqual(status["status"], bstatus.STATUS_INVALID)
+        self.assertIn("conflicting_gold_for_identical_input",
+                      status["validity_flags"])
+        self.assertIn("required_code_missing", status["validity_flags"])
+        self.assertNotIn(fam, self.status["primary_families"])
+        self.assertEqual(self.report["primary_denominator"], 0)
 
     def test_shortcut_domination_is_measured_on_train_rows_only(self):
         """U and V are excluded because a train-only shortcut solves them."""

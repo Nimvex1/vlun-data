@@ -22,6 +22,7 @@
       },
       "INVALID": {
         "families": [
+          "A_vulnerability_detection.jsonl",
           "C_attacker_reasoning.jsonl",
           "E_exploit_verification.jsonl",
           "K_language_ecosystem_routing.jsonl",
@@ -35,17 +36,15 @@
           "vbeta_U_language_routing.jsonl",
           "vbeta_V_source_tier_routing.jsonl"
         ],
-        "scorable": 21132
+        "scorable": 21852
       },
       "NOT_SCORABLE": {
         "families": [],
         "scorable": 0
       },
       "PRIMARY": {
-        "families": [
-          "A_vulnerability_detection.jsonl"
-        ],
-        "scorable": 720
+        "families": [],
+        "scorable": 0
       },
       "UNKNOWN": {
         "families": [],
@@ -76,8 +75,8 @@
     },
     "manifest_scorable_total": 23198,
     "scored_rows_all_families": 22145,
-    "scorer_covered": 720,
-    "scorer_covered_primary": 720
+    "scorer_covered": 0,
+    "scorer_covered_primary": 0
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task, needs a judge rather than string match",
@@ -86,91 +85,7 @@
     "H_verified_exploit.jsonl": "descriptive reference answers, no scalar label",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
   },
-  "families": {
-    "A_vulnerability_detection.jsonl": {
-      "accuracy": 0.5041666666666667,
-      "accuracy_reason": null,
-      "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.5041666666666667,
-      "baseline": {
-        "fitted_label_space": [
-          "no_confirmed_vulnerability",
-          "vulnerable"
-        ],
-        "fitted_on": "train",
-        "heldout_test": {
-          "accuracy": 0.5238095238095238,
-          "accuracy_reason": null,
-          "correct": 77,
-          "coverage": 1.0,
-          "macro_f1": 0.5187991021324354,
-          "predicted": 147,
-          "rows": 147
-        },
-        "heldout_validation": {
-          "accuracy": 0.4890829694323144,
-          "accuracy_reason": null,
-          "correct": 112,
-          "coverage": 1.0,
-          "macro_f1": 0.41393792243585537,
-          "predicted": 229,
-          "rows": 229
-        },
-        "test_only_labels": [],
-        "train_rows": 344,
-        "validation_only_labels": []
-      },
-      "correct": 363,
-      "evaluable": true,
-      "macro_f1": 0.46578101261350385,
-      "per_class": {
-        "no_confirmed_vulnerability": {
-          "f1": 0.6089813800657173,
-          "precision": 0.7183462532299741,
-          "recall": 0.5285171102661597,
-          "support": 526
-        },
-        "vulnerable": {
-          "f1": 0.32258064516129037,
-          "precision": 0.2552552552552553,
-          "recall": 0.4381443298969072,
-          "support": 194
-        }
-      },
-      "per_split": {
-        "test": {
-          "accuracy": 0.5238095238095238,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.5238095238095238,
-          "correct": 77,
-          "macro_f1": 0.5187991021324354,
-          "predicted": 147,
-          "scorable": 147
-        },
-        "train": {
-          "accuracy": 0.5058139534883721,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.5058139534883721,
-          "correct": 174,
-          "macro_f1": 0.4640762463343108,
-          "predicted": 344,
-          "scorable": 344
-        },
-        "validation": {
-          "accuracy": 0.4890829694323144,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.4890829694323144,
-          "correct": 112,
-          "macro_f1": 0.41393792243585537,
-          "predicted": 229,
-          "scorable": 229
-        }
-      },
-      "predicted": 720,
-      "scorable": 720,
-      "status": "PRIMARY"
-    }
-  },
+  "families": {},
   "families_exploratory": {
     "F_false_positive_rejection.jsonl": {
       "accuracy": null,
@@ -401,6 +316,89 @@
     }
   },
   "families_invalid": {
+    "A_vulnerability_detection.jsonl": {
+      "accuracy": 0.5041666666666667,
+      "accuracy_reason": null,
+      "accuracy_scope": "all_scorable_rows",
+      "accuracy_scorable": 0.5041666666666667,
+      "baseline": {
+        "fitted_label_space": [
+          "no_confirmed_vulnerability",
+          "vulnerable"
+        ],
+        "fitted_on": "train",
+        "heldout_test": {
+          "accuracy": 0.5238095238095238,
+          "accuracy_reason": null,
+          "correct": 77,
+          "coverage": 1.0,
+          "macro_f1": 0.5187991021324354,
+          "predicted": 147,
+          "rows": 147
+        },
+        "heldout_validation": {
+          "accuracy": 0.4890829694323144,
+          "accuracy_reason": null,
+          "correct": 112,
+          "coverage": 1.0,
+          "macro_f1": 0.41393792243585537,
+          "predicted": 229,
+          "rows": 229
+        },
+        "test_only_labels": [],
+        "train_rows": 344,
+        "validation_only_labels": []
+      },
+      "correct": 363,
+      "evaluable": true,
+      "macro_f1": 0.46578101261350385,
+      "per_class": {
+        "no_confirmed_vulnerability": {
+          "f1": 0.6089813800657173,
+          "precision": 0.7183462532299741,
+          "recall": 0.5285171102661597,
+          "support": 526
+        },
+        "vulnerable": {
+          "f1": 0.32258064516129037,
+          "precision": 0.2552552552552553,
+          "recall": 0.4381443298969072,
+          "support": 194
+        }
+      },
+      "per_split": {
+        "test": {
+          "accuracy": 0.5238095238095238,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.5238095238095238,
+          "correct": 77,
+          "macro_f1": 0.5187991021324354,
+          "predicted": 147,
+          "scorable": 147
+        },
+        "train": {
+          "accuracy": 0.5058139534883721,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.5058139534883721,
+          "correct": 174,
+          "macro_f1": 0.4640762463343108,
+          "predicted": 344,
+          "scorable": 344
+        },
+        "validation": {
+          "accuracy": 0.4890829694323144,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.4890829694323144,
+          "correct": 112,
+          "macro_f1": 0.41393792243585537,
+          "predicted": 229,
+          "scorable": 229
+        }
+      },
+      "predicted": 720,
+      "scorable": 720,
+      "status": "INVALID"
+    },
     "C_attacker_reasoning.jsonl": {
       "accuracy": 0.296551724137931,
       "accuracy_reason": null,
@@ -1707,7 +1705,7 @@
   },
   "family_status": {
     "A_vulnerability_detection.jsonl": {
-      "audit_usable_as_evidence": true,
+      "audit_usable_as_evidence": false,
       "evaluable": true,
       "evaluable_reason": null,
       "family": "A_vulnerability_detection.jsonl",
@@ -1719,8 +1717,11 @@
       "majority_label": "no_confirmed_vulnerability",
       "n_labels": 2,
       "path": "benchmark/A_vulnerability_detection.jsonl",
-      "reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
-      "reasons": [],
+      "reason": "invalid as evaluation evidence: conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows; required_code_missing: 290 of 720 scorable rows omit non-empty code",
+      "reasons": [
+        "conflicting_gold_for_identical_input: 14 identical-input groups carry different gold labels, affecting 306 rows",
+        "required_code_missing: 290 of 720 scorable rows omit non-empty code"
+      ],
       "retired": false,
       "rows_scorable": 720,
       "rows_total": 720,
@@ -1744,8 +1745,11 @@
         "train": 344,
         "validation": 229
       },
-      "status": "PRIMARY",
-      "validity_flags": []
+      "status": "INVALID",
+      "validity_flags": [
+        "conflicting_gold_for_identical_input",
+        "required_code_missing"
+      ]
     },
     "B_root_cause_reasoning.jsonl": {
       "audit_usable_as_evidence": false,
@@ -2704,62 +2708,19 @@
     }
   },
   "micro": {
-    "accuracy": 0.5041666666666667,
-    "accuracy_denominator": 720,
-    "accuracy_reason": null,
-    "accuracy_scorable": 0.5041666666666667,
-    "accuracy_scorable_denominator": 720,
-    "correct": 363,
-    "evaluable_families": [
-      "A_vulnerability_detection.jsonl"
-    ],
-    "macro_f1": 0.46578101261350385,
+    "accuracy": null,
+    "accuracy_denominator": 0,
+    "accuracy_reason": "no evaluable family in this block: every contributing family has a single observed label (single_label_not_evaluable): ",
+    "accuracy_scorable": null,
+    "accuracy_scorable_denominator": 0,
+    "correct": 0,
+    "evaluable_families": [],
+    "macro_f1": null,
     "non_evaluable_families": [],
-    "per_class": {
-      "no_confirmed_vulnerability": {
-        "f1": 0.6089813800657173,
-        "precision": 0.7183462532299741,
-        "recall": 0.5285171102661597,
-        "support": 526
-      },
-      "vulnerable": {
-        "f1": 0.32258064516129037,
-        "precision": 0.2552552552552553,
-        "recall": 0.4381443298969072,
-        "support": 194
-      }
-    },
-    "per_split": {
-      "test": {
-        "accuracy": 0.5238095238095238,
-        "accuracy_reason": null,
-        "accuracy_scorable": 0.5238095238095238,
-        "correct": 77,
-        "macro_f1": 0.5187991021324354,
-        "predicted": 147,
-        "scorable": 147
-      },
-      "train": {
-        "accuracy": 0.5058139534883721,
-        "accuracy_reason": null,
-        "accuracy_scorable": 0.5058139534883721,
-        "correct": 174,
-        "macro_f1": 0.4640762463343108,
-        "predicted": 344,
-        "scorable": 344
-      },
-      "validation": {
-        "accuracy": 0.4890829694323144,
-        "accuracy_reason": null,
-        "accuracy_scorable": 0.4890829694323144,
-        "correct": 112,
-        "macro_f1": 0.41393792243585537,
-        "predicted": 229,
-        "scorable": 229
-      }
-    },
-    "predicted": 720,
-    "scorable": 720
+    "per_class": {},
+    "per_split": {},
+    "predicted": 0,
+    "scorable": 0
   },
   "micro_all_families": {
     "accuracy": 0.3979624468911325,
@@ -3105,19 +3066,20 @@
     "scorable": 28
   },
   "micro_invalid": {
-    "accuracy": 0.36174713129924385,
-    "accuracy_denominator": 18911,
+    "accuracy": 0.3669706077122918,
+    "accuracy_denominator": 19631,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.36174713129924385,
-    "accuracy_scorable_denominator": 18911,
-    "correct": 6841,
+    "accuracy_scorable": 0.3669706077122918,
+    "accuracy_scorable_denominator": 19631,
+    "correct": 7204,
     "evaluable_families": [
+      "A_vulnerability_detection.jsonl",
       "C_attacker_reasoning.jsonl",
       "v3_R_source_tier_routing.jsonl",
       "vbeta_U_language_routing.jsonl",
       "vbeta_V_source_tier_routing.jsonl"
     ],
-    "macro_f1": 0.1621859624820794,
+    "macro_f1": 0.20266530249960266,
     "non_evaluable_families": [],
     "per_class": {
       "0": {
@@ -3168,6 +3130,12 @@
         "recall": 0.15,
         "support": 20
       },
+      "no_confirmed_vulnerability": {
+        "f1": 0.6089813800657173,
+        "precision": 0.7183462532299741,
+        "recall": 0.5285171102661597,
+        "support": 526
+      },
       "privileged": {
         "f1": 0.35121951219512193,
         "precision": 0.5,
@@ -3192,6 +3160,12 @@
         "recall": 0.32167832167832167,
         "support": 143
       },
+      "vulnerable": {
+        "f1": 0.32258064516129037,
+        "precision": 0.2552552552552553,
+        "recall": 0.4381443298969072,
+        "support": 194
+      },
       "vyper": {
         "f1": 0.009242144177449169,
         "precision": 0.004725897920604915,
@@ -3201,35 +3175,35 @@
     },
     "per_split": {
       "test": {
-        "accuracy": 0.309326171875,
+        "accuracy": 0.3118616807398472,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.309326171875,
-        "correct": 3801,
-        "macro_f1": 0.13275354037481282,
-        "predicted": 12288,
-        "scorable": 12288
+        "accuracy_scorable": 0.3118616807398472,
+        "correct": 3878,
+        "macro_f1": 0.18422628194249582,
+        "predicted": 12435,
+        "scorable": 12435
       },
       "train": {
-        "accuracy": 0.45735643900781514,
+        "accuracy": 0.46003210272873196,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.45735643900781514,
-        "correct": 2692,
-        "macro_f1": 0.17254261894682785,
-        "predicted": 5886,
-        "scorable": 5886
+        "accuracy_scorable": 0.46003210272873196,
+        "correct": 2866,
+        "macro_f1": 0.21419028000218257,
+        "predicted": 6230,
+        "scorable": 6230
       },
       "validation": {
-        "accuracy": 0.47218453188602444,
+        "accuracy": 0.47619047619047616,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.47218453188602444,
-        "correct": 348,
-        "macro_f1": 0.23717973501161485,
-        "predicted": 737,
-        "scorable": 737
+        "accuracy_scorable": 0.47619047619047616,
+        "correct": 460,
+        "macro_f1": 0.2624309046436492,
+        "predicted": 966,
+        "scorable": 966
       }
     },
-    "predicted": 18911,
-    "scorable": 18911
+    "predicted": 19631,
+    "scorable": 19631
   },
   "micro_retired": {
     "accuracy": 0.6674047829937998,
@@ -3514,17 +3488,15 @@
       "reason": "judge-graded rubric dict"
     }
   },
-  "primary_denominator": 720,
-  "primary_families": [
-    "A_vulnerability_detection.jsonl"
-  ],
+  "primary_denominator": 0,
+  "primary_families": [],
   "run": "baseline:random:seed7",
   "scope_note": "the per-family and per-micro `accuracy` covers every scorable row of the block (train, validation and test together): it is a label-distribution diagnostic, not a held-out result. The held-out predictive performance is the `test` entry of `per_split`, and for a baseline the `baseline.heldout_test` block, which is fitted on train rows only",
   "scorer_version": "2",
   "scoring_rule": "exact match on the lowercased projected scalar, labelled rows only; macro-F1 is unweighted over the classes present in gold or prediction",
   "status_rules": {
     "exploratory": "shipped and scored, but demoted: too small, holdout too small, or a single observed label (accuracy is null with a reason)",
-    "invalid": "a validity flag makes the family unusable as evaluation evidence: answer_literal_leak, group_overlap, held_out_labels_unseen_in_train, near_duplicate_leak, record_id_overlap, saturated, shared_code, split_composition_drift",
+    "invalid": "a validity flag makes the family unusable as evaluation evidence: answer_literal_leak, conflicting_gold_for_identical_input, group_overlap, held_out_labels_unseen_in_train, near_duplicate_leak, record_id_overlap, required_code_missing, saturated, shared_code, split_composition_drift",
     "not_scorable": "no exactly-matchable scalar answer key",
     "primary": "no validity flag, at least 100 scorable rows, at least 2 observed labels, and no train-only shortcut at or above 0.9 on a holdout of at least 30 rows",
     "shortcut_baselines": [

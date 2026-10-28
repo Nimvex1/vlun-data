@@ -66,9 +66,26 @@ def main() -> int:
     _maj_fam = next((v for k, v in _maj.items() if k in prim_families), {})
     _maj_acc = _maj_fam.get("test_accuracy")
     _maj_f1 = _maj_fam.get("test_macro_f1")
-    expl_n = (bl.get("micro_exploratory") or {}).get("scorable", 0) or 0
-    inval_n = (bl.get("micro_invalid") or {}).get("scorable", 0) or 0
-    ret_n = (bl.get("micro_retired") or {}).get("scorable", 0) or 0
+    if prim_families:
+        _headline_summary = (
+            f"the primary metric covers {n(prim_den)} exactly-scorable rows "
+            f"of the PRIMARY set ({len(prim_families)} families: "
+            f"{', '.join(prim_families)}); the train-only majority floor "
+            f"on the {n(prim_splits.get('test', 0))} held-out test rows is "
+            f"{('%.4f' % _maj_acc) if isinstance(_maj_acc, (int, float)) else 'n/a'} "
+            f"(macro-F1 {('%.4f' % _maj_f1) if isinstance(_maj_f1, (int, float)) else 'n/a'})")
+    else:
+        _headline_summary = (
+            "**no family currently qualifies as PRIMARY**; the headline has "
+            "0 scorable rows and there is no eligible held-out floor. Any "
+            "per-family floor shown for an INVALID family is diagnostic only")
+    _family_status = metrics.get("family_status") or {}
+    expl_n = sum(s.get("rows_scorable", 0) or 0
+                 for s in _family_status.values()
+                 if s.get("status") == "EXPLORATORY")
+    inval_n = sum(s.get("rows_scorable", 0) or 0
+                  for s in _family_status.values()
+                  if s.get("status") == "INVALID")
     all_n = (bl.get("micro_all_families") or {}).get("scorable", 0) or 0
     leak = (m3.get("admitted_verification_levels", {}) or {})
     lvl = (mvb.get("candidate_verification_levels", {}) or {})
@@ -114,7 +131,7 @@ ground truth. Governing rule: truth over scale.
 - v2.2 (five languages): {n(m22.get('records', 0))} derived records.
 - V3.0: {n(m3.get('record_count', 0))} admitted of {n(m3.get('candidate_count', 0))} candidates across {n(m3.get('source_count', 0))} sources; levels {json.dumps(leak, sort_keys=True)}.
 - Vbeta (isolated): {n(mvb.get('record_count', 0))} admitted of {n(mvb.get('candidate_count', 0))} candidates across {n(mvb.get('source_count', 0))} sources; levels {json.dumps(lvl, sort_keys=True)}.
-- Benchmark: the primary metric covers {n(prim_den)} exactly-scorable rows of the PRIMARY set ({len(prim_families)} famil{'y' if len(prim_families) == 1 else 'ies'}: {', '.join(prim_families)}); the train-only majority floor on the {n(prim_splits.get('test', 0))} held-out test rows is {('%.4f' % _maj_acc) if isinstance(_maj_acc, (int, float)) else 'n/a'} (macro-F1 {('%.4f' % _maj_f1) if isinstance(_maj_f1, (int, float)) else 'n/a'}). The family status is computed at run time from the independent audit's measurements, not from a list: {n(expl_n)} rows sit in EXPLORATORY families (demoted: too few rows, a holdout too small to estimate on, or a single observed label), {n(inval_n)} rows in INVALID families (a validity flag makes them unusable as evaluation evidence), {n(ret_n)} in retired families (retirement is a location, not a verdict) and {n(_judged_n)} in families with no exactly-matchable key — the exclusion is recorded per family, never silent. The continuity twin covers all {n(all_n)} scorable rows ever shipped. **The benchmark is OPEN-KEY**: {_open_key.rstrip('.')}. The only protected evaluation in this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is committed to by hash ({n(len(_priv))} files).
+- Benchmark: {_headline_summary}. The family status is computed at run time from the independent audit's measurements, not from a list: {n(expl_n)} rows sit in EXPLORATORY families (demoted: too few rows, a holdout too small to estimate on, or a single observed label), {n(inval_n)} rows in INVALID families (a validity flag makes them unusable as evaluation evidence), and {n(_judged_n)} in families with no exactly-matchable key — the exclusion is recorded per family, never silent. Retired families remain included according to their audited status; retirement is a location, not a verdict. The continuity twin covers all {n(all_n)} scorable rows ever shipped. **The benchmark is OPEN-KEY**: {_open_key.rstrip('.')}. The only protected evaluation in this project is the VLUN-Prove private split, whose answer key lives outside the tracked tree and is committed to by hash ({n(len(_priv))} files).
 - Field coverage: {n(thin)} of {n(len(fields))} tracked fields under 50% known (see `reports/field_coverage.md`). `unknown` is a counted outcome everywhere.
 
 ## Collection process

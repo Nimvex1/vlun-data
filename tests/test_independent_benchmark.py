@@ -85,6 +85,38 @@ class TestAuditInvariants(unittest.TestCase):
             "N_attacker_identity_extraction.jsonl", [row])
         self.assertEqual(res["rows_checked"], 0)
 
+    def test_identical_input_conflicting_gold_is_detected(self):
+        rows = [
+            {"input": {"code": "same"}, "answer_key": {"label": "vulnerable"},
+             "answer_key_status": "labeled", "id": "one", "split": "train"},
+            {"input": {"code": "same"},
+             "answer_key": {"label": "no_confirmed_vulnerability"},
+             "answer_key_status": "labeled", "id": "two", "split": "test"},
+        ]
+        result = audit.audit_input_gold_consistency(
+            "A_vulnerability_detection.jsonl", rows)
+        self.assertEqual(result["unique_inputs"], 1)
+        self.assertEqual(result["conflicting_groups"], 1)
+        self.assertEqual(result["rows_in_conflicting_groups"], 2)
+        self.assertEqual(result["examples"][0]["splits"],
+                         {"test": 1, "train": 1})
+
+    def test_required_code_detector_rejects_empty_code_blocks(self):
+        rows = [
+            {"input": {"code": {"code_blocks": [{"code": "contract C {}"}]}},
+             "answer_key": {"label": "vulnerable"},
+             "answer_key_status": "labeled", "id": "with-code"},
+            {"input": {"code": {"code_available": False, "code_blocks": []}},
+             "answer_key": {"label": "no_confirmed_vulnerability"},
+             "answer_key_status": "labeled", "id": "without-code"},
+        ]
+        result = audit.audit_required_input_completeness(
+            "A_vulnerability_detection.jsonl", rows)
+        self.assertEqual(result["rows_checked"], 2)
+        self.assertEqual(result["rows_with_code"], 1)
+        self.assertEqual(result["rows_missing_code"], 1)
+        self.assertEqual(result["verdict"], "required_input_missing")
+
     def test_macro_f1_is_unweighted(self):
         """A 90/10 split must not score near 1.0 the way accuracy does."""
         gold = ["a"] * 90 + ["b"] * 10
@@ -250,15 +282,20 @@ class TestCommittedFindings(unittest.TestCase):
         self.assertEqual(d["micro_all_families"]["predicted"], 71)
         self.assertEqual(d["micro_all_families"]["accuracy"], 1.0)
 
-    def test_audit_is_not_a_blanket_condemnation(self):
-        """If nothing were clean, the thresholds would be too aggressive to
-        be believed. Family A is the control: it must survive."""
-        clean = [f for f, v in self.audit["families"].items()
-                 if v.get("usable_as_evidence")]
-        self.assertEqual(
-            clean, ["A_vulnerability_detection.jsonl"],
-            "the set of clean families changed; re-run the audit and update "
-            "the report before accepting a different verdict")
+    def test_family_a_conflicting_inputs_and_missing_code_stay_visible(self):
+        """A cannot be promoted while exact inputs disagree or omit code."""
+        fam = "A_vulnerability_detection.jsonl"
+        entry = self.audit["families"][fam]
+        consistency = entry["input_gold_consistency"]
+        completeness = entry["required_input_completeness"]
+        self.assertEqual(consistency["conflicting_groups"], 14)
+        self.assertEqual(consistency["rows_in_conflicting_groups"], 306)
+        self.assertEqual(completeness["rows_missing_code"], 290)
+        self.assertEqual(completeness["missing_code_by_split"]["test"], 121)
+        self.assertIn("conflicting_gold_for_identical_input",
+                      entry["validity_flags"])
+        self.assertIn("required_code_missing", entry["validity_flags"])
+        self.assertFalse(entry["usable_as_evidence"])
 
 
 class TestAdditiveAndReproducible(unittest.TestCase):

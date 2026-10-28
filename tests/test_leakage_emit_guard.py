@@ -57,6 +57,34 @@ class TestCuratedOverwriteDecision(unittest.TestCase):
             [_row("a")], [_row("b")], allow_rewrite=True)
         self.assertNotEqual(d["existing_sha256"], d["proposed_sha256"])
 
+    def test_same_id_content_change_requires_override(self):
+        old = {"finding": {"id": "a"}, "source": {"repository": "r/a"},
+               "reason": "original"}
+        changed = {**old, "reason": "edited"}
+        d = cl.curated_overwrite_decision(
+            [old], [changed], allow_rewrite=False)
+        self.assertTrue(d["blocked"])
+        self.assertEqual(d["removed"], [])
+        self.assertEqual(d["added"], [])
+        self.assertEqual(d["modified"], [cl.rec_id(old)])
+        self.assertNotEqual(d["existing_sha256"], d["proposed_sha256"])
+
+    def test_same_id_content_change_override_allows_reviewed_rewrite(self):
+        old = {"finding": {"id": "a"}, "source": {"repository": "r/a"},
+               "reason": "original"}
+        changed = {**old, "reason": "reviewed correction"}
+        d = cl.curated_overwrite_decision(
+            [old], [changed], allow_rewrite=True)
+        self.assertFalse(d["blocked"])
+        self.assertEqual(d["modified"], [cl.rec_id(old)])
+
+    def test_reordering_unchanged_rows_is_a_noop(self):
+        rows = [_row("a"), _row("b")]
+        d = cl.curated_overwrite_decision(
+            rows, list(reversed(rows)), allow_rewrite=False)
+        self.assertFalse(d["blocked"])
+        self.assertEqual(d["modified"], [])
+
     def test_duplicate_id_multiplicity_drop_is_blocked(self):
         """Two rows with the same id shrinking to one is a removal."""
         d = cl.curated_overwrite_decision(
