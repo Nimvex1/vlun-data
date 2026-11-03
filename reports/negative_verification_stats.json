@@ -4223,24 +4223,22 @@
             "citation": {
               "audited_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
               "cited_url_as_published": "https://github.com/code-423n4/2024-04-noya/blob/main/contracts/connectors/UNIv3Connector.sol#L40-L57",
-              "cited_url_re_pinned": "https://github.com/code-423n4/2024-04-noya/blob/7e7b0ffb53b516b95c7900d25fb00af8f108727f/contracts/connectors/UNIv3Connector.sol#L40",
+              "cited_url_re_pinned": null,
               "clone": "code-423n4__2024-04-noya",
               "file": "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol",
               "function": "openPosition",
-              "mutable_ref_in_source_layer": false,
+              "mutable_ref_in_source_layer": true,
               "repository": "2024-04-noya",
               "verification": {
+                "blocker": "source_clone_not_provided",
                 "commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
-                "declaration_line": 40,
+                "declaration_line": null,
                 "file": "code-423n4/2024-04-noya/contracts/connectors/UNIv3Connector.sol",
-                "file_path_in_clone": "contracts/connectors/UNIv3Connector.sol",
-                "file_sha256": "22c09dd1d54641734414136055337790a9dbc78c604de69d0b15dcb707e8f389",
+                "file_path_in_clone": null,
+                "file_sha256": null,
                 "function": "openPosition",
-                "modifiers_observed": [
-                  "nonReentrant",
-                  "onlyManager"
-                ],
-                "verified": true
+                "modifiers_observed": [],
+                "verified": false
               }
             },
             "claim_standing": "unprivileged",

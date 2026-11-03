@@ -1,5 +1,11 @@
 {
-  "by_attacker_kind": {},
+  "by_attacker_kind": {
+    "honest_but_misconfigured": 3,
+    "malicious_dependency": 11,
+    "privileged": 133,
+    "unknown": 432,
+    "unprivileged": 143
+  },
   "by_code_context": {
     "none": 45,
     "reference_only": 240,
@@ -15,11 +21,7 @@
     "validation": 229
   },
   "by_verification": {
-    "inconclusive": 8,
-    "not_attempted": 567,
-    "not_executed": 140,
-    "not_reproduced": 2,
-    "reproduced": 5
+    "not_attempted": 722
   },
   "generated_by": "scripts/audit_records.py",
   "issue_kinds": {},

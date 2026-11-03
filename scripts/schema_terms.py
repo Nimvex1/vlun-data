@@ -110,7 +110,8 @@ MANIFEST_KEYS = {
     "benchmark_task_count": ("benchmark_task_count", "tasks"),
     "source_count": ("source_count",),
     "report_count": ("report_count",),
-    "experiment_count": ("experiment_count", "experimental_runs_attempted"),
+    "experiment_count": ("experiment_count", "candidate_artefacts",
+                         "experimental_runs_attempted"),
 }
 
 # ---------------------------------------------------------------------------

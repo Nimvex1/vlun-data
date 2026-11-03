@@ -39,11 +39,25 @@ proximity to one that was executed.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from schema_terms import VIOLATION_IMPACTS
 
 U = "unknown"
+
+# Levels this module can promote to. L6 is a controlled two-revision
+# comparison and is never inferred from a one-sided run; a future L6 pass
+# has to go through validate_l6_claim instead of promote().
+PROMOTABLE_LEVELS = ("L3", "L4", "L5")
+
+L3_PLUS = ("L3", "L4", "L5", "L6")
+
+# Full commit ids only: an abbreviation cannot be checked out on both sides.
+_HEX40 = re.compile(r"^[0-9a-f]{40}$")
+
+# Statuses that mean "the run never reached a comparable test outcome".
+_SHORT_CIRCUIT_STATUSES = ("blocked", "timeout", "compile_failed")
 
 # Level -> verification_status, using the existing closed vocabulary from
 # scripts/audit_sources.py (VERIFICATION_STATES). No new status terms.
@@ -443,6 +457,10 @@ def promote(candidates: list[dict], evidence: dict) -> int:
         if not entry or entry.get("level") in (None, "L0", "L1"):
             continue
         level = entry["level"]
+        if level not in PROMOTABLE_LEVELS:
+            # L6 is a two-revision controlled comparison; no single-artefact
+            # evidence may silently lift a record (L5 included) to L6.
+            continue
         c["verification_level"] = level
         c["verification_status"] = LEVEL_TO_STATUS.get(level, "UNVERIFIED")
         c["verification_evidence"] = entry.get("basis") or U
@@ -523,3 +541,202 @@ def artefact_exists(root: Path, entry: dict) -> bool:
         return bool(entry.get("compile", {}).get("rc") == 0)
     d = root / rel
     return (d / "result.json").is_file() and (d / "stdout.txt").is_file()
+
+
+def _l6_side_status(revision: dict):
+    """The completed test outcome of one revision, or None.
+
+    Accepts the explicit `status` field; a revision that only records
+    per-test outcomes gets a status when every test agrees, so "one passing
+    test" on one side cannot stand in for a completed comparison.
+    """
+    status = revision.get("status")
+    if status in ("pass", "fail"):
+        return status
+    per_test = revision.get("per_test_status")
+    if isinstance(per_test, dict) and per_test:
+        outcomes = {str(v).strip().lower() for v in per_test.values()}
+        if outcomes <= {"success", "pass"}:
+            return "pass"
+        if outcomes <= {"failure", "fail"}:
+            return "fail"
+    return None
+
+
+def validate_l6_claim(claim: dict) -> tuple[bool, list[str]]:
+    """Validate an L6 patch-verified claim against two-revision evidence.
+
+    L6 is a controlled comparison, not a stronger L5: the same test file
+    bytes must run against two distinct full 40-hex commits and show the
+    declared property polarity (vulnerable fail / fixed pass by default), no
+    revision may be short-circuited by a compile/timeout/blocked failure, and
+    an explicit claim-specific violation_evidence record must exist. Pure:
+    reads only the passed record/experiment, never the filesystem.
+
+    Returns (ok, errors). An empty layer trivially has nothing to validate;
+    callers apply this only to records that actually claim L6.
+    """
+    if not isinstance(claim, dict):
+        return False, ["L6 claim is not an object"]
+    exp = claim.get("experiment")
+    if not isinstance(exp, dict):
+        exp = claim
+    errors: list[str] = []
+    record_level = claim.get("verification_level")
+    if record_level is not None and record_level != "L6":
+        errors.append(f"claim is recorded as {record_level}, not L6")
+    awarded = exp.get("level_awarded")
+    if awarded is not None and awarded != "L6":
+        errors.append(f"experiment awards {awarded}, not L6")
+    revisions = exp.get("revisions")
+    if not isinstance(revisions, dict):
+        return False, errors + ["no two-revision evidence (revisions map) recorded"]
+    vulnerable = revisions.get("vulnerable")
+    fixed = revisions.get("fixed")
+    vulnerable = vulnerable if isinstance(vulnerable, dict) else {}
+    fixed = fixed if isinstance(fixed, dict) else {}
+    if not vulnerable:
+        errors.append("vulnerable revision evidence is missing")
+    if not fixed:
+        errors.append("fixed revision evidence is missing")
+
+    commits = []
+    for label, revision in (("vulnerable", vulnerable), ("fixed", fixed)):
+        commit = revision.get("commit")
+        if not isinstance(commit, str) or not _HEX40.match(commit):
+            errors.append(f"{label} revision does not name a full 40-hex commit")
+            commit = None
+        commits.append(commit)
+    if all(commits) and commits[0] == commits[1]:
+        errors.append("both revisions name the same commit: no controlled comparison")
+
+    harness_v = vulnerable.get("harness_digest")
+    harness_f = fixed.get("harness_digest")
+    if not _present(harness_v) or not _present(harness_f):
+        errors.append("harness digest is missing on one or both revisions")
+    elif harness_v != harness_f:
+        errors.append("the two revisions ran different harness bytes")
+    files_v = vulnerable.get("harness_file_digests")
+    files_f = fixed.get("harness_file_digests")
+    files_v = files_v if isinstance(files_v, dict) else {}
+    files_f = files_f if isinstance(files_f, dict) else {}
+    tests_v = {n: d for n, d in files_v.items() if str(n).endswith(".t.sol")}
+    tests_f = {n: d for n, d in files_f.items() if str(n).endswith(".t.sol")}
+    if not tests_v or not tests_f:
+        errors.append("test file digests are missing on one or both revisions")
+    elif tests_v != tests_f:
+        errors.append("the two revisions did not run the same test file bytes")
+
+    status_v = _l6_side_status(vulnerable)
+    status_f = _l6_side_status(fixed)
+    if status_v is None:
+        errors.append("vulnerable revision records no completed test status")
+    if status_f is None:
+        errors.append("fixed revision records no completed test status")
+    declared_v = vulnerable.get("declared_expected_status")
+    declared_f = fixed.get("declared_expected_status")
+    if declared_v in ("pass", "fail") and declared_f in ("pass", "fail"):
+        if declared_v == declared_f:
+            errors.append("declared assertion polarity is not two-sided")
+        if status_v is not None and status_v != declared_v:
+            errors.append(f"vulnerable status {status_v!r} does not match the "
+                          f"declared {declared_v!r}")
+        if status_f is not None and status_f != declared_f:
+            errors.append(f"fixed status {status_f!r} does not match the "
+                          f"declared {declared_f!r}")
+    else:
+        if status_v is not None and status_v != "fail":
+            errors.append("without a declared polarity the vulnerable "
+                          "revision must fail the property assertion")
+        if status_f is not None and status_f != "pass":
+            errors.append("without a declared polarity the fixed revision "
+                          "must pass the property assertion")
+    per_v = vulnerable.get("per_test_status")
+    per_f = fixed.get("per_test_status")
+    if isinstance(per_v, dict) or isinstance(per_f, dict):
+        per_v = per_v if isinstance(per_v, dict) else {}
+        per_f = per_f if isinstance(per_f, dict) else {}
+        if not per_v or not per_f:
+            errors.append("only one revision records per-test statuses")
+        elif sorted(per_v) != sorted(per_f):
+            errors.append("the two revisions did not run the same tests")
+
+    for label, revision in (("vulnerable", vulnerable), ("fixed", fixed)):
+        reason = revision.get("failure_reason")
+        if reason:
+            errors.append(f"{label} revision has a failure reason {reason!r}")
+        if revision.get("status") in _SHORT_CIRCUIT_STATUSES:
+            errors.append(f"{label} revision is {revision.get('status')}: "
+                          "the comparison never ran")
+        compile_info = revision.get("compile")
+        if isinstance(compile_info, dict) and compile_info.get("rc") not in (None, 0):
+            errors.append(f"{label} revision did not compile")
+    if exp.get("failure_reason"):
+        errors.append(f"experiment has a failure reason "
+                      f"{exp.get('failure_reason')!r}")
+    if exp.get("status") in _SHORT_CIRCUIT_STATUSES:
+        errors.append(f"experiment is {exp.get('status')}: the comparison "
+                      "never ran")
+
+    evidence = exp.get("violation_evidence")
+    if not isinstance(evidence, dict) or not evidence:
+        errors.append("no explicit violation_evidence record")
+    else:
+        evidence_ok, evidence_errors = validate_violation_evidence(evidence)
+        if not evidence_ok:
+            errors.extend(f"violation_evidence: {e}" for e in evidence_errors)
+    return (not errors, errors)
+
+
+def run_accounting(root: Path, ledger: list[dict],
+                   records: list[dict]) -> dict:
+    """Run-accounting counts for the V3 manifest, derived from artefacts.
+
+    `candidate_artefacts` and `evidence_admitted_records` come from the
+    in-memory ledger/records; the execution counts come from the committed
+    `reports/v3/experimental_proof.json`. Every distinct proof run falls in
+    exactly one category (success = completed test rc 0, failed =
+    `test_failed`, blocked = `blocked`); a duplicate run, a run that fits no
+    category, or a run that would fit two is returned as an error, so the
+    counts can never double-count.
+    """
+    proof = _read(root / "reports" / "v3" / "experimental_proof.json") or {}
+    runs = [r for r in (proof.get("runs") or []) if isinstance(r, dict)]
+    errors: list[str] = []
+    seen: dict[str, int] = {}
+    successful = failed = blocked = 0
+    for index, run in enumerate(runs):
+        run_id = str(run.get("finding_id") or f"run#{index}")
+        if run_id in seen:
+            errors.append(f"proof run {run_id!r} is listed more than once")
+            continue
+        seen[run_id] = index
+        status = str(run.get("status") or "").strip()
+        rc = (run.get("test") or {}).get("rc")
+        if status == "blocked":
+            if rc == 0:
+                errors.append(f"proof run {run_id!r} is blocked but its test rc=0")
+            blocked += 1
+        elif status == "test_failed":
+            if rc == 0:
+                errors.append(f"proof run {run_id!r} is test_failed but its test rc=0")
+            failed += 1
+        elif rc == 0:
+            successful += 1
+        else:
+            errors.append(f"proof run {run_id!r} fits no accounting category "
+                          f"(status={status!r}, test rc={rc!r})")
+    attempts = len(seen)
+    if attempts != successful + failed + blocked:
+        errors.append(f"attempts {attempts} != successful {successful} + "
+                      f"failed {failed} + blocked {blocked}")
+    counts = {
+        "candidate_artefacts": sum(1 for c in ledger if c.get("experiment")),
+        "execution_attempts": attempts,
+        "successful_executions": successful,
+        "failed_executions": failed,
+        "blocked_executions": blocked,
+        "evidence_admitted_records": sum(
+            1 for r in records if r.get("verification_level") in L3_PLUS),
+    }
+    return {"counts": counts, "errors": errors, "run_ids": sorted(seen)}

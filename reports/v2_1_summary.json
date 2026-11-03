@@ -8,7 +8,7 @@
   "experiments_reproduced": 7,
   "generated_by": "scripts/generate_v21_reports.py",
   "immutable_citations_remaining_mutable": 0,
-  "immutable_citations_resolved": 473,
+  "immutable_citations_resolved": null,
   "leakage_detected": {
     "artefact": 0,
     "code": 0,

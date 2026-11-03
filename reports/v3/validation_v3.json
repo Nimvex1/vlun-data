@@ -208,6 +208,15 @@
       "ok": true
     },
     {
+      "check": "no_L6_without_two_revision_evidence",
+      "critical": true,
+      "detail": "L6 requires two distinct 40-hex commits, equal harness and test file bytes, vulnerable-fail/fixed-pass polarity, no compile/timeout/blocked failure reason and explicit claim-specific violation_evidence",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
       "check": "L1_requires_published_poc",
       "critical": true,
       "detail": null,
@@ -334,6 +343,15 @@
       "ok": true
     },
     {
+      "check": "run_accounting_matches_proof",
+      "critical": true,
+      "detail": "execution_attempts = successful + failed + blocked (distinct proof runs, no double counting); candidate_artefacts and evidence_admitted_records recomputed from the ledgers",
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
       "check": "source_ledger_sums",
       "critical": true,
       "detail": "18 sources == len(SOURCE_IDS)",
@@ -382,14 +400,16 @@
       "check": "benchmark_A_Q_intact",
       "critical": true,
       "detail": null,
-      "failure_count": 0,
-      "failures": [],
+      "failure_count": 1,
+      "failures": [
+        "missing=['A_vulnerability_detection', 'B_root_cause_reasoning', 'C_attacker_reasoning', 'D_exploit_construction', 'E_exploit_verification', 'F_false_positive_rejection', 'G_patch_verification', 'H_verified_exploit', 'I_verified_non_exploit', 'J_verified_patch', 'K_language_ecosystem_routing', 'L_severity_reconciliation', 'M_experiment_level_classification', 'N_attacker_identity_extraction', 'O_record_class_and_scope', 'P_provenance_tier_and_rights', 'Q_evidence_type_and_quality_rubric']"
+      ],
       "group": "isolation",
-      "ok": true
+      "ok": false
     }
   ],
-  "critical_failures": 0,
+  "critical_failures": 1,
   "dataset_version": "3.0",
-  "passed": 43,
-  "total": 43
+  "passed": 44,
+  "total": 45
 }

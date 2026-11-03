@@ -17,6 +17,8 @@
     "L4": 7,
     "L5": 5
   },
+  "blocked_executions": 5,
+  "candidate_artefacts": 127,
   "candidate_by_ecosystem": {
     "aptos": 11,
     "cosmos": 95,
@@ -85,13 +87,16 @@
     "source_count": "source (origin)"
   },
   "dataset_version": "3.0",
-  "experimental_runs_attempted": 127,
-  "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 requires a structured, claim-specific violation_evidence record (impact type, actor, property, expected vs observed, source); attacker profit is mandatory only for fund_theft. L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
+  "evidence_admitted_records": 127,
+  "execution_attempts": 18,
+  "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (18 distinct proof runs: 12 successful, 1 test_failed, 5 blocked; levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 requires a structured, claim-specific violation_evidence record (impact type, actor, property, expected vs observed, source); attacker profit is mandatory only for fund_theft. L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
+  "failed_executions": 1,
   "generated_by": "scripts/build_v3.py",
   "license_posture": "METADATA_ONLY for all third-party content",
   "record_count": 5467,
   "schema_version": "3.0",
   "source_count": 18,
+  "successful_executions": 12,
   "tiers": {
     "0": "defihacklabs",
     "1": "anza-security-audits",

@@ -40,16 +40,21 @@
   "code_citations_commit_pinned": 5,
   "code_citations_resolved": 146,
   "evidence_strongest": {
-    "experimentally_verified": 37,
-    "observed_fact": 100
+    "experimentally_verified": 7,
+    "observed_fact": 130
   },
   "experiment_artefacts_all_present": 37,
   "experiment_levels": {
+    "L1": 1,
     "L3": 1,
-    "L5": 35,
+    "L4": 29,
+    "L5": 5,
     "L6": 1,
     "none": 100
   },
+  "experiment_levels_demoted": 3,
+  "experiment_levels_provisional": 27,
+  "experiment_levels_verified_l5": 5,
   "generated_by": "scripts/build_derived_v22.py",
   "not_redistributable": 137,
   "problems": 0,
@@ -82,7 +87,8 @@
       "no_classes": 54
     },
     "verification": {
-      "experimentally_verified": 37,
+      "executed_not_demonstrated": 31,
+      "experimentally_verified": 6,
       "reported_claim": 98,
       "unverified": 2
     }

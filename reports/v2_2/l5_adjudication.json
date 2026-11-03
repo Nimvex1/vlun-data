@@ -1,0 +1,623 @@
+{
+  "adjudication_source": "reports/v2_2/l5_adjudication.json",
+  "adjudications": [
+    {
+      "evidence": "experiments_v2_2/kerf-auditpoc/stdout.txt: [PASS] testH1_shortCloseAndLiquidateBrick() (gas: 1233065)",
+      "experiment_ids": [
+        "kerf-auditpoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:kerf-report/H-1",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "testH1_shortCloseAndLiquidateBrick"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/kerf-auditpoc/stdout.txt: [PASS] testH2_jumpPausesAndStrangerCannotUnpause() (gas: 1325652)",
+      "experiment_ids": [
+        "kerf-auditpoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:kerf-report/H-2",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "testH2_jumpPausesAndStrangerCannotUnpause",
+        "testH2_staleLatchFreezesWithNoTx"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/kerf-auditpoc/stdout.txt: [PASS] testH3_partialWithdrawSwapsFullOtherBalance() (gas: 8977622)",
+      "experiment_ids": [
+        "kerf-auditpoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:kerf-report/H-3",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "testH3_partialWithdrawSwapsFullOtherBalance",
+        "testH3_thinPoolPartialWithdrawRevertsInRouter"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/kerf-auditpoc/stdout.txt: [PASS] testM1_hedgerExtractsNavFromVictim() (gas: 2705213)",
+      "experiment_ids": [
+        "kerf-auditpoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:kerf-report/M-1",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "testM1_hedgerExtractsNavFromVictim",
+        "testM1_jumpSelfClearsOnRepeatReport"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/quantillon-emergencyunstake/stdout.txt: [PASS] test_PoC_EmergencyUnstake_PaysArbitraryRecipient() (gas: 439449)",
+      "experiment_ids": [
+        "quantillon-emergencyunstake"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:quantillon-report/H-1",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_PoC_EmergencyUnstake_PaysArbitraryRecipient",
+        "test_PoC_EmergencyUnstake_ZeroRecipient_PaysUser"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-contractaudit-supply/stdout.txt: [FAIL: totalVeSupply must fall to 0 once the only position expires+withdraws: 41095890410958904109 != 0] test_totalVeSupply_notDecrementedOnFullDecay_withdraw() (gas: 234579)",
+      "experiment_ids": [
+        "zentory-contractaudit-supply"
+      ],
+      "level_after": "L5",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 1a: the artefact's declared expectation names test_totalVeSupply_notDecrementedOnFullDecay_withdraw in its fail list, the committed stdout records it failing, and the [FAIL: <reason>] reason is non-empty, so the claimed violation was experimentally reproduced.",
+      "record_id": "solidity:zentory-contracts-audit/H2",
+      "status_after": "experimentally_verified",
+      "tests": [
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "verdict": "SUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-contractaudit-cancel/stdout.txt: [PASS] test_cancelSubscription_revertsBecauseVaultHoldsNoFunds() (gas: 342957)",
+      "experiment_ids": [
+        "zentory-contractaudit-cancel"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-contracts-audit/H3",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-modea-accountingl2/stdout.txt:   sum(pools)      = 75000000",
+      "experiment_ids": [
+        "zentory-modea-accountingl2"
+      ],
+      "level_after": "L5",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 1c: test_poc_1_gpPoolDoubleCounted passed and its Logs block in stdout.txt prints the affected quantity, so the state is observed, not merely executed.",
+      "record_id": "solidity:zentory-mode-a/H-1",
+      "status_after": "experimentally_verified",
+      "tests": [
+        "test_poc_1_gpPoolDoubleCounted"
+      ],
+      "verdict": "SUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-modea-accountingl2/stdout.txt:   WBTC stranded   = 50000000",
+      "experiment_ids": [
+        "zentory-modea-accountingl2"
+      ],
+      "level_after": "L5",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 1c: test_poc_2_triggerBuybackStrandsAssetAndBurnsUnrelatedZent passed and its Logs block in stdout.txt prints the affected quantity, so the state is observed, not merely executed.",
+      "record_id": "solidity:zentory-mode-a/H-2",
+      "status_after": "experimentally_verified",
+      "tests": [
+        "test_poc_2_triggerBuybackStrandsAssetAndBurnsUnrelatedZent"
+      ],
+      "verdict": "SUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-modea-accountingl2/stdout.txt:   totalVeSupply after withdraw = 1000000000000000000000",
+      "experiment_ids": [
+        "zentory-modea-accountingl2",
+        "zentory-modea-auditpoc"
+      ],
+      "level_after": "L5",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 1c: test_poc_3_withdrawRemovesZeroVe passed and its Logs block in stdout.txt prints the affected quantity, so the state is observed, not merely executed.",
+      "record_id": "solidity:zentory-mode-a/H-3",
+      "status_after": "experimentally_verified",
+      "tests": [
+        "test_poc_3_withdrawRemovesZeroVe",
+        "test_poc_4_veSupplyInflationByStakeWithdrawCycles",
+        "test_totalVeSupply_notDecrementedOnFullDecay_withdraw"
+      ],
+      "verdict": "SUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-modea-accountingl2/stdout.txt: [PASS] test_poc_5_buybackEventReportsUnspentUsdc() (gas: 774973)",
+      "experiment_ids": [
+        "zentory-modea-accountingl2"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-mode-a/M-1",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_poc_5_buybackEventReportsUnspentUsdc"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-modea-auditpoc/stdout.txt: [PASS] test_cancelSubscription_revertsBecauseVaultHoldsNoFunds() (gas: 342957)",
+      "experiment_ids": [
+        "zentory-modea-auditpoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-mode-a/M-2",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_cancelSubscription_revertsBecauseVaultHoldsNoFunds"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt: [PASS] test_C1_markToMarketFeeDrainsVault() (gas: 662989)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/C-1",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_C1_markToMarketFeeDrainsVault",
+        "test_baseVaultKeeperMarkAccruesFeesFromIdlePrincipal"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_hyperCoreAdapterConstructorGrantsDeployerExecutorRole() (gas: 1222468)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-01",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_hyperCoreAdapterConstructorGrantsDeployerExecutorRole"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_G1_expiredWithdrawalLeavesStaleQuorum() (gas: 297478)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-02",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_G1_expiredWithdrawalLeavesStaleQuorum"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_G2_postSnapshotStakeCanVote() (gas: 407876)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-03",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_G2_postSnapshotStakeCanVote",
+        "test_M5_postSnapshotStakeCounts"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_S1_penaltyAppliesOncePerDistinctSignalAndCompounds() (gas: 1581664)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-04",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_S1_penaltyAppliesOncePerDistinctSignalAndCompounds"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_SC1_keeperCanAdvanceRegistryIndependently() (gas: 98727)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-05",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_SC1_keeperCanAdvanceRegistryIndependently",
+        "test_SC2_epochSettlerCanSettleBeforeDuration",
+        "test_SC3_scoringOracleSetsUnknownSignalAccuracy"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt: [PASS] test_H2_buybackFeesFrozen() (gas: 716339)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-06",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_H2_buybackFeesFrozen",
+        "test_feeDistributorTriggerBuybackClearsPoolWithoutSpendingAsset",
+        "test_zentBuybackLeavesConfiguredFeeToken"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_zentBuybackLeavesConfiguredFeeToken() (gas: 1692631)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-06b",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_zentBuybackLeavesConfiguredFeeToken"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_deployerRetainsAdminAndBootstrapProposerCanSchedule() (gas: 120229)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/H-07",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_deployerRetainsAdminAndBootstrapProposerCanSchedule"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt: [PASS] test_M3_epochCapSharedSpam() (gas: 384955431)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-01",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_M3_epochCapSharedSpam",
+        "test_R1_zeroStakeSignerIsAccepted",
+        "test_R2_zeroStakeSignerExhaustsSharedEpochCap"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_hyperSwapRouterAdapterOneWeiDonationBreaksSwap() (gas: 2560620)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-02",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_hyperSwapRouterAdapterOneWeiDonationBreaksSwap"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_feeDistributorStaleGpCreditUsesRetainedBuybackBalance() (gas: 2816380)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-03",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_feeDistributorStaleGpCreditUsesRetainedBuybackBalance"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt: [PASS] test_H3_rewardBrickedSlashWorks() (gas: 351750)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-04",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_H3_rewardBrickedSlashWorks",
+        "test_S2_rewardPathRevertsWithoutAllowance"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt: [PASS] test_M1_cancelAlwaysReverts() (gas: 391351)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs",
+        "zentory-selfaudit-findingspoc"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-05",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_M1_cancelAlwaysReverts",
+        "test_subscriptionPaymentGoesToTreasuryAndPositiveRefundCancelReverts"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_fullSlashAfterPendingUnbondLeavesTimestampAndBlocksUnbondPaths() (gas: 645637)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-06",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_fullSlashAfterPendingUnbondLeavesTimestampAndBlocksUnbondPaths"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_defaultInsuranceFundKeepsSlashedTokensInStaking() (gas: 462271)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-07",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_defaultInsuranceFundKeepsSlashedTokensInStaking"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_singleRegistryRedeployLeavesScorerOnOldRegistry() (gas: 317087)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/M-08",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_singleRegistryRedeployLeavesScorerOnOldRegistry"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-airdrop-node/stdout.txt is 0 bytes",
+      "experiment_ids": [
+        "zentory-selfaudit-airdrop-node"
+      ],
+      "level_after": "L1",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 3(i): the cited artefact's stdout.txt is empty (0 bytes) and the run recorded no tests, so nothing was observed: insufficient_evidence; demoted to L1. Attribution, ids and provenance stay untouched.",
+      "record_id": "solidity:zentory-self-audit/M-09",
+      "status_after": "reported_claim",
+      "tests": [
+        "test/AuditAirdropSnapshotPoc.mjs"
+      ],
+      "verdict": "UNSUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_strategyExecutorZeroLimitsAllowRepeatedSignals() (gas: 2394826)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 3(ii): the record's own published text classifies it as mitigated in practice (its published title says so); the run executed but demonstrates no violation; demoted to L4, not L0: attribution, outcome and why_no_L6 stay intact.",
+      "record_id": "solidity:zentory-self-audit/O-01",
+      "status_after": "executed_not_violation",
+      "tests": [
+        "test_strategyExecutorZeroLimitsAllowRepeatedSignals"
+      ],
+      "verdict": "UNSUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_S3_negativeDirectionIsAcceptedButScoredNeutral() (gas: 2963813)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/S-3",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_S3_negativeDirectionIsAcceptedButScoredNeutral"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_SC4_expiredSignalCanBeSlashed() (gas: 902825)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": true,
+      "reason": "Rule 2: the committed artefact declares only `all_pass` and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact.",
+      "record_id": "solidity:zentory-self-audit/SC-4",
+      "status_after": "experimentally_verified_provisional",
+      "tests": [
+        "test_SC4_expiredSignalCanBeSlashed"
+      ],
+      "verdict": "WEAK"
+    },
+    {
+      "evidence": "experiments_v2_2/zentory-selfaudit-auditpocs/stdout.txt: [PASS] test_SC5_revertingAdapterRollsBackNonceState() (gas: 372244)",
+      "experiment_ids": [
+        "zentory-selfaudit-auditpocs"
+      ],
+      "level_after": "L4",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 3(ii): the record's own published text classifies it as a negative control (its published title carries the (NEGATIVE CONTROL) tag); the run executed but demonstrates no violation; demoted to L4, not L0: attribution, outcome and why_no_L6 stay intact.",
+      "record_id": "solidity:zentory-self-audit/SC-5",
+      "status_after": "executed_not_violation",
+      "tests": [
+        "test_SC5_revertingAdapterRollsBackNonceState"
+      ],
+      "verdict": "UNSUPPORTED"
+    },
+    {
+      "evidence": "experiments_v2_2/vyper-optimizer-ternary/stdout.txt: CHECK pass ir_v0.3.10_optimize_gas_folds_msg_value_or_2_to_1 :: rc=0 folded=True",
+      "experiment_ids": [
+        "vyper-optimizer-ternary"
+      ],
+      "level_after": "L5",
+      "level_before": "L5",
+      "provisional": false,
+      "reason": "Rule 1b: the artefact's declared expectation is a stdout_contains differential harness, result.json records it met, and the named CHECK lines are present verbatim in stdout.txt; the record cites this artefact and has no per-test rows.",
+      "record_id": "vyper:GHSA-6j9c-gvcw-74fj",
+      "status_after": "experimentally_verified",
+      "tests": [],
+      "verdict": "SUPPORTED"
+    }
+  ],
+  "analyst_review": {
+    "applied_by": "scripts/build_derived_v22.py (derived experiment_view only; jsonl_ml is not rewritten)",
+    "level_ladder": "L0 prose, L1 PoC code quoted, L2 reconstructed, L3 compiles, L4 executes, L5 claimed security violation reproduced, L6 L5 plus a fixed-revision contrast (scripts/poc_classification.py)",
+    "method": "the file is derived from artefact bytes by scripts/build_v22_l5_adjudication.py: for every L5 claim the script reads the cited committed run artefacts in experiments_v2_2/ (result.json expectation.declared, expectation.met, failing/passing tests, stdout.txt [FAIL]/[PASS]/Logs lines) and applies the published rule; no prose-only reasoning and no re-run of any test",
+    "performed_at": "2026-11-01",
+    "performed_by": "scripts/build_v22_l5_adjudication.py (artefact-grounded re-adjudication; rule 1a/1b/1c, 2, 3 as published in the `rule` header)",
+    "scope": "every v2.2 record whose source experiment claimed L5: 35 records across jsonl_ml/findings_reports.jsonl and jsonl_ml/findings_vyper.jsonl",
+    "status_after_values": {
+      "executed_not_violation": "the run executed and demonstrates no violation",
+      "experimentally_verified": "the claim is demonstrated by the observed run",
+      "experimentally_verified_provisional": "the run is observed but the L5 claim is provisional",
+      "reported_claim": "nothing was executed that asserts the claim"
+    },
+    "tests_field": "tests lists the test functions or PoC script paths the record observed. It is empty only where the run reported no named test (vyper-optimizer-ternary); there the stdout CHECK markers cited in evidence are the assertion record.",
+    "verdict_definitions": {
+      "SUPPORTED": "a cited test satisfies rule 1a, 1b or 1c from the committed artefact bytes; L5 stands",
+      "UNSUPPORTED": "rule 3: the artefact observed nothing (empty stdout or absent test: L1) or the record's own text classifies it (negative control / mitigated in practice: L4)",
+      "WEAK": "rule 2: the run is present and passed but the artefact records no claim-specific observation; L4, provisional L5 candidate"
+    }
+  },
+  "counts": {
+    "L5_records": 35,
+    "SUPPORTED": 5,
+    "UNSUPPORTED": 3,
+    "WEAK": 27
+  },
+  "dataset_version": "2.2",
+  "expected_records": 35,
+  "generated_by": "scripts/build_v22_l5_adjudication.py",
+  "record_type": "l5_adjudication",
+  "rule": {
+    "supported_1a": "the artefact's expectation.declared names the cited test in a fail list, the artefact records the test failing, and the [FAIL: <reason>] reason is non-empty",
+    "supported_1b": "the artefact's expectation.declared uses stdout_contains (a declared differential/observation harness) and the expectation is met with the named lines present in stdout.txt",
+    "supported_1c": "the cited test passed and its Logs block in stdout.txt contains at least one `= <numeric value>` line: the harness printed the affected quantity, so the state is observed, not merely executed",
+    "unsupported": "(i) the cited artefact's stdout is empty or the cited test is absent from it: L1, insufficient_evidence; or (ii) the record's own published text classifies it as a negative control or as mitigated in practice: L4, reason names the class. L4/L1, never L0: attribution, ids, provenance, outcome and why_no_L6 stay intact",
+    "weak": "the test is present in the artefact and passed but satisfies none of 1a-1c: the committed artefact declares only all_pass and records no claim-specific observation, and no test body is published, so the violation is not demonstrable from the artefact (L4, provisional)"
+  }
+}

@@ -465,7 +465,7 @@ def render() -> str:
     _v3lv = (v3m.get("admitted_verification_levels") or {})
     _v3_executed = sum(v for k, v in _v3lv.items() if k in ("L3", "L4", "L5", "L6"))
     _v3_l5 = sum(v for k, v in _v3lv.items() if k in ("L5", "L6"))
-    _v3_runs = v3m.get("experimental_runs_attempted", 0) or 0
+    _v3_runs = v3m.get("candidate_artefacts", 0) or 0
     # Vbeta layer: isolated new-language + Solodit-mirror layer. Same rule as
     # above: every figure is read from the Vbeta artefacts, never typed in.
     _vb = ROOT / "Vbeta"

@@ -14,7 +14,9 @@ pipeline can establish from the records plus what is actually on disk:
     code_context_view      citation resolution, line ranges, commit pinning
     experiment_view        the recorded experiment and whether its artefacts
                            still exist as named (checked against the disk,
-                           never taken from the record's word)
+                           never taken from the record's word), plus the
+                           adjudicated level where an artefact-grounded
+                           adjudication exists
     taxonomy               v1 taxonomy lookup plus how each class string is
                            shaped (CWE id, C4 string, report label)
     attacker_model         reported only when a source sentence says so, and
@@ -23,6 +25,32 @@ pipeline can establish from the records plus what is actually on disk:
                            attack sequence as structured data
     quality                per-dimension ordinal labels with their basis; no
                            aggregate score
+
+Adjudicated L5 levels
+---------------------
+`jsonl_ml/` is immutable, so the re-adjudication of the 35 records whose source
+experiment claims L5 is committed separately in
+`reports/v2_2/l5_adjudication.json` and applied here, in the derived view only.
+That file is not prose: `scripts/build_v22_l5_adjudication.py` derives it,
+deterministically, from the committed run artefacts in `experiments_v2_2/`
+(`result.json` expectations and test lists, `stdout.txt` `[FAIL:]`, `[PASS]`
+and `Logs:` lines), under the rule published in its own header:
+
+    experiment_view.level              the adjudicated level (L5, or the
+                                       demoted L4/L1)
+    experiment_view.level_before       what the source experiment claimed (L5)
+    experiment_view.adjudication_verdict  SUPPORTED / WEAK / UNSUPPORTED
+    experiment_view.status_after       the adjudicated verification status
+    experiment_view.verification_provisional  true only for WEAK
+    experiment_view.l5_candidate       true for WEAK: L4 today, L5 candidate
+    experiment_view.demoted_from_L5    true for UNSUPPORTED
+    experiment_view.adjudication_reason / provisional_reason / demotion_reason
+                                       the review's one-line basis, verbatim
+
+Coverage is validated against the source layer, not the derived one: the
+adjudication must name exactly the records whose source experiment says L5,
+with the same experiment ids and only tests the run actually observed. A
+mismatch fails the build instead of producing a quieter wrong count.
 
     python scripts/build_derived_v22.py
     python scripts/build_derived_v22.py --check
@@ -41,7 +69,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_derived as bd  # noqa: E402
 import taxonomy as tx  # noqa: E402
 from vlun import DATASET_VERSION, ROOT, log, sha256_text, write_json, write_jsonl  # noqa: E402
-from vlun_ml import DERIVED_V22, EXPERIMENTS_V22, ML_JSONL  # noqa: E402
+from vlun_ml import (  # noqa: E402
+    DERIVED_V22, EXPERIMENTS_V22, ML_JSONL, REPORTS_V22,
+)
 
 # The ladder a record's evidence is read against, strongest first. The order is
 # a convention of this dataset, stated so a reader can disagree with it
@@ -58,6 +88,232 @@ LADDER = (
 
 CWE_RE = re.compile(r"^CWE-\d+$", re.I)
 C4_RE = re.compile(r"^(?:[A-Z][\w&/ -]+/)+")
+
+# ---------------------------------------------------------------------------
+# L5 adjudication
+# ---------------------------------------------------------------------------
+
+# The artefact-grounded re-adjudication of the records whose source experiment
+# claims L5 is a committed adjudication file, not a rewrite of the source
+# layer: `jsonl_ml/` keeps saying what the pipeline observed, and this derived
+# layer records what the committed run bytes establish (see
+# scripts/build_v22_l5_adjudication.py for how the file is derived).
+ADJUDICATION = REPORTS_V22 / "l5_adjudication.json"
+ADJUDICATION_SOURCE = "reports/v2_2/l5_adjudication.json"
+ADJUDICATION_VERDICTS = ("SUPPORTED", "WEAK", "UNSUPPORTED")
+ADJUDICATION_KEYS = ("record_id", "verdict", "level_before", "level_after",
+                     "status_after", "provisional", "experiment_ids", "tests",
+                     "reason", "evidence")
+L5 = "L5"
+
+# The level/provisional pair each verdict must declare. A supported claim stays
+# at L5; a weak one drops to L4 and keeps its L5 candidacy visible; an
+# unsupported one drops below L5 and may never be marked provisional.
+ADJUDICATION_LEVELS = {
+    "SUPPORTED": ("L5", False),
+    "WEAK": ("L4", True),
+}
+UNSUPPORTED_LEVELS = ("L1", "L4")
+
+
+class AdjudicationError(ValueError):
+    """The L5 adjudication is missing, malformed, or does not cover the L5
+    claims in the source layer exactly."""
+
+
+def load_adjudication(path: Path | None = None) -> dict[str, dict]:
+    """Read and validate the committed L5 adjudication.
+
+    Returns `record_id -> entry`. The file is the review's evidence: every
+    entry must carry its verdict, the level before and after, the adjudicated
+    status, its provisional flag, the experiment ids and tests it speaks about,
+    a one-line reason and an artefact reference. Anything missing or internally
+    inconsistent raises, so a malformed review cannot be applied silently.
+    """
+    path = Path(path) if path is not None else ADJUDICATION
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise AdjudicationError(f"{path}: cannot read ({exc})") from exc
+    except json.JSONDecodeError as exc:
+        raise AdjudicationError(f"{path}: invalid JSON ({exc})") from exc
+    if not isinstance(data, dict) or data.get("record_type") != "l5_adjudication":
+        raise AdjudicationError(f"{path}: record_type is not 'l5_adjudication'")
+    entries = data.get("adjudications")
+    if not isinstance(entries, list) or not entries:
+        raise AdjudicationError(f"{path}: 'adjudications' must be a non-empty list")
+    expected = data.get("expected_records")
+    if isinstance(expected, bool) or not isinstance(expected, int):
+        raise AdjudicationError(f"{path}: 'expected_records' must be an integer")
+    if len(entries) != expected:
+        raise AdjudicationError(
+            f"{path}: expected_records={expected} but {len(entries)} entries")
+
+    out: dict[str, dict] = {}
+    for i, e in enumerate(entries):
+        where = f"{path}: adjudications[{i}]"
+        if not isinstance(e, dict):
+            raise AdjudicationError(f"{where} is not an object")
+        missing = [k for k in ADJUDICATION_KEYS if k not in e]
+        if missing:
+            raise AdjudicationError(f"{where} is missing {missing}")
+        rid = e["record_id"]
+        if not isinstance(rid, str) or not rid.strip():
+            raise AdjudicationError(f"{where}: record_id must be a non-empty string")
+        if rid in out:
+            raise AdjudicationError(f"{path}: duplicate record_id {rid!r}")
+        verdict = e["verdict"]
+        if verdict not in ADJUDICATION_VERDICTS:
+            raise AdjudicationError(
+                f"{where}: verdict {verdict!r} not in {list(ADJUDICATION_VERDICTS)}")
+        if e["level_before"] != L5:
+            raise AdjudicationError(f"{where}: level_before must be {L5}")
+        if not isinstance(e["provisional"], bool):
+            raise AdjudicationError(f"{where}: provisional must be a boolean")
+        if verdict == "UNSUPPORTED":
+            if e["level_after"] not in UNSUPPORTED_LEVELS:
+                raise AdjudicationError(
+                    f"{where}: an unsupported claim demotes to one of "
+                    f"{list(UNSUPPORTED_LEVELS)}, got {e['level_after']!r}")
+        else:
+            want_level, want_provisional = ADJUDICATION_LEVELS[verdict]
+            if e["level_after"] != want_level:
+                raise AdjudicationError(
+                    f"{where}: a {verdict} claim must end at {want_level}, "
+                    f"got {e['level_after']!r}")
+            if e["provisional"] is not want_provisional:
+                raise AdjudicationError(
+                    f"{where}: provisional must be {want_provisional} for "
+                    f"{verdict}")
+        if e["provisional"] is not (verdict == "WEAK"):
+            raise AdjudicationError(
+                f"{where}: only WEAK is provisional, got provisional="
+                f"{e['provisional']} for {verdict}")
+        for key in ("status_after", "reason", "evidence"):
+            if not isinstance(e[key], str) or not e[key].strip():
+                raise AdjudicationError(f"{where}: {key} must be a non-empty string")
+        for key in ("experiment_ids", "tests"):
+            if not isinstance(e[key], list) or \
+                    not all(isinstance(x, str) and x for x in e[key]):
+                raise AdjudicationError(
+                    f"{where}: {key} must be a list of non-empty strings")
+        if not e["experiment_ids"]:
+            raise AdjudicationError(f"{where}: experiment_ids must not be empty")
+        out[rid] = e
+
+    declared = data.get("counts")
+    if not isinstance(declared, dict):
+        raise AdjudicationError(f"{path}: 'counts' must be an object")
+    counts = collections.Counter(e["verdict"] for e in entries)
+    if declared.get("L5_records") != len(entries):
+        raise AdjudicationError(
+            f"{path}: counts.L5_records={declared.get('L5_records')!r} but "
+            f"{len(entries)} entries")
+    for verdict in ADJUDICATION_VERDICTS:
+        if declared.get(verdict) != counts.get(verdict, 0):
+            raise AdjudicationError(
+                f"{path}: counts.{verdict}={declared.get(verdict)!r} but "
+                f"{counts.get(verdict, 0)} entries")
+    return out
+
+
+def _observed_names(exp: dict) -> set[str]:
+    """Every test or PoC script name this run is recorded as having seen."""
+    return {h.get(k) for h in exp.get("tests_observed") or []
+            for k in ("test", "poc_file") if h.get(k)}
+
+
+def check_adjudication(findings: list[dict],
+                       adjudications: dict[str, dict]) -> None:
+    """Fail unless the adjudication covers exactly the L5 claims in the layer.
+
+    Coverage is measured against the SOURCE experiment level, so a rebuild is
+    idempotent: the source keeps claiming L5, the adjudication keeps governing
+    those same ids, and the derived view changes instead. Each entry is also
+    tied to its run: the experiment ids must be the record's and every test it
+    names must be one the record observed. An adjudication about some other
+    record, or about a test nobody ran, is refused rather than applied.
+    """
+    source_l5 = {f.get("id") for f in findings
+                 if (f.get("experiment") or {}).get("level") == L5}
+    unknown = sorted(set(adjudications) - source_l5)
+    missing = sorted(source_l5 - set(adjudications))
+    problems = []
+    if unknown:
+        problems.append(
+            f"{len(unknown)} adjudicated record(s) do not claim L5 in the "
+            f"source layer: {unknown[:5]}")
+    if missing:
+        problems.append(
+            f"{len(missing)} L5 record(s) have no adjudication: {missing[:5]}")
+    for rid in sorted(set(adjudications) & source_l5):
+        entry = adjudications[rid]
+        finding = next(f for f in findings if f.get("id") == rid)
+        exp = finding.get("experiment") or {}
+        want_ids = sorted(exp.get("experiment_ids") or [])
+        if sorted(entry["experiment_ids"]) != want_ids:
+            problems.append(
+                f"{rid}: adjudication experiment_ids "
+                f"{sorted(entry['experiment_ids'])} != record {want_ids}")
+        extra = sorted(set(entry["tests"]) - _observed_names(exp))
+        if extra:
+            problems.append(
+                f"{rid}: adjudication names tests the run never observed: "
+                f"{extra}")
+    if problems:
+        raise AdjudicationError(f"{ADJUDICATION_SOURCE}: " + "; ".join(problems))
+
+
+def apply_adjudication(view: dict, entry: dict | None) -> dict:
+    """Overlay an adjudication entry onto an experiment_view.
+
+    Only the level and the adjudication's own fields are set. `outcome`,
+    `outcome_basis`, the artefacts and the ids stay exactly what the run
+    produced: an adjudication re-reads a run, it does not replace it. A
+    demoted (UNSUPPORTED) record keeps those evidence fields but no longer
+    reads as fully verified: its level drops to L4/L1, `demoted_from_L5` and
+    `demotion_reason` name the demotion, and `evidence_type` follows the
+    adjudicated status so the strongest label is `observed_fact` (executed,
+    violation not demonstrated) or `reported_claim` (nothing observed), never
+    `experimentally_verified`.
+    """
+    if entry is None:
+        return view
+    out = dict(view)
+    out.update({
+        "level": entry["level_after"],
+        "level_before": entry["level_before"],
+        "status_after": entry["status_after"],
+        "adjudication_verdict": entry["verdict"],
+        "verification_provisional": bool(entry["provisional"]),
+        "adjudication_reason": entry["reason"],
+        "adjudication_source": ADJUDICATION_SOURCE,
+    })
+    if entry["verdict"] == "WEAK":
+        out["l5_candidate"] = True
+        out["provisional_reason"] = entry["reason"]
+    elif entry["verdict"] == "UNSUPPORTED":
+        out["demoted_from_L5"] = True
+        out["demotion_reason"] = entry["reason"]
+    if entry["level_after"] != entry["level_before"]:
+        # A demotion re-reads the run; it must not leave the run's own claim of
+        # reproduction standing next to a lower level. The raw values are kept
+        # under `*_before_adjudication` so the source claim stays auditable.
+        if out.get("outcome"):
+            out["outcome_before_adjudication"] = out["outcome"]
+            out["outcome"] = ("executed_violation_not_demonstrated"
+                              if entry["level_after"] in ("L3", "L4")
+                              else "no_committed_observation")
+        if out.get("evidence_type") == "experimentally_verified":
+            out["evidence_type"] = ("reported_claim"
+                                    if entry["level_after"] == "L1"
+                                    else "observed_fact")
+            # A restated fact must still point at the bytes it rests on: an
+            # `observed_fact` with no source is rejected by the pointer gate,
+            # and the run artefacts are exactly that source.
+            out["source_refs"] = [a["path"] for a in out.get("artefacts") or []
+                                  if a.get("exists")]
+    return out
 
 
 def load_layer() -> tuple[list[dict], dict[str, dict]]:
@@ -89,11 +345,25 @@ def load_runs() -> dict[str, dict]:
 # evidence
 # ---------------------------------------------------------------------------
 
-def evidence_summary(ev: dict) -> dict:
+def evidence_summary(ev: dict, exp: dict | None = None) -> dict:
+    """Summarise a record's evidence fields under the stated ladder.
+
+    `exp` is the adjudicated experiment view. Where an adjudication re-reads a
+    run at a lower level, the `poc_execution` field is counted at the
+    adjudicated type: the summary describes what this layer claims, and a
+    record whose run no longer demonstrates the violation must not be
+    summarised as `experimentally_verified` while its level says otherwise.
+    """
+    override = None
+    if exp and exp.get("present") and exp.get("adjudication_verdict"):
+        override = exp.get("evidence_type")
     counts = collections.Counter()
-    for value in (ev or {}).values():
+    for key, value in (ev or {}).items():
         if isinstance(value, dict) and "evidence_type" in value:
-            counts[value["evidence_type"]] += 1
+            et = value["evidence_type"]
+            if override and key == "poc_execution" and et == "experimentally_verified":
+                et = override
+            counts[et] += 1
     present = [t for t in LADDER if counts.get(t)]
     return {
         "fields": sum(counts.values()),
@@ -221,7 +491,13 @@ def _artefact(rel: str) -> dict:
     return info
 
 
-def experiment_view(finding: dict) -> dict:
+def experiment_view(finding: dict, adjudication: dict | None = None) -> dict:
+    """The recorded run, with the adjudicated level overlaid when one exists.
+
+    `level` is the level a reader should use. Where a per-test review exists,
+    `level_before` keeps the source claim and the review's verdict is carried
+    alongside; where none exists, `level` is exactly what the source says.
+    """
     exp = finding.get("experiment")
     if not exp:
         return {
@@ -238,8 +514,20 @@ def experiment_view(finding: dict) -> dict:
     artefacts = [_artefact(exp[k]) for k in
                  ("result_artifact", "stdout_artifact", "stderr_artifact")
                  if exp.get(k)]
+    # A record may cite several runs while the source row names the artefact
+    # paths of only one of them. `artefacts` has to name every cited run, or
+    # `artefacts_all_present` reads as a claim about all of them while pointing
+    # at a single one.
+    seen_paths = {a["path"] for a in artefacts}
+    for eid in (exp.get("experiment_ids") or []):
+        for name in ("result.json", "stdout.txt", "stderr.txt"):
+            rel = f"experiments_v2_2/{eid}/{name}"
+            if rel in seen_paths or not (ROOT / rel).is_file():
+                continue
+            seen_paths.add(rel)
+            artefacts.append(_artefact(rel))
     status = finding.get("finding", {}).get("status")
-    return {
+    view = {
         "present": True,
         "executed": bool(exp.get("executed")),
         "level": exp.get("level"),
@@ -256,6 +544,7 @@ def experiment_view(finding: dict) -> dict:
         "evidence_type": "experimentally_verified"
                          if status == "experimentally_verified" else "unknown",
     }
+    return apply_adjudication(view, adjudication)
 
 
 # ---------------------------------------------------------------------------
@@ -415,8 +704,14 @@ def quality_view(ev: dict, src: dict, cc: dict, exp: dict, tax: dict,
     else:
         code = "none"
 
-    if exp["present"] and exp["artefacts_all_present"]:
+    if exp["present"] and exp["artefacts_all_present"] and exp.get("level") in ("L5", "L6"):
         verification = "experimentally_verified"
+    elif exp["present"] and exp["artefacts_all_present"]:
+        # The run completed and its artefacts are on disk, but the committed
+        # bytes do not demonstrate the claimed violation. A record adjudicated
+        # below L5 must not read as `experimentally_verified` next to its own
+        # level, so artefact presence alone names a separate bucket.
+        verification = "executed_not_demonstrated"
     elif exp["present"]:
         verification = "incomplete"
     elif (ev.get("counts") or {}).get("reported_claim"):
@@ -458,12 +753,14 @@ def quality_view(ev: dict, src: dict, cc: dict, exp: dict, tax: dict,
 # record assembly
 # ---------------------------------------------------------------------------
 
-def build_record(finding: dict, registry: dict[str, dict]) -> dict:
+def build_record(finding: dict, registry: dict[str, dict],
+                 adjudications: dict[str, dict] | None = None) -> dict:
     row_json = json.dumps(finding, sort_keys=True, ensure_ascii=False)
-    ev = evidence_summary(finding.get("evidence") or {})
     src = sources_view(finding, registry)
     cc = code_context_view(finding)
-    exp = experiment_view(finding)
+    adjudication = (adjudications or {}).get(finding.get("id"))
+    exp = experiment_view(finding, adjudication)
+    ev = evidence_summary(finding.get("evidence") or {}, exp)
     tax = taxonomy_view(finding)
     att = attacker_view(finding)
     st = state_transition_view(finding)
@@ -526,34 +823,30 @@ def build_record(finding: dict, registry: dict[str, dict]) -> dict:
     }
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--check", action="store_true",
-                    help="build and validate, write nothing")
-    args = ap.parse_args()
+def experiment_level_counts(rows: list[dict]) -> dict:
+    """The manifest's experiment-level counters, taken from the built views.
 
-    findings, registry = load_layer()
-    rows = [build_record(f, registry) for f in findings]
+    `experiment_levels` counts the level a reader sees (`experiment_view.level`,
+    i.e. after adjudication). The three named counters are the adjudication
+    totals, recomputed from the built views on every run; they must sum to the
+    number of L5 claims the adjudication covers, so a level change cannot drift
+    away from its verdict. No count is hard-coded here: `load_adjudication`
+    already refuses a file whose declared `counts` disagree with its entries.
+    """
+    views = [r.get("experiment_view") or {} for r in rows]
+    return {
+        "experiment_levels": dict(collections.Counter(
+            (v.get("level") or "none") for v in views)),
+        "experiment_levels_verified_l5": sum(
+            1 for v in views if v.get("adjudication_verdict") == "SUPPORTED"),
+        "experiment_levels_provisional": sum(
+            1 for v in views if v.get("verification_provisional")),
+        "experiment_levels_demoted": sum(
+            1 for v in views if v.get("demoted_from_L5")),
+    }
 
-    problems = []
-    for r in rows:
-        if not r["id"]:
-            problems.append("a record has no id")
-        if r["original_pointer"]["file"].endswith(".jsonl"):
-            src_file = ML_JSONL / Path(r["original_pointer"]["file"]).name
-            if not src_file.exists():
-                problems.append(f"{r['id']}: source file missing")
-        if r["experiment_view"]["present"] and \
-                not r["experiment_view"]["artefacts_all_present"]:
-            problems.append(f"{r['id']}: an experiment artefact is missing on disk")
-        if r["sources_view"]["missing_source_ids"]:
-            problems.append(f"{r['id']}: unresolved source ids "
-                            f"{r['sources_view']['missing_source_ids']}")
-    if problems:
-        for p in problems:
-            log(f"  PROBLEM {p}")
-        return 1
 
+def build_manifest(rows: list[dict], problems: list[str]) -> dict:
     manifest = {
         "generated_by": "scripts/build_derived_v22.py",
         "records": len(rows),
@@ -567,8 +860,6 @@ def main() -> int:
         "with_experiment": sum(1 for r in rows if r["experiment_view"]["present"]),
         "experiment_artefacts_all_present": sum(
             1 for r in rows if r["experiment_view"]["artefacts_all_present"]),
-        "experiment_levels": dict(collections.Counter(
-            (r["experiment_view"]["level"] or "none") for r in rows)),
         "code_citations": sum(r["code_context_view"]["citations"] for r in rows),
         "code_citations_resolved": sum(r["code_context_view"]["resolved"]
                                        for r in rows),
@@ -593,6 +884,45 @@ def main() -> int:
                         "reasoning")},
         "problems": len(problems),
     }
+    manifest.update(experiment_level_counts(rows))
+    return manifest
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="build and validate, write nothing")
+    args = ap.parse_args()
+
+    findings, registry = load_layer()
+    try:
+        adjudications = load_adjudication()
+        check_adjudication(findings, adjudications)
+    except AdjudicationError as exc:
+        log(f"  PROBLEM {exc}")
+        return 1
+    rows = [build_record(f, registry, adjudications) for f in findings]
+
+    problems = []
+    for r in rows:
+        if not r["id"]:
+            problems.append("a record has no id")
+        if r["original_pointer"]["file"].endswith(".jsonl"):
+            src_file = ML_JSONL / Path(r["original_pointer"]["file"]).name
+            if not src_file.exists():
+                problems.append(f"{r['id']}: source file missing")
+        if r["experiment_view"]["present"] and \
+                not r["experiment_view"]["artefacts_all_present"]:
+            problems.append(f"{r['id']}: an experiment artefact is missing on disk")
+        if r["sources_view"]["missing_source_ids"]:
+            problems.append(f"{r['id']}: unresolved source ids "
+                            f"{r['sources_view']['missing_source_ids']}")
+    if problems:
+        for p in problems:
+            log(f"  PROBLEM {p}")
+        return 1
+
+    manifest = build_manifest(rows, problems)
 
     if args.check:
         log(f"--check: {len(rows)} records built, nothing written")
@@ -606,7 +936,9 @@ def main() -> int:
     log(f"wrote {DERIVED_V22 / 'records.jsonl'} ({len(rows)})")
     log(f"wrote {DERIVED_V22 / 'manifest.json'}")
     for k in ("by_language", "by_status", "with_experiment",
-              "experiment_levels", "evidence_strongest", "attacker_identity"):
+              "experiment_levels", "experiment_levels_verified_l5",
+              "experiment_levels_provisional", "experiment_levels_demoted",
+              "evidence_strongest", "attacker_identity"):
         log(f"  {k}: {manifest[k]}")
     return 0
 

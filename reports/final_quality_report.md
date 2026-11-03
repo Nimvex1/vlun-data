@@ -15,7 +15,7 @@ readable report in `reports/`. Where a measurement was not possible the line say
 | PoCs executed | 0 | 15/155 (9.7%) |
 | PoCs that demonstrated the claimed impact | 0 (unknown; nothing was run) | 5/155 (3.2%) |
 | hard negatives with a code-grounded rejection reason | 0 (427 of 458 were label-only with no reason recorded) | 1 of 8 recorded code gates actually remove the standing the claim asserts (the rest sit on a neighbouring function or on a claim that names a privileged actor); 9 carry a reason quoted from a public judge or sponsor comment; 256 rest on a public label alone |
-| counterexamples for confirmed H/M | 0 | 43 of 204 |
+| counterexamples for confirmed H/M | 0 | 5 of 204 |
 | records with a state transition | 0 (attack_path strings only) | 244 present, 130 with structured transactions |
 | records with a structured attacker model | 0 (free-text capabilities) | 290 of 722 classified ({'derived_fact': 147, 'reported_claim': 143, 'unknown': 432}) |
 | code context expansion beyond a flat permalink list | none | 469 files analysed to contract, function, modifier, guard and state-variable level |
@@ -113,7 +113,7 @@ This is the honest accounting of failure.
 ## WHAT REMAINS LIMITED
 
 - **256 of 458 negatives have no technical rejection reason.** Code4rena's judging rationale is largely not public. A duplicate pointer at a confirmed finding says the copy was redundant, not that the claim was wrong. This corpus cannot teach *why* a false positive is false at scale; it can only teach the claim, the code, and the fact of rejection.
-- **43 of
+- **5 of
   204 confirmed High/Medium findings have a
   counterexample.** Most findings cite exactly one function — the vulnerable one — so
   there is no neighbouring function to build a false hypothesis about. Reasons are

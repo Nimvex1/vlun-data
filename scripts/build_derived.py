@@ -591,6 +591,20 @@ def determine_record_hash_scheme(digest: str, committed_sha: str,
     return RECORD_HASH_SCHEME_UNKNOWN
 
 
+def _builder_injected_verdict(rec: dict):
+    """The verdict the builder injected when the historical digest was made.
+
+    `verification.prior_verdict` keeps the single-revision PoC verdict after an
+    accepted L6 claim replaces `verification.verdict`, so a builder-row digest
+    stays reconstructible. Records without the key use `verdict` exactly as
+    before.
+    """
+    ver = rec.get("verification") or {}
+    if "prior_verdict" in ver:
+        return ver.get("prior_verdict")
+    return ver.get("verdict")
+
+
 def load_legacy_record_hashes(path: Path | None = None) -> dict[str, dict]:
     """The historical digests of the committed layer, by record id.
 
@@ -681,7 +695,7 @@ def migrate_record_hashes(path: Path | None = None) -> dict:
         if not version and digest and row is not None:
             version = determine_record_hash_scheme(
                 digest, canonical_row_hash(row), row,
-                (rec.get("verification") or {}).get("verdict"))
+                _builder_injected_verdict(rec))
         if not version:
             version = RECORD_HASH_SCHEME_UNKNOWN
         ev["record_sha256_version"] = version
@@ -725,7 +739,7 @@ def record_hash_report(records: list[dict],
             if version == RECORD_HASH_SCHEME_COMMITTED_ROW:
                 ok = digest == canonical_row_hash(row)
             elif version == RECORD_HASH_SCHEME_BUILDER_ROW:
-                verdict = (rec.get("verification") or {}).get("verdict")
+                verdict = _builder_injected_verdict(rec)
                 if verdict is not None:
                     injected = dict(row)
                     injected[_VERIFICATION_KEY] = verdict
@@ -860,7 +874,7 @@ def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
             # `verification.verdict`, so the historical digest can be
             # checked on any machine, not only where work/poc_runs/ exists.
             verdict = (verdicts.get(rid)
-                       or (rec.get("verification") or {}).get("verdict"))
+                       or _builder_injected_verdict(rec))
             if verdict is None:
                 problems.append({"id": rid, "field": "record_sha256",
                                  "problem": "historical digest over a row "
@@ -888,7 +902,8 @@ def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
 def build_record(row: dict, verification_index: dict,
                  committed_sha: str | None = None,
                  committed_row: dict | None = None,
-                 legacy: dict | None = None) -> dict:
+                 legacy: dict | None = None,
+                 authoritative: dict | None = None) -> dict:
     finding = row.get("finding") or {}
     rid = rec_id(row)
     license_class = ls.classify_record_code(row)
@@ -925,6 +940,14 @@ def build_record(row: dict, verification_index: dict,
         [att["attacker_identity"]["evidence_type"]] +
         (["reported_claim"] if st["present"] else []))
 
+    verification = _verification_block(rid, ex, authoritative,
+                                       finding_id=finding.get("id") or rid)
+    # The record-level summary names `experimentally_verified` when the
+    # verification block attests it - a two-revision L6 result is execution
+    # evidence even when the old single-revision PoC index had no run for it.
+    experimentally_verified = (
+        verification.get("evidence_type") == "experimentally_verified")
+
     return {
         "record_type": "derived_finding",
         "dataset_version": DATASET_VERSION,
@@ -940,7 +963,9 @@ def build_record(row: dict, verification_index: dict,
                                   "note": "weakest link across the record's derived claims"},
             "evidence_types_present": sorted(set(
                 [att["attacker_identity"]["evidence_type"], "observed_fact", "reported_claim"]
-                + ([ "experimentally_verified"] if row_v in ("reproduced", "not_reproduced") else []))),
+                + (["experimentally_verified"]
+                   if experimentally_verified
+                   or row_v in ("reproduced", "not_reproduced") else []))),
         },
         "finding": {
             "id": finding.get("id"), "title": finding.get("title"),
@@ -963,7 +988,7 @@ def build_record(row: dict, verification_index: dict,
         "poc": row.get("poc") or {},
         "patch": row.get("patch") or {},
         "validation": row.get("validation") or {},
-        "verification": _verification_block(rid, ex),
+        "verification": verification,
         "license_classification": license_class,
         "redistribution": ls.redistribution_flag(row),
         "quality": quality_block(row, ctx, att, st, inv, license_class),
@@ -1013,7 +1038,234 @@ def build_record(row: dict, verification_index: dict,
     }
 
 
-def _verification_block(rid: str, ex: dict | None) -> dict:
+# ---------------------------------------------------------------------------
+# verification: authoritative L6 merge
+# ---------------------------------------------------------------------------
+#
+# Two evidence sources feed `verification`:
+#
+#   work/poc_runs/*.json
+#       one single-revision PoC attempt per finding (git-ignored; used when
+#       present). A run that "reproduced" a vulnerability on the audited
+#       revision says nothing about the fixed revision, so this index can
+#       never produce an L6 claim.
+#
+#   reports/verified_experiments.json
+#       the controlled two-revision experiments. This is the only source from
+#       which L6 may be emitted, and only when the report's own evidence
+#       passes every gate in `evaluate_l6_claim`: the finding id matches, two
+#       distinct full 40-hex commits resolved, byte-identical harness and test
+#       file digests, the declared fail->pass polarity on both sides, and no
+#       compile error or timeout.
+#
+# Severity, labels, a single passing run or a report verdict alone are never
+# enough. When the prior index contradicts an accepted L6 claim the conflict
+# is recorded: a weaker prior verdict (not_executed / inconclusive) is
+# superseded by the authoritative L6 block, a stronger one (reproduced /
+# not_reproduced) is kept and the conflict is stated.
+
+L6_REPORT_VERDICT = "l6_verified_patch"
+L6_LEVEL = "L6"
+L6_STATUS = "VERIFIED_TWO_REVISION"
+L6_EVIDENCE_TYPE = "experimentally_verified"
+AUTHORITATIVE_SOURCE = "reports/verified_experiments.json"
+PRIOR_SOURCE = "work/poc_runs"
+
+# Prior verdicts an accepted two-revision claim may supersede. Anything else
+# (reproduced, not_reproduced, or a value this builder does not know) is a
+# stronger, executed outcome: it is never overwritten, only flagged.
+L6_OVERRIDABLE_PRIOR_VERDICTS = frozenset(
+    {"not_executed", "not_attempted", "inconclusive", None})
+
+_TEST_STATUS_ALIASES = {
+    "success": "pass", "pass": "pass", "passed": "pass",
+    "failure": "fail", "fail": "fail", "failed": "fail",
+}
+# A run that never produced a pass/fail outcome cannot support any level.
+_NON_OUTCOME_STATUSES = ("compile_error", "timeout", "toolchain_failure")
+
+
+def _norm_test_status(value):
+    """Normalise a forge per-test status to `pass` / `fail` (or None)."""
+    if isinstance(value, dict):
+        value = value.get("status")
+    if not isinstance(value, str):
+        return None
+    key = value.strip().lower()
+    return _TEST_STATUS_ALIASES.get(key, key)
+
+
+def _authoritative_side(experiment: dict, label: str) -> dict:
+    """One revision of an authoritative experiment, from the report itself."""
+    revs = experiment.get("revisions") or {}
+    side = revs.get(label)
+    if isinstance(side, dict) and side:
+        return side
+    two = experiment.get("two_revision_evidence") or {}
+    side = two.get(label)
+    return side if isinstance(side, dict) else {}
+
+
+def prior_verdict_is_stronger(prior: dict | None) -> bool:
+    """Is the single-revision PoC verdict too strong for L6 to overwrite?"""
+    if not isinstance(prior, dict) or not prior:
+        return False
+    return prior.get("verdict") not in L6_OVERRIDABLE_PRIOR_VERDICTS
+
+
+def evaluate_l6_claim(finding_id: str, experiment: dict | None) -> dict:
+    """Decide whether one report entry is an L6 claim this layer may emit.
+
+    Pure: it reads only the passed dict. Every gate has to hold; the returned
+    `reasons` list says which one did not, so a downgrade is never silent.
+    """
+    reasons: list[str] = []
+    if not isinstance(experiment, dict):
+        return {"accepted": False, "report_verdict": None,
+                "reasons": ["no authoritative experiment recorded for this finding"],
+                "evidence": None}
+
+    verdict = experiment.get("verdict")
+    if experiment.get("finding_id") != finding_id:
+        reasons.append(
+            f"the authoritative experiment names {experiment.get('finding_id')!r}, "
+            f"not {finding_id!r}")
+    if verdict != L6_REPORT_VERDICT:
+        reasons.append(f"the report verdict is {verdict!r}, not {L6_REPORT_VERDICT!r}")
+
+    two = experiment.get("two_revision_evidence") or {}
+    if two.get("status") != L6_STATUS:
+        reasons.append(f"the two-revision evidence status is {two.get('status')!r}, "
+                       f"not {L6_STATUS!r}")
+    if two.get("missing_evidence"):
+        reasons.append("the report still lists missing evidence: "
+                       + "; ".join(str(m) for m in two.get("missing_evidence") or []))
+
+    vulnerable = _authoritative_side(experiment, "vulnerable")
+    fixed = _authoritative_side(experiment, "fixed")
+    v_commit, f_commit = vulnerable.get("commit"), fixed.get("commit")
+    for label, commit in (("vulnerable", v_commit), ("fixed", f_commit)):
+        if not (isinstance(commit, str) and _SHA40.match(commit)):
+            reasons.append(f"the {label} revision does not name a full 40-hex commit")
+    if (isinstance(v_commit, str) and isinstance(f_commit, str)
+            and _SHA40.match(v_commit) and _SHA40.match(f_commit)
+            and v_commit == f_commit):
+        reasons.append("the vulnerable and fixed revisions name the same commit")
+
+    resolution = two.get("commit_resolution") or {}
+    if resolution.get("status") != "resolved":
+        reasons.append(f"the commit resolution status is {resolution.get('status')!r}, "
+                       "not 'resolved'")
+    else:
+        unresolved = [c for c in resolution.get("unresolved") or [] if c]
+        if unresolved:
+            reasons.append("the commit resolution lists unresolved commits: "
+                           + ", ".join(str(c) for c in unresolved))
+        resolved = {c for c in resolution.get("resolved") or [] if isinstance(c, str)}
+        if resolved and not {v_commit, f_commit}.issubset(resolved):
+            reasons.append("the recorded revisions are not both in the resolved commits")
+
+    if two.get("harness_digests_match") is not True:
+        reasons.append("the two revisions did not run byte-identical harness bytes")
+    if two.get("test_file_digests_match") is not True:
+        reasons.append("the two revisions did not run the same test file bytes")
+    v_harness, f_harness = vulnerable.get("harness_digest"), fixed.get("harness_digest")
+    if not (isinstance(v_harness, str) and v_harness and v_harness == f_harness):
+        reasons.append("the per-side harness digests are not equal")
+
+    v_status, f_status = vulnerable.get("status"), fixed.get("status")
+    v_declared = vulnerable.get("declared_expected_status")
+    f_declared = fixed.get("declared_expected_status")
+    for label, status in (("vulnerable", v_status), ("fixed", f_status)):
+        if status in _NON_OUTCOME_STATUSES:
+            reasons.append(f"the {label} run ended in {status}, which is not an outcome")
+    property_polarity = (v_declared == "fail" and f_declared == "pass"
+                         and v_status == "fail" and f_status == "pass")
+    if not property_polarity:
+        reasons.append(
+            "the recorded outcomes do not match the declared fail->pass property "
+            f"polarity (vulnerable {v_status!r}, declared {v_declared!r}; "
+            f"fixed {f_status!r}, declared {f_declared!r})")
+
+    v_tests = vulnerable.get("per_test_status") or {}
+    f_tests = fixed.get("per_test_status") or {}
+    tests = {}
+    for name in sorted(set(v_tests) | set(f_tests)):
+        tests[name] = {"vulnerable": _norm_test_status(v_tests.get(name)),
+                       "fixed": _norm_test_status(f_tests.get(name))}
+    if not tests:
+        reasons.append("no per-test status is recorded, so the test names and "
+                       "statuses cannot be stated")
+
+    if reasons:
+        return {"accepted": False, "report_verdict": verdict,
+                "reasons": reasons, "evidence": None}
+
+    test_files = sorted(
+        {n for n in (vulnerable.get("harness_file_digests") or {})
+         if isinstance(n, str) and n.endswith(".t.sol")}
+        | {n for n in (fixed.get("harness_file_digests") or {})
+           if isinstance(n, str) and n.endswith(".t.sol")}
+        | {n for n in (two.get("test_files") or []) if isinstance(n, str)})
+    return {
+        "accepted": True,
+        "report_verdict": verdict,
+        "reasons": [],
+        "evidence": {
+            "source": AUTHORITATIVE_SOURCE,
+            "report_verdict": verdict,
+            "classification": experiment.get("classification"),
+            "repository": resolution.get("repository"),
+            "commits": {"vulnerable": v_commit, "fixed": f_commit},
+            "commit_resolution": resolution.get("status"),
+            "harness_digest": v_harness,
+            "test_files": test_files,
+            "tests": tests,
+        },
+    }
+
+
+def _l6_verification_block(claim: dict, prior: dict | None) -> dict:
+    ev = claim["evidence"] or {}
+    return {
+        "attempted": True,
+        "level": L6_LEVEL,
+        "status": L6_STATUS,
+        "verdict": L6_REPORT_VERDICT,
+        "failure_reason": None,
+        "poc_type": ev.get("classification") or (prior or {}).get("poc_type"),
+        "evidence_type": L6_EVIDENCE_TYPE,
+        "test_evidence": {"per_test_status": ev.get("tests") or {}},
+        "evidence": ev,
+    }
+
+
+def _evidence_conflict(prior: dict, claim: dict, resolution: str,
+                       reason: str) -> dict:
+    ev = claim.get("evidence") or {}
+    prior = prior or {}
+    return {
+        "prior": {
+            "source": PRIOR_SOURCE,
+            "verdict": prior.get("verdict"),
+            "failure_reason": prior.get("failure_reason"),
+            "poc_type": prior.get("poc_type"),
+            "test_evidence": prior.get("evidence") or {},
+        },
+        "new": {
+            "source": AUTHORITATIVE_SOURCE,
+            "verdict": L6_REPORT_VERDICT,
+            "level": L6_LEVEL,
+            "status": L6_STATUS,
+            "commits": ev.get("commits"),
+            "harness_digest": ev.get("harness_digest"),
+        },
+        "resolution": resolution,
+        "reason": reason,
+    }
+
+
+def _prior_verification_block(ex: dict | None) -> dict:
     if not ex:
         return {"attempted": False,
                 "reason": "no exploit row for this finding, so no PoC was executed",
@@ -1027,6 +1279,139 @@ def _verification_block(rid: str, ex: dict | None) -> dict:
                           else "unknown"),
         "test_evidence": ex.get("evidence"),
     }
+
+
+def merge_verification(prior: dict | None, authoritative: dict | None,
+                       finding_id: str) -> dict:
+    """Merge the single-revision PoC index with the authoritative L6 report.
+
+    Pure helper (no file I/O) so the merge can be tested without rebuilding
+    the 722-record layer. `prior` is one work/poc_runs verdict (or None);
+    `authoritative` is one reports/verified_experiments.json entry (or None).
+    """
+    block = _prior_verification_block(prior)
+    claim = evaluate_l6_claim(finding_id, authoritative)
+
+    if not claim["accepted"]:
+        if claim["report_verdict"] == L6_REPORT_VERDICT:
+            # The report claims L6 but a gate failed: keep the lower block and
+            # state exactly why the claim was not promoted.
+            block = dict(block)
+            block["l6_rejected"] = {
+                "report_verdict": claim["report_verdict"],
+                "reasons": list(claim["reasons"]),
+            }
+        return block
+
+    if prior_verdict_is_stronger(prior):
+        # A single-revision outcome (L5 reproduced, or a not_reproduced run) is
+        # not overwritten by a two-revision claim; the disagreement is recorded.
+        block = dict(block)
+        block["evidence_conflict"] = _evidence_conflict(
+            prior, claim, "prior_kept",
+            "the prior PoC index records an executed verdict that is not "
+            "superseded by the two-revision claim; the prior block is kept")
+        return block
+
+    l6 = _l6_verification_block(claim, prior)
+    if isinstance(prior, dict) and prior:
+        l6["prior_verdict"] = prior.get("verdict")
+        l6["evidence_conflict"] = _evidence_conflict(
+            prior, claim, "authoritative_l6_kept",
+            "the prior PoC index has no two-revision comparison "
+            f"(verdict {prior.get('verdict')!r}), so the authoritative L6 "
+            "evidence is kept and the prior verdict is preserved above")
+    return l6
+
+
+# The record fields a verification block is allowed to drive. Everything else on
+# a record is left exactly as published, because those fields are computed from
+# the audited source trees (`V1/clones/`), which a checkout that has only the
+# published layer does not hold.
+L6_SURGICAL_FIELDS = ("verification", "evidence")
+
+
+def derive_l6_record(rec: dict, prior: dict | None,
+                     authoritative_entry: dict | None) -> int:
+    """Apply the authoritative two-revision L6 evidence to one published record.
+
+    Returns 1 when the record changed. Only the verification block and the
+    derived-flag list it feeds are written; a record whose clone-dependent
+    fields cannot be recomputed here keeps them byte-identical, so the layer
+    gains the L6 evidence and loses nothing.
+    """
+    fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+    block = merge_verification(prior, authoritative_entry, fid)
+    before = json.dumps({k: rec.get(k) for k in L6_SURGICAL_FIELDS},
+                        sort_keys=True)
+    rec["verification"] = block
+    ev = rec.get("evidence")
+    if isinstance(ev, dict) and isinstance(ev.get("evidence_types_present"), list):
+        types = set(ev["evidence_types_present"])
+        if block.get("evidence_type") == L6_EVIDENCE_TYPE:
+            types.add(L6_EVIDENCE_TYPE)
+        elif prior and prior.get("verdict") in ("reproduced", "not_reproduced"):
+            # The flag came from the single-revision verdict, which is kept.
+            types.add(L6_EVIDENCE_TYPE)
+        else:
+            types.discard(L6_EVIDENCE_TYPE)
+        ev["evidence_types_present"] = sorted(types)
+    after = json.dumps({k: rec.get(k) for k in L6_SURGICAL_FIELDS}, sort_keys=True)
+    return 0 if before == after else 1
+
+
+def verification_level_counts(records: list) -> dict:
+    """Level distribution over the derived records' verification blocks.
+
+    Only records whose block states a level are counted; a single-revision PoC
+    verdict is not a level, so `dynamic_verification` stays a separate axis.
+    """
+    out: dict[str, int] = {}
+    for r in records:
+        lvl = (r.get("verification") or {}).get("level")
+        if lvl:
+            out[lvl] = out.get(lvl, 0) + 1
+    return out
+
+
+def derive_l6_in_place(root: Path) -> dict:
+    """Merge the authoritative L6 evidence into the published layer, in place.
+
+    A full rebuild is not the carry-in path on a checkout that has no `V1/clones/`
+    and no git-ignored `work/poc_runs/`: the same-record comparison shows 390
+    of 722 records otherwise changing their code-context, licence and
+    redistribution fields for reasons that have nothing to do with L6. This mode
+    writes only the verification block and its derived flag.
+    """
+    path = root / "derived" / "records.jsonl"
+    records = [json.loads(line) for line in
+               path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    priors = load_committed_verification(path)
+    authoritative = load_authoritative_verification(
+        root / "reports" / "verified_experiments.json")
+    changed = 0
+    for rec in records:
+        fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+        if fid not in authoritative:
+            continue
+        changed += derive_l6_record(rec, priors.get(fid), authoritative.get(fid))
+    levels = verification_level_counts(records)
+    if changed:
+        write_jsonl(path, records)
+    manifest_path = root / "derived" / "manifest.json"
+    if manifest_path.exists():
+        man = json.loads(manifest_path.read_text(encoding="utf-8"))
+        man["derived_verification_levels"] = levels
+        write_json(manifest_path, man)
+    return {"records": len(records), "changed": changed,
+            "levels": levels, "authoritative": len(authoritative),
+            "priors": len(priors)}
+
+
+def _verification_block(rid: str, ex: dict | None,
+                        authoritative: dict | None = None,
+                        finding_id: str | None = None) -> dict:
+    return merge_verification(ex, authoritative, finding_id or rid)
 
 
 def load_verification_index() -> dict:
@@ -1046,6 +1431,72 @@ def load_verification_index() -> dict:
     return idx
 
 
+def load_committed_verification(path: Path | None = None) -> dict[str, dict]:
+    """The published derived layer, read back as the PoC verdict index.
+
+    `work/poc_runs/` is git-ignored and machine-local, so a fresh checkout has
+    no single-revision verdicts to inject - yet 155 of the 722 published records
+    carry one, and 140 of those (`not_executed`) exist nowhere else in the
+    repository. Rebuilding without them would delete real execution findings and
+    break the digests that were taken over the row with the verdict injected.
+    The committed layer is the durable copy of that index, so it is read back
+    here: the same carry-forward rule already applied to the historical record
+    digests (see the record-hash scheme notes at the top of this module).
+
+    An L6 block is not a single-revision verdict, so it is never fed back as
+    one; where an L6 block superseded a prior verdict, the prior is taken from
+    the `evidence_conflict.prior` record the merge itself wrote, which makes a
+    second rebuild produce byte-identical output to the first.
+    """
+    path = path or (DERIVED / "records.jsonl")
+    idx: dict[str, dict] = {}
+    if not path.exists():
+        return idx
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        rec = json.loads(line)
+        fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+        if not fid:
+            continue
+        ver = rec.get("verification") or {}
+        prior = (ver.get("evidence_conflict") or {}).get("prior")
+        if isinstance(prior, dict) and prior.get("verdict"):
+            idx[fid] = {"finding_id": fid, "verdict": prior["verdict"],
+                        "failure_reason": prior.get("failure_reason"),
+                        "poc_type": prior.get("poc_type"),
+                        "evidence": prior.get("test_evidence")}
+            continue
+        verdict = ver.get("verdict")
+        if not verdict or verdict == L6_REPORT_VERDICT:
+            continue
+        idx[fid] = {"finding_id": fid, "verdict": verdict,
+                    "failure_reason": ver.get("failure_reason"),
+                    "poc_type": ver.get("poc_type"),
+                    "evidence": ver.get("test_evidence")}
+    return idx
+
+
+def load_authoritative_verification(path: Path | None = None) -> dict[str, dict]:
+    """The controlled two-revision experiments, keyed by finding id.
+
+    This is the only source from which an L6 level can be emitted. A missing or
+    malformed report yields an empty index, never an inferred claim.
+    """
+    path = path or (REPORTS / "verified_experiments.json")
+    if not path.exists():
+        return {}
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out: dict[str, dict] = {}
+    for exp in doc.get("experiments") or []:
+        if isinstance(exp, dict) and isinstance(exp.get("finding_id"), str):
+            out[exp["finding_id"]] = exp
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--write-record-hash-report", action="store_true",
@@ -1054,7 +1505,18 @@ def main() -> int:
                     help="add the versioned record-hash fields to the "
                          "committed derived layer in place, without a "
                          "rebuild (see migrate_record_hashes)")
+    ap.add_argument("--derive-l6-only", action="store_true",
+                    help="merge the authoritative two-revision L6 evidence into "
+                         "the published derived layer in place, touching only "
+                         "each record's verification block and its derived "
+                         "flag (see derive_l6_in_place)")
     args = ap.parse_args()
+    if args.derive_l6_only:
+        res = derive_l6_in_place(ROOT)
+        log(f"derived/records.jsonl: {res['records']} records, "
+            f"{res['changed']} changed, levels={res['levels']}, "
+            f"authoritative={res['authoritative']}, priors={res['priors']}")
+        return 0
     if args.migrate_record_hashes:
         res = migrate_record_hashes()
         log(f"migrated record hashes in derived/records.jsonl: {res}")
@@ -1072,6 +1534,15 @@ def main() -> int:
             f"not_reproduced={rep['historical_digest']['not_reproduced']}")
         return 0
     vidx = load_verification_index()
+    # The machine-local PoC index is absent on a fresh checkout; the published
+    # layer holds the same verdicts, so they are carried forward instead of
+    # being rebuilt as "no run". Where poc_runs does exist it is the primary
+    # source and wins per finding.
+    for fid, entry in load_committed_verification().items():
+        vidx.setdefault(fid, entry)
+    # The controlled two-revision experiments. This is merged in addition to
+    # the single-revision PoC index; it is the only source that can emit L6.
+    authoritative = load_authoritative_verification()
     # The historical digests of the committed layer, carried forward verbatim.
     legacy_hashes = load_legacy_record_hashes()
     out = []
@@ -1093,7 +1564,9 @@ def main() -> int:
             out.append(build_record(row, {rid: v} if v else {},
                                     committed_sha=committed_sha,
                                     committed_row=committed_row,
-                                    legacy=legacy_hashes.get(rid)))
+                                    legacy=legacy_hashes.get(rid),
+                                    authoritative=authoritative.get(
+                                        row.get("finding", {}).get("id"))))
     write_jsonl(DERIVED / "records.jsonl", out)
 
     man = {
@@ -1124,6 +1597,7 @@ def main() -> int:
         "dynamic_verification": dict(collections.Counter(r["quality"]["dynamic_verification"] for r in out)),
         "invariants_invented": 0,
         "numeric_state_values_invented": 0,
+        "derived_verification_levels": verification_level_counts(out),
         # The record hash scheme is stated per record (original_evidence.
         # record_sha256_version); the counters say how many records follow
         # each scheme, so a reader can see the mix without reading 722 rows.

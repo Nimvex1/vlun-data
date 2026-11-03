@@ -10,15 +10,15 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | Layer | Source | Records | Strongest evidence |
 |---|---|---|---|
 | v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **7** L6 verified patches |
-| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` |
+| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}` |
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 4586, "L1": 754, "L3": 115, "L4": 7, "L5": 5}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures): v2 78/78 · v3.0 43/43 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (1 critical failures): v2 78/78 · v3.0 44/45 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 36/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -87,7 +87,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   attempted that did not demonstrate the violation, and
   256 rest on a public label alone — definitions
   in [`reports/rejection_evidence.md`](reports/rejection_evidence.md);
-  71 API-sibling counterexample pairs.
+  0 API-sibling counterexample pairs.
 - **v2.2:** 37 executed runs;
   123 of 137 records state no attacker standing.
 - **V3.0:** 3,517 strong imports +
@@ -487,4 +487,4 @@ See [`NOTICE.md`](NOTICE.md).
 
 ## V4 layer
 
-Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5270}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.
+Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5268}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.

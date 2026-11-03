@@ -4,6 +4,7 @@ Run:  python -m unittest tests.test_v32_execution
 """
 from __future__ import annotations
 
+import copy
 import json
 import sys
 import tempfile
@@ -275,8 +276,150 @@ class TestPromote(unittest.TestCase):
     def test_l6_never_derived_from_sweep(self):
         c = self._cand()
         ev = {"2024-04/X_exp": {"level": "L6", "status": "x", "basis": "y"}}
-        X.promote([c], ev)
-        self.assertIn(c["verification_status"], X.LEVEL_TO_STATUS.values())
+        self.assertEqual(X.promote([c], ev), 0,
+                         "single-artefact evidence may not award L6")
+        self.assertEqual(c["verification_level"], "L1")
+        self.assertEqual(c["verification_status"], "UNVERIFIED")
+
+
+def _l6_revision(commit: str, status: str, declared: str) -> dict:
+    return {
+        "commit": commit,
+        "status": status,
+        "declared_expected_status": declared,
+        "harness_digest": "h" * 64,
+        "harness_file_digests": {"VlunExploit.t.sol": "t" * 64},
+        "per_test_status": {
+            "testExploit": "Failure" if status == "fail" else "Success"},
+    }
+
+
+def _l6_claim() -> dict:
+    """A synthetic, fully evidenced L6 two-revision claim."""
+    return {
+        "finding_id": "defihacklabs:2024-04/X_exp.sol",
+        "verification_level": "L6",
+        "experiment": {
+            "level_awarded": "L6",
+            "status": "violation_observed",
+            "revisions": {
+                "vulnerable": _l6_revision("a" * 40, "fail", "fail"),
+                "fixed": _l6_revision("b" * 40, "pass", "pass"),
+            },
+            "violation_evidence": {
+                "impact_type": "access_control",
+                "actor": "attacker",
+                "target": "Vault",
+                "operation": "withdraw()",
+                "unauthorized": True,
+                "effect_observed": "balance transferred to the attacker",
+                "property": "only the owner can withdraw",
+                "expected": "withdraw() reverts for the attacker",
+                "observed": "withdraw() transferred the balance",
+                "source": "test assertion",
+                "execution": {"status": "pass",
+                              "assertion": "testExploit"},
+            },
+        },
+    }
+
+
+class TestL6ClaimGuard(unittest.TestCase):
+    """L6 needs two-revision evidence; synthetic bad claims must be rejected."""
+
+    def test_valid_synthetic_l6_passes(self):
+        ok, errors = X.validate_l6_claim(_l6_claim())
+        self.assertTrue(ok, errors)
+        self.assertEqual(errors, [])
+
+    def test_missing_commit_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["commit"] = None
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("full 40-hex commit" in e for e in errors))
+
+    def test_same_commit_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["commit"] = "a" * 40
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("same commit" in e for e in errors))
+
+    def test_harness_digest_mismatch_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["harness_digest"] = "x" * 64
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("different harness bytes" in e for e in errors))
+
+    def test_test_file_byte_mismatch_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"][
+            "harness_file_digests"] = {"VlunExploit.t.sol": "z" * 64}
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("same test file bytes" in e for e in errors))
+
+    def test_missing_fixed_execution_is_rejected(self):
+        claim = _l6_claim()
+        del claim["experiment"]["revisions"]["fixed"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("fixed revision evidence is missing" in e
+                            for e in errors))
+
+    def test_single_passing_test_is_rejected(self):
+        claim = _l6_claim()
+        vulnerable = claim["experiment"]["revisions"]["vulnerable"]
+        del vulnerable["status"]
+        del vulnerable["per_test_status"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("vulnerable revision records no completed test "
+                            "status" in e for e in errors))
+        self.assertTrue(any("only one revision records per-test statuses" in e
+                            for e in errors))
+
+    def test_blocked_rpc_failure_is_rejected(self):
+        claim = _l6_claim()
+        fixed = claim["experiment"]["revisions"]["fixed"]
+        fixed["status"] = "blocked"
+        fixed["failure_reason"] = "rpc_unreachable_archive_state_unavailable"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("rpc_unreachable" in e for e in errors))
+        self.assertTrue(any("never ran" in e for e in errors))
+
+    def test_polarity_inversion_is_rejected(self):
+        claim = _l6_claim()
+        revisions = claim["experiment"]["revisions"]
+        revisions["vulnerable"]["status"] = "pass"
+        revisions["fixed"]["status"] = "fail"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("does not match the declared" in e for e in errors))
+
+    def test_missing_violation_evidence_is_rejected(self):
+        claim = _l6_claim()
+        del claim["experiment"]["violation_evidence"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("no explicit violation_evidence" in e for e in errors))
+
+    def test_l5_record_is_not_an_l6_claim(self):
+        claim = _l6_claim()
+        claim["verification_level"] = "L5"
+        claim["experiment"]["level_awarded"] = "L5"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("not L6" in e for e in errors))
+
+    def test_claim_does_not_mutate_the_input(self):
+        claim = _l6_claim()
+        snapshot = copy.deepcopy(claim)
+        X.validate_l6_claim(claim)
+        self.assertEqual(claim, snapshot)
 
 
 class TestVerifiedFact(unittest.TestCase):
@@ -362,6 +505,21 @@ class TestShippedLayer(unittest.TestCase):
                 .open(encoding="utf-8") if line.strip()]
         self.assertEqual([r["finding_id"] for r in recs
                           if r.get("verification_level") == "L6"], [])
+
+    def test_five_l5_records_stay_l5(self):
+        recs = [json.loads(line) for line in
+                (ROOT / "derived_v3" / "records.jsonl")
+                .open(encoding="utf-8") if line.strip()]
+        l5 = [r for r in recs if r.get("verification_level") == "L5"]
+        self.assertEqual(len(l5), 5, "the five V3 L5 records must stay L5")
+        for r in l5:
+            self.assertEqual(r["experiment"]["level_awarded"], "L5",
+                             r["finding_id"])
+            ok, errors = X.validate_l6_claim(
+                {"verification_level": "L6",
+                 "experiment": dict(r["experiment"], level_awarded="L6")})
+            self.assertFalse(ok, "an L5 experiment must not satisfy the L6 "
+                                 f"guard ({r['finding_id']}: {errors})")
 
 
 if __name__ == "__main__":

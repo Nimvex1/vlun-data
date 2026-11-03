@@ -17,7 +17,7 @@ Every commit reachable from an origin/* ref is published on the remote named abo
 
 ## Third-party material added in history and no longer in the tree
 
-Commits scanned: 92. Paths that appear in history but not in the current tree (code/prose suffixes): 37. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
+Commits scanned: 93. Paths that appear in history but not in the current tree (code/prose suffixes): 37. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
 
 ### Historically published third-party expression
 

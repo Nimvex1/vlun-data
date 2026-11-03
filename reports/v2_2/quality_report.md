@@ -34,7 +34,7 @@ Tier is an admission rule, not a reputation score: 0 is what the protocol itself
 
 ## Evidence and quality rubric
 
-- strongest evidence per record: `{'experimentally_verified': 37, 'observed_fact': 100}`
+- strongest evidence per record: `{'experimentally_verified': 7, 'observed_fact': 130}`
 - weakest evidence per record: `{'observed_fact': 1, 'reported_claim': 37, 'unknown': 99}`
 - quality rubric (each dimension is an ordinal label with a stated basis, no weighted aggregate):
   - `attacker_model`: `{'high': 14, 'low': 113, 'medium': 10}`
@@ -45,14 +45,21 @@ Tier is an admission rule, not a reputation score: 0 is what the protocol itself
   - `provenance`: `{'high': 89, 'medium': 48}`
   - `reasoning`: `{'low': 13, 'medium': 124}`
   - `taxonomy`: `{'classes_present_unmapped': 75, 'mapped': 8, 'no_classes': 54}`
-  - `verification`: `{'experimentally_verified': 37, 'reported_claim': 98, 'unverified': 2}`
+  - `verification`: `{'executed_not_demonstrated': 31, 'experimentally_verified': 6, 'reported_claim': 98, 'unverified': 2}`
 - attacker identity: `{'malicious_dependency': 2, 'privileged': 6, 'unknown': 123, 'unprivileged': 6}` (20 records name an actor at all)
 
 ## Experiments
 
 - runs in `experiments_v2_2/`: **12**
-- records by level: `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}`
-- outcomes: `{'reproduced': 37}`
+- records by level: `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}`
+- verified, by level and counted separately: **5** at L5 (the claimed violation reproduced) and **1** at L6 (reproduced on the vulnerable revision AND blocked on the fixed one), i.e. **6** of 137 records at L5 or L6; no record is counted twice and neither figure is a name-only match
+
+- executed but **not** verified at L5: **29** at L4 (executed, violation not demonstrated), **1** at L3 (compiles) and **1** at L1
+
+- L5 claims carrying an adjudication verdict on the record (`experiment_view.adjudication_verdict`, from `reports/v2_2/l5_adjudication.json` as applied by `scripts/build_derived_v22.py`): **35** covered - **5** SUPPORTED, still counted as verified L5 above; **27** WEAK, moved to L4 with `provisional: true` and `l5_candidate: true` (`provisional_l5_candidates: 27`, not verified L5); **3** UNSUPPORTED, demoted below L5 (`adjudicated_demoted: 3`)
+
+- outcomes as their runs recorded them, by adjudicated level: `{'L1': {'no_committed_observation': 1}, 'L3': {'reproduced': 1}, 'L4': {'executed_violation_not_demonstrated': 29}, 'L5': {'reproduced': 5}, 'L6': {'reproduced': 1}}` - `outcome` is left exactly as the run wrote it and is never read as a verification count on its own; the flat tally over all records with a run is `{'executed_violation_not_demonstrated': 29, 'no_committed_observation': 1, 'reproduced': 7}`
+
 - fixed-revision leg executed: **2** (L6 needs the same violation reproduced on vulnerable AND blocked on fixed; move:cetus-checked-shlw meets it - the silent 2^192 shift reproduces on integer-mate v1.1.0 and on the insufficient v1.1.1, and the boundary test aborts on the v1.1.2 fix - while the other fixed-revision record, vyper:CVE-2024-24567, sits at L3)
 
 | experiment | source report | status | exit | seconds | tests pass/fail |
@@ -86,7 +93,7 @@ Every v2.2 pointer records the sha256 of its record; `scripts/validate.py` recom
 ## Benchmark
 
 - families: **19** (A-J v1, K-Q v2.2)
-- tasks: **5981**, labeled: **3198**, partial: **182**, unlabeled: **2599**
+- tasks: **5984**, labeled: **2920**, partial: **465**, unlabeled: **2597**
 
 | family | layer | tasks | labeled | partial | unlabeled | train/val/test |
 |---|---|---|---|---|---|---|
@@ -96,12 +103,12 @@ Every v2.2 pointer records the sha256 of its record; `scripts/validate.py` recom
 | D | v1 | 720 | 346 | 0 | 374 | 344/229/147 |
 | E | v1 | 720 | 7 | 0 | 713 | 344/229/147 |
 | F | v1 | 458 | 17 | 0 | 441 | 232/188/38 |
-| FA | v1 | 458 | 292 | 166 | 0 | 232/188/38 |
-| FB | v1 | 553 | 553 | 0 | 0 | 323/199/31 |
-| G | v1 | 38 | 5 | 0 | 33 | 0/18/20 |
+| FA | v1 | 458 | 9 | 449 | 0 | 232/188/38 |
+| FB | v1 | 554 | 554 | 0 | 0 | 324/199/31 |
+| G | v1 | 38 | 7 | 0 | 31 | 0/18/20 |
 | H | v1 | 7 | 7 | 0 | 0 | 0/7/0 |
 | I | v1 | 3 | 1 | 0 | 0 | 0/3/0 |
-| J | v1 | 5 | 5 | 0 | 0 | 0/5/0 |
+| J | v1 | 7 | 7 | 0 | 0 | 0/7/0 |
 | K | v2.2 | 137 | 137 | 0 | 0 | 76/30/31 |
 | L | v2.2 | 137 | 128 | 6 | 3 | 76/30/31 |
 | M | v2.2 | 37 | 37 | 0 | 0 | 31/5/1 |
@@ -116,7 +123,7 @@ families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2
 
 - report: `reports/leakage_report_v22.json`
 - sources spanning splits: `0`
-- validation gate: 75/78 checks passed, 3 critical failures
+- validation gate: 78/78 checks passed, 0 critical failures
 
 ## Honest limitations
 

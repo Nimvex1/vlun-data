@@ -1,8 +1,161 @@
 {
-  "artefacts_written": 15,
+  "artefacts_written": 0,
   "bodies_committed": 0,
   "generated_by": "scripts/export_run_artefacts.py",
   "records": {
+    "2024-01-renft/H-01": {
+      "artefact": "experiments/2024-01-renft__H-01/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__H-01/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "1783237cf05c9369c271b6f3a388b8d57d03ecc8",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "820b68e8887c1a8bdb30b5b080dbfd7c0736aec9577baa7f20e31c1e87d36375",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/H-03": {
+      "artefact": "experiments/2024-01-renft__H-03/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__H-03/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "e4cdac74c7565d41dc7882d3837dde2cf930e9d7",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "33d070210891ee3fead9bd95f193b4e961d3e29ee68481e02803d44b81af3049",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/H-04": {
+      "artefact": "experiments/2024-01-renft__H-04/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__H-04/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "f358c1738dae359d83f7f5e1c074c988a9577e80",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "f23299b65bd474c03d26e2a83542dc73a266a787f3a17abd174fd13502a35c01",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/H-06": {
+      "artefact": "experiments/2024-01-renft__H-06/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__H-06/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "32e4df787a85534745b86eaea2d58d75a73e2edc",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "UNVERIFIABLE",
+      "harness_digest": "f6337a28fe3fde3d709cf9c85d461eede8561ae84a614aa1de26b56fdc17acca",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "inconclusive"
+    },
+    "2024-01-renft/M-01": {
+      "artefact": "experiments/2024-01-renft__M-01/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__M-01/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/M-02": {
+      "artefact": "experiments/2024-01-renft__M-02/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__M-02/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "12bdab416447b51b43b7053be7b55b5b932336e5",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "UNVERIFIABLE",
+      "harness_digest": "318f122ef6aa747d759120d3d2e2cf27f6cbd41f1f76a0fac96a72df0cf0bd3a",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "inconclusive"
+    },
+    "2024-01-renft/M-08": {
+      "artefact": "experiments/2024-01-renft__M-08/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__M-08/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "fb8013111b57c1e09482fb3193db58cb892229e9",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/M-09": {
+      "artefact": "experiments/2024-01-renft__M-09/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__M-09/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "f0484bfa15c68cad921a8d8abe93f2cef1ad493c",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "2d13da69645ad8cd226a27268e12489a6342b64e47ddcc04f318bc7f3c11a8d1",
+      "harness_digests_match": true,
+      "poc_type": "runnable_after_harness_reconstruction",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
+    "2024-01-renft/M-11": {
+      "artefact": "experiments/2024-01-renft__M-11/vulnerable/result.json",
+      "artefacts_fixed": "experiments/2024-01-renft__M-11/fixed/result.json",
+      "body_committed": true,
+      "commits": {
+        "fixed": "6c4124bdb7acc52a84d008d6d3cf62b01c85a933",
+        "vulnerable": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+      },
+      "evidence_status": "VERIFIED_TWO_REVISION",
+      "harness_digest": "97ee7b076fd0cf823ed35b1dd4204732627d9a57ac0d544a722331f39aa4493a",
+      "harness_digests_match": true,
+      "poc_type": "already_runnable",
+      "repository": "renft-smart",
+      "test_file_digests_match": true,
+      "two_revision": true,
+      "verdict": "l6_verified_patch"
+    },
     "2024-04-noya/H-01": {
       "artefact": "experiments/2024-04-noya__H-01__poc_run/result.json",
       "body_committed": false,
@@ -109,5 +262,5 @@
       "verdict": "reproduced"
     }
   },
-  "source": "work/poc_runs/*.json (git-ignored); this index is the committed copy"
+  "source": "work/poc_runs/*.json (git-ignored) when present, carried forward from the committed reports/run_artefacts_index.json, plus reports/verified_experiments.json for the controlled two-revision experiments, whose artefacts are committed under experiments/"
 }

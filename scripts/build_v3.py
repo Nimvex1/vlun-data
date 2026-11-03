@@ -199,7 +199,7 @@ def main() -> int:
     # Unexecuted candidates are untouched: promotion is per-record and
     # evidence-driven, never inferred from a sibling.
     exec_evidence = _exec_mod.load_evidence(V.ROOT)
-    _promoted = _exec_mod.promote(all_cands, exec_evidence)
+    _exec_mod.promote(all_cands, exec_evidence)
 
     for c in all_cands:
         score, parts = V.quality_score(c["_signals"])
@@ -211,6 +211,20 @@ def main() -> int:
             "published PoC file/section in cloned source (not executed in "
             "this pass)" if lvl == "L1" else
             "report/submission text in cloned source; no reproduction attempted")
+
+    # Run accounting is derived from the committed proof runs, never typed in
+    # and never inferred from the candidate count. It fails the build when the
+    # proof file cannot be partitioned into success + failed + blocked exactly
+    # once (duplicate run ids, overlapping categories, missing rc).
+    accounting = _exec_mod.run_accounting(
+        V.ROOT, all_cands,
+        [c for c in all_cands if c["decision"] in V.ADMITTED_DECISIONS])
+    if accounting["errors"]:
+        for err in accounting["errors"][:10]:
+            V.log(f"  [FAIL] run accounting: {err}")
+        V.log("FATAL: V3 run accounting is inconsistent (every distinct proof "
+              "run must land in exactly one of success/failed/blocked).")
+        return 3
 
     if args.check:
         V.log(f"check only: {len(all_cands)} candidates; wrote nothing")
@@ -441,12 +455,27 @@ def main() -> int:
         "admitted_by_language": dict(collections.Counter(
             r["language"] for r in records)),
         "tiers": {str(spec["tier"]): spec["source_id"] for spec in V.SOURCES_V3},
-        "experimental_runs_attempted": sum(
-            1 for c in ledger if c.get("experiment")),
+        # Explicit run accounting. `candidate_artefacts` counts ledger rows
+        # carrying an experiment; the execution counts are distinct proof runs
+        # from reports/v3/experimental_proof.json (attempts = success + failed
+        # + blocked, each run exactly once). The old
+        # `experimental_runs_attempted` key said "runs" while counting
+        # candidates and is deliberately gone.
+        "candidate_artefacts": accounting["counts"]["candidate_artefacts"],
+        "execution_attempts": accounting["counts"]["execution_attempts"],
+        "successful_executions": accounting["counts"]["successful_executions"],
+        "failed_executions": accounting["counts"]["failed_executions"],
+        "blocked_executions": accounting["counts"]["blocked_executions"],
+        "evidence_admitted_records": accounting["counts"]["evidence_admitted_records"],
         "experimental_runs_note": (
-            f"V3.2 execution overlay: {_promoted} candidates carry a run "
-            "artefact (levels from committed reports/v3/experimental_proof.json "
-            "and reports/v3/compile_sweep.json via scripts/v32_execution.py). "
+            f"V3.2 execution overlay: {accounting['counts']['candidate_artefacts']} "
+            "candidates carry a run artefact "
+            f"({accounting['counts']['execution_attempts']} distinct proof runs: "
+            f"{accounting['counts']['successful_executions']} successful, "
+            f"{accounting['counts']['failed_executions']} test_failed, "
+            f"{accounting['counts']['blocked_executions']} blocked; levels from "
+            "committed reports/v3/experimental_proof.json and "
+            "reports/v3/compile_sweep.json via scripts/v32_execution.py). "
             "L5 requires a structured, claim-specific violation_evidence "
             "record (impact type, actor, property, expected vs observed, "
             "source); attacker profit is mandatory only for fund_theft. L6 is "
@@ -576,7 +605,7 @@ def _write_quality_report(ledger: list[dict], records: list[dict],
               "no third-party report text redistributed.",
               "Per-record licence fields stay `unknown` until a per-report licence is confirmed.", "",
               "## Experimental verification", "",
-              ("attempted={runs} executed={executed} L4={l4} L5={l5} L6=0 "
+              ("candidate_artefacts={runs} executed={executed} L4={l4} L5={l5} L6=0 "
                "blocked={blocked} test_failed={failed}.").format(
                   runs=sum(1 for c in ledger if c.get("experiment")),
                   executed=sum(1 for c in ledger

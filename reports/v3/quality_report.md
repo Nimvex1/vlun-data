@@ -60,7 +60,7 @@ Per-record licence fields stay `unknown` until a per-report licence is confirmed
 
 ## Experimental verification
 
-attempted=127 executed=12 L4=7 L5=5 L6=0 blocked=5 test_failed=1.
+candidate_artefacts=127 executed=12 L4=7 L5=5 L6=0 blocked=5 test_failed=1.
 Levels come only from the committed run artefacts recorded in reports/v3/experimental_proof.json; the queue in experiment_queue.md lists what is still blocked.
 
 ## Benchmark leakage

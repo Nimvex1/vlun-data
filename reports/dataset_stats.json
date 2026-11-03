@@ -30,6 +30,9 @@
       },
       "code_context_analysed_files": 469,
       "code_context_files_retrieved": 464,
+      "derived_verification_levels": {
+        "L6": 7
+      },
       "dynamic_verification": {
         "inconclusive": 8,
         "not_attempted": 567,

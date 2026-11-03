@@ -130,9 +130,11 @@ QUALITY_RUBRIC = {
                     "citation resolves and every line range is verified; low "
                     "when citations exist but do not all resolve or no line "
                     "range is verified",
-    "verification": "experimentally_verified when an experiment is present and "
-                    "all of its artefacts are on disk; incomplete when an "
-                    "experiment is present but an artefact is missing; "
+    "verification": "experimentally_verified when an experiment is present, all "
+                    "of its artefacts are on disk and the adjudicated level is "
+                    "L5 or L6; executed_not_demonstrated when the artefacts are "
+                    "on disk but the adjudicated level is below L5; incomplete "
+                    "when an experiment is present but an artefact is missing; "
                     "reported_claim when any claim is typed reported_claim; "
                     "otherwise unverified",
     "attacker_model": "high when an identity is recorded, medium when an actor is "

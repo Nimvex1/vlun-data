@@ -134,40 +134,40 @@
         },
         "family": "FA",
         "file": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
-        "labeled": 292,
+        "labeled": 9,
         "layer": "v1",
-        "partial": 166,
+        "partial": 449,
         "question": "which of the six rejection-evidence axes does this evidence packet support?",
-        "scorable": 292,
+        "scorable": 9,
         "tasks": 458,
         "unlabeled": 0
       },
       {
         "answer_key_evidence_levels": {
-          "derived_fact": 258,
+          "derived_fact": 121,
           "externally_attributed": 184,
-          "unknown": 111
+          "unknown": 249
         },
         "by_language": null,
         "by_split": {
           "test": 31,
-          "train": 323,
+          "train": 324,
           "validation": 199
         },
         "family": "FB",
         "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
-        "labeled": 553,
+        "labeled": 554,
         "layer": "v1",
         "partial": 0,
         "question": "same vulnerability, distinct vulnerability, or ambiguous for this candidate/comparison pair?",
-        "scorable": 553,
-        "tasks": 553,
+        "scorable": 554,
+        "tasks": 554,
         "unlabeled": 0
       },
       {
         "answer_key_evidence_levels": {
-          "experimentally_verified": 5,
-          "not_recorded": 33
+          "experimentally_verified": 7,
+          "not_recorded": 31
         },
         "by_language": null,
         "by_split": {
@@ -176,13 +176,13 @@
         },
         "family": "G",
         "file": "benchmark/G_patch_verification.jsonl",
-        "labeled": 5,
+        "labeled": 7,
         "layer": "v1",
         "partial": 0,
         "question": "does the fix address the vulnerability?",
-        "scorable": 5,
+        "scorable": 7,
         "tasks": 38,
-        "unlabeled": 33
+        "unlabeled": 31
       },
       {
         "answer_key_evidence_levels": {
@@ -223,20 +223,20 @@
       },
       {
         "answer_key_evidence_levels": {
-          "experimentally_verified": 5
+          "experimentally_verified": 7
         },
         "by_language": null,
         "by_split": {
-          "validation": 5
+          "validation": 7
         },
         "family": "J",
         "file": "benchmark/J_verified_patch.jsonl",
-        "labeled": 5,
+        "labeled": 7,
         "layer": "v1",
         "partial": 0,
         "question": "does the exploit pass on the vulnerable revision and fail on the fixed one?",
-        "scorable": 5,
-        "tasks": 5,
+        "scorable": 7,
+        "tasks": 7,
         "unlabeled": 0
       },
       {
@@ -429,11 +429,11 @@
     "policy": "families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2_2 over splits_v2_2, one task per v2.2 record (M only for records with a run). A task is labeled only where the record actually holds the answer, partial where half of it exists, and unlabeled with a stated reason otherwise; only labeled tasks are scored. The model-facing payload is the task's `input` object - ids and source blocks are traceability and carry the language prefix.",
     "totals": {
       "families": 19,
-      "labeled": 3198,
-      "partial": 182,
-      "scorable": 3198,
-      "tasks": 5981,
-      "unlabeled": 2599,
+      "labeled": 2920,
+      "partial": 465,
+      "scorable": 2920,
+      "tasks": 5984,
+      "unlabeled": 2597,
       "v2_2_families": 7,
       "v2_2_tasks": 859
     }
@@ -505,8 +505,8 @@
       "unknown": 1
     },
     "evidence_strongest": {
-      "experimentally_verified": 37,
-      "observed_fact": 100
+      "experimentally_verified": 7,
+      "observed_fact": 130
     },
     "evidence_weakest": {
       "observed_fact": 1,
@@ -556,7 +556,8 @@
         "no_classes": 54
       },
       "verification": {
-        "experimentally_verified": 37,
+        "executed_not_demonstrated": 31,
+        "experimentally_verified": 6,
         "reported_claim": 98,
         "unverified": 2
       }
@@ -566,22 +567,53 @@
     "severity_with_attribution": 128
   },
   "experiments": {
+    "adjudicated_demoted": 3,
+    "adjudicated_l5_claims": 35,
+    "adjudication_verdicts": {
+      "SUPPORTED": 5,
+      "UNSUPPORTED": 3,
+      "WEAK": 27
+    },
     "blocker": "sui, aptos, scarb and snFuzzer are not installed in this environment, so every Move and Cairo record except move:cetus-checked-shlw could not run locally and stays at its reported-claim level; that one record ran through a downloaded sui toolchain (1.6.3 for the v1.1.0 era, 1.48.2 for the v1.1.1 and v1.1.2 eras) and is counted with the executed runs above, not here",
     "by_level": {
+      "L1": 1,
       "L3": 1,
-      "L5": 35,
+      "L4": 29,
+      "L5": 5,
       "L6": 1,
       "none": 100
     },
     "by_outcome": {
-      "reproduced": 37
+      "executed_violation_not_demonstrated": 29,
+      "no_committed_observation": 1,
+      "reproduced": 7
+    },
+    "by_outcome_by_level": {
+      "L1": {
+        "no_committed_observation": 1
+      },
+      "L3": {
+        "reproduced": 1
+      },
+      "L4": {
+        "executed_violation_not_demonstrated": 29
+      },
+      "L5": {
+        "reproduced": 5
+      },
+      "L6": {
+        "reproduced": 1
+      }
     },
     "executed": 37,
+    "executed_at_l4": 29,
     "fixed_revision_executed": 2,
+    "level_counts_note": "verified_l5 is level == \"L5\" only and verified_l6 is level == \"L6\" only; verified_l5_or_l6 is their sum and is the only figure that spans two levels. executed_at_l4 counts records whose adjudicated level is L4 (executed, violation not demonstrated): they are not verified L5. provisional_l5_candidates is experiment_view.verification_provisional (a WEAK adjudication held at L4 with l5_candidate true) and adjudicated_demoted is experiment_view.demoted_from_L5 (an UNSUPPORTED adjudication); the two plus verified_l5 equal adjudicated_l5_claims, which is scripts/build_derived_v22.py's manifest accounting",
     "not_executed_by_language": {
       "cairo": 8,
       "move": 14
     },
+    "provisional_l5_candidates": 27,
     "runs": 12,
     "runs_detail": [
       {
@@ -744,7 +776,10 @@
           "sui 1.6.3": "sui 1.6.3-f4a70c8-dirty"
         }
       }
-    ]
+    ],
+    "verified_l5": 5,
+    "verified_l5_or_l6": 6,
+    "verified_l6": 1
   },
   "generated_by": "scripts/generate_v22_reports.py",
   "leakage": {
@@ -820,8 +855,8 @@
   },
   "validation": {
     "checks": 78,
-    "failed_critical": 3,
-    "passed": 75,
+    "failed_critical": 0,
+    "passed": 78,
     "warnings": 0
   }
 }

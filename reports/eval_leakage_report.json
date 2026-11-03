@@ -14,7 +14,7 @@
       {
         "path": "benchmark/D_exploit_construction.jsonl",
         "rows": 720,
-        "sha256": "cb0851c6c582ddf006aafcf6128ba8fdbbeaa4fe444460e498dd97999ae63307"
+        "sha256": "b3e5fc6784d3841fae0af19ea08040e37a1284f694c6e194bb80237a04819f04"
       },
       {
         "path": "benchmark/F_false_positive_rejection.jsonl",
@@ -54,7 +54,7 @@
       {
         "path": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
         "rows": 137,
-        "sha256": "88e3c3d2258363d0a975ebae17ce650023be401c9980a42fca429648cbfbc4e7"
+        "sha256": "dffa5445b5c7ad02fb9e3bff6bf1e50b94dfa41b18461610534bf5190e4f804b"
       },
       {
         "path": "benchmark/v3_R_source_tier_routing.jsonl",

@@ -41,7 +41,7 @@
     }
   ],
   "generated_by": "scripts/build_subsets.py",
-  "protected_identifiers": 24577,
+  "protected_identifiers": 24579,
   "rule": "a record that ANY benchmark family holds out is excluded from the model-visible task files, whatever the layer's own split label says",
   "source": "scripts/build_eval_leakage_report.py::protected_identifiers",
   "warning": "NOT MODEL-VISIBLE. These task rows are records that a benchmark family holds out (split test or validation). They carry the labels the benchmark is scored on. They live outside training/ so that a corpus consumer globbing the training directory cannot reach them. Do not train on them."

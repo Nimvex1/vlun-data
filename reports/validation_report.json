@@ -194,7 +194,7 @@
     {
       "check": "experimental_claims_have_a_committed_run_artefact",
       "critical": true,
-      "detail": "7 finding(s) in derived/ claim experimentally_verified; 15 executed findings have a committed artefact under experiments/*__poc_run/result.json indexed by reports/run_artefacts_index.json. work/poc_runs is git-ignored and is deliberately not accepted as evidence.",
+      "detail": "14 finding(s) in derived/ claim experimentally_verified; 24 executed findings have a committed artefact under experiments/*__poc_run/result.json indexed by reports/run_artefacts_index.json. work/poc_runs is git-ignored and is deliberately not accepted as evidence.",
       "failure_count": 0,
       "failures": [],
       "group": "evidence",

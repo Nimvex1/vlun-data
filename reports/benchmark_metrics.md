@@ -152,7 +152,7 @@ to mean anything; it is reported in the table above.
 - Task D supplies 720 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.
 - Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
 - Task G is labelled on its 7 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 31 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.
-- Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
+- Counterexamples exist for only 5 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
 - Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.
 - A family whose scorable rows carry one observed label is not evaluable for accuracy: its accuracy is null with the reason `single_label_not_evaluable`, in every table, and a model beating it would mean nothing.
 
