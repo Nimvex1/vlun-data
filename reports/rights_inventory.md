@@ -14,8 +14,8 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1816 (389744803 bytes)
-- head: `a546e60c3e6c5e0310318d1d911cdc272f1b31e8` (remediation/p0-credibility)
+- tracked files: 1921 (390267213 bytes)
+- head: `6933f3f3f1a6d9270f405bf317d3d6d6de8fc7ee` (audit/l5-l6-remediation-2026-11-01)
 - record layers scanned for expressive content: 158
 - the audit covers **all** layers, not only the 13123 v1 self-flagged quotation rows
 
@@ -227,10 +227,10 @@ Total artefacts holding personal contact data: **13**.
 
 ## Harness licence gating
 
-`19` experiment directories carry a `WITHHELD.json`; the distribution view mirrors that pattern in `distribution_v1/withheld_harness.jsonl`.
+`15` experiment directories carry a `WITHHELD.json`; the distribution view mirrors that pattern in `distribution_v1/withheld_harness.jsonl`.
 
 ## History
 
-- commits scanned: 85
-- paths added then removed: 25
+- commits scanned: 92
+- paths added then removed: 37
 - full findings: `reports/history_exposure.md`

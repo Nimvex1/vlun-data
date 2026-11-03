@@ -1,5 +1,4 @@
 {
-  "artifact_hash_note": "sha256 over the committed (LF) artefact bytes. The originals were hashed on a CRLF-emitting platform; those 27 hashes could not be verified against the shipped files and were recomputed, not adjusted. Regenerate with python scripts/run_dhl_experiments.py on an LF platform to reproduce from scratch.",
   "artifact_hashes": {
     "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
     "harness.json": "c0bde20e150760a99c4cc0d9b136e835cfab2b5584a428f41da52f735d2f2118",

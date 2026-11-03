@@ -4,12 +4,12 @@
   "blanket_clearance_claimed": false,
   "counts": {
     "digests": 6,
-    "ledger_rows": 12919,
+    "ledger_rows": 12894,
     "personal_data_artefacts_redacted": 13,
     "records_v1_projected": 722,
     "records_v4_projected": 5268,
     "registry_sources": 11,
-    "withheld_harness_files": 58,
+    "withheld_harness_files": 33,
     "withheld_pointers_other_layers": 0,
     "withheld_v1_citations": 2288,
     "withheld_v4_passages": 10070
@@ -34,7 +34,7 @@
   "files": {
     "README.md": {
       "bytes": 4568,
-      "sha256": "c239a9e444d191cf3e8f854400cc002619b4a5d103ad3035a6f591c4c4ab63c8"
+      "sha256": "bdc3a915520e859ed7fff147487090326d69fb143ca1589dfd5e95adb2b243cc"
     },
     "digests.jsonl": {
       "bytes": 5279,
@@ -61,16 +61,16 @@
       "sha256": "aac1f8ae67713b997e2ed74602c7a8a1068a3186a793cdf0fcffbf62a26c5876"
     },
     "rights_ledger.jsonl": {
-      "bytes": 17044892,
-      "sha256": "a914be51b87da16153a4c0862db30e32f82e2256c6d05b50c73ade47562e3b60"
+      "bytes": 17022641,
+      "sha256": "1fc16f906365ab67173d91f5fec01160e6a1e05eb035667b710a61f05ad069c5"
     },
     "rights_source_registry.json": {
       "bytes": 17374,
       "sha256": "6b75a2fb62d9ff0c93b3dae6fc121991d63392f9d2880fce29bf87fd50cdb8a5"
     },
     "withheld_harness.jsonl": {
-      "bytes": 81954,
-      "sha256": "416cc4eebdf42cccd5b015ff843c26336bc0842eb1700d370b2401f25692ddc7"
+      "bytes": 46768,
+      "sha256": "7dcc44a1cbf354233fc664b2ffca28f464d836a53d6583cb9461343e2d5bd155"
     }
   },
   "generated_by": "scripts/inventory_rights.py",

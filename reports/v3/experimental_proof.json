@@ -1,11 +1,14 @@
 {
   "by_level": {
-    "L3": 4,
-    "L5": 2
+    "L3": 6,
+    "L4": 7,
+    "L5": 5
   },
   "by_status": {
-    "blocked": 4,
-    "violation_observed": 2
+    "blocked": 5,
+    "executed_no_profit_evidence": 7,
+    "test_failed": 1,
+    "violation_observed": 5
   },
   "compile_triage": {
     "compiled_l3": 127,
@@ -245,7 +248,30 @@
         "rc": 0,
         "test_function": "testExploit"
       },
-      "toolchain": "forge (see toolchain.txt)"
+      "toolchain": "forge (see toolchain.txt)",
+      "violation_evidence": {
+        "actor": "attacker",
+        "asset": "ETH",
+        "execution": {
+          "assertion": "testExploit passed with the attacker profit logged",
+          "status": "pass"
+        },
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "impact_type": "fund_theft",
+        "observed": "attacker-side delta 479.393838338751 observed between 'Attacker ETH Balance Before exploit' and 'Attacker ETH Balance After exploit'",
+        "profit_deltas": [
+          {
+            "after": 479.393838338751,
+            "attacker_side": true,
+            "before": 0.0,
+            "label_after": "Attacker ETH Balance After exploit",
+            "label_before": "Attacker ETH Balance Before exploit",
+            "profit": 479.393838338751
+          }
+        ],
+        "property": "attacker-controlled ETH balance",
+        "source": "profit_deltas parsed from the run's balance logs"
+      }
     },
     {
       "artifact_dir": "experiments_v3/swappstaking",
@@ -303,6 +329,670 @@
         "command": "forge test --match-test testExploit -vv",
         "rc": 0,
         "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)",
+      "violation_evidence": {
+        "actor": "attacker",
+        "asset": "",
+        "execution": {
+          "assertion": "testExploit passed with the attacker profit logged",
+          "status": "pass"
+        },
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "impact_type": "fund_theft",
+        "observed": "attacker-side delta 128657759164064.0 observed between 'current balance of attacker' and 'balance of attacker after exploiting'",
+        "profit_deltas": [
+          {
+            "after": 128657759164064.0,
+            "attacker_side": true,
+            "before": 0.0,
+            "label_after": "balance of attacker after exploiting",
+            "label_before": "current balance of attacker",
+            "profit": 128657759164064.0
+          }
+        ],
+        "property": "attacker-controlled balance",
+        "source": "profit_deltas parsed from the run's balance logs"
+      }
+    },
+    {
+      "artifact_dir": "experiments_v3/presalev5",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "30e821d72d5c2faf043ff055b7a07e7f063f259627c69ad9000c3f100095dfad",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "3ba5c851293cd5947088c5d384bbcd4c56e37a4e29758718e24ef71b59070168",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2025-08/PresaleV5_exp.sol",
+          "poc_sha256": "c901e87bc6b4dfc9717fb991bf98aeae7a1634d0468ad1c773c12b9174f26ca0",
+          "staged_files": [
+            "src/test/2025-08/PresaleV5_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "presalev5",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2025-08/PresaleV5_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 22.3,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/mttoken",
+      "artifact_hashes": {
+        "command.txt": "0b04fd95bb50bd96a9783dbba23b1d8fbaf518a51b47baa9fc07c06618c5aa9e",
+        "harness.json": "fd8c41be6726339c5e75ceeaecc832a31440f030d03e174f458ca5988faada89",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "71ee5a622f6758f8a7786a4669a3d95a4eac8b27d43579f8717c4dc49755f8a6",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-01/MTToken_exp.sol",
+          "poc_sha256": "e1c362207d7d5df7d6b60e46530fca70ab2263e5bfc78e10684dbb9a5fb4b1b6",
+          "staged_files": [
+            "src/test/2026-01/MTToken_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "mttoken",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-01/MTToken_exp.sol",
+      "fork_aliases": [
+        "bsc"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 19.0,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testMTExploit -vv",
+        "rc": 0,
+        "test_function": "testMTExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/futureswap",
+      "artifact_hashes": {
+        "command.txt": "64b7d189e6712e1793f1dd3dd5eb01546815ca0d4341d8db2e191056a9afc8b9",
+        "harness.json": "3a8198634aaecc1af2584d8e5579197a0078027c835b9a434420f5a576944404",
+        "stderr.txt": "ae01e612f321eae2d62d9cf5351aa834b29b90234f32f6aa43cf6af3359e8bab",
+        "stdout.txt": "46b6d7b474cdb1a3c8b2c5e5bfc5518117be73947126677cdc7abe446828d4b9",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-01/futureswap_exp.sol",
+          "poc_sha256": "40976cd60f47eb20e89088012f4dbd57fdde353c08f169f34d5d8d6d6c40dcac",
+          "staged_files": [
+            "src/test/2026-01/futureswap_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "pinned historical state unservable or unreplayable by the backend",
+      "experiment": "futureswap",
+      "failure_reason": "archive_state_unavailable",
+      "finding_id": "defihacklabs:2026-01/futureswap_exp.sol",
+      "fork_aliases": [
+        "arbitrum"
+      ],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 5.5,
+      "status": "blocked",
+      "test": {
+        "command": "forge test --match-test testFutureSwapDrain -vv",
+        "rc": 1,
+        "test_function": "testFutureSwapDrain"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/venus-the",
+      "artifact_hashes": {
+        "command.txt": "d089c9889679e13a3dd0234a14b8627a378db753a114e4f48cb17114078002d9",
+        "harness.json": "347ea213a6815caa193464065c7a8c1e3debe02889eb3a5d41f8f1325d3109b3",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "e89e8f5b0199573fce3dbfce7d5c79ba117ee5bf82c49e74f2369725c9cf5b56",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-03/Venus_THE_exp.sol",
+          "poc_sha256": "f708bced15fbac3730f3adaeb6cf9c753e2e1bfe3d7649a43099c7ee30d18393",
+          "staged_files": [
+            "src/test/2026-03/Venus_THE_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "detail": "forge test rc!=0 without PASS",
+      "experiment": "venus-the",
+      "failure_reason": "broken_original_test",
+      "finding_id": "defihacklabs:2026-03/Venus_THE_exp.sol",
+      "fork_aliases": [],
+      "level_awarded": "L3",
+      "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 21.3,
+      "status": "test_failed",
+      "test": {
+        "command": "forge test --match-test testTraceDrivenPoC -vv",
+        "rc": 1,
+        "test_function": "testTraceDrivenPoC"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/juiceboxrevloans",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "c66636b4c73e163d0acb8845327034b190b4f681c5e4d79d9a4f117caa361a9f",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "a37445864cdec18630179f1e934fcd3f9f13917859e6ce78a450e451a8356f3d",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-04/JuiceboxREVLoans_exp.sol",
+          "poc_sha256": "8d1aab77454a81bbde9d5c4e87983694008d9ca9474a5e39800bc3de954a805e",
+          "staged_files": [
+            "src/test/2026-04/JuiceboxREVLoans_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "juiceboxrevloans",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-04/JuiceboxREVLoans_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 46.1,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/topbpool",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "bb1540839f3e3469e38f516a84bae522a384698bda054fff9905e57552337a06",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "b848d06d54e35207704597c154dbd6035a88f8fd15acf0c560f2b11d4d7f2bc6",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-06/TOPBPool_exp.sol",
+          "poc_sha256": "b4dded8dd1b6bf8eea477cc64909f80b455b59cb16a77dccc82e700cee89235d",
+          "staged_files": [
+            "src/test/2026-06/TOPBPool_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "topbpool",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-06/TOPBPool_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [
+        {
+          "after": 6.93488898486e-07,
+          "attacker_side": false,
+          "before": 944.1954772150741,
+          "label_after": "BPool WETH after",
+          "label_before": "BPool WETH before",
+          "profit": -944.1954765215852
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 27.6,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/usm",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "0a1f02111f7014caece75bec5a012590f3056175ac29a608cc937aeacdae7314",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "3b7dd262640d7e15228eba8f9003e73d58298d30ab48f17bd49f1846fa939e46",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-08/USM_exp.sol",
+          "poc_sha256": "4d3d572f105a50ca23de58b45ceee74b5b6aee80f51055a70c8cb32d7175a3be",
+          "staged_files": [
+            "src/test/2026-08/USM_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "usm",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-08/USM_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L5",
+      "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+      "profit_deltas": [
+        {
+          "after": 70.83097736769771,
+          "attacker_side": true,
+          "before": 0.0,
+          "label_after": "attacker ETH after (net profit)",
+          "label_before": "attacker ETH before",
+          "profit": 70.83097736769771
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 22.8,
+      "status": "violation_observed",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)",
+      "violation_evidence": {
+        "actor": "attacker",
+        "asset": "ETH",
+        "execution": {
+          "assertion": "testExploit passed with the attacker profit logged",
+          "status": "pass"
+        },
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "impact_type": "fund_theft",
+        "observed": "attacker-side delta 70.83097736769771 observed between 'attacker ETH before' and 'attacker ETH after (net profit)'",
+        "profit_deltas": [
+          {
+            "after": 70.83097736769771,
+            "attacker_side": true,
+            "before": 0.0,
+            "label_after": "attacker ETH after (net profit)",
+            "label_before": "attacker ETH before",
+            "profit": 70.83097736769771
+          }
+        ],
+        "property": "attacker-controlled ETH balance",
+        "source": "profit_deltas parsed from the run's balance logs"
+      }
+    },
+    {
+      "artifact_dir": "experiments_v3/flamincome",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "6b8aa0ad4926e2eea97877a2be928fc09df7c57527a3b8a36b8f8b6bf48ebdba",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "84a6abfd31b93e557302fcc7f404e96de5f8690c2e821ba203c2387777b8ca30",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-09/Flamincome_exp.sol",
+          "poc_sha256": "11bff704399712b9265acfc3adedf6519ecf134209b53279b3190701122dedfc",
+          "staged_files": [
+            "src/test/2026-09/Flamincome_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "flamincome",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-09/Flamincome_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L5",
+      "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+      "profit_deltas": [
+        {
+          "after": 344751.209366,
+          "attacker_side": true,
+          "before": 0.0,
+          "label_after": "Attacker After exploit USDT Balance",
+          "label_before": "Attacker Before exploit USDT Balance",
+          "profit": 344751.209366
+        },
+        {
+          "after": 21836626.905373,
+          "attacker_side": false,
+          "before": 3196903.96561,
+          "label_after": "Strategy NAV after stakeFor",
+          "label_before": "Strategy NAV (balanceOfY) before",
+          "profit": 18639722.939763
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 146.4,
+      "status": "violation_observed",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)",
+      "violation_evidence": {
+        "actor": "attacker",
+        "asset": "USDT",
+        "execution": {
+          "assertion": "testExploit passed with the attacker profit logged",
+          "status": "pass"
+        },
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "impact_type": "fund_theft",
+        "observed": "attacker-side delta 344751.209366 observed between 'Attacker Before exploit USDT Balance' and 'Attacker After exploit USDT Balance'",
+        "profit_deltas": [
+          {
+            "after": 344751.209366,
+            "attacker_side": true,
+            "before": 0.0,
+            "label_after": "Attacker After exploit USDT Balance",
+            "label_before": "Attacker Before exploit USDT Balance",
+            "profit": 344751.209366
+          }
+        ],
+        "property": "attacker-controlled USDT balance",
+        "source": "profit_deltas parsed from the run's balance logs"
+      }
+    },
+    {
+      "artifact_dir": "experiments_v3/omni404",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "aab73aa4bf0f5dedc11cab0ebcd1eb5e00099143350ea8859928066d883a1770",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "d78a03ee3bac48b0eb54ce4d40a363ab4f0970927fb20e21a582e39530906e7c",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-09/OMNI404_exp.sol",
+          "poc_sha256": "f319458617a8bcc044f5424fec496183f8daa65492e2377c75a31b862346ec5a",
+          "staged_files": [
+            "src/test/2026-09/OMNI404_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "omni404",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-09/OMNI404_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [
+        {
+          "after": 0.8683455650399394,
+          "attacker_side": false,
+          "before": 3.2953489459416163,
+          "label_after": "pool WETH after",
+          "label_before": "pool WETH before",
+          "profit": -2.427003380901677
+        },
+        {
+          "after": 21.0,
+          "attacker_side": false,
+          "before": 15.0,
+          "label_after": "O404 minted after",
+          "label_before": "O404 minted before",
+          "profit": 6.0
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 74.9,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/reddio",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "4cd9356c0c2d73ee2d605200ba467d4b3cad59463ce69885ac6229bda8183a20",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "b440f3582446b7ccf2bfc456414adb88a5c652d28f0628372e30608ac48ab09d",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-09/Reddio_exp.sol",
+          "poc_sha256": "5c647a79590525b3666cdfedeeb01ce8a4e45cb91d95a90231b76981b79417a4",
+          "staged_files": [
+            "src/test/2026-09/Reddio_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "reddio",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-09/Reddio_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L5",
+      "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+      "profit_deltas": [
+        {
+          "after": 9.263065281137115,
+          "attacker_side": true,
+          "before": 0.009975,
+          "label_after": "attacker ETH after",
+          "label_before": "attacker ETH before",
+          "profit": 9.253090281137114
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 29.2,
+      "status": "violation_observed",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)",
+      "violation_evidence": {
+        "actor": "attacker",
+        "asset": "ETH",
+        "execution": {
+          "assertion": "testExploit passed with the attacker profit logged",
+          "status": "pass"
+        },
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "impact_type": "fund_theft",
+        "observed": "attacker-side delta 9.253090281137114 observed between 'attacker ETH before' and 'attacker ETH after'",
+        "profit_deltas": [
+          {
+            "after": 9.263065281137115,
+            "attacker_side": true,
+            "before": 0.009975,
+            "label_after": "attacker ETH after",
+            "label_before": "attacker ETH before",
+            "profit": 9.253090281137114
+          }
+        ],
+        "property": "attacker-controlled ETH balance",
+        "source": "profit_deltas parsed from the run's balance logs"
+      }
+    },
+    {
+      "artifact_dir": "experiments_v3/securedfi",
+      "artifact_hashes": {
+        "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+        "harness.json": "d83586f0dff397321cb48cf889e999aee455d93898f73179ecfd9e8ab6e11a0c",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "526f8e6570395c76b2d9eb78e7b530708f22acd1049c3fb6a5de656ca9e22364",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-09/SecuredFi_exp.sol",
+          "poc_sha256": "90be31df1f20502cf88c1f17310607b21e7a7ad48596f550729964f7f4a3c34a",
+          "staged_files": [
+            "src/test/2026-09/SecuredFi_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "securedfi",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-09/SecuredFi_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [
+        {
+          "after": 0.01271959,
+          "attacker_side": false,
+          "before": 0.91170963,
+          "label_after": "TokenVault WBTC after",
+          "label_before": "TokenVault WBTC before",
+          "profit": -0.89899004
+        }
+      ],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 138.4,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test testExploit -vv",
+        "rc": 0,
+        "test_function": "testExploit"
+      },
+      "toolchain": "forge (see toolchain.txt)"
+    },
+    {
+      "artifact_dir": "experiments_v3/yamfinance",
+      "artifact_hashes": {
+        "command.txt": "5d27530626bb0d14149174e3625894e12f299e54c18014df1f0f6a53679aa2f8",
+        "harness.json": "66a1d39e9c576498496ad3fd7952575080d7eab5ac52843741f05b1ae7651043",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "1aa3808515ffc8dff4fa5773faea9328b0a583a202c7bb519023820d5f4d588d",
+        "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+      },
+      "build": {
+        "harness": {
+          "poc": "2026-09/YamFinance_exp.sol",
+          "poc_sha256": "38a4263beb9a91f309b7624a965f2c496b4d1382a608e662bf702588ee07b2f9",
+          "staged_files": [
+            "src/test/2026-09/YamFinance_exp.sol",
+            "src/test/basetest.sol",
+            "src/test/tokenhelper.sol"
+          ],
+          "supplied": []
+        },
+        "rc": 0
+      },
+      "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+      "experiment": "yamfinance",
+      "failure_reason": null,
+      "finding_id": "defihacklabs:2026-09/YamFinance_exp.sol",
+      "fork_aliases": [
+        "mainnet"
+      ],
+      "level_awarded": "L4",
+      "level_basis": "forge reported test PASS on pinned fork",
+      "profit_deltas": [],
+      "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "seconds": 45.9,
+      "status": "executed_no_profit_evidence",
+      "test": {
+        "command": "forge test --match-test test_YamGovernanceTakeover -vv",
+        "rc": 0,
+        "test_function": "test_YamGovernanceTakeover"
       },
       "toolchain": "forge (see toolchain.txt)"
     }

@@ -1,11 +1,10 @@
 {
   "by_status": {
-    "effective": 5,
-    "not_testable": 31,
-    "not_verified_two_revision": 2
+    "effective": 7,
+    "not_testable": 31
   },
-  "evaluated": 5,
-  "fix_confirmed_effective": 5,
+  "evaluated": 7,
+  "fix_confirmed_effective": 7,
   "generated_by": "scripts/verify_patches.py (v2 compatibility view)",
   "patch_records": 38,
   "records": [
@@ -106,14 +105,11 @@
       "finding_id": "2024-01-renft/M-01",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "missing_evidence": [
-          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
-          "the two revisions did not run the same test file bytes"
-        ],
-        "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol); the two revisions did not run the same test file bytes",
-        "regression_test_passed": false,
-        "status": "not_verified_two_revision",
-        "two_revision_evidence": "PARTIAL",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
+        "regression_test_passed": true,
+        "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
@@ -187,14 +183,11 @@
       "finding_id": "2024-01-renft/M-08",
       "fix_verification": {
         "fixed_revision_result": "pass",
-        "missing_evidence": [
-          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
-          "the two revisions did not run the same test file bytes"
-        ],
-        "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol); the two revisions did not run the same test file bytes",
-        "regression_test_passed": false,
-        "status": "not_verified_two_revision",
-        "two_revision_evidence": "PARTIAL",
+        "missing_evidence": null,
+        "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
+        "regression_test_passed": true,
+        "status": "effective",
+        "two_revision_evidence": "VERIFIED_TWO_REVISION",
         "vulnerable_revision_result": "fail"
       },
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",

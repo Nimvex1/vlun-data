@@ -256,6 +256,66 @@ class TestL6TwoRevisionClaims(unittest.TestCase):
                     "classification of the same artefacts")
 
 
+class TestRecoveredRenftClaims(unittest.TestCase):
+    """The two recovered claims assert the vulnerability, not just a red suite."""
+
+    CASES = {
+        "2024-01-renft/M-01": {
+            "test": "test_VlunM01_NonRentedERC1155StaysTransferable()",
+            "reason": "GuardPolicy_UnauthorizedSelector(0xf242432a)",
+            "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
+            "harness": "vlun_renft_m01_partial_transfer.t.sol",
+        },
+        "2024-01-renft/M-08": {
+            "test": "test_VlunM08_RentedERC721CannotBeBurned()",
+            "reason": "next call did not revert as expected",
+            "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+            "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
+            "harness": "vlun_renft_m08_destructive_burn.t.sol",
+        },
+    }
+
+    def setUp(self):
+        self.report = load_report()
+        self.experiments = {e["finding_id"]: e
+                            for e in self.report.get("experiments", [])}
+
+    def test_claim_is_l6_with_the_intended_assertion(self):
+        for fid, want in self.CASES.items():
+            with self.subTest(finding_id=fid):
+                exp = self.experiments.get(fid)
+                self.assertIsNotNone(exp, f"{fid} is missing from the report")
+                self.assertEqual(exp.get("verdict"), VERIFIED)
+                ev = exp.get("two_revision_evidence") or {}
+                self.assertEqual(ev.get("status"), "VERIFIED_TWO_REVISION")
+                self.assertEqual(ev.get("missing_evidence"), [])
+                v = exp["revisions"]["vulnerable"]
+                f = exp["revisions"]["fixed"]
+                self.assertEqual(v["commit"], want["vulnerable_commit"])
+                self.assertEqual(f["commit"], want["fixed_commit"])
+                self.assertEqual(v["harness_digest"], f["harness_digest"])
+                self.assertEqual(v["harness_file_digests"],
+                                 f["harness_file_digests"])
+                self.assertEqual(list(v["harness_file_digests"]),
+                                 [want["harness"]],
+                                 "exactly one published, byte-identical harness")
+                self.assertEqual(v["production_files_modified"], 0)
+                self.assertEqual(f["production_files_modified"], 0)
+                self.assertEqual(v["per_test_status"],
+                                 {want["test"]: "Failure"})
+                self.assertEqual(f["per_test_status"],
+                                 {want["test"]: "Success"})
+                observed = v.get("observed_failure") or []
+                self.assertEqual(len(observed), 1, observed)
+                self.assertEqual(observed[0]["test"], want["test"])
+                self.assertTrue(
+                    (observed[0].get("forge_reason") or "").startswith(
+                        want["reason"]),
+                    f"the vulnerable run failed for another reason: "
+                    f"{observed[0].get('forge_reason')!r}")
+
+
 class TestL6ArtefactHashes(unittest.TestCase):
     """(b) An artefact hash that does not match the committed bytes has to be
     recorded as unresolved; it must never be a silent pass."""

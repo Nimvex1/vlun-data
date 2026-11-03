@@ -97,6 +97,14 @@ def main() -> int:
         man["families"].append("T_v31_taxonomy_explicit")
     if "v3_T_taxonomy_explicit.jsonl" not in RETIRED_FAMILIES:
         man["tasks"]["T_v31_taxonomy_explicit"] = len(tasks)
+    elif "T_v31_taxonomy_explicit" not in man.get("tasks", {}):
+        # A retired family is carried, not rebuilt, but its row count still
+        # has to be carried into the manifest: the gate checks the frozen file
+        # against this count and a missing key is a failure, not a skip.
+        frozen = V.BENCH / "retired_families" / "v3_T_taxonomy_explicit.jsonl"
+        man["tasks"]["T_v31_taxonomy_explicit"] = sum(
+            1 for line in frozen.read_text(encoding="utf-8").splitlines()
+            if line.strip())
     # Idempotent provenance: strip any previously appended suffixes before
     # re-adding once, so reruns never duplicate text.
     gen = man.get("generated_by", "")

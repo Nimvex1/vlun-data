@@ -7,7 +7,7 @@
       "item": "4 + 15 — rejection evidence"
     },
     {
-      "after": "decision recorded per source in `V4/licensing.json` and migrated into 5268 V4 findings now carry the recorded decision across 6 layer files, with nothing changed outside the licence field set; distribution-safe view `distribution_v1/` inventories 1816 tracked files over 6 registered sources; licence contradictions remaining: 0; historical exposure reported separately, no history rewritten",
+      "after": "decision recorded per source in `V4/licensing.json` and migrated into 5268 V4 findings now carry the recorded decision across 6 layer files, with nothing changed outside the licence field set; distribution-safe view `distribution_v1/` inventories 1921 tracked files over 6 registered sources; licence contradictions remaining: 0; historical exposure reported separately, no history rewritten",
       "before": "424/722 derived records carried code from repositories with no declared licence; V4 stated `license_status: unknown` on every record while its own manifests declared no LICENSE file (two sources) and CC BY-ND 4.0 (Oak Security)",
       "item": "5 — rights and redistribution"
     },

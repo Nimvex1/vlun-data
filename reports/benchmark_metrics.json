@@ -279,11 +279,11 @@
       "evaluable": false,
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "n_labels": 1,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
@@ -321,11 +321,11 @@
       "evaluable": false,
       "floor_reason": "single_label_not_evaluable: every scorable row carries one label, so the floor would restate the label distribution",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "n_labels": 1,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
@@ -801,7 +801,7 @@
       "n_labels": 1,
       "reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
       "retired": false,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "status": "EXPLORATORY",
       "validity_flags": [
         "single_label",
@@ -837,7 +837,7 @@
       "n_labels": 1,
       "reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
       "retired": false,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "status": "EXPLORATORY",
       "validity_flags": [
         "single_label",
@@ -1006,7 +1006,7 @@
   "known_limitations": [
     "Task D supplies 720 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.",
     "Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.",
-    "Task G is labelled on its 5 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 33 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.",
+    "Task G is labelled on its 7 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 31 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.",
     "Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
     "Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.",
     "A family whose scorable rows carry one observed label is not evaluable for accuracy: its accuracy is null with the reason `single_label_not_evaluable`, in every table, and a model beating it would mean nothing."
@@ -1377,8 +1377,8 @@
     },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5,
-        "not_recorded": 33
+        "experimentally_verified": 7,
+        "not_recorded": 31
       },
       "by_split": {
         "test": 20,
@@ -1388,18 +1388,18 @@
       "evaluable": false,
       "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/G_patch_verification.jsonl",
-      "judge_graded_rows": 33,
-      "labeled": 5,
+      "judge_graded_rows": 31,
+      "labeled": 7,
       "partial": 0,
       "retired": false,
-      "scorable": 5,
-      "scoring_note": "scores the 5 L6-verified patches; the 33 rows without an answer key are 31 not_testable, 2 not_verified_two_revision",
+      "scorable": 7,
+      "scoring_note": "scores the 7 L6-verified patches; the 31 rows without an answer key are 31 not_testable",
       "scoring_status": "partial",
       "status": "EXPLORATORY",
       "status_reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
       "tasks": 38,
-      "unlabeled": 33,
-      "unscorable": 33,
+      "unlabeled": 31,
+      "unscorable": 31,
       "validity_flags": [
         "single_label",
         "holdout_too_small"
@@ -1458,22 +1458,22 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 7
       },
       "by_split": {
-        "validation": 5
+        "validation": 7
       },
-      "duplicate_rows_dropped": 9,
+      "duplicate_rows_dropped": 12,
       "evaluable": false,
       "evaluable_reason": "single_label_not_evaluable",
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 5,
+      "labeled": 7,
       "partial": 0,
       "retired": false,
-      "scorable": 5,
+      "scorable": 7,
       "status": "EXPLORATORY",
       "status_reason": "demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30)",
-      "tasks": 5,
+      "tasks": 7,
       "unlabeled": 0,
       "unscorable": 0,
       "validity_flags": [
@@ -1958,8 +1958,8 @@
     ],
     [
       "patch verification rate",
-      "5/38 (13.2%)",
-      "5 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions."
+      "7/38 (18.4%)",
+      "7 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions."
     ],
     [
       "negative-example accuracy",

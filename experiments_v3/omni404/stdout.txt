@@ -1,0 +1,14 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2026-09/OMNI404_exp.sol:OMNI404_exp
+[PASS] testExploit() (gas: 10740649)
+Logs:
+  pool WETH before: 3.295348945941616499
+  O404 minted before: 15
+  pool WETH after : 0.868345565039939419
+  O404 minted after : 21
+  attacker ETH profit: 2.427580402449730252
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 72.89s (72.89s CPU time)
+
+Ran 1 test suite in 72.90s (72.89s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

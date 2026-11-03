@@ -753,14 +753,14 @@
       "verdict": "l6_verified_patch"
     },
     {
-      "blocked_behaviour": "the guard compares the action against the recorded rented amount rather than the post-withdrawal balance",
+      "blocked_behaviour": "the guard compares the amount leaving the safe against the rented amount, so the unrented balance stays transferable",
       "classification": "runnable_after_harness_reconstruction",
       "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
-      "exploited_behaviour": "a malicious lender withdrew more ERC-1155 than was rented, so the guard refused every subsequent burn and the borrower's balance was frozen",
+      "exploited_behaviour": "a malicious lender left the rental safe holding more ERC-1155 than was rented, and the guard refused every transfer of the rented token id, freezing the borrower's unrented balance",
       "finding_id": "2024-01-renft/M-01",
       "match_test": "test_",
-      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "notes": "the authored reconstruction is executed byte-identically on both revisions; the repository's own fixtures are revision-specific test infrastructure",
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-01/fixed",
@@ -768,11 +768,11 @@
           "artifact_hashes": {
             "command.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6"
+              "sha256": "ac89f6dbe0884515ea4c3c6d4eca4ce89db955e962542b4060d5f84984c5c357"
             },
-            "harness/WITHHELD.json": {
+            "harness/vlun_renft_m01_partial_transfer.t.sol": {
               "hash_version": "sha256-v2",
-              "sha256": "ad140aed522afa8b5a26307170fef8a13b0a95c79a567528becab4594dfffb9e"
+              "sha256": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
             },
             "stderr.txt": {
               "hash_version": "sha256-v2",
@@ -780,35 +780,26 @@
             },
             "stdout.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "6aae45c1b8854aa0168ca8335aa9c31e678d279e43494d08696ab8eeede63723"
+              "sha256": "376a65efffca6d233ab11674daedf3e3a04b08b256802927acc371c797486efd"
             }
           },
-          "cached": true,
           "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
-          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expectation": "test PASSES: the security property holds after the patch",
           "declared_expected_status": "pass",
           "detail": "",
           "exit_code": 0,
-          "experiment_id": "2b20559ad0adda3f5a3bcbb8",
-          "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+          "experiment_id": "2bba5cc3bd06698f899cfe37",
+          "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
           "harness_file_digests": {
-            "integration__guarded-transactions__ERC1155.t.sol": "1f15f45519f3e2cd1eed7b73759b28a62ec6a28f695591acdc1d5b9568d03506",
-            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m01_partial_transfer.t.sol": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
           },
           "observed_failure": [],
           "per_test_status": {
-            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": "Success",
-            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": "Success",
-            "test_Reverts_ERC1155_BurnBatch_Always()": "Success",
-            "test_Reverts_ERC1155_Burn_Rented()": "Success",
-            "test_Success_ERC1155_Burn_NotRented()": "Success",
-            "test_Success_ERC1155_SafeTransferFrom_NotRented()": "Success",
-            "test_Success_ERC1155_SafeTransferFrom_Rented()": "Success"
+            "test_VlunM01_NonRentedERC1155StaysTransferable()": "Success"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "pass"
         },
         "vulnerable": {
@@ -817,11 +808,11 @@
           "artifact_hashes": {
             "command.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6"
+              "sha256": "ac89f6dbe0884515ea4c3c6d4eca4ce89db955e962542b4060d5f84984c5c357"
             },
-            "harness/WITHHELD.json": {
+            "harness/vlun_renft_m01_partial_transfer.t.sol": {
               "hash_version": "sha256-v2",
-              "sha256": "eb5e78230c8b1d0aebbb55cdd810b225815e4fd202f922a84c35606547ac83d9"
+              "sha256": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
             },
             "stderr.txt": {
               "hash_version": "sha256-v2",
@@ -829,76 +820,40 @@
             },
             "stdout.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "d8fc146dbf3652a567b38c5caf6c61e68fc5613c005276cc4d0416ffad63e5b2"
+              "sha256": "f7c111c45b0fde25f955b2aab0bd831977999656a852dbc99ec205ff4f89f39c"
             },
             "stdout_human.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "13c117d49f0cefd4fb38035b125c926345d4066bc1cb561281b326b69dc15855"
+              "sha256": "ba1d9001e20dd4e361c669226295097c312c58635d62076afe96a2aec585f7b0"
             }
           },
-          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
-          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expectation": "test FAILS: the security property is violated on the audited revision",
           "declared_expected_status": "fail",
           "detail": "",
           "exit_code": 1,
-          "experiment_id": "49f98270284e8d3eb7e70dcf",
-          "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
+          "experiment_id": "f4fc414f2c3310113f2e055a",
+          "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
           "harness_file_digests": {
-            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
-            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
-            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
-            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
-            "fixtures__protocol__AccountCreator.sol": "5c084a201ef769696e201bf382b79dfaa9ae15d69cd9e4e0c317d57e36ea9276",
-            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
-            "integration__guarded-transactions__ERC1155.t.sol": "620e2310598313404bdbec7a35a448923ef52dbf4f14ceaff6b00f4cf1d6df71",
-            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
-            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m01_partial_transfer.t.sol": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
           },
           "observed_failure": [
             {
               "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)"
-            },
-            {
-              "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)"
-            },
-            {
-              "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Reverts_ERC1155_BurnBatch_Always()"
-            },
-            {
-              "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Reverts_ERC1155_Burn_Rented()"
-            },
-            {
-              "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Success_ERC1155_SafeTransferFrom_Rented()"
+              "forge_reason": "GuardPolicy_UnauthorizedSelector(0xf242432a)",
+              "test": "test_VlunM01_NonRentedERC1155StaysTransferable()"
             }
           ],
           "per_test_status": {
-            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": "Failure",
-            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": "Failure",
-            "test_Reverts_ERC1155_BurnBatch_Always()": "Failure",
-            "test_Reverts_ERC1155_Burn_Rented()": "Failure",
-            "test_Success_ERC1155_Burn_NotRented()": "Success",
-            "test_Success_ERC1155_SafeTransferFrom_NotRented()": "Success",
-            "test_Success_ERC1155_SafeTransferFrom_Rented()": "Failure"
+            "test_VlunM01_NonRentedERC1155StaysTransferable()": "Failure"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "fail"
         }
       },
-      "security_property": "a lender cannot freeze a borrower's ERC-1155: a burn or transfer up to the rented amount stays possible",
+      "security_property": "a lender cannot freeze a borrower's ERC-1155: the renter can still move the part of the balance that is not rented",
       "two_revision_evidence": {
         "commit_resolution": {
           "repository": "renft-smart",
@@ -913,45 +868,13 @@
           "artifact": "experiments/2024-01-renft__M-01/fixed",
           "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
           "declared_expected_status": "pass",
-          "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
-          "harness_file_count": 3,
+          "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
+          "harness_file_count": 1,
           "harness_file_digests": {
-            "integration__guarded-transactions__ERC1155.t.sol": "1f15f45519f3e2cd1eed7b73759b28a62ec6a28f695591acdc1d5b9568d03506",
-            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m01_partial_transfer.t.sol": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
           },
           "per_test_status": {
-            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Reverts_ERC1155_BurnBatch_Always()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Reverts_ERC1155_Burn_Rented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC1155_Burn_NotRented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC1155_SafeTransferFrom_NotRented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC1155_SafeTransferFrom_Rented()": {
+            "test_VlunM01_NonRentedERC1155StaysTransferable()": {
               "logs": [],
               "reason": null,
               "status": "Success"
@@ -959,98 +882,46 @@
           },
           "status": "pass"
         },
-        "harness_digests_match": false,
+        "harness_digests_match": true,
         "harness_files_only_on_fixed_side": [],
-        "harness_files_only_on_vulnerable_side": [
-          "BaseTest.sol",
-          "fixtures__engine__BaseEngine.sol",
-          "fixtures__engine__OrderCreator.sol",
-          "fixtures__engine__OrderFulfiller.sol",
-          "fixtures__protocol__AccountCreator.sol",
-          "fixtures__protocol__BaseProtocol.sol",
-          "src__libraries__Errors.sol"
-        ],
-        "harness_files_with_different_digest": [
-          "integration__guarded-transactions__ERC1155.t.sol"
-        ],
-        "missing_evidence": [
-          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
-          "the two revisions did not run the same test file bytes"
-        ],
-        "status": "PARTIAL",
-        "test_file_digests_match": false,
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
         "test_files": [
-          "integration__guarded-transactions__ERC1155.t.sol"
+          "vlun_renft_m01_partial_transfer.t.sol"
         ],
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-01/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expected_status": "fail",
-          "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
-          "harness_file_count": 10,
+          "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
+          "harness_file_count": 1,
           "harness_file_digests": {
-            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
-            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
-            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
-            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
-            "fixtures__protocol__AccountCreator.sol": "5c084a201ef769696e201bf382b79dfaa9ae15d69cd9e4e0c317d57e36ea9276",
-            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
-            "integration__guarded-transactions__ERC1155.t.sol": "620e2310598313404bdbec7a35a448923ef52dbf4f14ceaff6b00f4cf1d6df71",
-            "mocks__tokens__standard__MockERC1155.sol": "8dd001870d926fa86a7550310cc5c7fdbc3a29aa8f0e74de24ecda9ef8a839fc",
-            "src__libraries__Errors.sol": "f031333e14b59be052daa5f754823a7571b9f47e9957207580511118bbbaafbb",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m01_partial_transfer.t.sol": "04bd65db5cfa45cbdffe2d677fbf117fa1894d9f3532143e5010d080c917ecf8"
           },
           "per_test_status": {
-            "test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256)": {
+            "test_VlunM01_NonRentedERC1155StaysTransferable()": {
               "logs": [],
-              "reason": null,
-              "status": "Failure"
-            },
-            "test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256)": {
-              "logs": [],
-              "reason": null,
-              "status": "Failure"
-            },
-            "test_Reverts_ERC1155_BurnBatch_Always()": {
-              "logs": [],
-              "reason": null,
-              "status": "Failure"
-            },
-            "test_Reverts_ERC1155_Burn_Rented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Failure"
-            },
-            "test_Success_ERC1155_Burn_NotRented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC1155_SafeTransferFrom_NotRented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC1155_SafeTransferFrom_Rented()": {
-              "logs": [],
-              "reason": null,
+              "reason": "GuardPolicy_UnauthorizedSelector(0xf242432a)",
               "status": "Failure"
             }
           },
           "status": "fail"
         }
       },
-      "verdict": "l6_partial_two_revision_evidence"
+      "verdict": "l6_verified_patch"
     },
     {
       "blocked_behaviour": "the guard rejects an unguarded destructive call against the safe",
       "classification": "runnable_after_harness_reconstruction",
       "controlled_comparison": true,
       "evidence_layer": "dynamic_poc_plus_source_diff",
-      "exploited_behaviour": "burn() or a transfer to a dead address removed the asset from the safe while the rental was active",
+      "exploited_behaviour": "burn() removed the asset from the safe while the rental was active",
       "finding_id": "2024-01-renft/M-08",
       "match_test": "test_",
-      "notes": "the regression test shipped by the mitigation commit is executed against both revisions; fixture files it needs are supplied as an overlay so no repository file is modified",
+      "notes": "the authored reconstruction is executed byte-identically on both revisions; the repository's own fixtures are revision-specific test infrastructure",
       "revisions": {
         "fixed": {
           "artifact": "experiments/2024-01-renft__M-08/fixed",
@@ -1058,11 +929,11 @@
           "artifact_hashes": {
             "command.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009"
+              "sha256": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab"
             },
-            "harness/WITHHELD.json": {
+            "harness/vlun_renft_m08_destructive_burn.t.sol": {
               "hash_version": "sha256-v2",
-              "sha256": "4d37a97ea437159cfeb1e7fa321247b25037a84bc5e870431ce73e1a801a7f2d"
+              "sha256": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
             },
             "stderr.txt": {
               "hash_version": "sha256-v2",
@@ -1070,30 +941,26 @@
             },
             "stdout.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
+              "sha256": "8747fc0082ae9660828a0b12ae451d1a1772c79f49c0949792cc984181715ec5"
             }
           },
-          "cached": true,
           "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
-          "declared_expectation": "test PASSES: the guard blocks the exploit",
+          "declared_expectation": "test PASSES: the security property holds after the patch",
           "declared_expected_status": "pass",
           "detail": "",
           "exit_code": 0,
-          "experiment_id": "5cfbc6de626afbb8e9e932ff",
-          "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+          "experiment_id": "56d2afad1cc4ac26c215c871",
+          "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
           "harness_file_digests": {
-            "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
-            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
           },
           "observed_failure": [],
           "per_test_status": {
-            "test_Reverts_ERC721_Burn_Rented()": "Success",
-            "test_Success_ERC721_Burn_NotRented()": "Success"
+            "test_VlunM08_RentedERC721CannotBeBurned()": "Success"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "pass"
         },
         "vulnerable": {
@@ -1102,58 +969,48 @@
           "artifact_hashes": {
             "command.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009"
+              "sha256": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab"
             },
-            "harness/WITHHELD.json": {
+            "harness/vlun_renft_m08_destructive_burn.t.sol": {
               "hash_version": "sha256-v2",
-              "sha256": "aaddd01ad3492b2cac3f42b5a09f7ef406689ab0f1c3a754a86267014be420b3"
+              "sha256": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
             },
             "stderr.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "sha256": "ce0c30764f0f05239f720b53b8de2ebd37f8ac956f5fe4342a639261dea95898"
             },
             "stdout.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
+              "sha256": "67c85f694347da07a13d4656ffc1cf44b6d6afea9792b061222d85b03bdae60a"
             },
             "stdout_human.txt": {
               "hash_version": "sha256-v2",
-              "sha256": "b5f8b21c35b596e8d518966cbf4ea5d59f5c90ab95dbf00c527d835df59fb5a9"
+              "sha256": "5ccd10581fc9f51067509c025c87e238e7921eafc94bc2c960a285c1a84faab8"
             }
           },
-          "cached": true,
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
-          "declared_expectation": "test FAILS: the guard does not block the exploit",
+          "declared_expectation": "test FAILS: the security property is violated on the audited revision",
           "declared_expected_status": "fail",
           "detail": "",
           "exit_code": 1,
-          "experiment_id": "9c2eee4eeaf7d9912f8aff83",
-          "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
+          "experiment_id": "6fe4e590e925b4e7cd27375b",
+          "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
           "harness_file_digests": {
-            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
-            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
-            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
-            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
-            "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
-            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
-            "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
-            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
           },
           "observed_failure": [
             {
               "assertion_messages": [],
-              "forge_reason": null,
-              "test": "test_Reverts_ERC721_Burn_Rented()"
+              "forge_reason": "next call did not revert as expected",
+              "test": "test_VlunM08_RentedERC721CannotBeBurned()"
             }
           ],
           "per_test_status": {
-            "test_Reverts_ERC721_Burn_Rented()": "Failure",
-            "test_Success_ERC721_Burn_NotRented()": "Success"
+            "test_VlunM08_RentedERC721CannotBeBurned()": "Failure"
           },
           "production_files_modified": 0,
           "run_failure_detail": null,
-          "run_failure_reason": null,
+          "run_failure_reason": "",
           "status": "fail"
         }
       },
@@ -1172,20 +1029,13 @@
           "artifact": "experiments/2024-01-renft__M-08/fixed",
           "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
           "declared_expected_status": "pass",
-          "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
-          "harness_file_count": 3,
+          "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
+          "harness_file_count": 1,
           "harness_file_digests": {
-            "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
-            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
           },
           "per_test_status": {
-            "test_Reverts_ERC721_Burn_Rented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
-            },
-            "test_Success_ERC721_Burn_NotRented()": {
+            "test_VlunM08_RentedERC721CannotBeBurned()": {
               "logs": [],
               "reason": null,
               "status": "Success"
@@ -1193,61 +1043,36 @@
           },
           "status": "pass"
         },
-        "harness_digests_match": false,
+        "harness_digests_match": true,
         "harness_files_only_on_fixed_side": [],
-        "harness_files_only_on_vulnerable_side": [
-          "BaseTest.sol",
-          "fixtures__engine__BaseEngine.sol",
-          "fixtures__engine__OrderCreator.sol",
-          "fixtures__engine__OrderFulfiller.sol",
-          "fixtures__protocol__AccountCreator.sol",
-          "fixtures__protocol__BaseProtocol.sol"
-        ],
-        "harness_files_with_different_digest": [
-          "integration__guarded-transactions__ERC721.t.sol"
-        ],
-        "missing_evidence": [
-          "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
-          "the two revisions did not run the same test file bytes"
-        ],
-        "status": "PARTIAL",
-        "test_file_digests_match": false,
+        "harness_files_only_on_vulnerable_side": [],
+        "harness_files_with_different_digest": [],
+        "missing_evidence": [],
+        "status": "VERIFIED_TWO_REVISION",
+        "test_file_digests_match": true,
         "test_files": [
-          "integration__guarded-transactions__ERC721.t.sol"
+          "vlun_renft_m08_destructive_burn.t.sol"
         ],
         "vulnerable": {
           "artifact": "experiments/2024-01-renft__M-08/vulnerable",
           "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
           "declared_expected_status": "fail",
-          "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
-          "harness_file_count": 9,
+          "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
+          "harness_file_count": 1,
           "harness_file_digests": {
-            "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
-            "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
-            "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
-            "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
-            "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
-            "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
-            "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
-            "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-            "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+            "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
           },
           "per_test_status": {
-            "test_Reverts_ERC721_Burn_Rented()": {
+            "test_VlunM08_RentedERC721CannotBeBurned()": {
               "logs": [],
-              "reason": null,
+              "reason": "next call did not revert as expected",
               "status": "Failure"
-            },
-            "test_Success_ERC721_Burn_NotRented()": {
-              "logs": [],
-              "reason": null,
-              "status": "Success"
             }
           },
           "status": "fail"
         }
       },
-      "verdict": "l6_partial_two_revision_evidence"
+      "verdict": "l6_verified_patch"
     },
     {
       "blocked_behaviour": "the escrow enforces its balance invariant against the settled state, so the intermediate transfer cannot inflate the withdrawable amount",
@@ -1777,8 +1602,7 @@
     "experiments": 9,
     "fixed_pass": 9,
     "inconclusive": 2,
-    "l6_partial_two_revision_evidence": 2,
-    "l6_verified_patch": 5,
+    "l6_verified_patch": 7,
     "vulnerable_compile_error": 2,
     "vulnerable_fail": 7
   }

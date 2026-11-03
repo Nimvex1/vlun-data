@@ -1,6 +1,6 @@
 # TOP 20 highest-value new V3 records (by quality score)
 
-Ranked by the deterministic sec-26 rubric (max 95; reproducibility=0 for all in this pass).
+Ranked by the deterministic sec-26 rubric (max 95; reproducibility points reflect the run artefact a candidate earned).
 
 ## 1. pashov-audits:team/1inch-security-review:[L-01] (score 54)
 source=pashov-audits project=1inch ecosystem=evm severity=Low level=L0 vuln_commit=198a6d719aef8b6cd0b29e18a128f4abcf978046 fixed_commit=8c19fb95792c8fec76ed8f11554300dc0056416d poc=False overlap=none

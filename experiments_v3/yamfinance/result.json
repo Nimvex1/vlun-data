@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5d27530626bb0d14149174e3625894e12f299e54c18014df1f0f6a53679aa2f8",
+    "harness.json": "66a1d39e9c576498496ad3fd7952575080d7eab5ac52843741f05b1ae7651043",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "1aa3808515ffc8dff4fa5773faea9328b0a583a202c7bb519023820d5f4d588d",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-09/YamFinance_exp.sol",
+      "poc_sha256": "38a4263beb9a91f309b7624a965f2c496b4d1382a608e662bf702588ee07b2f9",
+      "staged_files": [
+        "src/test/2026-09/YamFinance_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "yamfinance",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-09/YamFinance_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 45.9,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test test_YamGovernanceTakeover -vv",
+    "rc": 0,
+    "test_function": "test_YamGovernanceTakeover"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

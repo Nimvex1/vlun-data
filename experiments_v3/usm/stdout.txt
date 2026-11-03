@@ -1,0 +1,11 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2026-08/USM_exp.sol:USMExp
+[PASS] testExploit() (gas: 5585289)
+Logs:
+  attacker ETH before: 0.000000000000000000
+  attacker ETH after (net profit): 70.830977367697708372
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 21.07s (18.39s CPU time)
+
+Ran 1 test suite in 21.09s (21.07s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

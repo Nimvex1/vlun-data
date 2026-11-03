@@ -34,12 +34,12 @@
       {
         "path": "benchmark/G_patch_verification.jsonl",
         "rows": 38,
-        "sha256": "811894688bcfab8263db748f70509629bdbf0e32e70a6291c5ca2f040e0fb7ae"
+        "sha256": "feca7d71b124bac0c66395436487b4f56ca50f9ad84096a7ae86adb102c90cf3"
       },
       {
         "path": "benchmark/H_verified_exploit.jsonl",
         "rows": 7,
-        "sha256": "34bbae630a8586dbe91a047cfbeef5baa06bea0209a425bfee6f94f6c680e053"
+        "sha256": "3d4eee1fd382277395c615bf24c32f5dbd38cfc8a99a1793268d679f74eddd31"
       },
       {
         "path": "benchmark/I_verified_non_exploit.jsonl",
@@ -48,8 +48,8 @@
       },
       {
         "path": "benchmark/J_verified_patch.jsonl",
-        "rows": 5,
-        "sha256": "67c90b6ba3e5f7e51ec223e204267e4c65bea03cc2ac3de8f81c305b164fed80"
+        "rows": 7,
+        "sha256": "9b33e485d6112deee9ea12161f719485bb197e6a9a99dd837a7c5ec926ced24c"
       },
       {
         "path": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
@@ -569,11 +569,11 @@
       },
       "benchmark/J_verified_patch.jsonl": {
         "by_split": {
-          "validation": 5
+          "validation": 7
         },
-        "heldout_records": 10,
-        "heldout_rows": 5,
-        "identifiers": 10,
+        "heldout_records": 14,
+        "heldout_rows": 7,
+        "identifiers": 14,
         "overlap_with_model_visible_corpus": {
           "heldout": {
             "rows_sharing_only_a_commit_sha": 0,
@@ -592,8 +592,8 @@
             "rows_with_text_overlap": 0
           }
         },
-        "records": 5,
-        "rows": 5
+        "records": 7,
+        "rows": 7
       },
       "benchmark/Q_evidence_type_and_quality_rubric.jsonl": {
         "by_split": {
@@ -1109,7 +1109,7 @@
     }
   },
   "protected_evaluation_set": {
-    "all_benchmark_records": 40666,
+    "all_benchmark_records": 40668,
     "by_family": {
       "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": 11260,
       "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl": 12504,
@@ -1122,7 +1122,7 @@
       "benchmark/G_patch_verification.jsonl": 76,
       "benchmark/H_verified_exploit.jsonl": 14,
       "benchmark/I_verified_non_exploit.jsonl": 6,
-      "benchmark/J_verified_patch.jsonl": 10,
+      "benchmark/J_verified_patch.jsonl": 14,
       "benchmark/Q_evidence_type_and_quality_rubric.jsonl": 122,
       "benchmark/retired_families/B_root_cause_reasoning.jsonl": 752,
       "benchmark/retired_families/E_exploit_verification.jsonl": 752,
@@ -1136,7 +1136,7 @@
       "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl": 4,
       "benchmark/v3_R_source_tier_routing.jsonl": 1970
     },
-    "records": 24577,
+    "records": 24579,
     "records_present_in_model_visible_corpus": 0
   },
   "release_boundary": {
@@ -1190,8 +1190,8 @@
           },
           {
             "path": "benchmark/J_verified_patch.jsonl",
-            "rows": 5,
-            "rows_with_a_committed_answer_key": 5
+            "rows": 7,
+            "rows_with_a_committed_answer_key": 7
           },
           {
             "path": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",

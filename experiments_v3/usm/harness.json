@@ -1,0 +1,10 @@
+{
+  "poc": "2026-08/USM_exp.sol",
+  "poc_sha256": "4d3d572f105a50ca23de58b45ceee74b5b6aee80f51055a70c8cb32d7175a3be",
+  "staged_files": [
+    "src/test/2026-08/USM_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

@@ -16,7 +16,7 @@ committed benchmark files. Nothing in this file is estimated.
 | PoC compilation rate | 4/8 (50.0%) repositories | 20 PoC files were written from the code quoted in the reports; 133 could not be expressed as a Solidity test body. |
 | PoC execution rate | 15/155 (9.7%) | reproduced + not_reproduced + inconclusive over all exploit records. |
 | exploit confirmation rate | 5/155 (3.2%) | A PoC counts only when forge reported Success for that test. Nothing else is promoted. |
-| patch verification rate | 5/38 (13.2%) | 5 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
+| patch verification rate | 7/38 (18.4%) | 7 fixes confirmed effective by running the same PoC against vulnerable and fixed revisions. |
 | negative-example accuracy | not measurable | the held-out split has 0 scorable false-positive tasks; of 458 negatives only 9 carry a reason attributed to a named judge or sponsor and 1 are blocked by a gate in the cited code, while 256 rest on a public label alone, so scoring them would reward guessing. |
 | duplicate detection accuracy | 0 near-duplicate and 2 semantic cross-split pairs found | detector recall is not validated against a hand-labelled set; the pairs it found were checked by hand and are genuine. |
 
@@ -38,10 +38,10 @@ UNKNOWN, which is never primary.
 | `F_false_positive_rejection.jsonl` | EXPLORATORY | 17 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'invalid'; holdout_too_small: 0 held-out rows (< 30) |
 | `Fa_rejection_evidence_axis_vector.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it |
 | `Fb_duplicate_radar_pair.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires |
-| `G_patch_verification.jsonl` | EXPLORATORY | 5 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
+| `G_patch_verification.jsonl` | EXPLORATORY | 7 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
 | `H_verified_exploit.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | descriptive reference answers, no scalar label |
 | `I_verified_non_exploit.jsonl` | EXPLORATORY | 1 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'exploitable'; holdout_too_small: 0 held-out rows (< 30) |
-| `J_verified_patch.jsonl` | EXPLORATORY | 5 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
+| `J_verified_patch.jsonl` | EXPLORATORY | 7 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
 | `K_language_ecosystem_routing.jsonl` | INVALID | 137 | 5 | 0.1935 | invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 76 of 137 rows (rate 0.5547); group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9 |
 | `L_severity_reconciliation.jsonl` | INVALID | 128 | 6 | 0.1034 | invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 94 of 128 rows (rate 0.7344); group_overlap: 29 of 29 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.5316 (>= 0.40); holdout_too_small: 29 held-out rows (< 30) |
 | `M_experiment_level_classification.jsonl` | EXPLORATORY | 37 | 3 | 1.0000 | demoted: holdout_too_small: 1 held-out rows (< 30) |
@@ -119,10 +119,10 @@ not the model.
 | `F_false_positive_rejection` | 458 | 17 | 0 | 441 | 232 | 188 | 38 | EXPLORATORY |
 | `Fa_rejection_evidence_axis_vector` | 458 | 9 | 449 | 0 | 232 | 188 | 38 | NOT_SCORABLE |
 | `Fb_duplicate_radar_pair` | 554 | 554 | 0 | 0 | 324 | 199 | 31 | NOT_SCORABLE |
-| `G_patch_verification` | 38 | 5 | 0 | 33 | 0 | 18 | 20 | EXPLORATORY |
+| `G_patch_verification` | 38 | 7 | 0 | 31 | 0 | 18 | 20 | EXPLORATORY |
 | `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | NOT_SCORABLE |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 | EXPLORATORY |
-| `J_verified_patch` | 5 | 5 | 0 | 0 | 0 | 5 | 0 | EXPLORATORY |
+| `J_verified_patch` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | EXPLORATORY |
 | `K_language_ecosystem_routing` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | INVALID |
 | `L_severity_reconciliation` | 137 | 128 | 6 | 3 | 76 | 30 | 31 | INVALID |
 | `M_experiment_level_classification` | 37 | 37 | 0 | 0 | 31 | 5 | 1 | EXPLORATORY |
@@ -151,7 +151,7 @@ to mean anything; it is reported in the table above.
 
 - Task D supplies 720 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.
 - Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
-- Task G is labelled on its 5 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 33 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.
+- Task G is labelled on its 7 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 31 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.
 - Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
 - Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.
 - A family whose scorable rows carry one observed label is not evaluable for accuracy: its accuracy is null with the reason `single_label_not_evaluable`, in every table, and a model beating it would mean nothing.

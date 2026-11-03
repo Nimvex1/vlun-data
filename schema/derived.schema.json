@@ -2,6 +2,12 @@
   "$id": "vlun-derived-2.2",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "properties": {
+    "experiment": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
     "finding": {
       "type": "object"
     },
@@ -24,6 +30,52 @@
         "L4",
         "L5",
         "L6"
+      ]
+    },
+    "violation_evidence": {
+      "properties": {
+        "actor": {
+          "type": "string"
+        },
+        "execution": {
+          "type": "object"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "impact_type": {
+          "enum": [
+            "fund_theft",
+            "access_control",
+            "signature_replay",
+            "dos",
+            "accounting_invariant",
+            "oracle_manipulation",
+            "state_corruption"
+          ]
+        },
+        "observed": {
+          "type": "string"
+        },
+        "property": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "impact_type",
+        "actor",
+        "property",
+        "expected",
+        "observed",
+        "source",
+        "execution"
+      ],
+      "type": [
+        "object",
+        "null"
       ]
     }
   },

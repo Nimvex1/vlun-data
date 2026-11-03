@@ -1,0 +1,81 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "6b8aa0ad4926e2eea97877a2be928fc09df7c57527a3b8a36b8f8b6bf48ebdba",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "84a6abfd31b93e557302fcc7f404e96de5f8690c2e821ba203c2387777b8ca30",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-09/Flamincome_exp.sol",
+      "poc_sha256": "11bff704399712b9265acfc3adedf6519ecf134209b53279b3190701122dedfc",
+      "staged_files": [
+        "src/test/2026-09/Flamincome_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "flamincome",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-09/Flamincome_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L5",
+  "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+  "profit_deltas": [
+    {
+      "after": 344751.209366,
+      "attacker_side": true,
+      "before": 0.0,
+      "label_after": "Attacker After exploit USDT Balance",
+      "label_before": "Attacker Before exploit USDT Balance",
+      "profit": 344751.209366
+    },
+    {
+      "after": 21836626.905373,
+      "attacker_side": false,
+      "before": 3196903.96561,
+      "label_after": "Strategy NAV after stakeFor",
+      "label_before": "Strategy NAV (balanceOfY) before",
+      "profit": 18639722.939763
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 146.4,
+  "status": "violation_observed",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)",
+  "violation_evidence": {
+    "actor": "attacker",
+    "asset": "USDT",
+    "execution": {
+      "assertion": "testExploit passed with the attacker profit logged",
+      "status": "pass"
+    },
+    "expected": "the exploit leaves the attacker's balance unchanged",
+    "impact_type": "fund_theft",
+    "observed": "attacker-side delta 344751.209366 observed between 'Attacker Before exploit USDT Balance' and 'Attacker After exploit USDT Balance'",
+    "profit_deltas": [
+      {
+        "after": 344751.209366,
+        "attacker_side": true,
+        "before": 0.0,
+        "label_after": "Attacker After exploit USDT Balance",
+        "label_before": "Attacker Before exploit USDT Balance",
+        "profit": 344751.209366
+      }
+    ],
+    "property": "attacker-controlled USDT balance",
+    "source": "profit_deltas parsed from the run's balance logs"
+  }
+}

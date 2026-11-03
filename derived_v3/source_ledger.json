@@ -276,8 +276,9 @@
       },
       "candidate_verification_levels": {
         "L1": 751,
-        "L3": 125,
-        "L5": 2
+        "L3": 115,
+        "L4": 7,
+        "L5": 5
       },
       "canonical_url": "https://github.com/SunWeb3Sec/DeFiHackLabs",
       "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
@@ -301,7 +302,7 @@
       "run_artefacts": 127,
       "source_id": "defihacklabs",
       "source_type": "incident_database",
-      "verified_l4_plus": 2,
+      "verified_l4_plus": 12,
       "verified_l6": 0
     },
     {

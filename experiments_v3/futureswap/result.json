@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "64b7d189e6712e1793f1dd3dd5eb01546815ca0d4341d8db2e191056a9afc8b9",
+    "harness.json": "3a8198634aaecc1af2584d8e5579197a0078027c835b9a434420f5a576944404",
+    "stderr.txt": "ae01e612f321eae2d62d9cf5351aa834b29b90234f32f6aa43cf6af3359e8bab",
+    "stdout.txt": "46b6d7b474cdb1a3c8b2c5e5bfc5518117be73947126677cdc7abe446828d4b9",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-01/futureswap_exp.sol",
+      "poc_sha256": "40976cd60f47eb20e89088012f4dbd57fdde353c08f169f34d5d8d6d6c40dcac",
+      "staged_files": [
+        "src/test/2026-01/futureswap_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "detail": "pinned historical state unservable or unreplayable by the backend",
+  "experiment": "futureswap",
+  "failure_reason": "archive_state_unavailable",
+  "finding_id": "defihacklabs:2026-01/futureswap_exp.sol",
+  "fork_aliases": [
+    "arbitrum"
+  ],
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 5.4,
+  "status": "blocked",
+  "test": {
+    "command": "forge test --match-test testFutureSwapDrain -vv",
+    "rc": 1,
+    "test_function": "testFutureSwapDrain"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

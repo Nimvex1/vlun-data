@@ -25,10 +25,10 @@ This directory is part of the released set. `RELEASE_MANIFEST.json` is the autho
 | `records_v4.jsonl` | 5268 | pointer/severity/language metadata for each V4 finding; no mined passage |
 | `records_v4_withheld_pointers.jsonl` | 10070 | pointer + hash for each removed mined passage |
 | `withheld_pointers_other_layers.jsonl` | 0 | removed expression from layers that are not projected row by row (the file is only written when the count is non-zero; those layers are covered by the `artefact` rows of the ledger instead) |
-| `withheld_harness.jsonl` | 58 | one pointer per withheld harness file, mirroring the repo's existing `WITHHELD.json` licence-gating pattern |
+| `withheld_harness.jsonl` | 33 | one pointer per withheld harness file, mirroring the repo's existing `WITHHELD.json` licence-gating pattern |
 | `digests.jsonl` | 6 | short factual summaries written by the VLUN authors, marked `independently_written` |
 | `rights_source_registry.json` | 11 sources | the single machine-readable licence registry |
-| `rights_ledger.jsonl` | 12919 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
+| `rights_ledger.jsonl` | 12894 | rights decision, transformation version, reason, evidence hashes, canonical pointer |
 | `licence_contradictions.json` | 0 | unresolved licence-status contradictions the gate fails on |
 
 ## Every withheld pointer record carries
@@ -39,7 +39,7 @@ Short third-party prose at or below `200` characters may be carried as an attrib
 
 ## Measured basis (recomputed from the full tracked tree)
 
-- tracked files scanned: 1816 (389744803 bytes)
+- tracked files scanned: 1921 (390267213 bytes)
 - record layers scanned for expressive content: 158
 - expressive items by class: copied_report_prose=60077, copied_short_prose=260705, personal_data=5695, poc_source=1730, third_party_code=13123
 - artefacts holding personal contact data: 13 (mailboxes and named-contact rows are removed here; the canonical layers are not modified)

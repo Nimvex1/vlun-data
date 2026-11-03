@@ -1,11 +1,11 @@
 {
-  "benchmark_experimentally_grounded": 13,
-  "benchmark_scorable_tasks": 3198,
+  "benchmark_experimentally_grounded": 15,
+  "benchmark_scorable_tasks": 2920,
   "experiments_attempted": 9,
-  "experiments_failed": 2,
+  "experiments_failed": 0,
   "experiments_inconclusive": 2,
   "experiments_not_a_controlled_comparison": 0,
-  "experiments_reproduced": 5,
+  "experiments_reproduced": 7,
   "generated_by": "scripts/generate_v21_reports.py",
   "immutable_citations_remaining_mutable": 0,
   "immutable_citations_resolved": 473,
@@ -22,7 +22,7 @@
   "negatives_technical_reason": 6,
   "negatives_unknown": 256,
   "patches_not_testable": 31,
-  "patches_verified": 5,
+  "patches_verified": 7,
   "records_processed": 155,
   "remaining_blockers": [
     "archive RPC not distributed",
@@ -30,7 +30,7 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks": "75/78",
+  "validation_checks": "78/78",
   "validation_checks_passed": "78/78",
   "validation_failed_checks": [],
   "validation_failures": 0,

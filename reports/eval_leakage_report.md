@@ -37,9 +37,9 @@ Thresholds: `shingle_words=8`, `text_containment=0.9`, `min_text_tokens=8`, `max
 
 ## Protected evaluation set
 
-- protected records (held out by at least one family): **24577**
+- protected records (held out by at least one family): **24579**
 - protected records present in the model-visible corpus: **0**
-- distinct benchmark records in total: 40666
+- distinct benchmark records in total: 40668
 
 ## Per-family breakdown
 
@@ -56,7 +56,7 @@ Thresholds: `shingle_words=8`, `text_containment=0.9`, `min_text_tokens=8`, `max
 | `benchmark/G_patch_verification.jsonl` | 38 | 38 | 0 | 0 | 0 | 0 | 0 |
 | `benchmark/H_verified_exploit.jsonl` | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `benchmark/I_verified_non_exploit.jsonl` | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
-| `benchmark/J_verified_patch.jsonl` | 5 | 5 | 0 | 0 | 0 | 0 | 0 |
+| `benchmark/J_verified_patch.jsonl` | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | 137 | 61 | 0 | 0 | 0 | 0 | 0 |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | 720 | 376 | 0 | 0 | 0 | 0 | 0 |
 | `benchmark/retired_families/E_exploit_verification.jsonl` | 720 | 376 | 0 | 0 | 0 | 0 | 0 |

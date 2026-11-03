@@ -23,8 +23,9 @@ existing statistic stay byte-identical, so the v2 gate keeps passing.
 Anti-hallucination contract: every field not established from the cloned
 material is ``"unknown"``/``None``. Harvest alone never exceeds L1; levels
 above L1 come exclusively from committed V3.2 run artefacts via
-``scripts/v32_execution.py`` (L3 = compiles, L4 = executed, L5 = reproduced
-with attacker-side profit evidence; L6 is never awarded here). PDF-heavy audit
+``scripts/v32_execution.py`` (L3 = compiles, L4 = executed, L5 = the claimed
+violation reproduced with claim-specific violation_evidence; attacker profit is
+required only for fund_theft claims. L6 is never awarded here). PDF-heavy audit
 archives contribute report-level pointers (RESEARCH_ONLY) until per-finding
 PDF parsing exists -- that work is queued in
 reports/v3/experiment_queue.md rather than faked here.
@@ -446,7 +447,9 @@ def main() -> int:
             f"V3.2 execution overlay: {_promoted} candidates carry a run "
             "artefact (levels from committed reports/v3/experimental_proof.json "
             "and reports/v3/compile_sweep.json via scripts/v32_execution.py). "
-            "L5 is awarded only with attacker-side profit evidence; L6 is "
+            "L5 requires a structured, claim-specific violation_evidence "
+            "record (impact type, actor, property, expected vs observed, "
+            "source); attacker profit is mandatory only for fund_theft. L6 is "
             "never awarded (no candidate has a fixed-side leg). Every other "
             "record keeps the L0/L1 its source supports."),
         "verified_records_l5_l6": sum(
@@ -549,12 +552,17 @@ def _write_quality_report(ledger: list[dict], records: list[dict],
             f"- {s['source_id']}: discovered={s['records_discovered']} "
             f"imported={s['records_imported']} negative={s['records_negative']} "
             f"corroboration={s['records_corroboration']} research_only={s['records_research_only']} "
-            f"rejected={s['records_rejected']} levels={s['verification_levels']}")
+            f"rejected={s['records_rejected']} "
+            f"levels={s.get('candidate_verification_levels', {})}")
     lines += ["", "## Findings", "",
               f"candidates={len(ledger)} imported_records={len(records)}",
               f"decisions={dict(dec)}", "",
               "## Verification", "", f"levels={dict(lv)}",
-              "L2-L6: 0 by construction (nothing executed in this pass).", "",
+              "L3+ comes from committed run artefacts (compile_sweep.json and "
+              "experimental_proof.json via scripts/v32_execution.py); L5 requires "
+              "claim-specific violation_evidence and is never awarded for an "
+              "unexecuted or failed-for-another-reason run. L6 is never awarded "
+              "in this layer.", "",
               "## Ecosystems", "", f"{dict(eco)}", "",
               "## Languages", "", f"{dict(lang)}", "",
               "## Vulnerability classes (normalized)", "", f"{dict(cls)}",
@@ -568,9 +576,27 @@ def _write_quality_report(ledger: list[dict], records: list[dict],
               "no third-party report text redistributed.",
               "Per-record licence fields stay `unknown` until a per-report licence is confirmed.", "",
               "## Experimental verification", "",
-              "attempted=0 successful=0 L5=0 L6=0 inconclusive=0 blocked=0.",
-              "Rationale: this pass builds the evidence graph; executions are queued "
-              "in experiment_queue.md (DeFiHackLabs Foundry PoCs first).", "",
+              ("attempted={runs} executed={executed} L4={l4} L5={l5} L6=0 "
+               "blocked={blocked} test_failed={failed}.").format(
+                  runs=sum(1 for c in ledger if c.get("experiment")),
+                  executed=sum(1 for c in ledger
+                               if (c.get("experiment") or {}).get("status")
+                               in ("violation_observed",
+                                   "executed_no_profit_evidence",
+                                   "executed_no_violation_evidence")),
+                  l4=sum(1 for c in ledger
+                         if c["verification_level"] == "L4"),
+                  l5=sum(1 for c in ledger
+                         if c["verification_level"] == "L5"),
+                  blocked=sum(1 for c in ledger
+                              if (c.get("experiment") or {}).get("status")
+                              == "blocked"),
+                  failed=sum(1 for c in ledger
+                             if (c.get("experiment") or {}).get("status")
+                             == "test_failed")),
+              "Levels come only from the committed run artefacts recorded in "
+              "reports/v3/experimental_proof.json; the queue in "
+              "experiment_queue.md lists what is still blocked.", "",
               "## Benchmark leakage", "",
               "- splits_v3: by-source assignment; no source spans splits.",
               "- duplicates quarantined as links (duplicates.jsonl), never deleted.",
@@ -585,7 +611,8 @@ def _write_tops_and_queue(ledger: list[dict], records: list[dict]) -> None:
     admitted.sort(key=lambda c: (-c["quality_score"], c["candidate_id"]))
     top = admitted[:20]
     lines = ["# TOP 20 highest-value new V3 records (by quality score)", "",
-             "Ranked by the deterministic sec-26 rubric (max 95; reproducibility=0 for all in this pass).",
+             "Ranked by the deterministic sec-26 rubric (max 95; reproducibility "
+             "points reflect the run artefact a candidate earned).",
              ""]
     for i, c in enumerate(top, 1):
         lines.append(

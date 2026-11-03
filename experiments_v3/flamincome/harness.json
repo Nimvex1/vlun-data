@@ -1,0 +1,10 @@
+{
+  "poc": "2026-09/Flamincome_exp.sol",
+  "poc_sha256": "11bff704399712b9265acfc3adedf6519ecf134209b53279b3190701122dedfc",
+  "staged_files": [
+    "src/test/2026-09/Flamincome_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

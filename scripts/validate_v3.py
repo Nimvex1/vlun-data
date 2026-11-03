@@ -170,11 +170,22 @@ def main() -> int:
               and not (V.ROOT / ((c.get("experiment") or {}).get(
                   "artifact_dir") or "")).is_dir()]
     rep.add("consistency", "L4_plus_requires_artefact_dir", not no_dir, no_dir)
+    no_ev = [c["candidate_id"] for c in executed
+             if c.get("verification_level") == "L5"
+             and not (c.get("experiment") or {}).get("violation_evidence")]
+    rep.add("consistency", "L5_requires_claim_specific_evidence", not no_ev,
+            no_ev,
+            detail="L5 needs a structured violation_evidence record, not just "
+                   "a status string")
     no_profit = [c["candidate_id"] for c in executed
                  if c.get("verification_level") == "L5"
+                 and ((c.get("experiment") or {}).get("violation_evidence")
+                      or {}).get("impact_type") == "fund_theft"
                  and not (c.get("experiment") or {}).get("profit_evidence")]
-    rep.add("consistency", "L5_requires_profit_evidence", not no_profit,
-            no_profit)
+    rep.add("consistency", "L5_theft_requires_profit_evidence", not no_profit,
+            no_profit,
+            detail="theft is one impact type; it still needs measured "
+                   "attacker-side profit")
     l6 = [c["candidate_id"] for c in executed if c.get("verification_level") == "L6"]
     rep.add("consistency", "no_L6_without_fixed_leg", not l6, l6)
     l1_no_poc = [c["candidate_id"] for c in ledger

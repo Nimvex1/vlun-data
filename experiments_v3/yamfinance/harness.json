@@ -1,0 +1,10 @@
+{
+  "poc": "2026-09/YamFinance_exp.sol",
+  "poc_sha256": "38a4263beb9a91f309b7624a965f2c496b4d1382a608e662bf702588ee07b2f9",
+  "staged_files": [
+    "src/test/2026-09/YamFinance_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

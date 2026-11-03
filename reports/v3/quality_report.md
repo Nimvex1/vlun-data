@@ -13,7 +13,7 @@ Additive layer: v1/v2.2 artefacts untouched. Clone working trees (~3.1 GB) are N
 - c4-reserve-findings: discovered=117 imported=107 negative=0 corroboration=1 research_only=9 rejected=0 levels={'L0': 117}
 - certora-reports: discovered=200 imported=0 negative=0 corroboration=0 research_only=200 rejected=0 levels={'L0': 200}
 - cyba-audits: discovered=14 imported=0 negative=0 corroboration=0 research_only=14 rejected=0 levels={'L0': 14}
-- defihacklabs: discovered=878 imported=878 negative=0 corroboration=0 research_only=0 rejected=0 levels={'L3': 125, 'L1': 751, 'L5': 2}
+- defihacklabs: discovered=878 imported=878 negative=0 corroboration=0 research_only=0 rejected=0 levels={'L3': 115, 'L1': 751, 'L5': 5, 'L4': 7}
 - hexens-reports: discovered=170 imported=0 negative=0 corroboration=0 research_only=170 rejected=0 levels={'L0': 170}
 - informal-audits: discovered=95 imported=0 negative=0 corroboration=0 research_only=95 rejected=0 levels={'L0': 95}
 - nethermind-audits: discovered=190 imported=0 negative=0 corroboration=0 research_only=190 rejected=0 levels={'L0': 190}
@@ -31,8 +31,8 @@ decisions={'RESEARCH_ONLY': 2137, 'IMPORT_AS_UNVERIFIED': 1934, 'CORROBORATION_O
 
 ## Verification
 
-levels={'L0': 6831, 'L3': 125, 'L1': 754, 'L5': 2}
-L2-L6: 0 by construction (nothing executed in this pass).
+levels={'L0': 6831, 'L3': 115, 'L1': 754, 'L5': 5, 'L4': 7}
+L3+ comes from committed run artefacts (compile_sweep.json and experimental_proof.json via scripts/v32_execution.py); L5 requires claim-specific violation_evidence and is never awarded for an unexecuted or failed-for-another-reason run. L6 is never awarded in this layer.
 
 ## Ecosystems
 
@@ -60,8 +60,8 @@ Per-record licence fields stay `unknown` until a per-report licence is confirmed
 
 ## Experimental verification
 
-attempted=0 successful=0 L5=0 L6=0 inconclusive=0 blocked=0.
-Rationale: this pass builds the evidence graph; executions are queued in experiment_queue.md (DeFiHackLabs Foundry PoCs first).
+attempted=127 executed=12 L4=7 L5=5 L6=0 blocked=5 test_failed=1.
+Levels come only from the committed run artefacts recorded in reports/v3/experimental_proof.json; the queue in experiment_queue.md lists what is still blocked.
 
 ## Benchmark leakage
 

@@ -41,6 +41,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from schema_terms import VIOLATION_IMPACTS
+
 U = "unknown"
 
 # Level -> verification_status, using the existing closed vocabulary from
@@ -58,6 +60,213 @@ LEVEL_TO_STATUS = {
 # reproducibility credit for quality_score (slot is 12 points wide)
 REPRODUCIBILITY_POINTS = {"L0": 0, "L1": 0, "L2": 0, "L3": 4, "L4": 7,
                           "L5": 10, "L6": 12}
+
+# ---------------------------------------------------------------------------
+# claim-specific violation evidence
+# ---------------------------------------------------------------------------
+# L5 is not "the test passed" and it is not "the attacker balance went up".
+# It is a statement about one specific security property, so the evidence has
+# to name that property and the observation that violates it. Theft is the one
+# impact where a measured attacker gain is the natural proof; every other
+# impact has its own observation. An impact that is not in this vocabulary is
+# NOT promoted, because the dataset cannot state what was violated.
+IMPACT_TYPES = VIOLATION_IMPACTS
+
+# Fields every violation_evidence record must carry. They are the "who, what,
+# expected, observed, and which assertion" that make the claim auditable.
+_COMMON_EVIDENCE_FIELDS = ("impact_type", "actor", "property", "expected",
+                           "observed", "source")
+
+# Impact-specific required fields, plus the boolean that states the violation
+# actually happened. A false/absent flag is not evidence.
+_IMPACT_FIELDS = {
+    "access_control": (("target", "operation", "effect_observed"),),
+    "signature_replay": (("signature", "operation"),),
+    "dos": (("legitimate_operation", "observed_block"),),
+    "accounting_invariant": (("invariant", "expected_relation",
+                              "observed_relation"),),
+    "oracle_manipulation": (("invariant", "expected_value", "observed_value"),),
+    "state_corruption": (("object", "from_state", "to_state"),),
+}
+
+# Balance labels that name the asset. Used only to derive evidence for theft
+# runs whose committed logs name both the attacker side and the asset.
+_ASSET_SYMBOLS = ("cUSDC", "wstETH", "stETH", "WBNB", "WETH", "WBTC", "USDC",
+                  "USDT", "DAI", "ETH", "BNB", "MATIC", "ARB", "BTC")
+
+
+def _present(value) -> bool:
+    return isinstance(value, str) and value.strip() not in ("", "unknown", "U")
+
+
+def _positive_number(value) -> bool:
+    return (isinstance(value, (int, float)) and not isinstance(value, bool)
+            and value > 0)
+
+
+def _asset_from_labels(*labels: str) -> str | None:
+    text = " ".join(x for x in labels if isinstance(x, str)).lower()
+    for symbol in _ASSET_SYMBOLS:
+        if symbol.lower() in text:
+            return symbol
+    return None
+
+
+def _execution_from_run(run: dict) -> dict:
+    test = run.get("test") or {}
+    rc = test.get("rc")
+    if rc == 0:
+        status = "pass"
+    elif rc == 1 and run.get("status") in ("violation_observed", "test_failed"):
+        status = "fail"
+    else:
+        status = "unknown"
+    return {"status": status,
+            "assertion": test.get("test_function") or "unknown",
+            "command": test.get("command")}
+
+
+def validate_violation_evidence(evidence: dict) -> tuple[bool, list[str]]:
+    """Validate a structured claim that a specific violation was observed.
+
+    Returns (ok, errors). The checks are intentionally narrow: an ambiguous
+    impact, a missing actor, an unattributed balance change or a failing test
+    that is not the claimed assertion all make the evidence unusable for L5.
+    """
+    errors: list[str] = []
+    if not isinstance(evidence, dict):
+        return False, ["violation_evidence is not an object"]
+    impact = evidence.get("impact_type")
+    if impact not in IMPACT_TYPES:
+        errors.append(f"impact_type {impact!r} is missing or outside the "
+                      f"supported vocabulary")
+    for field in _COMMON_EVIDENCE_FIELDS:
+        if not _present(evidence.get(field)):
+            errors.append(f"{field} is missing or ambiguous")
+    execution = evidence.get("execution")
+    if not isinstance(execution, dict) or execution.get("status") not in (
+            "pass", "fail"):
+        errors.append("execution status is missing: no completed run")
+    else:
+        if not _present(execution.get("assertion")):
+            errors.append("the assertion that demonstrates the violation is "
+                          "not named")
+        if execution.get("status") == "fail":
+            if evidence.get("failure_is_intended") is not True:
+                errors.append("a failing test is not tied to the intended "
+                              "security assertion")
+            elif not _present(evidence.get("expected_error")):
+                errors.append("a failing test does not name the expected "
+                              "error it was asserting")
+            elif not _present(evidence.get("failure_evidence")):
+                errors.append("a failing test does not record the observed "
+                              "failure text")
+            elif evidence["expected_error"].strip().lower() not in \
+                    evidence["failure_evidence"].lower():
+                errors.append("the recorded failure does not contain the "
+                              "expected security assertion's error")
+    if impact == "fund_theft":
+        deltas = [d for d in (evidence.get("profit_deltas") or [])
+                  if isinstance(d, dict)]
+        attributed = [d for d in deltas
+                      if d.get("attacker_side") is True
+                      and _positive_number(d.get("profit"))
+                      and _present(d.get("label_before"))
+                      and _present(d.get("label_after"))]
+        if not attributed:
+            errors.append("fund_theft needs a positive attacker-side delta "
+                          "with both balance labels")
+        if not _present(evidence.get("asset")):
+            errors.append("fund_theft does not name the asset gained")
+    if impact in _IMPACT_FIELDS:
+        for fields in _IMPACT_FIELDS[impact]:
+            for field in fields:
+                if not _present(evidence.get(field)):
+                    errors.append(f"{impact} evidence lacks {field}")
+    flags = {
+        "access_control": "unauthorized",
+        "signature_replay": "replay_accepted",
+        "dos": "blocked",
+        "accounting_invariant": "violated",
+        "oracle_manipulation": "violated",
+        "state_corruption": "violated",
+    }
+    flag = flags.get(impact)
+    if flag and evidence.get(flag) is not True:
+        errors.append(f"{impact} evidence does not assert {flag}=true")
+    return (not errors, errors)
+
+
+def theft_evidence_from_deltas(deltas: list, source: str) -> dict:
+    """Structured fund_theft evidence from measured attacker-side deltas.
+
+    Returns {} when no delta is attributed to the attacker, so a positive
+    balance change on an unnamed account can never become theft evidence.
+    """
+    attributed = [d for d in (deltas or [])
+                  if isinstance(d, dict) and d.get("attacker_side") is True
+                  and _positive_number(d.get("profit"))
+                  and _present(d.get("label_before"))
+                  and _present(d.get("label_after"))]
+    if not attributed:
+        return {}
+    labels = [str(d.get(k) or "") for d in attributed
+              for k in ("label_before", "label_after")]
+    named = any("attacker" in label.lower() for label in labels)
+    asset = _asset_from_labels(*labels)
+    best = max(attributed, key=lambda d: d.get("profit", 0))
+    return {
+        "impact_type": "fund_theft",
+        "actor": "attacker" if named else "unknown",
+        "asset": asset or "",
+        "property": (f"attacker-controlled {asset} balance" if asset
+                     else "attacker-controlled balance"),
+        "expected": "the exploit leaves the attacker's balance unchanged",
+        "observed": (f"attacker-side delta {best.get('profit')} observed "
+                     f"between '{best.get('label_before')}' and "
+                     f"'{best.get('label_after')}'"),
+        "source": source,
+        "profit_deltas": attributed,
+    }
+
+
+def violation_evidence_for_run(run: dict, claim: dict | None = None) -> dict:
+    """Build the evidence object for one proof run.
+
+    `claim` is an explicit, committed evidence record (analyst review backed by
+    a source pointer). Without it, only theft runs can be reconstructed, and
+    only when the committed logs name both the attacker side and the asset.
+    """
+    explicit = claim or run.get("violation_evidence")
+    if explicit:
+        ev = dict(explicit)
+    else:
+        # Only theft can be reconstructed without an explicit claim, and only
+        # when the committed logs attribute a positive delta to the attacker.
+        ev = theft_evidence_from_deltas(
+            run.get("profit_deltas") or [],
+            "profit_deltas labels in the committed run record")
+        if not ev:
+            return {}
+    ev.setdefault("execution", _execution_from_run(run))
+    if ev.get("impact_type") == "fund_theft" and not ev.get("profit_deltas"):
+        ev["profit_deltas"] = run.get("profit_deltas") or []
+    if not ev.get("asset") and ev.get("impact_type") == "fund_theft":
+        deltas = [d for d in (ev.get("profit_deltas") or [])
+                  if isinstance(d, dict) and d.get("attacker_side") is True]
+        labels = [str(d.get(k) or "") for d in deltas
+                  for k in ("label_before", "label_after")]
+        asset = _asset_from_labels(*labels)
+        if asset:
+            ev["asset"] = asset
+    return ev
+
+
+def _load_claims(root: Path) -> dict:
+    """Explicit evidence claims, keyed by finding id, from committed reports."""
+    doc = _read(root / "reports" / "v3" / "violation_evidence.json") or {}
+    claims = doc.get("runs") if isinstance(doc, dict) else None
+    return claims if isinstance(claims, dict) else {}
 
 # repository prefixes stripped before matching an artefact reference to a
 # harvested candidate id
@@ -89,6 +298,24 @@ def _read(path: Path):
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
+
+
+def _run_executed(run: dict) -> bool:
+    """Did this run complete a forge test at all?
+
+    RPC failure, archive-state failure, compile error and timeout are not
+    execution evidence, whatever status string the run carries.
+    """
+    if run.get("failure_reason"):
+        return False
+    test = run.get("test") or {}
+    rc = test.get("rc")
+    if rc not in (0, 1):
+        return False
+    if rc == 0:
+        return run.get("status") in ("violation_observed",
+                                     "executed_no_profit_evidence", "passed")
+    return run.get("status") in ("violation_observed", "test_failed")
 
 
 def load_evidence(root: Path) -> dict:
@@ -127,52 +354,65 @@ def load_evidence(root: Path) -> dict:
             }
 
     proof = _read(root / "reports" / "v3" / "experimental_proof.json") or {}
+    claims = _load_claims(root)
     for run in proof.get("runs", []) or []:
         if not isinstance(run, dict):
             continue
         key = evidence_key(run.get("finding_id", ""))
         if not key:
             continue
-        level = run.get("level_awarded")
-        status = run.get("status")
-        profit = [d for d in (run.get("profit_deltas") or [])
-                  if isinstance(d, dict) and d.get("profit", 0) > 0
-                  and d.get("attacker_side")]
+        executed = _run_executed(run)
+        evidence = violation_evidence_for_run(
+            run, claims.get(run.get("finding_id", "")))
+        ok, errors = validate_violation_evidence(evidence) if executed else (
+            False, ["the run did not execute: no completed forge test"])
+        base = dict(ev.get(key) or {})
         entry = {
-            "level": level if level in ("L3", "L4", "L5") else "L1",
-            "status": status,
+            "status": run.get("status"),
             "basis": run.get("level_basis") or U,
             "failure_reason": run.get("failure_reason"),
             "test": run.get("test") or {},
             "artifact_dir": _rel_artifact(root, run.get("artifact_dir")),
             "artifact_hashes": run.get("artifact_hashes") or {},
             "clone_head": run.get("clone_head"),
+            "violation_evidence": evidence if executed else None,
+            "violation_evidence_errors": errors,
         }
-        if profit:
-            best = max(profit, key=lambda d: d.get("profit", 0))
-            entry["profit_evidence"] = {
-                "max_profit": best.get("profit"),
-                "label_before": best.get("label_before"),
-                "label_after": best.get("label_after"),
-            }
+        if not executed:
+            # Keep whatever the compile sweep earned; an unexecuted run is not
+            # evidence of anything above L3.
+            entry["level"] = base.get("level") or "L1"
+        elif ok:
+            entry["level"] = "L5"
+            entry["status"] = "violation_observed"
+            entry["basis"] = (
+                "claim-specific violation evidence validated for impact "
+                f"'{evidence.get('impact_type')}' on a completed run")
+            if evidence.get("impact_type") == "fund_theft":
+                deltas = [d for d in (evidence.get("profit_deltas") or [])
+                          if isinstance(d, dict)
+                          and d.get("attacker_side") is True
+                          and _positive_number(d.get("profit"))]
+                best = max(deltas, key=lambda d: d.get("profit", 0))
+                entry["profit_evidence"] = {
+                    "max_profit": best.get("profit"),
+                    "label_before": best.get("label_before"),
+                    "label_after": best.get("label_after"),
+                    "asset": evidence.get("asset"),
+                }
+        else:
+            entry["level"] = "L4"
+            entry["status"] = "executed_no_violation_evidence"
+            entry["basis"] = ("the run executed but the claimed violation was "
+                              "not demonstrated: " + "; ".join(errors[:4]))
         # Merge onto the sweep verdict rather than replacing it: a fork run adds
         # execution evidence, it does not erase the compile evidence the
         # record already earned (a blocked-at-fork PoC still compiles).
-        base = dict(ev.get(key) or {})
         for _f, _v in entry.items():
             if _v is not None:
                 base[_f] = _v
         base["compile"] = base.get("compile") or entry.get("compile")
         ev[key] = base
-
-    # L5 must carry profit evidence: refuse the level without it rather
-    # than trusting a status string.
-    for key, entry in ev.items():
-        if entry.get("level") == "L5" and not entry.get("profit_evidence"):
-            entry["level"] = "L4"
-            entry["status"] = "executed_no_profit_evidence"
-            entry["basis"] = ("fork test executed but no attacker-side "
-                              "profit evidence in the run record")
     return ev
 
 
@@ -221,6 +461,11 @@ def promote(candidates: list[dict], evidence: dict) -> int:
             exp["test"] = entry["test"]
         if entry.get("profit_evidence"):
             exp["profit_evidence"] = entry["profit_evidence"]
+        if entry.get("violation_evidence"):
+            exp["violation_evidence"] = entry["violation_evidence"]
+        if entry.get("violation_evidence_errors"):
+            exp["violation_evidence_errors"] = entry[
+                "violation_evidence_errors"]
         if entry.get("clone_head"):
             exp["clone_head"] = entry["clone_head"]
         c["experiment"] = exp
@@ -244,15 +489,22 @@ def verified_fact(entry: dict) -> str:
     lvl = entry.get("level")
     head = (entry.get("clone_head") or U)[:12]
     if lvl == "L5":
-        pe = entry.get("profit_evidence") or {}
+        ve = entry.get("violation_evidence") or {}
+        if ve.get("impact_type") == "fund_theft":
+            pe = entry.get("profit_evidence") or {}
+            return (f"published exploit PoC compiled and executed on a pinned "
+                    f"fork (clone HEAD {head}); attacker gained "
+                    f"{pe.get('max_profit')} {ve.get('asset') or ''} between "
+                    f"'{pe.get('label_before')}' and "
+                    f"'{pe.get('label_after')}'")
         return (f"published exploit PoC compiled and executed on a pinned "
-                f"fork (clone HEAD {head}); attacker profit "
-                f"{pe.get('max_profit')} observed between "
-                f"'{pe.get('label_before')}' and '{pe.get('label_after')}'")
+                f"fork (clone HEAD {head}); {ve.get('impact_type')} violation "
+                f"observed: {ve.get('observed')}")
     if lvl == "L4":
         return (f"published exploit PoC compiled and the fork test executed "
-                f"to completion (clone HEAD {head}); no attacker-side profit "
-                "was observed, so the claimed violation is NOT reproduced")
+                f"to completion (clone HEAD {head}); no claim-specific "
+                "violation evidence was recorded, so the claimed violation "
+                "is NOT reproduced")
     if lvl == "L3":
         return (f"published exploit PoC compiles unmodified (forge build "
                 f"rc=0) at clone HEAD {head}; nothing was executed against "

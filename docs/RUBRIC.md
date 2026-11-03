@@ -58,7 +58,7 @@ what a held-out claim is measured against.
 
 For continuity with prior releases, every baseline report also carries
 `micro_all_families` — the same micro-average over **all** families ever
-shipped (22,145 tasks: primary + exploratory + invalid + retired; read from
+shipped (22,149 tasks: primary + exploratory + invalid + retired; read from
 `micro_all_families.scorable` in `reports/baselines/baseline_majority.json`).
 Quote the primary metric; compare across releases with the continuity twin.
 
@@ -73,7 +73,7 @@ distribution restated. Their accuracy is `null` with the reason
 `single_label_not_evaluable`, in every block, including the exploratory
 tables, and the published 1.000 for those families is withdrawn. Their row
 counts, splits and label distributions are kept — the exploratory block
-still holds their 28 sub-floor rows (`micro_exploratory.scorable` in
+still holds their 32 sub-floor rows (`micro_exploratory.scorable` in
 `reports/baselines/baseline_majority.json`) — so nothing disappears; only
 the number that cannot mean anything is removed.
 
@@ -133,14 +133,12 @@ headline (B is demoted, G is exploratory):
   invariant, and for them the answer would be the constant "no", so they are
   excluded rather than inflating the score with a trivially guessable class.
   Read B as an abstention measurement, not a reasoning score.
-- **G_patch_verification** scores the 5 rows where the same exploit was run
-  against both the vulnerable and the fixed revision (L6). The other 33 rows
-  carry no answer key at all: 31 are `not_testable` (no executable PoC on
-  either side, so their effectiveness is genuinely unestablished) and 2 are
-  `not_verified_two_revision` (the two sides did not run the same harness
-  bytes, so the comparison is not a controlled one). The counts are
-  `by_fix_effectiveness` in `reports/patch_verification_v2.json`:
-  `effective` 5, `not_testable` 31, `not_verified_two_revision` 2.
+- **G_patch_verification** scores the 7 rows where the same exploit was run
+  against both the vulnerable and the fixed revision (L6). The other 31 rows
+  carry no answer key at all: they are `not_testable` (no executable PoC on
+  either side, so their effectiveness is genuinely unestablished). The counts
+  are `by_fix_effectiveness` in `reports/patch_verification_v2.json`:
+  `effective` 7, `not_testable` 31.
 
 ## Published baselines (deterministic, re-runnable)
 

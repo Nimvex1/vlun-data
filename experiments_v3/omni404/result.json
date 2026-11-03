@@ -1,0 +1,58 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "aab73aa4bf0f5dedc11cab0ebcd1eb5e00099143350ea8859928066d883a1770",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "d78a03ee3bac48b0eb54ce4d40a363ab4f0970927fb20e21a582e39530906e7c",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-09/OMNI404_exp.sol",
+      "poc_sha256": "f319458617a8bcc044f5424fec496183f8daa65492e2377c75a31b862346ec5a",
+      "staged_files": [
+        "src/test/2026-09/OMNI404_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "omni404",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-09/OMNI404_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [
+    {
+      "after": 0.8683455650399394,
+      "attacker_side": false,
+      "before": 3.2953489459416163,
+      "label_after": "pool WETH after",
+      "label_before": "pool WETH before",
+      "profit": -2.427003380901677
+    },
+    {
+      "after": 21.0,
+      "attacker_side": false,
+      "before": 15.0,
+      "label_after": "O404 minted after",
+      "label_before": "O404 minted before",
+      "profit": 6.0
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 74.9,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

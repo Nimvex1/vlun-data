@@ -304,8 +304,12 @@ class TestCommittedAttemptArtefacts(unittest.TestCase):
         covers both an unstaged new dir (`??`) and the same dir once it has
         been staged (`A `).
         """
+        # Scope the rule to the runs this attempt batch owns. New PoC run
+        # directories from the DHL runner are not attempt work and must not be
+        # forced into an attempt_N/ path or rejected as evidence.
+        owned = [f"experiments_v3/{run}" for run in RUNS]
         p = subprocess.run(["git", "-c", "core.safecrlf=false", "status",
-                            "--porcelain", "--", "experiments_v3"],
+                            "--porcelain", "--", *owned],
                            cwd=str(ROOT), capture_output=True, text=True,
                            encoding="utf-8", errors="replace", timeout=120)
         self.assertEqual(p.returncode, 0, p.stderr[:400])
@@ -326,7 +330,7 @@ class TestCommittedAttemptArtefacts(unittest.TestCase):
 
         d = subprocess.run(["git", "-c", "core.safecrlf=false", "diff",
                             "--name-status", "--find-renames", "HEAD", "--",
-                            "experiments_v3"],
+                            *owned],
                            cwd=str(ROOT), capture_output=True, text=True,
                            encoding="utf-8", errors="replace", timeout=120)
         self.assertEqual(d.returncode, 0, d.stderr[:400])

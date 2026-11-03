@@ -4,10 +4,10 @@
     "attacker_reasoning": 257,
     "exploit_reasoning": 5,
     "negative_reasoning": 106,
-    "patch_reasoning": 5,
+    "patch_reasoning": 7,
     "vulnerability_detection": 257
   },
-  "excluded_rows": 630,
+  "excluded_rows": 632,
   "files": [
     {
       "path": "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
@@ -18,7 +18,7 @@
     {
       "path": "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
       "rows": 5,
-      "sha256": "58ce037ad212007f897e2d4f157079f558ef3769f760eec1ab89940babf3598e",
+      "sha256": "cb4f089a532c0ee41a1824d2cc34a780dc36a87eaf92d9529bdaea641a6cba32",
       "task_file": "exploit_reasoning"
     },
     {
@@ -29,8 +29,8 @@
     },
     {
       "path": "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
-      "rows": 5,
-      "sha256": "4583fd553363ac1fa08b24c09520887dd65b61b9bfca3f5b22805beb69d26115",
+      "rows": 7,
+      "sha256": "1d8fefb6c053cae0339c125553a8a04a3c64084bb4e8aee05f0a9dc3cf252479",
       "task_file": "patch_reasoning"
     },
     {
@@ -41,7 +41,7 @@
     }
   ],
   "generated_by": "scripts/build_subsets.py",
-  "protected_identifiers": 23893,
+  "protected_identifiers": 24577,
   "rule": "a record that ANY benchmark family holds out is excluded from the model-visible task files, whatever the layer's own split label says",
   "source": "scripts/build_eval_leakage_report.py::protected_identifiers",
   "warning": "NOT MODEL-VISIBLE. These task rows are records that a benchmark family holds out (split test or validation). They carry the labels the benchmark is scored on. They live outside training/ so that a corpus consumer globbing the training directory cannot reach them. Do not train on them."

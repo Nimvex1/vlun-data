@@ -1,5 +1,4 @@
 {
-  "artifact_hash_note": "sha256 over the committed (LF) artefact bytes. The originals were hashed on a CRLF-emitting platform; those 27 hashes could not be verified against the shipped files and were recomputed, not adjusted. Regenerate with python scripts/run_dhl_experiments.py on an LF platform to reproduce from scratch.",
   "artifact_hashes": {
     "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
     "harness.json": "394149afdd51e13c7d050fc4368723f58932836b264c11c44110e2d6c4edb343",
@@ -47,5 +46,28 @@
     "rc": 0,
     "test_function": "testExploit"
   },
-  "toolchain": "forge (see toolchain.txt)"
+  "toolchain": "forge (see toolchain.txt)",
+  "violation_evidence": {
+    "actor": "attacker",
+    "asset": "ETH",
+    "execution": {
+      "assertion": "testExploit passed with the attacker profit logged",
+      "status": "pass"
+    },
+    "expected": "the exploit leaves the attacker's balance unchanged",
+    "impact_type": "fund_theft",
+    "observed": "attacker-side delta 479.393838338751 observed between 'Attacker ETH Balance Before exploit' and 'Attacker ETH Balance After exploit'",
+    "profit_deltas": [
+      {
+        "after": 479.393838338751,
+        "attacker_side": true,
+        "before": 0.0,
+        "label_after": "Attacker ETH Balance After exploit",
+        "label_before": "Attacker ETH Balance Before exploit",
+        "profit": 479.393838338751
+      }
+    ],
+    "property": "attacker-controlled ETH balance",
+    "source": "profit_deltas parsed from the run's balance logs"
+  }
 }

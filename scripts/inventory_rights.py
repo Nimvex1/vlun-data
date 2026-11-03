@@ -193,8 +193,18 @@ def tracked_files(root: Path) -> list[str]:
         pass
     names = []
     for p in sorted(root.rglob("*")):
-        if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts:
-            names.append(p.relative_to(root).as_posix())
+        if not p.is_file() or ".git" in p.parts or "__pycache__" in p.parts:
+            continue
+        rel = p.relative_to(root).as_posix()
+        # A checkout without a git index still has the .gitignore contract:
+        # retrieved clones and local run workspaces are not repository
+        # content, and neither may be redistributed. Include the clone
+        # manifest, which is the published provenance record.
+        if rel.startswith("work/"):
+            continue
+        if rel.startswith("V3/clones/") and rel != "V3/clones/MANIFEST.md":
+            continue
+        names.append(rel)
     return names
 
 

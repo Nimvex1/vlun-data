@@ -24,19 +24,21 @@
       "levels": {
         "L0": 4586,
         "L1": 754,
-        "L3": 125,
-        "L5": 2
+        "L3": 115,
+        "L4": 7,
+        "L5": 5
       },
       "levels_note": "L0/L1 only by construction; nothing executed",
       "records": 5467
     },
     "v3.2": {
       "levels": {
-        "L3": 4,
-        "L5": 2
+        "L3": 6,
+        "L4": 7,
+        "L5": 5
       },
       "levels_note": "fork-execution runs, not records",
-      "runs": 6
+      "runs": 18
     },
     "vbeta": {
       "levels": {

@@ -293,11 +293,11 @@
     {
       "artifact_dir": "experiments/2024-01-renft__M-01/fixed",
       "artifact_hashes": {
-        "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
+        "command.txt": "ac89f6dbe0884515ea4c3c6d4eca4ce89db955e962542b4060d5f84984c5c357",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "6aae45c1b8854aa0168ca8335aa9c31e678d279e43494d08696ab8eeede63723"
+        "stdout.txt": "376a65efffca6d233ab11674daedf3e3a04b08b256802927acc371c797486efd"
       },
-      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
+      "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m01_partial_transfer.t.sol -vv",
       "commit_sha": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
       "environment_requirements": {
         "forge": "foundry (forge 1.8.3 or any 1.x)",
@@ -308,7 +308,7 @@
       "finding_id": "2024-01-renft/M-01",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "862c021f34539abc93abb51e7a480436824f5415a7c8daf3d599203427c6b32d",
+      "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
       "production_files_modified": 0,
       "repository": {
         "commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
@@ -329,11 +329,11 @@
     {
       "artifact_dir": "experiments/2024-01-renft__M-01/vulnerable",
       "artifact_hashes": {
-        "command.txt": "23a6a5ed090c02e040bdc65dcba3140f86515b6aaef7de0ac9d2396a35af3db6",
+        "command.txt": "ac89f6dbe0884515ea4c3c6d4eca4ce89db955e962542b4060d5f84984c5c357",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "d8fc146dbf3652a567b38c5caf6c61e68fc5613c005276cc4d0416ffad63e5b2"
+        "stdout.txt": "f7c111c45b0fde25f955b2aab0bd831977999656a852dbc99ec205ff4f89f39c"
       },
-      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv",
+      "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m01_partial_transfer.t.sol -vv",
       "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
       "environment_requirements": {
         "forge": "foundry (forge 1.8.3 or any 1.x)",
@@ -344,7 +344,7 @@
       "finding_id": "2024-01-renft/M-01",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "c9f779d313ed2440567870e60afb3c770ec4b3b693a0cf58176a51812fbbce3a",
+      "harness_digest": "7dc701bf308da0dd1e85f708acd977524bff41c2b9200186402b9091d9815f34",
       "production_files_modified": 0,
       "repository": {
         "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
@@ -437,11 +437,11 @@
     {
       "artifact_dir": "experiments/2024-01-renft__M-08/fixed",
       "artifact_hashes": {
-        "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
+        "command.txt": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
+        "stdout.txt": "8747fc0082ae9660828a0b12ae451d1a1772c79f49c0949792cc984181715ec5"
       },
-      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+      "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m08_destructive_burn.t.sol -vv",
       "commit_sha": "fb8013111b57c1e09482fb3193db58cb892229e9",
       "environment_requirements": {
         "forge": "foundry (forge 1.8.3 or any 1.x)",
@@ -452,7 +452,7 @@
       "finding_id": "2024-01-renft/M-08",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+      "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
       "production_files_modified": 0,
       "repository": {
         "commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
@@ -473,11 +473,11 @@
     {
       "artifact_dir": "experiments/2024-01-renft__M-08/vulnerable",
       "artifact_hashes": {
-        "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
-        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "stdout.txt": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
+        "command.txt": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab",
+        "stderr.txt": "ce0c30764f0f05239f720b53b8de2ebd37f8ac956f5fe4342a639261dea95898",
+        "stdout.txt": "67c85f694347da07a13d4656ffc1cf44b6d6afea9792b061222d85b03bdae60a"
       },
-      "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
+      "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m08_destructive_burn.t.sol -vv",
       "commit_sha": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
       "environment_requirements": {
         "forge": "foundry (forge 1.8.3 or any 1.x)",
@@ -488,7 +488,7 @@
       "finding_id": "2024-01-renft/M-08",
       "fork_block": null,
       "fork_required": false,
-      "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
+      "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
       "production_files_modified": 0,
       "repository": {
         "commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",

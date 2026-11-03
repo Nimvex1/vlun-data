@@ -13,8 +13,9 @@
   "admitted_verification_levels": {
     "L0": 4586,
     "L1": 754,
-    "L3": 125,
-    "L5": 2
+    "L3": 115,
+    "L4": 7,
+    "L5": 5
   },
   "candidate_by_ecosystem": {
     "aptos": 11,
@@ -65,8 +66,9 @@
   "candidate_verification_levels": {
     "L0": 6831,
     "L1": 754,
-    "L3": 125,
-    "L5": 2
+    "L3": 115,
+    "L4": 7,
+    "L5": 5
   },
   "count_domains": {
     "admitted_by_decision": "admitted_record (IMPORT* decisions)",
@@ -84,7 +86,7 @@
   },
   "dataset_version": "3.0",
   "experimental_runs_attempted": 127,
-  "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 is awarded only with attacker-side profit evidence; L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
+  "experimental_runs_note": "V3.2 execution overlay: 127 candidates carry a run artefact (levels from committed reports/v3/experimental_proof.json and reports/v3/compile_sweep.json via scripts/v32_execution.py). L5 requires a structured, claim-specific violation_evidence record (impact type, actor, property, expected vs observed, source); attacker profit is mandatory only for fund_theft. L6 is never awarded (no candidate has a fixed-side leg). Every other record keeps the L0/L1 its source supports.",
   "generated_by": "scripts/build_v3.py",
   "license_posture": "METADATA_ONLY for all third-party content",
   "record_count": 5467,
@@ -96,5 +98,5 @@
     "2": "sherlock-optimism",
     "4": "smartbugs-curated"
   },
-  "verified_records_l5_l6": 2
+  "verified_records_l5_l6": 5
 }

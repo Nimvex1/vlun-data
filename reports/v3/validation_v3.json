@@ -181,9 +181,18 @@
       "ok": true
     },
     {
-      "check": "L5_requires_profit_evidence",
+      "check": "L5_requires_claim_specific_evidence",
       "critical": true,
-      "detail": null,
+      "detail": "L5 needs a structured violation_evidence record, not just a status string",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L5_theft_requires_profit_evidence",
+      "critical": true,
+      "detail": "theft is one impact type; it still needs measured attacker-side profit",
       "failure_count": 0,
       "failures": [],
       "group": "consistency",
@@ -336,7 +345,7 @@
     {
       "check": "L3_requires_compile_sweep_row",
       "critical": true,
-      "detail": "129 sweep rows, 125 L3 records",
+      "detail": "129 sweep rows, 115 L3 records",
       "failure_count": 0,
       "failures": [],
       "group": "consistency",
@@ -381,6 +390,6 @@
   ],
   "critical_failures": 0,
   "dataset_version": "3.0",
-  "passed": 42,
-  "total": 42
+  "passed": 43,
+  "total": 43
 }

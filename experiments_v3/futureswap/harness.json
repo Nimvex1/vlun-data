@@ -1,0 +1,10 @@
+{
+  "poc": "2026-01/futureswap_exp.sol",
+  "poc_sha256": "40976cd60f47eb20e89088012f4dbd57fdde353c08f169f34d5d8d6d6c40dcac",
+  "staged_files": [
+    "src/test/2026-01/futureswap_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

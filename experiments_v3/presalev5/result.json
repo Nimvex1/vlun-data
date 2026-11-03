@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "30e821d72d5c2faf043ff055b7a07e7f063f259627c69ad9000c3f100095dfad",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "3ba5c851293cd5947088c5d384bbcd4c56e37a4e29758718e24ef71b59070168",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2025-08/PresaleV5_exp.sol",
+      "poc_sha256": "c901e87bc6b4dfc9717fb991bf98aeae7a1634d0468ad1c773c12b9174f26ca0",
+      "staged_files": [
+        "src/test/2025-08/PresaleV5_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "presalev5",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2025-08/PresaleV5_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 22.2,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

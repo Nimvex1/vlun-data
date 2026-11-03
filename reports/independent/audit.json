@@ -618,7 +618,7 @@
         "answer_only_in_instruction": 0,
         "evidence_leak_rate": 0.0,
         "examples": [],
-        "rows_checked": 5,
+        "rows_checked": 7,
         "severity": "none",
         "verdict": "clean"
       },
@@ -633,12 +633,12 @@
       "degeneracy": {
         "inv_gini": 0.0,
         "label_distribution": {
-          "effective": 5
+          "effective": 7
         },
         "majority_fraction": 1.0,
         "majority_label": "effective",
         "n_labels": 1,
-        "rows": 5,
+        "rows": 7,
         "verdict": "single_label"
       },
       "group_overlap": {
@@ -661,13 +661,13 @@
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
       },
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "rows_total": 38,
-      "rows_unlabeled": 33,
+      "rows_unlabeled": 31,
       "split_drift": {
         "per_split_label_distribution": {
           "validation": {
-            "effective": 5
+            "effective": 7
           }
         },
         "train_majority_probe": {}
@@ -752,10 +752,10 @@
     "J_verified_patch.jsonl": {
       "answer_leakage": {
         "answer_literal_in_evidence": 0,
-        "answer_only_in_instruction": 5,
+        "answer_only_in_instruction": 7,
         "evidence_leak_rate": 0.0,
         "examples": [],
-        "rows_checked": 5,
+        "rows_checked": 7,
         "severity": "none",
         "verdict": "clean"
       },
@@ -770,12 +770,12 @@
       "degeneracy": {
         "inv_gini": 0.0,
         "label_distribution": {
-          "effective": 5
+          "effective": 7
         },
         "majority_fraction": 1.0,
         "majority_label": "effective",
         "n_labels": 1,
-        "rows": 5,
+        "rows": 7,
         "verdict": "single_label"
       },
       "group_overlap": {
@@ -798,13 +798,13 @@
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
       },
-      "rows_scorable": 5,
-      "rows_total": 5,
+      "rows_scorable": 7,
+      "rows_total": 7,
       "rows_unlabeled": 0,
       "split_drift": {
         "per_split_label_distribution": {
           "validation": {
-            "effective": 5
+            "effective": 7
           }
         },
         "train_majority_probe": {}

@@ -936,18 +936,19 @@ def _build(seed: int, min_minority: int) -> tuple[dict, list, list, list, list]:
     return manifest, tasks, keys, exploratory_tasks, exploratory_keys
 
 
-def _key_tracking(rel: str) -> bool | None:
-    """Whether git tracks the key file; None when git cannot answer."""
+def _key_tracking(rel: str) -> bool:
+    """Whether git tracks the key file.
+
+    A checkout with no git index tracks nothing, so a failed git lookup is
+    False, not None: the manifest must state a real tracking posture, and the
+    gate compares it against the same git question.
+    """
     try:
         out = subprocess.run(["git", "ls-files", "--error-unmatch", rel],
                              cwd=str(ROOT), capture_output=True, text=True)
     except (OSError, ValueError):
-        return None
-    if out.returncode == 0:
-        return True
-    if out.returncode == 1 or "did not match" in (out.stderr or ""):
         return False
-    return None
+    return out.returncode == 0
 
 
 def build(seed: int, min_minority: int) -> tuple[dict, list[dict]]:

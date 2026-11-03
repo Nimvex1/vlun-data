@@ -198,8 +198,8 @@
     },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5,
-        "not_recorded": 33
+        "experimentally_verified": 7,
+        "not_recorded": 31
       },
       "by_split": {
         "test": 20,
@@ -207,16 +207,16 @@
       },
       "duplicate_rows_dropped": 66,
       "file": "benchmark/G_patch_verification.jsonl",
-      "judge_graded_rows": 33,
-      "labeled": 5,
+      "judge_graded_rows": 31,
+      "labeled": 7,
       "partial": 0,
-      "scorable": 5,
-      "scoring_note": "scores the 5 L6-verified patches; the 33 rows without an answer key are 31 not_testable, 2 not_verified_two_revision",
+      "scorable": 7,
+      "scoring_note": "scores the 7 L6-verified patches; the 31 rows without an answer key are 31 not_testable",
       "scoring_status": "partial",
       "status": "headline",
       "tasks": 38,
-      "unlabeled": 33,
-      "unscorable": 33
+      "unlabeled": 31,
+      "unscorable": 31
     },
     "H_verified_exploit": {
       "answer_key_evidence_levels": {
@@ -258,18 +258,18 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 5
+        "experimentally_verified": 7
       },
       "by_split": {
-        "validation": 5
+        "validation": 7
       },
-      "duplicate_rows_dropped": 9,
+      "duplicate_rows_dropped": 12,
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 5,
+      "labeled": 7,
       "partial": 0,
-      "scorable": 5,
+      "scorable": 7,
       "status": "headline",
-      "tasks": 5,
+      "tasks": 7,
       "unlabeled": 0,
       "unscorable": 0
     },

@@ -3,10 +3,10 @@
     "benchmark": 50,
     "datasets": 4,
     "derived": 32,
-    "experiments": 103,
+    "experiments": 123,
     "harvest": 6,
-    "meta": 447,
-    "reports": 82,
+    "meta": 455,
+    "reports": 83,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 774,
+  "file_count": 803,
   "files": [
     {
       "bytes": 2573,
@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 453237,
+      "bytes": 467585,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "f25c912accd61c3f3597cb7e0633ddab606bf8c5e9ae57f5eec0b835bee50e1f",
+      "sha256": "e401a78a6fece23ff564cd6b9009a2d32e391da4e262b28d36bbeec970750093",
       "tracked": true
     },
     {
@@ -383,7 +383,7 @@
       "tracked": true
     },
     {
-      "bytes": 7359,
+      "bytes": 7441,
       "category": "reports",
       "keys": [
         "checks",
@@ -395,7 +395,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/validation_vbeta.json",
-      "sha256": "0a7a2068bfa692ed3f40b4015393b6837fd91231458b00bf4ee2b271ea4d778d",
+      "sha256": "bde1a189b20c58282ec3aa93bb94b0bf6c9ef8e24a18140634fe7dca375f6b54",
       "tracked": true
     },
     {
@@ -623,23 +623,23 @@
       "tracked": true
     },
     {
-      "bytes": 38031,
+      "bytes": 38261,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/G_patch_verification.jsonl",
       "rows": 38,
-      "sha256": "811894688bcfab8263db748f70509629bdbf0e32e70a6291c5ca2f040e0fb7ae",
+      "sha256": "feca7d71b124bac0c66395436487b4f56ca50f9ad84096a7ae86adb102c90cf3",
       "tracked": true
     },
     {
-      "bytes": 26937,
+      "bytes": 28604,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/H_verified_exploit.jsonl",
       "rows": 7,
-      "sha256": "34bbae630a8586dbe91a047cfbeef5baa06bea0209a425bfee6f94f6c680e053",
+      "sha256": "3d4eee1fd382277395c615bf24c32f5dbd38cfc8a99a1793268d679f74eddd31",
       "tracked": true
     },
     {
@@ -653,13 +653,13 @@
       "tracked": true
     },
     {
-      "bytes": 15646,
+      "bytes": 24190,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/J_verified_patch.jsonl",
-      "rows": 5,
-      "sha256": "67c90b6ba3e5f7e51ec223e204267e4c65bea03cc2ac3de8f81c305b164fed80",
+      "rows": 7,
+      "sha256": "9b33e485d6112deee9ea12161f719485bb197e6a9a99dd837a7c5ec926ced24c",
       "tracked": true
     },
     {
@@ -761,7 +761,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/secondary_holdout_manifest.json",
-      "sha256": "d2d00ec596d3205d9201efce1c9e7d31cf34b502099c2e07c8e977c6e2eb6627",
+      "sha256": "43398d94fbc88ccbc676639e9d9e3e3706262c04769d8f01901b3f2f5ad3d703",
       "tracked": true
     },
     {
@@ -785,13 +785,13 @@
       "tracked": true
     },
     {
-      "bytes": 2911,
+      "bytes": 2919,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
       "rows": 5,
-      "sha256": "58ce037ad212007f897e2d4f157079f558ef3769f760eec1ab89940babf3598e",
+      "sha256": "cb4f089a532c0ee41a1824d2cc34a780dc36a87eaf92d9529bdaea641a6cba32",
       "tracked": true
     },
     {
@@ -812,7 +812,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/v1_task_holdout/manifest.json",
-      "sha256": "c4cd6cee829f3e9b0ac65817ecfafc09042c689d81b254fb26d486c475438eda",
+      "sha256": "58ab42f5fe6b63614d4835e24d1a827ab4802e4a6c17e3ef69a125af0bc56051",
       "tracked": true
     },
     {
@@ -826,13 +826,13 @@
       "tracked": true
     },
     {
-      "bytes": 1907,
+      "bytes": 2673,
       "category": "benchmark",
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
-      "rows": 5,
-      "sha256": "4583fd553363ac1fa08b24c09520887dd65b61b9bfca3f5b22805beb69d26115",
+      "rows": 7,
+      "sha256": "1d8fefb6c053cae0339c125553a8a04a3c64084bb4e8aee05f0a9dc3cf252479",
       "tracked": true
     },
     {
@@ -846,7 +846,7 @@
       "tracked": true
     },
     {
-      "bytes": 15124,
+      "bytes": 15096,
       "category": "benchmark",
       "keys": [
         "canary",
@@ -862,7 +862,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "benchmark/manifest.json",
-      "sha256": "3f74e4b99fa6574f2d92c932c5c5e504575cdac77e86945e213c0cc012550814",
+      "sha256": "51091226f5fe8affd267d3f620685cb84fb09872964374f3dbfc8ccf681d3441",
       "tracked": true
     },
     {
@@ -1205,13 +1205,13 @@
       "tracked": true
     },
     {
-      "bytes": 4047,
+      "bytes": 4054,
       "category": "datasets",
       "layer": "multi",
       "parse": "ok",
       "path": "datasets/verified_exploits.jsonl",
       "rows": 5,
-      "sha256": "67532861a058f0f898c2af022fbdf5fef29315e0e6b1792288598d1e5932326f",
+      "sha256": "4aa86757da1e20d4d15e0e8d4bfa917c98b709fec7955ba8113665c9deec3ac8",
       "tracked": true
     },
     {
@@ -1235,13 +1235,13 @@
       "tracked": true
     },
     {
-      "bytes": 6201,
+      "bytes": 8500,
       "category": "datasets",
       "layer": "multi",
       "parse": "ok",
       "path": "datasets/verified_patches.jsonl",
-      "rows": 5,
-      "sha256": "23854cde15805378dbf28d6b3296fea0e16d0e2408613c3c7fcc7e7768f931f8",
+      "rows": 7,
+      "sha256": "104e638a6a7493889330f768ad6e2db5b440181ba8eba1d52333db8a7047d43a",
       "tracked": true
     },
     {
@@ -1582,13 +1582,13 @@
       "tracked": true
     },
     {
-      "bytes": 19420647,
+      "bytes": 19438183,
       "category": "derived",
       "layer": "v3",
       "parse": "ok",
       "path": "derived_v3/candidate_ledger.jsonl",
       "rows": 7712,
-      "sha256": "32cac76d9a06af283080612accd433f09e6164496247aafe3e0d2d508a22cea6",
+      "sha256": "83e882925db2a1a8bf7a5f7e98da40778d52712b824834e1e43c81e556d8f165",
       "tracked": true
     },
     {
@@ -1631,7 +1631,7 @@
       "tracked": true
     },
     {
-      "bytes": 3083,
+      "bytes": 3233,
       "category": "derived",
       "keys": [
         "admitted_by_decision",
@@ -1660,7 +1660,7 @@
       "layer": "v3",
       "parse": "ok",
       "path": "derived_v3/manifest.json",
-      "sha256": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
+      "sha256": "a7fef9cdfcbcb2c53e3c8eea34ec386635589e0863495d966fe6f55197018814",
       "tracked": true
     },
     {
@@ -1753,17 +1753,17 @@
       "tracked": true
     },
     {
-      "bytes": 12109059,
+      "bytes": 12128732,
       "category": "derived",
       "layer": "v3",
       "parse": "ok",
       "path": "derived_v3/records.jsonl",
       "rows": 5467,
-      "sha256": "7e1d14de2fd3d5f8ab73cacdaa6b42b800ad5feb1e9318fc183c1f03e4c23f1a",
+      "sha256": "04d7e2278033f00fe29dfdcb6da8594afca3d18b96e8112854587eee6d9b323a",
       "tracked": true
     },
     {
-      "bytes": 16906,
+      "bytes": 16924,
       "category": "derived",
       "keys": [
         "sources"
@@ -1772,7 +1772,7 @@
       "layer": "v3",
       "parse": "ok",
       "path": "derived_v3/source_ledger.json",
-      "sha256": "9e5aa21c4863d63d2110aa0b9a95e5553c582185a931c83a3c07ddd123dc00bf",
+      "sha256": "f9e4df620146322a609f0f15118e7796a5f34926d7b82af8f087edf3594b88e1",
       "tracked": true
     },
     {
@@ -1882,7 +1882,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "e0d17320ba0a7df645fe1ce2e4e2c91fe6ff72e4ad4d48234e55195a3c108d5e",
+      "sha256": "8e94562e8dde66e0712d303d03781f500060eab90bec537b49d81a2c47636e61",
       "tracked": true
     },
     {
@@ -1951,13 +1951,13 @@
       "tracked": true
     },
     {
-      "bytes": 17044892,
+      "bytes": 17022641,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/rights_ledger.jsonl",
-      "rows": 12919,
-      "sha256": "a914be51b87da16153a4c0862db30e32f82e2256c6d05b50c73ade47562e3b60",
+      "rows": 12894,
+      "sha256": "1fc16f906365ab67173d91f5fec01160e6a1e05eb035667b710a61f05ad069c5",
       "tracked": true
     },
     {
@@ -1979,13 +1979,13 @@
       "tracked": true
     },
     {
-      "bytes": 81954,
+      "bytes": 46768,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/withheld_harness.jsonl",
-      "rows": 58,
-      "sha256": "416cc4eebdf42cccd5b015ff843c26336bc0842eb1700d370b2401f25692ddc7",
+      "rows": 33,
+      "sha256": "7dcc44a1cbf354233fc664b2ffca28f464d836a53d6583cb9461343e2d5bd155",
       "tracked": true
     },
     {
@@ -2415,23 +2415,7 @@
       "tracked": true
     },
     {
-      "bytes": 998,
-      "category": "experiments",
-      "keys": [
-        "commit",
-        "files",
-        "how_to_obtain",
-        "why"
-      ],
-      "kind": "object",
-      "layer": "v1",
-      "parse": "ok",
-      "path": "experiments/2024-01-renft__M-01/fixed/harness/WITHHELD.json",
-      "sha256": "ad140aed522afa8b5a26307170fef8a13b0a95c79a567528becab4594dfffb9e",
-      "tracked": true
-    },
-    {
-      "bytes": 3275,
+      "bytes": 2178,
       "category": "experiments",
       "keys": [
         "artifact_sha256",
@@ -2463,27 +2447,11 @@
       "layer": "v1",
       "parse": "ok",
       "path": "experiments/2024-01-renft__M-01/fixed/result.json",
-      "sha256": "efefda065a46225f79892b940ab359e942bbe5d771b93f39976b5be126259cca",
+      "sha256": "a2a48819d55ebd7267ad5d5c39d8969a8f10445b219f4794b7cf46f7e0414c53",
       "tracked": true
     },
     {
-      "bytes": 2158,
-      "category": "experiments",
-      "keys": [
-        "commit",
-        "files",
-        "how_to_obtain",
-        "why"
-      ],
-      "kind": "object",
-      "layer": "v1",
-      "parse": "ok",
-      "path": "experiments/2024-01-renft__M-01/vulnerable/harness/WITHHELD.json",
-      "sha256": "eb5e78230c8b1d0aebbb55cdd810b225815e4fd202f922a84c35606547ac83d9",
-      "tracked": true
-    },
-    {
-      "bytes": 4304,
+      "bytes": 2238,
       "category": "experiments",
       "keys": [
         "artifact_sha256",
@@ -2515,7 +2483,7 @@
       "layer": "v1",
       "parse": "ok",
       "path": "experiments/2024-01-renft__M-01/vulnerable/result.json",
-      "sha256": "aedd22a0c9b57f1fb363fe705cccb504a136cc0ae4e3068a96823208a4123461",
+      "sha256": "aa0c420739a82a7c77c971d2fd4d678fb4b391a39c87b3a6fb76f55d759ecc33",
       "tracked": true
     },
     {
@@ -2623,23 +2591,7 @@
       "tracked": true
     },
     {
-      "bytes": 995,
-      "category": "experiments",
-      "keys": [
-        "commit",
-        "files",
-        "how_to_obtain",
-        "why"
-      ],
-      "kind": "object",
-      "layer": "v1",
-      "parse": "ok",
-      "path": "experiments/2024-01-renft__M-08/fixed/harness/WITHHELD.json",
-      "sha256": "4d37a97ea437159cfeb1e7fa321247b25037a84bc5e870431ce73e1a801a7f2d",
-      "tracked": true
-    },
-    {
-      "bytes": 2607,
+      "bytes": 2182,
       "category": "experiments",
       "keys": [
         "artifact_sha256",
@@ -2671,27 +2623,11 @@
       "layer": "v1",
       "parse": "ok",
       "path": "experiments/2024-01-renft__M-08/fixed/result.json",
-      "sha256": "7dbb07e8f6ada9467985369668db234d90565915aa86a8b8f2b1d1192b9e3d95",
+      "sha256": "270ab32b0b606d6ec8d9f22042b169a4558618c18f0c2b7d3618878ba87420f5",
       "tracked": true
     },
     {
-      "bytes": 1993,
-      "category": "experiments",
-      "keys": [
-        "commit",
-        "files",
-        "how_to_obtain",
-        "why"
-      ],
-      "kind": "object",
-      "layer": "v1",
-      "parse": "ok",
-      "path": "experiments/2024-01-renft__M-08/vulnerable/harness/WITHHELD.json",
-      "sha256": "aaddd01ad3492b2cac3f42b5a09f7ef406689ab0f1c3a754a86267014be420b3",
-      "tracked": true
-    },
-    {
-      "bytes": 3500,
+      "bytes": 2235,
       "category": "experiments",
       "keys": [
         "artifact_sha256",
@@ -2723,7 +2659,7 @@
       "layer": "v1",
       "parse": "ok",
       "path": "experiments/2024-01-renft__M-08/vulnerable/result.json",
-      "sha256": "5f5de7c687a4b26f1d4632438e37b5382ce7a949ffe6e8e5adc6f4f0d5697412",
+      "sha256": "75a9f296f0a5e76de1d5c0e1ebc2d958817108455ede535274d3db912fd1a864",
       "tracked": true
     },
     {
@@ -3590,13 +3526,13 @@
       "tracked": true
     },
     {
-      "bytes": 53410,
+      "bytes": 53415,
       "category": "experiments",
       "layer": "v1",
       "parse": "ok",
       "path": "experiments/reconstruction_log.jsonl",
       "rows": 155,
-      "sha256": "6db378dab51cac32205780a456f88b9c8c453ccc94002f5abcdcf07f8787a7d8",
+      "sha256": "056b7623c3d40caebcfaf430ecb90bb994be812c970a0ee2fb00d12825fbc005",
       "tracked": true
     },
     {
@@ -8224,6 +8160,214 @@
       "tracked": true
     },
     {
+      "bytes": 998,
+      "category": "meta",
+      "keys": [
+        "commit",
+        "files",
+        "how_to_obtain",
+        "why"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-01/fixed/WITHHELD.json",
+      "sha256": "ad140aed522afa8b5a26307170fef8a13b0a95c79a567528becab4594dfffb9e",
+      "tracked": true
+    },
+    {
+      "bytes": 3275,
+      "category": "meta",
+      "keys": [
+        "artifact_sha256",
+        "classification",
+        "command",
+        "declared_expectation",
+        "declared_expected_status",
+        "decoded_logs",
+        "detail",
+        "duration_s",
+        "environment_requirements",
+        "exit_code",
+        "experiment_id",
+        "finding_id",
+        "forensics",
+        "gas_used",
+        "harness_digest",
+        "harness_file_digests",
+        "harness_files",
+        "harness_files_withheld_for_licence",
+        "per_test",
+        "repository",
+        "revision_label",
+        "security_property",
+        "status",
+        "test_status"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-01/fixed/result.json",
+      "sha256": "efefda065a46225f79892b940ab359e942bbe5d771b93f39976b5be126259cca",
+      "tracked": true
+    },
+    {
+      "bytes": 2158,
+      "category": "meta",
+      "keys": [
+        "commit",
+        "files",
+        "how_to_obtain",
+        "why"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-01/vulnerable/WITHHELD.json",
+      "sha256": "eb5e78230c8b1d0aebbb55cdd810b225815e4fd202f922a84c35606547ac83d9",
+      "tracked": true
+    },
+    {
+      "bytes": 4304,
+      "category": "meta",
+      "keys": [
+        "artifact_sha256",
+        "classification",
+        "command",
+        "declared_expectation",
+        "declared_expected_status",
+        "decoded_logs",
+        "detail",
+        "duration_s",
+        "environment_requirements",
+        "exit_code",
+        "experiment_id",
+        "finding_id",
+        "forensics",
+        "gas_used",
+        "harness_digest",
+        "harness_file_digests",
+        "harness_files",
+        "harness_files_withheld_for_licence",
+        "per_test",
+        "repository",
+        "revision_label",
+        "security_property",
+        "status",
+        "test_status"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-01/vulnerable/result.json",
+      "sha256": "aedd22a0c9b57f1fb363fe705cccb504a136cc0ae4e3068a96823208a4123461",
+      "tracked": true
+    },
+    {
+      "bytes": 995,
+      "category": "meta",
+      "keys": [
+        "commit",
+        "files",
+        "how_to_obtain",
+        "why"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-08/fixed/WITHHELD.json",
+      "sha256": "4d37a97ea437159cfeb1e7fa321247b25037a84bc5e870431ce73e1a801a7f2d",
+      "tracked": true
+    },
+    {
+      "bytes": 2607,
+      "category": "meta",
+      "keys": [
+        "artifact_sha256",
+        "classification",
+        "command",
+        "declared_expectation",
+        "declared_expected_status",
+        "decoded_logs",
+        "detail",
+        "duration_s",
+        "environment_requirements",
+        "exit_code",
+        "experiment_id",
+        "finding_id",
+        "forensics",
+        "gas_used",
+        "harness_digest",
+        "harness_file_digests",
+        "harness_files",
+        "harness_files_withheld_for_licence",
+        "per_test",
+        "repository",
+        "revision_label",
+        "security_property",
+        "status",
+        "test_status"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-08/fixed/result.json",
+      "sha256": "7dbb07e8f6ada9467985369668db234d90565915aa86a8b8f2b1d1192b9e3d95",
+      "tracked": true
+    },
+    {
+      "bytes": 1993,
+      "category": "meta",
+      "keys": [
+        "commit",
+        "files",
+        "how_to_obtain",
+        "why"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-08/vulnerable/WITHHELD.json",
+      "sha256": "aaddd01ad3492b2cac3f42b5a09f7ef406689ab0f1c3a754a86267014be420b3",
+      "tracked": true
+    },
+    {
+      "bytes": 3500,
+      "category": "meta",
+      "keys": [
+        "artifact_sha256",
+        "classification",
+        "command",
+        "declared_expectation",
+        "declared_expected_status",
+        "decoded_logs",
+        "detail",
+        "duration_s",
+        "environment_requirements",
+        "exit_code",
+        "experiment_id",
+        "finding_id",
+        "forensics",
+        "gas_used",
+        "harness_digest",
+        "harness_file_digests",
+        "harness_files",
+        "harness_files_withheld_for_licence",
+        "per_test",
+        "repository",
+        "revision_label",
+        "security_property",
+        "status",
+        "test_status"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "experiments_superseded/2024-01-renft__M-08/vulnerable/result.json",
+      "sha256": "5f5de7c687a4b26f1d4632438e37b5382ce7a949ffe6e8e5adc6f4f0d5697412",
+      "tracked": true
+    },
+    {
       "bytes": 1567,
       "category": "meta",
       "keys": [
@@ -11726,10 +11870,9 @@
       "tracked": true
     },
     {
-      "bytes": 1948,
+      "bytes": 1620,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
         "artifact_hashes",
         "build",
         "clone_head",
@@ -11750,7 +11893,94 @@
       "layer": "v3",
       "parse": "ok",
       "path": "experiments_v3/burgerswap/result.json",
-      "sha256": "77a4b5e08e5a5e5d2205827c859a068bd59fb7ee428e7f37b5d360ae0781c1e0",
+      "sha256": "857ee5cd8a97df239500da4465a29405ac5c596e584c3a2e627238bce3d5c8b0",
+      "tracked": true
+    },
+    {
+      "bytes": 271,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/flamincome/harness.json",
+      "sha256": "6b8aa0ad4926e2eea97877a2be928fc09df7c57527a3b8a36b8f8b6bf48ebdba",
+      "tracked": true
+    },
+    {
+      "bytes": 2823,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain",
+        "violation_evidence"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/flamincome/result.json",
+      "sha256": "b58d29a9d875800a0dd5188b2eb68183a2f5e989403534eb880267df4b83ad9d",
+      "tracked": true
+    },
+    {
+      "bytes": 271,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/futureswap/harness.json",
+      "sha256": "3a8198634aaecc1af2584d8e5579197a0078027c835b9a434420f5a576944404",
+      "tracked": true
+    },
+    {
+      "bytes": 1513,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "detail",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/futureswap/result.json",
+      "sha256": "e14ec6dd0bdbb29c4d20910efeeead02cd6d48275a255e28b4f15b1a402fbb52",
       "tracked": true
     },
     {
@@ -11924,10 +12154,9 @@
       "tracked": true
     },
     {
-      "bytes": 1940,
+      "bytes": 1612,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
         "artifact_hashes",
         "build",
         "clone_head",
@@ -11948,11 +12177,11 @@
       "layer": "v3",
       "parse": "ok",
       "path": "experiments_v3/gamma/result.json",
-      "sha256": "85fcbc739c09a6c1ba43f575cd67f300bd9f7e41fad2a15c42e2552cc3528741",
+      "sha256": "56d9693b2f4434bc6d48c65ea3052d06e711801a263684e2ad3fd457bd5cfd13",
       "tracked": true
     },
     {
-      "bytes": 273,
+      "bytes": 283,
       "category": "experiments",
       "keys": [
         "poc",
@@ -11963,15 +12192,14 @@
       "kind": "object",
       "layer": "v3",
       "parse": "ok",
-      "path": "experiments_v3/pikefinance/harness.json",
-      "sha256": "394149afdd51e13c7d050fc4368723f58932836b264c11c44110e2d6c4edb343",
+      "path": "experiments_v3/juiceboxrevloans/harness.json",
+      "sha256": "c66636b4c73e163d0acb8845327034b190b4f681c5e4d79d9a4f117caa361a9f",
       "tracked": true
     },
     {
-      "bytes": 2048,
+      "bytes": 1456,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
         "artifact_hashes",
         "build",
         "clone_head",
@@ -11991,8 +12219,138 @@
       "kind": "object",
       "layer": "v3",
       "parse": "ok",
+      "path": "experiments_v3/juiceboxrevloans/result.json",
+      "sha256": "b3db5c6fefbbd0945cce99f7774fdd13810e51fcd00b4e46c73437c7469e210e",
+      "tracked": true
+    },
+    {
+      "bytes": 265,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/mttoken/harness.json",
+      "sha256": "fd8c41be6726339c5e75ceeaecc832a31440f030d03e174f458ca5988faada89",
+      "tracked": true
+    },
+    {
+      "bytes": 1420,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/mttoken/result.json",
+      "sha256": "cddd2d3e150e363ce13fc997a55ec38bf7157dee41c2713e16fab3da1f8bcda4",
+      "tracked": true
+    },
+    {
+      "bytes": 265,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/omni404/harness.json",
+      "sha256": "aab73aa4bf0f5dedc11cab0ebcd1eb5e00099143350ea8859928066d883a1770",
+      "tracked": true
+    },
+    {
+      "bytes": 1845,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/omni404/result.json",
+      "sha256": "a09f10c0cc2d5af643814e2ac0e8a8e30be7f37bca639a994752a66faa275975",
+      "tracked": true
+    },
+    {
+      "bytes": 273,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/pikefinance/harness.json",
+      "sha256": "394149afdd51e13c7d050fc4368723f58932836b264c11c44110e2d6c4edb343",
+      "tracked": true
+    },
+    {
+      "bytes": 2584,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain",
+        "violation_evidence"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
       "path": "experiments_v3/pikefinance/result.json",
-      "sha256": "fd97151c0694103aae73ba9981be5712890dc341611140f24259e3fdc3664a7b",
+      "sha256": "c462da756f038c82d5eafef17ec9b426e9ee4eed723027029449e2b2ecd576f6",
       "tracked": true
     },
     {
@@ -12023,6 +12381,49 @@
       "parse": "ok",
       "path": "experiments_v3/pilot-bybit-2025-02/result.json",
       "sha256": "8dc6855f48a5f2cfa9d89c0ea813174ec5285078a942fd29c77dd651073117ca",
+      "tracked": true
+    },
+    {
+      "bytes": 269,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/presalev5/harness.json",
+      "sha256": "30e821d72d5c2faf043ff055b7a07e7f063f259627c69ad9000c3f100095dfad",
+      "tracked": true
+    },
+    {
+      "bytes": 1428,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/presalev5/result.json",
+      "sha256": "52e71849451ea6399d67efc48aec62479c22ecf23b3631c43226ef9572189f21",
       "tracked": true
     },
     {
@@ -12210,10 +12611,9 @@
       "tracked": true
     },
     {
-      "bytes": 2649,
+      "bytes": 2321,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
         "artifact_hashes",
         "attempts",
         "attempts_made",
@@ -12236,7 +12636,94 @@
       "layer": "v3",
       "parse": "ok",
       "path": "experiments_v3/prisma/result.json",
-      "sha256": "ab588cb3def4089ee97a25a34669f54e7f0376f7dc644c6a9e526f264c26f4f8",
+      "sha256": "dd21dd97b82b3fe3d9f76f5bbd4e9007621a040e255d47ae726b98daf2660905",
+      "tracked": true
+    },
+    {
+      "bytes": 263,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/reddio/harness.json",
+      "sha256": "4cd9356c0c2d73ee2d605200ba467d4b3cad59463ce69885ac6229bda8183a20",
+      "tracked": true
+    },
+    {
+      "bytes": 2484,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain",
+        "violation_evidence"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/reddio/result.json",
+      "sha256": "7dc1b67ad82d6e959a9c8c4fc281e2bdb5424064ec7998cf28abdba15847cc32",
+      "tracked": true
+    },
+    {
+      "bytes": 269,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/securedfi/harness.json",
+      "sha256": "d83586f0dff397321cb48cf889e999aee455d93898f73179ecfd9e8ab6e11a0c",
+      "tracked": true
+    },
+    {
+      "bytes": 1651,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/securedfi/result.json",
+      "sha256": "0cfd59bec7bb5174ed24798c2dbdf820821222abfdd38c86d63ecf397964b0d4",
       "tracked": true
     },
     {
@@ -12501,10 +12988,9 @@
       "tracked": true
     },
     {
-      "bytes": 1966,
+      "bytes": 1638,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
         "artifact_hashes",
         "build",
         "clone_head",
@@ -12525,7 +13011,7 @@
       "layer": "v3",
       "parse": "ok",
       "path": "experiments_v3/shibatoken/result.json",
-      "sha256": "b91e045de1c82d554ca442ffcb91408ca31af91b33dfbb85930ce45fd95a65a1",
+      "sha256": "f7172e175c953e3756d54d23093be68493015d553f6308d9ecfa59bc4bbab94d",
       "tracked": true
     },
     {
@@ -12545,10 +13031,53 @@
       "tracked": true
     },
     {
-      "bytes": 2294,
+      "bytes": 2814,
       "category": "experiments",
       "keys": [
-        "artifact_hash_note",
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain",
+        "violation_evidence"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/swappstaking/result.json",
+      "sha256": "1d1b08a44c176ed6f2a687efa4cc667462481d945e8944deaf82d575657023c9",
+      "tracked": true
+    },
+    {
+      "bytes": 267,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/topbpool/harness.json",
+      "sha256": "bb1540839f3e3469e38f516a84bae522a384698bda054fff9905e57552337a06",
+      "tracked": true
+    },
+    {
+      "bytes": 1657,
+      "category": "experiments",
+      "keys": [
         "artifact_hashes",
         "build",
         "clone_head",
@@ -12568,8 +13097,138 @@
       "kind": "object",
       "layer": "v3",
       "parse": "ok",
-      "path": "experiments_v3/swappstaking/result.json",
-      "sha256": "960e4f3bec9db77c47720031e6470c9eff218f642eff822d268ec67f2d3e8ad9",
+      "path": "experiments_v3/topbpool/result.json",
+      "sha256": "5047c79865869e7d3b743f50143e24fbcfa80c023a5feb85adbb7e515337b0a1",
+      "tracked": true
+    },
+    {
+      "bytes": 257,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/usm/harness.json",
+      "sha256": "0a1f02111f7014caece75bec5a012590f3056175ac29a608cc937aeacdae7314",
+      "tracked": true
+    },
+    {
+      "bytes": 2501,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain",
+        "violation_evidence"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/usm/result.json",
+      "sha256": "df3c06923dc768aee1369e11d1cddc1697a59f87d4cce9c8dbdfc7506d4a0e8a",
+      "tracked": true
+    },
+    {
+      "bytes": 269,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/venus-the/harness.json",
+      "sha256": "347ea213a6815caa193464065c7a8c1e3debe02889eb3a5d41f8f1325d3109b3",
+      "tracked": true
+    },
+    {
+      "bytes": 1453,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "detail",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/venus-the/result.json",
+      "sha256": "0fb24c59f98928c0e7ca3f6c9cac5f780f93ded9c27d224c920c9b82e91c1c5e",
+      "tracked": true
+    },
+    {
+      "bytes": 271,
+      "category": "experiments",
+      "keys": [
+        "poc",
+        "poc_sha256",
+        "staged_files",
+        "supplied"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/yamfinance/harness.json",
+      "sha256": "66a1d39e9c576498496ad3fd7952575080d7eab5ac52843741f05b1ae7651043",
+      "tracked": true
+    },
+    {
+      "bytes": 1462,
+      "category": "experiments",
+      "keys": [
+        "artifact_hashes",
+        "build",
+        "clone_head",
+        "experiment",
+        "failure_reason",
+        "finding_id",
+        "fork_aliases",
+        "level_awarded",
+        "level_basis",
+        "profit_deltas",
+        "repository",
+        "seconds",
+        "status",
+        "test",
+        "toolchain"
+      ],
+      "kind": "object",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "experiments_v3/yamfinance/result.json",
+      "sha256": "8a57ff1f83df9fc2c63ea29fd38db0384b2fa021da069d4f294b333a5a7d0231",
       "tracked": true
     },
     {
@@ -12743,13 +13402,13 @@
       "tracked": true
     },
     {
-      "bytes": 17197363,
+      "bytes": 17214899,
       "category": "source",
       "layer": "v3",
       "parse": "ok",
       "path": "jsonl_v3/findings.jsonl",
       "rows": 7712,
-      "sha256": "e0be7951ddd30b3f5df35738f43f5133f43ba481a8b0bf686e49bb4d0b4cae8b",
+      "sha256": "6f6d9b98ea95daff3f709ba428fcabde33ae0092d28a8503fa4468312e9a693a",
       "tracked": true
     },
     {
@@ -12915,7 +13574,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_first_published.json",
-      "sha256": "632341950cd1f1c6b1ee00499b43dd548273e3ed8563d56fc75e10689d951b58",
+      "sha256": "8e7a84d8cb23bd5074ad4da7645a8ef120d3eac3654f9082f55fb9a508397121",
       "tracked": true
     },
     {
@@ -12951,7 +13610,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_frequency_seed7.json",
-      "sha256": "fa095ae8ef66f14049370e91d0ceccdecd3a66069d5e3539abf36f196f894611",
+      "sha256": "585e5c62fe0c718011da9f87a8625f6890ceaf24a766fc32da2b3f87bc097247",
       "tracked": true
     },
     {
@@ -12987,7 +13646,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority.json",
-      "sha256": "b6586a9834d78fccc7a3587c3f3e6e0b42ef9651a9c54686f41750b54fec7885",
+      "sha256": "f0269e4c61e5063941c8a41a0a070ce38f2ec91310682ffbca0c3d712997503e",
       "tracked": true
     },
     {
@@ -13023,7 +13682,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_majority_published.json",
-      "sha256": "b53f5d97cb091a7a65e8d1e73d761d781bcf9c81b03aeb50dbb89168f5fbaa28",
+      "sha256": "331abcacb2527c5b7efadc5afe1ab3164630dab430e3f56f83982fcf860dad94",
       "tracked": true
     },
     {
@@ -13059,7 +13718,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_random_seed7.json",
-      "sha256": "842b601bf056d96e99cde8147a73a77687b113f8a12df916a446caa744517f22",
+      "sha256": "d8a07bce1ba8cad08c5ccfcfa7a89eca29bcfa0bb1d856d794bf560856f52edf",
       "tracked": true
     },
     {
@@ -13095,11 +13754,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/baselines/baseline_retrieval.json",
-      "sha256": "e70bf280953dcddb474587244e3d5bab889e0baadf9e8ad445f08bc251148f4b",
+      "sha256": "334c294c422c2bc5b41e8d4356d31894f9076e75ced460276db004ff337c4e20",
       "tracked": true
     },
     {
-      "bytes": 73009,
+      "bytes": 72981,
       "category": "reports",
       "keys": [
         "baselines",
@@ -13120,11 +13779,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/benchmark_metrics.json",
-      "sha256": "e95f81a9a85d3c0181f054c0b28dc06e6ed2e3f383fc11cad704932b01aa82d4",
+      "sha256": "8e60fa3d9272ae18fb91b6a8c89866ec27a765c92d7806f3a366813ed1d92ead",
       "tracked": true
     },
     {
-      "bytes": 11118,
+      "bytes": 11117,
       "category": "reports",
       "keys": [
         "experimentally_grounded_tasks",
@@ -13138,7 +13797,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/benchmark_quality.json",
-      "sha256": "539a8cf8db3009994ac7343c4264de4790489ecd14e586277b10cdad5a5caae4",
+      "sha256": "eb3edb79d213facf275d01a0dcef05e13959481b7c3bfe29228c9f74b7f220fc",
       "tracked": true
     },
     {
@@ -13242,7 +13901,7 @@
       "tracked": true
     },
     {
-      "bytes": 1880,
+      "bytes": 1915,
       "category": "reports",
       "keys": [
         "field_coverage_ref",
@@ -13256,7 +13915,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/depth_dashboard.json",
-      "sha256": "005fe1f2518f4d192466e9ec6ad79f9d733f33fd2fdb4c87d2b010fb559f6955",
+      "sha256": "f0215111959f9284e575e8cff317045b1e780d3a1bafebcbe6b5d78227d35ca8",
       "tracked": true
     },
     {
@@ -13279,7 +13938,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/eval_leakage_report.json",
-      "sha256": "9f2c4e83dd1c80ec38ecfca43537f5bfefe97ce113af27f68a77365eae08016d",
+      "sha256": "653fdd0aa5a57a95a9958bf611c74b903d742997d4d7b71556e560ec51317465",
       "tracked": true
     },
     {
@@ -13325,7 +13984,7 @@
       "tracked": true
     },
     {
-      "bytes": 36340,
+      "bytes": 28827,
       "category": "reports",
       "keys": [
         "by_kind",
@@ -13340,7 +13999,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/extraction_errors.json",
-      "sha256": "aa22f4139e73ffb1985797a13a312cefdec0d24f52237bef1bf564ff04238336",
+      "sha256": "13a456ade9dd28996aff7c724ecef4fd9bb7ee4af783e6f66b64cdf2eccf42e3",
       "tracked": true
     },
     {
@@ -13456,7 +14115,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/independent/audit.json",
-      "sha256": "26a3ea96ec68cab7e5b3651091ec098858d20fb8d01f4af64983d771fb9b4f24",
+      "sha256": "f750c6b56424e24bd55fc6e1d13badff51718d4120fb436dbd3df0937d110651",
       "tracked": true
     },
     {
@@ -13624,7 +14283,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/manifest_checks.json",
-      "sha256": "4085cd40c607cf2c0665134d80026f2dbfb996b99b4c05618b91cb459f2b265a",
+      "sha256": "a23f2e37a52da0645a3d03b9dd504abd59ee9c79bae25622a9c86e15a3a7175e",
       "tracked": true
     },
     {
@@ -13704,7 +14363,7 @@
       "tracked": true
     },
     {
-      "bytes": 24412,
+      "bytes": 22664,
       "category": "reports",
       "keys": [
         "by_status",
@@ -13718,11 +14377,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/patch_verification.json",
-      "sha256": "57c23f47acd3ee6d12b23f3c24af8a7ec2e0bc5549aaee46a40981170d77469f",
+      "sha256": "80ab78da56b31f99b7b789baec04a5ac8aa9479acd50ad7ab0c2073be4490c67",
       "tracked": true
     },
     {
-      "bytes": 131399,
+      "bytes": 129631,
       "category": "reports",
       "keys": [
         "by_fix_effectiveness",
@@ -13738,7 +14397,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/patch_verification_v2.json",
-      "sha256": "2ccf08e5517a6c5c632dfb59eebde0c3b1586873e4be9947232d5ac95d93e258",
+      "sha256": "1ddb01e6abbe824da31a092c2bd1463760f0884b206167ac4334eebd78e91aff",
       "tracked": true
     },
     {
@@ -13992,7 +14651,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/remediation_before_after.json",
-      "sha256": "8ab062c071abe19c82483693c405df5233da13bb74c6719c0d1ce884fc851a4b",
+      "sha256": "9be7654000e41f6757001983703328904e2f6b3459603e3e34a00700b782405c",
       "tracked": true
     },
     {
@@ -14012,7 +14671,7 @@
       "tracked": true
     },
     {
-      "bytes": 28437,
+      "bytes": 28395,
       "category": "reports",
       "keys": [
         "entries",
@@ -14023,11 +14682,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/reproduction_manifest.json",
-      "sha256": "e58575ebf41bee101817c9509de811ff9a910988740f424e1eebe5435ab44a79",
+      "sha256": "c116c20f81a770b7af8a42a1616107235b2735e5c9d1ddc54ad5e1e673b72b63",
       "tracked": true
     },
     {
-      "bytes": 203443,
+      "bytes": 203428,
       "category": "reports",
       "keys": [
         "experiment_outcomes",
@@ -14049,11 +14708,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/reproduction_stats.json",
-      "sha256": "18fd802be117e8d111b042ac646924defb115cbdb0b2fac1433f573de616fae8",
+      "sha256": "dca34f0cdc13897a903e7b5ff547d8c0bd0b1bf5679c6633c8182ecca3634f82",
       "tracked": true
     },
     {
-      "bytes": 36108,
+      "bytes": 50675,
       "category": "reports",
       "keys": [
         "commits_scanned",
@@ -14071,11 +14730,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "be306cacccc535b53dd64c6a94d8dfd8d7c66b47ba0f9693fc3e5402f7fa174a",
+      "sha256": "96aebb7c87d5b8b748d3b0a725ecb10f1619b838a58d13216160414fe3387ed0",
       "tracked": true
     },
     {
-      "bytes": 989560,
+      "bytes": 1040197,
       "category": "reports",
       "keys": [
         "data_handling_policy_default",
@@ -14101,7 +14760,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_inventory.json",
-      "sha256": "6c3cabfb9f7329bfd9ac07cbe725f0a898778ef6e786aaa4ab4d6072697402e2",
+      "sha256": "3af436ad8877f966f68d88ce20538c66eb50192bba4e620daf13a4adf9981251",
       "tracked": true
     },
     {
@@ -14127,7 +14786,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/root_cause_taxonomy_stats.json",
-      "sha256": "2c8fea841c4db84ed5e186746dbd24612a0fbb7b9fe74a431111e5782ac358fe",
+      "sha256": "b8cd5bcb96eaad8f96fe8b8954fc0c790de5ba557dda3aa3604510ea2fcae7c2",
       "tracked": true
     },
     {
@@ -14250,7 +14909,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/subsets.json",
-      "sha256": "498f5637cce21045a06a02a12de19c5b2aaf38f39bb60434e34033ff7174fe9b",
+      "sha256": "c596e5ae3db76915831ff791d2e523f22290414525dcae0ac14e0d8410304379",
       "tracked": true
     },
     {
@@ -14315,7 +14974,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/v2_1_summary.json",
-      "sha256": "c70dc63668ad007e47315069b69475b6e7c3697bfc11e6c297c30682b513d0ff",
+      "sha256": "126cd054545f3500a3c3a5f53edab022559bfbd5197629bdce0fd08e491e03fb",
       "tracked": true
     },
     {
@@ -14371,7 +15030,7 @@
       "tracked": true
     },
     {
-      "bytes": 3083,
+      "bytes": 3233,
       "category": "reports",
       "keys": [
         "admitted_by_decision",
@@ -14400,11 +15059,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/v3/dataset_summary.json",
-      "sha256": "d727f8c5bd2b4b53fc9f40db2ba03f596bec41d9eb6cf6d7dc70e47e80b9fbf5",
+      "sha256": "a7fef9cdfcbcb2c53e3c8eea34ec386635589e0863495d966fe6f55197018814",
       "tracked": true
     },
     {
-      "bytes": 12455,
+      "bytes": 39253,
       "category": "reports",
       "keys": [
         "by_level",
@@ -14417,7 +15076,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/v3/experimental_proof.json",
-      "sha256": "f8bee7fe992f7ce68aad24a1c95637779fa49b47efaa931af2ae97be53b2c393",
+      "sha256": "0984c125bdc28304f712608f84456e1f90f6b8410faba2cdfdf277376a977684",
       "tracked": true
     },
     {
@@ -14581,7 +15240,7 @@
       "tracked": true
     },
     {
-      "bytes": 8665,
+      "bytes": 9018,
       "category": "reports",
       "keys": [
         "checks",
@@ -14594,7 +15253,21 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/v3/validation_v3.json",
-      "sha256": "6d840e3f8f666a9d3ad50ec09f01d1f159006600a8037c274e8f45815e2c0d6e",
+      "sha256": "1f2b81a3acaa460469b9e7ac5ae6738c23b9f7c29a2dc41c6851b2e97c11b627",
+      "tracked": true
+    },
+    {
+      "bytes": 1653,
+      "category": "reports",
+      "keys": [
+        "runs",
+        "why"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/v3/violation_evidence.json",
+      "sha256": "a43899707459b97da2337bbb972b08af123da59388d13f9f5dab4bdf46e10cac",
       "tracked": true
     },
     {
@@ -14661,7 +15334,7 @@
       "tracked": true
     },
     {
-      "bytes": 85542,
+      "bytes": 74954,
       "category": "reports",
       "keys": [
         "experiments",
@@ -14672,7 +15345,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/verified_experiments.json",
-      "sha256": "7368827d55859fab46f0ce83e35976fbeb8e1afb86929a6c8ddfd090bd6c87db",
+      "sha256": "6a2d05bbba72825ac6eb27a948e1f66a97298caef2f3ccbc072e881e8d58cae9",
       "tracked": true
     },
     {
@@ -14695,7 +15368,7 @@
       "tracked": true
     },
     {
-      "bytes": 608,
+      "bytes": 1614,
       "category": "schema",
       "keys": [
         "$id",
@@ -14709,11 +15382,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "schema/derived.schema.json",
-      "sha256": "96e5e09cbac1b017658b0e9bfb6dcf9147cbb1886a180c6df4285a346e8c4cfd",
+      "sha256": "76cc05cb53faece6bc6147648bd786bd7922c086b9a164d6c4d57e0ba30ed066",
       "tracked": true
     },
     {
-      "bytes": 1485,
+      "bytes": 1668,
       "category": "schema",
       "keys": [
         "$id",
@@ -14727,13 +15400,14 @@
         "patch_fields",
         "splits",
         "title",
-        "verification_levels"
+        "verification_levels",
+        "violation_impacts"
       ],
       "kind": "object",
       "layer": "multi",
       "parse": "ok",
       "path": "schema/evidence-vocabulary.json",
-      "sha256": "ac6ea6e26df198c6b2d65b0af6fb11f01ab1ae55bd1de2714c38e9ba3f8e04c0",
+      "sha256": "77de653b183e2c35d7ace7183f94fc3069c62691f3d64da29b7eb76e829fdabd",
       "tracked": true
     },
     {
@@ -14902,13 +15576,13 @@
       "tracked": true
     },
     {
-      "bytes": 211872,
+      "bytes": 212013,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "taxonomy/assignments_v1.jsonl",
       "rows": 418,
-      "sha256": "2456b4cbd065b6a9ed59a98dc07c790585a135095fd5cf8e700081918c5c8be9",
+      "sha256": "490c125d2308e442123eba62a7994ce05f7aa59497c09f7537ce2fe7dc4112dd",
       "tracked": true
     },
     {

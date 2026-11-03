@@ -1,0 +1,10 @@
+{
+  "poc": "2026-01/MTToken_exp.sol",
+  "poc_sha256": "e1c362207d7d5df7d6b60e46530fca70ab2263e5bfc78e10684dbb9a5fb4b1b6",
+  "staged_files": [
+    "src/test/2026-01/MTToken_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

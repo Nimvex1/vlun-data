@@ -1,0 +1,16 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2026-09/Flamincome_exp.sol:FlamincomeExp
+[PASS] testExploit() (gas: 4494085)
+Logs:
+  Attacker Before exploit USDT Balance: 0.000000
+  Strategy NAV (balanceOfY) before: 3196903.965610
+  metapool LP staked into Strategy (1e18): 693480132996337221817748
+  Strategy NAV after stakeFor: 21836626.905373
+  attacker USDT net profit: 344751.209366
+  Strategy real backing lost (gross): 597352.101480
+  Attacker After exploit USDT Balance: 344751.209366
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 144.46s (142.01s CPU time)
+
+Ran 1 test suite in 144.48s (144.46s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

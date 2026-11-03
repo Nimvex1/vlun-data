@@ -1,0 +1,10 @@
+{
+  "poc": "2026-09/SecuredFi_exp.sol",
+  "poc_sha256": "90be31df1f20502cf88c1f17310607b21e7a7ad48596f550729964f7f4a3c34a",
+  "staged_files": [
+    "src/test/2026-09/SecuredFi_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

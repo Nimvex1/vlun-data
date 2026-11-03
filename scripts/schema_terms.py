@@ -66,6 +66,19 @@ from vlun_v3 import (  # noqa: E402
 # reconcile without rewriting history.
 # ---------------------------------------------------------------------------
 
+# Impact types an L5 violation_evidence record may claim. A closed vocabulary:
+# an impact outside it never earns L5, because the dataset cannot say what was
+# violated. The theft-specific profit check is one member, not the definition.
+VIOLATION_IMPACTS = (
+    "fund_theft",
+    "access_control",
+    "signature_replay",
+    "dos",
+    "accounting_invariant",
+    "oracle_manipulation",
+    "state_corruption",
+)
+
 COUNT_DOMAINS = (
     "source",             # an origin: repo, page, archive, contest
     "report",             # one audit/contest report artefact
@@ -248,7 +261,7 @@ __all__ = [
     "EVIDENCE_TYPES", "LAYERS", "MANIFEST_KEYS", "NEGATIVE_CLASSES",
     "PATCH_FIELDS", "POC_CLASSES", "POC_LEVELS", "READ_ONLY_LAYERS",
     "SCHEMA_VERSION", "SOURCE_VERSION", "SPLITS", "TAXONOMY_TOP_LEVEL",
-    "VERIFICATION_LEVELS", "TerminologyError", "check_decision",
+    "VERIFICATION_LEVELS", "VIOLATION_IMPACTS", "TerminologyError", "check_decision",
     "check_evidence_level", "check_no_deprecated", "check_patch_coherence",
     "check_verification_state", "evidence_strength", "is_admitted",
     "level_not_experimental",

@@ -18,7 +18,7 @@
           "J_verified_patch.jsonl",
           "M_experiment_level_classification.jsonl"
         ],
-        "scorable": 293
+        "scorable": 297
       },
       "INVALID": {
         "families": [
@@ -74,8 +74,8 @@
         "tasks": 137
       }
     },
-    "manifest_scorable_total": 23198,
-    "scored_rows_all_families": 22145,
+    "manifest_scorable_total": 23202,
+    "scored_rows_all_families": 22149,
     "scorer_covered": 720,
     "scorer_covered_primary": 720
   },
@@ -265,7 +265,7 @@
           "coverage": 0.0,
           "macro_f1": null,
           "predicted": 0,
-          "rows": 5
+          "rows": 7
         },
         "test_only_labels": [],
         "train_rows": 0,
@@ -286,11 +286,11 @@
           "correct": 0,
           "macro_f1": null,
           "predicted": 0,
-          "scorable": 5
+          "scorable": 7
         }
       },
       "predicted": 0,
-      "scorable": 5,
+      "scorable": 7,
       "status": "EXPLORATORY"
     },
     "I_verified_non_exploit.jsonl": {
@@ -371,7 +371,7 @@
           "coverage": 0.0,
           "macro_f1": null,
           "predicted": 0,
-          "rows": 5
+          "rows": 7
         },
         "test_only_labels": [],
         "train_rows": 0,
@@ -392,11 +392,11 @@
           "correct": 0,
           "macro_f1": null,
           "predicted": 0,
-          "scorable": 5
+          "scorable": 7
         }
       },
       "predicted": 0,
-      "scorable": 5,
+      "scorable": 7,
       "status": "EXPLORATORY"
     }
   },
@@ -1998,7 +1998,7 @@
       "evaluable_reason": "single_label_not_evaluable",
       "family": "G_patch_verification.jsonl",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "majority_label": "effective",
@@ -2010,14 +2010,14 @@
         "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "rows_total": 38,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "validation": 5
+        "validation": 7
       },
       "status": "EXPLORATORY",
       "validity_flags": [
@@ -2088,7 +2088,7 @@
       "evaluable_reason": "single_label_not_evaluable",
       "family": "J_verified_patch.jsonl",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "majority_label": "effective",
@@ -2100,14 +2100,14 @@
         "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 5,
-      "rows_total": 5,
+      "rows_scorable": 7,
+      "rows_total": 7,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "validation": 5
+        "validation": 7
       },
       "status": "EXPLORATORY",
       "validity_flags": [
@@ -3082,7 +3082,7 @@
       }
     },
     "predicted": 22134,
-    "scorable": 22145
+    "scorable": 22149
   },
   "micro_exploratory": {
     "accuracy": null,
@@ -3102,7 +3102,7 @@
     "per_class": {},
     "per_split": {},
     "predicted": 17,
-    "scorable": 28
+    "scorable": 32
   },
   "micro_invalid": {
     "accuracy": 0.823330336840992,

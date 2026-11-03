@@ -63,6 +63,21 @@ def derived_schema() -> dict:
             "id": {"type": "string"},
             "finding": {"type": "object"},
             "verification_level": {"enum": list(T.VERIFICATION_LEVELS)},
+            "experiment": {"type": ["object", "null"]},
+            "violation_evidence": {
+                "type": ["object", "null"],
+                "required": ["impact_type", "actor", "property", "expected",
+                             "observed", "source", "execution"],
+                "properties": {
+                    "impact_type": {"enum": list(T.VIOLATION_IMPACTS)},
+                    "actor": {"type": "string"},
+                    "property": {"type": "string"},
+                    "expected": {"type": "string"},
+                    "observed": {"type": "string"},
+                    "source": {"type": "string"},
+                    "execution": {"type": "object"},
+                },
+            },
             "taxonomy": {"type": ["object", "string", "null"]},
         },
     }
@@ -123,6 +138,7 @@ def evidence_vocabulary() -> dict:
         "layers": list(T.LAYERS),
         "patch_fields": list(T.PATCH_FIELDS),
         "count_domains": list(T.COUNT_DOMAINS),
+        "violation_impacts": list(T.VIOLATION_IMPACTS),
     }
 
 

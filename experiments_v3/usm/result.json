@@ -1,0 +1,73 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "0a1f02111f7014caece75bec5a012590f3056175ac29a608cc937aeacdae7314",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "3b7dd262640d7e15228eba8f9003e73d58298d30ab48f17bd49f1846fa939e46",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-08/USM_exp.sol",
+      "poc_sha256": "4d3d572f105a50ca23de58b45ceee74b5b6aee80f51055a70c8cb32d7175a3be",
+      "staged_files": [
+        "src/test/2026-08/USM_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "usm",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-08/USM_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L5",
+  "level_basis": "attacker profit > 0 observed in balance logs on fork: theft mechanics demonstrated",
+  "profit_deltas": [
+    {
+      "after": 70.83097736769771,
+      "attacker_side": true,
+      "before": 0.0,
+      "label_after": "attacker ETH after (net profit)",
+      "label_before": "attacker ETH before",
+      "profit": 70.83097736769771
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 22.8,
+  "status": "violation_observed",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)",
+  "violation_evidence": {
+    "actor": "attacker",
+    "asset": "ETH",
+    "execution": {
+      "assertion": "testExploit passed with the attacker profit logged",
+      "status": "pass"
+    },
+    "expected": "the exploit leaves the attacker's balance unchanged",
+    "impact_type": "fund_theft",
+    "observed": "attacker-side delta 70.83097736769771 observed between 'attacker ETH before' and 'attacker ETH after (net profit)'",
+    "profit_deltas": [
+      {
+        "after": 70.83097736769771,
+        "attacker_side": true,
+        "before": 0.0,
+        "label_after": "attacker ETH after (net profit)",
+        "label_before": "attacker ETH before",
+        "profit": 70.83097736769771
+      }
+    ],
+    "property": "attacker-controlled ETH balance",
+    "source": "profit_deltas parsed from the run's balance logs"
+  }
+}
