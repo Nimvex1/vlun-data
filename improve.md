@@ -39,6 +39,37 @@ must make the dataset *more honest*, never merely larger.
 
 ---
 
+## 0b. Status at `aa82ac1` (2026-11-06)
+
+Marked from the repository, not from intent. "Done" means the deliverable exists **and** a gate or
+test enforces it; "partial" names exactly what is missing.
+
+| Phase | Status | Evidence in the tree | Missing |
+|---|---|---|---|
+| 0 baseline | **DONE** | `BASELINE.md`; ordered-list row 1 `FIXED in c6b45df` | — |
+| 1 evidence pointers | **PARTIAL** | `every_fact_field_has_a_pointer` gate (critical, closed 29 v2.2 leaks at `aa82ac1`); `claim()` helper in `vlun_io.py`/`vlun_ml.py` | 1.2 not done: **0 of 722** derived records carry a `rule:` source_ref, so `rule-derived` refs are still unpopulated; 3-bucket classification absent |
+| 2 immutable permalinks | **DONE** | `derived_commit_pins_are_immutable` gate (`validate_checks.py:235`); row 5 `FIXED in 8abe43f` | — |
+| 3 benchmark rebuild | **PARTIAL** | 3.1/3.2 done: 10 families retired (`B,E,K,L,M,N,O,P,v3_S,v3_T`), 19 live; class-disjoint holdout shipped (`benchmark/independent/…`, 2,684 tasks) and documented as OPEN-KEY in `docs/RUBRIC.md`; baselines rebuilt | 3.3 `split_degenerate` is a comment in `build_v3.py:103`, not a gate; 3.4 holdout is a *second, stricter* protocol, not the primary metric; 3.5 shortcut≥0.95 gate not found in `validate_checks.py` (only `benchmark_status.py` saturation reporting) |
+| 4 empty fields | **PENDING** | — | `root_cause` / `fix_description` extraction over v3 + Vbeta; no-invention gate |
+| 5 code-grounded negatives | **BLOCKED** | `run_negative_experiments.py:163` needs RPC | item 24 (human) |
+| 6 fresh-clone rebuild | **PARTIAL** | README (generated) now documents `--derive-l6-only` and the `build_all.py` canonical-rewrite guard; five once-destroyed layers are in `CANONICAL_LAYERS`; generators refuse to shrink without `--allow-shrink`; `inventory_rights.py` reaches a fixed point | **no** `docs/REPRODUCE.md`, **no** `harvest_manifest.json`, no absent-vs-broken exit-2 split, no fresh-clone gate matrix; `build_v3.py` still needs git-ignored `V3/clones/` |
+| 7 `derived_meta/` | **PENDING** | licence exposure limited via `WITHHELD.json` + per-record rights fields | metadata-only layer not built; benchmark payloads still read full derived rows |
+| 8 hygiene | **PARTIAL** | doc numbers generated (`generate_readme.py`); `v2_1_summary` counts derived from `reports/validation_report.json`; `inventory_rights` fixed point | no mypy/TypedDict pass, no unified `--check` staleness semantics, no version-coherence gate |
+| 9 execution depth | **BLOCKED** | 18 proof runs, 5 L5, 0 L6 in V3; 7 L6 in v1 | item 24 (human RPC key), then 4 blocked proofs + 952 Tier-B |
+
+Facts behind the marks that changed during the 2026-11-06 remediation: the v2.2 layer publishes
+**5** L5 records (not 35) under an artefact-grounded adjudication; `derived/` publishes **7** L6
+records from `reports/verified_experiments.json`; V3 publishes `candidate_artefacts 127`,
+`execution_attempts 18`, `evidence_admitted_records 127` (defined as admitted L3+ records, **not**
+reproduced exploits). Gates: `validate.py` 84/84, `check_manifests` 181/181, `validate_v3` 46/46,
+suite 854 OK / 8 skips.
+
+**Next unblocked work, in plan order:** 1.2 (populate `rule:` refs), then 3.3/3.4/3.5 (degenerate-split
+gate, holdout as primary, shortcut gate), then 6 (`docs/REPRODUCE.md` + `harvest_manifest.json` +
+exit-2 semantics), then 4 and 7.
+
+---
+
 ## 1. Verified scorecard
 
 Measured, not quoted. `✗` = fails an adversarial check today.
@@ -577,6 +608,23 @@ blockers with verbatim evidence.
 | 26 | Scale negative execution (Phase 5 item 3) | 5.3 | 2d | after 24 |
 
 Total unblocked work: **~28 days**. With the two human items: the honest ceiling is ~8.5/10.
+
+**Row status at `aa82ac1`** (the rest of this table is unchanged from its original measurement):
+1, 5 — **DONE** (see §0b; row 1 `c6b45df`, row 5 `8abe43f`).
+4 — **DONE**: `every_fact_field_has_a_pointer` is a critical gate and has a negative-control path in
+`tests/`; it closed 29 v2.2 leaks during the 2026-11-06 remediation.
+2, 3 — **PARTIAL**: gate + `claim()` helper exist; `rule:` refs are still 0/722 and the 3-bucket
+classification has not been written.
+6, 7, 8 — **DONE for retirement** (10 frozen families under `benchmark/retired_families/`, live
+manifest 19 families; K and L are retired, not fixed). The *measurement* half of 6 (dual headline
+numbers) is in `docs/RUBRIC.md`; 9–11 remain open.
+15, 16 — **PARTIAL**: the README now documents the offline build path and the canonical-layer guard,
+and `CANONICAL_LAYERS` covers the five layers an input-less run once destroyed, but there is no
+`harvest_manifest.json`, no `docs/REPRODUCE.md`, and no absent-vs-broken exit-2 split.
+20, 22 — **PARTIAL**: `inventory_rights` reaches a fixed point and `v2_1_summary` derives its gate
+counts, but `--check` is not unified to staleness-compare across scripts and no version-coherence gate
+exists.
+12–14, 17–18, 21, 23 — **OPEN**. 19, 24 — **human**. 25–26 — blocked behind 24.
 
 **Phases 0, 1, 2, 8 are ~6 days total and require no external input or permission.** Start there —
 highest ratio of defensibility to effort, and Phase 1 alone closes the most embarrassing remaining
