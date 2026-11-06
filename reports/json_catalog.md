@@ -291,7 +291,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
-| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,485 | object, 4 keys | yes |
+| `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
 | `reports/api_sibling_stats.json` | multi | 92,890 | object, 16 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 9,439 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
@@ -325,7 +325,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/machine_path_scan.json` | multi | 1,009,046 | object, 9 keys | yes |
 | `reports/manifest_checks.json` | multi | 361 | object, 6 keys | yes |
 | `reports/negative_experiments.json` | multi | 3,370 | object, 3 keys | yes |
-| `reports/negative_verification_stats.json` | multi | 1,653,031 | object, 22 keys | yes |
+| `reports/negative_verification_stats.json` | multi | 1,653,285 | object, 22 keys | yes |
 | `reports/nonevm_pilot.json` | multi | 71,445 | object, 15 keys | yes |
 | `reports/patch_verification.json` | multi | 22,664 | object, 6 keys | yes |
 | `reports/patch_verification_v2.json` | multi | 129,631 | object, 8 keys | yes |
@@ -334,9 +334,9 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/poc_triage_queue.json` | multi | 2,487 | object, 5 keys | yes |
 | `reports/pre_upgrade_audit.json` | multi | 28,885 | object, 16 keys | yes |
 | `reports/prove_candidate_ledger.json` | multi | 2,476 | object, 11 keys | yes |
-| `reports/prove_split_interface.json` | multi | 14,364 | object, 15 keys | yes |
+| `reports/prove_split_interface.json` | multi | 16,824 | object, 15 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
-| `reports/quarantine_report.json` | multi | 8,860 | object, 4 keys | yes |
+| `reports/quarantine_report.json` | multi | 8,793 | object, 4 keys | yes |
 | `reports/record_audit_summary.json` | multi | 491 | object, 11 keys | yes |
 | `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | yes |
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
@@ -345,7 +345,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/reproduction_manifest.json` | multi | 28,395 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,428 | object, 14 keys | yes |
 | `reports/rights_history_exposure.json` | multi | 50,675 | object, 10 keys | yes |
-| `reports/rights_inventory.json` | multi | 1,045,084 | object, 18 keys | yes |
+| `reports/rights_inventory.json` | multi | 1,046,352 | object, 18 keys | yes |
 | `reports/root_cause_taxonomy_stats.json` | multi | 3,190 | object, 14 keys | yes |
 | `reports/run_artefacts_index.json` | multi | 10,937 | object, 5 keys | yes |
 | `reports/sibling_review.json` | multi | 407,251 | object, 13 keys | yes |
@@ -436,12 +436,12 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 468,455 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 468,914 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 926 | object, 17 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 724 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 679 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

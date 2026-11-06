@@ -17,15 +17,15 @@ The grader reads the assertion, not the exit code: `grader_reads_the_assertion_n
 
 ## Pool as it actually stands
 
-- **qualified pool (gradable by the published grader): 5**
-- tasks with both revisions executed: **6**
+- **qualified pool (gradable by the published grader): 7**
+- tasks with both revisions executed: **8**
 - excluded for a missing grader: `{'hardhat': 1}`
-- by framework: `{'foundry': 5, 'hardhat': 1}`
-- by repository (one group each): `{'experiments_v3/1inch-lop-m01': 1, 'https://github.com/re-nft/smart-contracts.git': 5}`
+- by framework: `{'foundry': 7, 'hardhat': 1}`
+- by repository (one group each): `{'experiments_v3/1inch-lop-m01': 1, 'https://github.com/re-nft/smart-contracts.git': 7}`
 - distinct repositories: 2 (1 qualified)
 - stretch target 200 met: **False**
 - candidate ledger: 11 qualified of 210 rows across 3 codebases, 64 blocked — the qualified pool above counts only tasks whose artefacts are in the recorded layers this grader reads; a ledger qualification is a verified run awaiting the recorder, and is never added to the pool headcount until then
-- why smaller: the qualified pool is 5: the tasks whose framework the published grader can actually run. A further 1 task(s) carry recorded two-side evidence in a framework the grader does not implement, so they are listed as candidates and excluded from the headline rather than advertised as gradable. Every additional task needs a pinned fixed revision and one identical test that was run on both sides, so the pool is recorded at its real size and not padded to 200.
+- why smaller: the qualified pool is 7: the tasks whose framework the published grader can actually run. A further 1 task(s) carry recorded two-side evidence in a framework the grader does not implement, so they are listed as candidates and excluded from the headline rather than advertised as gradable. Every additional task needs a pinned fixed revision and one identical test that was run on both sides, so the pool is recorded at its real size and not padded to 200.
 - diversity limit: the qualified pool rests on 1 distinct repository/repositories, so the eight-codebase target is not met and a project-held-out split is not credible at this size; this is reported as a limit, not as a contamination-proof pool.
 
 ## The four counts, kept apart
@@ -34,7 +34,7 @@ The grader reads the assertion, not the exit code: `grader_reads_the_assertion_n
 |---|---|---|
 | candidate_ledger_rows | 210 | rows in derived_prove/candidate_ledger.jsonl |
 | technically_qualified_experiments | 11 | ledger rows whose candidate_stage is qualified (both revisions executed) |
-| gradable_tasks | 5 | tasks in this interface the published grader can run |
+| gradable_tasks | 7 | tasks in this interface the published grader can run |
 | release_eligible_tasks | 0 | gradable tasks whose repository is cleared for redistribution in the candidate ledger |
 
 a ledger row is a candidate, not a published task; the published pool is the gradable count and never the ledger count
@@ -53,7 +53,7 @@ a ledger row is a candidate, not a published task; the published pool is the gra
 
 ## Grader self-check
 
-the grader's stage rules against this project's own recorded runs. It is **not** a model result. 5 recorded two-revision runs were replayed through `prove_grader.stage_ladder()`; stages reached: `{'patch_verified': 5}`.
+the grader's stage rules against this project's own recorded runs. It is **not** a model result. 7 recorded two-revision runs were replayed through `prove_grader.stage_ladder()`; stages reached: `{'patch_verified': 7}`.
 
 A task that stops short of `patch_verified` here is not a broken task: it says the run this project recorded does not carry the evidence the grader requires (per-task reasons are in the private bundle, because they name the expected test).
 
@@ -68,14 +68,14 @@ A task that stops short of `patch_verified` here is not a broken task: it says t
 {
   "files": {
     "grader_self_check.json": {
-      "bytes": 3689,
-      "records": 5,
-      "sha256": "fd332b4d85e2f89c7fce1f2293cbedb9e988303fcbbe6c0fe8d6f1ae9e42221b"
+      "bytes": 5143,
+      "records": 7,
+      "sha256": "aa62dae9b7a6a10ee4f9a674b05796f3458b3a80a894a4468e448f11806a2ee1"
     },
     "prove_tasks_private.jsonl": {
-      "bytes": 16068,
-      "records": 6,
-      "sha256": "c1d94f34b80fe6b52541f2fbb4bb5b945f1424d1f8cbe8dfa40548325f0546fc"
+      "bytes": 20157,
+      "records": 8,
+      "sha256": "aae8020fe4de06b6e72614f17f74f686897fd636925b38b7f42cb213a9719405"
     }
   },
   "location": "outside the repository (path deliberately not published)",
@@ -88,13 +88,15 @@ A task that stops short of `patch_verified` here is not a broken task: it says t
 ## Notes
 
 - the reason a recorded test failed now comes from the `forge --json` entry (scripts/experiments.py:per_test_reason); the recorder used to read only the human `[FAIL: …]` line, which does not exist under `--json`, so every recorded run stored `reason: null`. Already-recorded artefacts are evidence and are not rewritten — the self-check above recovers the reason by replaying the preserved stdout through the grader's own parser, and future runs record it directly.
-- 4 of 5 recorded runs had their failure reason recovered from the artefact bytes rather than the summary.
+- 4 of 7 recorded runs had their failure reason recovered from the artefact bytes rather than the summary.
 
 ## Tasks (model-facing)
 
 - `prove-2024-01-renft__H-01` — 2024-01-renft/H-01 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
 - `prove-2024-01-renft__H-03` — 2024-01-renft/H-03 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
 - `prove-2024-01-renft__H-04` — 2024-01-renft/H-04 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
+- `prove-2024-01-renft__M-01` — 2024-01-renft/M-01 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
+- `prove-2024-01-renft__M-08` — 2024-01-renft/M-08 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
 - `prove-2024-01-renft__M-09` — 2024-01-renft/M-09 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
 - `prove-2024-01-renft__M-11` — 2024-01-renft/M-11 on https://github.com/re-nft/smart-contracts.git at `3ddd32455a` (foundry)
 - `prove-pashov-audits:team__1inch-security-review:[M-01]` — pashov-audits:team/1inch-security-review:[M-01] on experiments_v3/1inch-lop-m01 at `198a6d719a` (hardhat)

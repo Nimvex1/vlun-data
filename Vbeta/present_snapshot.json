@@ -1,8 +1,8 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "v2.2 L5 re-adjudication (5 L5/29 L4/1 L1), V3 run-accounting split, V1 L6 ledger",
+  "resnapshot_reason": "generated-report convergence pass 3",
   "sentinel_sha256": {
-    "README.md": "cd299035665718d9e0975435c3b1c6dc6ee47444838789009b56d97f802c990b",
+    "README.md": "735765a05f7fff67417425a5322efbb83b57996e9b938b1acfa804001e617b3f",
     "benchmark/manifest.json": "51091226f5fe8affd267d3f620685cb84fb09872964374f3dbfc8ccf681d3441",
     "derived_v3/manifest.json": "51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b",
     "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",

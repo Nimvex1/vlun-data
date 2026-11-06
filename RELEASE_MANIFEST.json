@@ -24,20 +24,20 @@
   "counts": {
     "by_licence": {
       "CC-BY-4.0": 207,
-      "MIT": 277
+      "MIT": 280
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1301,
       "metadata_only": 1,
-      "project_own": 469,
+      "project_own": 472,
       "withheld_third_party_no_redistribution_rights": 142
     },
     "not_released_paths": 1443,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 484,
-    "tracked_paths": 1927
+    "released_paths": 487,
+    "tracked_paths": 1930
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -2023,6 +2023,7 @@
     "tests/test_field_coverage.py": "MIT",
     "tests/test_gate_hardening.py": "MIT",
     "tests/test_generated_docs.py": "MIT",
+    "tests/test_generator_input_guards.py": "MIT",
     "tests/test_iaa_sample.py": "MIT",
     "tests/test_iaa_statistics.py": "MIT",
     "tests/test_independent_benchmark.py": "MIT",
@@ -2044,6 +2045,7 @@
     "tests/test_replay_safety.py": "MIT",
     "tests/test_reproducibility.py": "MIT",
     "tests/test_reproducibility_parity.py": "MIT",
+    "tests/test_rights_fixed_point.py": "MIT",
     "tests/test_rights_gate.py": "MIT",
     "tests/test_sandbox_guard.py": "MIT",
     "tests/test_schema_terms.py": "MIT",
@@ -2053,6 +2055,7 @@
     "tests/test_splits.py": "MIT",
     "tests/test_taxonomy_gate.py": "MIT",
     "tests/test_v1_derived_l6.py": "MIT",
+    "tests/test_v22_adjudicated_consumers.py": "MIT",
     "tests/test_v22_l5_adjudication.py": "MIT",
     "tests/test_v22_split_pointers.py": "MIT",
     "tests/test_v32_execution.py": "MIT",
@@ -5517,6 +5520,7 @@
     "tests/test_field_coverage.py": "project_own",
     "tests/test_gate_hardening.py": "project_own",
     "tests/test_generated_docs.py": "project_own",
+    "tests/test_generator_input_guards.py": "project_own",
     "tests/test_iaa_sample.py": "project_own",
     "tests/test_iaa_statistics.py": "project_own",
     "tests/test_independent_benchmark.py": "project_own",
@@ -5538,6 +5542,7 @@
     "tests/test_replay_safety.py": "project_own",
     "tests/test_reproducibility.py": "project_own",
     "tests/test_reproducibility_parity.py": "project_own",
+    "tests/test_rights_fixed_point.py": "project_own",
     "tests/test_rights_gate.py": "project_own",
     "tests/test_sandbox_guard.py": "project_own",
     "tests/test_schema_terms.py": "project_own",
@@ -5547,6 +5552,7 @@
     "tests/test_splits.py": "project_own",
     "tests/test_taxonomy_gate.py": "project_own",
     "tests/test_v1_derived_l6.py": "project_own",
+    "tests/test_v22_adjudicated_consumers.py": "project_own",
     "tests/test_v22_l5_adjudication.py": "project_own",
     "tests/test_v22_split_pointers.py": "project_own",
     "tests/test_v32_execution.py": "project_own",
@@ -6024,6 +6030,7 @@
     "tests/test_field_coverage.py",
     "tests/test_gate_hardening.py",
     "tests/test_generated_docs.py",
+    "tests/test_generator_input_guards.py",
     "tests/test_iaa_sample.py",
     "tests/test_iaa_statistics.py",
     "tests/test_independent_benchmark.py",
@@ -6045,6 +6052,7 @@
     "tests/test_replay_safety.py",
     "tests/test_reproducibility.py",
     "tests/test_reproducibility_parity.py",
+    "tests/test_rights_fixed_point.py",
     "tests/test_rights_gate.py",
     "tests/test_sandbox_guard.py",
     "tests/test_schema_terms.py",
@@ -6054,6 +6062,7 @@
     "tests/test_splits.py",
     "tests/test_taxonomy_gate.py",
     "tests/test_v1_derived_l6.py",
+    "tests/test_v22_adjudicated_consumers.py",
     "tests/test_v22_l5_adjudication.py",
     "tests/test_v22_split_pointers.py",
     "tests/test_v32_execution.py",

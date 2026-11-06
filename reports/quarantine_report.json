@@ -45,7 +45,7 @@
         "cross_split_near_duplicate": 1,
         "finding_without_code_context": 1,
         "label_semantics_relied_upon": 1,
-        "license_not_declared": 16,
+        "license_not_declared": 5,
         "mitigation_in_separate_repository": 1,
         "mitigation_review_partial": 1,
         "network_list_not_documented": 1,
@@ -54,13 +54,11 @@
         "poc_not_executed": 2,
         "private_audit_no_public_submissions": 3,
         "rejection_discussion_without_attributed_verdict": 1,
-        "rejection_without_reasoning": 1,
-        "source_unavailable": 3,
-        "validation_failure": 3
+        "rejection_without_reasoning": 1
       },
       "group": "extraction errors by kind",
       "meaning": "rows the extractor could not read, citations it could not retrieve, and labels it refused to rely on",
-      "records": 39
+      "records": 22
     },
     {
       "counted_from": "reports/poc_attempts.jsonl",
@@ -133,7 +131,7 @@
       },
       "group": "withheld expressive content",
       "meaning": "third-party code, report prose or PoC source removed from the distribution view and replaced by a pointer record",
-      "records": 12416
+      "records": 12391
     }
   ],
   "reading": "every count is recomputed from the artefact named in `counted_from`; a category whose source file is absent reports the group as absent rather than as zero"

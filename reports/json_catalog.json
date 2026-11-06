@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 468455,
+      "bytes": 468914,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "cc4ba3e0f1d18afb5b4220af128217f78d0a6e9c43e19a68bed7470da24137c5",
+      "sha256": "4fe02851f59f1632e4f80b5e03845cfd722c43be7a79d61318537de7da231756",
       "tracked": true
     },
     {
@@ -339,7 +339,7 @@
       "tracked": true
     },
     {
-      "bytes": 724,
+      "bytes": 679,
       "category": "meta",
       "keys": [
         "note",
@@ -350,7 +350,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "46f671f1f43e4a434ddec8cb40f4861a6d341f80ea77953f850f6bcbd98b8ef7",
+      "sha256": "e37641d114719ed6c4d2b198d4341d1634808e1412a19e1a27343138a1e38668",
       "tracked": true
     },
     {
@@ -385,7 +385,7 @@
       "tracked": true
     },
     {
-      "bytes": 7485,
+      "bytes": 7359,
       "category": "reports",
       "keys": [
         "checks",
@@ -397,7 +397,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "Vbeta/reports_vbeta/validation_vbeta.json",
-      "sha256": "0f56c62c0a9ba42b3a54e0f1f7020fb02c4dd1a6265849250e616421136650e2",
+      "sha256": "0a7a2068bfa692ed3f40b4015393b6837fd91231458b00bf4ee2b271ea4d778d",
       "tracked": true
     },
     {
@@ -1896,7 +1896,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "distribution_v1/MANIFEST.json",
-      "sha256": "e117a706c2ac843285c47019144d2c6cb4fea3aa6d151df386bb96343d7d3a0f",
+      "sha256": "02a724120d147ac4190a616777ec351546e5b70be391932624208d3b2d207d7b",
       "tracked": true
     },
     {
@@ -14316,7 +14316,7 @@
       "tracked": true
     },
     {
-      "bytes": 1653031,
+      "bytes": 1653285,
       "category": "reports",
       "keys": [
         "attributed_by_named_source",
@@ -14346,7 +14346,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/negative_verification_stats.json",
-      "sha256": "ee2199b4973da544e34bc166d425b5546f4a5f9802d90533120f53482b98f3a8",
+      "sha256": "0e626a0e2881125dbfb0b78503be0d3745f6e81af7f301051eb8a22ccc65a823",
       "tracked": true
     },
     {
@@ -14517,7 +14517,7 @@
       "tracked": true
     },
     {
-      "bytes": 14364,
+      "bytes": 16824,
       "category": "reports",
       "keys": [
         "dates",
@@ -14540,7 +14540,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/prove_split_interface.json",
-      "sha256": "02a1a1f0a7876f8b0e91725a422febc2061ae8a6770b0765e273ba8f9e132776",
+      "sha256": "827e490a5a25027b3c1f44dd5a379b6acf2233b08f9551d56a98ed8674c8f4b0",
       "tracked": true
     },
     {
@@ -14561,7 +14561,7 @@
       "tracked": true
     },
     {
-      "bytes": 8860,
+      "bytes": 8793,
       "category": "reports",
       "keys": [
         "generated_by",
@@ -14573,7 +14573,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/quarantine_report.json",
-      "sha256": "184f1aa13b4cb9b871b8e8561b54796735644886311145fc76a0b4fd425b047a",
+      "sha256": "2243c38f395eca1cf775bcd139f6f9cc999c9c4a5ceac3d924fd637ad3b1d68d",
       "tracked": true
     },
     {
@@ -14665,7 +14665,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/remediation_before_after.json",
-      "sha256": "9be7654000e41f6757001983703328904e2f6b3459603e3e34a00700b782405c",
+      "sha256": "f6a6aee27eeb1c75c75acb68065182b4d846febed204dc99d10224bc9c9fd8a8",
       "tracked": true
     },
     {
@@ -14744,11 +14744,11 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_history_exposure.json",
-      "sha256": "9d8c6c00350df0211a1497c7165cdbd08bb3bf470d027677facb40e74f0dc7c7",
+      "sha256": "dd1e979083f354a0c83e178a89c396839eca9e3a62512ee7d38e80035533fbd6",
       "tracked": true
     },
     {
-      "bytes": 1045084,
+      "bytes": 1046352,
       "category": "reports",
       "keys": [
         "data_handling_policy_default",
@@ -14774,7 +14774,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/rights_inventory.json",
-      "sha256": "b84f139e7ec85d74513c6bd9d268f9861dbbd46eaf11e78de3ddbe5fd23e0ed1",
+      "sha256": "b998975db7a242e695dd818cf0a14ac0253de08013127e5e9953fea0731edf91",
       "tracked": true
     },
     {

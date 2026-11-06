@@ -14,8 +14,8 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1927 (390651225 bytes)
-- head: `3f5ea36a48e8ca44d7444943c90e430b31d5d5b3` (audit/l5-l6-remediation-2026-11-01)
+- tracked files: 1930 (390705213 bytes)
+- head: `413b3e4e56c5b545e41a3a5ccc0374acef513ff0` (main)
 - record layers scanned for expressive content: 158
 - the audit covers **all** layers, not only the 13123 v1 self-flagged quotation rows
 
@@ -231,6 +231,6 @@ Total artefacts holding personal contact data: **13**.
 
 ## History
 
-- commits scanned: 94
+- commits scanned: 97
 - paths added then removed: 37
 - full findings: `reports/history_exposure.md`
