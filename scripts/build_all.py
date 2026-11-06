@@ -51,6 +51,19 @@ CANONICAL_LAYERS = (
     # 413 instead of 415. That number is the evidence the quarantine exists,
     # so it is guarded with the layer it describes.
     "reports/leakage_report.json",
+    # The same failure mode, found by auditing a build run on a checkout that
+    # holds none of the git-ignored inputs: the generator recomputed from what it
+    # could read and published a SMALLER truth.
+    # `derived_prove/candidate_ledger.jsonl` went 210 -> 38 rows, and every lost
+    # row carried its own licence, poc-path and rights fields;
+    # `reports/citation_resolution.json` lost all 473 pinned commits;
+    # `reports/counterexample_stats.json` went 99 -> 12 counterexamples and
+    # 71 -> 0 API-sibling pairs, which README then asserted as a zero in prose.
+    # A count that can only move downward when an input is missing is not a
+    # measurement, so it is guarded with the layer it describes.
+    "derived_prove/candidate_ledger.jsonl",
+    "reports/citation_resolution.json", "reports/counterexample_stats.json",
+    "reports/prove_candidate_ledger.json", "reports/prove_candidate_ledger.md",
 )
 
 

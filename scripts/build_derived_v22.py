@@ -52,6 +52,29 @@ adjudication must name exactly the records whose source experiment says L5,
 with the same experiment ids and only tests the run actually observed. A
 mismatch fails the build instead of producing a quieter wrong count.
 
+Level coherence, adjudicated or not
+-----------------------------------
+Only L5 and L6 earn a reproduction claim. So every built view passes through
+`enforce_level_coherence`, and a view at L0-L4 -- or with no level at all --
+has `outcome` and `evidence_type` restated (`reproduced` becomes
+`executed_violation_not_demonstrated` where something ran and
+`no_committed_observation` where nothing did; the experiment-derived evidence
+type becomes `observed_fact`, or `reported_claim` at L0-L1), with the raw
+values kept under `outcome_before_adjudication` /
+`evidence_type_before_adjudication` and the restated observation pointing at the
+run artefacts. `evidence_summary` counts the record's fields the same way, and
+`--check` fails if any of the four published places still says reproduction.
+This is not only an adjudication matter: a record the adjudication never
+visits can carry `outcome: "reproduced"` at L3 with an artefact that declares
+only `all_pass`, and publishing it unchanged is the same overclaim in a place
+nobody looked.
+
+`quality.verification` is a closed set, owned by scripts/schema_terms.py as
+`QUALITY_VERIFICATION_STATES` (`experimentally_verified`,
+`executed_not_demonstrated` -- artefacts on disk, level below L5 -- `incomplete`,
+`reported_claim`, `unverified`); the builder refuses a bucket outside it and the
+v2.2 gate re-checks every published record.
+
     python scripts/build_derived_v22.py
     python scripts/build_derived_v22.py --check
 """
@@ -68,6 +91,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_derived as bd  # noqa: E402
 import taxonomy as tx  # noqa: E402
+from schema_terms import QUALITY_VERIFICATION_STATES  # noqa: E402
 from vlun import DATASET_VERSION, ROOT, log, sha256_text, write_json, write_jsonl  # noqa: E402
 from vlun_ml import (  # noqa: E402
     DERIVED_V22, EXPERIMENTS_V22, ML_JSONL, REPORTS_V22,
@@ -114,6 +138,122 @@ ADJUDICATION_LEVELS = {
     "WEAK": ("L4", True),
 }
 UNSUPPORTED_LEVELS = ("L1", "L4")
+
+# ---------------------------------------------------------------------------
+# Level coherence: a record below L5 may never assert reproduction
+# ---------------------------------------------------------------------------
+# The adjudication demotes 30-odd records, but the claim it demotes is a claim
+# about a LEVEL. `outcome: "reproduced"` and an evidence type of
+# `experimentally_verified` are separate assertions the source row carries, and
+# a record outside the adjudication's reach can state them at L3 with nothing
+# but `all_pass` behind it (vyper:CVE-2024-24567). So the rule is stated once
+# here and applied to EVERY built view, adjudicated or not: only L5 and L6 earn
+# a reproduction claim, and anything below restates it exactly the way a
+# demotion does, with the raw values kept under `*_before_adjudication`.
+EXPERIMENTAL_LEVELS = ("L5", "L6")
+REPRODUCTION_OUTCOMES = ("reproduced",)
+# What a restated view says its run did. These are `experiment_view.outcome`
+# strings, not quality buckets: the outcome describes the run, the bucket
+# describes how the record is graded, and the two are different words.
+OUTCOME_EXECUTED_NOT_DEMONSTRATED = "executed_violation_not_demonstrated"
+OUTCOME_NO_COMMITTED_OBSERVATION = "no_committed_observation"
+# The `quality.verification` bucket for an executed run whose committed bytes do
+# not demonstrate the violation.
+BUCKET_EXECUTED_NOT_DEMONSTRATED = "executed_not_demonstrated"
+# At L2-L4 something was built or run, so a restated record still holds an
+# observation; at L0, L1 or with no level at all nothing was observed.
+OBSERVATION_LEVELS = ("L2", "L3", "L4")
+
+# The closed set of `quality.verification` labels this layer may publish
+# (single source: scripts/schema_terms.py, enforced by the v2.2 gate).
+VERIFICATION_LABELS = QUALITY_VERIFICATION_STATES
+
+# Import-time guard: every bucket quality_view() can emit must be in that
+# closed set, so a new bucket here without a vocabulary entry fails at import
+# rather than shipping a quality class no reader can look up.
+_UNLISTED_BUCKETS = sorted({
+    "experimentally_verified", BUCKET_EXECUTED_NOT_DEMONSTRATED, "incomplete",
+    "reported_claim", "unverified"} - set(QUALITY_VERIFICATION_STATES))
+if _UNLISTED_BUCKETS:
+    raise ImportError(
+        "build_derived_v22: quality.verification buckets "
+        f"{_UNLISTED_BUCKETS} are not in schema_terms."
+        "QUALITY_VERIFICATION_STATES")
+
+
+def below_l5(level) -> bool:
+    """True for every level that cannot carry an experimental reproduction claim.
+
+    `None` -- an experiment recorded with no level at all -- is below L5: the
+    ladder earns L5 by demonstrating a violation, and a record that never says
+    which level it claims has demonstrated nothing.
+    """
+    return level not in EXPERIMENTAL_LEVELS
+
+
+def restated_outcome(level) -> str:
+    """The outcome a view below L5 publishes instead of a reproduction claim."""
+    return (OUTCOME_EXECUTED_NOT_DEMONSTRATED if level in OBSERVATION_LEVELS
+            else OUTCOME_NO_COMMITTED_OBSERVATION)
+
+
+def restated_evidence_type(level) -> str:
+    """The evidence type a restated claim takes: an observation, or a claim."""
+    return "observed_fact" if level in OBSERVATION_LEVELS else "reported_claim"
+
+
+def restate_below_l5(view: dict, note: str) -> dict:
+    """Restate a view whose own level does not reach L5.
+
+    One implementation, used both by an adjudication demotion and by the
+    general gate in `enforce_level_coherence`, so the two cannot drift. Only a
+    view that actually asserts reproduction is touched: `outcome` naming a
+    reproduction, or an `evidence_type` of `experimentally_verified`. The raw
+    values stay published under `outcome_before_adjudication` /
+    `evidence_type_before_adjudication`, and the restated observation cites the
+    run artefacts as its source, because an `observed_fact` with no pointer is
+    rejected by the pointer gate.
+    """
+    if not below_l5(view.get("level")):
+        return view
+    if view.get("outcome") not in REPRODUCTION_OUTCOMES and \
+            view.get("evidence_type") != "experimentally_verified":
+        return view
+    out = dict(view)
+    level = out.get("level")
+    if out.get("outcome") in REPRODUCTION_OUTCOMES:
+        out["outcome_before_adjudication"] = out["outcome"]
+        out["outcome"] = restated_outcome(level)
+    if out.get("evidence_type") == "experimentally_verified":
+        out["evidence_type_before_adjudication"] = out["evidence_type"]
+        out["evidence_type"] = restated_evidence_type(level)
+        # A restated fact must still point at the bytes it rests on: an
+        # `observed_fact` with no source is rejected by the pointer gate, and
+        # the run artefacts are exactly that source.
+        out["source_refs"] = [a["path"] for a in out.get("artefacts") or []
+                              if a.get("exists")]
+    out["sub_l5_restatement"] = note
+    return out
+
+
+def enforce_level_coherence(view: dict) -> dict:
+    """The general gate: no published view claims reproduction below L5.
+
+    The adjudication overlay already does this for the records it governs; this
+    closes the class for every other record the layer publishes, adjudicated or
+    not, so a source row that says `reproduced` at L3 cannot reach the published
+    layer unchanged. It never changes a `level`: lowering one is an evidentiary
+    claim this script does not own, and the artefacts behind these records are
+    not re-read here.
+    """
+    if not view.get("present"):
+        return view
+    note = (f"level {view.get('level') or 'none'} is below L5: the run's own "
+            f"claim ({view.get('outcome')!r} / "
+            f"{view.get('evidence_type')!r}) is restated exactly as it is for "
+            "an adjudicated demotion, and the raw values are kept under "
+            "*_before_adjudication")
+    return restate_below_l5(view, note)
 
 
 class AdjudicationError(ValueError):
@@ -297,23 +437,48 @@ def apply_adjudication(view: dict, entry: dict | None) -> dict:
         out["demotion_reason"] = entry["reason"]
     if entry["level_after"] != entry["level_before"]:
         # A demotion re-reads the run; it must not leave the run's own claim of
-        # reproduction standing next to a lower level. The raw values are kept
-        # under `*_before_adjudication` so the source claim stays auditable.
-        if out.get("outcome"):
-            out["outcome_before_adjudication"] = out["outcome"]
-            out["outcome"] = ("executed_violation_not_demonstrated"
-                              if entry["level_after"] in ("L3", "L4")
-                              else "no_committed_observation")
-        if out.get("evidence_type") == "experimentally_verified":
-            out["evidence_type"] = ("reported_claim"
-                                    if entry["level_after"] == "L1"
-                                    else "observed_fact")
-            # A restated fact must still point at the bytes it rests on: an
-            # `observed_fact` with no source is rejected by the pointer gate,
-            # and the run artefacts are exactly that source.
-            out["source_refs"] = [a["path"] for a in out.get("artefacts") or []
-                                  if a.get("exists")]
+        # reproduction standing next to a lower level. The restatement is the
+        # shared one (`restate_below_l5`), so a demoted record and a record that
+        # simply never claimed L5 are restated identically, and the raw values
+        # stay auditable under `*_before_adjudication`.
+        out = restate_below_l5(
+            out, f"adjudicated {entry['verdict']} demotes {entry['level_before']} "
+                 f"to {entry['level_after']}: the run's own claim is restated and "
+                 "kept under *_before_adjudication")
     return out
+
+
+def level_outcome_disagreements(record: dict) -> list[str]:
+    """Every way this built record still asserts reproduction below L5.
+
+    The restatement in `enforce_level_coherence` is supposed to leave nothing
+    for this function to find, so a non-empty answer means a reproduction claim
+    reached the published layer next to a level that does not earn one -- in any
+    of the four places a reader can look: the view's outcome, its evidence type,
+    the record's evidence summary, and the quality bucket.
+    """
+    view = record.get("experiment_view") or {}
+    if not view.get("present") or not below_l5(view.get("level")):
+        return []
+    rid = record.get("id")
+    disagree = []
+    if view.get("outcome") in REPRODUCTION_OUTCOMES:
+        disagree.append(f"{rid}: outcome={view['outcome']!r} at level "
+                        f"{view.get('level') or 'none'}")
+    if view.get("evidence_type") == "experimentally_verified":
+        disagree.append(f"{rid}: evidence_type='experimentally_verified' at "
+                        f"level {view.get('level') or 'none'}")
+    if (record.get("evidence_summary") or {}).get("counts", {}) \
+            .get("experimentally_verified"):
+        disagree.append(
+            f"{rid}: evidence_summary counts experimentally_verified="
+            f"{record['evidence_summary']['counts']['experimentally_verified']} "
+            f"at level {view.get('level') or 'none'}")
+    if view.get("artefacts_all_present") and \
+            (record.get("quality") or {}).get("verification") == "experimentally_verified":
+        disagree.append(f"{rid}: quality.verification='experimentally_verified' "
+                        f"at level {view.get('level') or 'none'}")
+    return disagree
 
 
 def load_layer() -> tuple[list[dict], dict[str, dict]]:
@@ -345,25 +510,49 @@ def load_runs() -> dict[str, dict]:
 # evidence
 # ---------------------------------------------------------------------------
 
-def evidence_summary(ev: dict, exp: dict | None = None) -> dict:
-    """Summarise a record's evidence fields under the stated ladder.
+def field_evidence_types(ev: dict, exp: dict | None = None) -> dict:
+    """Each evidence field's type as the PUBLISHED layer counts it.
 
-    `exp` is the adjudicated experiment view. Where an adjudication re-reads a
-    run at a lower level, the `poc_execution` field is counted at the
-    adjudicated type: the summary describes what this layer claims, and a
-    record whose run no longer demonstrates the violation must not be
-    summarised as `experimentally_verified` while its level says otherwise.
+    The source row's own map is the starting point; where the experiment view
+    sits below L5, every field that claimed `experimentally_verified` is counted
+    at the view's restated type instead. A field earns that type only from a
+    run, so a view whose run does not demonstrate the violation cannot keep the
+    claim in any field.
+
+    The test is the LEVEL, not the presence of a restatement marker: a view
+    published before the marker existed is counted the same way as one
+    published after it, so a consumer reading the current layer and a consumer
+    reading a freshly rebuilt one cannot disagree.
+
+    This is the single implementation: `evidence_summary` aggregates over it and
+    benchmark family Q's answer key reads per-field types from it, so a consumer
+    cannot count a field at a type the derived layer refuses to publish.
     """
     override = None
-    if exp and exp.get("present") and exp.get("adjudication_verdict"):
+    if (exp and exp.get("present") and below_l5(exp.get("level"))
+            and exp.get("evidence_type") not in (None, "experimentally_verified")):
         override = exp.get("evidence_type")
-    counts = collections.Counter()
+    out = {}
     for key, value in (ev or {}).items():
         if isinstance(value, dict) and "evidence_type" in value:
             et = value["evidence_type"]
-            if override and key == "poc_execution" and et == "experimentally_verified":
+            if override and et == "experimentally_verified":
                 et = override
-            counts[et] += 1
+            out[key] = et
+    return out
+
+
+def evidence_summary(ev: dict, exp: dict | None = None) -> dict:
+    """Summarise a record's evidence fields under the stated ladder.
+
+    `exp` is the adjudicated experiment view. Where a re-read puts the record
+    below L5, its experiment-derived fields are counted at the restated type:
+    the summary describes what this layer claims, and a record whose run no
+    longer demonstrates the violation must not be summarised as
+    `experimentally_verified` while its level says otherwise.
+    """
+    types = field_evidence_types(ev, exp)
+    counts = collections.Counter(types.values())
     present = [t for t in LADDER if counts.get(t)]
     return {
         "fields": sum(counts.values()),
@@ -497,6 +686,10 @@ def experiment_view(finding: dict, adjudication: dict | None = None) -> dict:
     `level` is the level a reader should use. Where a per-test review exists,
     `level_before` keeps the source claim and the review's verdict is carried
     alongside; where none exists, `level` is exactly what the source says.
+
+    Whatever the level ends up being, the view then passes through
+    `enforce_level_coherence`: a level below L5 never publishes a reproduction
+    claim, whether or not the record was one of the adjudicated 35.
     """
     exp = finding.get("experiment")
     if not exp:
@@ -544,7 +737,7 @@ def experiment_view(finding: dict, adjudication: dict | None = None) -> dict:
         "evidence_type": "experimentally_verified"
                          if status == "experimentally_verified" else "unknown",
     }
-    return apply_adjudication(view, adjudication)
+    return enforce_level_coherence(apply_adjudication(view, adjudication))
 
 
 # ---------------------------------------------------------------------------
@@ -711,13 +904,20 @@ def quality_view(ev: dict, src: dict, cc: dict, exp: dict, tax: dict,
         # bytes do not demonstrate the claimed violation. A record adjudicated
         # below L5 must not read as `experimentally_verified` next to its own
         # level, so artefact presence alone names a separate bucket.
-        verification = "executed_not_demonstrated"
+        verification = BUCKET_EXECUTED_NOT_DEMONSTRATED
     elif exp["present"]:
         verification = "incomplete"
     elif (ev.get("counts") or {}).get("reported_claim"):
         verification = "reported_claim"
     else:
         verification = "unverified"
+    # `quality.verification` is a closed set (scripts/schema_terms.py); the
+    # bucket is checked against it here as well as by the v2.2 gate, so an
+    # unlisted label cannot be written by this builder in the first place.
+    if verification not in VERIFICATION_LABELS:
+        raise AssertionError(
+            f"quality.verification bucket {verification!r} is not in "
+            f"{list(VERIFICATION_LABELS)}")
 
     return {
         "provenance": provenance,
@@ -911,12 +1111,17 @@ def main() -> int:
             src_file = ML_JSONL / Path(r["original_pointer"]["file"]).name
             if not src_file.exists():
                 problems.append(f"{r['id']}: source file missing")
-        if r["experiment_view"]["present"] and \
-                not r["experiment_view"]["artefacts_all_present"]:
-            problems.append(f"{r['id']}: an experiment artefact is missing on disk")
         if r["sources_view"]["missing_source_ids"]:
             problems.append(f"{r['id']}: unresolved source ids "
                             f"{r['sources_view']['missing_source_ids']}")
+        if r["quality"]["verification"] not in VERIFICATION_LABELS:
+            problems.append(f"{r['id']}: quality.verification "
+                            f"{r['quality']['verification']!r} is outside the "
+                            "closed vocabulary")
+        if r["experiment_view"]["present"] and \
+                not r["experiment_view"]["artefacts_all_present"]:
+            problems.append(f"{r['id']}: an experiment artefact is missing on disk")
+        problems += level_outcome_disagreements(r)
     if problems:
         for p in problems:
             log(f"  PROBLEM {p}")

@@ -1023,6 +1023,7 @@ with its manifest fails the build.
 
 ```bash
 python scripts/build_all.py --with-network   # everything
+python scripts/build_derived.py --derive-l6-only  # offline: merge the L6 evidence into the published layer
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
@@ -1040,6 +1041,23 @@ Every script is idempotent, takes `--help`, and writes only under its own layer 
 (`skipped_no_network` — a skip is never reported as a pass). Fresh clones reproduce the JSONL and
 derived layers but not execution artefacts, which live git-ignored under `work/` (verdicts stay
 checkable via committed `result.json` files).
+
+The offline path for a checkout without the git-ignored `V1/clones/` and `work/poc_runs/` is
+`python scripts/build_derived.py --derive-l6-only`: it merges the authoritative two-revision L6
+evidence from `reports/verified_experiments.json` into the published layer, writes only each
+record's `verification` block and `evidence.evidence_types_present`, refreshes
+`derived/manifest.json`'s `derived_verification_levels`, and is idempotent. A full
+`scripts/build_derived.py` rebuild requires those ignored inputs; without them it rewrites ~390
+of 722 records' code-context, licence and redistribution fields for reasons that have nothing to
+do with L6. That is a limitation of the checkout, not a recommendation to skip verification:
+run the L6 merge and every gate below.
+
+`scripts/build_all.py` guards the published canonical layers: it snapshots their bytes, a stage
+that rewrites one is rolled back, and the build exits 1 with `CANONICAL REWRITE BLOCKED`. That is
+by design — a whole-tree rebuild is not idempotent over published splits — so a bare-checkout
+run of `build_all.py` is expected to fail at stage 2 (`build_derived.py`) unless it is run with
+`--allow-canonical-rewrite`, which is only for a reviewed, documented migration, never for a
+routine build.
 
 Key stages:
 

@@ -10,6 +10,7 @@ functions directly on temp fixtures so the domains cannot drift again.
 """
 from __future__ import annotations
 
+import collections
 import json
 import sys
 import tempfile
@@ -268,6 +269,120 @@ class TestCommittedManifestAccounting(unittest.TestCase):
         # and it reproduces the shipped manifest exactly
         self.assertEqual(
             json.loads(first), self.manifest)
+
+
+class TestDeclaredAccountingNumbers(unittest.TestCase):
+    """The shipped accounting is pinned to its literals, not only to itself.
+
+    `test_bucket_partitions_sum_to_candidates` proves the manifest agrees with
+    its own ledgers; a manifest that agreed with a *wrong* ledger count would
+    pass it. These literals are the published V4 admission numbers.
+    """
+
+    def test_declared_counts(self):
+        m = json.loads((ROOT / "derived_v4" / "manifest.json").read_text(
+            encoding="utf-8"))
+        self.assertEqual(m["admitted"], 5268)
+        self.assertEqual(m["candidates"], 5270)
+        self.assertEqual(m["duplicates"], 2)
+        self.assertEqual(m["quarantined"], 0)
+
+
+class TestDuplicateExclusionHoldsOnEveryPublishedSurface(unittest.TestCase):
+    """The 2 duplicate candidates must appear in no admitted/published surface.
+
+    `test_documented_duplicates_are_deferred_by_exact_id` checks the two
+    candidate ledgers only. The duplicates were also excluded from the
+    distribution projection (`distribution_v1/records_v4.jsonl` and its
+    withheld-pointer file), and those layers are what a downstream consumer
+    actually reads -- nothing pinned them. This class also pins that the two
+    `duplicate_of` targets survived exactly once, that the ADMITTED/DUPLICATE
+    partition is disjoint and complete, and that the two published manifest
+    copies are the same bytes.
+    """
+
+    DUPLICATES = ("oak_security_audit_reports:d02ce086b861",
+                  "oak_security_audit_reports:8dcf7824fc76")
+    TARGETS = ("oak_security_audit_reports:14c035ceccf6",
+               "oak_security_audit_reports:c1f30274307c")
+    # Files that carry only admitted records: a duplicate id here is a leak.
+    ADMITTED_ONLY = ("jsonl_v4/findings.jsonl",
+                     "derived_v4/admitted_ledger.jsonl",
+                     "derived_v4/quarantined_ledger.jsonl",
+                     "distribution_v1/records_v4.jsonl",
+                     "distribution_v1/records_v4_withheld_pointers.jsonl")
+
+    @staticmethod
+    def _ids(path: str, key: str) -> list:
+        out = []
+        with open(ROOT / path, encoding="utf-8") as fh:
+            for line in fh:
+                if line.strip():
+                    row = json.loads(line)
+                    if key in row:
+                        out.append(row[key])
+        return out
+
+    def test_duplicate_ids_are_absent_from_admitted_only_surfaces(self):
+        for path in self.ADMITTED_ONLY:
+            p = ROOT / path
+            if not p.exists():
+                self.fail(f"{path} disappeared")
+            text = p.read_text(encoding="utf-8")
+            ids = set(self._ids(path, "candidate_id")) \
+                | set(self._ids(path, "record_id"))
+            for cid in self.DUPLICATES:
+                self.assertNotIn(cid, ids, f"{path}: duplicate admitted as a row")
+                # the bare id suffix must not hide in any other field either
+                self.assertNotIn(cid.split(":")[1], text,
+                                 f"{path}: duplicate id present outside the id fields")
+
+    def test_duplicate_ids_appear_only_as_DUPLICATE_candidates(self):
+        ledger = {r["candidate_id"]: r for r in
+                  (json.loads(line) for line in
+                   (ROOT / "derived_v4" / "candidate_ledger.jsonl")
+                   .read_text(encoding="utf-8").splitlines() if line.strip())}
+        for cid in self.DUPLICATES:
+            self.assertEqual(ledger[cid]["decision"], "DUPLICATE", cid)
+            self.assertEqual(sum(1 for line in
+                                 (ROOT / "derived_v4" / "candidate_ledger.jsonl")
+                                 .read_text(encoding="utf-8").splitlines()
+                                 if cid in line), 1, cid)
+
+    def test_duplicate_targets_are_admitted_exactly_once(self):
+        """Each deduplicated finding survived the merge in one admitted row."""
+        for path in ("jsonl_v4/findings.jsonl", "derived_v4/admitted_ledger.jsonl",
+                     "distribution_v1/records_v4.jsonl"):
+            key = "record_id" if path.startswith("distribution_v1") else "candidate_id"
+            ids = self._ids(path, key)
+            counts = collections.Counter(ids)
+            for target in self.TARGETS:
+                self.assertIn(target, counts, f"{path}: duplicate_of target missing")
+                self.assertEqual(counts[target], 1,
+                                 f"{path}: {target} present {counts[target]} times")
+
+    def test_admitted_and_duplicate_partitions_are_disjoint_and_complete(self):
+        cand = [json.loads(line) for line in
+                (ROOT / "derived_v4" / "candidate_ledger.jsonl")
+                .read_text(encoding="utf-8").splitlines() if line.strip()]
+        admitted = {r["candidate_id"] for r in cand
+                    if r.get("decision") == "ADMITTED"}
+        dups = {r["candidate_id"] for r in cand if r.get("decision") == "DUPLICATE"}
+        dup_ledger = set(self._ids("derived_v4/duplicate_ledger.jsonl", "candidate_id"))
+        self.assertFalse(admitted & dups, "a candidate is both admitted and duplicate")
+        self.assertEqual(len(cand), len(admitted) + len(dups),
+                         "the decision buckets do not partition the candidates")
+        self.assertEqual(dups, dup_ledger,
+                         "candidate_ledger DUPLICATE rows and duplicate_ledger differ")
+        self.assertEqual(len(dup_ledger), 2, "a third id is in the duplicate ledger")
+
+    def test_the_two_published_v4_manifests_are_the_same_bytes(self):
+        a = (ROOT / "derived_v4" / "manifest.json").read_bytes()
+        b = (ROOT / "V4" / "manifest.json").read_bytes()
+        self.assertEqual(a, b, "derived_v4/manifest.json and V4/manifest.json diverged")
+        m = json.loads(a.decode("utf-8"))
+        self.assertEqual(m["admitted"], 5268)
+        self.assertEqual(m["duplicates"], 2)
 
 
 if __name__ == "__main__":

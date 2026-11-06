@@ -39,6 +39,17 @@ prose a model is shown comes from the immutable jsonl_ml layer (the derived
 record carries no summary), re-read through the pointer and verified against
 its sha256.
 
+Which copy is the answer, though, is not a detail. `jsonl_ml/` is immutable and
+still claims L5 for the records the 2026-11-01 artefact-grounded adjudication
+demoted, so a family that grades a verification claim reads the ADJUDICATED
+view (`experiment_view.level/.outcome/.evidence_type` and the per-field types
+`scripts/build_derived_v22.py::field_evidence_types` counts), never the raw
+source block: family M's level/outcome/evidence type, and the experiment-derived
+field of family Q's `field_evidence_types`. Family M is retired today, so its
+published rows under benchmark/retired_families/ are pre-adjudication history
+and are not rewritten by a rebuild; `m_answer_key_problems` is what governs the
+day it is emitted live, at build time and at the gate.
+
     python scripts/build_benchmark_v22.py
     python scripts/build_benchmark_v22.py --check
 """
@@ -53,6 +64,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_derived_v22 as _d22  # noqa: E402  (the adjudicated view is the owner of the level/evidence rule)
 from vlun import (  # noqa: E402
     ATTACKER_KINDS, BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, RETIRED_FAMILIES, ROOT, SPLITS, log, read_jsonl, retired_manifest_entry, sha256_text, write_json, write_jsonl,
 )
@@ -154,6 +166,19 @@ QUALITY_RUBRIC = {
             "layer, so they are stated here rather than graded: every record has "
             "no negative reasoning and no numerical severity score.",
 }
+
+# Drift guard against the vocabulary the derived layer owns: family Q publishes
+# this rubric as the model-facing rule, so every `quality.verification` bucket
+# in schema_terms.QUALITY_VERIFICATION_STATES (re-exported by
+# scripts/build_derived_v22.py) must be described by it. A bucket with no rule
+# text would make Q's answer key ungradeable, and a rule text describing a
+# bucket the builder never emits would teach the model a class that cannot ship.
+_UNDESCRIBED_BUCKETS = [v for v in _d22.VERIFICATION_LABELS
+                        if v not in QUALITY_RUBRIC["verification"]]
+if _UNDESCRIBED_BUCKETS:
+    raise ImportError(
+        "build_benchmark_v22: QUALITY_RUBRIC['verification'] does not describe "
+        f"{_UNDESCRIBED_BUCKETS} (add the rule or retire the bucket)")
 
 _PAYLOAD_HASH_RE = re.compile(r'"[a-z_]*sha256"\s*:\s*"[0-9a-f]{64}"', re.I)
 
@@ -372,6 +397,15 @@ def task_m(split: str, bundle: dict, rec: dict, finding: dict) -> dict | None:
     exp = finding.get("experiment")
     if not exp:
         return None
+    # The ANSWER is the adjudicated view, not the source block. `jsonl_ml/` is
+    # immutable and still claims L5 for every record the 2026-11-01 re-read
+    # demoted, so a key read off `finding["experiment"]` grades a model on the
+    # claim the published layer withdrew. `rec["experiment_view"]` is what this
+    # dataset publishes: `level`, `outcome` and `evidence_type` after the
+    # adjudication and after the level-coherence restatement. The `run` block
+    # below stays the source's own -- the task asks the model to judge the run,
+    # and the run's claim is the evidence it is given.
+    view = rec.get("experiment_view") or {}
     run = {k: exp.get(k) for k in (
         "command", "commit_sha", "executed", "exit_code", "experiment_ids",
         "fixed_revision_executed", "fixed_version", "match_kinds", "seconds",
@@ -382,8 +416,6 @@ def task_m(split: str, bundle: dict, rec: dict, finding: dict) -> dict | None:
                         for k in ("result_artifact", "stdout_artifact",
                                   "stderr_artifact") if exp.get(k)]
     run["stdout_tail"] = _stdout_tail(exp)
-    why = next((exp.get(k) for k in ("why_no_L6", "why_no_L5", "why_no_L4")
-                if exp.get(k)), None)
     inp = {
         "prose": prose_view(finding),
         "run": run,
@@ -401,14 +433,16 @@ def task_m(split: str, bundle: dict, rec: dict, finding: dict) -> dict | None:
                   "\"outcome\": ..., \"evidence_type\": ..., "
                   "\"why_not_higher\": ...}.",
     }
-    answer = {"level": exp.get("level"), "outcome": exp.get("outcome"),
-              "evidence_type": "experimentally_verified",
-              "why_not_higher": why}
+    answer = {"level": view.get("level"), "outcome": view.get("outcome"),
+              "evidence_type": view.get("evidence_type"),
+              "why_not_higher": view.get("why_not_higher")}
     basis = ("the level is what this run earned under the ladder: L3-L6 are only "
              "reachable by an artefact that exists on disk, and the key is read "
-             "from the record's own experiment block")
+             "from the record's adjudicated experiment view "
+             "(experiment_view.level/.outcome/.evidence_type), which carries the "
+             "artefact-grounded re-read of the source claim")
     return base_task("M", split, rec["id"], inp, answer, "labeled",
-                     "experimentally_verified", basis)
+                     view.get("evidence_type") or "unknown", basis)
 
 
 # ---------------------------------------------------------------------------
@@ -574,11 +608,14 @@ def task_q(split: str, bundle: dict, rec: dict, finding: dict) -> dict:
     }
     q = rec["quality"]
     answer = {
-        "field_evidence_types": {name: block["evidence_type"]
-                                 for name, block in
-                                 (finding.get("evidence") or {}).items()
-                                 if isinstance(block, dict)
-                                 and "evidence_type" in block},
+        # The same adjudicated inputs `scripts/build_derived_v22.py` used: a
+        # field's type is what the published layer counts it at, so a record
+        # whose run was re-read below L5 cannot have its experiment-derived
+        # field typed `experimentally_verified` in this answer key. Q grades
+        # applying the published rubric, so the rubric's inputs must be the
+        # published ones, not the immutable source row's.
+        "field_evidence_types": _d22.field_evidence_types(
+            finding.get("evidence") or {}, exp),
         "strongest": summary.get("strongest"),
         "weakest": summary.get("weakest"),
         "quality": {k: q.get(k) for k in (
@@ -601,6 +638,42 @@ BUILDERS = {"K": task_k, "L": task_l, "M": task_m, "N": task_n, "O": task_o,
 # ---------------------------------------------------------------------------
 # build
 # ---------------------------------------------------------------------------
+
+M_FAMILY_NAME = "M_experiment_level_classification"
+M_FAMILY_FILE = f"{M_FAMILY_NAME}.jsonl"
+
+
+def m_answer_key_problems(rows: list[dict], derived: dict[str, dict]) -> list[str]:
+    """Fail unless every family-M answer key IS the adjudicated view.
+
+    Family M's answer key is the record's level, outcome and evidence type
+    after the artefact-grounded re-read, so a key that disagrees with
+    `experiment_view` is either a builder regression or a hand-edited task file
+    putting a withdrawn L5 claim back on the wire. This is the fail-closed
+    guard for the day M is emitted live again: the builder refuses to write it,
+    and the v2.2 gate fails, unless every row answers at the published level.
+
+    It says nothing about the frozen copy under `benchmark/retired_families/`:
+    those rows are published history, built while the source claim still stood,
+    and no rebuild may rewrite them.
+    """
+    problems = []
+    for row in rows:
+        rid = (row.get("source") or {}).get("record_id")
+        rec = derived.get(rid)
+        if rec is None:
+            problems.append(f"{row.get('id')}: no derived_v2_2 record {rid!r}")
+            continue
+        view = rec.get("experiment_view") or {}
+        key = row.get("answer_key") or {}
+        for field in ("level", "outcome", "evidence_type"):
+            if key.get(field) != view.get(field):
+                problems.append(
+                    f"{row.get('id')}: answer_key.{field}="
+                    f"{key.get(field)!r} disagrees with experiment_view."
+                    f"{field}={view.get(field)!r}")
+    return problems
+
 
 def build() -> tuple[dict[str, list[dict]], dict]:
     bundle = load_all()
@@ -634,8 +707,15 @@ def build() -> tuple[dict[str, list[dict]], dict]:
                     row = build_one(split, bundle, rec, finding)
                     if row is not None:
                         tasks[key].append(row)
+        # Checked on every build, retired or not: the guard that decides
+        # whether M may be emitted live has to be able to speak about the rows
+        # the current builder produces, and a builder drift is worth catching
+        # here rather than in a scored headline.
+        problems += m_answer_key_problems(tasks["M"], derived)
+
     return tasks, {"problems": problems, "pointers": len(pointers),
-                   "derived": len(derived)}
+                   "derived": len(derived), "derived_records": derived,
+                   "m_is_retired": M_FAMILY_FILE in RETIRED_FAMILIES}
 
 
 # ---------------------------------------------------------------------------
@@ -710,6 +790,11 @@ def main() -> int:
                 carried["status"] = "retired"
                 manifest["tasks"][BENCHMARK_FAMILIES[key][0]] = carried
                 log(f"  {BENCHMARK_FAMILIES[key][0]:34s} retired, entry carried")
+                if key == "M":
+                    log(f"  {'':34s} frozen rows are pre-adjudication history; "
+                        "the live builder answers from experiment_view and is "
+                        "guard-checked by m_answer_key_problems if M is "
+                        "ever un-retired")
             else:
                 raise SystemExit(
                     f"retired family {BENCHMARK_FAMILIES[key][0]} has no "
@@ -727,6 +812,17 @@ def main() -> int:
                 continue
             seen.add(r["id"])
             uniq.append(r)
+        if key == "M":
+            # Fail closed before a single row reaches the live tree: family M
+            # may only be emitted while every answer key equals the adjudicated
+            # view (level, outcome and evidence type alike).
+            live = m_answer_key_problems(uniq, info["derived_records"])
+            if live:
+                for p in live[:10]:
+                    log(f"  PROBLEM {p}")
+                raise SystemExit(
+                    f"refusing to emit family M live: {len(live)} answer key(s) "
+                    "disagree with experiment_view")
         entry = manifest_entry(key, uniq)
         entry["duplicate_rows_dropped"] = dropped
         manifest["tasks"][BENCHMARK_FAMILIES[key][0]] = entry
@@ -765,15 +861,45 @@ def main() -> int:
         # direction (regression 2026-10-25 — a stale splits_v2_2 pointer made
         # the rebuild refuse to produce rows, and the drift surfaced only as a
         # critical validate.py failure later; catch it at the owner script).
-        # Retired families are compared too: their rows are frozen, and the
-        # strongest statement of "frozen" is that a rebuild still reproduces
-        # them byte for byte.
+        # Retired families are the exception, and the exception is the point:
+        # their rows were written by the builder as it stood when they were
+        # retired, and correcting that builder (family M now answers from the
+        # adjudicated view) must not be a reason to rewrite published history.
+        # They are checked as frozen artefacts instead -- present, parseable,
+        # carried, and never rewritten -- and `m_answer_key_problems` is what
+        # governs them the day one is emitted live.
         stale = []
         for key in V22_FAMILIES:
             name = BENCHMARK_FAMILIES[key][0]
             entry = (manifest.get("tasks") or {}).get(name) or {}
             rel = entry.get("file") or f"benchmark/{name}.jsonl"
             path = ROOT / rel
+            if f"{name}.jsonl" in RETIRED_FAMILIES:
+                # A retired family is published history, and the rebuild is not
+                # its author any more: the rows were built from the source
+                # claim that stood before the L5 re-read, and the builder now
+                # answers from the adjudicated view. Comparing the two byte-wise
+                # would demand rewriting the frozen file, which retirement
+                # forbids. So the frozen copy is checked for what it is:
+                # present, parseable, carried in the manifest, and untouched.
+                if not path.exists():
+                    stale.append(f"{rel} (retired file absent)")
+                    continue
+                try:
+                    frozen = [json.loads(line) for line in
+                              path.read_text(encoding="utf-8").splitlines()
+                              if line.strip()]
+                except json.JSONDecodeError as exc:
+                    stale.append(f"{rel} (retired file does not parse: {exc})")
+                    continue
+                if entry.get("status") != "retired":
+                    stale.append(f"{rel} (retired rows carried with "
+                                 f"status={entry.get('status')!r})")
+                if entry.get("tasks") != len(frozen):
+                    stale.append(f"{rel} (manifest carries "
+                                 f"tasks={entry.get('tasks')!r} but the frozen "
+                                 f"file has {len(frozen)} rows)")
+                continue
             want = _render_jsonl(uniq_by_key.get(key, []))
             have = (path.read_text(encoding="utf-8") if path.exists() else None)
             if have != want:

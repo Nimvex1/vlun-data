@@ -350,6 +350,39 @@ def main() -> int:
                        "(distinct proof runs, no double counting); "
                        "candidate_artefacts and evidence_admitted_records "
                        "recomputed from the ledgers")
+        # The published counts must ship with the definition that says what
+        # population they count: `evidence_admitted_records` is an L3+ record
+        # count, not a reproduced-vulnerability count. Checked against the
+        # same computation that produced the numbers, so a key can never be
+        # published without its meaning.
+        def_bad = []
+        published = manifest.get("run_accounting_definitions") or {}
+        for key in accounting["counts"]:
+            definition = published.get(key)
+            if not isinstance(definition, str) or not definition.strip():
+                def_bad.append(f"{key}: no published definition")
+        # The two keys a reader most easily conflates must each say, in the
+        # published definition, which population they do NOT count.
+        for ambiguous, marker in (
+                ("evidence_admitted_records", "NOT a count of reproduced"),
+                ("candidate_artefacts", "counts candidates, not admitted records"),
+                ("execution_attempts", "counts runs, not records")):
+            if marker not in (published.get(ambiguous) or ""):
+                def_bad.append(f"{ambiguous}: definition does not say "
+                               f"{marker!r}")
+        if set(published) - set(accounting["counts"]):
+            def_bad.append("definitions for keys that are not counted: "
+                           f"{sorted(set(published) - set(accounting['counts']))}")
+        note = manifest.get("experimental_runs_note") or ""
+        for want in (f"{accounting['levels']['l5']} records reproduce a claimed "
+                     "violation (L5)",
+                     f"{accounting['levels']['l6']} are two-revision verified (L6)"):
+            if want not in note:
+                def_bad.append(f"experimental_runs_note does not state {want!r}")
+        rep.add("counts", "run_accounting_definitions_published",
+                not def_bad, def_bad,
+                detail="every run-accounting key carries a definition and the "
+                       "note states the L5/L6 truth, recomputed from the ledgers")
         try:
             sl = json.loads((V.DERIVED_V3 / "source_ledger.json").read_text(encoding="utf-8"))
             sources = sl.get("sources", [])

@@ -456,18 +456,29 @@ def main() -> int:
             r["language"] for r in records)),
         "tiers": {str(spec["tier"]): spec["source_id"] for spec in V.SOURCES_V3},
         # Explicit run accounting. `candidate_artefacts` counts ledger rows
-        # carrying an experiment; the execution counts are distinct proof runs
+        # carrying an experiment; `evidence_admitted_records` counts admitted
+        # records promoted to L3+; the execution counts are distinct proof runs
         # from reports/v3/experimental_proof.json (attempts = success + failed
         # + blocked, each run exactly once). The old
         # `experimental_runs_attempted` key said "runs" while counting
-        # candidates and is deliberately gone.
+        # candidates and is deliberately gone. The names are kept because the
+        # gate, the README generator and the schema_terms alias table read
+        # them; `run_accounting_definitions` publishes what each one MEANS,
+        # computed in scripts/v32_execution.py next to the counting expression,
+        # so a reader cannot take 127 L3+ records for 127 reproduced exploits.
         "candidate_artefacts": accounting["counts"]["candidate_artefacts"],
         "execution_attempts": accounting["counts"]["execution_attempts"],
         "successful_executions": accounting["counts"]["successful_executions"],
         "failed_executions": accounting["counts"]["failed_executions"],
         "blocked_executions": accounting["counts"]["blocked_executions"],
         "evidence_admitted_records": accounting["counts"]["evidence_admitted_records"],
+        "run_accounting_definitions": accounting["definitions"],
         "experimental_runs_note": (
+            f"{accounting['levels']['l5']} records reproduce a claimed violation "
+            f"(L5), {accounting['levels']['l6']} are two-revision verified (L6); "
+            f"{accounting['counts']['execution_attempts']} distinct proof runs; "
+            f"{accounting['counts']['evidence_admitted_records']} records carry "
+            "an admitted execution artefact. "
             f"V3.2 execution overlay: {accounting['counts']['candidate_artefacts']} "
             "candidates carry a run artefact "
             f"({accounting['counts']['execution_attempts']} distinct proof runs: "
@@ -476,6 +487,8 @@ def main() -> int:
             f"{accounting['counts']['blocked_executions']} blocked; levels from "
             "committed reports/v3/experimental_proof.json and "
             "reports/v3/compile_sweep.json via scripts/v32_execution.py). "
+            "`evidence_admitted_records` counts L3-or-above admitted records "
+            "(compile-or-run artefact present), not reproduced vulnerabilities. "
             "L5 requires a structured, claim-specific violation_evidence "
             "record (impact type, actor, property, expected vs observed, "
             "source); attacker profit is mandatory only for fund_theft. L6 is "

@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (1 critical failures): v2 78/78 · v3.0 44/45 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (0 critical failures): v2 84/84 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
 Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
@@ -87,7 +87,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   attempted that did not demonstrate the violation, and
   256 rest on a public label alone — definitions
   in [`reports/rejection_evidence.md`](reports/rejection_evidence.md);
-  0 API-sibling counterexample pairs.
+  71 API-sibling counterexample pairs.
 - **v2.2:** 37 executed runs;
   123 of 137 records state no attacker standing.
 - **V3.0:** 3,517 strong imports +
@@ -323,6 +323,7 @@ with its manifest fails the build.
 
 ```bash
 python scripts/build_all.py --with-network   # everything
+python scripts/build_derived.py --derive-l6-only  # offline: merge the L6 evidence into the published layer
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
@@ -340,6 +341,23 @@ Every script is idempotent, takes `--help`, and writes only under its own layer 
 (`skipped_no_network` — a skip is never reported as a pass). Fresh clones reproduce the JSONL and
 derived layers but not execution artefacts, which live git-ignored under `work/` (verdicts stay
 checkable via committed `result.json` files).
+
+The offline path for a checkout without the git-ignored `V1/clones/` and `work/poc_runs/` is
+`python scripts/build_derived.py --derive-l6-only`: it merges the authoritative two-revision L6
+evidence from `reports/verified_experiments.json` into the published layer, writes only each
+record's `verification` block and `evidence.evidence_types_present`, refreshes
+`derived/manifest.json`'s `derived_verification_levels`, and is idempotent. A full
+`scripts/build_derived.py` rebuild requires those ignored inputs; without them it rewrites ~390
+of 722 records' code-context, licence and redistribution fields for reasons that have nothing to
+do with L6. That is a limitation of the checkout, not a recommendation to skip verification:
+run the L6 merge and every gate below.
+
+`scripts/build_all.py` guards the published canonical layers: it snapshots their bytes, a stage
+that rewrites one is rolled back, and the build exits 1 with `CANONICAL REWRITE BLOCKED`. That is
+by design — a whole-tree rebuild is not idempotent over published splits — so a bare-checkout
+run of `build_all.py` is expected to fail at stage 2 (`build_derived.py`) unless it is run with
+`--allow-canonical-rewrite`, which is only for a reviewed, documented migration, never for a
+routine build.
 
 Key stages:
 

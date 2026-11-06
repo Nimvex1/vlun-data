@@ -23,21 +23,21 @@
   ],
   "counts": {
     "by_licence": {
-      "CC-BY-4.0": 206,
-      "MIT": 272
+      "CC-BY-4.0": 207,
+      "MIT": 277
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1301,
       "metadata_only": 1,
-      "project_own": 463,
+      "project_own": 469,
       "withheld_third_party_no_redistribution_rights": 142
     },
     "not_released_paths": 1443,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 478,
-    "tracked_paths": 1921
+    "released_paths": 484,
+    "tracked_paths": 1927
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -1746,6 +1746,7 @@
     "reports/v2_1_summary.json": "CC-BY-4.0",
     "reports/v2_2/benchmark.json": "CC-BY-4.0",
     "reports/v2_2/dataset_summary.json": "CC-BY-4.0",
+    "reports/v2_2/l5_adjudication.json": "CC-BY-4.0",
     "reports/v2_2/quality_report.md": "CC-BY-4.0",
     "reports/v3/INTEGRATION_NOTES.md": "CC-BY-4.0",
     "reports/v3/compile_sweep.json": "CC-BY-4.0",
@@ -1820,6 +1821,7 @@
     "scripts/build_span_tasks.py": "MIT",
     "scripts/build_splits_v22.py": "MIT",
     "scripts/build_subsets.py": "MIT",
+    "scripts/build_v22_l5_adjudication.py": "MIT",
     "scripts/build_v3.py": "MIT",
     "scripts/build_v3_harvest.py": "MIT",
     "scripts/build_vyper_ml.py": "MIT",
@@ -2050,10 +2052,14 @@
     "tests/test_span_scoring.py": "MIT",
     "tests/test_splits.py": "MIT",
     "tests/test_taxonomy_gate.py": "MIT",
+    "tests/test_v1_derived_l6.py": "MIT",
+    "tests/test_v22_l5_adjudication.py": "MIT",
     "tests/test_v22_split_pointers.py": "MIT",
     "tests/test_v32_execution.py": "MIT",
     "tests/test_v32_unblock_records.py": "MIT",
-    "tests/test_v4_ingestion.py": "MIT"
+    "tests/test_v3_run_accounting.py": "MIT",
+    "tests/test_v4_ingestion.py": "MIT",
+    "tests/test_v4_manifest_accounting.py": "MIT"
   },
   "path_status_detail": {
     "RELEASE_MANIFEST.json": {
@@ -5217,6 +5223,7 @@
     "reports/v2_1_summary.json": "project_own",
     "reports/v2_2/benchmark.json": "project_own",
     "reports/v2_2/dataset_summary.json": "project_own",
+    "reports/v2_2/l5_adjudication.json": "project_own",
     "reports/v2_2/quality_report.md": "project_own",
     "reports/v3/INTEGRATION_NOTES.md": "project_own",
     "reports/v3/compile_sweep.json": "project_own",
@@ -5291,6 +5298,7 @@
     "scripts/build_span_tasks.py": "project_own",
     "scripts/build_splits_v22.py": "project_own",
     "scripts/build_subsets.py": "project_own",
+    "scripts/build_v22_l5_adjudication.py": "project_own",
     "scripts/build_v3.py": "project_own",
     "scripts/build_v3_harvest.py": "project_own",
     "scripts/build_vyper_ml.py": "project_own",
@@ -5538,10 +5546,14 @@
     "tests/test_span_scoring.py": "project_own",
     "tests/test_splits.py": "project_own",
     "tests/test_taxonomy_gate.py": "project_own",
+    "tests/test_v1_derived_l6.py": "project_own",
+    "tests/test_v22_l5_adjudication.py": "project_own",
     "tests/test_v22_split_pointers.py": "project_own",
     "tests/test_v32_execution.py": "project_own",
     "tests/test_v32_unblock_records.py": "project_own",
+    "tests/test_v3_run_accounting.py": "project_own",
     "tests/test_v4_ingestion.py": "project_own",
+    "tests/test_v4_manifest_accounting.py": "project_own",
     "training/attacker_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/detection.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/language.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
@@ -5735,6 +5747,7 @@
     "reports/v2_1_summary.json",
     "reports/v2_2/benchmark.json",
     "reports/v2_2/dataset_summary.json",
+    "reports/v2_2/l5_adjudication.json",
     "reports/v2_2/quality_report.md",
     "reports/v3/INTEGRATION_NOTES.md",
     "reports/v3/compile_sweep.json",
@@ -5809,6 +5822,7 @@
     "scripts/build_span_tasks.py",
     "scripts/build_splits_v22.py",
     "scripts/build_subsets.py",
+    "scripts/build_v22_l5_adjudication.py",
     "scripts/build_v3.py",
     "scripts/build_v3_harvest.py",
     "scripts/build_vyper_ml.py",
@@ -6039,10 +6053,14 @@
     "tests/test_span_scoring.py",
     "tests/test_splits.py",
     "tests/test_taxonomy_gate.py",
+    "tests/test_v1_derived_l6.py",
+    "tests/test_v22_l5_adjudication.py",
     "tests/test_v22_split_pointers.py",
     "tests/test_v32_execution.py",
     "tests/test_v32_unblock_records.py",
-    "tests/test_v4_ingestion.py"
+    "tests/test_v3_run_accounting.py",
+    "tests/test_v4_ingestion.py",
+    "tests/test_v4_manifest_accounting.py"
   ],
   "rights_transformation_version": "rights-1.0",
   "rules": [

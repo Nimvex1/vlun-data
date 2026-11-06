@@ -24,7 +24,11 @@ Fixes applied here (never by rewriting a source layer):
   * detection admits ONLY verified rows: v1 judged+confirmed findings as
     positives, v1 rejected/disputed and v2.2 negative-controls as
     negatives. Unverified harvest rows (v3/v4/vbeta IMPORT*) are never
-    detection positives.
+    detection positives. A v2.2 positive is gated on the ADJUDICATED
+    ``experiment_view.level`` from ``derived_v2_2/records.jsonl`` (L5/L6 only),
+    never on the source layer's ``finding.status``: that status is immutable
+    and still says ``experimentally_verified`` for records the L5 adjudication
+    demoted to L4/L1, so a raw read ships demoted records as verified.
   * every row is flat with a budgeted ``input_text`` (<=2000 chars) plus a
     code *pointer* (file/commit/lines/url), never a nested blob.
   * per-row inverse-frequency ``weight`` per (task, split) counters class
@@ -89,12 +93,27 @@ _leak_spec = importlib.util.spec_from_file_location(
 _leak = importlib.util.module_from_spec(_leak_spec)
 _leak_spec.loader.exec_module(_leak)
 
+# The rule "which levels still claim a reproduction" is owned by the derived
+# layer's builder, so this script imports it rather than restating it: a change
+# to what the published layer is willing to claim cannot leave these training
+# labels behind. Same importlib idiom as the leakage module above.
+_d22_spec = importlib.util.spec_from_file_location(
+    "_d22", ROOT / "scripts" / "build_derived_v22.py")
+_d22 = importlib.util.module_from_spec(_d22_spec)
+_d22_spec.loader.exec_module(_d22)
+
 
 SEVERITY_VOCAB = ("critical", "high", "medium", "low", "informational")
 _SEV_WORD = re.compile(
     r"\b(critical|high|medium|low|informational|info)\b", re.I)
 TASKS = ("severity", "language", "detection")
 SPLITS = ("train", "validation", "test")
+# The levels at which the v2.2 published layer still claims it reproduced the
+# violation, and therefore the only levels at which a v2.2 detection row may
+# carry the `verified` supervision label. Read from
+# `derived_v2_2/records.jsonl`'s `experiment_view.level`, i.e. the adjudicated
+# level, never from the immutable source row's `finding.status`.
+DETECTION_LEVELS = _d22.EXPERIMENTAL_LEVELS
 CHUNK_ROWS = 5000
 INPUT_BUDGET = 2000
 SNIPPET_BUDGET = 800
@@ -352,16 +371,35 @@ def harvest_v22(b: Builder):
             b.excluded["v2.2:language_unknown"] += 1
         status = f.get("status")
         record_class = f.get("record_class")
-        if status in ("confirmed", "experimentally_verified"):
+        # A v2.2 positive used to be read off the RAW status the source layer
+        # published (`finding.status == "experimentally_verified"`), which the
+        # L5 adjudication deliberately leaves alone. Every demoted record still
+        # carries that status, so the raw test kept shipping 31 detection
+        # positives the published layer no longer verifies. The gate is the
+        # adjudicated view this row already carries: `experiment_view.level`,
+        # the level a reader is told to use. Nothing below L5 -- and no level at
+        # all -- earns a `verified` positive. A record with no experiment behind
+        # it is untouched by that rule: its `confirmed` status is a judge's
+        # verdict, not a reproduction claim, exactly as in the v1 harvest.
+        view = r.get("experiment_view") or {}
+        adjudicated_level = view.get("level")
+        verified_claim = not (view.get("present")
+                              and adjudicated_level not in DETECTION_LEVELS)
+        if status in ("confirmed", "experimentally_verified") and verified_claim:
             b.add("detection", split, "v2.2", cid, "verified",
                   build_input(f.get("title"), summary, ctx.get("file"),
                               ctx.get("line_start"), ctx.get("line_end"),
                               ctx.get("snippet")),
-                  True, None,
+                  True, adjudicated_level,
                   {"source_id": None, "record_ref": cid},
                   code_ref(ctx.get("file"), ctx.get("commit_sha"),
                            ctx.get("line_start"), ctx.get("line_end"),
                            ctx.get("source_url")))
+        elif status in ("confirmed", "experimentally_verified"):
+            # Below L5: neither a verified positive nor a demonstrated negative,
+            # so it is excluded rather than relabelled -- `executed, violation
+            # not demonstrated` says nothing about whether the finding is false.
+            b.excluded["v2.2:detection_below_l5"] += 1
         elif record_class in ("negative_control", "out_of_scope",
                               "overstated_by_the_report"):
             b.add("detection", split, "v2.2", cid, "verified",
@@ -594,7 +632,13 @@ def main() -> int:
             "detection": ("verified only: v1 judged+confirmed positives, "
                           "v1 rejected/disputed and v2.2 negative-control "
                           "negatives, v3/vbeta IMPORT_AS_NEGATIVE negatives; "
-                          "unverified harvest rows never positives"),
+                          "a v2.2 positive must reach L5/L6 in the adjudicated "
+                          "experiment_view.level of derived_v2_2/records.jsonl "
+                          "(the immutable source status is not read: it still "
+                          "says experimentally_verified for demoted records); "
+                          "unverified harvest rows never positives; a v2.2 row "
+                          "below L5 is excluded as v2.2:detection_below_l5, "
+                          "never relabelled a negative"),
         },
         "example_count": total,
         "counts": counts,

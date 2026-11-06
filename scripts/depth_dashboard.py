@@ -54,11 +54,24 @@ def main() -> int:
 
     layers: dict[str, dict] = {}
     findings = jl(ROOT / "jsonl" / "findings.jsonl")
+    # The v1 level histogram is read from the published layer, never typed here:
+    # a literal "7" stayed true long after it could have stopped being true, and
+    # a dashboard figure that cannot move when the evidence moves is not a
+    # measurement.
+    _v1_manifest = json.loads((ROOT / "derived" / "manifest.json").read_text(
+        encoding="utf-8"))
+    _v1_levels = dict(_v1_manifest.get("derived_verification_levels") or {})
+    _ve = json.loads((ROOT / "reports" / "verified_experiments.json").read_text(
+        encoding="utf-8"))
+    _experiments = _ve.get("experiments") or []
+    _inconclusive = sum(1 for e in _experiments
+                        if e.get("verdict") != "l6_verified_patch")
     layers["v1"] = {
         "records": len(findings),
-        "levels": {"L6": 7, "note": "7 verified-effective patches "
-                    "(L6, both-legs forge runs); 9 pinpoint experiments, "
-                    "2 inconclusive"},
+        "levels": {**_v1_levels, "note": (
+            f"{_v1_levels.get('L6', 0)} verified-effective patches (L6, "
+            f"both-legs forge runs); {len(_experiments)} pinpoint experiments, "
+            f"{_inconclusive} inconclusive")},
         "root_cause_known": sum(
             1 for r in findings
             if (r.get("finding", {}).get("root_cause") or "").strip()),
@@ -70,10 +83,18 @@ def main() -> int:
         "levels_note": "executed-run levels over 37 runs; 'none' = no run",
     }
     m3 = js(ROOT / "derived_v3" / "manifest.json", {}) or {}
+    _v3lv = m3.get("admitted_verification_levels", {}) or {}
+    _v3_exec = sum(v for k, v in _v3lv.items() if k in ("L3", "L4", "L5", "L6"))
     layers["v3.0"] = {
         "records": m3.get("record_count", 0),
-        "levels": dict(m3.get("admitted_verification_levels", {})),
-        "levels_note": "L0/L1 only by construction; nothing executed",
+        "levels": dict(_v3lv),
+        # Stated from the manifest, not typed: "nothing executed" was true when
+        # it was written and stayed true in the prose after 127 records gained a
+        # compile-or-run artefact.
+        "levels_note": (f"{_v3_exec} admitted records carry an L3+ artefact "
+                        f"({m3.get('execution_attempts', 0)} distinct proof runs, "
+                        f"{_v3lv.get('L5', 0)} L5, {_v3lv.get('L6', 0)} L6); "
+                        "the rest are L0/L1"),
     }
     proof32 = js(ROOT / "reports" / "v3" / "experimental_proof.json", {}) or {}
     layers["v3.2"] = {

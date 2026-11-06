@@ -7,7 +7,11 @@ half is ``scripts/check_rights_consistency.py``.
 What it does:
 
   1. Enumerates the true tracked-file list (``git ls-files``; read-only) and
-     hashes every tracked file.
+     hashes every tracked *input* file. The artefacts this script writes are
+     listed with their byte count but no digest, because a file that embeds
+     its own digest cannot reach a fixed point (see "DIGEST RULE: inputs
+     only" below); every input keeps its sha256 as the evidence that this
+     inventory describes committed bytes.
   2. Classifies each file (pipeline code / dataset records / evidence artefact
      / generated report / schema / docs / harness / config) and each *data
      item* inside the dataset layers into one rights class:
@@ -169,6 +173,60 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+# --------------------------------------------------------------------------
+# DIGEST RULE: inputs only
+# --------------------------------------------------------------------------
+# The inventory hashes the files it reads, never the files it writes.  A
+# digest of a file that embeds its own digest cannot reach a fixed point:
+# run N hashes run N-1's bytes, writes that hash into the file, and run N+1
+# sees different bytes again; the committed artefact is then never
+# reproducible from a fresh clone.  So every artefact this generator writes
+# (reports/rights_inventory.{json,md}, reports/history_exposure.md,
+# reports/rights_history_exposure.json and the whole distribution_v1/ view)
+# keeps its row in `files` - path, kind, layer, byte count - but records
+# `sha256: null` and a `digest_excluded` reason instead of a hash.  Their
+# committed bytes stay evidenced elsewhere: distribution_v1/MANIFEST.json
+# records the sha256 of every distribution file and
+# check_rights_consistency.py verifies those against disk;
+# reports/json_catalog.json pins the JSON reports.  The generated markdown is
+# rendered from the same measured inputs and tests/test_rights_fixed_point.py
+# holds it byte-stable.  Every other tracked file keeps its sha256: that is
+# the evidence that the inventory describes committed bytes.
+OUTPUT_PREFIXES = ("distribution_v1/",)
+OUTPUT_ARTEFACTS = (
+    "reports/rights_inventory.json",
+    "reports/rights_inventory.md",
+    "reports/history_exposure.md",
+    "reports/rights_history_exposure.json",
+)
+
+# Files outside the generator's own outputs that record their digests or
+# sizes.  reports/json_catalog.json stores the sha256 of
+# reports/rights_inventory.json and of every distribution_v1/ file, and
+# reports/json_catalog.md is its byte-count table; the documented build order
+# regenerates both after this script runs.  Hashing them here would close the
+# same loop transitively: the catalog embeds this inventory's digest/size and
+# the inventory would embed the catalog's digest.
+DIGEST_TRANSITIVE_EMBEDDERS = (
+    "reports/json_catalog.json",
+    "reports/json_catalog.md",
+)
+
+
+def digest_excluded_reason(rel: str) -> str | None:
+    """Why this path carries no digest, or None when it is a real input."""
+    if rel in OUTPUT_ARTEFACTS or rel.startswith(OUTPUT_PREFIXES):
+        return ("output of this generator: the inventory digests its inputs "
+                "only (DIGEST RULE), because a digest of a file that embeds "
+                "its own digest cannot reach a fixed point")
+    if rel in DIGEST_TRANSITIVE_EMBEDDERS:
+        return ("rebuilt after this script from this generator's output "
+                "digests or sizes: hashing it here would pin the previous run "
+                "and reintroduce the self-referential loop transitively "
+                "(DIGEST RULE)")
+    return None
 
 
 def tracked_files(root: Path) -> list[str]:
@@ -989,13 +1047,17 @@ def build_inventory(root: Path) -> tuple:
 
     for rel in files:
         p = root / rel
+        excluded = digest_excluded_reason(rel)
         rec = {
             "path": rel,
             "layer": layer_of(rel),
             "kind": file_kind(rel),
             "bytes": p.stat().st_size if p.is_file() else 0,
-            "sha256": sha256_file(p) if p.is_file() else None,
+            "sha256": (None if excluded else
+                       (sha256_file(p) if p.is_file() else None)),
         }
+        if excluded:
+            rec["digest_excluded"] = excluded
         if p.is_file() and p.suffix in DATA_SUFFIXES:
             rows = read_jsonl(p)
             rec["json_rows"] = len(rows)
@@ -1117,6 +1179,14 @@ def build_inventory(root: Path) -> tuple:
             # Stable repo-relative marker replacing any absolute root: every
             # path in this artefact is relative to this marker.
             "path_style": "repo-relative-posix",
+            # DIGEST RULE: inputs only.  A row without a sha256 names its
+            # exclusion in `digest_excluded`; it is a file this generator
+            # writes, or a file that embeds those digests (see the comment
+            # above OUTPUT_ARTEFACTS).
+            "digest_rule": (
+                "inputs only: the inventory hashes the files it reads, never "
+                "the files it writes; a row whose sha256 is null carries a "
+                "`digest_excluded` reason"),
             "tracked_files": len(files),
             "tracked_bytes": sum(r["bytes"] for r in file_rows),
             "record_layers_scanned": len(record_scanned),

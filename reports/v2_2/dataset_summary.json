@@ -505,8 +505,8 @@
       "unknown": 1
     },
     "evidence_strongest": {
-      "experimentally_verified": 7,
-      "observed_fact": 130
+      "experimentally_verified": 6,
+      "observed_fact": 131
     },
     "evidence_weakest": {
       "observed_fact": 1,
@@ -584,16 +584,16 @@
       "none": 100
     },
     "by_outcome": {
-      "executed_violation_not_demonstrated": 29,
+      "executed_violation_not_demonstrated": 30,
       "no_committed_observation": 1,
-      "reproduced": 7
+      "reproduced": 6
     },
     "by_outcome_by_level": {
       "L1": {
         "no_committed_observation": 1
       },
       "L3": {
-        "reproduced": 1
+        "executed_violation_not_demonstrated": 1
       },
       "L4": {
         "executed_violation_not_demonstrated": 29
@@ -854,9 +854,9 @@
     }
   },
   "validation": {
-    "checks": 78,
+    "checks": 84,
     "failed_critical": 0,
-    "passed": 78,
+    "passed": 84,
     "warnings": 0
   }
 }

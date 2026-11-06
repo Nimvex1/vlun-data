@@ -1392,7 +1392,14 @@ def derive_l6_in_place(root: Path) -> dict:
     changed = 0
     for rec in records:
         fid = (rec.get("finding") or {}).get("id") or rec.get("id")
-        if fid not in authoritative:
+        claims_l6 = (rec.get("verification") or {}).get("level") == L6_LEVEL
+        if fid not in authoritative and not claims_l6:
+            # A record the report does not mention is left alone - unless it is
+            # already published as L6. Skipping those too would make a withdrawn
+            # or deleted experiment invisible: the stale L6 block, its
+            # `experimentally_verified` flag and the manifest count would survive
+            # every future run. Visiting it with no authoritative entry demotes
+            # it back to its single-revision verdict.
             continue
         changed += derive_l6_record(rec, priors.get(fid), authoritative.get(fid))
     levels = verification_level_counts(records)

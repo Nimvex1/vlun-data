@@ -23,6 +23,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from schema_terms import QUALITY_VERIFICATION_STATES  # noqa: E402
 from vlun import (  # noqa: E402
     BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, REPORTS, SPLITS, log, read_jsonl,
     write_json,
@@ -400,6 +401,14 @@ def quality_report_md(s: dict) -> str:
       "no weighted aggregate):")
     for dim, counts in (dr.get("quality_rubric") or {}).items():
         a(f"  - `{dim}`: `{counts}`")
+    a("- `verification` is a closed set: "
+      + ", ".join(f"`{v}`" for v in QUALITY_VERIFICATION_STATES)
+      + ". `executed_not_demonstrated` is a run whose artefacts are on disk "
+      "while the adjudicated `experiment_view.level` is below L5 -- the run "
+      "happened, the committed bytes do not demonstrate the claimed violation. "
+      "A value outside this set fails the gate "
+      "`v2.2/quality_verification_in_closed_vocabulary` (single source: "
+      "`scripts/schema_terms.py::QUALITY_VERIFICATION_STATES`).")
     a(f"- attacker identity: `{dr['attacker_identity']}` "
       f"({dr['attacker_actor_mentioned']} records name an actor at all)\n")
 

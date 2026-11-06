@@ -692,13 +692,32 @@ def run_accounting(root: Path, ledger: list[dict],
                    records: list[dict]) -> dict:
     """Run-accounting counts for the V3 manifest, derived from artefacts.
 
-    `candidate_artefacts` and `evidence_admitted_records` come from the
-    in-memory ledger/records; the execution counts come from the committed
+    Two DIFFERENT populations are counted, and the numbers must never be read
+    as one another:
+
+      `candidate_artefacts` counts rows of the CANDIDATE LEDGER (pre-admission,
+      7,712 rows) that carry an `experiment` artefact.
+      `evidence_admitted_records` counts ADMITTED records (IMPORT* decisions)
+      whose `verification_level` is L3 or above, i.e. an admitted
+      compile-or-run artefact exists. It is NOT a count of reproduced
+      vulnerabilities: only L5 (`violation_observed` with claim-specific
+      evidence) reproduces a claimed violation, and L6 is the controlled
+      two-revision comparison. The two counts coincide at 127 in this layer
+      because every promoted candidate was admitted; they are not the same
+      computation and can diverge (a quarantined L5 candidate would lower
+      `evidence_admitted_records` but not `candidate_artefacts`).
+
+    The execution counts come from the committed
     `reports/v3/experimental_proof.json`. Every distinct proof run falls in
-    exactly one category (success = completed test rc 0, failed =
-    `test_failed`, blocked = `blocked`); a duplicate run, a run that fits no
-    category, or a run that would fit two is returned as an error, so the
-    counts can never double-count.
+    exactly one category (success = completed test rc 0, failed = `test_failed`,
+    blocked = `blocked`); a duplicate run, a run that fits no category, or a run
+    that would fit two is returned as an error, so the counts can never
+    double-count.
+
+    Returns `definitions` (one sentence per count key, built next to the
+    expression that produces it so the published meaning cannot drift from the
+    number) and `levels` (the L3+ split of the admitted records) so the note in
+    the manifest states L5/L6 from this computation and not from typed prose.
     """
     proof = _read(root / "reports" / "v3" / "experimental_proof.json") or {}
     runs = [r for r in (proof.get("runs") or []) if isinstance(r, dict)]
@@ -739,4 +758,39 @@ def run_accounting(root: Path, ledger: list[dict],
         "evidence_admitted_records": sum(
             1 for r in records if r.get("verification_level") in L3_PLUS),
     }
-    return {"counts": counts, "errors": errors, "run_ids": sorted(seen)}
+    # The L3+ population read one level deeper: what each of those records
+    # actually claims. Levels are read back from the records, never inferred.
+    levels = {lvl.lower(): sum(1 for r in records
+                               if r.get("verification_level") == lvl)
+              for lvl in L3_PLUS}
+    definitions = {
+        "candidate_artefacts": (
+            f"Rows of the pre-admission candidate ledger ({len(ledger)} rows) "
+            "that carry an `experiment` artefact, so this counts candidates, "
+            "not admitted records and not proof runs; a compile-only sweep row "
+            "counts here."),
+        "execution_attempts": (
+            f"Distinct proof runs listed in "
+            f"reports/v3/experimental_proof.json ({attempts}), each run id "
+            "accounted exactly once, so this counts runs, not records."),
+        "successful_executions": (
+            "Proof runs that reached a comparable test outcome with test rc=0; "
+            "a run without attacker-side profit evidence sits here and stays "
+            "at L4."),
+        "failed_executions": (
+            "Proof runs recorded with status `test_failed`: the test executed "
+            "and did not pass."),
+        "blocked_executions": (
+            "Proof runs recorded with status `blocked` (pruned RPC, "
+            "unreplayable state, timeout): they never reached a comparable "
+            "test outcome and prove nothing."),
+        "evidence_admitted_records": (
+            f"Admitted V3 records ({len(records)} in the population) whose "
+            f"verification_level is one of {'/'.join(L3_PLUS)}, i.e. an "
+            "admitted compile-or-run artefact exists; this is NOT a count of "
+            f"reproduced vulnerabilities: {levels['l5']} record(s) are L5 "
+            f"(a claimed violation observed with claim-specific evidence) and "
+            f"{levels['l6']} are L6 (two-revision verified)."),
+    }
+    return {"counts": counts, "errors": errors, "run_ids": sorted(seen),
+            "levels": levels, "definitions": definitions}

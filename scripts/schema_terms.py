@@ -20,7 +20,8 @@ Ownership map (do not redefine these elsewhere):
   negative classes
 
 New canonical enums defined here (no prior owner):
-  patch-state field roles, count domains, layers, splits, deprecated terms.
+  patch-state field roles, count domains, layers, splits, deprecated terms,
+  the v2.2 `quality.verification` buckets (QUALITY_VERIFICATION_STATES).
 
 Terminology rules enforced by validators:
   * "source" is an origin (repo/page/archive), never a finding.
@@ -77,6 +78,27 @@ VIOLATION_IMPACTS = (
     "accounting_invariant",
     "oracle_manipulation",
     "state_corruption",
+)
+
+# The closed set of `quality.verification` labels in the v2.2 derived layer
+# (`derived_v2_2/records.jsonl`, written by scripts/build_derived_v22.py
+# `quality_view()`). Nothing else may mint a bucket: an unlisted value is a
+# typo, and a typo here silently creates a quality class no reader can look up.
+# Ordered strongest -> weakest claim about verification, mirroring the rule the
+# layer publishes in family Q's rubric.
+QUALITY_VERIFICATION_STATES = (
+    # an experiment ran, its artefacts are on disk and the adjudicated level
+    # reaches L5/L6, i.e. the claimed violation was demonstrated
+    "experimentally_verified",
+    # the artefacts are on disk and the run executed, but the committed bytes do
+    # not demonstrate the claimed violation: the level is below L5
+    "executed_not_demonstrated",
+    # an experiment is recorded but an artefact it names is missing
+    "incomplete",
+    # no run behind the record; a source states the claim
+    "reported_claim",
+    # asserted somewhere, checked nowhere
+    "unverified",
 )
 
 COUNT_DOMAINS = (
@@ -190,6 +212,15 @@ def check_verification_state(state: str, where: str) -> str:
         raise TerminologyError(
             f"{where}: invalid verification state {state!r}; "
             f"must be one of {list(EVIDENCE_TYPES)}")
+    return state
+
+
+def check_quality_verification_state(state: str, where: str) -> str:
+    """`quality.verification` is a closed set: an unlisted bucket is a typo."""
+    if state not in QUALITY_VERIFICATION_STATES:
+        raise TerminologyError(
+            f"{where}: invalid quality.verification label {state!r}; "
+            f"must be one of {list(QUALITY_VERIFICATION_STATES)}")
     return state
 
 

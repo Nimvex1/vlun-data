@@ -11,10 +11,15 @@ function's own source. The vulnerable function is never used as the subject, so
 a counterexample can never contradict its own finding.
 
     python scripts/build_counterexamples.py
+
+The counts it publishes come from source it reads out of the git-ignored `work/`
+tree, so the write path fails closed against the published totals when those
+inputs are absent; `--allow-shrink` is the reviewed-migration escape hatch.
 """
 
 from __future__ import annotations
 
+import argparse
 import collections
 import json
 import re
@@ -25,12 +30,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import counterexample_pairs as cp
 import solidity_facts as sf  # noqa: E402
 from vlun import (  # noqa: E402
-    DATASET_VERSION, DERIVED, JSONL, REPORTS, log, sha256_text, write_json,
+    DATASET_VERSION, DERIVED, JSONL, REPORTS, WORK, log, sha256_text, write_json,
     write_jsonl,
 )
 
 GUARDED = re.compile(r"\b(only[A-Z]\w*|whenNotPaused|nonReentrant|checkRole\w*)\b")
 OPEN_CALL = re.compile(r"\b(external|public)\b")
+
+STATS_JSON = REPORTS / "counterexample_stats.json"
+LAYER_JSONL = DERIVED / "counterexamples.jsonl"
 
 
 def candidate_functions(row: dict) -> list[tuple[dict, dict]]:
@@ -189,7 +197,100 @@ def _refute(fn: dict, blk: dict, finding: dict) -> dict | None:
     return None
 
 
-def main() -> int:
+# ---------------------------------------------------------------------------
+# Write-path input guard (see also build_all.CANONICAL_LAYERS).
+#
+# WHY THIS EXISTS. `candidate_functions()` reads the whole enclosing contract at
+# the pinned commit through scripts/local_sources.py, i.e. the git-ignored
+# `work/source_manifest.json` + `work/sources/` bytes and the `work/repos/`
+# clones. On a checkout that holds none of them the snippets quoted in
+# `jsonl/findings.jsonl` are all there is, so the run still "works": it just
+# publishes a smaller truth. The offline run this guard was written after
+# published `total_counterexamples` 99 -> 12 and `api_sibling_pairs` 71 -> 0
+# while `derived_siblings/tasks.jsonl` still held 221 rows, and
+# scripts/generate_readme.py:392,818 then asserted that zero in README prose.
+#
+# WHY A FLOOR AND NOT A NOSE. Every field guarded below is a discovery count:
+# more retrieved source can only ever produce more counterexamples and more
+# API-sibling pairs, and no normal edit deletes one. A count that moves DOWNWARD
+# while nobody added a candidate is therefore not a measurement of the data, it
+# is a measurement of what this machine could read. So the published totals are
+# the floor, and the absent input trees are checked separately - either trip
+# refuses the write.
+# ---------------------------------------------------------------------------
+def retrieval_inputs() -> list[Path]:
+    """The git-ignored inputs this generator enumerates, and nothing else."""
+    return [WORK / "source_manifest.json", WORK / "sources", WORK / "repos"]
+
+
+def published_stats() -> dict:
+    if not STATS_JSON.exists():
+        return {}
+    try:
+        return json.loads(STATS_JSON.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def published_layer_records() -> int:
+    if not LAYER_JSONL.exists():
+        return 0
+    return sum(1 for line in LAYER_JSONL.read_text(encoding="utf-8").splitlines()
+               if line.strip())
+
+
+def write_guard(stats: dict, out: list[dict]) -> list[str]:
+    """Reasons this run must not overwrite the published counterexample layer."""
+    reasons: list[str] = []
+    old = published_stats()
+
+    missing = [p for p in retrieval_inputs() if not p.exists()]
+    if len(missing) == len(retrieval_inputs()):
+        reasons.append(
+            "none of the retrieved-source inputs this generator enumerates is on disk: "
+            + ", ".join(p.as_posix() for p in retrieval_inputs())
+            + " (git-ignored; populated by scripts/fetch_sources.py). Without them only "
+              "the snippets quoted in jsonl/findings.jsonl are analysable, which is a "
+              "different and smaller artefact than the published one")
+
+    for field in ("total_counterexamples", "api_sibling_pairs",
+                  "records_with_api_sibling_pairs",
+                  "records_with_at_least_one_counterexample",
+                  "confirmed_high_medium_records"):
+        old_v, new_v = old.get(field), stats.get(field)
+        if isinstance(old_v, int) and isinstance(new_v, int) and new_v < old_v:
+            reasons.append(
+                f"{STATS_JSON.as_posix()}: {field} {old_v} -> {new_v} "
+                f"({old_v - new_v} fewer published values; the field can only grow while "
+                "the retrieved sources are present)")
+
+    for field in ("by_type", "api_sibling_pair_types"):
+        old_map = old.get(field) or {}
+        new_map = stats.get(field) or {}
+        lost = {k: (v, new_map.get(k, 0)) for k, v in old_map.items()
+                if new_map.get(k, 0) < v}
+        if lost:
+            reasons.append(f"{STATS_JSON.as_posix()}: {field} "
+                           + ", ".join(f"{k} {o} -> {n}"
+                                       for k, (o, n) in sorted(lost.items())))
+
+    old_records = published_layer_records()
+    if old_records and len(out) < old_records:
+        reasons.append(
+            f"{LAYER_JSONL.as_posix()}: {old_records} published records -> {len(out)}. "
+            "Rewriting it smaller deletes the refutations, `api_sibling_pairs` arrays "
+            "and provenance hashes those rows carry")
+
+    return reasons
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--allow-shrink", action="store_true",
+                    help="let this run publish smaller counterexample counts than the "
+                         "files already on disk instead of refusing (use only for a "
+                         "reviewed, documented migration)")
+    args = ap.parse_args(argv)
     rows = [json.loads(line) for line in open(JSONL / "findings.jsonl", encoding="utf-8") if line.strip()]
     hm = [r for r in rows if r["finding"].get("record_class") == "judged"
           and r["finding"].get("severity") in ("high", "medium")]
@@ -268,7 +369,6 @@ def main() -> int:
             reasons["cited_files_not_retrieved"] += 1
         else:
             reasons["every_cited_function_is_the_vulnerable_one_or_has_no_refutable_property"] += 1
-    write_jsonl(DERIVED / "counterexamples.jsonl", out)
 
     stats = {
         "generated_by": "scripts/build_counterexamples.py",
@@ -292,7 +392,25 @@ def main() -> int:
                 "name as vulnerable, so it can never contradict its own finding. Records with no "
                 "counterexample are counted with the reason rather than padded with a weak one.",
     }
-    write_json(REPORTS / "counterexample_stats.json", stats)
+    blocks = [] if args.allow_shrink else write_guard(stats, out)
+    if blocks:
+        log("REFUSED: scripts/build_counterexamples.py wrote nothing. This run cannot see "
+            "the retrieved-source inputs the published counterexample layer was built from.")
+        for block in blocks:
+            log(f"  - {block}")
+        log(f"  it would have overwritten {LAYER_JSONL.as_posix()} and "
+            f"{STATS_JSON.as_posix()} with the smaller result above - and README's "
+            "API-sibling sentence reads that file, so a zero here becomes a published "
+            "claim. Re-run with --allow-shrink only as a reviewed migration (the same "
+            "wording as build_all.py --allow-canonical-rewrite).")
+        return 1
+
+    DERIVED.mkdir(parents=True, exist_ok=True)
+    write_jsonl(DERIVED / "counterexamples.jsonl", out)
+    write_json(STATS_JSON, stats)
+    if args.allow_shrink:
+        log("NOTE: --allow-shrink was given, so the published counts may now be smaller "
+            "than the files this run replaced. That is a migration, not a rebuild.")
     log(f"wrote derived/counterexamples.jsonl ({len(out)} records, "
         f"{stats['total_counterexamples']} counterexamples)")
     log(f"  H/M with counterexample: {with_ce}/{len(hm)}")

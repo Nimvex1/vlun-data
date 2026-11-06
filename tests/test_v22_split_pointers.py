@@ -10,6 +10,16 @@ compare against committed bytes and reported "0 problems" throughout.
 
 These tests are pure reads plus the owner scripts' own --check: no layer is
 written. Run:  python -m unittest tests.test_v22_split_pointers
+
+Retired benchmark families are an explicit exception to the rebuild-parity test
+below. Their rows are published history written by the builder as it stood at
+retirement time, so a later correction to that builder -- family M's answer key
+now comes from the adjudicated `experiment_view`, not the immutable source
+claim -- must not be read as licence to rewrite `benchmark/retired_families/`.
+A retired family is checked frozen, carried and self-consistent instead; what
+its rows would have to say if it were ever emitted live is guarded by
+`build_benchmark_v22.m_answer_key_problems` and
+`tests.test_v22_adjudicated_consumers`.
 """
 from __future__ import annotations
 
@@ -71,7 +81,7 @@ class TestSplitPointersMatchTheDerivedRecords(unittest.TestCase):
 
     def test_the_kq_rebuild_matches_the_committed_task_files(self):
         import build_benchmark_v22 as bb
-        from vlun import BENCHMARK_FAMILIES, ROOT as VROOT
+        from vlun import BENCHMARK_FAMILIES, RETIRED_FAMILIES, ROOT as VROOT
         tasks, info = bb.build()
         self.assertEqual(info["problems"], [],
                          "the K-Q rebuild refuses: " +
@@ -83,6 +93,25 @@ class TestSplitPointersMatchTheDerivedRecords(unittest.TestCase):
             entry = (man.get("tasks") or {}).get(name) or {}
             path = VROOT / (entry.get("file") or f"benchmark/{name}.jsonl")
             on_disk = read_jsonl(path) if path.exists() else []
+            if f"{name}.jsonl" in RETIRED_FAMILIES:
+                # A retired family is published history: its rows were written
+                # by the builder as it stood when it was retired, and fixing
+                # that builder afterwards (family M now answers from the
+                # adjudicated experiment view) must never become a reason to
+                # rewrite the frozen file. What is required of a retired family
+                # is that it is frozen, carried and self-consistent -- and that
+                # the live answer keys it would emit are guard-checked, which
+                # tests.test_v22_adjudicated_consumers proves.
+                self.assertIn("retired_families", path.as_posix(),
+                              f"{name}: retired rows are not under "
+                              "benchmark/retired_families/")
+                self.assertEqual(entry.get("status"), "retired",
+                                 f"{name}: retired rows with "
+                                 f"status={entry.get('status')!r}")
+                self.assertEqual(entry.get("tasks"), len(on_disk),
+                                 f"{name}: manifest tasks disagree with the "
+                                 "frozen row count")
+                continue
             self.assertEqual(
                 canonical(rows), canonical(on_disk),
                 f"{name}: rebuilt tasks differ from {path.relative_to(VROOT)}")

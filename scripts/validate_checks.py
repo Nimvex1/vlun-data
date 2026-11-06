@@ -18,7 +18,7 @@ from pathlib import Path
 import generate_stats  # noqa: E402
 from vlun import (  # noqa: E402
     BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, DERIVED, EVIDENCE_TYPES,
-    EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL,
+    EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL, RETIRED_FAMILIES,
     REPORTS, ROOT, SCHEMA_VERSION, SOURCE_VERSION, SPLITS, WORK, code_entries, load_core,
     load_splits, read_jsonl, rec_id, sha256_text, snippet_entries,
 )
@@ -528,6 +528,42 @@ def check_evidence(rep, core):
     unknown_reason = sorted(set(reasons_used) - set(EXEC_FAILURE_REASONS))
     rep.add("evidence", "failure_reasons_in_closed_vocabulary", not unknown_reason, unknown_reason)
 
+    # A published L6 must exist because the authoritative two-revision report
+    # says so, right now. Without this the layer and the report are only ever
+    # compared by two separate test constants, so a withdrawn or deleted
+    # experiment leaves its L6 block, its `experimentally_verified` flag and the
+    # manifest count in place forever.
+    _ve_path = REPORTS / "verified_experiments.json"
+    if _ve_path.exists() and (DERIVED / "records.jsonl").exists():
+        _doc = json.loads(_ve_path.read_text(encoding="utf-8"))
+        _accepted = {e.get("finding_id") for e in (_doc.get("experiments") or [])
+                     if e.get("finding_id")}
+        _l6_layer = set()
+        for _line in (DERIVED / "records.jsonl").read_text(
+                encoding="utf-8").splitlines():
+            if not _line.strip():
+                continue
+            _rec = json.loads(_line)
+            _ver = _rec.get("verification") or {}
+            if _ver.get("level") == "L6":
+                _l6_layer.add((_rec.get("finding") or {}).get("id") or _rec.get("id"))
+        stale = sorted(_l6_layer - _accepted)
+        rep.add("evidence", "published_l6_equals_the_authoritative_report",
+                not stale, [f"{s}: published L6 with no accepted two-revision "
+                            "experiment in reports/verified_experiments.json"
+                            for s in stale], critical=True,
+                detail=f"{len(_l6_layer)} L6 record(s) in derived/, "
+                       f"{len(_accepted)} experiment(s) in the report; re-run "
+                       "scripts/build_derived.py --derive-l6-only after any "
+                       "change to the report")
+        _man = json.loads((DERIVED / "manifest.json").read_text(encoding="utf-8")) \
+            if (DERIVED / "manifest.json").exists() else {}
+        _lvl = _man.get("derived_verification_levels") or {}
+        rep.add("counts", "derived_manifest_l6_count_matches_the_records",
+                _lvl.get("L6", 0) == len(_l6_layer),
+                [f"manifest={_lvl.get('L6', 0)} records={len(_l6_layer)}"]
+                if _lvl.get("L6", 0) != len(_l6_layer) else [])
+
     ver_bad = []
     for f in sorted((WORK / "poc_runs").glob("*.json")) if (WORK / "poc_runs").exists() else []:
         if f.name == "_all.json":
@@ -968,6 +1004,8 @@ def check_v22_layer(rep):
     # from a report file.
     import vlun_ml as _ml
     import build_benchmark_v22 as _bb22
+    import build_derived_v22 as _bd22
+    from schema_terms import QUALITY_VERIFICATION_STATES as _QV
 
     # 1. jsonl_ml passes its own gate, re-run here in-process so it cannot be
     #    skipped by forgetting to call scripts/check_ml_layer.py. A missing
@@ -1012,6 +1050,30 @@ def check_v22_layer(rep):
             ev22_bad.append(f"{rid} evidence_summary strongest={se!r} weakest={we!r}")
     rep.add("v2.2", "derived_v2_2_evidence_walk", not ev22_bad, ev22_bad)
     rep.add("v2.2", "no_experimental_claim_without_an_experiment", not exp22_bad, exp22_bad)
+
+    # 2b. `quality.verification` is a closed set (schema_terms owns it, the
+    #     builder asserts against it, this gate re-checks the published layer),
+    #     so a mis-typed bucket cannot ship as an unnamed quality class.
+    qv_bad = [f"{r.get('id')}: quality.verification="
+              f"{(r.get('quality') or {}).get('verification')!r}"
+              for r in d22
+              if (r.get('quality') or {}).get('verification') not in _QV]
+    rep.add("v2.2", "quality_verification_in_closed_vocabulary", not qv_bad,
+            qv_bad, critical=True,
+            detail=f"allowed values are {list(_QV)} "
+                   "(scripts/schema_terms.py::QUALITY_VERIFICATION_STATES)")
+
+    # 2c. a record below L5 must not assert reproduction anywhere a reader looks.
+    #     The builder restates these; this catches the case where it did not,
+    #     including a record the L5 adjudication never visited.
+    coh_bad = []
+    for r in d22:
+        coh_bad += _bd22.level_outcome_disagreements(r)
+    rep.add("v2.2", "no_sub_l5_reproduction_claim", not coh_bad, coh_bad,
+            critical=True,
+            detail="experiment_view.outcome/.evidence_type, evidence_summary and "
+                   "quality.verification may not claim experimentally_verified / "
+                   "reproduced while experiment_view.level is below L5 (or absent)")
 
     # 3. every experiment claim resolves to an artefact that exists on disk,
     #    and the index and the records name each other exactly
@@ -1175,15 +1237,21 @@ def check_v22_layer(rep):
                    "evidence types are in the closed vocabularies, unlabelled "
                    "rows state why, and v2.2 rows resolve against splits_v2_2")
 
-    # 8. the strongest possible check: rebuild every v2.2 family from the
+    # 8. the strongest possible check: rebuild every LIVE v2.2 family from the
     #    records and require byte-equality with what is on disk, so a stale or
-    #    hand-edited benchmark file cannot ship
+    #    hand-edited benchmark file cannot ship. Retired families are excluded:
+    #    their rows were written by the builder as it stood when they were
+    #    retired, and correcting that builder afterwards (family M now answers
+    #    from the adjudicated experiment view) must not become a reason to
+    #    rewrite published history. Their frozen state is checked at 8b.
     rebuild_bad = []
     try:
         rebuilt, info = _bb22.build()
         rebuild_bad += info.get("problems") or []
         for key, (name, _layer, _q) in BENCHMARK_FAMILIES.items():
             if _layer != "v2.2":
+                continue
+            if f"{name}.jsonl" in RETIRED_FAMILIES:
                 continue
             f = _task_file(name)
             on_disk = read_jsonl(f) if f.exists() else []
@@ -1195,8 +1263,60 @@ def check_v22_layer(rep):
     rep.add("v2.2", "benchmark_kq_rebuilds_from_the_records", not rebuild_bad,
             rebuild_bad,
             detail="scripts/build_benchmark_v22.build() is re-run in-process and "
-                   "its output compared with benchmark/*.jsonl; drift in either "
-                   "direction fails the gate")
+                   "its output compared with the live benchmark/*.jsonl; drift in "
+                   "either direction fails the gate. Retired families are frozen "
+                   "history and are checked at benchmark_retired_v22_rows_are_frozen")
+
+    # 8b. a retired v2.2 family is frozen: the file is on disk under
+    #     benchmark/retired_families/, the manifest still carries it as retired,
+    #     its task count matches its rows, and the live builder produced no rows
+    #     aimed at it. Retirement is a bookkeeping state, not a deletion.
+    frozen_bad = []
+    for key, (name, _layer, _q) in BENCHMARK_FAMILIES.items():
+        if _layer != "v2.2" or f"{name}.jsonl" not in RETIRED_FAMILIES:
+            continue
+        entry = tasks_manifest.get(name) or {}
+        f = _task_file(name)
+        if not f.exists() or "retired_families" not in f.as_posix():
+            frozen_bad.append(f"{name}: retired family has no frozen file under "
+                              f"benchmark/retired_families/ (found {f})")
+            continue
+        rows = read_jsonl(f)
+        if entry.get("status") != "retired":
+            frozen_bad.append(f"{name}: manifest status={entry.get('status')!r}, "
+                              "expected 'retired'")
+        if entry.get("tasks") != len(rows):
+            frozen_bad.append(f"{name}: manifest tasks={entry.get('tasks')!r} but "
+                              f"the frozen file has {len(rows)} rows")
+    rep.add("v2.2", "benchmark_retired_v22_rows_are_frozen", not frozen_bad,
+            frozen_bad,
+            detail="retired v2.2 families keep their frozen rows, a carried "
+                   "manifest entry at status=retired, and a task count equal to "
+                   "their rows; no rebuild rewrites them")
+
+    # 8c. family M's answer key is the adjudicated view, wherever it is built.
+    #     Today M is retired, so this guards the rebuilt rows (and fails the
+    #     moment the builder or a hand-edit puts a withdrawn L5 claim back in an
+    #     answer key); the day M is emitted live the same predicate is what the
+    #     builder refuses to write against.
+    m_bad, m_live = [], _bb22.M_FAMILY_FILE not in RETIRED_FAMILIES
+    try:
+        _rebuilt, _info = _bb22.build()
+        m_bad = _bb22.m_answer_key_problems(_rebuilt.get("M", []),
+                                            _info["derived_records"])
+        if m_live:
+            m_file_rows = read_jsonl(_task_file(_bb22.M_FAMILY_NAME)) \
+                if _task_file(_bb22.M_FAMILY_NAME).exists() else []
+            m_bad += [f"on disk: {p}" for p in _bb22.m_answer_key_problems(
+                m_file_rows, _info["derived_records"])]
+    except Exception as exc:  # noqa: BLE001
+        m_bad.append(f"M guard raised {type(exc).__name__}: {exc}")
+    rep.add("v2.2", "family_M_answers_follow_the_adjudication", not m_bad,
+            m_bad[:10], critical=True,
+            detail="every M answer_key.level/.outcome/.evidence_type must equal "
+                   "its record's experiment_view; family M is "
+                   + ("LIVE, so the on-disk rows are checked too"
+                      if m_live else "retired: the frozen rows are history"))
 
     # 9. family M is exactly the set of records with a run behind them: no
     #    task graded experimentally_verified without one, none missing

@@ -1,5 +1,5 @@
 {
-  "checks": 78,
+  "checks": 84,
   "dataset_version": "2.2",
   "details": [
     {
@@ -225,6 +225,24 @@
       "failure_count": 0,
       "failures": [],
       "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "published_l6_equals_the_authoritative_report",
+      "critical": true,
+      "detail": "7 L6 record(s) in derived/, 9 experiment(s) in the report; re-run scripts/build_derived.py --derive-l6-only after any change to the report",
+      "failure_count": 0,
+      "failures": [],
+      "group": "evidence",
+      "ok": true
+    },
+    {
+      "check": "derived_manifest_l6_count_matches_the_records",
+      "critical": true,
+      "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
       "ok": true
     },
     {
@@ -588,6 +606,24 @@
       "ok": true
     },
     {
+      "check": "quality_verification_in_closed_vocabulary",
+      "critical": true,
+      "detail": "allowed values are ['experimentally_verified', 'executed_not_demonstrated', 'incomplete', 'reported_claim', 'unverified'] (scripts/schema_terms.py::QUALITY_VERIFICATION_STATES)",
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.2",
+      "ok": true
+    },
+    {
+      "check": "no_sub_l5_reproduction_claim",
+      "critical": true,
+      "detail": "experiment_view.outcome/.evidence_type, evidence_summary and quality.verification may not claim experimentally_verified / reproduced while experiment_view.level is below L5 (or absent)",
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.2",
+      "ok": true
+    },
+    {
       "check": "experiment_artefacts_resolve",
       "critical": true,
       "detail": "12 experiment ids referenced by records; 12 in experiments_v2_2/index.json",
@@ -644,7 +680,25 @@
     {
       "check": "benchmark_kq_rebuilds_from_the_records",
       "critical": true,
-      "detail": "scripts/build_benchmark_v22.build() is re-run in-process and its output compared with benchmark/*.jsonl; drift in either direction fails the gate",
+      "detail": "scripts/build_benchmark_v22.build() is re-run in-process and its output compared with the live benchmark/*.jsonl; drift in either direction fails the gate. Retired families are frozen history and are checked at benchmark_retired_v22_rows_are_frozen",
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.2",
+      "ok": true
+    },
+    {
+      "check": "benchmark_retired_v22_rows_are_frozen",
+      "critical": true,
+      "detail": "retired v2.2 families keep their frozen rows, a carried manifest entry at status=retired, and a task count equal to their rows; no rebuild rewrites them",
+      "failure_count": 0,
+      "failures": [],
+      "group": "v2.2",
+      "ok": true
+    },
+    {
+      "check": "family_M_answers_follow_the_adjudication",
+      "critical": true,
+      "detail": "every M answer_key.level/.outcome/.evidence_type must equal its record's experiment_view; family M is retired: the frozen rows are history",
       "failure_count": 0,
       "failures": [],
       "group": "v2.2",
@@ -710,13 +764,14 @@
   "groups": {
     "audit_sources": 5,
     "consistency": 9,
-    "evidence": 8,
+    "counts": 1,
+    "evidence": 9,
     "provenance": 7,
     "splits": 3,
     "structure": 5,
     "v2.1": 28,
-    "v2.2": 13
+    "v2.2": 17
   },
-  "passed": 78,
+  "passed": 84,
   "warnings": 0
 }

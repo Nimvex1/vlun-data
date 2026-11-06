@@ -8,7 +8,7 @@
   "experiments_reproduced": 7,
   "generated_by": "scripts/generate_v21_reports.py",
   "immutable_citations_remaining_mutable": 0,
-  "immutable_citations_resolved": null,
+  "immutable_citations_resolved": 473,
   "leakage_detected": {
     "artefact": 0,
     "code": 0,
@@ -30,8 +30,8 @@
     "judging rationale is not public",
     "mitigation commits are cumulative"
   ],
-  "validation_checks": "78/78",
-  "validation_checks_passed": "78/78",
+  "validation_checks": "84/84",
+  "validation_checks_passed": "84/84",
   "validation_failed_checks": [],
   "validation_failures": 0,
   "validation_warnings": 0

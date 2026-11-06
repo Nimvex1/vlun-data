@@ -1,26 +1,60 @@
 {
   "counts": {
     "by_framework": {
-      "foundry": 9,
-      "unknown": 29
+      "cairo": 1,
+      "foundry": 31,
+      "foundry+hardhat": 18,
+      "hardhat": 26,
+      "sui-move": 1,
+      "unknown": 133
     },
-    "by_licence": {},
+    "by_licence": {
+      "AGPL-3.0": 1,
+      "Apache-2.0": 3,
+      "BUSL-1.1": 54,
+      "GPL-2.0": 8,
+      "GPL-3.0": 2,
+      "LGPL-3.0": 7,
+      "MIT": 26,
+      "MIT per GitHub API - confirm in-tree": 1,
+      "NONE": 1,
+      "NONE declared in-tree": 1,
+      "unverified": 3,
+      "unverified at this mirror": 1
+    },
     "by_origin": {
-      "recorded_vlun_evidence": 38
+      "local_ledger.jsonl": 84,
+      "oz_runs.jsonl": 3,
+      "recorded_vlun_evidence": 38,
+      "renft_runs.jsonl": 2,
+      "tapioca_runs.jsonl": 1,
+      "web_ledger.jsonl": 82
     },
     "by_stage": {
-      "blocked": 31,
-      "qualified": 7
+      "blocked": 64,
+      "candidate": 9,
+      "harness_available": 49,
+      "qualified": 11,
+      "rejected_with_reason": 13,
+      "revision_pair_resolved": 64
     },
-    "candidate_rows": 38,
-    "distinct_repositories": 3,
-    "distinct_repositories_with_a_qualified_task": 2,
+    "candidate_rows": 210,
+    "distinct_repositories": 47,
+    "distinct_repositories_with_a_qualified_task": 3,
     "rights_status_of_qualified": {
-      "withheld_pending_permission": 7
+      "unclassified": 3,
+      "withheld_pending_permission": 8
     }
   },
   "generated_by": "scripts/build_prove_ledger.py",
-  "input_ledgers": [],
+  "input_ledgers": [
+    "local_ledger.jsonl:87",
+    "oz_runs.jsonl:3",
+    "renft_runs.jsonl:2",
+    "sx_runs.jsonl:20",
+    "tapioca_runs.jsonl:7",
+    "web_ledger.jsonl:85"
+  ],
   "invariants_violated": [],
   "note": "a qualified row is one whose identical test exposed the violation on the pinned vulnerable revision and passed on the pinned fixed revision; candidates, runs and tasks are counted apart",
   "pool_target": 50,
@@ -35,7 +69,7 @@
     "vulnerable_commit": "the pinned vulnerable revision"
   },
   "schema_version": "vlun-prove-candidate-ledger/1.0",
-  "shortfall": 43,
+  "shortfall": 39,
   "stage_vocabulary": [
     "candidate",
     "revision_pair_resolved",

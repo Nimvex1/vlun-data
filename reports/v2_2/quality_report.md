@@ -34,7 +34,7 @@ Tier is an admission rule, not a reputation score: 0 is what the protocol itself
 
 ## Evidence and quality rubric
 
-- strongest evidence per record: `{'experimentally_verified': 7, 'observed_fact': 130}`
+- strongest evidence per record: `{'experimentally_verified': 6, 'observed_fact': 131}`
 - weakest evidence per record: `{'observed_fact': 1, 'reported_claim': 37, 'unknown': 99}`
 - quality rubric (each dimension is an ordinal label with a stated basis, no weighted aggregate):
   - `attacker_model`: `{'high': 14, 'low': 113, 'medium': 10}`
@@ -46,6 +46,7 @@ Tier is an admission rule, not a reputation score: 0 is what the protocol itself
   - `reasoning`: `{'low': 13, 'medium': 124}`
   - `taxonomy`: `{'classes_present_unmapped': 75, 'mapped': 8, 'no_classes': 54}`
   - `verification`: `{'executed_not_demonstrated': 31, 'experimentally_verified': 6, 'reported_claim': 98, 'unverified': 2}`
+- `verification` is a closed set: `experimentally_verified`, `executed_not_demonstrated`, `incomplete`, `reported_claim`, `unverified`. `executed_not_demonstrated` is a run whose artefacts are on disk while the adjudicated `experiment_view.level` is below L5 -- the run happened, the committed bytes do not demonstrate the claimed violation. A value outside this set fails the gate `v2.2/quality_verification_in_closed_vocabulary` (single source: `scripts/schema_terms.py::QUALITY_VERIFICATION_STATES`).
 - attacker identity: `{'malicious_dependency': 2, 'privileged': 6, 'unknown': 123, 'unprivileged': 6}` (20 records name an actor at all)
 
 ## Experiments
@@ -58,7 +59,7 @@ Tier is an admission rule, not a reputation score: 0 is what the protocol itself
 
 - L5 claims carrying an adjudication verdict on the record (`experiment_view.adjudication_verdict`, from `reports/v2_2/l5_adjudication.json` as applied by `scripts/build_derived_v22.py`): **35** covered - **5** SUPPORTED, still counted as verified L5 above; **27** WEAK, moved to L4 with `provisional: true` and `l5_candidate: true` (`provisional_l5_candidates: 27`, not verified L5); **3** UNSUPPORTED, demoted below L5 (`adjudicated_demoted: 3`)
 
-- outcomes as their runs recorded them, by adjudicated level: `{'L1': {'no_committed_observation': 1}, 'L3': {'reproduced': 1}, 'L4': {'executed_violation_not_demonstrated': 29}, 'L5': {'reproduced': 5}, 'L6': {'reproduced': 1}}` - `outcome` is left exactly as the run wrote it and is never read as a verification count on its own; the flat tally over all records with a run is `{'executed_violation_not_demonstrated': 29, 'no_committed_observation': 1, 'reproduced': 7}`
+- outcomes as their runs recorded them, by adjudicated level: `{'L1': {'no_committed_observation': 1}, 'L3': {'executed_violation_not_demonstrated': 1}, 'L4': {'executed_violation_not_demonstrated': 29}, 'L5': {'reproduced': 5}, 'L6': {'reproduced': 1}}` - `outcome` is left exactly as the run wrote it and is never read as a verification count on its own; the flat tally over all records with a run is `{'executed_violation_not_demonstrated': 30, 'no_committed_observation': 1, 'reproduced': 6}`
 
 - fixed-revision leg executed: **2** (L6 needs the same violation reproduced on vulnerable AND blocked on fixed; move:cetus-checked-shlw meets it - the silent 2^192 shift reproduces on integer-mate v1.1.0 and on the insufficient v1.1.1, and the boundary test aborts on the v1.1.2 fix - while the other fixed-revision record, vyper:CVE-2024-24567, sits at L3)
 
@@ -123,7 +124,7 @@ families A-J keep their v1 answer keys and splits; K-Q are built from derived_v2
 
 - report: `reports/leakage_report_v22.json`
 - sources spanning splits: `0`
-- validation gate: 78/78 checks passed, 0 critical failures
+- validation gate: 84/84 checks passed, 0 critical failures
 
 ## Honest limitations
 

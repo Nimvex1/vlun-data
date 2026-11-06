@@ -409,6 +409,77 @@ class TestPublishedLayerSurvives(unittest.TestCase):
                 self.assertTrue((ROOT / entry[key]).is_file(),
                                 f"{fid}: {entry[key]}")
 
+    def test_published_l6_set_equals_the_authoritative_report(self):
+        """A direct layer<->report consistency gate, with no shared constant.
+
+        `test_report_maps_exactly_seven_l6` and
+        `test_surgical_merge_emits_exactly_seven_l6` each compare one side to
+        the hard-coded `ACCEPTED_L6` tuple; nothing compared the two sides to
+        each other. That is the gap `--derive-l6-only` leaves open: its loop
+        skips every record whose finding id is absent from
+        reports/verified_experiments.json, so an experiment withdrawn from the
+        report keeps its published L6 block forever, and no shipped gate
+        (`scripts/validate.py`, `scripts/check_manifests.py`,
+        `reports/record_hash_verification.json`) reads the block back against
+        the report. This test is the gate: it is green while the layer tracks
+        the ledger and fails the moment the ledger withdraws or downgrades a
+        claim without the layer being re-derived.
+        """
+        import json
+        accepted = sorted(fid for fid, exp in self.authoritative.items()
+                          if bd.evaluate_l6_claim(fid, exp)["accepted"])
+        published = sorted(self._fid(r) for r in self.records
+                           if (r.get("verification") or {}).get("level") == "L6")
+        self.assertEqual(published, accepted,
+                         "derived/records.jsonl carries an L6 block the "
+                         "authoritative report no longer supports (or loses one "
+                         "it supports): --derive-l6-only does not un-merge a "
+                         "withdrawn experiment")
+
+        # The derived flag must track the block, and the manifest must be the
+        # recomputed distribution over the shipped records.
+        l6 = set(published)
+        for rec in self.records:
+            ver = rec.get("verification") or {}
+            types = set((rec.get("evidence") or {}).get(
+                "evidence_types_present") or [])
+            has_flag = "experimentally_verified" in types
+            if ver.get("level") == "L6":
+                self.assertTrue(has_flag, self._fid(rec))
+            elif has_flag:
+                self.assertIn(ver.get("verdict"), ("reproduced", "not_reproduced"),
+                              self._fid(rec))
+        man = json.loads((ROOT / "derived" / "manifest.json")
+                         .read_text(encoding="utf-8"))
+        self.assertEqual(man["derived_verification_levels"],
+                         bd.verification_level_counts(self.records))
+        self.assertEqual(man["derived_verification_levels"].get("L6"), len(l6))
+
+    def test_a_withdrawn_l6_claim_is_demoted_by_the_pure_merge(self):
+        """The merge itself can undo an L6; only the in-place loop skips it.
+
+        `derive_l6_record(rec, prior, None)` is what `derive_l6_in_place` would
+        have to call for a record the report no longer lists. It demotes the
+        block back to the recovered single-revision verdict and drops the
+        derived flag, so the stale-L6 behaviour is the `if fid not in
+        authoritative: continue` guard alone - not a missing capability. Run on
+        a deep copy so the class-level records stay byte-identical for the
+        other tests.
+        """
+        import copy
+        fid = "2024-01-renft/H-01"
+        rec = copy.deepcopy(self.by_id[fid])
+        self.assertEqual(rec["verification"]["level"], "L6")
+        changed = bd.derive_l6_record(rec, self.priors.get(fid), None)
+        self.assertEqual(changed, 1)
+        ver = rec["verification"]
+        self.assertNotIn("level", ver)
+        self.assertEqual(ver["verdict"], "not_executed")
+        self.assertNotIn("experimentally_verified",
+                         rec["evidence"]["evidence_types_present"])
+        # and a second pass over the demoted block is stable
+        self.assertEqual(bd.derive_l6_record(rec, self.priors.get(fid), None), 0)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
