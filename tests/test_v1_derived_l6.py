@@ -338,7 +338,6 @@ class TestPublishedLayerSurvives(unittest.TestCase):
             before = json.dumps(rec, sort_keys=True)
             changed = bd.derive_l6_record(rec, self.priors.get(fid),
                                           self.authoritative[fid])
-            after = json.dumps(rec, sort_keys=True)
             if changed:
                 diff = [k for k in rec
                         if json.dumps(json.loads(before)[k], sort_keys=True)
