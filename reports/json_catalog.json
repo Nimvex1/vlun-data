@@ -50,7 +50,7 @@
       "tracked": true
     },
     {
-      "bytes": 468914,
+      "bytes": 469065,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -77,7 +77,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "4fe02851f59f1632e4f80b5e03845cfd722c43be7a79d61318537de7da231756",
+      "sha256": "fc8665173a8265705cf7db983bfbefc1b95fe0be3c97f48c6fa288683d1b833b",
       "tracked": true
     },
     {

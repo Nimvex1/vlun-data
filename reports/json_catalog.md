@@ -436,7 +436,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 468,914 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 469,065 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 926 | object, 17 keys | yes |

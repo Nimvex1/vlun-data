@@ -24,20 +24,20 @@
   "counts": {
     "by_licence": {
       "CC-BY-4.0": 207,
-      "MIT": 280
+      "MIT": 281
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1301,
       "metadata_only": 1,
-      "project_own": 472,
+      "project_own": 473,
       "withheld_third_party_no_redistribution_rights": 142
     },
     "not_released_paths": 1443,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 487,
-    "tracked_paths": 1930
+    "released_paths": 488,
+    "tracked_paths": 1931
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -2010,6 +2010,7 @@
     "tests/fixtures/nonevm_good/cw-1.5.4-release-pow/toolchain.txt": "MIT",
     "tests/test_api_siblings.py": "MIT",
     "tests/test_artefact_hashes.py": "MIT",
+    "tests/test_attacker_standing_fix.py": "MIT",
     "tests/test_baselines.py": "MIT",
     "tests/test_benchmark_b_g.py": "MIT",
     "tests/test_benchmark_status.py": "MIT",
@@ -5507,6 +5508,7 @@
     "tests/fixtures/nonevm_good/cw-1.5.4-release-pow/toolchain.txt": "project_own",
     "tests/test_api_siblings.py": "project_own",
     "tests/test_artefact_hashes.py": "project_own",
+    "tests/test_attacker_standing_fix.py": "project_own",
     "tests/test_baselines.py": "project_own",
     "tests/test_benchmark_b_g.py": "project_own",
     "tests/test_benchmark_status.py": "project_own",
@@ -6017,6 +6019,7 @@
     "tests/fixtures/nonevm_good/cw-1.5.4-release-pow/toolchain.txt",
     "tests/test_api_siblings.py",
     "tests/test_artefact_hashes.py",
+    "tests/test_attacker_standing_fix.py",
     "tests/test_baselines.py",
     "tests/test_benchmark_b_g.py",
     "tests/test_benchmark_status.py",
