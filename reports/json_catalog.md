@@ -59,7 +59,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
 | `derived_v2_2/manifest.json` | v2.2 | 2,097 | object, 23 keys | yes |
-| `derived_v2_2/records.jsonl` | v2.2 | 898,620 | 137 rows | yes |
+| `derived_v2_2/records.jsonl` | v2.2 | 903,826 | 137 rows | yes |
 | `derived_v3/candidate_ledger.jsonl` | v3 | 19,438,183 | 7712 rows | yes |
 | `derived_v3/corroborations.jsonl` | v3 | 34,481 | 108 rows | yes |
 | `derived_v3/corroborations_v31.jsonl` | v3 | 0 | 0 rows | yes |
@@ -371,7 +371,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/validation_v3.json` | multi | 10,102 | object, 5 keys | yes |
 | `reports/v3/violation_evidence.json` | multi | 1,653 | object, 2 keys | yes |
 | `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | yes |
-| `reports/validation_report.json` | multi | 20,947 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 21,159 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 74,954 | object, 3 keys | yes |
 

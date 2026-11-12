@@ -17,8 +17,8 @@ from pathlib import Path
 
 import generate_stats  # noqa: E402
 from vlun import (  # noqa: E402
-    BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, DERIVED, EVIDENCE_TYPES,
-    EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL, RETIRED_FAMILIES,
+    ATTACKER_KINDS, BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, DERIVED,
+    EVIDENCE_TYPES, EXEC_FAILURE_REASONS, EXPERIMENTS, JSONL, RETIRED_FAMILIES,
     REPORTS, ROOT, SCHEMA_VERSION, SOURCE_VERSION, SPLITS, WORK, code_entries, load_core,
     load_splits, read_jsonl, rec_id, sha256_text, snippet_entries,
 )
@@ -651,6 +651,18 @@ def check_derived_layer(rep):
             rep.add("consistency", "derived_manifest_matches_file",
                     dm["records"] == actual,
                     [f"manifest says {dm['records']}, file has {actual}"])
+
+    # The standing label is a closed vocabulary too. The evidence walk only
+    # inspects evidence_type, so an out-of-set attacker_identity.value would
+    # otherwise reach the shipped layer unchecked.
+    kind_bad = []
+    if (DERIVED / "records.jsonl").exists():
+        for r in read_jsonl(DERIVED / "records.jsonl"):
+            fid = (r.get("finding") or {}).get("id") or r.get("id") or "?"
+            kind = ((r.get("attacker_model") or {}).get("attacker_identity") or {}).get("value")
+            if kind not in ATTACKER_KINDS:
+                kind_bad.append(f"{fid} attacker_identity.value={kind!r} not in ATTACKER_KINDS")
+    rep.add("consistency", "attacker_identity_in_closed_vocabulary", not kind_bad, kind_bad)
 
 
 def check_online(rep, core, online):

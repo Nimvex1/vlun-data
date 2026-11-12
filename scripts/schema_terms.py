@@ -8,6 +8,7 @@ import time if a copy ever drifts.
 
 Ownership map (do not redefine these elsewhere):
   evidence levels + ranks  -> scripts/vlun.py (EVIDENCE_TYPES)
+  attacker standing kinds  -> scripts/vlun.py (ATTACKER_KINDS)
   benchmark families A-Q    -> scripts/vlun.py (BENCHMARK_FAMILIES)
     (+ the F-extension families FA/FB, same dict, same single source; family
      names are not a generated schema enum — schema/benchmark-task.schema.json
@@ -44,6 +45,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from poc_classification import POC_CLASSES, POC_LEVELS  # noqa: E402
 from taxonomy import TOP_LEVEL as TAXONOMY_TOP_LEVEL  # noqa: E402
 from vlun import (  # noqa: E402
+    ATTACKER_KINDS,
     BENCHMARK_FAMILIES,
     DATASET_VERSION,
     EVIDENCE_TYPES,
@@ -199,6 +201,15 @@ def check_no_deprecated(text: str, where: str) -> None:
                     f"{where}: deprecated term {term!r} — {advice}")
 
 
+def check_attacker_kind(kind: str, where: str) -> str:
+    """`attacker_identity.value` is a closed set: an unlisted standing is a typo."""
+    if kind not in ATTACKER_KINDS:
+        raise TerminologyError(
+            f"{where}: invalid attacker kind {kind!r}; "
+            f"must be one of {list(ATTACKER_KINDS)}")
+    return kind
+
+
 def check_evidence_level(level: str, where: str) -> str:
     if level not in POC_LEVELS:
         raise TerminologyError(
@@ -288,13 +299,13 @@ if _VBETA is not None:
 
 
 __all__ = [
-    "ADMITTED_DECISIONS", "BENCHMARK_CANARY", "BENCHMARK_FAMILIES", "COMMIT_CONFIDENCE",
-    "COUNT_DOMAINS", "DATASET_VERSION", "DECISIONS", "DEPRECATED_TERMS",
+    "ADMITTED_DECISIONS", "ATTACKER_KINDS", "BENCHMARK_CANARY", "BENCHMARK_FAMILIES",
+    "COMMIT_CONFIDENCE", "COUNT_DOMAINS", "DATASET_VERSION", "DECISIONS", "DEPRECATED_TERMS",
     "EVIDENCE_TYPES", "LAYERS", "MANIFEST_KEYS", "NEGATIVE_CLASSES",
     "PATCH_FIELDS", "POC_CLASSES", "POC_LEVELS", "READ_ONLY_LAYERS",
     "SCHEMA_VERSION", "SOURCE_VERSION", "SPLITS", "TAXONOMY_TOP_LEVEL",
-    "VERIFICATION_LEVELS", "VIOLATION_IMPACTS", "TerminologyError", "check_decision",
-    "check_evidence_level", "check_no_deprecated", "check_patch_coherence",
+    "VERIFICATION_LEVELS", "VIOLATION_IMPACTS", "TerminologyError", "check_attacker_kind",
+    "check_decision", "check_evidence_level", "check_no_deprecated", "check_patch_coherence",
     "check_verification_state", "evidence_strength", "is_admitted",
     "level_not_experimental",
 ]

@@ -54,6 +54,9 @@ FUNC_RE = re.compile(
 
 MODIFIER_RE = re.compile(r"\b(only[A-Z]\w*|when[A-Z]\w*|nonReentrant|auth\w*|checkRole\w*)\b")
 
+# An `onlyX` modifier restricts callers even when X is not in MODIFIER_LIBRARY.
+ROLE_MODIFIER_RE = re.compile(r"only[A-Z]\w*")
+
 TX_ORIGIN_RE = re.compile(r"\btx\.origin\b")
 MSG_SENDER_RE = re.compile(r"\bmsg\.sender\b")
 DELEGATECALL_RE = re.compile(r"\bdelegatecall\b|\bcallcode\b")
@@ -121,7 +124,16 @@ def functions(src: str) -> list[dict]:
         body = src[body_start:i - 1]
         raw = strip_comments(body)
         mods = sorted(set(MODIFIER_RE.findall(m.group("tail") + " ")))
-        roles = sorted({MODIFIER_LIBRARY[x][0] for x in mods if MODIFIER_LIBRARY.get(x, (None,))[0]})
+        roles = sorted({MODIFIER_LIBRARY[x][0] for x in mods if MODIFIER_LIBRARY.get(x, (None,))[0]}
+                       # An unmapped `onlyX` still gates callers. Leaving the role
+                       # list empty made access_control_summary answer
+                       # `no_check_observed`, which let a gated entry point be
+                       # labelled reachable by an unprivileged attacker. The role
+                       # name is not guessed: `role_member` is the library's
+                       # generic member, and `modifiers` keeps the observed name.
+                       | ({"role_member"} if any(ROLE_MODIFIER_RE.fullmatch(m)
+                                                 and m not in MODIFIER_LIBRARY for m in mods)
+                          else set()))
         conds = sorted({MODIFIER_LIBRARY[x][1] for x in mods if MODIFIER_LIBRARY.get(x, (None, None))[1]})
         out.append({
             "name": m.group("name"),

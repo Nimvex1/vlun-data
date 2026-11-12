@@ -18,8 +18,14 @@ Rules that keep this honest:
   * no invariant is invented; `invariants: []` is a valid and counted outcome
   * a state transition is only emitted when the attack path plus the PoC code
     supply steps; otherwise every field is explicitly null with a reason
-  * attacker kind is mechanical: a role gate implies `privileged`, and no
-    observed gate does not imply `unprivileged`
+  * attacker kind is mechanical: gates are read from analysed files AND from the
+    report-quoted snippets already committed in the record, a role gate implies
+    `privileged`, and no observed gate does not imply `unprivileged`
+  * a role-gated entry point whose report states a wrong value/accounting state,
+    with no malicious privileged actor claimed, is `protocol_accounting_or_config_flaw`
+  * a sentence this pipeline wrote is never a `reported_claim`, and a negated
+    mention ("an unprivileged attacker cannot reach it") never asserts the
+    standing it names
 
     python scripts/build_derived.py
 """
@@ -186,6 +192,70 @@ UNPRIVILEGED_ASSERTION = re.compile(
 
 SENTENCE_RE = re.compile(r"(?<=[.!?])\s+|\n")
 
+# Sentences this pipeline's own access-control checker wrote into v1
+# `security_reasoning`. They are derived output, not a source claim: quoting one
+# back as `reported_claim` makes the dataset its own external source. These are
+# the checker's three voices — the reachability limitation, and the capability
+# line it writes for an ungated entry point. Each pattern is anchored to the
+# checker's full wording so report-authored prose survives the filter.
+PIPELINE_PROSE_RULES = (
+    re.compile(r"is (?:external|public) but gated by `[^`]+`: an unprivileged "
+               r"attacker cannot reach it directly", re.I),
+    re.compile(r"is (?:internal|private), so it is only reachable through an "
+               r"internal call path; a direct external call by an attacker is "
+               r"impossible", re.I),
+    re.compile(r"^can call `[^`]+` directly \((?:public|external|internal|private)\b", re.I),
+)
+
+# Naming an actor is not asserting a standing. "an unprivileged attacker cannot
+# reach it" states the opposite of "an unprivileged attacker can reach it", so a
+# cue in the same sentence governs the mention. The window is sentence-local:
+# it never reaches across a full stop into the next claim.
+NEGATION_CUES = re.compile(
+    r"\b(cannot|can['’]t|can not|unable to|not reachable|not valid as stated|"
+    r"restricted to|impossible)\b", re.I)
+NEGATION_WINDOW_BEFORE = 60
+NEGATION_WINDOW_AFTER = 80
+
+
+def is_pipeline_generated_prose(text) -> bool:
+    """True when VLUN wrote the sentence, so it can never be a source claim."""
+    return any(p.search(str(text or "").strip()) for p in PIPELINE_PROSE_RULES)
+
+
+def _prose_evidence(text) -> dict:
+    """Tag a v1 reasoning string by who wrote it.
+
+    The access-control checker's own sentences are computed from the cited
+    function's modifiers/visibility, so they are `derived_fact` with the rule
+    that reproduces them — never a claim attributed to the report.
+    """
+    if is_pipeline_generated_prose(text):
+        return {"value": text, "evidence_type": "derived_fact",
+                "source_refs": ["rule:solidity_facts.py:functions"],
+                "note": "written by this pipeline's access-control checker from the "
+                        "cited function's modifiers/visibility, not by the report"}
+    return {"value": text, "evidence_type": "reported_claim"}
+
+
+def _mention_is_negated(sentence: str, m: re.Match) -> bool:
+    before = re.split(r"[.!?]", sentence[:m.start()])[-1][-NEGATION_WINDOW_BEFORE:]
+    after = re.split(r"[.!?]", sentence[m.end():])[0][:NEGATION_WINDOW_AFTER]
+    return bool(NEGATION_CUES.search(before) or NEGATION_CUES.search(after))
+
+
+def _first_asserted(pat, sentences):
+    """First match that is neither pipeline output nor negated, plus its sentence."""
+    for raw in sentences:
+        s = " ".join(str(raw or "").split())
+        if not s or is_pipeline_generated_prose(s):
+            continue
+        for m in pat.finditer(s):
+            if not _mention_is_negated(s, m):
+                return m, s
+    return None, None
+
+
 REPORTED_ACTOR_RULES = (
     ("unprivileged", re.compile(
         r"\b(any user|anyone|any caller|any third party|an arbitrary (?:user|caller|address)|"
@@ -210,42 +280,113 @@ def reported_attacker_kind(sentences: list[str]):
     """Kind + the exact sentence that states it, when a source says so outright.
 
     This is `reported_claim`, not inference: the sentence is returned so a reader
-    can check the attribution without trusting the classifier.
+    can check the attribution without trusting the classifier. Two filters keep
+    the attribution honest — a sentence VLUN wrote itself is never a source, and
+    a negated mention never asserts the standing it names.
     """
     for kind, pat in REPORTED_ACTOR_RULES:
-        for s in sentences:
-            m = pat.search(s or "")
-            if m:
-                return kind, " ".join((s or "").split())[:400]
+        m, s = _first_asserted(pat, sentences)
+        if m:
+            return kind, s[:400]
     return None, None
+
+
+# A flaw that corrupts valuation/accounting while the protocol runs normally.
+# Both halves are required: a value noun and a statement that it is wrong.
+ACCOUNTING_SUBJECT = re.compile(
+    r"\b(value|valuation|price|tvl|total assets|balance|shares?|share price|"
+    r"decimals?|accounting|exchange rate|collateral|debt|supply)\b", re.I)
+ACCOUNTING_DEFECT = re.compile(
+    r"\b(incorrect\w*|wrong\w*|inaccura\w*|mismatch\w*|off by|instead of|"
+    r"not scal\w*|mispric\w*|overstat\w*|understat\w*|corrupt\w*)\b", re.I)
+# Malice or collusion by a trusted role is a different standing: `privileged`.
+_PRIVILEGED_ROLE = r"(?:owner|admin|manager|maintainer|governance|governor|keeper|operator|guardian)s?"
+MALICIOUS_PRIVILEGED = re.compile(
+    r"\b(malicious (?:privileged|" + _PRIVILEGED_ROLE + r")" +
+    r"|rogue " + _PRIVILEGED_ROLE +
+    r"|compromised " + _PRIVILEGED_ROLE +
+    r"|compromised keys?|collud\w+|a privileged attacker|"
+    r"the " + _PRIVILEGED_ROLE + r" (?:can|could|may) "
+    r"(?:steal|drain|rug|exploit|manipulat))\b", re.I)
+
+
+def _snippet_observations(row: dict) -> list[dict]:
+    """Mechanical facts from the report-quoted snippets already in the record.
+
+    `local_sources.enrich_all` skips every cited entry that carries a snippet,
+    so a record whose only code evidence is committed source would otherwise
+    reach the prose fallback with no gate observed at all. A snippet is Solidity
+    source: reading a modifier off it is a code rule (`derived_fact`), not a
+    claim quoted from the report.
+    """
+    out = []
+    for e in row.get("code_context") or []:
+        if not e.get("snippet"):
+            continue
+        facts = sf.analyse(e["snippet"], e.get("function"))
+        out.append({
+            "file": e.get("file"), "contract": e.get("contract"),
+            "functions": facts["functions"],
+            "target_function": facts["target_function"],
+            "commit_sha": e.get("commit_sha"),
+            "line_start": e.get("line_start"), "line_end": e.get("line_end"),
+            "from_committed_snippet": True,
+        })
+    return out
 
 
 def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
     """Separate *who* from *what*. Mechanical where code allows it."""
     roles, conds, gates, signals = set(), set(), [], collections.Counter()
-    for c in ctx:
+    # Committed snippets carry the same mechanical facts as a local checkout.
+    # `ctx` stays the file-level list: dependency fields below read paths, and a
+    # snippet's `code-423n4/<repo>/...` path is the record's own repository.
+    code_facts = list(ctx) + _snippet_observations(row)
+    for c in code_facts:
         for fn in (c.get("functions") or []):
             roles.update(fn.get("required_roles") or [])
             conds.update(fn.get("operational_conditions") or [])
         t = c.get("target_function")
         if t:
-            gates.append(sf.access_control_summary({"target_function": t}))
+            g = sf.access_control_summary({"target_function": t})
+            # Pointer the observation at the rule that produced its verdict, and
+            # at the cited lines when the verdict came from a committed snippet.
+            # Unknown observations stay ref-less: they claim nothing.
+            if isinstance(g, dict) and g.get("evidence_type") == "derived_fact":
+                g["source_refs"] = ["rule:solidity_facts.py:functions"]
+                if c.get("from_committed_snippet"):
+                    g["source_refs"].append(
+                        f"{c.get('file')}@{c.get('commit_sha')}"
+                        f"#L{c.get('line_start')}-L{c.get('line_end')}")
+            gates.append(g)
             for k, v in (t.get("signals") or {}).items():
                 if v:
                     signals[k] += 1
-    # Pointer the observation at the rule that produced its verdict. Unknown
-    # observations stay ref-less: they claim nothing.
-    for g in gates:
-        if isinstance(g, dict) and g.get("evidence_type") == "derived_fact":
-            g["source_refs"] = ["rule:solidity_facts.py:functions"]
 
+    sr = row.get("security_reasoning") or {}
     prose = " ".join(str(x) for x in [
         finding.get("title"), finding.get("summary"), finding.get("root_cause"),
-        " ".join((row.get("security_reasoning") or {}).get("attacker_capabilities") or []),
-        " ".join((row.get("security_reasoning") or {}).get("attack_prerequisites") or []),
+        " ".join(v for v in (sr.get("attacker_capabilities") or [])
+                 if not is_pipeline_generated_prose(v)),
+        " ".join(v for v in (sr.get("attack_prerequisites") or [])
+                 if not is_pipeline_generated_prose(v)),
     ])
+    impact_prose = " ".join(str((sr.get("impact") or {}).get(k) or "")
+                            for k in ("integrity", "financial", "protocol_state",
+                                      "availability", "confidentiality"))
+    poc = row.get("poc") or {}
+    poc_prose = " ".join([str(poc.get("setup") or "")]
+                         + [str(s) for s in (poc.get("attack_sequence") or [])
+                            if isinstance(s, str)])
+    valuation_prose = prose + " " + impact_prose
+    # Both halves must sit in the SAME sentence: a value noun in one claim and a
+    # defect word in another is not a statement that the value is wrong.
+    accounting_flaw = any(ACCOUNTING_SUBJECT.search(s) and ACCOUNTING_DEFECT.search(s)
+                          for s in SENTENCE_RE.split(valuation_prose))
+    malicious_privileged = bool(MALICIOUS_PRIVILEGED.search(prose + " " + poc_prose))
 
-    unprivileged_claim = bool(UNPRIVILEGED_ASSERTION.search(prose))
+    unprivileged_claim = bool(_first_asserted(
+        UNPRIVILEGED_ASSERTION, SENTENCE_RE.split(prose))[0])
     gate_open = bool(gates) and gates[0]["verdict"] in (
         "no_check_observed", "input_guards_present_no_role_check")
 
@@ -253,6 +394,12 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         kind = "honest_but_misconfigured" if roles else "unprivileged"
         why = ("`tx.origin` is used for authorisation; any EOA can set it, so the 'actor' is a "
                "legitimate-looking caller whose origin is wrong")
+    elif roles and accounting_flaw and not malicious_privileged:
+        kind, why = "protocol_accounting_or_config_flaw", (
+            "a cited entry point is role-gated and the report states a wrong value or "
+            "accounting state produced by normal protocol operation; no source claims a "
+            "malicious privileged actor, so the standing is the flawed configuration or "
+            "accounting path itself, not an attacker reaching the setter")
     elif roles:
         kind, why = "privileged", "every cited entry point carries an access-control modifier"
     elif DEPENDENCY_AS_ACTOR.search(prose):
@@ -280,7 +427,6 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
     src_sentences = []
     for field in ("title", "summary", "root_cause"):
         src_sentences += [s for s in SENTENCE_RE.split(str(finding.get(field) or "")) if s.strip()]
-    sr = row.get("security_reasoning") or {}
     for field in ("attacker_capabilities", "attack_prerequisites", "attacker_limitations",
                   "intended_behavior", "broken_behavior"):
         for v in (sr.get(field) or []):
@@ -297,13 +443,13 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         basis = "unknown"
 
     caps, prereqs = [], []
-    for c in (row.get("security_reasoning") or {}).get("attacker_capabilities") or []:
-        caps.append({"value": c, "evidence_type": "reported_claim"})
-    for p in (row.get("security_reasoning") or {}).get("attack_prerequisites") or []:
-        prereqs.append({"value": p, "evidence_type": "reported_claim"})
+    for c in sr.get("attacker_capabilities") or []:
+        caps.append(_prose_evidence(c))
+    for p in sr.get("attack_prerequisites") or []:
+        prereqs.append(_prose_evidence(p))
 
     # mechanical capability statements, with the rule that produced them
-    for c in ctx:
+    for c in code_facts:
         t = c.get("target_function")
         if not t:
             continue
@@ -327,8 +473,8 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
             prereqs.append({"value": "the analysed function deploys a contract",
                             "evidence_type": "derived_fact",
                             "note": "rule: `new X{` or create/create2 present"})
-    for p in (row.get("security_reasoning") or {}).get("environment_assumptions") or []:
-        prereqs.append({"value": p, "evidence_type": "reported_claim"})
+    for p in sr.get("environment_assumptions") or []:
+        prereqs.append(_prose_evidence(p))
 
     # A pointer is stated only when there is something to point at. The
     # published layer carries `source_refs` on exactly the 147 records whose
@@ -343,11 +489,15 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "why": why,
         "attributed_sentence": rep_sentence if basis == "reported_claim" else None,
         "vocabulary": list(ATTACKER_KINDS),
-        "rule": "role modifier present -> privileged; tx.origin authorisation -> "
-                "honest_but_misconfigured; an explicit attacker-controlled-external-contract "
-                "statement -> malicious_dependency; an explicit configuration-error statement -> "
+        "rule": "tx.origin authorisation -> honest_but_misconfigured; a role-gated entry "
+                "point plus a stated valuation/accounting defect and no malicious privileged "
+                "actor -> protocol_accounting_or_config_flaw; any other role modifier -> "
+                "privileged; an explicit attacker-controlled-external-contract statement -> "
+                "malicious_dependency; an explicit configuration-error statement -> "
                 "honest_but_misconfigured; unprivileged only when a source asserts it AND an "
-                "open gate was actually observed. Everything else is unknown.",
+                "open gate was actually observed. Everything else is unknown. A sentence this "
+                "pipeline wrote is never a source, and a negated mention never asserts the "
+                "standing it names.",
         "unprivileged_claimed_in_prose": unprivileged_claim,
         "external_dependencies_involved": external_deps,
     }
@@ -358,13 +508,13 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "attacker_identity": identity,
         "attacker_capabilities": caps[:12],
         "attacker_prerequisites": prereqs[:12],
-        "attacker_constraints": (row.get("security_reasoning") or {}).get("attacker_limitations") or [],
+        "attacker_constraints": [_prose_evidence(v) for v in sr.get("attacker_limitations") or []],
         "trusted_roles": sorted(roles),
         "required_permissions": [
             {"role": r, "evidence_type": "derived_fact",
              "source_refs": ["rule:solidity_facts.py:functions"],
              "note": f"observed modifier {m}"}
-            for r, m in sorted({(rr, mm) for c in ctx for f in (c.get("functions") or [])
+            for r, m in sorted({(rr, mm) for c in code_facts for f in (c.get("functions") or [])
                                 for rr, mm in zip(f.get("required_roles") or [], f.get("modifiers") or [])})
         ],
         "required_assets": evidence(None, "unknown",

@@ -52,7 +52,7 @@
       "item": "16 — root-cause taxonomy"
     },
     {
-      "after": "84/84 validator checks pass; the rejection, rights, prove, execution, span, taxonomy and IAA layers each carry a regeneration-equality gate, and the added tests fail on deliberately broken fixtures",
+      "after": "85/85 validator checks pass; the rejection, rights, prove, execution, span, taxonomy and IAA layers each carry a regeneration-equality gate, and the added tests fail on deliberately broken fixtures",
       "before": "the report suite could state a count that no record supported",
       "item": "Global — gate coverage"
     }

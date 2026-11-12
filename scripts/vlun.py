@@ -116,6 +116,9 @@ ATTACKER_KINDS = (
     "privileged",
     "malicious_dependency",
     "honest_but_misconfigured",
+    # Valuation/accounting corrupted during normal or privileged operation with
+    # no malicious actor claimed: neither an unprivileged nor a malicious privileged one.
+    "protocol_accounting_or_config_flaw",
     "unknown",
 )
 

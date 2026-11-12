@@ -155,7 +155,10 @@ def build(records, assignments, seed, target, draw_version):
                 "intended_behaviour": sr.get("intended_behavior") or None,
                 "security_assumption": sr.get("security_assumption") or None,
                 "attack_path": (sr.get("attack_path") or [])[:6],
-                "attacker_constraints": (r.get("attacker_model") or {}).get("attacker_constraints")[:3],
+                # committed rows are plain strings; newer builds tag them {"value": ...}
+                "attacker_constraints": [c.get("value") if isinstance(c, dict) else c
+                                         for c in ((r.get("attacker_model") or {})
+                                                   .get("attacker_constraints") or [])[:3]],
                 "code_context": [{"file": c.get("file"), "contract": c.get("contract"),
                                   "function": c.get("function"), "line_start": c.get("line_start"),
                                   "line_end": c.get("line_end"), "commit_sha": c.get("commit_sha"),
