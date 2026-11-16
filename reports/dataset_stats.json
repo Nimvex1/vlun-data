@@ -58,8 +58,8 @@
         "none": 416
       },
       "quality_state_transition": {
-        "high": 130,
-        "none": 592
+        "high": 131,
+        "none": 591
       },
       "record_hash_scheme": {
         "v1-builder-row+verification-verdict": 155,
@@ -71,8 +71,8 @@
         "none": 298,
         "source_redistributed_without_declared_license": 424
       },
-      "state_transition_present": 244,
-      "state_transition_with_transactions": 130,
+      "state_transition_present": 245,
+      "state_transition_with_transactions": 131,
       "taxonomy_top_level": {
         "Access Control": 51,
         "Accounting": 89,

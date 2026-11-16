@@ -24,20 +24,20 @@
   "counts": {
     "by_licence": {
       "CC-BY-4.0": 203,
-      "MIT": 272
+      "MIT": 273
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1205,
       "metadata_only": 1,
-      "project_own": 460,
+      "project_own": 461,
       "withheld_third_party_no_redistribution_rights": 142
     },
     "not_released_paths": 1347,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 475,
-    "tracked_paths": 1822
+    "released_paths": 476,
+    "tracked_paths": 1823
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -1916,6 +1916,7 @@
     "tests/test_canonical_training.py": "MIT",
     "tests/test_cloned_conversion.py": "MIT",
     "tests/test_derived_parity.py": "MIT",
+    "tests/test_derived_poc_reconciliation.py": "MIT",
     "tests/test_eval_leakage.py": "MIT",
     "tests/test_experiment_reason.py": "MIT",
     "tests/test_f_extension.py": "MIT",
@@ -2430,7 +2431,7 @@
         "longest_verbatim_span_chars": 9909,
         "third_party_code_fields": 1509,
         "verbatim_code_spans": 1453,
-        "verbatim_third_party_strings": 6038
+        "verbatim_third_party_strings": 6065
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1453 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -5305,6 +5306,7 @@
     "tests/test_canonical_training.py": "project_own",
     "tests/test_cloned_conversion.py": "project_own",
     "tests/test_derived_parity.py": "project_own",
+    "tests/test_derived_poc_reconciliation.py": "project_own",
     "tests/test_eval_leakage.py": "project_own",
     "tests/test_experiment_reason.py": "project_own",
     "tests/test_f_extension.py": "project_own",
@@ -5803,6 +5805,7 @@
     "tests/test_canonical_training.py",
     "tests/test_cloned_conversion.py",
     "tests/test_derived_parity.py",
+    "tests/test_derived_poc_reconciliation.py",
     "tests/test_eval_leakage.py",
     "tests/test_experiment_reason.py",
     "tests/test_f_extension.py",

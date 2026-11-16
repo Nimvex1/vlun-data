@@ -54,7 +54,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
 | `derived/hard_negatives.jsonl` | v1 | 3,640,038 | 458 rows | yes |
 | `derived/manifest.json` | v1 | 1,785 | object, 22 keys | yes |
-| `derived/records.jsonl` | v1 | 17,333,321 | 722 rows | yes |
+| `derived/records.jsonl` | v1 | 18,352,141 | 722 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
@@ -282,7 +282,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/baselines/baseline_random_seed7.json` | multi | 109,783 | object, 24 keys | yes |
 | `reports/baselines/baseline_retrieval.json` | multi | 109,986 | object, 24 keys | yes |
 | `reports/benchmark_metrics.json` | multi | 73,009 | object, 13 keys | yes |
-| `reports/benchmark_quality.json` | multi | 11,118 | object, 6 keys | yes |
+| `reports/benchmark_quality.json` | multi | 11,116 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
 | `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
@@ -291,7 +291,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/eval_leakage_report.json` | multi | 48,313 | object, 11 keys | yes |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
-| `reports/extraction_errors.json` | multi | 36,340 | object, 7 keys | yes |
+| `reports/extraction_errors.json` | multi | 35,478 | object, 7 keys | yes |
 | `reports/f_extension_baselines.json` | multi | 211,870 | object, 4 keys | yes |
 | `reports/f_extension_stats.json` | multi | 5,235 | object, 10 keys | yes |
 | `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
@@ -316,7 +316,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/prove_candidate_ledger.json` | multi | 2,476 | object, 11 keys | yes |
 | `reports/prove_split_interface.json` | multi | 14,364 | object, 15 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
-| `reports/quarantine_report.json` | multi | 8,860 | object, 4 keys | yes |
+| `reports/quarantine_report.json` | multi | 8,827 | object, 4 keys | yes |
 | `reports/record_audit_summary.json` | multi | 585 | object, 11 keys | yes |
 | `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | yes |
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
@@ -414,7 +414,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 453,237 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 453,403 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 847 | object, 15 keys | yes |

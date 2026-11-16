@@ -110,26 +110,26 @@
       "duplicate_rows_dropped": 0,
       "family": "Fa_rejection_evidence_axis_vector",
       "ground_truth_rule": null,
-      "scorable": 292,
+      "scorable": 9,
       "tasks": 458,
-      "unscorable": 166
+      "unscorable": 449
     },
     {
       "answer_key_evidence_levels": {
-        "derived_fact": 258,
+        "derived_fact": 121,
         "externally_attributed": 184,
-        "unknown": 111
+        "unknown": 249
       },
       "by_split": {
         "test": 31,
-        "train": 323,
+        "train": 324,
         "validation": 199
       },
       "duplicate_rows_dropped": 0,
       "family": "Fb_duplicate_radar_pair",
       "ground_truth_rule": null,
-      "scorable": 553,
-      "tasks": 553,
+      "scorable": 554,
+      "tasks": 554,
       "unscorable": 0
     },
     {
@@ -331,8 +331,8 @@
   },
   "policy": "A task counts as scorable only when its answer key comes from an experiment or from a named public verdict. Report claims alone never produce a scorable task. Rows duplicated inside a split are collapsed, which is why the totals are lower than the v2 pipeline reported.",
   "totals": {
-    "scorable": 3198,
-    "tasks": 5981,
-    "unscorable": 2783
+    "scorable": 2916,
+    "tasks": 5982,
+    "unscorable": 3066
   }
 }

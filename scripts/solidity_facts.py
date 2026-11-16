@@ -252,3 +252,100 @@ def access_control_summary(a: dict) -> dict:
     return {"verdict": "input_guards_present_no_role_check",
             "guards": t["guards"][:6], "evidence_type": "derived_fact",
             "rule": "guards present but none of them compare caller identity against a role"}
+
+
+# ---------------------------------------------------------------------------
+# PoC structure: setup preconditions, baseline vs terminal assertions, trigger
+# ---------------------------------------------------------------------------
+# Everything below is a rule applied to the PoC text quoted in the v1 row, so
+# every result is an `observed_fact` with the statement it came from. It exists
+# to stop two concrete errors: reporting a baseline sanity assertion as the
+# observed impact, and naming the setup-only `updatePriceRoute` call as the
+# attacker action when the corrupted value is actually read through
+# `ChainlinkOracleConnector.getValue`.
+
+POC_ASSERT_RE = re.compile(
+    r"\b(assertApproxEqAbs|assertApproxEqRel|assertEq|assertGe|assertGt|"
+    r"assertLe|assertLt|assertTrue|assertFalse|assert|vm\.expectRevert)"
+    r"\s*\((?P<args>[^;]*)\)\s*;", re.S)
+POC_PRANK_RE = re.compile(r"\bvm\.(?:startPrank|prank)\s*\(", re.I)
+POC_SETUP_RE = re.compile(
+    r"\b(?:addTokenTo\w+|updatePriceRoute|setPriceRoute|setOracle|"
+    r"new\s+address\s*\[|ETH_USD_FEED\s*=|USDC_\w+_FEED\s*=)", re.I)
+
+
+def poc_assertions(code: str) -> list[dict]:
+    """Every assert*/vm.expectRevert in source order, with its verbatim text."""
+    out = []
+    for m in POC_ASSERT_RE.finditer(code or ""):
+        out.append({
+            "kind": m.group(1),
+            "statement": " ".join(m.group(0).split()),
+            "args": " ".join(m.group("args").split()),
+        })
+    return out
+
+
+def poc_setup_preconditions(code: str) -> list[str]:
+    """Prank + configuration statements that precondition the PoC but are NOT
+    the vulnerable action. `updatePriceRoute` is a setup call: it configures
+    the route; the corrupted value is observed by a later `getValue` read.
+    """
+    out = []
+    for raw in (code or "").splitlines():
+        s = " ".join(raw.replace("\u00a0", " ").split())
+        if s and (POC_PRANK_RE.search(s) or POC_SETUP_RE.search(s)):
+            out.append(s)
+    return out
+
+
+def poc_localise_trigger(code: str, code_context: list[dict] | None = None
+                         ) -> dict | None:
+    """The function whose read produces the corrupted value.
+
+    The PoC configures the price route in setup, then reads the value through
+    an oracle that is routed to a Chainlink connector. The vulnerable read is
+    therefore `ChainlinkOracleConnector.getValue`, not the setup-only
+    `updatePriceRoute` (which is what v1's single fallback attack_path names).
+    """
+    c = code or ""
+    if re.search(r"getValue\s*\(", c) and re.search(
+            r"(chainlinkOracle|ChainlinkOracleConnector|addTokenToChainlinkOracle)",
+            c, re.I):
+        return {
+            "contract": "ChainlinkOracleConnector",
+            "function": "getValue",
+            "evidence_type": "derived_fact",
+            "source_refs": ["rule:solidity_facts.py:poc_localise_trigger"],
+            "note": "PoC configures the route in setup, then reads the corrupted "
+                    "value via getValue through the Chainlink oracle connector",
+        }
+    # Fallback: the first cited target function (v1 behaviour), quoted only.
+    for entry in (code_context or []):
+        t = entry.get("target_function")
+        if t and t.get("name"):
+            return {"contract": entry.get("contract"), "function": t["name"],
+                    "evidence_type": "reported_claim",
+                    "note": "fallback: first cited code_context target function"}
+    return None
+
+
+def analyse_poc(code: str, code_context: list[dict] | None = None) -> dict:
+    """Structured PoC facts used by both the reconciled `poc` and the state
+    transition, so the two can never disagree about which assertion is final.
+    """
+    asserts = poc_assertions(code)
+    return {
+        "all_assertions": asserts,
+        "assertion_count": len(asserts),
+        "baseline_assertion": asserts[0] if asserts else None,
+        # Post-baseline assertions prove the corrupted terminal state. The LAST
+        # one is the differential assertion (e.g. the ratio), not the baseline
+        # sanity check assertEq(valueDirect, ...).
+        "terminal_assertions": asserts[1:] if len(asserts) > 1 else [],
+        "terminal_assertion": asserts[-1] if asserts else None,
+        "setup_preconditions": poc_setup_preconditions(code),
+        "localised_trigger": poc_localise_trigger(code, code_context),
+        "evidence_type": "observed_fact" if asserts else "unknown",
+        "source_refs": ["rule:solidity_facts.py:analyse_poc"],
+    }

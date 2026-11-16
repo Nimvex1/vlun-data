@@ -391,15 +391,69 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# state transition
+# PoC execution reconciliation + state transition
 # ---------------------------------------------------------------------------
 
-def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
-    """Causal chain. Steps come from the report's attack path or the PoC code.
+def poc_execution(ex: dict | None) -> dict:
+    """Tri-state execution status, from committed experiment evidence.
 
-    No numeric state is fabricated. `initial_state` / `final_state` stay empty
-    unless an exploit row or the PoC body states a concrete balance or storage
-    value, and every such value carries the sentence it came from.
+    "not attempted" is NEVER reported as "not reproducible": an untested PoC
+    is unknown, not a PoC that was tested and failed.
+    """
+    verdict = (ex or {}).get("verdict")
+    if verdict == "reproduced":
+        return {"attempted": True, "reproducible": True, "attempt_status": "executed",
+                "evidence_type": "experimentally_verified"}
+    if verdict == "not_reproduced":
+        return {"attempted": True, "reproducible": False, "attempt_status": "executed",
+                "evidence_type": "experimentally_verified"}
+    return {"attempted": False, "reproducible": None, "attempt_status": "not_attempted",
+            "evidence_type": "unknown"}
+
+
+def reconcile_poc(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
+    """A canonical derived view of the PoC; the raw v1 copy stays in the
+    original_evidence.v1_schema mirror. Fixes two stale v1 errors:
+      * observed_impact named a baseline sanity assertion instead of the final
+        differential assertion that actually proves the corrupted state;
+      * reproducible was False for both "tested and failed" and "never tested",
+        and stayed False even when experiments/ recorded a successful run.
+    """
+    raw = row.get("poc") or {}
+    poc = copy.deepcopy(raw)
+    pa = sf.analyse_poc(raw.get("code") or "", ctx)
+    xs = poc_execution(ex)
+    poc["poc_analysis"] = pa
+    terminal = pa.get("terminal_assertion") or {}
+    baseline = pa.get("baseline_assertion") or {}
+    if terminal.get("statement"):
+        poc["observed_impact"] = terminal["statement"]
+        poc["terminal_assertion"] = terminal["statement"]
+        poc["corroborating_assertions"] = [
+            a["statement"] for a in pa.get("terminal_assertions", [])[:-1]]
+    poc["baseline_assertion"] = baseline.get("statement")
+    poc["reproducible"] = xs["reproducible"]
+    poc["attempt_status"] = xs["attempt_status"]
+    poc["evidence_type"] = xs["evidence_type"]
+    poc["execution_evidence"] = (ex or {}).get("evidence") or None
+    if xs["reproducible"] is True:
+        poc["reproducibility_note"] = (
+            "PoC executed in experiments/: verdict=reproduced, forge_status=Success; "
+            "the terminal assertion above was observed at the audited commit.")
+    elif xs["reproducible"] is False:
+        poc["reproducibility_note"] = (
+            "PoC executed; the claimed impact was not reproduced.")
+    else:
+        poc["reproducibility_note"] = (
+            "PoC not executed during dataset construction; reproducibility is "
+            "untested, not failed.")
+    return poc
+
+
+def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
+    """Causal chain. Steps come from the PoC localisation or the report's
+    attack path. Initial/final state come from the PoC's baseline and terminal
+    assertions, never from a hard-coded `unknown`.
     """
     sr = row.get("security_reasoning") or {}
     path = sr.get("attack_path") or []
@@ -423,12 +477,50 @@ def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
                       "function": st.get("function"),
                       "state_change": st.get("state_change") or None,
                       "evidence_type": "reported_claim"})
+    reported_actors = sorted({s["actor"] for s in steps if s.get("actor")})
 
-    code = (ex or {}).get("code") or ""
-    # numeric transitions, but only ones the PoC text literally asserts
-    numbers = re.findall(r"assert(?:Eq|Ge|Lt|True)?\s*\(\s*([\w\.\[\]]+)\s*,\s*([^)]{1,80})\)", code)
-    numeric = [{"subject": a.strip(), "expected": b.strip(), "evidence_type": "observed_fact",
-                "source": "assertion in the PoC quoted from the report"} for a, b in numbers[:8]]
+    code = (row.get("poc") or {}).get("code") or (ex or {}).get("code") or ""
+    pa = sf.analyse_poc(code, ctx)
+    xs = poc_execution(ex)
+    sev = ("experimentally_verified" if xs["reproducible"] is True
+           else "observed_fact" if pa["all_assertions"] else "unknown")
+    baseline = pa.get("baseline_assertion") or {}
+    terminal = pa.get("terminal_assertion") or {}
+    poc_refs = ["rule:build_derived.py:state_transition"]
+    initial = evidence(baseline.get("statement"), sev if baseline else "unknown",
+                       refs=poc_refs if baseline else None,
+                       note="baseline assertion from the PoC quoted in the report"
+                       if baseline else "no initial balances or storage values are stated by any source")
+    final = evidence(terminal.get("statement"), sev if terminal else "unknown",
+                     refs=poc_refs if terminal else None,
+                     note="terminal (differential) assertion from the PoC quoted in the report"
+                     if terminal else "no final balances or storage values are stated by any source")
+
+    # The setup-only `updatePriceRoute` is a precondition, not the attacker
+    # action. When the PoC localises a real vulnerable read, that read replaces
+    # the single fallback attack_path step.
+    loc = pa.get("localised_trigger")
+    step_evidence = "attack_path from the report" if steps else None
+    if loc and loc.get("evidence_type") == "derived_fact":
+        steps = [{
+            "step": 1, "actor": None,
+            "action": (f"read the value through {loc['contract']}.{loc['function']} "
+                       "after the price route was configured in setup"),
+            "contract": loc["contract"], "function": loc["function"],
+            "state_change": terminal.get("statement"),
+            "evidence_type": loc["evidence_type"],
+            **({"source_refs": loc["source_refs"]} if loc.get("source_refs") else {}),
+        }]
+        step_evidence = "rule:solidity_facts.py:poc_localise_trigger"
+
+    numeric = []
+    for a in pa["all_assertions"][:8]:
+        subject, sep, expected = a["args"].partition(",")
+        numeric.append({"subject": subject.strip() or a["kind"],
+                        "expected": expected.strip() if sep else None,
+                        "evidence_type": "observed_fact",
+                        "source_refs": poc_refs,
+                        "source": "assertion in the PoC quoted from the report"})
 
     impact = sr.get("impact") or {}
     inv = sr.get("invariants") or []
@@ -437,23 +529,25 @@ def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
     has_steps = bool(steps)
     return {
         "present": has_steps,
-        "initial_state": evidence(None, "unknown" if not numeric else "observed_fact",
-                                  note="no initial balances or storage values are stated by any source"
-                                       if not numeric else None),
-        "actors": sorted({s["actor"] for s in steps if s.get("actor")}),
+        "setup_preconditions": pa.get("setup_preconditions") or [],
+        "initial_state": initial,
+        "actors": reported_actors,
         "transactions": [s for s in steps if s.get("contract") or s.get("function")][:20],
         "intermediate_state_changes": [s["state_change"] for s in steps if s.get("state_change")][:20],
-        "final_state": evidence(None, "unknown",
-                                note="no final balances or storage values are stated by any source"),
+        "final_state": final,
         "violated_property": evidence(violated, "reported_claim" if violated else "unknown"),
         "attacker_gain": evidence(impact.get("financial") or None,
                                   "reported_claim" if impact.get("financial") else "unknown"),
         "victim_loss": evidence(impact.get("financial") or None,
                                 "reported_claim" if impact.get("financial") else "unknown"),
         "asserted_numeric_transitions": numeric,
-        "step_evidence": "attack_path from the report" if steps else None,
-        "reconstruction_rule": "steps are transcribed, never generated; an empty transactions list "
-                               "means no source described a sequence",
+        "poc_analysis": pa,
+        "execution_status": xs,
+        "step_evidence": step_evidence,
+        "reconstruction_rule": "steps are transcribed or PoC-localised, never invented; "
+                               "setup calls such as updatePriceRoute are preconditions, "
+                               "not attacker actions; an empty transactions list means "
+                               "no source described a sequence",
     }
 
 
@@ -531,6 +625,19 @@ def quality_block(row: dict, ctx: list[dict], att: dict, st: dict, inv: dict,
     if st["present"]:
         etypes.append("reported_claim")
 
+    pa = st.get("poc_analysis") or {}
+    xs = st.get("execution_status") or {}
+    reasoning = ("high" if sr.get("intended_behavior") and sr.get("attack_path") else
+                 "medium" if sr.get("intended_behavior") else "low")
+    # A verified, PoC-backed multi-step transition with a non-setup trigger
+    # localisation and a populated final state outranks a single fallback step
+    # in v1's attack_path.
+    if (st.get("present") and (st.get("final_state") or {}).get("value")
+            and pa.get("terminal_assertion")
+            and (pa.get("localised_trigger") or {}).get("evidence_type") == "derived_fact"
+            and xs.get("reproducible") is True):
+        reasoning = "high"
+
     return {
         "provenance": confidence_from_evidence(etypes[:1]) if permalinks else "low",
         "provenance_basis": {"blob_permalinks": len(permalinks),
@@ -543,8 +650,7 @@ def quality_block(row: dict, ctx: list[dict], att: dict, st: dict, inv: dict,
                                "contract_level": sum(1 for c in ctx if c.get("contracts")),
                                "state_variables": sum(len(c.get("state_variables") or []) for c in ctx)},
         "dynamic_verification": (row.get("_verification_verdict") or "not_attempted"),
-        "reasoning": ("high" if sr.get("intended_behavior") and sr.get("attack_path") else
-                      "medium" if sr.get("intended_behavior") else "low"),
+        "reasoning": reasoning,
         "attacker_model": ("high" if att["attacker_identity"]["evidence_type"] != "unknown" else "low"),
         "state_transition": ("high" if st.get("transactions") else "none"),
         "invariants": ("high" if inv["count"] else "none"),
@@ -960,7 +1066,7 @@ def build_record(row: dict, verification_index: dict,
         "code_context": row.get("code_context") or [],
         "code_reference_only": row.get("code_reference_only") or [],
         "security_reasoning": row.get("security_reasoning") or {},
-        "poc": row.get("poc") or {},
+        "poc": reconcile_poc(row, ex, ctx),
         "patch": row.get("patch") or {},
         "validation": row.get("validation") or {},
         "verification": _verification_block(rid, ex),
@@ -1030,19 +1136,43 @@ def _verification_block(rid: str, ex: dict | None) -> dict:
 
 
 def load_verification_index() -> dict:
+    """PoC verdicts from any committed evidence source.
+
+    work/poc_runs/ is git-ignored machine state, so a fresh checkout has none;
+    experiments/<finding>__*/result.json is the committed record of an executed
+    run. Reconciling from both means `poc.reproducible` and `verification` agree
+    with the experiment evidence on every machine, not just the build host.
+    """
     idx = {}
-    run_dir = Path(__file__).resolve().parent.parent / "work" / "poc_runs"
-    if not run_dir.exists():
-        return idx
-    for f in sorted(run_dir.glob("*.json")):
-        if f.name == "_all.json":
-            continue
+    root = Path(__file__).resolve().parent.parent
+    run_dir = root / "work" / "poc_runs"
+    if run_dir.exists():
+        for f in sorted(run_dir.glob("*.json")):
+            if f.name == "_all.json":
+                continue
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            for v in data.get("verdicts", []):
+                idx[v["finding_id"]] = v
+    for f in sorted((root / "experiments").glob("*/result.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             continue
-        for v in data.get("verdicts", []):
-            idx[v["finding_id"]] = v
+        fid = data.get("finding_id")
+        if not fid or data.get("verdict") not in ("reproduced", "not_reproduced"):
+            continue
+        v = idx.setdefault(fid, {})
+        v.setdefault("verdict", data["verdict"])
+        v.setdefault("failure_reason", data.get("failure_reason"))
+        v.setdefault("poc_type", data.get("poc_type"))
+        ev = v.setdefault("evidence", {})
+        for key, src in (("forge_status", "forge_status"), ("test_name", "test_name"),
+                         ("gas_used", "gas_used"), ("reason", "observed_reason")):
+            ev.setdefault(key, data.get(src) if src != "observed_reason" else (data.get(src) or ""))
+        ev.setdefault("decoded_log", [])
     return idx
 
 
