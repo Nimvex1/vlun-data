@@ -63,12 +63,12 @@ Governing rule: **TRUTH > PROVENANCE > REPRODUCIBILITY > DIVERSITY > SCALE > MET
 ## 12. Candidates with PoCs
 
 - with a cited or executed PoC: **38 / 137**
-- by experiment level: `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` over 137 derived records
+- by experiment level: `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}` over 137 derived records
 
 ## 13. Candidates experimentally reproduced
 
-- reproduced violation: **37 / 38** PoC candidates
-- by verification state: `{'COMPILES': 1, 'PATCH_VERIFIED': 1, 'UNVERIFIED': 100, 'VIOLATION_REPRODUCED': 35}` over 137 findings
+- reproduced violation: **7 / 38** PoC candidates
+- by verification state: `{'COMPILES': 1, 'EXECUTES': 29, 'PATCH_VERIFIED': 1, 'UNVERIFIED': 101, 'VIOLATION_REPRODUCED': 5}` over 137 findings
 
 ## 14. Candidates with verified patches
 
@@ -82,7 +82,7 @@ Governing rule: **TRUTH > PROVENANCE > REPRODUCIBILITY > DIVERSITY > SCALE > MET
 
 ## 16. Unknown / unresolved candidates
 
-- unknown/unresolved: **98 / 137** findings (neither reproduced nor a verified non-exploit)
+- unknown/unresolved: **128 / 137** findings (neither reproduced nor a verified non-exploit)
 
 ## 17. Licensing restrictions
 
@@ -94,8 +94,8 @@ Governing rule: **TRUTH > PROVENANCE > REPRODUCIBILITY > DIVERSITY > SCALE > MET
 
 - largest auditor share: **49 / 137** findings
 - findings per auditor: `{'AI-assisted audit (lens-agent methodology, no named human auditor)': 9, 'AI-assisted audit (skill `smart-contract-security-audit`, no named human auditor)': 4, 'ChainSecurity (Decentralized Security AG)': 2, 'NVD (no vendor advisory fetched)': 2, 'independent security researcher (commercial engagement, terms stated in the report)': 6, 'self-audit; the report states no human auditor reviewed or signed off on it': 22, 'unattributed in the report; no firm named': 4, 'unknown': 39, 'vyperlang': 49}`
-- gold per auditor: `{'AI-assisted audit (lens-agent methodology, no named human auditor)': 5, 'AI-assisted audit (skill `smart-contract-security-audit`, no named human auditor)': 2, 'independent security researcher (commercial engagement, terms stated in the report)': 1, 'self-audit; the report states no human auditor reviewed or signed off on it': 22, 'unattributed in the report; no firm named': 4, 'unknown': 1, 'vyperlang': 1}` over 36 gold records
-- threshold: any single auditor above half the gold set raises `SOURCE_CONCENTRATION_WARNING` (RAISED: largest gold share 22 / 36)
+- gold per auditor: `{'AI-assisted audit (lens-agent methodology, no named human auditor)': 3, 'AI-assisted audit (skill `smart-contract-security-audit`, no named human auditor)': 1, 'unknown': 1, 'vyperlang': 1}` over 6 gold records
+- threshold: any single auditor above half the gold set raises `SOURCE_CONCENTRATION_WARNING` (not raised: largest gold share 3 / 6)
 
 ## 19. Language concentration
 
@@ -124,7 +124,7 @@ Governing rule: **TRUTH > PROVENANCE > REPRODUCIBILITY > DIVERSITY > SCALE > MET
 ## 24. Final admitted records
 
 - corpus (sufficient provenance): **133 / 137** findings
-- gold (L5/L6 experimentally demonstrated): **36 / 137** findings
+- gold (L5/L6 experimentally demonstrated): **6 / 137** findings
 - ideal remains L6; no L6 is manufactured from L0-L5 evidence
 
 ## Registry status (this run)

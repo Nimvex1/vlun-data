@@ -465,7 +465,7 @@ def render() -> str:
     _v3lv = (v3m.get("admitted_verification_levels") or {})
     _v3_executed = sum(v for k, v in _v3lv.items() if k in ("L3", "L4", "L5", "L6"))
     _v3_l5 = sum(v for k, v in _v3lv.items() if k in ("L5", "L6"))
-    _v3_runs = v3m.get("experimental_runs_attempted", 0) or 0
+    _v3_runs = v3m.get("candidate_artefacts", 0) or 0
     # Vbeta layer: isolated new-language + Solodit-mirror layer. Same rule as
     # above: every figure is read from the Vbeta artefacts, never typed in.
     _vb = ROOT / "Vbeta"
@@ -741,7 +741,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | v2.2 | advisories/audits/bounties/post-mortems, 5 languages | {n(d22m.get('records', 0))} | {n(sum(v for k, v in (d22m.get('experiment_levels') or {}).items() if k != 'none'))} executed runs, levels `{d22m.get('experiment_levels')}` |
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | {n(v3m.get('record_count', 0))} admitted / {n(v3m.get('candidate_count', 0))} candidates | levels `{_one(_v3lv)}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | {n(norm31.get('preview_count', 0))} preview rows ({n((norm31.get('fragment_decisions') or {}).get('admitted', 0))} new) | severity on {n(_cov_after.get('severity_known', 0))}, class on {n(_cov_after.get('class_known', 0))}, files on {n(_cov_after.get('affected_files', 0))} |
-| V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced thefts, {(proof32.get('by_level') or {}).get('L3', 0)} blocked at L3 |
+| V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced violations (fund_theft), {(proof32.get('by_level') or {}).get('L3', 0)} not reproduced at L3 (blocked or test failure) |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 
 Gates ({_crit_failures} critical failures): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
@@ -1023,6 +1023,7 @@ with its manifest fails the build.
 
 ```bash
 python scripts/build_all.py --with-network   # everything
+python scripts/build_derived.py --derive-l6-only  # offline: merge the L6 evidence into the published layer
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
@@ -1040,6 +1041,23 @@ Every script is idempotent, takes `--help`, and writes only under its own layer 
 (`skipped_no_network` — a skip is never reported as a pass). Fresh clones reproduce the JSONL and
 derived layers but not execution artefacts, which live git-ignored under `work/` (verdicts stay
 checkable via committed `result.json` files).
+
+The offline path for a checkout without the git-ignored `V1/clones/` and `work/poc_runs/` is
+`python scripts/build_derived.py --derive-l6-only`: it merges the authoritative two-revision L6
+evidence from `reports/verified_experiments.json` into the published layer, writes only each
+record's `verification` block and `evidence.evidence_types_present`, refreshes
+`derived/manifest.json`'s `derived_verification_levels`, and is idempotent. A full
+`scripts/build_derived.py` rebuild requires those ignored inputs; without them it rewrites ~390
+of 722 records' code-context, licence and redistribution fields for reasons that have nothing to
+do with L6. That is a limitation of the checkout, not a recommendation to skip verification:
+run the L6 merge and every gate below.
+
+`scripts/build_all.py` guards the published canonical layers: it snapshots their bytes, a stage
+that rewrites one is rolled back, and the build exits 1 with `CANONICAL REWRITE BLOCKED`. That is
+by design — a whole-tree rebuild is not idempotent over published splits — so a bare-checkout
+run of `build_all.py` is expected to fail at stage 2 (`build_derived.py`) unless it is run with
+`--allow-canonical-rewrite`, which is only for a reviewed, documented migration, never for a
+routine build.
 
 Key stages:
 

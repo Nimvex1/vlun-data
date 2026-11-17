@@ -1,16 +1,16 @@
 {
   "artifact_sha256": {
-    "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
+    "command.txt": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab",
     "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout.txt": "3324c43342fd5869654293a24aac071c31359b4c6d8c06d7bfd7e1114a8574e3"
+    "stdout.txt": "8747fc0082ae9660828a0b12ae451d1a1772c79f49c0949792cc984181715ec5"
   },
   "classification": "runnable_after_harness_reconstruction",
-  "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
-  "declared_expectation": "test PASSES: the guard blocks the exploit",
+  "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m08_destructive_burn.t.sol -vv",
+  "declared_expectation": "test PASSES: the security property holds after the patch",
   "declared_expected_status": "pass",
   "decoded_logs": [],
   "detail": "",
-  "duration_s": 6.64,
+  "duration_s": 0.7,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",
@@ -18,7 +18,7 @@
     "solc": "selected by the repository's foundry.toml / hardhat config"
   },
   "exit_code": 0,
-  "experiment_id": "5cfbc6de626afbb8e9e932ff",
+  "experiment_id": "56d2afad1cc4ac26c215c871",
   "finding_id": "2024-01-renft/M-08",
   "forensics": {
     "available": true,
@@ -30,26 +30,17 @@
     "production_files_modified": [],
     "production_files_modified_count": 0
   },
-  "gas_used": 2050873,
-  "harness_digest": "43fb6b7bb95e2c9a53d48d7297cb0d97bc38b8588cecf9a28d74f4d9bcf7a56f",
+  "gas_used": 2018769,
+  "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
   "harness_file_digests": {
-    "integration__guarded-transactions__ERC721.t.sol": "2c5273d509e3f2776731c2c4e2b444b7f5970332e4f240c16d801311eff03bea",
-    "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+    "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
   },
-  "harness_files": [],
-  "harness_files_withheld_for_licence": [
-    "integration__guarded-transactions__ERC721.t.sol",
-    "mocks__tokens__standard__MockERC721.sol",
-    "utils__GnosisSafeUtils.sol"
+  "harness_files": [
+    "vlun_renft_m08_destructive_burn.t.sol"
   ],
+  "harness_files_withheld_for_licence": [],
   "per_test": {
-    "test_Reverts_ERC721_Burn_Rented()": {
-      "logs": [],
-      "reason": null,
-      "status": "Success"
-    },
-    "test_Success_ERC721_Burn_NotRented()": {
+    "test_VlunM08_RentedERC721CannotBeBurned()": {
       "logs": [],
       "reason": null,
       "status": "Success"

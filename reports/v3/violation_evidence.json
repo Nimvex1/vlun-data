@@ -1,0 +1,23 @@
+{
+  "why": "explicit, source-backed evidence claims for runs whose committed artefact did not carry a structured violation_evidence object. The level is still derived from the committed run (status, test rc, profit deltas); this file only names the impact, actor, asset and the source that shows what the logged balance means.",
+  "runs": {
+    "defihacklabs:2024-04/PikeFinance_exp.sol": {
+      "impact_type": "fund_theft",
+      "actor": "attacker",
+      "asset": "ETH",
+      "property": "attacker-controlled ETH balance",
+      "expected": "the exploit leaves the attacker's ETH balance unchanged",
+      "observed": "attacker ETH balance rose from 0.000000000000000000 to 479.393838338750964434",
+      "source": "experiments_v3/pikefinance/stdout.txt lines 6-7 ('Attacker ETH Balance Before/After exploit') and the run's profit_deltas entry"
+    },
+    "defihacklabs:2025-07/SWAPPStaking_exp.sol": {
+      "impact_type": "fund_theft",
+      "actor": "attacker",
+      "asset": "cUSDC",
+      "property": "attacker-controlled cUSDC balance",
+      "expected": "the exploit leaves the attacker's cUSDC balance unchanged",
+      "observed": "attacker cUSDC balance rose from 0 to 128657759164064 while the staking contract's balance fell to 0",
+      "source": "PoC 2025-07/SWAPPStaking_exp.sol at DeFiHackLabs 0200ce8af03a0f9bf4ce235f4ddb9d84773fae29, lines 174-191 log cUsdc.balanceOf(address(this)) and cUsdc.balanceOf(address(staking)); LF sha256 ee83ddee943b50ad76566a0779c2b3feec13e49b102e7eb143b01ae37df4a1b7, CRLF-expanded sha256 4b8922b218a57f18cffe8e2c376264310b9df1653e885c342636ed0f1788025f = the run's recorded poc_sha256"
+    }
+  }
+}

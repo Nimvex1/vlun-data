@@ -749,13 +749,23 @@ def main() -> int:
             F.add(layer, Path(path).name,
                   "L4+ artefact dir exists on disk", [], no_dir,
                   "experiments_v3/<slug> committed run artefacts")
+            no_ev = [r[idkey] for r in rows
+                     if r.get("verification_level") == "L5"
+                     and not (r.get("experiment") or {}).get(
+                         "violation_evidence")]
+            F.add(layer, Path(path).name,
+                  "L5 carries claim-specific violation evidence", [], no_ev,
+                  "L5 needs a structured violation_evidence record")
             no_profit = [r[idkey] for r in rows
                          if r.get("verification_level") == "L5"
+                         and ((r.get("experiment") or {}).get(
+                             "violation_evidence") or {}).get(
+                                 "impact_type") == "fund_theft"
                          and not (r.get("experiment") or {}).get(
                              "profit_evidence")]
             F.add(layer, Path(path).name,
-                  "L5 carries attacker profit evidence", [], no_profit,
-                  "L5 needs profit_evidence in the run record")
+                  "L5 theft carries attacker profit evidence", [], no_profit,
+                  "fund_theft still needs measured attacker-side profit")
             stale = [r[idkey] for r in rows
                      if r.get("verification_level") in ("L3", "L4", "L5", "L6")
                      and (r.get("verified_fact") in (None, "", "unknown"))]

@@ -170,13 +170,55 @@ def main() -> int:
               and not (V.ROOT / ((c.get("experiment") or {}).get(
                   "artifact_dir") or "")).is_dir()]
     rep.add("consistency", "L4_plus_requires_artefact_dir", not no_dir, no_dir)
+    no_ev = [c["candidate_id"] for c in executed
+             if c.get("verification_level") == "L5"
+             and not (c.get("experiment") or {}).get("violation_evidence")]
+    rep.add("consistency", "L5_requires_claim_specific_evidence", not no_ev,
+            no_ev,
+            detail="L5 needs a structured violation_evidence record, not just "
+                   "a status string")
     no_profit = [c["candidate_id"] for c in executed
                  if c.get("verification_level") == "L5"
+                 and ((c.get("experiment") or {}).get("violation_evidence")
+                      or {}).get("impact_type") == "fund_theft"
                  and not (c.get("experiment") or {}).get("profit_evidence")]
-    rep.add("consistency", "L5_requires_profit_evidence", not no_profit,
-            no_profit)
+    rep.add("consistency", "L5_theft_requires_profit_evidence", not no_profit,
+            no_profit,
+            detail="theft is one impact type; it still needs measured "
+                   "attacker-side profit")
     l6 = [c["candidate_id"] for c in executed if c.get("verification_level") == "L6"]
     rep.add("consistency", "no_L6_without_fixed_leg", not l6, l6)
+    # The L5/L6 guard: an L6 claim must carry two-revision evidence (two
+    # distinct full commits, equal harness/test bytes, vulnerable-fail /
+    # fixed-pass polarity, no blocking failure, explicit violation evidence).
+    # An L5 row's own experiment metadata may not carry an L6 award or L6
+    # two-revision keys, so no L5 -> L6 promotion can hide in the overlay.
+    two_rev_bad = []
+    for c in ledger:
+        level = c.get("verification_level")
+        if level not in ("L5", "L6"):
+            continue
+        exp = c.get("experiment") or {}
+        if level == "L6":
+            ok, errors = _exec_mod.validate_l6_claim(c)
+            if not ok:
+                two_rev_bad.append(
+                    f"{c['candidate_id']}: {'; '.join(errors[:2])}")
+        else:
+            if exp.get("level_awarded") != "L5":
+                two_rev_bad.append(
+                    f"{c['candidate_id']}: L5 record's experiment awards "
+                    f"{exp.get('level_awarded')!r}")
+            if exp.get("revisions"):
+                two_rev_bad.append(
+                    f"{c['candidate_id']}: L5 record carries L6 "
+                    "two-revision metadata")
+    rep.add("consistency", "no_L6_without_two_revision_evidence",
+            not two_rev_bad, two_rev_bad,
+            detail="L6 requires two distinct 40-hex commits, equal harness and "
+                   "test file bytes, vulnerable-fail/fixed-pass polarity, no "
+                   "compile/timeout/blocked failure reason and explicit "
+                   "claim-specific violation_evidence")
     l1_no_poc = [c["candidate_id"] for c in ledger
                  if c.get("verification_level") == "L1" and not c.get("poc_available")]
     rep.add("consistency", "L1_requires_published_poc", not l1_no_poc, l1_no_poc)
@@ -294,6 +336,53 @@ def main() -> int:
                 dom_bad,
                 detail="candidate_* sums to the ledger; admitted_* sums to "
                        "the admitted records")
+        # Run accounting: attempts = successful + failed + blocked, every
+        # distinct proof run counted exactly once; every manifest key equals
+        # what the committed proof file and the ledgers say.
+        accounting = _exec_mod.run_accounting(V.ROOT, ledger, records)
+        acc_bad = list(accounting["errors"])
+        for key, want in accounting["counts"].items():
+            got = manifest.get(key)
+            if got != want:
+                acc_bad.append(f"{key}: manifest={got} actual={want}")
+        rep.add("counts", "run_accounting_matches_proof", not acc_bad, acc_bad,
+                detail="execution_attempts = successful + failed + blocked "
+                       "(distinct proof runs, no double counting); "
+                       "candidate_artefacts and evidence_admitted_records "
+                       "recomputed from the ledgers")
+        # The published counts must ship with the definition that says what
+        # population they count: `evidence_admitted_records` is an L3+ record
+        # count, not a reproduced-vulnerability count. Checked against the
+        # same computation that produced the numbers, so a key can never be
+        # published without its meaning.
+        def_bad = []
+        published = manifest.get("run_accounting_definitions") or {}
+        for key in accounting["counts"]:
+            definition = published.get(key)
+            if not isinstance(definition, str) or not definition.strip():
+                def_bad.append(f"{key}: no published definition")
+        # The two keys a reader most easily conflates must each say, in the
+        # published definition, which population they do NOT count.
+        for ambiguous, marker in (
+                ("evidence_admitted_records", "NOT a count of reproduced"),
+                ("candidate_artefacts", "counts candidates, not admitted records"),
+                ("execution_attempts", "counts runs, not records")):
+            if marker not in (published.get(ambiguous) or ""):
+                def_bad.append(f"{ambiguous}: definition does not say "
+                               f"{marker!r}")
+        if set(published) - set(accounting["counts"]):
+            def_bad.append("definitions for keys that are not counted: "
+                           f"{sorted(set(published) - set(accounting['counts']))}")
+        note = manifest.get("experimental_runs_note") or ""
+        for want in (f"{accounting['levels']['l5']} records reproduce a claimed "
+                     "violation (L5)",
+                     f"{accounting['levels']['l6']} are two-revision verified (L6)"):
+            if want not in note:
+                def_bad.append(f"experimental_runs_note does not state {want!r}")
+        rep.add("counts", "run_accounting_definitions_published",
+                not def_bad, def_bad,
+                detail="every run-accounting key carries a definition and the "
+                       "note states the L5/L6 truth, recomputed from the ledgers")
         try:
             sl = json.loads((V.DERIVED_V3 / "source_ledger.json").read_text(encoding="utf-8"))
             sources = sl.get("sources", [])

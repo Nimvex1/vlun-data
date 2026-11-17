@@ -1,1 +1,1 @@
-forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol -vv
+forge test --json --match-path test/vlun_poc/vlun_renft_m01_partial_transfer.t.sol -vv

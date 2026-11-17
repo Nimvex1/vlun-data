@@ -32,10 +32,11 @@ for r in sample:
     # title present
     if not (r.get('finding') or {}).get('title'):
         title_missing.append(rid)
-    # attacker identity must be one of the 4 documented values
+    # attacker identity must be one of the closed standing vocabulary
     ai=((r.get('attacker_model') or {}).get('attacker_identity') or {})
     v=ai.get('value')
-    if v not in ('unprivileged','privileged','honest_but_misconfigured','malicious_dependency','unknown',None):
+    if v not in ('unprivileged','privileged','honest_but_misconfigured','malicious_dependency',
+                 'protocol_accounting_or_config_flaw','unknown',None):
         att_issues.append((rid,v))
     # every evidence-wrapped value must carry an in-vocabulary type AND source_refs
     def scan(o,path=''):
@@ -66,8 +67,10 @@ for r in recs:
     ai=am.get('attacker_identity') or {}
     cnt[str(ai.get('value'))]+=1
     val=str(ai.get('value')); rule=str(ai.get('rule') or '')
-    # a rule that says "role modifier present -> privileged" but a value of unprivileged
-    if 'role modifier present -> privileged' in rule and val=='unprivileged':
+    # a rule that says a role modifier implies privileged but a value of unprivileged.
+    # Both wordings are matched: the committed layer carries the older rule text.
+    if ('role modifier present -> privileged' in rule
+            or 'any other role modifier -> privileged' in rule) and val=='unprivileged':
         contradiction.append((r.get('id'),val,rule[:90]))
     if val=='unprivileged' and 'onlyMaintainer' in json.dumps(am) and 'only' in json.dumps(am).lower():
         pass

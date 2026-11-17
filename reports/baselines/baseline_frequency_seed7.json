@@ -18,7 +18,7 @@
           "J_verified_patch.jsonl",
           "M_experiment_level_classification.jsonl"
         ],
-        "scorable": 293
+        "scorable": 297
       },
       "INVALID": {
         "families": [
@@ -62,8 +62,8 @@
         "tasks": 458
       },
       "Fb_duplicate_radar_pair.jsonl": {
-        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-        "tasks": 554
+        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+        "tasks": 552
       },
       "H_verified_exploit.jsonl": {
         "reason": "descriptive reference answers, no scalar label",
@@ -74,15 +74,15 @@
         "tasks": 137
       }
     },
-    "manifest_scorable_total": 23198,
-    "scored_rows_all_families": 22145,
+    "manifest_scorable_total": 23200,
+    "scored_rows_all_families": 22149,
     "scorer_covered": 720,
     "scorer_covered_primary": 720
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task, needs a judge rather than string match",
     "Fa_rejection_evidence_axis_vector.jsonl": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
-    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
     "H_verified_exploit.jsonl": "descriptive reference answers, no scalar label",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
   },
@@ -265,7 +265,7 @@
           "coverage": 0.0,
           "macro_f1": null,
           "predicted": 0,
-          "rows": 5
+          "rows": 7
         },
         "test_only_labels": [],
         "train_rows": 0,
@@ -286,11 +286,11 @@
           "correct": 0,
           "macro_f1": null,
           "predicted": 0,
-          "scorable": 5
+          "scorable": 7
         }
       },
       "predicted": 0,
-      "scorable": 5,
+      "scorable": 7,
       "status": "EXPLORATORY"
     },
     "I_verified_non_exploit.jsonl": {
@@ -371,7 +371,7 @@
           "coverage": 0.0,
           "macro_f1": null,
           "predicted": 0,
-          "rows": 5
+          "rows": 7
         },
         "test_only_labels": [],
         "train_rows": 0,
@@ -392,11 +392,11 @@
           "correct": 0,
           "macro_f1": null,
           "predicted": 0,
-          "scorable": 5
+          "scorable": 7
         }
       },
       "predicted": 0,
-      "scorable": 5,
+      "scorable": 7,
       "status": "EXPLORATORY"
     }
   },
@@ -1971,20 +1971,20 @@
     "Fb_duplicate_radar_pair.jsonl": {
       "audit_usable_as_evidence": null,
       "evaluable": false,
-      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "family": "Fb_duplicate_radar_pair.jsonl",
       "label_distribution": {},
       "majority_fraction": null,
       "majority_label": null,
       "n_labels": 0,
       "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "reasons": [
-        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 554,
+      "rows_total": 552,
       "shortcut_floor": {
         "available": false
       },
@@ -1998,7 +1998,7 @@
       "evaluable_reason": "single_label_not_evaluable",
       "family": "G_patch_verification.jsonl",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "majority_label": "effective",
@@ -2010,14 +2010,14 @@
         "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 5,
+      "rows_scorable": 7,
       "rows_total": 38,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "validation": 5
+        "validation": 7
       },
       "status": "EXPLORATORY",
       "validity_flags": [
@@ -2088,7 +2088,7 @@
       "evaluable_reason": "single_label_not_evaluable",
       "family": "J_verified_patch.jsonl",
       "label_distribution": {
-        "effective": 5
+        "effective": 7
       },
       "majority_fraction": 1.0,
       "majority_label": "effective",
@@ -2100,14 +2100,14 @@
         "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 5,
-      "rows_total": 5,
+      "rows_scorable": 7,
+      "rows_total": 7,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "validation": 5
+        "validation": 7
       },
       "status": "EXPLORATORY",
       "validity_flags": [
@@ -3082,7 +3082,7 @@
       }
     },
     "predicted": 22134,
-    "scorable": 22145
+    "scorable": 22149
   },
   "micro_exploratory": {
     "accuracy": null,
@@ -3102,7 +3102,7 @@
     "per_class": {},
     "per_split": {},
     "predicted": 17,
-    "scorable": 28
+    "scorable": 32
   },
   "micro_invalid": {
     "accuracy": 0.823330336840992,
@@ -3505,7 +3505,7 @@
       "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it"
     },
     "Fb_duplicate_radar_pair.jsonl": {
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.2764 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
     },
     "H_verified_exploit.jsonl": {
       "reason": "descriptive reference answers, no scalar label"

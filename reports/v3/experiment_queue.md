@@ -21,7 +21,97 @@ Fixed commit: unknown
 Expected violation: as claimed in source (reported_claim until observed)
 Verification target: L5
 
-## Priority 3: defihacklabs:src/test/2017-07/Parity_first_hack_exp
+## Priority 3: defihacklabs:src/test/2026-08/USM_exp
+Finding: Incident reproduction PoC: USM_exp
+Reason: published PoC + quality 40; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 4: defihacklabs:src/test/2026-09/Flamincome_exp
+Finding: Incident reproduction PoC: Flamincome_exp
+Reason: published PoC + quality 40; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 5: defihacklabs:src/test/2026-09/Reddio_exp
+Finding: Incident reproduction PoC: Reddio_exp
+Reason: published PoC + quality 40; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 6: defihacklabs:src/test/2025-08/PresaleV5_exp
+Finding: Incident reproduction PoC: PresaleV5_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 7: defihacklabs:src/test/2026-01/MTToken_exp
+Finding: Incident reproduction PoC: MTToken_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 8: defihacklabs:src/test/2026-04/JuiceboxREVLoans_exp
+Finding: Incident reproduction PoC: JuiceboxREVLoans_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 9: defihacklabs:src/test/2026-06/TOPBPool_exp
+Finding: Incident reproduction PoC: TOPBPool_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 10: defihacklabs:src/test/2026-09/OMNI404_exp
+Finding: Incident reproduction PoC: OMNI404_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 11: defihacklabs:src/test/2026-09/SecuredFi_exp
+Finding: Incident reproduction PoC: SecuredFi_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 12: defihacklabs:src/test/2026-09/YamFinance_exp
+Finding: Incident reproduction PoC: YamFinance_exp
+Reason: published PoC + quality 37; cheapest path to L4/L5
+Required environment: foundry/forge (EVM)
+Vulnerable commit: unknown
+Fixed commit: unknown
+Expected violation: as claimed in source (reported_claim until observed)
+Verification target: L5
+
+## Priority 13: defihacklabs:src/test/2017-07/Parity_first_hack_exp
 Finding: Incident reproduction PoC: Parity_first_hack_exp
 Reason: published PoC + quality 34; cheapest path to L4/L5
 Required environment: foundry/forge (EVM)
@@ -30,7 +120,7 @@ Fixed commit: unknown
 Expected violation: as claimed in source (reported_claim until observed)
 Verification target: L5
 
-## Priority 4: defihacklabs:src/test/2018-04/SmartMesh_exp
+## Priority 14: defihacklabs:src/test/2018-04/SmartMesh_exp
 Finding: Incident reproduction PoC: SmartMesh_exp
 Reason: published PoC + quality 34; cheapest path to L4/L5
 Required environment: foundry/forge (EVM)
@@ -39,98 +129,8 @@ Fixed commit: unknown
 Expected violation: as claimed in source (reported_claim until observed)
 Verification target: L5
 
-## Priority 5: defihacklabs:src/test/2018-10/SpankChain_exp
+## Priority 15: defihacklabs:src/test/2018-10/SpankChain_exp
 Finding: Incident reproduction PoC: SpankChain_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 6: defihacklabs:src/test/2021-01/Sushi_Badger_Digg_exp
-Finding: Incident reproduction PoC: Sushi_Badger_Digg_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 7: defihacklabs:src/test/2021-05/BurgerSwap_exp
-Finding: Incident reproduction PoC: BurgerSwap_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 8: defihacklabs:src/test/2021-05/Spartan_exp
-Finding: Incident reproduction PoC: Spartan_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 9: defihacklabs:src/test/2021-07/Levyathan_exp
-Finding: Incident reproduction PoC: Levyathan_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 10: defihacklabs:src/test/2021-08/Popsicle_exp
-Finding: Incident reproduction PoC: Popsicle_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 11: defihacklabs:src/test/2021-10/IndexedFinance_exp
-Finding: Incident reproduction PoC: IndexedFinance_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 12: defihacklabs:src/test/2022-08/LuckyTiger_exp
-Finding: Incident reproduction PoC: LuckyTiger_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 13: defihacklabs:src/test/2022-10/Market_exp
-Finding: Incident reproduction PoC: Market_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 14: defihacklabs:src/test/2022-11/MEV_0ad8_exp
-Finding: Incident reproduction PoC: MEV_0ad8_exp
-Reason: published PoC + quality 34; cheapest path to L4/L5
-Required environment: foundry/forge (EVM)
-Vulnerable commit: unknown
-Fixed commit: unknown
-Expected violation: as claimed in source (reported_claim until observed)
-Verification target: L5
-
-## Priority 15: defihacklabs:src/test/2023-01/TINU_exp
-Finding: Incident reproduction PoC: TINU_exp
 Reason: published PoC + quality 34; cheapest path to L4/L5
 Required environment: foundry/forge (EVM)
 Vulnerable commit: unknown

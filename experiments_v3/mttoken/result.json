@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "0b04fd95bb50bd96a9783dbba23b1d8fbaf518a51b47baa9fc07c06618c5aa9e",
+    "harness.json": "fd8c41be6726339c5e75ceeaecc832a31440f030d03e174f458ca5988faada89",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "71ee5a622f6758f8a7786a4669a3d95a4eac8b27d43579f8717c4dc49755f8a6",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-01/MTToken_exp.sol",
+      "poc_sha256": "e1c362207d7d5df7d6b60e46530fca70ab2263e5bfc78e10684dbb9a5fb4b1b6",
+      "staged_files": [
+        "src/test/2026-01/MTToken_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "mttoken",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-01/MTToken_exp.sol",
+  "fork_aliases": [
+    "bsc"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 18.9,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testMTExploit -vv",
+    "rc": 0,
+    "test_function": "testMTExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

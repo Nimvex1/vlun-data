@@ -1,6 +1,10 @@
 {
   "admitted": 5268,
   "candidate_ledger": 5270,
+  "candidate_verification_levels": {
+    "L0": 5270
+  },
+  "candidates": 5270,
   "dataset_version": "4.0",
   "duplicates": 2,
   "extracted_findings": 5270,
@@ -29,7 +33,7 @@
   },
   "source_candidates_staged": 666,
   "verification_levels": {
-    "L0": 5270
+    "L0": 5268
   },
   "vulnerability_classes": {
     "unknown": 5270

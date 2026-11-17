@@ -11,6 +11,11 @@ Inputs are the discovery ledgers (`work/prove_candidates/*.jsonl`) plus the
 recorded two-revision evidence already in this tree. Outputs land in
 `derived_prove/` and `reports/`; nothing here mutates `jsonl/`, `jsonl_ml/` or
 `jsonl_v3/`.
+
+The discovery ledgers are git-ignored, so a checkout without them cannot rebuild
+this ledger at all. The bare write path therefore fails closed against the
+published counts (see `write_guard`); `--allow-shrink` is the reviewed-migration
+escape hatch.
 """
 from __future__ import annotations
 
@@ -327,8 +332,7 @@ def normalize(row: dict, origin: str) -> dict:
 def load_input_ledgers() -> tuple[list[dict], list[str]]:
     rows: list[dict] = []
     loaded: list[str] = []
-    for path in sorted(list(CANDIDATE_DIR.glob("*ledger*.jsonl"))
-                       + list(CANDIDATE_DIR.glob("*runs*.jsonl"))):
+    for path in discovery_inputs():
         batch = _load(path)
         for row in batch:
             rows.append(normalize(row, path.name))
@@ -499,10 +503,126 @@ def render_markdown(stats: dict, rows: list[dict]) -> str:
     return "\n".join(lines)
 
 
+# ---------------------------------------------------------------------------
+# Write-path input guard (see also build_all.CANONICAL_LAYERS).
+#
+# WHY THIS EXISTS. `--check` already refuses to judge staleness when the
+# discovery ledgers are not on disk, but the bare write path had no such rule,
+# and a regeneration run on a checkout holding none of the git-ignored inputs
+# overwrote the published ledger with 38 rows for the 210 that were there: 172
+# candidate ids deleted, and with them the `licence_code`, `licence_poc`,
+# `poc_path`, `poc_origin`, `rights` and `blocker` fields they carried.
+#
+# THE RULE, AND WHY IT IS A FLOOR AND NOT A NOSE. Every field this ledger
+# publishes is a discovery count: adding inputs can only raise it, and removing
+# a row is a documented no (a failed attempt is evidence, not something to
+# delete). So a total that moves DOWNWARD while nobody added a candidate is not
+# a measurement of the pool - it is a measurement of what this machine could
+# read. Comparing the recomputed total against the published one therefore
+# catches both shapes of the same accident: the input directory missing, and
+# the input directory present but emptied or pointed somewhere else. A guard
+# that only checked `CANDIDATE_DIR.exists()` would pass on a partial tree.
+# ---------------------------------------------------------------------------
+def discovery_inputs() -> list[Path]:
+    """The git-ignored discovery ledgers this ledger is half built from."""
+    return sorted(list(CANDIDATE_DIR.glob("*ledger*.jsonl"))
+                  + list(CANDIDATE_DIR.glob("*runs*.jsonl")))
+
+
+def published_rows() -> list[dict]:
+    return _load(LEDGER) if LEDGER.exists() else []
+
+
+def published_stats() -> dict:
+    if not STATS_JSON.exists():
+        return {}
+    try:
+        return json.loads(STATS_JSON.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def write_guard(rows: list[dict], stats: dict) -> list[str]:
+    """Reasons this run must not overwrite the published ledger (empty = safe)."""
+    reasons: list[str] = []
+    old_rows = published_rows()
+    old_stats = published_stats()
+    old_counts = old_stats.get("counts") or {}
+
+    inputs = discovery_inputs()
+    if not inputs:
+        reasons.append(
+            f"no input ledger is visible in {CANDIDATE_DIR.as_posix()} "
+            f"(git-ignored `work/prove_candidates/*ledger*.jsonl` / `*runs*.jsonl`), "
+            f"while the published report lists {len(old_stats.get('input_ledgers') or [])} "
+            "input ledger(s): only the recorded-evidence side can be rebuilt on this "
+            "checkout, so this run is not a regeneration of the published ledger")
+
+    if old_rows:
+        old_ids = {r.get("candidate_id") for r in old_rows}
+        new_ids = {r.get("candidate_id") for r in rows}
+        lost = sorted(old_ids - new_ids)
+        if lost:
+            carried = sum(1 for r in old_rows if r.get("candidate_id") in set(lost)
+                          and (r.get("licence_code") or r.get("rights_status")
+                               or r.get("blocker") or r.get("licence_poc")
+                               or r.get("poc_path")))
+            reasons.append(
+                f"{LEDGER.as_posix()}: {len(lost)} of {len(old_ids)} published "
+                f"candidate ids are absent from this run and would be deleted "
+                f"(e.g. {', '.join(repr(c) for c in lost[:3])}); {carried} of them "
+                "carry licence_code/rights/blocker/poc fields that no other row holds")
+        if len(rows) < len(old_rows):
+            reasons.append(
+                f"{LEDGER.as_posix()}: {len(old_rows)} published rows -> {len(rows)} "
+                f"({len(old_rows) - len(rows)} fewer). candidate_rows only grows while "
+                "the discovery ledgers are present, so a smaller count is missing input, "
+                "not a measurement")
+
+    for field, label in (("candidate_rows", "candidate rows"),
+                         ("distinct_repositories", "distinct repositories"),
+                         ("distinct_repositories_with_a_qualified_task",
+                          "distinct repositories carrying a qualified task")):
+        old_v, new_v = old_counts.get(field), (stats["counts"].get(field))
+        if isinstance(old_v, int) and isinstance(new_v, int) and new_v < old_v:
+            reasons.append(f"{STATS_JSON.as_posix()}: counts.{field} "
+                           f"{old_v} -> {new_v} ({label} would shrink)")
+
+    old_stages = {k: v for k, v in (old_counts.get("by_stage") or {}).items()}
+    new_stages = stats["counts"].get("by_stage") or {}
+    shrunk = {k: (v, new_stages.get(k, 0)) for k, v in old_stages.items()
+              if new_stages.get(k, 0) < v}
+    if shrunk:
+        reasons.append(
+            f"{STATS_JSON.as_posix()}: counts.by_stage "
+            + ", ".join(f"{k} {o} -> {n}" for k, (o, n) in sorted(shrunk.items()))
+            + " (a stage loses rows only when the ledger that recorded them is absent)")
+
+    def _licence_total(doc_counts: dict) -> int:
+        return sum((doc_counts.get("by_licence") or {}).values())
+
+    if old_rows or old_counts:
+        old_lic = _licence_total(old_counts) or sum(
+            1 for r in old_rows if r.get("licence_code"))
+        new_lic = _licence_total(stats["counts"])
+        if old_lic and new_lic < old_lic:
+            reasons.append(
+                f"{STATS_JSON.as_posix()}: licence-classified rows {old_lic} -> {new_lic}. "
+                "The licence map is read from work/prove_candidates/web_ledger.jsonl; a "
+                "run that cannot see it must not publish a rights position the tree no "
+                "longer holds")
+
+    return reasons
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--allow-shrink", action="store_true",
+                    help="let this run publish a smaller ledger/report than the one "
+                         "already on disk instead of refusing (use only for a "
+                         "reviewed, documented migration)")
     args = ap.parse_args()
 
     recorded = seed_from_recorded_evidence()
@@ -518,8 +638,7 @@ def main() -> int:
         if r.get("candidate_stage") == "qualified"))
 
     if args.check:
-        local_inputs = (list(CANDIDATE_DIR.glob("*ledger*.jsonl"))
-                        + list(CANDIDATE_DIR.glob("*runs*.jsonl")))
+        local_inputs = discovery_inputs()
         if not local_inputs:
             # The discovery ledgers live in the git-ignored work/ tree. Without
             # them only the recorded-evidence side can be rebuilt, so the
@@ -539,7 +658,24 @@ def main() -> int:
         log(f"ok: {len(rows)} ledger rows, {len(errors)} invariant violation(s)")
         return 1 if errors else 0
 
+    # The write path fails closed on the same preconditions, before a byte is
+    # replaced: `--check` protects CI, this protects whoever runs the script.
+    reasons = [] if args.allow_shrink else write_guard(rows, stats)
+    if reasons:
+        log("REFUSED: scripts/build_prove_ledger.py wrote nothing. This run cannot see "
+            "the inputs the published ledger was built from.")
+        for reason in reasons:
+            log(f"  - {reason}")
+        log(f"  it would have overwritten {LEDGER.as_posix()}, "
+            f"{STATS_JSON.as_posix()} and {STATS_MD.as_posix()} with the smaller result "
+            f"above. Re-run with --allow-shrink only as a reviewed migration "
+            "(the same wording as build_all.py --allow-canonical-rewrite).")
+        return 1
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    if args.allow_shrink:
+        log("NOTE: --allow-shrink was given, so the published ledger/report may now be "
+            "smaller than the one this run replaced. That is a migration, not a rebuild.")
     write_jsonl(LEDGER, rows)
     write_json(STATS_JSON, stats)
     STATS_MD.write_text(render_markdown(stats, rows), encoding="utf-8", newline="\n")

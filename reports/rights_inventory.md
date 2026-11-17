@@ -14,10 +14,10 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1816 (389744803 bytes)
-- head: `a546e60c3e6c5e0310318d1d911cdc272f1b31e8` (remediation/p0-credibility)
+- tracked files: 1932 (389941924 bytes)
+- head: `0bf7af5fae996102f596a02c5feae26d53e4cad5` (remediation/audit-2026-10-27)
 - record layers scanned for expressive content: 158
-- the audit covers **all** layers, not only the 13123 v1 self-flagged quotation rows
+- the audit covers **all** layers, not only the 13129 v1 self-flagged quotation rows
 
 ## Totals by rights class
 
@@ -25,13 +25,13 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 60077 | 4029 |
-| `copied_short_prose` | 260705 | 5990 |
+| `copied_report_prose` | 59929 | 4028 |
+| `copied_short_prose` | 260205 | 5990 |
 | `personal_data` | 5695 | - |
-| `poc_source` | 1730 | 346 |
-| `third_party_code` | 13123 | 2378 |
+| `poc_source` | 1384 | 346 |
+| `third_party_code` | 13129 | 2378 |
 
-Rows holding expressive content across every scanned layer: **125291** in 91 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **125289** in 91 record layers. Detail-scanned records materialised for the projection: **5990**.
 
 ## Per-layer breakdown
 
@@ -54,7 +54,7 @@ Rows holding expressive content across every scanned layer: **125291** in 91 rec
 | `benchmark/D_exploit_construction.jsonl` | poc_source=346, third_party_code=821 |
 | `benchmark/F_false_positive_rejection.jsonl` | third_party_code=542 |
 | `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | copied_short_prose=458, third_party_code=542 |
-| `benchmark/Fb_duplicate_radar_pair.jsonl` | copied_short_prose=1108, third_party_code=777 |
+| `benchmark/Fb_duplicate_radar_pair.jsonl` | copied_short_prose=1104, third_party_code=783 |
 | `benchmark/G_patch_verification.jsonl` |  |
 | `benchmark/H_verified_exploit.jsonl` |  |
 | `benchmark/I_verified_non_exploit.jsonl` |  |
@@ -87,7 +87,7 @@ Rows holding expressive content across every scanned layer: **125291** in 91 rec
 | `datasets/verified_patches.jsonl` |  |
 | `derived/counterexamples.jsonl` | copied_short_prose=43 |
 | `derived/hard_negatives.jsonl` | copied_short_prose=458, third_party_code=542 |
-| `derived/records.jsonl` | copied_report_prose=762, copied_short_prose=2277, poc_source=692, third_party_code=827 |
+| `derived/records.jsonl` | copied_report_prose=614, copied_short_prose=1781, poc_source=346, third_party_code=827 |
 | `derived/root_cause_candidates.jsonl` | copied_report_prose=25, copied_short_prose=55 |
 | `derived_poc_queue/triage_queue.jsonl` |  |
 | `derived_prove/candidate_ledger.jsonl` |  |
@@ -227,10 +227,10 @@ Total artefacts holding personal contact data: **13**.
 
 ## Harness licence gating
 
-`19` experiment directories carry a `WITHHELD.json`; the distribution view mirrors that pattern in `distribution_v1/withheld_harness.jsonl`.
+`15` experiment directories carry a `WITHHELD.json`; the distribution view mirrors that pattern in `distribution_v1/withheld_harness.jsonl`.
 
 ## History
 
-- commits scanned: 85
-- paths added then removed: 25
+- commits scanned: 106
+- paths added then removed: 39
 - full findings: `reports/history_exposure.md`

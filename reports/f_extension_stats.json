@@ -1,8 +1,8 @@
 {
   "blocking_counts": {
-    "cross_file_separation_without_root_cause_evidence": 16510,
-    "same_root_cause_label": 542,
-    "shared_function_target": 501
+    "cross_file_separation_without_root_cause_evidence": 17656,
+    "same_root_cause_label": 426,
+    "shared_function_target": 507
   },
   "corpus_records": 458,
   "definitions_version": "rejection-definitions-1.0",
@@ -93,27 +93,27 @@
     "unique_source_records": 458
   },
   "fb": {
-    "ambiguous_class_pairs": 249,
+    "ambiguous_class_pairs": 262,
     "ambiguous_unscorable_pairs": 0,
     "by_label_cohort": {
-      "exploratory": 138,
-      "primary": 416
+      "exploratory": 151,
+      "primary": 401
     },
     "by_label_tier": {
       "ambiguous_shared_target_no_pointer": 111,
-      "ambiguous_target_separation_without_root_cause": 138,
+      "ambiguous_target_separation_without_root_cause": 151,
       "pointer_supported_positive": 184,
-      "rule_derived_target_and_root_cause_negative": 121
+      "rule_derived_target_and_root_cause_negative": 106
     },
     "by_relationship": {
-      "ambiguous": 249,
-      "distinct_vulnerability": 121,
+      "ambiguous": 262,
+      "distinct_vulnerability": 106,
       "same_vulnerability": 184
     },
     "by_split": {
-      "test": 31,
-      "train": 324,
-      "validation": 199
+      "test": 30,
+      "train": 327,
+      "validation": 195
     },
     "confirmed_duplicate_pairs": 184,
     "corpus_pointer_evidence": {
@@ -124,12 +124,12 @@
     "corpus_records_with_no_positive_pair": 265,
     "distinct_independent_projects": 5,
     "excluded_pairs": {
-      "judgement_phrase_in_model_input": 67
+      "judgement_phrase_in_model_input": 60
     },
-    "pair_rows": 554,
-    "rule_derived_distinct_pairs": 121,
-    "unique_candidate_submissions": 386,
-    "unique_canonical_findings": 120
+    "pair_rows": 552,
+    "rule_derived_distinct_pairs": 106,
+    "unique_candidate_submissions": 384,
+    "unique_canonical_findings": 118
   },
   "generated_by": "scripts/build_f_extension.py",
   "independent_projects_in_corpus": {

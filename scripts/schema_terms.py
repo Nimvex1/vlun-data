@@ -8,6 +8,7 @@ import time if a copy ever drifts.
 
 Ownership map (do not redefine these elsewhere):
   evidence levels + ranks  -> scripts/vlun.py (EVIDENCE_TYPES)
+  attacker standing kinds  -> scripts/vlun.py (ATTACKER_KINDS)
   benchmark families A-Q    -> scripts/vlun.py (BENCHMARK_FAMILIES)
     (+ the F-extension families FA/FB, same dict, same single source; family
      names are not a generated schema enum — schema/benchmark-task.schema.json
@@ -20,7 +21,8 @@ Ownership map (do not redefine these elsewhere):
   negative classes
 
 New canonical enums defined here (no prior owner):
-  patch-state field roles, count domains, layers, splits, deprecated terms.
+  patch-state field roles, count domains, layers, splits, deprecated terms,
+  the v2.2 `quality.verification` buckets (QUALITY_VERIFICATION_STATES).
 
 Terminology rules enforced by validators:
   * "source" is an origin (repo/page/archive), never a finding.
@@ -43,6 +45,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from poc_classification import POC_CLASSES, POC_LEVELS  # noqa: E402
 from taxonomy import TOP_LEVEL as TAXONOMY_TOP_LEVEL  # noqa: E402
 from vlun import (  # noqa: E402
+    ATTACKER_KINDS,
     BENCHMARK_FAMILIES,
     DATASET_VERSION,
     EVIDENCE_TYPES,
@@ -65,6 +68,40 @@ from vlun_v3 import (  # noqa: E402
 # each historical manifest key to its canonical domain so checkers can
 # reconcile without rewriting history.
 # ---------------------------------------------------------------------------
+
+# Impact types an L5 violation_evidence record may claim. A closed vocabulary:
+# an impact outside it never earns L5, because the dataset cannot say what was
+# violated. The theft-specific profit check is one member, not the definition.
+VIOLATION_IMPACTS = (
+    "fund_theft",
+    "access_control",
+    "signature_replay",
+    "dos",
+    "accounting_invariant",
+    "oracle_manipulation",
+    "state_corruption",
+)
+
+# The closed set of `quality.verification` labels in the v2.2 derived layer
+# (`derived_v2_2/records.jsonl`, written by scripts/build_derived_v22.py
+# `quality_view()`). Nothing else may mint a bucket: an unlisted value is a
+# typo, and a typo here silently creates a quality class no reader can look up.
+# Ordered strongest -> weakest claim about verification, mirroring the rule the
+# layer publishes in family Q's rubric.
+QUALITY_VERIFICATION_STATES = (
+    # an experiment ran, its artefacts are on disk and the adjudicated level
+    # reaches L5/L6, i.e. the claimed violation was demonstrated
+    "experimentally_verified",
+    # the artefacts are on disk and the run executed, but the committed bytes do
+    # not demonstrate the claimed violation: the level is below L5
+    "executed_not_demonstrated",
+    # an experiment is recorded but an artefact it names is missing
+    "incomplete",
+    # no run behind the record; a source states the claim
+    "reported_claim",
+    # asserted somewhere, checked nowhere
+    "unverified",
+)
 
 COUNT_DOMAINS = (
     "source",             # an origin: repo, page, archive, contest
@@ -97,7 +134,8 @@ MANIFEST_KEYS = {
     "benchmark_task_count": ("benchmark_task_count", "tasks"),
     "source_count": ("source_count",),
     "report_count": ("report_count",),
-    "experiment_count": ("experiment_count", "experimental_runs_attempted"),
+    "experiment_count": ("experiment_count", "candidate_artefacts",
+                         "experimental_runs_attempted"),
 }
 
 # ---------------------------------------------------------------------------
@@ -163,6 +201,15 @@ def check_no_deprecated(text: str, where: str) -> None:
                     f"{where}: deprecated term {term!r} — {advice}")
 
 
+def check_attacker_kind(kind: str, where: str) -> str:
+    """`attacker_identity.value` is a closed set: an unlisted standing is a typo."""
+    if kind not in ATTACKER_KINDS:
+        raise TerminologyError(
+            f"{where}: invalid attacker kind {kind!r}; "
+            f"must be one of {list(ATTACKER_KINDS)}")
+    return kind
+
+
 def check_evidence_level(level: str, where: str) -> str:
     if level not in POC_LEVELS:
         raise TerminologyError(
@@ -176,6 +223,15 @@ def check_verification_state(state: str, where: str) -> str:
         raise TerminologyError(
             f"{where}: invalid verification state {state!r}; "
             f"must be one of {list(EVIDENCE_TYPES)}")
+    return state
+
+
+def check_quality_verification_state(state: str, where: str) -> str:
+    """`quality.verification` is a closed set: an unlisted bucket is a typo."""
+    if state not in QUALITY_VERIFICATION_STATES:
+        raise TerminologyError(
+            f"{where}: invalid quality.verification label {state!r}; "
+            f"must be one of {list(QUALITY_VERIFICATION_STATES)}")
     return state
 
 
@@ -243,13 +299,13 @@ if _VBETA is not None:
 
 
 __all__ = [
-    "ADMITTED_DECISIONS", "BENCHMARK_CANARY", "BENCHMARK_FAMILIES", "COMMIT_CONFIDENCE",
-    "COUNT_DOMAINS", "DATASET_VERSION", "DECISIONS", "DEPRECATED_TERMS",
+    "ADMITTED_DECISIONS", "ATTACKER_KINDS", "BENCHMARK_CANARY", "BENCHMARK_FAMILIES",
+    "COMMIT_CONFIDENCE", "COUNT_DOMAINS", "DATASET_VERSION", "DECISIONS", "DEPRECATED_TERMS",
     "EVIDENCE_TYPES", "LAYERS", "MANIFEST_KEYS", "NEGATIVE_CLASSES",
     "PATCH_FIELDS", "POC_CLASSES", "POC_LEVELS", "READ_ONLY_LAYERS",
     "SCHEMA_VERSION", "SOURCE_VERSION", "SPLITS", "TAXONOMY_TOP_LEVEL",
-    "VERIFICATION_LEVELS", "TerminologyError", "check_decision",
-    "check_evidence_level", "check_no_deprecated", "check_patch_coherence",
+    "VERIFICATION_LEVELS", "VIOLATION_IMPACTS", "TerminologyError", "check_attacker_kind",
+    "check_decision", "check_evidence_level", "check_no_deprecated", "check_patch_coherence",
     "check_verification_state", "evidence_strength", "is_admitted",
     "level_not_experimental",
 ]

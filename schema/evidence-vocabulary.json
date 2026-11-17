@@ -77,5 +77,14 @@
     "L4",
     "L5",
     "L6"
+  ],
+  "violation_impacts": [
+    "fund_theft",
+    "access_control",
+    "signature_replay",
+    "dos",
+    "accounting_invariant",
+    "oracle_manipulation",
+    "state_corruption"
   ]
 }

@@ -180,6 +180,41 @@ def _levels(repro: dict) -> dict:
     return repro.get("poc_level_distribution", {})
 
 
+def validation_gate_fields(vrep: dict) -> dict:
+    """`validation_checks_passed` / `validation_failed_checks`, from the gate.
+
+    `scripts/validate.py` is the last build stage and the only gate that knows
+    whether the build passed: it writes `reports/validation_report.json` and
+    then re-opens `reports/v2_1_summary.json` to add these two keys. Writing
+    the summary from scratch here used to drop them, so a regenerated file
+    differed from the committed one by exactly those keys. They are computed
+    from the gate's own report instead, which makes the summary identical
+    whether or not `validate.py` ran first. If the gate has not run there is no
+    report to read, and both fields stay null with a note naming the gate that
+    populates them: a guessed count would be a fabricated pass.
+    """
+    if not vrep or "checks" not in vrep or "passed" not in vrep:
+        return {
+            "validation_checks_passed": None,
+            "validation_failed_checks": None,
+            "validation_checks_source": (
+                "null: reports/validation_report.json is absent, unreadable or "
+                "lacks the gate counters; scripts/validate.py populates "
+                "validation_checks_passed and validation_failed_checks when the "
+                "gate runs"),
+        }
+    details = vrep.get("details")
+    failed = None
+    if isinstance(details, list):
+        failed = [{"group": c.get("group"), "check": c.get("check"),
+                   "failures": c.get("failures")}
+                  for c in details if not c.get("ok")]
+    return {
+        "validation_checks_passed": f"{vrep['passed']}/{vrep['checks']}",
+        "validation_failed_checks": failed,
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.parse_args()
@@ -419,6 +454,7 @@ def main() -> int:
         "validation_failures": (vrep.get("checks", 0) - vrep.get("passed", 0)),
         "validation_checks": f"{vrep.get('passed', 0)}/{vrep.get('checks', 0)}",
         "validation_warnings": vrep.get("warnings", 0),
+        **validation_gate_fields(vrep),
         "remaining_blockers": [b["blocker"] for b in BLOCKERS],
     }
     write_json(REPORTS / "v2_1_summary.json", summary)

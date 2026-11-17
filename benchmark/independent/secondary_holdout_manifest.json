@@ -259,16 +259,16 @@
       "class_disjoint": {
         "kind": "class_disjoint",
         "label_counts": {
-          "effective": 5
+          "effective": 7
         },
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
-        "groups_total": 5,
+        "groups_total": 7,
         "kind": "group_disjoint",
-        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
@@ -284,13 +284,13 @@
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 5,
+      "rows_available": 7,
       "shortcuts_class_disjoint": {
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -337,16 +337,16 @@
       "class_disjoint": {
         "kind": "class_disjoint",
         "label_counts": {
-          "effective": 5
+          "effective": 7
         },
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
-        "groups_total": 5,
+        "groups_total": 7,
         "kind": "group_disjoint",
-        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
@@ -362,13 +362,13 @@
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 5,
+      "rows_available": 7,
       "shortcuts_class_disjoint": {
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 5 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },

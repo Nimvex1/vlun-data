@@ -35,11 +35,17 @@ Resolution methods, in order of strength:
 
 Determinism: identical inputs produce an identical file. Only local git
 operations are used; nothing is fetched.
+
+The clones it reads (work/wt, work/repos, work/sources, work/source_manifest.json)
+are all git-ignored, so a checkout without them resolves nothing and would publish
+an empty document over the committed one. The write path fails closed against the
+published pin set instead; --allow-shrink is the reviewed-migration escape hatch.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -722,6 +728,97 @@ def apply_resolutions(records: list[dict], resolutions: dict,
     return stats
 
 
+# ---------------------------------------------------------------------------
+# Write-path input guard (see also build_all.CANONICAL_LAYERS).
+#
+# WHY THIS EXISTS. Every resolution this script publishes is read out of a local
+# git clone: `locate_clone()` enumerates work/wt and work/repos, the vendored and
+# retrieved-copy paths enumerate work/sources and work/source_manifest.json. All
+# four are git-ignored, so a checkout that holds none of them resolves nothing --
+# and the run still exits 0 with a well-formed document. The offline regeneration
+# cascade did exactly that: reports/citation_resolution.json lost all 473 pinned
+# citations and every `resolved_commit` (citations [], citations_pinned 0), and
+# the --apply write-back rewrites derived/records.jsonl in the same breath.
+#
+# WHY A FLOOR AND NOT A NOSE. Pinning is one-way. A citation the committed output
+# resolved to a 40-hex commit can only stay resolved or become better evidenced;
+# the only way it comes back `unresolved` is that the clone holding that history
+# is not on this machine. So the published pin set is the floor, checked per
+# citation rather than in aggregate -- which makes it hard to satisfy by shipping
+# a document whose totals happen to look plausible. A run with no visible clone
+# is refused outright, because its output is not a smaller truth but a different
+# artefact.
+# ---------------------------------------------------------------------------
+def clone_inputs() -> list[Path]:
+    """The git-ignored trees this resolver enumerates, and nothing else."""
+    return [WORK / "wt", WORK / "repos", WORK / "sources", WORK / "source_manifest.json"]
+
+
+def visible_clones() -> int:
+    """How many local git clones `locate_clone()` could actually answer for."""
+    total = 0
+    for base in (WORK / "wt", WORK / "repos"):
+        if base.is_dir():
+            total += sum(1 for p in sorted(base.iterdir()) if (p / ".git").exists())
+    return total
+
+
+def _pin_index(doc: dict) -> dict:
+    """(record_id, context_key, original url) -> the commit the document pins it to."""
+    out = {}
+    for c in doc.get("citations") or []:
+        if not isinstance(c, dict) or not c.get("resolved_commit"):
+            continue
+        out[(c.get("record_id"), c.get("context_key"), c.get("source_url_original"))] = \
+            str(c["resolved_commit"])
+    return out
+
+
+def write_guard(doc: dict, out_path: Path) -> list[str]:
+    """Reasons this run must not overwrite the published resolution document."""
+    reasons: list[str] = []
+    previous: dict = {}
+    if out_path.exists():
+        try:
+            previous = json.loads(out_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            previous = {}
+
+    if visible_clones() == 0:
+        reasons.append(
+            "no local clone is visible under "
+            f"{(WORK / 'wt').as_posix()} or {(WORK / 'repos').as_posix()}, and "
+            + ", ".join(p.as_posix() for p in clone_inputs())
+            + " are the git-ignored inputs the published document was built from "
+              "(git-ignored; populated by scripts/fetch_sources.py). Every target here "
+              "resolves to `unresolved`, which is not a smaller truth but a different "
+              "artefact")
+
+    prev_pins = _pin_index(previous)
+    new_pins = _pin_index(doc)
+    lost = {k: v for k, v in prev_pins.items() if new_pins.get(k) != v}
+    if lost:
+        sample = "; ".join(f"{k[0]}/{k[1]} {v[:12]}" for k, v in list(lost.items())[:2])
+        reasons.append(
+            f"{out_path.as_posix()}: {len(lost)} of {len(prev_pins)} published pinned "
+            f"citations would come back unpinned, deleting their `resolved_commit`, "
+            f"`source_url_pinned`, method and confidence (e.g. {sample})")
+
+    for label, old_v, new_v in (
+            ("by_status.resolved", (previous.get("by_status") or {}).get("resolved", 0),
+             (doc.get("by_status") or {}).get("resolved", 0)),
+            ("applied.citations_pinned",
+             (previous.get("applied") or {}).get("citations_pinned", 0),
+             sum(1 for v in new_pins.values() if v))):
+        if isinstance(old_v, int) and isinstance(new_v, int) and new_v < old_v:
+            reasons.append(
+                f"{out_path.as_posix()}: {label} {old_v} -> {new_v}. Resolutions only "
+                "accumulate while the clones are on disk, so a lower number reports this "
+                "checkout, not the dataset")
+
+    return reasons
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--records", default=str(DERIVED / "records.jsonl"))
@@ -733,6 +830,10 @@ def main() -> int:
     ap.add_argument("--min-confidence", default="medium",
                     choices=["high", "medium", "low", "unknown"],
                     help="lowest resolution confidence that may be written back")
+    ap.add_argument("--allow-shrink", action="store_true",
+                    help="let this run publish fewer pinned citations than the report "
+                         "already on disk instead of refusing (use only for a reviewed, "
+                         "documented migration)")
     args = ap.parse_args()
 
     records = read_jsonl(Path(args.records))
@@ -817,6 +918,24 @@ def main() -> int:
                     for k, v in sorted(resolutions.items())],
         "citations": per_citation,
     }
+
+    # Fail closed before either write: this same run would also rewrite
+    # --records, so the guard protects the data layer as well as the report.
+    blocks = [] if args.allow_shrink else write_guard(doc, Path(args.out))
+    if blocks:
+        log(f"REFUSED: scripts/resolve_citations.py wrote nothing. This run cannot see "
+            f"the clones the published {args.out} was built from.")
+        for block in blocks:
+            log(f"  - {block}")
+        log(f"  it would have overwritten {Path(args.out).as_posix()}"
+            + (f" and, with --apply, {Path(args.records).as_posix()}" if args.apply else "")
+            + ": the deleted content is the `resolved_commit`/`source_url_pinned` of the "
+              "citations named above plus their resolution method and confidence, i.e. the "
+              "only record of how each mutable branch became an immutable pin. Re-run with "
+              "--allow-shrink only as a reviewed migration (the same wording as build_all.py "
+              "--allow-canonical-rewrite).")
+        return 1
+
     write_json(Path(args.out), doc)
     log(f"wrote {args.out}")
     log(f"  status: {dict(status)}")

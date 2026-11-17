@@ -265,69 +265,47 @@ RENFT_CASES += [
     ),
     dict(
         finding_id="2024-01-renft/M-01",
-        test="integration/guarded-transactions/ERC1155.t.sol",
+        test="vlun_renft_m01_partial_transfer.t.sol",
+        custom="authored_poc",
+        authored_source="harness_authored/renft/2024-01-renft__M-01.t.sol",
         fix_commit="45ef41123b65d67b7f83cad8bc9d35917b9da30f",
-        # Two blockers on the audited revision: (1) the test expects
-        # Errors.GuardPolicy_UnauthorizedAssetAmount, declared by the mitigation
-        # (Errors.sol overlaid verbatim from the fix commit); (2) the mock arrays
-        # are declared in AccountCreator.sol with the pre-mitigation mock types,
-        # so the declaring chain (BaseTest -> BaseProtocol -> AccountCreator) is
-        # overlaid at the audited revision, which redirects its mock imports to
-        # the post-mitigation MockERC1155. The fix commit's own Protocol.sol is
-        # deliberately NOT overlaid: it calls Admin.setMaxRentDuration, which the
-        # audited Admin policy does not have.
-        overlays=["utils/GnosisSafeUtils.sol",
-                  "mocks/tokens/standard/MockERC1155.sol",
-                  "src/libraries/Errors.sol",
-                  ("BaseTest.sol", AUDITED_PIN),
-                  ("fixtures/engine/BaseEngine.sol", AUDITED_PIN),
-                  ("fixtures/engine/OrderFulfiller.sol", AUDITED_PIN),
-                  ("fixtures/engine/OrderCreator.sol", AUDITED_PIN),
-                  ("fixtures/protocol/BaseProtocol.sol", AUDITED_PIN),
-                  ("fixtures/protocol/AccountCreator.sol", AUDITED_PIN)],
-        # The fix commit moved the mock declarations from AccountCreator into a
-        # new TokenCreator fixture, so the audited-revision AccountCreator overlay
-        # would collide with the repository's own TokenCreator on the fixed side.
-        # The fixed revision hosts the regression test with its own fixtures.
-        fixed_overlays=["utils/GnosisSafeUtils.sol",
-                        "mocks/tokens/standard/MockERC1155.sol"],
+        # The mitigation's own regression test cannot be the comparison harness:
+        # it reaches its fixtures through BaseTest -> BaseEngine -> OrderCreator
+        # -> OrderFulfiller -> BaseProtocol -> AccountCreator, and that chain differs
+        # between the two revisions (the fixed Protocol calls Admin.setMaxRentDuration
+        # and whitelists fixtures the audited Admin has no selector for), so the
+        # compiled test bytes differ on the two sides. The authored test below
+        # reconstructs the finding's own attack shape against APIs present in both
+        # revisions and is executed byte-identically on both. Fixture bytes are
+        # revision-specific test infrastructure and are recorded per side.
         match_test="test_",
         classification="runnable_after_harness_reconstruction",
         security_property=(
-            "a lender cannot freeze a borrower's ERC-1155: a burn or transfer up to the "
-            "rented amount stays possible"),
-        exploited=("a malicious lender withdrew more ERC-1155 than was rented, so the "
-                   "guard refused every subsequent burn and the borrower's balance was frozen"),
-        blocked=("the guard compares the action against the recorded rented amount rather "
-                 "than the post-withdrawal balance"),
+            "a lender cannot freeze a borrower's ERC-1155: the renter can still move the "
+            "part of the balance that is not rented"),
+        exploited=("a malicious lender left the rental safe holding more ERC-1155 than was "
+                   "rented, and the guard refused every transfer of the rented token id, "
+                   "freezing the borrower's unrented balance"),
+        blocked=("the guard compares the amount leaving the safe against the rented amount, "
+                 "so the unrented balance stays transferable"),
     ),
     dict(
         finding_id="2024-01-renft/M-08",
-        test="integration/guarded-transactions/ERC721.t.sol",
+        test="vlun_renft_m08_destructive_burn.t.sol",
+        custom="authored_poc",
+        authored_source="harness_authored/renft/2024-01-renft__M-08.t.sol",
         fix_commit="fb8013111b57c1e09482fb3193db58cb892229e9",
-        # Same closure treatment as M-01: the mock arrays are declared in
-        # AccountCreator.sol, which the test reaches through the engine chain
-        # (BaseTest -> BaseEngine -> OrderFulfiller -> OrderCreator -> BaseProtocol
-        # -> AccountCreator), so the whole chain is overlaid at the audited
-        # revision - byte-identical files whose only effect is redirecting the
-        # mock imports to the post-mitigation MockERC721.
-        overlays=["utils/GnosisSafeUtils.sol",
-                  "mocks/tokens/standard/MockERC721.sol",
-                  ("BaseTest.sol", AUDITED_PIN),
-                  ("fixtures/engine/BaseEngine.sol", AUDITED_PIN),
-                  ("fixtures/engine/OrderFulfiller.sol", AUDITED_PIN),
-                  ("fixtures/engine/OrderCreator.sol", AUDITED_PIN),
-                  ("fixtures/protocol/BaseProtocol.sol", AUDITED_PIN),
-                  ("fixtures/protocol/AccountCreator.sol", AUDITED_PIN)],
-        fixed_overlays=["utils/GnosisSafeUtils.sol",
-                        "mocks/tokens/standard/MockERC721.sol"],
+        # Same reconstruction reason as M-01: the mitigation's regression test
+        # depends on the fixed fixture chain (TokenCreator, Admin whitelisting),
+        # which cannot run on the audited revision without replacing production
+        # files. The authored test asserts the same security property using only
+        # APIs present in both revisions.
         match_test="test_",
         classification="runnable_after_harness_reconstruction",
         security_property=(
             "assets held by a rental safe cannot be destroyed by the renter or the lender; "
             "the guard blocks unguarded destructive selectors"),
-        exploited=("burn() or a transfer to a dead address removed the asset from the safe "
-                   "while the rental was active"),
+        exploited=("burn() removed the asset from the safe while the rental was active"),
         blocked=("the guard rejects an unguarded destructive call against the safe"),
     ),
     dict(
@@ -766,6 +744,45 @@ def build_registry() -> list[dict]:
                               "harness": harness,
                               "authored_harness": ["VlunEip712.t.sol"],
                               "expectation": "the three EIP-712 property assertions PASS: the protocol computes the canonical digest", "expected_status": "pass"},
+                },
+                "fix_commit": case["fix_commit"],
+            })
+            continue
+        if case.get("custom") == "authored_poc":
+            name = case["test"]
+            source = (ROOT / case["authored_source"]).read_text(encoding="utf-8")
+            harness = {name: source}
+            match_path = "test/vlun_poc/" + name
+            reg.append({
+                "finding_id": case["finding_id"],
+                "classification": case["classification"],
+                "security_property": case["security_property"],
+                "exploited_behaviour": case["exploited"],
+                "blocked_behaviour": case["blocked"],
+                "evidence_layer": "dynamic_poc_plus_source_diff",
+                "notes": case.get(
+                    "notes",
+                    "the authored reconstruction is executed byte-identically on "
+                    "both revisions; the repository's own fixtures are "
+                    "revision-specific test infrastructure"),
+                "match_test": case["match_test"],
+                "revisions": {
+                    "vulnerable": {
+                        "repo_key": "renft-vulnerable",
+                        "harness": harness,
+                        "match_path": match_path,
+                        "authored_harness": [name],
+                        "expectation": ("test FAILS: the security property is "
+                                        "violated on the audited revision"),
+                        "expected_status": "fail"},
+                    "fixed": {
+                        "repo_key": "renft-fixed-" + case["fix_commit"][:8],
+                        "harness": harness,
+                        "match_path": match_path,
+                        "authored_harness": [name],
+                        "expectation": ("test PASSES: the security property holds "
+                                        "after the patch"),
+                        "expected_status": "pass"},
                 },
                 "fix_commit": case["fix_commit"],
             })

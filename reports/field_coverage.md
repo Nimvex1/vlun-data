@@ -4,7 +4,7 @@ Counts recomputed from canonical files by `scripts/field_coverage.py`. `unknown`
 
 | Scope.field | Total | Known | Missing | Known % |
 |---|---|---|---|---|
-| `v1.derived.attacker_model.attacker_identity` | 722 | 290 | 432 | 40.2 |
+| `v1.derived.attacker_model.attacker_identity` | 722 | 405 | 317 | 56.1 |
 | `v1.derived.invariants` | 722 | 722 | 0 | 100.0 |
 | `v1.derived.security_state_transition` | 722 | 722 | 0 | 100.0 |
 | `v1.derived.taxonomy` | 722 | 722 | 0 | 100.0 |

@@ -1,0 +1,39 @@
+{
+  "artifact_hashes": {
+    "command.txt": "d089c9889679e13a3dd0234a14b8627a378db753a114e4f48cb17114078002d9",
+    "harness.json": "347ea213a6815caa193464065c7a8c1e3debe02889eb3a5d41f8f1325d3109b3",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "e89e8f5b0199573fce3dbfce7d5c79ba117ee5bf82c49e74f2369725c9cf5b56",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-03/Venus_THE_exp.sol",
+      "poc_sha256": "f708bced15fbac3730f3adaeb6cf9c753e2e1bfe3d7649a43099c7ee30d18393",
+      "staged_files": [
+        "src/test/2026-03/Venus_THE_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "detail": "forge test rc!=0 without PASS",
+  "experiment": "venus-the",
+  "failure_reason": "broken_original_test",
+  "finding_id": "defihacklabs:2026-03/Venus_THE_exp.sol",
+  "fork_aliases": [],
+  "level_awarded": "L3",
+  "level_basis": "forge build rc=0 on staged PoC (unmodified)",
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 21.3,
+  "status": "test_failed",
+  "test": {
+    "command": "forge test --match-test testTraceDrivenPoC -vv",
+    "rc": 1,
+    "test_function": "testTraceDrivenPoC"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

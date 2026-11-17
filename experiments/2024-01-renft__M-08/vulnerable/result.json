@@ -1,16 +1,16 @@
 {
   "artifact_sha256": {
-    "command.txt": "52c0cd771e7537df1fad5d479672dc20abcb7d9cc4b9ad290c6f1013f38b6009",
-    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout.txt": "19331841fde657cce63959700182954377878cd15bba4dbc0df9e6871407cede"
+    "command.txt": "271d9dcbf5b39f3ce92c0f46bbc4c2fa85bb7de8ad0739ea58af2cfa4d95e2ab",
+    "stderr.txt": "ce0c30764f0f05239f720b53b8de2ebd37f8ac956f5fe4342a639261dea95898",
+    "stdout.txt": "67c85f694347da07a13d4656ffc1cf44b6d6afea9792b061222d85b03bdae60a"
   },
   "classification": "runnable_after_harness_reconstruction",
-  "command": "forge test --json --match-path test/vlun_poc/integration__guarded-transactions__ERC721.t.sol -vv",
-  "declared_expectation": "test FAILS: the guard does not block the exploit",
+  "command": "forge test --json --match-path test/vlun_poc/vlun_renft_m08_destructive_burn.t.sol -vv",
+  "declared_expectation": "test FAILS: the security property is violated on the audited revision",
   "declared_expected_status": "fail",
   "decoded_logs": [],
   "detail": "",
-  "duration_s": 11.05,
+  "duration_s": 5.15,
   "environment_requirements": {
     "forge": "foundry (forge 1.8.3 or any 1.x)",
     "git": "git 2.x with submodule support",
@@ -18,7 +18,7 @@
     "solc": "selected by the repository's foundry.toml / hardhat config"
   },
   "exit_code": 1,
-  "experiment_id": "9c2eee4eeaf7d9912f8aff83",
+  "experiment_id": "6fe4e590e925b4e7cd27375b",
   "finding_id": "2024-01-renft/M-08",
   "forensics": {
     "available": true,
@@ -30,41 +30,20 @@
     "production_files_modified": [],
     "production_files_modified_count": 0
   },
-  "gas_used": 2571413,
-  "harness_digest": "95ba16c2a22f3db6cab964f1fa8249004fd7fc893070d479b28d996aedb38532",
+  "gas_used": 2531241,
+  "harness_digest": "cf806e6712655ecbdeae8c40cbc74ca9da4100ce298d6ff84eef4e14a71885bf",
   "harness_file_digests": {
-    "BaseTest.sol": "127316d7f5b127f2d0d3ca38c48d822a7d2b8b13bde77de5ee421a7dcdeeb35d",
-    "fixtures__engine__BaseEngine.sol": "a811a76f5d3a8357bf7d77453c074f19781f6ea186a135e976df8ba4f656458f",
-    "fixtures__engine__OrderCreator.sol": "05aa50d0adb651e8a2da150132da7332c5d4712f00ece9671f7e326aa5ebe1cd",
-    "fixtures__engine__OrderFulfiller.sol": "a893fa8a2ffe1523fa9caf68e2a51942b72cee3f4933248d570c5ccff0f2386a",
-    "fixtures__protocol__AccountCreator.sol": "4516d3a8c7f36c541d087b18ce1abafdfe1f1b1fec6d1b7002bc4918cf6d01e7",
-    "fixtures__protocol__BaseProtocol.sol": "14c12a2622b52edd9f5f011653a54520448681898e705b2b800c087db730f90f",
-    "integration__guarded-transactions__ERC721.t.sol": "a6c1fb9183d0979d8add585b1fc680a32920ee3c25e19eb4be9c973af523a8ba",
-    "mocks__tokens__standard__MockERC721.sol": "d7ec6d04c0b310e1f5a48c2e92221d0545f49a0b54419a64f646048fc2d9d2e1",
-    "utils__GnosisSafeUtils.sol": "1fd6040a2227d005514e0f9561c95e70eba6ab494ed0ab57d1be96ecc1726522"
+    "vlun_renft_m08_destructive_burn.t.sol": "5ac31b60744de4b3ecf8bd2904f0a979e1ca5a25295e9f7113f57a7e3388faed"
   },
-  "harness_files": [],
-  "harness_files_withheld_for_licence": [
-    "BaseTest.sol",
-    "fixtures__engine__BaseEngine.sol",
-    "fixtures__engine__OrderCreator.sol",
-    "fixtures__engine__OrderFulfiller.sol",
-    "fixtures__protocol__AccountCreator.sol",
-    "fixtures__protocol__BaseProtocol.sol",
-    "integration__guarded-transactions__ERC721.t.sol",
-    "mocks__tokens__standard__MockERC721.sol",
-    "utils__GnosisSafeUtils.sol"
+  "harness_files": [
+    "vlun_renft_m08_destructive_burn.t.sol"
   ],
+  "harness_files_withheld_for_licence": [],
   "per_test": {
-    "test_Reverts_ERC721_Burn_Rented()": {
+    "test_VlunM08_RentedERC721CannotBeBurned()": {
       "logs": [],
-      "reason": null,
+      "reason": "next call did not revert as expected",
       "status": "Failure"
-    },
-    "test_Success_ERC721_Burn_NotRented()": {
-      "logs": [],
-      "reason": null,
-      "status": "Success"
     }
   },
   "repository": {

@@ -1,10 +1,9 @@
 {
   "by_fix_effectiveness": {
-    "effective": 5,
-    "not_testable": 31,
-    "not_verified_two_revision": 2
+    "effective": 7,
+    "not_testable": 31
   },
-  "experimentally_confirmed_pairs": 5,
+  "experimentally_confirmed_pairs": 7,
   "fix_category_vocabulary": [
     "authorization",
     "input_validation",
@@ -1027,7 +1026,7 @@
     },
     {
       "diff_withheld_for_licence": true,
-      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
+      "failure_reason_on_fixed": "test PASSES: the security property holds after the patch",
       "finding_id": "2024-01-renft/M-01",
       "fix_category": {
         "category": "parameter_correction",
@@ -1042,15 +1041,11 @@
           "upgradeability": 5
         }
       },
-      "fix_effectiveness": "not_verified_two_revision",
+      "fix_effectiveness": "effective",
       "fixed_commit": "45ef41123b65d67b7f83cad8bc9d35917b9da30f",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
       "fixing_commit_discrepancy": null,
-      "missing_evidence": [
-        "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol)",
-        "the two revisions did not run the same test file bytes"
-      ],
       "patch_delta": {
         "added_lines": 329,
         "added_sample": [
@@ -1250,12 +1245,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC1155.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol, src__libraries__Errors.sol); the two revisions did not run the same test file bytes",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
-      "two_revision_evidence": "PARTIAL",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },
@@ -1672,7 +1667,7 @@
     },
     {
       "diff_withheld_for_licence": true,
-      "failure_reason_on_fixed": "test PASSES: the guard blocks the exploit",
+      "failure_reason_on_fixed": "test PASSES: the security property holds after the patch",
       "finding_id": "2024-01-renft/M-08",
       "fix_category": {
         "category": "parameter_correction",
@@ -1687,15 +1682,11 @@
           "upgradeability": 3
         }
       },
-      "fix_effectiveness": "not_verified_two_revision",
+      "fix_effectiveness": "effective",
       "fixed_commit": "fb8013111b57c1e09482fb3193db58cb892229e9",
       "fixed_repository": "renft-smart",
       "fixed_revision_result": "pass",
       "fixing_commit_discrepancy": null,
-      "missing_evidence": [
-        "the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol)",
-        "the two revisions did not run the same test file bytes"
-      ],
       "patch_delta": {
         "added_lines": 168,
         "added_sample": [
@@ -1872,12 +1863,12 @@
           "withheld": "diff and per-file patches omitted: the fixed source is under a source-available licence"
         }
       ],
-      "reason": "the two revisions were executed, but the committed artefacts do not show a controlled two-revision comparison: the two revisions did not run byte-identical harness bytes: integration__guarded-transactions__ERC721.t.sol (and the vulnerable side additionally carried BaseTest.sol, fixtures__engine__BaseEngine.sol, fixtures__engine__OrderCreator.sol, fixtures__engine__OrderFulfiller.sol, fixtures__protocol__AccountCreator.sol, fixtures__protocol__BaseProtocol.sol); the two revisions did not run the same test file bytes",
+      "reason": "the same test observed the violation on the audited revision and the property held on the fixed revision, on byte-identical harness bytes",
       "regression_test": "test_",
       "remediation_status": "Mitigation Confirmed",
       "repository": "2024-01-renft",
       "severity": "medium",
-      "two_revision_evidence": "PARTIAL",
+      "two_revision_evidence": "VERIFIED_TWO_REVISION",
       "vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
       "vulnerable_revision_result": "fail"
     },

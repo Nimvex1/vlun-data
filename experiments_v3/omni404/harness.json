@@ -1,0 +1,10 @@
+{
+  "poc": "2026-09/OMNI404_exp.sol",
+  "poc_sha256": "f319458617a8bcc044f5424fec496183f8daa65492e2377c75a31b862346ec5a",
+  "staged_files": [
+    "src/test/2026-09/OMNI404_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

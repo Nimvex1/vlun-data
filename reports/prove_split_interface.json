@@ -13,9 +13,9 @@
     "is_not_a_model_result": true,
     "reasons_recovered_by_replaying_stdout": 4,
     "stage_reached_distribution": {
-      "patch_verified": 5
+      "patch_verified": 7
     },
-    "tasks_self_checked": 5,
+    "tasks_self_checked": 7,
     "validates": "the grader's stage rules against this project's own recorded runs"
   },
   "isolation": {
@@ -45,22 +45,22 @@
     "not_contamination_proof": true,
     "project_diversity": {
       "experiments_v3/1inch-lop-m01": 1,
-      "https://github.com/re-nft/smart-contracts.git": 5
+      "https://github.com/re-nft/smart-contracts.git": 7
     },
     "statement": "this split is leakage-audited under the criteria above; it is not and must not be described as contamination-proof"
   },
   "notes": [
     "the reason a recorded test failed now comes from the `forge --json` entry (scripts/experiments.py:per_test_reason); the recorder used to read only the human `[FAIL: …]` line, which does not exist under `--json`, so every recorded run stored `reason: null`. Already-recorded artefacts are evidence and are not rewritten — the self-check above recovers the reason by replaying the preserved stdout through the grader's own parser, and future runs record it directly.",
-    "4 of 5 recorded runs had their failure reason recovered from the artefact bytes rather than the summary."
+    "4 of 7 recorded runs had their failure reason recovered from the artefact bytes rather than the summary."
   ],
   "pool": {
     "by_framework": {
-      "foundry": 5,
+      "foundry": 7,
       "hardhat": 1
     },
     "by_repository": {
       "experiments_v3/1inch-lop-m01": 1,
-      "https://github.com/re-nft/smart-contracts.git": 5
+      "https://github.com/re-nft/smart-contracts.git": 7
     },
     "counts": {
       "candidate_ledger_rows": 210,
@@ -70,7 +70,7 @@
         "release_eligible_tasks": "gradable tasks whose repository is cleared for redistribution in the candidate ledger",
         "technically_qualified_experiments": "ledger rows whose candidate_stage is qualified (both revisions executed)"
       },
-      "gradable_tasks": 5,
+      "gradable_tasks": 7,
       "release_eligible_tasks": 0,
       "separation_note": "a ledger row is a candidate, not a published task; the published pool is the gradable count and never the ledger count",
       "technically_qualified_experiments": 11
@@ -90,23 +90,23 @@
       "ledger_rows": 210,
       "relationship": "the qualified pool above counts only tasks whose artefacts are in the recorded layers this grader reads; a ledger qualification is a verified run awaiting the recorder, and is never added to the pool headcount until then"
     },
-    "qualified_pool_size": 5,
+    "qualified_pool_size": 7,
     "target_claimed": 200,
     "target_met": false,
-    "tasks_with_two_revisions_executed": 6,
-    "why_smaller": "the qualified pool is 5: the tasks whose framework the published grader can actually run. A further 1 task(s) carry recorded two-side evidence in a framework the grader does not implement, so they are listed as candidates and excluded from the headline rather than advertised as gradable. Every additional task needs a pinned fixed revision and one identical test that was run on both sides, so the pool is recorded at its real size and not padded to 200."
+    "tasks_with_two_revisions_executed": 8,
+    "why_smaller": "the qualified pool is 7: the tasks whose framework the published grader can actually run. A further 1 task(s) carry recorded two-side evidence in a framework the grader does not implement, so they are listed as candidates and excluded from the headline rather than advertised as gradable. Every additional task needs a pinned fixed revision and one identical test that was run on both sides, so the pool is recorded at its real size and not padded to 200."
   },
   "private_commitment": {
     "files": {
       "grader_self_check.json": {
-        "bytes": 3689,
-        "records": 5,
-        "sha256": "fd332b4d85e2f89c7fce1f2293cbedb9e988303fcbbe6c0fe8d6f1ae9e42221b"
+        "bytes": 5143,
+        "records": 7,
+        "sha256": "aa62dae9b7a6a10ee4f9a674b05796f3458b3a80a894a4468e448f11806a2ee1"
       },
       "prove_tasks_private.jsonl": {
-        "bytes": 16068,
-        "records": 6,
-        "sha256": "c1d94f34b80fe6b52541f2fbb4bb5b945f1424d1f8cbe8dfa40548325f0546fc"
+        "bytes": 20157,
+        "records": 8,
+        "sha256": "aae8020fe4de06b6e72614f17f74f686897fd636925b38b7f42cb213a9719405"
       }
     },
     "location": "outside the repository (path deliberately not published)",
@@ -208,6 +208,58 @@
         "overlay_root": "test/vlun_poc/"
       },
       "task_id": "prove-2024-01-renft__H-04",
+      "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+    },
+    {
+      "artifact_reference": null,
+      "finding_id": "2024-01-renft/M-01",
+      "framework": "foundry",
+      "gradable_by_the_published_grader": true,
+      "prompt": "Write a test that demonstrates the impact of this finding against the pinned revision `3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291` of the named repository. The test must (a) compile with the repository's own toolchain, (b) execute, and (c) fail because the claimed invariant is violated — not because of a setup, interface or gas problem. Submit the test file(s); the grader runs them unchanged against the same revision and against a second revision that is not disclosed.",
+      "repository": "https://github.com/re-nft/smart-contracts.git",
+      "self_check_stage_reached": "patch_verified",
+      "stages": [
+        "generated",
+        "compiles",
+        "executes",
+        "impact_reproduced",
+        "patch_verified",
+        "behaviour_preserved"
+      ],
+      "submission_contract": {
+        "files": [
+          "*.t.sol"
+        ],
+        "max_bytes": 200000,
+        "overlay_root": "test/vlun_poc/"
+      },
+      "task_id": "prove-2024-01-renft__M-01",
+      "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
+    },
+    {
+      "artifact_reference": null,
+      "finding_id": "2024-01-renft/M-08",
+      "framework": "foundry",
+      "gradable_by_the_published_grader": true,
+      "prompt": "Write a test that demonstrates the impact of this finding against the pinned revision `3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291` of the named repository. The test must (a) compile with the repository's own toolchain, (b) execute, and (c) fail because the claimed invariant is violated — not because of a setup, interface or gas problem. Submit the test file(s); the grader runs them unchanged against the same revision and against a second revision that is not disclosed.",
+      "repository": "https://github.com/re-nft/smart-contracts.git",
+      "self_check_stage_reached": "patch_verified",
+      "stages": [
+        "generated",
+        "compiles",
+        "executes",
+        "impact_reproduced",
+        "patch_verified",
+        "behaviour_preserved"
+      ],
+      "submission_contract": {
+        "files": [
+          "*.t.sol"
+        ],
+        "max_bytes": 200000,
+        "overlay_root": "test/vlun_poc/"
+      },
+      "task_id": "prove-2024-01-renft__M-08",
       "vulnerable_commit": "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291"
     },
     {

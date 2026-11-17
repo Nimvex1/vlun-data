@@ -1,0 +1,29 @@
+No files changed, compilation skipped
+
+Ran 7 tests for test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:GuardedTransactions_ERC1155_Integration_Test
+[FAIL: next call did not revert as expected; counterexample: calldata=0xb15d5a2e0000000000000000000000000000000000000000000000000000000000004b3800000000000000000000000000000000000000000000000000000000000022580000000000000000000000000000000000000000000000000000000000004dd2 args=[19256 [1.925e4], 8792, 19922 [1.992e4]]] test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256) (runs: 2, Î¼: 2094365, ~: 2094365)
+[FAIL: GuardPolicy_UnauthorizedSelector(0xf242432a); counterexample: calldata=0x81d37fee0000000000000000000000000000000000000000000000000000000000004d9c00000000000000000000000000000000000000000000000000000000000f42400000000000000000000000000000000000000000000000000000000000004949 args=[19868 [1.986e4], 1000000 [1e6], 18761 [1.876e4]]] test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256) (runs: 0, Î¼: 0, ~: 0)
+[FAIL: next call did not revert as expected] test_Reverts_ERC1155_BurnBatch_Always() (gas: 284945)
+[FAIL: next call did not revert as expected] test_Reverts_ERC1155_Burn_Rented() (gas: 2556333)
+[PASS] test_Success_ERC1155_Burn_NotRented() (gas: 281670)
+[PASS] test_Success_ERC1155_SafeTransferFrom_NotRented() (gas: 331289)
+[FAIL: Error != expected error: GuardPolicy_UnauthorizedSelector(0xf242432a) != GuardPolicy_UnauthorizedAssetAmount(0xf242432a, 10, 0)] test_Success_ERC1155_SafeTransferFrom_Rented() (gas: 2548816)
+Suite result: FAILED. 2 passed; 5 failed; 0 skipped; finished in 19.04ms (21.83ms CPU time)
+
+Ran 1 test suite in 21.10ms (19.04ms CPU time): 2 tests passed, 5 failed, 0 skipped (7 total tests)
+
+Failing tests:
+Encountered 5 failing tests in test/vlun_poc/integration__guarded-transactions__ERC1155.t.sol:GuardedTransactions_ERC1155_Integration_Test
+[FAIL: next call did not revert as expected; counterexample: calldata=0xb15d5a2e0000000000000000000000000000000000000000000000000000000000004b3800000000000000000000000000000000000000000000000000000000000022580000000000000000000000000000000000000000000000000000000000004dd2 args=[19256 [1.925e4], 8792, 19922 [1.992e4]]] test_Fuzz_ERC1155_Burn_PartiallyRented(uint256,uint256,uint256) (runs: 2, Î¼: 2094365, ~: 2094365)
+[FAIL: GuardPolicy_UnauthorizedSelector(0xf242432a); counterexample: calldata=0x81d37fee0000000000000000000000000000000000000000000000000000000000004d9c00000000000000000000000000000000000000000000000000000000000f42400000000000000000000000000000000000000000000000000000000000004949 args=[19868 [1.986e4], 1000000 [1e6], 18761 [1.876e4]]] test_Fuzz_ERC1155_SafeTransferFrom_PartiallyRented(uint256,uint256,uint256) (runs: 0, Î¼: 0, ~: 0)
+[FAIL: next call did not revert as expected] test_Reverts_ERC1155_BurnBatch_Always() (gas: 284945)
+[FAIL: next call did not revert as expected] test_Reverts_ERC1155_Burn_Rented() (gas: 2556333)
+[FAIL: Error != expected error: GuardPolicy_UnauthorizedSelector(0xf242432a) != GuardPolicy_UnauthorizedAssetAmount(0xf242432a, 10, 0)] test_Success_ERC1155_SafeTransferFrom_Rented() (gas: 2548816)
+
+Encountered a total of 5 failing tests, 2 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 5 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+
+Fuzz seed: 0xf5d872a00725855330ecbb914cfdc7e66f94ead96233436d186f1ef7ee4b99a2 (use `--fuzz-seed` to reproduce)
+

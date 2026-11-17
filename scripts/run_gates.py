@@ -209,12 +209,16 @@ def main() -> int:
 
     results = []
     print("run_gates.py")
+    # 2400s, not 1200s: the unit suite alone measured 1613s on Windows on
+    # 2026-11-06 (856 tests, all passing); the same suite is well under 1200s
+    # on the Linux CI runner. The old cap made a green Windows tree time out
+    # at gate level, which is indistinguishable from a failure in the log.
     for name, cmd in selected:
         out = ""
         status = "FAIL"
         try:
             p = subprocess.run(cmd, cwd=str(ROOT), capture_output=True,
-                               text=True, timeout=1200, errors="replace")
+                               text=True, timeout=2400, errors="replace")
             if p.returncode == 0:
                 status = "PASS"
             elif p.returncode in SKIPPED_CODES:
@@ -225,7 +229,7 @@ def main() -> int:
             tail = " | ".join(t.strip() for t in out.splitlines()[-2:]
                               if t.strip())
         except subprocess.TimeoutExpired:
-            status, tail = "FAIL", "timeout after 1200s"
+            status, tail = "FAIL", "timeout after 2400s"
         except OSError as exc:
             status, tail = "FAIL", f"cannot start: {exc}"
         results.append((name, status))

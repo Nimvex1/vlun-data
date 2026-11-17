@@ -9,16 +9,16 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 
 | Layer | Source | Records | Strongest evidence |
 |---|---|---|---|
-| v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **5** L6 verified patches |
-| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L3': 1, 'L5': 35, 'L6': 1, 'none': 100}` |
-| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 4586, "L1": 754, "L3": 125, "L5": 2}` after the V3.2 execution overlay |
+| v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **7** L6 verified patches |
+| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}` |
+| V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 4586, "L1": 754, "L3": 115, "L4": 7, "L5": 5}` after the V3.2 execution overlay |
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
-| V3.2 | fork executions of incident PoCs | 6 runs | **2** L5 reproduced thefts, 4 blocked at L3 |
+| V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 
-Gates (0 critical failures): v2 78/78 · v3.0 42/42 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (3 critical failures): v2 82/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 5/722 · v2.2 36/137 · V3.0 2/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 5/722 · v2.2 36/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -75,7 +75,7 @@ forge reported `Success`, and no patch is called effective without the controlle
 
 - **v1/v2:** 9 pinpoint experiments
   (2 inconclusive, missing symbol recorded);
-  **5** patches verified effective;
+  **7** patches verified effective;
   rejection evidence over 458 rejected submissions (axes are independent
   and not additive): 9 carry a reason
   attributed to a named judge or sponsor, 1 where
@@ -99,9 +99,9 @@ forge reported `Success`, and no patch is called effective without the controlle
   (severity explicit on 4,231);
   taxonomy explicit on 596, derived on
   1,497, unknown elsewhere — by rule, not by optimism.
-- **V3.2:** 127/129 incident PoCs compile (L3); 127 admitted v3 records now carry a run artefact (levels `{"L0": 4586, "L1": 754, "L3": 125, "L5": 2}`),
-  2 thefts reproduced on fork with attacker-profit
-  evidence; 4 blocked
+- **V3.2:** 127/129 incident PoCs compile (L3); 127 admitted v3 records now carry a run artefact (levels `{"L0": 4586, "L1": 754, "L3": 115, "L4": 7, "L5": 5}`),
+  5 thefts reproduced on fork with attacker-profit
+  evidence; 13 blocked
   (pruned RPC, unreplayable state, repo drift — each with verbatim backend errors in
   `experiments_v3/`); 47 V3.1 patch candidates stay unverified at the candidate
   layer: 24 cite a
@@ -112,7 +112,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   review states what changed, not whether the fix works
   ([`derived_v3/patch_reviews.jsonl`](derived_v3/patch_reviews.jsonl),
   [`reports/v3/patch_static_review.json`](reports/v3/patch_static_review.json)).
-- **VLUN-Prove:** 6 two-revision proof tasks published as a
+- **VLUN-Prove:** 8 two-revision proof tasks published as a
   scoring interface ([`reports/prove_split_interface.md`](reports/prove_split_interface.md)).
   A submission is credited stage by stage — generated → compiles → executes → impact reproduced
   → patch verified — where `impact_reproduced` requires the *expected assertion* to be what
@@ -122,9 +122,9 @@ forge reported `Success`, and no patch is called effective without the controlle
   (2 files committed in
   [`reports/prove_split_interface.json`](reports/prove_split_interface.json)).
   Self-check: the project's own recorded runs were replayed through the grader's rules
-  (`{'patch_verified': 5}`), which is a
+  (`{'patch_verified': 7}`), which is a
   check of the grader, not of any model. The ~200-task held-out split is **not** reported as
-  met: only 6 tasks have
+  met: only 8 tasks have
   both revisions executed today, and each further task needs a pinned fix and a test run on
   both sides before it can be counted.
 - **Vbeta:** 6,935 admitted records from 7,060 candidates
@@ -149,7 +149,7 @@ forge reported `Success`, and no patch is called effective without the controlle
   [`CHANGELOG.md`](CHANGELOG.md), [`docs/DATASHEET.md`](docs/DATASHEET.md)
   (generated from reports), and CI running all gates on push/PR.
 - Per-field coverage (which fraction of records actually carry root_cause, attacker model,
-  impact, severity, language, … — 11 of 28 tracked fields under 50% known):
+  impact, severity, language, … — 10 of 28 tracked fields under 50% known):
   [`reports/field_coverage.md`](reports/field_coverage.md), generated by
   `scripts/field_coverage.py` from the canonical files.
 
@@ -170,10 +170,10 @@ families that need experimentally produced ground truth only admit rows that hav
 | `F_false_positive_rejection` | 458 | 17 | EXPLORATORY | v1/A-Q |
 | `Fa_rejection_evidence_axis_vector` | 458 | 0 | NOT_SCORABLE | v1/A-Q |
 | `Fb_duplicate_radar_pair` | 554 | 0 | NOT_SCORABLE | v1/A-Q |
-| `G_patch_verification` | 38 | 5 | EXPLORATORY | v1/A-Q |
+| `G_patch_verification` | 38 | 7 | EXPLORATORY | v1/A-Q |
 | `H_verified_exploit` | 7 | 0 | NOT_SCORABLE | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | EXPLORATORY | v1/A-Q |
-| `J_verified_patch` | 5 | 5 | EXPLORATORY | v1/A-Q |
+| `J_verified_patch` | 7 | 7 | EXPLORATORY | v1/A-Q |
 | `K_language_ecosystem_routing` | 137 | 137 | INVALID | v1/A-Q (retired) |
 | `L_severity_reconciliation` | 137 | 128 | INVALID | v1/A-Q (retired) |
 | `M_experiment_level_classification` | 37 | 37 | EXPLORATORY | v1/A-Q (retired) |
@@ -204,10 +204,10 @@ an evaluation claim:
 
 The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
 `docs/ANSWER_KEY.md`) covers 720 of
-23,198 manifest-scorable tasks in its primary metric. The
+23,202 manifest-scorable tasks in its primary metric. The
 rest are reported in their own blocks and never in the headline: the
 4 INVALID families' 18,911 scorable rows (C, R, U, V),
-the 4 EXPLORATORY families' 28 sub-floor rows (F, G, I, J),
+the 4 EXPLORATORY families' 32 sub-floor rows (F, G, I, J),
 the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
 retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
 exactly-matchable key (1,876 rows), excluded with stated reasons. Two of those
@@ -215,15 +215,15 @@ families are not left unscored: the F-extension is graded by its own scorer unde
 task contracts — `Fa_rejection_evidence_axis_vector` per axis over the assessed axes
 (9 of 458 rows carry evidence for every
 axis; 449 partial) and `Fb_duplicate_radar_pair` as a three-class
-pair adjudication (554 pairs: 184
-same, 121 distinct,
-249 ambiguous), with published trivial-predictor floors
+pair adjudication (552 pairs: 184
+same, 106 distinct,
+262 ambiguous), with published trivial-predictor floors
 ([`reports/f_extension.md`](reports/f_extension.md),
 [`reports/f_extension_baselines.json`](reports/f_extension_baselines.json)). The table's 0
 for both is a scope statement about the headline projection, never a claim that the rows
 went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
-22,145 of them.
+22,149 of them.
 
 **The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
 file as its input, and those files are committed in this public repository, so the keys are
@@ -244,12 +244,12 @@ releases.
 
 | Baseline | Primary acc @ predicted/scorable | Primary acc over scorable | Continuity acc @ predicted/scorable |
 |---|---|---|---|
-| majority | 0.7306 @ 720/720 | 0.7306 | 0.8687 @ 22,134/22,145 |
-| random-seed7 | 0.5042 @ 720/720 | 0.5042 | 0.3980 @ 22,134/22,145 |
-| frequency-seed7 | 0.6042 @ 720/720 | 0.6042 | 0.8161 @ 22,134/22,145 |
-| first-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
-| majority-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,145 |
-| TF-IDF retrieval | 0.4361 @ 720/720 | 0.4361 | 0.8937 @ 22,134/22,145 |
+| majority | 0.7306 @ 720/720 | 0.7306 | 0.8687 @ 22,134/22,149 |
+| random-seed7 | 0.5042 @ 720/720 | 0.5042 | 0.3980 @ 22,134/22,149 |
+| frequency-seed7 | 0.6042 @ 720/720 | 0.6042 | 0.8161 @ 22,134/22,149 |
+| first-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,149 |
+| majority-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,149 |
+| TF-IDF retrieval | 0.4361 @ 720/720 | 0.4361 | 0.8937 @ 22,134/22,149 |
 
 first-published and majority-published are L-only predictors over a retired family:
 they emit nothing on the primary set by construction, so their primary accuracy is
@@ -323,10 +323,11 @@ with its manifest fails the build.
 
 ```bash
 python scripts/build_all.py --with-network   # everything
+python scripts/build_derived.py --derive-l6-only  # offline: merge the L6 evidence into the published layer
 python scripts/validate.py                   # the gate (non-zero on failure)
 python scripts/validate_v3.py                # v3 gate
 python scripts/validate_v31.py               # v3.1 gate
-python scripts/check_manifests.py            # 180 count/reference checks, recomputed from canonical records
+python scripts/check_manifests.py            # 181 count/reference checks, recomputed from canonical records
 python scripts/check_reproducibility.py      # provenance, determinism, isolation (skips stay skipped_no_network)
 python -m unittest discover -s tests        # terminology, invariants, fixtures (incl. intentionally-broken)
 python scripts/generate_readme.py --check    # this file is generated; stays current only if regenerated
@@ -340,6 +341,23 @@ Every script is idempotent, takes `--help`, and writes only under its own layer 
 (`skipped_no_network` — a skip is never reported as a pass). Fresh clones reproduce the JSONL and
 derived layers but not execution artefacts, which live git-ignored under `work/` (verdicts stay
 checkable via committed `result.json` files).
+
+The offline path for a checkout without the git-ignored `V1/clones/` and `work/poc_runs/` is
+`python scripts/build_derived.py --derive-l6-only`: it merges the authoritative two-revision L6
+evidence from `reports/verified_experiments.json` into the published layer, writes only each
+record's `verification` block and `evidence.evidence_types_present`, refreshes
+`derived/manifest.json`'s `derived_verification_levels`, and is idempotent. A full
+`scripts/build_derived.py` rebuild requires those ignored inputs; without them it rewrites ~390
+of 722 records' code-context, licence and redistribution fields for reasons that have nothing to
+do with L6. That is a limitation of the checkout, not a recommendation to skip verification:
+run the L6 merge and every gate below.
+
+`scripts/build_all.py` guards the published canonical layers: it snapshots their bytes, a stage
+that rewrites one is rolled back, and the build exits 1 with `CANONICAL REWRITE BLOCKED`. That is
+by design — a whole-tree rebuild is not idempotent over published splits — so a bare-checkout
+run of `build_all.py` is expected to fail at stage 2 (`build_derived.py`) unless it is run with
+`--allow-canonical-rewrite`, which is only for a reviewed, documented migration, never for a
+routine build.
 
 Key stages:
 
@@ -487,4 +505,4 @@ See [`NOTICE.md`](NOTICE.md).
 
 ## V4 layer
 
-Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5270}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.
+Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5268}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.

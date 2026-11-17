@@ -4,6 +4,7 @@ Run:  python -m unittest tests.test_v32_execution
 """
 from __future__ import annotations
 
+import copy
 import json
 import sys
 import tempfile
@@ -34,59 +35,201 @@ class TestEvidenceKey(unittest.TestCase):
         self.assertEqual(X.evidence_key(None), "")
 
 
-class TestL5RequiresProfit(unittest.TestCase):
-    def test_l5_without_profit_demoted_to_l4(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "reports" / "v3").mkdir(parents=True)
-            (root / "reports" / "v3" / "experimental_proof.json").write_text(
-                json.dumps({"runs": [{
-                    "finding_id": "defihacklabs:2024-04/X_exp.sol",
-                    "level_awarded": "L5",
-                    "status": "violation_observed",
-                    "profit_deltas": [],          # no profit evidence
-                }]}), encoding="utf-8")
-            ev = X.load_evidence(root)
+def _load_runs(runs: list[dict], claims: dict | None = None,
+               sweep: list[dict] | None = None) -> dict:
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        (root / "reports" / "v3").mkdir(parents=True)
+        (root / "reports" / "v3" / "experimental_proof.json").write_text(
+            json.dumps({"runs": runs}), encoding="utf-8")
+        if claims is not None:
+            (root / "reports" / "v3" / "violation_evidence.json").write_text(
+                json.dumps({"runs": claims}), encoding="utf-8")
+        if sweep is not None:
+            (root / "reports" / "v3" / "compile_sweep.json").write_text(
+                json.dumps({"rows": sweep}), encoding="utf-8")
+        return X.load_evidence(root)
+
+
+def _run(**kw) -> dict:
+    base = {
+        "finding_id": "defihacklabs:2024-04/X_exp.sol",
+        "level_awarded": "L5",
+        "status": "violation_observed",
+        "test": {"rc": 0, "test_function": "testExploit"},
+    }
+    base.update(kw)
+    return base
+
+
+class TestL5RequiresClaimSpecificEvidence(unittest.TestCase):
+    def test_l5_without_evidence_demoted_to_l4(self):
+        ev = _load_runs([_run(profit_deltas=[])])
         entry = ev["2024-04/X_exp"]
         self.assertEqual(entry["level"], "L4",
-                         "L5 must be refused without attacker-side profit")
-        self.assertEqual(entry["status"], "executed_no_profit_evidence")
+                         "L5 must be refused without claim-specific evidence")
+        self.assertEqual(entry["status"], "executed_no_violation_evidence")
 
-    def test_l5_with_profit_kept(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "reports" / "v3").mkdir(parents=True)
-            (root / "reports" / "v3" / "experimental_proof.json").write_text(
-                json.dumps({"runs": [{
-                    "finding_id": "defihacklabs:2024-04/X_exp.sol",
-                    "level_awarded": "L5",
-                    "status": "violation_observed",
-                    "profit_deltas": [
-                        {"label_before": "attacker weth",
-                         "label_after": "attacker weth",
-                         "before": 1, "after": 500,
-                         "profit": 499, "attacker_side": True}],
-                }]}), encoding="utf-8")
-            ev = X.load_evidence(root)
-        self.assertEqual(ev["2024-04/X_exp"]["level"], "L5")
-        self.assertEqual(ev["2024-04/X_exp"]["profit_evidence"]["max_profit"], 499)
+    def test_l5_with_attributed_profit_kept(self):
+        ev = _load_runs([_run(profit_deltas=[
+            {"label_before": "attacker weth balance",
+             "label_after": "attacker weth balance",
+             "before": 1, "after": 500,
+             "profit": 499, "attacker_side": True}])])
+        entry = ev["2024-04/X_exp"]
+        self.assertEqual(entry["level"], "L5")
+        self.assertEqual(entry["profit_evidence"]["max_profit"], 499)
+        self.assertEqual(entry["violation_evidence"]["asset"], "WETH")
 
     def test_non_attacker_profit_is_not_evidence(self):
-        with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
-            (root / "reports" / "v3").mkdir(parents=True)
-            (root / "reports" / "v3" / "experimental_proof.json").write_text(
-                json.dumps({"runs": [{
-                    "finding_id": "defihacklabs:2024-04/X_exp.sol",
-                    "level_awarded": "L5",
-                    "status": "violation_observed",
-                    "profit_deltas": [
-                        {"label_before": "victim weth", "label_after": "victim weth",
-                         "before": 500, "after": 1, "profit": -499,
-                         "attacker_side": False}],
-                }]}), encoding="utf-8")
-            ev = X.load_evidence(root)
+        ev = _load_runs([_run(profit_deltas=[
+            {"label_before": "victim weth", "label_after": "victim weth",
+             "before": 500, "after": 1, "profit": -499,
+             "attacker_side": False}])])
         self.assertEqual(ev["2024-04/X_exp"]["level"], "L4")
+
+
+class TestClaimSpecificScenarios(unittest.TestCase):
+    """The impact-specific evidence model, one scenario per failure mode."""
+
+    def _access_run(self, **kw):
+        base = _run(
+            test={"rc": 0, "test_function": "testUnauthorizedWithdraw"},
+            violation_evidence={
+                "impact_type": "access_control",
+                "actor": "attacker",
+                "target": "Vault",
+                "operation": "withdraw()",
+                "unauthorized": True,
+                "effect_observed": "balance transferred to the attacker",
+                "property": "only the owner can withdraw",
+                "expected": "withdraw() reverts for the attacker",
+                "observed": "withdraw() transferred the balance to the attacker",
+                "source": "PoC logs + test assertion",
+            })
+        base.update(kw)
+        return base
+
+    def test_valid_theft_reproduction_is_l5(self):
+        ev = _load_runs([_run(profit_deltas=[
+            {"label_before": "attacker ETH balance",
+             "label_after": "attacker ETH balance",
+             "before": 0, "after": 10, "profit": 10,
+             "attacker_side": True}])])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L5")
+
+    def test_valid_non_financial_violation_is_l5(self):
+        ev = _load_runs([self._access_run()])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L5")
+        self.assertEqual(
+            ev["2024-04/X_exp"]["violation_evidence"]["impact_type"],
+            "access_control")
+
+    def test_execution_without_violation_is_l4(self):
+        ev = _load_runs([_run(status="executed_no_profit_evidence",
+                              profit_deltas=[])])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4",
+                         "a passing test alone must never earn L5")
+
+    def test_unrelated_assertion_failure_is_l4(self):
+        ev = _load_runs([_run(
+            status="test_failed",
+            test={"rc": 1, "test_function": "testExploit"},
+            violation_evidence={
+                "impact_type": "access_control",
+                "actor": "attacker", "target": "Vault",
+                "operation": "withdraw()", "unauthorized": True,
+                "effect_observed": "n/a",
+                "property": "only owner withdraws",
+                "expected": "revert", "observed": "revert",
+                "source": "test log",
+                "failure_is_intended": False,
+            })])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4",
+                         "a failing test not tied to the claimed assertion "
+                         "is not evidence")
+
+    def test_intended_failure_must_match_the_recorded_error(self):
+        base = _run(
+            status="test_failed",
+            test={"rc": 1, "test_function": "testExploit"},
+            violation_evidence={
+                "impact_type": "access_control", "actor": "attacker",
+                "target": "Vault", "operation": "withdraw()",
+                "unauthorized": True,
+                "effect_observed": "balance transferred",
+                "property": "only owner withdraws",
+                "expected": "revert Unauthorized", "observed": "no revert",
+                "source": "test log",
+                "failure_is_intended": True,
+                "expected_error": "Unauthorized()",
+                "failure_evidence": "rethrown: OutOfGas()",
+            })
+        ev = _load_runs([base])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4")
+
+    def test_intended_failure_with_matching_error_can_be_l5(self):
+        base = self._access_run(
+            status="test_failed",
+            test={"rc": 1, "test_function": "testExploit"})
+        base["violation_evidence"].update({
+            "failure_is_intended": True,
+            "expected_error": "Unauthorized()",
+            "failure_evidence": "GuardPolicy: Unauthorized() at vault.sol:42",
+        })
+        ev = _load_runs([base])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L5")
+
+    def test_compile_failure_never_reaches_l5(self):
+        ev = _load_runs([{
+            "finding_id": "defihacklabs:2024-04/X_exp.sol",
+            "status": "blocked",
+            "failure_reason": "toolchain_failure",
+            "level_awarded": None,
+            "test": {"rc": 1, "test_function": "setUp"},
+            "profit_deltas": [], "build": {"rc": 1},
+        }], sweep=[{"file": "2024-04/X_exp.sol", "rc": 1,
+                    "errors": ["boom"]}])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L1")
+
+    def test_setup_failure_after_compile_stays_l3(self):
+        ev = _load_runs([{
+            "finding_id": "defihacklabs:2024-04/X_exp.sol",
+            "status": "blocked",
+            "failure_reason": "archive_state_unavailable",
+            "level_awarded": "L3",
+            "test": {"rc": 1, "test_function": "setUp"},
+            "profit_deltas": [], "build": {"rc": 0},
+        }], sweep=[{"file": "2024-04/X_exp.sol", "rc": 0, "errors": []}])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L3")
+
+    def test_unrelated_positive_balance_change_is_not_theft(self):
+        ev = _load_runs([_run(profit_deltas=[
+            {"label_before": "protocol balance", "label_after": "protocol balance",
+             "before": 1, "after": 100, "profit": 99,
+             "attacker_side": False}])])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4",
+                         "a positive balance change on a non-attacker side "
+                         "is not attacker gain")
+
+    def test_missing_or_ambiguous_impact_is_not_promoted(self):
+        ev = _load_runs([_run(violation_evidence={
+            "impact_type": "unknown", "actor": "attacker",
+            "property": "unknown", "expected": "unknown",
+            "observed": "unknown", "source": "unknown"})])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4")
+
+    def test_invalid_attacker_attribution_is_not_theft(self):
+        ev = _load_runs([_run(profit_deltas=[
+            {"label_before": "victim balance", "label_after": "victim balance",
+             "before": 0, "after": 50, "profit": 50,
+             "attacker_side": True}], violation_evidence={
+                "impact_type": "fund_theft", "actor": "unknown",
+                "asset": "ETH", "property": "attacker balance",
+                "expected": "unchanged", "observed": "rose",
+                "source": "logs"})])
+        self.assertEqual(ev["2024-04/X_exp"]["level"], "L4",
+                         "an unattributed positive delta is not attacker gain")
 
 
 class TestPromote(unittest.TestCase):
@@ -133,8 +276,150 @@ class TestPromote(unittest.TestCase):
     def test_l6_never_derived_from_sweep(self):
         c = self._cand()
         ev = {"2024-04/X_exp": {"level": "L6", "status": "x", "basis": "y"}}
-        X.promote([c], ev)
-        self.assertIn(c["verification_status"], X.LEVEL_TO_STATUS.values())
+        self.assertEqual(X.promote([c], ev), 0,
+                         "single-artefact evidence may not award L6")
+        self.assertEqual(c["verification_level"], "L1")
+        self.assertEqual(c["verification_status"], "UNVERIFIED")
+
+
+def _l6_revision(commit: str, status: str, declared: str) -> dict:
+    return {
+        "commit": commit,
+        "status": status,
+        "declared_expected_status": declared,
+        "harness_digest": "h" * 64,
+        "harness_file_digests": {"VlunExploit.t.sol": "t" * 64},
+        "per_test_status": {
+            "testExploit": "Failure" if status == "fail" else "Success"},
+    }
+
+
+def _l6_claim() -> dict:
+    """A synthetic, fully evidenced L6 two-revision claim."""
+    return {
+        "finding_id": "defihacklabs:2024-04/X_exp.sol",
+        "verification_level": "L6",
+        "experiment": {
+            "level_awarded": "L6",
+            "status": "violation_observed",
+            "revisions": {
+                "vulnerable": _l6_revision("a" * 40, "fail", "fail"),
+                "fixed": _l6_revision("b" * 40, "pass", "pass"),
+            },
+            "violation_evidence": {
+                "impact_type": "access_control",
+                "actor": "attacker",
+                "target": "Vault",
+                "operation": "withdraw()",
+                "unauthorized": True,
+                "effect_observed": "balance transferred to the attacker",
+                "property": "only the owner can withdraw",
+                "expected": "withdraw() reverts for the attacker",
+                "observed": "withdraw() transferred the balance",
+                "source": "test assertion",
+                "execution": {"status": "pass",
+                              "assertion": "testExploit"},
+            },
+        },
+    }
+
+
+class TestL6ClaimGuard(unittest.TestCase):
+    """L6 needs two-revision evidence; synthetic bad claims must be rejected."""
+
+    def test_valid_synthetic_l6_passes(self):
+        ok, errors = X.validate_l6_claim(_l6_claim())
+        self.assertTrue(ok, errors)
+        self.assertEqual(errors, [])
+
+    def test_missing_commit_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["commit"] = None
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("full 40-hex commit" in e for e in errors))
+
+    def test_same_commit_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["commit"] = "a" * 40
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("same commit" in e for e in errors))
+
+    def test_harness_digest_mismatch_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"]["harness_digest"] = "x" * 64
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("different harness bytes" in e for e in errors))
+
+    def test_test_file_byte_mismatch_is_rejected(self):
+        claim = _l6_claim()
+        claim["experiment"]["revisions"]["fixed"][
+            "harness_file_digests"] = {"VlunExploit.t.sol": "z" * 64}
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("same test file bytes" in e for e in errors))
+
+    def test_missing_fixed_execution_is_rejected(self):
+        claim = _l6_claim()
+        del claim["experiment"]["revisions"]["fixed"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("fixed revision evidence is missing" in e
+                            for e in errors))
+
+    def test_single_passing_test_is_rejected(self):
+        claim = _l6_claim()
+        vulnerable = claim["experiment"]["revisions"]["vulnerable"]
+        del vulnerable["status"]
+        del vulnerable["per_test_status"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("vulnerable revision records no completed test "
+                            "status" in e for e in errors))
+        self.assertTrue(any("only one revision records per-test statuses" in e
+                            for e in errors))
+
+    def test_blocked_rpc_failure_is_rejected(self):
+        claim = _l6_claim()
+        fixed = claim["experiment"]["revisions"]["fixed"]
+        fixed["status"] = "blocked"
+        fixed["failure_reason"] = "rpc_unreachable_archive_state_unavailable"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("rpc_unreachable" in e for e in errors))
+        self.assertTrue(any("never ran" in e for e in errors))
+
+    def test_polarity_inversion_is_rejected(self):
+        claim = _l6_claim()
+        revisions = claim["experiment"]["revisions"]
+        revisions["vulnerable"]["status"] = "pass"
+        revisions["fixed"]["status"] = "fail"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("does not match the declared" in e for e in errors))
+
+    def test_missing_violation_evidence_is_rejected(self):
+        claim = _l6_claim()
+        del claim["experiment"]["violation_evidence"]
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("no explicit violation_evidence" in e for e in errors))
+
+    def test_l5_record_is_not_an_l6_claim(self):
+        claim = _l6_claim()
+        claim["verification_level"] = "L5"
+        claim["experiment"]["level_awarded"] = "L5"
+        ok, errors = X.validate_l6_claim(claim)
+        self.assertFalse(ok)
+        self.assertTrue(any("not L6" in e for e in errors))
+
+    def test_claim_does_not_mutate_the_input(self):
+        claim = _l6_claim()
+        snapshot = copy.deepcopy(claim)
+        X.validate_l6_claim(claim)
+        self.assertEqual(claim, snapshot)
 
 
 class TestVerifiedFact(unittest.TestCase):
@@ -154,9 +439,19 @@ class TestVerifiedFact(unittest.TestCase):
     def test_l5_states_profit(self):
         fact = X.verified_fact({
             "level": "L5", "clone_head": "a" * 40,
+            "violation_evidence": {"impact_type": "fund_theft", "asset": "ETH"},
             "profit_evidence": {"max_profit": 479.39,
                                 "label_before": "attacker", "label_after": "attacker"}})
         self.assertIn("479.39", fact)
+        self.assertIn("ETH", fact)
+
+    def test_l5_non_financial_states_the_violation(self):
+        fact = X.verified_fact({
+            "level": "L5", "clone_head": "a" * 40,
+            "violation_evidence": {"impact_type": "access_control",
+                                   "observed": "unprivileged caller changed owner"}})
+        self.assertIn("access_control", fact)
+        self.assertIn("unprivileged caller changed owner", fact)
 
 
 class TestArtefactPaths(unittest.TestCase):
@@ -210,6 +505,21 @@ class TestShippedLayer(unittest.TestCase):
                 .open(encoding="utf-8") if line.strip()]
         self.assertEqual([r["finding_id"] for r in recs
                           if r.get("verification_level") == "L6"], [])
+
+    def test_five_l5_records_stay_l5(self):
+        recs = [json.loads(line) for line in
+                (ROOT / "derived_v3" / "records.jsonl")
+                .open(encoding="utf-8") if line.strip()]
+        l5 = [r for r in recs if r.get("verification_level") == "L5"]
+        self.assertEqual(len(l5), 5, "the five V3 L5 records must stay L5")
+        for r in l5:
+            self.assertEqual(r["experiment"]["level_awarded"], "L5",
+                             r["finding_id"])
+            ok, errors = X.validate_l6_claim(
+                {"verification_level": "L6",
+                 "experiment": dict(r["experiment"], level_awarded="L6")})
+            self.assertFalse(ok, "an L5 experiment must not satisfy the L6 "
+                                 f"guard ({r['finding_id']}: {errors})")
 
 
 if __name__ == "__main__":

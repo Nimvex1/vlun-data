@@ -33,9 +33,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from redact_machine_paths import redact_obj  # noqa: E402  (one redaction convention, repo-wide)
-from vlun import EXPERIMENTS, REPORTS, WORK, log, write_json  # noqa: E402
+from vlun import EXPERIMENTS, REPORTS, ROOT, WORK, log, write_json  # noqa: E402
 
 EXECUTED = {"reproduced", "not_reproduced", "inconclusive"}
+
+# Stated once so the index header does not depend on which inputs this machine
+# happened to have.
+INDEX_SOURCE = (
+    "work/poc_runs/*.json (git-ignored) when present, carried forward from the "
+    "committed reports/run_artefacts_index.json, plus "
+    "reports/verified_experiments.json for the controlled two-revision "
+    "experiments, whose artefacts are committed under experiments/")
 
 # How to read each verdict. Kept here, next to the artefacts, so a consumer does
 # not have to infer the semantics.
@@ -71,6 +79,50 @@ POC_TYPE_NOTE = {
 }
 
 
+def two_revision_index(root: Path) -> dict[str, dict]:
+    """Index the committed vulnerable-vs-fixed experiments, without `work/`.
+
+    A controlled two-revision experiment is the strongest executed claim the
+    dataset makes, and its artefacts are already committed under
+    `experiments/<finding>__<id>/{vulnerable,fixed}/result.json`. It is indexed
+    from `reports/verified_experiments.json`, which names the commits and the
+    harness digest, so the index that `scripts/validate.py` checks is
+    reproducible from the checkout alone instead of only from the machine that
+    ran the experiments.
+    """
+    report = root / "reports" / "verified_experiments.json"
+    if not report.exists():
+        return {}
+    doc = json.loads(report.read_text(encoding="utf-8"))
+    out: dict[str, dict] = {}
+    for exp in doc.get("experiments") or []:
+        fid = exp.get("finding_id")
+        if not fid:
+            continue
+        ev = exp.get("two_revision_evidence") or {}
+        slug = fid.replace("/", "__")
+        legs = {label: root / "experiments" / slug / label / "result.json"
+                for label in ("vulnerable", "fixed")}
+        if not all(p.is_file() for p in legs.values()):
+            continue
+        out[fid] = {
+            "verdict": exp.get("verdict"),
+            "artefact": f"experiments/{slug}/vulnerable/result.json",
+            "artefacts_fixed": f"experiments/{slug}/fixed/result.json",
+            "repository": (ev.get("commit_resolution") or {}).get("repository"),
+            "poc_type": exp.get("classification"),
+            "body_committed": True,
+            "two_revision": True,
+            "evidence_status": ev.get("status"),
+            "commits": {label: (ev.get(label) or {}).get("commit")
+                        for label in ("vulnerable", "fixed")},
+            "harness_digest": (ev.get("vulnerable") or {}).get("harness_digest"),
+            "harness_digests_match": ev.get("harness_digests_match"),
+            "test_file_digests_match": ev.get("test_file_digests_match"),
+        }
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--poc-runs", default=str(WORK / "poc_runs"))
@@ -79,13 +131,39 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
+    out_root = Path(args.out)
+    index_path = Path(args.index)
+    # The committed index is the durable copy of the git-ignored run logs, so it
+    # is the starting point: regenerating on a machine without `work/poc_runs`
+    # must not delete the executed findings it already records.
+    index: dict[str, dict] = {}
+    if index_path.exists():
+        index = (json.loads(index_path.read_text(encoding="utf-8"))
+                 .get("records") or {})
+    committed_two_revision = two_revision_index(ROOT)
+    index.update(committed_two_revision)
+
     src = Path(args.poc_runs)
     if not src.exists():
-        log(f"no {src}; run scripts/verify_pocs.py first")
+        log(f"no {src}: single-revision run logs are absent; the committed "
+            f"index and the {len(committed_two_revision)} two-revision "
+            "experiments are still indexed")
+        summary = {
+            "generated_by": "scripts/export_run_artefacts.py",
+            "source": INDEX_SOURCE,
+            "artefacts_written": 0,
+            "bodies_committed": 0,
+            "records": index,
+        }
+        if args.dry_run:
+            log(f"dry run: {len(index)} findings indexed "
+                f"({len(committed_two_revision)} two-revision)")
+            return 0
+        write_json(index_path, summary)
+        log(f"wrote {index_path} ({len(index)} executed findings, "
+            f"{len(committed_two_revision)} two-revision)")
         return 0
 
-    out_root = Path(args.out)
-    index: dict[str, dict] = {}
     written = 0
 
     for f in sorted(src.glob("*.json")):
@@ -103,6 +181,10 @@ def main() -> int:
                 continue
             fid = v.get("finding_id")
             if not fid:
+                continue
+            if fid in committed_two_revision:
+                # A controlled two-revision experiment is indexed from the
+                # committed report; a single-revision run log must not replace it.
                 continue
             slug = fid.replace("/", "__")
             d = out_root / f"{slug}__poc_run"
@@ -180,7 +262,7 @@ def main() -> int:
 
     summary = {
         "generated_by": "scripts/export_run_artefacts.py",
-        "source": "work/poc_runs/*.json (git-ignored); this index is the committed copy",
+        "source": INDEX_SOURCE,
         "artefacts_written": written,
         "bodies_committed": 0,
         "records": index,

@@ -1,0 +1,4 @@
+forge Version: 1.8.3
+Commit SHA: cae51ad458f6abb64852b7709eb784352429825d
+Build Timestamp: 2026-09-15T10:30:41.249604900Z (1789468241)
+Build Profile: dist

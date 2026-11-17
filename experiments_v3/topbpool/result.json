@@ -1,0 +1,50 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "bb1540839f3e3469e38f516a84bae522a384698bda054fff9905e57552337a06",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "b848d06d54e35207704597c154dbd6035a88f8fd15acf0c560f2b11d4d7f2bc6",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-06/TOPBPool_exp.sol",
+      "poc_sha256": "b4dded8dd1b6bf8eea477cc64909f80b455b59cb16a77dccc82e700cee89235d",
+      "staged_files": [
+        "src/test/2026-06/TOPBPool_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "topbpool",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-06/TOPBPool_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [
+    {
+      "after": 6.93488898486e-07,
+      "attacker_side": false,
+      "before": 944.1954772150741,
+      "label_after": "BPool WETH after",
+      "label_before": "BPool WETH before",
+      "profit": -944.1954765215852
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 27.5,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

@@ -1,0 +1,50 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "d83586f0dff397321cb48cf889e999aee455d93898f73179ecfd9e8ab6e11a0c",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "526f8e6570395c76b2d9eb78e7b530708f22acd1049c3fb6a5de656ca9e22364",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-09/SecuredFi_exp.sol",
+      "poc_sha256": "90be31df1f20502cf88c1f17310607b21e7a7ad48596f550729964f7f4a3c34a",
+      "staged_files": [
+        "src/test/2026-09/SecuredFi_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "securedfi",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-09/SecuredFi_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [
+    {
+      "after": 0.01271959,
+      "attacker_side": false,
+      "before": 0.91170963,
+      "label_after": "TokenVault WBTC after",
+      "label_before": "TokenVault WBTC before",
+      "profit": -0.89899004
+    }
+  ],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 138.4,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

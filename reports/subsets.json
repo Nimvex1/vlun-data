@@ -21,7 +21,7 @@
     "verified_exploits": 5,
     "verified_findings": 302,
     "verified_negatives": 202,
-    "verified_patches": 5
+    "verified_patches": 7
   },
   "training": {
     "attacker_reasoning": 45,
@@ -35,10 +35,10 @@
       "attacker_reasoning": 257,
       "exploit_reasoning": 5,
       "negative_reasoning": 106,
-      "patch_reasoning": 5,
+      "patch_reasoning": 7,
       "vulnerability_detection": 257
     },
-    "excluded_rows": 630,
+    "excluded_rows": 632,
     "rule": "records held out by a benchmark family are excluded from the model-visible task files",
     "written_to": "benchmark/independent/v1_task_holdout/"
   }

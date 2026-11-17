@@ -1,0 +1,10 @@
+{
+  "poc": "2025-08/PresaleV5_exp.sol",
+  "poc_sha256": "c901e87bc6b4dfc9717fb991bf98aeae7a1634d0468ad1c773c12b9174f26ca0",
+  "staged_files": [
+    "src/test/2025-08/PresaleV5_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

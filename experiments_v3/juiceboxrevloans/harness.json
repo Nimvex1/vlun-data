@@ -1,0 +1,10 @@
+{
+  "poc": "2026-04/JuiceboxREVLoans_exp.sol",
+  "poc_sha256": "8d1aab77454a81bbde9d5c4e87983694008d9ca9474a5e39800bc3de954a805e",
+  "staged_files": [
+    "src/test/2026-04/JuiceboxREVLoans_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

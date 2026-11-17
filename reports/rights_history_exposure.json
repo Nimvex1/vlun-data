@@ -1,5 +1,5 @@
 {
-  "commits_scanned": 85,
+  "commits_scanned": 106,
   "current_exposure_items_in_history_scan": [
     {
       "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
@@ -10,11 +10,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ]
     },
     {
@@ -26,16 +31,70 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ]
     }
   ],
   "generated_by": "scripts/inventory_rights.py",
   "historical_exposure_items": [
+    {
+      "added_in_commit": "7f907c56698be7f1739eb031b282bd1f6078cb2e",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": ".swarm/ewc-fisher.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 10710,
+      "reachable_from_published_ref": false,
+      "reachable_from_refs": [
+        "refs/stash"
+      ],
+      "reachable_sha256": "4f713792c3eb7a0d3d8f023f35ef1ccb20233dfab5efaaa214b11b2f567c2c39",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "7f907c56698be7f1739eb031b282bd1f6078cb2e",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "VLUN-IMPROVEMENT-PLAN-2026-10-27.md",
+      "present_in_current_tree": false,
+      "reachable_bytes": 33225,
+      "reachable_from_published_ref": false,
+      "reachable_from_refs": [
+        "refs/stash"
+      ],
+      "reachable_sha256": "b3ad430523c53a616cd59aa8d9540f51dc71a87a9347ad9b81278fe12a2e6258",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "_audit/baseline_2026-10-27.md",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2921,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "c1e4e90e3bfbeeb3990f58c2f4eeaecb0cf1b36b6b80b683cd2df8cd0bfd5015",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
     {
       "added_in_commit": "cfc8466223c734dd1e18a8b293c756a24a60f7af",
       "class": "third_party_code",
@@ -47,14 +106,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "610805de61b14c71f619b8a55b742ab2a3504bddffffcbcc8fbb70ea2cb6af99",
       "removed_in_commit": null,
@@ -72,14 +136,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "152a984460c9b2572fee0a29ad3df41e3a882dd681608816e319457fa20649e7",
       "removed_in_commit": null,
@@ -97,14 +166,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "5ebfaf39b651a301b5262d5775ae898782b6833490ac6575c109e4764622968a",
       "removed_in_commit": null,
@@ -122,14 +196,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "8162d78299568a03c30db0e71a9951b733fe3f2dcd8cdc8358357c02dd9e0433",
       "removed_in_commit": null,
@@ -147,14 +226,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "11a097d24a14a7d8c3444dbf6d3abfae100f8cc0753372f3d30fc2e8819785bb",
       "removed_in_commit": null,
@@ -172,14 +256,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "b0db9e859fad72b315af93063616b93561d94d3fe8f2709eabe99b76c5bbc790",
       "removed_in_commit": null,
@@ -197,14 +286,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "2ef700594eacc3244b0346fa29c04d2613e381406bc17bc3d07dffafeb741f3a",
       "removed_in_commit": null,
@@ -222,14 +316,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "fa44c5e48f108ba359d92d212382b6b3bbe3449e56f0bca13d406a42ea0181ff",
       "removed_in_commit": null,
@@ -247,14 +346,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "728c0ca6c285821e09666a64da7753db6858505c1cfafe9e078b77d0f04873ea",
       "removed_in_commit": null,
@@ -272,13 +376,18 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "06e7586ac05c949b4fd86faa1f292d65ea4572fe2c0b5159c472c895be8033f0",
       "removed_in_commit": null,
@@ -296,11 +405,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "912ff8792ce51bd3bb0e9f003daf0f8cd83b275e71e50085fd0e77f046a81603",
       "removed_in_commit": "4b0a9f695b3be55b410f1505cb49ea2e547f2840",
@@ -334,19 +448,161 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "14c55a8ec0b1ad9be295bd58726c1ad30fd5310e12522efa9d0ba8097c346056",
       "removed_in_commit": "ac63d5f046619d4ac57f770114bee1a8284632bf",
       "spdx_declared_in_historical_blob": "BUSL-1.1",
       "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "93af4b9c3aa635d04b4b83067269b441e3338441",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "experiments/2024-01-renft__M-01/fixed/harness/WITHHELD.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 998,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
+      ],
+      "reachable_sha256": "ad140aed522afa8b5a26307170fef8a13b0a95c79a567528becab4594dfffb9e",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "93af4b9c3aa635d04b4b83067269b441e3338441",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "experiments/2024-01-renft__M-01/vulnerable/harness/WITHHELD.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 998,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
+      ],
+      "reachable_sha256": "0ded183f54c92327be7f1c898433f5fd94aa106c62dc61ffc00ed5a3f44aa2d4",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "93af4b9c3aa635d04b4b83067269b441e3338441",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "experiments/2024-01-renft__M-08/fixed/harness/WITHHELD.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 995,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
+      ],
+      "reachable_sha256": "4d37a97ea437159cfeb1e7fa321247b25037a84bc5e870431ce73e1a801a7f2d",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "93af4b9c3aa635d04b4b83067269b441e3338441",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "experiments/2024-01-renft__M-08/vulnerable/harness/WITHHELD.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 995,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/heads/fix/v4-audit",
+        "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
+        "refs/heads/remediation/p0-credibility",
+        "refs/heads/v31-normalization",
+        "refs/heads/v32-experiments",
+        "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
+        "refs/remotes/origin/fix/v4-audit",
+        "refs/remotes/origin/main",
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
+      ],
+      "reachable_sha256": "46d9e355c13f484d913527ba5f20c57b27f6b2231395e680a615daea25b429be",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "reports/gate_coverage.json",
+      "present_in_current_tree": false,
+      "reachable_bytes": 26696,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "54b5dd5e5314b778b6a31cfb7189f9bcbfc6c1e29de3d2f0c498ed9196df1c7a",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
     },
     {
       "added_in_commit": "4292c98d6262791b97df826e0dd10fd4544773aa",
@@ -359,14 +615,36 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "7ca3f9d099a760cbb0d82409d3270395d100284d8ff1d2ab080b808574686a30",
       "removed_in_commit": "3290be11ca5e03cb700b8750da65709309cb964b",
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "scripts/gate_coverage.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 12008,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "1628d7dd395277a1abb7fe18c9461385877d1ad521c711c57df3f6e45c8afc7d",
+      "removed_in_commit": null,
       "spdx_declared_in_historical_blob": null,
       "third_party_expression_historically_published": false
     },
@@ -381,14 +659,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "9679794eb229d59a04e6e117ab8cb1d6983b7c4410a4273daf0f0f895fdfd50a",
       "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
@@ -406,14 +689,19 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "a5cee26ac3f6e905927e3e6d311a08f2d7911024efb232b4d6dad557f8190a42",
       "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
@@ -431,19 +719,109 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/heads/v31-normalization",
         "refs/heads/v32-experiments",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
         "refs/remotes/origin/remediation/p0-credibility",
-        "refs/remotes/origin/v3.1-normalization"
+        "refs/remotes/origin/v3.1-normalization",
+        "refs/stash"
       ],
       "reachable_sha256": "603cb01657c25e200d543d073d9cc4164e53379f303f62694aab5ea6996e3268",
       "removed_in_commit": "dd68f7f4a5cdf7d65709b5b0ba7ca3d92ac0ba14",
       "spdx_declared_in_historical_blob": "BUSL-1.1",
       "third_party_expression_historically_published": true
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "tests/test_citation_resolution_metric.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 1336,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "7497fc19d019e616f07af2553c441fe32c6565a4137e09574262e1abeb858d5a",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "tests/test_extraction_errors_fresh.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 3218,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "5317b188a1cbaa828e30f355902c2fb005430338c6b0705ed8a3b2107a2168c2",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "tests/test_gate_coverage.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 1971,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "439b2496e9d81007f54d818c6f0ad3ad66132836a1b107a77b60f72d57ffb66a",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "tests/test_gate_exit_codes.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2614,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "11337f7c369e43bdbfcec935c48bf18e0917b55a11f2484cb93a86ceeffa1330",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
+    },
+    {
+      "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
+      "class": "project_generated_records",
+      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
+      "path": "tests/test_leakage_emit_guard.py",
+      "present_in_current_tree": false,
+      "reachable_bytes": 2552,
+      "reachable_from_published_ref": true,
+      "reachable_from_refs": [
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data"
+      ],
+      "reachable_sha256": "7e4f0971d5c3a7092eb7dd805cd4198bb56ab778cea8a790de2630919de93beb",
+      "removed_in_commit": null,
+      "spdx_declared_in_historical_blob": null,
+      "third_party_expression_historically_published": false
     },
     {
       "added_in_commit": "bd2f0fa0cf741e614ecf90a6f20a9b80ccc00467",
@@ -456,11 +834,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "a531164869b5bdfaa9c3e27c9bea17d0e534bcf49bfbbd56bdba001916f327ff",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -478,11 +861,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "42a98db51541546249e1dce5013bc6b13e77a55a70fb6da9f3b553c5a5cdd07f",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -500,11 +888,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "868b4b9d5cb76831bb791597b14d5c400ca96b20ee28098513d1df6dedb40eb0",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -522,11 +915,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "7eaea2de7a79ae81af992a4d515cc456ccde0bdac2dbc24cc5dc21ac6535f445",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -544,11 +942,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "92beb2436767dba9bbe6115dbe877e22a7a14ec993c843484042cddd07a367d6",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -566,11 +969,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "89b4197c062e3ef2aa69c7e150ac624cc64f35f9a378d2c39499fb4d7cc3a4cc",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -588,11 +996,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "f2f31b0ede7ca2dfc1182b3d202355415897c71de71ec4f76d3010f27f06fa62",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -610,11 +1023,16 @@
       "reachable_from_refs": [
         "refs/heads/fix/v4-audit",
         "refs/heads/main",
+        "refs/heads/remediation/audit-2026-10-27",
         "refs/heads/remediation/p0-credibility",
         "refs/remotes/origin/HEAD",
+        "refs/remotes/origin/arena/04f6f685-vlun-data",
+        "refs/remotes/origin/arena/2195bb6d-vlun-data",
+        "refs/remotes/origin/arena/a7c75743-vlun-data",
         "refs/remotes/origin/fix/v4-audit",
         "refs/remotes/origin/main",
-        "refs/remotes/origin/remediation/p0-credibility"
+        "refs/remotes/origin/remediation/p0-credibility",
+        "refs/stash"
       ],
       "reachable_sha256": "1148ab3a53a70d263e63ece3e55224bd96dd71ec9d31d87676618e9aa85b5543",
       "removed_in_commit": "e1e51ab1984ee4d56c9f7177b33b296a161a171f",
@@ -625,7 +1043,7 @@
   "history_rewrite_statement": "No history was rewritten, no commit was amended, no branch was force-pushed and no ref was deleted. Rewriting published history would need explicit authorisation from the repository owner and is not performed by this remediation.",
   "history_rewritten": false,
   "method": "read-only git archaeology: git rev-list --all, git show --diff-filter=A/D --name-only, git show <commit>:<path>, git merge-base --is-ancestor",
-  "paths_added_then_removed": 25,
+  "paths_added_then_removed": 39,
   "published_surfaces": {
     "assessment": "Every commit reachable from an origin/* ref is published on the remote named above, including blobs later deleted from the tip. A DOI is only exposure if the archival docs say one exists; docs/ARCHIVAL.md states that no DOI has been minted in this snapshot, so the Zenodo surface is prepared-but-unpublished.",
     "doi_found_in_repo": false,
@@ -663,6 +1081,9 @@
     "publish_manifest_present": true,
     "refs_published_to_origin": [
       "refs/remotes/origin/HEAD",
+      "refs/remotes/origin/arena/04f6f685-vlun-data",
+      "refs/remotes/origin/arena/2195bb6d-vlun-data",
+      "refs/remotes/origin/arena/a7c75743-vlun-data",
       "refs/remotes/origin/fix/v4-audit",
       "refs/remotes/origin/main",
       "refs/remotes/origin/remediation/p0-credibility",
@@ -716,13 +1137,18 @@
   "refs_scanned": [
     "refs/heads/fix/v4-audit",
     "refs/heads/main",
+    "refs/heads/remediation/audit-2026-10-27",
     "refs/heads/remediation/p0-credibility",
     "refs/heads/v31-normalization",
     "refs/heads/v32-experiments",
     "refs/remotes/origin/HEAD",
+    "refs/remotes/origin/arena/04f6f685-vlun-data",
+    "refs/remotes/origin/arena/2195bb6d-vlun-data",
+    "refs/remotes/origin/arena/a7c75743-vlun-data",
     "refs/remotes/origin/fix/v4-audit",
     "refs/remotes/origin/main",
     "refs/remotes/origin/remediation/p0-credibility",
-    "refs/remotes/origin/v3.1-normalization"
+    "refs/remotes/origin/v3.1-normalization",
+    "refs/stash"
   ]
 }

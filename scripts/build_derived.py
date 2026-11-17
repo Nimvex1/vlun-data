@@ -18,8 +18,14 @@ Rules that keep this honest:
   * no invariant is invented; `invariants: []` is a valid and counted outcome
   * a state transition is only emitted when the attack path plus the PoC code
     supply steps; otherwise every field is explicitly null with a reason
-  * attacker kind is mechanical: a role gate implies `privileged`, and no
-    observed gate does not imply `unprivileged`
+  * attacker kind is mechanical: gates are read from analysed files AND from the
+    report-quoted snippets already committed in the record, a role gate implies
+    `privileged`, and no observed gate does not imply `unprivileged`
+  * a role-gated entry point whose report states a wrong value/accounting state,
+    with no malicious privileged actor claimed, is `protocol_accounting_or_config_flaw`
+  * a sentence this pipeline wrote is never a `reported_claim`, and a negated
+    mention ("an unprivileged attacker cannot reach it") never asserts the
+    standing it names
 
     python scripts/build_derived.py
 """
@@ -186,6 +192,70 @@ UNPRIVILEGED_ASSERTION = re.compile(
 
 SENTENCE_RE = re.compile(r"(?<=[.!?])\s+|\n")
 
+# Sentences this pipeline's own access-control checker wrote into v1
+# `security_reasoning`. They are derived output, not a source claim: quoting one
+# back as `reported_claim` makes the dataset its own external source. These are
+# the checker's three voices — the reachability limitation, and the capability
+# line it writes for an ungated entry point. Each pattern is anchored to the
+# checker's full wording so report-authored prose survives the filter.
+PIPELINE_PROSE_RULES = (
+    re.compile(r"is (?:external|public) but gated by `[^`]+`: an unprivileged "
+               r"attacker cannot reach it directly", re.I),
+    re.compile(r"is (?:internal|private), so it is only reachable through an "
+               r"internal call path; a direct external call by an attacker is "
+               r"impossible", re.I),
+    re.compile(r"^can call `[^`]+` directly \((?:public|external|internal|private)\b", re.I),
+)
+
+# Naming an actor is not asserting a standing. "an unprivileged attacker cannot
+# reach it" states the opposite of "an unprivileged attacker can reach it", so a
+# cue in the same sentence governs the mention. The window is sentence-local:
+# it never reaches across a full stop into the next claim.
+NEGATION_CUES = re.compile(
+    r"\b(cannot|can['’]t|can not|unable to|not reachable|not valid as stated|"
+    r"restricted to|impossible)\b", re.I)
+NEGATION_WINDOW_BEFORE = 60
+NEGATION_WINDOW_AFTER = 80
+
+
+def is_pipeline_generated_prose(text) -> bool:
+    """True when VLUN wrote the sentence, so it can never be a source claim."""
+    return any(p.search(str(text or "").strip()) for p in PIPELINE_PROSE_RULES)
+
+
+def _prose_evidence(text) -> dict:
+    """Tag a v1 reasoning string by who wrote it.
+
+    The access-control checker's own sentences are computed from the cited
+    function's modifiers/visibility, so they are `derived_fact` with the rule
+    that reproduces them — never a claim attributed to the report.
+    """
+    if is_pipeline_generated_prose(text):
+        return {"value": text, "evidence_type": "derived_fact",
+                "source_refs": ["rule:solidity_facts.py:functions"],
+                "note": "written by this pipeline's access-control checker from the "
+                        "cited function's modifiers/visibility, not by the report"}
+    return {"value": text, "evidence_type": "reported_claim"}
+
+
+def _mention_is_negated(sentence: str, m: re.Match) -> bool:
+    before = re.split(r"[.!?]", sentence[:m.start()])[-1][-NEGATION_WINDOW_BEFORE:]
+    after = re.split(r"[.!?]", sentence[m.end():])[0][:NEGATION_WINDOW_AFTER]
+    return bool(NEGATION_CUES.search(before) or NEGATION_CUES.search(after))
+
+
+def _first_asserted(pat, sentences):
+    """First match that is neither pipeline output nor negated, plus its sentence."""
+    for raw in sentences:
+        s = " ".join(str(raw or "").split())
+        if not s or is_pipeline_generated_prose(s):
+            continue
+        for m in pat.finditer(s):
+            if not _mention_is_negated(s, m):
+                return m, s
+    return None, None
+
+
 REPORTED_ACTOR_RULES = (
     ("unprivileged", re.compile(
         r"\b(any user|anyone|any caller|any third party|an arbitrary (?:user|caller|address)|"
@@ -210,42 +280,168 @@ def reported_attacker_kind(sentences: list[str]):
     """Kind + the exact sentence that states it, when a source says so outright.
 
     This is `reported_claim`, not inference: the sentence is returned so a reader
-    can check the attribution without trusting the classifier.
+    can check the attribution without trusting the classifier. Two filters keep
+    the attribution honest — a sentence VLUN wrote itself is never a source, and
+    a negated mention never asserts the standing it names.
     """
     for kind, pat in REPORTED_ACTOR_RULES:
-        for s in sentences:
-            m = pat.search(s or "")
-            if m:
-                return kind, " ".join((s or "").split())[:400]
+        m, s = _first_asserted(pat, sentences)
+        if m:
+            return kind, s
     return None, None
+
+
+# A flaw that corrupts valuation/accounting while the protocol runs normally.
+# Both halves are required: a value noun and a statement that it is wrong.
+ACCOUNTING_SUBJECT = re.compile(
+    r"\b(value|valuation|price|tvl|total assets|balance|shares?|share price|"
+    r"decimals?|accounting|exchange rate|collateral|debt|supply)\b", re.I)
+ACCOUNTING_DEFECT = re.compile(
+    r"\b(incorrect\w*|wrong\w*|inaccura\w*|mismatch\w*|off by|instead of|"
+    r"not scal\w*|mispric\w*|overstat\w*|understat\w*|corrupt\w*)\b", re.I)
+# Malice or collusion by a trusted role is a different standing: `privileged`.
+_PRIVILEGED_ROLE = r"(?:owner|admin|manager|maintainer|governance|governor|keeper|operator|guardian)s?"
+MALICIOUS_PRIVILEGED = re.compile(
+    r"\b(malicious (?:privileged|" + _PRIVILEGED_ROLE + r")" +
+    r"|rogue " + _PRIVILEGED_ROLE +
+    r"|compromised " + _PRIVILEGED_ROLE +
+    r"|compromised keys?|collud\w+|a privileged attacker|"
+    r"the " + _PRIVILEGED_ROLE + r" (?:can|could|may) "
+    r"(?:steal|drain|rug|exploit|manipulat))\b", re.I)
+
+
+def _snippet_observations(row: dict) -> list[dict]:
+    """Mechanical facts from the report-quoted snippets already in the record.
+
+    `local_sources.enrich_all` skips every cited entry that carries a snippet,
+    so a record whose only code evidence is committed source would otherwise
+    reach the prose fallback with no gate observed at all. A snippet is Solidity
+    source: reading a modifier off it is a code rule (`derived_fact`), not a
+    claim quoted from the report.
+    """
+    out = []
+    for e in row.get("code_context") or []:
+        if not e.get("snippet"):
+            continue
+        facts = sf.analyse(e["snippet"], e.get("function"))
+        out.append({
+            "file": e.get("file"), "contract": e.get("contract"),
+            "functions": facts["functions"],
+            "target_function": facts["target_function"],
+            "commit_sha": e.get("commit_sha"),
+            "line_start": e.get("line_start"), "line_end": e.get("line_end"),
+            "from_committed_snippet": True,
+        })
+    return out
+
+
+# Extraction artefacts from the upstream autolink/exponent stripper and from
+# clause splitting. They are cleaned deterministically or demoted, never
+# rewritten into a claim the source did not make.
+_MID_CLAUSE_FRAGMENT = re.compile(r"^(?:first and then|then|and then|but|so)\b", re.I)
+_CORRUPT_ARTIFACT = re.compile(
+    r"(?:<\s*<|<\s+and\b|\b10\s+10\b|;\s*bec\b|;\s*bec$)")
+_STRAY_ANGLE = re.compile(r"\s*<\s*")
+
+
+def clean_artifact_prose(text):
+    """Remove only mechanical artefacts: stray '<', the doubled '10 10'
+    exponent, and a trailing '; bec' truncation."""
+    s = str(text or "")
+    s = _STRAY_ANGLE.sub(" ", s)
+    s = re.sub(r"\b10\s+10\b", "10**10", s)
+    s = re.sub(r";\s*bec\b\s*$", "", s)
+    return " ".join(s.split())
+
+
+def is_corrupt_prose(text) -> bool:
+    return bool(_CORRUPT_ARTIFACT.search(str(text or "")))
+
+
+def dedupe_patch(row: dict) -> dict:
+    """Copy the v1 patch block, removing verbatim-repeated paragraphs and
+    mechanical exponent/autolink artefacts from its explanation."""
+    patch = copy.deepcopy(row.get("patch") or {})
+    exp = patch.get("explanation")
+    if isinstance(exp, str):
+        seen, paras = set(), []
+        for para in re.split(r"\n\s*\n", exp):
+            para = clean_artifact_prose(para).strip()
+            if para and para not in seen:
+                seen.add(para)
+                paras.append(para)
+        patch["explanation"] = "\n\n".join(paras)
+    return patch
+
+
+def judge_diagnosis(row: dict) -> dict | None:
+    """A judge's substantive technical diagnosis, attributed to the judge."""
+    for q in (row.get("provenance") or {}).get("judge_and_sponsor_quotes") or []:
+        if str(q.get("role") or "").lower() != "judge":
+            continue
+        text = clean_artifact_prose(q.get("quote") or "")
+        if len(text.split()) < 8:
+            continue
+        return {"value": text, "evidence_type": "externally_attributed",
+                "source_refs": [q["url"]] if q.get("url") else [],
+                "source_actor": q.get("actor"),
+                "note": "substantive technical diagnosis by the judge, quoted "
+                        "from the finding discussion"}
+    return None
 
 
 def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
     """Separate *who* from *what*. Mechanical where code allows it."""
     roles, conds, gates, signals = set(), set(), [], collections.Counter()
-    for c in ctx:
+    # Committed snippets carry the same mechanical facts as a local checkout.
+    # `ctx` stays the file-level list: dependency fields below read paths, and a
+    # snippet's `code-423n4/<repo>/...` path is the record's own repository.
+    code_facts = list(ctx) + _snippet_observations(row)
+    for c in code_facts:
         for fn in (c.get("functions") or []):
             roles.update(fn.get("required_roles") or [])
             conds.update(fn.get("operational_conditions") or [])
         t = c.get("target_function")
         if t:
-            gates.append(sf.access_control_summary({"target_function": t}))
+            g = sf.access_control_summary({"target_function": t})
+            # Pointer the observation at the rule that produced its verdict, and
+            # at the cited lines when the verdict came from a committed snippet.
+            # Unknown observations stay ref-less: they claim nothing.
+            if isinstance(g, dict) and g.get("evidence_type") == "derived_fact":
+                g["source_refs"] = ["rule:solidity_facts.py:functions"]
+                if c.get("from_committed_snippet"):
+                    g["source_refs"].append(
+                        f"{c.get('file')}@{c.get('commit_sha')}"
+                        f"#L{c.get('line_start')}-L{c.get('line_end')}")
+            gates.append(g)
             for k, v in (t.get("signals") or {}).items():
                 if v:
                     signals[k] += 1
-    # Pointer the observation at the rule that produced its verdict. Unknown
-    # observations stay ref-less: they claim nothing.
-    for g in gates:
-        if isinstance(g, dict) and g.get("evidence_type") == "derived_fact":
-            g["source_refs"] = ["rule:solidity_facts.py:functions"]
 
+    sr = row.get("security_reasoning") or {}
     prose = " ".join(str(x) for x in [
         finding.get("title"), finding.get("summary"), finding.get("root_cause"),
-        " ".join((row.get("security_reasoning") or {}).get("attacker_capabilities") or []),
-        " ".join((row.get("security_reasoning") or {}).get("attack_prerequisites") or []),
+        " ".join(v for v in (sr.get("attacker_capabilities") or [])
+                 if not is_pipeline_generated_prose(v)),
+        " ".join(v for v in (sr.get("attack_prerequisites") or [])
+                 if not is_pipeline_generated_prose(v)),
     ])
+    impact_prose = " ".join(str((sr.get("impact") or {}).get(k) or "")
+                            for k in ("integrity", "financial", "protocol_state",
+                                      "availability", "confidentiality"))
+    poc = row.get("poc") or {}
+    poc_prose = " ".join([str(poc.get("setup") or "")]
+                         + [str(s) for s in (poc.get("attack_sequence") or [])
+                            if isinstance(s, str)])
+    valuation_prose = prose + " " + impact_prose
+    # Both halves must sit in the SAME sentence: a value noun in one claim and a
+    # defect word in another is not a statement that the value is wrong.
+    accounting_flaw = any(ACCOUNTING_SUBJECT.search(s) and ACCOUNTING_DEFECT.search(s)
+                          for s in SENTENCE_RE.split(valuation_prose))
+    malicious_privileged = bool(MALICIOUS_PRIVILEGED.search(prose + " " + poc_prose))
 
-    unprivileged_claim = bool(UNPRIVILEGED_ASSERTION.search(prose))
+    unprivileged_claim = bool(_first_asserted(
+        UNPRIVILEGED_ASSERTION, SENTENCE_RE.split(prose))[0])
     gate_open = bool(gates) and gates[0]["verdict"] in (
         "no_check_observed", "input_guards_present_no_role_check")
 
@@ -253,6 +449,12 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         kind = "honest_but_misconfigured" if roles else "unprivileged"
         why = ("`tx.origin` is used for authorisation; any EOA can set it, so the 'actor' is a "
                "legitimate-looking caller whose origin is wrong")
+    elif roles and accounting_flaw and not malicious_privileged:
+        kind, why = "protocol_accounting_or_config_flaw", (
+            "a cited entry point is role-gated and the report states a wrong value or "
+            "accounting state produced by normal protocol operation; no source claims a "
+            "malicious privileged actor, so the standing is the flawed configuration or "
+            "accounting path itself, not an attacker reaching the setter")
     elif roles:
         kind, why = "privileged", "every cited entry point carries an access-control modifier"
     elif DEPENDENCY_AS_ACTOR.search(prose):
@@ -280,7 +482,6 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
     src_sentences = []
     for field in ("title", "summary", "root_cause"):
         src_sentences += [s for s in SENTENCE_RE.split(str(finding.get(field) or "")) if s.strip()]
-    sr = row.get("security_reasoning") or {}
     for field in ("attacker_capabilities", "attack_prerequisites", "attacker_limitations",
                   "intended_behavior", "broken_behavior"):
         for v in (sr.get(field) or []):
@@ -297,13 +498,16 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         basis = "unknown"
 
     caps, prereqs = [], []
-    for c in (row.get("security_reasoning") or {}).get("attacker_capabilities") or []:
-        caps.append({"value": c, "evidence_type": "reported_claim"})
-    for p in (row.get("security_reasoning") or {}).get("attack_prerequisites") or []:
-        prereqs.append({"value": p, "evidence_type": "reported_claim"})
+    for c in sr.get("attacker_capabilities") or []:
+        caps.append(_prose_evidence(c))
+    for p in sr.get("attack_prerequisites") or []:
+        # A mid-clause fragment such as "first and then converting the ..." is
+        # an extraction artefact, not a prerequisite a reader can act on.
+        if not _MID_CLAUSE_FRAGMENT.match(str(p or "").strip()):
+            prereqs.append(_prose_evidence(p))
 
     # mechanical capability statements, with the rule that produced them
-    for c in ctx:
+    for c in code_facts:
         t = c.get("target_function")
         if not t:
             continue
@@ -326,9 +530,10 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         if s.get("has_contract_creation"):
             prereqs.append({"value": "the analysed function deploys a contract",
                             "evidence_type": "derived_fact",
+                            "source_refs": ["rule:build_derived.py:attacker_model"],
                             "note": "rule: `new X{` or create/create2 present"})
-    for p in (row.get("security_reasoning") or {}).get("environment_assumptions") or []:
-        prereqs.append({"value": p, "evidence_type": "reported_claim"})
+    for p in sr.get("environment_assumptions") or []:
+        prereqs.append(_prose_evidence(p))
 
     # A pointer is stated only when there is something to point at. The
     # published layer carries `source_refs` on exactly the 147 records whose
@@ -343,11 +548,15 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "why": why,
         "attributed_sentence": rep_sentence if basis == "reported_claim" else None,
         "vocabulary": list(ATTACKER_KINDS),
-        "rule": "role modifier present -> privileged; tx.origin authorisation -> "
-                "honest_but_misconfigured; an explicit attacker-controlled-external-contract "
-                "statement -> malicious_dependency; an explicit configuration-error statement -> "
+        "rule": "tx.origin authorisation -> honest_but_misconfigured; a role-gated entry "
+                "point plus a stated valuation/accounting defect and no malicious privileged "
+                "actor -> protocol_accounting_or_config_flaw; any other role modifier -> "
+                "privileged; an explicit attacker-controlled-external-contract statement -> "
+                "malicious_dependency; an explicit configuration-error statement -> "
                 "honest_but_misconfigured; unprivileged only when a source asserts it AND an "
-                "open gate was actually observed. Everything else is unknown.",
+                "open gate was actually observed. Everything else is unknown. A sentence this "
+                "pipeline wrote is never a source, and a negated mention never asserts the "
+                "standing it names.",
         "unprivileged_claimed_in_prose": unprivileged_claim,
         "external_dependencies_involved": external_deps,
     }
@@ -358,13 +567,13 @@ def attacker_model(row: dict, ctx: list[dict], finding: dict) -> dict:
         "attacker_identity": identity,
         "attacker_capabilities": caps[:12],
         "attacker_prerequisites": prereqs[:12],
-        "attacker_constraints": (row.get("security_reasoning") or {}).get("attacker_limitations") or [],
+        "attacker_constraints": [_prose_evidence(v) for v in sr.get("attacker_limitations") or []],
         "trusted_roles": sorted(roles),
         "required_permissions": [
             {"role": r, "evidence_type": "derived_fact",
              "source_refs": ["rule:solidity_facts.py:functions"],
              "note": f"observed modifier {m}"}
-            for r, m in sorted({(rr, mm) for c in ctx for f in (c.get("functions") or [])
+            for r, m in sorted({(rr, mm) for c in code_facts for f in (c.get("functions") or [])
                                 for rr, mm in zip(f.get("required_roles") or [], f.get("modifiers") or [])})
         ],
         "required_assets": evidence(None, "unknown",
@@ -576,16 +785,27 @@ def invariants_block(row: dict, ctx: list[dict]) -> dict:
     inv = sr.get("invariants") or []
     out = []
     for i, v in enumerate(inv if isinstance(inv, list) else [inv]):
-        if isinstance(v, str):
-            out.append({"invariant": v, "evidence_type": "reported_claim",
-                        "source_type": _inv_source(sr, row), "origin": "v1"})
-        elif isinstance(v, dict):
-            out.append({
-                "invariant": v.get("invariant") or v.get("statement") or v.get("text"),
-                "evidence_type": "reported_claim",
-                "source_type": v.get("source_type") or _inv_source(sr, row),
-                "origin": "v1", "note": v.get("source") or v.get("source_note"),
-            })
+        text = v if isinstance(v, str) else (
+            v.get("invariant") or v.get("statement") or v.get("text"))
+        corrupt = is_corrupt_prose(text) or not str(text or "").strip()
+        # A truncated '<' artefact is not an attested invariant: demote it to
+        # unknown, never label it narrative_code_inference.
+        etype = "unknown" if corrupt else "reported_claim"
+        stype = "none" if corrupt else (
+            _inv_source(sr, row) if isinstance(v, str)
+            else (v.get("source_type") or _inv_source(sr, row)))
+        if corrupt:
+            text = clean_artifact_prose(text)
+        out.append({
+            "invariant": text or None,
+            "evidence_type": etype,
+            "source_type": stype,
+            "origin": "v1",
+            **({} if isinstance(v, str) or corrupt else
+               {"note": v.get("source") or v.get("source_note")}),
+            **({"note": "demoted: upstream extraction artefact (< / truncation); "
+                        "not an attested invariant"} if corrupt else {}),
+        })
     return {
         "invariants": out,
         "count": len(out),
@@ -625,10 +845,26 @@ def quality_block(row: dict, ctx: list[dict], att: dict, st: dict, inv: dict,
     if st["present"]:
         etypes.append("reported_claim")
 
+    # Grade from what the checkout can re-verify: committed code_context entries
+    # carry verified spans even when fully-parsed ctx is empty.
+    verified_spans = [c for c in (row.get("code_context") or [])
+                      if c.get("file_resolved") is True
+                      and c.get("line_range_verified") is True
+                      and (c.get("snippet") or "").strip()]
+    verified_files = sorted({c.get("file") for c in verified_spans})
+    code_context_grade = (
+        "high" if len(verified_files) >= 2 or len(ctx) >= 3
+        else "medium" if verified_spans or ctx else "none")
+    inv_ok = any((i.get("evidence_type") not in ("unknown", None)
+                  and (i.get("invariant") or i.get("value")))
+                 for i in (inv.get("invariants") or []))
+    att_ok = att["attacker_identity"]["evidence_type"] not in ("unknown", None)
+
     pa = st.get("poc_analysis") or {}
     xs = st.get("execution_status") or {}
-    reasoning = ("high" if sr.get("intended_behavior") and sr.get("attack_path") else
-                 "medium" if sr.get("intended_behavior") else "low")
+    intended = clean_artifact_prose(sr.get("intended_behavior"))
+    reasoning = ("high" if len(intended.split()) >= 8 and (sr.get("attack_path") or []) else
+                 "medium" if len(intended.split()) >= 8 else "low")
     # A verified, PoC-backed multi-step transition with a non-setup trigger
     # localisation and a populated final state outranks a single fallback step
     # in v1's attack_path.
@@ -644,16 +880,19 @@ def quality_block(row: dict, ctx: list[dict], att: dict, st: dict, inv: dict,
                              "judge_or_sponsor_quotes": len(prov.get("judge_and_sponsor_quotes") or []),
                              "license": license_class,
                              "license_verified_in_source": bool(prov.get("license_verified"))},
-        "code_context": ("high" if len(ctx) >= 3 else "medium" if ctx else "none"),
+        "code_context": code_context_grade,
         "code_context_basis": {"files_analysed": len(ctx),
                                "files_retrieved_locally": sum(1 for c in ctx if c.get("retrieved_locally")),
+                               "verified_spans": len(verified_spans),
+                               "files_with_verified_spans": len(verified_files),
                                "contract_level": sum(1 for c in ctx if c.get("contracts")),
                                "state_variables": sum(len(c.get("state_variables") or []) for c in ctx)},
         "dynamic_verification": (row.get("_verification_verdict") or "not_attempted"),
         "reasoning": reasoning,
-        "attacker_model": ("high" if att["attacker_identity"]["evidence_type"] != "unknown" else "low"),
-        "state_transition": ("high" if st.get("transactions") else "none"),
-        "invariants": ("high" if inv["count"] else "none"),
+        "attacker_model": "high" if att_ok else "low",
+        "state_transition": ("high" if st.get("transactions")
+                             and (st.get("final_state") or {}).get("value") else "none"),
+        "invariants": "high" if inv_ok else "none",
         "negative_reasoning": "none",
         "label_quality": ("high" if row.get("validation", {}).get("evidence") else "medium"),
         "no_numerical_severity_score": True,
@@ -695,6 +934,20 @@ def determine_record_hash_scheme(digest: str, committed_sha: str,
         if digest == canonical_row_hash(injected):
             return RECORD_HASH_SCHEME_BUILDER_ROW
     return RECORD_HASH_SCHEME_UNKNOWN
+
+
+def _builder_injected_verdict(rec: dict):
+    """The verdict the builder injected when the historical digest was made.
+
+    `verification.prior_verdict` keeps the single-revision PoC verdict after an
+    accepted L6 claim replaces `verification.verdict`, so a builder-row digest
+    stays reconstructible. Records without the key use `verdict` exactly as
+    before.
+    """
+    ver = rec.get("verification") or {}
+    if "prior_verdict" in ver:
+        return ver.get("prior_verdict")
+    return ver.get("verdict")
 
 
 def load_legacy_record_hashes(path: Path | None = None) -> dict[str, dict]:
@@ -787,7 +1040,7 @@ def migrate_record_hashes(path: Path | None = None) -> dict:
         if not version and digest and row is not None:
             version = determine_record_hash_scheme(
                 digest, canonical_row_hash(row), row,
-                (rec.get("verification") or {}).get("verdict"))
+                _builder_injected_verdict(rec))
         if not version:
             version = RECORD_HASH_SCHEME_UNKNOWN
         ev["record_sha256_version"] = version
@@ -831,7 +1084,7 @@ def record_hash_report(records: list[dict],
             if version == RECORD_HASH_SCHEME_COMMITTED_ROW:
                 ok = digest == canonical_row_hash(row)
             elif version == RECORD_HASH_SCHEME_BUILDER_ROW:
-                verdict = (rec.get("verification") or {}).get("verdict")
+                verdict = _builder_injected_verdict(rec)
                 if verdict is not None:
                     injected = dict(row)
                     injected[_VERIFICATION_KEY] = verdict
@@ -966,7 +1219,7 @@ def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
             # `verification.verdict`, so the historical digest can be
             # checked on any machine, not only where work/poc_runs/ exists.
             verdict = (verdicts.get(rid)
-                       or (rec.get("verification") or {}).get("verdict"))
+                       or _builder_injected_verdict(rec))
             if verdict is None:
                 problems.append({"id": rid, "field": "record_sha256",
                                  "problem": "historical digest over a row "
@@ -991,10 +1244,39 @@ def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
     return problems
 
 
+_SHA40_RE = re.compile(r"^[0-9a-f]{40}$")
+
+
+def commit_roles(row: dict, ctx: list[dict], authoritative: dict | None) -> dict:
+    """Which commit each layer came from: audited snapshot, cited code, and
+    the two revisions of a controlled experiment when one exists."""
+    audited = (row.get("source") or {}).get("commit_sha")
+    if not _SHA40_RE.match(str(audited or "")):
+        audited = None
+    cited, seen = [], set()
+    for c in list(ctx or []) + list(row.get("code_context") or []):
+        sha = c.get("commit_sha")
+        if not _SHA40_RE.match(str(sha or "")) or sha in seen:
+            continue
+        seen.add(sha)
+        cited.append({"commit": sha,
+                      "url": c.get("source_url") or c.get("url") or None})
+    executed = None
+    if authoritative:
+        revs = authoritative.get("revisions") or {}
+        vuln = (revs.get("vulnerable") or {}).get("commit")
+        fixed = (revs.get("fixed") or {}).get("commit")
+        if _SHA40_RE.match(str(vuln or "")) or _SHA40_RE.match(str(fixed or "")):
+            executed = {"vulnerable": vuln, "fixed": fixed}
+    return {"audited_snapshot": audited, "cited_code": cited,
+            "executed_experiment": executed}
+
+
 def build_record(row: dict, verification_index: dict,
                  committed_sha: str | None = None,
                  committed_row: dict | None = None,
-                 legacy: dict | None = None) -> dict:
+                 legacy: dict | None = None,
+                 authoritative: dict | None = None) -> dict:
     finding = row.get("finding") or {}
     rid = rec_id(row)
     license_class = ls.classify_record_code(row)
@@ -1031,6 +1313,14 @@ def build_record(row: dict, verification_index: dict,
         [att["attacker_identity"]["evidence_type"]] +
         (["reported_claim"] if st["present"] else []))
 
+    verification = _verification_block(rid, ex, authoritative,
+                                       finding_id=finding.get("id") or rid)
+    # The record-level summary names `experimentally_verified` when the
+    # verification block attests it - a two-revision L6 result is execution
+    # evidence even when the old single-revision PoC index had no run for it.
+    experimentally_verified = (
+        verification.get("evidence_type") == "experimentally_verified")
+
     return {
         "record_type": "derived_finding",
         "dataset_version": DATASET_VERSION,
@@ -1046,7 +1336,9 @@ def build_record(row: dict, verification_index: dict,
                                   "note": "weakest link across the record's derived claims"},
             "evidence_types_present": sorted(set(
                 [att["attacker_identity"]["evidence_type"], "observed_fact", "reported_claim"]
-                + ([ "experimentally_verified"] if row_v in ("reproduced", "not_reproduced") else []))),
+                + (["experimentally_verified"]
+                   if experimentally_verified
+                   or row_v in ("reproduced", "not_reproduced") else []))),
         },
         "finding": {
             "id": finding.get("id"), "title": finding.get("title"),
@@ -1057,7 +1349,7 @@ def build_record(row: dict, verification_index: dict,
             "vulnerability_classes": finding.get("vulnerability_classes"),
             "duplicate_of": (row.get("validation") or {}).get("duplicate_of") or None,
         },
-        "taxonomy": tx.classify(finding),
+        "taxonomy": tx.classify_record(row),
         "security_state_transition": st,
         "attacker_model": att,
         "invariants": inv,
@@ -1066,10 +1358,18 @@ def build_record(row: dict, verification_index: dict,
         "code_context": row.get("code_context") or [],
         "code_reference_only": row.get("code_reference_only") or [],
         "security_reasoning": row.get("security_reasoning") or {},
+        "root_cause": judge_diagnosis(row) or evidence(
+            (row.get("security_reasoning") or {}).get("root_cause"),
+            "reported_claim" if (row.get("security_reasoning") or {}).get("root_cause")
+            else "unknown"),
+        "broken_behavior": judge_diagnosis(row) or evidence(
+            (row.get("security_reasoning") or {}).get("broken_behavior"),
+            "reported_claim" if (row.get("security_reasoning") or {}).get("broken_behavior")
+            else "unknown"),
         "poc": reconcile_poc(row, ex, ctx),
-        "patch": row.get("patch") or {},
+        "patch": dedupe_patch(row),
         "validation": row.get("validation") or {},
-        "verification": _verification_block(rid, ex),
+        "verification": verification,
         "license_classification": license_class,
         "redistribution": ls.redistribution_flag(row),
         "quality": quality_block(row, ctx, att, st, inv, license_class),
@@ -1081,8 +1381,9 @@ def build_record(row: dict, verification_index: dict,
         # (provenance.source_urls / provenance.source_urls_unpinned) and
         # exempts the original_evidence mirror, so a pin written only into the
         # mirror would leave the shipped layer citing a mutable branch.
-        "provenance": pin_provenance_urls(row.get("provenance"),
-                                          row.get("source")),
+        "provenance": dict(pin_provenance_urls(row.get("provenance"),
+                                               row.get("source")),
+                           commit_roles=commit_roles(row, ctx, authoritative)),
         "original_evidence": {
             # A pointer, not an embedding. The verbatim record lives in jsonl/ and
             # is never rewritten; embedding a second copy here would triple the
@@ -1105,21 +1406,246 @@ def build_record(row: dict, verification_index: dict,
             "classifier_evidence": row.get("classifier_evidence"),
             "confidence_v1": row.get("confidence"),
             "v1_schema": {
-                "poc": row.get("poc") or {},
-                "patch": row.get("patch") or {},
-                "validation": row.get("validation") or {},
-                "security_reasoning": row.get("security_reasoning") or {},
                 # The mirror is verbatim: it is the v1 row as it was
-                # committed, mutable branch refs and all. Pinning happens in
-                # the top-level provenance; a mirror that had been rewritten
-                # would no longer be evidence of what v1 said.
+                # committed. Pinning happens in the top-level provenance.
                 "provenance": row.get("provenance") or {},
+                # These four blobs are already mirrored at the top level;
+                # listing their names keeps the v1 pointer without a second
+                # full copy of the text.
+                "mirrored_at_top_level": ["patch", "poc", "security_reasoning", "validation"],
             },
         },
     }
 
 
-def _verification_block(rid: str, ex: dict | None) -> dict:
+# ---------------------------------------------------------------------------
+# verification: authoritative L6 merge
+# ---------------------------------------------------------------------------
+#
+# Two evidence sources feed `verification`:
+#
+#   work/poc_runs/*.json
+#       one single-revision PoC attempt per finding (git-ignored; used when
+#       present). A run that "reproduced" a vulnerability on the audited
+#       revision says nothing about the fixed revision, so this index can
+#       never produce an L6 claim.
+#
+#   reports/verified_experiments.json
+#       the controlled two-revision experiments. This is the only source from
+#       which L6 may be emitted, and only when the report's own evidence
+#       passes every gate in `evaluate_l6_claim`: the finding id matches, two
+#       distinct full 40-hex commits resolved, byte-identical harness and test
+#       file digests, the declared fail->pass polarity on both sides, and no
+#       compile error or timeout.
+#
+# Severity, labels, a single passing run or a report verdict alone are never
+# enough. When the prior index contradicts an accepted L6 claim the conflict
+# is recorded: a weaker prior verdict (not_executed / inconclusive) is
+# superseded by the authoritative L6 block, a stronger one (reproduced /
+# not_reproduced) is kept and the conflict is stated.
+
+L6_REPORT_VERDICT = "l6_verified_patch"
+L6_LEVEL = "L6"
+L6_STATUS = "VERIFIED_TWO_REVISION"
+L6_EVIDENCE_TYPE = "experimentally_verified"
+AUTHORITATIVE_SOURCE = "reports/verified_experiments.json"
+PRIOR_SOURCE = "work/poc_runs"
+
+# Prior verdicts an accepted two-revision claim may supersede. Anything else
+# (reproduced, not_reproduced, or a value this builder does not know) is a
+# stronger, executed outcome: it is never overwritten, only flagged.
+L6_OVERRIDABLE_PRIOR_VERDICTS = frozenset(
+    {"not_executed", "not_attempted", "inconclusive", None})
+
+_TEST_STATUS_ALIASES = {
+    "success": "pass", "pass": "pass", "passed": "pass",
+    "failure": "fail", "fail": "fail", "failed": "fail",
+}
+# A run that never produced a pass/fail outcome cannot support any level.
+_NON_OUTCOME_STATUSES = ("compile_error", "timeout", "toolchain_failure")
+
+
+def _norm_test_status(value):
+    """Normalise a forge per-test status to `pass` / `fail` (or None)."""
+    if isinstance(value, dict):
+        value = value.get("status")
+    if not isinstance(value, str):
+        return None
+    key = value.strip().lower()
+    return _TEST_STATUS_ALIASES.get(key, key)
+
+
+def _authoritative_side(experiment: dict, label: str) -> dict:
+    """One revision of an authoritative experiment, from the report itself."""
+    revs = experiment.get("revisions") or {}
+    side = revs.get(label)
+    if isinstance(side, dict) and side:
+        return side
+    two = experiment.get("two_revision_evidence") or {}
+    side = two.get(label)
+    return side if isinstance(side, dict) else {}
+
+
+def prior_verdict_is_stronger(prior: dict | None) -> bool:
+    """Is the single-revision PoC verdict too strong for L6 to overwrite?"""
+    if not isinstance(prior, dict) or not prior:
+        return False
+    return prior.get("verdict") not in L6_OVERRIDABLE_PRIOR_VERDICTS
+
+
+def evaluate_l6_claim(finding_id: str, experiment: dict | None) -> dict:
+    """Decide whether one report entry is an L6 claim this layer may emit.
+
+    Pure: it reads only the passed dict. Every gate has to hold; the returned
+    `reasons` list says which one did not, so a downgrade is never silent.
+    """
+    reasons: list[str] = []
+    if not isinstance(experiment, dict):
+        return {"accepted": False, "report_verdict": None,
+                "reasons": ["no authoritative experiment recorded for this finding"],
+                "evidence": None}
+
+    verdict = experiment.get("verdict")
+    if experiment.get("finding_id") != finding_id:
+        reasons.append(
+            f"the authoritative experiment names {experiment.get('finding_id')!r}, "
+            f"not {finding_id!r}")
+    if verdict != L6_REPORT_VERDICT:
+        reasons.append(f"the report verdict is {verdict!r}, not {L6_REPORT_VERDICT!r}")
+
+    two = experiment.get("two_revision_evidence") or {}
+    if two.get("status") != L6_STATUS:
+        reasons.append(f"the two-revision evidence status is {two.get('status')!r}, "
+                       f"not {L6_STATUS!r}")
+    if two.get("missing_evidence"):
+        reasons.append("the report still lists missing evidence: "
+                       + "; ".join(str(m) for m in two.get("missing_evidence") or []))
+
+    vulnerable = _authoritative_side(experiment, "vulnerable")
+    fixed = _authoritative_side(experiment, "fixed")
+    v_commit, f_commit = vulnerable.get("commit"), fixed.get("commit")
+    for label, commit in (("vulnerable", v_commit), ("fixed", f_commit)):
+        if not (isinstance(commit, str) and _SHA40.match(commit)):
+            reasons.append(f"the {label} revision does not name a full 40-hex commit")
+    if (isinstance(v_commit, str) and isinstance(f_commit, str)
+            and _SHA40.match(v_commit) and _SHA40.match(f_commit)
+            and v_commit == f_commit):
+        reasons.append("the vulnerable and fixed revisions name the same commit")
+
+    resolution = two.get("commit_resolution") or {}
+    if resolution.get("status") != "resolved":
+        reasons.append(f"the commit resolution status is {resolution.get('status')!r}, "
+                       "not 'resolved'")
+    else:
+        unresolved = [c for c in resolution.get("unresolved") or [] if c]
+        if unresolved:
+            reasons.append("the commit resolution lists unresolved commits: "
+                           + ", ".join(str(c) for c in unresolved))
+        resolved = {c for c in resolution.get("resolved") or [] if isinstance(c, str)}
+        if resolved and not {v_commit, f_commit}.issubset(resolved):
+            reasons.append("the recorded revisions are not both in the resolved commits")
+
+    if two.get("harness_digests_match") is not True:
+        reasons.append("the two revisions did not run byte-identical harness bytes")
+    if two.get("test_file_digests_match") is not True:
+        reasons.append("the two revisions did not run the same test file bytes")
+    v_harness, f_harness = vulnerable.get("harness_digest"), fixed.get("harness_digest")
+    if not (isinstance(v_harness, str) and v_harness and v_harness == f_harness):
+        reasons.append("the per-side harness digests are not equal")
+
+    v_status, f_status = vulnerable.get("status"), fixed.get("status")
+    v_declared = vulnerable.get("declared_expected_status")
+    f_declared = fixed.get("declared_expected_status")
+    for label, status in (("vulnerable", v_status), ("fixed", f_status)):
+        if status in _NON_OUTCOME_STATUSES:
+            reasons.append(f"the {label} run ended in {status}, which is not an outcome")
+    property_polarity = (v_declared == "fail" and f_declared == "pass"
+                         and v_status == "fail" and f_status == "pass")
+    if not property_polarity:
+        reasons.append(
+            "the recorded outcomes do not match the declared fail->pass property "
+            f"polarity (vulnerable {v_status!r}, declared {v_declared!r}; "
+            f"fixed {f_status!r}, declared {f_declared!r})")
+
+    v_tests = vulnerable.get("per_test_status") or {}
+    f_tests = fixed.get("per_test_status") or {}
+    tests = {}
+    for name in sorted(set(v_tests) | set(f_tests)):
+        tests[name] = {"vulnerable": _norm_test_status(v_tests.get(name)),
+                       "fixed": _norm_test_status(f_tests.get(name))}
+    if not tests:
+        reasons.append("no per-test status is recorded, so the test names and "
+                       "statuses cannot be stated")
+
+    if reasons:
+        return {"accepted": False, "report_verdict": verdict,
+                "reasons": reasons, "evidence": None}
+
+    test_files = sorted(
+        {n for n in (vulnerable.get("harness_file_digests") or {})
+         if isinstance(n, str) and n.endswith(".t.sol")}
+        | {n for n in (fixed.get("harness_file_digests") or {})
+           if isinstance(n, str) and n.endswith(".t.sol")}
+        | {n for n in (two.get("test_files") or []) if isinstance(n, str)})
+    return {
+        "accepted": True,
+        "report_verdict": verdict,
+        "reasons": [],
+        "evidence": {
+            "source": AUTHORITATIVE_SOURCE,
+            "report_verdict": verdict,
+            "classification": experiment.get("classification"),
+            "repository": resolution.get("repository"),
+            "commits": {"vulnerable": v_commit, "fixed": f_commit},
+            "commit_resolution": resolution.get("status"),
+            "harness_digest": v_harness,
+            "test_files": test_files,
+            "tests": tests,
+        },
+    }
+
+
+def _l6_verification_block(claim: dict, prior: dict | None) -> dict:
+    ev = claim["evidence"] or {}
+    return {
+        "attempted": True,
+        "level": L6_LEVEL,
+        "status": L6_STATUS,
+        "verdict": L6_REPORT_VERDICT,
+        "failure_reason": None,
+        "poc_type": ev.get("classification") or (prior or {}).get("poc_type"),
+        "evidence_type": L6_EVIDENCE_TYPE,
+        "test_evidence": {"per_test_status": ev.get("tests") or {}},
+        "evidence": ev,
+    }
+
+
+def _evidence_conflict(prior: dict, claim: dict, resolution: str,
+                       reason: str) -> dict:
+    ev = claim.get("evidence") or {}
+    prior = prior or {}
+    return {
+        "prior": {
+            "source": PRIOR_SOURCE,
+            "verdict": prior.get("verdict"),
+            "failure_reason": prior.get("failure_reason"),
+            "poc_type": prior.get("poc_type"),
+            "test_evidence": prior.get("evidence") or {},
+        },
+        "new": {
+            "source": AUTHORITATIVE_SOURCE,
+            "verdict": L6_REPORT_VERDICT,
+            "level": L6_LEVEL,
+            "status": L6_STATUS,
+            "commits": ev.get("commits"),
+            "harness_digest": ev.get("harness_digest"),
+        },
+        "resolution": resolution,
+        "reason": reason,
+    }
+
+
+def _prior_verification_block(ex: dict | None) -> dict:
     if not ex:
         return {"attempted": False,
                 "reason": "no exploit row for this finding, so no PoC was executed",
@@ -1133,6 +1659,146 @@ def _verification_block(rid: str, ex: dict | None) -> dict:
                           else "unknown"),
         "test_evidence": ex.get("evidence"),
     }
+
+
+def merge_verification(prior: dict | None, authoritative: dict | None,
+                       finding_id: str) -> dict:
+    """Merge the single-revision PoC index with the authoritative L6 report.
+
+    Pure helper (no file I/O) so the merge can be tested without rebuilding
+    the 722-record layer. `prior` is one work/poc_runs verdict (or None);
+    `authoritative` is one reports/verified_experiments.json entry (or None).
+    """
+    block = _prior_verification_block(prior)
+    claim = evaluate_l6_claim(finding_id, authoritative)
+
+    if not claim["accepted"]:
+        if claim["report_verdict"] == L6_REPORT_VERDICT:
+            # The report claims L6 but a gate failed: keep the lower block and
+            # state exactly why the claim was not promoted.
+            block = dict(block)
+            block["l6_rejected"] = {
+                "report_verdict": claim["report_verdict"],
+                "reasons": list(claim["reasons"]),
+            }
+        return block
+
+    if prior_verdict_is_stronger(prior):
+        # A single-revision outcome (L5 reproduced, or a not_reproduced run) is
+        # not overwritten by a two-revision claim; the disagreement is recorded.
+        block = dict(block)
+        block["evidence_conflict"] = _evidence_conflict(
+            prior, claim, "prior_kept",
+            "the prior PoC index records an executed verdict that is not "
+            "superseded by the two-revision claim; the prior block is kept")
+        return block
+
+    l6 = _l6_verification_block(claim, prior)
+    if isinstance(prior, dict) and prior:
+        l6["prior_verdict"] = prior.get("verdict")
+        l6["evidence_conflict"] = _evidence_conflict(
+            prior, claim, "authoritative_l6_kept",
+            "the prior PoC index has no two-revision comparison "
+            f"(verdict {prior.get('verdict')!r}), so the authoritative L6 "
+            "evidence is kept and the prior verdict is preserved above")
+    return l6
+
+
+# The record fields a verification block is allowed to drive. Everything else on
+# a record is left exactly as published, because those fields are computed from
+# the audited source trees (`V1/clones/`), which a checkout that has only the
+# published layer does not hold.
+L6_SURGICAL_FIELDS = ("verification", "evidence")
+
+
+def derive_l6_record(rec: dict, prior: dict | None,
+                     authoritative_entry: dict | None) -> int:
+    """Apply the authoritative two-revision L6 evidence to one published record.
+
+    Returns 1 when the record changed. Only the verification block and the
+    derived-flag list it feeds are written; a record whose clone-dependent
+    fields cannot be recomputed here keeps them byte-identical, so the layer
+    gains the L6 evidence and loses nothing.
+    """
+    fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+    block = merge_verification(prior, authoritative_entry, fid)
+    before = json.dumps({k: rec.get(k) for k in L6_SURGICAL_FIELDS},
+                        sort_keys=True)
+    rec["verification"] = block
+    ev = rec.get("evidence")
+    if isinstance(ev, dict) and isinstance(ev.get("evidence_types_present"), list):
+        types = set(ev["evidence_types_present"])
+        if block.get("evidence_type") == L6_EVIDENCE_TYPE:
+            types.add(L6_EVIDENCE_TYPE)
+        elif prior and prior.get("verdict") in ("reproduced", "not_reproduced"):
+            # The flag came from the single-revision verdict, which is kept.
+            types.add(L6_EVIDENCE_TYPE)
+        else:
+            types.discard(L6_EVIDENCE_TYPE)
+        ev["evidence_types_present"] = sorted(types)
+    after = json.dumps({k: rec.get(k) for k in L6_SURGICAL_FIELDS}, sort_keys=True)
+    return 0 if before == after else 1
+
+
+def verification_level_counts(records: list) -> dict:
+    """Level distribution over the derived records' verification blocks.
+
+    Only records whose block states a level are counted; a single-revision PoC
+    verdict is not a level, so `dynamic_verification` stays a separate axis.
+    """
+    out: dict[str, int] = {}
+    for r in records:
+        lvl = (r.get("verification") or {}).get("level")
+        if lvl:
+            out[lvl] = out.get(lvl, 0) + 1
+    return out
+
+
+def derive_l6_in_place(root: Path) -> dict:
+    """Merge the authoritative L6 evidence into the published layer, in place.
+
+    A full rebuild is not the carry-in path on a checkout that has no `V1/clones/`
+    and no git-ignored `work/poc_runs/`: the same-record comparison shows 390
+    of 722 records otherwise changing their code-context, licence and
+    redistribution fields for reasons that have nothing to do with L6. This mode
+    writes only the verification block and its derived flag.
+    """
+    path = root / "derived" / "records.jsonl"
+    records = [json.loads(line) for line in
+               path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    priors = load_committed_verification(path)
+    authoritative = load_authoritative_verification(
+        root / "reports" / "verified_experiments.json")
+    changed = 0
+    for rec in records:
+        fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+        claims_l6 = (rec.get("verification") or {}).get("level") == L6_LEVEL
+        if fid not in authoritative and not claims_l6:
+            # A record the report does not mention is left alone - unless it is
+            # already published as L6. Skipping those too would make a withdrawn
+            # or deleted experiment invisible: the stale L6 block, its
+            # `experimentally_verified` flag and the manifest count would survive
+            # every future run. Visiting it with no authoritative entry demotes
+            # it back to its single-revision verdict.
+            continue
+        changed += derive_l6_record(rec, priors.get(fid), authoritative.get(fid))
+    levels = verification_level_counts(records)
+    if changed:
+        write_jsonl(path, records)
+    manifest_path = root / "derived" / "manifest.json"
+    if manifest_path.exists():
+        man = json.loads(manifest_path.read_text(encoding="utf-8"))
+        man["derived_verification_levels"] = levels
+        write_json(manifest_path, man)
+    return {"records": len(records), "changed": changed,
+            "levels": levels, "authoritative": len(authoritative),
+            "priors": len(priors)}
+
+
+def _verification_block(rid: str, ex: dict | None,
+                        authoritative: dict | None = None,
+                        finding_id: str | None = None) -> dict:
+    return merge_verification(ex, authoritative, finding_id or rid)
 
 
 def load_verification_index() -> dict:
@@ -1176,6 +1842,72 @@ def load_verification_index() -> dict:
     return idx
 
 
+def load_committed_verification(path: Path | None = None) -> dict[str, dict]:
+    """The published derived layer, read back as the PoC verdict index.
+
+    `work/poc_runs/` is git-ignored and machine-local, so a fresh checkout has
+    no single-revision verdicts to inject - yet 155 of the 722 published records
+    carry one, and 140 of those (`not_executed`) exist nowhere else in the
+    repository. Rebuilding without them would delete real execution findings and
+    break the digests that were taken over the row with the verdict injected.
+    The committed layer is the durable copy of that index, so it is read back
+    here: the same carry-forward rule already applied to the historical record
+    digests (see the record-hash scheme notes at the top of this module).
+
+    An L6 block is not a single-revision verdict, so it is never fed back as
+    one; where an L6 block superseded a prior verdict, the prior is taken from
+    the `evidence_conflict.prior` record the merge itself wrote, which makes a
+    second rebuild produce byte-identical output to the first.
+    """
+    path = path or (DERIVED / "records.jsonl")
+    idx: dict[str, dict] = {}
+    if not path.exists():
+        return idx
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        rec = json.loads(line)
+        fid = (rec.get("finding") or {}).get("id") or rec.get("id")
+        if not fid:
+            continue
+        ver = rec.get("verification") or {}
+        prior = (ver.get("evidence_conflict") or {}).get("prior")
+        if isinstance(prior, dict) and prior.get("verdict"):
+            idx[fid] = {"finding_id": fid, "verdict": prior["verdict"],
+                        "failure_reason": prior.get("failure_reason"),
+                        "poc_type": prior.get("poc_type"),
+                        "evidence": prior.get("test_evidence")}
+            continue
+        verdict = ver.get("verdict")
+        if not verdict or verdict == L6_REPORT_VERDICT:
+            continue
+        idx[fid] = {"finding_id": fid, "verdict": verdict,
+                    "failure_reason": ver.get("failure_reason"),
+                    "poc_type": ver.get("poc_type"),
+                    "evidence": ver.get("test_evidence")}
+    return idx
+
+
+def load_authoritative_verification(path: Path | None = None) -> dict[str, dict]:
+    """The controlled two-revision experiments, keyed by finding id.
+
+    This is the only source from which an L6 level can be emitted. A missing or
+    malformed report yields an empty index, never an inferred claim.
+    """
+    path = path or (REPORTS / "verified_experiments.json")
+    if not path.exists():
+        return {}
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out: dict[str, dict] = {}
+    for exp in doc.get("experiments") or []:
+        if isinstance(exp, dict) and isinstance(exp.get("finding_id"), str):
+            out[exp["finding_id"]] = exp
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--write-record-hash-report", action="store_true",
@@ -1184,7 +1916,18 @@ def main() -> int:
                     help="add the versioned record-hash fields to the "
                          "committed derived layer in place, without a "
                          "rebuild (see migrate_record_hashes)")
+    ap.add_argument("--derive-l6-only", action="store_true",
+                    help="merge the authoritative two-revision L6 evidence into "
+                         "the published derived layer in place, touching only "
+                         "each record's verification block and its derived "
+                         "flag (see derive_l6_in_place)")
     args = ap.parse_args()
+    if args.derive_l6_only:
+        res = derive_l6_in_place(ROOT)
+        log(f"derived/records.jsonl: {res['records']} records, "
+            f"{res['changed']} changed, levels={res['levels']}, "
+            f"authoritative={res['authoritative']}, priors={res['priors']}")
+        return 0
     if args.migrate_record_hashes:
         res = migrate_record_hashes()
         log(f"migrated record hashes in derived/records.jsonl: {res}")
@@ -1202,6 +1945,15 @@ def main() -> int:
             f"not_reproduced={rep['historical_digest']['not_reproduced']}")
         return 0
     vidx = load_verification_index()
+    # The machine-local PoC index is absent on a fresh checkout; the published
+    # layer holds the same verdicts, so they are carried forward instead of
+    # being rebuilt as "no run". Where poc_runs does exist it is the primary
+    # source and wins per finding.
+    for fid, entry in load_committed_verification().items():
+        vidx.setdefault(fid, entry)
+    # The controlled two-revision experiments. This is merged in addition to
+    # the single-revision PoC index; it is the only source that can emit L6.
+    authoritative = load_authoritative_verification()
     # The historical digests of the committed layer, carried forward verbatim.
     legacy_hashes = load_legacy_record_hashes()
     out = []
@@ -1223,7 +1975,9 @@ def main() -> int:
             out.append(build_record(row, {rid: v} if v else {},
                                     committed_sha=committed_sha,
                                     committed_row=committed_row,
-                                    legacy=legacy_hashes.get(rid)))
+                                    legacy=legacy_hashes.get(rid),
+                                    authoritative=authoritative.get(
+                                        row.get("finding", {}).get("id"))))
     write_jsonl(DERIVED / "records.jsonl", out)
 
     man = {
@@ -1254,6 +2008,7 @@ def main() -> int:
         "dynamic_verification": dict(collections.Counter(r["quality"]["dynamic_verification"] for r in out)),
         "invariants_invented": 0,
         "numeric_state_values_invented": 0,
+        "derived_verification_levels": verification_level_counts(out),
         # The record hash scheme is stated per record (original_evidence.
         # record_sha256_version); the counters say how many records follow
         # each scheme, so a reader can see the mix without reading 722 rows.

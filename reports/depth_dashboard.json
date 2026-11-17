@@ -12,8 +12,10 @@
     },
     "v2.2": {
       "levels": {
+        "L1": 1,
         "L3": 1,
-        "L5": 35,
+        "L4": 29,
+        "L5": 5,
         "L6": 1,
         "none": 100
       },
@@ -24,19 +26,21 @@
       "levels": {
         "L0": 4586,
         "L1": 754,
-        "L3": 125,
-        "L5": 2
+        "L3": 115,
+        "L4": 7,
+        "L5": 5
       },
-      "levels_note": "L0/L1 only by construction; nothing executed",
+      "levels_note": "127 admitted records carry an L3+ artefact (18 distinct proof runs, 5 L5, 0 L6); the rest are L0/L1",
       "records": 5467
     },
     "v3.2": {
       "levels": {
-        "L3": 4,
-        "L5": 2
+        "L3": 6,
+        "L4": 7,
+        "L5": 5
       },
       "levels_note": "fork-execution runs, not records",
-      "runs": 6
+      "runs": 18
     },
     "vbeta": {
       "levels": {

@@ -1,0 +1,10 @@
+{
+  "poc": "2026-09/Reddio_exp.sol",
+  "poc_sha256": "5c647a79590525b3666cdfedeeb01ce8a4e45cb91d95a90231b76981b79417a4",
+  "staged_files": [
+    "src/test/2026-09/Reddio_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

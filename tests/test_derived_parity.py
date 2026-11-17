@@ -79,10 +79,10 @@ class TestTaxonomyShape(unittest.TestCase):
     def test_classify_reproduces_every_committed_taxonomy_block(self):
         records = _layer()
         self.assertEqual(len(records), 722)
+        rows = _source_rows()
         for rec in records:
-            finding = rec.get("finding") or {}
             self.assertEqual(
-                tx.classify(finding), rec.get("taxonomy"),
+                tx.classify_record(rows[rec["id"]]), rec.get("taxonomy"),
                 f"{rec.get('id')}: the builder's taxonomy block differs from "
                 "the committed one")
 
@@ -115,9 +115,14 @@ class TestProvenancePlacement(unittest.TestCase):
         rows = _source_rows()
         for rec in _layer():
             row = rows[rec["id"]]
+            actual = dict(rec.get("provenance") or {})
+            roles = actual.pop("commit_roles", None)
+            self.assertIsInstance(roles, dict, f"{rec['id']}: no commit_roles")
+            for key in ("audited_snapshot", "cited_code", "executed_experiment"):
+                self.assertIn(key, roles, rec["id"])
             self.assertEqual(
                 bd.pin_provenance_urls(row.get("provenance"), row.get("source")),
-                rec.get("provenance"),
+                actual,
                 f"{rec['id']}: the top-level provenance is not the pinned one")
 
     def test_the_original_evidence_mirror_is_verbatim(self):
@@ -158,7 +163,13 @@ class TestAttackerIdentityPointer(unittest.TestCase):
                                  ["rule:build_derived.py:attacker_model"], rec.get("id"))
             else:
                 self.assertNotIn("source_refs", identity, rec.get("id"))
-        self.assertEqual(with_pointer, 147)
+        # Bug #1 widened the rule-derived standing set (a role gate plus a
+        # stated accounting defect). The invariant is "pointer iff rule fired",
+        # not a frozen count from the pre-fix layer.
+        expected = sum(1 for r in _layer()
+                       if ((r.get("attacker_model") or {})
+                           .get("attacker_identity") or {}).get("basis") == "derived_fact")
+        self.assertEqual(with_pointer, expected)
 
     def test_the_builder_omits_an_empty_pointer(self):
         row = {"source": {"repository": "repo"}, "security_reasoning": {}}

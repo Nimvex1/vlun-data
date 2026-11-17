@@ -181,9 +181,18 @@
       "ok": true
     },
     {
-      "check": "L5_requires_profit_evidence",
+      "check": "L5_requires_claim_specific_evidence",
       "critical": true,
-      "detail": null,
+      "detail": "L5 needs a structured violation_evidence record, not just a status string",
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "L5_theft_requires_profit_evidence",
+      "critical": true,
+      "detail": "theft is one impact type; it still needs measured attacker-side profit",
       "failure_count": 0,
       "failures": [],
       "group": "consistency",
@@ -193,6 +202,15 @@
       "check": "no_L6_without_fixed_leg",
       "critical": true,
       "detail": null,
+      "failure_count": 0,
+      "failures": [],
+      "group": "consistency",
+      "ok": true
+    },
+    {
+      "check": "no_L6_without_two_revision_evidence",
+      "critical": true,
+      "detail": "L6 requires two distinct 40-hex commits, equal harness and test file bytes, vulnerable-fail/fixed-pass polarity, no compile/timeout/blocked failure reason and explicit claim-specific violation_evidence",
       "failure_count": 0,
       "failures": [],
       "group": "consistency",
@@ -325,6 +343,24 @@
       "ok": true
     },
     {
+      "check": "run_accounting_matches_proof",
+      "critical": true,
+      "detail": "execution_attempts = successful + failed + blocked (distinct proof runs, no double counting); candidate_artefacts and evidence_admitted_records recomputed from the ledgers",
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
+      "check": "run_accounting_definitions_published",
+      "critical": true,
+      "detail": "every run-accounting key carries a definition and the note states the L5/L6 truth, recomputed from the ledgers",
+      "failure_count": 0,
+      "failures": [],
+      "group": "counts",
+      "ok": true
+    },
+    {
       "check": "source_ledger_sums",
       "critical": true,
       "detail": "18 sources == len(SOURCE_IDS)",
@@ -336,7 +372,7 @@
     {
       "check": "L3_requires_compile_sweep_row",
       "critical": true,
-      "detail": "129 sweep rows, 125 L3 records",
+      "detail": "129 sweep rows, 115 L3 records",
       "failure_count": 0,
       "failures": [],
       "group": "consistency",
@@ -381,6 +417,6 @@
   ],
   "critical_failures": 0,
   "dataset_version": "3.0",
-  "passed": 42,
-  "total": 42
+  "passed": 46,
+  "total": 46
 }

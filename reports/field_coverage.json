@@ -1,10 +1,10 @@
 {
   "fields": {
     "v1.derived.attacker_model.attacker_identity": {
-      "known": 290,
-      "known_pct": 40.2,
+      "known": 405,
+      "known_pct": 56.1,
       "total": 722,
-      "unknown_or_empty": 432
+      "unknown_or_empty": 317
     },
     "v1.derived.invariants": {
       "known": 722,

@@ -1,0 +1,41 @@
+{
+  "artifact_hashes": {
+    "command.txt": "5dd3f2a2eac363e530a4ad9ac64de0596d5f6b56671b75b79839c7be4ba503f3",
+    "harness.json": "c66636b4c73e163d0acb8845327034b190b4f681c5e4d79d9a4f117caa361a9f",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "a37445864cdec18630179f1e934fcd3f9f13917859e6ce78a450e451a8356f3d",
+    "toolchain.txt": "26dc9c26d1e2550d472154a7ea2b4985a6615ce3520d4d5700aaf761708f2b45"
+  },
+  "build": {
+    "harness": {
+      "poc": "2026-04/JuiceboxREVLoans_exp.sol",
+      "poc_sha256": "8d1aab77454a81bbde9d5c4e87983694008d9ca9474a5e39800bc3de954a805e",
+      "staged_files": [
+        "src/test/2026-04/JuiceboxREVLoans_exp.sol",
+        "src/test/basetest.sol",
+        "src/test/tokenhelper.sol"
+      ],
+      "supplied": []
+    },
+    "rc": 0
+  },
+  "clone_head": "0200ce8af03a0f9bf4ce235f4ddb9d84773fae29",
+  "experiment": "juiceboxrevloans",
+  "failure_reason": null,
+  "finding_id": "defihacklabs:2026-04/JuiceboxREVLoans_exp.sol",
+  "fork_aliases": [
+    "mainnet"
+  ],
+  "level_awarded": "L4",
+  "level_basis": "forge reported test PASS on pinned fork",
+  "profit_deltas": [],
+  "repository": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+  "seconds": 46.1,
+  "status": "executed_no_profit_evidence",
+  "test": {
+    "command": "forge test --match-test testExploit -vv",
+    "rc": 0,
+    "test_function": "testExploit"
+  },
+  "toolchain": "forge (see toolchain.txt)"
+}

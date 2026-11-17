@@ -23,6 +23,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from schema_terms import QUALITY_VERIFICATION_STATES  # noqa: E402
 from vlun import (  # noqa: E402
     BENCHMARK_FAMILIES, BENCH, DATASET_VERSION, REPORTS, SPLITS, log, read_jsonl,
     write_json,
@@ -116,10 +117,29 @@ def record_summary(records: list[dict], findings: list[dict]) -> dict:
 
 def experiment_summary(records: list[dict], index: dict) -> dict:
     runs = index.get("experiments") or []
+    views = [r.get("experiment_view") or {} for r in records]
     levels = collections.Counter()
     for r in records:
         ex = r.get("experiment_view") or {}
         levels[ex.get("level") if ex.get("present") else "none"] += 1
+
+    # Level-exact verification counts, read off the level a reader sees -
+    # `experiment_view.level`, which scripts/build_derived_v22.py already
+    # overwrote with the adjudicated `level_after`. Reading the published record
+    # fields keeps this a view of the layer (no re-read of
+    # reports/v2_2/l5_adjudication.json here) and forbids both failure modes:
+    # a name-only heuristic and any count that lumps levels together. L4 means
+    # "executed, violation not demonstrated", so it is never counted as a
+    # verified L5; a provisional L5 candidate is reported beside the verified
+    # figure, not inside it.
+    def at_level(level: str) -> int:
+        return sum(1 for v in views
+                   if v.get("present") and v.get("level") == level)
+
+    verified_l5 = at_level("L5")
+    verified_l6 = at_level("L6")
+    provisional = sum(1 for v in views if v.get("verification_provisional"))
+    demoted = sum(1 for v in views if v.get("demoted_from_L5"))
     blockers = {}
     for r in records:
         lang = r.get("language")
@@ -129,6 +149,29 @@ def experiment_summary(records: list[dict], index: dict) -> dict:
     return {
         "runs": len(runs),
         "by_level": dict(sorted(levels.items())),
+        "verified_l5": verified_l5,
+        "verified_l6": verified_l6,
+        "verified_l5_or_l6": verified_l5 + verified_l6,
+        "executed_at_l4": at_level("L4"),
+        "provisional_l5_candidates": provisional,
+        "adjudicated_demoted": demoted,
+        "adjudicated_l5_claims": sum(1 for v in views
+                                     if v.get("adjudication_verdict")),
+        "adjudication_verdicts": dict(sorted(collections.Counter(
+            v["adjudication_verdict"] for v in views
+            if v.get("adjudication_verdict")).items())),
+        "level_counts_note": (
+            "verified_l5 is level == \"L5\" only and verified_l6 is "
+            "level == \"L6\" only; verified_l5_or_l6 is their sum and is the "
+            "only figure that spans two levels. executed_at_l4 counts records "
+            "whose adjudicated level is L4 (executed, violation not "
+            "demonstrated): they are not verified L5. "
+            "provisional_l5_candidates is experiment_view."
+            "verification_provisional (a WEAK adjudication held at L4 with "
+            "l5_candidate true) and adjudicated_demoted is "
+            "experiment_view.demoted_from_L5 (an UNSUPPORTED adjudication); "
+            "the two plus verified_l5 equal adjudicated_l5_claims, which is "
+            "scripts/build_derived_v22.py's manifest accounting"),
         "executed": sum(1 for r in records
                         if (r.get("experiment_view") or {}).get("executed")),
         "fixed_revision_executed": sum(
@@ -137,6 +180,15 @@ def experiment_summary(records: list[dict], index: dict) -> dict:
         "by_outcome": dict(sorted(collections.Counter(
             (r.get("experiment_view") or {}).get("outcome") for r in records
             if (r.get("experiment_view") or {}).get("present")).items())),
+        # `outcome` is what the run wrote and the adjudication deliberately does
+        # not rewrite it, so it is only ever reported broken out by the
+        # adjudicated level it belongs to.
+        "by_outcome_by_level": {
+            level: dict(sorted(collections.Counter(
+                v.get("outcome") for v in views
+                if v.get("present") and v.get("level") == level).items()))
+            for level in sorted({v.get("level") for v in views
+                                 if v.get("present") and v.get("level")})},
         "runs_detail": [{
             "experiment_id": e.get("experiment_id"),
             "source_report": e.get("source_report"),
@@ -349,13 +401,51 @@ def quality_report_md(s: dict) -> str:
       "no weighted aggregate):")
     for dim, counts in (dr.get("quality_rubric") or {}).items():
         a(f"  - `{dim}`: `{counts}`")
+    a("- `verification` is a closed set: "
+      + ", ".join(f"`{v}`" for v in QUALITY_VERIFICATION_STATES)
+      + ". `executed_not_demonstrated` is a run whose artefacts are on disk "
+      "while the adjudicated `experiment_view.level` is below L5 -- the run "
+      "happened, the committed bytes do not demonstrate the claimed violation. "
+      "A value outside this set fails the gate "
+      "`v2.2/quality_verification_in_closed_vocabulary` (single source: "
+      "`scripts/schema_terms.py::QUALITY_VERIFICATION_STATES`).")
     a(f"- attacker identity: `{dr['attacker_identity']}` "
       f"({dr['attacker_actor_mentioned']} records name an actor at all)\n")
 
     a("## Experiments\n")
     a(f"- runs in `experiments_v2_2/`: **{ex['runs']}**")
     a(f"- records by level: `{ex['by_level']}`")
-    a(f"- outcomes: `{ex['by_outcome']}`")
+    a(f"- verified, by level and counted separately: **{ex['verified_l5']}** at "
+      "L5 (the claimed violation reproduced) and "
+      f"**{ex['verified_l6']}** at L6 (reproduced on the vulnerable revision "
+      f"AND blocked on the fixed one), i.e. "
+      f"**{ex['verified_l5_or_l6']}** of {dr['records']} records at L5 or L6; "
+      "no record is counted twice and neither figure is a name-only match\n")
+    a(f"- executed but **not** verified at L5: **{ex['executed_at_l4']}** at L4 "
+      "(executed, violation not demonstrated), "
+      f"**{ex['by_level'].get('L3', 0)}** at L3 (compiles) and "
+      f"**{ex['by_level'].get('L1', 0)}** at L1\n")
+    verd = ex["adjudication_verdicts"]
+    if ex["adjudicated_l5_claims"]:
+        a(f"- L5 claims carrying an adjudication verdict on the record "
+          f"(`experiment_view.adjudication_verdict`, from "
+          "`reports/v2_2/l5_adjudication.json` as applied by "
+          f"`scripts/build_derived_v22.py`): **{ex['adjudicated_l5_claims']}** "
+          f"covered - **{verd.get('SUPPORTED', 0)}** SUPPORTED, still counted as "
+          f"verified L5 above; **{verd.get('WEAK', 0)}** WEAK, moved to L4 with "
+          "`provisional: true` and `l5_candidate: true` "
+          f"(`provisional_l5_candidates: {ex['provisional_l5_candidates']}`, not "
+          "verified L5); "
+          f"**{verd.get('UNSUPPORTED', 0)}** UNSUPPORTED, demoted below L5 "
+          f"(`adjudicated_demoted: {ex['adjudicated_demoted']}`)\n")
+    else:
+        a("- the published layer carries no L5 adjudication verdict on any "
+          "record yet, so the L5 figure above is the level the records hold, "
+          "not a per-test review outcome\n")
+    a(f"- outcomes as their runs recorded them, by adjudicated level: "
+      f"`{ex['by_outcome_by_level']}` - `outcome` is left exactly as the run "
+      "wrote it and is never read as a verification count on its own; "
+      f"the flat tally over all records with a run is `{ex['by_outcome']}`\n")
     a(f"- fixed-revision leg executed: **{ex['fixed_revision_executed']}** "
       "(L6 needs the same violation reproduced on vulnerable AND blocked on "
       "fixed; move:cetus-checked-shlw meets it - the silent 2^192 shift "
@@ -429,6 +519,11 @@ def main() -> int:
         f"sources={s['source_layer']['total']} "
         f"tasks={s['benchmark']['totals']['tasks']} "
         f"gate={s['validation']['passed']}/{s['validation']['checks']}")
+    ex = s["experiments"]
+    log(f"levels L5={ex['verified_l5']} L6={ex['verified_l6']} "
+        f"L4={ex['executed_at_l4']} by_level={ex['by_level']} "
+        f"provisional_l5_candidates={ex['provisional_l5_candidates']} "
+        f"adjudicated_demoted={ex['adjudicated_demoted']}")
     return 0
 
 

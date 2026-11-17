@@ -191,3 +191,85 @@ def classify(finding: dict) -> dict:
         "vocabulary": {"top_level": list(TOP_LEVEL)},
         "note": "labels are preserved alongside v1's C4 strings; nothing is overwritten",
     }
+
+
+# --- record-aware classification (Bug #5) ----------------------------------
+# `classify()` above is the v1-string-only rule that keeps derived_v2_2 and the
+# legacy tests byte-stable. `classify_record()` is the stronger, record-aware
+# rule used by the canonical derived layer: a label backed ONLY by a weak-title
+# classifier hint is never promoted to `derived_fact`, and the high-precision
+# RC-09 decimal/scale class needs real code + prose or a judge diagnosis.
+
+_WEAK_TITLE = re.compile(r"\[weak\(title\)\]", re.I)
+_DECIMAL_EXPR = re.compile(r"\bdecimals?\s*\(|\bdecimals?\b", re.I)
+_DECIMAL_SCALING_PROSE = re.compile(
+    r"\b(off by 10|10\*\*\s*decimals?|10\^decimals?|decimals?\s*mismatch|"
+    r"decimal[^.]{0,60}(?:scal|mismatch|wrong|incorrect|off by)|"
+    r"(?:scal|mismatch|wrong|incorrect|off by)[^.]{0,60}decimals?)\b", re.I)
+_JUDGE_DECIMAL = re.compile(
+    r"decimals?[^.]{0,120}(?:off by|mismatch|wrong|incorrect|scal)|"
+    r"(?:off by|mismatch|wrong|incorrect|scal)[^.]{0,120}decimals?", re.I)
+_STRONG_EVIDENCE = re.compile(
+    r"\[(?!weak\(title\))[^\]]+\]", re.I)
+_TASK1C = re.compile(r"\b(oracle manipulation|stale price|oracle|price feed)\b", re.I)
+
+
+def classify_record(row: dict) -> dict:
+    """Classify a whole derived input row, not just its finding sub-dict.
+
+    Rule 1: labels whose only classifier evidence is `[weak(title)]` cannot be
+    asserted facts. With no corroborating mechanism the record stays Unknown.
+    Rule 2: RC-09 (`Accounting` / `Decimal or scale mismatch`) fires only on a
+    judge decimal diagnosis or (a decimals() expression in code AND in the PoC
+    AND a prose decimal-scaling mechanism sentence).
+    """
+    finding = row.get("finding") or {}
+    classes = finding.get("vulnerability_classes") or []
+    evidence = [str(x) for x in (row.get("classifier_evidence") or [])]
+    weak_only = bool(evidence) and all(_WEAK_TITLE.search(e) for e in evidence)
+    has_strong = any(_STRONG_EVIDENCE.search(e) for e in evidence)
+
+    # Collect the text available for mechanism attestation.
+    ctx = row.get("code_context") or []
+    code_text = " ".join(str(c.get("snippet") or "") for c in ctx)
+    sr = row.get("security_reasoning") or {}
+    poc = row.get("poc") or {}
+    poc_text = " ".join(str(poc.get(k) or "") for k in ("code", "setup", "expected_impact"))
+    prose_text = " ".join(str(sr.get(k) or "") for k in ("root_cause", "broken_behavior",
+                                                        "intended_behavior"))
+    judge_text = " ".join(
+        str(q.get("quote") or "") for q in (row.get("provenance") or {}).get(
+            "judge_and_sponsor_quotes") or []
+        if str(q.get("role") or "").lower() == "judge")
+
+    judge_decimal = bool(_JUDGE_DECIMAL.search(judge_text))
+    code_decimal = bool(_DECIMAL_EXPR.search(code_text))
+    poc_decimal = bool(_DECIMAL_EXPR.search(poc_text))
+    prose_decimal = bool(_DECIMAL_SCALING_PROSE.search(prose_text))
+
+    rc09 = judge_decimal or (code_decimal and poc_decimal and prose_decimal)
+
+    if rc09:
+        rule = ("judge decimal-mismatch diagnosis" if judge_decimal else
+                "decimals() in code and PoC plus a prose decimal-scaling mechanism")
+        ref = ["rule:taxonomy.py:classify_record:RC-09"]
+        return {
+            "category": "Accounting", "family": "Value Computation",
+            "class": "Decimal or scale mismatch", "subtype": "Decimal or scale mismatch",
+            "evidence_type": "derived_fact", "source_refs": ref,
+            "labels": [{"category": "Accounting", "family": "Value Computation",
+                        "class": "Decimal or scale mismatch", "subtype": "Decimal or scale mismatch",
+                        "evidence_type": "derived_fact", "source_refs": ref,
+                        "rule": rule, "c4_string": raw} for raw in (classes or [None])],
+            "multi_label": len(classes) > 1,
+            "c4_original": list(classes),
+            "vocabulary": {"top_level": list(TOP_LEVEL)},
+            "note": "RC-09 attested by " + rule,
+        }
+    if weak_only and not has_strong:
+        # Keep the C4 strings as evidence of what v1 claimed, but assert nothing.
+        # Shape matches a class-less record: no labels/source_refs/vocabulary.
+        return {"category": "Unknown", "family": None, "class": None, "subtype": None,
+                "evidence_type": "unknown", "c4_original": list(classes),
+                "note": "only weak-title classifier hints; no mechanism attested"}
+    return classify(finding)

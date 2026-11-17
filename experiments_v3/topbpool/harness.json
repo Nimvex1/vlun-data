@@ -1,0 +1,10 @@
+{
+  "poc": "2026-06/TOPBPool_exp.sol",
+  "poc_sha256": "b4dded8dd1b6bf8eea477cc64909f80b455b59cb16a77dccc82e700cee89235d",
+  "staged_files": [
+    "src/test/2026-06/TOPBPool_exp.sol",
+    "src/test/basetest.sol",
+    "src/test/tokenhelper.sol"
+  ],
+  "supplied": []
+}

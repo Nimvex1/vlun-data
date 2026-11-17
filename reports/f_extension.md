@@ -25,19 +25,19 @@ Axis totals overlap. They are not additive and must not be summed.
 
 ## F-B pre-submission duplicate radar
 
-- pairs: 554
+- pairs: 552
 - confirmed duplicate pairs (published pointer resolves): 184
-- rule-derived distinct pairs (disjoint targets AND a recorded root-cause difference; no human adjudication): 121
-- ambiguous class: 249
-- label tiers: {'rule_derived_target_and_root_cause_negative': 121, 'pointer_supported_positive': 184, 'ambiguous_shared_target_no_pointer': 111, 'ambiguous_target_separation_without_root_cause': 138}
-- label cohorts: {'primary': 416, 'exploratory': 138}
+- rule-derived distinct pairs (disjoint targets AND a recorded root-cause difference; no human adjudication): 106
+- ambiguous class: 262
+- label tiers: {'rule_derived_target_and_root_cause_negative': 106, 'pointer_supported_positive': 184, 'ambiguous_target_separation_without_root_cause': 151, 'ambiguous_shared_target_no_pointer': 111}
+- label cohorts: {'primary': 401, 'exploratory': 151}
 - pairs whose pointer does not resolve (unscorable): 0
-- unique candidate submissions: 386
-- unique canonical findings: 120
-- by split: {'test': 31, 'train': 324, 'validation': 199}
+- unique candidate submissions: 384
+- unique canonical findings: 118
+- by split: {'test': 30, 'train': 327, 'validation': 195}
 - pointer evidence across the corpus: {'pointer_names_an_unresolved_issue': 145, 'explicit_pointer': 193, 'no_duplicate_pointer_at_all': 120}
 - records that can yield no positive pair (no pointer, or a pointer to an issue this dataset cannot resolve): 265
-- blocked pair shapes: {'cross_file_separation_without_root_cause_evidence': 16510, 'shared_function_target': 501, 'same_root_cause_label': 542}
+- blocked pair shapes: {'cross_file_separation_without_root_cause_evidence': 17656, 'shared_function_target': 507, 'same_root_cause_label': 426}
 
 ## Split integrity
 
@@ -51,4 +51,4 @@ Independent audit projects in the corpus: 5 (2022-05-alchemix 33, 2024-01-decent
 - F-A `observed_code_structure` is projected from `derived/hard_negatives.jsonl`; that layer rebuilds byte-identically (re-verified 2026-10-24: `python scripts/build_hard_negatives.py` reproduces the committed file exactly), so a change to it must be rebuilt into the F-A packets with `python scripts/build_f_extension.py`
 - the pool is drawn from public Code4rena contest records, so the underlying statuses are memorizable; this is an open-key evaluation, not a holdout,
 - with the projects available here a project-held-out split is not credible and is not claimed,
-- manifest scorable counts: F-A 9, F-B 554.
+- manifest scorable counts: F-A 9, F-B 552.

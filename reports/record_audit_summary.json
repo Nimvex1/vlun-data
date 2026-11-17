@@ -15,11 +15,7 @@
     "validation": 229
   },
   "by_verification": {
-    "inconclusive": 8,
-    "not_attempted": 567,
-    "not_executed": 140,
-    "not_reproduced": 2,
-    "reproduced": 5
+    "not_attempted": 722
   },
   "generated_by": "scripts/audit_records.py",
   "issue_kinds": {},
