@@ -311,7 +311,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/eval_leakage_report.json` | multi | 48,313 | object, 11 keys | yes |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
 | `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
-| `reports/extraction_errors.json` | multi | 72,680 | unparseable | yes |
+| `reports/extraction_errors.json` | multi | 35,481 | object, 7 keys | yes |
 | `reports/f_extension_baselines.json` | multi | 211,847 | object, 4 keys | yes |
 | `reports/f_extension_stats.json` | multi | 5,235 | object, 10 keys | yes |
 | `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
@@ -435,14 +435,14 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `.swarm/ewc-fisher.json` | meta | 22,218 | unparseable | yes |
+| `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 469,231 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 469,461 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 926 | object, 17 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 690 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 688 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |

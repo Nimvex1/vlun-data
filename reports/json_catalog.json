@@ -27,12 +27,21 @@
   "file_count": 805,
   "files": [
     {
-      "bytes": 22218,
+      "bytes": 10711,
       "category": "meta",
+      "keys": [
+        "config",
+        "consolidationHistory",
+        "globalFisher",
+        "patterns",
+        "savedAt",
+        "version"
+      ],
+      "kind": "object",
       "layer": "meta",
-      "parse": "error",
+      "parse": "ok",
       "path": ".swarm/ewc-fisher.json",
-      "sha256": "e10cc73fbd17b6e9cb542e7359fcbc993844bf98d9a370aa22adbb0af3bc99d7",
+      "sha256": "1060637dd2aaf630355babd7a8fbb4cc641ed4e1b50206024342ea867379db9f",
       "tracked": true
     },
     {
@@ -59,7 +68,7 @@
       "tracked": true
     },
     {
-      "bytes": 469231,
+      "bytes": 469461,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -86,7 +95,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "a3bee21c35da442313635c37d2e70f95e99108a4e38873bd1667b074fb63084f",
+      "sha256": "ce244a9a4bf9b998d2f9e350aec37ea6c316316a92ac28c2c08f490c40bcc987",
       "tracked": true
     },
     {
@@ -348,7 +357,7 @@
       "tracked": true
     },
     {
-      "bytes": 690,
+      "bytes": 688,
       "category": "meta",
       "keys": [
         "note",
@@ -359,7 +368,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "eaf2488886a27cb8a4759ae454af312723c31592950e72f35c7a14f25f7ca69b",
+      "sha256": "c9deaf8f62741edcb1264f56201ebe435ffba036b88ef174687d942365885955",
       "tracked": true
     },
     {
@@ -14007,12 +14016,22 @@
       "tracked": true
     },
     {
-      "bytes": 72680,
+      "bytes": 35481,
       "category": "reports",
+      "keys": [
+        "by_kind",
+        "by_origin",
+        "description",
+        "entries",
+        "generated_by",
+        "resolved_entries",
+        "total"
+      ],
+      "kind": "object",
       "layer": "multi",
-      "parse": "error",
+      "parse": "ok",
       "path": "reports/extraction_errors.json",
-      "sha256": "ca5653f3c7f15a5293624ba1c8d6e23ccb7fd86e882a26db7510cb26f3ba5c03",
+      "sha256": "49fd00b4c6842055903b936d4d628b05cc90d5b0a7ccb8a884a018a88496fe30",
       "tracked": true
     },
     {
