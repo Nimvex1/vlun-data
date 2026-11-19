@@ -5,7 +5,7 @@
     "cross_split_near_duplicate": 1,
     "finding_without_code_context": 1,
     "label_semantics_relied_upon": 1,
-    "license_not_declared": 5,
+    "license_not_declared": 16,
     "mitigation_in_separate_repository": 1,
     "mitigation_review_partial": 1,
     "network_list_not_documented": 1,
@@ -14,11 +14,12 @@
     "poc_not_executed": 2,
     "private_audit_no_public_submissions": 3,
     "rejection_discussion_without_attributed_verdict": 1,
-    "rejection_without_reasoning": 1
+    "rejection_without_reasoning": 1,
+    "source_unavailable": 3
   },
   "by_origin": {
     "v1": 19,
-    "v2": 3
+    "v2": 17
   },
   "description": "Every known limitation of this dataset. `origin: v1` entries were recorded by the original builder; `origin: v2` entries were surfaced by the hardening pipeline. Nothing is marked resolved unless a check proves it.",
   "entries": [
@@ -685,12 +686,152 @@
     },
     {
       "affected_files": [],
-      "detail": "failure reasons: {'broken_original_test': 7, 'dependency_unavailable': 7, 'environment_unavailable': 8, 'poc_invalid': 126}. The dominant blocker is that the published PoC is not a runnable test. The Code4rena reports publish two kinds of proof: executable test functions, and suggested *contract* patches — a function the reporter asks you to add to the vulnerable contract in order to demonstrate the issue. The second kind is real evidence and it is preserved in `poc.code`, but it cannot be executed as published, so it is recorded as `poc_invalid` rather than dressed up as a test.",
+      "detail": "failure reasons: {'broken_original_test': 7, 'dependency_unavailable': 7, 'environment_unavailable': 8, 'poc_invalid': 126}. The dominant blocker is that the published PoC is not a runnable test. The Code4rena reports publish two kinds of proof: executable test functions, and suggested *contract* patches ΓÇö a function the reporter asks you to add to the vulnerable contract in order to demonstrate the issue. The second kind is real evidence and it is preserved in `poc.code`, but it cannot be executed as published, so it is recorded as `poc_invalid` rather than dressed up as a test.",
       "kind": "poc_not_executed",
       "origin": "v2",
       "repository": "all",
       "still_true": true,
       "summary": "140 of 155 PoCs could not be executed at all",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "FraxFinance/fraxlend",
+      "still_true": true,
+      "summary": "FraxFinance/fraxlend has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "LayerZero-Labs/solidity-examples",
+      "still_true": true,
+      "summary": "LayerZero-Labs/solidity-examples has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol @ release-v5: cat_file_failed:fatal: invalid object name 'release-v5.0'.",
+      "kind": "source_unavailable",
+      "origin": "v2",
+      "repository": "OpenZeppelin/openzeppelin-contracts",
+      "still_true": true,
+      "summary": "1 cited file(s) could not be retrieved from OpenZeppelin/openzeppelin-contracts",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2022-05-alchemix",
+      "still_true": true,
+      "summary": "code-423n4/2022-05-alchemix has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2024-01-curves",
+      "still_true": true,
+      "summary": "code-423n4/2024-01-curves has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "code-423n4/2024-01-decent/lib/decent-bridge/src/DecentBridgeExecutor.sol @ main: path_missing_at_commit; code-423n4/2024-01-decent/lib/decent-bridge/src/DecentEthRouter.sol @ main: path_missing_at_commit",
+      "kind": "source_unavailable",
+      "origin": "v2",
+      "repository": "code-423n4/2024-01-decent",
+      "still_true": true,
+      "summary": "2 cited file(s) could not be retrieved from code-423n4/2024-01-decent",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2024-01-decent",
+      "still_true": true,
+      "summary": "code-423n4/2024-01-decent has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2024-04-dyad",
+      "still_true": true,
+      "summary": "code-423n4/2024-04-dyad has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2024-04-noya",
+      "still_true": true,
+      "summary": "code-423n4/2024-04-noya has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2025-06-panoptic",
+      "still_true": true,
+      "summary": "code-423n4/2025-06-panoptic has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "code-423n4/2025-08-gte-perps",
+      "still_true": true,
+      "summary": "code-423n4/2025-08-gte-perps has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "decentxyz/decent-bridge",
+      "still_true": true,
+      "summary": "decentxyz/decent-bridge has no LICENSE file at any cited commit",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "clone failed georgiIvanov/noya-audit: rc=128 remote: Repository not found.\nfatal: repository 'https://github.com/georgiIvanov/noya-audit.git/' not found",
+      "kind": "source_unavailable",
+      "origin": "v2",
+      "repository": "georgiIvanov/noya-audit",
+      "still_true": true,
+      "summary": "repository georgiIvanov/noya-audit could not be cloned",
+      "urls": []
+    },
+    {
+      "affected_files": [],
+      "detail": "source text attributed to this repository cannot be classified as redistributable, so it is classified `unknown` and the redistribution is flagged rather than assumed lawful.",
+      "kind": "license_not_declared",
+      "origin": "v2",
+      "repository": "georgiIvanov/noya-audit",
+      "still_true": true,
+      "summary": "georgiIvanov/noya-audit has no LICENSE file at any cited commit",
       "urls": []
     },
     {
@@ -716,5 +857,5 @@
   ],
   "generated_by": "scripts/generate_reports.py",
   "resolved_entries": 0,
-  "total": 22
+  "total": 36
 }

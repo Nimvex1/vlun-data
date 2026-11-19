@@ -28,16 +28,16 @@
     },
     "by_rights_status": {
       "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1301,
+      "internal_research_artefact_not_cleared": 1303,
       "metadata_only": 1,
       "project_own": 474,
       "withheld_third_party_no_redistribution_rights": 142
     },
-    "not_released_paths": 1443,
+    "not_released_paths": 1445,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
     "released_paths": 489,
-    "tracked_paths": 1932
+    "tracked_paths": 1934
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -68,6 +68,8 @@
   },
   "manifest_version": "release-1.0",
   "not_released_paths": [
+    ".swarm/ewc-fisher.json",
+    "VLUN-IMPROVEMENT-PLAN-2026-10-27.md",
     "Vbeta/CREATED_AT",
     "Vbeta/README.md",
     "Vbeta/REMOVAL_CANDIDATES.md",
@@ -3647,6 +3649,7 @@
     ".github/workflows/gates.yml": "project_own",
     ".gitignore": "project_own",
     ".pre-commit-config.yaml": "project_own",
+    ".swarm/ewc-fisher.json": "internal_research_artefact_not_cleared",
     ".zenodo.json": "project_own",
     "BASELINE.md": "project_own",
     "CHANGELOG.md": "project_own",
@@ -3667,6 +3670,7 @@
     "V4/licensing.json": "project_own",
     "V4/manifest.json": "project_own",
     "V4/sources.json": "metadata_only",
+    "VLUN-IMPROVEMENT-PLAN-2026-10-27.md": "internal_research_artefact_not_cleared",
     "Vbeta/CREATED_AT": "internal_research_artefact_not_cleared",
     "Vbeta/README.md": "internal_research_artefact_not_cleared",
     "Vbeta/REMOVAL_CANDIDATES.md": "internal_research_artefact_not_cleared",
