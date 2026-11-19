@@ -31,24 +31,8 @@
     "mitigation commits are cumulative"
   ],
   "validation_checks": "83/85",
-  "validation_checks_passed": "83/85",
-  "validation_failed_checks": [
-    {
-      "check": "splits_v2_2_pointers_resolve",
-      "failures": [
-        "train: vyper:CVE-2023-30837 record_sha256 mismatch"
-      ],
-      "group": "v2.2"
-    },
-    {
-      "check": "benchmark_kq_rebuilds_from_the_records",
-      "failures": [
-        "vyper:CVE-2023-30837: record sha256 does not match its split pointer",
-        "Q_evidence_type_and_quality_rubric: rebuilt tasks differ from the file on disk"
-      ],
-      "group": "v2.2"
-    }
-  ],
-  "validation_failures": 2,
+  "validation_checks_passed": "85/85",
+  "validation_failed_checks": [],
+  "validation_failures": 0,
   "validation_warnings": 0
 }

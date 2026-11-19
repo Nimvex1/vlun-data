@@ -24,20 +24,20 @@
   "counts": {
     "by_licence": {
       "CC-BY-4.0": 207,
-      "MIT": 282
+      "MIT": 284
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1303,
       "metadata_only": 1,
-      "project_own": 474,
+      "project_own": 476,
       "withheld_third_party_no_redistribution_rights": 142
     },
     "not_released_paths": 1445,
     "paths_with_measured_personal_data": 13,
     "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 489,
-    "tracked_paths": 1934
+    "released_paths": 491,
+    "tracked_paths": 1936
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -1801,6 +1801,7 @@
     "scripts/build_canonical_training.py": "MIT",
     "scripts/build_counterexamples.py": "MIT",
     "scripts/build_datasheet.py": "MIT",
+    "scripts/build_dedup_registry.py": "MIT",
     "scripts/build_derived.py": "MIT",
     "scripts/build_derived_v22.py": "MIT",
     "scripts/build_eval_leakage_report.py": "MIT",
@@ -1855,6 +1856,7 @@
     "scripts/iaa_statistics.py": "MIT",
     "scripts/independent_benchmark_audit.py": "MIT",
     "scripts/ingest_audit_sources.py": "MIT",
+    "scripts/inventory_dedup.py": "MIT",
     "scripts/inventory_rights.py": "MIT",
     "scripts/local_sources.py": "MIT",
     "scripts/nonevm/aptos_move.py": "MIT",
@@ -5285,6 +5287,7 @@
     "scripts/build_canonical_training.py": "project_own",
     "scripts/build_counterexamples.py": "project_own",
     "scripts/build_datasheet.py": "project_own",
+    "scripts/build_dedup_registry.py": "project_own",
     "scripts/build_derived.py": "project_own",
     "scripts/build_derived_v22.py": "project_own",
     "scripts/build_eval_leakage_report.py": "project_own",
@@ -5339,6 +5342,7 @@
     "scripts/iaa_statistics.py": "project_own",
     "scripts/independent_benchmark_audit.py": "project_own",
     "scripts/ingest_audit_sources.py": "project_own",
+    "scripts/inventory_dedup.py": "project_own",
     "scripts/inventory_rights.py": "project_own",
     "scripts/local_sources.py": "project_own",
     "scripts/nonevm/aptos_move.py": "project_own",
@@ -5814,6 +5818,7 @@
     "scripts/build_canonical_training.py",
     "scripts/build_counterexamples.py",
     "scripts/build_datasheet.py",
+    "scripts/build_dedup_registry.py",
     "scripts/build_derived.py",
     "scripts/build_derived_v22.py",
     "scripts/build_eval_leakage_report.py",
@@ -5868,6 +5873,7 @@
     "scripts/iaa_statistics.py",
     "scripts/independent_benchmark_audit.py",
     "scripts/ingest_audit_sources.py",
+    "scripts/inventory_dedup.py",
     "scripts/inventory_rights.py",
     "scripts/local_sources.py",
     "scripts/nonevm/aptos_move.py",

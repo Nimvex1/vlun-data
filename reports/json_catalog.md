@@ -354,7 +354,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/static_analysis.json` | multi | 18,020 | object, 7 keys | yes |
 | `reports/subsets.json` | multi | 1,888 | object, 8 keys | yes |
 | `reports/third_party_audit.json` | multi | 13,289 | object, 16 keys | yes |
-| `reports/v2_1_summary.json` | multi | 1,575 | object, 25 keys | yes |
+| `reports/v2_1_summary.json` | multi | 1,111 | object, 25 keys | yes |
 | `reports/v2_2/benchmark.json` | multi | 11,457 | object, 4 keys | yes |
 | `reports/v2_2/dataset_summary.json` | multi | 25,874 | object, 11 keys | yes |
 | `reports/v2_2/l5_adjudication.json` | multi | 30,713 | object, 9 keys | yes |
@@ -371,7 +371,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/validation_v3.json` | multi | 10,102 | object, 5 keys | yes |
 | `reports/v3/violation_evidence.json` | multi | 1,653 | object, 2 keys | yes |
 | `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | yes |
-| `reports/validation_report.json` | multi | 21,405 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 21,159 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 74,954 | object, 3 keys | yes |
 
@@ -437,7 +437,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 469,461 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 469,724 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 926 | object, 17 keys | yes |

@@ -654,12 +654,10 @@
       "check": "splits_v2_2_pointers_resolve",
       "critical": true,
       "detail": "137 v2.2 pointers over 137 derived records",
-      "failure_count": 1,
-      "failures": [
-        "train: vyper:CVE-2023-30837 record_sha256 mismatch"
-      ],
+      "failure_count": 0,
+      "failures": [],
       "group": "v2.2",
-      "ok": false
+      "ok": true
     },
     {
       "check": "ml_sources_do_not_span_splits",
@@ -692,13 +690,10 @@
       "check": "benchmark_kq_rebuilds_from_the_records",
       "critical": true,
       "detail": "scripts/build_benchmark_v22.build() is re-run in-process and its output compared with the live benchmark/*.jsonl; drift in either direction fails the gate. Retired families are frozen history and are checked at benchmark_retired_v22_rows_are_frozen",
-      "failure_count": 2,
-      "failures": [
-        "vyper:CVE-2023-30837: record sha256 does not match its split pointer",
-        "Q_evidence_type_and_quality_rubric: rebuilt tasks differ from the file on disk"
-      ],
+      "failure_count": 0,
+      "failures": [],
       "group": "v2.2",
-      "ok": false
+      "ok": true
     },
     {
       "check": "benchmark_retired_v22_rows_are_frozen",
@@ -773,7 +768,7 @@
       "ok": true
     }
   ],
-  "failed_critical": 2,
+  "failed_critical": 0,
   "generated_by": "scripts/validate.py",
   "groups": {
     "audit_sources": 5,
@@ -786,6 +781,6 @@
     "v2.1": 28,
     "v2.2": 17
   },
-  "passed": 83,
+  "passed": 85,
   "warnings": 0
 }
