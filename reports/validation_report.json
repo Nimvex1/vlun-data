@@ -114,12 +114,10 @@
       "check": "reported_statistics_equal_computed",
       "critical": true,
       "detail": "20 top-level stat groups compared",
-      "failure_count": 1,
-      "failures": [
-        "derived_layer: reported={'files': {'attacker_identity_unknown': 432, 'attacker_kind': {'honest_but_misconfigured': 3, 'malicious_dependency': 11, 'privileged': 133, 'unknown': 432, 'unprivileged': 143}, 'attacker_kind_basis': {'derived_fact': 147, 'reported_claim': 143, 'unknown': 432}, 'code_context_analysed_files': 469, 'code_context_files_retrieved': 464, 'derived_verification_levels': {'L6': 7}, 'dynamic_verification': {'inconclusive': 8, 'not_attempted': 567, 'not_executed': 140, 'not_reproduced': 2, 'reproduced': 5}, 'files': {'records.jsonl': 722}, 'generated_by': 'scripts/build_derived.py', 'invariants_invented': 0, 'license_classes': {'redistributable': 1, 'source_available_but_not_redistributable': 225, 'unknown': 496}, 'numeric_state_values_invented': 0, 'quality_attacker_model': {'high': 290, 'low': 432}, 'quality_code_context': {'high': 36, 'medium': 270, 'none': 416}, 'quality_state_transition': {'high': 131, 'none': 591}, 'record_hash_scheme': {'v1-builder-row+verification-verdict': 155, 'v1-committed-row': 567}, 'record_hash_scheme_v2': 'v2-committed-row', 'records': 722, 'redistribution_flagged': {'none': 298, 'source_redistributed_without_declared_license': 424}, 'state_transition_present': 245, 'state_transition_with_transactions': 131, 'taxonomy_top_level': {'Access Control': 51, 'Accounting': 89, 'Cross-Chain': 51, 'Cross-Contract': 34, 'Cryptography / Signatures': 53, 'DeFi': 148, 'Denial of Service': 76, 'Governance': 11, 'Logic Error': 10, 'Reentrancy / External Calls': 35, 'Token Standards': 113, 'Unknown': 43, 'Upgradeability': 8}, 'with_invariant': 229}, 'present': True} computed={'present': True, 'files': {'attacker_identity_unknown': 317, 'attacker_kind': {'malicious_dependency': 8, 'privileged': 349, 'protocol_accounting_or_config_flaw': 17, 'unknown': 317, 'unprivileged': 31}, 'attacker_kind_basis': {'derived_fact': 388, 'reported_claim': 17, 'unknown': 317}, 'code_context_analysed_files': 469, 'code_context_files_retrieved': 464, 'derived_verification_levels': {'L6': 7}, 'dynamic_verification': {'inconclusive': 8, 'not_attempted': 567, 'not_executed': 140, 'not_reproduced': 2, 'reproduced': 5}, 'files': {'records.jsonl': 722}, 'generated_by': 'scripts/build_derived.py', 'invariants_invented': 0, 'license_classes': {'redistributable': 1, 'source_available_but_not_redistributable': 225, 'unknown': 496}, 'numeric_state_values_invented': 0, 'quality_attacker_model': {'high': 405, 'low': 317}, 'quality_code_context': {'high': 114, 'medium': 563, 'none': 45}, 'quality_state_transition': {'high': 18, 'none': 704}, 'record_hash_scheme': {'v1-builder-row+verification-verdict': 155, 'v1-committed-row': 567}, 'record_hash_scheme_v2': 'v2-committed-row', 'records': 722, 'redistribution_flagged': {'none': 298, 'source_redistributed_without_declared_license': 424}, 'state_transition_present': 245, 'state_transition_with_transactions': 131, 'taxonomy_top_level': {'Access Control': 36, 'Accounting': 69, 'Cross-Chain': 51, 'Cross-Contract': 26, 'Cryptography / Signatures': 53, 'DeFi': 134, 'Denial of Service': 53, 'Governance': 11, 'Logic Error': 10, 'Reentrancy / External Calls': 19, 'Token Standards': 105, 'Unknown': 151, 'Upgradeability': 4}, 'with_invariant': 229}}"
-      ],
+      "failure_count": 0,
+      "failures": [],
       "group": "consistency",
-      "ok": false
+      "ok": true
     },
     {
       "check": "severity_agrees_across_files",
@@ -775,7 +773,7 @@
       "ok": true
     }
   ],
-  "failed_critical": 3,
+  "failed_critical": 2,
   "generated_by": "scripts/validate.py",
   "groups": {
     "audit_sources": 5,
@@ -788,6 +786,6 @@
     "v2.1": 28,
     "v2.2": 17
   },
-  "passed": 82,
+  "passed": 83,
   "warnings": 0
 }

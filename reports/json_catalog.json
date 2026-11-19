@@ -5,7 +5,7 @@
     "derived": 32,
     "experiments": 123,
     "harvest": 6,
-    "meta": 455,
+    "meta": 456,
     "reports": 84,
     "schema": 5,
     "source": 21,
@@ -24,8 +24,17 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 804,
+  "file_count": 805,
   "files": [
+    {
+      "bytes": 22218,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "error",
+      "path": ".swarm/ewc-fisher.json",
+      "sha256": "e10cc73fbd17b6e9cb542e7359fcbc993844bf98d9a370aa22adbb0af3bc99d7",
+      "tracked": true
+    },
     {
       "bytes": 2573,
       "category": "meta",
@@ -13998,22 +14007,12 @@
       "tracked": true
     },
     {
-      "bytes": 28827,
+      "bytes": 72680,
       "category": "reports",
-      "keys": [
-        "by_kind",
-        "by_origin",
-        "description",
-        "entries",
-        "generated_by",
-        "resolved_entries",
-        "total"
-      ],
-      "kind": "object",
       "layer": "multi",
-      "parse": "ok",
+      "parse": "error",
       "path": "reports/extraction_errors.json",
-      "sha256": "13a456ade9dd28996aff7c724ecef4fd9bb7ee4af783e6f66b64cdf2eccf42e3",
+      "sha256": "ca5653f3c7f15a5293624ba1c8d6e23ccb7fd86e882a26db7510cb26f3ba5c03",
       "tracked": true
     },
     {
@@ -14955,7 +14954,7 @@
       "tracked": true
     },
     {
-      "bytes": 4952,
+      "bytes": 1575,
       "category": "reports",
       "keys": [
         "benchmark_experimentally_grounded",
@@ -14988,7 +14987,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/v2_1_summary.json",
-      "sha256": "1e66ef8f48d18da12680b911b9b2217c5f24dbd66f11887a4dbe7b04bbe53769",
+      "sha256": "c5e86a3e31d90670f2cf05279098446b0305e07fe03fe77f753fa9aa27a6ca98",
       "tracked": true
     },
     {
@@ -15334,7 +15333,7 @@
       "tracked": true
     },
     {
-      "bytes": 24666,
+      "bytes": 21405,
       "category": "reports",
       "keys": [
         "checks",
@@ -15350,7 +15349,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/validation_report.json",
-      "sha256": "efe423eff7300bb02f0eefb64aa27481038abfec5843f4d4e0cf330f591533a3",
+      "sha256": "3cd68ca38ee78a434777382f5766c486ef067d7862b653da4675667978349756",
       "tracked": true
     },
     {
