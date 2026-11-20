@@ -223,6 +223,11 @@ BASE_RULES = (
      "authors' own work"),
     ("wave1/reports_wave1/", STATUS_PROJECT_OWN,
      "wave1 measurement and harvest reports: the authors' own analysis"),
+    ("wave1/05_experiments/", STATUS_INTERNAL,
+     "wave1 execution artefacts (commands, stdout/stderr tails, result.json "
+     "and per-revision run logs): same research-tree policy as experiments_v3/; "
+     "retained for reproducibility, not licensed here and not cleared for "
+     "redistribution"),
     ("wave1/", STATUS_INTERNAL,
      "wave1 research data (dedup registry, harvested candidates, admitted "
      "METADATA_ONLY records, benchmark tasks and staged splits): retained in "

@@ -9,18 +9,19 @@ Family contract (wave1/00_governance/label_domains.json):
     admitted C4 mitigation row (all 531, irrespective of whether a fix commit
     was found).  A missing fix commit is itself evidence, not a reason to drop
     the row; the outcome_label is the supervision signal.
-  * J_verified_patch      = EMPTY.  No wave1 row carries an executed two-revision
-    L6 artefact, so no row may claim to be a verified patch.  Unexecuted patch
-    diffs belong in G, not J.
+  * J_verified_patch      = OWNED BY run_wave1_experiments.py.  This adapter no
+    longer writes or truncates it; only genuinely executed two-revision L6 rows
+    belong there.  Unexecuted patch diffs belong in G, not J.
   * prove_candidates      = NOT_SCORABLE pool, no answer/label fields.  Only rows
     that carry BOTH a 40-hex vulnerable SHA and a 40-hex fix SHA, that are
     STRICTLY DIFFERENT, and that carry a real permalink/source ref.  Rows whose
     two SHAs are identical are dropped here (they remain as single-SHA records
     in 04_admitted/c4_mitigation/findings.jsonl).
 
-This module writes ONLY its owned paths (G, J, prove_candidates, its report).
-It never writes the harvest/candidate/admitted layers and never makes network
-calls, so reruns are idempotent.
+This module writes ONLY its owned paths (G, prove_candidates, its report).
+J_verified_patch.jsonl is owned by run_wave1_experiments.py and is left untouched
+here.  It never writes the harvest/candidate/admitted layers and never makes
+network calls, so reruns are idempotent.
 
 Usage: python wave1/scripts/adapters/mitigation.py
 """
@@ -160,7 +161,8 @@ def main() -> None:
             "source": r.get("source", SOURCE),
         })
 
-    # ---- J: deliberately empty (no executed two-revision artefact exists) ----
+    # ---- J: owned by run_wave1_experiments.py; NOT emitted here -------------
+    # Kept as an empty local only for the report count; never written to disk.
     j_rows: list[dict] = []
 
     # ---- prove_candidates: NOT_SCORABLE, no answer/label ---------------------
@@ -200,7 +202,8 @@ def main() -> None:
         })
 
     write_jsonl(guard_wave1(BENCH_G), g_rows)
-    write_jsonl(guard_wave1(BENCH_J), j_rows)
+    # J_verified_patch.jsonl is deliberately NOT written here: the wave-1
+    # experiment runner is its single writer (genuine L6 artefacts only).
     write_jsonl(guard_wave1(BENCH_PROVE), prove_rows)
 
     g_split_labels = {

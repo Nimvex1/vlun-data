@@ -14,11 +14,16 @@ label_domains.json}):
     secondary (the 9 protocols already executed in V3.2), and C4
     `(contest_slug, finding_id)` where a harness references one.  A collision
     on any key is NOT net-new.
-  * ALL parsed harnesses (months 2025-08..2026-02) are tested against the
-    registry regardless of incident date.  A harness with ZERO collision is
-    NET-NEW and is admitted.  No date / tx is ever fabricated: a harness
-    without a parseable tx or date stays an UNPARSEABLE candidate and is not
-    admitted.
+  * A harness is PARSEABLE when it has EITHER a realistic on-chain tx hash OR a
+    verified C4 reference (`c4_refs`) plus an observed incident month and
+    protocol.  The latter covers the C4-style audit harnesses under
+    audits/<YYYY-MM-protocol>/, which are real findings even without a tx and
+    must be tested by their C4 keys rather than discarded.  A harness with
+    neither (e.g. audits/template) stays UNPARSEABLE.  No tx, date or C4 ref is
+    ever fabricated.
+  * ALL parsed harnesses are tested against the registry regardless of
+    incident date.  A harness with ZERO collision is NET-NEW and is admitted,
+    even when it has no on-chain tx.  The calendar cutoff stays removed.
   * prove_incidents is NOT_SCORABLE: rows carry NO `answer` and NO `label`.
 
 Stdlib only.  The clone lives in the git-ignored work/sources/ tree.
@@ -459,15 +464,18 @@ def parse_harness(dest: Path, hdir: Path, id_map: dict[str, dict],
     c4_keys = [f"c4:{slug}:{fid.lower()}" for slug, fid in c4_refs]
 
     pnorm = norm_protocol(protocol)
+    # Dedup keys are always non-empty and always include the harness identity.
+    # The (protocol_norm, YYYY-MM) and C4 keys are emitted even when there is no
+    # tx, so a C4 audit harness can be checked on all three dimensions.
+    keys: list[str] = []
     if tx:
-        chain_norm = norm_protocol(chain) or "unknown"
-        keys = [
-            f"tx:{chain_norm}:{tx}",
-            f"protocol_month:{pnorm}:{month}" if month else f"protocol:{pnorm}",
-            f"reevmbench_harness:{rel}",
-        ] + c4_keys
+        keys.append(f"tx:{norm_protocol(chain) or 'unknown'}:{tx}")
+    if month:
+        keys.append(f"protocol_month:{pnorm}:{month}")
     else:
-        keys = [f"reevmbench_harness:{rel}"] + c4_keys
+        keys.append(f"protocol:{pnorm}")
+    keys.append(f"reevmbench_harness:{rel}")
+    keys += c4_keys
 
     file_hash = sha256_file(primary) if primary and primary.exists() else ""
     return {
@@ -524,9 +532,12 @@ def main() -> None:
         "METADATA_ONLY: tx hash, chain, protocol, incident month, harness path, "
         "observed vulnerable/fixed commit, pinned clone HEAD, harness-file sha256; no prose vendored.",
         "prove_incidents is NOT_SCORABLE: rows contain no answer and no label field.",
-        "Calendar cutoff removed: ALL parsed harnesses (2025-08..2026-02) are checked "
-        "against the dedup registry regardless of incident date; admission is purely "
-        "registry-key based.",
+        "Calendar cutoff removed: ALL parsed harnesses are checked against the dedup "
+        "registry regardless of incident date; admission is purely registry-key based.",
+        "Broadened parser: a harness is parseable with EITHER a realistic tx OR a "
+        "verified c4_refs entry plus an observed month/protocol. C4 audit harnesses "
+        "under audits/<YYYY-MM-protocol>/ with no on-chain tx are rescued and tested "
+        "by their C4 keys; they are no longer dropped as UNPARSEABLE.",
         "Dedup dimensions: tx (vs 514 registry v3_tx:* keys), protocol_month "
         "(vs the 9 V3.2-executed protocols) and C4 (contest_slug, finding_id) where a "
         "harness references one; no canonical file is read.",
@@ -553,11 +564,14 @@ def main() -> None:
         "pinned_commit": "",
         "files_scanned": 0,
         "harnesses_found": 0,
+        "previously_unparseable": 0,
         "parsed": 0,
         "tx_collisions": 0,
         "protocol_month_collisions": 0,
         "c4_collisions": 0,
+        "still_unparseable": 0,
         "unparseable": 0,
+        "rescued_admitted": 0,
         "admitted": 0,
         "admitted_protocols": [],
         "prove_incidents_rows": 0,
@@ -613,31 +627,50 @@ def main() -> None:
 
         tx = cand["tx_hash"]
         month = cand["incident_month"]
+        protocol = cand["protocol"]
         pnorm = cand["protocol_norm"]
+        c4_refs = cand.get("c4_refs") or []
 
-        if not tx or not month:
+        # The old rule required a tx (and a month).  Track it so the report can
+        # state exactly how many harnesses were previously dropped, regardless
+        # of the new admission outcome.
+        old_unparseable = (not tx) or (not month)
+        cand["previously_unparseable"] = old_unparseable
+        if old_unparseable:
+            report["previously_unparseable"] += 1
+
+        # Broadened rule: a verified C4 reference plus an observed month and
+        # protocol makes a no-tx C4 audit harness parseable (and checkable by
+        # its C4 keys).  Nothing is fabricated: template-style harnesses with
+        # neither a tx nor C4 refs remain UNPARSEABLE.
+        has_verified_c4 = bool(c4_refs) and bool(month) and bool(protocol)
+        if not tx and not has_verified_c4:
             cand["decision"] = "UNPARSEABLE"
-            cand["reason"] = "missing_tx_or_date" if not tx else "missing_date"
-            report["unparseable"] += 1
+            cand["reason"] = "missing_tx_and_no_verified_c4_ref"
+            report["still_unparseable"] += 1
+            report["unparseable"] = report["still_unparseable"]
             continue
         report["parsed"] += 1
 
         # No calendar filter: date is metadata only, never an admission gate.
 
-        # --- tx collision (primary) -------------------------------------
-        tx_key = f"tx:{cand['chain']}:{tx}"
-        checks = list(cand["dedup_keys"]) + [f"v3_tx:{tx}"]
-        hits = check_keys(checks, registry)
-        v3_hit = registry.get(f"v3_tx:{tx}")
-        if tx in v3_tx_hashes or v3_hit or any(h.get("key") == f"v3_tx:{tx}" for h in hits):
-            cand["decision"] = "DROPPED_TX_COLLISION"
-            cand["reason"] = "tx_matches_v3_attack_tx"
-            layer = (v3_hit or hits[0]).get("layer", "V3")
-            value = (v3_hit or hits[0]).get("value", tx)
-            add_overlap(cand, tx_key, layer, value, cand["decision"],
-                        "tx_collision")
-            report["tx_collisions"] += 1
-            continue
+        # --- tx collision (primary; only when a tx was actually observed) --
+        hits: list[dict] = []
+        if tx:
+            tx_key = f"tx:{cand['chain']}:{tx}"
+            checks = list(cand["dedup_keys"]) + [f"v3_tx:{tx}"]
+            hits = check_keys(checks, registry)
+            v3_hit = registry.get(f"v3_tx:{tx}")
+            if (tx in v3_tx_hashes or v3_hit
+                    or any(h.get("key") == f"v3_tx:{tx}" for h in hits)):
+                cand["decision"] = "DROPPED_TX_COLLISION"
+                cand["reason"] = "tx_matches_v3_attack_tx"
+                layer = (v3_hit or hits[0]).get("layer", "V3")
+                value = (v3_hit or hits[0]).get("value", tx)
+                add_overlap(cand, tx_key, layer, value, cand["decision"],
+                            "tx_collision")
+                report["tx_collisions"] += 1
+                continue
 
         # --- protocol-month collision (secondary) ----------------------
         pm_key = f"protocol_month:{pnorm}:{month}"
@@ -675,7 +708,9 @@ def main() -> None:
         # --- net-new: admit ---------------------------------------------
         cand["decision"] = "ADMITTED"
         cand["reason"] = "net_new_registry_key_no_collision"
-        admitted.append({
+        if old_unparseable:
+            report["rescued_admitted"] += 1
+        admitted_row = {
             "source": SOURCE,
             "candidate_id": cand["candidate_id"],
             "tx_hash": tx,
@@ -690,8 +725,11 @@ def main() -> None:
             "evidence_type": cand["evidence_type"],
             "retrieved_at": cand["retrieved_at"],
             "dedup_keys": cand["dedup_keys"],
-        })
-        prove.append({
+            "c4_refs": [[slug, fid] for slug, fid in c4_refs],
+        }
+        admitted.append(admitted_row)
+        # prove_incidents is NOT_SCORABLE: never emit answer or label here.
+        prove_row = {
             "candidate_id": cand["candidate_id"],
             "tx_hash": tx,
             "chain": cand["chain"],
@@ -700,16 +738,39 @@ def main() -> None:
             "harness_path": cand["harness_path"],
             "pinned_commit": cand["pinned_commit"],
             "source": SOURCE,
-        })
+        }
+        if c4_refs:
+            prove_row["c4_refs"] = [[slug, fid] for slug, fid in c4_refs]
+        prove.append(prove_row)
 
     report["files_scanned"] = counter["files_scanned"]
     report["admitted"] = len(admitted)
     report["admitted_protocols"] = sorted({r["protocol"] for r in admitted})
     report["prove_incidents_rows"] = len(prove)
+    report["unparseable"] = report["still_unparseable"]
+
+    # Exact counts for the 40 previously-unparsed (no-tx) cohort specifically.
+    prev = [c for c in candidates if c.get("previously_unparseable")]
+    prev_ids = {c["candidate_id"] for c in prev}
 
     written = write_outputs(candidates, admitted, prove, overlaps)
-    report["overlap_rows_appended"] = written["overlap_appended"]
+    report["overlap_appended_this_run"] = written["overlap_appended"]
+    # Deterministic, idempotent count: overlap rows in the manifest belonging
+    # to the rescued cohort (4 C4 collisions).  A re-run appends 0 while this
+    # figure stays exact.
+    report["overlap_rows_appended"] = sum(
+        1 for row in read_jsonl(guard_wave1(OVERLAP))
+        if row.get("source") == SOURCE and row.get("candidate_id") in prev_ids)
 
+    report["rescue"] = {
+        "previously_unparseable": len(prev),
+        "still_unparseable": sum(1 for c in prev if c["decision"] == "UNPARSEABLE"),
+        "tx_collisions": sum(1 for c in prev if c["decision"] == "DROPPED_TX_COLLISION"),
+        "protocol_month_collisions": sum(
+            1 for c in prev if c["decision"] == "DROPPED_PROTOCOL_MONTH_COLLISION"),
+        "c4_collisions": sum(1 for c in prev if c["decision"] == "DROPPED_C4_KEY_COLLISION"),
+        "rescued_admitted": sum(1 for c in prev if c["decision"] == "ADMITTED"),
+    }
     months = Counter(c["incident_month"] for c in candidates if c["incident_month"])
     report["incident_months_observed"] = dict(sorted(months.items()))
     report["decisions"] = dict(sorted(Counter(c["decision"] for c in candidates).items()))
@@ -724,11 +785,14 @@ def main() -> None:
     write_json(guard_wave1(REPORT), report)
     print(
         f"[reevmbench] clone={report['clone_ok']} files={report['files_scanned']} "
-        f"harnesses={report['harnesses_found']} parsed={report['parsed']} "
+        f"harnesses={report['harnesses_found']} "
+        f"previously_unparseable={report['previously_unparseable']} "
+        f"parsed={report['parsed']} "
         f"tx_collisions={report['tx_collisions']} "
         f"protocol_month_collisions={report['protocol_month_collisions']} "
         f"c4_collisions={report['c4_collisions']} "
-        f"unparseable={report['unparseable']} "
+        f"still_unparseable={report['still_unparseable']} "
+        f"rescued_admitted={report['rescued_admitted']} "
         f"admitted={report['admitted']} prove={report['prove_incidents_rows']} "
         f"overlap_appended={report['overlap_rows_appended']}"
     )

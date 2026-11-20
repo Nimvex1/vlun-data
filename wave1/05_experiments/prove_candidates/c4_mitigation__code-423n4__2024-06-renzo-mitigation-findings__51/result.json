@@ -1,0 +1,30 @@
+{
+  "blocked_on_fixed": false,
+  "candidate_id": "c4_mitigation:code-423n4/2024-06-renzo-mitigation-findings:51",
+  "checkout": {},
+  "fix": null,
+  "fix_sha": "89a344ba837d98018b63a450666a72b0827aa8cf",
+  "forge_status": "source_repo_missing",
+  "generated_at": "2026-11-20T09:20:56Z",
+  "input_row": {
+    "candidate_id": "c4_mitigation:code-423n4/2024-06-renzo-mitigation-findings:51",
+    "distinct_revisions": true,
+    "fix_commit_basis": "mitigation_issue_text",
+    "fix_sha": "89a344ba837d98018b63a450666a72b0827aa8cf",
+    "permalink": "https://github.com/code-423n4/2024-06-renzo-mitigation-findings/issues/51",
+    "repo_slug": "code-423n4/2024-06-renzo-mitigation-findings",
+    "source": "c4_mitigation",
+    "vuln_sha": "519e518f2d8dec9acf6482b84a181e403070d22d"
+  },
+  "notes": [],
+  "repo_slug": "code-423n4/2024-06-renzo-mitigation-findings",
+  "same_test_both_legs": false,
+  "source": "c4_mitigation",
+  "source_clone": null,
+  "test_name": null,
+  "verdict_reason": "Source repo for 'code-423n4/2024-06-renzo-mitigation-findings' not present under work/sources/. Tried: ['code-423n4__2024-06-renzo-mitigation-findings', 'code-423n4_2024-06-renzo-mitigation-findings', '2024-06-renzo-mitigation-findings']. No two-revision checkout or forge run possible.",
+  "verification_level": "L0",
+  "violation_reproduced": false,
+  "vuln": null,
+  "vuln_sha": "519e518f2d8dec9acf6482b84a181e403070d22d"
+}

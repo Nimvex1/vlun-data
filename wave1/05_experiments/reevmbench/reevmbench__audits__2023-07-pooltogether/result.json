@@ -1,0 +1,36 @@
+{
+  "candidate_id": "reevmbench:audits/2023-07-pooltogether",
+  "command": null,
+  "exit_code": null,
+  "forge_status": "no_foundry_project",
+  "generated_at": "2026-11-20T09:20:56Z",
+  "harness_path": "audits/2023-07-pooltogether",
+  "input_row": {
+    "c4_refs": [
+      [
+        "2023-07-pooltogether",
+        "H-02"
+      ],
+      [
+        "2023-07-pooltogether",
+        "H-04"
+      ]
+    ],
+    "candidate_id": "reevmbench:audits/2023-07-pooltogether",
+    "chain": "unknown",
+    "harness_path": "audits/2023-07-pooltogether",
+    "incident_month": "2023-07",
+    "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+    "protocol": "pooltogether",
+    "source": "reevmbench",
+    "tx_hash": ""
+  },
+  "notes": [
+    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-02.md, findings/H-04.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-02.md, findings/incorrect/high/H-04.md, findings/incorrect/injection, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-04.md, findings/incorrect/low, findings/incorrect/low/H-02.md, findings/incorrect/low/H-04.md, findings/low_hints.md, findings/med_hints.md, patch, patch/H-02.diff, patch/H-04.diff, patch/Vault.sol, patch/low_hints.md, patch/med_hints.md, test, test/ExploitH02.t.sol, test/ExploitH04.t.sol"
+  ],
+  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+  "retrieved_at": "2026-11-20T09:20:56Z",
+  "stderr_tail": "",
+  "stdout_tail": "",
+  "verification_level": "L0"
+}

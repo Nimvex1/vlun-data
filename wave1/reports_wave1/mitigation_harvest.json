@@ -32,7 +32,7 @@
   "dropped_equal_sha": 73,
   "dropped_invalid_sha": 440,
   "dropped_no_provenance": 0,
-  "generated_at": "2026-11-19T19:52:14Z",
+  "generated_at": "2026-11-20T09:20:47Z",
   "notes": [
     "G is derived from ALL admitted C4 mitigation rows; outcome_label is the only supervision signal. Severity strings high/low are NEVER admitted into G.",
     "J_verified_patch is empty because no wave1 row carries an executed two-revision L6 artefact (violation reproduced on vulnerable SHA + blocked on fixed SHA). J stays empty until real execution is performed; unexecuted patch diffs belong in G.",

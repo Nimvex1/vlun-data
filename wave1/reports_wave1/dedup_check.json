@@ -5,14 +5,14 @@
     "ghsa_web3_netnew": 31,
     "judge": 99,
     "markdown_two_revision": 575,
-    "reevmbench": 20
+    "reevmbench": 55
   },
-  "admitted_rows": 2151,
-  "checked_at": "2026-11-20T08:20:04Z",
+  "admitted_rows": 2186,
+  "checked_at": "2026-11-20T09:21:47Z",
   "collision_details": [],
   "collisions": 0,
-  "dedup_keys_checked": 3393,
-  "overlap_manifest_rows": 892,
+  "dedup_keys_checked": 3550,
+  "overlap_manifest_rows": 896,
   "registry_size": 24074,
   "verdict": "PASS"
 }

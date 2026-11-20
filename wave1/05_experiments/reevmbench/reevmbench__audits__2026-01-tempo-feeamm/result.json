@@ -1,0 +1,32 @@
+{
+  "candidate_id": "reevmbench:audits/2026-01-tempo-feeamm",
+  "command": null,
+  "exit_code": null,
+  "forge_status": "no_foundry_project",
+  "generated_at": "2026-11-20T09:20:56Z",
+  "harness_path": "audits/2026-01-tempo-feeamm",
+  "input_row": {
+    "c4_refs": [
+      [
+        "2026-01-tempo-feeamm",
+        "H-01"
+      ]
+    ],
+    "candidate_id": "reevmbench:audits/2026-01-tempo-feeamm",
+    "chain": "unknown",
+    "harness_path": "audits/2026-01-tempo-feeamm",
+    "incident_month": "2026-01",
+    "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+    "protocol": "tempo",
+    "source": "reevmbench",
+    "tx_hash": ""
+  },
+  "notes": [
+    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/low, findings/incorrect/low/H-01.md, patch, patch/FeeAMM.sol, patch/low_hints.md, patch/med_hints.md, patch/patch_hints.md, patch_harness.json, test, test/ExploitH01.t.sol"
+  ],
+  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+  "retrieved_at": "2026-11-20T09:20:56Z",
+  "stderr_tail": "",
+  "stdout_tail": "",
+  "verification_level": "L0"
+}

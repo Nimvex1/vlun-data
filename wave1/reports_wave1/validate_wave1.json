@@ -1,7 +1,7 @@
 {
   "gates": {
     "a_single_writer": {
-      "scripts_scanned": 13,
+      "scripts_scanned": 14,
       "verdict": "PASS",
       "violations": []
     },
@@ -9,17 +9,20 @@
       "canonical_drift": [],
       "canonical_files_checked": 8,
       "verdict": "PASS",
-      "wave1_script_drift": []
+      "wave1_script_drift": [
+        "scripts/adapters/mitigation.py",
+        "scripts/adapters/reevmbench.py"
+      ]
     },
     "c_dedup": {
-      "admitted_rows": 2151,
+      "admitted_rows": 2186,
       "collisions": 0,
       "returncode": 0,
-      "stdout": "[dedup_check] registry=24074 admitted=2151 keys=3393 collisions=0 overlaps=892 -> PASS",
+      "stdout": "[dedup_check] registry=24074 admitted=2186 keys=3550 collisions=0 overlaps=896 -> PASS",
       "verdict": "PASS"
     },
     "d_rights": {
-      "admitted_rows_scanned": 2151,
+      "admitted_rows_scanned": 2186,
       "prose_leaks": [],
       "rights_rows": 7,
       "verdict": "PASS"
@@ -104,7 +107,7 @@
         "prove_incidents": {
           "observed_labels": [],
           "ready_for_primary": false,
-          "rows": 20,
+          "rows": 55,
           "scorable": 0,
           "test_rows": 0,
           "train_only_shortcut": null
@@ -136,6 +139,6 @@
     }
   },
   "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
-  "validated_at": "2026-11-20T08:20:04Z",
+  "validated_at": "2026-11-20T09:21:47Z",
   "verdict": "PASS"
 }

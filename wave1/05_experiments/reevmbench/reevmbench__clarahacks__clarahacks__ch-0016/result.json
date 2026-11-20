@@ -1,0 +1,26 @@
+{
+  "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0016",
+  "command": null,
+  "exit_code": null,
+  "forge_status": "no_foundry_project",
+  "generated_at": "2026-11-20T09:20:56Z",
+  "harness_path": "clarahacks/clarahacks/ch-0016",
+  "input_row": {
+    "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0016",
+    "chain": "bsc",
+    "harness_path": "clarahacks/clarahacks/ch-0016",
+    "incident_month": "2026-02",
+    "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+    "protocol": "afxaht",
+    "source": "reevmbench",
+    "tx_hash": "0x380cd298a607d4422edc640b7f5a907ec0792841ee5fc963d265b1189397c905"
+  },
+  "notes": [
+    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/fork_config.json, exploit/high_hints.md, exploit/low_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/gold_audit.md, findings/low_hints.md, findings/med_hints.md"
+  ],
+  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
+  "retrieved_at": "2026-11-20T09:20:56Z",
+  "stderr_tail": "",
+  "stdout_tail": "",
+  "verification_level": "L0"
+}
