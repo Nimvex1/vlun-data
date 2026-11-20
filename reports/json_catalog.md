@@ -336,7 +336,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/prove_candidate_ledger.json` | multi | 2,476 | object, 11 keys | yes |
 | `reports/prove_split_interface.json` | multi | 16,824 | object, 15 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
-| `reports/quarantine_report.json` | multi | 8,793 | object, 4 keys | yes |
+| `reports/quarantine_report.json` | multi | 8,827 | object, 4 keys | yes |
 | `reports/record_audit_summary.json` | multi | 491 | object, 11 keys | yes |
 | `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | yes |
 | `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |

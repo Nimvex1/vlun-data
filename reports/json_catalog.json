@@ -14579,7 +14579,7 @@
       "tracked": true
     },
     {
-      "bytes": 8793,
+      "bytes": 8827,
       "category": "reports",
       "keys": [
         "generated_by",
@@ -14591,7 +14591,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/quarantine_report.json",
-      "sha256": "9562320c320f510721cf9043beaa35028c1c71ed015e781778cce732c9b548cf",
+      "sha256": "3801d70469ddb91782bb667840d62a92e37791432d0a451c9d54d9c07d008d20",
       "tracked": true
     },
     {
@@ -14683,7 +14683,7 @@
       "layer": "multi",
       "parse": "ok",
       "path": "reports/remediation_before_after.json",
-      "sha256": "784939119f4965ff69669308f7775aaf136a6ceff29052c39407f66c02670e35",
+      "sha256": "fb429fa31962a7683a4ae327f1ce8b2b9f621eabc75d345ffe49b7efe39a126b",
       "tracked": true
     },
     {
