@@ -94,6 +94,37 @@ class TestSemanticPurity(unittest.TestCase):
             self.assertTrue(str(ex.get("result_artefact", "")))
 
 
+class TestGroupDisjointSplits(unittest.TestCase):
+    def test_no_group_spans_multiple_splits(self):
+        bdir = WAVE1 / "benchmark_wave1"
+        if not bdir.exists():
+            self.skipTest("no benchmark families yet")
+        for p in sorted(bdir.glob("*.jsonl")):
+            groups = {}
+            for row in read_jsonl(p):
+                gid = row.get("group_id")
+                split = row.get("split")
+                if not gid or not split:
+                    self.fail(f"{p.name}: row missing group_id/split")
+                groups.setdefault(str(gid), set()).add(str(split))
+            for gid, splits in groups.items():
+                self.assertEqual(len(splits), 1,
+                                 f"{p.name}: group {gid} spans splits {sorted(splits)}")
+
+
+class TestJExecutionStrictness(unittest.TestCase):
+    def test_j_has_no_overlay_patch_rows(self):
+        p = WAVE1 / "benchmark_wave1" / "J_verified_patch.jsonl"
+        if not p.exists():
+            self.skipTest("J not built yet")
+        for row in read_jsonl(p):
+            ex = row.get("execution") or {}
+            self.assertEqual(str(ex.get("level", "")).upper(), "L6")
+            self.assertRegex(str(ex.get("fixed_commit") or ""), r"^[0-9a-fA-F]{40}$")
+            self.assertNotIn("overlay", str(ex.get("patch_provenance") or "").lower())
+            self.assertFalse(str(ex.get("fixed_sha") or "").startswith("blob:"))
+
+
 class TestPresent(unittest.TestCase):
     def test_canonical_hashes_match(self):
         p = WAVE1 / "00_governance" / "PRESENT.md.json"

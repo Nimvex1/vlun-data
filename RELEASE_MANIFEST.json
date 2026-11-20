@@ -23,21 +23,21 @@
   ],
   "counts": {
     "by_licence": {
-      "CC-BY-4.0": 226,
-      "MIT": 303
+      "CC-BY-4.0": 227,
+      "MIT": 304
     },
     "by_rights_status": {
       "attribution_required": 14,
       "internal_research_artefact_not_cleared": 1395,
       "metadata_only": 1,
-      "project_own": 514,
+      "project_own": 516,
       "withheld_third_party_no_redistribution_rights": 147
     },
     "not_released_paths": 1542,
     "paths_with_measured_personal_data": 14,
     "paths_with_measured_verbatim_third_party_content": 147,
-    "released_paths": 529,
-    "tracked_paths": 2071
+    "released_paths": 531,
+    "tracked_paths": 2073
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -2180,6 +2180,7 @@
     "wave1/reports_wave1/execution_summary.json": "CC-BY-4.0",
     "wave1/reports_wave1/formal_harvest.json": "CC-BY-4.0",
     "wave1/reports_wave1/ghsa_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/group_split_report.json": "CC-BY-4.0",
     "wave1/reports_wave1/judge_harvest.json": "CC-BY-4.0",
     "wave1/reports_wave1/markdown_harvest.json": "CC-BY-4.0",
     "wave1/reports_wave1/mitigation_harvest.json": "CC-BY-4.0",
@@ -2193,6 +2194,7 @@
     "wave1/scripts/adapters/markdown.py": "MIT",
     "wave1/scripts/adapters/mitigation.py": "MIT",
     "wave1/scripts/adapters/reevmbench.py": "MIT",
+    "wave1/scripts/assign_group_splits.py": "MIT",
     "wave1/scripts/build_dedup_registry.py": "MIT",
     "wave1/scripts/build_governance.py": "MIT",
     "wave1/scripts/build_wave1.py": "MIT",
@@ -5873,6 +5875,7 @@
     "wave1/reports_wave1/execution_summary.json": "project_own",
     "wave1/reports_wave1/formal_harvest.json": "project_own",
     "wave1/reports_wave1/ghsa_harvest.json": "project_own",
+    "wave1/reports_wave1/group_split_report.json": "project_own",
     "wave1/reports_wave1/judge_harvest.json": "project_own",
     "wave1/reports_wave1/markdown_harvest.json": "project_own",
     "wave1/reports_wave1/mitigation_harvest.json": "project_own",
@@ -5886,6 +5889,7 @@
     "wave1/scripts/adapters/markdown.py": "project_own",
     "wave1/scripts/adapters/mitigation.py": "project_own",
     "wave1/scripts/adapters/reevmbench.py": "project_own",
+    "wave1/scripts/assign_group_splits.py": "project_own",
     "wave1/scripts/build_dedup_registry.py": "project_own",
     "wave1/scripts/build_governance.py": "project_own",
     "wave1/scripts/build_wave1.py": "project_own",
@@ -6414,6 +6418,7 @@
     "wave1/reports_wave1/execution_summary.json",
     "wave1/reports_wave1/formal_harvest.json",
     "wave1/reports_wave1/ghsa_harvest.json",
+    "wave1/reports_wave1/group_split_report.json",
     "wave1/reports_wave1/judge_harvest.json",
     "wave1/reports_wave1/markdown_harvest.json",
     "wave1/reports_wave1/mitigation_harvest.json",
@@ -6427,6 +6432,7 @@
     "wave1/scripts/adapters/markdown.py",
     "wave1/scripts/adapters/mitigation.py",
     "wave1/scripts/adapters/reevmbench.py",
+    "wave1/scripts/assign_group_splits.py",
     "wave1/scripts/build_dedup_registry.py",
     "wave1/scripts/build_governance.py",
     "wave1/scripts/build_wave1.py",

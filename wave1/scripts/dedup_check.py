@@ -26,6 +26,8 @@ ADMITTED = WAVE1 / "04_admitted"
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="exit 1 on any collision")
+    ap.add_argument("--no-write", action="store_true",
+                    help="do not refresh reports_wave1/dedup_check.json (for gate runs)")
     args = ap.parse_args()
 
     registry = load_registry()
@@ -81,7 +83,8 @@ def main() -> None:
         "overlap_manifest_rows": manifest_count,
         "verdict": "PASS" if not collisions else "FAIL",
     }
-    write_json(guard_wave1(WAVE1 / "reports_wave1" / "dedup_check.json"), report)
+    if not args.no_write:
+        write_json(guard_wave1(WAVE1 / "reports_wave1" / "dedup_check.json"), report)
     print(f"[dedup_check] registry={len(registry)} admitted={admitted_rows} keys={keys_checked} "
           f"collisions={len(collisions)} overlaps={manifest_count} -> {report['verdict']}")
     for c in collisions[:10]:

@@ -7,7 +7,7 @@ SKIPPED matrix. Network/toolchain-dependent stages report SKIPPED
 
     python scripts/run_gates.py
     python scripts/run_gates.py --quiet
-    python scripts/run_gates.py --only vbeta   # subset: v1 v3 v31 vbeta manifests repro tests readme
+    python scripts/run_gates.py --only vbeta   # subset: v1 v3 v31 vbeta wave1 manifests repro tests readme
 """
 
 from __future__ import annotations
@@ -31,6 +31,13 @@ GATES = [
     ("reproducibility", [PY, "scripts/check_reproducibility.py", "--quiet"]),
     ("unit-tests", [PY, "-m", "unittest", "discover", "-s", "tests"]),
     ("vbeta-tests", [PY, "Vbeta/tests/test_vbeta.py"]),
+    # Wave-1 expansion layer: the frozen wave1 tree carries its own validator and
+    # stdlib test suite. Both are invoked from the repo root; the validator exits 1
+    # on any drift and the suite fails on any broken structural invariant. Adding
+    # them to ONLY_MAP below is what puts them in the default run as well as the
+    # --only wave1 subset (see main(): the default `want` is every ONLY_MAP key).
+    ("wave1-gate", [PY, "wave1/scripts/validate_wave1.py", "--check"]),
+    ("wave1-tests", [PY, "-m", "unittest", "discover", "-s", "wave1/tests"]),
     ("readme-current", [PY, "scripts/generate_readme.py", "--check"]),
     ("solodit-report-current",
      [PY, "Vbeta/scripts/build_solodit_report.py", "--check"]),
@@ -144,6 +151,7 @@ ONLY_MAP = {
     "v3": ["v3"],
     "v31": ["v31"],
     "vbeta": ["vbeta-gate", "vbeta-tests"],
+    "wave1": ["wave1-gate", "wave1-tests"],
     "manifests": ["manifests"],
     "line-endings": ["line-endings"],
     "repro": ["reproducibility"],

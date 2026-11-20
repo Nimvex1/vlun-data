@@ -1,4 +1,4 @@
-"""validate_wave1.py — the five locked Wave-1 gates.
+"""validate_wave1.py — the eight locked Wave-1 gates.
 
 (a) single-writer path confinement
 (b) zero canonical layer / PRESENT sentinel drift
@@ -10,6 +10,7 @@ Writes only wave1/reports_wave1/validate_wave1.json. Exits 1 on any failure.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import subprocess
@@ -81,12 +82,15 @@ def gate_b_present() -> dict:
     }
 
 
-def gate_c_dedup() -> dict:
+def gate_c_dedup(no_write: bool = False) -> dict:
     script = WAVE1 / "scripts" / "dedup_check.py"
     if not script.exists():
         return {"verdict": "FAIL", "error": "dedup_check.py missing"}
+    cmd = [sys.executable, str(script), "--check"]
+    if no_write:
+        cmd.append("--no-write")
     proc = subprocess.run(
-        [sys.executable, str(script), "--check"],
+        cmd,
         capture_output=True,
         text=True,
         timeout=120,
@@ -239,8 +243,20 @@ def gate_g_j_execution() -> dict:
             reasons.append("level != L6")
         if not sha40.match(str(ex.get("vulnerable_sha", ""))):
             reasons.append("no vulnerable_sha")
-        if not sha40.match(str(ex.get("fixed_sha", ""))) or ex.get("fixed_sha") == ex.get("vulnerable_sha"):
-            reasons.append("no distinct fixed_sha")
+        # A genuine L6 needs a real upstream FIX COMMIT from repository history.
+        # A git-blob SHA of harness-bundled patched sources is an overlay, not a
+        # commit-pinned fixed revision (VLUN candidate_ledger rule).
+        fixed_commit = ex.get("fixed_commit") or row.get("fixed_commit")
+        if not sha40.match(str(fixed_commit or "")):
+            reasons.append("no genuine upstream 40-hex fixed_commit")
+        if fixed_commit == ex.get("vulnerable_sha"):
+            reasons.append("fixed_commit equals vulnerable_sha")
+        raw_fixed_sha = str(ex.get("fixed_sha") or row.get("fixed_sha") or "")
+        if raw_fixed_sha.startswith("blob:") or "blob" in str(ex.get("fixed_commit_basis") or "").lower():
+            reasons.append("blob/overlay hash is not a commit")
+        provenance = str(ex.get("patch_provenance") or row.get("patch_provenance") or "").lower()
+        if provenance in {"harness_source_overlay_blob", "synthetic_overlay", "overlay"} or "overlay" in provenance:
+            reasons.append("overlay patch provenance is not an upstream fix")
         if ex.get("violation_reproduced") is not True:
             reasons.append("violation not reproduced")
         if ex.get("blocked_on_fixed") is not True:
@@ -256,18 +272,62 @@ def gate_g_j_execution() -> dict:
     }
 
 
+def gate_h_group_disjoint() -> dict:
+    """Every group_id (repo/contest/property family) must live in ONE split only."""
+    bdir = WAVE1 / "benchmark_wave1"
+    violations = []
+    families = {}
+    if not bdir.exists():
+        return {"verdict": "FAIL", "error": "benchmark_wave1/ missing"}
+    for p in sorted(bdir.glob("*.jsonl")):
+        groups: dict[str, set[str]] = defaultdict(set)
+        rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+        missing = 0
+        for row in rows:
+            gid = row.get("group_id")
+            split = row.get("split")
+            if not gid or not split:
+                missing += 1
+                continue
+            groups[str(gid)].add(str(split))
+        overlap = {g: sorted(s) for g, s in groups.items() if len(s) > 1}
+        families[p.stem] = {
+            "rows": len(rows),
+            "groups": len(groups),
+            "splits": sorted({s for ss in groups.values() for s in ss}),
+            "overlapping_groups": dict(list(overlap.items())[:20]),
+            "missing_group_id": missing,
+        }
+        if overlap or missing:
+            violations.append({
+                "family": p.stem,
+                "overlapping_groups": list(overlap.items())[:10],
+                "missing_group_id": missing,
+            })
+    return {
+        "families": families,
+        "violations": violations[:50],
+        "verdict": "PASS" if not violations else "FAIL",
+    }
+
+
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="run gates without rewriting reports (for gate-suite runs)")
+    args = ap.parse_args()
     gates = {
         "a_single_writer": gate_a_single_writer(),
         "b_present_drift": gate_b_present(),
-        "c_dedup": gate_c_dedup(),
+        "c_dedup": gate_c_dedup(no_write=args.check),
         "d_rights": gate_d_rights(),
         "e_benchmark": gate_e_benchmark(),
         "f_label_purity": gate_f_label_purity(),
         "g_j_execution": gate_g_j_execution(),
+        "h_group_disjoint_splits": gate_h_group_disjoint(),
     }
     hard = ["a_single_writer", "b_present_drift", "c_dedup", "d_rights",
-            "f_label_purity", "g_j_execution"]
+            "f_label_purity", "g_j_execution", "h_group_disjoint_splits"]
     verdict = "PASS" if all(gates[g]["verdict"] == "PASS" for g in hard) else "FAIL"
     report = {
         "validated_at": utc_now(),
@@ -276,7 +336,8 @@ def main() -> None:
         "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational "
                 "and does not fail the structural gates.",
     }
-    write_json(guard_wave1(WAVE1 / "reports_wave1" / "validate_wave1.json"), report)
+    if not args.check:
+        write_json(guard_wave1(WAVE1 / "reports_wave1" / "validate_wave1.json"), report)
     for name, g in gates.items():
         print(f"[{name}] {g.get('verdict')}")
     print(f"[validate_wave1] overall structural verdict: {verdict}")

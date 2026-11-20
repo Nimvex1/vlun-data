@@ -1,0 +1,655 @@
+{
+  "families": {
+    "F_false_positive_rejection": {
+      "demotion_reason": null,
+      "floors_met": true,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "contest slug",
+      "groups": 4,
+      "label_distribution_per_split": {
+        "test": {
+          "rejected_false_positive": 2,
+          "valid_finding": 61
+        },
+        "train": {
+          "rejected_false_positive": 96,
+          "valid_finding": 15
+        },
+        "val": {
+          "rejected_false_positive": 1,
+          "valid_finding": 37
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "rejected_false_positive",
+          "valid_finding"
+        ],
+        "train": [
+          "rejected_false_positive",
+          "valid_finding"
+        ],
+        "val": [
+          "rejected_false_positive",
+          "valid_finding"
+        ]
+      },
+      "largest_group_rows": 86,
+      "primary_readiness": {
+        "observed_labels": [
+          "rejected_false_positive",
+          "valid_finding"
+        ],
+        "primary_blockers": [],
+        "primary_ready": true,
+        "scorable_rows": 212,
+        "test_rows": 63,
+        "train_shortcut": 0.0317
+      },
+      "rows": 212,
+      "rows_per_split": {
+        "test": 63,
+        "train": 111,
+        "val": 38
+      },
+      "target_rows": {
+        "test": 32,
+        "train": 148,
+        "val": 32
+      }
+    },
+    "Fa_rejection_evidence_axis_vector": {
+      "demotion_reason": "group-disjoint whole-group assignment cannot give BOTH val and test >=30 rows and >=2 labels (4 groups over 594 rows; largest group has 516 rows); test_rows=18 < 30",
+      "floors_met": false,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "contest slug",
+      "groups": 4,
+      "label_distribution_per_split": {
+        "test": {
+          "code_gate_removes_standing": 3,
+          "corroborated_duplicate": 3,
+          "exploit_failed": 3,
+          "judge_attributed": 3,
+          "label_only": 3,
+          "technical_falsity": 3
+        },
+        "train": {
+          "code_gate_removes_standing": 86,
+          "corroborated_duplicate": 86,
+          "exploit_failed": 86,
+          "judge_attributed": 86,
+          "label_only": 86,
+          "technical_falsity": 86
+        },
+        "val": {
+          "code_gate_removes_standing": 10,
+          "corroborated_duplicate": 10,
+          "exploit_failed": 10,
+          "judge_attributed": 10,
+          "label_only": 10,
+          "technical_falsity": 10
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "code_gate_removes_standing",
+          "corroborated_duplicate",
+          "exploit_failed",
+          "judge_attributed",
+          "label_only",
+          "technical_falsity"
+        ],
+        "train": [
+          "code_gate_removes_standing",
+          "corroborated_duplicate",
+          "exploit_failed",
+          "judge_attributed",
+          "label_only",
+          "technical_falsity"
+        ],
+        "val": [
+          "code_gate_removes_standing",
+          "corroborated_duplicate",
+          "exploit_failed",
+          "judge_attributed",
+          "label_only",
+          "technical_falsity"
+        ]
+      },
+      "largest_group_rows": 516,
+      "primary_readiness": {
+        "observed_labels": [
+          "code_gate_removes_standing",
+          "corroborated_duplicate",
+          "exploit_failed",
+          "judge_attributed",
+          "label_only",
+          "technical_falsity"
+        ],
+        "primary_blockers": [
+          "test_rows=18 < 30"
+        ],
+        "primary_ready": false,
+        "scorable_rows": 594,
+        "test_rows": 18,
+        "train_shortcut": 0.1667
+      },
+      "rows": 594,
+      "rows_per_split": {
+        "test": 18,
+        "train": 516,
+        "val": 60
+      },
+      "target_rows": {
+        "test": 89,
+        "train": 416,
+        "val": 89
+      }
+    },
+    "Fb_duplicate_radar_pair": {
+      "demotion_reason": null,
+      "floors_met": true,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "contest_pair slug from 'contest'",
+      "groups": 74,
+      "label_distribution_per_split": {
+        "test": {
+          "distinct": 12,
+          "same": 68
+        },
+        "train": {
+          "distinct": 102,
+          "same": 259
+        },
+        "val": {
+          "distinct": 2,
+          "same": 84
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "distinct",
+          "same"
+        ],
+        "train": [
+          "distinct",
+          "same"
+        ],
+        "val": [
+          "distinct",
+          "same"
+        ]
+      },
+      "largest_group_rows": 100,
+      "primary_readiness": {
+        "observed_labels": [
+          "distinct",
+          "same"
+        ],
+        "primary_blockers": [],
+        "primary_ready": true,
+        "scorable_rows": 527,
+        "test_rows": 80,
+        "train_shortcut": 0.85
+      },
+      "rows": 527,
+      "rows_per_split": {
+        "test": 80,
+        "train": 361,
+        "val": 86
+      },
+      "target_rows": {
+        "test": 79,
+        "train": 369,
+        "val": 79
+      }
+    },
+    "G_patch_verification": {
+      "demotion_reason": null,
+      "floors_met": true,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "repo_slug",
+      "groups": 11,
+      "label_distribution_per_split": {
+        "test": {
+          "mitigation_confirmed": 40,
+          "unmitigated_or_regression": 39
+        },
+        "train": {
+          "mitigation_confirmed": 317,
+          "unmitigated_or_regression": 54
+        },
+        "val": {
+          "mitigation_confirmed": 61,
+          "unmitigated_or_regression": 20
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "mitigation_confirmed",
+          "unmitigated_or_regression"
+        ],
+        "train": [
+          "mitigation_confirmed",
+          "unmitigated_or_regression"
+        ],
+        "val": [
+          "mitigation_confirmed",
+          "unmitigated_or_regression"
+        ]
+      },
+      "largest_group_rows": 112,
+      "primary_readiness": {
+        "observed_labels": [
+          "mitigation_confirmed",
+          "unmitigated_or_regression"
+        ],
+        "primary_blockers": [],
+        "primary_ready": true,
+        "scorable_rows": 531,
+        "test_rows": 79,
+        "train_shortcut": 0.5063
+      },
+      "rows": 531,
+      "rows_per_split": {
+        "test": 79,
+        "train": 371,
+        "val": 81
+      },
+      "target_rows": {
+        "test": 79,
+        "train": 372,
+        "val": 80
+      }
+    },
+    "J_verified_patch": {
+      "demotion_reason": "family file is empty (no rows to split)",
+      "floors_met": false,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "repo_slug",
+      "groups": 0,
+      "label_distribution_per_split": {
+        "test": {},
+        "train": {},
+        "val": {}
+      },
+      "labels_per_split": {
+        "test": [],
+        "train": [],
+        "val": []
+      },
+      "largest_group_rows": 0,
+      "primary_readiness": {
+        "observed_labels": [],
+        "primary_blockers": [
+          "scorable_rows=0 < 100",
+          "observed_labels=[] < 2",
+          "test_rows=0 < 30"
+        ],
+        "primary_ready": false,
+        "scorable_rows": 0,
+        "test_rows": 0,
+        "train_shortcut": null
+      },
+      "rows": 0,
+      "rows_per_split": {
+        "test": 0,
+        "train": 0,
+        "val": 0
+      },
+      "target_rows": {
+        "test": 0,
+        "train": 0,
+        "val": 0
+      }
+    },
+    "invariants": {
+      "demotion_reason": null,
+      "floors_met": true,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "invariants: sha256(repo|spec|base_property_stem)[:16]",
+      "groups": 217,
+      "label_distribution_per_split": {
+        "test": {
+          "property_held": 25,
+          "property_violated": 19
+        },
+        "train": {
+          "property_held": 163,
+          "property_violated": 45
+        },
+        "val": {
+          "property_held": 25,
+          "property_violated": 20
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "property_held",
+          "property_violated"
+        ],
+        "train": [
+          "property_held",
+          "property_violated"
+        ],
+        "val": [
+          "property_held",
+          "property_violated"
+        ]
+      },
+      "largest_group_rows": 2,
+      "primary_readiness": {
+        "observed_labels": [
+          "property_held",
+          "property_violated"
+        ],
+        "primary_blockers": [],
+        "primary_ready": true,
+        "scorable_rows": 297,
+        "test_rows": 44,
+        "train_shortcut": 0.5682
+      },
+      "rows": 297,
+      "rows_per_split": {
+        "test": 44,
+        "train": 208,
+        "val": 45
+      },
+      "target_rows": {
+        "test": 44,
+        "train": 208,
+        "val": 45
+      }
+    },
+    "prove_candidates": {
+      "demotion_reason": "non-scorable provenance family (no answer/label rows); scorable_rows=0 < 100; observed_labels=[] < 2; test_rows=0 < 30",
+      "floors_met": false,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "repo_slug",
+      "groups": 8,
+      "label_distribution_per_split": {
+        "test": {},
+        "train": {},
+        "val": {}
+      },
+      "labels_per_split": {
+        "test": [],
+        "train": [],
+        "val": []
+      },
+      "largest_group_rows": 6,
+      "primary_readiness": {
+        "observed_labels": [],
+        "primary_blockers": [
+          "scorable_rows=0 < 100",
+          "observed_labels=[] < 2",
+          "test_rows=0 < 30"
+        ],
+        "primary_ready": false,
+        "scorable_rows": 0,
+        "test_rows": 0,
+        "train_shortcut": null
+      },
+      "rows": 18,
+      "rows_per_split": {
+        "test": 2,
+        "train": 13,
+        "val": 3
+      },
+      "target_rows": {
+        "test": 2,
+        "train": 13,
+        "val": 3
+      }
+    },
+    "prove_incidents": {
+      "demotion_reason": "non-scorable provenance family (no answer/label rows); scorable_rows=0 < 100; observed_labels=[] < 2; test_rows=0 < 30",
+      "floors_met": false,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "candidate_id fallback",
+      "groups": 55,
+      "label_distribution_per_split": {
+        "test": {},
+        "train": {},
+        "val": {}
+      },
+      "labels_per_split": {
+        "test": [],
+        "train": [],
+        "val": []
+      },
+      "largest_group_rows": 1,
+      "primary_readiness": {
+        "observed_labels": [],
+        "primary_blockers": [
+          "scorable_rows=0 < 100",
+          "observed_labels=[] < 2",
+          "test_rows=0 < 30"
+        ],
+        "primary_ready": false,
+        "scorable_rows": 0,
+        "test_rows": 0,
+        "train_shortcut": null
+      },
+      "rows": 55,
+      "rows_per_split": {
+        "test": 9,
+        "train": 38,
+        "val": 8
+      },
+      "target_rows": {
+        "test": 9,
+        "train": 38,
+        "val": 8
+      }
+    },
+    "severity_reconciliation": {
+      "demotion_reason": "group-disjoint whole-group assignment cannot give BOTH val and test >=30 rows and >=2 labels (5 groups over 606 rows; largest group has 570 rows); test_rows=20 < 30; train_shortcut=0.9 >= 0.9",
+      "floors_met": false,
+      "group_disjoint": true,
+      "group_overlap_count": 0,
+      "group_rule": "repo_slug",
+      "groups": 5,
+      "label_distribution_per_split": {
+        "test": {
+          "high": 18,
+          "low": 2
+        },
+        "train": {
+          "high": 554,
+          "low": 16
+        },
+        "val": {
+          "high": 5,
+          "low": 11
+        }
+      },
+      "labels_per_split": {
+        "test": [
+          "high",
+          "low"
+        ],
+        "train": [
+          "high",
+          "low"
+        ],
+        "val": [
+          "high",
+          "low"
+        ]
+      },
+      "largest_group_rows": 570,
+      "primary_readiness": {
+        "observed_labels": [
+          "high",
+          "low"
+        ],
+        "primary_blockers": [
+          "test_rows=20 < 30",
+          "train_shortcut=0.9 >= 0.9"
+        ],
+        "primary_ready": false,
+        "scorable_rows": 606,
+        "test_rows": 20,
+        "train_shortcut": 0.9
+      },
+      "rows": 606,
+      "rows_per_split": {
+        "test": 20,
+        "train": 570,
+        "val": 16
+      },
+      "target_rows": {
+        "test": 91,
+        "train": 424,
+        "val": 91
+      }
+    }
+  },
+  "families_not_primary_after_group_disjoint": [
+    "Fa_rejection_evidence_axis_vector",
+    "J_verified_patch",
+    "prove_candidates",
+    "prove_incidents",
+    "severity_reconciliation"
+  ],
+  "method": {
+    "group_rules": {
+      "base_property_stem": "rule_id field of candidate_id with trailing colon-delimited line numbers / verdict variants stripped; underscore-suffixed rule names preserved; line number never part of the key",
+      "contest_families": [
+        "F_false_positive_rejection",
+        "Fa_rejection_evidence_axis_vector"
+      ],
+      "contest_pair_families": [
+        "Fb_duplicate_radar_pair"
+      ],
+      "invariants_formula": "sha256(repo_slug + '|' + spec_file + '|' + base_property_stem)[:16]",
+      "repo_slug_families": [
+        "G_patch_verification",
+        "J_verified_patch",
+        "prove_candidates",
+        "severity_reconciliation"
+      ],
+      "sha256_property_families": [
+        "invariants"
+      ]
+    },
+    "idempotent": true,
+    "min_holdout_labels": 2,
+    "min_holdout_rows": 30,
+    "search": "exact 3-way search for <= 12 groups; deterministic size/label-sorted greedy + hill climbing above that; whole groups only, never split",
+    "target_split_fractions": {
+      "test": 0.15,
+      "train": 0.7,
+      "val": 0.15
+    }
+  },
+  "verification": {
+    "all_families_group_disjoint": true,
+    "families": {
+      "F_false_positive_rejection": {
+        "group_disjoint": true,
+        "groups": 4,
+        "groups_with_multiple_splits": {},
+        "rows": 212,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "Fa_rejection_evidence_axis_vector": {
+        "group_disjoint": true,
+        "groups": 4,
+        "groups_with_multiple_splits": {},
+        "rows": 594,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "Fb_duplicate_radar_pair": {
+        "group_disjoint": true,
+        "groups": 74,
+        "groups_with_multiple_splits": {},
+        "rows": 527,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "G_patch_verification": {
+        "group_disjoint": true,
+        "groups": 11,
+        "groups_with_multiple_splits": {},
+        "rows": 531,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "J_verified_patch": {
+        "group_disjoint": true,
+        "groups": 0,
+        "groups_with_multiple_splits": {},
+        "rows": 0,
+        "splits": []
+      },
+      "invariants": {
+        "group_disjoint": true,
+        "groups": 217,
+        "groups_with_multiple_splits": {},
+        "rows": 297,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "prove_candidates": {
+        "group_disjoint": true,
+        "groups": 8,
+        "groups_with_multiple_splits": {},
+        "rows": 18,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "prove_incidents": {
+        "group_disjoint": true,
+        "groups": 55,
+        "groups_with_multiple_splits": {},
+        "rows": 55,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      },
+      "severity_reconciliation": {
+        "group_disjoint": true,
+        "groups": 5,
+        "groups_with_multiple_splits": {},
+        "rows": 606,
+        "splits": [
+          "test",
+          "train",
+          "val"
+        ]
+      }
+    }
+  }
+}

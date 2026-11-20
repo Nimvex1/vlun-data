@@ -5,7 +5,7 @@
     "derived": 32,
     "experiments": 123,
     "harvest": 6,
-    "meta": 568,
+    "meta": 569,
     "reports": 84,
     "schema": 5,
     "source": 21,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 917,
+  "file_count": 918,
   "files": [
     {
       "bytes": 10711,
@@ -68,7 +68,7 @@
       "tracked": true
     },
     {
-      "bytes": 500881,
+      "bytes": 501216,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -95,7 +95,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "718fcdbc752ec494225912e0521acfd3437099b670dbc619ec4e38b7863b547e",
+      "sha256": "63638f67c467c61c94d088210894fe8440bca2bacff8e824909b8e0049d634c0",
       "tracked": true
     },
     {
@@ -368,7 +368,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "Vbeta/present_snapshot.json",
-      "sha256": "458a836d817bb50e6b985056851a75b6d4d47ff1ba9cb05b552d2b3b05812129",
+      "sha256": "2aa7028ef90fc557bf48546598eb56af378d912c6cee852525a211dbc7acfbc9",
       "tracked": true
     },
     {
@@ -17048,7 +17048,7 @@
       "tracked": true
     },
     {
-      "bytes": 2563,
+      "bytes": 2669,
       "category": "meta",
       "keys": [
         "canonical_sha256",
@@ -17062,7 +17062,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/00_governance/PRESENT.md.json",
-      "sha256": "879c91746680840e673fe34f264de3252788a63fa0e9e7ea875d716255e1774c",
+      "sha256": "8035392632a089ef2e6cbb3d8b20dbb3809cc07777f09f357c48b8218f3cce53",
       "tracked": true
     },
     {
@@ -17836,12 +17836,13 @@
       "tracked": true
     },
     {
-      "bytes": 53353,
+      "bytes": 53841,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -17850,8 +17851,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -17861,6 +17861,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -17869,13 +17873,14 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json",
-      "sha256": "defc2a3bd95a5fd2b50d41c4a1708228a4cd7fc5d396e64fff0defcfa057cbb6",
+      "sha256": "01b935f42a4b33d0e8d1f60a16c87c05154168c2c52eef18ee542727520177be",
       "tracked": true
     },
     {
@@ -18486,12 +18491,13 @@
       "tracked": true
     },
     {
-      "bytes": 46745,
+      "bytes": 47233,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -18500,8 +18506,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -18511,6 +18516,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -18519,13 +18528,14 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json",
-      "sha256": "3d63af39a3334346a65270a5056c158b6dac43208459446f6ca83cbaed5aa228",
+      "sha256": "d4ffa053821b1d5b07ae6d87c16a6958c1858475793e43da6ceef58abe2bca6c",
       "tracked": true
     },
     {
@@ -18628,12 +18638,13 @@
       "tracked": true
     },
     {
-      "bytes": 66396,
+      "bytes": 66884,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -18642,8 +18653,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -18653,6 +18663,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -18661,13 +18675,14 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json",
-      "sha256": "3e45d194bd5eaa671722fbef07f8625a340f0d7614eb7036e62d940bfa5e7e04",
+      "sha256": "a48bcd6cc7f7b4ced00c4ef4ef798841e87aa72db3a5d50dd22fb3383fb94d0f",
       "tracked": true
     },
     {
@@ -18801,12 +18816,13 @@
       "tracked": true
     },
     {
-      "bytes": 56833,
+      "bytes": 57321,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -18815,8 +18831,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -18826,6 +18841,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -18834,13 +18853,14 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json",
-      "sha256": "34d83bd9430cb58fc1789ebb32df9dc6605c8f12f8d7a00d1383178abe4d5289",
+      "sha256": "5e6bf60c1eb571c839be459bd2e895e00b0e9567e0c804b6baaa3f1fdfb2c7e5",
       "tracked": true
     },
     {
@@ -18937,12 +18957,13 @@
       "tracked": true
     },
     {
-      "bytes": 37195,
+      "bytes": 37683,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -18951,8 +18972,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -18962,6 +18982,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -18970,22 +18994,24 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json",
-      "sha256": "785d39802bd77842a0a2cf47926b395b9e45076b71faeb463488a52314938e46",
+      "sha256": "fda91d00450fd31a3816adfcf48ddbb90dcf811af0b25c359b408aa391a658d1",
       "tracked": true
     },
     {
-      "bytes": 23408,
+      "bytes": 23896,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -18994,8 +19020,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -19005,6 +19030,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -19013,22 +19042,24 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json",
-      "sha256": "e969788ef8aa9cc137b79ab8bf37393149036aaeb7994d5b439273aca01ff0c8",
+      "sha256": "ab5e92accaf51a9c977cd387725654108a66856d6cbb7afb8185d6fa905c63c7",
       "tracked": true
     },
     {
-      "bytes": 33832,
+      "bytes": 34320,
       "category": "meta",
       "keys": [
         "all_exploits_blocked_on_fixed",
         "base_commit",
         "candidate_id",
+        "classification_reason",
         "clone",
         "clone_urls_attempted",
         "command",
@@ -19037,8 +19068,7 @@
         "exit_code",
         "exit_codes",
         "fixed",
-        "fixed_sha",
-        "fixed_sha_basis",
+        "fixed_commit",
         "fixed_source_paths",
         "fixed_workspace",
         "forge_status",
@@ -19048,6 +19078,10 @@
         "input_row",
         "l6_pairs",
         "notes",
+        "overlay_blob_sha",
+        "overlay_blob_sha_basis",
+        "overlay_patch_blocked",
+        "patch_provenance",
         "project_root",
         "retrieved_at",
         "source_checkout",
@@ -19056,13 +19090,14 @@
         "test_installation",
         "toolchain_note",
         "verification_level",
+        "violation_reproduced",
         "vulnerable"
       ],
       "kind": "object",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json",
-      "sha256": "17df9ce2ede74133c2cc793744b831569db9517303d93775029ce703dfb12dc1",
+      "sha256": "63a8465f0f9dd66c7ee077fd46d5c8d3100c6aeb46cfc86d7479ce07a011cf5b",
       "tracked": true
     },
     {
@@ -19674,93 +19709,93 @@
       "tracked": true
     },
     {
-      "bytes": 98737,
+      "bytes": 107756,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/F_false_positive_rejection.jsonl",
       "rows": 212,
-      "sha256": "8f0f9bb0b20fcffe7fcbaa635bde23429235df844e755c6e738680a14d1552a0",
+      "sha256": "06ab74e3be17e5ed819cbc9827fa1fd15a91ce449754b0d317aec679c77f26dd",
       "tracked": true
     },
     {
-      "bytes": 292959,
+      "bytes": 320619,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl",
       "rows": 594,
-      "sha256": "9c77e7fe2cab4298a0bf98e7c744b5de6c831238845f5ffe01c7d52863af8a82",
+      "sha256": "8dac2a4627db12e758db7c2553c17a5740c82d92a240617f06cbce236939e37b",
       "tracked": true
     },
     {
-      "bytes": 380893,
+      "bytes": 411736,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl",
       "rows": 527,
-      "sha256": "96c5c3d559500128949e63673b867bda93ce6c8d59f21a4ecdce43925de1a16f",
+      "sha256": "424d17c27c94b37854ddf6eb6e43971805ff374d002bf9687048ea9d033d058f",
       "tracked": true
     },
     {
-      "bytes": 186200,
+      "bytes": 219547,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/G_patch_verification.jsonl",
       "rows": 531,
-      "sha256": "9795b614a69742dbde31e36c655c4a9665d27780a76692b467a27c7f57861e98",
+      "sha256": "4415f39aea05233c8867263dcc4bde7e1042c182821d50c65a1de0490ed5fd04",
       "tracked": true
     },
     {
-      "bytes": 4405,
+      "bytes": 0,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/J_verified_patch.jsonl",
-      "rows": 7,
-      "sha256": "bfda99719a36492c600e57ff705ed3c6d5e1a996058a16efd9d0e28344ed6025",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "tracked": true
     },
     {
-      "bytes": 215425,
+      "bytes": 224906,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/invariants.jsonl",
       "rows": 297,
-      "sha256": "6637a199840dede346b0805c8b5c963f9ff718c3c60b88791ddf4880207b46bb",
+      "sha256": "013ec3513658ea45f2081d1f25e3b654a462fce064f0a32b19c83259505017c7",
       "tracked": true
     },
     {
-      "bytes": 8082,
+      "bytes": 9506,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/prove_candidates.jsonl",
       "rows": 18,
-      "sha256": "8dd38e6431176841ecb5dda80f20a1f38b4e760df5ac05cbdd7e52d56399910d",
+      "sha256": "570080af50d60b345e3a00ed4b3f8ab72c116aa734ada1a572be89beb105d0b5",
       "tracked": true
     },
     {
-      "bytes": 19796,
+      "bytes": 23705,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/prove_incidents.jsonl",
       "rows": 55,
-      "sha256": "35ca5000c43c364006d7ce2f15490e47493ca8ad5d5191acf60641bc4ce9124f",
+      "sha256": "2566d4cbaadd0928719fe35d3d7c726cb9330e0acad75884dd31d2ddea0b4c3f",
       "tracked": true
     },
     {
-      "bytes": 340823,
+      "bytes": 364363,
       "category": "meta",
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/benchmark_wave1/severity_reconciliation.jsonl",
       "rows": 606,
-      "sha256": "3d46eeff220997640230f057ba30b8ab7e600d1eee71175c324a818149141926",
+      "sha256": "302a45ceb5056ed70768a6167b61bf391654a657262f0c9406fe2ecfbee7a855",
       "tracked": true
     },
     {
@@ -19799,11 +19834,11 @@
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/reports_wave1/dedup_check.json",
-      "sha256": "3aafdb39d0dbb76cafbf429b756296722a222404ab2182e3c14f9c9ee958b379",
+      "sha256": "bb22bb8e9d409c1b24208b33a89845312e465cd7d2034147ee55614639568312",
       "tracked": true
     },
     {
-      "bytes": 11819,
+      "bytes": 13782,
       "category": "meta",
       "keys": [
         "J_emission_skips",
@@ -19820,7 +19855,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/reports_wave1/execution_summary.json",
-      "sha256": "f7828ee9c8ac0aac565486c9237615a4baf7d0ad77187e8bccf1aa649c719835",
+      "sha256": "2a0698cbaaedf78e99eb88973f35d09145cbf345818b0ca940a4ef9e94acc0e2",
       "tracked": true
     },
     {
@@ -19879,6 +19914,22 @@
       "parse": "ok",
       "path": "wave1/reports_wave1/ghsa_harvest.json",
       "sha256": "50a7a073261d951cbf06ee981512cb6a650bbf71aefd740470544ea8c8895419",
+      "tracked": true
+    },
+    {
+      "bytes": 16201,
+      "category": "meta",
+      "keys": [
+        "families",
+        "families_not_primary_after_group_disjoint",
+        "method",
+        "verification"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "wave1/reports_wave1/group_split_report.json",
+      "sha256": "2057909707e2be908fd96444aeb061d3a0a4d92e1edc4ff444d514935a5f57f8",
       "tracked": true
     },
     {
@@ -20039,7 +20090,7 @@
       "tracked": true
     },
     {
-      "bytes": 3829,
+      "bytes": 6107,
       "category": "meta",
       "keys": [
         "gates",
@@ -20051,7 +20102,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "wave1/reports_wave1/validate_wave1.json",
-      "sha256": "4c40015ded04a507f8844e71634d9034637a11c8517703005615b8502d77d8d3",
+      "sha256": "b3909865df0ed760a7d36959bd439ae08b3d9792269e8c9d667e0d2b90f0303f",
       "tracked": true
     }
   ],

@@ -2,6 +2,7 @@
   "all_exploits_blocked_on_fixed": true,
   "base_commit": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
   "candidate_id": "reevmbench:audits/2026-01-tempo-mpp-streams",
+  "classification_reason": "Fixed leg uses harness-bundled patched sources overlaid on the vulnerable checkout; its identifier is a git-blob SHA of the applied bytes, not an upstream fixed commit. Synthetic overlays are not commit-pinned L6 proofs, so this is capped at L5 (vulnerable-vs-overlay reproduce-then-block only).",
   "clone": {
     "attempts": [
       {
@@ -113,8 +114,7 @@
     ],
     "verification_level": "L4"
   },
-  "fixed_sha": "1aa20c077288370d8ab114865d060c6ac5dcdec0",
-  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_commit": null,
   "fixed_source_paths": [
     "contracts/TempoStreamChannel.sol"
   ],
@@ -147,7 +147,7 @@
     ],
     "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed"
   },
-  "forge_status": "patch_verified_L6",
+  "forge_status": "violation_reproduced_L5",
   "generated_at": "2026-11-20T10:29:27Z",
   "harness_listing": [
     "config.yaml",
@@ -214,6 +214,10 @@
     }
   ],
   "notes": [],
+  "overlay_blob_sha": "1aa20c077288370d8ab114865d060c6ac5dcdec0",
+  "overlay_blob_sha_basis": "git_blob_of_patched_sources",
+  "overlay_patch_blocked": true,
+  "patch_provenance": "harness_source_overlay_blob",
   "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
   "retrieved_at": "2026-11-20T10:29:22Z",
   "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
@@ -227,7 +231,8 @@
     }
   ],
   "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
-  "verification_level": "L6",
+  "verification_level": "L5",
+  "violation_reproduced": true,
   "vulnerable": {
     "build": {
       "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",

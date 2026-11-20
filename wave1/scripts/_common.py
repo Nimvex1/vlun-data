@@ -74,11 +74,14 @@ def sha256_text(s: str) -> str:
 
 
 def sha256_file(path: str | os.PathLike) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for block in iter(lambda: fh.read(1 << 20), b""):
-            h.update(block)
-    return h.hexdigest()
+    """Line-ending-independent SHA-256 of a text file.
+
+    Mirrors Vbeta's PRESENT rule: a file is the same artefact whether a
+    Windows checkout materialised it with CRLF or LF. Hashing raw bytes would
+    make PRESENT drift on every gate run that regenerates README.md.
+    """
+    data = Path(path).read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 _GHSA_RE = re.compile(r"GHSA-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}", re.I)

@@ -1,15 +1,24 @@
 {
-  "J_emission_skips": [],
-  "J_verified_patch_rows": 7,
+  "J_emission_skips": [
+    "reevmbench:audits/2023-07-pooltogether: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2024-07-basin: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2024-08-phi: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2025-04-forte: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2026-01-tempo-feeamm: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2026-01-tempo-mpp-streams: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists",
+    "reevmbench:audits/2026-01-tempo-stablecoin-dex: harness source overlay reclassified at L5; no genuine upstream 40-hex fixed_commit in repository history, so no commit-pinned L6 proof exists"
+  ],
+  "J_verified_patch_rows": 0,
   "elapsed_seconds": 271.81,
   "generated_at": "2026-11-20T10:29:36Z",
   "notes": [
-    "Wrote 7 L6 row(s) to J_verified_patch.jsonl .",
     "Each ReEVMBench audit was cloned from the URL in its harness Dockerfile; the pinned base_commit was fetched explicitly when absent from the default clone history and the exact git attempts are in each result.json.",
     "ClaraHacks harnesses carry no test/ or patch/ sources and require an upstream RPC fork; with no RPC URL configured they are recorded as blocked_missing_rpc rather than executed.",
     "The c4_mitigation repos are issue-markdown/JSON repositories without a code or test configuration; they are recorded as no_test_suite with their verbatim directory listing.",
     "Verification is strict: a level is claimed only when verbatim forge output supports it (PASS on the vulnerable side, FAIL on the fixed side).",
-    "Top-level L3/L4/L5/L6 counters are monotonic ('reached at least this level'); by_level is the exact distribution of verified levels per row."
+    "Top-level L3/L4/L5/L6 counters are monotonic ('reached at least this level'); by_level is the exact distribution of verified levels per row.",
+    "STAGE 4 FIX 2: 7 ReEVMBench incident rows previously labelled L6 were reclassified as L5. Their 'fixed' leg is a harness-bundled patched .sol overlaid on the vulnerable checkout; its id is a git-blob SHA of patched source bytes, NOT an upstream fixed commit from repository history. Per VLUN (derived_prove/candidate_ledger.jsonl:45-46) synthetic overlays are not commit-pinned L6 proofs. The vulnerable-side reproduction remains valid (L5; violation_reproduced=true from l6_pairs).",
+    "0 commit-pinned L6 patches exist in this wave: no genuine upstream 40-hex fixed_commit was executed against a vulnerable commit for any incident. J_verified_patch.jsonl is therefore empty (0 rows)."
   ],
   "runner": "wave1/scripts/run_wave1_experiments.py",
   "toolchain": {
@@ -100,7 +109,7 @@
       "L3": 8,
       "L4": 8,
       "L5": 7,
-      "L6": 7,
+      "L6": 0,
       "attempted": 55,
       "blocked_missing_rpc": 19,
       "by_level": {
@@ -158,8 +167,7 @@
         "L4": [
           "reevmbench:audits/2025-01-liquid-ron"
         ],
-        "L5": [],
-        "L6": [
+        "L5": [
           "reevmbench:audits/2023-07-pooltogether",
           "reevmbench:audits/2024-07-basin",
           "reevmbench:audits/2024-08-phi",
@@ -167,7 +175,8 @@
           "reevmbench:audits/2026-01-tempo-feeamm",
           "reevmbench:audits/2026-01-tempo-mpp-streams",
           "reevmbench:audits/2026-01-tempo-stablecoin-dex"
-        ]
+        ],
+        "L6": []
       },
       "by_status": {
         "blocked_missing_rpc": [
@@ -225,7 +234,10 @@
           "reevmbench:audits/2025-02-thorwallet",
           "reevmbench:audits/2025-10-sequence"
         ],
-        "patch_verified_L6": [
+        "test_failed": [
+          "reevmbench:audits/2025-01-liquid-ron"
+        ],
+        "violation_reproduced_L5": [
           "reevmbench:audits/2023-07-pooltogether",
           "reevmbench:audits/2024-07-basin",
           "reevmbench:audits/2024-08-phi",
@@ -233,9 +245,6 @@
           "reevmbench:audits/2026-01-tempo-feeamm",
           "reevmbench:audits/2026-01-tempo-mpp-streams",
           "reevmbench:audits/2026-01-tempo-stablecoin-dex"
-        ],
-        "test_failed": [
-          "reevmbench:audits/2025-01-liquid-ron"
         ]
       },
       "checkout_failed": 0,

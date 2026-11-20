@@ -1,7 +1,7 @@
 {
   "gates": {
     "a_single_writer": {
-      "scripts_scanned": 17,
+      "scripts_scanned": 18,
       "verdict": "PASS",
       "violations": []
     },
@@ -34,8 +34,8 @@
           "ready_for_primary": true,
           "rows": 212,
           "scorable": 212,
-          "test_rows": 77,
-          "train_only_shortcut": 0.5325
+          "test_rows": 63,
+          "train_only_shortcut": 0.0317
         },
         "Fa_rejection_evidence_axis_vector": {
           "observed_labels": [
@@ -46,10 +46,10 @@
             "label_only",
             "technical_falsity"
           ],
-          "ready_for_primary": true,
+          "ready_for_primary": false,
           "rows": 594,
           "scorable": 594,
-          "test_rows": 216,
+          "test_rows": 18,
           "train_only_shortcut": 0.1667
         },
         "Fb_duplicate_radar_pair": {
@@ -60,8 +60,8 @@
           "ready_for_primary": true,
           "rows": 527,
           "scorable": 527,
-          "test_rows": 160,
-          "train_only_shortcut": 0.775
+          "test_rows": 80,
+          "train_only_shortcut": 0.85
         },
         "G_patch_verification": {
           "observed_labels": [
@@ -71,17 +71,15 @@
           "ready_for_primary": true,
           "rows": 531,
           "scorable": 531,
-          "test_rows": 81,
-          "train_only_shortcut": 0.7531
+          "test_rows": 79,
+          "train_only_shortcut": 0.5063
         },
         "J_verified_patch": {
-          "observed_labels": [
-            "patch_verified_L6"
-          ],
+          "observed_labels": [],
           "ready_for_primary": false,
-          "rows": 7,
-          "scorable": 7,
-          "test_rows": 7,
+          "rows": 0,
+          "scorable": 0,
+          "test_rows": 0,
           "train_only_shortcut": null
         },
         "invariants": {
@@ -92,8 +90,8 @@
           "ready_for_primary": true,
           "rows": 297,
           "scorable": 297,
-          "test_rows": 37,
-          "train_only_shortcut": 0.7838
+          "test_rows": 44,
+          "train_only_shortcut": 0.5682
         },
         "prove_candidates": {
           "observed_labels": [],
@@ -119,11 +117,11 @@
           "ready_for_primary": false,
           "rows": 606,
           "scorable": 606,
-          "test_rows": 90,
-          "train_only_shortcut": 0.9778
+          "test_rows": 20,
+          "train_only_shortcut": 0.9
         }
       },
-      "primary_ready_count": 5,
+      "primary_ready_count": 4,
       "verdict": "PASS"
     },
     "f_label_purity": {
@@ -133,11 +131,112 @@
     },
     "g_j_execution": {
       "non_L6_rows": [],
-      "rows": 7,
+      "rows": 0,
       "verdict": "PASS"
+    },
+    "h_group_disjoint_splits": {
+      "families": {
+        "F_false_positive_rejection": {
+          "groups": 4,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 212,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "Fa_rejection_evidence_axis_vector": {
+          "groups": 4,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 594,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "Fb_duplicate_radar_pair": {
+          "groups": 74,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 527,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "G_patch_verification": {
+          "groups": 11,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 531,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "J_verified_patch": {
+          "groups": 0,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 0,
+          "splits": []
+        },
+        "invariants": {
+          "groups": 217,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 297,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "prove_candidates": {
+          "groups": 8,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 18,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "prove_incidents": {
+          "groups": 55,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 55,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        },
+        "severity_reconciliation": {
+          "groups": 5,
+          "missing_group_id": 0,
+          "overlapping_groups": {},
+          "rows": 606,
+          "splits": [
+            "test",
+            "train",
+            "val"
+          ]
+        }
+      },
+      "verdict": "PASS",
+      "violations": []
     }
   },
   "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
-  "validated_at": "2026-11-20T11:40:22Z",
+  "validated_at": "2026-11-20T13:52:42Z",
   "verdict": "PASS"
 }

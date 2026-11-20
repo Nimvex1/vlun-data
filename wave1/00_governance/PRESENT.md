@@ -1,14 +1,14 @@
 # wave1 PRESENT sentinel
 
-Canonical baseline hash: `11a2f05f0fc16894ad943161fc131e381a4a4fdfe0e3efbfe01b652dd4d7f8b4`
+Canonical baseline hash: `79d1a8ed0372f8a8a70840d26cf00f9df2be65d08344357c503da92f50e4094d`
 
 This sentinel is NEW and lives only under `wave1/`. The canonical sentinel
 `Vbeta/present_snapshot.json` is read-only and must not be edited.
 
 | canonical path | sha256 |
 |---|---|
-| `README.md` | `ccda5cb489cc9c953d8ca5f9747cce59c047099eca0d356c403f0b89b67b3a85` |
-| `Vbeta/present_snapshot.json` | `458a836d817bb50e6b985056851a75b6d4d47ff1ba9cb05b552d2b3b05812129` |
+| `README.md` | `7808afb5cd4f06c93dae4658be051a175fa161f272e79b89ea5f037987bdbf73` |
+| `Vbeta/present_snapshot.json` | `2aa7028ef90fc557bf48546598eb56af378d912c6cee852525a211dbc7acfbc9` |
 | `benchmark/manifest.json` | `c021586fa2f3577d03cf8c1ac220d92e339905a7d46a1c0c54e2f423fc1569b6` |
 | `derived_v3/manifest.json` | `51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b` |
 | `docs/SOURCE_CANDIDATES.md` | `602a86c9dcc23d3ae5f93a8950bbc5dd80f98169f3a1a52789c3392cfb060da5` |
@@ -20,17 +20,18 @@ This sentinel is NEW and lives only under `wave1/`. The canonical sentinel
 
 | script | sha256 |
 |---|---|
-| `scripts/_common.py` | `ecddda26b2563fcca3aa319742b07c830ef3d3c90bf453fbac626e703125d0b4` |
+| `scripts/_common.py` | `10c0b95476bd89667e6bf912b8faa86869013593b878d23b200f08e3c72e7b93` |
 | `scripts/adapters/formal.py` | `7ff08a76dcc7df11ffbdb65cd44f9d389df0c18a044c1fa4ec9752c80d8d979c` |
 | `scripts/adapters/ghsa.py` | `f7931e0af895d738ab3e51351bca3d79a32df2e86984b3610388599d7fcfd4a0` |
 | `scripts/adapters/judge.py` | `1c563f631be301bc6c09bee846861c3a59e404ede4aab54a48f47538730e6c7c` |
 | `scripts/adapters/markdown.py` | `650d55b6fc302cc82c0b9890396715f6ddf8c16157c649bdc7449b744ab7f849` |
 | `scripts/adapters/mitigation.py` | `a9087ea72b0aeae6cf522b25ef72f2efb5a356c93648bee3ba31b45c5db19a5e` |
 | `scripts/adapters/reevmbench.py` | `dd092d7d7874ab98c44840b245f69012860e73332ec399acf6eca1926d7ab15b` |
+| `scripts/assign_group_splits.py` | `172652f5a6bd50a5dff5ae60ab3c44591541680b2e1db30ad76ca9e4e4bbf0cc` |
 | `scripts/build_dedup_registry.py` | `1a40a9f9cd6d049342a4acb155746b44f65870235d1ac00517c5e991332053e7` |
 | `scripts/build_governance.py` | `17b90c6da7a660970f97224bd1690544bcadab15d709619386f730185e061f56` |
 | `scripts/build_wave1.py` | `6b0299963b9f565a16cb60b6d1276bf36693ddab81ddc05482c69129ab4794ff` |
-| `scripts/dedup_check.py` | `9a8b1bc235c391287799df114b38f0b4bb218978accdc376853b34a408d8c372` |
+| `scripts/dedup_check.py` | `6dca8713f6aee57d72604f4af6a068bd1d909283340be0c2957c71f891efa5de` |
 | `scripts/rebalance_splits.py` | `18db8dbeee99a993b86d729c23befec6f48a2bd80050b8092238e1fc0111ecde` |
-| `scripts/run_wave1_experiments.py` | `666d38f7c134998b87d33e27beebbcdf74681378bef3745af76e3856c70a1846` |
-| `scripts/validate_wave1.py` | `eaa971a53cc1e2a01b108b743101b47059e961c4558264a9df41e87c3a0c78df` |
+| `scripts/run_wave1_experiments.py` | `6b5eda91cec90643c4047cd3902276712351f75e8fd0e43aff6350bdc4bed8f0` |
+| `scripts/validate_wave1.py` | `e1746cd0fbf731cce56c9a25d34451f277a88e4c77e2c35ab5604fc016c20208` |

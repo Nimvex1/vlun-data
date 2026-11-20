@@ -1,11 +1,13 @@
 """Clean-checkout behaviour of the prove-ledger ``--check`` gate.
 
-A fresh public checkout has no git-ignored ``work/prove_candidates/`` ledgers, so
-the committed ledger cannot be re-derived. In that case ``--check`` must VERIFY
-the published ledger + stats honestly and log ``skipped_no_private_inputs``
-(exit 0); if those committed artefacts are corrupt it must fail (exit 1), never
-silently pass. Every path in this module points at a temporary directory, so the
-real repository is never read from or written to.
+The published ledger is the authority, and the git-ignored
+``work/prove_candidates/`` ledgers are external private inputs from a different
+snapshot. Whether those inputs are present or absent, ``--check`` must NEVER
+recompute-and-STALE: it always VERIFIES the committed ledger + stats honestly and
+logs ``skipped_no_private_inputs`` (absent) or ``skipped_private_inputs_present``
+(present), exiting 0 on integrity success. If the committed artefacts are corrupt
+it must fail (exit 1), never silently pass. Every path in this module points at a
+temporary directory, so the real repository is never read from or written to.
 """
 from __future__ import annotations
 
@@ -94,6 +96,17 @@ class CleanCheckoutIntegrityTest(unittest.TestCase):
         self.assertIn("1 rows", message)  # reason AND row count are logged
         self._assert_untouched()
 
+    # (a2) the same integrity check with private inputs present only changes the
+    # token; it still verifies the committed artefacts and never recomputes.
+    def test_present_private_inputs_yield_the_present_token(self):
+        ok, message = bl.check_committed_ledger_integrity(
+            self.root, private_inputs_present=True)
+        self.assertTrue(ok, message)
+        self.assertIn("skipped_private_inputs_present", message)
+        self.assertNotIn("skipped_no_private_inputs", message)
+        self.assertIn("1 rows", message)
+        self._assert_untouched()
+
     # (b) corruption yields a failure verdict, never a silent pass.
     def test_duplicate_id_fails(self):
         _write_jsonl(self.ledger, [dict(VALID_ROW), dict(VALID_ROW)])
@@ -152,11 +165,12 @@ class CleanCheckoutGateTest(unittest.TestCase):
         root = Path(tmp.name)
         self.ledger = root / "derived_prove" / "candidate_ledger.jsonl"
         self.stats = root / "reports" / "prove_candidate_ledger.json"
+        self.candidate_dir = root / "work" / "prove_candidates"  # deliberately absent
         _write_jsonl(self.ledger, [dict(VALID_ROW)])
         _write_json(self.stats, _stats_for([dict(VALID_ROW)]))
         self.patches = mock.patch.multiple(
             bl, ROOT=root, REPORTS=root / "reports",
-            CANDIDATE_DIR=root / "work" / "prove_candidates",  # deliberately absent
+            CANDIDATE_DIR=self.candidate_dir,
             OUT_DIR=root / "derived_prove", LEDGER=self.ledger,
             STATS_JSON=self.stats,
             STATS_MD=root / "reports" / "prove_candidate_ledger.md")
@@ -173,10 +187,16 @@ class CleanCheckoutGateTest(unittest.TestCase):
             code = bl.main()
         return code, buf.getvalue()
 
+    def _add_private_inputs(self):
+        """Make discovery_inputs() non-empty without touching the published bytes."""
+        self.candidate_dir.mkdir(parents=True, exist_ok=True)
+        _write_jsonl(self.candidate_dir / "discovery_ledger.jsonl", [dict(VALID_ROW)])
+
     def test_check_skips_with_the_token_and_exits_zero(self):
         code, out = self._run_check()
         self.assertEqual(code, 0, out)
         self.assertIn("skipped_no_private_inputs", out)
+        self.assertNotIn("skipped_private_inputs_present", out)
 
     def test_check_fails_on_corrupt_committed_ledger(self):
         _write_jsonl(self.ledger, [dict(VALID_ROW), dict(VALID_ROW)])
@@ -184,6 +204,22 @@ class CleanCheckoutGateTest(unittest.TestCase):
         self.assertEqual(code, 1, out)
         self.assertIn("committed ledger integrity failed", out)
         self.assertNotIn("skipped_no_private_inputs", out)
+
+    def test_check_with_private_inputs_present_never_stales_and_exits_zero(self):
+        self._add_private_inputs()
+        code, out = self._run_check()
+        self.assertEqual(code, 0, out)
+        self.assertIn("skipped_private_inputs_present", out)
+        self.assertNotIn("skipped_no_private_inputs", out)
+        self.assertNotIn("STALE", out)
+
+    def test_check_with_private_inputs_present_still_fails_on_corruption(self):
+        self._add_private_inputs()
+        _write_jsonl(self.ledger, [dict(VALID_ROW), dict(VALID_ROW)])
+        code, out = self._run_check()
+        self.assertEqual(code, 1, out)
+        self.assertIn("committed ledger integrity failed", out)
+        self.assertNotIn("STALE", out)
 
 
 if __name__ == "__main__":

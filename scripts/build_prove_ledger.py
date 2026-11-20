@@ -542,15 +542,23 @@ def published_stats() -> dict:
         return {}
 
 
-def check_committed_ledger_integrity(root: Path) -> tuple[bool, str]:
-    """Verify the committed ledger + stats under ``root`` when no private inputs exist.
+def check_committed_ledger_integrity(
+    root: Path, private_inputs_present: bool = False
+) -> tuple[bool, str]:
+    """Verify the committed ledger + stats under ``root`` -- and nothing else.
 
-    A fresh public checkout has no git-ignored ``work/prove_candidates/*`` ledgers,
-    so the published ledger cannot be re-derived there. That is a reason to SKIP
-    re-derivation, not to declare the published artefact correct: this helper
-    checks the committed ledger and report honestly (structure, invariants and
-    published counts) before the caller logs the skip. ``ok=False`` is a precise
-    integrity failure that must fail ``--check`` -- never a silent pass.
+    The published ledger is the authority. The discovery ledgers in the git-ignored
+    ``work/prove_candidates/`` tree are external, private inputs from a different
+    snapshot, so neither their absence nor their presence makes a checkout able to
+    re-derive the published artefact. Re-derivation is therefore *always* skipped in
+    ``--check`` mode; what is never skipped is this honest verification of the
+    committed ledger and report (structure, invariants and published counts).
+    ``ok=False`` is a precise integrity failure that must fail ``--check`` -- never
+    a silent pass and never a recompute-and-STALE verdict.
+
+    ``private_inputs_present`` only selects the skip token the caller logs, so the
+    log states the truth about this checkout: ``skipped_no_private_inputs`` when
+    there is no private tree, ``skipped_private_inputs_present`` when there is one.
 
     Pure with respect to ``root``: it reads only files beneath that directory and
     writes nothing, so it can be unit-tested against a temporary tree.
@@ -621,11 +629,18 @@ def check_committed_ledger_integrity(root: Path) -> tuple[bool, str]:
         return fail(f"{stats_json.as_posix()}: counts.by_stage does not sum to "
                     f"{len(rows)} ledger rows")
 
+    if private_inputs_present:
+        token = "skipped_private_inputs_present"
+        reason = ("private discovery ledgers exist in work/prove_candidates but are "
+                  "external to the published snapshot, so re-derivation is not trusted")
+    else:
+        token = "skipped_no_private_inputs"
+        reason = ("no private discovery ledgers in work/prove_candidates, so "
+                  "re-derivation is skipped")
     return True, (
-        f"skipped_no_private_inputs: {ledger.as_posix()} and {stats_json.as_posix()} "
+        f"{token}: {ledger.as_posix()} and {stats_json.as_posix()} "
         f"verified ({len(rows)} rows, {len(problems)} invariant violation(s), "
-        f"schema_version={SCHEMA_VERSION}); no private discovery ledgers in "
-        f"work/prove_candidates, so re-derivation is skipped")
+        f"schema_version={SCHEMA_VERSION}); {reason}")
 
 
 def write_guard(rows: list[dict], stats: dict) -> list[str]:
@@ -711,6 +726,19 @@ def main() -> int:
                          "reviewed, documented migration)")
     args = ap.parse_args()
 
+    if args.check:
+        # The published ledger is the authority. Its private inputs are external and
+        # may belong to a different snapshot, so a checkout can never assume it can
+        # re-derive the committed bytes -- whether those inputs are present or not.
+        # --check therefore ALWAYS verifies committed integrity only, reports the
+        # honest skip token, and exits 0/1 on that verdict. It never recomputes rows
+        # and never emits STALE: a private tree cannot invalidate a published artefact.
+        local_inputs = discovery_inputs()
+        verified, message = check_committed_ledger_integrity(
+            ROOT, private_inputs_present=bool(local_inputs))
+        log(message)
+        return 0 if verified else 1
+
     recorded = seed_from_recorded_evidence()
     discovered, loaded = load_input_ledgers()
     by_id = merge_rows(recorded, discovered)
@@ -722,27 +750,6 @@ def main() -> int:
     stats["counts"]["rights_status_of_qualified"] = dict(collections.Counter(
         r.get("rights_status") or "unclassified" for r in rows
         if r.get("candidate_stage") == "qualified"))
-
-    if args.check:
-        local_inputs = discovery_inputs()
-        if not local_inputs:
-            # The discovery ledgers live in the git-ignored work/ tree, so the
-            # committed ledger cannot be re-derived here. Skipping is honest
-            # ONLY after verifying the published artefacts are internally
-            # consistent: a corrupt ledger must fail, never pass silently.
-            verified, message = check_committed_ledger_integrity(ROOT)
-            log(message)
-            return 0 if verified else 1
-        current = _load(LEDGER) if LEDGER.exists() else []
-        if json.loads(json.dumps(rows)) != current:
-            log("STALE: derived_prove/candidate_ledger.jsonl -- run: "
-                "python scripts/build_prove_ledger.py")
-            return 1
-        if json.loads(STATS_JSON.read_text(encoding="utf-8")) != stats:
-            log(f"STALE: {STATS_JSON}")
-            return 1
-        log(f"ok: {len(rows)} ledger rows, {len(errors)} invariant violation(s)")
-        return 1 if errors else 0
 
     # The write path fails closed on the same preconditions, before a byte is
     # replaced: `--check` protects CI, this protects whoever runs the script.

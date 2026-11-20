@@ -2,6 +2,7 @@
   "all_exploits_blocked_on_fixed": true,
   "base_commit": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
   "candidate_id": "reevmbench:audits/2024-07-basin",
+  "classification_reason": "Fixed leg uses harness-bundled patched sources overlaid on the vulnerable checkout; its identifier is a git-blob SHA of the applied bytes, not an upstream fixed commit. Synthetic overlays are not commit-pinned L6 proofs, so this is capped at L5 (vulnerable-vs-overlay reproduce-then-block only).",
   "clone": {
     "attempts": [
       {
@@ -132,8 +133,7 @@
     ],
     "verification_level": "L5"
   },
-  "fixed_sha": "7823c273cf5acedd5b5db5b3f555a5ccf79bcdef",
-  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_commit": null,
   "fixed_source_paths": [
     "src/WellUpgradeable.sol",
     "src/functions/Stable2.sol"
@@ -179,7 +179,7 @@
     ],
     "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed"
   },
-  "forge_status": "patch_verified_L6",
+  "forge_status": "violation_reproduced_L5",
   "generated_at": "2026-11-20T10:27:04Z",
   "harness_listing": [
     "config.yaml",
@@ -240,6 +240,10 @@
     }
   ],
   "notes": [],
+  "overlay_blob_sha": "7823c273cf5acedd5b5db5b3f555a5ccf79bcdef",
+  "overlay_blob_sha_basis": "git_blob_of_patched_sources",
+  "overlay_patch_blocked": true,
+  "patch_provenance": "harness_source_overlay_blob",
   "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
   "retrieved_at": "2026-11-20T10:26:16Z",
   "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
@@ -258,7 +262,8 @@
     }
   ],
   "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
-  "verification_level": "L6",
+  "verification_level": "L5",
+  "violation_reproduced": true,
   "vulnerable": {
     "build": {
       "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",

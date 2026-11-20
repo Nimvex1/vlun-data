@@ -18,8 +18,12 @@ TRUTH-OVER-SCALE LADDER (never claim above what was observed)
   L3  forge build succeeded
   L4  forge test executed the target test
   L5  forge test reported Success for the exploit assertion (vulnerable side)
-  L6  the SAME test reproduced on the vulnerable revision and was blocked /
-      failed on the fixed revision (mapped patch sources or patch diff)
+  L6  the SAME test reproduced on the vulnerable revision AND was blocked /
+      failed on a genuine upstream fixed revision checked out from repository
+      history (a real 40-hex fixed_commit), with both legs executed.
+      A harness-bundled patched .sol overlaid on the vulnerable checkout is a
+      synthetic overlay (its id is a git-blob SHA of patched bytes, not a
+      commit): it is NOT a commit-pinned L6 proof and caps at L5.
 
 Missing RPC, missing repo, compile errors and timeouts are recorded with the
 verbatim backend output; they are never fabricated into a higher level.
@@ -81,13 +85,20 @@ SUMMARY_OUT = WAVE1 / "reports_wave1" / "execution_summary.json"
 REEVMBENCH = WORK_SOURCES / "blocksecteam__ReEVMBench"
 RUNS = ROOT / "work" / "wave1_runs"
 LEVELS = ("L0", "L1", "L3", "L4", "L5", "L6")
+
+# Patch provenance. Only a genuine upstream fixed commit from repository
+# history can support L6; a harness-bundled overlay caps at L5.
+OVERLAY_PATCH_PROVENANCE = "harness_source_overlay_blob"
+UPSTREAM_PATCH_PROVENANCE = "upstream_fixed_commit"
+L5_OVERLAY_STATUS = "violation_reproduced_L5"
+
 STATUS_KEYS = (
     "attempted", "L3", "L4", "L5", "L6", "no_repo", "clone_failed",
     "compile_error", "test_failed", "no_test_suite", "blocked_missing_rpc",
     "timeout", "skipped_budget", "tool_missing", "harness_missing",
     "no_foundry_project", "framework_hardhat", "commit_unavailable",
     "checkout_failed", "no_target_test", "harness_test_missing",
-    "verification_incomplete", "suite_executed",
+    "verification_incomplete", "suite_executed", L5_OVERLAY_STATUS,
 )
 SHA40 = re.compile(r"^[0-9a-fA-F]{40}$")
 
@@ -417,22 +428,36 @@ def process_incident(row: dict[str, Any], tools: dict[str, Any],
         art["all_exploits_blocked_on_fixed"] = bool(pairs) and len(pairs) == sum(
             1 for t in vmap.values() if t.get("exploit_success"))
         if pairs:
-            art["verification_level"] = "L6"
-            art["forge_status"] = "patch_verified_L6"
-            status = "patch_verified_L6"
-            # Bind the L6 claim to the exact fixed bytes that were applied in
-            # the fixed workspace. This is a real git-blob SHA (NOT a commit
-            # SHA); if it cannot be computed the row is excluded from J.
+            # The fixed leg is a harness-bundled patched .sol overlaid on the
+            # vulnerable checkout. Its identifier is a git-blob SHA of the
+            # applied bytes, NOT a fixed commit from the upstream repository.
+            # Per VLUN this synthetic overlay is not a commit-pinned L6 proof:
+            # cap honestly at L5 and never emit a J row from it.
             fixed_info = art.get("fixed_workspace") or {}
-            fixed_sha = _compute_fixed_blob_sha(fixed_root, fixed_info)
-            art["fixed_sha"] = fixed_sha
-            art["fixed_sha_basis"] = "git_blob_of_patched_sources" if fixed_sha else None
-            if fixed_sha:
+            overlay_blob_sha = _compute_fixed_blob_sha(fixed_root, fixed_info)
+            art["violation_reproduced"] = True
+            art["overlay_patch_blocked"] = True
+            art["patch_provenance"] = OVERLAY_PATCH_PROVENANCE
+            art["fixed_commit"] = None
+            art["verification_level"] = "L5"
+            art["forge_status"] = L5_OVERLAY_STATUS
+            status = L5_OVERLAY_STATUS
+            art["overlay_blob_sha"] = overlay_blob_sha
+            art["overlay_blob_sha_basis"] = (
+                "git_blob_of_patched_sources" if overlay_blob_sha else None
+            )
+            art["classification_reason"] = (
+                "Fixed leg uses harness-bundled patched sources overlaid on the "
+                "vulnerable checkout; the identifier is a git-blob SHA of the applied "
+                "bytes, not an upstream fixed commit. Synthetic overlays are not "
+                "commit-pinned L6 proofs, so capped at L5."
+            )
+            if overlay_blob_sha:
                 art["fixed_source_paths"] = _applied_fixed_relpaths(fixed_info)
             else:
                 art["notes"].append(
-                    "Could not compute a real git-blob SHA over the applied fixed "
-                    "sources; this L6 artefact is excluded from J_verified_patch."
+                    "Could not compute the git-blob SHA of the applied overlay "
+                    "sources; the reproduce-then-block observation still stands at L5."
                 )
     elif art["verification_level"] == "L5":
         art["notes"].append("L5 observed but no fixed workspace was available to test L6.")
@@ -602,8 +627,14 @@ def process_candidate(row: dict[str, Any], repo_cache: dict[str, dict[str, Any]]
         art["violation_reproduced"] = reproduced
         art["blocked_on_fixed"] = blocked
         if reproduced and blocked:
+            # Both legs were checked out from real upstream commits above
+            # (_checkout_leg fetched and checked out each SHA), so this is the
+            # genuine two-revision case that may support a commit-pinned L6.
             art["verification_level"] = "L6"
             art["forge_status"] = "patch_verified_L6"
+            art["patch_provenance"] = UPSTREAM_PATCH_PROVENANCE
+            art["fixed_commit"] = fix_sha if SHA40.match(fix_sha) else None
+            art["overlay_patch_blocked"] = False
         elif reproduced:
             art["verification_level"] = "L5"
             art["forge_status"] = "exploit_success"
@@ -659,7 +690,7 @@ def _count_track(results: list[dict[str, Any]]) -> dict[str, Any]:
             counts["attempted"] += 1
         if status in ("patch_verified_L6", "verified_L6"):
             counts["L6"] += 1
-        elif status in ("exploit_success", "reproduced_L5"):
+        elif status in ("exploit_success", "reproduced_L5", L5_OVERLAY_STATUS):
             counts["L5"] += 1
         elif status in ("test_executed", "suite_executed"):
             counts["L4"] += 1
@@ -716,6 +747,10 @@ def _gate_g_row_ok(row: dict[str, Any]) -> bool:
         and SHA40.match(str(ex.get("vulnerable_sha", "")))
         and SHA40.match(str(ex.get("fixed_sha", "")))
         and ex.get("fixed_sha") != ex.get("vulnerable_sha")
+        # Explicit provenance gate: only a genuine upstream commit pin can be L6.
+        and str(ex.get("patch_provenance", "")) == UPSTREAM_PATCH_PROVENANCE
+        and SHA40.match(str(ex.get("fixed_commit", "")))
+        and ex.get("overlay_patch_blocked") is not True
         and ex.get("violation_reproduced") is True
         and ex.get("blocked_on_fixed") is True
         and str(ex.get("result_artefact") or "")
@@ -754,24 +789,40 @@ def main(argv: list[str] | None = None) -> int:
             _status, artefact = process_candidate(row, cache, tools, args.timeout, budget_end)
             _write_candidate_result(row, artefact)
 
-    # J: only genuine L6 artefacts with the gate-g fields. There are two
-    # sources: two-revision prove_candidates results and ReEVMBench incident
-    # results whose vulnerable/fixed pair reproduced then blocked the exploit.
+    # J: only genuine commit-pinned L6 artefacts pass the gate. A harness
+    # overlay is capped at L5 and can never emit a J row. Every emitted row
+    # must carry an explicit upstream fixed_commit from repository history
+    # and evidence that both legs were executed.
     j_rows: list[dict[str, Any]] = []
     j_skips: list[str] = []
 
-    # (a) prove_candidates two-revision artefacts (existing behaviour).
+    # (a) prove_candidates two-revision artefacts. Both legs are fetched and
+    # checked out from real upstream commits by _checkout_leg.
     for res in _load_results(CAND_OUT):
         if res.get("verification_level") != "L6":
+            continue
+        cid = str(res.get("candidate_id") or "unknown")
+        if res.get("patch_provenance") != UPSTREAM_PATCH_PROVENANCE:
+            j_skips.append(
+                f"{cid}: no genuine upstream fixed_commit "
+                f"(patch_provenance={res.get('patch_provenance')!r})"
+            )
+            continue
+        fixed_commit = str(res.get("fixed_commit") or "")
+        if not SHA40.match(fixed_commit):
+            j_skips.append(f"{cid}: fixed_commit is not a 40-hex SHA")
             continue
         ex = {
             "level": "L6",
             "vulnerable_sha": res.get("vuln_sha"),
-            "fixed_sha": res.get("fix_sha"),
+            "fixed_sha": fixed_commit,  # genuine upstream commit, never a blob id
+            "fixed_commit": fixed_commit,
+            "patch_provenance": UPSTREAM_PATCH_PROVENANCE,
+            "overlay_patch_blocked": False,
             "violation_reproduced": res.get("violation_reproduced") is True,
             "blocked_on_fixed": res.get("blocked_on_fixed") is True,
             "result_artefact": "wave1/" + (
-                CAND_OUT / _safe_id(str(res.get("candidate_id"))) / "result.json"
+                CAND_OUT / _safe_id(cid) / "result.json"
             ).relative_to(WAVE1).as_posix(),
         }
         row = {
@@ -786,14 +837,31 @@ def main(argv: list[str] | None = None) -> int:
         }
         if _gate_g_row_ok(row):
             j_rows.append(row)
+        else:
+            j_skips.append(f"{cid}: assembled row failed gate-g validation")
 
-    # (b) ReEVMBench incident L6 artefacts. The fixed identifier is a real
-    # git-blob SHA of the exact patched source bytes in the fixed workspace,
-    # recomputed here from the freshly regenerated workspaces (never invented).
+    # (b) ReEVMBench incident artefacts. Their fixed workspaces are
+    # harness-bundled patched sources overlaid on the vulnerable checkout;
+    # process_incident caps them at L5 with patch_provenance=overlay and
+    # fixed_commit=None. Report them as skips, never as J rows.
     for res in _load_results(INC_OUT):
-        if res.get("verification_level") != "L6":
-            continue
         cid = str(res.get("candidate_id") or "unknown")
+        if res.get("verification_level") != "L6":
+            if (
+                res.get("patch_provenance") == OVERLAY_PATCH_PROVENANCE
+                and res.get("l6_pairs")
+            ):
+                j_skips.append(
+                    f"{cid}: harness source overlay reclassified at L5; no genuine "
+                    "upstream 40-hex fixed_commit in repository history, so no "
+                    "commit-pinned L6 proof exists"
+                )
+            continue
+        # Defensive: even a future incident artefact claiming L6 must carry an
+        # explicit upstream provenance and both executed legs.
+        if res.get("patch_provenance") != UPSTREAM_PATCH_PROVENANCE:
+            j_skips.append(f"{cid}: patch_provenance is not upstream_fixed_commit")
+            continue
         safe = _safe_id(cid)
         pairs = res.get("l6_pairs") or []
         reproduced = any(
@@ -805,15 +873,14 @@ def main(argv: list[str] | None = None) -> int:
             for p in pairs
         )
         vulnerable_sha = str(res.get("base_commit") or "")
-        fixed_root = RUNS / "reevmbench" / safe / "fixed"
-        fixed_sha = _compute_fixed_blob_sha(fixed_root, res.get("fixed_workspace") or {})
+        fixed_commit = str(res.get("fixed_commit") or "")
         reasons: list[str] = []
         if not SHA40.match(vulnerable_sha):
             reasons.append("base_commit is not a 40-hex SHA")
-        if not fixed_sha:
-            reasons.append("no real git-blob SHA of the applied fixed sources could be computed")
-        elif fixed_sha == vulnerable_sha:
-            reasons.append("fixed_sha equals vulnerable_sha")
+        if not SHA40.match(fixed_commit):
+            reasons.append("no genuine upstream 40-hex fixed_commit")
+        elif fixed_commit == vulnerable_sha:
+            reasons.append("fixed_commit equals vulnerable_sha")
         if not reproduced or not blocked:
             reasons.append("l6_pairs do not show a reproduced-then-blocked exploit")
         if reasons:
@@ -824,8 +891,10 @@ def main(argv: list[str] | None = None) -> int:
         ex = {
             "level": "L6",
             "vulnerable_sha": vulnerable_sha,
-            "fixed_sha": fixed_sha,
-            "fixed_sha_basis": "git_blob_of_patched_sources",
+            "fixed_sha": fixed_commit,  # genuine upstream commit
+            "fixed_commit": fixed_commit,
+            "patch_provenance": UPSTREAM_PATCH_PROVENANCE,
+            "overlay_patch_blocked": False,
             "violation_reproduced": True,
             "blocked_on_fixed": True,
             "result_artefact": "wave1/" + (INC_OUT / safe / "result.json").relative_to(WAVE1).as_posix(),
@@ -865,7 +934,13 @@ def main(argv: list[str] | None = None) -> int:
         "or test configuration; they are recorded as no_test_suite with their verbatim "
         "directory listing.",
         "Verification is strict: a level is claimed only when verbatim forge output "
-        "supports it (PASS on the vulnerable side, FAIL on the fixed side).",
+        "supports it (PASS on the vulnerable side, FAIL on the fixed side). ReEVMBench "
+        "fixed workspaces are harness-bundled source overlays, not upstream fixed "
+        "commits; their git-blob ids are recorded as overlay_blob_sha and the rows cap "
+        "at L5 (violation_reproduced_L5).",
+        "0 commit-pinned L6 patches exist: L6 and J emission require a genuine upstream "
+        "40-hex fixed_commit from repository history plus both executed legs, enforced "
+        "by an explicit patch_provenance check. Synthetic overlays can never reach J.",
         "Top-level L3/L4/L5/L6 counters are monotonic ('reached at least this level'); "
         "by_level is the exact distribution of verified levels per row.",
     ])

@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-917 files across 11 categories.
+918 files across 11 categories.
 
 ## source (21)
 
@@ -429,7 +429,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/solodit_candidates.json` | vbeta | 1,963,958 | array[733] | yes |
 | `Vbeta/web3bugs_candidates.json` | vbeta | 633,436 | array[491] | yes |
 
-## meta (568)
+## meta (569)
 
 *repo-level registries, snapshots, packaging and reviews.*
 
@@ -437,7 +437,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 500,881 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 501,216 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 926 | object, 17 keys | yes |
@@ -891,7 +891,7 @@ also excluded: reports/v3/validation_v31.json.
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/assertion.json` | meta | 194 | object, 6 keys | yes |
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/harness.json` | meta | 180 | object, 4 keys | yes |
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/result.json` | meta | 1,694 | object, 16 keys | yes |
-| `wave1/00_governance/PRESENT.md.json` | meta | 2,563 | object, 6 keys | yes |
+| `wave1/00_governance/PRESENT.md.json` | meta | 2,669 | object, 6 keys | yes |
 | `wave1/00_governance/label_domains.json` | meta | 1,842 | object, 4 keys | yes |
 | `wave1/00_governance/rights.jsonl` | meta | 2,621 | 7 rows | yes |
 | `wave1/00_governance/source_registry.jsonl` | meta | 1,731 | 6 rows | yes |
@@ -928,7 +928,7 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-04-ai-arena-mitigation-findings__9/result.json` | meta | 3,840 | object, 20 keys | yes |
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-06-renzo-mitigation-findings__51/result.json` | meta | 3,792 | object, 20 keys | yes |
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-09-reserve-mitigation-findings__36/result.json` | meta | 3,118 | object, 20 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json` | meta | 53,353 | object, 31 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json` | meta | 53,841 | object, 36 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2023-10-nextgen/result.json` | meta | 2,477 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/result.json` | meta | 34,750 | object, 25 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-01-canto/result.json` | meta | 1,835 | object, 19 keys | yes |
@@ -948,22 +948,22 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-size/result.json` | meta | 11,813 | object, 25 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-thorchain/result.json` | meta | 1,933 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-vultisig/result.json` | meta | 1,860 | object, 19 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json` | meta | 46,745 | object, 31 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json` | meta | 47,233 | object, 36 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-benddao/result.json` | meta | 15,516 | object, 25 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-munchables/result.json` | meta | 2,496 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-traitforge/result.json` | meta | 2,267 | object, 19 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json` | meta | 66,396 | object, 31 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json` | meta | 66,884 | object, 36 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2024-12-secondswap/result.json` | meta | 2,125 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-liquid-ron/result.json` | meta | 31,275 | object, 25 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-next-generation/result.json` | meta | 1,692 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-02-thorwallet/result.json` | meta | 1,669 | object, 19 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json` | meta | 56,833 | object, 31 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json` | meta | 57,321 | object, 36 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-virtuals/result.json` | meta | 2,789 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-05-blackhole/result.json` | meta | 2,041 | object, 19 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__audits__2025-10-sequence/result.json` | meta | 1,856 | object, 19 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json` | meta | 37,195 | object, 31 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json` | meta | 23,408 | object, 31 keys | yes |
-| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json` | meta | 33,832 | object, 31 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json` | meta | 37,683 | object, 36 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json` | meta | 23,896 | object, 36 keys | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json` | meta | 34,320 | object, 36 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0003/result.json` | meta | 2,124 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0004/result.json` | meta | 2,288 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0005/result.json` | meta | 2,181 | object, 20 keys | yes |
@@ -983,23 +983,24 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0023/result.json` | meta | 2,124 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0024/result.json` | meta | 2,129 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0025/result.json` | meta | 2,134 | object, 20 keys | yes |
-| `wave1/benchmark_wave1/F_false_positive_rejection.jsonl` | meta | 98,737 | 212 rows | yes |
-| `wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl` | meta | 292,959 | 594 rows | yes |
-| `wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl` | meta | 380,893 | 527 rows | yes |
-| `wave1/benchmark_wave1/G_patch_verification.jsonl` | meta | 186,200 | 531 rows | yes |
-| `wave1/benchmark_wave1/J_verified_patch.jsonl` | meta | 4,405 | 7 rows | yes |
-| `wave1/benchmark_wave1/invariants.jsonl` | meta | 215,425 | 297 rows | yes |
-| `wave1/benchmark_wave1/prove_candidates.jsonl` | meta | 8,082 | 18 rows | yes |
-| `wave1/benchmark_wave1/prove_incidents.jsonl` | meta | 19,796 | 55 rows | yes |
-| `wave1/benchmark_wave1/severity_reconciliation.jsonl` | meta | 340,823 | 606 rows | yes |
+| `wave1/benchmark_wave1/F_false_positive_rejection.jsonl` | meta | 107,756 | 212 rows | yes |
+| `wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl` | meta | 320,619 | 594 rows | yes |
+| `wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl` | meta | 411,736 | 527 rows | yes |
+| `wave1/benchmark_wave1/G_patch_verification.jsonl` | meta | 219,547 | 531 rows | yes |
+| `wave1/benchmark_wave1/J_verified_patch.jsonl` | meta | 0 | 0 rows | yes |
+| `wave1/benchmark_wave1/invariants.jsonl` | meta | 224,906 | 297 rows | yes |
+| `wave1/benchmark_wave1/prove_candidates.jsonl` | meta | 9,506 | 18 rows | yes |
+| `wave1/benchmark_wave1/prove_incidents.jsonl` | meta | 23,705 | 55 rows | yes |
+| `wave1/benchmark_wave1/severity_reconciliation.jsonl` | meta | 364,363 | 606 rows | yes |
 | `wave1/reports_wave1/build_wave1.json` | meta | 510 | object, 6 keys | yes |
 | `wave1/reports_wave1/dedup_check.json` | meta | 405 | object, 9 keys | yes |
-| `wave1/reports_wave1/execution_summary.json` | meta | 11,819 | object, 9 keys | yes |
+| `wave1/reports_wave1/execution_summary.json` | meta | 13,782 | object, 9 keys | yes |
 | `wave1/reports_wave1/formal_harvest.json` | meta | 4,054 | object, 25 keys | yes |
 | `wave1/reports_wave1/ghsa_harvest.json` | meta | 4,775 | object, 9 keys | yes |
+| `wave1/reports_wave1/group_split_report.json` | meta | 16,201 | object, 4 keys | yes |
 | `wave1/reports_wave1/judge_harvest.json` | meta | 6,464 | object, 31 keys | yes |
 | `wave1/reports_wave1/markdown_harvest.json` | meta | 2,232 | object, 22 keys | yes |
 | `wave1/reports_wave1/mitigation_harvest.json` | meta | 2,355 | object, 17 keys | yes |
 | `wave1/reports_wave1/reevmbench_harvest.json` | meta | 3,173 | object, 24 keys | yes |
 | `wave1/reports_wave1/split_rebalance.json` | meta | 1,612 | object, 3 keys | yes |
-| `wave1/reports_wave1/validate_wave1.json` | meta | 3,829 | object, 4 keys | yes |
+| `wave1/reports_wave1/validate_wave1.json` | meta | 6,107 | object, 4 keys | yes |

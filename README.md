@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
 | V4 | 666 report candidates from Halborn/Oak/CoinFabrik archives | 5,268 admitted | all L0 — no PoC execution performed |
-| wave1 | isolated METADATA_ONLY research tree | 2,186 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L6**, `J_verified_patch` holds 7 verified rows |
+| wave1 | isolated METADATA_ONLY research tree | 2,186 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds 0 rows |
 
 Gates (0 critical failures): v2 85/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
@@ -454,10 +454,12 @@ formal_specs 895, markdown 575,
 ghsa 31, judge 99,
 reevmbench 55 — all under METADATA_ONLY handling
 (links + attributed facts; report prose and full comment bodies are never copied in).
-5 families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
+4 families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
 Stage 1 execution attempted 55 ReEVMBench incident harnesses and
-18 prove candidates; **7 reached L6** and `J_verified_patch`
-holds 7 verified two-revision rows. Counts come from
+18 prove candidates; **7 reproduced exploits at L5**
+with harness-overlay patch checks, and **0 commit-pinned L6 patches** — the
+harness-bundled patched sources are git blobs, not upstream fixing commits, so
+`J_verified_patch` holds 0 verified two-revision rows. Counts come from
 [`wave1/reports_wave1/dedup_check.json`](wave1/reports_wave1/dedup_check.json),
 [`wave1/reports_wave1/execution_summary.json`](wave1/reports_wave1/execution_summary.json)
 and [`wave1/reports_wave1/validate_wave1.json`](wave1/reports_wave1/validate_wave1.json).
