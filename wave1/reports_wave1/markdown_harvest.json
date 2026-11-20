@@ -1,0 +1,63 @@
+{
+  "admitted": 606,
+  "admitted_by_label": {
+    "high": 577,
+    "low": 29
+  },
+  "admitted_by_source": {
+    "ghsa": 31,
+    "markdown": 575
+  },
+  "api_calls_used": 0,
+  "api_failures": [],
+  "benchmark_rows_written": {
+    "severity_reconciliation.jsonl": 606
+  },
+  "built_at": "2026-11-19T19:52:15Z",
+  "collisions": 0,
+  "files_scanned": 0,
+  "ghsa_reference_upgrades": {
+    "not_applicable": 2,
+    "pr_recorded": 7,
+    "unchanged": 22
+  },
+  "items_found": 606,
+  "notes": [
+    "METADATA_ONLY: this adapter no longer harvests; it derives from admitted metadata only.",
+    "This adapter STOPPED emitting G_patch_verification and J_verified_patch. Markdown/GHSA severity labels high/low are legitimate only in severity_reconciliation and must never be admitted into the patch-verification domain.",
+    "Two-revision provenance: 575 severity rows carry BOTH vulnerable_commit (audited revision from the report permalink) and fixed_commit (distinct recorded fix SHA). Rows lacking a real audited SHA or a distinct fix SHA carry neither field. This adapter does NOT add rows to prove_candidates.jsonl - mitigation.py owns that NOT_SCORABLE pool.",
+    "invariants.jsonl is owned by another writer and is never written by this adapter.",
+    "Both severity labels are asserted present in validation and test; the deterministic firm/repo stratification keeps the split reproducible across reruns.",
+    "Idempotent derivation: the family file is rewritten from admitted data; no candidate/admitted/invariants/PRESENT/network writes occur here."
+  ],
+  "prove_candidates_rows_written": 0,
+  "repos_attempted": 0,
+  "repos_ok": 0,
+  "severity_label_distribution": {
+    "high": 577,
+    "low": 29
+  },
+  "severity_reconciliation_rows": 606,
+  "severity_rows_with_distinct_commit_pair": 575,
+  "severity_split_distribution": {
+    "test": 90,
+    "train": 424,
+    "val": 92
+  },
+  "severity_split_label_distribution": {
+    "test": {
+      "high": 88,
+      "low": 2
+    },
+    "train": {
+      "high": 405,
+      "low": 19
+    },
+    "val": {
+      "high": 84,
+      "low": 8
+    }
+  },
+  "source": "markdown_two_revision",
+  "split_method": "deterministic sha256(firm/repo|candidate_id) 70/15/15, stratified by firm/repo"
+}

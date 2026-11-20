@@ -957,8 +957,11 @@ def check_release_manifest(g: Gate) -> dict | None:
                        f"{path!r} is not released but carries a licence",
                        path=path)
             continue
-        want = LICENCE_MIT if path.startswith(("scripts/", "tests/")) \
-            else LICENCE_CC_BY
+        # wave1/scripts/ and wave1/tests/ are the isolated layer's own code,
+        # assigned MIT by the same rule that covers the top-level code dirs.
+        want = LICENCE_MIT if path.startswith((
+            "scripts/", "tests/", "wave1/scripts/", "wave1/tests/"
+        )) else LICENCE_CC_BY
         if licences.get(path) != want:
             g.fail("RELEASE_LICENCE_MISMATCH", MANIFEST_NAME,
                    f"{path!r} is released with licence "

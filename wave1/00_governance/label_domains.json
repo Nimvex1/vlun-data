@@ -1,0 +1,31 @@
+{
+  "note": "Semantic label purity contract. A benchmark family may carry ONLY labels from its own domain. Mixing domains (e.g. patch-verification outcomes with severity strings) is a critical validity failure. J_verified_patch additionally requires a real executed L6 two-revision artefact per row.",
+  "domains": {
+    "patch_verification_outcome": ["mitigation_confirmed", "unmitigated_or_regression"],
+    "verified_patch_outcome": ["patch_verified_L6"],
+    "formal_property": ["property_violated", "property_held"],
+    "finding_validity": ["valid_finding", "rejected_false_positive"],
+    "rejection_axis": ["judge_attributed", "code_gate_removes_standing", "technical_falsity", "corroborated_duplicate", "exploit_failed", "label_only"],
+    "duplicate_pair": ["same", "distinct", "ambiguous"],
+    "severity": ["high", "low"]
+  },
+  "families": {
+    "G_patch_verification": {"domain": "patch_verification_outcome"},
+    "J_verified_patch": {"domain": "verified_patch_outcome", "require_l6_artefact": true},
+    "invariants": {"domain": "formal_property"},
+    "F_false_positive_rejection": {"domain": "finding_validity"},
+    "Fa_rejection_evidence_axis_vector": {"domain": "rejection_axis"},
+    "Fb_duplicate_radar_pair": {"domain": "duplicate_pair"},
+    "severity_reconciliation": {"domain": "severity"},
+    "prove_candidates": {"domain": null, "not_scorable": true},
+    "prove_incidents": {"domain": null, "not_scorable": true}
+  },
+  "l6_artefact_requirements": [
+    "row.execution.level == 'L6'",
+    "row.execution.vulnerable_sha is a 40-hex SHA",
+    "row.execution.fixed_sha is a 40-hex SHA and differs from vulnerable_sha",
+    "row.execution.violation_reproduced == true",
+    "row.execution.blocked_on_fixed == true",
+    "row.execution.result_artefact is a non-empty path to a committed/recorded run artefact"
+  ]
+}

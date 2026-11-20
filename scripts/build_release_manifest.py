@@ -161,7 +161,7 @@ LICENCE_VOCABULARY = {
         "grants no right over third-party material, wherever that material "
         "occurs."),
 }
-CODE_PREFIXES = ("scripts/", "tests/")
+CODE_PREFIXES = ("scripts/", "tests/", "wave1/scripts/", "wave1/tests/")
 
 # The canonical third-party corpus: the layers that hold the upstream audits,
 # proof-of-concept submissions and mined report text.  A candidate path is
@@ -198,11 +198,36 @@ UPSTREAM_KEYS = ((CODE_KEYS | POC_KEYS | DIFF_KEYS | PROSE_KEYS | SHORT_PROSE_KE
 # V3 records append the pipeline's own boilerplate sentence to the upstream
 # title, and a corpus that carried that sentence would flag the pipeline's
 # own source file as a copy of third-party material.
-PROJECT_TEXT_PREFIXES = ("scripts/", "docs/")
+PROJECT_TEXT_PREFIXES = (
+    "scripts/", "docs/",
+    # wave1's own pipeline, decisions and measurements are authored here;
+    # they must not be caught by copy detection against the canonical corpus.
+    "wave1/scripts/", "wave1/00_governance/", "wave1/reports_wave1/",
+)
 
 # Reviewed prefix table.  First match wins; the empty prefix is the fallback
 # for the repository's own root documents.
 BASE_RULES = (
+    # wave1 is an isolated, additive research layer. Its pipeline and tests are
+    # the authors' own code (MIT); its governance/schemas and measurement
+    # reports are the authors' own work (CC BY 4.0). The data directories are a
+    # METADATA_ONLY research tree that is deliberately NOT licensed here, the
+    # same position the manifest already takes for Vbeta/, jsonl_v4/ and
+    # derived_v4/. First match wins, so put the specific prefixes first.
+    ("wave1/scripts/", STATUS_PROJECT_OWN,
+     "the wave1 ingestion pipeline: the authors' own code, MIT"),
+    ("wave1/tests/", STATUS_PROJECT_OWN,
+     "the wave1 test suite: the authors' own code, MIT"),
+    ("wave1/00_governance/", STATUS_PROJECT_OWN,
+     "wave1 governance decisions, rights register and label schemas: the "
+     "authors' own work"),
+    ("wave1/reports_wave1/", STATUS_PROJECT_OWN,
+     "wave1 measurement and harvest reports: the authors' own analysis"),
+    ("wave1/", STATUS_INTERNAL,
+     "wave1 research data (dedup registry, harvested candidates, admitted "
+     "METADATA_ONLY records, benchmark tasks and staged splits): retained in "
+     "the research tree, METADATA_ONLY, not licensed here and not cleared "
+     "for redistribution"),
     ("distribution_v1/", STATUS_PROJECT_OWN,
      "the rights-redacted distribution view: this project's own projection, "
      "pointer records and decision artefacts"),
@@ -817,9 +842,10 @@ def build(root: Path) -> dict:
                 "rights_status is not part of the released set; the release "
                 "process ships exactly the released paths"),
             "licence_assignment_rule": (
-                "MIT for the authors' own code under scripts/ and tests/, "
-                "CC-BY-4.0 for every other released path, and no licence at "
-                "all for a path that is not released"),
+                "MIT for the authors' own code under scripts/, tests/, "
+                "wave1/scripts/ and wave1/tests/, CC-BY-4.0 for every other "
+                "released path, and no licence at all for a path that is not "
+                "released"),
             "attribution_is_not_a_right_grant": True,
             "hash_or_url_is_not_a_right_grant": True,
             "metadata_only_is_a_policy_not_a_clearance": True,

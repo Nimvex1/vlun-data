@@ -1,0 +1,80 @@
+{
+  "admitted": 895,
+  "admitted_by_tool": {
+    "cvl": 895
+  },
+  "benchmark_labels": {
+    "property_held": 213,
+    "property_violated": 84
+  },
+  "benchmark_rows_emitted": 297,
+  "certora_pointer_collisions": 0,
+  "declaration_only": 678,
+  "excluded_bare_assertions": 5480,
+  "excluded_certora_pointer": 0,
+  "excluded_declaration_context": 24,
+  "excluded_duplicate": 0,
+  "excluded_setup_helpers": 46,
+  "excluded_test_functions": 643,
+  "files_scanned": 620,
+  "generated_at": "2026-11-19T19:52:15Z",
+  "high_quality_admitted": 217,
+  "notes": [
+    "governed repos=3; metadata_only=true",
+    "canonical registry keys=24074; certora report pointers=200",
+    "recon-fuzz/audits: observed verdict matrices=0 (0 with a concrete FAIL)",
+    "certora/gho-competition: observed verdict matrices=239 (84 with a concrete FAIL)",
+    "certora/uniswap-v4-periphery-cantina-fv: observed verdict matrices=0 (0 with a concrete FAIL)",
+    "certora/gho-competition: found=5546 admitted=888 test_fns=206 setup=6 assertions=4433 prose_decls=13",
+    "certora/uniswap-v4-periphery-cantina-fv: found=1504 admitted=7 test_fns=403 setup=36 assertions=1047 prose_decls=11",
+    "recon-fuzz/audits: found=38 admitted=0 test_fns=34 setup=4 assertions=0 prose_decls=0",
+    "STRICT ADMISSION: only CVL rule/invariant declarations in .spec/.cvl and named invariant_*/echidna_*/halmos_*/medusa_* property functions are admitted; rule/invariant tokens in prose (.md) are excluded",
+    "exact admitted CVL declarations=895 (783 rule + 112 invariant); named invariant_*/echidna_*/halmos_*/medusa_* property functions observed=0; the prior 'cvl=3180' tool tally was inflated by ~2175 bare assert/require lines inside .spec files, which are now correctly excluded as non-properties",
+    "excluded_test_functions=643: generic Foundry test*/check_*/fuzz_* functions are not formal properties",
+    "excluded_setup_helpers=46: setUp/constructor are test harness setup, not properties",
+    "excluded_bare_assertions=5480: assert/require lines carry no named property and no observed verdict; scan limited to code extensions ['.cvl', '.sol', '.spec'] to avoid markdown-prose false positives",
+    "quality=high and pair_evidence are set ONLY from a committed Certora Prover result matrix (Original vs mutants); all other admissions are unverified/observed_declaration_unverified",
+    "invariants.jsonl is rewritten from scratch each run (no appends); labels are strictly property_violated/property_held and answer is the observed verdict string SUCCESS/FAIL",
+    "verdict_flag is set only to a concrete observed Original verdict; mutant outcomes stay in pair_evidence so no verdict is over-claimed",
+    "certora pointer match requires a FULL report-identity substring (>=8 chars) against the 200 certora-reports:* keys; a single protocol token (gho/uniswap) is NOT a collision because the new repos are distinct"
+  ],
+  "other_collisions": 0,
+  "overlap_rows_appended": 0,
+  "per_repo": {
+    "certora/gho-competition": {
+      "ADMITTED": 888,
+      "EXCLUDED_BARE_ASSERTION": 4433,
+      "EXCLUDED_DECLARATION_CONTEXT": 13,
+      "EXCLUDED_GENERIC_TEST_FUNCTION": 206,
+      "EXCLUDED_TEST_SETUP_HELPER": 6,
+      "found": 5546
+    },
+    "certora/uniswap-v4-periphery-cantina-fv": {
+      "ADMITTED": 7,
+      "EXCLUDED_BARE_ASSERTION": 1047,
+      "EXCLUDED_DECLARATION_CONTEXT": 11,
+      "EXCLUDED_GENERIC_TEST_FUNCTION": 403,
+      "EXCLUDED_TEST_SETUP_HELPER": 36,
+      "found": 1504
+    },
+    "recon-fuzz/audits": {
+      "EXCLUDED_GENERIC_TEST_FUNCTION": 34,
+      "EXCLUDED_TEST_SETUP_HELPER": 4,
+      "found": 38
+    }
+  },
+  "pinned_heads": {
+    "Certora/gho-competition": "b18bcd9c26c591597e661161e7330ca0f16e8226",
+    "Certora/uniswap-v4-periphery-cantina-fv": "fe4ef29c1150c5e4db9139ea83e015b549446063",
+    "Recon-Fuzz/audits": "658cae6ed4386607c06e9e722ce2782bebb834af"
+  },
+  "repos_attempted": 3,
+  "repos_cloned": 3,
+  "rules_found": 7088,
+  "source": "formal_specs",
+  "split_distribution": {
+    "test": 37,
+    "train": 223,
+    "val": 37
+  }
+}

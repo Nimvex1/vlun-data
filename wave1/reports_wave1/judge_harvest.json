@@ -1,0 +1,183 @@
+{
+  "Fb_labels": {
+    "test": {
+      "distinct": 44,
+      "same": 113
+    },
+    "train": {
+      "distinct": 41,
+      "same": 167
+    },
+    "val": {
+      "distinct": 31,
+      "same": 131
+    }
+  },
+  "Fb_splits": {
+    "test": 157,
+    "train": 208,
+    "val": 162
+  },
+  "admitted": 99,
+  "admitted_by_outcome": {
+    "rejected_false_positive": 99
+  },
+  "api_auth_verify_calls": 1,
+  "api_calls": 1,
+  "api_calls_breakdown": {
+    "auth_verify_calls": 1,
+    "comment_budget": 10,
+    "comment_calls": 10,
+    "issue_list_budget": 12,
+    "issue_list_calls": 12
+  },
+  "api_calls_used": 1,
+  "api_paths_called_total": 22,
+  "auth_method": "gh_cli:gh auth token (verified)",
+  "bare_label_skipped": 333,
+  "benchmark_F_rows": 212,
+  "benchmark_Fa_rows": 594,
+  "benchmark_Fb_rows": 527,
+  "collisions": 0,
+  "generated_at": "2026-11-19T19:52:16Z",
+  "governance_source_id": "judge_negatives",
+  "issues_fetched": 1153,
+  "label_distributions": {
+    "F": {
+      "rejected_false_positive": 99,
+      "valid_finding": 113
+    },
+    "Fa": {
+      "code_gate_removes_standing": 99,
+      "corroborated_duplicate": 99,
+      "exploit_failed": 99,
+      "judge_attributed": 99,
+      "label_only": 99,
+      "technical_falsity": 99
+    },
+    "Fb": {
+      "distinct": 116,
+      "same": 411
+    }
+  },
+  "mitigation_pairs_mined": {
+    "distinct": 110,
+    "dup_label_links_seen": 32,
+    "issues_read": 812,
+    "registry_collisions": 0,
+    "same": 320,
+    "skipped_dup_id": 0,
+    "skipped_dup_url": 5,
+    "total": 430
+  },
+  "no_signal_skipped": 508,
+  "notes": [
+    "METADATA_ONLY: no issue/comment prose vendored; only short title, permalink, comment_sha256, short AST facts, duplicate pairs and a 6-axis boolean vector.",
+    "Admitted ONLY on a judge/lead technical rejection comment (attribution + concrete reason) or a verified duplicate of #N link; bare labels skipped, never admitted.",
+    "bare_label_skipped counts issues with a rejection label but no retrievable reason/link; no_signal_skipped counts issues with no rejection signal at all. Both are excluded from admissions and benchmarks.",
+    "comment_sha256 is sha256 of the comment/issue text, not the text itself; it is a content fingerprint only.",
+    "Per-axis pointers use very compact refs (#issue@c<id>); repo slug and full permalink are stored once at row level to bound field size.",
+    "Issue-list bodies preferred (1 call/100 issues); comments fetched only for a bounded set whose body/labels indicate rejection.",
+    "Token resolution order: GITHUB_TOKEN, GH_TOKEN, `gh auth token`; passed as `Authorization: Bearer <token>`. Verified with one cheap uncached /rate_limit call; on failure the adapter degrades to anonymous and says so.",
+    "api_calls_used / api_calls counts NETWORK calls on this run (cache hits cost 0), including the auth verification call; api_paths_called_total (20) is the number of distinct github_get paths attempted across the harvest.",
+    "Candidate repos=10; excluded/present=0. Full-slug registry occupancy + v1(8)/V3(3 C4 + 2 Sherlock) exclusions applied.",
+    "F/Fa splits per-label stratified (mirrors rebalance_splits.py) so val/test stay >=30 and both labels survive a later rebalance. Fb split deterministic sha256(contest)%100 at 40/30/30 (offset 51).",
+    "Fb additional pairs mined from the cached c4_mitigation issues.jsonl (zero REST): same = corroborated reports sharing a target_finding_key or a verified duplicate-N label link; distinct = different findings in different contests. No ambiguous pair was invented.",
+    "Mined pairs deduped against existing Fb candidate ids, unordered pair URLs and the dedup registry; no prose vendored, only permalinks and hashes.",
+    "Issue-list budget (12 calls at up to 2 pages/repo) reached after 6 repos; the 4 remaining eligible repos were not fetched -- no evidence was invented for them.",
+    "duplicate_of is empty only for comment-based rejects that were not duplicate closures; a duplicate pair is never fabricated to fill the field.",
+    "F valid partners use observed positive labels in the same contest; no rows fabricated.",
+    "Fa emits one row per governed axis per admitted finding (label = axis name).",
+    "Fb: same=verified duplicate pair, distinct=cross-contest pair, ambiguous=unresolved duplicate ref.",
+    "All configured fetches completed (or served from cache)."
+  ],
+  "overlap_rows_appended": 0,
+  "prs_skipped": 0,
+  "repos_attempted": 6,
+  "repos_ok": 6,
+  "repos_skipped_excluded_or_present": [],
+  "source": "judge",
+  "splits": {
+    "F": {
+      "counts": {
+        "test": 77,
+        "train": 73,
+        "val": 62
+      },
+      "labels": {
+        "test": {
+          "rejected_false_positive": 36,
+          "valid_finding": 41
+        },
+        "train": {
+          "rejected_false_positive": 34,
+          "valid_finding": 39
+        },
+        "val": {
+          "rejected_false_positive": 29,
+          "valid_finding": 33
+        }
+      },
+      "strategy": "per-label stratified 35/30/30 (<200) / 70/15/15"
+    },
+    "Fa": {
+      "counts": {
+        "test": 216,
+        "train": 204,
+        "val": 174
+      },
+      "labels": {
+        "test": {
+          "code_gate_removes_standing": 36,
+          "corroborated_duplicate": 36,
+          "exploit_failed": 36,
+          "judge_attributed": 36,
+          "label_only": 36,
+          "technical_falsity": 36
+        },
+        "train": {
+          "code_gate_removes_standing": 34,
+          "corroborated_duplicate": 34,
+          "exploit_failed": 34,
+          "judge_attributed": 34,
+          "label_only": 34,
+          "technical_falsity": 34
+        },
+        "val": {
+          "code_gate_removes_standing": 29,
+          "corroborated_duplicate": 29,
+          "exploit_failed": 29,
+          "judge_attributed": 29,
+          "label_only": 29,
+          "technical_falsity": 29
+        }
+      },
+      "strategy": "per-label stratified 35/30/30 (<200) / 70/15/15"
+    },
+    "Fb": {
+      "counts": {
+        "test": 157,
+        "train": 208,
+        "val": 162
+      },
+      "labels": {
+        "test": {
+          "distinct": 44,
+          "same": 113
+        },
+        "train": {
+          "distinct": 41,
+          "same": 167
+        },
+        "val": {
+          "distinct": 31,
+          "same": 131
+        }
+      },
+      "offset": 51,
+      "strategy": "contest-level 40/30/30"
+    }
+  },
+  "with_duplicate_link": 91,
+  "with_technical_reason": 16
+}

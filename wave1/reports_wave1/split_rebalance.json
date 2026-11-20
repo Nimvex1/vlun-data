@@ -1,0 +1,83 @@
+{
+  "F_false_positive_rejection": {
+    "labels_per_split": {
+      "test": [
+        "rejected_false_positive",
+        "valid_finding"
+      ],
+      "train": [
+        "rejected_false_positive",
+        "valid_finding"
+      ],
+      "val": [
+        "rejected_false_positive",
+        "valid_finding"
+      ]
+    },
+    "ratio": "70/15/15",
+    "rows": 212,
+    "splits": {
+      "test": 77,
+      "train": 73,
+      "val": 62
+    }
+  },
+  "Fa_rejection_evidence_axis_vector": {
+    "labels_per_split": {
+      "test": [
+        "code_gate_removes_standing",
+        "corroborated_duplicate",
+        "exploit_failed",
+        "judge_attributed",
+        "label_only",
+        "technical_falsity"
+      ],
+      "train": [
+        "code_gate_removes_standing",
+        "corroborated_duplicate",
+        "exploit_failed",
+        "judge_attributed",
+        "label_only",
+        "technical_falsity"
+      ],
+      "val": [
+        "code_gate_removes_standing",
+        "corroborated_duplicate",
+        "exploit_failed",
+        "judge_attributed",
+        "label_only",
+        "technical_falsity"
+      ]
+    },
+    "ratio": "70/15/15",
+    "rows": 594,
+    "splits": {
+      "test": 216,
+      "train": 204,
+      "val": 174
+    }
+  },
+  "Fb_duplicate_radar_pair": {
+    "labels_per_split": {
+      "test": [
+        "distinct",
+        "same"
+      ],
+      "train": [
+        "distinct",
+        "same"
+      ],
+      "val": [
+        "distinct",
+        "same"
+      ]
+    },
+    "ratio": "70/15/15",
+    "rows": 527,
+    "splits": {
+      "test": 160,
+      "train": 210,
+      "val": 157
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "admitted_by_source": {
+    "c4_mitigation": 531,
+    "formal_specs": 895,
+    "ghsa_web3_netnew": 31,
+    "judge": 99,
+    "markdown_two_revision": 575,
+    "reevmbench": 20
+  },
+  "admitted_rows": 2151,
+  "checked_at": "2026-11-20T08:20:04Z",
+  "collision_details": [],
+  "collisions": 0,
+  "dedup_keys_checked": 3393,
+  "overlap_manifest_rows": 892,
+  "registry_size": 24074,
+  "verdict": "PASS"
+}

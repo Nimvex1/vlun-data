@@ -1,0 +1,108 @@
+{
+  "admitted": 31,
+  "admitted_by_label": {
+    "high": 20,
+    "low": 11
+  },
+  "admitted_with_fix_commit": 29,
+  "benchmark_rows_written": {},
+  "built_at": "2026-11-19T19:52:16Z",
+  "fix_commit_basis_in_admitted": {
+    "": 2,
+    "patched_version_tag": 29
+  },
+  "notes": [
+    "METADATA_ONLY: no advisory prose vendored; this module only reads admitted metadata and cached payloads and writes its own report.",
+    "Cached GitHub advisory payloads in work/sources/_api_cache have no OSV `references` array, so commit/PR URLs were harvested from the cached advisory description as a documented fallback; every URL recorded here was read from disk.",
+    "A 40-hex commit URL replaces the tag-derived SHA (basis=osv_reference_commit). A PR URL alone records pr_number with basis=osv_reference_pr and RETAINS the tag-derived SHA - no SHA is invented.",
+    "No candidate/admitted/invariants/PRESENT/benchmark files are written by this module; markdown.py derives severity_reconciliation from the admitted data with these same upgrade helpers, so reruns are idempotent."
+  ],
+  "osv_reference_scan": {
+    "commit_sha_upgrades": 0,
+    "not_applicable": 2,
+    "patched_version_tag_rows": 29,
+    "pr_only_records": 7,
+    "sha_upgraded_rows": 0,
+    "unchanged": 22,
+    "upgrades": [
+      {
+        "candidate_id": "ghsa-ghsa-mx2q-35m2-x2rh-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-MX2Q-35M2-X2RH",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "8e80ae0bfe5dddeda6ddf60f5670d6189cee66ef",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "8e80ae0bfe5dddeda6ddf60f5670d6189cee66ef",
+        "pr_number": 4154,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-9j3m-g383-29qr-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-9J3M-G383-29QR",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "pr_number": 3578,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-xrc4-737v-9q75-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-XRC4-737V-9Q75",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "pr_number": 3561,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-7grf-83vw-6f5x-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-7GRF-83VW-6F5X",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "37205eae57a99c39fe9941f805f2a00274eb761a",
+        "pr_number": 3587,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-4g63-c64m-25w9-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-4G63-C64M-25W9",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "2fafb5877c0cd5b710e0651eaa39315210499981",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "2fafb5877c0cd5b710e0651eaa39315210499981",
+        "pr_number": 3552,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-qh9x-gcfh-pcrw-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-QH9X-GCFH-PCRW",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "2fafb5877c0cd5b710e0651eaa39315210499981",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "2fafb5877c0cd5b710e0651eaa39315210499981",
+        "pr_number": 3552,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      },
+      {
+        "candidate_id": "ghsa-ghsa-9c22-pwxw-p6hx-openzeppelin__openzeppelin-contracts",
+        "ghsa_id": "GHSA-9C22-PWXW-P6HX",
+        "new_basis": "osv_reference_pr",
+        "new_fix_commit": "79e2af8dca96e7f7dfd2a386671e3ed19303c64f",
+        "old_basis": "patched_version_tag",
+        "old_fix_commit": "79e2af8dca96e7f7dfd2a386671e3ed19303c64f",
+        "pr_number": 3006,
+        "repo_slug": "OpenZeppelin/openzeppelin-contracts",
+        "status": "pr_recorded"
+      }
+    ]
+  },
+  "source": "ghsa_web3_netnew"
+}

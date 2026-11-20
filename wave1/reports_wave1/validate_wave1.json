@@ -1,0 +1,141 @@
+{
+  "gates": {
+    "a_single_writer": {
+      "scripts_scanned": 13,
+      "verdict": "PASS",
+      "violations": []
+    },
+    "b_present_drift": {
+      "canonical_drift": [],
+      "canonical_files_checked": 8,
+      "verdict": "PASS",
+      "wave1_script_drift": []
+    },
+    "c_dedup": {
+      "admitted_rows": 2151,
+      "collisions": 0,
+      "returncode": 0,
+      "stdout": "[dedup_check] registry=24074 admitted=2151 keys=3393 collisions=0 overlaps=892 -> PASS",
+      "verdict": "PASS"
+    },
+    "d_rights": {
+      "admitted_rows_scanned": 2151,
+      "prose_leaks": [],
+      "rights_rows": 7,
+      "verdict": "PASS"
+    },
+    "e_benchmark": {
+      "families": {
+        "F_false_positive_rejection": {
+          "observed_labels": [
+            "rejected_false_positive",
+            "valid_finding"
+          ],
+          "ready_for_primary": true,
+          "rows": 212,
+          "scorable": 212,
+          "test_rows": 77,
+          "train_only_shortcut": 0.5325
+        },
+        "Fa_rejection_evidence_axis_vector": {
+          "observed_labels": [
+            "code_gate_removes_standing",
+            "corroborated_duplicate",
+            "exploit_failed",
+            "judge_attributed",
+            "label_only",
+            "technical_falsity"
+          ],
+          "ready_for_primary": true,
+          "rows": 594,
+          "scorable": 594,
+          "test_rows": 216,
+          "train_only_shortcut": 0.1667
+        },
+        "Fb_duplicate_radar_pair": {
+          "observed_labels": [
+            "distinct",
+            "same"
+          ],
+          "ready_for_primary": true,
+          "rows": 527,
+          "scorable": 527,
+          "test_rows": 160,
+          "train_only_shortcut": 0.775
+        },
+        "G_patch_verification": {
+          "observed_labels": [
+            "mitigation_confirmed",
+            "unmitigated_or_regression"
+          ],
+          "ready_for_primary": true,
+          "rows": 531,
+          "scorable": 531,
+          "test_rows": 81,
+          "train_only_shortcut": 0.7531
+        },
+        "J_verified_patch": {
+          "observed_labels": [],
+          "ready_for_primary": false,
+          "rows": 0,
+          "scorable": 0,
+          "test_rows": 0,
+          "train_only_shortcut": null
+        },
+        "invariants": {
+          "observed_labels": [
+            "property_held",
+            "property_violated"
+          ],
+          "ready_for_primary": true,
+          "rows": 297,
+          "scorable": 297,
+          "test_rows": 37,
+          "train_only_shortcut": 0.7838
+        },
+        "prove_candidates": {
+          "observed_labels": [],
+          "ready_for_primary": false,
+          "rows": 18,
+          "scorable": 0,
+          "test_rows": 0,
+          "train_only_shortcut": null
+        },
+        "prove_incidents": {
+          "observed_labels": [],
+          "ready_for_primary": false,
+          "rows": 20,
+          "scorable": 0,
+          "test_rows": 0,
+          "train_only_shortcut": null
+        },
+        "severity_reconciliation": {
+          "observed_labels": [
+            "high",
+            "low"
+          ],
+          "ready_for_primary": false,
+          "rows": 606,
+          "scorable": 606,
+          "test_rows": 90,
+          "train_only_shortcut": 0.9778
+        }
+      },
+      "primary_ready_count": 5,
+      "verdict": "PASS"
+    },
+    "f_label_purity": {
+      "families_checked": 9,
+      "verdict": "PASS",
+      "violations": []
+    },
+    "g_j_execution": {
+      "non_L6_rows": [],
+      "rows": 0,
+      "verdict": "PASS"
+    }
+  },
+  "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
+  "validated_at": "2026-11-20T08:20:04Z",
+  "verdict": "PASS"
+}

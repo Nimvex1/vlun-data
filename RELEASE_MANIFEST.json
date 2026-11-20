@@ -23,21 +23,21 @@
   ],
   "counts": {
     "by_licence": {
-      "CC-BY-4.0": 207,
-      "MIT": 284
+      "CC-BY-4.0": 225,
+      "MIT": 298
     },
     "by_rights_status": {
       "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1303,
+      "internal_research_artefact_not_cleared": 1323,
       "metadata_only": 1,
-      "project_own": 476,
-      "withheld_third_party_no_redistribution_rights": 142
+      "project_own": 508,
+      "withheld_third_party_no_redistribution_rights": 146
     },
-    "not_released_paths": 1445,
+    "not_released_paths": 1469,
     "paths_with_measured_personal_data": 13,
-    "paths_with_measured_verbatim_third_party_content": 142,
-    "released_paths": 491,
-    "tracked_paths": 1936
+    "paths_with_measured_verbatim_third_party_content": 146,
+    "released_paths": 523,
+    "tracked_paths": 1992
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -1512,7 +1512,31 @@
     "training/exploit_reasoning.jsonl",
     "training/negative_reasoning.jsonl",
     "training/patch_reasoning.jsonl",
-    "training/vulnerability_detection.jsonl"
+    "training/vulnerability_detection.jsonl",
+    "wave1/01_dedup/overlap_manifest.jsonl",
+    "wave1/01_dedup/registry.jsonl",
+    "wave1/01_dedup/registry_summary.json",
+    "wave1/03_candidates/c4_mitigation/issues.jsonl",
+    "wave1/03_candidates/formal_specs/rules.jsonl",
+    "wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl",
+    "wave1/03_candidates/judge/issues.jsonl",
+    "wave1/03_candidates/markdown_two_revision/candidates.jsonl",
+    "wave1/03_candidates/reevmbench/harnesses.jsonl",
+    "wave1/04_admitted/c4_mitigation/findings.jsonl",
+    "wave1/04_admitted/formal_specs/findings.jsonl",
+    "wave1/04_admitted/ghsa_web3_netnew/findings.jsonl",
+    "wave1/04_admitted/judge/findings.jsonl",
+    "wave1/04_admitted/markdown_two_revision/findings.jsonl",
+    "wave1/04_admitted/reevmbench/findings.jsonl",
+    "wave1/benchmark_wave1/F_false_positive_rejection.jsonl",
+    "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl",
+    "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl",
+    "wave1/benchmark_wave1/G_patch_verification.jsonl",
+    "wave1/benchmark_wave1/J_verified_patch.jsonl",
+    "wave1/benchmark_wave1/invariants.jsonl",
+    "wave1/benchmark_wave1/prove_candidates.jsonl",
+    "wave1/benchmark_wave1/prove_incidents.jsonl",
+    "wave1/benchmark_wave1/severity_reconciliation.jsonl"
   ],
   "open_questions": [
     {
@@ -2068,7 +2092,39 @@
     "tests/test_v32_unblock_records.py": "MIT",
     "tests/test_v3_run_accounting.py": "MIT",
     "tests/test_v4_ingestion.py": "MIT",
-    "tests/test_v4_manifest_accounting.py": "MIT"
+    "tests/test_v4_manifest_accounting.py": "MIT",
+    "wave1/00_governance/PRESENT.md": "CC-BY-4.0",
+    "wave1/00_governance/PRESENT.md.json": "CC-BY-4.0",
+    "wave1/00_governance/label_domains.json": "CC-BY-4.0",
+    "wave1/00_governance/rights.jsonl": "CC-BY-4.0",
+    "wave1/00_governance/source_registry.jsonl": "CC-BY-4.0",
+    "wave1/reports_wave1/WAVE1_FREEZE_SUMMARY.md": "CC-BY-4.0",
+    "wave1/reports_wave1/WAVE1_PHASE1_SUMMARY.md": "CC-BY-4.0",
+    "wave1/reports_wave1/WAVE1_PHASE2_SUMMARY.md": "CC-BY-4.0",
+    "wave1/reports_wave1/build_wave1.json": "CC-BY-4.0",
+    "wave1/reports_wave1/dedup_check.json": "CC-BY-4.0",
+    "wave1/reports_wave1/formal_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/ghsa_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/judge_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/markdown_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/mitigation_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/reevmbench_harvest.json": "CC-BY-4.0",
+    "wave1/reports_wave1/split_rebalance.json": "CC-BY-4.0",
+    "wave1/reports_wave1/validate_wave1.json": "CC-BY-4.0",
+    "wave1/scripts/_common.py": "MIT",
+    "wave1/scripts/adapters/formal.py": "MIT",
+    "wave1/scripts/adapters/ghsa.py": "MIT",
+    "wave1/scripts/adapters/judge.py": "MIT",
+    "wave1/scripts/adapters/markdown.py": "MIT",
+    "wave1/scripts/adapters/mitigation.py": "MIT",
+    "wave1/scripts/adapters/reevmbench.py": "MIT",
+    "wave1/scripts/build_dedup_registry.py": "MIT",
+    "wave1/scripts/build_governance.py": "MIT",
+    "wave1/scripts/build_wave1.py": "MIT",
+    "wave1/scripts/dedup_check.py": "MIT",
+    "wave1/scripts/rebalance_splits.py": "MIT",
+    "wave1/scripts/validate_wave1.py": "MIT",
+    "wave1/tests/test_wave1.py": "MIT"
   },
   "path_status_detail": {
     "RELEASE_MANIFEST.json": {
@@ -3644,6 +3700,42 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 63 run(s) of at most 4447 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/01_dedup/registry.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 107,
+        "verbatim_third_party_strings": 64
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 64 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/03_candidates/c4_mitigation/issues.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 69,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 69 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/03_candidates/judge/issues.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 130,
+        "verbatim_third_party_strings": 23
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 23 string(s) carry a run of at most 130 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/04_admitted/judge/findings.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 100,
+        "verbatim_third_party_strings": 3
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 100 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     }
   },
   "paths": {
@@ -5582,14 +5674,70 @@
     "training/exploit_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "training/negative_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "training/patch_reasoning.jsonl": "internal_research_artefact_not_cleared",
-    "training/vulnerability_detection.jsonl": "withheld_third_party_no_redistribution_rights"
+    "training/vulnerability_detection.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/00_governance/PRESENT.md": "project_own",
+    "wave1/00_governance/PRESENT.md.json": "project_own",
+    "wave1/00_governance/label_domains.json": "project_own",
+    "wave1/00_governance/rights.jsonl": "project_own",
+    "wave1/00_governance/source_registry.jsonl": "project_own",
+    "wave1/01_dedup/overlap_manifest.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/01_dedup/registry.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/01_dedup/registry_summary.json": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/c4_mitigation/issues.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/03_candidates/formal_specs/rules.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/judge/issues.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/03_candidates/markdown_two_revision/candidates.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/reevmbench/harnesses.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/c4_mitigation/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/formal_specs/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/ghsa_web3_netnew/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/judge/findings.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/04_admitted/markdown_two_revision/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/reevmbench/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/F_false_positive_rejection.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/G_patch_verification.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/J_verified_patch.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/invariants.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/prove_candidates.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/prove_incidents.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/severity_reconciliation.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/reports_wave1/WAVE1_FREEZE_SUMMARY.md": "project_own",
+    "wave1/reports_wave1/WAVE1_PHASE1_SUMMARY.md": "project_own",
+    "wave1/reports_wave1/WAVE1_PHASE2_SUMMARY.md": "project_own",
+    "wave1/reports_wave1/build_wave1.json": "project_own",
+    "wave1/reports_wave1/dedup_check.json": "project_own",
+    "wave1/reports_wave1/formal_harvest.json": "project_own",
+    "wave1/reports_wave1/ghsa_harvest.json": "project_own",
+    "wave1/reports_wave1/judge_harvest.json": "project_own",
+    "wave1/reports_wave1/markdown_harvest.json": "project_own",
+    "wave1/reports_wave1/mitigation_harvest.json": "project_own",
+    "wave1/reports_wave1/reevmbench_harvest.json": "project_own",
+    "wave1/reports_wave1/split_rebalance.json": "project_own",
+    "wave1/reports_wave1/validate_wave1.json": "project_own",
+    "wave1/scripts/_common.py": "project_own",
+    "wave1/scripts/adapters/formal.py": "project_own",
+    "wave1/scripts/adapters/ghsa.py": "project_own",
+    "wave1/scripts/adapters/judge.py": "project_own",
+    "wave1/scripts/adapters/markdown.py": "project_own",
+    "wave1/scripts/adapters/mitigation.py": "project_own",
+    "wave1/scripts/adapters/reevmbench.py": "project_own",
+    "wave1/scripts/build_dedup_registry.py": "project_own",
+    "wave1/scripts/build_governance.py": "project_own",
+    "wave1/scripts/build_wave1.py": "project_own",
+    "wave1/scripts/dedup_check.py": "project_own",
+    "wave1/scripts/rebalance_splits.py": "project_own",
+    "wave1/scripts/validate_wave1.py": "project_own",
+    "wave1/tests/test_wave1.py": "project_own"
   },
   "policy": {
     "attribution_is_not_a_right_grant": true,
     "blanket_clearance_claimed": false,
     "hash_or_url_is_not_a_right_grant": true,
     "legal_clearance_claimed": false,
-    "licence_assignment_rule": "MIT for the authors' own code under scripts/ and tests/, CC-BY-4.0 for every other released path, and no licence at all for a path that is not released",
+    "licence_assignment_rule": "MIT for the authors' own code under scripts/, tests/, wave1/scripts/ and wave1/tests/, CC-BY-4.0 for every other released path, and no licence at all for a path that is not released",
     "metadata_only_is_a_policy_not_a_clearance": true,
     "released_set_rule": "a tracked path that is not listed in `paths` with a released rights_status is not part of the released set; the release process ships exactly the released paths"
   },
@@ -6085,10 +6233,67 @@
     "tests/test_v32_unblock_records.py",
     "tests/test_v3_run_accounting.py",
     "tests/test_v4_ingestion.py",
-    "tests/test_v4_manifest_accounting.py"
+    "tests/test_v4_manifest_accounting.py",
+    "wave1/00_governance/PRESENT.md",
+    "wave1/00_governance/PRESENT.md.json",
+    "wave1/00_governance/label_domains.json",
+    "wave1/00_governance/rights.jsonl",
+    "wave1/00_governance/source_registry.jsonl",
+    "wave1/reports_wave1/WAVE1_FREEZE_SUMMARY.md",
+    "wave1/reports_wave1/WAVE1_PHASE1_SUMMARY.md",
+    "wave1/reports_wave1/WAVE1_PHASE2_SUMMARY.md",
+    "wave1/reports_wave1/build_wave1.json",
+    "wave1/reports_wave1/dedup_check.json",
+    "wave1/reports_wave1/formal_harvest.json",
+    "wave1/reports_wave1/ghsa_harvest.json",
+    "wave1/reports_wave1/judge_harvest.json",
+    "wave1/reports_wave1/markdown_harvest.json",
+    "wave1/reports_wave1/mitigation_harvest.json",
+    "wave1/reports_wave1/reevmbench_harvest.json",
+    "wave1/reports_wave1/split_rebalance.json",
+    "wave1/reports_wave1/validate_wave1.json",
+    "wave1/scripts/_common.py",
+    "wave1/scripts/adapters/formal.py",
+    "wave1/scripts/adapters/ghsa.py",
+    "wave1/scripts/adapters/judge.py",
+    "wave1/scripts/adapters/markdown.py",
+    "wave1/scripts/adapters/mitigation.py",
+    "wave1/scripts/adapters/reevmbench.py",
+    "wave1/scripts/build_dedup_registry.py",
+    "wave1/scripts/build_governance.py",
+    "wave1/scripts/build_wave1.py",
+    "wave1/scripts/dedup_check.py",
+    "wave1/scripts/rebalance_splits.py",
+    "wave1/scripts/validate_wave1.py",
+    "wave1/tests/test_wave1.py"
   ],
   "rights_transformation_version": "rights-1.0",
   "rules": [
+    {
+      "base_rights_status": "project_own",
+      "prefix": "wave1/scripts/",
+      "why": "the wave1 ingestion pipeline: the authors' own code, MIT"
+    },
+    {
+      "base_rights_status": "project_own",
+      "prefix": "wave1/tests/",
+      "why": "the wave1 test suite: the authors' own code, MIT"
+    },
+    {
+      "base_rights_status": "project_own",
+      "prefix": "wave1/00_governance/",
+      "why": "wave1 governance decisions, rights register and label schemas: the authors' own work"
+    },
+    {
+      "base_rights_status": "project_own",
+      "prefix": "wave1/reports_wave1/",
+      "why": "wave1 measurement and harvest reports: the authors' own analysis"
+    },
+    {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "prefix": "wave1/",
+      "why": "wave1 research data (dedup registry, harvested candidates, admitted METADATA_ONLY records, benchmark tasks and staged splits): retained in the research tree, METADATA_ONLY, not licensed here and not cleared for redistribution"
+    },
     {
       "base_rights_status": "project_own",
       "prefix": "distribution_v1/",

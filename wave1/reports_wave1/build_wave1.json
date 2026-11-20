@@ -1,0 +1,24 @@
+{
+  "built_at": "2026-11-19T19:52:21Z",
+  "failures": [],
+  "order": [
+    "adapters/mitigation.py",
+    "adapters/formal.py",
+    "adapters/markdown.py",
+    "adapters/ghsa.py",
+    "adapters/judge.py",
+    "adapters/reevmbench.py",
+    "rebalance_splits.py"
+  ],
+  "ran": [
+    "adapters/mitigation.py",
+    "adapters/formal.py",
+    "adapters/markdown.py",
+    "adapters/ghsa.py",
+    "adapters/judge.py",
+    "adapters/reevmbench.py",
+    "rebalance_splits.py"
+  ],
+  "seconds": 7.1,
+  "verdict": "PASS"
+}

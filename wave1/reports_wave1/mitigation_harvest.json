@@ -1,0 +1,49 @@
+{
+  "G_label_distribution": {
+    "mitigation_confirmed": 418,
+    "unmitigated_or_regression": 113
+  },
+  "G_split_distribution": {
+    "test": 81,
+    "train": 371,
+    "val": 79
+  },
+  "G_split_label_distribution": {
+    "test": {
+      "mitigation_confirmed": 61,
+      "unmitigated_or_regression": 20
+    },
+    "train": {
+      "mitigation_confirmed": 300,
+      "unmitigated_or_regression": 71
+    },
+    "val": {
+      "mitigation_confirmed": 57,
+      "unmitigated_or_regression": 22
+    }
+  },
+  "admitted": 531,
+  "admitted_by_label": {
+    "mitigation_confirmed": 418,
+    "unmitigated_or_regression": 113
+  },
+  "benchmark_G_rows": 531,
+  "benchmark_J_rows": 0,
+  "dropped_equal_sha": 73,
+  "dropped_invalid_sha": 440,
+  "dropped_no_provenance": 0,
+  "generated_at": "2026-11-19T19:52:14Z",
+  "notes": [
+    "G is derived from ALL admitted C4 mitigation rows; outcome_label is the only supervision signal. Severity strings high/low are NEVER admitted into G.",
+    "J_verified_patch is empty because no wave1 row carries an executed two-revision L6 artefact (violation reproduced on vulnerable SHA + blocked on fixed SHA). J stays empty until real execution is performed; unexecuted patch diffs belong in G.",
+    "prove_candidates rows=18: a NOT_SCORABLE pool with no answer and no label fields. A row qualifies only if BOTH vulnerable_commit and fixed_commit are 40-hex SHAs, they are STRICTLY DIFFERENT, and the row has a real permalink/source ref.",
+    "dropped_equal_sha=73: admitted rows whose vulnerable_commit equals fixed_commit. They are excluded from prove_candidates but remain unchanged in 04_admitted/c4_mitigation/findings.jsonl as single-SHA records.",
+    "dropped_invalid_sha=440, dropped_no_provenance=0: rows failing the 40-hex SHA check or carrying no real permalink/source ref. These three drop counts plus the kept rows partition the admitted rows.",
+    "Idempotent derivation: prove_candidates is rewritten from admitted data on every run (deduplicated by candidate_id); this module writes no candidate/admitted/invariants/PRESENT files and makes no network calls."
+  ],
+  "prove_candidates_distinct_revisions": 18,
+  "prove_candidates_identical_sha_pairs": 0,
+  "prove_candidates_rows": 18,
+  "source": "c4_mitigation",
+  "split_method": "deterministic sha256(repo_slug|candidate_id) contest-stratified 70/15/15"
+}

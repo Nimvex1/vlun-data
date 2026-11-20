@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-27
 **Inputs:** `VLUN-DEEP-RESEARCH-2026-10-26.md` (six-agent audit) and `vlun-data_audit_report.pdf` (Z.ai Security Research, 15 pp). Both audit commit `6933f3f`.
-**Working tree:** `C:\Users\jeet\Downloads\vlun-data-main\vlun-data-main` at `6933f3f3f1a6d9270f405bf317d3d6d6de8fc7ee`, 1,822 tracked files, 53 gates, 718 unit tests.
+**Working tree:** `C:\Users\REDACTED\Downloads\vlun-data-main\vlun-data-main` at `6933f3f3f1a6d9270f405bf317d3d6d6de8fc7ee`, 1,822 tracked files, 53 gates, 718 unit tests.
 **Status:** plan only. No repository file was modified. The two pre-existing uncommitted report edits are still in place, untouched.
 
 Scope note: the two audits overlap but do not agree everywhere. This plan merges them into one defect register, resolves their numeric disagreements by re-measurement, and adds findings from this session. Where a figure below is not attributed to an audit, I re-measured it today.

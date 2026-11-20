@@ -1,0 +1,28 @@
+{
+  "alias_fold_edges": 6,
+  "built_at": "2026-11-19T19:08:16Z",
+  "by_layer_type": {
+    "Prove:revision_pair": 131,
+    "V3:attack_tx": 517,
+    "V3:candidate_id": 7712,
+    "V3:certora_key": 200,
+    "V3:source_id": 18,
+    "V4:GHSA": 12,
+    "V4:candidate_id": 5268,
+    "V4:source_id": 3,
+    "Vbeta:finding_id": 13995,
+    "Vbeta:solodit_url": 2421,
+    "Vbeta:source_id": 15,
+    "v1:finding_id": 1637,
+    "v1:mitigation_issue": 46,
+    "v1:repo_slug": 1637,
+    "v2.2:CVE": 71,
+    "v2.2:GHSA": 77,
+    "v2.2:alias": 9,
+    "v2.2:alias_fold": 6,
+    "v2.2:source_id": 112
+  },
+  "registry_rows": 24074,
+  "renft_mitigation_issue_occupancies": 46,
+  "unique_revision_pairs": 131
+}
