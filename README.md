@@ -15,10 +15,12 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
+| V4 | 666 report candidates from Halborn/Oak/CoinFabrik archives | 5,268 admitted | all L0 — no PoC execution performed |
+| wave1 | isolated METADATA_ONLY research tree | 2,186 admitted | 55 incident harnesses + 18 prove candidates attempted; **0 L6**, `J_verified_patch` empty |
 
 Gates (0 critical failures): v2 85/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction) · V4 0/5,268 (L0-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935 · V4 0/5,268. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -43,6 +45,8 @@ reports/          every generated report, including reports/v2_2/ and reports/v3
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
 Vbeta/            isolated new-language layer (6,935 admitted / 7,060 candidates, 15 sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
+V4/               isolated Halborn/Oak/CoinFabrik layer (5,268 admitted, all L0): jsonl_v4/, derived_v4/, licensing.json; METADATA_ONLY
+wave1/            isolated METADATA_ONLY research tree (2,186 admitted, 24,074-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
 nextdata/ + .firecrawl/  local-only Solodit scrape artefacts (1,926 issue URLs indexed, 733 detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
@@ -439,6 +443,24 @@ scale (no record above L1 without run artefacts). Rule 3: METADATA_ONLY (links +
 facts; full prose one hop away, never copied in). Admission is computed in code
 (`decide()`): IMPORT only on title + severity + link + status all observed. See
 [`Vbeta/README.md`](Vbeta/README.md) and the per-source ingestion reports.
+
+## wave1 layer (isolated, METADATA_ONLY research tree)
+
+`wave1/` is an additive research tree, not a merge into the published corpora: a
+24,074-key dedup registry ([`wave1/01_dedup/registry.jsonl`](wave1/01_dedup/registry.jsonl))
+screens its adapters against every canonical layer, and no wave1 writer may touch
+PRESENT. It admits **2,186** records — c4_mitigation 531,
+formal_specs 895, markdown 575,
+ghsa 31, judge 99,
+reevmbench 55 — all under METADATA_ONLY handling
+(links + attributed facts; report prose and full comment bodies are never copied in).
+5 families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
+Stage 1 execution attempted 55 ReEVMBench incident harnesses and
+18 prove candidates; **0 reached L6** and `J_verified_patch`
+holds 0 rows — no verified patches are claimed. Counts come from
+[`wave1/reports_wave1/dedup_check.json`](wave1/reports_wave1/dedup_check.json),
+[`wave1/reports_wave1/execution_summary.json`](wave1/reports_wave1/execution_summary.json)
+and [`wave1/reports_wave1/validate_wave1.json`](wave1/reports_wave1/validate_wave1.json).
 
 ## Integrity infrastructure
 

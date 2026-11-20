@@ -5,7 +5,7 @@
   "fix": null,
   "fix_sha": "cbe841804b69dee8e23882b3ae9efcbd4cbec31b",
   "forge_status": "source_repo_missing",
-  "generated_at": "2026-11-20T09:20:56Z",
+  "generated_at": "2026-11-20T09:44:58Z",
   "input_row": {
     "candidate_id": "c4_mitigation:code-423n4/2024-02-renft-mitigation-findings:28",
     "distinct_revisions": true,

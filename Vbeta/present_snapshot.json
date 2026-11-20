@@ -2,7 +2,7 @@
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
   "resnapshot_reason": "README regenerated after final splits/report sync",
   "sentinel_sha256": {
-    "README.md": "8a7622f035a89fe7c623387ba2cfe1391bf667de702b224c7978142d59c8f152",
+    "README.md": "754f23ea0c246f25813f7ea090a0fe842f14aca67c4bc755dad5704da7043122",
     "benchmark/manifest.json": "c021586fa2f3577d03cf8c1ac220d92e339905a7d46a1c0c54e2f423fc1569b6",
     "derived_v3/manifest.json": "51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b",
     "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",

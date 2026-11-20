@@ -503,6 +503,31 @@ def render() -> str:
     _vbdec = vbm.get("candidate_decisions", {}) or {}
     _vblvl = vbm.get("candidate_verification_levels", {}) or {}
     _vblang = vbm.get("admitted_by_language", {}) or {}
+    # wave1 layer: isolated METADATA_ONLY research tree. Same rule as above --
+    # every figure is read from the wave1 reports, never typed in. The older
+    # freeze summary predates the ReEVMBench unblock (20 -> 55), so it is not
+    # quoted here; the dedup gate is the authority for the admitted count.
+    _w1 = ROOT / "wave1" / "reports_wave1"
+    w1dedup = jread(_w1 / "dedup_check.json", {}) or {}
+    w1exec = jread(_w1 / "execution_summary.json", {}) or {}
+    w1gate = jread(_w1 / "validate_wave1.json", {}) or {}
+    w1_admitted = w1dedup.get("admitted_rows", 0) or 0
+    w1_by_source = w1dedup.get("admitted_by_source", {}) or {}
+    w1_registry = w1dedup.get("registry_size", 0) or 0
+    _w1tracks = w1exec.get("tracks", {}) or {}
+    w1_incidents = ((_w1tracks.get("incidents") or {}).get("attempted", 0) or 0)
+    w1_candidates = ((_w1tracks.get("candidates") or {}).get("attempted", 0) or 0)
+    w1_l6 = sum(
+        ((_w1tracks.get(_t) or {}).get("by_status") or {}).get("verified_L6", 0) or 0
+        for _t in ("incidents", "candidates"))
+    w1_jrows = w1exec.get("J_verified_patch_rows", 0) or 0
+    w1_primary = (((w1gate.get("gates") or {}).get("e_benchmark") or {}).get(
+        "primary_ready_count", 0) or 0)
+    # V4 layer: Halborn/Oak/CoinFabrik archives, all L0 (read, never typed).
+    v4m = jread(ROOT / "derived_v4" / "manifest.json", {}) or {}
+    v4_admitted = v4m.get("admitted", 0) or 0
+    v4_l5 = sum(v for k, v in (v4m.get("verification_levels") or {}).items()
+                if k in ("L5", "L6"))
     def _one(d):
         return json.dumps(d, sort_keys=True)
 
@@ -743,10 +768,12 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.1 | normalized findings with spans + overlays | {n(norm31.get('preview_count', 0))} preview rows ({n((norm31.get('fragment_decisions') or {}).get('admitted', 0))} new) | severity on {n(_cov_after.get('severity_known', 0))}, class on {n(_cov_after.get('class_known', 0))}, files on {n(_cov_after.get('affected_files', 0))} |
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced violations (fund_theft), {(proof32.get('by_level') or {}).get('L3', 0)} not reproduced at L3 (blocked or test failure) |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
+| V4 | {n(v4m.get('source_candidates_staged', 0))} report candidates from Halborn/Oak/CoinFabrik archives | {n(v4_admitted)} admitted | all L0 — no PoC execution performed |
+| wave1 | isolated METADATA_ONLY research tree | {n(w1_admitted)} admitted | {n(w1_incidents)} incident harnesses + {n(w1_candidates)} prove candidates attempted; **{n(w1_l6)} L6**, `J_verified_patch` empty |
 
 Gates ({_crit_failures} critical failures): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_l5)}/{n(v3m.get('record_count', 0))} · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_executed)}/{n(v3m.get('record_count', 0))} · Vbeta 0/{n(vbm.get('record_count', 0))}. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_l5)}/{n(v3m.get('record_count', 0))} · Vbeta {n(_vb_verified)}/{n(vbm.get('record_count', 0))} (L0/L1-only by construction) · V4 {n(v4_l5)}/{n(v4_admitted)} (L0-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 {n(pv.get('experimentally_confirmed_pairs', 0))}/{n(dm.get('records', 0))} · v2.2 {n(_v22_verified)}/{n(d22m.get('records', 0))} · V3.0 {n(_v3_executed)}/{n(v3m.get('record_count', 0))} · Vbeta 0/{n(vbm.get('record_count', 0))} · V4 0/{n(v4_admitted)}. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
@@ -771,6 +798,8 @@ reports/          every generated report, including reports/v2_2/ and reports/v3
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
 Vbeta/            isolated new-language layer ({n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates, {n(vbm.get('source_count', 0))} sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
+V4/               isolated Halborn/Oak/CoinFabrik layer ({n(v4_admitted)} admitted, all L0): jsonl_v4/, derived_v4/, licensing.json; METADATA_ONLY
+wave1/            isolated METADATA_ONLY research tree ({n(w1_admitted)} admitted, {n(w1_registry)}-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
 nextdata/ + .firecrawl/  local-only Solodit scrape artefacts ({n(_solodit_indexed)} issue URLs indexed, {n(vbharv.get('harvested', 0))} detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
@@ -1139,6 +1168,24 @@ scale (no record above L1 without run artefacts). Rule 3: METADATA_ONLY (links +
 facts; full prose one hop away, never copied in). Admission is computed in code
 (`decide()`): IMPORT only on title + severity + link + status all observed. See
 [`Vbeta/README.md`](Vbeta/README.md) and the per-source ingestion reports.
+
+## wave1 layer (isolated, METADATA_ONLY research tree)
+
+`wave1/` is an additive research tree, not a merge into the published corpora: a
+{n(w1_registry)}-key dedup registry ([`wave1/01_dedup/registry.jsonl`](wave1/01_dedup/registry.jsonl))
+screens its adapters against every canonical layer, and no wave1 writer may touch
+PRESENT. It admits **{n(w1_admitted)}** records — c4_mitigation {n(w1_by_source.get('c4_mitigation', 0))},
+formal_specs {n(w1_by_source.get('formal_specs', 0))}, markdown {n(w1_by_source.get('markdown_two_revision', 0))},
+ghsa {n(w1_by_source.get('ghsa_web3_netnew', 0))}, judge {n(w1_by_source.get('judge', 0))},
+reevmbench {n(w1_by_source.get('reevmbench', 0))} — all under METADATA_ONLY handling
+(links + attributed facts; report prose and full comment bodies are never copied in).
+{n(w1_primary)} families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
+Stage 1 execution attempted {n(w1_incidents)} ReEVMBench incident harnesses and
+{n(w1_candidates)} prove candidates; **{n(w1_l6)} reached L6** and `J_verified_patch`
+holds {n(w1_jrows)} rows — no verified patches are claimed. Counts come from
+[`wave1/reports_wave1/dedup_check.json`](wave1/reports_wave1/dedup_check.json),
+[`wave1/reports_wave1/execution_summary.json`](wave1/reports_wave1/execution_summary.json)
+and [`wave1/reports_wave1/validate_wave1.json`](wave1/reports_wave1/validate_wave1.json).
 
 ## Integrity infrastructure
 

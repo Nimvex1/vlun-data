@@ -542,6 +542,92 @@ def published_stats() -> dict:
         return {}
 
 
+def check_committed_ledger_integrity(root: Path) -> tuple[bool, str]:
+    """Verify the committed ledger + stats under ``root`` when no private inputs exist.
+
+    A fresh public checkout has no git-ignored ``work/prove_candidates/*`` ledgers,
+    so the published ledger cannot be re-derived there. That is a reason to SKIP
+    re-derivation, not to declare the published artefact correct: this helper
+    checks the committed ledger and report honestly (structure, invariants and
+    published counts) before the caller logs the skip. ``ok=False`` is a precise
+    integrity failure that must fail ``--check`` -- never a silent pass.
+
+    Pure with respect to ``root``: it reads only files beneath that directory and
+    writes nothing, so it can be unit-tested against a temporary tree.
+    """
+    root = Path(root)
+    ledger = root / "derived_prove" / "candidate_ledger.jsonl"
+    stats_json = root / "reports" / "prove_candidate_ledger.json"
+
+    def fail(why: str) -> tuple[bool, str]:
+        return False, f"committed ledger integrity failed: {why}"
+
+    if not ledger.exists():
+        return fail(f"{ledger.as_posix()} is missing")
+    try:
+        rows = read_jsonl(ledger)
+    except (OSError, ValueError) as exc:
+        return fail(f"{ledger.as_posix()} does not parse as JSONL ({exc})")
+    if not rows:
+        return fail(f"{ledger.as_posix()} is empty")
+
+    seen: set[str] = set()
+    for row in rows:
+        cid = row.get("candidate_id")
+        if not cid:
+            return fail(f"{ledger.as_posix()} has a row without candidate_id")
+        if cid in seen:
+            return fail(f"{ledger.as_posix()} has duplicate candidate_id {cid!r}")
+        seen.add(cid)
+        stage = row.get("candidate_stage")
+        if stage not in STAGES:
+            return fail(f"{cid!r}: candidate_stage {stage!r} is not in {STAGES}")
+        if stage == "qualified":
+            missing = [field for field in QUALIFICATION_FIELDS if not row.get(field)]
+            if missing:
+                return fail(f"{cid!r}: qualified row is missing {', '.join(missing)}")
+
+    problems = validate(rows)
+    if problems:
+        return fail(f"{ledger.as_posix()} violates {len(problems)} invariant(s): "
+                    + "; ".join(problems[:3]))
+
+    if not stats_json.exists():
+        return fail(f"{stats_json.as_posix()} is missing")
+    try:
+        stats = json.loads(stats_json.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        return fail(f"{stats_json.as_posix()} does not parse as JSON ({exc})")
+    if stats.get("schema_version") != SCHEMA_VERSION:
+        return fail(f"{stats_json.as_posix()}: schema_version "
+                    f"{stats.get('schema_version')!r} != {SCHEMA_VERSION!r}")
+    counts = stats.get("counts")
+    if not isinstance(counts, dict):
+        return fail(f"{stats_json.as_posix()}: counts is missing or not an object")
+    expected_keys = ("candidate_rows", "by_stage", "distinct_repositories",
+                     "distinct_repositories_with_a_qualified_task", "by_framework",
+                     "by_origin")
+    missing_keys = [key for key in expected_keys if key not in counts]
+    if missing_keys:
+        return fail(f"{stats_json.as_posix()}: counts lacks {', '.join(missing_keys)}")
+    reported = counts.get("candidate_rows")
+    if reported != len(rows):
+        return fail(f"{stats_json.as_posix()}: counts.candidate_rows {reported} "
+                    f"!= {len(rows)} ledger rows")
+    by_stage = counts.get("by_stage")
+    if not isinstance(by_stage, dict) or not all(
+            isinstance(v, int) for v in by_stage.values()) or \
+            sum(by_stage.values()) != len(rows):
+        return fail(f"{stats_json.as_posix()}: counts.by_stage does not sum to "
+                    f"{len(rows)} ledger rows")
+
+    return True, (
+        f"skipped_no_private_inputs: {ledger.as_posix()} and {stats_json.as_posix()} "
+        f"verified ({len(rows)} rows, {len(problems)} invariant violation(s), "
+        f"schema_version={SCHEMA_VERSION}); no private discovery ledgers in "
+        f"work/prove_candidates, so re-derivation is skipped")
+
+
 def write_guard(rows: list[dict], stats: dict) -> list[str]:
     """Reasons this run must not overwrite the published ledger (empty = safe)."""
     reasons: list[str] = []
@@ -640,13 +726,13 @@ def main() -> int:
     if args.check:
         local_inputs = discovery_inputs()
         if not local_inputs:
-            # The discovery ledgers live in the git-ignored work/ tree. Without
-            # them only the recorded-evidence side can be rebuilt, so the
-            # committed ledger is not re-derivable in a fresh checkout: say so
-            # and skip instead of reporting a false staleness.
-            log("skipped_no_local_inputs: work/prove_candidates is absent; the "
-                "committed ledger is not re-derivable in this checkout")
-            return 0
+            # The discovery ledgers live in the git-ignored work/ tree, so the
+            # committed ledger cannot be re-derived here. Skipping is honest
+            # ONLY after verifying the published artefacts are internally
+            # consistent: a corrupt ledger must fail, never pass silently.
+            verified, message = check_committed_ledger_integrity(ROOT)
+            log(message)
+            return 0 if verified else 1
         current = _load(LEDGER) if LEDGER.exists() else []
         if json.loads(json.dumps(rows)) != current:
             log("STALE: derived_prove/candidate_ledger.jsonl -- run: "

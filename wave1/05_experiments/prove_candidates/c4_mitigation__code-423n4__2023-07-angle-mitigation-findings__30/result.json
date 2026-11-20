@@ -5,7 +5,7 @@
   "fix": null,
   "fix_sha": "f8d0bf7c4009586f7022d5929359041db3990175",
   "forge_status": "source_repo_missing",
-  "generated_at": "2026-11-20T09:20:56Z",
+  "generated_at": "2026-11-20T09:44:58Z",
   "input_row": {
     "candidate_id": "c4_mitigation:code-423n4/2023-07-angle-mitigation-findings:30",
     "distinct_revisions": true,

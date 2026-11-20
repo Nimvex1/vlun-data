@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -72,7 +73,9 @@ OVERLAP = WAVE1 / "01_dedup" / "overlap_manifest.jsonl"
 # ---------------------------------------------------------------------------
 REEVMBENCH = WORK_SOURCES / "blocksecteam__ReEVMBench"
 RUNS = ROOT / "work" / "wave1_runs"
-FORGE_DIR = Path(r"C:\Users\jeet\foundry")
+# Forge is discovered on PATH; an optional FOUNDRY_DIR env var supports
+# installations that are not on PATH. No operator-machine path is committed.
+FORGE_DIR = Path(os.environ["FOUNDRY_DIR"]) if os.environ.get("FOUNDRY_DIR") else None
 
 LEVELS = ("L0", "L1", "L3", "L4", "L5", "L6")
 COUNT_KEYS = (
@@ -115,10 +118,14 @@ def _tail(text: str | None) -> str:
 
 
 def _forge() -> str | None:
-    for cand in (FORGE_DIR / "forge.exe", FORGE_DIR / "forge"):
-        if cand.exists():
-            return str(cand)
-    return shutil.which("forge")
+    found = shutil.which("forge")
+    if found:
+        return found
+    if FORGE_DIR:
+        for cand in (FORGE_DIR / "forge.exe", FORGE_DIR / "forge"):
+            if cand.exists():
+                return str(cand)
+    return None
 
 
 def _display_cmd(cmd: list[str]) -> str:
@@ -380,7 +387,7 @@ def run_incidents(forge: str | None, timeout: int, budget_end: float,
 
         if forge is None:
             base_artefact["forge_status"] = "tool_missing"
-            base_artefact["notes"].append("forge executable not found at C:\\Users\\jeet\\foundry or on PATH.")
+            base_artefact["notes"].append("forge executable not found on PATH or in FOUNDRY_DIR.")
             statuses.append((cid, "tool_missing"))
             _write_incident_result(row, base_artefact)
             continue
@@ -712,7 +719,8 @@ def write_summary(forge: str | None, inc: list[tuple[str, str]],
         "generated_at": utc_now(),
         "runner": "wave1/scripts/run_wave1_experiments.py",
         "toolchain": {
-            "forge": forge or None,
+            # Record availability, never an operator-machine absolute path.
+            "forge": "found_on_PATH" if forge else None,
             "forge_found": forge is not None,
             "anvil_fork_rpc": "not contacted by this runner (no fork RPC URL configured in scope)",
         },
@@ -745,7 +753,7 @@ def main(argv: list[str] | None = None) -> int:
     forge = _forge()
     notes: list[str] = []
     if forge is None:
-        notes.append("forge executable unavailable at C:\\Users\\jeet\\foundry and not on PATH.")
+        notes.append("forge executable unavailable on PATH or in FOUNDRY_DIR.")
 
     inc_statuses: list[tuple[str, str]] = []
     cand_statuses: list[tuple[str, str]] = []

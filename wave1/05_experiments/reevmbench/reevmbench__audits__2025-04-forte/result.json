@@ -3,7 +3,7 @@
   "command": null,
   "exit_code": null,
   "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:20:56Z",
+  "generated_at": "2026-11-20T09:44:58Z",
   "harness_path": "audits/2025-04-forte",
   "input_row": {
     "c4_refs": [
@@ -41,7 +41,7 @@
     "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/H-05.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/high/H-05.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/injection/H-05.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/incorrect/low/H-05.md, findings/low_hints.md, findings/med_hints.md, patch, patch/Float128.sol, patch/H-01.diff, patch/H-02.diff, patch/H-03.diff, patch/Ln.sol, patch/low_hints.md, patch/med_hints.md, test, test/IncorrectExp.t.sol"
   ],
   "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:20:56Z",
+  "retrieved_at": "2026-11-20T09:44:58Z",
   "stderr_tail": "",
   "stdout_tail": "",
   "verification_level": "L0"

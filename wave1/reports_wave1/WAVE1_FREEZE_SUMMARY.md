@@ -33,10 +33,10 @@ Full rebuild: `python wave1/scripts/build_wave1.py` → PASS in 7.1s, 0 failures
 | prove_incidents | 20 | 0 | 0 | — | — | not scorable |
 
 Six PRIMARY families (F, Fa, Fb, G, invariants — plus A-v1 outside this tree). Admitted by source:
-c4_mitigation 531, formal_specs 895, markdown 575, ghsa 31, judge 99, reevmbench 20 = **2,151**.
+c4_mitigation 531, formal_specs 895, markdown 575, ghsa 31, judge 99, reevmbench 55 = **2,186**.
 
 ## Verification (final)
-`dedup_check.py --check`: registry 24,074 / admitted 2,151 / keys 3,393 / collisions 0 / overlaps 892 → PASS.
+`dedup_check.py --check`: registry 24,074 / admitted 2,186 / keys 3,550 / collisions 0 / overlaps 896 → PASS.
 `validate_wave1.py`: a PASS · b PASS · c PASS · d PASS · e PASS · f_label_purity PASS ·
 g_j_execution PASS → overall PASS. `unittest discover -s wave1/tests`: 12/12 OK.
 
