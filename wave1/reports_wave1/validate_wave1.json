@@ -138,6 +138,6 @@
     }
   },
   "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
-  "validated_at": "2026-11-20T11:33:22Z",
+  "validated_at": "2026-11-20T11:40:22Z",
   "verdict": "PASS"
 }

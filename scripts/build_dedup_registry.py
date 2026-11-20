@@ -94,10 +94,10 @@ def main() -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(registry, indent=2), encoding="utf-8")
     print(f"wrote {out}")
-    for name, l in registry["layers"].items():
+    for name, layer in registry["layers"].items():
         print(
-            f"  {name}: urls={len(l['urls'])} digests={len(l['digests'])} "
-            f"keys={len(l['keys'])} commits={len(l['commits'])} rows={l['rows']}"
+            f"  {name}: urls={len(layer['urls'])} digests={len(layer['digests'])} "
+            f"keys={len(layer['keys'])} commits={len(layer['commits'])} rows={layer['rows']}"
         )
     u = registry["union"]
     print(
