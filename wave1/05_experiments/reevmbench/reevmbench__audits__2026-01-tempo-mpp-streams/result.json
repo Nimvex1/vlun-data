@@ -1,9 +1,186 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
   "candidate_id": "reevmbench:audits/2026-01-tempo-mpp-streams",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout cat-file -t 41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout checkout --quiet --force --detach 41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+    "head": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+    "ok": true,
+    "requested_commit": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+    "url": "https://github.com/evmbench-org/2026-01-tempo-mpp-streams.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2026-01-tempo-mpp-streams.git",
+    "https://github.com/evmbench-org/2026-01-tempo-mpp-streams-findings.git",
+    "https://github.com/code-423n4/2026-01-tempo-mpp-streams.git",
+    "https://github.com/code-423n4/2026-01-tempo-mpp-streams-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout --match-test testZeroAddressBypass -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed --match-test testZeroAddressBypass -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "41962def7127946d8ab2f0e0ccb0f689f3fb79d6",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2026-01-tempo-mpp-streams",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 3,
+    "vulnerabilities_with_tests": 1
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    1
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "warning[weak-prng]: weak randomness derived from a predictable on-chain value\n    â•­â–¸ contracts/TempoStreamChannel.sol:173:21\n    â”‚\n173 â”‚           channelId = keccak256(\n    â”‚ â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n174 â”‚ â”ƒ             abi.encodePacked(\n175 â”‚ â”ƒ                 msg.sender,\n176 â”‚ â”ƒ                 payee,\n    â€¡ â”ƒ\n181 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/weak-prng\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ contracts/TempoStreamChannel.sol:166:13\n    â”‚\n166 â”‚         if (block.timestamp > deadline) revert DeadlineExpired();\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ contracts/TempoStreamChannel.sol:234:13\n    â”‚\n234 â”‚         if (block.timestamp > voucher.expiry) revert VoucherExpired();\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/TempoStreamChannel.sol:264:9\n    â”‚\n264 â”‚         emit VoucherSettled(voucher.channelId, voucher.cumulativeAmount, delta, voucher.nonce);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ contracts/TempoStreamChannel.sol:292:13\n    â”‚\n292 â”‚         if (block.timestamp < channel.gracePeriodEnd) revert GracePeriodNotEnded();\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/TempoStreamChannel.sol:341:9\n    â”‚\n341 â”‚         emit ChannelFinalized(voucher.channelId, voucher.cumulativeAmount, payerRefund);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\n",
+      "stdout_tail": "Compiling 46 files with Solc 0.8.28\nSolc 0.8.28 finished in 836.15ms\nCompiler run successful with warnings:\nWarning (2072): Unused local variable.\n   --> test/ExploitH03.t.sol:157:9:\n    |\n157 |         uint256 attackerBalanceBefore = token.balanceOf(attacker);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/InvariantTempoStreamChannel.t.sol:158:5:\n    |\n158 |     function invariant_DepositAlwaysGteSettled() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/InvariantTempoStreamChannel.t.sol:165:5:\n    |\n165 |     function invariant_ContractBalanceMatchesOutstanding() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/InvariantTempoStreamChannel.t.sol:177:5:\n    |\n177 |     function invariant_SettledNonceMonotonic() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "test_failed",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed --match-test testZeroAddressBypass -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH03.t.sol:ExploitH03Test\n[FAIL: ZeroAddress()] testZeroAddressBypass() (gas: 44627)\nTraces:\n  [44627] ExploitH03Test::testZeroAddressBypass()\n    â”œâ”€ [0] VM::prank(payer: [0x01CA95Ba9a19e6F88A90082367c285D179275De4])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [29027] TempoStreamChannel::openChannel(payee: [0xd9B0025F32f8d1b5010e81E77754bF35839Aa1BD], MockTIP20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 10000000000 [1e10], 0x0000000000000000000000000000000000000000, 3601)\n    â”‚   â””â”€ â†� [Revert] ZeroAddress()\n    â””â”€ â†� [Revert] ZeroAddress()\n\nBacktrace:\n  at TempoStreamChannel.openChannel\n  at ExploitH03Test.testZeroAddressBypass\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 980.50Âµs (93.50Âµs CPU time)\n\nRan 1 test suite in 8.86ms (980.50Âµs CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/ExploitH03.t.sol:ExploitH03Test\n[FAIL: ZeroAddress()] testZeroAddressBypass() (gas: 44627)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testZeroAddressBypass",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      }
+    ],
+    "verification_level": "L4"
+  },
+  "fixed_sha": "1aa20c077288370d8ab114865d060c6ac5dcdec0",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "contracts/TempoStreamChannel.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source contracts/TempoStreamChannel.sol for H-03"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "contracts/TempoStreamChannel.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-mpp-streams\\patch\\TempoStreamChannel.sol",
+        "vulnerability": "H-03"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/ExploitH03.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-mpp-streams\\test\\ExploitH03.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:29:27Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/H-03.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/TempoStreamChannel.sol",
+    "test/ExploitH01.t.sol",
+    "test/ExploitH02.t.sol",
+    "test/ExploitH03.t.sol"
+  ],
   "harness_path": "audits/2026-01-tempo-mpp-streams",
   "input_row": {
     "c4_refs": [
@@ -29,12 +206,57 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/low_hints.md, findings/med_hints.md, patch, patch/H-03.diff, patch/TempoStreamChannel.sol, patch/low_hints.md, patch/med_hints.md, test, test/ExploitH01.t.sol, test/ExploitH02.t.sol, test/ExploitH03.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testZeroAddressBypass",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+  "retrieved_at": "2026-11-20T10:29:22Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH03.t.sol:ExploitH03Test\n[PASS] testZeroAddressBypass() (gas: 385289)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.16ms (261.80Âµs CPU time)\n\nRan 1 test suite in 4.03ms (1.16ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/ExploitH03.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-mpp-streams\\test\\ExploitH03.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "warning[weak-prng]: weak randomness derived from a predictable on-chain value\n    â•­â–¸ contracts/TempoStreamChannel.sol:231:21\n    â”‚\n231 â”‚           channelId = keccak256(\n    â”‚ â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n232 â”‚ â”ƒ             abi.encodePacked(\n233 â”‚ â”ƒ                 msg.sender,\n234 â”‚ â”ƒ                 payee,\n    â€¡ â”ƒ\n239 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/weak-prng\n\nwarning[ecrecover]: `ecrecover` call does not reject malleable signatures\n    â•­â–¸ contracts/TempoStreamChannel.sol:202:16\n    â”‚\n202 â”‚         return ecrecover(digest, v, r, s);\n    â”‚                â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/ecrecover\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ contracts/TempoStreamChannel.sol:300:13\n    â”‚\n300 â”‚         if (block.timestamp > voucher.expiry) revert VoucherExpired();\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/TempoStreamChannel.sol:328:9\n    â”‚\n328 â”‚ â”�         emit VoucherSettled(\n329 â”‚ â”ƒ             voucher.channelId,\n330 â”‚ â”ƒ             voucher.cumulativeAmount,\n331 â”‚ â”ƒ             delta,\n332 â”‚ â”ƒ             voucher.nonce\n333 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ contracts/TempoStreamChannel.sol:364:13\n    â”‚\n364 â”‚         if (block.timestamp < channel.gracePeriodEnd)\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/TempoStreamChannel.sol:435:9\n    â”‚\n435 â”‚ â”�         emit ChannelFinalized(\n436 â”‚ â”ƒ             voucher.channelId,\n437 â”‚ â”ƒ             voucher.cumulativeAmount,\n438 â”‚ â”ƒ             payerRefund\n439 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-mpp-streams\\checkout --match-test testZeroAddressBypass -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH03.t.sol:ExploitH03Test\n[PASS] testZeroAddressBypass() (gas: 385289)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.16ms (261.80Âµs CPU time)\n\nRan 1 test suite in 4.03ms (1.16ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testZeroAddressBypass",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

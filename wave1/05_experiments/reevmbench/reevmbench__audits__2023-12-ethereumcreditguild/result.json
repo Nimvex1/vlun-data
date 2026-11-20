@@ -1,9 +1,156 @@
 {
+  "base_commit": "2facb8f941da70bf075380784b3139f8e694b98a",
   "candidate_id": "reevmbench:audits/2023-12-ethereumcreditguild",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "2facb8f941da70bf075380784b3139f8e694b98a\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout cat-file -t 2facb8f941da70bf075380784b3139f8e694b98a",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout checkout --quiet --force --detach 2facb8f941da70bf075380784b3139f8e694b98a",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "2facb8f941da70bf075380784b3139f8e694b98a",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+    "head": "2facb8f941da70bf075380784b3139f8e694b98a",
+    "ok": true,
+    "requested_commit": "2facb8f941da70bf075380784b3139f8e694b98a",
+    "url": "https://github.com/evmbench-org/2023-12-ethereumcreditguild.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2023-12-ethereumcreditguild.git",
+    "https://github.com/evmbench-org/2023-12-ethereumcreditguild-findings.git",
+    "https://github.com/code-423n4/2023-12-ethereumcreditguild.git",
+    "https://github.com/code-423n4/2023-12-ethereumcreditguild-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout"
+  ],
+  "config_summary": {
+    "base_commit": "2facb8f941da70bf075380784b3139f8e694b98a",
+    "default_test_flags": "--match-path \"test/unit/**\" --fuzz-runs 1",
+    "framework": "foundry-json",
+    "id": "2023-12-ethereumcreditguild",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 2,
+    "vulnerabilities_with_tests": 2
+  },
+  "exit_code": 1,
+  "exit_codes": [
+    1
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/governance/ProfitManager.sol for H-01",
+      "applied fixed source src/tokens/ERC20RebaseDistributor.sol for H-02"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/governance/ProfitManager.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\patch\\ProfitManager.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/tokens/ERC20RebaseDistributor.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\patch\\ERC20RebaseDistributor.sol",
+        "vulnerability": "H-02"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/unit/governance/ProfitManager_H01.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\test\\ProfitManager_H01.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/unit/tokens/ERC20RebaseDistributor_H02.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\test\\ERC20RebaseDistributor_H02.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\fixed"
+  },
+  "forge_status": "compile_error",
+  "generated_at": "2026-11-20T10:25:23Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max.sh",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/ERC20RebaseDistributor.sol",
+    "patch/H-01.diff",
+    "patch/H-02.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/ProfitManager.sol",
+    "test/ERC20RebaseDistributor_H02.t.sol",
+    "test/ProfitManager_H01.t.sol"
+  ],
   "harness_path": "audits/2023-12-ethereumcreditguild",
   "input_row": {
     "c4_refs": [
@@ -25,12 +172,46 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/low_hints.md, findings/med_hints.md, patch, patch/ERC20RebaseDistributor.sol, patch/H-01.diff, patch/H-02.diff, patch/ProfitManager.sol, patch/low_hints.md, patch/med_hints.md, test, test/ERC20RebaseDistributor_H02.t.sol, test/ProfitManager_H01.t.sol"
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+  "retrieved_at": "2026-11-20T10:25:20Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+  "stderr_tail": "^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20.sol:6:1:\n  |\n6 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20Gauges.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20MultiVotes.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20RebaseDistributor.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/proposals/gips/GIP_0.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/governance/LendingTermOffboarding.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/loan/AuctionHouse.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/loan/LendingTerm.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+  "stdout_tail": "/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\ERC20RebaseDistributor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\integration\\PostProposalCheckFixture.sol\"\n      \"../utils/Address.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20MultiVotes.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\ERC20MultiVotesHarness.sol\"\n      \"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\ERC20MultiVotes.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"../utils/introspection/ERC165.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20Gauges.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\CreditToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20RebaseDistributor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\proposals\\gips\\GIP_0.sol\"\n      \"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\governance\\LendingTermOffboarding.t.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20.sol\"\n      \"../utils/Context.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/security/Pausable.sol\"\n      \"../utils/cryptography/ECDSA.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\loan\\AuctionHouse.t.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\loan\\LendingTerm.t.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\CreditToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\ERC20MultiVotesHarness.sol\"\nwith remappings:\n      @openzeppelin/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin/\n      @forge-std/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test/forge-std/src/\n      @src/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src/\n      @test/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test/\n      solmate/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src/external/solmate/\nCompiling 124 files with Solc 0.8.13\nSolc 0.8.13 finished in 162.31ms\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/unit/governance/ProfitManager_H01.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\test\\ProfitManager_H01.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/unit/tokens/ERC20RebaseDistributor_H02.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-12-ethereumcreditguild\\test\\ERC20RebaseDistributor_H02.t.sol"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
-  "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L0",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+      "exit_code": 1,
+      "stderr_tail": "^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20.sol:6:1:\n  |\n6 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20Gauges.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20MultiVotes.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/mock/MockERC20RebaseDistributor.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/proposals/gips/GIP_0.sol:4:1:\n  |\n4 | import {ERC20} from \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/governance/LendingTermOffboarding.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/loan/AuctionHouse.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\nParserError: Source \"node_modules/@openzeppelin/contracts/proxy/Clones.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout\".\n --> test/unit/loan/LendingTerm.t.sol:4:1:\n  |\n4 | import {Clones} from \"@openzeppelin/contracts/proxy/Clones.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+      "stdout_tail": "/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\ERC20RebaseDistributor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\integration\\PostProposalCheckFixture.sol\"\n      \"../utils/Address.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20MultiVotes.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\ERC20MultiVotesHarness.sol\"\n      \"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\ERC20MultiVotes.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"../utils/introspection/ERC165.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20Gauges.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\CreditToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20RebaseDistributor.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\proposals\\gips\\GIP_0.sol\"\n      \"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\governance\\LendingTermOffboarding.t.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\MockERC20.sol\"\n      \"../utils/Context.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/security/Pausable.sol\"\n      \"../utils/cryptography/ECDSA.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin\\contracts/governance/Governor.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\loan\\AuctionHouse.t.sol\"\n      \"@openzeppelin/contracts/proxy/Clones.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\unit\\loan\\LendingTerm.t.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\GuildToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src\\tokens\\CreditToken.sol\"\n      \"@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test\\mock\\ERC20MultiVotesHarness.sol\"\nwith remappings:\n      @openzeppelin/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/node_modules/@openzeppelin/\n      @forge-std/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test/forge-std/src/\n      @src/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src/\n      @test/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/test/\n      solmate/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/checkout/src/external/solmate/\nCompiling 124 files with Solc 0.8.13\nSolc 0.8.13 finished in 162.31ms\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" install --ignore-scripts --no-audit --no-fund",
+      "exit_code": 0,
+      "stderr_tail": "",
+      "stdout_tail": "\nup to date in 679ms\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "forge_status": "compile_error",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-12-ethereumcreditguild\\checkout",
+    "tests": [],
+    "verification_level": "L0"
+  }
 }

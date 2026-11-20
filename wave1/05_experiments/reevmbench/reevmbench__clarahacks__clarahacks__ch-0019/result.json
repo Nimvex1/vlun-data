@@ -1,9 +1,48 @@
 {
+  "base_commit": "af878a75d628599736c78e8fe9655a57b041206e",
   "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0019",
   "command": null,
+  "commands": [],
+  "config_summary": {
+    "base_commit": null,
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "ch-0019",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 1,
+    "vulnerabilities_with_tests": 0
+  },
   "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "exit_codes": [],
+  "fixed_workspace": null,
+  "forge_status": "blocked_missing_rpc",
+  "fork_config": {
+    "chain": "Ethereum",
+    "chain_id": 1,
+    "exploit_transactions": [
+      "0x2c728af49d254dd60b0e0918106f32873b5c8492f9b6f3964227373a8e6e9fab",
+      "0x5ae94fb2225f473ecb302bf35170cac826beedc2766bcd0ab9d35707df07f9d3",
+      "0xc1c4f4c11cd3ef56c77f40906f5c3b061c60688b2cdea6b141ca68f3c9c05553",
+      "0x26eb9f4e7c8ab5eb589dfc7f447486cf8e557d91646d51927d86b8969da98090"
+    ],
+    "fork_block_number": 24441149,
+    "victim_addresses": [
+      "0xdb005b73f591922b4689824aa4035053269ffa44"
+    ]
+  },
+  "generated_at": "2026-11-20T10:25:08Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/fork_config.json",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md"
+  ],
   "harness_path": "clarahacks/clarahacks/ch-0019",
   "input_row": {
     "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0019",
@@ -16,11 +55,11 @@
     "tx_hash": "0x2c728af49d254dd60b0e0918106f32873b5c8492f9b6f3964227373a8e6e9fab"
   },
   "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/fork_config.json, exploit/high_hints.md, exploit/low_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/gold_audit.md, findings/low_hints.md, findings/med_hints.md"
+    "ClaraHacks harness needs an upstream RPC fork to deploy/replay the incident (chain/fork block in fork_config). No RPC URL API key is set in the environment and the harness contains no test/ or patch/ sources; the exploit cannot be executed locally. See fork_config."
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
+  "retrieved_at": "2026-11-20T10:25:08Z",
   "stderr_tail": "",
   "stdout_tail": "",
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
   "verification_level": "L0"
 }

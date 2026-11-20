@@ -24,20 +24,20 @@
   "counts": {
     "by_licence": {
       "CC-BY-4.0": 226,
-      "MIT": 299
+      "MIT": 303
     },
     "by_rights_status": {
       "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1396,
+      "internal_research_artefact_not_cleared": 1395,
       "metadata_only": 1,
-      "project_own": 510,
-      "withheld_third_party_no_redistribution_rights": 146
+      "project_own": 514,
+      "withheld_third_party_no_redistribution_rights": 147
     },
     "not_released_paths": 1542,
-    "paths_with_measured_personal_data": 13,
-    "paths_with_measured_verbatim_third_party_content": 146,
-    "released_paths": 525,
-    "tracked_paths": 2067
+    "paths_with_measured_personal_data": 14,
+    "paths_with_measured_verbatim_third_party_content": 147,
+    "released_paths": 529,
+    "tracked_paths": 2071
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -2141,6 +2141,7 @@
     "tests/test_poc_attempts_ledger.py": "MIT",
     "tests/test_poc_triage.py": "MIT",
     "tests/test_prove_ledger.py": "MIT",
+    "tests/test_prove_ledger_clean_checkout.py": "MIT",
     "tests/test_prove_split.py": "MIT",
     "tests/test_prove_verification.py": "MIT",
     "tests/test_publish_manifest.py": "MIT",
@@ -2196,6 +2197,9 @@
     "wave1/scripts/build_governance.py": "MIT",
     "wave1/scripts/build_wave1.py": "MIT",
     "wave1/scripts/dedup_check.py": "MIT",
+    "wave1/scripts/experiments/__init__.py": "MIT",
+    "wave1/scripts/experiments/foundry.py": "MIT",
+    "wave1/scripts/experiments/yaml_lite.py": "MIT",
     "wave1/scripts/rebalance_splits.py": "MIT",
     "wave1/scripts/run_wave1_experiments.py": "MIT",
     "wave1/scripts/validate_wave1.py": "MIT",
@@ -3811,6 +3815,14 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 100 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "personal_data_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured personal data: 1 string(s) carry named individuals' mailbox addresses"
     }
   },
   "paths": {
@@ -5714,6 +5726,7 @@
     "tests/test_poc_attempts_ledger.py": "project_own",
     "tests/test_poc_triage.py": "project_own",
     "tests/test_prove_ledger.py": "project_own",
+    "tests/test_prove_ledger_clean_checkout.py": "project_own",
     "tests/test_prove_split.py": "project_own",
     "tests/test_prove_verification.py": "project_own",
     "tests/test_publish_manifest.py": "project_own",
@@ -5812,7 +5825,7 @@
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-benddao/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-munchables/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-traitforge/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-12-secondswap/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-liquid-ron/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-next-generation/result.json": "internal_research_artefact_not_cleared",
@@ -5877,6 +5890,9 @@
     "wave1/scripts/build_governance.py": "project_own",
     "wave1/scripts/build_wave1.py": "project_own",
     "wave1/scripts/dedup_check.py": "project_own",
+    "wave1/scripts/experiments/__init__.py": "project_own",
+    "wave1/scripts/experiments/foundry.py": "project_own",
+    "wave1/scripts/experiments/yaml_lite.py": "project_own",
     "wave1/scripts/rebalance_splits.py": "project_own",
     "wave1/scripts/run_wave1_experiments.py": "project_own",
     "wave1/scripts/validate_wave1.py": "project_own",
@@ -6359,6 +6375,7 @@
     "tests/test_poc_attempts_ledger.py",
     "tests/test_poc_triage.py",
     "tests/test_prove_ledger.py",
+    "tests/test_prove_ledger_clean_checkout.py",
     "tests/test_prove_split.py",
     "tests/test_prove_verification.py",
     "tests/test_publish_manifest.py",
@@ -6414,6 +6431,9 @@
     "wave1/scripts/build_governance.py",
     "wave1/scripts/build_wave1.py",
     "wave1/scripts/dedup_check.py",
+    "wave1/scripts/experiments/__init__.py",
+    "wave1/scripts/experiments/foundry.py",
+    "wave1/scripts/experiments/yaml_lite.py",
     "wave1/scripts/rebalance_splits.py",
     "wave1/scripts/run_wave1_experiments.py",
     "wave1/scripts/validate_wave1.py",

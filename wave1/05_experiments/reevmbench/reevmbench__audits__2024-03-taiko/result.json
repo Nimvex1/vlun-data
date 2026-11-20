@@ -1,9 +1,162 @@
 {
+  "base_commit": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
   "candidate_id": "reevmbench:audits/2024-03-taiko",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout cat-file -t 2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout checkout --quiet --force --detach 2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout",
+    "head": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+    "ok": true,
+    "requested_commit": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+    "url": "https://github.com/evmbench-org/2024-03-taiko.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2024-03-taiko.git",
+    "https://github.com/evmbench-org/2024-03-taiko-findings.git",
+    "https://github.com/code-423n4/2024-03-taiko.git",
+    "https://github.com/code-423n4/2024-03-taiko-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout\\packages\\protocol",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout\\packages\\protocol"
+  ],
+  "config_summary": {
+    "base_commit": "2c0fd6427d7a8e0b976d2667e2cb81d89b4656a2",
+    "default_test_flags": null,
+    "framework": "foundry-json",
+    "id": "2024-03-taiko",
+    "run_cmd_dir": "packages/protocol",
+    "vulnerabilities_total": 5,
+    "vulnerabilities_with_tests": 2
+  },
+  "exit_code": 1,
+  "exit_codes": [
+    1
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source packages/protocol/contracts/team/airdrop/ERC20Airdrop2.sol for H-03",
+      "applied fixed source packages/protocol/contracts/team/TimelockTokenPool.sol for H-05"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "packages/protocol/contracts/team/airdrop/ERC20Airdrop2.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\patch\\ERC20Airdrop2.sol",
+        "vulnerability": "H-03"
+      },
+      {
+        "copied": true,
+        "destination": "packages/protocol/contracts/team/TimelockTokenPool.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\patch\\TimelockTokenPool.sol",
+        "vulnerability": "H-05"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\fixed\\packages\\protocol",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "packages/protocol/test/team/airdrop/ERC20Airdrop2.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\test\\ERC20Airdrop2.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "packages/protocol/test/team/TimelockTokenPoolReplay.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\test\\TimelockTokenPoolReplay.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\fixed"
+  },
+  "forge_status": "compile_error",
+  "generated_at": "2026-11-20T10:26:09Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/H-05.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/high/H-05.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/injection/H-05.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/incorrect/low/H-05.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/ERC20Airdrop2.sol",
+    "patch/H-03.diff",
+    "patch/H-05.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/TimelockTokenPool.sol",
+    "replace_symlinks_with_real_files.sh",
+    "test/ERC20Airdrop2.t.sol",
+    "test/TimelockTokenPoolReplay.t.sol"
+  ],
   "harness_path": "audits/2024-03-taiko",
   "input_row": {
     "c4_refs": [
@@ -37,12 +190,46 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/H-05.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/high/H-05.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/injection/H-05.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/incorrect/low/H-05.md, findings/low_hints.md, findings/med_hints.md, patch, patch/ERC20Airdrop2.sol, patch/H-03.diff, patch/H-05.diff, patch/TimelockTokenPool.sol, patch/low_hints.md, patch/med_hints.md, replace_symlinks_with_real_files.sh"
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout\\packages\\protocol",
+  "retrieved_at": "2026-11-20T10:25:23Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout",
+  "stderr_tail": "t found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/solady/src/utils/JSONParserLib.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n  --> test/automata-attestation/utils/V3QuoteParseUtils.t.sol:10:1:\n   |\n10 | import { JSONParserLib } from \"solady/src/utils/JSONParserLib.sol\";\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/solady/src/utils/LibString.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/solady/src/utils/LibString.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n  --> test/automata-attestation/utils/V3QuoteParseUtils.t.sol:11:1:\n   |\n11 | import { LibString } from \"solady/src/utils/LibString.sol\";\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/FreeMintERC20.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/MayFailFreeMintERC20.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/RegularERC20.sol:5:1:\n  |\n5 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/team/airdrop/ERC20Airdrop.t.sol:6:1:\n  |\n6 | import \"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/tokenvault/ERC1155Vault.t.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC1155/ERC1155.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/tokenvault/ERC721Vault.t.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+  "stdout_tail": "pgradeAssignmentHook.s.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeTimelockController.s.sol\"\n      \"forge-std/src/StdJson.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\AutomataDcapV3AttestationTest.t.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeSignalService.s.sol\"\n      \"solady/src/utils/LibString.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\automata-attestation\\lib\\PEMCertChainLib.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L1\\hooks\\AssignmentHook.sol\"\n      \"@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\common\\EssentialContract.sol\"\n      \"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L2\\TaikoL2.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L2\\CrossChainOwned.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\SetAddress.s.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\common\\erc20\\RegularERC20.sol\"\n      \"forge-std/src/Test.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\common\\AttestationBase.t.sol\"\n      \"solady/src/utils/JSONParserLib.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\utils\\V3QuoteParseUtils.t.sol\"\n      \"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20VotesUpgradeable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L1\\TaikoToken.sol\"\n      \"forge-std/src/Test.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\AutomataDcapV3AttestationTest.t.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeAddressManager.s.sol\"\n      \"forge-std/src/Script.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeERC1155Vault.s.sol\"\n      \"@openzeppelin/contracts/utils/Strings.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\DeployOnL1.s.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\team\\TimelockTokenPool.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\SetDcapParams.s.sol\"\n      \"@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\TaikoTest.sol\"\nwith remappings:\n      @openzeppelin/contracts-upgradeable/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/@openzeppelin/contracts-upgradeable/\n      @openzeppelin/contracts/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/@openzeppelin/contracts/\n      solady/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/solady/\n      forge-std/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/forge-std/\n      ds-test/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/ds-test/src/\n      p256-verifier/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/p256-verifier/\nCompiling 147 files with Solc 0.8.24\nSolc 0.8.24 finished in 208.85ms\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "packages/protocol/test/team/airdrop/ERC20Airdrop2.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\test\\ERC20Airdrop2.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "packages/protocol/test/team/TimelockTokenPoolReplay.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-03-taiko\\test\\TimelockTokenPoolReplay.t.sol"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
-  "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L0",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout\\packages\\protocol",
+      "exit_code": 1,
+      "stderr_tail": "t found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/solady/src/utils/JSONParserLib.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n  --> test/automata-attestation/utils/V3QuoteParseUtils.t.sol:10:1:\n   |\n10 | import { JSONParserLib } from \"solady/src/utils/JSONParserLib.sol\";\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/solady/src/utils/LibString.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/solady/src/utils/LibString.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n  --> test/automata-attestation/utils/V3QuoteParseUtils.t.sol:11:1:\n   |\n11 | import { LibString } from \"solady/src/utils/LibString.sol\";\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/FreeMintERC20.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/MayFailFreeMintERC20.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/common/erc20/RegularERC20.sol:5:1:\n  |\n5 | import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/team/airdrop/ERC20Airdrop.t.sol:6:1:\n  |\n6 | import \"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/tokenvault/ERC1155Vault.t.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC1155/ERC1155.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nError (6275): Source \"node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\nParserError: Source \"node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol\".\n --> test/tokenvault/ERC721Vault.t.sol:4:1:\n  |\n4 | import \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+      "stdout_tail": "pgradeAssignmentHook.s.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeTimelockController.s.sol\"\n      \"forge-std/src/StdJson.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\AutomataDcapV3AttestationTest.t.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeSignalService.s.sol\"\n      \"solady/src/utils/LibString.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\automata-attestation\\lib\\PEMCertChainLib.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L1\\hooks\\AssignmentHook.sol\"\n      \"@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\common\\EssentialContract.sol\"\n      \"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L2\\TaikoL2.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L2\\CrossChainOwned.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\SetAddress.s.sol\"\n      \"@openzeppelin/contracts/token/ERC20/ERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\common\\erc20\\RegularERC20.sol\"\n      \"forge-std/src/Test.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\common\\AttestationBase.t.sol\"\n      \"solady/src/utils/JSONParserLib.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\utils\\V3QuoteParseUtils.t.sol\"\n      \"@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20VotesUpgradeable.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\L1\\TaikoToken.sol\"\n      \"forge-std/src/Test.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\automata-attestation\\AutomataDcapV3AttestationTest.t.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeAddressManager.s.sol\"\n      \"forge-std/src/Script.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\upgrade\\UpgradeERC1155Vault.s.sol\"\n      \"@openzeppelin/contracts/utils/Strings.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\DeployOnL1.s.sol\"\n      \"@openzeppelin/contracts/token/ERC20/IERC20.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/contracts\\team\\TimelockTokenPool.sol\"\n      \"forge-std/src/console2.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/script\\SetDcapParams.s.sol\"\n      \"@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol\" in \"C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/test\\TaikoTest.sol\"\nwith remappings:\n      @openzeppelin/contracts-upgradeable/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/@openzeppelin/contracts-upgradeable/\n      @openzeppelin/contracts/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/@openzeppelin/contracts/\n      solady/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/solady/\n      forge-std/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/forge-std/\n      ds-test/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/ds-test/src/\n      p256-verifier/=C:/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-03-taiko/checkout/packages/protocol/node_modules/p256-verifier/\nCompiling 147 files with Solc 0.8.24\nSolc 0.8.24 finished in 208.85ms\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" install --ignore-scripts --no-audit --no-fund",
+      "exit_code": 4294963238,
+      "stderr_tail": "npm error code ENOENT\nnpm error syscall open\nnpm error path C:\\Users\\REDACTED\\AppData\\Local\\npm-cache\\_cacache\\tmp\\git-cloneZx8pvv\\package.json\nnpm error errno -4058\nnpm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\\Users\\REDACTED\\AppData\\Local\\npm-cache\\_cacache\\tmp\\git-cloneZx8pvv\\package.json'\nnpm error enoent This is related to npm not being able to find a file.\nnpm error enoent\nnpm error A complete log of this run can be found in: C:\\Users\\REDACTED\\AppData\\Local\\npm-cache\\_logs\\2026-11-20T10_25_25_523Z-debug-0.log\n",
+      "stdout_tail": "",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "forge_status": "compile_error",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-03-taiko\\checkout\\packages\\protocol",
+    "tests": [],
+    "verification_level": "L0"
+  }
 }

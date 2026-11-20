@@ -1,9 +1,237 @@
 {
+  "base_commit": "117ef61967d4b318fc65170061c9577e674fffa1",
   "candidate_id": "reevmbench:audits/2024-07-benddao",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "117ef61967d4b318fc65170061c9577e674fffa1\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout cat-file -t 117ef61967d4b318fc65170061c9577e674fffa1",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout checkout --quiet --force --detach 117ef61967d4b318fc65170061c9577e674fffa1",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "117ef61967d4b318fc65170061c9577e674fffa1",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+    "head": "117ef61967d4b318fc65170061c9577e674fffa1",
+    "ok": true,
+    "requested_commit": "117ef61967d4b318fc65170061c9577e674fffa1",
+    "url": "https://github.com/evmbench-org/2024-07-benddao.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2024-07-benddao.git",
+    "https://github.com/evmbench-org/2024-07-benddao-findings.git",
+    "https://github.com/code-423n4/2024-07-benddao.git",
+    "https://github.com/code-423n4/2024-07-benddao-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout"
+  ],
+  "config_summary": {
+    "base_commit": "117ef61967d4b318fc65170061c9577e674fffa1",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2024-07-benddao",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 7,
+    "vulnerabilities_with_tests": 5
+  },
+  "exit_code": 1,
+  "exit_codes": [
+    1
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/yield/etherfi/YieldEthStakingEtherfi.sol for H-01",
+      "applied fixed source src/yield/lido/YieldEthStakingLido.sol for H-01",
+      "applied fixed source src/libraries/logic/ValidateLogic.sol for H-02",
+      "applied fixed source src/libraries/logic/VaultLogic.sol for H-03",
+      "applied fixed source src/yield/YieldAccount.sol for H-06",
+      "applied fixed source src/libraries/logic/IsolateLogic.sol for H-07"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/yield/etherfi/YieldEthStakingEtherfi.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\YieldEthStakingEtherfi.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/yield/lido/YieldEthStakingLido.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\YieldEthStakingLido.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/libraries/logic/ValidateLogic.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\ValidateLogic.sol",
+        "vulnerability": "H-02"
+      },
+      {
+        "copied": true,
+        "destination": "src/libraries/logic/VaultLogic.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\VaultLogic.sol",
+        "vulnerability": "H-03"
+      },
+      {
+        "copied": true,
+        "destination": "src/yield/YieldAccount.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\YieldAccount.sol",
+        "vulnerability": "H-06"
+      },
+      {
+        "copied": true,
+        "destination": "src/libraries/logic/IsolateLogic.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\patch\\IsolateLogic.sol",
+        "vulnerability": "H-07"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/yield/YieldEthStakingEtherfi.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\YieldEthStakingEtherfi.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/mocks/MockEtherfiLiquidityPool.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\MockEtherfiLiquidityPool.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/integration/TestIntIsolateRepayPoC.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateRepayPoC.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/integration/TestIntIsolateLiquidateLocker.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateLiquidateLocker.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/yield/YieldAccountReceiver.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\YieldAccountReceiver.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/integration/TestIntIsolateLiquidate.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateLiquidateH07.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\fixed"
+  },
+  "forge_status": "compile_error",
+  "generated_at": "2026-11-20T10:27:19Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max.sh",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/H-06.md",
+    "findings/H-07.md",
+    "findings/H-08.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/high/H-06.md",
+    "findings/incorrect/high/H-07.md",
+    "findings/incorrect/high/H-08.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/injection/H-06.md",
+    "findings/incorrect/injection/H-07.md",
+    "findings/incorrect/injection/H-08.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/incorrect/low/H-06.md",
+    "findings/incorrect/low/H-07.md",
+    "findings/incorrect/low/H-08.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/H-01.diff",
+    "patch/H-02.diff",
+    "patch/H-03.diff",
+    "patch/H-06.diff",
+    "patch/H-07.diff",
+    "patch/ILiquidityPool.sol",
+    "patch/IsolateLogic.sol",
+    "patch/IStETH.sol",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/ValidateLogic.sol",
+    "patch/VaultLogic.sol",
+    "patch/YieldAccount.sol",
+    "patch/YieldEthStakingEtherfi.sol",
+    "patch/YieldEthStakingLido.sol",
+    "test/MockEtherfiLiquidityPool.sol",
+    "test/TestIntIsolateLiquidateH07.t.sol",
+    "test/TestIntIsolateLiquidateLocker.t.sol",
+    "test/TestIntIsolateRepayPoC.t.sol",
+    "test/YieldAccountReceiver.t.sol",
+    "test/YieldEthStakingEtherfi.t.sol"
+  ],
   "harness_path": "audits/2024-07-benddao",
   "input_row": {
     "c4_refs": [
@@ -45,12 +273,59 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/H-06.md, findings/H-07.md, findings/H-08.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/high/H-06.md, findings/incorrect/high/H-07.md, findings/incorrect/high/H-08.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/injection/H-06.md, findings/incorrect/injection/H-07.md, findings/incorrect/injection/H-08.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md"
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+  "retrieved_at": "2026-11-20T10:27:04Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+  "stderr_tail": "Error: Compiler run failed:\nError: Compiler error (C:\\Users\\REDACTED\\project\\libsolidity\\codegen\\LValue.cpp:51):Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: true` (standard JSON) while enabling the optimizer. Otherwise, try removing local variables.\n   --> test/setup/TestWithSetup.sol:265:239:\n    |\n265 |  ... Helper158.FoundryPpConstructorArgs(gitCommit))})));\n    |                                         ^^^^^^^^^\n",
+  "stdout_tail": "Compiling 229 files with Solc 0.8.25\nSolc 0.8.25 finished in 13.47s\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/yield/YieldEthStakingEtherfi.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\YieldEthStakingEtherfi.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/mocks/MockEtherfiLiquidityPool.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\MockEtherfiLiquidityPool.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/integration/TestIntIsolateRepayPoC.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateRepayPoC.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/integration/TestIntIsolateLiquidateLocker.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateLiquidateLocker.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/yield/YieldAccountReceiver.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\YieldAccountReceiver.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/integration/TestIntIsolateLiquidate.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-benddao\\test\\TestIntIsolateLiquidateH07.t.sol"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
-  "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L0",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+      "exit_code": 1,
+      "stderr_tail": "Error: Compiler run failed:\nError: Compiler error (C:\\Users\\REDACTED\\project\\libsolidity\\codegen\\LValue.cpp:51):Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: true` (standard JSON) while enabling the optimizer. Otherwise, try removing local variables.\n   --> test/setup/TestWithSetup.sol:265:239:\n    |\n265 |  ... Helper158.FoundryPpConstructorArgs(gitCommit))})));\n    |                                         ^^^^^^^^^\n",
+      "stdout_tail": "Compiling 229 files with Solc 0.8.25\nSolc 0.8.25 finished in 13.47s\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "compile_error",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-benddao\\checkout",
+    "tests": [],
+    "verification_level": "L0"
+  }
 }

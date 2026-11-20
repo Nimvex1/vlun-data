@@ -1,9 +1,46 @@
 {
+  "base_commit": "af878a75d628599736c78e8fe9655a57b041206e",
   "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0003",
   "command": null,
+  "commands": [],
+  "config_summary": {
+    "base_commit": null,
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "ch-0003",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 1,
+    "vulnerabilities_with_tests": 0
+  },
   "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "exit_codes": [],
+  "fixed_workspace": null,
+  "forge_status": "blocked_missing_rpc",
+  "fork_config": {
+    "chain": "BSC",
+    "chain_id": 56,
+    "exploit_transactions": [
+      "0x2330a8cf71d301a0f5c2f617f6e0a4c3ec5005ac1953fbccbb72f905113b9b6a"
+    ],
+    "fork_block_number": 70943469,
+    "victim_addresses": [
+      "0xfbe049df1364fe120a0e7f0ddf586dbb38c79219",
+      "0x86be038dfbf6506ca186af1001b7db201ed0586e"
+    ]
+  },
+  "generated_at": "2026-11-20T10:25:08Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/fork_config.json",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md"
+  ],
   "harness_path": "clarahacks/clarahacks/ch-0003",
   "input_row": {
     "candidate_id": "reevmbench:clarahacks/clarahacks/ch-0003",
@@ -16,11 +53,11 @@
     "tx_hash": "0x2330a8cf71d301a0f5c2f617f6e0a4c3ec5005ac1953fbccbb72f905113b9b6a"
   },
   "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/fork_config.json, exploit/high_hints.md, exploit/low_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/gold_audit.md, findings/low_hints.md, findings/med_hints.md"
+    "ClaraHacks harness needs an upstream RPC fork to deploy/replay the incident (chain/fork block in fork_config). No RPC URL API key is set in the environment and the harness contains no test/ or patch/ sources; the exploit cannot be executed locally. See fork_config."
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
+  "retrieved_at": "2026-11-20T10:25:08Z",
   "stderr_tail": "",
   "stdout_tail": "",
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
   "verification_level": "L0"
 }

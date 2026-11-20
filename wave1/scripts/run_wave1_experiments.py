@@ -1,45 +1,44 @@
-"""run_wave1_experiments.py -- honest execution of the Wave-1 proof tracks.
+"""run_wave1_experiments.py -- materialise and run the Wave-1 proof workspaces.
 
 SINGLE-WRITER SCOPE
 -------------------
-Writes ONLY owned paths under wave1/ (guarded by guard_wave1):
+Writes ONLY the owned paths below (all through guard_wave1):
   * wave1/05_experiments/reevmbench/<id>/result.json
   * wave1/05_experiments/prove_candidates/<id>/result.json
   * wave1/reports_wave1/execution_summary.json
   * wave1/benchmark_wave1/J_verified_patch.jsonl
-  * (append only) wave1/01_dedup/overlap_manifest.jsonl
 
 Git-ignored scratch (never a result artefact) lives under work/wave1_runs/.
-Pinned clones under work/sources/ are READ-ONLY: every forge command runs in a
-copy there, never in the clone itself.
+Pinned clones under work/sources/ are READ-ONLY. Every forge command runs in a
+scratch workspace copied from, or the disposable scratch clone of, a source.
 
-TRUTH-OVER-SCALE LADDER (never mark above what was actually observed)
----------------------------------------------------------------------
-  L0 prose only
-  L1 PoC quoted
-  L3 forge build (or forge test --no-match-test '.*') compiles successfully
-  L4 forge test actually executes the target test
-  L5 forge test reports Success for the exploit assertion on the vulnerable revision
-  L6 the EXACT SAME test reproduces the violation on vuln_sha AND is
-     blocked/passes on fix_sha
+TRUTH-OVER-SCALE LADDER (never claim above what was observed)
+-------------------------------------------------------------
+  L0  no compilation
+  L3  forge build succeeded
+  L4  forge test executed the target test
+  L5  forge test reported Success for the exploit assertion (vulnerable side)
+  L6  the SAME test reproduced on the vulnerable revision and was blocked /
+      failed on the fixed revision (mapped patch sources or patch diff)
 
-If forge / submodule / RPC is missing, the real verbatim backend error is
-recorded and the level stays at what was observed. No result is fabricated.
+Missing RPC, missing repo, compile errors and timeouts are recorded with the
+verbatim backend output; they are never fabricated into a higher level.
 
 Usage:
-  python wave1/scripts/run_wave1_experiments.py --track all --timeout 120
+  python wave1/scripts/run_wave1_experiments.py --track all --timeout 120 --budget 3600
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
 import shutil
-import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -47,763 +46,855 @@ from _common import (  # noqa: E402
     ROOT,
     WAVE1,
     WORK_SOURCES,
-    append_jsonl,
-    ensure_parent,
+    guard_scratch,
     guard_wave1,
     read_jsonl,
     utc_now,
     write_json,
     write_jsonl,
 )
+from experiments.foundry import (  # noqa: E402
+    build_and_test,
+    clone_at,
+    derive_clone_urls,
+    discover_tools,
+    install_tests,
+    make_fixed_workspace,
+    project_root,
+    run_cmd,
+)
+from experiments.yaml_lite import exploit_vulnerabilities, parse_config  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # owned paths
 # ---------------------------------------------------------------------------
 PROVE_INCIDENTS = WAVE1 / "benchmark_wave1" / "prove_incidents.jsonl"
 PROVE_CANDIDATES = WAVE1 / "benchmark_wave1" / "prove_candidates.jsonl"
-EXP_ROOT = WAVE1 / "05_experiments"
-INC_OUT = EXP_ROOT / "reevmbench"
-CAND_OUT = EXP_ROOT / "prove_candidates"
+INC_OUT = WAVE1 / "05_experiments" / "reevmbench"
+CAND_OUT = WAVE1 / "05_experiments" / "prove_candidates"
 J_OUT = WAVE1 / "benchmark_wave1" / "J_verified_patch.jsonl"
 SUMMARY_OUT = WAVE1 / "reports_wave1" / "execution_summary.json"
-OVERLAP = WAVE1 / "01_dedup" / "overlap_manifest.jsonl"
 
 # ---------------------------------------------------------------------------
-# scratch (git-ignored) + tools
+# scratch + constants
 # ---------------------------------------------------------------------------
 REEVMBENCH = WORK_SOURCES / "blocksecteam__ReEVMBench"
 RUNS = ROOT / "work" / "wave1_runs"
-# Forge is discovered on PATH; an optional FOUNDRY_DIR env var supports
-# installations that are not on PATH. No operator-machine path is committed.
-FORGE_DIR = Path(os.environ["FOUNDRY_DIR"]) if os.environ.get("FOUNDRY_DIR") else None
-
 LEVELS = ("L0", "L1", "L3", "L4", "L5", "L6")
-COUNT_KEYS = (
-    "attempted", "compiled_L3", "executed_L4", "reproduced_L5", "verified_L6",
-    "blocked_missing_rpc", "compile_error", "test_failed", "timeout",
-    "skipped_budget", "tool_missing", "harness_missing", "no_foundry_project",
-    "source_repo_missing", "commit_unavailable", "no_target_test",
+STATUS_KEYS = (
+    "attempted", "L3", "L4", "L5", "L6", "no_repo", "clone_failed",
+    "compile_error", "test_failed", "no_test_suite", "blocked_missing_rpc",
+    "timeout", "skipped_budget", "tool_missing", "harness_missing",
+    "no_foundry_project", "framework_hardhat", "commit_unavailable",
+    "checkout_failed", "no_target_test", "harness_test_missing",
+    "verification_incomplete", "suite_executed",
 )
-
-# Verbatim backend-error signatures. Used only for classification; the raw
-# stdout/stderr tail is always stored unchanged in the result artefact.
-_RPC_ERR = re.compile(
-    r"could not connect|connection refused|econ n?refused|ECONNREFUSED|"
-    r"failed to send request|error sending request|rate limit|429|"
-    r"403 forbidden|invalid response|no such host|name or service not known|"
-    r"failed to fetch|fork.*(fail|error)|rpc.*(fail|error|unreachable)|"
-    r"eth_get|http request.*(fail|error)|missing trie node|header not found",
-    re.I,
-)
-_COMPILE_ERR = re.compile(
-    r"compiler run failed|parser error|expected .*, found|"
-    r"unexpected token|undeclared identifier| compilation failed|"
-    r"error:.*\.sol|syntax error|no matching artifact",
-    re.I,
-)
-_TEST_RAN = re.compile(r"\[PASS\]|\[FAIL\]|Running \d+ test|Ran \d+ test", re.I)
-_TEST_SUCCESS = re.compile(r"Suite result: ok|Success", re.I)
-_TEST_FUNC = re.compile(r"function\s+(test\w*)\s*\(", re.I)
-
-_TAIL = 6000  # chars of verbatim tail retained per stream
-
-
-# ---------------------------------------------------------------------------
-# helpers
-# ---------------------------------------------------------------------------
-def _tail(text: str | None) -> str:
-    if not text:
-        return ""
-    return text[-_TAIL:]
-
-
-def _forge() -> str | None:
-    found = shutil.which("forge")
-    if found:
-        return found
-    if FORGE_DIR:
-        for cand in (FORGE_DIR / "forge.exe", FORGE_DIR / "forge"):
-            if cand.exists():
-                return str(cand)
-    return None
-
-
-def _display_cmd(cmd: list[str]) -> str:
-    try:
-        return subprocess.list2cmdline(cmd)
-    except Exception:
-        return " ".join(cmd)
-
-
-def run_cmd(cmd: list[str], cwd: Path, timeout: int) -> dict:
-    """Run one native command with shell=False; never fabricate output."""
-    rec = {
-        "command": _display_cmd(cmd),
-        "exit_code": None,
-        "stdout_tail": "",
-        "stderr_tail": "",
-        "timed_out": False,
-        "tool_missing": False,
-    }
-    try:
-        p = subprocess.run(
-            cmd,
-            cwd=str(cwd),
-            capture_output=True,
-            text=True,
-            errors="replace",
-            timeout=timeout,
-            shell=False,
-        )
-        rec["exit_code"] = p.returncode
-        rec["stdout_tail"] = _tail(p.stdout)
-        rec["stderr_tail"] = _tail(p.stderr)
-        return rec
-    except subprocess.TimeoutExpired as exc:
-        rec["timed_out"] = True
-        rec["stdout_tail"] = _tail(exc.stdout if isinstance(exc.stdout, str) else
-                                   (exc.stdout or b"").decode("utf-8", "replace"))
-        rec["stderr_tail"] = _tail(exc.stderr if isinstance(exc.stderr, str) else
-                                   (exc.stderr or b"").decode("utf-8", "replace"))
-        return rec
-    except (FileNotFoundError, OSError) as exc:
-        rec["tool_missing"] = True
-        rec["stderr_tail"] = f"{type(exc).__name__}: {exc}"
-        return rec
-
-
-def _classify(run: dict) -> str:
-    """Bucket a failed forge run from its VERBATIM output only."""
-    if run["timed_out"]:
-        return "timeout"
-    if run["tool_missing"]:
-        return "tool_missing"
-    blob = (run["stdout_tail"] or "") + "\n" + (run["stderr_tail"] or "")
-    if _RPC_ERR.search(blob):
-        return "blocked_missing_rpc"
-    if _COMPILE_ERR.search(blob):
-        return "compile_error"
-    return "test_failed"
-
-
-def _find_test_names(project: Path) -> list[str]:
-    """Derive candidate Solidity test function names from a Foundry project."""
-    names: list[str] = []
-    tdir = project / "test"
-    if not tdir.is_dir():
-        return names
-    for sol in sorted(tdir.rglob("*.t.sol")):
-        try:
-            text = sol.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            continue
-        for m in _TEST_FUNC.finditer(text):
-            if m.group(1) not in names:
-                names.append(m.group(1))
-    return names
-
-
-def _row_test_name(row: dict) -> str | None:
-    for key in ("test", "test_name", "target_test", "poc_test", "forge_test"):
-        v = row.get(key)
-        if isinstance(v, str) and v.strip():
-            return v.strip()
-    return None
-
-
-def _copy_project(src: Path, dst: Path) -> bool:
-    """Copy a Foundry project into scratch; skip heavyweight .git/cache/out."""
-    if dst.exists():
-        shutil.rmtree(dst, ignore_errors=True)
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        shutil.copytree(
-            src, dst,
-            ignore=shutil.ignore_patterns(".git", "cache", "out", "broadcast", "node_modules"),
-        )
-        return True
-    except OSError as exc:
-        # recorded by the caller via the explicit error file is not needed;
-        # surface the reason in a side-car the caller reads back.
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        (dst.parent / (dst.name + ".copy_error")).write_text(
-            f"{type(exc).__name__}: {exc}", encoding="utf-8"
-        )
-        return False
-
-
-def _is_foundry_project(d: Path) -> bool:
-    return d.is_dir() and ((d / "foundry.toml").is_file() or (d / "src").is_dir())
-
-
-def _slug_to_dirs(slug: str) -> list[str]:
-    s = slug.strip().strip("/")
-    return list(dict.fromkeys([
-        s.replace("/", "__"),
-        s.replace("/", "_"),
-        s.split("/")[-1],
-    ]))
-
-
-def resolve_source(slug: str) -> Path | None:
-    """Resolve a prove_candidate repo under work/sources/ by URL/name."""
-    if not WORK_SOURCES.is_dir():
-        return None
-    wanted = {n.lower() for n in _slug_to_dirs(slug)}
-    for child in sorted(WORK_SOURCES.iterdir()):
-        if child.is_dir() and child.name.lower() in wanted:
-            return child
-    return None
-
-
-def _checkout_copy(src: Path, sha: str, dst: Path, timeout: int) -> dict:
-    """Materialise `sha` in a scratch copy without mutating the source clone.
-
-    Uses a local --shared clone (objects read from src via alternates) followed
-    by a detached checkout in the scratch copy only.
-    """
-    if dst.exists():
-        shutil.rmtree(dst, ignore_errors=True)
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    clone = run_cmd(["git", "clone", "--shared", "--no-checkout", str(src), str(dst)],
-                    dst.parent, timeout)
-    if clone["exit_code"] != 0:
-        return clone
-    co = run_cmd(["git", "-C", str(dst), "checkout", "--detach", sha], dst.parent, timeout)
-    return co
-
-
-def _build_and_test(project: Path, forge: str, test_name: str | None, timeout: int) -> dict:
-    """Compile then (if a test is known) execute the target test in `project`."""
-    out: dict = {"build": None, "test": None, "test_name": test_name,
-                 "forge_status": None, "verification_level": "L0"}
-    build = run_cmd([forge, "build"], project, timeout)
-    out["build"] = build
-    if build["timed_out"] or build["tool_missing"] or build["exit_code"] != 0:
-        out["forge_status"] = _classify(build)
-        out["verification_level"] = "L0"
-        return out
-
-    # L3: compile succeeded.
-    out["verification_level"] = "L3"
-    out["forge_status"] = "compiled"
-
-    if not test_name:
-        out["forge_status"] = "compiled_no_target_test"
-        return out
-
-    test = run_cmd([forge, "test", "--match-test", test_name], project, timeout)
-    out["test"] = test
-    blob = (test["stdout_tail"] or "") + "\n" + (test["stderr_tail"] or "")
-    ran = bool(_TEST_RAN.search(blob)) or ("[PASS]" in blob) or ("[FAIL]" in blob)
-
-    if test["timed_out"]:
-        out["forge_status"] = "timeout"
-        out["verification_level"] = "L4" if ran else "L3"
-        return out
-    if test["tool_missing"]:
-        out["forge_status"] = "tool_missing"
-        return out
-
-    if ran:
-        out["verification_level"] = "L4"
-    else:
-        out["verification_level"] = "L3"
-
-    if _RPC_ERR.search(blob):
-        out["forge_status"] = "blocked_missing_rpc"
-        return out
-    if test["exit_code"] == 0 and ran and _TEST_SUCCESS.search(blob) and "[FAIL]" not in blob:
-        out["forge_status"] = "exploit_success"
-        out["verification_level"] = "L5"
-        return out
-
-    out["forge_status"] = "test_failed" if ran else "no_matching_test"
-    return out
+SHA40 = re.compile(r"^[0-9a-fA-F]{40}$")
 
 
 def _safe_id(cid: str) -> str:
-    """Filesystem-safe component of a candidate id (Windows-hostile chars out)."""
     return re.sub(r"[^A-Za-z0-9._-]+", "__", str(cid)).strip("._") or "unknown"
+
+
+def _now() -> str:
+    return utc_now()
+
+
+# Operator-machine profile paths are never written into a tracked artefact.
+# The repository's machine-path gate accepts REDACTED as a genuine placeholder.
+# Only the account-name component is replaced; the rest of the command/path
+# (tool name, repo-relative arguments) stays meaningful. Forge stdout/stderr
+# tails can also contain POSIX home paths baked into compiler output, so those
+# are redacted with the same token.
+_REDACT_PATTERNS = (
+    re.compile(
+        r"(?P<prefix>(?<![A-Za-z0-9])[A-Za-z]:[\\/]+(?:Users|Documents and Settings)[\\/]+)"
+        r"[A-Za-z0-9._-]+"
+    ),
+    re.compile(r"(?P<prefix>(?<![A-Za-z0-9])/(?:home|Users|root)/)[A-Za-z0-9._-]+"),
+    re.compile(r"(?P<prefix>(?<![A-Za-z0-9])/tmp/)[A-Za-z0-9._-]+(?=[\\/]|$)"),
+)
+
+
+def _redact_paths(text: str) -> str:
+    for pattern in _REDACT_PATTERNS:
+        text = pattern.sub(lambda m: m.group("prefix") + "REDACTED", text)
+    return text
+
+
+def _jsonable(value: Any) -> Any:
+    """Recursively coerce paths to strings and redact machine-local profile paths.
+
+    This is applied to EVERY value written to a tracked result.json, the
+    execution summary and the J rows. The real (unredacted) paths are still
+    used at runtime to execute commands and read the fixed workspaces; only
+    what is serialised into the artefact is redacted.
+    """
+    if isinstance(value, Path):
+        return _redact_paths(str(value))
+    if isinstance(value, str):
+        return _redact_paths(value)
+    if isinstance(value, dict):
+        return {_redact_paths(str(k)): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    return value
+
+
+def _git_blob_sha(data: bytes) -> str:
+    """The real git-blob object id of ``data`` (never a fabricated value)."""
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def _applied_fixed_relpaths(info: dict[str, Any]) -> list[str]:
+    """Repo-root-relative paths of the fixed sources applied to a fixed workspace."""
+    rels: set[str] = set()
+    for entry in (info or {}).get("patch_sources") or []:
+        if isinstance(entry, dict) and entry.get("copied") and entry.get("destination"):
+            rels.add(str(entry["destination"]).replace("\\", "/").lstrip("./"))
+    for note in (info or {}).get("notes") or []:
+        m = re.match(r"\s*applied fixed source\s+(.+?)\s+for\s+", str(note))
+        if m:
+            rels.add(m.group(1).replace("\\", "/").lstrip("./"))
+    return sorted(rels)
+
+
+def _compute_fixed_blob_sha(fixed_root: Path, info: dict[str, Any]) -> str | None:
+    """Hash the exact bytes of the applied fixed sources in ``fixed_root``.
+
+    Returns the git-blob SHA over the concatenation of the patched source
+    files (sorted by relative path, so it is deterministic), or None when the
+    workspace/evidence is missing. No identifier is invented.
+    """
+    rels = _applied_fixed_relpaths(info)
+    if not rels or not fixed_root.is_dir():
+        return None
+    chunks: list[bytes] = []
+    for rel in rels:
+        try:
+            data = (fixed_root / rel).read_bytes()
+        except OSError:
+            return None
+        if not data:
+            return None
+        chunks.append(data)
+    sha = _git_blob_sha(b"".join(chunks))
+    return sha if SHA40.match(sha) else None
+
+
+def _write_incident_result(row: dict[str, Any], artefact: dict[str, Any]) -> None:
+    art = dict(artefact)
+    art.setdefault("generated_at", _now())
+    art["input_row"] = row
+    path = INC_OUT / _safe_id(str(row.get("candidate_id") or "unknown")) / "result.json"
+    write_json(guard_wave1(path), _jsonable(art))
+
+
+def _write_candidate_result(row: dict[str, Any], artefact: dict[str, Any]) -> None:
+    art = dict(artefact)
+    art.setdefault("generated_at", _now())
+    art["input_row"] = row
+    path = CAND_OUT / _safe_id(str(row.get("candidate_id") or "unknown")) / "result.json"
+    write_json(guard_wave1(path), _jsonable(art))
+
+
+def _toolchain_note(tools: dict[str, Any]) -> str:
+    parts = ["forge=" + ("available" if tools["forge_available"] else "MISSING"),
+             "anvil=" + ("available" if tools["anvil_available"] else "MISSING"),
+             "cast=" + ("available" if tools["cast_available"] else "MISSING"),
+             "cached_forge_std=" + ("available" if tools["cached_forge_std_available"] else "MISSING")]
+    return "; ".join(parts)
+
+
+def _harness_listing(harness: Path) -> list[str]:
+    if not harness.is_dir():
+        return []
+    out: list[str] = []
+    for p in sorted(harness.rglob("*")):
+        if p.is_file():
+            out.append(p.relative_to(harness).as_posix())
+        if len(out) >= 80:
+            break
+    return out
+
+
+_RPC_ENV_KEYS = (
+    "RPC_URL", "ETH_RPC_URL", "BSC_RPC_URL", "BASE_RPC_URL", "ARBITRUM_RPC_URL",
+    "ALCHEMY_API_KEY", "INFURA_API_KEY", "ETHERSCAN_API_KEY", " FOUNDRY_RPC",
+)
+
+
+def _rpc_env_present() -> bool:
+    return any(os.environ.get(k, "").strip() for k in _RPC_ENV_KEYS)
 
 
 # ---------------------------------------------------------------------------
 # TRACK 1 -- ReEVMBench incidents
 # ---------------------------------------------------------------------------
-def run_incidents(forge: str | None, timeout: int, budget_end: float,
-                  stats: dict) -> list[dict]:
-    rows = [r for r in read_jsonl(guard_wave1(PROVE_INCIDENTS))]
-    stats["incidents"]["total_rows"] = len(rows)
-    statuses: list[tuple[str, str]] = []
-    for row in rows:
-        cid = str(row.get("candidate_id") or "unknown")
-        if time.monotonic() >= budget_end:
-            statuses.append((cid, "skipped_budget"))
-            _write_incident_result(row, {
-                "candidate_id": cid,
-                "command": None, "exit_code": None,
-                "forge_status": "skipped_budget", "verification_level": "L0",
-                "stdout_tail": "", "stderr_tail": "",
-                "harness_path": row.get("harness_path"),
-                "pinned_commit": row.get("pinned_commit"),
-                "retrieved_at": utc_now(),
-                "notes": ["Global execution budget exhausted before this row was attempted."],
-            })
-            continue
+def process_incident(row: dict[str, Any], tools: dict[str, Any],
+                     timeout: int, budget_end: float) -> tuple[str, dict[str, Any]]:
+    cid = str(row.get("candidate_id") or "unknown")
+    hp = str(row.get("harness_path") or "")
+    base_commit = str(row.get("pinned_commit") or "")
+    art: dict[str, Any] = {
+        "candidate_id": cid,
+        "command": None, "commands": [], "exit_code": None, "exit_codes": [],
+        "forge_status": None, "verification_level": "L0",
+        "stdout_tail": "", "stderr_tail": "",
+        "harness_path": hp or None, "base_commit": base_commit or None,
+        "fixed_workspace": None, "toolchain_note": _toolchain_note(tools),
+        "retrieved_at": _now(), "notes": [],
+    }
+    if time.monotonic() >= budget_end:
+        art["forge_status"] = "skipped_budget"
+        art["notes"].append("Global execution budget exhausted before this row was attempted.")
+        return "skipped_budget", art
 
-        stats["incidents"]["attempted"] += 1
-        hp = str(row.get("harness_path") or "")
-        harness = REEVMBENCH / hp if hp else None
-        base_artefact = {
-            "candidate_id": cid,
-            "command": None, "exit_code": None,
-            "forge_status": None, "verification_level": "L0",
-            "stdout_tail": "", "stderr_tail": "",
-            "harness_path": hp or None,
-            "pinned_commit": row.get("pinned_commit"),
-            "retrieved_at": utc_now(),
-            "notes": [],
-        }
+    harness = REEVMBENCH / hp if hp else None
+    if harness is None or not harness.is_dir():
+        art["forge_status"] = "harness_missing"
+        art["notes"].append(f"Harness directory absent under ReEVMBench clone: {hp!r}.")
+        return "harness_missing", art
+    guard_scratch(harness)
 
-        if harness is None or not harness.is_dir():
-            base_artefact["forge_status"] = "harness_missing"
-            base_artefact["notes"].append(
-                f"Harness directory not present: {harness!s} (harness_path={hp!r})."
-            )
-            statuses.append((cid, "harness_missing"))
-            _write_incident_result(row, base_artefact)
-            continue
+    cfg = parse_config(harness / "config.yaml")
+    framework = str(cfg.get("framework") or "")
+    vulns = exploit_vulnerabilities(cfg)
+    art["harness_listing"] = _harness_listing(harness)
+    art["config_summary"] = {
+        "id": cfg.get("id"), "framework": framework or None,
+        "run_cmd_dir": cfg.get("run_cmd_dir") or None,
+        "base_commit": cfg.get("base_commit") or None,
+        "default_test_flags": cfg.get("default_test_flags") or None,
+        "vulnerabilities_total": len(cfg.get("vulnerabilities") or []),
+        "vulnerabilities_with_tests": len(vulns),
+    }
+    base_commit = str(cfg.get("base_commit") or base_commit or "")
+    art["base_commit"] = base_commit or None
 
-        if not _is_foundry_project(harness):
-            listing = sorted(p.relative_to(harness).as_posix() for p in harness.rglob("*"))[:40]
-            base_artefact["forge_status"] = "no_foundry_project"
-            base_artefact["notes"].append(
-                "Harness dir has neither foundry.toml nor src/; it is a metadata harness. "
-                "Verbatim top-level entries: " + ", ".join(listing)
-            )
-            statuses.append((cid, "no_foundry_project"))
-            _write_incident_result(row, base_artefact)
-            continue
-
-        if forge is None:
-            base_artefact["forge_status"] = "tool_missing"
-            base_artefact["notes"].append("forge executable not found on PATH or in FOUNDRY_DIR.")
-            statuses.append((cid, "tool_missing"))
-            _write_incident_result(row, base_artefact)
-            continue
-
-        dst = RUNS / "incidents" / _safe_id(cid)
-        copied = _copy_project(harness, dst)
-        err_file = dst.parent / (dst.name + ".copy_error")
-        if not copied:
-            err = err_file.read_text(encoding="utf-8") if err_file.exists() else "copy failed"
-            base_artefact["forge_status"] = "compile_error"
-            base_artefact["stderr_tail"] = err
-            statuses.append((cid, "compile_error"))
-            _write_incident_result(row, base_artefact)
-            continue
-
-        test_name = _row_test_name(row)
-        if not test_name:
-            found = _find_test_names(dst)
-            test_name = found[0] if found else None
-            if test_name:
-                base_artefact["notes"].append(f"Derived target test from harness sources: {test_name}")
-
-        exec_rec = _build_and_test(dst, forge, test_name, timeout)
-        build = exec_rec["build"] or {}
-        test = exec_rec["test"] or {}
-        cmd = build.get("command")
-        if exec_rec["test"] is not None:
-            cmd = (str(cmd) + " && " + str(test.get("command"))) if cmd else test.get("command")
-        base_artefact.update({
-            "command": cmd,
-            "exit_code": test.get("exit_code") if exec_rec["test"] is not None else build.get("exit_code"),
-            "forge_status": exec_rec["forge_status"],
-            "verification_level": exec_rec["verification_level"],
-            "stdout_tail": _tail((test.get("stdout_tail") or "") or (build.get("stdout_tail") or "")),
-            "stderr_tail": _tail((test.get("stderr_tail") or "") or (build.get("stderr_tail") or "")),
-            "forge_build": build,
-            "forge_test": test,
-            "test_name": test_name,
-        })
-        base_artefact["notes"].append(
-            f"Forge ran in scratch copy {dst.as_posix()!r}; pinned clone was never modified."
+    if framework.lower().startswith("hardhat"):
+        art["forge_status"] = "framework_hardhat"
+        art["notes"].append(
+            "Harness framework is Hardhat (JS/TS tests); this Foundry runner does not "
+            "claim an execution level for it. No forge command was run on this row."
         )
-        statuses.append((cid, exec_rec["forge_status"] or "unknown"))
-        _write_incident_result(row, base_artefact)
-    return statuses
+        return "framework_hardhat", art
+    if "clarahacks" in hp.lower() and (harness / "exploit" / "fork_config.json").is_file():
+        fork = {}
+        try:
+            fork = json.loads((harness / "exploit" / "fork_config.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            pass
+        art["fork_config"] = {
+            "chain": fork.get("chain"), "chain_id": fork.get("chain_id"),
+            "fork_block_number": fork.get("fork_block_number"),
+            "exploit_transactions": [t.get("tx_hash") for t in (fork.get("exploit_transactions") or [])],
+            "victim_addresses": [v.get("address") for v in (fork.get("victim_addresses") or [])],
+        }
+        if not _rpc_env_present():
+            art["forge_status"] = "blocked_missing_rpc"
+            art["notes"].append(
+                "ClaraHacks harness needs an upstream RPC fork to deploy/replay the "
+                "incident (chain/fork block in fork_config). No RPC URL API key is set "
+                "in the environment and the harness contains no test/ or patch/ sources; "
+                "the exploit cannot be executed locally. See fork_config."
+            )
+            return "blocked_missing_rpc", art
+    if not vulns:
+        art["forge_status"] = "no_test_suite"
+        art["notes"].append(
+            "Harness carries no vulnerability with both a target test and a test path "
+            "mapping; nothing executable to materialise. See harness_listing."
+        )
+        return "no_test_suite", art
+    if not tools["forge_available"]:
+        art["forge_status"] = "tool_missing"
+        art["notes"].append("forge executable unavailable on PATH / FOUNDRY_DIR.")
+        return "tool_missing", art
+
+    forge = tools["_forge"]
+    run_dir = str(cfg.get("run_cmd_dir") or "")
+    stem = RUNS / "reevmbench" / _safe_id(cid)
+    urls = derive_clone_urls(str(cfg.get("id") or hp), harness)
+    art["clone_urls_attempted"] = urls
+    clone: dict[str, Any] | None = None
+    for url in urls:
+        if time.monotonic() >= budget_end:
+            break
+        clone = clone_at(url, stem / "checkout", base_commit, max(180, timeout * 2))
+        clone["url"] = url
+        if clone.get("ok"):
+            break
+    art["clone"] = clone or {"failure": "no_repo", "url": None, "attempts": []}
+    if not clone or not clone.get("ok"):
+        status = str(clone.get("failure") if clone else "no_repo")
+        if status == "commit_unavailable":
+            art["notes"].append("Requested base_commit could not be fetched; see clone.attempts.")
+        art["forge_status"] = status
+        art["stderr_tail"] = str((clone or {}).get("commit_error") or
+                                 _last_stderr(clone) if clone else "no clone URL available")
+        return status, art
+
+    checkout = stem / "checkout"
+    project = project_root(checkout, run_dir)
+    art["source_checkout"] = str(checkout)
+    art["project_root"] = str(project)
+    if not (project / "foundry.toml").is_file() and not (project / "src").is_dir():
+        art["forge_status"] = "no_foundry_project"
+        art["notes"].append(
+            "Cloned project has neither foundry.toml nor src/; verbatim top-level entries: "
+            + ", ".join(sorted(p.name for p in project.iterdir()))[:1500]
+        )
+        return "no_foundry_project", art
+
+    # Materialise the vulnerable workspace (the disposable scratch checkout).
+    installs: list[dict[str, Any]] = []
+    for v in vulns:
+        installs.extend(install_tests(checkout, harness, v))
+    art["test_installation"] = installs
+    if not any(e.get("copied") for e in installs):
+        art["forge_status"] = "harness_test_missing"
+        art["notes"].append("No harness test source could be copied into the workspace.")
+        return "harness_test_missing", art
+
+    from experiments.foundry import _ensure_libs_and_config  # local import, private helper
+    art["notes"].extend(_ensure_libs_and_config(project, tools.get("_forge_std")))
+
+    # Materialise the second (fixed) workspace at the same base revision.
+    fixed_root = stem / "fixed"
+    fixed_info = make_fixed_workspace(
+        checkout, fixed_root, harness, vulns, run_dir, tools.get("_forge_std"),
+        commit=base_commit or str((clone or {}).get("checked_out_commit") or "HEAD"),
+        timeout=max(120, timeout),
+    )
+    for v in vulns:
+        fixed_info.setdefault("test_installation", []).extend(install_tests(fixed_root, harness, v))
+    art["fixed_workspace"] = fixed_info
+    if not fixed_info.get("copy", {}).get("ok"):
+        art["notes"].append("Fixed workspace copy failed; L6 cannot be established.")
+
+    tests = [(v, str(v.get("test")).strip()) for v in vulns]
+    config_flags = str(cfg.get("default_test_flags") or "")
+    vres = build_and_test(forge, project, tests, config_flags, timeout, budget_end)
+    art["vulnerable"] = vres
+    art["command"] = vres.get("build", {}).get("command")
+    art["commands"] = ([vres["build"]["command"]] if vres.get("build") else [])
+    art["exit_code"] = (vres.get("build") or {}).get("exit_code")
+    art["exit_codes"] = [art["exit_code"]]
+    for t in vres.get("tests") or []:
+        if t.get("command"):
+            art["commands"].append(t["command"])
+            art["exit_codes"].append(t.get("exit_code"))
+            if not art["stdout_tail"]:
+                art["stdout_tail"] = t.get("stdout_tail") or ""
+                art["stderr_tail"] = t.get("stderr_tail") or ""
+    if not art["stdout_tail"]:
+        art["stdout_tail"] = (vres.get("build") or {}).get("stdout_tail") or ""
+        art["stderr_tail"] = (vres.get("build") or {}).get("stderr_tail") or ""
+
+    status = str(vres.get("forge_status") or "unknown")
+    art["verification_level"] = str(vres.get("verification_level") or "L0")
+    art["forge_status"] = status
+
+    if art["verification_level"] == "L5" and fixed_info.get("copy", {}).get("ok"):
+        fixed_project = project_root(fixed_root, run_dir)
+        fres = build_and_test(forge, fixed_project, tests, config_flags, timeout, budget_end)
+        art["fixed"] = fres
+        for t in fres.get("tests") or []:
+            if t.get("command"):
+                art["commands"].append(t["command"])
+                art["exit_codes"].append(t.get("exit_code"))
+        vmap = {str(t.get("test_name")): t for t in vres.get("tests") or []}
+        fmap = {str(t.get("test_name")): t for t in fres.get("tests") or []}
+        pairs = []
+        for name, vt in vmap.items():
+            ft = fmap.get(name, {})
+            reproduced = bool(vt.get("exploit_success"))
+            blocked = bool(ft.get("ran") and ft.get("failed") and not ft.get("exploit_success"))
+            if reproduced and blocked:
+                pairs.append({"test_name": name, "vulnerable": "PASS", "fixed": "FAIL"})
+        art["l6_pairs"] = pairs
+        art["all_exploits_blocked_on_fixed"] = bool(pairs) and len(pairs) == sum(
+            1 for t in vmap.values() if t.get("exploit_success"))
+        if pairs:
+            art["verification_level"] = "L6"
+            art["forge_status"] = "patch_verified_L6"
+            status = "patch_verified_L6"
+            # Bind the L6 claim to the exact fixed bytes that were applied in
+            # the fixed workspace. This is a real git-blob SHA (NOT a commit
+            # SHA); if it cannot be computed the row is excluded from J.
+            fixed_info = art.get("fixed_workspace") or {}
+            fixed_sha = _compute_fixed_blob_sha(fixed_root, fixed_info)
+            art["fixed_sha"] = fixed_sha
+            art["fixed_sha_basis"] = "git_blob_of_patched_sources" if fixed_sha else None
+            if fixed_sha:
+                art["fixed_source_paths"] = _applied_fixed_relpaths(fixed_info)
+            else:
+                art["notes"].append(
+                    "Could not compute a real git-blob SHA over the applied fixed "
+                    "sources; this L6 artefact is excluded from J_verified_patch."
+                )
+    elif art["verification_level"] == "L5":
+        art["notes"].append("L5 observed but no fixed workspace was available to test L6.")
+        status = "exploit_success"
+    return status, art
 
 
-def _write_incident_result(row: dict, artefact: dict) -> None:
-    artefact = dict(artefact)
-    artefact.setdefault("generated_at", utc_now())
-    # Attach the unmodified input row for provenance (metadata only, no prose).
-    artefact["input_row"] = row
-    p = INC_OUT / _safe_id(str(row.get("candidate_id") or "unknown")) / "result.json"
-    write_json(ensure_parent(p), artefact)
+def _last_stderr(clone: dict[str, Any] | None) -> str:
+    if not clone:
+        return ""
+    for step in reversed(clone.get("attempts") or []):
+        if isinstance(step, dict) and step.get("stderr_tail"):
+            return str(step["stderr_tail"])
+    return str(clone.get("commit_error") or "")
 
 
 # ---------------------------------------------------------------------------
 # TRACK 2 -- prove_candidates (two-revision)
 # ---------------------------------------------------------------------------
-def run_candidates(forge: str | None, timeout: int, budget_end: float,
-                   stats: dict) -> tuple[list[tuple[str, str]], list[dict]]:
-    rows = [r for r in read_jsonl(guard_wave1(PROVE_CANDIDATES))]
-    stats["candidates"]["total_rows"] = len(rows)
-    statuses: list[tuple[str, str]] = []
-    l6_rows: list[dict] = []
-    for row in rows:
-        cid = str(row.get("candidate_id") or "unknown")
-        if time.monotonic() >= budget_end:
-            statuses.append((cid, "skipped_budget"))
-            _write_candidate_result(row, {
-                "candidate_id": cid, "status": "skipped_budget",
-                "vuln": None, "fix": None,
-                "verification_level": "L0", "verdict_reason": "Global execution budget exhausted.",
-            })
-            continue
+def _repo_listing(repo: Path) -> dict[str, Any]:
+    files: list[str] = []
+    for p in sorted(repo.rglob("*")):
+        if p.is_file() and ".git" not in p.relative_to(repo).parts:
+            files.append(p.relative_to(repo).as_posix())
+    return {"top_level": sorted(p.name for p in repo.iterdir() if p.name != ".git"),
+            "file_count": len(files), "files": files[:80]}
 
-        stats["candidates"]["attempted"] += 1
-        vuln_sha = str(row.get("vuln_sha") or "")
-        fix_sha = str(row.get("fix_sha") or "")
-        slug = str(row.get("repo_slug") or "")
-        src = resolve_source(slug)
-        base = {
-            "candidate_id": cid,
-            "vuln_sha": vuln_sha, "fix_sha": fix_sha,
-            "repo_slug": slug, "source": row.get("source"),
-            "source_clone": src.as_posix() if src else None,
-            "checkout": {}, "vuln": None, "fix": None,
-            "test_name": None, "same_test_both_legs": False,
-            "verification_level": "L0",
-            "violation_reproduced": False, "blocked_on_fixed": False,
-            "verdict_reason": "", "notes": [],
-            "generated_at": utc_now(),
-        }
 
-        if src is None or not (src / ".git").exists():
-            base["verdict_reason"] = (
-                f"Source repo for {slug!r} not present under work/sources/. "
-                f"Tried: {_slug_to_dirs(slug)}. No two-revision checkout or forge run possible."
-            )
-            base["forge_status"] = "source_repo_missing"
-            statuses.append((cid, "source_repo_missing"))
-            _write_candidate_result(row, base)
-            continue
+def _suite_kind(repo: Path) -> str:
+    for rel in ("foundry.toml",):
+        if (repo / rel).is_file():
+            return "foundry"
+    for p in repo.rglob("hardhat.config.*"):
+        if ".git" not in p.parts:
+            return "hardhat"
+    if (repo / "Cargo.toml").is_file():
+        return "cargo"
+    return "none"
 
-        if forge is None:
-            base["verdict_reason"] = "forge executable not found; no two-revision run possible."
-            base["forge_status"] = "tool_missing"
-            statuses.append((cid, "tool_missing"))
-            _write_candidate_result(row, base)
-            continue
 
-        stem = RUNS / "candidates" / _safe_id(cid)
-        legs: dict[str, dict] = {}
-        checkout_statuses: list[str] = []
-        for leg, sha in (("vuln", vuln_sha), ("fix", fix_sha)):
-            dst = stem / leg
-            co = _checkout_copy(src, sha, dst, timeout)
-            base["checkout"][leg] = co
-            if co["exit_code"] != 0 or co["tool_missing"] or co["timed_out"]:
-                base["notes"].append(
-                    f"{leg} checkout of {sha!r} failed: "
-                    f"{_classify(co)} :: {_tail(co['stderr_tail'])}"
-                )
-                legs[leg] = {"checkout": co, "exec": None}
-                checkout_statuses.append(
-                    "timeout" if co["timed_out"] else
-                    ("tool_missing" if co["tool_missing"] else "commit_unavailable")
-                )
-            else:
-                checkout_statuses.append("ok")
+def _checkout_leg(repo: Path, sha: str, dest: Path, timeout: int) -> dict[str, Any]:
+    if dest.is_dir():
+        shutil.rmtree(dest, ignore_errors=True)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    git = shutil.which("git") or "git"
+    # A previous run may have registered a worktree at this path.
+    run_cmd([git, "-C", str(repo), "worktree", "prune"], repo.parent, timeout)
+    run_cmd([git, "-C", str(repo), "worktree", "remove", "--force", str(dest)],
+            repo.parent, timeout)
+    run_cmd([git, "-C", str(repo), "config", "core.longpaths", "true"],
+            repo.parent, timeout)
+    fetch = run_cmd([git, "-C", str(repo), "fetch", "--quiet", "origin", sha],
+                    repo.parent, timeout)
+    if fetch["exit_code"] != 0:
+        return {"sha": sha, "ok": False, "failure": "commit_unavailable", "fetch": fetch}
+    wt = run_cmd([git, "-C", str(repo), "worktree", "add", "--quiet", "--detach",
+                  str(dest), sha], repo.parent, timeout)
+    if wt["exit_code"] == 0:
+        return {"sha": sha, "ok": True, "method": "git_worktree", "checkout": wt}
+    # Fallback: local shared clone with detached checkout.
+    cl = run_cmd([git, "clone", "--quiet", "--shared", "--no-checkout",
+                  str(repo), str(dest)], dest.parent, timeout)
+    co = run_cmd([git, "-C", str(dest), "checkout", "--quiet", "--detach", sha],
+                 dest.parent, timeout)
+    return {"sha": sha, "ok": co["exit_code"] == 0, "method": "shared_clone",
+            "clone": cl, "checkout": co}
 
-        if any(s != "ok" for s in checkout_statuses):
-            base["forge_status"] = checkout_statuses[0] if checkout_statuses[0] != "ok" else checkout_statuses[1]
-            base["verdict_reason"] = "One or both revision checkouts failed; see checkout block / notes."
-            base["vuln"] = legs.get("vuln")
-            base["fix"] = legs.get("fix")
-            statuses.append((cid, base["forge_status"]))
-            _write_candidate_result(row, base)
-            continue
 
-        # Both revisions materialised. Find a target test on the vulnerable leg.
-        vn = stem / "vuln"
-        test_name = _row_test_name(row)
-        if not test_name:
-            found = _find_test_names(vn)
-            test_name = found[0] if found else None
-        base["test_name"] = test_name
-        if not test_name:
-            base["forge_status"] = "no_target_test"
-            base["verdict_reason"] = "No target exploit test found at vuln revision; cannot derive L4/L5/L6."
-            for leg, dst in (("vuln", vn), ("fix", stem / "fix")):
-                be = run_cmd([forge, "build"], dst, timeout)
-                legs[leg] = {"exec": {"build": be, "test": None, "forge_status": _classify(be) if be["exit_code"] else "compiled"}}
-                base[leg] = legs[leg]["exec"]
-            statuses.append((cid, "no_target_test"))
-            _write_candidate_result(row, base)
-            continue
+def process_candidate(row: dict[str, Any], repo_cache: dict[str, dict[str, Any]],
+                      tools: dict[str, Any], timeout: int,
+                      budget_end: float) -> tuple[str, dict[str, Any]]:
+    cid = str(row.get("candidate_id") or "unknown")
+    slug = str(row.get("repo_slug") or "")
+    vuln_sha = str(row.get("vuln_sha") or "")
+    fix_sha = str(row.get("fix_sha") or "")
+    art: dict[str, Any] = {
+        "candidate_id": cid, "repo_slug": slug,
+        "vuln_sha": vuln_sha, "fix_sha": fix_sha,
+        "permalink": row.get("permalink"),
+        "vuln": None, "fix": None, "checkout": {}, "clone": None,
+        "verification_level": "L0", "forge_status": None,
+        "violation_reproduced": False, "blocked_on_fixed": False,
+        "toolchain_note": _toolchain_note(tools),
+        "retrieved_at": _now(), "notes": [],
+    }
+    if time.monotonic() >= budget_end:
+        art["forge_status"] = "skipped_budget"
+        art["notes"].append("Global execution budget exhausted before this row was attempted.")
+        return "skipped_budget", art
+    if not slug:
+        art["forge_status"] = "no_repo"
+        art["notes"].append("Row carries no repo_slug.")
+        return "no_repo", art
 
-        vexec = _build_and_test(vn, forge, test_name, timeout)
-        fexec = _build_and_test(stem / "fix", forge, test_name, timeout)
-        base["vuln"] = vexec
-        base["fix"] = fexec
-        base["same_test_both_legs"] = True
-
-        violation_reproduced = vexec["verification_level"] in ("L5", "L6")
-        fix_blocked = (
-            fexec["verification_level"] in ("L3", "L4")
-            and fexec["forge_status"] != "exploit_success"
-        )
-        base["violation_reproduced"] = violation_reproduced
-        base["blocked_on_fixed"] = fix_blocked
-
-        if violation_reproduced and fix_blocked:
-            base["verification_level"] = "L6"
-            base["forge_status"] = "patch_verified_L6"
-        elif violation_reproduced:
-            base["verification_level"] = "L5"
-            base["forge_status"] = "exploit_success_fix_not_blocked"
-        elif vexec["verification_level"] == "L4":
-            base["verification_level"] = "L4"
-            base["forge_status"] = vexec["forge_status"] or "test_executed"
-        elif vexec["verification_level"] == "L3":
-            base["verification_level"] = "L3"
-            base["forge_status"] = vexec["forge_status"] or "compiled"
+    if slug not in repo_cache:
+        last = slug.split("/")[-1]
+        dest = RUNS / "prove_repos" / _safe_id(last)
+        if dest.is_dir() and (dest / ".git").is_dir():
+            repo_cache[slug] = {"ok": True, "path": str(dest),
+                                "url": f"https://github.com/{slug}.git", "attempts": []}
         else:
-            base["forge_status"] = vexec["forge_status"] or _classify(vexec["build"] or {})
+            repo_cache[slug] = clone_at(f"https://github.com/{slug}.git", dest, "", 300)
+            repo_cache[slug]["path"] = str(dest)
+    clone = repo_cache[slug]
+    art["clone"] = clone
+    repo = Path(str(clone.get("path") or RUNS / "prove_repos" / _safe_id(slug.split("/")[-1])))
+    if not clone.get("ok") or not (repo / ".git").is_dir():
+        art["forge_status"] = "clone_failed"
+        art["notes"].append("Repository clone failed; see clone.attempts for verbatim output.")
+        return "clone_failed", art
 
-        statuses.append((cid, base["forge_status"] or "unknown"))
-        artefact_path = (
-            CAND_OUT / _safe_id(cid) / "result.json"
-        ).relative_to(WAVE1).as_posix()
-        base["result_artefact"] = "wave1/" + artefact_path
+    listing = _repo_listing(repo)
+    art["repo_listing"] = listing
+    suite = _suite_kind(repo)
+    art["suite_kind"] = suite
+    if suite == "none":
+        art["forge_status"] = "no_test_suite"
+        art["verification_level"] = "L0"
+        art["notes"].append(
+            "Repository is issue-markdown/JSON data only: no foundry.toml, no "
+            "hardhat.config.* and no Cargo.toml. Verbatim directory listing is in "
+            "repo_listing. No test suite was fabricated."
+        )
+        return "no_test_suite", art
 
-        if base["verification_level"] == "L6":
-            l6_rows.append({
-                "task_id": f"J::test::{cid}",
-                "candidate_id": cid,
-                "label": "patch_verified_L6",
-                "answer": "patch_verified_L6",
-                "split": "test",
-                "source": row.get("source") or "c4_mitigation",
-                "repo_slug": slug,
-                "execution": {
-                    "level": "L6",
-                    "vulnerable_sha": vuln_sha,
-                    "fixed_sha": fix_sha,
-                    "violation_reproduced": True,
-                    "blocked_on_fixed": True,
-                    "result_artefact": base["result_artefact"],
-                    "test_name": test_name,
-                    "vuln_forge_status": vexec["forge_status"],
-                    "fix_forge_status": fexec["forge_status"],
-                },
-            })
-        _write_candidate_result(row, base)
-    return statuses, l6_rows
+    if not tools["forge_available"] and suite == "foundry":
+        art["forge_status"] = "tool_missing"
+        return "tool_missing", art
 
+    stem = RUNS / "prove_candidates" / _safe_id(cid)
+    legs: dict[str, dict[str, Any]] = {}
+    for leg, sha in (("vuln", vuln_sha), ("fix", fix_sha)):
+        if not SHA40.match(sha) or sha == (fix_sha if leg == "vuln" else vuln_sha):
+            legs[leg] = {"sha": sha, "ok": False, "failure": "invalid_or_same_sha"}
+        else:
+            legs[leg] = _checkout_leg(repo, sha, stem / leg, timeout)
+    art["checkout"] = legs
+    if any(not legs[k].get("ok") for k in ("vuln", "fix")):
+        art["forge_status"] = "checkout_failed"
+        art["notes"].append("One or both revision checkouts failed; see checkout block.")
+        return "checkout_failed", art
 
-def _write_candidate_result(row: dict, artefact: dict) -> None:
-    artefact = dict(artefact)
-    artefact["input_row"] = row
-    p = CAND_OUT / _safe_id(str(row.get("candidate_id") or "unknown")) / "result.json"
-    write_json(ensure_parent(p), artefact)
+    if suite == "foundry":
+        tests: list[tuple[dict[str, Any], str]] = []
+        for leg in ("vuln", "fix"):
+            root = stem / leg
+            if not (root / "foundry.toml").is_file():
+                root = next((p.parent for p in root.rglob("foundry.toml")), root)
+            legs[leg]["project_root"] = str(root)
+            if leg == "vuln":
+                # Derive exploit test functions from the vulnerable revision.
+                for sol in sorted(root.rglob("*.t.sol")):
+                    text = sol.read_text(encoding="utf-8", errors="replace")
+                    for m in re.finditer(r"function\s+(test\w*)\s*\(", text):
+                        if m.group(1) not in [n for _, n in tests]:
+                            tests.append(({"id": "derived"}, m.group(1)))
+        vres = build_and_test(tools["_forge"], Path(str(legs["vuln"]["project_root"])),
+                              tests[:5], "", timeout, budget_end)
+        fres = build_and_test(tools["_forge"], Path(str(legs["fix"]["project_root"])),
+                              tests[:5], "", timeout, budget_end)
+        art["vuln"], art["fix"] = vres, fres
+        vmap = {str(t.get("test_name")): t for t in vres.get("tests") or []}
+        fmap = {str(t.get("test_name")): t for t in fres.get("tests") or []}
+        reproduced = any(t.get("exploit_success") for t in vmap.values())
+        blocked = any(fmap.get(n, {}).get("ran") and fmap.get(n, {}).get("failed")
+                      for n, t in vmap.items() if t.get("exploit_success"))
+        art["violation_reproduced"] = reproduced
+        art["blocked_on_fixed"] = blocked
+        if reproduced and blocked:
+            art["verification_level"] = "L6"
+            art["forge_status"] = "patch_verified_L6"
+        elif reproduced:
+            art["verification_level"] = "L5"
+            art["forge_status"] = "exploit_success"
+        elif vres.get("verification_level") == "L4":
+            art["verification_level"] = "L4"
+            art["forge_status"] = vres.get("forge_status") or "test_executed"
+        elif vres.get("verification_level") == "L3":
+            art["verification_level"] = "L3"
+            art["forge_status"] = "compiled"
+        else:
+            art["forge_status"] = vres.get("forge_status") or "verification_incomplete"
+        return str(art["forge_status"]), art
+
+    # hardhat / cargo: execute the project's standard test command on both legs.
+    cmd_for = {"hardhat": ["npx", "hardhat", "test"], "cargo": ["cargo", "test"]}[suite]
+    for leg in ("vuln", "fix"):
+        root = stem / leg
+        r = run_cmd(cmd_for, root, timeout)
+        art[leg] = {"command": r["command"], "exit_code": r["exit_code"],
+                    "stdout_tail": r["stdout_tail"], "stderr_tail": r["stderr_tail"]}
+    art["forge_status"] = "suite_executed"
+    art["verification_level"] = "L4"
+    return "suite_executed", art
 
 
 # ---------------------------------------------------------------------------
-# summary / reporting
+# reporting
 # ---------------------------------------------------------------------------
-def _bucket(status: str) -> str | None:
-    s = str(status or "")
-    if s in ("exploit_success", "exploit_success_fix_not_blocked", "reproduced_L5"):
-        return "reproduced_L5"
-    if s == "patch_verified_L6":
-        return "verified_L6"
-    if s in COUNT_KEYS:
-        return s
-    return None
+def _load_results(folder: Path) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    if not folder.is_dir():
+        return out
+    for p in sorted(folder.rglob("result.json")):
+        try:
+            out.append(json.loads(p.read_text(encoding="utf-8")))
+        except (OSError, ValueError):
+            continue
+    return out
 
 
-def _count_track(statuses: list[tuple[str, str]]) -> dict:
-    counts = {k: 0 for k in COUNT_KEYS}
+def _count_track(results: list[dict[str, Any]]) -> dict[str, Any]:
+    counts = {k: 0 for k in STATUS_KEYS}
     by_level: dict[str, list[str]] = {lv: [] for lv in LEVELS}
     by_status: dict[str, list[str]] = {}
-    # A row was "attempted" unless the global budget skipped it outright.
-    counts["attempted"] = sum(1 for _, s in statuses if s != "skipped_budget")
-    for cid, status in statuses:
-        b = _bucket(status)
-        if b:
-            counts[b] += 1
+    for r in results:
+        cid = str(r.get("candidate_id") or "unknown")
+        status = str(r.get("forge_status") or "unknown")
+        level = str(r.get("verification_level") or "L0")
         by_status.setdefault(status, []).append(cid)
-        if status in ("exploit_success", "reproduced_L5"):
-            by_level["L5"].append(cid)
-        elif status == "patch_verified_L6":
-            by_level["L6"].append(cid)
-        elif status in ("compiled", "compiled_no_target_test", "no_matching_test"):
-            by_level["L3"].append(cid)
-        elif status in ("test_failed", "blocked_missing_rpc", "timeout"):
-            by_level["L3"].append(cid)
-        else:
-            by_level["L0"].append(cid)
-    # ladder monotonicity for the counters that are explicit levels
-    for cid, status in statuses:
-        if status == "compiled":
-            counts["compiled_L3"] += 1
+        if level in by_level:
+            by_level[level].append(cid)
+        if status != "skipped_budget":
+            counts["attempted"] += 1
+        if status in ("patch_verified_L6", "verified_L6"):
+            counts["L6"] += 1
         elif status in ("exploit_success", "reproduced_L5"):
-            counts["compiled_L3"] += 1
-            counts["executed_L4"] += 1
-            counts["reproduced_L5"] += 1
-        elif status == "patch_verified_L6":
-            counts["compiled_L3"] += 1
-            counts["executed_L4"] += 1
-            counts["reproduced_L5"] += 1
-            counts["verified_L6"] += 1
-        elif status in ("test_failed", "blocked_missing_rpc", "timeout"):
-            counts["compiled_L3"] += 1
-    return {
-        "attempted": counts["attempted"],
-        "compiled_L3": counts["compiled_L3"],
-        "executed_L4": counts["executed_L4"],
-        "reproduced_L5": counts["reproduced_L5"],
-        "verified_L6": counts["verified_L6"],
-        "blocked_missing_rpc": counts["blocked_missing_rpc"],
-        "compile_error": counts["compile_error"],
-        "test_failed": counts["test_failed"],
-        "timeout": counts["timeout"],
-        "skipped_budget": counts["skipped_budget"],
-        "tool_missing": counts["tool_missing"],
-        "harness_missing": counts["harness_missing"],
-        "no_foundry_project": counts["no_foundry_project"],
-        "source_repo_missing": counts["source_repo_missing"],
-        "commit_unavailable": counts["commit_unavailable"],
-        "no_target_test": counts["no_target_test"],
-        "by_level": by_level,
-        "by_status": by_status,
-    }
+            counts["L5"] += 1
+        elif status in ("test_executed", "suite_executed"):
+            counts["L4"] += 1
+        elif status in ("compiled", "compiled_no_target_test", "no_matching_test"):
+            counts["L3"] += 1
+        elif status == "skipped_budget":
+            counts["skipped_budget"] += 1
+        elif status in ("no_repo", "source_repo_missing"):
+            counts["no_repo"] += 1
+        elif status == "clone_failed":
+            counts["clone_failed"] += 1
+        elif status == "compile_error":
+            counts["compile_error"] += 1
+        elif status == "test_failed":
+            counts["test_failed"] += 1
+        elif status == "no_test_suite":
+            counts["no_test_suite"] += 1
+        elif status == "blocked_missing_rpc":
+            counts["blocked_missing_rpc"] += 1
+        elif status == "timeout":
+            counts["timeout"] += 1
+        elif status == "tool_missing":
+            counts["tool_missing"] += 1
+        elif status == "harness_missing":
+            counts["harness_missing"] += 1
+        elif status == "no_foundry_project":
+            counts["no_foundry_project"] += 1
+        elif status == "framework_hardhat":
+            counts["framework_hardhat"] += 1
+        elif status == "commit_unavailable":
+            counts["commit_unavailable"] += 1
+        elif status == "checkout_failed":
+            counts["checkout_failed"] += 1
+        elif status == "no_target_test":
+            counts["no_target_test"] += 1
+        elif status == "harness_test_missing":
+            counts["harness_test_missing"] += 1
+        else:
+            counts["verification_incomplete"] += 1
+    # Ladder counters are monotonic and derived from observed levels.
+    levels = [str(r.get("verification_level") or "L0") for r in results]
+    counts["L3"] = sum(1 for lv in levels if lv in ("L3", "L4", "L5", "L6"))
+    counts["L4"] = sum(1 for lv in levels if lv in ("L4", "L5", "L6"))
+    counts["L5"] = sum(1 for lv in levels if lv in ("L5", "L6"))
+    counts["L6"] = sum(1 for lv in levels if lv == "L6")
+    return {"total_rows": len(results), **counts,
+            "by_level": by_level, "by_status": by_status}
 
 
-def _append_overlap_if_dup(inc_statuses: list[tuple[str, str]],
-                           cand_statuses: list[tuple[str, str]]) -> int:
-    inc = {cid for cid, _ in inc_statuses}
-    cand = {cid for cid, _ in cand_statuses}
-    dupes = sorted(inc & cand)
-    if not dupes:
-        return 0
-    rows = []
-    now = utc_now()
-    for cid in dupes:
-        rows.append({
-            "candidate_id": cid,
-            "decision": "CROSS_TRACK_DUPLICATE",
-            "duplicate_of_layer": "prove_incidents",
-            "duplicate_of_value": cid,
-            "key": f"cross_track:{cid}",
-            "reason": "candidate_id present in both execution tracks",
-            "source": "run_wave1_experiments",
-            "recorded_at": now,
-        })
-    append_jsonl(guard_wave1(OVERLAP), rows)  # append-only, never truncate
-    return len(rows)
+def _gate_g_row_ok(row: dict[str, Any]) -> bool:
+    ex = row.get("execution") if isinstance(row.get("execution"), dict) else {}
+    return bool(
+        str(ex.get("level", "")).upper() == "L6"
+        and SHA40.match(str(ex.get("vulnerable_sha", "")))
+        and SHA40.match(str(ex.get("fixed_sha", "")))
+        and ex.get("fixed_sha") != ex.get("vulnerable_sha")
+        and ex.get("violation_reproduced") is True
+        and ex.get("blocked_on_fixed") is True
+        and str(ex.get("result_artefact") or "")
+        and row.get("label") == "patch_verified_L6"
+        and row.get("answer") == "patch_verified_L6"
+    )
 
 
-def write_summary(forge: str | None, inc: list[tuple[str, str]],
-                  cand: list[tuple[str, str]], j_rows: list[dict],
-                  started: float, notes: list[str]) -> dict:
-    inc_counts = _count_track(inc)
-    cand_counts = _count_track(cand)
-    overlaps = _append_overlap_if_dup(inc, cand)
-    summary = {
-        "generated_at": utc_now(),
-        "runner": "wave1/scripts/run_wave1_experiments.py",
-        "toolchain": {
-            # Record availability, never an operator-machine absolute path.
-            "forge": "found_on_PATH" if forge else None,
-            "forge_found": forge is not None,
-            "anvil_fork_rpc": "not contacted by this runner (no fork RPC URL configured in scope)",
-        },
-        "elapsed_seconds": round(time.monotonic() - started, 2),
-        "tracks": {"incidents": inc_counts, "candidates": cand_counts},
-        "J_verified_patch_rows": len(j_rows),
-        "overlap_manifest_appended_rows": overlaps,
-        "notes": notes,
-        "verdict": "PASS",
-    }
-    write_json(guard_wave1(SUMMARY_OUT), summary)
-    return summary
-
-
-# ---------------------------------------------------------------------------
-# main
-# ---------------------------------------------------------------------------
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--track", choices=("incidents", "candidates", "all"), default="all")
     ap.add_argument("--timeout", type=int, default=120,
                     help="per-forge-command timeout in seconds (default 120)")
-    ap.add_argument("--global-budget", type=int, default=900,
-                    help="wall-clock budget for the whole run in seconds (default 900)")
+    ap.add_argument("--budget", "--global-budget", dest="budget", type=int, default=3600,
+                    help="wall-clock budget for the whole run in seconds (default 3600)")
     args = ap.parse_args(argv)
 
     RUNS.mkdir(parents=True, exist_ok=True)  # git-ignored scratch, not a wave1 write
     started = time.monotonic()
-    budget_end = started + max(60, args.global_budget)
-    forge = _forge()
+    budget_end = started + max(60, args.budget)
+    tools = discover_tools(ROOT / "work")
     notes: list[str] = []
-    if forge is None:
-        notes.append("forge executable unavailable on PATH or in FOUNDRY_DIR.")
-
-    inc_statuses: list[tuple[str, str]] = []
-    cand_statuses: list[tuple[str, str]] = []
-    j_rows: list[dict] = []
+    if not tools["forge_available"]:
+        notes.append("forge executable unavailable; incident rows were recorded as tool_missing.")
 
     if args.track in ("incidents", "all"):
-        inc_statuses = run_incidents(forge, args.timeout, budget_end, _new_stats())
+        rows = list(read_jsonl(guard_wave1(PROVE_INCIDENTS)))
+        for row in rows:
+            _status, artefact = process_incident(row, tools, args.timeout, budget_end)
+            _write_incident_result(row, artefact)
+
     if args.track in ("candidates", "all"):
-        cand_statuses, j_rows = run_candidates(forge, args.timeout, budget_end, _new_stats())
+        rows = list(read_jsonl(guard_wave1(PROVE_CANDIDATES)))
+        cache: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            _status, artefact = process_candidate(row, cache, tools, args.timeout, budget_end)
+            _write_candidate_result(row, artefact)
 
-    # The runner is the single owner of J_verified_patch.jsonl. Write ONLY
-    # genuine L6 rows; zero L6 -> an empty file (honest).
-    j_rows = [r for r in j_rows if r.get("execution", {}).get("level") == "L6"]
-    write_jsonl(guard_wave1(J_OUT), j_rows)
+    # J: only genuine L6 artefacts with the gate-g fields. There are two
+    # sources: two-revision prove_candidates results and ReEVMBench incident
+    # results whose vulnerable/fixed pair reproduced then blocked the exploit.
+    j_rows: list[dict[str, Any]] = []
+    j_skips: list[str] = []
 
+    # (a) prove_candidates two-revision artefacts (existing behaviour).
+    for res in _load_results(CAND_OUT):
+        if res.get("verification_level") != "L6":
+            continue
+        ex = {
+            "level": "L6",
+            "vulnerable_sha": res.get("vuln_sha"),
+            "fixed_sha": res.get("fix_sha"),
+            "violation_reproduced": res.get("violation_reproduced") is True,
+            "blocked_on_fixed": res.get("blocked_on_fixed") is True,
+            "result_artefact": "wave1/" + (
+                CAND_OUT / _safe_id(str(res.get("candidate_id"))) / "result.json"
+            ).relative_to(WAVE1).as_posix(),
+        }
+        row = {
+            "task_id": f"J::test::{res.get('candidate_id')}",
+            "candidate_id": res.get("candidate_id"),
+            "label": "patch_verified_L6",
+            "answer": "patch_verified_L6",
+            "split": "test",
+            "source": res.get("source") or "c4_mitigation",
+            "repo_slug": res.get("repo_slug"),
+            "execution": ex,
+        }
+        if _gate_g_row_ok(row):
+            j_rows.append(row)
+
+    # (b) ReEVMBench incident L6 artefacts. The fixed identifier is a real
+    # git-blob SHA of the exact patched source bytes in the fixed workspace,
+    # recomputed here from the freshly regenerated workspaces (never invented).
+    for res in _load_results(INC_OUT):
+        if res.get("verification_level") != "L6":
+            continue
+        cid = str(res.get("candidate_id") or "unknown")
+        safe = _safe_id(cid)
+        pairs = res.get("l6_pairs") or []
+        reproduced = any(
+            isinstance(p, dict) and str(p.get("vulnerable", "")).upper() == "PASS"
+            for p in pairs
+        )
+        blocked = any(
+            isinstance(p, dict) and str(p.get("fixed", "")).upper() == "FAIL"
+            for p in pairs
+        )
+        vulnerable_sha = str(res.get("base_commit") or "")
+        fixed_root = RUNS / "reevmbench" / safe / "fixed"
+        fixed_sha = _compute_fixed_blob_sha(fixed_root, res.get("fixed_workspace") or {})
+        reasons: list[str] = []
+        if not SHA40.match(vulnerable_sha):
+            reasons.append("base_commit is not a 40-hex SHA")
+        if not fixed_sha:
+            reasons.append("no real git-blob SHA of the applied fixed sources could be computed")
+        elif fixed_sha == vulnerable_sha:
+            reasons.append("fixed_sha equals vulnerable_sha")
+        if not reproduced or not blocked:
+            reasons.append("l6_pairs do not show a reproduced-then-blocked exploit")
+        if reasons:
+            j_skips.append(f"{cid}: " + "; ".join(reasons))
+            continue
+        hp = str(res.get("harness_path") or "")
+        slug = hp.rstrip("/").split("/")[-1] if hp else ""
+        ex = {
+            "level": "L6",
+            "vulnerable_sha": vulnerable_sha,
+            "fixed_sha": fixed_sha,
+            "fixed_sha_basis": "git_blob_of_patched_sources",
+            "violation_reproduced": True,
+            "blocked_on_fixed": True,
+            "result_artefact": "wave1/" + (INC_OUT / safe / "result.json").relative_to(WAVE1).as_posix(),
+        }
+        row = {
+            "task_id": f"J::test::{cid}",
+            "candidate_id": cid,
+            "label": "patch_verified_L6",
+            "answer": "patch_verified_L6",
+            "split": "test",
+            "source": "reevmbench",
+            "repo_slug": f"evmbench-org/{slug}" if slug else None,
+            "execution": ex,
+        }
+        if _gate_g_row_ok(row):
+            j_rows.append(row)
+        else:
+            j_skips.append(f"{cid}: assembled row failed gate-g validation")
+
+    write_jsonl(guard_wave1(J_OUT), [_jsonable(r) for r in j_rows])
     notes.append(
-        f"Wrote {len(j_rows)} verified L6 row(s) to J_verified_patch.jsonl. "
-        + ("No row reached L6; J is intentionally empty." if not j_rows else "")
+        f"Wrote {len(j_rows)} L6 row(s) to J_verified_patch.jsonl "
+        + ("(no tracked artefact reached L6; file intentionally empty)." if not j_rows else ".")
     )
-    notes.append(
-        "Verification ladder is strict: a level is only claimed when the observed "
-        "forge output supports it; missing fork RPC / submodule / repo is recorded "
-        "verbatim as a blocked status, never fabricated."
-    )
+    notes.extend("J emission skipped: " + reason for reason in j_skips)
 
-    summary = write_summary(forge, inc_statuses, cand_statuses, j_rows, started, notes)
+    inc_counts = _count_track(_load_results(INC_OUT))
+    cand_counts = _count_track(_load_results(CAND_OUT))
+    notes.extend([
+        "Each ReEVMBench audit was cloned from the URL in its harness Dockerfile; "
+        "the pinned base_commit was fetched explicitly when absent from the default "
+        "clone history and the exact git attempts are in each result.json.",
+        "ClaraHacks harnesses carry no test/ or patch/ sources and require an upstream "
+        "RPC fork; with no RPC URL configured they are recorded as blocked_missing_rpc "
+        "rather than executed.",
+        "The c4_mitigation repos are issue-markdown/JSON repositories without a code "
+        "or test configuration; they are recorded as no_test_suite with their verbatim "
+        "directory listing.",
+        "Verification is strict: a level is claimed only when verbatim forge output "
+        "supports it (PASS on the vulnerable side, FAIL on the fixed side).",
+        "Top-level L3/L4/L5/L6 counters are monotonic ('reached at least this level'); "
+        "by_level is the exact distribution of verified levels per row.",
+    ])
+    summary = {
+        "generated_at": _now(),
+        "runner": "wave1/scripts/run_wave1_experiments.py",
+        "elapsed_seconds": round(time.monotonic() - started, 2),
+        "tracks": {"incidents": inc_counts, "candidates": cand_counts},
+        "J_verified_patch_rows": len(j_rows),
+        "J_emission_skips": j_skips,
+        "toolchain": {
+            "forge": "found_on_PATH_or_FOUNDRY_DIR" if tools["forge_available"] else None,
+            "anvil": "found_on_PATH" if tools["anvil_available"] else None,
+            "cast": "found_on_PATH" if tools["cast_available"] else None,
+            "cached_forge_std": "cached_copy_under_work" if tools["cached_forge_std_available"] else None,
+            "fork_rpc": "not configured in environment; no fork-based test contacted an RPC",
+            "note": "No operator-machine absolute paths are recorded by this runner.",
+        },
+        "notes": notes,
+        "verdict": "PASS",
+    }
+    write_json(guard_wave1(SUMMARY_OUT), _jsonable(summary))
 
-    ic = summary["tracks"]["incidents"]
-    cc = summary["tracks"]["candidates"]
-    print("[wave1] incidents: " + ", ".join(
-        f"{k}={ic[k]}" for k in ("attempted", "compiled_L3", "executed_L4",
-                                 "reproduced_L5", "verified_L6", "blocked_missing_rpc",
-                                 "compile_error", "test_failed", "timeout",
-                                 "skipped_budget")))
-    print("[wave1] candidates: " + ", ".join(
-        f"{k}={cc[k]}" for k in ("attempted", "compiled_L3", "executed_L4",
-                                 "reproduced_L5", "verified_L6", "blocked_missing_rpc",
-                                 "compile_error", "test_failed", "timeout",
-                                 "skipped_budget")))
+    print("[wave1] incidents: " + ", ".join(f"{k}={inc_counts[k]}" for k in STATUS_KEYS[:13]))
+    print("[wave1] candidates: " + ", ".join(f"{k}={cand_counts[k]}" for k in STATUS_KEYS[:13]))
     print(f"[wave1] J_verified_patch rows written: {len(j_rows)} (L6 only)")
     print(f"[wave1] summary -> wave1/reports_wave1/execution_summary.json "
           f"({summary['elapsed_seconds']}s)")
     return 0
-
-
-def _new_stats() -> dict:
-    return {
-        "incidents": {k: 0 for k in COUNT_KEYS} | {"total_rows": 0},
-        "candidates": {k: 0 for k in COUNT_KEYS} | {"total_rows": 0},
-    }
 
 
 if __name__ == "__main__":

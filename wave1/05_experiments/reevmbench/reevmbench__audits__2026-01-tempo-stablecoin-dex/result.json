@@ -1,9 +1,247 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
   "candidate_id": "reevmbench:audits/2026-01-tempo-stablecoin-dex",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout cat-file -t f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout checkout --quiet --force --detach f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+    "head": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+    "ok": true,
+    "requested_commit": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+    "url": "https://github.com/evmbench-org/2026-01-tempo-stablecoin-dex.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2026-01-tempo-stablecoin-dex.git",
+    "https://github.com/evmbench-org/2026-01-tempo-stablecoin-dex-findings.git",
+    "https://github.com/code-423n4/2026-01-tempo-stablecoin-dex.git",
+    "https://github.com/code-423n4/2026-01-tempo-stablecoin-dex-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testUnauthorizedCancel -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testLinkedListCorruption -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testBalanceUnderflow -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testUnauthorizedCancel -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testLinkedListCorruption -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testBalanceUnderflow -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "f66de060ec2bf899b2a54dd1d984fff4d9f20c4e",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2026-01-tempo-stablecoin-dex",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 3,
+    "vulnerabilities_with_tests": 3
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "warning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:354:51\n    â”‚\n354 â”‚         balances[msg.sender][order.quoteToken] -= uint128(quoteAmount);\n    â”‚                                                   â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:356:52\n    â”‚\n356 â”‚         balances[order.maker][order.quoteToken] += uint128(quoteAmount);\n    â”‚                                                    â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:360:55\n    â”‚\n360 â”‚         emit OrderFilled(orderId, msg.sender, amount, uint128(quoteAmount));\n    â”‚                                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\n",
+      "stdout_tail": "Compiling 37 files with Solc 0.8.28\nSolc 0.8.28 finished in 880.30ms\nCompiler run successful with warnings:\nWarning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/StablecoinDEX.sol:371:33:\n    |\n371 |     function _removeFilledOrder(uint128 orderId, Order storage order) internal {\n    |                                 ^^^^^^^^^^^^^^^\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/Tests.t.sol:196:5:\n    |\n196 |     function invariant_totalDepositsMatchesTokenBalance() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "test_failed",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testUnauthorizedCancel -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH02.t.sol:ExploitH02Test\n[FAIL: Unauthorized()] testUnauthorizedCancel() (gas: 267388)\nTraces:\n  [267388] ExploitH02Test::testUnauthorizedCancel()\n    â”œâ”€ [0] VM::prank(maker: [0x94d0664B249D23286D62F2dd2d21f739B3707f65])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [180396] StablecoinDEX::placeOrder(MockTIP20H02: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MockTIP20H02: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18], 5000000000 [5e9])\n    â”‚   â”œâ”€ emit OrderPlaced(orderId: 1, maker: maker: [0x94d0664B249D23286D62F2dd2d21f739B3707f65], baseToken: MockTIP20H02: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], quoteToken: MockTIP20H02: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], price: 1000000000000000000 [1e18], amount: 5000000000 [5e9])\n    â”‚   â””â”€ â†� [Return] 1\n    â”œâ”€ [15449] StablecoinDEX::getOrder(1) [staticcall]\n    â”‚   â””â”€ â†� [Return] Order({ maker: 0x94d0664B249D23286D62F2dd2d21f739B3707f65, baseToken: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, quoteToken: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, price: 1000000000000000000 [1e18], amount: 5000000000 [5e9], remaining: 5000000000 [5e9], prev: 0, next: 0 })\n    â”œâ”€ [3220] StablecoinDEX::getBalance(maker: [0x94d0664B249D23286D62F2dd2d21f739B3707f65], MockTIP20H02: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]\n    â”‚   â””â”€ â†� [Return] 5000000000 [5e9]\n    â”œâ”€ [0] VM::prank(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [29450] StablecoinDEX::cancel(1)\n    â”‚   â””â”€ â†� [Revert] Unauthorized()\n    â””â”€ â†� [Revert] Unauthorized()\n\nBacktrace:\n  at StablecoinDEX.cancel\n  at ExploitH02Test.testUnauthorizedCancel\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.03ms (166.70Âµs CPU time)\n\nRan 1 test suite in 7.60ms (1.03ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/ExploitH02.t.sol:ExploitH02Test\n[FAIL: Unauthorized()] testUnauthorizedCancel() (gas: 267388)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testUnauthorizedCancel",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testLinkedListCorruption -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH03.t.sol:ExploitH03Test\n[FAIL: Stale pointers remain after cancel (linked list corruption vulnerability)] testLinkedListCorruption() (gas: 717266)\nLogs:\n  Order2 prev before cancel: 3\n  Order2 next before cancel: 1\n  Order2 prev after cancel: 0\n  Order2 next after cancel: 0\n  Order2 remaining after cancel: 0\n\nTraces:\n  [717266] ExploitH03Test::testLinkedListCorruption()\n    â”œâ”€ [0] VM::startPrank(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [180384] StablecoinDEX::placeOrder(MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18], 1000000000 [1e9])\n    â”‚   â”œâ”€ emit OrderPlaced(orderId: 1, maker: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], baseToken: MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], quoteToken: MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], price: 1000000000000000000 [1e18], amount: 1000000000 [1e9])\n    â”‚   â””â”€ â†� [Return] 1\n    â”œâ”€ [188753] StablecoinDEX::placeOrder(MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18], 1000000000 [1e9])\n    â”‚   â”œâ”€ emit OrderPlaced(orderId: 2, maker: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], baseToken: MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], quoteToken: MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], price: 1000000000000000000 [1e18], amount: 1000000000 [1e9])\n    â”‚   â””â”€ â†� [Return] 2\n    â”œâ”€ [188753] StablecoinDEX::placeOrder(MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18], 1000000000 [1e9])\n    â”‚   â”œâ”€ emit OrderPlaced(orderId: 3, maker: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], baseToken: MockTIP20H03: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], quoteToken: MockTIP20H03: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], price: 1000000000000000000 [1e18], amount: 1000000000 [1e9])\n    â”‚   â””â”€ â†� [Return] 3\n    â”œâ”€ [0] VM::stopPrank()\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [15449] StablecoinDEX::getOrder(2) [staticcall]\n    â”‚   â””â”€ â†� [Return] Order({ maker: 0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e, baseToken: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, quoteToken: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, price: 1000000000000000000 [1e18], amount: 1000000000 [1e9], remaining: 1000000000 [1e9], prev: 3, next: 1 })\n    â”œâ”€ emit log_named_uint(key: \"Order2 prev before cancel\", val: 3)\n    â”œâ”€ emit log_named_uint(key: \"Order2 next before cancel\", val: 1)\n    â”œâ”€ [0] VM::prank(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [78652] StablecoinDEX::cancel(2)\n    â”‚   â”œâ”€ emit OrderCancelled(orderId: 2, maker: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], refundAmount: 1000000000 [1e9])\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [15449] StablecoinDEX::getOrder(2) [staticcall]\n    â”‚   â””â”€ â†� [Return] Order({ maker: 0x0000000000000000000000000000000000000000, baseToken: 0x0000000000000000000000000000000000000000, quoteToken: 0x0000000000000000000000000000000000000000, price: 0, amount: 0, remaining: 0, prev: 0, next: 0 })\n    â”œâ”€ emit log_named_uint(key: \"Order2 prev after cancel\", val: 0)\n    â”œâ”€ emit log_named_uint(key: \"Order2 next after cancel\", val: 0)\n    â”œâ”€ emit log_named_uint(key: \"Order2 remaining after cancel\", val: 0)\n    â”œâ”€ [0] VM::assertTrue(false, \"Stale pointers remain after cancel (linked list corruption vulnerability)\") [staticcall]\n    â”‚   â””â”€ â†� [Revert] Stale pointers remain after cancel (linked list corruption vulnerability)\n    â””â”€ â†� [Revert] Stale pointers remain after cancel (linked list corruption vulnerability)\n\nBacktrace:\n  at VM.assertTrue\n  at ExploitH03Test.testLinkedListCorruption\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.35ms (385.60Âµs CPU time)\n\nRan 1 test suite in 7.83ms (1.35ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/ExploitH03.t.sol:ExploitH03Test\n[FAIL: Stale pointers remain after cancel (linked list corruption vulnerability)] testLinkedListCorruption() (gas: 717266)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testLinkedListCorruption",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed --match-test testBalanceUnderflow -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": false,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH04.t.sol:ExploitH04Test\n[FAIL: InsufficientBalance()] testBalanceUnderflowViaEmergencyWithdraw() (gas: 63770)\nTraces:\n  [63770] ExploitH04Test::testBalanceUnderflowViaEmergencyWithdraw()\n    â”œâ”€ [2850] MockTIP20H04::balanceOf(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â””â”€ â†� [Return] 0\n    â”œâ”€ [2850] MockTIP20H04::balanceOf(StablecoinDEX: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]\n    â”‚   â””â”€ â†� [Return] 100100000000 [1.001e11]\n    â”œâ”€ [0] VM::prank(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [30019] StablecoinDEX::emergencyWithdraw(MockTIP20H04: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000001 [1e8])\n    â”‚   â””â”€ â†� [Revert] InsufficientBalance()\n    â””â”€ â†� [Revert] InsufficientBalance()\n\nBacktrace:\n  at StablecoinDEX.emergencyWithdraw\n  at ExploitH04Test.testBalanceUnderflowViaEmergencyWithdraw\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.04ms (115.00Âµs CPU time)\n\nRan 1 test suite in 8.14ms (1.04ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/ExploitH04.t.sol:ExploitH04Test\n[FAIL: InsufficientBalance()] testBalanceUnderflowViaEmergencyWithdraw() (gas: 63770)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testBalanceUnderflow",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-04"
+      }
+    ],
+    "verification_level": "L4"
+  },
+  "fixed_sha": "5895dca1fd8bba1769eb1b78e8cbf31eb610d3cc",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "contracts/StablecoinDEX.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source contracts/StablecoinDEX.sol for H-02",
+      "applied fixed source contracts/StablecoinDEX.sol for H-03",
+      "applied fixed source contracts/StablecoinDEX.sol for H-04"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "contracts/StablecoinDEX.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\patch\\StablecoinDEX.sol",
+        "vulnerability": "H-02"
+      },
+      {
+        "copied": true,
+        "destination": "contracts/StablecoinDEX.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\patch\\StablecoinDEX.sol",
+        "vulnerability": "H-03"
+      },
+      {
+        "copied": true,
+        "destination": "contracts/StablecoinDEX.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\patch\\StablecoinDEX.sol",
+        "vulnerability": "H-04"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/ExploitH02.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH02.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/ExploitH03.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH03.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/ExploitH04.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH04.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:29:34Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/StablecoinDEX.sol",
+    "test/ExploitH02.t.sol",
+    "test/ExploitH03.t.sol",
+    "test/ExploitH04.t.sol"
+  ],
   "harness_path": "audits/2026-01-tempo-stablecoin-dex",
   "input_row": {
     "c4_refs": [
@@ -29,12 +267,102 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/med_hints.md, findings, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/injection, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/low, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/low_hints.md, findings/med_hints.md, patch, patch/StablecoinDEX.sol, patch/low_hints.md, patch/med_hints.md, test, test/ExploitH02.t.sol, test/ExploitH03.t.sol, test/ExploitH04.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testUnauthorizedCancel",
+      "vulnerable": "PASS"
+    },
+    {
+      "fixed": "FAIL",
+      "test_name": "testLinkedListCorruption",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+  "retrieved_at": "2026-11-20T10:29:27Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH02.t.sol:ExploitH02Test\n[PASS] testUnauthorizedCancel() (gas: 314483)\nLogs:\n  SUCCESS: Attacker cancelled maker's order without authorization!\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.11ms (208.10Âµs CPU time)\n\nRan 1 test suite in 3.88ms (1.11ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/ExploitH02.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH02.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/ExploitH03.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH03.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/ExploitH04.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-stablecoin-dex\\test\\ExploitH04.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "warning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:323:51\n    â”‚\n323 â”‚         balances[msg.sender][order.quoteToken] -= uint128(quoteAmount);\n    â”‚                                                   â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:325:52\n    â”‚\n325 â”‚         balances[order.maker][order.quoteToken] += uint128(quoteAmount);\n    â”‚                                                    â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/StablecoinDEX.sol:329:55\n    â”‚\n329 â”‚         emit OrderFilled(orderId, msg.sender, amount, uint128(quoteAmount));\n    â”‚                                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testUnauthorizedCancel -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH02.t.sol:ExploitH02Test\n[PASS] testUnauthorizedCancel() (gas: 314483)\nLogs:\n  SUCCESS: Attacker cancelled maker's order without authorization!\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.11ms (208.10Âµs CPU time)\n\nRan 1 test suite in 3.88ms (1.11ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testUnauthorizedCancel",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testLinkedListCorruption -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH03.t.sol:ExploitH03Test\n[PASS] testLinkedListCorruption() (gas: 721501)\nLogs:\n  Order2 prev before cancel: 3\n  Order2 next before cancel: 1\n  Order2 prev after cancel: 3\n  Order2 next after cancel: 1\n  Order2 remaining after cancel: 1000000000\n  Order1 next (should be orderId3): 0\n  Order3 prev (should be orderId1): 0\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.38ms (351.50Âµs CPU time)\n\nRan 1 test suite in 3.99ms (1.38ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testLinkedListCorruption",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-stablecoin-dex\\checkout --match-test testBalanceUnderflow -vvv",
+        "exit_code": 0,
+        "exploit_success": false,
+        "failed": false,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH04.t.sol:ExploitH04Test\n[PASS] testBalanceUnderflowViaEmergencyWithdraw() (gas: 121342)\nLogs:\n  SUCCESS: Attacker withdrew more than balance!\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.08ms (172.90Âµs CPU time)\n\nRan 1 test suite in 4.03ms (1.08ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testBalanceUnderflow",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-04"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

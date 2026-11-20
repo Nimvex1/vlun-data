@@ -1,9 +1,51 @@
 {
+  "base_commit": "1460a1a169f29ef4dff21d45b59be733845be8fd",
   "candidate_id": "reevmbench:audits/2024-05-olas",
   "command": null,
+  "commands": [],
+  "config_summary": {
+    "base_commit": "1460a1a169f29ef4dff21d45b59be733845be8fd",
+    "default_test_flags": null,
+    "framework": "hardhat",
+    "id": "2024-05-olas",
+    "run_cmd_dir": "tokenomics",
+    "vulnerabilities_total": 2,
+    "vulnerabilities_with_tests": 1
+  },
   "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "exit_codes": [],
+  "fixed_workspace": null,
+  "forge_status": "framework_hardhat",
+  "generated_at": "2026-11-20T10:26:09Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max.sh",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/GnosisDepositProcessorL1.sol",
+    "patch/GnosisTargetDispenserL2.sol",
+    "patch/H-02.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "test/H-02.js"
+  ],
   "harness_path": "audits/2024-05-olas",
   "input_row": {
     "c4_refs": [
@@ -26,11 +68,11 @@
     "tx_hash": ""
   },
   "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/low_hints.md, findings/med_hints.md, patch, patch/GnosisDepositProcessorL1.sol, patch/GnosisTargetDispenserL2.sol, patch/H-02.diff, patch/low_hints.md, patch/med_hints.md, test, test/H-02.js"
+    "Harness framework is Hardhat (JS/TS tests); this Foundry runner does not claim an execution level for it. No forge command was run on this row."
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
+  "retrieved_at": "2026-11-20T10:26:09Z",
   "stderr_tail": "",
   "stdout_tail": "",
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
   "verification_level": "L0"
 }

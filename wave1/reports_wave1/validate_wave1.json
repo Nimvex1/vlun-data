@@ -1,7 +1,7 @@
 {
   "gates": {
     "a_single_writer": {
-      "scripts_scanned": 14,
+      "scripts_scanned": 17,
       "verdict": "PASS",
       "violations": []
     },
@@ -75,11 +75,13 @@
           "train_only_shortcut": 0.7531
         },
         "J_verified_patch": {
-          "observed_labels": [],
+          "observed_labels": [
+            "patch_verified_L6"
+          ],
           "ready_for_primary": false,
-          "rows": 0,
-          "scorable": 0,
-          "test_rows": 0,
+          "rows": 7,
+          "scorable": 7,
+          "test_rows": 7,
           "train_only_shortcut": null
         },
         "invariants": {
@@ -131,11 +133,11 @@
     },
     "g_j_execution": {
       "non_L6_rows": [],
-      "rows": 0,
+      "rows": 7,
       "verdict": "PASS"
     }
   },
   "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
-  "validated_at": "2026-11-20T09:45:20Z",
+  "validated_at": "2026-11-20T11:33:22Z",
   "verdict": "PASS"
 }

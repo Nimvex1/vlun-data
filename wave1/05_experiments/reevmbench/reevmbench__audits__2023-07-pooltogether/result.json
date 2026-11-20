@@ -1,9 +1,215 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "4240445ed3b5145be1032cf1becc9c6866046bf7",
   "candidate_id": "reevmbench:audits/2023-07-pooltogether",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "4240445ed3b5145be1032cf1becc9c6866046bf7\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout cat-file -t 4240445ed3b5145be1032cf1becc9c6866046bf7",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout checkout --quiet --force --detach 4240445ed3b5145be1032cf1becc9c6866046bf7",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "4240445ed3b5145be1032cf1becc9c6866046bf7",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout",
+    "head": "4240445ed3b5145be1032cf1becc9c6866046bf7",
+    "ok": true,
+    "requested_commit": "4240445ed3b5145be1032cf1becc9c6866046bf7",
+    "url": "https://github.com/evmbench-org/2023-07-pooltogether.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2023-07-pooltogether.git",
+    "https://github.com/evmbench-org/2023-07-pooltogether-findings.git",
+    "https://github.com/code-423n4/2023-07-pooltogether.git",
+    "https://github.com/code-423n4/2023-07-pooltogether-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault --match-test test_Exploit_H02_WithdrawBurnTruncation --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault --match-test test_Exploit_H04_MintYieldFeeToAttacker --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault --match-test test_Exploit_H02_WithdrawBurnTruncation --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault --match-test test_Exploit_H04_MintYieldFeeToAttacker --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "4240445ed3b5145be1032cf1becc9c6866046bf7",
+    "default_test_flags": "--silent --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667",
+    "framework": "foundry-json",
+    "id": "2023-07-pooltogether",
+    "run_cmd_dir": "vault",
+    "vulnerabilities_total": 2,
+    "vulnerabilities_with_tests": 2
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    0,
+    1,
+    1
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault",
+      "exit_code": 0,
+      "stderr_tail": " â”‚ â”ƒ         prizeTotal - _fee,\n1079 â”‚ â”ƒ         recipient\n1080 â”‚ â”ƒ       );\n     â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”›\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[deprecated-oz-function]: this OpenZeppelin function is deprecated\n    â•­â–¸ src/Vault.sol:680:7\n    â”‚\n680 â”‚       _asset.safeApprove(_previousLiquidationPair, 0);\n    â”‚       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/deprecated-oz-function\n\nwarning[deprecated-oz-function]: this OpenZeppelin function is deprecated\n    â•­â–¸ src/Vault.sol:683:5\n    â”‚\n683 â”‚     _asset.safeApprove(address(liquidationPair_), type(uint256).max);\n    â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/deprecated-oz-function\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/Vault.sol:961:9\n    â”‚\n961 â”‚         _assetsDeposit != 0 ? _assetsDeposit : _assets\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[unused-return]: return value of an external call is not used\n    â•­â–¸ src/Vault.sol:965:5\n    â”‚\n965 â”‚     _yieldVault.deposit(_assets, address(this));\n    â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/unused-return\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n     â•­â–¸ src/Vault.sol:1035:5\n     â”‚\n1035 â”‚     emit Withdraw(_caller, _receiver, _owner, _assets, _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[unused-return]: return value of an external call is not used\n     â•­â–¸ src/Vault.sol:1032:5\n     â”‚\n1032 â”‚     _yieldVault.withdraw(_assets, address(this), address(this));\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/unused-return\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n     â•­â–¸ src/Vault.sol:1148:5\n     â”‚\n1148 â”‚     emit Transfer(_owner, address(0), _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n     â•­â–¸ src/Vault.sol:1163:5\n     â”‚\n1163 â”‚     emit Transfer(_from, _to, _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n   â•­â–¸ src/VaultFactory.sol:83:5\n   â”‚\n83 â”‚     emit NewFactoryVault(_vault, VaultFactory(address(this)));\n   â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n   â”‚\n   â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:622:5\n    â”‚\n622 â”‚     uint totalPrizes;\n    â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:624:10\n    â”‚\n624 â”‚     for (uint w = 0; w < _winners.length; w++) {\n    â”‚          â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:625:7\n    â”‚\n625 â”‚       uint prizeIndicesLength = _prizeIndices[w].length;\n    â”‚       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:626:12\n    â”‚\n626 â”‚       for (uint p = 0; p < prizeIndicesLength; p++) {\n    â”‚            â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n     â•­â–¸ src/Vault.sol:1064:5\n     â”‚\n1064 â”‚ â”�     uint prizeTotal = _prizePool.claimPrize(\n1065 â”‚ â”ƒ       _winner,\n1066 â”‚ â”ƒ       _tier,\n1067 â”‚ â”ƒ       _prizeIndex,\n     â€¡ â”ƒ\n1070 â”‚ â”ƒ       _feeRecipient\n1071 â”‚ â”ƒ     );\n     â”‚ â”—â”�â”�â”�â”�â”�â”›\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\n",
+      "stdout_tail": "   constructor(uint _totalSupply) ERC20(_totalSupply) public {\n  |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n --> lib/brokentoken/lib/weird-erc20/src/LowDecimals.sol:9:5:\n  |\n9 |     constructor(uint _totalSupply) ERC20(_totalSupply) public {\n  |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/MissingReturns.sol:28:5:\n   |\n28 |     constructor(uint _totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/NoRevert.sol:20:5:\n   |\n20 |     constructor(uint _totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/Pausable.sol:19:5:\n   |\n19 |     constructor(uint _totalSupply) ERC20(_totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/Proxied.sol:39:5:\n   |\n39 |     constructor(uint _totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n   --> lib/brokentoken/lib/weird-erc20/src/Proxied.sol:102:5:\n    |\n102 |     constructor(address _impl) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/Reentrant.sol:10:5:\n   |\n10 |     constructor(uint _totalSupply) ERC20(_totalSupply) public {}\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/ReturnsFalse.sol:28:5:\n   |\n28 |     constructor(uint _totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/RevertToZero.sol:10:5:\n   |\n10 |     constructor(uint _totalSupply) ERC20(_totalSupply) public {}\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/RevertZero.sol:10:5:\n   |\n10 |     constructor(uint _totalSupply) ERC20(_totalSupply) public {}\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/TransferFee.sol:13:5:\n   |\n13 |     constructor(uint _totalSupply, uint _fee) ERC20(_totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/TransferFromSelf.sol:30:5:\n   |\n30 |     constructor(uint _totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/Uint96.sol:32:5:\n   |\n32 |     constructor(uint96 _supply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2462): Visibility for constructor is ignored. If you want the contract to be non-deployable, making it \"abstract\" is sufficient.\n  --> lib/brokentoken/lib/weird-erc20/src/Upgradable.sol:14:5:\n   |\n14 |     constructor(uint totalSupply) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.\n  --> lib/brokentoken/src/erc721/SBT721.sol:15:49:\n   |\n15 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)\n   |                                                 ^^^^^^^^^^\n\nWarning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.\n  --> lib/brokentoken/src/erc721/SBT721.sol:15:61:\n   |\n15 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)\n   |                                                             ^^^^^^^^^^^^^^^^^^^^\n\nWarning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.\n  --> lib/brokentoken/src/erc721/SBT721.sol:15:83:\n   |\n15 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)\n   |                                                                                   ^^^^^^^^^^^^^^^^^\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "test_failed",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault --match-test test_Exploit_H02_WithdrawBurnTruncation --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "8162514264337593543950335 [7.922e28])\n    â”‚   â”‚   â”œâ”€ emit Deposit(sender: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], owner: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], assets: 79228162514264337593543950335 [7.922e28], shares: 79228162514264337593543950335 [7.922e28])\n    â”‚   â”‚   â””â”€ â†� [Return] 79228162514264337593543950335 [7.922e28]\n    â”‚   â”œâ”€ [47720] TwabController::mint(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], 79228162514264337593543950335 [7.922e28])\n    â”‚   â”‚   â”œâ”€ emit IncreasedBalance(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], user: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], amount: 79228162514264337593543950335 [7.922e28], delegateAmount: 79228162514264337593543950335 [7.922e28])\n    â”‚   â”‚   â”œâ”€ emit ObservationRecorded(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], user: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], balance: 158456325028528675187087900670 [1.584e29], delegateBalance: 158456325028528675187087900670 [1.584e29], isNew: false, observation: Observation({ cumulativeBalance: 0, balance: 79228162514264337593543950334 [7.922e28], timestamp: 1 }))\n    â”‚   â”‚   â”œâ”€ emit IncreasedTotalSupply(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], amount: 79228162514264337593543950335 [7.922e28], delegateAmount: 79228162514264337593543950335 [7.922e28])\n    â”‚   â”‚   â”œâ”€ emit TotalSupplyObservationRecorded(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], balance: 158456325028528675187087900670 [1.584e29], delegateBalance: 158456325028528675187087900670 [1.584e29], isNew: false, observation: Observation({ cumulativeBalance: 0, balance: 79228162514264337593543950334 [7.922e28], timestamp: 1 }))\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ [939] TwabController::totalSupply(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ [3127] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ emit RecordedExchangeRate(exchangeRate: 1000000000000000000 [1e18])\n    â”‚   â”œâ”€ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], amount: 79228162514264337593543950335 [7.922e28])\n    â”‚   â”œâ”€ emit Deposit(sender: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], owner: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], assets: 79228162514264337593543950335 [7.922e28], shares: 79228162514264337593543950335 [7.922e28])\n    â”‚   â””â”€ â†� [Return] 79228162514264337593543950335 [7.922e28]\n    â”œâ”€ [7425] VaultMock::balanceOf(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”œâ”€ [3295] TwabController::balanceOf(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”œâ”€ [62178] VaultMock::withdraw(158456325028528675187087900670 [1.584e29], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â”œâ”€ [3295] TwabController::balanceOf(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ [2939] TwabController::totalSupply(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ [11627] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [2864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ [939] TwabController::totalSupply(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”œâ”€ [3127] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â”‚   â””â”€ â†� [Return] 158456325028528675187087900670 [1.584e29]\n    â”‚   â””â”€ â†� [Revert] SafeCast: value doesn't fit in 96 bits\n    â””â”€ â†� [Revert] SafeCast: value doesn't fit in 96 bits\n\nBacktrace:\n  at VaultMock.withdraw\n  at VaultExploitH02_Test.test_Exploit_H02_WithdrawBurnTruncation\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.06ms (808.60Âµs CPU time)\n\nRan 1 test suite in 18.46ms (3.06ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/unit/Vault/ExploitH02.t.sol:VaultExploitH02_Test\n[FAIL: SafeCast: value doesn't fit in 96 bits] test_Exploit_H02_WithdrawBurnTruncation() (gas: 721422)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "test_Exploit_H02_WithdrawBurnTruncation",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault --match-test test_Exploit_H04_MintYieldFeeToAttacker --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "ccall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1450000000000000000000 [1.45e21]\n    â”‚   â”‚   â”œâ”€ [3127] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”‚   â”œâ”€ [864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”‚   â”œâ”€ emit RecordedExchangeRate(exchangeRate: 1000000000000000000 [1e18])\n    â”‚   â”‚   â”œâ”€ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e], amount: 450000000000000000000 [4.5e20])\n    â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â””â”€ â†� [Return] 1\n    â”œâ”€ [2529] VaultMock::yieldFeeTotalSupply() [staticcall]\n    â”‚   â””â”€ â†� [Return] 50000000000000000000 [5e19]\n    â”œâ”€ [7425] VaultMock::balanceOf(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”œâ”€ [3295] TwabController::balanceOf(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 450000000000000000000 [4.5e20]\n    â”‚   â””â”€ â†� [Return] 450000000000000000000 [4.5e20]\n    â”œâ”€ [155170] VaultMock::mintYieldFee(50000000000000000000 [5e19], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])\n    â”‚   â”œâ”€ [2939] TwabController::totalSupply(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 1450000000000000000000 [1.45e21]\n    â”‚   â”œâ”€ [11627] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [2864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”œâ”€ [85273] TwabController::mint(feeRecipient: [0xa32c0203D5F9Fcfe1b2A359e5628cb5a22001bA7], 50000000000000000000 [5e19])\n    â”‚   â”‚   â”œâ”€ emit IncreasedBalance(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], user: feeRecipient: [0xa32c0203D5F9Fcfe1b2A359e5628cb5a22001bA7], amount: 50000000000000000000 [5e19], delegateAmount: 50000000000000000000 [5e19])\n    â”‚   â”‚   â”œâ”€ emit ObservationRecorded(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], user: feeRecipient: [0xa32c0203D5F9Fcfe1b2A359e5628cb5a22001bA7], balance: 50000000000000000000 [5e19], delegateBalance: 50000000000000000000 [5e19], isNew: true, observation: Observation({ cumulativeBalance: 0, balance: 50000000000000000000 [5e19], timestamp: 1 }))\n    â”‚   â”‚   â”œâ”€ emit IncreasedTotalSupply(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], amount: 50000000000000000000 [5e19], delegateAmount: 50000000000000000000 [5e19])\n    â”‚   â”‚   â”œâ”€ emit TotalSupplyObservationRecorded(vault: VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], balance: 1500000000000000000000 [1.5e21], delegateBalance: 1500000000000000000000 [1.5e21], isNew: false, observation: Observation({ cumulativeBalance: 0, balance: 1500000000000000000000 [1.5e21], timestamp: 1 }))\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ [939] TwabController::totalSupply(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”œâ”€ [3127] YieldVault::maxWithdraw(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]\n    â”‚   â”‚   â”œâ”€ [864] ERC20PermitMock::balanceOf(YieldVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”‚   â””â”€ â†� [Return] 1500000000000000000000 [1.5e21]\n    â”‚   â”œâ”€ emit RecordedExchangeRate(exchangeRate: 1000000000000000000 [1e18])\n    â”‚   â”œâ”€ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: feeRecipient: [0xa32c0203D5F9Fcfe1b2A359e5628cb5a22001bA7], amount: 50000000000000000000 [5e19])\n    â”‚   â”œâ”€ emit MintYieldFee(caller: VaultExploitH04_Test: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: feeRecipient: [0xa32c0203D5F9Fcfe1b2A359e5628cb5a22001bA7], shares: 50000000000000000000 [5e19])\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [7425] VaultMock::balanceOf(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”œâ”€ [3295] TwabController::balanceOf(VaultMock: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 450000000000000000000 [4.5e20]\n    â”‚   â””â”€ â†� [Return] 450000000000000000000 [4.5e20]\n    â”œâ”€ emit log(val: \"Error: a == b not satisfied [uint]\")\n    â”œâ”€ emit log_named_uint(key: \"      Left\", val: 450000000000000000000 [4.5e20])\n    â”œâ”€ emit log_named_uint(key: \"     Right\", val: 500000000000000000000 [5e20])\n    â”œâ”€ [0] VM::store(VM: [0x7109709ECfa91a80626fF3989D68f67F5b1DD12D], 0x6661696c65640000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000001)\n    â”‚   â””â”€ â†� [Return]\n    â””â”€ â†� [Stop]\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.53ms (1.12ms CPU time)\n\nRan 1 test suite in 19.42ms (3.53ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/unit/Vault/ExploitH04.t.sol:VaultExploitH04_Test\n[FAIL] test_Exploit_H04_MintYieldFeeToAttacker() (gas: 1101198)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "test_Exploit_H04_MintYieldFeeToAttacker",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-04"
+      }
+    ],
+    "verification_level": "L4"
+  },
+  "fixed_sha": "dc798560bdac5f4b609807a854522d8f60c183b9",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "vault/src/Vault.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source vault/src/Vault.sol for H-02",
+      "applied fixed source vault/src/Vault.sol for H-04"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "vault/src/Vault.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\patch\\Vault.sol",
+        "vulnerability": "H-02"
+      },
+      {
+        "copied": true,
+        "destination": "vault/src/Vault.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\patch\\Vault.sol",
+        "vulnerability": "H-04"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed\\vault",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "vault/test/unit/Vault/ExploitH02.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\test\\ExploitH02.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "vault/test/unit/Vault/ExploitH04.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\test\\ExploitH04.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:25:20Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max.sh",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-02.md",
+    "findings/H-04.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/H-02.diff",
+    "patch/H-04.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/Vault.sol",
+    "test/ExploitH02.t.sol",
+    "test/ExploitH04.t.sol"
+  ],
   "harness_path": "audits/2023-07-pooltogether",
   "input_row": {
     "c4_refs": [
@@ -25,12 +231,82 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max.sh, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-02.md, findings/H-04.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-02.md, findings/incorrect/high/H-04.md, findings/incorrect/injection, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-04.md, findings/incorrect/low, findings/incorrect/low/H-02.md, findings/incorrect/low/H-04.md, findings/low_hints.md, findings/med_hints.md, patch, patch/H-02.diff, patch/H-04.diff, patch/Vault.sol, patch/low_hints.md, patch/med_hints.md, test, test/ExploitH02.t.sol, test/ExploitH04.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "test_Exploit_H02_WithdrawBurnTruncation",
+      "vulnerable": "PASS"
+    },
+    {
+      "fixed": "FAIL",
+      "test_name": "test_Exploit_H04_MintYieldFeeToAttacker",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault",
+  "retrieved_at": "2026-11-20T10:25:08Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/unit/Vault/ExploitH02.t.sol:VaultExploitH02_Test\n[PASS] test_Exploit_H02_WithdrawBurnTruncation() (gas: 792749)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.37ms (1.02ms CPU time)\n\nRan 1 test suite in 4.36ms (3.37ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "vault/test/unit/Vault/ExploitH02.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\test\\ExploitH02.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "vault/test/unit/Vault/ExploitH04.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2023-07-pooltogether\\test\\ExploitH04.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault",
+      "exit_code": 0,
+      "stderr_tail": "(_caller, _receiver, _owner, _assets, _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[unused-return]: return value of an external call is not used\n     â•­â–¸ src/Vault.sol:1026:5\n     â”‚\n1026 â”‚     _yieldVault.withdraw(_assets, address(this), address(this));\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/unused-return\n\nwarning[unsafe-typecast]: typecast can truncate values\n     â•­â–¸ src/Vault.sol:1123:37\n     â”‚\n1123 â”‚     _twabController.mint(_receiver, uint96(_shares));\n     â”‚                                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â”œ note: consider disabling this lint if you're certain the cast is safe\n     â”‚       \n     â”‚       // casting to 'uint96' is safe because [explain why]\n     â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n     â”‚       \n     â”‚       \n     â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n     â•­â–¸ src/Vault.sol:1142:5\n     â”‚\n1142 â”‚     emit Transfer(_owner, address(0), _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[unsafe-typecast]: typecast can truncate values\n     â•­â–¸ src/Vault.sol:1139:34\n     â”‚\n1139 â”‚     _twabController.burn(_owner, uint96(_shares));\n     â”‚                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â”œ note: consider disabling this lint if you're certain the cast is safe\n     â”‚       \n     â”‚       // casting to 'uint96' is safe because [explain why]\n     â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n     â”‚       \n     â”‚       \n     â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n     â•­â–¸ src/Vault.sol:1157:5\n     â”‚\n1157 â”‚     emit Transfer(_from, _to, _shares);\n     â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[unsafe-typecast]: typecast can truncate values\n     â•­â–¸ src/Vault.sol:1155:42\n     â”‚\n1155 â”‚     _twabController.transfer(_from, _to, uint96(_shares));\n     â”‚                                          â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n     â”‚\n     â”œ note: consider disabling this lint if you're certain the cast is safe\n     â”‚       \n     â”‚       // casting to 'uint96' is safe because [explain why]\n     â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n     â”‚       \n     â”‚       \n     â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n   â•­â–¸ src/VaultFactory.sol:83:5\n   â”‚\n83 â”‚     emit NewFactoryVault(_vault, VaultFactory(address(this)));\n   â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n   â”‚\n   â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:616:5\n    â”‚\n616 â”‚     uint totalPrizes;\n    â”‚     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:618:10\n    â”‚\n618 â”‚     for (uint w = 0; w < _winners.length; w++) {\n    â”‚          â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:619:7\n    â”‚\n619 â”‚       uint prizeIndicesLength = _prizeIndices[w].length;\n    â”‚       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Vault.sol:620:12\n    â”‚\n620 â”‚       for (uint p = 0; p < prizeIndicesLength; p++) {\n    â”‚            â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n     â•­â–¸ src/Vault.sol:1058:5\n     â”‚\n1058 â”‚ â”�     uint prizeTotal = _prizePool.claimPrize(\n1059 â”‚ â”ƒ       _winner,\n1060 â”‚ â”ƒ       _tier,\n1061 â”‚ â”ƒ       _prizeIndex,\n     â€¡ â”ƒ\n1064 â”‚ â”ƒ       _feeRecipient\n1065 â”‚ â”ƒ     );\n     â”‚ â”—â”�â”�â”�â”�â”�â”›\n     â”‚\n     â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault --match-test test_Exploit_H02_WithdrawBurnTruncation --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/unit/Vault/ExploitH02.t.sol:VaultExploitH02_Test\n[PASS] test_Exploit_H02_WithdrawBurnTruncation() (gas: 792749)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.37ms (1.02ms CPU time)\n\nRan 1 test suite in 4.36ms (3.37ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "test_Exploit_H02_WithdrawBurnTruncation",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2023-07-pooltogether\\checkout\\vault --match-test test_Exploit_H04_MintYieldFeeToAttacker --ignored-error-codes 2319 --ignored-error-codes 2462 --ignored-error-codes 5667 -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/unit/Vault/ExploitH04.t.sol:VaultExploitH04_Test\n[PASS] test_Exploit_H04_MintYieldFeeToAttacker() (gas: 1044755)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.25ms (1.07ms CPU time)\n\nRan 1 test suite in 4.42ms (3.25ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "test_Exploit_H04_MintYieldFeeToAttacker",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-04"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

@@ -1,9 +1,131 @@
 {
+  "base_commit": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
   "candidate_id": "reevmbench:audits/2025-01-liquid-ron",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout cat-file -t ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout checkout --quiet --force --detach ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+    "head": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+    "ok": true,
+    "requested_commit": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+    "url": "https://github.com/evmbench-org/2025-01-liquid-ron.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2025-01-liquid-ron.git",
+    "https://github.com/evmbench-org/2025-01-liquid-ron-findings.git",
+    "https://github.com/code-423n4/2025-01-liquid-ron.git",
+    "https://github.com/code-423n4/2025-01-liquid-ron-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout --match-test test_withdraw_new_user -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "ddc09c9ae7e89eb1eb781ccf2f26210cc7d32ff8",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2025-01-liquid-ron",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 1,
+    "vulnerabilities_with_tests": 1
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    1
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/LiquidRon.sol for H-01"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/LiquidRon.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-01-liquid-ron\\patch\\LiquidRon.sol",
+        "vulnerability": "H-01"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/LiquidRon.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-01-liquid-ron\\test\\LiquidRon.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\fixed"
+  },
+  "forge_status": "test_failed",
+  "generated_at": "2026-11-20T10:29:02Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/H-01.diff",
+    "patch/LiquidRon.sol",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "test/LiquidRon.t.sol"
+  ],
   "harness_path": "audits/2025-01-liquid-ron",
   "input_row": {
     "c4_refs": [
@@ -21,12 +143,50 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/low_hints.md, findings/med_hints.md, patch, patch/H-01.diff, patch/LiquidRon.sol, patch/low_hints.md, patch/med_hints.md, test, test/LiquidRon.t.sol"
-  ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+  "retrieved_at": "2026-11-20T10:28:57Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "0000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [2562] WrappedRon::balanceOf(LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 137142857958135222428570 [1.371e23]\n    â”‚   â””â”€ â†� [Return] 92105262466263407219184 [9.21e22]\n    â”œâ”€ [60246] LiquidRon::fetchOperatorFee()\n    â”‚   â”œâ”€ [19622] WrappedRon::withdraw(214285734667666274999 [2.142e20])\n    â”‚   â”‚   â”œâ”€ emit Transfer(from: LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: 0x0000000000000000000000000000000000000000, amount: 214285734667666274999 [2.142e20])\n    â”‚   â”‚   â”œâ”€ [95] LiquidRon::receive{value: 214285734667666274999}()\n    â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ [55] LiquidRonTest::receive{value: 214285734667666274999}()\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [2408] LiquidRon::operatorFeeAmount() [staticcall]\n    â”‚   â””â”€ â†� [Return] 0\n    â”œâ”€ [0] VM::assertTrue(true) [staticcall]\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [212764] LiquidRon::previewDeposit(100000000000000000000000 [1e23]) [staticcall]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0xDD4c722d1614128933d6DC7EFA50A6913e804E12], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22]]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [2562] WrappedRon::balanceOf(LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 136928572223467556153571 [1.369e23]\n    â”‚   â””â”€ â†� [Return] 92199988490475480530717 [9.219e22]\n    â”œâ”€ [0] VM::assertApproxEqAbs(92199988490475480530717 [9.219e22], 92105262466263407219184 [9.21e22], 1) [staticcall]\n    â”‚   â””â”€ â†� [Revert] assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)\n    â””â”€ â†� [Revert] assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)\n\nBacktrace:\n  at VM.assertApproxEqAbs\n  at LiquidRonTest.test_withdraw_new_user\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.94ms (2.13ms CPU time)\n\nRan 1 test suite in 10.78ms (2.94ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/LiquidRon.t.sol:LiquidRonTest\n[FAIL: assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)] test_withdraw_new_user() (gas: 2632313)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/LiquidRon.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-01-liquid-ron\\test\\LiquidRon.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L4",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/LiquidRon.sol:267:50\n    â”‚\n267 â”‚         for (uint256 i = 0; i < proxyCount; i++) totalStaked += _getTotalStakedInProxy(i, consensusAddrs);\n    â”‚                                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/LiquidRon.sol:409:42\n    â”‚\n409 â”‚         uint256[] memory stakedAmounts = IRoninValidator(roninStaking).getManyStakingAmounts(_consensusAddrs, users);\n    â”‚                                          â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/LiquidRon.sol:282:50\n    â”‚\n282 â”‚         for (uint256 i = 0; i < proxyCount; i++) totalRewards += _getTotalRewardsInProxy(i, consensusAddrs);\n    â”‚                                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/LiquidRon.sol:389:36\n    â”‚\n389 â”‚         uint256[] memory rewards = IRoninValidator(roninStaking).getRewards(user, _consensusAddrs);\n    â”‚                                    â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/LiquidRon.sol:310:9\n    â”‚\n310 â”‚         emit Withdraw(msg.sender, _receiver, _owner, _assets, shares);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/LiquidRon.sol:323:9\n    â”‚\n323 â”‚         emit Withdraw(msg.sender, _receiver, _owner, assets, _shares);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/LiquidRon.sol:356:9\n    â”‚\n356 â”‚         emit WithdrawalRequested(msg.sender, epoch, _shares);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require it to equal `msg.sender` or `address(this)`\n    â•­â–¸ src/LiquidRon.sol:372:9\n    â”‚\n372 â”‚         IERC20(asset()).transferFrom(escrow, address(this), assets);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/arbitrary-send-erc20\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/LiquidRon.sol:374:9\n    â”‚\n374 â”‚         emit WithdrawalClaimed(msg.sender, epoch, shares, assets);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ src/LiquidRon.sol:372:9\n    â”‚\n372 â”‚         IERC20(asset()).transferFrom(escrow, address(this), assets);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/LiquidRon.sol:392:54\n    â”‚\n392 â”‚         for (uint256 i = 0; i < rewards.length; i++) totalRewards += rewards[i];\n    â”‚                                                      â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/LiquidRon.sol:410:60\n    â”‚\n410 â”‚         for (uint256 i = 0; i < stakedAmounts.length; i++) totalStaked += stakedAmounts[i];\n    â”‚                                                            â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "test_failed",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-01-liquid-ron\\checkout --match-test test_withdraw_new_user -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "0000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [2562] WrappedRon::balanceOf(LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 137142857958135222428570 [1.371e23]\n    â”‚   â””â”€ â†� [Return] 92105262466263407219184 [9.21e22]\n    â”œâ”€ [60246] LiquidRon::fetchOperatorFee()\n    â”‚   â”œâ”€ [19622] WrappedRon::withdraw(214285734667666274999 [2.142e20])\n    â”‚   â”‚   â”œâ”€ emit Transfer(from: LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: 0x0000000000000000000000000000000000000000, amount: 214285734667666274999 [2.142e20])\n    â”‚   â”‚   â”œâ”€ [95] LiquidRon::receive{value: 214285734667666274999}()\n    â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”œâ”€ [55] LiquidRonTest::receive{value: 214285734667666274999}()\n    â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [2408] LiquidRon::operatorFeeAmount() [staticcall]\n    â”‚   â””â”€ â†� [Return] 0\n    â”œâ”€ [0] VM::assertTrue(true) [staticcall]\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [212764] LiquidRon::previewDeposit(100000000000000000000000 [1e23]) [staticcall]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0xDD4c722d1614128933d6DC7EFA50A6913e804E12], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [42623] MockRonStaking::getRewards(LiquidProxy: [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac], [0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12, 0xDD4c722d1614128933d6DC7EFA50A6913e804E12]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22], 14285714285714285714285 [1.428e22]]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A, 0x7ff9C67c93D9f7318219faacB5c619a773AFeF6A]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [6225] MockRonStaking::getManyStakingAmounts([0xF000000000000000000000000000000000000001, 0xf000000000000000000000000000000000000002, 0xf000000000000000000000000000000000000003, 0xF000000000000000000000000000000000000004, 0xf000000000000000000000000000000000000005], [0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac, 0x7Cd0413B38C31Aa329FEaea9fB5F31926b9579Ac]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] [0, 0, 0, 0, 0]\n    â”‚   â”œâ”€ [2562] WrappedRon::balanceOf(LiquidRon: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 136928572223467556153571 [1.369e23]\n    â”‚   â””â”€ â†� [Return] 92199988490475480530717 [9.219e22]\n    â”œâ”€ [0] VM::assertApproxEqAbs(92199988490475480530717 [9.219e22], 92105262466263407219184 [9.21e22], 1) [staticcall]\n    â”‚   â””â”€ â†� [Revert] assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)\n    â””â”€ â†� [Revert] assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)\n\nBacktrace:\n  at VM.assertApproxEqAbs\n  at LiquidRonTest.test_withdraw_new_user\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.94ms (2.13ms CPU time)\n\nRan 1 test suite in 10.78ms (2.94ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/LiquidRon.t.sol:LiquidRonTest\n[FAIL: assertion failed: 92199988490475480530717 !~= 92105262466263407219184 (max delta: 1, real delta: 94726024212073311533)] test_withdraw_new_user() (gas: 2632313)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "test_withdraw_new_user",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      }
+    ],
+    "verification_level": "L4"
+  }
 }

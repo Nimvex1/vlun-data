@@ -1,9 +1,254 @@
 {
+  "all_exploits_blocked_on_fixed": false,
+  "base_commit": "ce7f56c96c385d87a4be9737acea8fe9b425576a",
   "candidate_id": "reevmbench:audits/2025-04-forte",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "ce7f56c96c385d87a4be9737acea8fe9b425576a\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout cat-file -t ce7f56c96c385d87a4be9737acea8fe9b425576a",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout checkout --quiet --force --detach ce7f56c96c385d87a4be9737acea8fe9b425576a",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "ce7f56c96c385d87a4be9737acea8fe9b425576a",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+    "head": "ce7f56c96c385d87a4be9737acea8fe9b425576a",
+    "ok": true,
+    "requested_commit": "ce7f56c96c385d87a4be9737acea8fe9b425576a",
+    "url": "https://github.com/evmbench-org/2025-04-forte.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2025-04-forte.git",
+    "https://github.com/evmbench-org/2025-04-forte-findings.git",
+    "https://github.com/code-423n4/2025-04-forte.git",
+    "https://github.com/code-423n4/2025-04-forte-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testH01POC --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testSqrtSilentRevert --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testLnWithNonPositiveInput --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testH01POC --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testSqrtSilentRevert --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testLnWithNonPositiveInput --ffi -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "ce7f56c96c385d87a4be9737acea8fe9b425576a",
+    "default_test_flags": "--ffi",
+    "framework": "foundry",
+    "id": "2025-04-forte",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 5,
+    "vulnerabilities_with_tests": 3
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:111:13\n    â”‚\n111 â”‚             uint q2 = (Float128.BASE_TO_THE_MAX_DIGITS_M * r1) / mantissa;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:112:13\n    â”‚\n112 â”‚             uint one_over_argument_in_long_int = q1 * Float128.BASE_TO_THE_MAX_DIGITS_M + q2;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:113:13\n    â”‚\n113 â”‚             uint m10 = one_over_argument_in_long_int > Float128.MAX_76_DIGIT_NUMBER ? 77 : 76;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:115:13\n    â”‚\n115 â”‚             uint one_over_arguments_76 = one_over_argument_in_long_int;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:116:13\n    â”‚\n116 â”‚             uint m76 = m10;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:123:13\n    â”‚\n123 â”‚             int exp_one_over_argument = 0 - int(Float128.MAX_DIGITS_M) - int(Float128.MAX_DIGITS_M_X_2) - exp;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:154:13\n    â”‚\n154 â”‚             uint uMantissa = mantissa;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:218:9\n    â”‚\n218 â”‚         int z_int = 10 ** 76 - int(mantissa);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:219:9\n    â”‚\n219 â”‚         int len_z_int = int(Float128.findNumberOfDigits(uint(z_int)));\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:221:13\n    â”‚\n221 â”‚             int diff = len_z_int - 38;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:228:9\n    â”‚\n228 â”‚         int terms = 15;\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:231:14\n    â”‚\n231 â”‚         for (uint j = 2; j < uint(terms + 1); j++) {\n    â”‚              â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\n",
+      "stdout_tail": "Compiling 30 files with Solc 0.8.24\nSolc 0.8.24 finished in 3.32s\nCompiler run successful with warnings:\nWarning (2072): Unused local variable.\n  --> test/SqrtSilentRevert.t.sol:18:9:\n   |\n18 |         packedFloat nonZeroResult = Float128.sqrt(nonZero);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2072): Unused local variable.\n  --> test/SqrtSilentRevert.t.sol:24:9:\n   |\n24 |         packedFloat zeroResult = Float128.sqrt(zero);\n   |         ^^^^^^^^^^^^^^^^^^^^^^\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/SqrtSilentRevert.t.sol:13:5:\n   |\n13 |     function testSqrtSilentRevert() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testH01POC --ffi -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": true,
+        "stderr_tail": "",
+        "stdout_tail": "anymore.\n    --> lib/forge-std/src/Vm.sol:1535:71:\n     |\n1535 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;\n     |                                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1541:77:\n     |\n1541 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1547:75:\n     |\n1547 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1556:77:\n     |\n1556 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1562:77:\n     |\n1562 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1568:75:\n     |\n1568 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1574:73:\n     |\n1574 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;\n     |                                                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1577:55:\n     |\n1577 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1583:53:\n     |\n1583 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;\n     |                                                     ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1589:55:\n     |\n1589 |     function assertNotEq(address left, address right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1595:55:\n     |\n1595 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1601:41:\n     |\n1601 |     function assertTrue(bool condition, string calldata error) external pure;\n     |                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (4591): There are more than 256 warnings. Ignoring the rest.\n\nRan 1 test for test/IncorrectExp.t.sol:ForteTest\n[FAIL: assertion failed] testH01POC() (gas: 20982)\nLogs:\n  result\n  \tunwrapped: 65659766069497175376610859602797442939381845349119726187456520224196026750546\n  \tmantissa: 195448202856920636357880189105054200888773427974465741390571759690634834\n  \tmantissa digits: 72\n  \texponent: 1098\n\nTraces:\n  [20982] ForteTest::testH01POC()\n    â”œâ”€ [0] console::log(\"result\") [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ emit log_named_uint(key: \"\\tunwrapped\", val: 65659766069497175376610859602797442939381845349119726187456520224196026750546 [6.565e76])\n    â”œâ”€ emit log_named_int(key: \"\\tmantissa\", val: 195448202856920636357880189105054200888773427974465741390571759690634834 [1.954e71])\n    â”œâ”€ emit log_named_uint(key: \"\\tmantissa digits\", val: 72)\n    â”œâ”€ emit log_named_int(key: \"\\texponent\", val: 1098)\n    â”œâ”€ [0] VM::assertTrue(false) [staticcall]\n    â”‚   â””â”€ â†� [Revert] assertion failed\n    â””â”€ â†� [Revert] assertion failed\n\nBacktrace:\n  at VM.assertTrue\n  at ForteTest.testH01POC\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 444.90Âµs (171.30Âµs CPU time)\n\nRan 1 test suite in 6.72ms (444.90Âµs CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/IncorrectExp.t.sol:ForteTest\n[FAIL: assertion failed] testH01POC() (gas: 20982)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testH01POC",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testSqrtSilentRevert --ffi -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "] calldata right, string calldata error) external pure;\n     |                                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1541:77:\n     |\n1541 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1547:75:\n     |\n1547 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1556:77:\n     |\n1556 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1562:77:\n     |\n1562 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1568:75:\n     |\n1568 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1574:73:\n     |\n1574 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;\n     |                                                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1577:55:\n     |\n1577 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1583:53:\n     |\n1583 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;\n     |                                                     ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1589:55:\n     |\n1589 |     function assertNotEq(address left, address right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1595:55:\n     |\n1595 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1601:41:\n     |\n1601 |     function assertTrue(bool condition, string calldata error) external pure;\n     |                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (4591): There are more than 256 warnings. Ignoring the rest.\n\nRan 1 test for test/SqrtSilentRevert.t.sol:TestingContract\n[FAIL: This will never terminate as the control never reaches here due to silent termination: false != true] testSqrtSilentRevert() (gas: 14878)\nLogs:\n  Test started\n  Non-zero sqrt completed\n  Zero sqrt completed\n\nTraces:\n  [14878] TestingContract::testSqrtSilentRevert()\n    â”œâ”€ [0] console::log(\"Test started\") [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Non-zero sqrt completed\") [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Zero sqrt completed\") [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] VM::assertEq(false, true, \"This will never terminate as the control never reaches here due to silent termination\") [staticcall]\n    â”‚   â””â”€ â†� [Revert] This will never terminate as the control never reaches here due to silent termination: false != true\n    â””â”€ â†� [Revert] This will never terminate as the control never reaches here due to silent termination: false != true\n\nBacktrace:\n  at VM.assertEq\n  at TestingContract.testSqrtSilentRevert\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 459.20Âµs (159.20Âµs CPU time)\n\nRan 1 test suite in 7.64ms (459.20Âµs CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/SqrtSilentRevert.t.sol:TestingContract\n[FAIL: This will never terminate as the control never reaches here due to silent termination: false != true] testSqrtSilentRevert() (gas: 14878)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testSqrtSilentRevert",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed --match-test testLnWithNonPositiveInput --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "    |                                                                              ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1517:49:\n     |\n1517 |     function assertNotEq(bool left, bool right, string calldata error) external pure;\n     |                                                 ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1523:71:\n     |\n1523 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;\n     |                                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1529:69:\n     |\n1529 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;\n     |                                                                     ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1535:71:\n     |\n1535 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;\n     |                                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1541:77:\n     |\n1541 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1547:75:\n     |\n1547 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1556:77:\n     |\n1556 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1562:77:\n     |\n1562 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;\n     |                                                                             ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1568:75:\n     |\n1568 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;\n     |                                                                           ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1574:73:\n     |\n1574 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;\n     |                                                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1577:55:\n     |\n1577 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1583:53:\n     |\n1583 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;\n     |                                                     ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1589:55:\n     |\n1589 |     function assertNotEq(address left, address right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1595:55:\n     |\n1595 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;\n     |                                                       ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (6335): \"error\" will be promoted to keyword in the future and will not be allowed as an identifier anymore.\n    --> lib/forge-std/src/Vm.sol:1601:41:\n     |\n1601 |     function assertTrue(bool condition, string calldata error) external pure;\n     |                                         ^^^^^^^^^^^^^^^^^^^^^\n\nWarning (4591): There are more than 256 warnings. Ignoring the rest.\n\nRan 1 test for test/LnAcceptsNonPositive.t.sol:LnVulnerabilityTest\n[PASS] testLnWithNonPositiveInput() (gas: 8584)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 568.90Âµs (99.70Âµs CPU time)\n\nRan 1 test suite in 3.62ms (568.90Âµs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testLnWithNonPositiveInput",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      }
+    ],
+    "verification_level": "L5"
+  },
+  "fixed_sha": "112c4192a35b78f06a9abf43b362ffe44065a2c6",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "src/Float128.sol",
+    "src/Ln.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/Float128.sol for H-01",
+      "applied fixed source src/Float128.sol for H-02",
+      "applied fixed source src/Ln.sol for H-03"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/Float128.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\patch\\Float128.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/Float128.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\patch\\Float128.sol",
+        "vulnerability": "H-02"
+      },
+      {
+        "copied": true,
+        "destination": "src/Ln.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\patch\\Ln.sol",
+        "vulnerability": "H-03"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/IncorrectExp.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\IncorrectExp.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/SqrtSilentRevert.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\SqrtSilentRevert.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/LnAcceptsNonPositive.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\LnAcceptsNonPositive.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:29:15Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/H-05.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/high/H-05.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/injection/H-05.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/incorrect/low/H-05.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/Float128.sol",
+    "patch/H-01.diff",
+    "patch/H-02.diff",
+    "patch/H-03.diff",
+    "patch/Ln.sol",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "test/IncorrectExp.t.sol",
+    "test/LnAcceptsNonPositive.t.sol",
+    "test/SqrtSilentRevert.t.sol"
+  ],
   "harness_path": "audits/2025-04-forte",
   "input_row": {
     "c4_refs": [
@@ -37,12 +282,102 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/H-05.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/high/H-05.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/injection/H-05.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/incorrect/low/H-05.md, findings/low_hints.md, findings/med_hints.md, patch, patch/Float128.sol, patch/H-01.diff, patch/H-02.diff, patch/H-03.diff, patch/Ln.sol, patch/low_hints.md, patch/med_hints.md, test, test/IncorrectExp.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testH01POC",
+      "vulnerable": "PASS"
+    },
+    {
+      "fixed": "FAIL",
+      "test_name": "testSqrtSilentRevert",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+  "retrieved_at": "2026-11-20T10:29:02Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/IncorrectExp.t.sol:ForteTest\n[PASS] testH01POC() (gas: 21002)\nLogs:\n  result\n  \tunwrapped: 65652698681238061839292526412794471265318535413532223711624033799390856271442\n  \tmantissa: 195448202856920636357880189105054200888773427974465741390571759690634834\n  \tmantissa digits: 72\n  \texponent: 1097\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 468.80Âµs (172.20Âµs CPU time)\n\nRan 1 test suite in 3.57ms (468.80Âµs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/IncorrectExp.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\IncorrectExp.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/SqrtSilentRevert.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\SqrtSilentRevert.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/LnAcceptsNonPositive.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2025-04-forte\\test\\LnAcceptsNonPositive.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n   â”‚\n   â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n   â•­â–¸ src/Ln.sol:99:13\n   â”‚\n99 â”‚             uint q2 = (Float128.BASE_TO_THE_MAX_DIGITS_M * r1) / mantissa;\n   â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n   â”‚\n   â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:100:13\n    â”‚\n100 â”‚             uint one_over_argument_in_long_int = q1 * Float128.BASE_TO_THE_MAX_DIGITS_M + q2;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:101:13\n    â”‚\n101 â”‚             uint m10 = one_over_argument_in_long_int > Float128.MAX_76_DIGIT_NUMBER ? 77 : 76;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:103:13\n    â”‚\n103 â”‚             uint one_over_arguments_76 = one_over_argument_in_long_int;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:104:13\n    â”‚\n104 â”‚             uint m76 = m10;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:111:13\n    â”‚\n111 â”‚             int exp_one_over_argument = 0 - int(Float128.MAX_DIGITS_M) - int(Float128.MAX_DIGITS_M_X_2) - exp;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:142:13\n    â”‚\n142 â”‚             uint uMantissa = mantissa;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:206:9\n    â”‚\n206 â”‚         int z_int = 10 ** 76 - int(mantissa);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:207:9\n    â”‚\n207 â”‚         int len_z_int = int(Float128.findNumberOfDigits(uint(z_int)));\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:209:13\n    â”‚\n209 â”‚             int diff = len_z_int - 38;\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:216:9\n    â”‚\n216 â”‚         int terms = 15;\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\nwarning[inconsistent-type-names]: contract mixes shorthand and explicit integer type names; use `uint256` and `int256` consistently\n    â•­â–¸ src/Ln.sol:219:14\n    â”‚\n219 â”‚         for (uint j = 2; j < uint(terms + 1); j++) {\n    â”‚              â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/inconsistent-type-names\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testH01POC --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/IncorrectExp.t.sol:ForteTest\n[PASS] testH01POC() (gas: 21002)\nLogs:\n  result\n  \tunwrapped: 65652698681238061839292526412794471265318535413532223711624033799390856271442\n  \tmantissa: 195448202856920636357880189105054200888773427974465741390571759690634834\n  \tmantissa digits: 72\n  \texponent: 1097\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 468.80Âµs (172.20Âµs CPU time)\n\nRan 1 test suite in 3.57ms (468.80Âµs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testH01POC",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testSqrtSilentRevert --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/SqrtSilentRevert.t.sol:TestingContract\n[PASS] testSqrtSilentRevert() (gas: 8561)\nLogs:\n  Test started\n  Non-zero sqrt completed\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 414.80Âµs (116.90Âµs CPU time)\n\nRan 1 test suite in 3.74ms (414.80Âµs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testSqrtSilentRevert",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2025-04-forte\\checkout --match-test testLnWithNonPositiveInput --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/LnAcceptsNonPositive.t.sol:LnVulnerabilityTest\n[PASS] testLnWithNonPositiveInput() (gas: 34255)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 655.60Âµs (183.90Âµs CPU time)\n\nRan 1 test suite in 3.66ms (655.60Âµs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testLnWithNonPositiveInput",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-03"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

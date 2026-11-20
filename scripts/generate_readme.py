@@ -517,8 +517,12 @@ def render() -> str:
     _w1tracks = w1exec.get("tracks", {}) or {}
     w1_incidents = ((_w1tracks.get("incidents") or {}).get("attempted", 0) or 0)
     w1_candidates = ((_w1tracks.get("candidates") or {}).get("attempted", 0) or 0)
+    def _w1_status_count(statuses: dict, key: str) -> int:
+        v = statuses.get(key, 0)
+        return len(v) if isinstance(v, list) else (v or 0)
     w1_l6 = sum(
-        ((_w1tracks.get(_t) or {}).get("by_status") or {}).get("verified_L6", 0) or 0
+        sum(_w1_status_count((_w1tracks.get(_t) or {}).get("by_status") or {}, k)
+            for k in ("verified_L6", "patch_verified_L6"))
         for _t in ("incidents", "candidates"))
     w1_jrows = w1exec.get("J_verified_patch_rows", 0) or 0
     w1_primary = (((w1gate.get("gates") or {}).get("e_benchmark") or {}).get(
@@ -769,7 +773,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced violations (fund_theft), {(proof32.get('by_level') or {}).get('L3', 0)} not reproduced at L3 (blocked or test failure) |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 | V4 | {n(v4m.get('source_candidates_staged', 0))} report candidates from Halborn/Oak/CoinFabrik archives | {n(v4_admitted)} admitted | all L0 — no PoC execution performed |
-| wave1 | isolated METADATA_ONLY research tree | {n(w1_admitted)} admitted | {n(w1_incidents)} incident harnesses + {n(w1_candidates)} prove candidates attempted; **{n(w1_l6)} L6**, `J_verified_patch` empty |
+| wave1 | isolated METADATA_ONLY research tree | {n(w1_admitted)} admitted | {n(w1_incidents)} incident harnesses + {n(w1_candidates)} prove candidates attempted; **{n(w1_l6)} L6**, `J_verified_patch` holds {n(w1_jrows)} verified rows |
 
 Gates ({_crit_failures} critical failures): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
@@ -1182,7 +1186,7 @@ reevmbench {n(w1_by_source.get('reevmbench', 0))} — all under METADATA_ONLY ha
 {n(w1_primary)} families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
 Stage 1 execution attempted {n(w1_incidents)} ReEVMBench incident harnesses and
 {n(w1_candidates)} prove candidates; **{n(w1_l6)} reached L6** and `J_verified_patch`
-holds {n(w1_jrows)} rows — no verified patches are claimed. Counts come from
+holds {n(w1_jrows)} verified two-revision rows. Counts come from
 [`wave1/reports_wave1/dedup_check.json`](wave1/reports_wave1/dedup_check.json),
 [`wave1/reports_wave1/execution_summary.json`](wave1/reports_wave1/execution_summary.json)
 and [`wave1/reports_wave1/validate_wave1.json`](wave1/reports_wave1/validate_wave1.json).

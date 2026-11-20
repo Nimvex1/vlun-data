@@ -1,9 +1,170 @@
 {
+  "base_commit": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
   "candidate_id": "reevmbench:audits/2024-06-size",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout cat-file -t 4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout checkout --quiet --force --detach 4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+    "head": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+    "ok": true,
+    "requested_commit": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+    "url": "https://github.com/evmbench-org/2024-06-size.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2024-06-size.git",
+    "https://github.com/evmbench-org/2024-06-size-findings.git",
+    "https://github.com/code-423n4/2024-06-size.git",
+    "https://github.com/code-423n4/2024-06-size-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout"
+  ],
+  "config_summary": {
+    "base_commit": "4c61f1a5d07e3a201c1990546dd8905b2d2ddf92",
+    "default_test_flags": "--no-match-test invariant",
+    "framework": "foundry",
+    "id": "2024-06-size",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 4,
+    "vulnerabilities_with_tests": 3
+  },
+  "exit_code": 1,
+  "exit_codes": [
+    1
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/libraries/AccountingLibrary.sol for H-01",
+      "applied fixed source src/libraries/actions/Liquidate.sol for H-03",
+      "applied fixed source src/libraries/actions/Liquidate.sol for H-04"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/libraries/AccountingLibrary.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\patch\\AccountingLibrary.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/libraries/actions/Liquidate.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\patch\\Liquidate.sol",
+        "vulnerability": "H-03"
+      },
+      {
+        "copied": true,
+        "destination": "src/libraries/actions/Liquidate.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\patch\\Liquidate.sol",
+        "vulnerability": "H-04"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/local/actions/SellCreditMarket.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\SellCreditMarket.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/local/actions/Liquidate.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\Liquidate3.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/local/actions/Liquidate.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\Liquidate4.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\fixed"
+  },
+  "forge_status": "compile_error",
+  "generated_at": "2026-11-20T10:26:16Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/H-03.md",
+    "findings/H-04.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/high/H-03.md",
+    "findings/incorrect/high/H-04.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/injection/H-03.md",
+    "findings/incorrect/injection/H-04.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/incorrect/low/H-03.md",
+    "findings/incorrect/low/H-04.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/AccountingLibrary.sol",
+    "patch/H-01.diff",
+    "patch/H-03.diff",
+    "patch/H-04.diff",
+    "patch/Liquidate.sol",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "test/Liquidate3.t.sol",
+    "test/Liquidate4.t.sol",
+    "test/SellCreditMarket.t.sol"
+  ],
   "harness_path": "audits/2024-06-size",
   "input_row": {
     "c4_refs": [
@@ -33,12 +194,44 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/H-02.md, findings/H-03.md, findings/H-04.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/high/H-03.md, findings/incorrect/high/H-04.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/injection/H-03.md, findings/incorrect/injection/H-04.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/incorrect/low/H-03.md, findings/incorrect/low/H-04.md, findings/low_hints.md, findings/med_hints.md, patch, patch/AccountingLibrary.sol, patch/H-01.diff, patch/H-03.diff, patch/H-04.diff, patch/Liquidate.sol, patch/low_hints.md, patch/med_hints.md, test, test/Liquidate3.t.sol, test/Liquidate4.t.sol, test/SellCreditMarket.t.sol"
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+  "retrieved_at": "2026-11-20T10:26:09Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+  "stderr_tail": "Error: Compiler run failed:\nError (6275): Source \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-06-size/checkout\".\nParserError: Source \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-06-size/checkout\".\n --> test/mocks/MockAavePool.sol:5:1:\n  |\n5 | import {IERC20} from \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+  "stdout_tail": "Compiling 240 files with Solc 0.8.23\nSolc 0.8.23 finished in 236.37ms\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/local/actions/SellCreditMarket.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\SellCreditMarket.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/local/actions/Liquidate.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\Liquidate3.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/local/actions/Liquidate.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-06-size\\test\\Liquidate4.t.sol"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
-  "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L0",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+      "exit_code": 1,
+      "stderr_tail": "Error: Compiler run failed:\nError (6275): Source \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-06-size/checkout\".\nParserError: Source \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\" not found: File not found. Searched the following locations: \"/Users/REDACTED/Downloads/vlun-data-main/vlun-data-main/work/wave1_runs/reevmbench/reevmbench__audits__2024-06-size/checkout\".\n --> test/mocks/MockAavePool.sol:5:1:\n  |\n5 | import {IERC20} from \"openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\";\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+      "stdout_tail": "Compiling 240 files with Solc 0.8.23\nSolc 0.8.23 finished in 236.37ms\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "compile_error",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-06-size\\checkout",
+    "tests": [],
+    "verification_level": "L0"
+  }
 }

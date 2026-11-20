@@ -1,9 +1,216 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
   "candidate_id": "reevmbench:audits/2024-07-basin",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:57Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout cat-file -t 4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout checkout --quiet --force --detach 4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+    "head": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+    "ok": true,
+    "requested_commit": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+    "url": "https://github.com/evmbench-org/2024-07-basin.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2024-07-basin.git",
+    "https://github.com/evmbench-org/2024-07-basin-findings.git",
+    "https://github.com/code-423n4/2024-07-basin.git",
+    "https://github.com/code-423n4/2024-07-basin-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout --match-test testUpgradeToNewImplementationNotOwner --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout --match-test test_calcLpTokenSupply_sameDecimals2 --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed --match-test testUpgradeToNewImplementationNotOwner --ffi -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed --match-test test_calcLpTokenSupply_sameDecimals2 --ffi -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "4de5896d4d2f58d9eff74a6a6dd5c13b27b5bc81",
+    "default_test_flags": "--ffi",
+    "framework": "foundry-json",
+    "id": "2024-07-basin",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 2,
+    "vulnerabilities_with_tests": 2
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    1,
+    1,
+    0
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/Well.sol:664:9\n    â”‚\n664 â”‚         emit Sync(reserves, lpAmountOut, recipient);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:673:27\n    â”‚\n673 â”‚             reserves[i] = _tokens[i].balanceOf(address(this));\n    â”‚                           â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:692:30\n    â”‚\n692 â”‚             skimAmounts[i] = _tokens[i].balanceOf(address(this)) - reserves[i];\n    â”‚                              â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:716:31\n    â”‚\n716 â”‚             if (reserves[i] > _tokens[i].balanceOf(address(this))) {\n    â”‚                               â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Well.sol:717:17\n    â”‚\n717 â”‚                 revert InvalidReserves();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:749:21\n    â”‚\n749 â”‚                 try IPump(_pumps[i].target).update(reserves, _pumps[i].data) {}\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/Well.sol:825:21\n    â”‚\n825 â”‚                 if (foundOne) return (i, j);\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ src/Well.sol:874:13\n    â”‚\n874 â”‚         if (block.timestamp > deadline) {\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.Fuzz.t.sol:64:19\n    â”‚\n 64 â”‚         vm.assume(block.timestamp + timeIncrease <= type(uint40).max);\n    â”‚                   â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/TestHelper.sol:311:17\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.Longevity.t.sol:42:29\n    â”‚\n 42 â”‚         uint256 timestamp = block.timestamp;\n    â”‚                             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.TimeWeightedAverage.t.sol:56:88\n    â”‚\n 56 â”‚         (twaReserves,) = pump.readTwaReserves(address(mWell), startCumulativeReserves, block.timestamp - 120, data);\n    â”‚                                                                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\n",
+      "stdout_tail": " lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/functions/ConstantProduct2.t.sol:48:5:\n   |\n48 |     function test_calcLpTokenSupply_sameDecimals() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/functions/ConstantProduct2.t.sol:59:5:\n   |\n59 |     function test_calcLpTokenSupply_diffDecimals() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/functions/ConstantProduct2.t.sol:73:5:\n   |\n73 |     function test_calcReserve_sameDecimals() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/functions/ConstantProduct2.t.sol:102:5:\n    |\n102 |     function test_calcReserve_diffDecimals() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/functions/ConstantProduct2.t.sol:126:5:\n    |\n126 |     function testFuzz_calcLpTokenSupply(uint256[2] memory _reserves) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/functions/ConstantProduct2.t.sol:139:5:\n    |\n139 |     function testFuzz_constantProduct2(uint256 x, uint256 y) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/functions/ConstantProduct2.t.sol:168:5:\n    |\n168 |     function test_calcRate() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/functions/ConstantProduct2.t.sol:176:5:\n    |\n176 |     function test_fuzz_calcRate(uint256[2] memory _reserves) public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/integration/GasMetering.sol:41:5:\n   |\n41 |     function test_gasleft_cost() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/pumps/PumpHelpers.sol:19:1:\n   |\n19 | function simCapReserve50Percent(\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/invariant/Invariants.t.sol:86:5:\n   |\n86 |     function invariant_token0WellBalanceAndReserves() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/invariant/Invariants.t.sol:93:5:\n   |\n93 |     function invariant_token1WellBalanceAndReserves() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/invariant/Invariants.t.sol:100:5:\n    |\n100 |     function invariant_wellTokenBalancesShouldNeverBeZeroWithLPSupply() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n   --> test/invariant/Invariants.t.sol:109:5:\n    |\n109 |     function invariant_lpSupplyShouldNeverBeZeroIfReservesAreInThePool() public {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/libraries/LibContractInfo.t.sol:14:5:\n   |\n14 |     function test_getSymbol() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/libraries/LibContractInfo.t.sol:18:5:\n   |\n18 |     function test_getName() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/libraries/LibMath.t.sol:19:5:\n   |\n19 |     function test_nthRoot_zero() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/libraries/LibMath.t.sol:26:5:\n   |\n26 |     function test_nthRoot_sqrtMatch() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/libraries/LibMath.t.sol:30:5:\n   |\n30 |     function testFuzz_nthRoot_sqrtMatch(uint256 a) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/libraries/LibMath.t.sol:36:5:\n   |\n36 |     function testFuzz_nthRoot_sqrtMatchAll(uint256 a) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/libraries/TestABDK.t.sol:20:5:\n   |\n20 |     function testFuzz_log2Pow2(uint256 a) public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to pure\n  --> test/pumps/Pump.Helpers.t.sol:15:5:\n   |\n15 |     function test_getSlotForAddress() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\nWarning (2018): Function state mutability can be restricted to view\n  --> test/pumps/Pump.Helpers.t.sol:32:5:\n   |\n32 |     function test_getSlotOffset() public {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed --match-test testUpgradeToNewImplementationNotOwner --ffi -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "0000000000000000000000000000000001320000000000000000000000000000000000000000000000000000000000000001be) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a0cb889707d426a7a386870a03bc70d1b069759800000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013200000000000000000000000000000000000000000000000000000000000000\n    â”‚   â”‚   â””â”€ â†� [Return] [Call({ target: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, data: 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013200000000000000000000000000000000000000000000000000000000000000 })]\n    â”‚   â”œâ”€ [757] upgradeableWell2::wellData() [staticcall]\n    â”‚   â”‚   â”œâ”€ [475] MockWellUpgradeable::c12323c9(1d1499e622d69689cdf9004d05ec547d650ff2110000000000000000000000000000000000000000000000000000000000000002c7183455a4c133ae270771860664b6b7ec320bb100000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d6bbde9174b1cdaa358d2cf4d57d1a9f7178fbff00000000000000000000000015cf58144ef33af1e14b5208015d11f9143e27b9000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013200000000000000000000000000000000000000000000000000000000000000a0cb889707d426a7a386870a03bc70d1b0697598000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001320000000000000000000000000000000000000000000000000000000000000001be) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000\n    â”‚   â”‚   â””â”€ â†� [Return] 0x\n    â”‚   â”œâ”€ emit BoreWell(well: upgradeableWell2: [0x9989838714EC74226D0c0A205AFABC06A39925AF], implementation: MockWellUpgradeable: [0x212224D2F2d262cd093eE13240ca4873fcCBbA3C], tokens: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, 0x15cF58144EF33af1e14b5208015d11F9143E27b9], wellFunction: Call({ target: 0xc7183455a4C133Ae270771860664b6B7ec320bB1, data: 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013200000000000000000000000000000000000000000000000000000000000000 }), pumps: [Call({ target: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, data: 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013200000000000000000000000000000000000000000000000000000000000000 })], wellData: 0x)\n    â”‚   â””â”€ â†� [Return] upgradeableWell2: [0x9989838714EC74226D0c0A205AFABC06A39925AF]\n    â”œâ”€ [0] VM::label(upgradeableWell2: [0x9989838714EC74226D0c0A205AFABC06A39925AF], \"upgradeableWell2\")\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [0] VM::addr(<pk>) [staticcall]\n    â”‚   â””â”€ â†� [Return] user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D]\n    â”œâ”€ [0] VM::label(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], \"user\")\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [0] VM::startPrank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])\n    â”‚   â””â”€ â†� [Return]\n    â”œâ”€ [31786] proxyAddress::fallback(upgradeableWell2: [0x9989838714EC74226D0c0A205AFABC06A39925AF])\n    â”‚   â”œâ”€ [5461] upgradeableWell::upgradeTo(upgradeableWell2: [0x9989838714EC74226D0c0A205AFABC06A39925AF]) [delegatecall]\n    â”‚   â”‚   â”œâ”€ [2668] wellImplementation::3659cfe6(0000000000000000000000009989838714ec74226d0c0a205afabc06a39925af1d1499e622d69689cdf9004d05ec547d650ff2110000000000000000000000000000000000000000000000000000000000000002c7183455a4c133ae270771860664b6b7ec320bb1000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116265616e7374616c6b46756e6374696f6e000000000000000000000000000000a0cb889707d426a7a386870a03bc70d1b069759800000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000d6265616e7374616c6b50756d700000000000000000000000000000000000000001be) [delegatecall]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Revert] Ownable: caller is not the owner\n    â”‚   â”‚   â””â”€ â†� [Revert] Ownable: caller is not the owner\n    â”‚   â””â”€ â†� [Revert] Ownable: caller is not the owner\n    â””â”€ â†� [Revert] Ownable: caller is not the owner\n\nBacktrace:\n  at wellImplementation\n  at upgradeableWell.upgradeTo\n  at proxyAddress.fallback\n  at WellUpgradeTest.testUpgradeToNewImplementationNotOwner\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.75ms (1.06ms CPU time)\n\nRan 1 test suite in 21.49ms (2.75ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/WellUpgradeable.t.sol:WellUpgradeTest\n[FAIL: Ownable: caller is not the owner] testUpgradeToNewImplementationNotOwner() (gas: 8123745)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testUpgradeToNewImplementationNotOwner",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed --match-test test_calcLpTokenSupply_sameDecimals2 --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/functions/Stable2.t.sol:Stable2Test\n[PASS] test_calcLpTokenSupply_sameDecimals2() (gas: 130141)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.10ms (204.70Âµs CPU time)\n\nRan 1 test suite in 6.07ms (1.10ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "test_calcLpTokenSupply_sameDecimals2",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      }
+    ],
+    "verification_level": "L5"
+  },
+  "fixed_sha": "7823c273cf5acedd5b5db5b3f555a5ccf79bcdef",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "src/WellUpgradeable.sol",
+    "src/functions/Stable2.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source src/WellUpgradeable.sol for H-01",
+      "applied fixed source src/functions/Stable2.sol for H-02"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "src/WellUpgradeable.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\patch\\WellUpgradeable.sol",
+        "vulnerability": "H-01"
+      },
+      {
+        "copied": true,
+        "destination": "src/functions/Stable2.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\patch\\Stable2.sol",
+        "vulnerability": "H-02"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/WellUpgradeable.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\test\\WellUpgradeable.t.sol"
+      },
+      {
+        "copied": true,
+        "destination": "test/functions/Stable2.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\test\\Stable2.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:27:04Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "exploit/deploy.sh",
+    "exploit/gold.sh",
+    "exploit/grade.sh",
+    "exploit/high_hints.md",
+    "exploit/low_hints.md",
+    "exploit/max_hints.md",
+    "exploit/med_hints.md",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/H-02.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/high/H-02.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/injection/H-02.md",
+    "findings/incorrect/low/H-01.md",
+    "findings/incorrect/low/H-02.md",
+    "findings/low_hints.md",
+    "findings/med_hints.md",
+    "patch/H-01.diff",
+    "patch/H-02.diff",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/Stable2.sol",
+    "patch/WellUpgradeable.sol",
+    "test/Stable2.t.sol",
+    "test/WellUpgradeable.t.sol"
+  ],
   "harness_path": "audits/2024-07-basin",
   "input_row": {
     "c4_refs": [
@@ -25,12 +232,77 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, exploit, exploit/deploy.sh, exploit/gold.sh, exploit/grade.sh, exploit/high_hints.md, exploit/low_hints.md, exploit/max_hints.md, exploit/med_hints.md, findings, findings/H-01.md, findings/H-02.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/high/H-02.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/injection/H-02.md, findings/incorrect/low, findings/incorrect/low/H-01.md, findings/incorrect/low/H-02.md, findings/low_hints.md, findings/med_hints.md, patch, patch/H-01.diff, patch/H-02.diff, patch/Stable2.sol, patch/WellUpgradeable.sol, patch/low_hints.md, patch/med_hints.md, test, test/Stable2.t.sol, test/WellUpgradeable.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testUpgradeToNewImplementationNotOwner",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:57Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+  "retrieved_at": "2026-11-20T10:26:16Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/WellUpgradeable.t.sol:WellUpgradeTest\n[PASS] testUpgradeToNewImplementationNotOwner() (gas: 8153890)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.51ms (2.38ms CPU time)\n\nRan 1 test suite in 18.95ms (12.51ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/WellUpgradeable.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\test\\WellUpgradeable.t.sol"
+    },
+    {
+      "copied": true,
+      "destination": "test/functions/Stable2.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2024-07-basin\\test\\Stable2.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ src/Well.sol:664:9\n    â”‚\n664 â”‚         emit Sync(reserves, lpAmountOut, recipient);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:673:27\n    â”‚\n673 â”‚             reserves[i] = _tokens[i].balanceOf(address(this));\n    â”‚                           â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:692:30\n    â”‚\n692 â”‚             skimAmounts[i] = _tokens[i].balanceOf(address(this)) - reserves[i];\n    â”‚                              â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:716:31\n    â”‚\n716 â”‚             if (reserves[i] > _tokens[i].balanceOf(address(this))) {\n    â”‚                               â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[require-revert-in-loop]: `require` or `revert` inside a loop\n    â•­â–¸ src/Well.sol:717:17\n    â”‚\n717 â”‚                 revert InvalidReserves();\n    â”‚                 â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/require-revert-in-loop\n\nwarning[calls-loop]: external call inside a loop\n    â•­â–¸ src/Well.sol:749:21\n    â”‚\n749 â”‚                 try IPump(_pumps[i].target).update(reserves, _pumps[i].data) {}\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/calls-loop\n\nwarning[uninitialized-local]: local variable is read before being initialized\n    â•­â–¸ src/Well.sol:825:21\n    â”‚\n825 â”‚                 if (foundOne) return (i, j);\n    â”‚                     â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/uninitialized-local\n\nwarning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators\n    â•­â–¸ src/Well.sol:874:13\n    â”‚\n874 â”‚         if (block.timestamp > deadline) {\n    â”‚             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/block-timestamp\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.Fuzz.t.sol:64:19\n    â”‚\n 64 â”‚         vm.assume(block.timestamp + timeIncrease <= type(uint40).max);\n    â”‚                   â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/TestHelper.sol:311:17\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.Longevity.t.sol:42:29\n    â”‚\n 42 â”‚         uint256 timestamp = block.timestamp;\n    â”‚                             â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\nwarning[environment-read-across-mutation]: `block.timestamp` may be reused across `vm.warp`\n    â•­â–¸ test/pumps/Pump.TimeWeightedAverage.t.sol:56:88\n    â”‚\n 56 â”‚         (twaReserves,) = pump.readTwaReserves(address(mWell), startCumulativeReserves, block.timestamp - 120, data);\n    â”‚                                                                                        â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â¸¬  test/TestHelper.sol:311:9\n    â”‚\n311 â”‚         vm.warp(block.timestamp + _seconds);\n    â”‚         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ `vm.warp` changes this environment here\n    â”‚\n    â”œ help: capture it with `vm.getBlockTimestamp()` instead\n    â•° help: https://getfoundry.sh/forge/linting/environment-read-across-mutation\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout --match-test testUpgradeToNewImplementationNotOwner --ffi -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/WellUpgradeable.t.sol:WellUpgradeTest\n[PASS] testUpgradeToNewImplementationNotOwner() (gas: 8153890)\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.51ms (2.38ms CPU time)\n\nRan 1 test suite in 18.95ms (12.51ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testUpgradeToNewImplementationNotOwner",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      },
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2024-07-basin\\checkout --match-test test_calcLpTokenSupply_sameDecimals2 --ffi -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": false,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/functions/Stable2.t.sol:Stable2Test\n[FAIL: panic: arithmetic underflow or overflow (0x11)] test_calcLpTokenSupply_sameDecimals2() (gas: 61785)\nTraces:\n  [61785] Stable2Test::test_calcLpTokenSupply_sameDecimals2()\n    â”œâ”€ [4063] Stable2::calcLpTokenSupply([10000000000000000000 [1e19], 10000000000000000000 [1e19]], 0x00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000000) [staticcall]\n    â”‚   â””â”€ â†� [Revert] panic: arithmetic underflow or overflow (0x11)\n    â””â”€ â†� [Revert] panic: arithmetic underflow or overflow (0x11)\n\nBacktrace:\n  at Stable2.calcLpTokenSupply\n  at Stable2Test.test_calcLpTokenSupply_sameDecimals2\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.82ms (401.80Âµs CPU time)\n\nRan 1 test suite in 20.02ms (2.82ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/functions/Stable2.t.sol:Stable2Test\n[FAIL: panic: arithmetic underflow or overflow (0x11)] test_calcLpTokenSupply_sameDecimals2() (gas: 61785)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "test_calcLpTokenSupply_sameDecimals2",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-02"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

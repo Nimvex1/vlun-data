@@ -1,11 +1,11 @@
 {
-  "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "README regenerated after final splits/report sync",
-  "sentinel_sha256": {
-    "README.md": "754f23ea0c246f25813f7ea090a0fe842f14aca67c4bc755dad5704da7043122",
-    "benchmark/manifest.json": "c021586fa2f3577d03cf8c1ac220d92e339905a7d46a1c0c54e2f423fc1569b6",
-    "derived_v3/manifest.json": "51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b",
-    "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",
-    "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
-  }
+ "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
+ "resnapshot_reason": "README regenerated after final splits/report sync",
+ "sentinel_sha256": {
+  "README.md": "ccda5cb489cc9c953d8ca5f9747cce59c047099eca0d356c403f0b89b67b3a85",
+  "benchmark/manifest.json": "c021586fa2f3577d03cf8c1ac220d92e339905a7d46a1c0c54e2f423fc1569b6",
+  "derived_v3/manifest.json": "51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b",
+  "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",
+  "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
+ }
 }
