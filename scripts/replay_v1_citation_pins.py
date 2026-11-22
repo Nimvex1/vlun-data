@@ -36,7 +36,7 @@ def main() -> int:
         by_key[(c.get("record_id"), c.get("context_key"), c.get("source_url_original"))] = c
 
     path = DERIVED / "records.jsonl"
-    records = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    records = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     pinned = records_touched = urls_rewritten = 0
     for rec in records:
         touched = False

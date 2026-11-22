@@ -333,8 +333,8 @@ def _write_json(path: Path, obj) -> None:
 
 
 def _load_jsonl(path: Path) -> list:
-    return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines()
-            if l.strip()] if path.exists() else []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()
+            if line.strip()] if path.exists() else []
 
 
 def is_quarantined(row: dict) -> bool:
@@ -502,8 +502,8 @@ def purge_v3(report: dict) -> None:
         }
         for fam, path in fam_rows.items():
             if fam in bm.get("tasks", {}):
-                bm["tasks"][fam] = sum(1 for l in path.read_text(encoding="utf-8").splitlines()
-                                       if l.strip()) if path.exists() else 0
+                bm["tasks"][fam] = sum(1 for line in path.read_text(encoding="utf-8").splitlines()
+                                       if line.strip()) if path.exists() else 0
         _write_json(bm_path, bm)
 
     # keep manifest honest (manifest.json is owned by this track)

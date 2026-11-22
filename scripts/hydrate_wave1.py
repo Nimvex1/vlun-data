@@ -33,9 +33,7 @@ from _common import (  # noqa: E402
 )
 from hydration_lib import (  # noqa: E402
     CODE_MIN, PROSE_MIN, FORMAL_LOCAL, MD_LOCAL, OZ_LOCAL, REVM_LOCAL,
-    add_inline, code_chars, comment_prose, fenced_code, file_window,
-    judge_quote_for, load_api_index, prose_from_body, prose_chars,
-    quarantine, raw_fetch, raw_from_blob, slice_lines, fully_trainable,
+    add_inline, fenced_code, judge_quote_for, load_api_index, prose_from_body, quarantine, raw_fetch, raw_from_blob, fully_trainable,
 )
 
 CAND = WAVE1 / "03_candidates"

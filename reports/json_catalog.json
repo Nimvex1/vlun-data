@@ -1,12 +1,12 @@
 {
   "by_category": {
     "benchmark": 50,
-    "datasets": 4,
-    "derived": 32,
+    "datasets": 6,
+    "derived": 35,
     "experiments": 123,
     "harvest": 6,
-    "meta": 569,
-    "reports": 84,
+    "meta": 573,
+    "reports": 86,
     "schema": 5,
     "source": 21,
     "splits": 13,
@@ -24,7 +24,7 @@
     "brag-output/",
     "ai/"
   ],
-  "file_count": 918,
+  "file_count": 929,
   "files": [
     {
       "bytes": 10711,
@@ -68,7 +68,7 @@
       "tracked": true
     },
     {
-      "bytes": 538782,
+      "bytes": 550700,
       "category": "meta",
       "keys": [
         "copy_detection",
@@ -95,7 +95,7 @@
       "layer": "meta",
       "parse": "ok",
       "path": "RELEASE_MANIFEST.json",
-      "sha256": "ba6d956a5f79260cf3905aedd4727cff1321113044b549bc76f3cb1b5c499e7e",
+      "sha256": "23f58c59811e738f291187b1e0e51723ed0e7558333932fa326009ff3b240169",
       "tracked": true
     },
     {
@@ -294,6 +294,16 @@
       "path": "Vbeta/derived_vbeta/negatives.jsonl",
       "rows": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    {
+      "bytes": 29350023,
+      "category": "derived",
+      "layer": "vbeta",
+      "parse": "ok",
+      "path": "Vbeta/derived_vbeta/quarantine.jsonl",
+      "rows": 26960,
+      "sha256": "2f4b0a39d3ad789d1943156924d1afff3991a14af0bf7f61c52ec8e55e7754e6",
       "tracked": true
     },
     {
@@ -1230,6 +1240,26 @@
       "tracked": true
     },
     {
+      "bytes": 18560,
+      "category": "datasets",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "datasets/negative_quarantine.jsonl",
+      "rows": 3,
+      "sha256": "342730f1ecbb8ddabf81f681ac6b89d9e04c6922a364160acb66e5f1c38f794d",
+      "tracked": true
+    },
+    {
+      "bytes": 2388475,
+      "category": "datasets",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "datasets/v1_hydration_quarantine.jsonl",
+      "rows": 688,
+      "sha256": "a6d30b10156d7c44f8d3d03cb8843d1c0b4ab66372dbdfad13714705632db2df",
+      "tracked": true
+    },
+    {
       "bytes": 0,
       "category": "datasets",
       "layer": "multi",
@@ -1605,6 +1635,16 @@
       "tracked": true
     },
     {
+      "bytes": 17870,
+      "category": "derived",
+      "layer": "v2.2",
+      "parse": "ok",
+      "path": "derived_v2_2/quarantine.jsonl",
+      "rows": 76,
+      "sha256": "ff1555c45eaa8b777a969ea374f0f9eedfe2af70c288847760971716be41558e",
+      "tracked": true
+    },
+    {
       "bytes": 794207,
       "category": "derived",
       "layer": "v2.2",
@@ -1793,6 +1833,16 @@
       "tracked": true
     },
     {
+      "bytes": 17559557,
+      "category": "derived",
+      "layer": "v3",
+      "parse": "ok",
+      "path": "derived_v3/quarantine.jsonl",
+      "rows": 43628,
+      "sha256": "0dd79f46c142c5e270ba8360a100005d1418f619e913593fed839c2485a3da8a",
+      "tracked": true
+    },
+    {
       "bytes": 80648879,
       "category": "derived",
       "layer": "v3",
@@ -1886,6 +1936,16 @@
       "parse": "ok",
       "path": "derived_v4/manifest.json",
       "sha256": "417455074dcac791958b73dc2cab5e2aa07a503187afad38263da7675b1aa91a",
+      "tracked": true
+    },
+    {
+      "bytes": 28388306,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "derived_v4/quarantine.jsonl",
+      "rows": 8167,
+      "sha256": "4958252c3a1c96433e6b89bd9a188b7411ac49e5e32fe715d300fefec83f91fb",
       "tracked": true
     },
     {
@@ -14328,6 +14388,48 @@
       "tracked": true
     },
     {
+      "bytes": 176632,
+      "category": "reports",
+      "keys": [
+        "by_layer",
+        "definitions",
+        "files",
+        "generated_at",
+        "repo_root",
+        "scan",
+        "schema_version",
+        "stub_files",
+        "summary"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/metadata_vs_trainable_audit.json",
+      "sha256": "c0acb1e5c16a4b5fd837d66946413be56d655e449e23e2afeb2b58511177d8e0",
+      "tracked": true
+    },
+    {
+      "bytes": 176469,
+      "category": "reports",
+      "keys": [
+        "by_layer",
+        "definitions",
+        "files",
+        "generated_at",
+        "repo_root",
+        "scan",
+        "schema_version",
+        "stub_files",
+        "summary"
+      ],
+      "kind": "object",
+      "layer": "multi",
+      "parse": "ok",
+      "path": "reports/metadata_vs_trainable_audit_before.json",
+      "sha256": "c3ddcceda36c4f2686cd6b8bcd76f047e8fe5f934c66eed1f48c7923f34f6329",
+      "tracked": true
+    },
+    {
       "bytes": 3370,
       "category": "reports",
       "keys": [
@@ -17108,6 +17210,16 @@
       "path": "wave1/00_governance/source_registry.jsonl",
       "rows": 6,
       "sha256": "636b97587f557eeb9886470162dff313002f906bee9ef1b6efd32d2153e8b53c",
+      "tracked": true
+    },
+    {
+      "bytes": 1731740,
+      "category": "meta",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "wave1/01_dedup/hydration_quarantine.jsonl",
+      "rows": 1593,
+      "sha256": "9cb8153079b27b6f4d11aaf6fba0b8d60ad7cc438cbcb2a30178b252ad6442cb",
       "tracked": true
     },
     {
@@ -19941,6 +20053,27 @@
       "tracked": true
     },
     {
+      "bytes": 2204,
+      "category": "meta",
+      "keys": [
+        "families",
+        "generated_at",
+        "original_pass",
+        "quarantine_cumulative",
+        "quarantine_file",
+        "rules",
+        "seconds",
+        "thresholds",
+        "totals"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "wave1/reports_wave1/hydration_report.json",
+      "sha256": "8759720ac3057de48cf728f6fba434c469f3c232c8d4940dc5e7199a4326503f",
+      "tracked": true
+    },
+    {
       "bytes": 6453,
       "category": "meta",
       "keys": [
@@ -20044,6 +20177,22 @@
       "parse": "ok",
       "path": "wave1/reports_wave1/mitigation_harvest.json",
       "sha256": "907f3f0bd23be1a57559ea98006b26fe5a8f477855f2e5cffce3b4db61e8724b",
+      "tracked": true
+    },
+    {
+      "bytes": 1907,
+      "category": "meta",
+      "keys": [
+        "candidate_index_size",
+        "generated_at",
+        "tables",
+        "totals"
+      ],
+      "kind": "object",
+      "layer": "meta",
+      "parse": "ok",
+      "path": "wave1/reports_wave1/propagate_hydration.json",
+      "sha256": "968d26a2dbb8ff5283c718badc3ee3083d366d03667bab4ab210278c1b612159",
       "tracked": true
     },
     {

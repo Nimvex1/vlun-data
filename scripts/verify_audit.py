@@ -16,7 +16,6 @@ Exit: 0 if every check passes, 1 otherwise.
 from __future__ import annotations
 
 import json
-import os
 import random
 import re
 import sys
@@ -766,7 +765,6 @@ def check_spot_checks(res: Results, plan_text: str, stub_files: set[str], files:
         res.failed("9. spot checks", "hydration plan text unavailable")
         return
 
-    path_to_entry = {norm_path(e.get("path", "")): e for e in files if isinstance(e, dict)}
     count = min(SPOT_CHECK_COUNT, len(stub_files))
     rng = random.Random(SPOT_CHECK_SEED)
     chosen = sorted(rng.sample(sorted(stub_files), count))

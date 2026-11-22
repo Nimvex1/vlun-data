@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-918 files across 11 categories.
+929 files across 11 categories.
 
 ## source (21)
 
@@ -38,7 +38,7 @@ also excluded: reports/v3/validation_v31.json.
 | `jsonl_v3/findings.jsonl` | v3 | 97,476,765 | 7712 rows | yes |
 | `jsonl_v3/sources.jsonl` | v3 | 12,839 | 18 rows | yes |
 
-## derived (32)
+## derived (35)
 
 *normalized records, ledgers, manifests, overlays.*
 
@@ -49,6 +49,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/derived_vbeta/duplicates.jsonl` | vbeta | 0 | 0 rows | yes |
 | `Vbeta/derived_vbeta/manifest.json` | vbeta | 1,458 | object, 19 keys | yes |
 | `Vbeta/derived_vbeta/negatives.jsonl` | vbeta | 0 | 0 rows | yes |
+| `Vbeta/derived_vbeta/quarantine.jsonl` | vbeta | 29,350,023 | 26960 rows | yes |
 | `Vbeta/derived_vbeta/records.jsonl` | vbeta | 1,104,459 | 80 rows | yes |
 | `Vbeta/derived_vbeta/source_ledger.json` | vbeta | 1,042 | object, 2 keys | yes |
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
@@ -59,6 +60,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
 | `derived_v2_2/manifest.json` | v2.2 | 2,104 | object, 24 keys | yes |
+| `derived_v2_2/quarantine.jsonl` | v2.2 | 17,870 | 76 rows | yes |
 | `derived_v2_2/records.jsonl` | v2.2 | 794,207 | 61 rows | yes |
 | `derived_v3/candidate_ledger.jsonl` | v3 | 99,700,049 | 7712 rows | yes |
 | `derived_v3/corroborations.jsonl` | v3 | 34,481 | 108 rows | yes |
@@ -73,6 +75,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v3/normalized_records_preview.jsonl` | v3 | 81,740,314 | 4623 rows | yes |
 | `derived_v3/patch_candidates.json` | v3 | 27,650 | unparseable | yes |
 | `derived_v3/patch_reviews.jsonl` | v3 | 165,902 | 47 rows | yes |
+| `derived_v3/quarantine.jsonl` | v3 | 17,559,557 | 43628 rows | yes |
 | `derived_v3/records.jsonl` | v3 | 80,648,879 | 4623 rows | yes |
 | `derived_v3/source_ledger.json` | v3 | 16,924 | object, 1 keys | yes |
 | `derived_v3/source_sha_index.json` | v3 | 5,745 | object, 2 keys | yes |
@@ -284,7 +287,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v3/yamfinance/harness.json` | v3 | 271 | object, 4 keys | yes |
 | `experiments_v3/yamfinance/result.json` | v3 | 1,462 | object, 15 keys | yes |
 
-## reports (84)
+## reports (86)
 
 *validation, stats, quality and baseline reports.*
 
@@ -324,6 +327,8 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/legacy/dataset_stats_v1_reported.json` | multi | 6,410 | object, 51 keys | yes |
 | `reports/machine_path_scan.json` | multi | 1,320,037 | object, 9 keys | yes |
 | `reports/manifest_checks.json` | multi | 361 | object, 6 keys | yes |
+| `reports/metadata_vs_trainable_audit.json` | multi | 176,632 | object, 9 keys | yes |
+| `reports/metadata_vs_trainable_audit_before.json` | multi | 176,469 | object, 9 keys | yes |
 | `reports/negative_experiments.json` | multi | 3,370 | object, 3 keys | yes |
 | `reports/negative_verification_stats.json` | multi | 2,131,136 | object, 22 keys | yes |
 | `reports/nonevm_pilot.json` | multi | 71,445 | object, 15 keys | yes |
@@ -387,12 +392,14 @@ also excluded: reports/v3/validation_v31.json.
 | `schema/experiment-result.schema.json` | multi | 554 | object, 6 keys | yes |
 | `schema/findings.schema.json` | multi | 820 | object, 6 keys | yes |
 
-## datasets (4)
+## datasets (6)
 
 *admission-filtered subsets with a published rule.*
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
+| `datasets/negative_quarantine.jsonl` | multi | 18,560 | 3 rows | yes |
+| `datasets/v1_hydration_quarantine.jsonl` | multi | 2,388,475 | 688 rows | yes |
 | `datasets/verified_exploits.jsonl` | multi | 0 | 0 rows | yes |
 | `datasets/verified_findings.jsonl` | multi | 5,658 | 6 rows | yes |
 | `datasets/verified_negatives.jsonl` | multi | 167,297 | 22 rows | yes |
@@ -429,7 +436,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/solodit_candidates.json` | vbeta | 1,963,958 | array[733] | yes |
 | `Vbeta/web3bugs_candidates.json` | vbeta | 633,436 | array[491] | yes |
 
-## meta (569)
+## meta (573)
 
 *repo-level registries, snapshots, packaging and reviews.*
 
@@ -437,7 +444,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 538,782 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 550,700 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 919 | object, 17 keys | yes |
@@ -467,6 +474,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived_v4/candidate_ledger.jsonl` | meta | 7,737,930 | 2547 rows | yes |
 | `derived_v4/duplicate_ledger.jsonl` | meta | 0 | 0 rows | yes |
 | `derived_v4/manifest.json` | meta | 919 | object, 17 keys | yes |
+| `derived_v4/quarantine.jsonl` | meta | 28,388,306 | 8167 rows | yes |
 | `derived_v4/quarantined_ledger.jsonl` | meta | 0 | 0 rows | yes |
 | `distribution_v1/MANIFEST.json` | meta | 3,733 | object, 17 keys | yes |
 | `distribution_v1/digests.jsonl` | meta | 5,279 | 6 rows | yes |
@@ -895,6 +903,7 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/00_governance/label_domains.json` | meta | 1,842 | object, 4 keys | yes |
 | `wave1/00_governance/rights.jsonl` | meta | 2,485 | 7 rows | yes |
 | `wave1/00_governance/source_registry.jsonl` | meta | 1,731 | 6 rows | yes |
+| `wave1/01_dedup/hydration_quarantine.jsonl` | meta | 1,731,740 | 1593 rows | yes |
 | `wave1/01_dedup/overlap_manifest.jsonl` | meta | 358,999 | 896 rows | yes |
 | `wave1/01_dedup/registry.jsonl` | meta | 5,263,209 | 24074 rows | yes |
 | `wave1/01_dedup/registry_summary.json` | meta | 689 | object, 6 keys | yes |
@@ -998,9 +1007,11 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/reports_wave1/formal_harvest.json` | meta | 4,054 | object, 25 keys | yes |
 | `wave1/reports_wave1/ghsa_harvest.json` | meta | 1,246 | object, 9 keys | yes |
 | `wave1/reports_wave1/group_split_report.json` | meta | 15,942 | object, 4 keys | yes |
+| `wave1/reports_wave1/hydration_report.json` | meta | 2,204 | object, 9 keys | yes |
 | `wave1/reports_wave1/judge_harvest.json` | meta | 6,453 | object, 31 keys | yes |
 | `wave1/reports_wave1/markdown_harvest.json` | meta | 2,145 | object, 22 keys | yes |
 | `wave1/reports_wave1/mitigation_harvest.json` | meta | 2,352 | object, 17 keys | yes |
+| `wave1/reports_wave1/propagate_hydration.json` | meta | 1,907 | object, 4 keys | yes |
 | `wave1/reports_wave1/reevmbench_harvest.json` | meta | 3,173 | object, 24 keys | yes |
 | `wave1/reports_wave1/split_rebalance.json` | meta | 1,640 | object, 3 keys | yes |
 | `wave1/reports_wave1/validate_wave1.json` | meta | 8,911 | object, 3 keys | yes |
