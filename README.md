@@ -16,7 +16,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
 | Vbeta | 15 new sources (incl. Solodit mirror) | 80 admitted / 80 candidates | L0/L1 only — nothing executed in this pass |
 | V4 | 666 report candidates from Halborn/Oak/CoinFabrik archives | 2,547 admitted | all L0 — no PoC execution performed |
-| wave1 | isolated METADATA_ONLY research tree | 1,634 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds 0 rows |
+| wave1 | research tree | 1,634 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds 0 rows |
 
 Gates (0 critical failures): v2 84/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
