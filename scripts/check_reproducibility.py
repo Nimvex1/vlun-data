@@ -611,19 +611,33 @@ def main() -> int:
                     snaps[str(p.relative_to(base))] = h
         return snaps
 
-    before = snapshot()
-    r1 = subprocess.run([sys.executable, "Vbeta/scripts/build_vbeta.py"],
-                        cwd=str(ROOT), capture_output=True, text=True)
-    after = snapshot()
-    if r1.returncode != 0:
-        G.fail("Vbeta rebuild parity", f"rebuild rc={r1.returncode}")
-    elif before != after:
-        diff = [k for k in set(before) | set(after)
-                if before.get(k) != after.get(k)]
-        G.fail("Vbeta rebuild parity", f"outputs differ: {diff[:5]}")
+    # The full rebuild enters purge_vbeta(hydrate=True), which reads the
+    # git-ignored work/hydration_cache.  On a fresh checkout that cache is
+    # absent, so hydrated rows become untrainable and the rebuild OVERWRITES
+    # tracked Vbeta files (records.jsonl, candidate_ledger, split.json,
+    # benchmark files) - corrupting them for every later gate.  The
+    # rebuild-parity check is only meaningful where the cache exists; on a
+    # clean tree skip with an explicit reason (never a silent pass), as the
+    # V3.1/derived rebuild-parity checks above do.
+    if not (ROOT / "work" / "hydration_cache").exists():
+        G.skip("Vbeta rebuild parity",
+               "skipped_no_network: work/hydration_cache absent; a write-mode "
+               "Vbeta rebuild would purge hydrated rows and mutate tracked "
+               "files on a fresh checkout")
     else:
-        G.ok("Vbeta rebuild parity",
-             f"{len(after)} artefacts byte-identical across rebuilds")
+        before = snapshot()
+        r1 = subprocess.run([sys.executable, "Vbeta/scripts/build_vbeta.py"],
+                            cwd=str(ROOT), capture_output=True, text=True)
+        after = snapshot()
+        if r1.returncode != 0:
+            G.fail("Vbeta rebuild parity", f"rebuild rc={r1.returncode}")
+        elif before != after:
+            diff = [k for k in set(before) | set(after)
+                    if before.get(k) != after.get(k)]
+            G.fail("Vbeta rebuild parity", f"outputs differ: {diff[:5]}")
+        else:
+            G.ok("Vbeta rebuild parity",
+                 f"{len(after)} artefacts byte-identical across rebuilds")
 
     # 7c. V3.1 byte-identity: committed normalization outputs must already
     # be in canonical form (per-row sort_keys JSONL, sort_keys JSON). A
