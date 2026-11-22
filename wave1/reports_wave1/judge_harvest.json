@@ -1,22 +1,22 @@
 {
   "Fb_labels": {
     "test": {
-      "distinct": 44,
-      "same": 113
+      "distinct": 30,
+      "same": 64
     },
     "train": {
-      "distinct": 41,
-      "same": 167
+      "distinct": 35,
+      "same": 88
     },
     "val": {
-      "distinct": 31,
-      "same": 131
+      "distinct": 41,
+      "same": 29
     }
   },
   "Fb_splits": {
-    "test": 157,
-    "train": 208,
-    "val": 162
+    "test": 94,
+    "train": 123,
+    "val": 70
   },
   "admitted": 99,
   "admitted_by_outcome": {
@@ -37,9 +37,9 @@
   "bare_label_skipped": 333,
   "benchmark_F_rows": 212,
   "benchmark_Fa_rows": 594,
-  "benchmark_Fb_rows": 527,
+  "benchmark_Fb_rows": 287,
   "collisions": 0,
-  "generated_at": "2026-11-19T19:52:16Z",
+  "generated_at": "2026-11-20T19:04:06Z",
   "governance_source_id": "judge_negatives",
   "issues_fetched": 1153,
   "label_distributions": {
@@ -56,19 +56,19 @@
       "technical_falsity": 99
     },
     "Fb": {
-      "distinct": 116,
-      "same": 411
+      "distinct": 106,
+      "same": 181
     }
   },
   "mitigation_pairs_mined": {
-    "distinct": 110,
-    "dup_label_links_seen": 32,
-    "issues_read": 812,
+    "distinct": 100,
+    "dup_label_links_seen": 17,
+    "issues_read": 336,
     "registry_collisions": 0,
-    "same": 320,
+    "same": 90,
     "skipped_dup_id": 0,
-    "skipped_dup_url": 5,
-    "total": 430
+    "skipped_dup_url": 3,
+    "total": 190
   },
   "no_signal_skipped": 508,
   "notes": [
@@ -81,7 +81,7 @@
     "Token resolution order: GITHUB_TOKEN, GH_TOKEN, `gh auth token`; passed as `Authorization: Bearer <token>`. Verified with one cheap uncached /rate_limit call; on failure the adapter degrades to anonymous and says so.",
     "api_calls_used / api_calls counts NETWORK calls on this run (cache hits cost 0), including the auth verification call; api_paths_called_total (20) is the number of distinct github_get paths attempted across the harvest.",
     "Candidate repos=10; excluded/present=0. Full-slug registry occupancy + v1(8)/V3(3 C4 + 2 Sherlock) exclusions applied.",
-    "F/Fa splits per-label stratified (mirrors rebalance_splits.py) so val/test stay >=30 and both labels survive a later rebalance. Fb split deterministic sha256(contest)%100 at 40/30/30 (offset 51).",
+    "F/Fa splits per-label stratified (mirrors rebalance_splits.py) so val/test stay >=30 and both labels survive a later rebalance. Fb split deterministic sha256(contest)%100 at 40/30/30 (offset 21).",
     "Fb additional pairs mined from the cached c4_mitigation issues.jsonl (zero REST): same = corroborated reports sharing a target_finding_key or a verified duplicate-N label link; distinct = different findings in different contests. No ambiguous pair was invented.",
     "Mined pairs deduped against existing Fb candidate ids, unordered pair URLs and the dedup registry; no prose vendored, only permalinks and hashes.",
     "Issue-list budget (12 calls at up to 2 pages/repo) reached after 6 repos; the 4 remaining eligible repos were not fetched -- no evidence was invented for them.",
@@ -156,25 +156,25 @@
     },
     "Fb": {
       "counts": {
-        "test": 157,
-        "train": 208,
-        "val": 162
+        "test": 94,
+        "train": 123,
+        "val": 70
       },
       "labels": {
         "test": {
-          "distinct": 44,
-          "same": 113
+          "distinct": 30,
+          "same": 64
         },
         "train": {
-          "distinct": 41,
-          "same": 167
+          "distinct": 35,
+          "same": 88
         },
         "val": {
-          "distinct": 31,
-          "same": 131
+          "distinct": 41,
+          "same": 29
         }
       },
-      "offset": 51,
+      "offset": 21,
       "strategy": "contest-level 40/30/30"
     }
   },

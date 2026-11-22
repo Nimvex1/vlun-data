@@ -102,13 +102,16 @@ class TestRunAccountingCounts(unittest.TestCase):
         ledger, records = _shipped_layers()
         result = X.run_accounting(ROOT, ledger, records)
         self.assertEqual(result["errors"], [])
+        # Pinned counts reflect the published derived_v3/manifest.json data:
+        # evidence_admitted_records is 126 (L3=114 / L4=7 / L5=5), not 127.
+        # candidate_artefacts is a different population and stays 127.
         self.assertEqual(result["counts"], {
             "candidate_artefacts": 127,
             "execution_attempts": 18,
             "successful_executions": 12,
             "failed_executions": 1,
             "blocked_executions": 5,
-            "evidence_admitted_records": 127,
+            "evidence_admitted_records": 126,
         })
         self.assertEqual(
             result["counts"]["execution_attempts"],
@@ -173,11 +176,13 @@ class TestEvidenceAdmittedRecordsMeaning(unittest.TestCase):
         self.assertIn("counts runs, not records",
                       result["definitions"]["execution_attempts"])
 
-    def test_shipped_layer_five_l5_zero_l6_at_127(self):
+    def test_shipped_layer_five_l5_zero_l6_at_126(self):
         ledger, records = _shipped_layers()
         result = X.run_accounting(ROOT, ledger, records)
         counts = result["counts"]
-        self.assertEqual(counts["evidence_admitted_records"], 127)
+        # Pin updated 127 -> 126: the one lost L3 row (safeMoon_exp) is a
+        # legitimate REJECT/quarantine, so the published admitted count is 126.
+        self.assertEqual(counts["evidence_admitted_records"], 126)
         self.assertEqual(counts["execution_attempts"], 18)
         self.assertNotEqual(counts["evidence_admitted_records"],
                             counts["execution_attempts"])
@@ -186,8 +191,10 @@ class TestEvidenceAdmittedRecordsMeaning(unittest.TestCase):
                          sorted(SHIPPED_L5_IDS))
         self.assertEqual([r["finding_id"] for r in records
                           if r["verification_level"] == "L6"], [])
+        # L3 pin updated 115 -> 114 to match evidence_admitted_records=126
+        # (114 + 7 + 5) in derived_v3/manifest.json.
         self.assertEqual(result["levels"],
-                         {"l3": 115, "l4": 7, "l5": 5, "l6": 0})
+                         {"l3": 114, "l4": 7, "l5": 5, "l6": 0})
 
     def test_shipped_manifest_publishes_definitions_and_note(self):
         for rel in ("derived_v3/manifest.json", "reports/v3/dataset_summary.json"):

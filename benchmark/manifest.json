@@ -33,20 +33,20 @@
   "tasks": {
     "A_vulnerability_detection": {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 658
       },
       "by_split": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 114,
+        "train": 332,
+        "validation": 212
       },
-      "duplicate_rows_dropped": 193,
+      "duplicate_rows_dropped": 191,
       "file": "benchmark/A_vulnerability_detection.jsonl",
-      "labeled": 720,
+      "labeled": 658,
       "partial": 0,
-      "scorable": 720,
+      "scorable": 658,
       "status": "headline",
-      "tasks": 720,
+      "tasks": 658,
       "unlabeled": 0,
       "unscorable": 0
     },
@@ -75,44 +75,44 @@
     },
     "C_attacker_reasoning": {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 658
       },
       "by_split": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 114,
+        "train": 332,
+        "validation": 212
       },
-      "duplicate_rows_dropped": 193,
+      "duplicate_rows_dropped": 191,
       "file": "benchmark/C_attacker_reasoning.jsonl",
-      "labeled": 290,
+      "labeled": 393,
       "partial": 0,
-      "scorable": 290,
+      "scorable": 393,
       "status": "headline",
-      "tasks": 720,
-      "unlabeled": 430,
-      "unscorable": 430
+      "tasks": 658,
+      "unlabeled": 265,
+      "unscorable": 265
     },
     "D_exploit_construction": {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 644
       },
       "by_split": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 112,
+        "train": 328,
+        "validation": 204
       },
-      "duplicate_rows_dropped": 193,
+      "duplicate_rows_dropped": 191,
       "file": "benchmark/D_exploit_construction.jsonl",
-      "judge_graded_rows": 374,
-      "labeled": 346,
+      "judge_graded_rows": 455,
+      "labeled": 189,
       "partial": 0,
-      "scorable": 346,
+      "scorable": 189,
       "scoring_note": "generative: write the PoC test, needs a judge",
       "scoring_status": "partial",
       "status": "headline",
-      "tasks": 720,
-      "unlabeled": 374,
-      "unscorable": 374
+      "tasks": 644,
+      "unlabeled": 455,
+      "unscorable": 455
     },
     "E_exploit_verification": {
       "answer_key_evidence_levels": {
@@ -135,12 +135,12 @@
     },
     "F_false_positive_rejection": {
       "answer_key_evidence_levels": {
-        "not_recorded": 458
+        "not_recorded": 440
       },
       "by_split": {
-        "test": 38,
-        "train": 232,
-        "validation": 188
+        "test": 37,
+        "train": 227,
+        "validation": 176
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/F_false_positive_rejection.jsonl",
@@ -148,75 +148,75 @@
       "partial": 0,
       "scorable": 17,
       "status": "headline",
-      "tasks": 458,
-      "unlabeled": 441,
-      "unscorable": 441
+      "tasks": 440,
+      "unlabeled": 423,
+      "unscorable": 423
     },
     "Fa_rejection_evidence_axis_vector": {
       "answer_key_evidence_levels": {
-        "derived_fact": 458
+        "derived_fact": 444
       },
       "by_split": {
-        "test": 38,
-        "train": 232,
-        "validation": 188
+        "test": 37,
+        "train": 228,
+        "validation": 179
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
       "labeled": 9,
-      "partial": 449,
+      "partial": 435,
       "scorable": 9,
       "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
       "scoring_status": "partial",
       "status": "headline",
-      "tasks": 458,
+      "tasks": 444,
       "unlabeled": 0,
-      "unscorable": 449
+      "unscorable": 435
     },
     "Fb_duplicate_radar_pair": {
       "answer_key_evidence_levels": {
-        "derived_fact": 106,
-        "externally_attributed": 184,
-        "unknown": 262
+        "derived_fact": 101,
+        "externally_attributed": 179,
+        "unknown": 371
       },
       "by_split": {
-        "test": 30,
-        "train": 327,
-        "validation": 195
+        "test": 56,
+        "train": 320,
+        "validation": 275
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "labeled": 552,
+      "labeled": 651,
       "partial": 0,
-      "scorable": 552,
+      "scorable": 651,
       "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
       "scoring_status": "scorable",
       "status": "headline",
-      "tasks": 552,
+      "tasks": 651,
       "unlabeled": 0,
       "unscorable": 0
     },
     "G_patch_verification": {
       "answer_key_evidence_levels": {
         "experimentally_verified": 7,
-        "not_recorded": 31
+        "not_recorded": 30
       },
       "by_split": {
-        "test": 20,
+        "test": 19,
         "validation": 18
       },
-      "duplicate_rows_dropped": 66,
+      "duplicate_rows_dropped": 65,
       "file": "benchmark/G_patch_verification.jsonl",
-      "judge_graded_rows": 31,
+      "judge_graded_rows": 30,
       "labeled": 7,
       "partial": 0,
       "scorable": 7,
-      "scoring_note": "scores the 7 L6-verified patches; the 31 rows without an answer key are 31 not_testable",
+      "scoring_note": "scores the 7 L6-verified patches; the 30 rows without an answer key are 30 not_testable",
       "scoring_status": "partial",
       "status": "headline",
-      "tasks": 38,
-      "unlabeled": 31,
-      "unscorable": 31
+      "tasks": 37,
+      "unlabeled": 30,
+      "unscorable": 30
     },
     "H_verified_exploit": {
       "answer_key_evidence_levels": {
@@ -258,18 +258,18 @@
     },
     "J_verified_patch": {
       "answer_key_evidence_levels": {
-        "experimentally_verified": 7
+        "experimentally_verified": 3
       },
       "by_split": {
-        "validation": 7
+        "validation": 3
       },
       "duplicate_rows_dropped": 12,
       "file": "benchmark/J_verified_patch.jsonl",
-      "labeled": 7,
+      "labeled": 3,
       "partial": 0,
-      "scorable": 7,
+      "scorable": 3,
       "status": "headline",
-      "tasks": 7,
+      "tasks": 3,
       "unlabeled": 0,
       "unscorable": 0
     },
@@ -488,23 +488,22 @@
     },
     "Q_evidence_type_and_quality_rubric": {
       "answer_key_evidence_levels": {
-        "derived_fact": 137
+        "derived_fact": 61
       },
       "by_language": {
-        "cairo": 8,
-        "move": 15,
-        "rust": 18,
-        "solidity": 45,
-        "vyper": 51
+        "cairo": 3,
+        "move": 7,
+        "rust": 7,
+        "solidity": 44
       },
       "by_split": {
-        "test": 31,
-        "train": 76,
-        "validation": 30
+        "test": 11,
+        "train": 41,
+        "validation": 9
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
-      "labeled": 137,
+      "labeled": 61,
       "languages_allowed": [
         "vyper",
         "rust",
@@ -515,11 +514,11 @@
       "layer": "v2.2",
       "partial": 0,
       "question": "type every claim's evidence and apply the published quality rubric",
-      "scorable": 137,
+      "scorable": 61,
       "scoring_note": "judge-graded rubric dict (partial credit by definition)",
       "scoring_status": "descriptive/non-scorable",
       "status": "headline",
-      "tasks": 137,
+      "tasks": 61,
       "unlabeled": 0,
       "unscorable": 0
     }

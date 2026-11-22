@@ -36,7 +36,8 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from vlun import DERIVED, REPORTS, ROOT, log, read_jsonl, write_json, write_jsonl  # noqa: E402
+from vlun import DERIVED, JSONL, REPORTS, ROOT, log, read_jsonl, write_json, write_jsonl  # noqa: E402
+import v1_purge as vp  # noqa: E402
 
 DATASETS = ROOT / "datasets"
 TRAINING = ROOT / "training"
@@ -119,6 +120,12 @@ def main() -> int:
     repro_by = {r["finding_id"]: r for r in repro.get("per_record", [])}
     patches = {r["finding_id"]: r for r in _json(REPORTS / "patch_verification_v2.json").get("records", [])}
     negatives = {r["finding_id"]: r for r in _json(REPORTS / "negative_verification_stats.json").get("records", [])}
+    # Verbatim claim/triage prose and disputed code are hydrated on the canonical
+    # negative-finding rows. Carry them through to the published verified view.
+    hydrated_negatives = {
+        (r.get("finding") or {}).get("id"): r
+        for r in _load(JSONL / "negative_findings.jsonl")
+    }
     cites = {c["record_id"]: c for c in _json(REPORTS / "citation_resolution.json").get("citations", [])}
 
     # ---------------------------------------------------------------- findings
@@ -215,7 +222,7 @@ def main() -> int:
     for fid, n in sorted(negatives.items()):
         if not admits_negative(n):
             continue
-        verified_negatives.append({
+        out_neg = {
             "finding_id": fid,
             "repository": n["repository"],
             "original_verdict": n["original_verdict"],
@@ -236,7 +243,39 @@ def main() -> int:
             "technical_bases": n.get("technical_bases"),
             "reason_classes": n.get("reason_classes"),
             "evidence_type": n["class_evidence"]["evidence_type"],
-        })
+        }
+        src = hydrated_negatives.get(fid) or {}
+        if src.get("original_claim_body"):
+            out_neg["original_claim_body"] = src["original_claim_body"]
+        if src.get("triage_prose"):
+            out_neg["triage_prose"] = src["triage_prose"]
+        snippets = [
+            {
+                "file": c.get("file"),
+                "function": c.get("function"),
+                "line_start": c.get("line_start"),
+                "line_end": c.get("line_end"),
+                "snippet": c["snippet"],
+                "source_url": c.get("source_url"),
+                "commit_sha": c.get("commit_sha"),
+            }
+            for c in (src.get("code_context") or [])
+            if len(str(c.get("snippet") or "")) >= 50
+        ]
+        if snippets:
+            out_neg["disputed_code_context"] = snippets[:6]
+        verified_negatives.append(out_neg)
+
+    # Model-visible subsets must be FULLY_TRAINABLE. A projection row that is
+    # metadata/partial only is removed to the v1 quarantine ledger, keeping the
+    # original finding id and reason reconstructible. Never mark in place.
+    findings, _ = vp.enforce_list(findings, "datasets/verified_findings.jsonl")
+    exploits, _ = vp.enforce_list(exploits, "datasets/verified_exploits.jsonl")
+    verified_patches, _ = vp.enforce_list(
+        verified_patches, "datasets/verified_patches.jsonl")
+    verified_negatives, _ = vp.enforce_list(
+        verified_negatives, "datasets/verified_negatives.jsonl",
+        negative_triple=True)
 
     DATASETS.mkdir(exist_ok=True)
     TRAINING.mkdir(exist_ok=True)
@@ -320,6 +359,12 @@ def main() -> int:
     # Nothing is deleted: the excluded rows are written, with their
     # provenance intact, to benchmark/independent/v1_task_holdout/, which is
     # outside training/ and therefore outside a corpus consumer's reach.
+    # Same rule for the model-visible task files. Filtering before the holdout
+    # split keeps the holdout manifest counts consistent with the written rows.
+    for _name in list(training):
+        training[_name], _ = vp.enforce_list(
+            training[_name], f"training/{_name}.jsonl")
+
     protected = _leak.protected_identifiers()
     held_out: dict[str, list] = {}
     for name, rows in list(training.items()):

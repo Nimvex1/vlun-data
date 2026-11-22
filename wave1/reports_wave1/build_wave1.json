@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-11-19T19:52:21Z",
+  "built_at": "2026-11-20T19:04:13Z",
   "failures": [],
   "order": [
     "adapters/mitigation.py",
@@ -8,17 +8,21 @@
     "adapters/ghsa.py",
     "adapters/judge.py",
     "adapters/reevmbench.py",
-    "rebalance_splits.py"
+    "scripts\\hydrate_wave1.py",
+    "wave1\\scripts\\propagate_hydration.py",
+    "wave1\\scripts\\rebalance_splits.py"
   ],
   "ran": [
-    "adapters/mitigation.py",
-    "adapters/formal.py",
-    "adapters/markdown.py",
-    "adapters/ghsa.py",
-    "adapters/judge.py",
-    "adapters/reevmbench.py",
-    "rebalance_splits.py"
+    "wave1\\scripts\\adapters\\mitigation.py",
+    "wave1\\scripts\\adapters\\formal.py",
+    "wave1\\scripts\\adapters\\markdown.py",
+    "wave1\\scripts\\adapters\\ghsa.py",
+    "wave1\\scripts\\adapters\\judge.py",
+    "wave1\\scripts\\adapters\\reevmbench.py",
+    "scripts\\hydrate_wave1.py",
+    "wave1\\scripts\\propagate_hydration.py",
+    "wave1\\scripts\\rebalance_splits.py"
   ],
-  "seconds": 7.1,
+  "seconds": 9.35,
   "verdict": "PASS"
 }

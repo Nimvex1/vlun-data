@@ -68,4 +68,4 @@ Levels come only from the committed run artefacts recorded in reports/v3/experim
 - splits_v3: by-source assignment; no source spans splits.
 - duplicates quarantined as links (duplicates.jsonl), never deleted.
 - vlun_overlap flags mark project/commit overlap with v1/v2.2 records for reviewer attention.
-- flagged records: 6
+- flagged records: 5

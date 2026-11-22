@@ -28,14 +28,14 @@
     },
     "by_rights_status": {
       "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1395,
+      "internal_research_artefact_not_cleared": 1339,
       "metadata_only": 1,
       "project_own": 516,
-      "withheld_third_party_no_redistribution_rights": 147
+      "withheld_third_party_no_redistribution_rights": 203
     },
     "not_released_paths": 1542,
-    "paths_with_measured_personal_data": 14,
-    "paths_with_measured_verbatim_third_party_content": 147,
+    "paths_with_measured_personal_data": 21,
+    "paths_with_measured_verbatim_third_party_content": 203,
     "released_paths": 531,
     "tracked_paths": 2073
   },
@@ -2223,128 +2223,86 @@
     "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 220,
-        "verbatim_third_party_strings": 3093
+        "longest_verbatim_code_span_chars": 997,
+        "longest_verbatim_span_chars": 997,
+        "personal_data_strings": 1,
+        "third_party_code_fields": 80,
+        "verbatim_code_spans": 73,
+        "verbatim_third_party_strings": 137
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 3093 string(s) carry a run of at most 220 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 73 run(s) of at most 997 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 220,
-        "verbatim_third_party_strings": 3485
+        "longest_verbatim_code_span_chars": 997,
+        "longest_verbatim_span_chars": 997,
+        "personal_data_strings": 1,
+        "third_party_code_fields": 80,
+        "verbatim_code_spans": 73,
+        "verbatim_third_party_strings": 137
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 3485 string(s) carry a run of at most 220 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/candidates.json": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 260,
-        "verbatim_third_party_strings": 23
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 23 string(s) carry a run of at most 260 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 73 run(s) of at most 997 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "Vbeta/derived_vbeta/candidate_ledger.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 220,
-        "verbatim_third_party_strings": 3505
+        "longest_verbatim_span_chars": 177,
+        "verbatim_third_party_strings": 57
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 3505 string(s) carry a run of at most 220 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/derived_vbeta/negatives.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 538,
-        "verbatim_third_party_strings": 7
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 7 string(s) carry a run of at most 538 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 57 string(s) carry a run of at most 177 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "Vbeta/derived_vbeta/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 1214,
-        "verbatim_third_party_strings": 10405
+        "longest_verbatim_code_span_chars": 3982,
+        "longest_verbatim_span_chars": 3982,
+        "personal_data_strings": 6,
+        "third_party_code_fields": 185,
+        "verbatim_code_spans": 178,
+        "verbatim_third_party_strings": 324
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 10405 string(s) carry a run of at most 1214 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/fetched/receipts.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 74,
-        "verbatim_third_party_strings": 1
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 74 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 178 run(s) of at most 3982 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "Vbeta/jsonl_vbeta/findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 220,
-        "verbatim_third_party_strings": 3505
+        "longest_verbatim_span_chars": 178,
+        "verbatim_third_party_strings": 135
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 3505 string(s) carry a run of at most 220 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 135 string(s) carry a run of at most 178 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "Vbeta/lisabench_candidates.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 446,
-        "verbatim_third_party_strings": 7763
+        "longest_verbatim_span_chars": 189,
+        "verbatim_third_party_strings": 67
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 7763 string(s) carry a run of at most 446 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 67 string(s) carry a run of at most 189 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "Vbeta/scabench_candidates.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 486,
-        "verbatim_third_party_strings": 866
+        "longest_verbatim_span_chars": 95,
+        "verbatim_third_party_strings": 5
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 866 string(s) carry a run of at most 486 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 5 string(s) carry a run of at most 95 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "Vbeta/solodit_candidates.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 600,
-        "verbatim_third_party_strings": 1136
+        "longest_verbatim_span_chars": 599,
+        "verbatim_third_party_strings": 226
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 1136 string(s) carry a run of at most 600 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/splits_vbeta/quarantine.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 171,
-        "verbatim_third_party_strings": 39
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 39 string(s) carry a run of at most 171 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/splits_vbeta/split.json": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 54,
-        "verbatim_third_party_strings": 19
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 19 string(s) carry a run of at most 54 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "Vbeta/web3bugs_candidates.json": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 325,
-        "verbatim_third_party_strings": 678
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 678 string(s) carry a run of at most 325 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 226 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "annotation/iaa_v1/sample.jsonl": {
       "base_rights_status": "project_own",
@@ -2352,115 +2310,138 @@
         "longest_verbatim_code_span_chars": 1206,
         "longest_verbatim_span_chars": 1206,
         "third_party_code_fields": 276,
-        "verbatim_code_spans": 244,
-        "verbatim_third_party_strings": 671
+        "verbatim_code_spans": 245,
+        "verbatim_third_party_strings": 652
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 244 run(s) of at most 1206 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 245 run(s) of at most 1206 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/A_vulnerability_detection.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3828,
         "longest_verbatim_span_chars": 3828,
-        "third_party_code_fields": 811,
-        "verbatim_code_spans": 635,
-        "verbatim_third_party_strings": 752
+        "third_party_code_fields": 1383,
+        "verbatim_code_spans": 939,
+        "verbatim_third_party_strings": 1223
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 635 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 939 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/C_attacker_reasoning.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3828,
         "longest_verbatim_span_chars": 3828,
-        "third_party_code_fields": 811,
-        "verbatim_code_spans": 635,
-        "verbatim_third_party_strings": 1255
+        "third_party_code_fields": 1383,
+        "verbatim_code_spans": 939,
+        "verbatim_third_party_strings": 1692
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 635 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 939 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/D_exploit_construction.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 5422,
-        "longest_verbatim_span_chars": 5422,
-        "third_party_code_fields": 1157,
-        "verbatim_code_spans": 956,
-        "verbatim_third_party_strings": 1454
+        "longest_verbatim_code_span_chars": 3828,
+        "longest_verbatim_span_chars": 3828,
+        "third_party_code_fields": 1552,
+        "verbatim_code_spans": 1115,
+        "verbatim_third_party_strings": 1741
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 956 run(s) of at most 5422 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1115 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/F_false_positive_rejection.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3493,
         "longest_verbatim_span_chars": 3493,
-        "third_party_code_fields": 536,
-        "verbatim_code_spans": 430,
-        "verbatim_third_party_strings": 714
+        "third_party_code_fields": 866,
+        "verbatim_code_spans": 596,
+        "verbatim_third_party_strings": 966
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 430 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 596 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/Fa_rejection_evidence_axis_vector.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3493,
         "longest_verbatim_span_chars": 3493,
-        "third_party_code_fields": 536,
-        "verbatim_code_spans": 430,
-        "verbatim_third_party_strings": 925
+        "third_party_code_fields": 527,
+        "verbatim_code_spans": 424,
+        "verbatim_third_party_strings": 908
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 430 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 424 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/Fb_duplicate_radar_pair.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3493,
         "longest_verbatim_span_chars": 3493,
-        "third_party_code_fields": 775,
-        "verbatim_code_spans": 640,
-        "verbatim_third_party_strings": 1898
+        "third_party_code_fields": 758,
+        "verbatim_code_spans": 622,
+        "verbatim_third_party_strings": 2110
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 640 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 622 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "benchmark/G_patch_verification.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 41515,
+        "longest_verbatim_span_chars": 41515,
+        "third_party_code_fields": 37,
+        "verbatim_code_spans": 27,
+        "verbatim_third_party_strings": 37
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 27 run(s) of at most 41515 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "benchmark/I_verified_non_exploit.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 2942,
+        "longest_verbatim_span_chars": 2942,
+        "third_party_code_fields": 6,
+        "verbatim_code_spans": 3,
+        "verbatim_third_party_strings": 6
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 3 run(s) of at most 2942 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 4000,
-        "longest_verbatim_span_chars": 4000,
-        "personal_data_strings": 5,
-        "verbatim_code_spans": 5,
-        "verbatim_third_party_strings": 256
+        "longest_verbatim_code_span_chars": 3898,
+        "longest_verbatim_span_chars": 3973,
+        "verbatim_code_spans": 2,
+        "verbatim_third_party_strings": 91
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 5 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 2 run(s) of at most 3898 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 629,
-        "longest_verbatim_span_chars": 629,
-        "verbatim_code_spans": 5,
-        "verbatim_third_party_strings": 52
+        "longest_verbatim_code_span_chars": 799,
+        "longest_verbatim_span_chars": 900,
+        "verbatim_code_spans": 16,
+        "verbatim_third_party_strings": 51
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 5 run(s) of at most 629 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 16 run(s) of at most 799 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 800,
         "longest_verbatim_span_chars": 900,
-        "personal_data_strings": 641,
+        "personal_data_strings": 583,
         "verbatim_code_spans": 101,
-        "verbatim_third_party_strings": 2024
+        "verbatim_third_party_strings": 367
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 101 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2470,12 +2451,12 @@
       "evidence": {
         "longest_verbatim_code_span_chars": 800,
         "longest_verbatim_span_chars": 900,
-        "personal_data_strings": 699,
-        "verbatim_code_spans": 108,
-        "verbatim_third_party_strings": 2787
+        "personal_data_strings": 622,
+        "verbatim_code_spans": 119,
+        "verbatim_third_party_strings": 398
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 108 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 119 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2489,42 +2470,36 @@
     "benchmark/independent/secondary_holdout_tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
+        "longest_verbatim_code_span_chars": 1805,
         "longest_verbatim_span_chars": 3353,
         "personal_data_strings": 2,
-        "verbatim_third_party_strings": 772
+        "third_party_code_fields": 73,
+        "verbatim_code_spans": 67,
+        "verbatim_third_party_strings": 308
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 772 string(s) carry a run of at most 3353 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 67 run(s) of at most 1805 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 226,
-        "verbatim_third_party_strings": 127
+        "longest_verbatim_span_chars": 161,
+        "verbatim_third_party_strings": 3
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 127 string(s) carry a run of at most 226 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 120,
-        "verbatim_third_party_strings": 2
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 2 string(s) carry a run of at most 120 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 161 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 945,
-        "longest_verbatim_span_chars": 945,
-        "third_party_code_fields": 35,
-        "verbatim_code_spans": 25,
-        "verbatim_third_party_strings": 160
+        "longest_verbatim_code_span_chars": 3091,
+        "longest_verbatim_span_chars": 3091,
+        "third_party_code_fields": 21,
+        "verbatim_code_spans": 9,
+        "verbatim_third_party_strings": 23
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 25 run(s) of at most 945 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 9 run(s) of at most 3091 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/retired_families/B_root_cause_reasoning.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2532,22 +2507,22 @@
         "longest_verbatim_code_span_chars": 3828,
         "longest_verbatim_span_chars": 3828,
         "third_party_code_fields": 811,
-        "verbatim_code_spans": 652,
-        "verbatim_third_party_strings": 1477
+        "verbatim_code_spans": 653,
+        "verbatim_third_party_strings": 1450
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 652 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 653 run(s) of at most 3828 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/retired_families/E_exploit_verification.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 5422,
         "longest_verbatim_span_chars": 5422,
-        "verbatim_code_spans": 321,
-        "verbatim_third_party_strings": 344
+        "verbatim_code_spans": 318,
+        "verbatim_third_party_strings": 343
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 321 run(s) of at most 5422 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 318 run(s) of at most 5422 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/retired_families/K_language_ecosystem_routing.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2579,7 +2554,7 @@
         "longest_verbatim_code_span_chars": 3898,
         "longest_verbatim_span_chars": 3973,
         "verbatim_code_spans": 2,
-        "verbatim_third_party_strings": 41
+        "verbatim_third_party_strings": 47
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 2 run(s) of at most 3898 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2621,37 +2596,40 @@
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 503
+        "verbatim_third_party_strings": 157
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 503 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 133,
-        "verbatim_third_party_strings": 81
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 81 string(s) carry a run of at most 133 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 157 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "benchmark/v3_R_source_tier_routing.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 935
+        "verbatim_third_party_strings": 580
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 935 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 580 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "datasets/verified_findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 295,
-        "verbatim_third_party_strings": 253
+        "longest_verbatim_span_chars": 161,
+        "verbatim_third_party_strings": 8
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 253 string(s) carry a run of at most 295 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 8 string(s) carry a run of at most 161 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "datasets/verified_negatives.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 4498,
+        "longest_verbatim_span_chars": 4498,
+        "third_party_code_fields": 56,
+        "verbatim_code_spans": 42,
+        "verbatim_third_party_strings": 65
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 42 run(s) of at most 4498 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived/counterexamples.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2669,7 +2647,7 @@
         "longest_verbatim_span_chars": 9296,
         "third_party_code_fields": 536,
         "verbatim_code_spans": 432,
-        "verbatim_third_party_strings": 1364
+        "verbatim_third_party_strings": 1344
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 432 run(s) of at most 9296 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2679,21 +2657,21 @@
       "evidence": {
         "longest_verbatim_code_span_chars": 9909,
         "longest_verbatim_span_chars": 9909,
-        "third_party_code_fields": 1163,
-        "verbatim_code_spans": 1062,
-        "verbatim_third_party_strings": 4511
+        "third_party_code_fields": 2946,
+        "verbatim_code_spans": 2792,
+        "verbatim_third_party_strings": 6517
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 1062 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 2792 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived/root_cause_candidates.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 600,
-        "verbatim_third_party_strings": 70
+        "verbatim_third_party_strings": 69
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 70 string(s) carry a run of at most 600 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 69 string(s) carry a run of at most 600 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "derived_poc_queue/triage_queue.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2708,113 +2686,91 @@
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 599,
-        "verbatim_third_party_strings": 294
+        "verbatim_third_party_strings": 346
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 294 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 346 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "derived_siblings/hard_negatives.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 158,
-        "verbatim_third_party_strings": 5
+        "verbatim_third_party_strings": 8
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 5 string(s) carry a run of at most 158 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 8 string(s) carry a run of at most 158 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "derived_siblings/tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 599,
-        "verbatim_third_party_strings": 145
+        "verbatim_third_party_strings": 163
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 145 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "derived_span_tasks/answer_key.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 102,
-        "verbatim_third_party_strings": 46
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 46 string(s) carry a run of at most 102 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "derived_span_tasks/tasks.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 65,
-        "verbatim_third_party_strings": 23
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 23 string(s) carry a run of at most 65 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 163 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "derived_v2_2/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 948,
-        "verbatim_third_party_strings": 79
+        "longest_verbatim_code_span_chars": 11934,
+        "longest_verbatim_span_chars": 11934,
+        "third_party_code_fields": 163,
+        "verbatim_code_spans": 77,
+        "verbatim_third_party_strings": 142
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 79 string(s) carry a run of at most 948 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 77 run(s) of at most 11934 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/candidate_ledger.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 2457
+        "longest_verbatim_code_span_chars": 7447,
+        "longest_verbatim_span_chars": 8960,
+        "personal_data_strings": 30,
+        "third_party_code_fields": 44787,
+        "verbatim_code_spans": 25104,
+        "verbatim_third_party_strings": 53960
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 2457 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 25104 run(s) of at most 7447 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/negatives.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 306,
-        "verbatim_third_party_strings": 34
+        "longest_verbatim_code_span_chars": 3027,
+        "longest_verbatim_span_chars": 4000,
+        "third_party_code_fields": 31,
+        "verbatim_code_spans": 27,
+        "verbatim_third_party_strings": 75
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 34 string(s) carry a run of at most 306 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "derived_v3/normalization_fragments.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_code_span_chars": 200,
-        "longest_verbatim_span_chars": 200,
-        "verbatim_code_spans": 25,
-        "verbatim_third_party_strings": 3674
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 25 run(s) of at most 200 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
-    },
-    "derived_v3/normalization_overlay.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 107,
-        "verbatim_third_party_strings": 6
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 6 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 27 run(s) of at most 3027 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/normalized_records_preview.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 373,
-        "longest_verbatim_span_chars": 414,
-        "verbatim_code_spans": 75,
-        "verbatim_third_party_strings": 21503
+        "longest_verbatim_code_span_chars": 7126,
+        "longest_verbatim_span_chars": 8960,
+        "personal_data_strings": 3,
+        "third_party_code_fields": 43352,
+        "verbatim_code_spans": 24320,
+        "verbatim_third_party_strings": 49017
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 75 run(s) of at most 373 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 24320 run(s) of at most 7126 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 414,
-        "verbatim_third_party_strings": 7641
+        "longest_verbatim_code_span_chars": 7126,
+        "longest_verbatim_span_chars": 8960,
+        "personal_data_strings": 3,
+        "third_party_code_fields": 43352,
+        "verbatim_code_spans": 24320,
+        "verbatim_third_party_strings": 49017
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 7641 string(s) carry a run of at most 414 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 24320 run(s) of at most 7126 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/source_sha_index.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2828,31 +2784,34 @@
     "derived_v4/admitted_ledger.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 2000,
-        "longest_verbatim_span_chars": 2000,
-        "personal_data_strings": 2059,
-        "third_party_code_fields": 1942,
-        "verbatim_code_spans": 140,
-        "verbatim_third_party_strings": 13581
+        "longest_verbatim_code_span_chars": 3561,
+        "longest_verbatim_span_chars": 3561,
+        "personal_data_strings": 2957,
+        "third_party_code_fields": 4521,
+        "verbatim_code_spans": 297,
+        "verbatim_third_party_strings": 15504
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 140 run(s) of at most 2000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 297 run(s) of at most 3561 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
-    "derived_v4/duplicate_ledger.jsonl": {
+    "derived_v4/candidate_ledger.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 871,
-        "third_party_code_fields": 2,
-        "verbatim_third_party_strings": 5
+        "longest_verbatim_code_span_chars": 3561,
+        "longest_verbatim_span_chars": 3561,
+        "personal_data_strings": 1120,
+        "third_party_code_fields": 2584,
+        "verbatim_code_spans": 158,
+        "verbatim_third_party_strings": 6981
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 5 string(s) carry a run of at most 871 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 158 run(s) of at most 3561 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "distribution_v1/records_v1.jsonl": {
       "base_rights_status": "project_own",
       "evidence": {
         "longest_verbatim_span_chars": 199,
-        "verbatim_third_party_strings": 882
+        "verbatim_third_party_strings": 856
       },
       "rights_status": "attribution_required",
       "why": "carries the attributed short quotations kept under the KEEP_QUOTE_MAX_CHARS quota"
@@ -2866,8 +2825,8 @@
     "distribution_v1/records_v4.jsonl": {
       "base_rights_status": "project_own",
       "evidence": {
-        "longest_verbatim_span_chars": 199,
-        "verbatim_third_party_strings": 4018
+        "longest_verbatim_span_chars": 200,
+        "verbatim_third_party_strings": 1729
       },
       "rights_status": "attribution_required",
       "why": "carries the attributed short quotations kept under the KEEP_QUOTE_MAX_CHARS quota"
@@ -2895,6 +2854,87 @@
       "evidence": {},
       "rights_status": "attribution_required",
       "why": "names the upstream repository, commit and licence of every withheld harness file"
+    },
+    "experiments/2024-01-renft__H-01/fixed/trace.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__H-01/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__H-03/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__H-04/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__H-06/fixed/trace.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__M-01/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__M-08/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__M-09/vulnerable/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments/2024-01-renft__submission-621/attempted/stdout_human.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/result.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3380,6 +3420,123 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
+    "experiments_v2_2/kerf-auditpoc/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v2_2/zentory-contractaudit-cancel/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v2_2/zentory-contractaudit-supply/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/1inch-lop-m01/LICENSE.upstream.md": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 87,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 87 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_2/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 129,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 129 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 124,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 124 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_2/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 124,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 124 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_3/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 129,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 129 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 124,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 124 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/attempt_3/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 124,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 124 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/burgerswap/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/flamincome/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/futureswap/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
     "experiments_v3/gamma/attempt_2/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3388,109 +3545,329 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured personal data: 1 string(s) carry named individuals' mailbox addresses"
     },
+    "experiments_v3/gamma/attempt_2/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/gamma/attempt_3/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/gamma/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/juiceboxrevloans/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/mttoken/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/omni404/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/pikefinance/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/pilot-bybit-2025-02/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 43,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 43 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v3/presalev5/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/prisma/attempt_2/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
     "experiments_v3/prisma/attempt_3/overlay/src/test/2024-03/Prisma_exp.sol": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 113,
-        "longest_verbatim_span_chars": 113,
+        "longest_verbatim_code_span_chars": 2659,
+        "longest_verbatim_span_chars": 2659,
         "verbatim_code_spans": 1,
         "verbatim_third_party_strings": 1
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 1 run(s) of at most 113 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 2659 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v3/prisma/attempt_3/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/prisma/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/reddio/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/securedfi/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/shibatoken/attempt_2/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/shibatoken/attempt_3/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "experiments_v3/shibatoken/attempt_4/overlay/src/test/2023-11/ShibaToken_exp.sol": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 86,
+        "longest_verbatim_code_span_chars": 2655,
+        "longest_verbatim_span_chars": 2655,
+        "verbatim_code_spans": 6,
         "verbatim_third_party_strings": 1
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 86 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 6 run(s) of at most 2655 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v3/shibatoken/attempt_4/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/shibatoken/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 60,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 60 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/swappstaking/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/topbpool/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/usm/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/venus-the/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v3/yamfinance/stdout.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "jsonl/exploits.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 9909,
         "longest_verbatim_span_chars": 9909,
-        "third_party_code_fields": 328,
-        "verbatim_code_spans": 346,
-        "verbatim_third_party_strings": 509
+        "third_party_code_fields": 852,
+        "verbatim_code_spans": 883,
+        "verbatim_third_party_strings": 1148
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 346 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 883 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl/findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 9909,
         "longest_verbatim_span_chars": 9909,
-        "third_party_code_fields": 436,
-        "verbatim_code_spans": 432,
-        "verbatim_third_party_strings": 2094
+        "third_party_code_fields": 1108,
+        "verbatim_code_spans": 1110,
+        "verbatim_third_party_strings": 2824
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 432 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1110 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl/negative_findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 9296,
         "longest_verbatim_span_chars": 9296,
-        "third_party_code_fields": 727,
-        "verbatim_code_spans": 618,
-        "verbatim_third_party_strings": 1480
+        "third_party_code_fields": 1838,
+        "verbatim_code_spans": 1672,
+        "verbatim_third_party_strings": 2977
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 618 run(s) of at most 9296 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1672 run(s) of at most 9296 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl/patches.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 175,
-        "verbatim_third_party_strings": 38
+        "longest_verbatim_code_span_chars": 41515,
+        "longest_verbatim_span_chars": 41515,
+        "third_party_code_fields": 286,
+        "verbatim_code_spans": 261,
+        "verbatim_third_party_strings": 373
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 38 string(s) carry a run of at most 175 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 261 run(s) of at most 41515 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl_ml/findings_cairo.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 411,
-        "verbatim_third_party_strings": 24
+        "longest_verbatim_span_chars": 8218,
+        "third_party_code_fields": 3,
+        "verbatim_third_party_strings": 27
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 24 string(s) carry a run of at most 411 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 27 string(s) carry a run of at most 8218 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "jsonl_ml/findings_move.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 471,
-        "verbatim_third_party_strings": 30
+        "longest_verbatim_code_span_chars": 11934,
+        "longest_verbatim_span_chars": 11934,
+        "third_party_code_fields": 7,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 37
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 30 string(s) carry a run of at most 471 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 11934 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl_ml/findings_reports.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 3898,
         "longest_verbatim_span_chars": 3973,
-        "verbatim_code_spans": 2,
-        "verbatim_third_party_strings": 50
+        "third_party_code_fields": 146,
+        "verbatim_code_spans": 78,
+        "verbatim_third_party_strings": 142
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 2 run(s) of at most 3898 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 78 run(s) of at most 3898 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl_ml/findings_rust.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 341,
+        "longest_verbatim_span_chars": 8501,
         "personal_data_strings": 1,
-        "verbatim_third_party_strings": 49
+        "third_party_code_fields": 7,
+        "verbatim_third_party_strings": 56
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 49 string(s) carry a run of at most 341 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 56 string(s) carry a run of at most 8501 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "jsonl_ml/findings_vyper.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3534,33 +3911,37 @@
     "jsonl_v3/findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 2450
+        "longest_verbatim_code_span_chars": 7447,
+        "longest_verbatim_span_chars": 8960,
+        "personal_data_strings": 30,
+        "third_party_code_fields": 44787,
+        "verbatim_code_spans": 25104,
+        "verbatim_third_party_strings": 53953
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 2450 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 25104 run(s) of at most 7447 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "jsonl_v4/findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 2000,
-        "longest_verbatim_span_chars": 2000,
-        "personal_data_strings": 2059,
-        "third_party_code_fields": 1942,
-        "verbatim_code_spans": 140,
-        "verbatim_third_party_strings": 13581
+        "longest_verbatim_code_span_chars": 3561,
+        "longest_verbatim_span_chars": 3561,
+        "personal_data_strings": 2957,
+        "third_party_code_fields": 4521,
+        "verbatim_code_spans": 297,
+        "verbatim_third_party_strings": 15504
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 140 run(s) of at most 2000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 297 run(s) of at most 3561 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "reports/patch_verification_v2.json": {
       "base_rights_status": "project_own",
       "evidence": {
         "longest_verbatim_span_chars": 137,
-        "verbatim_third_party_strings": 16
+        "verbatim_third_party_strings": 74
       },
       "rights_status": "attribution_required",
-      "why": "carries 16 verbatim third-party quotation(s) of at most 137 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
+      "why": "carries 74 verbatim third-party quotation(s) of at most 137 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
     },
     "reports/poc_attempts.jsonl": {
       "base_rights_status": "project_own",
@@ -3575,10 +3956,10 @@
       "base_rights_status": "project_own",
       "evidence": {
         "longest_verbatim_span_chars": 160,
-        "verbatim_third_party_strings": 149
+        "verbatim_third_party_strings": 170
       },
       "rights_status": "attribution_required",
-      "why": "carries 149 verbatim third-party quotation(s) of at most 160 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
+      "why": "carries 170 verbatim third-party quotation(s) of at most 160 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
     },
     "reports/third_party_audit.json": {
       "base_rights_status": "project_own",
@@ -3612,47 +3993,47 @@
     "splits_v2/quarantine.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 275,
-        "verbatim_third_party_strings": 8
+        "longest_verbatim_span_chars": 399,
+        "verbatim_third_party_strings": 7
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 8 string(s) carry a run of at most 275 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 7 string(s) carry a run of at most 399 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "splits_v2/test.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 4925,
-        "longest_verbatim_span_chars": 4925,
-        "third_party_code_fields": 211,
-        "verbatim_code_spans": 246,
-        "verbatim_third_party_strings": 1026
+        "longest_verbatim_code_span_chars": 20713,
+        "longest_verbatim_span_chars": 20713,
+        "third_party_code_fields": 1053,
+        "verbatim_code_spans": 1115,
+        "verbatim_third_party_strings": 1738
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 246 run(s) of at most 4925 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1115 run(s) of at most 20713 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "splits_v2/train.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 9909,
         "longest_verbatim_span_chars": 9909,
-        "third_party_code_fields": 1006,
-        "verbatim_code_spans": 897,
-        "verbatim_third_party_strings": 2067
+        "third_party_code_fields": 1198,
+        "verbatim_code_spans": 1088,
+        "verbatim_third_party_strings": 2097
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 897 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1088 run(s) of at most 9909 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "splits_v2/validation.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 5084,
-        "longest_verbatim_span_chars": 5084,
-        "third_party_code_fields": 274,
-        "verbatim_code_spans": 253,
-        "verbatim_third_party_strings": 1020
+        "longest_verbatim_code_span_chars": 41515,
+        "longest_verbatim_span_chars": 41515,
+        "third_party_code_fields": 1844,
+        "verbatim_code_spans": 1698,
+        "verbatim_third_party_strings": 2605
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 253 run(s) of at most 5084 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1698 run(s) of at most 41515 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "taxonomy/derivation_log.md": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3710,25 +4091,16 @@
       "rights_status": "attribution_required",
       "why": "carries 1 verbatim third-party quotation(s) of at most 112 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
     },
-    "training/attacker_reasoning.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_span_chars": 172,
-        "verbatim_third_party_strings": 28
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 28 string(s) carry a run of at most 172 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
     "training/canonical/detection.train.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 800,
         "longest_verbatim_span_chars": 800,
-        "verbatim_code_spans": 68,
-        "verbatim_third_party_strings": 140
+        "verbatim_code_spans": 69,
+        "verbatim_third_party_strings": 131
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 68 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 69 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "training/canonical/language.train.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3736,7 +4108,7 @@
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
         "verbatim_code_spans": 15,
-        "verbatim_third_party_strings": 4999
+        "verbatim_third_party_strings": 5000
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 15 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -3744,87 +4116,319 @@
     "training/canonical/language.train.part-001.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
+        "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
-        "verbatim_third_party_strings": 2999
+        "verbatim_code_spans": 2,
+        "verbatim_third_party_strings": 921
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 2999 string(s) carry a run of at most 900 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 2 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "training/canonical/severity.train.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
-        "verbatim_code_spans": 86,
-        "verbatim_third_party_strings": 4991
+        "verbatim_code_spans": 87,
+        "verbatim_third_party_strings": 4994
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 86 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 87 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "training/canonical/severity.train.part-001.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
+        "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
-        "verbatim_third_party_strings": 2611
+        "verbatim_code_spans": 2,
+        "verbatim_third_party_strings": 941
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 2611 string(s) carry a run of at most 900 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
-    },
-    "training/vulnerability_detection.jsonl": {
-      "base_rights_status": "internal_research_artefact_not_cleared",
-      "evidence": {
-        "longest_verbatim_code_span_chars": 4447,
-        "longest_verbatim_span_chars": 4447,
-        "third_party_code_fields": 76,
-        "verbatim_code_spans": 63,
-        "verbatim_third_party_strings": 97
-      },
-      "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 63 run(s) of at most 4447 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 2 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "wave1/01_dedup/registry.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 107,
-        "verbatim_third_party_strings": 64
+        "longest_verbatim_span_chars": 74,
+        "verbatim_third_party_strings": 26
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 64 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 26 string(s) carry a run of at most 74 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "wave1/03_candidates/c4_mitigation/issues.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 69,
-        "verbatim_third_party_strings": 1
+        "longest_verbatim_code_span_chars": 721,
+        "longest_verbatim_span_chars": 721,
+        "third_party_code_fields": 336,
+        "verbatim_code_spans": 17,
+        "verbatim_third_party_strings": 56
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 69 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 17 run(s) of at most 721 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/03_candidates/formal_specs/rules.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 122,
+        "longest_verbatim_span_chars": 122,
+        "third_party_code_fields": 6767,
+        "verbatim_code_spans": 348,
+        "verbatim_third_party_strings": 587
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 348 run(s) of at most 122 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "wave1/03_candidates/judge/issues.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 130,
-        "verbatim_third_party_strings": 23
+        "longest_verbatim_code_span_chars": 585,
+        "longest_verbatim_span_chars": 585,
+        "third_party_code_fields": 613,
+        "verbatim_code_spans": 25,
+        "verbatim_third_party_strings": 48
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 23 string(s) carry a run of at most 130 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 25 run(s) of at most 585 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/03_candidates/markdown_two_revision/candidates.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 106,
+        "third_party_code_fields": 556,
+        "verbatim_third_party_strings": 24
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 24 string(s) carry a run of at most 106 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/03_candidates/reevmbench/harnesses.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 591,
+        "longest_verbatim_span_chars": 591,
+        "third_party_code_fields": 124,
+        "verbatim_code_spans": 10,
+        "verbatim_third_party_strings": 10
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 10 run(s) of at most 591 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/04_admitted/c4_mitigation/findings.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 721,
+        "longest_verbatim_span_chars": 721,
+        "third_party_code_fields": 244,
+        "verbatim_code_spans": 8,
+        "verbatim_third_party_strings": 24
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 8 run(s) of at most 721 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/04_admitted/formal_specs/findings.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 90,
+        "third_party_code_fields": 895,
+        "verbatim_third_party_strings": 52
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 52 string(s) carry a run of at most 90 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "wave1/04_admitted/judge/findings.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 100,
-        "verbatim_third_party_strings": 3
+        "longest_verbatim_span_chars": 108,
+        "third_party_code_fields": 71,
+        "verbatim_third_party_strings": 2
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 100 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 2 string(s) carry a run of at most 108 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/04_admitted/markdown_two_revision/findings.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 106,
+        "third_party_code_fields": 373,
+        "verbatim_third_party_strings": 24
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 24 string(s) carry a run of at most 106 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/04_admitted/reevmbench/findings.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 373,
+        "longest_verbatim_span_chars": 373,
+        "third_party_code_fields": 102,
+        "verbatim_code_spans": 6,
+        "verbatim_third_party_strings": 4
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 6 run(s) of at most 373 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 5
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 5 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 5
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 5 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "personal_data_strings": 1
+        "longest_verbatim_span_chars": 62,
+        "personal_data_strings": 1,
+        "verbatim_third_party_strings": 9
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured personal data: 1 string(s) carry named individuals' mailbox addresses"
+      "why": "measured verbatim third-party content: 9 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-liquid-ron/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 57,
+        "verbatim_third_party_strings": 2
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 2 string(s) carry a run of at most 57 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 7
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 7 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 3
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 3
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 3 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 62,
+        "verbatim_third_party_strings": 7
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 7 string(s) carry a run of at most 62 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/benchmark_wave1/F_false_positive_rejection.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 461,
+        "longest_verbatim_span_chars": 461,
+        "third_party_code_fields": 147,
+        "verbatim_code_spans": 4,
+        "verbatim_third_party_strings": 8
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 4 run(s) of at most 461 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 108,
+        "third_party_code_fields": 426,
+        "verbatim_third_party_strings": 12
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 12 string(s) carry a run of at most 108 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 536,
+        "longest_verbatim_span_chars": 536,
+        "third_party_code_fields": 255,
+        "verbatim_code_spans": 22,
+        "verbatim_third_party_strings": 41
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 22 run(s) of at most 536 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/benchmark_wave1/G_patch_verification.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 721,
+        "longest_verbatim_span_chars": 721,
+        "third_party_code_fields": 244,
+        "verbatim_code_spans": 8,
+        "verbatim_third_party_strings": 24
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 8 run(s) of at most 721 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/benchmark_wave1/invariants.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 90,
+        "third_party_code_fields": 297,
+        "verbatim_third_party_strings": 7
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 7 string(s) carry a run of at most 90 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "wave1/benchmark_wave1/prove_candidates.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 486,
+        "longest_verbatim_span_chars": 486,
+        "third_party_code_fields": 10,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 2
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 486 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/benchmark_wave1/prove_incidents.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 373,
+        "longest_verbatim_span_chars": 373,
+        "third_party_code_fields": 102,
+        "verbatim_code_spans": 6,
+        "verbatim_third_party_strings": 4
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 6 run(s) of at most 373 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "wave1/benchmark_wave1/severity_reconciliation.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 106,
+        "third_party_code_fields": 373,
+        "verbatim_third_party_strings": 24
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 24 string(s) carry a run of at most 106 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     }
   },
   "paths": {
@@ -3860,15 +4464,15 @@
     "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": "withheld_third_party_no_redistribution_rights",
     "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl": "withheld_third_party_no_redistribution_rights",
     "Vbeta/benchmark_vbeta/vbeta_manifest.json": "internal_research_artefact_not_cleared",
-    "Vbeta/candidates.json": "withheld_third_party_no_redistribution_rights",
+    "Vbeta/candidates.json": "internal_research_artefact_not_cleared",
     "Vbeta/derived_vbeta/candidate_ledger.jsonl": "withheld_third_party_no_redistribution_rights",
     "Vbeta/derived_vbeta/corroborations.jsonl": "internal_research_artefact_not_cleared",
     "Vbeta/derived_vbeta/duplicates.jsonl": "internal_research_artefact_not_cleared",
     "Vbeta/derived_vbeta/manifest.json": "internal_research_artefact_not_cleared",
-    "Vbeta/derived_vbeta/negatives.jsonl": "withheld_third_party_no_redistribution_rights",
+    "Vbeta/derived_vbeta/negatives.jsonl": "internal_research_artefact_not_cleared",
     "Vbeta/derived_vbeta/records.jsonl": "withheld_third_party_no_redistribution_rights",
     "Vbeta/derived_vbeta/source_ledger.json": "internal_research_artefact_not_cleared",
-    "Vbeta/fetched/receipts.jsonl": "withheld_third_party_no_redistribution_rights",
+    "Vbeta/fetched/receipts.jsonl": "internal_research_artefact_not_cleared",
     "Vbeta/jsonl_vbeta/findings.jsonl": "withheld_third_party_no_redistribution_rights",
     "Vbeta/jsonl_vbeta/sources.jsonl": "internal_research_artefact_not_cleared",
     "Vbeta/lisabench_candidates.json": "withheld_third_party_no_redistribution_rights",
@@ -3894,10 +4498,10 @@
     "Vbeta/scripts/vlun_vbeta.py": "internal_research_artefact_not_cleared",
     "Vbeta/solodit_candidates.json": "withheld_third_party_no_redistribution_rights",
     "Vbeta/sources.json": "internal_research_artefact_not_cleared",
-    "Vbeta/splits_vbeta/quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
-    "Vbeta/splits_vbeta/split.json": "withheld_third_party_no_redistribution_rights",
+    "Vbeta/splits_vbeta/quarantine.jsonl": "internal_research_artefact_not_cleared",
+    "Vbeta/splits_vbeta/split.json": "internal_research_artefact_not_cleared",
     "Vbeta/tests/test_vbeta.py": "internal_research_artefact_not_cleared",
-    "Vbeta/web3bugs_candidates.json": "withheld_third_party_no_redistribution_rights",
+    "Vbeta/web3bugs_candidates.json": "internal_research_artefact_not_cleared",
     "_audit/INDEPENDENT_REVIEW.md": "project_own",
     "_audit/benchmark_audit.out.txt": "project_own",
     "_audit/benchmark_audit.py": "project_own",
@@ -3932,9 +4536,9 @@
     "benchmark/F_false_positive_rejection.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/Fa_rejection_evidence_axis_vector.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/Fb_duplicate_radar_pair.jsonl": "withheld_third_party_no_redistribution_rights",
-    "benchmark/G_patch_verification.jsonl": "internal_research_artefact_not_cleared",
+    "benchmark/G_patch_verification.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/H_verified_exploit.jsonl": "internal_research_artefact_not_cleared",
-    "benchmark/I_verified_non_exploit.jsonl": "internal_research_artefact_not_cleared",
+    "benchmark/I_verified_non_exploit.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/J_verified_patch.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/Q_evidence_type_and_quality_rubric.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
@@ -3945,7 +4549,7 @@
     "benchmark/independent/secondary_holdout_manifest.json": "internal_research_artefact_not_cleared",
     "benchmark/independent/secondary_holdout_tasks.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
-    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/independent/v1_task_holdout/manifest.json": "internal_research_artefact_not_cleared",
     "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl": "internal_research_artefact_not_cleared",
@@ -3969,13 +4573,13 @@
     "benchmark/retired_families/P_provenance_tier_and_rights.retirement.json": "internal_research_artefact_not_cleared",
     "benchmark/retired_families/v3_S_contest_outcome.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/retired_families/v3_S_contest_outcome.retirement.json": "internal_research_artefact_not_cleared",
-    "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl": "withheld_third_party_no_redistribution_rights",
+    "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl": "internal_research_artefact_not_cleared",
     "benchmark/retired_families/v3_T_taxonomy_explicit.retirement.json": "internal_research_artefact_not_cleared",
     "benchmark/v3_R_source_tier_routing.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/v3_manifest.json": "internal_research_artefact_not_cleared",
     "datasets/verified_exploits.jsonl": "internal_research_artefact_not_cleared",
     "datasets/verified_findings.jsonl": "withheld_third_party_no_redistribution_rights",
-    "datasets/verified_negatives.jsonl": "internal_research_artefact_not_cleared",
+    "datasets/verified_negatives.jsonl": "withheld_third_party_no_redistribution_rights",
     "datasets/verified_patches.jsonl": "internal_research_artefact_not_cleared",
     "derived/counterexamples.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived/hard_negatives.jsonl": "withheld_third_party_no_redistribution_rights",
@@ -3992,10 +4596,10 @@
     "derived_siblings/pool_inputs.json": "internal_research_artefact_not_cleared",
     "derived_siblings/splits.json": "internal_research_artefact_not_cleared",
     "derived_siblings/tasks.jsonl": "withheld_third_party_no_redistribution_rights",
-    "derived_span_tasks/answer_key.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_span_tasks/answer_key.jsonl": "internal_research_artefact_not_cleared",
     "derived_span_tasks/manifest.json": "internal_research_artefact_not_cleared",
     "derived_span_tasks/splits.json": "internal_research_artefact_not_cleared",
-    "derived_span_tasks/tasks.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_span_tasks/tasks.jsonl": "internal_research_artefact_not_cleared",
     "derived_v2_2/audit_ingestion_records.jsonl": "internal_research_artefact_not_cleared",
     "derived_v2_2/audit_sources.jsonl": "internal_research_artefact_not_cleared",
     "derived_v2_2/manifest.json": "internal_research_artefact_not_cleared",
@@ -4008,8 +4612,8 @@
     "derived_v3/manifest.json": "internal_research_artefact_not_cleared",
     "derived_v3/negatives.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived_v3/normalization.json": "internal_research_artefact_not_cleared",
-    "derived_v3/normalization_fragments.jsonl": "withheld_third_party_no_redistribution_rights",
-    "derived_v3/normalization_overlay.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_v3/normalization_fragments.jsonl": "internal_research_artefact_not_cleared",
+    "derived_v3/normalization_overlay.jsonl": "internal_research_artefact_not_cleared",
     "derived_v3/normalized_records_preview.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived_v3/patch_candidates.json": "internal_research_artefact_not_cleared",
     "derived_v3/patch_reviews.jsonl": "internal_research_artefact_not_cleared",
@@ -4017,8 +4621,8 @@
     "derived_v3/source_ledger.json": "internal_research_artefact_not_cleared",
     "derived_v3/source_sha_index.json": "withheld_third_party_no_redistribution_rights",
     "derived_v4/admitted_ledger.jsonl": "withheld_third_party_no_redistribution_rights",
-    "derived_v4/candidate_ledger.jsonl": "internal_research_artefact_not_cleared",
-    "derived_v4/duplicate_ledger.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_v4/candidate_ledger.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_v4/duplicate_ledger.jsonl": "internal_research_artefact_not_cleared",
     "derived_v4/manifest.json": "internal_research_artefact_not_cleared",
     "derived_v4/quarantined_ledger.jsonl": "internal_research_artefact_not_cleared",
     "distribution_v1/MANIFEST.json": "project_own",
@@ -4047,13 +4651,13 @@
     "experiments/2024-01-renft__H-01/fixed/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/fixed/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/fixed/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__H-01/fixed/trace.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__H-01/fixed/trace.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__H-01/vulnerable/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/vulnerable/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-01/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__H-01/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__H-01/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__H-03/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-03/fixed/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-03/fixed/result.json": "internal_research_artefact_not_cleared",
@@ -4064,7 +4668,7 @@
     "experiments/2024-01-renft__H-03/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-03/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-03/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__H-03/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__H-03/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__H-04/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-04/fixed/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-04/fixed/result.json": "internal_research_artefact_not_cleared",
@@ -4075,13 +4679,13 @@
     "experiments/2024-01-renft__H-04/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-04/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-04/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__H-04/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__H-04/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__H-06/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/fixed/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/fixed/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/fixed/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/fixed/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__H-06/fixed/trace.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__H-06/fixed/trace.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__H-06/vulnerable/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/vulnerable/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__H-06/vulnerable/result.json": "internal_research_artefact_not_cleared",
@@ -4097,7 +4701,7 @@
     "experiments/2024-01-renft__M-01/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-01/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-01/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__M-01/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__M-01/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__M-02/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-02/fixed/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-02/fixed/result.json": "internal_research_artefact_not_cleared",
@@ -4118,7 +4722,7 @@
     "experiments/2024-01-renft__M-08/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-08/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-08/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__M-08/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__M-08/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__M-09/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-09/fixed/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-09/fixed/result.json": "internal_research_artefact_not_cleared",
@@ -4129,7 +4733,7 @@
     "experiments/2024-01-renft__M-09/vulnerable/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-09/vulnerable/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-09/vulnerable/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__M-09/vulnerable/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__M-09/vulnerable/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__M-11/fixed/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-11/fixed/harness/VlunEip712.t.sol": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__M-11/fixed/result.json": "internal_research_artefact_not_cleared",
@@ -4153,7 +4757,7 @@
     "experiments/2024-01-renft__submission-621/attempted/result.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__submission-621/attempted/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__submission-621/attempted/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments/2024-01-renft__submission-621/attempted/stdout_human.txt": "internal_research_artefact_not_cleared",
+    "experiments/2024-01-renft__submission-621/attempted/stdout_human.txt": "withheld_third_party_no_redistribution_rights",
     "experiments/2024-01-renft__submission-630/attempted/command.txt": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__submission-630/attempted/harness/WITHHELD.json": "internal_research_artefact_not_cleared",
     "experiments/2024-01-renft__submission-630/attempted/result.json": "internal_research_artefact_not_cleared",
@@ -5067,7 +5671,7 @@
     "experiments_v2_2/index.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/kerf-auditpoc/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/kerf-auditpoc/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v2_2/kerf-auditpoc/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v2_2/kerf-auditpoc/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v2_2/move-cetus-checked-shlw/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/move-cetus-checked-shlw/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v2_2/move-cetus-checked-shlw/stdout.txt": "internal_research_artefact_not_cleared",
@@ -5086,10 +5690,10 @@
     "experiments_v2_2/vyper-rawcall-value/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-contractaudit-cancel/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-contractaudit-cancel/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v2_2/zentory-contractaudit-cancel/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v2_2/zentory-contractaudit-cancel/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v2_2/zentory-contractaudit-supply/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-contractaudit-supply/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v2_2/zentory-contractaudit-supply/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v2_2/zentory-contractaudit-supply/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v2_2/zentory-modea-accountingl2/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-modea-accountingl2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-modea-accountingl2/stdout.txt": "internal_research_artefact_not_cleared",
@@ -5105,7 +5709,7 @@
     "experiments_v2_2/zentory-selfaudit-findingspoc/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-selfaudit-findingspoc/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v2_2/zentory-selfaudit-findingspoc/stdout.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/1inch-lop-m01/LICENSE.upstream.md": "internal_research_artefact_not_cleared",
+    "experiments_v3/1inch-lop-m01/LICENSE.upstream.md": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/1inch-lop-m01/adapted_test_FeeTaker.js": "internal_research_artefact_not_cleared",
     "experiments_v3/1inch-lop-m01/fixed_run.log": "internal_research_artefact_not_cleared",
     "experiments_v3/1inch-lop-m01/record.json": "internal_research_artefact_not_cleared",
@@ -5113,96 +5717,96 @@
     "experiments_v3/burgerswap/attempt_2/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/attempt_2/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/attempt_2/harness.json": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_2/result.json": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/burgerswap/attempt_2/result.json": "withheld_third_party_no_redistribution_rights",
+    "experiments_v3/burgerswap/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v3/burgerswap/attempt_2/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/burgerswap/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/attempt_3/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/attempt_3/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/attempt_3/harness.json": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_3/result.json": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/burgerswap/attempt_3/result.json": "withheld_third_party_no_redistribution_rights",
+    "experiments_v3/burgerswap/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v3/burgerswap/attempt_3/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/burgerswap/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/burgerswap/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/burgerswap/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/burgerswap/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/burgerswap/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/flamincome/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/flamincome/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/flamincome/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/flamincome/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/flamincome/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/flamincome/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/flamincome/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/futureswap/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/futureswap/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/futureswap/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/futureswap/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/futureswap/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/futureswap/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/futureswap/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_2/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_2/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_2/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_2/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
-    "experiments_v3/gamma/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/gamma/attempt_2/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/gamma/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_3/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_3/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_3/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_3/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/gamma/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/gamma/attempt_3/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/gamma/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/gamma/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/gamma/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/gamma/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/gamma/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/juiceboxrevloans/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/juiceboxrevloans/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/juiceboxrevloans/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/juiceboxrevloans/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/juiceboxrevloans/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/juiceboxrevloans/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/juiceboxrevloans/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/mttoken/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/mttoken/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/mttoken/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/mttoken/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/mttoken/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/mttoken/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/mttoken/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/omni404/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/omni404/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/omni404/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/omni404/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/omni404/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/omni404/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/omni404/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/pikefinance/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/pikefinance/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/pikefinance/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/pikefinance/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/pikefinance/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/pikefinance/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/pikefinance/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/pilot-bybit-2025-02/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/pilot-bybit-2025-02/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/pilot-bybit-2025-02/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/pilot-bybit-2025-02/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/pilot-bybit-2025-02/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/pilot-bybit-2025-02/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/presalev5/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/presalev5/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/presalev5/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/presalev5/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/presalev5/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/presalev5/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/presalev5/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_2/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_2/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_2/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_2/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/prisma/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/prisma/attempt_2/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/prisma/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_3/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_3/command.txt": "internal_research_artefact_not_cleared",
@@ -5211,7 +5815,7 @@
     "experiments_v3/prisma/attempt_3/overlay/src/test/2024-03/Prisma_exp.sol": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/prisma/attempt_3/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/prisma/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/prisma/attempt_3/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/prisma/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/foundry-attempt2-cancun.toml": "internal_research_artefact_not_cleared",
@@ -5219,33 +5823,33 @@
     "experiments_v3/prisma/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/prisma/stdout-attempt2-cancun.log": "internal_research_artefact_not_cleared",
-    "experiments_v3/prisma/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/prisma/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/prisma/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/reddio/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/reddio/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/reddio/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/reddio/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/reddio/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/reddio/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/reddio/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/securedfi/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/securedfi/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/securedfi/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/securedfi/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/securedfi/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/securedfi/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/securedfi/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_2/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_2/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_2/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_2/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/shibatoken/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/shibatoken/attempt_2/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/shibatoken/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_3/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_3/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_3/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_3/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/shibatoken/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/shibatoken/attempt_3/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/shibatoken/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_4/build_command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_4/command.txt": "internal_research_artefact_not_cleared",
@@ -5254,43 +5858,43 @@
     "experiments_v3/shibatoken/attempt_4/overlay/src/test/2023-11/ShibaToken_exp.sol": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/shibatoken/attempt_4/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/attempt_4/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/shibatoken/attempt_4/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/shibatoken/attempt_4/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/shibatoken/attempt_4/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/shibatoken/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/shibatoken/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/shibatoken/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/shibatoken/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/swappstaking/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/swappstaking/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/swappstaking/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/swappstaking/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/swappstaking/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/swappstaking/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/swappstaking/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/topbpool/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/topbpool/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/topbpool/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/topbpool/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/topbpool/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/topbpool/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/topbpool/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/usm/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/usm/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/usm/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/usm/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/usm/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/usm/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/usm/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/venus-the/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/venus-the/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/venus-the/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/venus-the/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/venus-the/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/venus-the/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/venus-the/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/yamfinance/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v3/yamfinance/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v3/yamfinance/result.json": "internal_research_artefact_not_cleared",
     "experiments_v3/yamfinance/stderr.txt": "internal_research_artefact_not_cleared",
-    "experiments_v3/yamfinance/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v3/yamfinance/stdout.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v3/yamfinance/toolchain.txt": "internal_research_artefact_not_cleared",
     "harness_authored/renft/2024-01-renft__M-01.t.sol": "internal_research_artefact_not_cleared",
     "harness_authored/renft/2024-01-renft__M-08.t.sol": "internal_research_artefact_not_cleared",
@@ -5754,7 +6358,7 @@
     "tests/test_v3_run_accounting.py": "project_own",
     "tests/test_v4_ingestion.py": "project_own",
     "tests/test_v4_manifest_accounting.py": "project_own",
-    "training/attacker_reasoning.jsonl": "withheld_third_party_no_redistribution_rights",
+    "training/attacker_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "training/canonical/detection.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/language.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/language.train.part-001.jsonl": "withheld_third_party_no_redistribution_rights",
@@ -5764,7 +6368,7 @@
     "training/exploit_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "training/negative_reasoning.jsonl": "internal_research_artefact_not_cleared",
     "training/patch_reasoning.jsonl": "internal_research_artefact_not_cleared",
-    "training/vulnerability_detection.jsonl": "withheld_third_party_no_redistribution_rights",
+    "training/vulnerability_detection.jsonl": "internal_research_artefact_not_cleared",
     "wave1/00_governance/PRESENT.md": "project_own",
     "wave1/00_governance/PRESENT.md.json": "project_own",
     "wave1/00_governance/label_domains.json": "project_own",
@@ -5774,17 +6378,17 @@
     "wave1/01_dedup/registry.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/01_dedup/registry_summary.json": "internal_research_artefact_not_cleared",
     "wave1/03_candidates/c4_mitigation/issues.jsonl": "withheld_third_party_no_redistribution_rights",
-    "wave1/03_candidates/formal_specs/rules.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/formal_specs/rules.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl": "internal_research_artefact_not_cleared",
     "wave1/03_candidates/judge/issues.jsonl": "withheld_third_party_no_redistribution_rights",
-    "wave1/03_candidates/markdown_two_revision/candidates.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/03_candidates/reevmbench/harnesses.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/04_admitted/c4_mitigation/findings.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/04_admitted/formal_specs/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/03_candidates/markdown_two_revision/candidates.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/03_candidates/reevmbench/harnesses.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/04_admitted/c4_mitigation/findings.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/04_admitted/formal_specs/findings.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/04_admitted/ghsa_web3_netnew/findings.jsonl": "internal_research_artefact_not_cleared",
     "wave1/04_admitted/judge/findings.jsonl": "withheld_third_party_no_redistribution_rights",
-    "wave1/04_admitted/markdown_two_revision/findings.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/04_admitted/reevmbench/findings.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/04_admitted/markdown_two_revision/findings.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/04_admitted/reevmbench/findings.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-05-asymmetry-mitigation-findings__70/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-07-angle-mitigation-findings__26/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-07-angle-mitigation-findings__29/result.json": "internal_research_artefact_not_cleared",
@@ -5803,7 +6407,7 @@
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-04-ai-arena-mitigation-findings__9/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-06-renzo-mitigation-findings__51/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2024-09-reserve-mitigation-findings__36/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2023-07-pooltogether/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2023-10-nextgen/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2023-12-ethereumcreditguild/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-01-canto/result.json": "internal_research_artefact_not_cleared",
@@ -5823,22 +6427,22 @@
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-size/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-thorchain/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-06-vultisig/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-basin/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-benddao/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-munchables/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-07-traitforge/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2024-12-secondswap/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-liquid-ron/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-liquid-ron/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-01-next-generation/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-02-thorwallet/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-forte/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-04-virtuals/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-05-blackhole/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__audits__2025-10-sequence/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json": "internal_research_artefact_not_cleared",
-    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json": "internal_research_artefact_not_cleared",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-feeamm/result.json": "withheld_third_party_no_redistribution_rights",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-mpp-streams/result.json": "withheld_third_party_no_redistribution_rights",
+    "wave1/05_experiments/reevmbench/reevmbench__audits__2026-01-tempo-stablecoin-dex/result.json": "withheld_third_party_no_redistribution_rights",
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0003/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0004/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0005/result.json": "internal_research_artefact_not_cleared",
@@ -5858,15 +6462,15 @@
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0023/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0024/result.json": "internal_research_artefact_not_cleared",
     "wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0025/result.json": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/F_false_positive_rejection.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/G_patch_verification.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/F_false_positive_rejection.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/G_patch_verification.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/benchmark_wave1/J_verified_patch.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/invariants.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/prove_candidates.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/prove_incidents.jsonl": "internal_research_artefact_not_cleared",
-    "wave1/benchmark_wave1/severity_reconciliation.jsonl": "internal_research_artefact_not_cleared",
+    "wave1/benchmark_wave1/invariants.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/prove_candidates.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/prove_incidents.jsonl": "withheld_third_party_no_redistribution_rights",
+    "wave1/benchmark_wave1/severity_reconciliation.jsonl": "withheld_third_party_no_redistribution_rights",
     "wave1/reports_wave1/WAVE1_FREEZE_SUMMARY.md": "project_own",
     "wave1/reports_wave1/WAVE1_PHASE1_SUMMARY.md": "project_own",
     "wave1/reports_wave1/WAVE1_PHASE2_SUMMARY.md": "project_own",

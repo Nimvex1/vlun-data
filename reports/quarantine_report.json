@@ -21,7 +21,7 @@
       "detail": {},
       "group": "Vbeta split quarantine",
       "meaning": "harvested candidates that duplicate an admitted record or lack a locator",
-      "records": 63
+      "records": 0
     },
     {
       "counted_from": "derived_v4/quarantined_ledger.jsonl",
@@ -35,7 +35,7 @@
       "detail": {},
       "group": "V4 duplicate ledger",
       "meaning": "candidates that matched a record already in the corpus",
-      "records": 2
+      "records": 0
     },
     {
       "counted_from": "reports/extraction_errors.json",
@@ -127,12 +127,12 @@
       "counted_from": "distribution_v1/*_withheld_pointers.jsonl, withheld_harness.jsonl",
       "detail": {
         "licence_contradictions": 0,
-        "personal_data_artefacts": 13,
+        "personal_data_artefacts": 21,
         "registered_sources": 11
       },
       "group": "withheld expressive content",
       "meaning": "third-party code, report prose or PoC source removed from the distribution view and replaced by a pointer record",
-      "records": 11897
+      "records": 18356
     }
   ],
   "reading": "every count is recomputed from the artefact named in `counted_from`; a category whose source file is absent reports the group as absent rather than as zero"

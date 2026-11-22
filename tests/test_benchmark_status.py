@@ -110,14 +110,26 @@ class TestStatusComesFromEvidence(StatusFixture):
                                 bstatus.STATUS_PRIMARY, fam)
 
     def test_the_families_the_audit_condemns_are_not_primary(self):
-        """R, U and V are shortcut-dominated; C's split has drifted."""
+        """R, U and V stay condemned; C is now legitimately PRIMARY.
+
+        CHANGE (post-purge, 2026-11-22): C used to be demoted for split
+        composition drift (train/test label mix L1 distance 1.0303, >= 0.40).
+        The regenerated audit measures L1 0.1951 with a best train-only
+        shortcut of 0.7966 (< 0.90), no validity flags and
+        ``usable_as_evidence=True``; the headline is now A+C = 1,051 rows.
+        R remains INVALID, U is INVALID (answer_literal_leak,
+        holdout_too_small) and V is EXPLORATORY (single_label,
+        holdout_too_small) — none of them is primary.
+        """
         for fam in ("v3_R_source_tier_routing.jsonl",
                     "vbeta_U_language_routing.jsonl",
-                    "vbeta_V_source_tier_routing.jsonl",
-                    "C_attacker_reasoning.jsonl"):
+                    "vbeta_V_source_tier_routing.jsonl"):
             st = self.status_of(fam)
             self.assertNotEqual(st["status"], bstatus.STATUS_PRIMARY, fam)
             self.assertTrue(st["validity_flags"], fam)
+        c = self.status_of("C_attacker_reasoning.jsonl")
+        self.assertEqual(c["status"], bstatus.STATUS_PRIMARY)
+        self.assertEqual(c["validity_flags"], [])
 
     def test_the_primary_metric_contains_no_flagged_family(self):
         """The scorer's headline is the primary set, and nothing else."""
@@ -136,17 +148,34 @@ class TestStatusComesFromEvidence(StatusFixture):
                          ["validity_flags"], [])
 
     def test_shortcut_domination_is_measured_on_train_rows_only(self):
-        """U and V are excluded because a train-only shortcut solves them."""
-        for fam, floor in (("vbeta_U_language_routing.jsonl", 0.9834),
-                           ("vbeta_V_source_tier_routing.jsonl", 0.9998)):
+        """A published shortcut floor is train-fitted; U/V now publish none.
+
+        CHANGE (post-purge, 2026-11-22): U and V used to be demoted by
+        train-only floors of 0.9834/0.9998 measured on 5,596/5,668 held-out
+        rows.  The vbeta purge left both with 80 train-only rows and no test
+        split, so ``_shortcut_floor`` takes its early return and emits
+        ``{"available": False, "reason": "no held-out split to fit a shortcut
+        on"}`` — with no ``fitted_on`` key at all.  The assertion's intent
+        (never accept a floor fitted on held-out rows) is now enforced over
+        every family that DOES publish a floor, plus explicit U/V checks.
+        """
+        for fam in ("vbeta_U_language_routing.jsonl",
+                    "vbeta_V_source_tier_routing.jsonl"):
             sf = self.status_of(fam)["shortcut_floor"]
-            self.assertEqual(sf["fitted_on"], "train")
-            self.assertAlmostEqual(sf["best_train_only_accuracy"], floor,
-                                   places=4, msg=fam)
+            self.assertFalse(sf["available"], fam)
+            self.assertEqual(sf["reason"],
+                             "no held-out split to fit a shortcut on", fam)
+            self.assertNotIn("fitted_on", sf, fam)
+        floors = [f for f, s in self.status["families"].items()
+                  if s["shortcut_floor"]["available"]]
+        self.assertTrue(floors, "no family publishes a train-only floor")
+        for fam in floors:
+            sf = self.status_of(fam)["shortcut_floor"]
+            self.assertEqual(sf["fitted_on"], "train", fam)
             self.assertNotIn("majority_global_official",
                              sf["train_only_baselines"],
-                             "a baseline fitted on the held-out rows is "
-                             "not a floor")
+                             f"{fam}: a baseline fitted on the held-out "
+                             "rows is not a floor")
 
     def test_an_unknown_family_defaults_to_non_primary(self):
         """(c) Fail closed: a file with no rule is never primary."""
@@ -262,8 +291,14 @@ class TestPrimaryDenominator(StatusFixture):
         for key in blocks:
             seen.extend(self.report[key])
         self.assertEqual(len(seen), len(set(seen)))
-        scored = {f for f, d in self.fam_data.items() if d["rows"]}
-        self.assertEqual(set(seen), scored)
+        # CHANGE (post-purge, 2026-11-22): v3_T_taxonomy_explicit.jsonl is a
+        # 0-byte file that is still discovered as a family and emitted into
+        # `families_retired` with 0 scorable rows.  Comparing the blocks to
+        # families WITH rows therefore fails even though nothing was dropped.
+        # Reconcile against every family the scorer knows about (v3_T is
+        # present in fam_data with an empty `rows` list); the row totals are
+        # checked immediately below.
+        self.assertEqual(set(seen), set(self.fam_data))
         total = sum([self.report["micro"]["scorable"],
                      self.report["micro_exploratory"]["scorable"],
                      self.report["micro_invalid"]["scorable"],

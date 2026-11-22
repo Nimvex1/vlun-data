@@ -1,6 +1,8 @@
 """The PoC triage queue must be structurally honest.
 
-The queue is what turns "155 exploit records" into an executable campaign, so the
+Phase 4 pin sync: "155 exploit records" -> "154 exploit records"; the
+hydration/purge shrank jsonl/exploits.jsonl (the v1/v2.1 exploit layer) to 154.
+The queue is what turns "154 exploit records" into an executable campaign, so the
 failure modes that matter are the ones that let a record look attemptable when it
 is not, or that quietly move PoC bytes out of the immutable evidence layer and
 into a derived artefact.
@@ -143,8 +145,11 @@ class TestBrokenFixturesFail(unittest.TestCase):
     def test_short_layer_is_rejected(self):
         """A queue that quietly drops candidates must fail the coverage check."""
         rows = self._rows("unknown_blocker_class.jsonl")   # 1 row
-        errs = bq.validate_queue_rows(rows, expected_v1=155)
-        self.assertTrue(any("expected 155 exploit records" in e for e in errs),
+        # Phase 4 pin sync: expected_v1 155 -> 154 (jsonl/exploits.jsonl now has
+        # 154 rows after the hydration/purge); the deliberately 1-row fixture must
+        # still trip the exact "expected N exploit records" coverage error.
+        errs = bq.validate_queue_rows(rows, expected_v1=154)
+        self.assertTrue(any("expected 154 exploit records" in e for e in errs),
                         f"validator accepted a truncated queue: {errs}")
 
     def test_fixtures_are_otherwise_wellformed(self):

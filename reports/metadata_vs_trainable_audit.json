@@ -1,0 +1,6474 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-11-22T12:40:13.128594+00:00",
+  "repo_root": ".",
+  "scan": {
+    "excluded_dirs": [
+      ".git",
+      "__pycache__",
+      "node_modules",
+      "work"
+    ],
+    "excluded_jsonl_files": 346,
+    "total_jsonl_files": 196,
+    "total_rows": 235507,
+    "invalid_lines": 0
+  },
+  "definitions": {
+    "buckets": {
+      "METADATA_ONLY_STUB": "Explicit METADATA_ONLY/POINTER_ONLY flag, or no inline code, diff, PoC, prose >=100 chars and no formal spec.",
+      "FULLY_TRAINABLE": "Inline code >=50 chars AND inline technical prose >=100 chars, with no explicit metadata flag.",
+      "PARTIAL_TEXT_NO_CODE": "Has inline prose >=100 chars, PoC or formal spec text, but no inline target source code or unified diff.",
+      "invalid": "Non-dict or unparseable JSON lines; counted separately and never bucketed."
+    },
+    "hydration": {
+      "HYDRATABLE_FROM_LOCAL_WORK": "A work/sources/ or local clone-dir path pointer exists (priority 1).",
+      "HYDRATABLE_FROM_GIT_OR_GITHUB": "A GitHub URL/repo/commit/PR/issue, GHSA, CVE or 40-hex SHA pointer exists (priority 2).",
+      "UNHYDRATABLE_DEAD_POINTER": "Only PDF/advisory/placeholder pointers or no pointer at all.",
+      "file_summary_scope": "Per-file counts cover stub+partial rows only; the global summary covers all bucketed rows."
+    },
+    "thresholds": {
+      "inline_code_min_chars": 50,
+      "inline_diff_min_chars": 50,
+      "inline_poc_min_chars": 50,
+      "inline_prose_min_chars": 100,
+      "inline_formal_spec_min_chars": 50,
+      "prose_min_letter_space_ratio": 0.5,
+      "prose_min_alpha_words": 12,
+      "known_code_container_min_code_markers": 1,
+      "unknown_key_min_code_markers": 2
+    },
+    "notes": [
+      "Detection walks every string value recursively; known field paths are additionally recognised.",
+      "code_reference_only pointer objects have no snippet and are never counted as inline code.",
+      "invariants[].invariant natural-language text is only counted as a formal spec when CVL markers are present.",
+      "METADATA_ONLY/POINTER_ONLY must be an exact value (or in a known flag field); the words inside input_text are not flags."
+    ]
+  },
+  "summary": {
+    "files": 196,
+    "rows": 235507,
+    "buckets": {
+      "FULLY_TRAINABLE": 60241,
+      "PARTIAL_TEXT_NO_CODE": 73425,
+      "METADATA_ONLY_STUB": 101841
+    },
+    "hydration": {
+      "HYDRATABLE_FROM_LOCAL_WORK": 36804,
+      "HYDRATABLE_FROM_GIT_OR_GITHUB": 80983,
+      "UNHYDRATABLE_DEAD_POINTER": 117720
+    },
+    "invalid_lines": 0
+  },
+  "by_layer": {
+    "benchmark": {
+      "files": 34,
+      "rows": 14376,
+      "buckets": {
+        "FULLY_TRAINABLE": 6052,
+        "PARTIAL_TEXT_NO_CODE": 616,
+        "METADATA_ONLY_STUB": 7708
+      },
+      "coverage_pct_avg": {
+        "pct_code": 68.1,
+        "pct_diff": 9.3,
+        "pct_poc": 10.8,
+        "pct_prose": 72.1,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+        "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
+        "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
+        "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
+        "benchmark/independent/secondary_holdout_keys.jsonl",
+        "benchmark/independent/secondary_holdout_tasks.jsonl",
+        "benchmark/retired_families/E_exploit_verification.jsonl",
+        "benchmark/retired_families/v3_S_contest_outcome.jsonl",
+        "benchmark/v3_R_source_tier_routing.jsonl"
+      ]
+    },
+    "datasets": {
+      "files": 5,
+      "rows": 697,
+      "buckets": {
+        "FULLY_TRAINABLE": 183,
+        "PARTIAL_TEXT_NO_CODE": 441,
+        "METADATA_ONLY_STUB": 73
+      },
+      "coverage_pct_avg": {
+        "pct_code": 33.1,
+        "pct_diff": 0.0,
+        "pct_poc": 0.3,
+        "pct_prose": 58.2,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 14.2
+      },
+      "stub_files": [
+        "datasets/negative_quarantine.jsonl",
+        "datasets/v1_hydration_quarantine.jsonl"
+      ]
+    },
+    "other/annotation": {
+      "files": 1,
+      "rows": 301,
+      "buckets": {
+        "FULLY_TRAINABLE": 194,
+        "PARTIAL_TEXT_NO_CODE": 75,
+        "METADATA_ONLY_STUB": 32
+      },
+      "coverage_pct_avg": {
+        "pct_code": 64.8,
+        "pct_diff": 1.3,
+        "pct_poc": 3.0,
+        "pct_prose": 89.0,
+        "pct_spec": 0.3,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "annotation/iaa_v1/sample.jsonl"
+      ]
+    },
+    "other/derived": {
+      "files": 3,
+      "rows": 561,
+      "buckets": {
+        "FULLY_TRAINABLE": 324,
+        "PARTIAL_TEXT_NO_CODE": 218,
+        "METADATA_ONLY_STUB": 19
+      },
+      "coverage_pct_avg": {
+        "pct_code": 27.2,
+        "pct_diff": 0.1,
+        "pct_poc": 0.2,
+        "pct_prose": 88.3,
+        "pct_spec": 1.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived/counterexamples.jsonl",
+        "derived/hard_negatives.jsonl",
+        "derived/root_cause_candidates.jsonl"
+      ]
+    },
+    "other/derived_poc_queue": {
+      "files": 1,
+      "rows": 1011,
+      "buckets": {
+        "FULLY_TRAINABLE": 127,
+        "PARTIAL_TEXT_NO_CODE": 27,
+        "METADATA_ONLY_STUB": 857
+      },
+      "coverage_pct_avg": {
+        "pct_code": 12.6,
+        "pct_diff": 0.0,
+        "pct_poc": 1.8,
+        "pct_prose": 15.2,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_poc_queue/triage_queue.jsonl"
+      ]
+    },
+    "other/derived_rejections": {
+      "files": 1,
+      "rows": 444,
+      "buckets": {
+        "FULLY_TRAINABLE": 5,
+        "PARTIAL_TEXT_NO_CODE": 439,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 1.1,
+        "pct_diff": 0.0,
+        "pct_poc": 0.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_rejections/rejection_corpus.jsonl"
+      ]
+    },
+    "other/derived_siblings": {
+      "files": 3,
+      "rows": 505,
+      "buckets": {
+        "FULLY_TRAINABLE": 84,
+        "PARTIAL_TEXT_NO_CODE": 421,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 17.1,
+        "pct_diff": 0.0,
+        "pct_poc": 4.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_siblings/candidates.jsonl",
+        "derived_siblings/hard_negatives.jsonl",
+        "derived_siblings/tasks.jsonl"
+      ]
+    },
+    "other/derived_span_tasks": {
+      "files": 2,
+      "rows": 9246,
+      "buckets": {
+        "FULLY_TRAINABLE": 4623,
+        "PARTIAL_TEXT_NO_CODE": 4623,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 50.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_span_tasks/answer_key.jsonl"
+      ]
+    },
+    "other/derived_v2_2": {
+      "files": 4,
+      "rows": 169,
+      "buckets": {
+        "FULLY_TRAINABLE": 64,
+        "PARTIAL_TEXT_NO_CODE": 8,
+        "METADATA_ONLY_STUB": 97
+      },
+      "coverage_pct_avg": {
+        "pct_code": 34.4,
+        "pct_diff": 7.0,
+        "pct_poc": 17.6,
+        "pct_prose": 37.5,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_v2_2/audit_ingestion_records.jsonl",
+        "derived_v2_2/audit_sources.jsonl",
+        "derived_v2_2/quarantine.jsonl"
+      ]
+    },
+    "other/experiments": {
+      "files": 1,
+      "rows": 155,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 155
+      },
+      "coverage_pct_avg": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "experiments/reconstruction_log.jsonl"
+      ]
+    },
+    "other/nextdata": {
+      "files": 4,
+      "rows": 1427,
+      "buckets": {
+        "FULLY_TRAINABLE": 1350,
+        "PARTIAL_TEXT_NO_CODE": 77,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 94.6,
+        "pct_diff": 3.6,
+        "pct_poc": 19.9,
+        "pct_prose": 100.0,
+        "pct_spec": 0.3,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "nextdata/_index_all_cleaned.jsonl",
+        "nextdata/ml_dataset_part1.jsonl",
+        "nextdata/ml_dataset_part2.jsonl",
+        "nextdata/ml_dataset_part3.jsonl"
+      ]
+    },
+    "other/reports": {
+      "files": 1,
+      "rows": 56,
+      "buckets": {
+        "FULLY_TRAINABLE": 7,
+        "PARTIAL_TEXT_NO_CODE": 39,
+        "METADATA_ONLY_STUB": 10
+      },
+      "coverage_pct_avg": {
+        "pct_code": 12.5,
+        "pct_diff": 0.0,
+        "pct_poc": 62.5,
+        "pct_prose": 42.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "reports/poc_attempts.jsonl"
+      ]
+    },
+    "other/splits_v2": {
+      "files": 4,
+      "rows": 910,
+      "buckets": {
+        "FULLY_TRAINABLE": 880,
+        "PARTIAL_TEXT_NO_CODE": 30,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 97.2,
+        "pct_diff": 11.2,
+        "pct_poc": 16.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.3,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "splits_v2/test.jsonl",
+        "splits_v2/train.jsonl",
+        "splits_v2/validation.jsonl"
+      ]
+    },
+    "other/splits_v2_2": {
+      "files": 4,
+      "rows": 971,
+      "buckets": {
+        "FULLY_TRAINABLE": 2,
+        "PARTIAL_TEXT_NO_CODE": 969,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 25.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "splits_v2_2/test.jsonl",
+        "splits_v2_2/train.jsonl",
+        "splits_v2_2/validation.jsonl"
+      ]
+    },
+    "other/splits_v3": {
+      "files": 1,
+      "rows": 844,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 844
+      },
+      "coverage_pct_avg": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "splits_v3/quarantine.jsonl"
+      ]
+    },
+    "other/tests": {
+      "files": 29,
+      "rows": 275,
+      "buckets": {
+        "FULLY_TRAINABLE": 197,
+        "PARTIAL_TEXT_NO_CODE": 58,
+        "METADATA_ONLY_STUB": 20
+      },
+      "coverage_pct_avg": {
+        "pct_code": 38.6,
+        "pct_diff": 0.0,
+        "pct_poc": 12.1,
+        "pct_prose": 51.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
+        "tests/fixtures/broken/assignments_evidence_mismatch.jsonl",
+        "tests/fixtures/broken/assignments_exclusive_pair.jsonl",
+        "tests/fixtures/broken/assignments_ok.jsonl",
+        "tests/fixtures/broken/assignments_unknown_category.jsonl",
+        "tests/fixtures/broken/assignments_unknown_record.jsonl",
+        "tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl",
+        "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
+        "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
+        "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
+        "tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl",
+        "tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl",
+        "tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl",
+        "tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl",
+        "tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl",
+        "tests/fixtures/broken/taxonomy_facet_assignable.jsonl",
+        "tests/fixtures/broken/taxonomy_impact_as_cause.jsonl",
+        "tests/fixtures/broken/taxonomy_invented_swc.jsonl",
+        "tests/fixtures/broken/taxonomy_no_exclusions.jsonl",
+        "tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl",
+        "tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl",
+        "tests/fixtures/broken/taxonomy_unjustified_swc.jsonl",
+        "tests/fixtures/broken/taxonomy_valid.jsonl",
+        "tests/fixtures/good/jsonl_v4/findings.jsonl"
+      ]
+    },
+    "other/training": {
+      "files": 10,
+      "rows": 12112,
+      "buckets": {
+        "FULLY_TRAINABLE": 3318,
+        "PARTIAL_TEXT_NO_CODE": 8608,
+        "METADATA_ONLY_STUB": 186
+      },
+      "coverage_pct_avg": {
+        "pct_code": 12.6,
+        "pct_diff": 0.0,
+        "pct_poc": 0.3,
+        "pct_prose": 45.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "training/canonical/detection.train.part-000.jsonl",
+        "training/canonical/language.train.part-000.jsonl",
+        "training/canonical/language.train.part-001.jsonl",
+        "training/canonical/severity.train.part-000.jsonl",
+        "training/canonical/severity.train.part-001.jsonl"
+      ]
+    },
+    "prove": {
+      "files": 1,
+      "rows": 210,
+      "buckets": {
+        "FULLY_TRAINABLE": 46,
+        "PARTIAL_TEXT_NO_CODE": 135,
+        "METADATA_ONLY_STUB": 29
+      },
+      "coverage_pct_avg": {
+        "pct_code": 25.2,
+        "pct_diff": 0.0,
+        "pct_poc": 47.6,
+        "pct_prose": 82.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_prove/candidate_ledger.jsonl"
+      ]
+    },
+    "taxonomy": {
+      "files": 2,
+      "rows": 418,
+      "buckets": {
+        "FULLY_TRAINABLE": 42,
+        "PARTIAL_TEXT_NO_CODE": 229,
+        "METADATA_ONLY_STUB": 147
+      },
+      "coverage_pct_avg": {
+        "pct_code": 41.1,
+        "pct_diff": 0.0,
+        "pct_poc": 3.2,
+        "pct_prose": 81.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "taxonomy/assignments_v1.jsonl",
+        "taxonomy/root_cause_v1.jsonl"
+      ]
+    },
+    "v1": {
+      "files": 9,
+      "rows": 1621,
+      "buckets": {
+        "FULLY_TRAINABLE": 1583,
+        "PARTIAL_TEXT_NO_CODE": 38,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 66.7,
+        "pct_diff": 13.0,
+        "pct_poc": 28.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "jsonl/errors.jsonl",
+        "jsonl/metadata.jsonl",
+        "jsonl/protocol.jsonl"
+      ]
+    },
+    "v2.2": {
+      "files": 10,
+      "rows": 249,
+      "buckets": {
+        "FULLY_TRAINABLE": 141,
+        "PARTIAL_TEXT_NO_CODE": 108,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct_avg": {
+        "pct_code": 52.9,
+        "pct_diff": 19.9,
+        "pct_poc": 20.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "jsonl_ml/findings_move.jsonl",
+        "jsonl_ml/findings_rust.jsonl",
+        "jsonl_ml/sources_cairo.jsonl",
+        "jsonl_ml/sources_move.jsonl",
+        "jsonl_ml/sources_reports.jsonl",
+        "jsonl_ml/sources_rust.jsonl",
+        "jsonl_ml/sources_vyper.jsonl"
+      ]
+    },
+    "v3": {
+      "files": 13,
+      "rows": 69124,
+      "buckets": {
+        "FULLY_TRAINABLE": 19822,
+        "PARTIAL_TEXT_NO_CODE": 5513,
+        "METADATA_ONLY_STUB": 43789
+      },
+      "coverage_pct_avg": {
+        "pct_code": 33.9,
+        "pct_diff": 22.8,
+        "pct_poc": 11.3,
+        "pct_prose": 60.2,
+        "pct_spec": 1.5,
+        "pct_metadata_flagged": 7.7
+      },
+      "stub_files": [
+        "derived_v3/candidate_ledger.jsonl",
+        "derived_v3/corroborations.jsonl",
+        "derived_v3/duplicates.jsonl",
+        "derived_v3/normalization_fragments.jsonl",
+        "derived_v3/normalized_records_preview.jsonl",
+        "derived_v3/patch_reviews.jsonl",
+        "derived_v3/quarantine.jsonl",
+        "derived_v3/records.jsonl",
+        "jsonl_v3/findings.jsonl",
+        "jsonl_v3/sources.jsonl"
+      ]
+    },
+    "v4": {
+      "files": 15,
+      "rows": 47108,
+      "buckets": {
+        "FULLY_TRAINABLE": 7579,
+        "PARTIAL_TEXT_NO_CODE": 37017,
+        "METADATA_ONLY_STUB": 2512
+      },
+      "coverage_pct_avg": {
+        "pct_code": 20.9,
+        "pct_diff": 0.0,
+        "pct_poc": 0.6,
+        "pct_prose": 65.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "derived_v4/admitted_ledger.jsonl",
+        "derived_v4/candidate_ledger.jsonl",
+        "derived_v4/quarantine.jsonl",
+        "distribution_v1/digests.jsonl",
+        "distribution_v1/records_v1.jsonl",
+        "distribution_v1/records_v1_withheld_pointers.jsonl",
+        "distribution_v1/records_v4.jsonl",
+        "distribution_v1/records_v4_withheld_pointers.jsonl",
+        "distribution_v1/rights_ledger.jsonl",
+        "distribution_v1/withheld_harness.jsonl",
+        "jsonl_v4/findings.jsonl",
+        "jsonl_v4/sources.jsonl"
+      ]
+    },
+    "vbeta": {
+      "files": 12,
+      "rows": 34370,
+      "buckets": {
+        "FULLY_TRAINABLE": 1829,
+        "PARTIAL_TEXT_NO_CODE": 12212,
+        "METADATA_ONLY_STUB": 20329
+      },
+      "coverage_pct_avg": {
+        "pct_code": 26.0,
+        "pct_diff": 0.1,
+        "pct_poc": 9.1,
+        "pct_prose": 42.6,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "Vbeta/derived_vbeta/candidate_ledger.jsonl",
+        "Vbeta/derived_vbeta/quarantine.jsonl",
+        "Vbeta/fetched/receipts.jsonl",
+        "Vbeta/jsonl_vbeta/findings.jsonl",
+        "Vbeta/jsonl_vbeta/sources.jsonl"
+      ]
+    },
+    "wave1": {
+      "files": 26,
+      "rows": 38347,
+      "buckets": {
+        "FULLY_TRAINABLE": 11789,
+        "PARTIAL_TEXT_NO_CODE": 1524,
+        "METADATA_ONLY_STUB": 25034
+      },
+      "coverage_pct_avg": {
+        "pct_code": 67.2,
+        "pct_diff": 13.8,
+        "pct_poc": 14.7,
+        "pct_prose": 75.0,
+        "pct_spec": 9.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "wave1/00_governance/rights.jsonl",
+        "wave1/00_governance/source_registry.jsonl",
+        "wave1/01_dedup/hydration_quarantine.jsonl",
+        "wave1/01_dedup/overlap_manifest.jsonl",
+        "wave1/01_dedup/registry.jsonl",
+        "wave1/03_candidates/c4_mitigation/issues.jsonl",
+        "wave1/03_candidates/formal_specs/rules.jsonl",
+        "wave1/03_candidates/judge/issues.jsonl",
+        "wave1/03_candidates/markdown_two_revision/candidates.jsonl",
+        "wave1/03_candidates/reevmbench/harnesses.jsonl",
+        "wave1/04_admitted/c4_mitigation/findings.jsonl",
+        "wave1/04_admitted/markdown_two_revision/findings.jsonl",
+        "wave1/04_admitted/reevmbench/findings.jsonl",
+        "wave1/benchmark_wave1/G_patch_verification.jsonl",
+        "wave1/benchmark_wave1/prove_candidates.jsonl",
+        "wave1/benchmark_wave1/prove_incidents.jsonl",
+        "wave1/benchmark_wave1/severity_reconciliation.jsonl"
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
+      "layer": "vbeta",
+      "total_rows": 80,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 80,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 33.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
+      "layer": "vbeta",
+      "total_rows": 80,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 80,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 33.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/derived_vbeta/candidate_ledger.jsonl",
+      "layer": "vbeta",
+      "total_rows": 80,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 4,
+        "PARTIAL_TEXT_NO_CODE": 71,
+        "METADATA_ONLY_STUB": 5
+      },
+      "coverage_pct": {
+        "pct_code": 5.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 93.8,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 76
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(76)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "Vbeta/derived_vbeta/corroborations.jsonl",
+      "layer": "vbeta",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/derived_vbeta/duplicates.jsonl",
+      "layer": "vbeta",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/derived_vbeta/negatives.jsonl",
+      "layer": "vbeta",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/derived_vbeta/quarantine.jsonl",
+      "layer": "vbeta",
+      "total_rows": 26960,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1521,
+        "PARTIAL_TEXT_NO_CODE": 10179,
+        "METADATA_ONLY_STUB": 15260
+      },
+      "coverage_pct": {
+        "pct_code": 5.9,
+        "pct_diff": 0.0,
+        "pct_poc": 0.1,
+        "pct_prose": 43.1,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8427,
+          "UNHYDRATABLE_DEAD_POINTER": 17012
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(17012)/GIT(8427)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "Vbeta/derived_vbeta/records.jsonl",
+      "layer": "vbeta",
+      "total_rows": 80,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 80,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 1.2,
+        "pct_poc": 41.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "Vbeta/fetched/receipts.jsonl",
+      "layer": "vbeta",
+      "total_rows": 15,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 8
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 46.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 3,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 7,
+          "UNHYDRATABLE_DEAD_POINTER": 5
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(7)/DEAD(5)/LOCAL(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "Vbeta/jsonl_vbeta/findings.jsonl",
+      "layer": "vbeta",
+      "total_rows": 7060,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 64,
+        "PARTIAL_TEXT_NO_CODE": 1955,
+        "METADATA_ONLY_STUB": 5041
+      },
+      "coverage_pct": {
+        "pct_code": 1.2,
+        "pct_diff": 0.0,
+        "pct_poc": 0.1,
+        "pct_prose": 28.2,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2002,
+          "UNHYDRATABLE_DEAD_POINTER": 4994
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(4994)/GIT(2002)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "Vbeta/jsonl_vbeta/sources.jsonl",
+      "layer": "vbeta",
+      "total_rows": 15,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 15
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 10,
+          "UNHYDRATABLE_DEAD_POINTER": 5
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(10)/DEAD(5)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "Vbeta/splits_vbeta/quarantine.jsonl",
+      "layer": "vbeta",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "annotation/iaa_v1/sample.jsonl",
+      "layer": "other/annotation",
+      "total_rows": 301,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 194,
+        "PARTIAL_TEXT_NO_CODE": 75,
+        "METADATA_ONLY_STUB": 32
+      },
+      "coverage_pct": {
+        "pct_code": 64.8,
+        "pct_diff": 1.3,
+        "pct_poc": 3.0,
+        "pct_prose": 89.0,
+        "pct_spec": 0.3,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 12,
+          "UNHYDRATABLE_DEAD_POINTER": 95
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(95)/GIT(12)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/A_vulnerability_detection.jsonl",
+      "layer": "benchmark",
+      "total_rows": 658,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 658,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 1.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/C_attacker_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 658,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 658,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 1.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.2,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/D_exploit_construction.jsonl",
+      "layer": "benchmark",
+      "total_rows": 644,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 644,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 8.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.2,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/F_false_positive_rejection.jsonl",
+      "layer": "benchmark",
+      "total_rows": 440,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 440,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
+      "layer": "benchmark",
+      "total_rows": 444,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 444,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
+      "layer": "benchmark",
+      "total_rows": 651,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 651,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.9,
+        "pct_prose": 100.0,
+        "pct_spec": 0.5,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/G_patch_verification.jsonl",
+      "layer": "benchmark",
+      "total_rows": 37,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 37,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 100.0,
+        "pct_poc": 70.3,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/H_verified_exploit.jsonl",
+      "layer": "benchmark",
+      "total_rows": 7,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 7,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 42.9,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/I_verified_non_exploit.jsonl",
+      "layer": "benchmark",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/J_verified_patch.jsonl",
+      "layer": "benchmark",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 100.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
+      "layer": "benchmark",
+      "total_rows": 61,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 61,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 54.1,
+        "pct_poc": 9.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+      "layer": "benchmark",
+      "total_rows": 75,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 32,
+        "PARTIAL_TEXT_NO_CODE": 20,
+        "METADATA_ONLY_STUB": 23
+      },
+      "coverage_pct": {
+        "pct_code": 42.7,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 69.3,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9,
+          "UNHYDRATABLE_DEAD_POINTER": 34
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(34)/GIT(9)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
+      "layer": "benchmark",
+      "total_rows": 372,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 204,
+        "PARTIAL_TEXT_NO_CODE": 152,
+        "METADATA_ONLY_STUB": 16
+      },
+      "coverage_pct": {
+        "pct_code": 54.8,
+        "pct_diff": 0.0,
+        "pct_poc": 6.2,
+        "pct_prose": 95.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 156,
+          "UNHYDRATABLE_DEAD_POINTER": 12
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(156)/DEAD(12)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
+      "layer": "benchmark",
+      "total_rows": 406,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 234,
+        "PARTIAL_TEXT_NO_CODE": 156,
+        "METADATA_ONLY_STUB": 16
+      },
+      "coverage_pct": {
+        "pct_code": 57.6,
+        "pct_diff": 0.0,
+        "pct_poc": 5.7,
+        "pct_prose": 96.1,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 166,
+          "UNHYDRATABLE_DEAD_POINTER": 6
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(166)/DEAD(6)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
+      "layer": "benchmark",
+      "total_rows": 32,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 32
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8,
+          "UNHYDRATABLE_DEAD_POINTER": 24
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(24)/GIT(8)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
+      "layer": "benchmark",
+      "total_rows": 32,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 32,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 12.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/secondary_holdout_keys.jsonl",
+      "layer": "benchmark",
+      "total_rows": 1364,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1364
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 55,
+          "UNHYDRATABLE_DEAD_POINTER": 1309
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1309)/GIT(55)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/secondary_holdout_tasks.jsonl",
+      "layer": "benchmark",
+      "total_rows": 1364,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 159,
+        "PARTIAL_TEXT_NO_CODE": 83,
+        "METADATA_ONLY_STUB": 1122
+      },
+      "coverage_pct": {
+        "pct_code": 11.7,
+        "pct_diff": 0.0,
+        "pct_poc": 0.4,
+        "pct_prose": 17.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1205
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1205)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl",
+      "layer": "benchmark",
+      "total_rows": 6,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 6,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
+      "layer": "benchmark",
+      "total_rows": 720,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 720,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 1.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/E_exploit_verification.jsonl",
+      "layer": "benchmark",
+      "total_rows": 720,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 328,
+        "PARTIAL_TEXT_NO_CODE": 14,
+        "METADATA_ONLY_STUB": 378
+      },
+      "coverage_pct": {
+        "pct_code": 46.7,
+        "pct_diff": 0.0,
+        "pct_poc": 9.9,
+        "pct_prose": 46.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5,
+          "UNHYDRATABLE_DEAD_POINTER": 387
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(387)/GIT(5)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
+      "layer": "benchmark",
+      "total_rows": 137,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 137,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 24.8,
+        "pct_poc": 20.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/L_severity_reconciliation.jsonl",
+      "layer": "benchmark",
+      "total_rows": 137,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 137,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 24.8,
+        "pct_poc": 19.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/M_experiment_level_classification.jsonl",
+      "layer": "benchmark",
+      "total_rows": 37,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 37,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 62.2,
+        "pct_poc": 13.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
+      "layer": "benchmark",
+      "total_rows": 137,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 137,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 24.8,
+        "pct_poc": 19.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/O_record_class_and_scope.jsonl",
+      "layer": "benchmark",
+      "total_rows": 137,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 137,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 24.8,
+        "pct_poc": 20.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
+      "layer": "benchmark",
+      "total_rows": 137,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 137,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
+      "layer": "benchmark",
+      "total_rows": 331,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 80,
+        "METADATA_ONLY_STUB": 248
+      },
+      "coverage_pct": {
+        "pct_code": 1.2,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 24.8,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 328
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(328)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
+      "layer": "benchmark",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "benchmark/v3_R_source_tier_routing.jsonl",
+      "layer": "benchmark",
+      "total_rows": 4623,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 111,
+        "METADATA_ONLY_STUB": 4509
+      },
+      "coverage_pct": {
+        "pct_code": 0.2,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 2.3,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 4620
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(4620)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "datasets/negative_quarantine.jsonl",
+      "layer": "datasets",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 1,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 33.3,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 66.7
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "datasets/v1_hydration_quarantine.jsonl",
+      "layer": "datasets",
+      "total_rows": 688,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 177,
+        "PARTIAL_TEXT_NO_CODE": 440,
+        "METADATA_ONLY_STUB": 71
+      },
+      "coverage_pct": {
+        "pct_code": 32.0,
+        "pct_diff": 0.0,
+        "pct_poc": 1.7,
+        "pct_prose": 91.1,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 4.5
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 414,
+          "UNHYDRATABLE_DEAD_POINTER": 97
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(414)/DEAD(97)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "datasets/verified_exploits.jsonl",
+      "layer": "datasets",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "datasets/verified_findings.jsonl",
+      "layer": "datasets",
+      "total_rows": 6,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 6,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "datasets/verified_negatives.jsonl",
+      "layer": "v1",
+      "total_rows": 22,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 22,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 4.5,
+        "pct_poc": 9.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "datasets/verified_patches.jsonl",
+      "layer": "datasets",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived/counterexamples.jsonl",
+      "layer": "other/derived",
+      "total_rows": 63,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 42,
+        "METADATA_ONLY_STUB": 18
+      },
+      "coverage_pct": {
+        "pct_code": 4.8,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 69.8,
+        "pct_spec": 1.6,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 60,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(60)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived/hard_negatives.jsonl",
+      "layer": "other/derived",
+      "total_rows": 458,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 318,
+        "PARTIAL_TEXT_NO_CODE": 140,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 69.4,
+        "pct_diff": 0.2,
+        "pct_poc": 0.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 140,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(140)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived/records.jsonl",
+      "layer": "v1",
+      "total_rows": 685,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 685,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 1.9,
+        "pct_poc": 15.6,
+        "pct_prose": 100.0,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived/root_cause_candidates.jsonl",
+      "layer": "other/derived",
+      "total_rows": 40,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 36,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 7.5,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 95.0,
+        "pct_spec": 2.5,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 37
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(37)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_poc_queue/triage_queue.jsonl",
+      "layer": "other/derived_poc_queue",
+      "total_rows": 1011,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 127,
+        "PARTIAL_TEXT_NO_CODE": 27,
+        "METADATA_ONLY_STUB": 857
+      },
+      "coverage_pct": {
+        "pct_code": 12.6,
+        "pct_diff": 0.0,
+        "pct_poc": 1.8,
+        "pct_prose": 15.2,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 27,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 857
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(857)/LOCAL(27)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_prove/candidate_ledger.jsonl",
+      "layer": "prove",
+      "total_rows": 210,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 46,
+        "PARTIAL_TEXT_NO_CODE": 135,
+        "METADATA_ONLY_STUB": 29
+      },
+      "coverage_pct": {
+        "pct_code": 25.2,
+        "pct_diff": 0.0,
+        "pct_poc": 47.6,
+        "pct_prose": 82.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 164,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(164)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_rejections/rejection_corpus.jsonl",
+      "layer": "other/derived_rejections",
+      "total_rows": 444,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 5,
+        "PARTIAL_TEXT_NO_CODE": 439,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 1.1,
+        "pct_diff": 0.0,
+        "pct_poc": 0.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 439,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(439)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_siblings/candidates.jsonl",
+      "layer": "other/derived_siblings",
+      "total_rows": 255,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 42,
+        "PARTIAL_TEXT_NO_CODE": 213,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 16.5,
+        "pct_diff": 0.0,
+        "pct_poc": 2.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 213,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(213)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_siblings/hard_negatives.jsonl",
+      "layer": "other/derived_siblings",
+      "total_rows": 11,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2,
+        "PARTIAL_TEXT_NO_CODE": 9,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 18.2,
+        "pct_diff": 0.0,
+        "pct_poc": 9.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 9,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(9)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_siblings/tasks.jsonl",
+      "layer": "other/derived_siblings",
+      "total_rows": 239,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 40,
+        "PARTIAL_TEXT_NO_CODE": 199,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 16.7,
+        "pct_diff": 0.0,
+        "pct_poc": 2.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 199,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(199)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_span_tasks/answer_key.jsonl",
+      "layer": "other/derived_span_tasks",
+      "total_rows": 4623,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 4623,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 4623,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(4623)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_span_tasks/tasks.jsonl",
+      "layer": "other/derived_span_tasks",
+      "total_rows": 4623,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 4623,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v2_2/audit_ingestion_records.jsonl",
+      "layer": "other/derived_v2_2",
+      "total_rows": 16,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 16
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(9)/DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v2_2/audit_sources.jsonl",
+      "layer": "other/derived_v2_2",
+      "total_rows": 16,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 3,
+        "PARTIAL_TEXT_NO_CODE": 8,
+        "METADATA_ONLY_STUB": 5
+      },
+      "coverage_pct": {
+        "pct_code": 37.5,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 50.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 10,
+          "UNHYDRATABLE_DEAD_POINTER": 3
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(10)/DEAD(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v2_2/quarantine.jsonl",
+      "layer": "other/derived_v2_2",
+      "total_rows": 76,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 76
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 60,
+          "UNHYDRATABLE_DEAD_POINTER": 16
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(60)/DEAD(16)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v2_2/records.jsonl",
+      "layer": "other/derived_v2_2",
+      "total_rows": 61,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 61,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 27.9,
+        "pct_poc": 70.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v3/candidate_ledger.jsonl",
+      "layer": "v3",
+      "total_rows": 7712,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 5280,
+        "PARTIAL_TEXT_NO_CODE": 2406,
+        "METADATA_ONLY_STUB": 26
+      },
+      "coverage_pct": {
+        "pct_code": 68.6,
+        "pct_diff": 49.3,
+        "pct_poc": 27.8,
+        "pct_prose": 99.5,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 2432,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(2432)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/corroborations.jsonl",
+      "layer": "v3",
+      "total_rows": 108,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 45,
+        "METADATA_ONLY_STUB": 63
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 41.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 108
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(108)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/corroborations_v31.jsonl",
+      "layer": "v3",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v3/duplicates.jsonl",
+      "layer": "v3",
+      "total_rows": 108,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 45,
+        "METADATA_ONLY_STUB": 63
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 41.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 108
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(108)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/negatives.jsonl",
+      "layer": "v3",
+      "total_rows": 14,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 14,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 42.9,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v3/normalization_fragments.jsonl",
+      "layer": "v3",
+      "total_rows": 531,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 476,
+        "METADATA_ONLY_STUB": 31
+      },
+      "coverage_pct": {
+        "pct_code": 4.5,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 94.2,
+        "pct_spec": 17.9,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 477,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 30
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(477)/DEAD(30)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/normalization_overlay.jsonl",
+      "layer": "v3",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v3/normalized_records_preview.jsonl",
+      "layer": "v3",
+      "total_rows": 4623,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 4612,
+        "PARTIAL_TEXT_NO_CODE": 9,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 99.8,
+        "pct_diff": 77.5,
+        "pct_poc": 45.2,
+        "pct_prose": 99.8,
+        "pct_spec": 0.5,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 11,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(11)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/patch_reviews.jsonl",
+      "layer": "v3",
+      "total_rows": 47,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 47,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 2.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 47,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(47)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/quarantine.jsonl",
+      "layer": "v3",
+      "total_rows": 43628,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 70,
+        "METADATA_ONLY_STUB": 43558
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.2,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 844,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 42784
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(42784)/LOCAL(844)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v3/records.jsonl",
+      "layer": "v3",
+      "total_rows": 4623,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 4612,
+        "PARTIAL_TEXT_NO_CODE": 9,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 99.8,
+        "pct_diff": 77.5,
+        "pct_poc": 44.6,
+        "pct_prose": 99.8,
+        "pct_spec": 0.5,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 11,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(11)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v4/admitted_ledger.jsonl",
+      "layer": "v4",
+      "total_rows": 2547,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2470,
+        "PARTIAL_TEXT_NO_CODE": 76,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 97.0,
+        "pct_diff": 0.0,
+        "pct_poc": 2.9,
+        "pct_prose": 99.9,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 77,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(77)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v4/candidate_ledger.jsonl",
+      "layer": "v4",
+      "total_rows": 2547,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2469,
+        "PARTIAL_TEXT_NO_CODE": 77,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 97.0,
+        "pct_diff": 0.0,
+        "pct_poc": 2.7,
+        "pct_prose": 99.9,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 78,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(78)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v4/duplicate_ledger.jsonl",
+      "layer": "v4",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "derived_v4/quarantine.jsonl",
+      "layer": "v4",
+      "total_rows": 8167,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 108,
+        "PARTIAL_TEXT_NO_CODE": 7480,
+        "METADATA_ONLY_STUB": 579
+      },
+      "coverage_pct": {
+        "pct_code": 1.3,
+        "pct_diff": 0.0,
+        "pct_poc": 0.2,
+        "pct_prose": 92.9,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5400,
+          "UNHYDRATABLE_DEAD_POINTER": 2659
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(5400)/DEAD(2659)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_v4/quarantined_ledger.jsonl",
+      "layer": "v4",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "distribution_v1/digests.jsonl",
+      "layer": "v4",
+      "total_rows": 6,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 5,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 16.7,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 5
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(5)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/records_v1.jsonl",
+      "layer": "v4",
+      "total_rows": 685,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 15,
+        "PARTIAL_TEXT_NO_CODE": 333,
+        "METADATA_ONLY_STUB": 337
+      },
+      "coverage_pct": {
+        "pct_code": 2.6,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 50.4,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 21,
+          "UNHYDRATABLE_DEAD_POINTER": 649
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(649)/GIT(21)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/records_v1_withheld_pointers.jsonl",
+      "layer": "v4",
+      "total_rows": 3567,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 3567,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3567,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(3567)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/records_v4.jsonl",
+      "layer": "v4",
+      "total_rows": 2547,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 46,
+        "PARTIAL_TEXT_NO_CODE": 911,
+        "METADATA_ONLY_STUB": 1590
+      },
+      "coverage_pct": {
+        "pct_code": 2.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 37.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 2500
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(2500)/GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/records_v4_withheld_pointers.jsonl",
+      "layer": "v4",
+      "total_rows": 14756,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 14756,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 14756,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(14756)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/rights_ledger.jsonl",
+      "layer": "v4",
+      "total_rows": 9703,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 9703,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9571,
+          "UNHYDRATABLE_DEAD_POINTER": 132
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(9571)/DEAD(132)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/withheld_harness.jsonl",
+      "layer": "v4",
+      "total_rows": 33,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 33,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 33,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(33)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "distribution_v1/withheld_pointers_other_layers.jsonl",
+      "layer": "v4",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "experiments/reconstruction_log.jsonl",
+      "layer": "other/experiments",
+      "total_rows": 155,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 155
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 155
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(155)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl/errors.jsonl",
+      "layer": "v1",
+      "total_rows": 19,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 19,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 7,
+          "UNHYDRATABLE_DEAD_POINTER": 12
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(12)/GIT(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl/exploits.jsonl",
+      "layer": "v1",
+      "total_rows": 154,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 154,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 1.3,
+        "pct_poc": 24.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.6,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl/findings.jsonl",
+      "layer": "v1",
+      "total_rows": 241,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 241,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 8.7,
+        "pct_poc": 24.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl/metadata.jsonl",
+      "layer": "v1",
+      "total_rows": 11,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 11,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 11,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(11)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl/negative_findings.jsonl",
+      "layer": "v1",
+      "total_rows": 444,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 444,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.2,
+        "pct_poc": 11.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl/patches.jsonl",
+      "layer": "v1",
+      "total_rows": 37,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 37,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 100.0,
+        "pct_poc": 70.3,
+        "pct_prose": 100.0,
+        "pct_spec": 2.7,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl/protocol.jsonl",
+      "layer": "v1",
+      "total_rows": 8,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 8,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 100.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(8)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/findings_cairo.jsonl",
+      "layer": "v2.2",
+      "total_rows": 8,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 8,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 37.5,
+        "pct_poc": 25.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl_ml/findings_move.jsonl",
+      "layer": "v2.2",
+      "total_rows": 15,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 13,
+        "PARTIAL_TEXT_NO_CODE": 2,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 86.7,
+        "pct_diff": 46.7,
+        "pct_poc": 40.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)/DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/findings_reports.jsonl",
+      "layer": "v2.2",
+      "total_rows": 45,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 45,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 75.6,
+        "pct_poc": 77.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl_ml/findings_rust.jsonl",
+      "layer": "v2.2",
+      "total_rows": 18,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 13,
+        "PARTIAL_TEXT_NO_CODE": 5,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 72.2,
+        "pct_diff": 38.9,
+        "pct_poc": 16.7,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(4)/DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/findings_vyper.jsonl",
+      "layer": "v2.2",
+      "total_rows": 51,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 51,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 37.3,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "jsonl_ml/sources_cairo.jsonl",
+      "layer": "v2.2",
+      "total_rows": 13,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 4,
+        "PARTIAL_TEXT_NO_CODE": 9,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 30.8,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(8)/DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/sources_move.jsonl",
+      "layer": "v2.2",
+      "total_rows": 18,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 7,
+        "PARTIAL_TEXT_NO_CODE": 11,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 38.9,
+        "pct_diff": 0.0,
+        "pct_poc": 11.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 11,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(11)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/sources_reports.jsonl",
+      "layer": "v2.2",
+      "total_rows": 5,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 5,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 5
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(5)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/sources_rust.jsonl",
+      "layer": "v2.2",
+      "total_rows": 25,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 25,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 23,
+          "UNHYDRATABLE_DEAD_POINTER": 2
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(23)/DEAD(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_ml/sources_vyper.jsonl",
+      "layer": "v2.2",
+      "total_rows": 51,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 51,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 51,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(51)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_v3/findings.jsonl",
+      "layer": "v3",
+      "total_rows": 7712,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 5280,
+        "PARTIAL_TEXT_NO_CODE": 2406,
+        "METADATA_ONLY_STUB": 26
+      },
+      "coverage_pct": {
+        "pct_code": 68.6,
+        "pct_diff": 49.3,
+        "pct_poc": 27.8,
+        "pct_prose": 99.5,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 2432,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(2432)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_v3/sources.jsonl",
+      "layer": "v3",
+      "total_rows": 18,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 18
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 5.6,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 100.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 18,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(18)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_v4/findings.jsonl",
+      "layer": "v4",
+      "total_rows": 2547,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2470,
+        "PARTIAL_TEXT_NO_CODE": 76,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 97.0,
+        "pct_diff": 0.0,
+        "pct_poc": 2.9,
+        "pct_prose": 99.9,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 77,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(77)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "jsonl_v4/sources.jsonl",
+      "layer": "v4",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 3
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "nextdata/_index_all_cleaned.jsonl",
+      "layer": "other/nextdata",
+      "total_rows": 733,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 694,
+        "PARTIAL_TEXT_NO_CODE": 39,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 94.7,
+        "pct_diff": 3.5,
+        "pct_poc": 19.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.3,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 39
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(39)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "nextdata/ml_dataset_part1.jsonl",
+      "layer": "other/nextdata",
+      "total_rows": 232,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 218,
+        "PARTIAL_TEXT_NO_CODE": 14,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 94.0,
+        "pct_diff": 6.5,
+        "pct_poc": 21.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 14
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(14)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "nextdata/ml_dataset_part2.jsonl",
+      "layer": "other/nextdata",
+      "total_rows": 232,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 222,
+        "PARTIAL_TEXT_NO_CODE": 10,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 95.7,
+        "pct_diff": 2.2,
+        "pct_poc": 19.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 10
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(10)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "nextdata/ml_dataset_part3.jsonl",
+      "layer": "other/nextdata",
+      "total_rows": 230,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 216,
+        "PARTIAL_TEXT_NO_CODE": 14,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 93.9,
+        "pct_diff": 2.2,
+        "pct_poc": 20.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.4,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 14
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(14)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "reports/poc_attempts.jsonl",
+      "layer": "other/reports",
+      "total_rows": 56,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 7,
+        "PARTIAL_TEXT_NO_CODE": 39,
+        "METADATA_ONLY_STUB": 10
+      },
+      "coverage_pct": {
+        "pct_code": 12.5,
+        "pct_diff": 0.0,
+        "pct_poc": 62.5,
+        "pct_prose": 42.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 49,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(49)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2/quarantine.jsonl",
+      "layer": "other/splits_v2",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "splits_v2/test.jsonl",
+      "layer": "other/splits_v2",
+      "total_rows": 242,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 225,
+        "PARTIAL_TEXT_NO_CODE": 17,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 93.0,
+        "pct_diff": 24.0,
+        "pct_poc": 24.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 15,
+          "UNHYDRATABLE_DEAD_POINTER": 2
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(15)/DEAD(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2/train.jsonl",
+      "layer": "other/splits_v2",
+      "total_rows": 402,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 396,
+        "PARTIAL_TEXT_NO_CODE": 6,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 98.5,
+        "pct_diff": 0.7,
+        "pct_poc": 15.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 2
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(4)/DEAD(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2/validation.jsonl",
+      "layer": "other/splits_v2",
+      "total_rows": 264,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 257,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 97.3,
+        "pct_diff": 20.1,
+        "pct_poc": 26.9,
+        "pct_prose": 100.0,
+        "pct_spec": 1.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5,
+          "UNHYDRATABLE_DEAD_POINTER": 2
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(5)/DEAD(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2_2/quarantine.jsonl",
+      "layer": "other/splits_v2_2",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 2,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "splits_v2_2/test.jsonl",
+      "layer": "other/splits_v2_2",
+      "total_rows": 253,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 253,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 250
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(250)/GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2_2/train.jsonl",
+      "layer": "other/splits_v2_2",
+      "total_rows": 443,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 443,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 439
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(439)/GIT(4)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v2_2/validation.jsonl",
+      "layer": "other/splits_v2_2",
+      "total_rows": 273,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 273,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 269
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(269)/GIT(4)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "splits_v3/quarantine.jsonl",
+      "layer": "other/splits_v3",
+      "total_rows": 844,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 844
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 844,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(844)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "taxonomy/assignments_v1.jsonl",
+      "layer": "taxonomy",
+      "total_rows": 387,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 18,
+        "PARTIAL_TEXT_NO_CODE": 222,
+        "METADATA_ONLY_STUB": 147
+      },
+      "coverage_pct": {
+        "pct_code": 4.7,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 62.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 369
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(369)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "taxonomy/root_cause_v1.jsonl",
+      "layer": "taxonomy",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_evidence_mismatch.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_exclusive_pair.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_ok.jsonl",
+      "layer": "other/tests",
+      "total_rows": 3,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 3
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 3
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_unknown_category.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_unknown_record.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 1,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 1
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
+      "layer": "other/tests",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl",
+      "layer": "other/tests",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 1
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl",
+      "layer": "other/tests",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 1,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 100.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 1,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 100.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 100.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl",
+      "layer": "other/tests",
+      "total_rows": 1,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_facet_assignable.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_impact_as_cause.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_invented_swc.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_no_exclusions.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_unjustified_swc.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/broken/taxonomy_valid.jsonl",
+      "layer": "other/tests",
+      "total_rows": 31,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 24,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 77.4,
+        "pct_diff": 0.0,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "tests/fixtures/good/jsonl_v4/findings.jsonl",
+      "layer": "other/tests",
+      "total_rows": 2,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 2
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/attacker_reasoning.jsonl",
+      "layer": "other/training",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "training/canonical/detection.train.part-000.jsonl",
+      "layer": "other/training",
+      "total_rows": 193,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 96,
+        "PARTIAL_TEXT_NO_CODE": 33,
+        "METADATA_ONLY_STUB": 64
+      },
+      "coverage_pct": {
+        "pct_code": 49.7,
+        "pct_diff": 0.0,
+        "pct_poc": 0.5,
+        "pct_prose": 66.8,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 95
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(95)/GIT(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/canonical/language.train.part-000.jsonl",
+      "layer": "other/training",
+      "total_rows": 5000,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1496,
+        "PARTIAL_TEXT_NO_CODE": 3475,
+        "METADATA_ONLY_STUB": 29
+      },
+      "coverage_pct": {
+        "pct_code": 29.9,
+        "pct_diff": 0.0,
+        "pct_poc": 1.2,
+        "pct_prose": 99.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1092,
+          "UNHYDRATABLE_DEAD_POINTER": 2412
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(2412)/GIT(1092)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/canonical/language.train.part-001.jsonl",
+      "layer": "other/training",
+      "total_rows": 950,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 66,
+        "PARTIAL_TEXT_NO_CODE": 851,
+        "METADATA_ONLY_STUB": 33
+      },
+      "coverage_pct": {
+        "pct_code": 6.9,
+        "pct_diff": 0.0,
+        "pct_poc": 0.1,
+        "pct_prose": 96.5,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 49,
+          "UNHYDRATABLE_DEAD_POINTER": 835
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(835)/GIT(49)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/canonical/severity.train.part-000.jsonl",
+      "layer": "other/training",
+      "total_rows": 5000,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 1588,
+        "PARTIAL_TEXT_NO_CODE": 3382,
+        "METADATA_ONLY_STUB": 30
+      },
+      "coverage_pct": {
+        "pct_code": 31.8,
+        "pct_diff": 0.0,
+        "pct_poc": 1.3,
+        "pct_prose": 99.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1094,
+          "UNHYDRATABLE_DEAD_POINTER": 2318
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(2318)/GIT(1094)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/canonical/severity.train.part-001.jsonl",
+      "layer": "other/training",
+      "total_rows": 969,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 72,
+        "PARTIAL_TEXT_NO_CODE": 867,
+        "METADATA_ONLY_STUB": 30
+      },
+      "coverage_pct": {
+        "pct_code": 7.4,
+        "pct_diff": 0.0,
+        "pct_poc": 0.1,
+        "pct_prose": 96.9,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 45,
+          "UNHYDRATABLE_DEAD_POINTER": 852
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(852)/GIT(45)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/exploit_reasoning.jsonl",
+      "layer": "other/training",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "training/negative_reasoning.jsonl",
+      "layer": "other/training",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "training/patch_reasoning.jsonl",
+      "layer": "other/training",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "training/vulnerability_detection.jsonl",
+      "layer": "other/training",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/00_governance/rights.jsonl",
+      "layer": "wave1",
+      "total_rows": 7,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 7
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/00_governance/source_registry.jsonl",
+      "layer": "wave1",
+      "total_rows": 6,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 6
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 6
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(6)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/01_dedup/hydration_quarantine.jsonl",
+      "layer": "wave1",
+      "total_rows": 1593,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 179,
+        "PARTIAL_TEXT_NO_CODE": 362,
+        "METADATA_ONLY_STUB": 1052
+      },
+      "coverage_pct": {
+        "pct_code": 16.9,
+        "pct_diff": 0.0,
+        "pct_poc": 17.3,
+        "pct_prose": 25.9,
+        "pct_spec": 0.1,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1414,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1414)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/01_dedup/overlap_manifest.jsonl",
+      "layer": "wave1",
+      "total_rows": 896,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 200,
+        "METADATA_ONLY_STUB": 696
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 22.3,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 91,
+          "UNHYDRATABLE_DEAD_POINTER": 805
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(805)/GIT(91)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/01_dedup/registry.jsonl",
+      "layer": "wave1",
+      "total_rows": 24074,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 794,
+        "METADATA_ONLY_STUB": 23280
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 3.3,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 847,
+          "UNHYDRATABLE_DEAD_POINTER": 23227
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(23227)/GIT(847)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/03_candidates/c4_mitigation/issues.jsonl",
+      "layer": "wave1",
+      "total_rows": 336,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 327,
+        "PARTIAL_TEXT_NO_CODE": 9,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 97.3,
+        "pct_diff": 27.4,
+        "pct_poc": 5.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(9)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/03_candidates/formal_specs/rules.jsonl",
+      "layer": "wave1",
+      "total_rows": 6767,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 6764,
+        "PARTIAL_TEXT_NO_CODE": 3,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 3.5,
+        "pct_poc": 59.5,
+        "pct_prose": 100.0,
+        "pct_spec": 43.6,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl",
+      "layer": "wave1",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/03_candidates/judge/issues.jsonl",
+      "layer": "wave1",
+      "total_rows": 613,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 607,
+        "PARTIAL_TEXT_NO_CODE": 6,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 99.0,
+        "pct_diff": 12.6,
+        "pct_poc": 8.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.2,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 6,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(6)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/03_candidates/markdown_two_revision/candidates.jsonl",
+      "layer": "wave1",
+      "total_rows": 556,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 508,
+        "PARTIAL_TEXT_NO_CODE": 48,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 91.5,
+        "pct_diff": 5.9,
+        "pct_poc": 6.5,
+        "pct_prose": 99.8,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 48,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(48)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/03_candidates/reevmbench/harnesses.jsonl",
+      "layer": "wave1",
+      "total_rows": 62,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 56,
+        "PARTIAL_TEXT_NO_CODE": 6,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 90.3,
+        "pct_diff": 45.2,
+        "pct_poc": 24.2,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 6,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(6)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/04_admitted/c4_mitigation/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 244,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 237,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 97.1,
+        "pct_diff": 29.9,
+        "pct_poc": 9.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 7,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/04_admitted/formal_specs/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 895,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 895,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 75.9,
+        "pct_prose": 100.0,
+        "pct_spec": 100.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/04_admitted/ghsa_web3_netnew/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/04_admitted/judge/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 71,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 71,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 21.1,
+        "pct_poc": 2.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/04_admitted/markdown_two_revision/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 373,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 343,
+        "PARTIAL_TEXT_NO_CODE": 30,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 92.2,
+        "pct_diff": 3.8,
+        "pct_poc": 4.8,
+        "pct_prose": 99.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 30,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(30)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/04_admitted/reevmbench/findings.jsonl",
+      "layer": "wave1",
+      "total_rows": 51,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 47,
+        "PARTIAL_TEXT_NO_CODE": 4,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 92.2,
+        "pct_diff": 41.2,
+        "pct_poc": 27.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(4)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/benchmark_wave1/F_false_positive_rejection.jsonl",
+      "layer": "wave1",
+      "total_rows": 147,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 147,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 17.0,
+        "pct_poc": 3.4,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl",
+      "layer": "wave1",
+      "total_rows": 426,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 426,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 21.1,
+        "pct_poc": 2.8,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl",
+      "layer": "wave1",
+      "total_rows": 255,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 255,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 25.1,
+        "pct_poc": 7.1,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/benchmark_wave1/G_patch_verification.jsonl",
+      "layer": "wave1",
+      "total_rows": 244,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 237,
+        "PARTIAL_TEXT_NO_CODE": 7,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 97.1,
+        "pct_diff": 29.9,
+        "pct_poc": 9.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 7,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(7)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/benchmark_wave1/J_verified_patch.jsonl",
+      "layer": "wave1",
+      "total_rows": 0,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/benchmark_wave1/invariants.jsonl",
+      "layer": "wave1",
+      "total_rows": 297,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 297,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 100.0,
+        "pct_diff": 0.0,
+        "pct_poc": 75.4,
+        "pct_prose": 100.0,
+        "pct_spec": 100.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "NONE",
+        "display": "NONE"
+      },
+      "has_stubs": false
+    },
+    {
+      "path": "wave1/benchmark_wave1/prove_candidates.jsonl",
+      "layer": "wave1",
+      "total_rows": 10,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 9,
+        "PARTIAL_TEXT_NO_CODE": 1,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 90.0,
+        "pct_diff": 30.0,
+        "pct_poc": 10.0,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(1)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/benchmark_wave1/prove_incidents.jsonl",
+      "layer": "wave1",
+      "total_rows": 51,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 47,
+        "PARTIAL_TEXT_NO_CODE": 4,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 92.2,
+        "pct_diff": 41.2,
+        "pct_poc": 27.5,
+        "pct_prose": 100.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 4,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(4)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "wave1/benchmark_wave1/severity_reconciliation.jsonl",
+      "layer": "wave1",
+      "total_rows": 373,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 337,
+        "PARTIAL_TEXT_NO_CODE": 36,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 90.6,
+        "pct_diff": 3.8,
+        "pct_poc": 4.8,
+        "pct_prose": 99.7,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 36,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(36)"
+      },
+      "has_stubs": true
+    }
+  ],
+  "stub_files": [
+    "Vbeta/derived_vbeta/candidate_ledger.jsonl",
+    "Vbeta/derived_vbeta/quarantine.jsonl",
+    "Vbeta/fetched/receipts.jsonl",
+    "Vbeta/jsonl_vbeta/findings.jsonl",
+    "Vbeta/jsonl_vbeta/sources.jsonl",
+    "annotation/iaa_v1/sample.jsonl",
+    "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
+    "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
+    "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
+    "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
+    "benchmark/independent/secondary_holdout_keys.jsonl",
+    "benchmark/independent/secondary_holdout_tasks.jsonl",
+    "benchmark/retired_families/E_exploit_verification.jsonl",
+    "benchmark/retired_families/v3_S_contest_outcome.jsonl",
+    "benchmark/v3_R_source_tier_routing.jsonl",
+    "datasets/negative_quarantine.jsonl",
+    "datasets/v1_hydration_quarantine.jsonl",
+    "derived/counterexamples.jsonl",
+    "derived/hard_negatives.jsonl",
+    "derived/root_cause_candidates.jsonl",
+    "derived_poc_queue/triage_queue.jsonl",
+    "derived_prove/candidate_ledger.jsonl",
+    "derived_rejections/rejection_corpus.jsonl",
+    "derived_siblings/candidates.jsonl",
+    "derived_siblings/hard_negatives.jsonl",
+    "derived_siblings/tasks.jsonl",
+    "derived_span_tasks/answer_key.jsonl",
+    "derived_v2_2/audit_ingestion_records.jsonl",
+    "derived_v2_2/audit_sources.jsonl",
+    "derived_v2_2/quarantine.jsonl",
+    "derived_v3/candidate_ledger.jsonl",
+    "derived_v3/corroborations.jsonl",
+    "derived_v3/duplicates.jsonl",
+    "derived_v3/normalization_fragments.jsonl",
+    "derived_v3/normalized_records_preview.jsonl",
+    "derived_v3/patch_reviews.jsonl",
+    "derived_v3/quarantine.jsonl",
+    "derived_v3/records.jsonl",
+    "derived_v4/admitted_ledger.jsonl",
+    "derived_v4/candidate_ledger.jsonl",
+    "derived_v4/quarantine.jsonl",
+    "distribution_v1/digests.jsonl",
+    "distribution_v1/records_v1.jsonl",
+    "distribution_v1/records_v1_withheld_pointers.jsonl",
+    "distribution_v1/records_v4.jsonl",
+    "distribution_v1/records_v4_withheld_pointers.jsonl",
+    "distribution_v1/rights_ledger.jsonl",
+    "distribution_v1/withheld_harness.jsonl",
+    "experiments/reconstruction_log.jsonl",
+    "jsonl/errors.jsonl",
+    "jsonl/metadata.jsonl",
+    "jsonl/protocol.jsonl",
+    "jsonl_ml/findings_move.jsonl",
+    "jsonl_ml/findings_rust.jsonl",
+    "jsonl_ml/sources_cairo.jsonl",
+    "jsonl_ml/sources_move.jsonl",
+    "jsonl_ml/sources_reports.jsonl",
+    "jsonl_ml/sources_rust.jsonl",
+    "jsonl_ml/sources_vyper.jsonl",
+    "jsonl_v3/findings.jsonl",
+    "jsonl_v3/sources.jsonl",
+    "jsonl_v4/findings.jsonl",
+    "jsonl_v4/sources.jsonl",
+    "nextdata/_index_all_cleaned.jsonl",
+    "nextdata/ml_dataset_part1.jsonl",
+    "nextdata/ml_dataset_part2.jsonl",
+    "nextdata/ml_dataset_part3.jsonl",
+    "reports/poc_attempts.jsonl",
+    "splits_v2/test.jsonl",
+    "splits_v2/train.jsonl",
+    "splits_v2/validation.jsonl",
+    "splits_v2_2/test.jsonl",
+    "splits_v2_2/train.jsonl",
+    "splits_v2_2/validation.jsonl",
+    "splits_v3/quarantine.jsonl",
+    "taxonomy/assignments_v1.jsonl",
+    "taxonomy/root_cause_v1.jsonl",
+    "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
+    "tests/fixtures/broken/assignments_evidence_mismatch.jsonl",
+    "tests/fixtures/broken/assignments_exclusive_pair.jsonl",
+    "tests/fixtures/broken/assignments_ok.jsonl",
+    "tests/fixtures/broken/assignments_unknown_category.jsonl",
+    "tests/fixtures/broken/assignments_unknown_record.jsonl",
+    "tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl",
+    "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
+    "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
+    "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
+    "tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl",
+    "tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl",
+    "tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl",
+    "tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl",
+    "tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl",
+    "tests/fixtures/broken/taxonomy_facet_assignable.jsonl",
+    "tests/fixtures/broken/taxonomy_impact_as_cause.jsonl",
+    "tests/fixtures/broken/taxonomy_invented_swc.jsonl",
+    "tests/fixtures/broken/taxonomy_no_exclusions.jsonl",
+    "tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl",
+    "tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl",
+    "tests/fixtures/broken/taxonomy_unjustified_swc.jsonl",
+    "tests/fixtures/broken/taxonomy_valid.jsonl",
+    "tests/fixtures/good/jsonl_v4/findings.jsonl",
+    "training/canonical/detection.train.part-000.jsonl",
+    "training/canonical/language.train.part-000.jsonl",
+    "training/canonical/language.train.part-001.jsonl",
+    "training/canonical/severity.train.part-000.jsonl",
+    "training/canonical/severity.train.part-001.jsonl",
+    "wave1/00_governance/rights.jsonl",
+    "wave1/00_governance/source_registry.jsonl",
+    "wave1/01_dedup/hydration_quarantine.jsonl",
+    "wave1/01_dedup/overlap_manifest.jsonl",
+    "wave1/01_dedup/registry.jsonl",
+    "wave1/03_candidates/c4_mitigation/issues.jsonl",
+    "wave1/03_candidates/formal_specs/rules.jsonl",
+    "wave1/03_candidates/judge/issues.jsonl",
+    "wave1/03_candidates/markdown_two_revision/candidates.jsonl",
+    "wave1/03_candidates/reevmbench/harnesses.jsonl",
+    "wave1/04_admitted/c4_mitigation/findings.jsonl",
+    "wave1/04_admitted/markdown_two_revision/findings.jsonl",
+    "wave1/04_admitted/reevmbench/findings.jsonl",
+    "wave1/benchmark_wave1/G_patch_verification.jsonl",
+    "wave1/benchmark_wave1/prove_candidates.jsonl",
+    "wave1/benchmark_wave1/prove_incidents.jsonl",
+    "wave1/benchmark_wave1/severity_reconciliation.jsonl"
+  ]
+}

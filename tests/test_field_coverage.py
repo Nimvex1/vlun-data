@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Tests for field coverage (scripts/field_coverage.py).
 
-The silent-wrong-key class of bug (a listed field that resolves to nothing
-on every record, publishing 0% forever) must be caught by the gate: every
-field in LAYER_FIELDS must resolve to a non-empty value on at least one
-record in its layer. Plus a pinned regression: Vbeta severity lives in
-`severity_observed` and must read 118/719 (16.4%), never 0.
+The silent-wrong-key class of bug (a listed field whose KEY resolves to
+nothing on every record) must be caught by the gate: every field in
+LAYER_FIELDS must have its key present on at least one record in its layer
+(all-unknown values are honest and counted in the report). Plus a pinned
+regression: the DEAD-stub purge left all
+80 retained Vbeta rows with `severity_observed=None`, so it must read 0/80.
 Run:  python -m unittest discover -s tests
 """
 
@@ -75,17 +76,13 @@ class TestFieldsResolve(unittest.TestCase):
     def test_vbeta_severity_regression(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])
         k = sum(1 for r in rows if known(get(r, "severity_observed")))
-        # 6,334 -> 6,317 when Solodit's own Impact axis stopped being
-        # recorded as a report severity (45 rows lost the false value, 17
-        # gained a real one from the inline `**Severity:**` layout). The
-        # drop is the fix, not a regression: see
-        # tests/test_solodit_harvest.py.
-        # 6,317 -> 6,350 when the harvester learned section aliases
-        # (`## Severity: Medium Risk` inline headings, Summary/Vulnerability
-        # Details/Recommendation aliases, wider PoC headings) and recovered
-        # more report-stated severities. The gain is the fix: every added
-        # value still passes the contamination guard below.
-        self.assertEqual((k, len(rows)), (6350, 6935))
+        # The DEAD-stub purge removed every retained Vbeta row's observed
+        # severity: all 80 surviving rows carry `severity_observed=None`
+        # (and `severity_normalized="unknown"`), so the known count is 0.
+        # The 6,350/6,935 pin belonged to the pre-purge layer. The key still
+        # exists on all 80 rows -- this is 0%, not a field-absent case, so
+        # `severity_observed` stays in LAYER_FIELDS.
+        self.assertEqual((k, len(rows)), (0, 80))
         # Semantic guard, so the pin can never again accept a contaminated
         # value: Solodit's triage axis is not the auditor's severity.
         contaminated = [r["finding_id"] for r in rows
@@ -97,7 +94,7 @@ class TestFieldsResolve(unittest.TestCase):
         import json
         rep = json.load(open(ROOT / "reports" / "field_coverage.json",
                              encoding="utf-8-sig"))["fields"]
-        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 6350)
+        self.assertEqual(rep["vbeta.records.severity_observed"]["known"], 0)
 
     def test_broken_key_would_fail(self):
         rows = jl(ROOT / LAYER_FILES["vbeta.records"])

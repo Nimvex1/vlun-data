@@ -14,10 +14,10 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 ## Scope
 
-- tracked files: 1932 (389941924 bytes)
-- head: `0bf7af5fae996102f596a02c5feae26d53e4cad5` (remediation/audit-2026-10-27)
-- record layers scanned for expressive content: 158
-- the audit covers **all** layers, not only the 13129 v1 self-flagged quotation rows
+- tracked files: 2073 (691953343 bytes)
+- head: `294081e8f7dd12335d069e2ba72bcbd56b2aa471` (remediation/audit-2026-10-27)
+- record layers scanned for expressive content: 183
+- the audit covers **all** layers, not only the 167651 v1 self-flagged quotation rows
 
 ## Totals by rights class
 
@@ -25,37 +25,38 @@ A sha256 and a permalink identify bytes; they do not grant reuse or redistributi
 
 | class | expressive items | rows holding it (detail layers) |
 |---|---|---|
-| `copied_report_prose` | 59929 | 4028 |
-| `copied_short_prose` | 260205 | 5990 |
-| `personal_data` | 5695 | - |
-| `poc_source` | 1384 | 346 |
-| `third_party_code` | 13129 | 2378 |
+| `copied_report_prose` | 76559 | 2706 |
+| `copied_short_prose` | 230756 | 3232 |
+| `patch_diff` | 7648 | - |
+| `personal_data` | 8641 | - |
+| `poc_source` | 1339 | 380 |
+| `third_party_code` | 167651 | 3209 |
 
-Rows holding expressive content across every scanned layer: **125289** in 91 record layers. Detail-scanned records materialised for the projection: **5990**.
+Rows holding expressive content across every scanned layer: **106992** in 108 record layers. Detail-scanned records materialised for the projection: **3232**.
 
 ## Per-layer breakdown
 
 | layer | class counts |
 |---|---|
-| `Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl` | copied_short_prose=6219 |
-| `Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl` | copied_short_prose=6935 |
-| `Vbeta/derived_vbeta/candidate_ledger.jsonl` | copied_short_prose=7060 |
+| `Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl` | copied_short_prose=80, personal_data=1, third_party_code=80 |
+| `Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl` | copied_short_prose=80, personal_data=1, third_party_code=80 |
+| `Vbeta/derived_vbeta/candidate_ledger.jsonl` | copied_short_prose=80 |
 | `Vbeta/derived_vbeta/corroborations.jsonl` |  |
 | `Vbeta/derived_vbeta/duplicates.jsonl` |  |
-| `Vbeta/derived_vbeta/negatives.jsonl` | copied_report_prose=5, copied_short_prose=5 |
-| `Vbeta/derived_vbeta/records.jsonl` | copied_report_prose=6935, copied_short_prose=6935 |
+| `Vbeta/derived_vbeta/negatives.jsonl` |  |
+| `Vbeta/derived_vbeta/records.jsonl` | copied_report_prose=80, copied_short_prose=80, personal_data=6, third_party_code=185 |
 | `Vbeta/fetched/receipts.jsonl` |  |
 | `Vbeta/jsonl_vbeta/findings.jsonl` | copied_short_prose=7060 |
 | `Vbeta/jsonl_vbeta/sources.jsonl` |  |
-| `Vbeta/splits_vbeta/quarantine.jsonl` | copied_short_prose=63 |
+| `Vbeta/splits_vbeta/quarantine.jsonl` |  |
 | `annotation/iaa_v1/sample.jsonl` | copied_report_prose=38, copied_short_prose=358, third_party_code=278 |
-| `benchmark/A_vulnerability_detection.jsonl` | third_party_code=821 |
-| `benchmark/C_attacker_reasoning.jsonl` | third_party_code=821 |
-| `benchmark/D_exploit_construction.jsonl` | poc_source=346, third_party_code=821 |
-| `benchmark/F_false_positive_rejection.jsonl` | third_party_code=542 |
+| `benchmark/A_vulnerability_detection.jsonl` | third_party_code=1390 |
+| `benchmark/C_attacker_reasoning.jsonl` | third_party_code=1390 |
+| `benchmark/D_exploit_construction.jsonl` | poc_source=189, third_party_code=1369 |
+| `benchmark/F_false_positive_rejection.jsonl` | third_party_code=871 |
 | `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | copied_short_prose=458, third_party_code=542 |
 | `benchmark/Fb_duplicate_radar_pair.jsonl` | copied_short_prose=1104, third_party_code=783 |
-| `benchmark/G_patch_verification.jsonl` |  |
+| `benchmark/G_patch_verification.jsonl` | patch_diff=37 |
 | `benchmark/H_verified_exploit.jsonl` |  |
 | `benchmark/I_verified_non_exploit.jsonl` |  |
 | `benchmark/J_verified_patch.jsonl` |  |
@@ -65,11 +66,11 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | copied_report_prose=1477, copied_short_prose=1289, personal_data=699 |
 | `benchmark/independent/secondary_holdout_exploratory_tasks.jsonl` | copied_report_prose=29, copied_short_prose=119 |
 | `benchmark/independent/secondary_holdout_tasks.jsonl` | copied_report_prose=20, copied_short_prose=2746, personal_data=2 |
-| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | copied_short_prose=257 |
+| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | copied_short_prose=3 |
 | `benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl` |  |
 | `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` |  |
 | `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` |  |
-| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | copied_short_prose=257, third_party_code=36 |
+| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | copied_short_prose=6, third_party_code=21 |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | copied_short_prose=306, third_party_code=821 |
 | `benchmark/retired_families/E_exploit_verification.jsonl` |  |
 | `benchmark/retired_families/K_language_ecosystem_routing.jsonl` | copied_report_prose=125, copied_short_prose=349, personal_data=5 |
@@ -82,12 +83,12 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `benchmark/retired_families/v3_T_taxonomy_explicit.jsonl` | copied_short_prose=589 |
 | `benchmark/v3_R_source_tier_routing.jsonl` | copied_short_prose=5467 |
 | `datasets/verified_exploits.jsonl` |  |
-| `datasets/verified_findings.jsonl` | copied_short_prose=302 |
-| `datasets/verified_negatives.jsonl` |  |
+| `datasets/verified_findings.jsonl` | copied_short_prose=6 |
+| `datasets/verified_negatives.jsonl` | third_party_code=56 |
 | `datasets/verified_patches.jsonl` |  |
 | `derived/counterexamples.jsonl` | copied_short_prose=43 |
 | `derived/hard_negatives.jsonl` | copied_short_prose=458, third_party_code=542 |
-| `derived/records.jsonl` | copied_report_prose=614, copied_short_prose=1781, poc_source=346, third_party_code=827 |
+| `derived/records.jsonl` | copied_report_prose=605, copied_short_prose=1725, poc_source=343, third_party_code=2612 |
 | `derived/root_cause_candidates.jsonl` | copied_report_prose=25, copied_short_prose=55 |
 | `derived_poc_queue/triage_queue.jsonl` |  |
 | `derived_prove/candidate_ledger.jsonl` |  |
@@ -99,20 +100,20 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `derived_span_tasks/tasks.jsonl` |  |
 | `derived_v2_2/audit_ingestion_records.jsonl` |  |
 | `derived_v2_2/audit_sources.jsonl` |  |
-| `derived_v2_2/records.jsonl` | copied_short_prose=297 |
-| `derived_v3/candidate_ledger.jsonl` | copied_short_prose=15424 |
+| `derived_v2_2/records.jsonl` | copied_short_prose=297, patch_diff=17, third_party_code=146 |
+| `derived_v3/candidate_ledger.jsonl` | copied_report_prose=4979, copied_short_prose=20533, patch_diff=2487, personal_data=10, third_party_code=42284 |
 | `derived_v3/corroborations.jsonl` |  |
 | `derived_v3/corroborations_v31.jsonl` |  |
 | `derived_v3/duplicates.jsonl` |  |
-| `derived_v3/negatives.jsonl` | copied_report_prose=16, copied_short_prose=112 |
+| `derived_v3/negatives.jsonl` | copied_report_prose=16, copied_short_prose=112, patch_diff=6, third_party_code=26 |
 | `derived_v3/normalization_fragments.jsonl` | copied_short_prose=7037 |
 | `derived_v3/normalization_overlay.jsonl` |  |
 | `derived_v3/normalized_records_preview.jsonl` | copied_report_prose=10715, copied_short_prose=88439 |
 | `derived_v3/patch_reviews.jsonl` |  |
-| `derived_v3/records.jsonl` | copied_report_prose=5467, copied_short_prose=38269 |
-| `derived_v4/admitted_ledger.jsonl` | copied_report_prose=8122, copied_short_prose=18039, personal_data=2059, third_party_code=1948 |
-| `derived_v4/candidate_ledger.jsonl` |  |
-| `derived_v4/duplicate_ledger.jsonl` | copied_report_prose=5, copied_short_prose=5, third_party_code=2 |
+| `derived_v3/records.jsonl` | copied_report_prose=5447, copied_short_prose=38289, patch_diff=2455, personal_data=1, third_party_code=40921 |
+| `derived_v4/admitted_ledger.jsonl` | copied_report_prose=8053, copied_short_prose=9762, personal_data=2957, poc_source=37, third_party_code=4487 |
+| `derived_v4/candidate_ledger.jsonl` | copied_report_prose=2546, copied_short_prose=2548, personal_data=1120, poc_source=37, third_party_code=2547 |
+| `derived_v4/duplicate_ledger.jsonl` |  |
 | `derived_v4/quarantined_ledger.jsonl` |  |
 | `distribution_v1/digests.jsonl` | copied_report_prose=6 |
 | `distribution_v1/records_v1.jsonl` |  |
@@ -125,31 +126,31 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `experiments/reconstruction_log.jsonl` | copied_short_prose=1 |
 | `experiments_v3/gamma/attempt_2/stderr.txt` | personal_data=1 |
 | `jsonl/errors.jsonl` | copied_report_prose=7, copied_short_prose=12 |
-| `jsonl/exploits.jsonl` | copied_short_prose=155, third_party_code=332 |
-| `jsonl/findings.jsonl` | copied_report_prose=445, copied_short_prose=737, poc_source=155, third_party_code=285 |
+| `jsonl/exploits.jsonl` | copied_short_prose=154, third_party_code=855 |
+| `jsonl/findings.jsonl` | copied_report_prose=428, copied_short_prose=693, poc_source=154, third_party_code=957 |
 | `jsonl/metadata.jsonl` |  |
-| `jsonl/negative_findings.jsonl` | copied_report_prose=29, copied_short_prose=712, poc_source=191, third_party_code=542 |
-| `jsonl/patches.jsonl` | copied_report_prose=12, copied_short_prose=105 |
+| `jsonl/negative_findings.jsonl` | copied_report_prose=29, copied_short_prose=698, poc_source=189, third_party_code=1655 |
+| `jsonl/patches.jsonl` | copied_report_prose=12, copied_short_prose=105, patch_diff=38, third_party_code=249 |
 | `jsonl/protocol.jsonl` |  |
-| `jsonl_ml/findings_cairo.jsonl` | copied_report_prose=8, copied_short_prose=16 |
-| `jsonl_ml/findings_move.jsonl` | copied_report_prose=13, copied_short_prose=17 |
-| `jsonl_ml/findings_reports.jsonl` | copied_report_prose=44, copied_short_prose=46 |
-| `jsonl_ml/findings_rust.jsonl` | copied_report_prose=9, copied_short_prose=45, personal_data=4 |
+| `jsonl_ml/findings_cairo.jsonl` | copied_report_prose=8, copied_short_prose=16, patch_diff=3 |
+| `jsonl_ml/findings_move.jsonl` | copied_report_prose=13, copied_short_prose=17, patch_diff=7 |
+| `jsonl_ml/findings_reports.jsonl` | copied_report_prose=44, copied_short_prose=46, third_party_code=146 |
+| `jsonl_ml/findings_rust.jsonl` | copied_report_prose=9, copied_short_prose=45, patch_diff=7, personal_data=4 |
 | `jsonl_ml/findings_vyper.jsonl` | copied_report_prose=51, copied_short_prose=51, personal_data=96 |
 | `jsonl_ml/sources_cairo.jsonl` | copied_short_prose=14 |
 | `jsonl_ml/sources_move.jsonl` | copied_short_prose=18 |
 | `jsonl_ml/sources_reports.jsonl` | copied_short_prose=5 |
 | `jsonl_ml/sources_rust.jsonl` | copied_short_prose=25 |
 | `jsonl_ml/sources_vyper.jsonl` | copied_short_prose=51 |
-| `jsonl_v3/findings.jsonl` | copied_short_prose=15424 |
+| `jsonl_v3/findings.jsonl` | copied_report_prose=4979, copied_short_prose=20533, patch_diff=2487, personal_data=10, third_party_code=42284 |
 | `jsonl_v3/sources.jsonl` |  |
-| `jsonl_v4/findings.jsonl` | copied_report_prose=8122, copied_short_prose=18039, personal_data=2059, third_party_code=1948 |
+| `jsonl_v4/findings.jsonl` | copied_report_prose=8053, copied_short_prose=9762, personal_data=2957, poc_source=37, third_party_code=4487 |
 | `jsonl_v4/sources.jsonl` |  |
 | `reports/poc_attempts.jsonl` |  |
 | `splits_v2/quarantine.jsonl` | copied_report_prose=1, copied_short_prose=3 |
-| `splits_v2/test.jsonl` | copied_report_prose=120, copied_short_prose=443, poc_source=87, third_party_code=124 |
-| `splits_v2/train.jsonl` | copied_report_prose=196, copied_short_prose=670, poc_source=162, third_party_code=853 |
-| `splits_v2/validation.jsonl` | copied_report_prose=172, copied_short_prose=601, poc_source=97, third_party_code=182 |
+| `splits_v2/test.jsonl` | copied_report_prose=38, copied_short_prose=414, patch_diff=57, poc_source=18, third_party_code=978 |
+| `splits_v2/train.jsonl` | copied_report_prose=80, copied_short_prose=535, poc_source=97, third_party_code=1108 |
+| `splits_v2/validation.jsonl` | copied_report_prose=79, copied_short_prose=494, patch_diff=47, poc_source=74, third_party_code=1728 |
 | `splits_v2_2/quarantine.jsonl` |  |
 | `splits_v2_2/test.jsonl` |  |
 | `splits_v2_2/train.jsonl` |  |
@@ -186,7 +187,7 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `tests/fixtures/broken/taxonomy_unjustified_swc.jsonl` | copied_short_prose=54 |
 | `tests/fixtures/broken/taxonomy_valid.jsonl` | copied_short_prose=54 |
 | `tests/fixtures/good/jsonl_v4/findings.jsonl` | copied_short_prose=2 |
-| `training/attacker_reasoning.jsonl` | copied_short_prose=45 |
+| `training/attacker_reasoning.jsonl` |  |
 | `training/canonical/detection.train.part-000.jsonl` | copied_report_prose=97, copied_short_prose=135 |
 | `training/canonical/language.train.part-000.jsonl` | copied_report_prose=4986, copied_short_prose=14 |
 | `training/canonical/language.train.part-001.jsonl` | copied_report_prose=2985, copied_short_prose=65 |
@@ -195,7 +196,33 @@ Rows holding expressive content across every scanned layer: **125289** in 91 rec
 | `training/exploit_reasoning.jsonl` |  |
 | `training/negative_reasoning.jsonl` |  |
 | `training/patch_reasoning.jsonl` |  |
-| `training/vulnerability_detection.jsonl` | copied_short_prose=45, third_party_code=77 |
+| `training/vulnerability_detection.jsonl` |  |
+| `wave1/00_governance/rights.jsonl` |  |
+| `wave1/00_governance/source_registry.jsonl` |  |
+| `wave1/01_dedup/overlap_manifest.jsonl` |  |
+| `wave1/01_dedup/registry.jsonl` |  |
+| `wave1/03_candidates/c4_mitigation/issues.jsonl` | copied_report_prose=331, copied_short_prose=341, third_party_code=336 |
+| `wave1/03_candidates/formal_specs/rules.jsonl` | copied_report_prose=6479, copied_short_prose=288, third_party_code=6767 |
+| `wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl` |  |
+| `wave1/03_candidates/judge/issues.jsonl` | copied_report_prose=613, copied_short_prose=613, third_party_code=613 |
+| `wave1/03_candidates/markdown_two_revision/candidates.jsonl` | copied_report_prose=556, copied_short_prose=556, third_party_code=556 |
+| `wave1/03_candidates/reevmbench/harnesses.jsonl` | copied_report_prose=62, poc_source=62, third_party_code=62 |
+| `wave1/04_admitted/c4_mitigation/findings.jsonl` | copied_report_prose=241, copied_short_prose=247, third_party_code=244 |
+| `wave1/04_admitted/formal_specs/findings.jsonl` | copied_report_prose=891, copied_short_prose=4, third_party_code=895 |
+| `wave1/04_admitted/ghsa_web3_netnew/findings.jsonl` |  |
+| `wave1/04_admitted/judge/findings.jsonl` | copied_report_prose=71, copied_short_prose=71, third_party_code=71 |
+| `wave1/04_admitted/markdown_two_revision/findings.jsonl` | copied_report_prose=373, copied_short_prose=373, third_party_code=373 |
+| `wave1/04_admitted/reevmbench/findings.jsonl` | copied_report_prose=51, poc_source=51, third_party_code=51 |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json` | personal_data=1 |
+| `wave1/benchmark_wave1/F_false_positive_rejection.jsonl` | copied_report_prose=147, third_party_code=147 |
+| `wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl` | copied_report_prose=426, third_party_code=426 |
+| `wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl` | copied_report_prose=254, copied_short_prose=1, third_party_code=255 |
+| `wave1/benchmark_wave1/G_patch_verification.jsonl` | copied_report_prose=241, copied_short_prose=3, third_party_code=244 |
+| `wave1/benchmark_wave1/J_verified_patch.jsonl` |  |
+| `wave1/benchmark_wave1/invariants.jsonl` | copied_report_prose=296, copied_short_prose=1, third_party_code=297 |
+| `wave1/benchmark_wave1/prove_candidates.jsonl` | copied_report_prose=10, third_party_code=10 |
+| `wave1/benchmark_wave1/prove_incidents.jsonl` | copied_report_prose=51, poc_source=51, third_party_code=51 |
+| `wave1/benchmark_wave1/severity_reconciliation.jsonl` | copied_report_prose=373, third_party_code=373 |
 
 ## Licence-status contradictions
 
@@ -209,6 +236,9 @@ Values are **not** reproduced here. For each artefact the locator, the occurrenc
 
 | artefact | occurrences | distinct personal | named-contact block |
 |---|---|---|---|
+| `Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl` | 1 | 1 | yes |
+| `Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl` | 1 | 1 | yes |
+| `Vbeta/derived_vbeta/records.jsonl` | 6 | 4 | yes |
 | `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | 102 | 2 | yes |
 | `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | 641 | 38 | yes |
 | `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | 699 | 46 | yes |
@@ -217,13 +247,18 @@ Values are **not** reproduced here. For each artefact the locator, the occurrenc
 | `benchmark/retired_families/L_severity_reconciliation.jsonl` | 17 | 1 | no |
 | `benchmark/retired_families/N_attacker_identity_extraction.jsonl` | 5 | 1 | no |
 | `benchmark/retired_families/O_record_class_and_scope.jsonl` | 5 | 1 | no |
-| `derived_v4/admitted_ledger.jsonl` | 2059 | 59 | yes |
+| `derived_v3/candidate_ledger.jsonl` | 10 | 4 | yes |
+| `derived_v3/records.jsonl` | 1 | 1 | yes |
+| `derived_v4/admitted_ledger.jsonl` | 2957 | 55 | yes |
+| `derived_v4/candidate_ledger.jsonl` | 1120 | 54 | yes |
 | `experiments_v3/gamma/attempt_2/stderr.txt` | 1 | 1 | no |
 | `jsonl_ml/findings_rust.jsonl` | 4 | 1 | no |
 | `jsonl_ml/findings_vyper.jsonl` | 96 | 1 | no |
-| `jsonl_v4/findings.jsonl` | 2059 | 59 | yes |
+| `jsonl_v3/findings.jsonl` | 10 | 4 | yes |
+| `jsonl_v4/findings.jsonl` | 2957 | 55 | yes |
+| `wave1/05_experiments/reevmbench/reevmbench__audits__2024-08-phi/result.json` | 1 | 1 | no |
 
-Total artefacts holding personal contact data: **13**.
+Total artefacts holding personal contact data: **21**.
 
 ## Harness licence gating
 
@@ -231,6 +266,6 @@ Total artefacts holding personal contact data: **13**.
 
 ## History
 
-- commits scanned: 106
-- paths added then removed: 39
+- commits scanned: 118
+- paths added then removed: 37
 - full findings: `reports/history_exposure.md`

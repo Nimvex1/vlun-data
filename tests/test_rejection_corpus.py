@@ -185,9 +185,13 @@ class ProseUsesTheDocumentedAxes(unittest.TestCase):
         original = readme.read_text(encoding="utf-8")
         try:
             readme.write_text(original.replace(
-                "rejection evidence over 458 rejected submissions",
+                # Phase 4 pin sync: the README phrase is now 444 (was 458)
+                # because the rejection corpus has 444 rows after the
+                # hydration/purge. The injected 331/127 values stay deliberately
+                # wrong - that is what makes this fixture fail the prose check.
+                "rejection evidence over 444 rejected submissions",
                 "331 negatives with a defensible reason (127 still unknown); "
-                "rejection evidence over 458 rejected submissions"), encoding="utf-8")
+                "rejection evidence over 444 rejected submissions"), encoding="utf-8")
             stats = json.loads(STATS.read_text(encoding="utf-8"))
             bad = gate.check_prose(ROOT, stats)
             self.assertTrue(any("README.md" in b and "defensible" in b for b in bad), bad)

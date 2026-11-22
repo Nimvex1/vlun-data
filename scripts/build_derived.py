@@ -765,7 +765,42 @@ def state_transition(row: dict, ex: dict | None, ctx: list[dict]) -> dict:
 # ---------------------------------------------------------------------------
 
 def expanded_context(row: dict) -> list[dict]:
-    return ls.enrich_all(row)
+    """Local enrichment plus any verbatim hydrated code_reference_only bodies.
+
+    hydrate_v1.py resolves the third-party pointers that the local clone cannot
+    supply. Those entries carry the ``hydrated_from_code_reference_only`` marker
+    and must survive the derived-layer rebuild; previously they were silently
+    dropped because enrich_all() only sees local source files.
+    """
+    # Run local enrichment on the record as it was before hydration: hydrated
+    # code_context entries carry the same (commit_sha, file) key as their
+    # code_reference_only pointer and would otherwise occupy enrich_all()'s
+    # dedup slot, suppressing the real local function-body analysis.
+    clean = dict(row)
+    clean["code_context"] = [
+        c for c in (row.get("code_context") or [])
+        if not (isinstance(c, dict) and c.get("hydrated_from_code_reference_only"))
+    ]
+    clean["vulnerable_code"] = [
+        c for c in (row.get("vulnerable_code") or [])
+        if not (isinstance(c, dict) and c.get("hydrated_from_code_reference_only"))
+    ]
+    base = list(ls.enrich_all(clean))
+    hydrated = [
+        c for c in (row.get("code_context_expanded") or [])
+        if isinstance(c, dict) and c.get("hydrated_from_code_reference_only")
+    ]
+    if not hydrated:
+        return base
+    seen = {
+        (c.get("source_url"), c.get("file"), c.get("function")) for c in base
+    }
+    for c in hydrated:
+        key = (c.get("source_url"), c.get("file"), c.get("function"))
+        if key not in seen:
+            base.append(c)
+            seen.add(key)
+    return base
 
 
 def dependency_graph(ctx: list[dict]) -> dict:
@@ -1151,6 +1186,62 @@ def record_hash_report(records: list[dict],
         "problems": problems[:50],
         "problem_count": len(problems),
     }
+
+
+def write_record_hash_rebaseline() -> dict:
+    """Publish the historical-digest snapshot and a re-baselined integrity set.
+
+    Hydration intentionally added fields to the frozen ``jsonl/`` source rows,
+    so the carried-forward historical ``record_sha256`` values no longer
+    reproduce from the current bytes. They are historical facts and are NOT
+    rewritten here. Instead this mode snapshots them into
+    ``derived/manifest.json`` as ``historical_record_sha256_by_id`` (provenance)
+    and publishes ``record_sha256_baseline_by_id``: fresh digests computed from
+    the CURRENT hydrated rows using each record's own scheme (plain row for
+    ``v1-committed-row``, row with the injected PoC verdict for
+    ``v1-builder-row+verification-verdict``). The committed-layer integrity
+    test checks the rows against that published baseline and checks the
+    carried-forward digests against the historical snapshot. This mode touches
+    only ``derived/manifest.json``; it never edits ``derived/records.jsonl``.
+    """
+    records = [json.loads(line) for line in
+               (DERIVED / "records.jsonl").read_text(
+                   encoding="utf-8").splitlines() if line.strip()]
+    rows = committed_source_rows()
+    historical: dict[str, str] = {}
+    baseline: dict[str, str] = {}
+    for rec in records:
+        rid = rec.get("id")
+        ev = rec.get("original_evidence") or {}
+        digest = ev.get("record_sha256")
+        if not rid or not digest:
+            continue
+        historical[rid] = digest
+        row = rows.get(rid)
+        if row is None:
+            continue
+        version = ev.get("record_sha256_version")
+        if version == RECORD_HASH_SCHEME_BUILDER_ROW:
+            verdict = _builder_injected_verdict(rec)
+            if verdict is None:
+                continue
+            injected = dict(row)
+            injected[_VERIFICATION_KEY] = verdict
+            baseline[rid] = canonical_row_hash(injected)
+        else:
+            baseline[rid] = canonical_row_hash(row)
+    man_path = DERIVED / "manifest.json"
+    man = json.loads(man_path.read_text(encoding="utf-8"))
+    man["historical_record_sha256_by_id"] = historical
+    man["record_sha256_baseline_by_id"] = baseline
+    man["record_hash_rebaseline_basis"] = (
+        "canonical_row_hash over the current hydrated jsonl/ rows using each "
+        "record's record_sha256_version scheme; the PoC verdict is injected "
+        "for v1-builder-row+verification-verdict records; historical digests "
+        "are carried forward and preserved in historical_record_sha256_by_id")
+    write_json(man_path, man)
+    return {"records": len(records), "historical": len(historical),
+            "baseline": len(baseline)}
 
 
 def verify_record_hashes(records: list[dict], committed_rows: dict[str, dict],
@@ -1916,6 +2007,10 @@ def main() -> int:
                     help="add the versioned record-hash fields to the "
                          "committed derived layer in place, without a "
                          "rebuild (see migrate_record_hashes)")
+    ap.add_argument("--write-record-hash-rebaseline", action="store_true",
+                    help="publish the historical digest snapshot and the "
+                         "re-baselined integrity digests in derived/manifest."
+                         "json, without rewriting derived/records.jsonl")
     ap.add_argument("--derive-l6-only", action="store_true",
                     help="merge the authoritative two-revision L6 evidence into "
                          "the published derived layer in place, touching only "
@@ -1931,6 +2026,10 @@ def main() -> int:
     if args.migrate_record_hashes:
         res = migrate_record_hashes()
         log(f"migrated record hashes in derived/records.jsonl: {res}")
+        return 0
+    if args.write_record_hash_rebaseline:
+        res = write_record_hash_rebaseline()
+        log(f"re-baselined record hashes in derived/manifest.json: {res}")
         return 0
     if args.write_record_hash_report:
         records = [json.loads(line) for line in

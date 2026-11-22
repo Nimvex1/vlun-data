@@ -1,20 +1,20 @@
 {
   "blockers_per_record_class": {
     "char_span_not_byte_reproducible": 0,
-    "extractor_relative_span_not_byte_reproducible": 7027,
-    "multi_finding_source_no_exact_anchor": 3509,
-    "unknown_severity_no_answer": 894,
+    "extractor_relative_span_not_byte_reproducible": 0,
+    "multi_finding_source_no_exact_anchor": 3431,
+    "unknown_severity_no_answer": 868,
     "unverified_source_ref": 0
   },
   "citation_exactness_tolerance_bytes": 0,
   "counts": {
-    "abstain_expected": 11430,
-    "answerable": 11610,
-    "total": 12504,
-    "unavailable": 11430,
-    "verified": 1074,
-    "verified_char_span_bytes": 10,
-    "verified_source_file_full_bytes": 1064
+    "abstain_expected": 4299,
+    "answerable": 3755,
+    "total": 4623,
+    "unavailable": 4299,
+    "verified": 324,
+    "verified_char_span_bytes": 0,
+    "verified_source_file_full_bytes": 324
   },
   "family_version": "span_tasks_v1",
   "generator": "scripts/build_span_tasks.py",

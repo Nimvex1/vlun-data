@@ -6,8 +6,8 @@ normalization_version 3.1 (dataset 3.0). V3.0 files untouched; this layer is fra
 
 fragments admitted: 7037 / 29176
 fragment decisions: {'admitted': 7037, 'rejected_no_boundary': 718, 'rejected_bad_title': 3436, 'rejected_no_severity': 9892, 'rejected_poor_extraction': 235, 'duplicate_native_id': 7858, 'rejected_duplicate': 7858}
-overlays: 9744 (conflicts kept, old values win: 0)
-preview rows: 12504
+overlays: 9697 (conflicts kept, old values win: 0)
+preview rows: 11660
 patch candidates (all not_testable): 47
 
 ## Confidence distributions
@@ -17,7 +17,7 @@ language/ecosystem: {'unknown': 3622, 'derived': 1526, 'explicit': 1889}
 commit roles: {'fix': 6, 'scope': 20, 'unknown': 4}
 
 ## Extraction quality
-{'text_cmap': 1394, 'despaced_reports': 133, 'text_naive': 174, 'no_body_offline': 1107, 'dhl_attack_sequence': 878, 'text_markdown': 281, 'md_code_files': 3130, 'overlay_superseded': 6137, 'corroboration_links': 0, 'patch_candidates': 47, 'preview_rows': 12504}
+{'text_cmap': 1394, 'despaced_reports': 133, 'text_naive': 174, 'no_body_offline': 1107, 'dhl_attack_sequence': 878, 'text_markdown': 281, 'md_code_files': 3084, 'overlay_superseded': 6137, 'corroboration_links': 0, 'patch_candidates': 47, 'preview_rows': 11660}
 
 ## Splitter use
 {'_split_abdk': 191, '_split_generic_severity': 407, '_split_anza': 68, '_split_certora': 192, '_split_cyba': 14, '_split_nethermind': 190, '_split_sigmaprime': 154, '_split_zellic': 392}
@@ -44,18 +44,18 @@ zellic-publications | 2289 | 12408
 
 Metric | Before | After
 ---|---|---
-rows | 7712 | 12504
-severity_known | 4717 | 11610
+rows | 7712 | 11660
+severity_known | 4717 | 10792
 class_known | 207 | 2093
-language_known | 6640 | 8882
-ecosystem_known | 6668 | 8507
-repository_known | 4940 | 4520
-exact_vulnerable_commits | 1205 | 1077
+language_known | 6640 | 8038
+ecosystem_known | 6668 | 7663
+repository_known | 4940 | 3715
+exact_vulnerable_commits | 1205 | 351
 exact_fixed_commits | 47 | 47
-affected_files | 207 | 5790
+affected_files | 207 | 5744
 affected_functions | - | 0
 line_refs | - | 213
-published_pocs | 881 | 1700
+published_pocs | 881 | 1676
 executable_pocs | - | 0
 experiment_ready_tier_a | - | 0
 executed_pocs | - | 0

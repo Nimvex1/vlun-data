@@ -30,6 +30,7 @@ from vlun import (  # noqa: E402
     DATASET_VERSION, DERIVED, JSONL, REPORTS, RETIRED_FAMILIES, ROOT, SPLITS, WORK, log, read_jsonl,
     carry_foreign_task_entries, retired_manifest_entry, write_json, write_jsonl,
 )
+import v1_purge as vp  # noqa: E402
 
 BENCH = ROOT / "benchmark"
 SPLITS_V2 = ROOT / "splits_v2"
@@ -42,7 +43,23 @@ def _load(path: Path):
 def code_view(rec: dict, limit: int = 4000) -> dict:
     """What a model is shown: redistributed code only, never withheld text."""
     blocks = []
-    for e in list(rec.get("code_context") or [])[:6]:
+    # Exploit rows carry their cited source under ``vulnerable_code`` rather than
+    # ``code_context``; both are verbatim inline source and belong in the view.
+    entries = [
+        e for e in (list(rec.get("code_context") or []) + list(rec.get("vulnerable_code") or []))
+        if e.get("snippet")
+    ]
+    # Prefer the most informative inline source first. Hydrated code_reference_only
+    # entries carry the full verbatim function body; a one-line declaration stub
+    # must not crowd them out of the six visible blocks.
+    entries.sort(
+        key=lambda e: (
+            bool(e.get("hydrated_from_code_reference_only")),
+            len(e.get("snippet") or ""),
+        ),
+        reverse=True,
+    )
+    for e in entries[:6]:
         if not e.get("snippet"):
             continue
         blocks.append({"file": e.get("file"), "contract": e.get("contract"),
@@ -153,12 +170,16 @@ def task_h_verified_exploit(experiment: dict, split: str, rec: dict) -> dict | N
     }
 
 
-def task_i_verified_non_exploit(negative: dict, split: str) -> dict | None:
+def task_i_verified_non_exploit(negative: dict, split: str, rec: dict | None = None) -> dict | None:
     status = negative.get("status")
     if status not in ("false_positive_verified", "exploit_reproduced",
                       "historical_environment_unavailable"):
         return None
     scorable = status in ("false_positive_verified", "exploit_reproduced")
+    # The source finding row carries the verbatim vulnerable code. Include it
+    # here so the task is FULLY_TRAINABLE (inline code >=50 chars and prose
+    # >=100 chars) without inventing a single byte.
+    code = code_view(rec) if rec else None
     return {
         "task": "I_verified_non_exploit",
         "split": split,
@@ -168,6 +189,7 @@ def task_i_verified_non_exploit(negative: dict, split: str) -> dict | None:
             "blocking_condition_under_test": negative.get("blocking_condition_under_test"),
             "prompt": ("Is this exploitable at the audited revision? Answer exploitable, "
                        "not_exploitable, or inconclusive."),
+            **({"code": code} if code and code.get("code_blocks") else {}),
         },
         "answer_key": {
             "label": ("exploitable" if status == "exploit_reproduced"
@@ -379,21 +401,53 @@ def task_e_verification(derived: dict, split: str, rec: dict, vidx: dict) -> dic
     }
 
 
+_NEGATIVE_CODE: dict | None = None
+
+
+def _hydrated_negative_code() -> dict:
+    """Verbatim disputed source for each canonical negative finding."""
+    global _NEGATIVE_CODE
+    if _NEGATIVE_CODE is None:
+        _NEGATIVE_CODE = {}
+        path = ROOT / "jsonl" / "negative_findings.jsonl"
+        if path.exists():
+            for row in _load(path):
+                rid = (row.get("finding") or {}).get("id")
+                if not rid:
+                    continue
+                _NEGATIVE_CODE[rid] = [
+                    c for c in (row.get("code_context") or [])
+                    if len(str(c.get("snippet") or "")) >= 50
+                ]
+    return _NEGATIVE_CODE
+
+
 def task_f_false_positive(hard_negative: dict, split: str) -> dict:
     blocking = hard_negative["blocking_condition"]
     grounded = blocking["evidence_type"] in ("derived_fact", "reported_claim")
+    code_blocks = [{"file": b["file"], "function": b["function"],
+                    "line_start": b["line_start"], "line_end": b["line_end"],
+                    "commit_sha": b["commit_sha"],
+                    "code": (b["snippet"][:4000] if b["snippet_sha256"] in
+                             {x["snippet_sha256"] for x in hard_negative["relevant_code"]} else None),
+                    "text_withheld": True}
+                   for b in hard_negative["relevant_code"][:6]]
+    if not any(b.get("code") for b in code_blocks):
+        rid = hard_negative["source_record"]["id"]
+        for c in _hydrated_negative_code().get(rid, [])[:6]:
+            code_blocks.append({
+                "file": c.get("file"), "function": c.get("function"),
+                "line_start": c.get("line_start"), "line_end": c.get("line_end"),
+                "commit_sha": c.get("commit_sha"),
+                "code": c["snippet"][:4000], "text_withheld": False,
+                "source_url": c.get("source_url"),
+            })
     return {
         "task": "F_false_positive_rejection",
         "split": split,
         "id": f"F::{split}::{hard_negative['source_record']['id']}",
         "input": {
-            "code": [{"file": b["file"], "function": b["function"],
-                      "line_start": b["line_start"], "line_end": b["line_end"],
-                      "commit_sha": b["commit_sha"],
-                      "code": (b["snippet"][:4000] if b["snippet_sha256"] in
-                               {x["snippet_sha256"] for x in hard_negative["relevant_code"]} else None),
-                      "text_withheld": True}
-                     for b in hard_negative["relevant_code"][:6]],
+            "code": code_blocks,
             "claim": hard_negative["candidate_claim"]["value"],
             "prompt": "Is this claim a valid vulnerability? Answer valid or invalid and cite "
                       "the blocking condition, or answer insufficient_evidence."},
@@ -568,7 +622,7 @@ def main() -> int:
                     tasks["H"].append(h)
             nexp = negative_experiments.get(fid)
             if nexp:
-                i = task_i_verified_non_exploit(nexp, split)
+                i = task_i_verified_non_exploit(nexp, split, rec)
                 if i:
                     tasks["I"].append(i)
             pv = patch_verification.get(fid)
@@ -647,6 +701,10 @@ def main() -> int:
                 continue
             seen_ids.add(r["id"])
             rows.append(r)
+        # Benchmark tasks are model-visible training/eval tables. A task row
+        # that is not FULLY_TRAINABLE is removed (not marked in place) and a
+        # full-record copy goes to the v1 quarantine ledger with its id.
+        rows, _ = vp.enforce_list(rows, f"benchmark/{name}.jsonl")
         tasks[key] = rows
         write_jsonl(BENCH / f"{name}.jsonl", rows)
         statuses = collections.Counter(r["answer_key_status"] for r in rows)

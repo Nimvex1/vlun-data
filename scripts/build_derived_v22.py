@@ -1000,6 +1000,18 @@ def build_record(finding: dict, registry: dict[str, dict],
         "evidence_summary": ev,
         "sources_view": src,
         "code_context_view": cc,
+        # Verbatim hydration carried from the canonical jsonl_ml finding. Each
+        # snippet/diff is copied byte-for-byte from a real local source by
+        # scripts/hydrate_v22_v3.py; none of these fields is synthesised.
+        "code_context_snippets": [
+            {"file": c.get("file"), "commit_sha": c.get("commit_sha"),
+             "language": c.get("language"), "snippet": c["snippet"]}
+            for c in (finding.get("code_context") or [])
+            if isinstance(c, dict) and c.get("snippet")
+        ],
+        "patch_diff": ((finding.get("patch") or {}).get("diff")
+                       if isinstance(finding.get("patch"), dict) else None),
+        "hydration_status": (finding.get("_hydration") or {}).get("status"),
         "experiment_view": exp,
         "taxonomy": tax,
         "attacker_model": att,
@@ -1145,6 +1157,9 @@ def main() -> int:
               "experiment_levels_provisional", "experiment_levels_demoted",
               "evidence_strongest", "attacker_identity"):
         log(f"  {k}: {manifest[k]}")
+    # Move unhydratable rows to quarantine and out of trainable tables.
+    from hydrate_v22_v3 import purge_v22  # local import: avoids a cycle at load
+    purge_v22({})
     return 0
 
 

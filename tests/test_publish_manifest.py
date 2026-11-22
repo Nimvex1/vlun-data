@@ -3,8 +3,16 @@
 records_written (1898) is the historical v1 publish figure and is NOT a
 distinct-record count -- it counts jsonl/ rows plus splits_v2/ pointer rows.
 Nothing previously said so, so the number read as a record count it is not.
-This test recomputes it and pins the breakdown, so the ambiguity cannot
-silently return.
+
+CHANGE (post-purge, 2026-11-22): the hydration/purge shrank the live layers
+from 953 jsonl rows / 945 split rows to 914 / 910 (total 1,824).  The earlier
+915 / 910 (1,825) figure was superseded when one remaining orphan row was
+purged from jsonl/patches.jsonl (38 -> 37 rows), taking the jsonl total from
+915 to 914.  The `records_written` key is deliberately FROZEN historical: it is pinned as
+`v1_manifest_records_written` by scripts/audit_pre_upgrade.py and copied into
+reports/{pre_upgrade_audit,rights_history_exposure,rights_inventory}.json.
+Only the recomputable breakdown is re-frozen to live data; the historical
+figure is guarded by its own pin rather than silently rewritten.
 """
 from __future__ import annotations
 
@@ -45,7 +53,12 @@ class TestPublishManifest(unittest.TestCase):
         bd = self.m["records_written_breakdown"]
         self.assertEqual(bd["jsonl_source_rows"], jsonl_rows)
         self.assertEqual(bd["splits_v2_rows"], split_rows)
-        self.assertEqual(self.m["records_written"], jsonl_rows + split_rows)
+        # The breakdown is now live data (914 + 910 = 1,824); the historical
+        # records_written (1898) is pinned by audit_pre_upgrade.py and must
+        # NOT be recomputed to the new total.  Guard both facts explicitly.
+        self.assertEqual(jsonl_rows + split_rows, 1824)
+        self.assertEqual(self.m["records_written"], 1898,
+                         "frozen v1 historical pin (audit_pre_upgrade.py)")
 
     def test_redaction_counts_are_present(self):
         for k in ("code_context_entries_removed", "source_lines_withheld",

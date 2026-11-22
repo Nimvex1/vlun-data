@@ -506,11 +506,19 @@ def _retrieval_predictions(rows: list[dict]) -> dict[str, str]:
     norm_of = {t: math.sqrt(math.fsum(v * v for v in vec.values()))
                for t, vec in vecs.items()}
     # inverted index over the train rows, so a query only scores the train
-    # rows that share a token with it
-    index: dict[str, list[int]] = collections.defaultdict(list)
+    # rows that share a token with it. Store the train-side weight alongside
+    # the row index and drop zero-weight postings (zero IDF, df == n_train):
+    # w * wi is then 0.0 for every query, so the posting can never change a
+    # dot product or the winning neighbour. Skipping them avoids touching all
+    # n_train rows for such tokens.
+    index: dict[str, list[tuple[int, float]]] = collections.defaultdict(list)
     for i, r in enumerate(train):
+        vec = vecs[r["tid"]]
         for tok in set(toks[r["tid"]]):
-            index[tok].append(i)
+            wi = vec.get(tok, 0.0)
+            if wi == 0.0:
+                continue
+            index[tok].append((i, wi))
     out: dict[str, str] = {}
     train_pos = {r["tid"]: i for i, r in enumerate(train)}
     for r in rows:
@@ -520,11 +528,11 @@ def _retrieval_predictions(rows: list[dict]) -> dict[str, str]:
         dots: dict[int, float] = collections.defaultdict(float)
         if nq:
             for tok, w in q.items():
-                for i in index.get(tok, ()):
+                for i, wi in index.get(tok, ()):
                     if i == self_idx:
                         # a train row never retrieves itself
                         continue
-                    dots[i] += w * vecs[train[i]["tid"]].get(tok, 0.0)
+                    dots[i] += w * wi
         best_score = -1.0
         best = None
         for i, dot in sorted(dots.items()):

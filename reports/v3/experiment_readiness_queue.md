@@ -4,7 +4,7 @@ No execution claimed. Tier A first; every row names its blockers.
 
 ## Tier A (0 rows, showing 0)
 
-## Tier B (952 rows, showing 40)
+## Tier B (947 rows, showing 40)
 - c4-phi-findings:102 [High] poc=False repo=True rev=True blockers=['no_poc_published']
 - c4-phi-findings:103 [High] poc=False repo=True rev=True blockers=['no_poc_published']
 - c4-phi-findings:106 [High] poc=False repo=True rev=True blockers=['no_poc_published']
@@ -46,7 +46,7 @@ No execution claimed. Tier A first; every row names its blockers.
 - c4-phi-findings:169 [High] poc=False repo=True rev=True blockers=['no_poc_published']
 - c4-phi-findings:17 [High] poc=False repo=True rev=True blockers=['no_poc_published']
 
-## Tier C (12531 rows, showing 40)
+## Tier C (12457 rows, showing 40)
 - abdk-audits:0x/ABDK_0x_MetaTransaction_v_1_0 [unknown] poc=False repo=False rev=False blockers=['no_poc_published', 'repository_unknown', 'revision_unknown']
 - abdk-audits:0x/ABDK_0x_MetaTransaction_v_1_0:CVF-1 [unknown] poc=False repo=False rev=False blockers=['no_poc_published', 'repository_unknown', 'revision_unknown']
 - abdk-audits:0x/ABDK_0x_MetaTransaction_v_1_0:CVF-10 [unknown] poc=False repo=False rev=False blockers=['no_poc_published', 'repository_unknown', 'revision_unknown']
@@ -88,7 +88,7 @@ No execution claimed. Tier A first; every row names its blockers.
 - abdk-audits:1inch/ABDK_1inch_LOSPhaseII_v_1_0:CVF-24 [unknown] poc=False repo=False rev=False blockers=['no_poc_published', 'repository_unknown', 'revision_unknown']
 - abdk-audits:1inch/ABDK_1inch_LOSPhaseII_v_1_0:CVF-25 [unknown] poc=False repo=False rev=False blockers=['no_poc_published', 'repository_unknown', 'revision_unknown']
 
-## Tier D (1168 rows, showing 40)
+## Tier D (1153 rows, showing 40)
 - c4-phi-findings:10 [Medium] poc=False repo=True rev=True blockers=['no_poc_published']
 - c4-phi-findings:100 [Medium] poc=False repo=True rev=True blockers=['no_poc_published']
 - c4-phi-findings:101 [Medium] poc=False repo=True rev=True blockers=['no_poc_published']

@@ -1,5 +1,5 @@
 {
-  "commits_scanned": 106,
+  "commits_scanned": 118,
   "current_exposure_items_in_history_scan": [
     {
       "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
@@ -46,38 +46,6 @@
   ],
   "generated_by": "scripts/inventory_rights.py",
   "historical_exposure_items": [
-    {
-      "added_in_commit": "7f907c56698be7f1739eb031b282bd1f6078cb2e",
-      "class": "project_generated_records",
-      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
-      "path": ".swarm/ewc-fisher.json",
-      "present_in_current_tree": false,
-      "reachable_bytes": 10710,
-      "reachable_from_published_ref": false,
-      "reachable_from_refs": [
-        "refs/stash"
-      ],
-      "reachable_sha256": "4f713792c3eb7a0d3d8f023f35ef1ccb20233dfab5efaaa214b11b2f567c2c39",
-      "removed_in_commit": null,
-      "spdx_declared_in_historical_blob": null,
-      "third_party_expression_historically_published": false
-    },
-    {
-      "added_in_commit": "7f907c56698be7f1739eb031b282bd1f6078cb2e",
-      "class": "project_generated_records",
-      "note": "the blob stays retrievable with `git show <commit>:<path>` and remains in every clone/fork made before removal; removal from the tip does not un-publish it",
-      "path": "VLUN-IMPROVEMENT-PLAN-2026-10-27.md",
-      "present_in_current_tree": false,
-      "reachable_bytes": 33225,
-      "reachable_from_published_ref": false,
-      "reachable_from_refs": [
-        "refs/stash"
-      ],
-      "reachable_sha256": "b3ad430523c53a616cd59aa8d9540f51dc71a87a9347ad9b81278fe12a2e6258",
-      "removed_in_commit": null,
-      "spdx_declared_in_historical_blob": null,
-      "third_party_expression_historically_published": false
-    },
     {
       "added_in_commit": "209deeb4c105c28982f21f7969bd6a997204fe58",
       "class": "project_generated_records",
@@ -1043,7 +1011,7 @@
   "history_rewrite_statement": "No history was rewritten, no commit was amended, no branch was force-pushed and no ref was deleted. Rewriting published history would need explicit authorisation from the repository owner and is not performed by this remediation.",
   "history_rewritten": false,
   "method": "read-only git archaeology: git rev-list --all, git show --diff-filter=A/D --name-only, git show <commit>:<path>, git merge-base --is-ancestor",
-  "paths_added_then_removed": 39,
+  "paths_added_then_removed": 37,
   "published_surfaces": {
     "assessment": "Every commit reachable from an origin/* ref is published on the remote named above, including blobs later deleted from the tip. A DOI is only exposure if the archival docs say one exists; docs/ARCHIVAL.md states that no DOI has been minted in this snapshot, so the Zenodo surface is prepared-but-unpublished.",
     "doi_found_in_repo": false,

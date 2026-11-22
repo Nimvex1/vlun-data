@@ -226,12 +226,29 @@ class TestCommittedFindings(unittest.TestCase):
                           self.audit["families"][fam]["validity_flags"], fam)
 
     def test_saturated_families_are_flagged(self):
-        for fam in ("v3_S_contest_outcome.jsonl",
-                    "v3_T_taxonomy_explicit.jsonl",
-                    "vbeta_U_language_routing.jsonl",
-                    "vbeta_V_source_tier_routing.jsonl"):
-            self.assertIn("saturated",
-                          self.audit["families"][fam]["validity_flags"], fam)
+        """Degenerate families are flagged; the reason changed after purge.
+
+        CHANGE (post-purge, 2026-11-22): only S is still flagged `saturated`.
+        T is a 0-byte file (degeneracy verdict `empty`, flag
+        `holdout_too_small`); U has no test split and is flagged
+        `answer_literal_leak` + `holdout_too_small` (72 of 80 rows leak the
+        answer) instead of saturation; V has no test split and is flagged
+        `single_label` + `holdout_too_small` (all 80 rows are tier 2).  The
+        old saturation figures (0.9983/0.9749/0.9950) no longer exist.  The
+        intent — a degenerate family is flagged, never silently scored — is
+        kept by pinning the CURRENT flag of each family.
+        """
+        want = {
+            "v3_S_contest_outcome.jsonl": ["saturated"],
+            "v3_T_taxonomy_explicit.jsonl": ["holdout_too_small"],
+            "vbeta_U_language_routing.jsonl": ["answer_literal_leak",
+                                               "holdout_too_small"],
+            "vbeta_V_source_tier_routing.jsonl": ["single_label",
+                                                  "holdout_too_small"],
+        }
+        for fam, flags in want.items():
+            self.assertEqual(
+                self.audit["families"][fam]["validity_flags"], flags, fam)
 
     def test_committed_first_published_baseline_headline_is_a_coverage_artifact(self):
         """L-only heuristics retire with L: headline coverage is now zero.
@@ -252,11 +269,20 @@ class TestCommittedFindings(unittest.TestCase):
 
     def test_audit_is_not_a_blanket_condemnation(self):
         """If nothing were clean, the thresholds would be too aggressive to
-        be believed. Family A is the control: it must survive."""
+        be believed. A and C are the controls: both must survive.
+
+        CHANGE (post-purge, 2026-11-22): the committed audit was re-run
+        against the purged C data (720 -> 658 rows) and now reports C with
+        no validity flags, label-mix L1 0.1951, best train-only shortcut
+        0.7966 and ``usable_as_evidence=True``.  The breadcrumb in the old
+        message applied — the audit was re-run; the prose report had not
+        been updated.  Both A and C are now PRIMARY = 1,051 headline rows.
+        """
         clean = [f for f, v in self.audit["families"].items()
                  if v.get("usable_as_evidence")]
         self.assertEqual(
-            clean, ["A_vulnerability_detection.jsonl"],
+            clean, ["A_vulnerability_detection.jsonl",
+                    "C_attacker_reasoning.jsonl"],
             "the set of clean families changed; re-run the audit and update "
             "the report before accepting a different verdict")
 

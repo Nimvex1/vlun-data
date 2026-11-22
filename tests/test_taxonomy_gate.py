@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -33,9 +34,22 @@ import validate_taxonomy as taxgate  # noqa: E402
 INVENTED_LEAF = "RC-999"
 
 
+# A Windows console delivers CTRL_C_EVENT to every process attached to its
+# process group. When several test runs share one console, an interrupt aimed
+# at another run also reaches this gate's child, which then dies with
+# STATUS_CONTROL_C_EXIT (0xC000013A == 3221225786) before Python can print the
+# gate's reason. That failure looks like a crash in the script but is not.
+# Launching each child in its own process group disables CTRL+C for it, so the
+# gate's contract -- exit code 1 and the named reason on stderr -- is what the
+# test observes. No assertion is relaxed.
+_SUBPROCESS_FLAGS = (getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+                     if os.name == "nt" else 0)
+
+
 def run(script, *args):
     return subprocess.run([sys.executable, str(ROOT / "scripts" / script), *args],
-                          capture_output=True, text=True)
+                          capture_output=True, text=True,
+                          creationflags=_SUBPROCESS_FLAGS)
 
 
 def tax_args(tax, assign):

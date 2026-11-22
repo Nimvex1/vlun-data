@@ -13,17 +13,72 @@
   },
   "code_overlap": {
     "count_file_function_pairs": 0,
-    "count_function_signatures": 0,
+    "count_function_signatures": 5,
     "count_identical_snippets": 0,
     "count_normalised_snippets": 0,
     "file_function_pairs": {},
-    "function_signatures": {},
+    "function_signatures": {
+      "fn:maxDeposit(address)": {
+        "test": [
+          "2024-12-bakerfi/M-01"
+        ],
+        "train": [
+          "2024-04-noya/M-10"
+        ]
+      },
+      "fn:maxMint(address)": {
+        "test": [
+          "2024-12-bakerfi/M-01"
+        ],
+        "train": [
+          "2024-04-noya/M-05"
+        ]
+      },
+      "fn:previewRedeem(uint256shares)": {
+        "test": [
+          "2024-12-bakerfi/M-01"
+        ],
+        "train": [
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
+        ]
+      },
+      "fn:previewWithdraw(uint256assets)": {
+        "test": [
+          "2024-12-bakerfi/M-01"
+        ],
+        "train": [
+          "2024-04-noya/submission-1544"
+        ]
+      },
+      "fn:totalAssets()": {
+        "test": [
+          "2024-08-wildcat/11"
+        ],
+        "train": [
+          "2024-04-noya/H-02",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-20",
+          "2024-04-noya/submission-1351",
+          "2024-04-noya/submission-1409"
+        ]
+      }
+    },
     "identical_snippets": {},
     "normalised_snippets": {}
   },
   "exact_overlap": {
     "commit_shas": {
       "main": {
+        "test": [
+          "2024-08-wildcat/H-01",
+          "2024-08-wildcat/M-01",
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/M-03",
+          "2024-08-wildcat/M-04",
+          "2024-08-wildcat/M-05"
+        ],
         "train": [
           "2022-05-alchemix/M-04",
           "2022-05-alchemix/M-11",
@@ -38,7 +93,7 @@
           "2024-01-decent/M-02",
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13"
+          "2024-01-decent/submission-158"
         ]
       }
     },
@@ -94,116 +149,50 @@
     "violations": {}
   },
   "semantic_overlap": {
-    "count": 2,
-    "pairs": [
-      {
-        "a": "2022-05-alchemix/L-05",
-        "a_split": "train",
-        "b": "2024-01-decent/submission-12",
-        "b_split": "validation",
-        "cosine": 0.753
-      },
-      {
-        "a": "2022-05-alchemix/L-06",
-        "a_split": "train",
-        "b": "2024-01-decent/submission-10",
-        "b_split": "validation",
-        "cosine": 0.717
-      }
-    ],
+    "count": 0,
+    "pairs": [],
     "threshold_cosine": 0.7
   },
   "source": {
     "counts": {
-      "test": 253,
-      "train": 415,
-      "validation": 277
+      "test": 242,
+      "train": 402,
+      "validation": 264
     },
-    "splits_dir": "splits",
+    "splits_dir": "splits_v2",
     "thresholds": {
       "near_duplicate_jaccard": 0.8,
       "semantic_cosine": 0.7
     }
   },
-  "splits_v2": {
-    "counts": {
-      "test": 253,
-      "train": 413,
-      "validation": 277
-    },
-    "offending_pairs": [
-      {
-        "a": "2022-05-alchemix/L-05",
-        "b": "2024-01-decent/submission-12",
-        "detector": "semantic_overlap",
-        "similarity": {
-          "a": "2022-05-alchemix/L-05",
-          "a_split": "train",
-          "b": "2024-01-decent/submission-12",
-          "b_split": "validation",
-          "cosine": 0.753
-        }
-      },
-      {
-        "a": "2022-05-alchemix/L-06",
-        "b": "2024-01-decent/submission-10",
-        "detector": "semantic_overlap",
-        "similarity": {
-          "a": "2022-05-alchemix/L-06",
-          "a_split": "train",
-          "b": "2024-01-decent/submission-10",
-          "b_split": "validation",
-          "cosine": 0.717
-        }
-      }
-    ],
-    "post_check": {
-      "commit_shas": 1,
-      "exact_finding_ids": 0,
-      "near_duplicate_overlap": 0,
-      "repository_violations": {},
-      "semantic_overlap": 0
-    },
-    "quarantine_detail": [
-      {
-        "detector": "semantic_overlap",
-        "duplicate_of": "2024-01-decent/submission-12",
-        "id": "2022-05-alchemix/L-05",
-        "kept_in": "validation",
-        "similarity": {
-          "a": "2022-05-alchemix/L-05",
-          "a_split": "train",
-          "b": "2024-01-decent/submission-12",
-          "b_split": "validation",
-          "cosine": 0.753
-        },
-        "split": "train"
-      },
-      {
-        "detector": "semantic_overlap",
-        "duplicate_of": "2024-01-decent/submission-10",
-        "id": "2022-05-alchemix/L-06",
-        "kept_in": "validation",
-        "similarity": {
-          "a": "2022-05-alchemix/L-06",
-          "a_split": "train",
-          "b": "2024-01-decent/submission-10",
-          "b_split": "validation",
-          "cosine": 0.717
-        },
-        "split": "train"
-      }
-    ],
-    "quarantined": [
-      "2022-05-alchemix/L-05",
-      "2022-05-alchemix/L-06"
-    ],
-    "records_quarantined": 2,
-    "rule": "records are quarantined, never moved: the redundant copy in the less protected split is set aside and the copy in the more protected split is kept, so no repository is relocated and the test set stays unseen"
-  },
   "within_split_repeats": {
     "commit_shas": {
       "test": {
+        "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a": [
+          "2024-12-bakerfi/01",
+          "2024-12-bakerfi/02",
+          "2024-12-bakerfi/03",
+          "2024-12-bakerfi/04",
+          "2024-12-bakerfi/05",
+          "2024-12-bakerfi/06",
+          "2024-12-bakerfi/07",
+          "2024-12-bakerfi/08",
+          "2024-12-bakerfi/09",
+          "2024-12-bakerfi/H-02",
+          "2024-12-bakerfi/H-03",
+          "2024-12-bakerfi/H-04",
+          "2024-12-bakerfi/M-01",
+          "2024-12-bakerfi/M-06",
+          "2024-12-bakerfi/M-08",
+          "2024-12-bakerfi/M-12",
+          "2024-12-bakerfi/M-13",
+          "2024-12-bakerfi/M-16"
+        ],
+        "3873b82ae8b321473f3afaf08727e97be0635be9": [
+          "2024-12-bakerfi/H-05",
+          "2024-12-bakerfi/M-04",
+          "2024-12-bakerfi/M-11"
+        ],
         "72836c0d5fc8a46052a5dce27cd09c299b7f6edb": [
           "2025-06-panoptic/01",
           "2025-06-panoptic/02"
@@ -235,9 +224,89 @@
           "2025-08-gte-perps/M-19",
           "2025-08-gte-perps/M-21",
           "2025-08-gte-perps/M-22"
+        ],
+        "fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1": [
+          "2024-08-wildcat/01",
+          "2024-08-wildcat/02",
+          "2024-08-wildcat/04",
+          "2024-08-wildcat/05",
+          "2024-08-wildcat/06",
+          "2024-08-wildcat/07",
+          "2024-08-wildcat/08",
+          "2024-08-wildcat/09",
+          "2024-08-wildcat/10",
+          "2024-08-wildcat/11",
+          "2024-08-wildcat/12",
+          "2024-08-wildcat/13",
+          "2024-08-wildcat/14",
+          "2024-08-wildcat/15",
+          "2024-08-wildcat/17",
+          "2024-08-wildcat/18",
+          "2024-08-wildcat/19",
+          "2024-08-wildcat/20",
+          "2024-08-wildcat/21",
+          "2024-08-wildcat/22",
+          "2024-08-wildcat/23",
+          "2024-08-wildcat/M-07",
+          "2024-08-wildcat/submission-100",
+          "2024-08-wildcat/submission-101",
+          "2024-08-wildcat/submission-104",
+          "2024-08-wildcat/submission-23",
+          "2024-08-wildcat/submission-45",
+          "2024-08-wildcat/submission-47",
+          "2024-08-wildcat/submission-68",
+          "2024-08-wildcat/submission-69",
+          "2024-08-wildcat/submission-75",
+          "2024-08-wildcat/submission-76",
+          "2024-08-wildcat/submission-78",
+          "2024-08-wildcat/submission-81",
+          "2024-08-wildcat/submission-82",
+          "2024-08-wildcat/submission-83",
+          "2024-08-wildcat/submission-86",
+          "2024-08-wildcat/submission-87",
+          "2024-08-wildcat/submission-89",
+          "2024-08-wildcat/submission-93",
+          "2024-08-wildcat/submission-96",
+          "2024-08-wildcat/submission-97",
+          "2024-08-wildcat/submission-99"
+        ],
+        "main": [
+          "2024-08-wildcat/H-01",
+          "2024-08-wildcat/M-01",
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/M-03",
+          "2024-08-wildcat/M-04",
+          "2024-08-wildcat/M-05",
+          "2024-08-wildcat/M-06",
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-10",
+          "2024-08-wildcat/submission-103",
+          "2024-08-wildcat/submission-21",
+          "2024-08-wildcat/submission-22",
+          "2024-08-wildcat/submission-26",
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-71",
+          "2024-08-wildcat/submission-72",
+          "2024-08-wildcat/submission-73",
+          "2024-08-wildcat/submission-74",
+          "2024-08-wildcat/submission-79",
+          "2024-08-wildcat/submission-90",
+          "2024-08-wildcat/submission-91",
+          "2024-08-wildcat/submission-94",
+          "2024-08-wildcat/submission-95",
+          "2024-08-wildcat/submission-98"
         ]
       },
       "train": {
+        "4280609ad3462ed4d7ed6bd93c76eced8ae2761e": [
+          "2024-04-noya/M-57",
+          "2024-04-noya/M-58",
+          "2024-04-noya/submission-369"
+        ],
+        "63f3d08d6d7ae9fc74855a489eeae080b72a3f46": [
+          "2024-04-noya/H-09",
+          "2024-04-noya/M-47"
+        ],
         "71abbe683dfd5c0686b7e594fb4f78a14b668d8b": [
           "2022-05-alchemix/L-10",
           "2022-05-alchemix/L-11",
@@ -262,6 +331,10 @@
           "2022-05-alchemix/submission-3",
           "2022-05-alchemix/submission-4"
         ],
+        "724a9ef43adf139437ba87dcbab63462394d4601": [
+          "2024-04-noya/M-21",
+          "2024-04-noya/submission-431"
+        ],
         "9c79b332eff82011dcfa1e8fd51bad805159d758": [
           "2024-04-noya/H-02",
           "2024-04-noya/H-03",
@@ -272,6 +345,8 @@
           "2024-04-noya/H-08",
           "2024-04-noya/H-14",
           "2024-04-noya/H-15",
+          "2024-04-noya/H-16",
+          "2024-04-noya/H-17",
           "2024-04-noya/H-18",
           "2024-04-noya/H-19",
           "2024-04-noya/M-01",
@@ -410,7 +485,6 @@
           "2024-04-noya/submission-15",
           "2024-04-noya/submission-1502",
           "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-1507",
           "2024-04-noya/submission-1508",
           "2024-04-noya/submission-1511",
           "2024-04-noya/submission-1512",
@@ -448,7 +522,6 @@
           "2024-04-noya/submission-472",
           "2024-04-noya/submission-492",
           "2024-04-noya/submission-516",
-          "2024-04-noya/submission-552",
           "2024-04-noya/submission-554",
           "2024-04-noya/submission-60",
           "2024-04-noya/submission-611",
@@ -478,6 +551,10 @@
           "2024-04-noya/submission-1491",
           "2024-04-noya/submission-1493",
           "2024-04-noya/submission-1497"
+        ],
+        "dbb6104ce834628e473d2173bbc9d47f81a9eec3": [
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
         ],
         "de65c34c7b6e4e94662bf508e214dcbf327984f4": [
           "2022-05-alchemix/L-01",
@@ -529,6 +606,7 @@
           "2024-04-noya/M-08",
           "2024-04-noya/M-09",
           "2024-04-noya/M-11",
+          "2024-04-noya/M-16",
           "2024-04-noya/M-21",
           "2024-04-noya/M-26",
           "2024-04-noya/M-29",
@@ -539,19 +617,17 @@
           "2024-04-noya/M-36",
           "2024-04-noya/M-39",
           "2024-04-noya/M-44",
-          "2024-04-noya/M-45",
           "2024-04-noya/M-48",
           "2024-04-noya/M-49",
           "2024-04-noya/M-51",
           "2024-04-noya/M-52",
           "2024-04-noya/M-53",
-          "2024-04-noya/M-60",
           "2024-04-noya/M-63",
+          "2024-04-noya/submission-1311",
           "2024-04-noya/submission-1320",
           "2024-04-noya/submission-1337",
           "2024-04-noya/submission-1350",
           "2024-04-noya/submission-1392",
-          "2024-04-noya/submission-1399",
           "2024-04-noya/submission-1406",
           "2024-04-noya/submission-1409",
           "2024-04-noya/submission-1413",
@@ -577,6 +653,8 @@
           "2024-04-noya/submission-1528",
           "2024-04-noya/submission-1534",
           "2024-04-noya/submission-1557",
+          "2024-04-noya/submission-210",
+          "2024-04-noya/submission-212",
           "2024-04-noya/submission-217",
           "2024-04-noya/submission-317",
           "2024-04-noya/submission-329",
@@ -585,13 +663,20 @@
           "2024-04-noya/submission-348",
           "2024-04-noya/submission-356",
           "2024-04-noya/submission-53",
-          "2024-04-noya/submission-552",
           "2024-04-noya/submission-650",
           "2024-04-noya/submission-748",
           "2024-04-noya/submission-780",
           "2024-04-noya/submission-792",
           "2024-04-noya/submission-809",
           "2024-04-noya/submission-839"
+        ],
+        "master": [
+          "2022-05-alchemix/M-10",
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-10",
+          "2024-04-noya/M-52",
+          "2024-04-noya/submission-1409"
         ]
       },
       "validation": {
@@ -599,7 +684,6 @@
           "2024-01-decent/M-01",
           "2024-01-decent/M-03",
           "2024-01-decent/M-04",
-          "2024-01-decent/submission-117",
           "2024-01-decent/submission-625",
           "2024-01-decent/submission-627",
           "2024-01-decent/submission-642",
@@ -612,7 +696,6 @@
           "2024-01-decent/submission-673",
           "2024-01-decent/submission-675",
           "2024-01-decent/submission-679",
-          "2024-01-decent/submission-684",
           "2024-01-decent/submission-686",
           "2024-01-decent/submission-691",
           "2024-01-decent/submission-695",
@@ -623,11 +706,14 @@
           "2024-01-decent/submission-746",
           "2024-01-decent/submission-748"
         ],
+        "0335e8f7e1bd1e8d8329fd300aea2ef2f36dd19f": [
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-710"
+        ],
         "07ef78215e3d246d47a410651906287c6acec3ef": [
           "2024-01-decent/L-01",
           "2024-01-decent/L-02",
           "2024-01-decent/L-03",
-          "2024-01-decent/submission-117",
           "2024-01-decent/submission-251",
           "2024-01-decent/submission-259",
           "2024-01-decent/submission-652",
@@ -640,13 +726,190 @@
           "2024-01-decent/submission-745",
           "2024-01-decent/submission-85"
         ],
+        "3bccb8e1da43cbd9925e97cf59cb17c25d1eaf95": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/submission-448"
+        ],
+        "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-04",
+          "2024-01-renft/H-05",
+          "2024-01-renft/H-06",
+          "2024-01-renft/H-07",
+          "2024-01-renft/L-05",
+          "2024-01-renft/L-06",
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-02",
+          "2024-01-renft/M-03",
+          "2024-01-renft/M-04",
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-06",
+          "2024-01-renft/M-08",
+          "2024-01-renft/M-09",
+          "2024-01-renft/M-10",
+          "2024-01-renft/M-11",
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-13",
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15",
+          "2024-01-renft/M-16",
+          "2024-01-renft/submission-123",
+          "2024-01-renft/submission-161",
+          "2024-01-renft/submission-221",
+          "2024-01-renft/submission-226",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-249",
+          "2024-01-renft/submission-335",
+          "2024-01-renft/submission-354",
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-429",
+          "2024-01-renft/submission-431",
+          "2024-01-renft/submission-433",
+          "2024-01-renft/submission-434",
+          "2024-01-renft/submission-435",
+          "2024-01-renft/submission-437",
+          "2024-01-renft/submission-439",
+          "2024-01-renft/submission-445",
+          "2024-01-renft/submission-448",
+          "2024-01-renft/submission-450",
+          "2024-01-renft/submission-453",
+          "2024-01-renft/submission-454",
+          "2024-01-renft/submission-457",
+          "2024-01-renft/submission-458",
+          "2024-01-renft/submission-459",
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-461",
+          "2024-01-renft/submission-462",
+          "2024-01-renft/submission-472",
+          "2024-01-renft/submission-479",
+          "2024-01-renft/submission-481",
+          "2024-01-renft/submission-482",
+          "2024-01-renft/submission-483",
+          "2024-01-renft/submission-488",
+          "2024-01-renft/submission-489",
+          "2024-01-renft/submission-492",
+          "2024-01-renft/submission-494",
+          "2024-01-renft/submission-495",
+          "2024-01-renft/submission-5",
+          "2024-01-renft/submission-503",
+          "2024-01-renft/submission-513",
+          "2024-01-renft/submission-514",
+          "2024-01-renft/submission-534",
+          "2024-01-renft/submission-535",
+          "2024-01-renft/submission-539",
+          "2024-01-renft/submission-542",
+          "2024-01-renft/submission-543",
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-548",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-551",
+          "2024-01-renft/submission-553",
+          "2024-01-renft/submission-557",
+          "2024-01-renft/submission-558",
+          "2024-01-renft/submission-559",
+          "2024-01-renft/submission-562",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-576",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-583",
+          "2024-01-renft/submission-584",
+          "2024-01-renft/submission-585",
+          "2024-01-renft/submission-589",
+          "2024-01-renft/submission-591",
+          "2024-01-renft/submission-595",
+          "2024-01-renft/submission-605",
+          "2024-01-renft/submission-613",
+          "2024-01-renft/submission-615",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-619",
+          "2024-01-renft/submission-620",
+          "2024-01-renft/submission-621",
+          "2024-01-renft/submission-622",
+          "2024-01-renft/submission-624",
+          "2024-01-renft/submission-625",
+          "2024-01-renft/submission-627",
+          "2024-01-renft/submission-628",
+          "2024-01-renft/submission-629",
+          "2024-01-renft/submission-630",
+          "2024-01-renft/submission-632",
+          "2024-01-renft/submission-634",
+          "2024-01-renft/submission-638"
+        ],
+        "47a3620ed937c780d26ff218b76edaaef658f7e2": [
+          "2024-01-renft/submission-483",
+          "2024-01-renft/submission-621",
+          "2024-01-renft/submission-625"
+        ],
+        "48c21c3921931798184367fc02d3a8132b041942": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-670"
+        ],
+        "516aedb7b9a8d341d0d2666c23780d2bd8a9a600": [
+          "2024-01-renft/submission-148",
+          "2024-01-renft/submission-164"
+        ],
+        "7f90fd4489551b69c20d11eeecb17a3f564afb18": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/H-02",
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/M-02",
+          "2024-01-decent/M-05",
+          "2024-01-decent/submission-106",
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-630",
+          "2024-01-decent/submission-631",
+          "2024-01-decent/submission-633",
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-653",
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-67",
+          "2024-01-decent/submission-670",
+          "2024-01-decent/submission-693",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-698",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-703",
+          "2024-01-decent/submission-704",
+          "2024-01-decent/submission-705",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-720",
+          "2024-01-decent/submission-724",
+          "2024-01-decent/submission-728",
+          "2024-01-decent/submission-731",
+          "2024-01-decent/submission-733",
+          "2024-01-decent/submission-742"
+        ],
+        "b140318af6581e499506b11128a892e3f7a52aeb": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03"
+        ],
+        "ca7d4f1d482df5e17f8aaf1b34d0e4432020bc4e": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-670",
+          "2024-01-decent/submission-693"
+        ],
+        "cbf5ff74e40576be72090afd99bf6f0c366bd315": [
+          "2024-01-renft/submission-430",
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-447",
+          "2024-01-renft/submission-449",
+          "2024-01-renft/submission-464",
+          "2024-01-renft/submission-465"
+        ],
         "main": [
           "2024-01-decent/H-03",
           "2024-01-decent/H-04",
           "2024-01-decent/M-02",
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-158",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-517",
@@ -657,15 +920,16 @@
           "2024-01-decent/submission-639",
           "2024-01-decent/submission-644",
           "2024-01-decent/submission-654",
+          "2024-01-decent/submission-657",
           "2024-01-decent/submission-664",
           "2024-01-decent/submission-666",
+          "2024-01-decent/submission-671",
           "2024-01-decent/submission-676",
           "2024-01-decent/submission-677",
           "2024-01-decent/submission-678",
           "2024-01-decent/submission-683",
           "2024-01-decent/submission-692",
           "2024-01-decent/submission-694",
-          "2024-01-decent/submission-7",
           "2024-01-decent/submission-702",
           "2024-01-decent/submission-707",
           "2024-01-decent/submission-710",
@@ -678,12 +942,160 @@
           "2024-01-decent/submission-749",
           "2024-01-decent/submission-750",
           "2024-01-decent/submission-8",
-          "2024-01-decent/submission-9"
+          "2024-01-decent/submission-9",
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-06",
+          "2024-01-renft/M-07",
+          "2024-01-renft/submission-415",
+          "2024-01-renft/submission-612"
         ]
       }
     },
     "file_function_pairs": {
       "test": {
+        "code-423n4/2024-08-wildcat/src/HooksFactory.sol::_deployHooksInstance": [
+          "2024-08-wildcat/submission-79",
+          "2024-08-wildcat/submission-82"
+        ],
+        "code-423n4/2024-08-wildcat/src/HooksFactory.sol::deployMarket": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-71",
+          "2024-08-wildcat/submission-91"
+        ],
+        "code-423n4/2024-08-wildcat/src/HooksFactory.sol::disableHooksTemplate": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-82"
+        ],
+        "code-423n4/2024-08-wildcat/src/HooksFactory.sol::mstore": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-79",
+          "2024-08-wildcat/submission-94"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/AccessControlHooks.sol::_tryValidateAccess": [
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-26"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/AccessControlHooks.sol::_tryValidateCredential": [
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-26",
+          "2024-08-wildcat/submission-78"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/AccessControlHooks.sol::addRoleProvider": [
+          "2024-08-wildcat/M-07",
+          "2024-08-wildcat/submission-74"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/AccessControlHooks.sol::onQueueWithdrawal": [
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22",
+          "2024-08-wildcat/submission-26",
+          "2024-08-wildcat/submission-78",
+          "2024-08-wildcat/submission-83"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/FixedTermLoanHooks.sol::": [
+          "2024-08-wildcat/submission-81",
+          "2024-08-wildcat/submission-86"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/FixedTermLoanHooks.sol::addRoleProvider": [
+          "2024-08-wildcat/M-07",
+          "2024-08-wildcat/submission-74"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/FixedTermLoanHooks.sol::onQueueWithdrawal": [
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/M-04",
+          "2024-08-wildcat/M-06",
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22",
+          "2024-08-wildcat/submission-78",
+          "2024-08-wildcat/submission-87"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/FixedTermLoanHooks.sol::onSetAnnualInterestAndReserveRatioBips": [
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/submission-23",
+          "2024-08-wildcat/submission-95"
+        ],
+        "code-423n4/2024-08-wildcat/src/access/MarketConstraintHooks.sol::onSetAnnualInterestAndReserveRatioBips": [
+          "2024-08-wildcat/submission-23",
+          "2024-08-wildcat/submission-45"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::_depositUpTo": [
+          "2024-08-wildcat/05",
+          "2024-08-wildcat/12",
+          "2024-08-wildcat/submission-47"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::_repay": [
+          "2024-08-wildcat/submission-72",
+          "2024-08-wildcat/submission-73"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::closeMarket": [
+          "2024-08-wildcat/13",
+          "2024-08-wildcat/17",
+          "2024-08-wildcat/M-03",
+          "2024-08-wildcat/submission-101",
+          "2024-08-wildcat/submission-68",
+          "2024-08-wildcat/submission-75"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::repay": [
+          "2024-08-wildcat/submission-103",
+          "2024-08-wildcat/submission-72"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::repayDelinquentDebt": [
+          "2024-08-wildcat/submission-72",
+          "2024-08-wildcat/submission-96"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarket.sol::repayOutstandingDebt": [
+          "2024-08-wildcat/submission-100",
+          "2024-08-wildcat/submission-72",
+          "2024-08-wildcat/submission-96"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarketBase.sol::_applyWithdrawalBatchPayment": [
+          "2024-08-wildcat/M-01",
+          "2024-08-wildcat/submission-98"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarketBase.sol::_getUpdatedState": [
+          "2024-08-wildcat/04",
+          "2024-08-wildcat/submission-103",
+          "2024-08-wildcat/submission-47",
+          "2024-08-wildcat/submission-89",
+          "2024-08-wildcat/submission-97"
+        ],
+        "code-423n4/2024-08-wildcat/src/market/WildcatMarketBase.sol::_writeState": [
+          "2024-08-wildcat/submission-21",
+          "2024-08-wildcat/submission-73",
+          "2024-08-wildcat/submission-89",
+          "2024-08-wildcat/submission-93"
+        ],
+        "code-423n4/2024-08-wildcat/src/types/LenderStatus.sol::setCredential": [
+          "2024-08-wildcat/08",
+          "2024-08-wildcat/submission-81"
+        ],
+        "code-423n4/2024-08-wildcat/src/types/TransientBytesArray.sol::": [
+          "2024-08-wildcat/22",
+          "2024-08-wildcat/23"
+        ],
+        "code-423n4/2024-12-bakerfi/contracts/core/MultiStrategy.sol::_allocateAssets": [
+          "2024-12-bakerfi/M-12",
+          "2024-12-bakerfi/M-13"
+        ],
+        "code-423n4/2024-12-bakerfi/contracts/core/MultiStrategy.sol::addStrategy": [
+          "2024-12-bakerfi/04",
+          "2024-12-bakerfi/06"
+        ],
+        "code-423n4/2024-12-bakerfi/contracts/core/MultiStrategy.sol::removeStrategy": [
+          "2024-12-bakerfi/03",
+          "2024-12-bakerfi/05",
+          "2024-12-bakerfi/M-12",
+          "2024-12-bakerfi/M-13"
+        ],
+        "code-423n4/2024-12-bakerfi/contracts/core/VaultRouter.sol::dispatch": [
+          "2024-12-bakerfi/07",
+          "2024-12-bakerfi/09",
+          "2024-12-bakerfi/M-08"
+        ],
+        "code-423n4/2024-12-bakerfi/contracts/core/strategies/StrategySupplyBase.sol::undeploy": [
+          "2024-12-bakerfi/H-03",
+          "2024-12-bakerfi/H-04",
+          "2024-12-bakerfi/M-16"
+        ],
         "code-423n4/2025-06-panoptic/src/accountants/PanopticVaultAccountant.sol::computeNAV": [
           "2025-06-panoptic/H-01",
           "2025-06-panoptic/H-02"
@@ -702,6 +1114,19 @@
         ]
       },
       "train": {
+        "OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol::": [
+          "2024-04-noya/M-05",
+          "2024-04-noya/M-06",
+          "2024-04-noya/M-10"
+        ],
+        "OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol::previewRedeem": [
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
+        ],
+        "Uniswap/v2-core/contracts/UniswapV2Pair.sol::mint": [
+          "2022-05-alchemix/M-10",
+          "2024-04-noya/submission-1409"
+        ],
         "code-423n4/2022-05-alchemix/contracts-full/AlchemicTokenV2.sol::": [
           "2022-05-alchemix/L-04",
           "2022-05-alchemix/submission-4"
@@ -766,7 +1191,6 @@
           "2024-04-noya/submission-1450",
           "2024-04-noya/submission-270",
           "2024-04-noya/submission-414",
-          "2024-04-noya/submission-552",
           "2024-04-noya/submission-757"
         ],
         "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::TVL": [
@@ -794,7 +1218,6 @@
           "2024-04-noya/submission-1468",
           "2024-04-noya/submission-1502",
           "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-1507",
           "2024-04-noya/submission-1513",
           "2024-04-noya/submission-809"
         ],
@@ -839,14 +1262,12 @@
           "2024-04-noya/submission-1552",
           "2024-04-noya/submission-253",
           "2024-04-noya/submission-329",
-          "2024-04-noya/submission-492",
-          "2024-04-noya/submission-552"
+          "2024-04-noya/submission-492"
         ],
         "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::executeDeposit": [
           "2024-04-noya/M-44",
           "2024-04-noya/submission-1485",
           "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-552",
           "2024-04-noya/submission-809"
         ],
         "code-423n4/2024-04-noya/contracts/accountingManager/AccountingManager.sol::executeWithdraw": [
@@ -1108,7 +1529,6 @@
         "code-423n4/2024-04-noya/contracts/connectors/MorphoBlueConnector.sol::withdraw": [
           "2024-04-noya/H-19",
           "2024-04-noya/M-13",
-          "2024-04-noya/M-45",
           "2024-04-noya/submission-1374",
           "2024-04-noya/submission-1416",
           "2024-04-noya/submission-1461",
@@ -1344,12 +1764,23 @@
         ]
       },
       "validation": {
+        "LayerZero-Labs/LayerZero/contracts/Endpoint.sol::receivePayload": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-670"
+        ],
+        "LayerZero-Labs/solidity-examples/contracts/lzApp/LzApp.sol::lzReceive": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-693"
+        ],
+        "Uniswap/v2-periphery/contracts/UniswapV2Router02.sol::swapExactTokensForTokens": [
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-710"
+        ],
         "code-423n4/2024-01-decent/src/UTB.sol::": [
           "2024-01-decent/M-02",
           "2024-01-decent/M-03",
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-642",
           "2024-01-decent/submission-654",
           "2024-01-decent/submission-673",
@@ -1390,8 +1821,7 @@
           "2024-01-decent/submission-625",
           "2024-01-decent/submission-628",
           "2024-01-decent/submission-673",
-          "2024-01-decent/submission-676",
-          "2024-01-decent/submission-684"
+          "2024-01-decent/submission-676"
         ],
         "code-423n4/2024-01-decent/src/UTB.sol::receiveFromBridge": [
           "2024-01-decent/M-03",
@@ -1419,7 +1849,6 @@
         "code-423n4/2024-01-decent/src/UTBExecutor.sol::": [
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-666",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
@@ -1463,7 +1892,6 @@
           "2024-01-decent/H-04",
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
@@ -1476,7 +1904,6 @@
           "2024-01-decent/submission-720"
         ],
         "code-423n4/2024-01-decent/src/bridge_adapters/StargateBridgeAdapter.sol::": [
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-671",
           "2024-01-decent/submission-8",
@@ -1492,15 +1919,12 @@
           "2024-01-decent/M-04",
           "2024-01-decent/submission-657",
           "2024-01-decent/submission-663",
-          "2024-01-decent/submission-684",
           "2024-01-decent/submission-692",
           "2024-01-decent/submission-746"
         ],
         "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::": [
           "2024-01-decent/submission-10",
-          "2024-01-decent/submission-117",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-627",
           "2024-01-decent/submission-678"
@@ -1513,21 +1937,17 @@
         ],
         "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::swapExactIn": [
           "2024-01-decent/L-03",
-          "2024-01-decent/submission-117",
           "2024-01-decent/submission-627",
-          "2024-01-decent/submission-684",
           "2024-01-decent/submission-710",
           "2024-01-decent/submission-714",
           "2024-01-decent/submission-730"
         ],
         "code-423n4/2024-01-decent/src/swappers/UniSwapper.sol::swapExactOut": [
           "2024-01-decent/L-03",
-          "2024-01-decent/submission-117",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-627",
           "2024-01-decent/submission-644",
           "2024-01-decent/submission-664",
-          "2024-01-decent/submission-684",
           "2024-01-decent/submission-696",
           "2024-01-decent/submission-707",
           "2024-01-decent/submission-710",
@@ -1538,18 +1958,477 @@
           "2024-01-decent/submission-251",
           "2024-01-decent/submission-678",
           "2024-01-decent/submission-702"
+        ],
+        "decentxyz/decent-bridge/src/DcntEth.sol::burn": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-704"
+        ],
+        "decentxyz/decent-bridge/src/DcntEth.sol::mint": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-704"
+        ],
+        "decentxyz/decent-bridge/src/DcntEth.sol::setRouter": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-633",
+          "2024-01-decent/submission-704",
+          "2024-01-decent/submission-724",
+          "2024-01-decent/submission-731"
+        ],
+        "decentxyz/decent-bridge/src/DecentBridgeExecutor.sol::_executeEth": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/submission-631",
+          "2024-01-decent/submission-701"
+        ],
+        "decentxyz/decent-bridge/src/DecentBridgeExecutor.sol::_executeWeth": [
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-631",
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-698",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-705",
+          "2024-01-decent/submission-742"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::": [
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-629",
+          "2024-01-decent/submission-653",
+          "2024-01-decent/submission-67"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::_bridgeWithPayload": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/M-02",
+          "2024-01-decent/M-05",
+          "2024-01-decent/submission-670",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-728"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::_getCallParams": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-693",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-720",
+          "2024-01-decent/submission-728"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::bridgeWithPayload": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-728"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::onOFTReceived": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/submission-698"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::redeemEth": [
+          "2024-01-decent/submission-106",
+          "2024-01-decent/submission-629"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::removeLiquidityEth": [
+          "2024-01-decent/submission-630",
+          "2024-01-decent/submission-653",
+          "2024-01-decent/submission-703"
+        ],
+        "decentxyz/decent-bridge/src/DecentEthRouter.sol::removeLiquidityWeth": [
+          "2024-01-decent/submission-630",
+          "2024-01-decent/submission-653"
+        ],
+        "re-nft/smart-contracts/src/Kernel.sol::_reconfigurePolicies": [
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-437"
+        ],
+        "re-nft/smart-contracts/src/Kernel.sol::_upgradeModule": [
+          "2024-01-renft/M-07",
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-434"
+        ],
+        "re-nft/smart-contracts/src/Kernel.sol::executeAction": [
+          "2024-01-renft/M-07",
+          "2024-01-renft/submission-221",
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-434"
+        ],
+        "re-nft/smart-contracts/src/libraries/RentalConstants.sol::": [
+          "2024-01-renft/H-04",
+          "2024-01-renft/submission-226",
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-625"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::_calculatePaymentProRata": [
+          "2024-01-renft/submission-249",
+          "2024-01-renft/submission-447",
+          "2024-01-renft/submission-534"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::_safeTransfer": [
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-161",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-634"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::_settlePayment": [
+          "2024-01-renft/submission-447",
+          "2024-01-renft/submission-534"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::_settlePaymentInFull": [
+          "2024-01-renft/submission-548",
+          "2024-01-renft/submission-638"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::_settlePaymentProRata": [
+          "2024-01-renft/submission-447",
+          "2024-01-renft/submission-534",
+          "2024-01-renft/submission-548"
+        ],
+        "re-nft/smart-contracts/src/modules/PaymentEscrow.sol::settlePayment": [
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-605"
+        ],
+        "re-nft/smart-contracts/src/modules/Storage.sol::": [
+          "2024-01-renft/submission-543",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "re-nft/smart-contracts/src/modules/Storage.sol::addRentals": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-481"
+        ],
+        "re-nft/smart-contracts/src/modules/Storage.sol::removeRentals": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-544"
+        ],
+        "re-nft/smart-contracts/src/modules/Storage.sol::updateHookStatus": [
+          "2024-01-renft/L-05",
+          "2024-01-renft/submission-535",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "re-nft/smart-contracts/src/packages/Reclaimer.sol::_transferERC1155": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-449"
+        ],
+        "re-nft/smart-contracts/src/packages/Reclaimer.sol::_transferERC721": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-449",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-615"
+        ],
+        "re-nft/smart-contracts/src/packages/Reclaimer.sol::reclaimRentalOrder": [
+          "2024-01-renft/H-05",
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-448",
+          "2024-01-renft/submission-449",
+          "2024-01-renft/submission-453",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-585",
+          "2024-01-renft/submission-627"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_deriveHookHash": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-450",
+          "2024-01-renft/submission-459"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_deriveOrderMetadataHash": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-465",
+          "2024-01-renft/submission-482",
+          "2024-01-renft/submission-492",
+          "2024-01-renft/submission-494",
+          "2024-01-renft/submission-613",
+          "2024-01-renft/submission-629"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_deriveRentPayloadHash": [
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-488",
+          "2024-01-renft/submission-514"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_deriveRentalOrderHash": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-454",
+          "2024-01-renft/submission-461",
+          "2024-01-renft/submission-464",
+          "2024-01-renft/submission-482",
+          "2024-01-renft/submission-492",
+          "2024-01-renft/submission-494",
+          "2024-01-renft/submission-559"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_deriveRentalTypehashes": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-458",
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-472",
+          "2024-01-renft/submission-482",
+          "2024-01-renft/submission-495",
+          "2024-01-renft/submission-557",
+          "2024-01-renft/submission-620"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::_recoverSignerFromPayload": [
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-513"
+        ],
+        "re-nft/smart-contracts/src/packages/Signer.sol::constructor": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-503",
+          "2024-01-renft/submission-513"
+        ],
+        "re-nft/smart-contracts/src/policies/Create.sol::_addHooks": [
+          "2024-01-renft/submission-439",
+          "2024-01-renft/submission-462",
+          "2024-01-renft/submission-558",
+          "2024-01-renft/submission-622"
+        ],
+        "re-nft/smart-contracts/src/policies/Create.sol::_convertToItems": [
+          "2024-01-renft/submission-415",
+          "2024-01-renft/submission-465"
+        ],
+        "re-nft/smart-contracts/src/policies/Create.sol::_isValidOrderMetadata": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-465"
+        ],
+        "re-nft/smart-contracts/src/policies/Create.sol::_rentFromZone": [
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-06",
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-354",
+          "2024-01-renft/submission-439",
+          "2024-01-renft/submission-591"
+        ],
+        "re-nft/smart-contracts/src/policies/Create.sol::validateOrder": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-03",
+          "2024-01-renft/M-03",
+          "2024-01-renft/M-13",
+          "2024-01-renft/submission-431",
+          "2024-01-renft/submission-433",
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-457",
+          "2024-01-renft/submission-488",
+          "2024-01-renft/submission-513"
+        ],
+        "re-nft/smart-contracts/src/policies/Factory.sol::deployRentalSafe": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/submission-445",
+          "2024-01-renft/submission-483",
+          "2024-01-renft/submission-553",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584",
+          "2024-01-renft/submission-591"
+        ],
+        "re-nft/smart-contracts/src/policies/Guard.sol::_checkTransaction": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-04",
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-02",
+          "2024-01-renft/M-08",
+          "2024-01-renft/M-16",
+          "2024-01-renft/submission-226",
+          "2024-01-renft/submission-430",
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-539",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584",
+          "2024-01-renft/submission-621",
+          "2024-01-renft/submission-625",
+          "2024-01-renft/submission-630"
+        ],
+        "re-nft/smart-contracts/src/policies/Guard.sol::_loadValueFromCalldata": [
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-625"
+        ],
+        "re-nft/smart-contracts/src/policies/Guard.sol::checkTransaction": [
+          "2024-01-renft/M-09",
+          "2024-01-renft/M-10",
+          "2024-01-renft/submission-429",
+          "2024-01-renft/submission-489",
+          "2024-01-renft/submission-542",
+          "2024-01-renft/submission-576"
+        ],
+        "re-nft/smart-contracts/src/policies/Stop.sol::_reclaimRentedItems": [
+          "2024-01-renft/H-05",
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14"
+        ],
+        "re-nft/smart-contracts/src/policies/Stop.sol::_removeHooks": [
+          "2024-01-renft/M-04",
+          "2024-01-renft/submission-435",
+          "2024-01-renft/submission-439",
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-551",
+          "2024-01-renft/submission-558",
+          "2024-01-renft/submission-612",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-619",
+          "2024-01-renft/submission-622"
+        ],
+        "re-nft/smart-contracts/src/policies/Stop.sol::stopRent": [
+          "2024-01-renft/H-05",
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-06",
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-464",
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-551",
+          "2024-01-renft/submission-559",
+          "2024-01-renft/submission-562",
+          "2024-01-renft/submission-583",
+          "2024-01-renft/submission-589",
+          "2024-01-renft/submission-605",
+          "2024-01-renft/submission-615",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-627",
+          "2024-01-renft/submission-628",
+          "2024-01-renft/submission-632",
+          "2024-01-renft/submission-638"
+        ],
+        "re-nft/smart-contracts/src/policies/Stop.sol::stopRentBatch": [
+          "2024-01-renft/H-05",
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-562",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-605",
+          "2024-01-renft/submission-628"
+        ],
+        "safe-global/safe-contracts/contracts/base/FallbackManager.sol::fallback": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/submission-621"
+        ],
+        "safe-global/safe-contracts/contracts/base/FallbackManager.sol::sstore": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03",
+          "2024-01-renft/submission-621"
+        ],
+        "stargate-protocol/stargate/contracts/Pool.sol::swap": [
+          "2024-01-decent/submission-657",
+          "2024-01-decent/submission-671"
         ]
       }
     },
     "identical_snippets": {
       "test": {
+        "033f7aef795ee8cb5fa679ab11b84df506bc7a89bd7d6b7db677a940c6732dea": [
+          "2024-08-wildcat/submission-103",
+          "2024-08-wildcat/submission-69"
+        ],
+        "07c867c10734cb7c5f1885e439691c1e76c641bb80399a6a41bc2a921b10f7f8": [
+          "2024-12-bakerfi/04",
+          "2024-12-bakerfi/06"
+        ],
+        "11cf5f316053d54b34ac98f51be20fc036029da1f15a385afb9294d8a365a241": [
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/submission-87"
+        ],
+        "30c904ea35e8a7c1316a442cc3b3c4ed2d36f980095660a56c16a2cfcd9faa7c": [
+          "2024-08-wildcat/M-04",
+          "2024-08-wildcat/M-06",
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22"
+        ],
+        "419f0ccbc802fc43643b70237c62e008f876ac6cb440bbc2e81ada1ef51b7910": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-94"
+        ],
+        "41cbd82efd65479a7c42fbdaeb46b835c48f1cce006f56c7945763bfc5b80e50": [
+          "2024-08-wildcat/08",
+          "2024-08-wildcat/submission-81"
+        ],
+        "5039a2a333fe4fc54eac19e70b4aeae7b963643c9f3e3a0be6c8e7a07e7b4a19": [
+          "2024-08-wildcat/22",
+          "2024-08-wildcat/23"
+        ],
+        "69b0ac9a934ee4a98dd9a89426192f20fc25dd50068c921f180c54f6a71dd074": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-82"
+        ],
+        "7343f4e05fb50517477590306f63721afc966632865ec9dfa2e0886db58b8f67": [
+          "2024-08-wildcat/M-08",
+          "2024-08-wildcat/submission-22",
+          "2024-08-wildcat/submission-26",
+          "2024-08-wildcat/submission-78",
+          "2024-08-wildcat/submission-83"
+        ],
+        "820d702e3af8932bff4614c96f09031f160e0dfae9f89be618cb121d1593576c": [
+          "2024-08-wildcat/13",
+          "2024-08-wildcat/17",
+          "2024-08-wildcat/M-03",
+          "2024-08-wildcat/submission-101",
+          "2024-08-wildcat/submission-68",
+          "2024-08-wildcat/submission-75"
+        ],
+        "8800504bd5a579856b5ffdf661e4f48bf6228da0c411feca2991928d1993f251": [
+          "2024-08-wildcat/04",
+          "2024-08-wildcat/submission-103",
+          "2024-08-wildcat/submission-47",
+          "2024-08-wildcat/submission-89"
+        ],
+        "96570c7b7254bfdfa6c886fbab5e0c93253a1b49ee2cac7856ff24eda0279e31": [
+          "2024-08-wildcat/M-05",
+          "2024-08-wildcat/submission-10"
+        ],
+        "9881c116a9a17343e4b00e94c3e459146e25852f7b911793ea3d0c2df053652f": [
+          "2024-08-wildcat/M-02",
+          "2024-08-wildcat/submission-23",
+          "2024-08-wildcat/submission-95"
+        ],
         "9ddb8bc36d285c06bc01750231f2f1238cbbc670933b3f7b318dec1484ba0acf": [
           "2025-08-gte-perps/H-06",
           "2025-08-gte-perps/H-07"
         ],
+        "9eec90a485848b1ee4bddfe3d4e2a5fa0cd8ba7d5cfa52c2153b2758a2ced45f": [
+          "2024-08-wildcat/07",
+          "2024-08-wildcat/submission-69"
+        ],
+        "b1e3d8b25412677cbdbec6209d596fd905faad82de70ca2e0593c72e94cad971": [
+          "2024-12-bakerfi/H-03",
+          "2024-12-bakerfi/H-04",
+          "2024-12-bakerfi/M-16"
+        ],
+        "c03e6169740378f82efb1591d7db836ee10fd8d6041ae3bee83ac8efcb750dad": [
+          "2024-08-wildcat/05",
+          "2024-08-wildcat/submission-47"
+        ],
+        "c9c562cfce8ae7570f8a1ae7413509244e577843fef0791d5bd1cde08fe15e9e": [
+          "2024-08-wildcat/submission-7",
+          "2024-08-wildcat/submission-91"
+        ],
+        "e6b7356125c3456337694f6955ab5216997b6e2106254d563eed6a612e9089f4": [
+          "2024-12-bakerfi/07",
+          "2024-12-bakerfi/M-08"
+        ],
         "ef543b7fb20bd14f5d1c0547f845b76722ad238339d9bc9ac40f19f2202fa2e1": [
           "2025-08-gte-perps/H-09",
           "2025-08-gte-perps/M-22"
+        ],
+        "fed4ca7f76966ff7bbd6a825f1da4b0393fcb20102705291f2f4b2093673e406": [
+          "2024-08-wildcat/submission-73",
+          "2024-08-wildcat/submission-89"
         ]
       },
       "train": {
@@ -1606,6 +2485,10 @@
           "2024-04-noya/M-01",
           "2024-04-noya/M-13"
         ],
+        "1881af179e09e675a08b9a0f544d4a23d696786a34039e359ff3c4649b9a3d02": [
+          "2024-04-noya/H-17",
+          "2024-04-noya/submission-1408"
+        ],
         "1b8ce6284c1b6ec6e0d4db473b5377879002bb184cef477cb984004aa5004ffc": [
           "2024-04-noya/submission-1328",
           "2024-04-noya/submission-1450"
@@ -1640,6 +2523,10 @@
           "2024-04-noya/submission-1512",
           "2024-04-noya/submission-1514",
           "2024-04-noya/submission-360"
+        ],
+        "418a840ddc274f8856242c53bdbdd3ef9b0b5f7b6dae9536aede429ae19930c9": [
+          "2024-04-noya/submission-1518",
+          "2024-04-noya/submission-1544"
         ],
         "43d1240068c9300732a10ee48b836c91ac51a8b856627a9d30dfa9e5e9f27c54": [
           "2024-04-noya/submission-1470",
@@ -1791,8 +2678,7 @@
         "8dc842c9687050a76c7a931c77ebdd7732a505e060724241158a164edc523f8c": [
           "2024-04-noya/M-44",
           "2024-04-noya/submission-1485",
-          "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-552"
+          "2024-04-noya/submission-1503"
         ],
         "8dd5937cc90d1fc2bd3902fe312400de1493d396f166f38615f589c3cc2570ca": [
           "2024-04-noya/H-04",
@@ -1912,12 +2798,15 @@
         "c1882ff0d499a1da9e2080aa5eb54ff7b67f82d75c472e5f94fa50f59276a42c": [
           "2024-04-noya/H-19",
           "2024-04-noya/M-13",
-          "2024-04-noya/M-45",
           "2024-04-noya/submission-1461"
         ],
         "c4137df1e8dfd05485af8c849e991ff04e5d2997e0dcc0418d543671aa047ba2": [
           "2024-04-noya/M-47",
           "2024-04-noya/submission-431"
+        ],
+        "c4de5bca14f3846a55d54c920beab4708c1b89a40298615237aeb480929f4ac7": [
+          "2022-05-alchemix/M-10",
+          "2024-04-noya/submission-1409"
         ],
         "c907d8fc3e297740782d9b7e51cc33203d30547dde940c2daa1ca321bccd7496": [
           "2024-04-noya/M-10",
@@ -1930,7 +2819,6 @@
           "2024-04-noya/submission-1468",
           "2024-04-noya/submission-1502",
           "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-1507",
           "2024-04-noya/submission-1513"
         ],
         "c97fe874fea01afb6ab8cc859cc41e0c9e1d34be779afe9c8224e6bafcb41419": [
@@ -1999,8 +2887,7 @@
           "2024-04-noya/submission-1552",
           "2024-04-noya/submission-253",
           "2024-04-noya/submission-329",
-          "2024-04-noya/submission-492",
-          "2024-04-noya/submission-552"
+          "2024-04-noya/submission-492"
         ],
         "dd6b1dd7e4ec6736c20797bd42e46568dbc8b762555e15974e0da14259076d01": [
           "2022-05-alchemix/submission-181",
@@ -2038,9 +2925,95 @@
         ]
       },
       "validation": {
+        "01a9df21337f307ac1fe6838e779849a48f3c50d7656dc2f1ef0b67b5d2285b0": [
+          "2024-01-renft/H-07",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-492"
+        ],
+        "07e77b8cbc7441fccf69e514d59b204c2e6e564e433f06ab8182c4f916bedcb5": [
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-551"
+        ],
+        "0859133219346392d1c55ff9018be8e7cd7c03cc6625dd067d31ebb035484ca6": [
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-161",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-634"
+        ],
+        "0c11589841c701ddb65c4a3caba256b2552772988ac1d56a4e181e5a0a14a55d": [
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-628"
+        ],
+        "0cc605f75081c6041c8ae06ffb61270b38b9f67d90c0013c396efb73b97dc29f": [
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-615"
+        ],
+        "0e5c8aa9757781f55e1f7555342a4998a17723f4088515f3513c0cef92deb20f": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-465",
+          "2024-01-renft/submission-492",
+          "2024-01-renft/submission-613",
+          "2024-01-renft/submission-629"
+        ],
+        "0f0e05c2d572a7f342b3e656d0f2b25f3d8afaafc2e8441d0ec046a903682675": [
+          "2024-01-renft/submission-551",
+          "2024-01-renft/submission-559"
+        ],
+        "13fde9591666517a34d2a042fe6fd95a6f19ea346ea44a398b336d123c58c8e0": [
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "2353a43d21293b9f91aae59922f379183f2862bde9943f74e8bf6a5c7140c8fd": [
+          "2024-01-renft/H-04",
+          "2024-01-renft/submission-625"
+        ],
+        "25a6414cc3aa47abb1afff4b77dcb920bcd457d1b2098ca4d8361c6438b82ad6": [
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-495"
+        ],
+        "263ac3a4459a9eaa395d8bdb7e250d44038708b0e0dfca2325887d357d0fe7c0": [
+          "2024-01-decent/submission-630",
+          "2024-01-decent/submission-703"
+        ],
+        "29f150a63f517d5fc9d7c0b6b9d2f693a52c08abb26ac85d16f8f7f9466f6375": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-449"
+        ],
+        "30863b79ab6f25b310b595c0a4e3a3d40cab51c218c002ff140a9f9814eb647f": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-715",
+          "2024-01-decent/submission-728"
+        ],
+        "31a9939f81cd65a8ea8bf08bc584fba0a299c07ae64ce4bbe417e029153ddc3a": [
+          "2024-01-renft/M-07",
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-434"
+        ],
         "39028ad998ee95ef15724e5703e2124bbe0dc73644826bb38d6af3423f67d4dc": [
           "2024-01-decent/submission-3",
           "2024-01-decent/submission-636"
+        ],
+        "3bd48ea611209a6e070f4a96a64b47a8c5478c6c42c90ec6c5d97261f65cc15e": [
+          "2024-01-renft/M-05",
+          "2024-01-renft/M-14",
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-237",
+          "2024-01-renft/submission-436",
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-550",
+          "2024-01-renft/submission-583",
+          "2024-01-renft/submission-589",
+          "2024-01-renft/submission-605",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-627",
+          "2024-01-renft/submission-628",
+          "2024-01-renft/submission-638"
         ],
         "3e8665ebcf8766f35c7e2471c6387806dfc69135de366f91436531b9e1d10e9f": [
           "2024-01-decent/M-01",
@@ -2050,9 +3023,13 @@
           "2024-01-decent/submission-692",
           "2024-01-decent/submission-746"
         ],
-        "411a93d920f53b240feb0b10a094ba23e42950e47185541eb40f0a99fb56a06c": [
-          "2024-01-decent/L-03",
-          "2024-01-decent/submission-684"
+        "3ff705d049360ccefcf2f07ab76a0cc71f7d583e97cdda9bd209d8f56014a31c": [
+          "2024-01-renft/submission-453",
+          "2024-01-renft/submission-585"
+        ],
+        "413a5b63776511ba404ae012b455bc587ce3e46d9fdf1ffa62ba68be6b09e67c": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-613"
         ],
         "416112c57eca8142e0ebcaee8245f592f16e516958fbe95175525c55c0b1ebff": [
           "2024-01-decent/M-03",
@@ -2061,6 +3038,18 @@
           "2024-01-decent/submission-694",
           "2024-01-decent/submission-749",
           "2024-01-decent/submission-750"
+        ],
+        "46c98611c5385d055d891430f5792cd004cd0bab6194c219b001b238b691ec38": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-465"
+        ],
+        "50c91fc2d6bc8ada4b3e2538e360aa07a02ff1e1d002dd516230d2d4e93a1c97": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/H-03",
+          "2024-01-decent/H-04",
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-728"
         ],
         "55e7768a02d2112ac3f35e8678dfaf7c240b1dac5f86eb053e50dfed7ad7b918": [
           "2024-01-decent/H-03",
@@ -2087,6 +3076,36 @@
           "2024-01-decent/submission-736",
           "2024-01-decent/submission-85"
         ],
+        "6142b542b9666ea628d2f9dd9232c840897b6ec9ca43947cf184a26daad78e77": [
+          "2024-01-decent/submission-644",
+          "2024-01-decent/submission-710"
+        ],
+        "6b08caa0f1bc9b2e4e91ceb8de542f96fa8dd92c8ec098a44d043144b2296b50": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-503"
+        ],
+        "6ca1461d2a39587a58087731fc403e3cbcf047455d0c4eb28a22c7add4967759": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-704"
+        ],
+        "6cce99773ff86a284df1b982e41537c157eae9e1903689cfb09906565356946c": [
+          "2024-01-renft/submission-454",
+          "2024-01-renft/submission-461",
+          "2024-01-renft/submission-464",
+          "2024-01-renft/submission-494"
+        ],
+        "6df8d3a9af2e4f72b1517390129fb48e8ec7be5ee2b5181baed5e50cfe9fa941": [
+          "2024-01-renft/submission-621",
+          "2024-01-renft/submission-630"
+        ],
+        "6f5cc7e53dc48c8569e56e7322f9c8a707838e4fd33499f62203e21897813692": [
+          "2024-01-renft/submission-553",
+          "2024-01-renft/submission-591"
+        ],
+        "70d013ed1cf2f4faffdad2ed3f15bc62867b84583b63c39ce3996e0015941371": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-620"
+        ],
         "77b71df8bf4d12a5ff7691be0c88b7332f1335d757e980db801a1ef067c9cf26": [
           "2024-01-decent/submission-666",
           "2024-01-decent/submission-679",
@@ -2110,13 +3129,42 @@
           "2024-01-decent/submission-727",
           "2024-01-decent/submission-745"
         ],
+        "7e05329ce00620b863fcb9ae6d13118d6e1f6452f9a1f57b551fdbf0288d7f75": [
+          "2024-01-renft/submission-558",
+          "2024-01-renft/submission-622"
+        ],
+        "7e3d3ffaab133938761a99cc5bf7f5bad7c30c5fa072d167babc320facfa2c6b": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14"
+        ],
         "83182febfede10b97eeeada83d2df31e3f7f8473a269a5a42423e44a5d2ed20e": [
           "2024-01-decent/submission-687",
           "2024-01-decent/submission-735"
         ],
+        "84c34ffa5ec4945b50cd5f0219841d4fec0b593e8578acea323f985fd952a9f5": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-615"
+        ],
+        "8a31eb63c2e72acc2e8d16c34f05f57481c66ab3945868b4be95e436758758af": [
+          "2024-01-renft/H-03",
+          "2024-01-renft/H-06"
+        ],
+        "8d3725f3207f18623f284d9994b4f19762e3e1e0a9f93018f7d480becc9d032d": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/H-03"
+        ],
+        "8dbd5def77c1047b65d3073f7d32271f75cb531a04b3ffaeaa7b5ceb2b838564": [
+          "2024-01-renft/submission-460",
+          "2024-01-renft/submission-472",
+          "2024-01-renft/submission-620"
+        ],
         "9519c23c92cec0781220f78afa78da754fe40df425183396e9683cf82254e6ca": [
           "2024-01-decent/submission-657",
           "2024-01-decent/submission-675"
+        ],
+        "95a4bb9158fc669dfc14d7d8100df385a9e499cf90dbffc6c567db62fe43cd42": [
+          "2024-01-renft/M-11",
+          "2024-01-renft/submission-495"
         ],
         "9a9ba2e3d97d52f62af902db80dda59b4153f6b2d263da5b276dcb4c54b25102": [
           "2024-01-decent/submission-10",
@@ -2127,9 +3175,63 @@
           "2024-01-decent/submission-714",
           "2024-01-decent/submission-730"
         ],
+        "a7d0fc0ac390e4e584f0ba31056536f48d0117f360e69412e1398d58d7dcf5da": [
+          "2024-01-renft/submission-440",
+          "2024-01-renft/submission-557",
+          "2024-01-renft/submission-620"
+        ],
+        "a8830df1b706711b86094c1541c74259e665a4e2fa58d21141ca8ce0751ab25f": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-567",
+          "2024-01-renft/submission-605"
+        ],
+        "a8dab18d26cac8783e4010bf17d558d2f49d5558bd2107885325588cc9b9eabf": [
+          "2024-01-decent/H-03",
+          "2024-01-decent/submission-701"
+        ],
+        "aac6d79b6c7a95ef36b9939e9864b9de91259cb322ca08ed89613d5b2f91461d": [
+          "2024-01-renft/M-15",
+          "2024-01-renft/submission-546",
+          "2024-01-renft/submission-605"
+        ],
+        "aeb88f0b2ffbdf39109b3ba548551d66d323d9c27a189a761f556808c278d44c": [
+          "2024-01-renft/submission-442",
+          "2024-01-renft/submission-488",
+          "2024-01-renft/submission-514"
+        ],
+        "afed1022bd9bc30dc0e316358018ffb8c5b7897754457d88216d33a93f646345": [
+          "2024-01-renft/submission-357",
+          "2024-01-renft/submission-437"
+        ],
+        "b13d12f4c7fa2fcacc8f86a75121c89687a1126dc68b13673f4a4b5b47b1d595": [
+          "2024-01-renft/submission-494",
+          "2024-01-renft/submission-613"
+        ],
+        "b65677f504ddc175145e13057e91148e165c6caf75d0d39ca0f1e68ac01408c0": [
+          "2024-01-renft/M-16",
+          "2024-01-renft/submission-625"
+        ],
+        "b714b6cf911f47953fa64e5222e97f678ce9d5ac2f25e84959b7ae9af54e7ed7": [
+          "2024-01-renft/H-01",
+          "2024-01-renft/H-03",
+          "2024-01-renft/M-03",
+          "2024-01-renft/submission-431",
+          "2024-01-renft/submission-433",
+          "2024-01-renft/submission-442"
+        ],
+        "b7213ceff8a6e2bcac018e2c562ff3a5e5949108f3cc9bfd3d73b62a2133f39e": [
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-720"
+        ],
         "b8aba16eea0c4b5ae564cdfee1e450c85c89a1c6ff59e1f7243ba004eaae27cf": [
           "2024-01-decent/submission-707",
           "2024-01-decent/submission-730"
+        ],
+        "bb9da33f768b0fd953d379a089dd2095355cf42e355e06431f34a0407f133d04": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/submission-449",
+          "2024-01-renft/submission-547",
+          "2024-01-renft/submission-567"
         ],
         "bd09e97d95e66f7842535be7770edc936cc95c549c436196371c56c766a30bbe": [
           "2024-01-decent/M-02",
@@ -2142,6 +3244,17 @@
           "2024-01-decent/submission-715",
           "2024-01-decent/submission-720"
         ],
+        "c11161dbb7f393f59e8cb3aa33aee56d54b96481869ab6c61d5873a5bb374e29": [
+          "2024-01-decent/M-05",
+          "2024-01-decent/submission-715"
+        ],
+        "c48c64711396551fbe41d8826de25ccb4d0f70454c3bd652a40531e442ee253e": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/submission-483",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
         "c697fcda360f3e8acfaa7d34850ec0b71bf903b32223d0aebe5dbb320655d834": [
           "2024-01-decent/M-03",
           "2024-01-decent/submission-636",
@@ -2151,20 +3264,78 @@
           "2024-01-decent/submission-749",
           "2024-01-decent/submission-750"
         ],
+        "c864503462e84027f14365ba6c28f62f195d7da187859dc6d276518ff5f453f5": [
+          "2024-01-renft/M-07",
+          "2024-01-renft/submission-357"
+        ],
+        "cd2904adf0cf99469d72baae96f5e9028bb741b29a713b858057fb7914719f43": [
+          "2024-01-decent/M-02",
+          "2024-01-decent/submission-697"
+        ],
         "ce3dc08852ae8a3df7bcfc3f4dae6eb032c1868c0d29308d41f29c736eee62d0": [
           "2024-01-decent/M-03",
           "2024-01-decent/submission-694"
+        ],
+        "ce851ea7fc176efa81150f0eb1960ffa6e25939aa1186dc7dcd1c81fbc841eb1": [
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-625"
         ],
         "ce87a87ed4d6835d01c15abaf6a6ae76c09bba0f861513b14c3dcca9003c4b21": [
           "2024-01-decent/submission-3",
           "2024-01-decent/submission-625",
           "2024-01-decent/submission-673",
-          "2024-01-decent/submission-676",
-          "2024-01-decent/submission-684"
+          "2024-01-decent/submission-676"
+        ],
+        "cf8d92a4ae6adde11ad1d381a24b558ec8f08a3f3ddc4ab972774c2567d268e3": [
+          "2024-01-decent/submission-668",
+          "2024-01-decent/submission-693"
+        ],
+        "cff280752667152847c40796e10957fe0d3295d34a7ef3f548c88780aa64e70b": [
+          "2024-01-renft/M-04",
+          "2024-01-renft/submission-435",
+          "2024-01-renft/submission-544",
+          "2024-01-renft/submission-551"
+        ],
+        "d027548bd892e57813b1e7d8d2b5e8a40dac0ce754107f5f46a3637cb9c63d1c": [
+          "2024-01-renft/M-12",
+          "2024-01-renft/M-14",
+          "2024-01-renft/submission-449",
+          "2024-01-renft/submission-627"
+        ],
+        "d0387f7472f9ea12c8e57f80a41f415c66d8bf0fdc14df4ad0589633f82008ea": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-633",
+          "2024-01-decent/submission-724",
+          "2024-01-decent/submission-731"
+        ],
+        "d2ba534406906576fca5ed23c222a2dfcdcae41db595f2e4e691f5ae967bcdfc": [
+          "2024-01-renft/H-02",
+          "2024-01-renft/M-01",
+          "2024-01-renft/M-02",
+          "2024-01-renft/M-08",
+          "2024-01-renft/submission-430",
+          "2024-01-renft/submission-432",
+          "2024-01-renft/submission-539",
+          "2024-01-renft/submission-581",
+          "2024-01-renft/submission-584"
+        ],
+        "e202208de6501a6bf4fc62b16148797ffc8cd50b55c117207f5dfaceb90289fa": [
+          "2024-01-decent/H-02",
+          "2024-01-decent/submission-693",
+          "2024-01-decent/submission-697",
+          "2024-01-decent/submission-728"
         ],
         "e65a681669a5b2ff6609d5e6f7cc9bc14248d2cd8fd053ed085bb49feae3d70c": [
           "2024-01-decent/M-03",
           "2024-01-decent/submission-85"
+        ],
+        "ec30be7adf8bbef443a17a981ea41bbf17e502541295bd2c76ea27dfcd8779c6": [
+          "2024-01-decent/H-01",
+          "2024-01-decent/submission-704"
+        ],
+        "edc6e70f25a9d725265b359aced5f233fefcaf57ab55d89c93b188b2e0531394": [
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
         ],
         "ee8dee18cddadd4614c77badd58349afa53c6e3856ec64366808d6c8e990e530": [
           "2024-01-decent/submission-251",
@@ -2175,18 +3346,46 @@
           "2024-01-decent/L-03",
           "2024-01-decent/submission-644",
           "2024-01-decent/submission-664",
-          "2024-01-decent/submission-684",
           "2024-01-decent/submission-738"
+        ],
+        "f1eda87a8c9ae33bae920985bc7a93ee4f8801f553a13c2497760ca71cf2a77a": [
+          "2024-01-renft/submission-558",
+          "2024-01-renft/submission-617"
         ],
         "f1f794b3f0a79236220b7a6b2092733bf65fb799103bc15c2e8ddf214d130a32": [
           "2024-01-decent/submission-158",
           "2024-01-decent/submission-517",
           "2024-01-decent/submission-675"
         ],
+        "f26311ca45bfbcf268f2e78d7cbc3c1095cb4f0952a58283a18b46f8cf6eb569": [
+          "2024-01-decent/submission-652",
+          "2024-01-decent/submission-701",
+          "2024-01-decent/submission-705"
+        ],
+        "f397c67c31e4f78fca3a921d4fa54a7eb5d23776cffab7ab8b0a32a0000e355f": [
+          "2024-01-renft/submission-429",
+          "2024-01-renft/submission-489",
+          "2024-01-renft/submission-542",
+          "2024-01-renft/submission-576"
+        ],
         "f404041c78bdb69f14bb1f541f0ae352f5f54a2b71dcb32f89227976f536c12e": [
           "2024-01-decent/M-03",
           "2024-01-decent/submission-691",
           "2024-01-decent/submission-694"
+        ],
+        "f46f09e30d49c6288bbd219825cb48104ca186c8a34495269291df3ea1503093": [
+          "2024-01-renft/submission-445",
+          "2024-01-renft/submission-553"
+        ],
+        "f5bf1703cc67744006d1ea017297fb20a074c809a552dedbdb41f1b38529323f": [
+          "2024-01-renft/submission-535",
+          "2024-01-renft/submission-617",
+          "2024-01-renft/submission-622"
+        ],
+        "ffdc1656ffcf88725976d4bb3ab52c92858f2973288413120f55a2087d98264a": [
+          "2024-01-renft/submission-249",
+          "2024-01-renft/submission-447",
+          "2024-01-renft/submission-534"
         ]
       }
     },
@@ -2196,7 +3395,6 @@
         "https://code4rena.com/audits/2024-08-wildcat": [
           "2024-08-wildcat/01",
           "2024-08-wildcat/02",
-          "2024-08-wildcat/03",
           "2024-08-wildcat/04",
           "2024-08-wildcat/05",
           "2024-08-wildcat/06",
@@ -2209,7 +3407,6 @@
           "2024-08-wildcat/13",
           "2024-08-wildcat/14",
           "2024-08-wildcat/15",
-          "2024-08-wildcat/16",
           "2024-08-wildcat/17",
           "2024-08-wildcat/18",
           "2024-08-wildcat/19",
@@ -2244,8 +3441,6 @@
           "2025-08-gte-perps/L-02",
           "2025-08-gte-perps/L-03",
           "2025-08-gte-perps/L-04",
-          "2025-08-gte-perps/L-05",
-          "2025-08-gte-perps/L-06",
           "protocol:GTE Perps and Launchpad",
           "sha256:e641fe207d600f6dbf114975"
         ],
@@ -2300,7 +3495,6 @@
         ],
         "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/FixedTermLoanHooks.sol#L848": [
           "2024-08-wildcat/M-04",
-          "2024-08-wildcat/M-08",
           "2024-08-wildcat/submission-22"
         ],
         "https://github.com/code-423n4/2024-08-wildcat/blob/main/src/access/FixedTermLoanHooks.sol#L960-L978": [
@@ -2320,14 +3514,6 @@
           "2024-12-bakerfi/04",
           "2024-12-bakerfi/06"
         ],
-        "https://github.com/code-423n4/2024-12-bakerfi/blob/0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a/contracts/core/VaultRouter.sol#L99": [
-          "2024-12-bakerfi/07",
-          "2024-12-bakerfi/M-08"
-        ],
-        "https://github.com/code-423n4/2024-12-bakerfi/blob/0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a/contracts/core/strategies/StrategySupplyBase.sol#L110": [
-          "2024-12-bakerfi/H-03",
-          "2024-12-bakerfi/H-04"
-        ],
         "https://github.com/code-423n4/2025-06-panoptic": [
           "protocol:Panoptic Hypovault",
           "sha256:fa1dded6fe4369b0ba3fc0b1"
@@ -2341,13 +3527,8 @@
         "https://code4rena.com/audits/2022-05-alchemix": [
           "2022-05-alchemix/L-01",
           "2022-05-alchemix/L-02",
-          "2022-05-alchemix/L-03",
           "2022-05-alchemix/L-04",
-          "2022-05-alchemix/L-05",
-          "2022-05-alchemix/L-06",
-          "2022-05-alchemix/L-07",
           "2022-05-alchemix/L-08",
-          "2022-05-alchemix/L-09",
           "2022-05-alchemix/L-10",
           "2022-05-alchemix/L-11",
           "protocol:Alchemix",
@@ -2366,17 +3547,14 @@
           "2024-04-noya/submission-1409"
         ],
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol": [
-          "2024-04-noya/H-02",
           "2024-04-noya/submission-1325",
-          "2024-04-noya/submission-552",
           "2024-04-noya/submission-757"
         ],
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L200": [
           "2024-04-noya/M-18",
           "2024-04-noya/submission-1419",
           "2024-04-noya/submission-1496",
-          "2024-04-noya/submission-492",
-          "2024-04-noya/submission-552"
+          "2024-04-noya/submission-492"
         ],
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L200-L219": [
           "2024-04-noya/submission-1503",
@@ -2391,10 +3569,6 @@
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L226": [
           "2024-04-noya/submission-1409",
           "2024-04-noya/submission-1513"
-        ],
-        "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L226-L250": [
-          "2024-04-noya/submission-1503",
-          "2024-04-noya/submission-1507"
         ],
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/accountingManager/AccountingManager.sol#L239": [
           "2024-04-noya/submission-1318",
@@ -2513,7 +3687,6 @@
           "2024-04-noya/submission-879"
         ],
         "https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/BalancerConnector.sol#L64": [
-          "2024-04-noya/M-13",
           "2024-04-noya/submission-1372",
           "2024-04-noya/submission-1427"
         ],
@@ -2744,45 +3917,16 @@
           "sha256:224c2519f8c0bcdda515f5f2"
         ],
         "https://code4rena.com/audits/2024-01-renft": [
-          "2024-01-renft/L-01",
-          "2024-01-renft/L-02",
-          "2024-01-renft/L-03",
-          "2024-01-renft/L-04",
           "2024-01-renft/L-05",
           "2024-01-renft/L-06",
           "protocol:reNFT",
           "sha256:6aa05a6cbc829ba4121a646a"
         ],
         "https://github.com/2024-01-renft/tree/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291": [
-          "2024-01-renft/H-01",
-          "2024-01-renft/H-02",
-          "2024-01-renft/H-03",
-          "2024-01-renft/H-04",
-          "2024-01-renft/H-05",
-          "2024-01-renft/H-06",
-          "2024-01-renft/H-07",
-          "2024-01-renft/L-01",
-          "2024-01-renft/L-02",
-          "2024-01-renft/L-03",
-          "2024-01-renft/L-04",
           "2024-01-renft/L-05",
           "2024-01-renft/L-06",
-          "2024-01-renft/M-01",
-          "2024-01-renft/M-02",
           "2024-01-renft/M-03",
-          "2024-01-renft/M-04",
-          "2024-01-renft/M-05",
-          "2024-01-renft/M-06",
-          "2024-01-renft/M-07",
-          "2024-01-renft/M-08",
-          "2024-01-renft/M-09",
-          "2024-01-renft/M-10",
-          "2024-01-renft/M-11",
-          "2024-01-renft/M-12",
-          "2024-01-renft/M-13",
-          "2024-01-renft/M-14",
-          "2024-01-renft/M-15",
-          "2024-01-renft/M-16"
+          "2024-01-renft/M-07"
         ],
         "https://github.com/LayerZero-Labs/solidity-examples/blob/ca7d4f1d482df5e17f8aaf1b34d0e4432020bc4e/contracts/lzApp/LzApp.sol#L35-L52": [
           "2024-01-decent/submission-668",
@@ -2826,10 +3970,6 @@
           "2024-01-decent/submission-657",
           "2024-01-decent/submission-663"
         ],
-        "https://github.com/code-423n4/2024-01-decent/blob/011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29/src/swappers/UniSwapper.sol": [
-          "2024-01-decent/submission-117",
-          "2024-01-decent/submission-627"
-        ],
         "https://github.com/code-423n4/2024-01-decent/blob/07ef78215e3d246d47a410651906287c6acec3ef/src/UTBExecutor.sol#L52": [
           "2024-01-decent/L-01",
           "2024-01-decent/L-03"
@@ -2857,17 +3997,12 @@
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol": [
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
         ],
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L108-L124": [
           "2024-01-decent/submission-749",
           "2024-01-decent/submission-750"
-        ],
-        "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L259": [
-          "2024-01-decent/H-03",
-          "2024-01-decent/submission-728"
         ],
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTB.sol#L259-L274": [
           "2024-01-decent/M-02",
@@ -2888,7 +4023,6 @@
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/UTBExecutor.sol": [
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
         ],
@@ -2901,10 +4035,8 @@
           "2024-01-decent/submission-713"
         ],
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/bridge_adapters/DecentBridgeAdapter.sol": [
-          "2024-01-decent/H-04",
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
@@ -2915,7 +4047,6 @@
           "2024-01-decent/submission-720"
         ],
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/bridge_adapters/StargateBridgeAdapter.sol": [
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-8",
           "2024-01-decent/submission-9"
@@ -2923,7 +4054,6 @@
         "https://github.com/code-423n4/2024-01-decent/blob/main/src/swappers/UniSwapper.sol": [
           "2024-01-decent/submission-10",
           "2024-01-decent/submission-12",
-          "2024-01-decent/submission-13",
           "2024-01-decent/submission-5",
           "2024-01-decent/submission-678"
         ],
@@ -3026,14 +4156,6 @@
           "2024-01-renft/submission-357",
           "2024-01-renft/submission-437"
         ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/libraries/RentalConstants.sol#L62": [
-          "2024-01-renft/H-04",
-          "2024-01-renft/submission-625"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L100": [
-          "2024-01-renft/M-05",
-          "2024-01-renft/M-15"
-        ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/modules/PaymentEscrow.sol#L100-L118": [
           "2024-01-renft/submission-161",
           "2024-01-renft/submission-550"
@@ -3055,7 +4177,6 @@
           "2024-01-renft/submission-622"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Reclaimer.sol#L32-L34": [
-          "2024-01-renft/M-12",
           "2024-01-renft/submission-547",
           "2024-01-renft/submission-567"
         ],
@@ -3066,10 +4187,6 @@
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Reclaimer.sol#L71": [
           "2024-01-renft/M-14",
           "2024-01-renft/submission-627"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L162-L195": [
-          "2024-01-renft/H-07",
-          "2024-01-renft/submission-492"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L181-L194": [
           "2024-01-renft/submission-454",
@@ -3084,21 +4201,9 @@
           "2024-01-renft/submission-494",
           "2024-01-renft/submission-613"
         ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L232-L238": [
-          "2024-01-renft/M-11",
-          "2024-01-renft/submission-613"
-        ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L248-L262": [
           "2024-01-renft/submission-488",
           "2024-01-renft/submission-514"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L373-L375": [
-          "2024-01-renft/M-11",
-          "2024-01-renft/submission-620"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L384-L386": [
-          "2024-01-renft/M-11",
-          "2024-01-renft/submission-495"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/packages/Signer.sol#L394-L400": [
           "2024-01-renft/submission-460",
@@ -3109,19 +4214,11 @@
           "2024-01-renft/submission-460",
           "2024-01-renft/submission-495"
         ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Create.sol#L595": [
-          "2024-01-renft/H-03",
-          "2024-01-renft/H-06"
-        ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Create.sol#L733": [
-          "2024-01-renft/H-01",
-          "2024-01-renft/H-03",
           "2024-01-renft/submission-431",
           "2024-01-renft/submission-433"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Factory.sol#L138": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/M-01",
           "2024-01-renft/submission-581",
           "2024-01-renft/submission-584"
         ],
@@ -3134,31 +4231,17 @@
           "2024-01-renft/submission-553"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol": [
-          "2024-01-renft/M-01",
-          "2024-01-renft/M-08",
-          "2024-01-renft/M-09",
           "2024-01-renft/submission-581",
           "2024-01-renft/submission-584",
           "2024-01-renft/submission-630"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L195": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/M-01",
-          "2024-01-renft/M-02",
           "2024-01-renft/submission-581",
           "2024-01-renft/submission-584"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L195-L293": [
-          "2024-01-renft/M-08",
-          "2024-01-renft/submission-539"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L203-L291": [
           "2024-01-renft/submission-621",
           "2024-01-renft/submission-630"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L255-L267": [
-          "2024-01-renft/M-16",
-          "2024-01-renft/submission-625"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Guard.sol#L309-L345": [
           "2024-01-renft/submission-429",
@@ -3174,7 +4257,6 @@
           "2024-01-renft/submission-622"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L210-L212": [
-          "2024-01-renft/M-04",
           "2024-01-renft/submission-435",
           "2024-01-renft/submission-544",
           "2024-01-renft/submission-551"
@@ -3184,7 +4266,6 @@
           "2024-01-renft/submission-551"
         ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L265": [
-          "2024-01-renft/M-05",
           "2024-01-renft/M-14",
           "2024-01-renft/M-15",
           "2024-01-renft/submission-237",
@@ -3205,18 +4286,9 @@
           "2024-01-renft/submission-551",
           "2024-01-renft/submission-559"
         ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L293": [
-          "2024-01-renft/M-12",
-          "2024-01-renft/submission-615"
-        ],
         "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/src/policies/Stop.sol#L353": [
-          "2024-01-renft/M-12",
           "2024-01-renft/submission-567",
           "2024-01-renft/submission-605"
-        ],
-        "https://github.com/re-nft/smart-contracts/blob/3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291/test/integration/StopRent.t.sol": [
-          "2024-01-renft/M-14",
-          "2024-01-renft/M-15"
         ],
         "https://github.com/re-nft/smart-contracts/blob/cbf5ff74e40576be72090afd99bf6f0c366bd315/src/packages/Signer.sol#L162-L195": [
           "2024-01-renft/submission-436",
@@ -3231,25 +4303,12 @@
           "2024-01-renft/submission-432"
         ],
         "https://github.com/re-nft/smart-contracts/blob/main/src/policies/Factory.sol": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/M-01",
           "2024-01-renft/submission-581",
           "2024-01-renft/submission-584"
         ],
         "https://github.com/re-nft/smart-contracts/blob/main/src/policies/Guard.sol": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/M-01",
           "2024-01-renft/submission-581",
           "2024-01-renft/submission-584"
-        ],
-        "https://github.com/safe-global/safe-contracts/blob/b140318af6581e499506b11128a892e3f7a52aeb/contracts/base/FallbackManager.sol#L44": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/H-03"
-        ],
-        "https://github.com/safe-global/safe-contracts/blob/main/contracts/base/FallbackManager.sol": [
-          "2024-01-renft/H-02",
-          "2024-01-renft/H-03",
-          "2024-01-renft/M-02"
         ]
       }
     }

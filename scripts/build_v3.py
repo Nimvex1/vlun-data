@@ -46,6 +46,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_v3 as V  # noqa: E402
 import v32_execution as _exec_mod  # noqa: E402
 from vlun import RETIRED_FAMILIES  # noqa: E402
+from hydrate_v22_v3 import hydrate_v3_row, purge_v3  # noqa: E402  (verbatim hydration/purge)
 
 U = V.UNKNOWN
 
@@ -271,6 +272,7 @@ def main() -> int:
         row["record_type"] = "finding_v3"
         row["dataset_version"] = V.DATASET_VERSION_V3
         row["schema_version"] = V.SCHEMA_VERSION_V3
+        hydrate_v3_row(row)  # verbatim inline code/prose; never removes fields
         findings_rows.append(row)
     findings_rows.sort(key=lambda r: (r["source_id"], r["candidate_id"]))
     V.write_jsonl(V.JSONL_V3 / "findings.jsonl", findings_rows)
@@ -288,6 +290,7 @@ def main() -> int:
             "note": "immutable: clone HEAD pin + file sha256; no branch refs",
         }
         row["record_type"] = "candidate_v3"
+        hydrate_v3_row(row)  # verbatim inline code/prose; never removes fields
         ledger.append(row)
     ledger.sort(key=lambda r: (r["source_id"], r["candidate_id"]))
     V.write_jsonl(V.DERIVED_V3 / "candidate_ledger.jsonl", ledger)
@@ -353,6 +356,7 @@ def main() -> int:
         # key would read as "execution attempted, nothing recorded".
         if exp:
             row["experiment"] = exp
+        hydrate_v3_row(row)  # replace METADATA_ONLY description with verbatim prose
         records.append(row)
     records.sort(key=lambda r: r["finding_id"])
     V.write_jsonl(V.DERIVED_V3 / "records.jsonl", records)
@@ -511,7 +515,29 @@ def main() -> int:
                  {"splits": split,
                   "rule": "by-source assignment; no source spans splits",
                   "assignment": {sid: SPLIT_OF[sid] for sid in sorted(SPLIT_OF)}})
-    V.write_jsonl(V.SPLITS_V3 / "quarantine.jsonl", [])
+    # Admitted records whose source yielded no verbatim code+prose are moved
+    # out of the trainable tables into quarantine.  Pointer rows only: the
+    # full record body stays in derived_v3/records.jsonl, so no content is
+    # duplicated and no row is dropped from the 7,712 / 5,467 count pins.
+    quarantine = []
+    for r in records:
+        hyd = r.get("_hydration") or {}
+        if not str(hyd.get("status", "")).startswith("QUARANTINED"):
+            continue
+        quarantine.append({
+            "finding_id": r["finding_id"],
+            "source_id": r["source_id"],
+            "dataset_version": V.DATASET_VERSION_V3,
+            "record_type": "quarantine_pointer_v3",
+            "decision": r["decision"],
+            "_quarantine_reason": hyd["status"],
+            "_quarantined_from_split": r["benchmark_split"],
+            "_hydration": hyd,
+            "note": "pointer only: verbatim hydration failed; full record "
+                    "stays in derived_v3/records.jsonl",
+        })
+    quarantine.sort(key=lambda r: r["finding_id"])
+    V.write_jsonl(V.SPLITS_V3 / "quarantine.jsonl", quarantine)
 
     # ---- benchmark families R (source-tier routing) + S (contest outcome) -----
     bench_r, bench_s = [], []
@@ -570,6 +596,9 @@ def main() -> int:
     _write_tops_and_queue(ledger, records)
     V.log(f"build_v3.py done: {len(ledger)} candidates, {len(records)} records, "
           f"{len(negatives)} negatives")
+    # Move unhydratable rows out of all trainable/benchmark tables. Done last so
+    # the fresh canonical files from this build are the purge inputs.
+    purge_v3({})
     return 0
 
 

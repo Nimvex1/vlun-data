@@ -1,0 +1,312 @@
+.......................................................................................... [  9%]
+........................................................................ [ 17%]
+........................................................................ [ 25%]
+........................................................................ [ 33%]
+....................................F....................................................... [ 43%]
+......FF............................................... [ 50%]
+........................................................................ [ 58%]
+........................................................................ [ 65%]
+......F....................................................... [ 72%]
+...............................................F.................... [ 80%]
+.....................FFFFF..........................FF.F....... [ 87%]
+...................................................................................................................                       [100%]
+================================== FAILURES ===================================
+_ TestCatalogIsMachineIndependent.test_an_untracked_stray_json_cannot_change_the_catalog _
+
+self = <tests.test_json_catalog.TestCatalogIsMachineIndependent testMethod=test_an_untracked_stray_json_cannot_change_the_catalog>
+
+    def test_an_untracked_stray_json_cannot_change_the_catalog(self):
+        import subprocess
+        stray = ROOT / "reports" / "untracked_stray_probe.json"
+        self.assertFalse(stray.exists(), "probe path already occupied")
+        stray.write_text('{"probe": true}\n', encoding="utf-8")
+        try:
+            r = subprocess.run(
+                [sys.executable, "scripts/build_json_catalog.py", "--check"],
+                cwd=str(ROOT), capture_output=True, text=True, timeout=600)
+>           self.assertEqual(
+                r.returncode, 0,
+                "an untracked working-tree JSON changed the catalog: "
+                + r.stdout + r.stderr)
+E               AssertionError: 1 != 0 : an untracked working-tree JSON changed the catalog: STALE reports/json_catalog.json (stale),   entry differs: reports/v2_1_summary.json,   entry differs: reports/validation_report.json,   entry differs: wave1/reports_wave1/dedup_check.json,   entry differs: wave1/reports_wave1/validate_wave1.json, reports/json_catalog.md (stale) — run: python scripts/build_json_catalog.py
+
+tests\test_json_catalog.py:156: AssertionError
+__________ MachinePathGateTests.test_the_gate_passes_the_repository ___________
+
+self = <tests.test_no_machine_paths.MachinePathGateTests testMethod=test_the_gate_passes_the_repository>
+
+    def test_the_gate_passes_the_repository(self):
+        rc = gate.main(["--quiet"])
+>       self.assertEqual(rc, 0)
+E       AssertionError: 1 != 0
+
+tests\test_no_machine_paths.py:113: AssertionError
+---------------------------- Captured stdout call -----------------------------
+files=2094 leaks=9 pending=0 genuine=2218 read_only_source_layer_unresolved=0
+____ MachinePathGateTests.test_the_repository_has_no_unlisted_machine_path ____
+
+self = <tests.test_no_machine_paths.MachinePathGateTests testMethod=test_the_repository_has_no_unlisted_machine_path>
+
+    def test_the_repository_has_no_unlisted_machine_path(self):
+        """Clean apart from the documented allowlist.
+    
+        Every hit must be classified as GENUINE (a path that is not the
+        operator's: an upstream quote, a redaction placeholder, a command
+        example) or PENDING (a real operator path in a file another agent
+        owns, tracked here with the change that clears it). Anything else
+        fails the build.
+        """
+        unlisted = [f for f in repo_scan() if f.category == "OPERATOR_LEAK"]
+>       self.assertEqual(
+            [(f.file, f.line, f.kind) for f in unlisted], [],
+            "unlisted machine paths: " + "; ".join(
+                f"{f.file}:{f.line} {f.kind}" for f in unlisted[:20]))
+E       AssertionError: Lists differ: [('reports/final_verification_gates.txt', [590 chars]le')] != []
+E       
+E       First list contains 9 additional elements.
+E       First extra element 0:
+E       ('reports/final_verification_gates.txt', 45, 'windows_user_profile')
+E       
+E       Diff is 669 characters long. Set self.maxDiff to None to see it. : unlisted machine paths: reports/final_verification_gates.txt:45 windows_user_profile; reports/final_verification_gates.txt:59 windows_user_profile; reports/final_verification_gates.txt:118 windows_user_profile; reports/final_verification_gates.txt:143 windows_user_profile; reports/final_verification_gates.txt:143 windows_user_profile; reports/final_verification_gates.txt:158 windows_user_profile; reports/final_verification_gates.txt:158 windows_user_profile; reports/final_verification_gates.txt:159 windows_user_profile; reports/final_verification_gates.txt:159 windows_user_profile
+
+tests\test_no_machine_paths.py:125: AssertionError
+_ TestDerivedChainIsLikeForLike.test_chain_includes_the_citation_resolution_stage _
+
+self = <tests.test_reproducibility_parity.TestDerivedChainIsLikeForLike testMethod=test_chain_includes_the_citation_resolution_stage>
+
+    def test_chain_includes_the_citation_resolution_stage(self):
+        scripts = [c[0] for c in DERIVED_CHAIN]
+>       self.assertIn("scripts/resolve_citations.py", scripts)
+E       AssertionError: 'scripts/resolve_citations.py' not found in ['scripts/build_derived.py', 'scripts/replay_v1_citation_pins.py', 'scripts/build_derived.py', 'scripts/build_derived.py']
+
+tests\test_reproducibility_parity.py:223: AssertionError
+_ IAAGuessesAreRejected.test_iaa_report_passing_llm_self_consistency_off_as_human_is_rejected _
+
+self = <tests.test_taxonomy_gate.IAAGuessesAreRejected testMethod=test_iaa_report_passing_llm_self_consistency_off_as_human_is_rejected>
+
+    def test_iaa_report_passing_llm_self_consistency_off_as_human_is_rejected(self):
+        resp = self.tmp / "responses"
+        resp.mkdir()
+        rows = [
+            {"annotator_id": "model-run-a", "annotator_kind": "llm_self_consistency",
+             "record_id": "r1", "rc_primary": "RC-01", "severity_tier": "2", "evidence_ceiling": "L2"},
+            {"annotator_id": "model-run-b", "annotator_kind": "llm_self_consistency",
+             "record_id": "r1", "rc_primary": "RC-01", "severity_tier": "2", "evidence_ceiling": "L2"},
+            {"annotator_id": "model-run-a", "annotator_kind": "llm_self_consistency",
+             "record_id": "r2", "rc_primary": "RC-02", "severity_tier": "1", "evidence_ceiling": "L2"},
+            {"annotator_id": "model-run-b", "annotator_kind": "llm_self_consistency",
+             "record_id": "r2", "rc_primary": "RC-02", "severity_tier": "1", "evidence_ceiling": "L2"},
+        ]
+        fields = list(rows[0])
+        with open(resp / "runs.csv", "w", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=fields)
+            w.writeheader()
+            w.writerows(rows)
+        bad = load_fixture("iaa_report_llm_as_iaa.json")
+        p = self.tmp / "report.json"
+        p.write_text(json.dumps(bad), encoding="utf-8")
+        r = run("iaa_statistics.py", "--audit-report", str(p), "--responses", str(resp))
+>       self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+E       AssertionError: 3221225786 != 1 :
+
+tests\test_taxonomy_gate.py:176: AssertionError
+_ TestFamilyMFollowsAdjudication.test_the_builder_still_reads_the_raw_claim_nowhere_in_the_answer _
+
+self = <tests.test_v22_adjudicated_consumers.TestFamilyMFollowsAdjudication testMethod=test_the_builder_still_reads_the_raw_claim_nowhere_in_the_answer>
+
+    def test_the_builder_still_reads_the_raw_claim_nowhere_in_the_answer(self):
+>       self.assertEqual(self.info["problems"], [],
+                         "; ".join(self.info["problems"][:5]))
+E       AssertionError: Lists differ: ['cairo:CVE-2024-45304: record sha256 does[4481 chars]ter'] != []
+E       
+E       First list contains 56 additional elements.
+E       First extra element 0:
+E       'cairo:CVE-2024-45304: record sha256 does not match its split pointer'
+E       
+E       Diff is 4905 characters long. Set self.maxDiff to None to see it. : cairo:CVE-2024-45304: record sha256 does not match its split pointer; move:CVE-2023-36184: record sha256 does not match its split pointer; move:move-vm-value-depth: record sha256 does not match its split pointer; move:zellic-3.2-control-flow-graph: record sha256 does not match its split pointer; move:zellic-3.2-control-flow-graph-aptos: record sha256 does not match its split pointer
+
+tests\test_v22_adjudicated_consumers.py:273: AssertionError
+_ TestFamilyMFollowsAdjudication.test_the_guard_refuses_a_key_that_is_not_the_adjudicated_level _
+
+self = <tests.test_v22_adjudicated_consumers.TestFamilyMFollowsAdjudication testMethod=test_the_guard_refuses_a_key_that_is_not_the_adjudicated_level>
+
+    def test_the_guard_refuses_a_key_that_is_not_the_adjudicated_level(self):
+        """Red/green proof of the fail-closed guard family M needs live."""
+        bad_row = json.loads(json.dumps(
+>           next(r for r in self.rows
+                 if r["source"]["record_id"] in self.demoted)))
+E       StopIteration
+
+tests\test_v22_adjudicated_consumers.py:318: StopIteration
+_ TestFamilyMFollowsAdjudication.test_the_rebuilt_key_census_is_the_adjudicated_one _
+
+self = <tests.test_v22_adjudicated_consumers.TestFamilyMFollowsAdjudication testMethod=test_the_rebuilt_key_census_is_the_adjudicated_one>
+
+    def test_the_rebuilt_key_census_is_the_adjudicated_one(self):
+        levels = collections.Counter(r["answer_key"]["level"] for r in self.rows)
+        # Pin sync (purge): L1:1/L3:1/L5:5 -> L1:0/L3:0/L5:4. The L1 demotion
+        # (M-09) and the L3 record (vyper:CVE-2024-24567) were purged as
+        # UNHYDRATABLE_DEAD_POINTER / QUARANTINED_NO_CODE, preserved only in
+        # quarantine; L4:29 and L6:1 are unchanged. Total = 34, as above.
+>       self.assertEqual(dict(levels),
+                         {"L5": 4, "L4": 29, "L6": 1})
+E       AssertionError: {} != {'L5': 4, 'L4': 29, 'L6': 1}
+E       - {}
+E       + {'L4': 29, 'L5': 4, 'L6': 1}
+
+tests\test_v22_adjudicated_consumers.py:309: AssertionError
+______ TestFamilyMFollowsAdjudication.test_the_retired_copy_is_untouched ______
+
+self = <tests.test_v22_adjudicated_consumers.TestFamilyMFollowsAdjudication testMethod=test_the_retired_copy_is_untouched>
+
+    def test_the_retired_copy_is_untouched(self):
+        """The frozen rows are published history: no rebuild rewrites them."""
+        path = (ROOT / "benchmark" / "retired_families"
+                / "M_experiment_level_classification.jsonl")
+        before = path.read_bytes()
+        bb.build()                       # the rebuild must not write anything
+        self.assertEqual(path.read_bytes(), before,
+                         "a rebuild touched the frozen family M rows")
+        frozen = read_jsonl(path)
+        levels = collections.Counter(
+            r["answer_key"]["level"] for r in frozen)
+        self.assertEqual(levels["L5"], 35,
+                         "the frozen rows were rewritten away from the "
+                         "pre-adjudication claim they published")
+        self.assertEqual(
+            {r["answer_key"]["evidence_type"] for r in frozen},
+            {"experimentally_verified"})
+        # Pin sync (split rebuild + purge): match frozen rows by
+        # source.record_id, NOT by the task `id`. The current split rebuild
+        # moved `move:cetus-checked-shlw` validation -> test, so the same source
+        # record is M::test::... live but M::validation::... in the frozen file;
+        # the old id-based `next(...)` match raised StopIteration.
+        # The live builder disagrees with the frozen answers by design: the
+        # adjudication moved the level below L5. 31 -> 29 because the L1
+        # demotion solidity:zentory-self-audit/M-09 and the L3 record
+        # vyper:CVE-2024-24567 were purged as UNHYDRATABLE_DEAD_POINTER /
+        # QUARANTINED_NO_CODE and survive only in quarantine. The old
+        # assertIn(CVE, differing) is therefore dropped.
+        frozen_by_source = {f["source"]["record_id"]: f for f in frozen}
+        differing = {
+            r["source"]["record_id"]
+            for r in self.rows
+            if r["answer_key"]
+            != frozen_by_source[r["source"]["record_id"]]["answer_key"]
+        }
+>       self.assertEqual(len(differing), 29)
+E       AssertionError: 0 != 29
+
+tests\test_v22_adjudicated_consumers.py:369: AssertionError
+___ TestFamilyQFieldTypes.test_q_answers_are_pinned_to_the_published_layer ____
+
+self = <tests.test_v22_adjudicated_consumers.TestFamilyQFieldTypes testMethod=test_q_answers_are_pinned_to_the_published_layer>
+
+    def test_q_answers_are_pinned_to_the_published_layer(self):
+        """Every Q answer key equals derived_v2_2/records.jsonl, all 61 rows."""
+        # Phase 4 pin sync: 137 -> 61. The hydration/purge shrank both family Q
+        # and derived_v2_2/records.jsonl to 61 rows (recomputed via bb.build()
+        # and a direct record count).
+>       self.assertEqual(len(self.q), 61)
+E       AssertionError: 0 != 61
+
+tests\test_v22_adjudicated_consumers.py:398: AssertionError
+_ TestSplitPointersMatchTheDerivedRecords.test_every_v2_2_pointer_hash_equals_its_record_hash _
+
+self = <tests.test_v22_split_pointers.TestSplitPointersMatchTheDerivedRecords testMethod=test_every_v2_2_pointer_hash_equals_its_record_hash>
+
+    def test_every_v2_2_pointer_hash_equals_its_record_hash(self):
+        self.assertTrue(self.pointers, "no v2.2 split pointers found")
+        bad = []
+        for split, p in self.pointers:
+            rec = self.records.get(p["id"])
+            if rec is None:
+                bad.append(f"{split}: {p['id']} has no derived record")
+                continue
+            if p.get("record_sha256") != sha256_text(canonical(rec)):
+                bad.append(f"{split}: {p['id']} record_sha256 mismatch")
+>       self.assertEqual(bad, [],
+                         "stale split pointers: run python "
+                         "scripts/build_splits_v22.py")
+E       AssertionError: Lists differ: ['train: move:zellic-3.2-control-flow-grap[3498 chars]tch'] != []
+E       
+E       First list contains 56 additional elements.
+E       First extra element 0:
+E       'train: move:zellic-3.2-control-flow-graph record_sha256 mismatch'
+E       
+E       Diff is 3718 characters long. Set self.maxDiff to None to see it. : stale split pointers: run python scripts/build_splits_v22.py
+
+tests\test_v22_split_pointers.py:72: AssertionError
+_ TestSplitPointersMatchTheDerivedRecords.test_the_kq_rebuild_matches_the_committed_task_files _
+
+self = <tests.test_v22_split_pointers.TestSplitPointersMatchTheDerivedRecords testMethod=test_the_kq_rebuild_matches_the_committed_task_files>
+
+    def test_the_kq_rebuild_matches_the_committed_task_files(self):
+        import build_benchmark_v22 as bb
+        from vlun import BENCHMARK_FAMILIES, RETIRED_FAMILIES, ROOT as VROOT
+        tasks, info = bb.build()
+>       self.assertEqual(info["problems"], [],
+                         "the K-Q rebuild refuses: " +
+                         "; ".join(info["problems"][:5]))
+E       AssertionError: Lists differ: ['cairo:CVE-2024-45304: record sha256 does[4481 chars]ter'] != []
+E       
+E       First list contains 56 additional elements.
+E       First extra element 0:
+E       'cairo:CVE-2024-45304: record sha256 does not match its split pointer'
+E       
+E       Diff is 4905 characters long. Set self.maxDiff to None to see it. : the K-Q rebuild refuses: cairo:CVE-2024-45304: record sha256 does not match its split pointer; move:CVE-2023-36184: record sha256 does not match its split pointer; move:move-vm-value-depth: record sha256 does not match its split pointer; move:zellic-3.2-control-flow-graph: record sha256 does not match its split pointer; move:zellic-3.2-control-flow-graph-aptos: record sha256 does not match its split pointer
+
+tests\test_v22_split_pointers.py:86: AssertionError
+_ TestOwnerChecksReportCurrent.test_the_owner_scripts_agree_the_layer_is_current _
+
+self = <tests.test_v22_split_pointers.TestOwnerChecksReportCurrent testMethod=test_the_owner_scripts_agree_the_layer_is_current>
+
+    def test_the_owner_scripts_agree_the_layer_is_current(self):
+        for script in ("scripts/build_splits_v22.py",
+                       "scripts/build_benchmark_v22.py"):
+            r = subprocess.run([sys.executable, script, "--check"],
+                               cwd=str(ROOT), capture_output=True,
+                               text=True, timeout=900)
+>           self.assertEqual(
+                r.returncode, 0,
+                f"{script} --check must pass on the committed tree: "
+                + r.stdout + r.stderr)
+E           AssertionError: 1 != 0 : scripts/build_splits_v22.py --check must pass on the committed tree: --check: {'train': 443, 'validation': 273, 'test': 253, 'quarantine': 2} built, nothing written
+E             rules: ["v1 rows are mirrored from splits_v2 and are never reassigned", "canonical group, shared source URL and near-duplicate / semantic twins are placed in one split", "records that carry code inherit repository-level isolation; advisory-derived records carry no code and are isolated by content, so a repository's advisories may span splits", "the remainder is assigned deterministically, stratified by l
+E             post_check: {"cross_split_near_duplicates": 0, "cross_split_semantic_pairs": 0, "cross_split_source_urls": 0, "code_repository_violations": {}}
+E             quarantine: {"count": 2, "reasons": {"v1": 2}}
+E             counts: {"train": 443, "validation": 273, "test": 253, "quarantine": 2}
+E           STALE splits_v2_2/train.jsonl, splits_v2_2/validation.jsonl, splits_v2_2/test.jsonl — run: python scripts/build_splits_v22.py
+
+tests\test_v22_split_pointers.py:127: AssertionError
+============================ slowest 15 durations =============================
+78.11s call     tests/test_rights_gate.py::RightsGateLiveTree::test_gate_is_runnable_and_reports_the_known_findings
+76.04s call     tests/test_rights_gate.py::RightsGateLiveTree::test_distribution_view_carries_no_copied_expression
+65.60s call     tests/test_rights_gate.py::LiveReleaseManifest::test_the_committed_manifest_is_reproducible
+37.25s call     tests/test_no_machine_paths.py::MachinePathGateTests::test_the_repository_has_no_unlisted_machine_path
+36.45s call     tests/test_no_machine_paths.py::MachinePathGateTests::test_the_gate_passes_the_repository
+16.25s call     tests/test_v4_ingestion.py::TestV4Ingestion::test_source_hashes
+15.79s call     tests/test_api_siblings.py::ScriptSurface::test_dry_run_writes_nothing
+13.57s call     tests/test_json_catalog.py::TestCatalogIsMachineIndependent::test_an_untracked_stray_json_cannot_change_the_catalog
+12.08s call     tests/test_reproducibility.py::TestLiveGates::test_check_reproducibility_green
+10.65s call     tests/test_benchmark_status.py::TestBaselinesAreTrainOnly::test_every_baseline_reports_where_it_was_fitted
+8.40s call     tests/test_nonevm_pilot.py::AdapterPrerequisiteMatrix::test_adapters_expose_the_prerequisite_matrix
+6.25s call     tests/test_eval_leakage.py::TestGateIsRunnable::test_the_gate_passes_on_this_tree
+5.98s call     tests/test_eval_leakage.py::TestProtectedRecordsStayOutOfTheCorpus::test_the_committed_report_is_current
+5.48s call     tests/test_independent_benchmark.py::TestAdditiveAndReproducible::test_audit_is_deterministic
+5.12s call     tests/test_benchmark_status.py::TestStatusComesFromEvidence::test_status_is_deterministic
+=========================== short test summary info ===========================
+FAILED tests/test_json_catalog.py::TestCatalogIsMachineIndependent::test_an_untracked_stray_json_cannot_change_the_catalog
+FAILED tests/test_no_machine_paths.py::MachinePathGateTests::test_the_gate_passes_the_repository
+FAILED tests/test_no_machine_paths.py::MachinePathGateTests::test_the_repository_has_no_unlisted_machine_path
+FAILED tests/test_reproducibility_parity.py::TestDerivedChainIsLikeForLike::test_chain_includes_the_citation_resolution_stage
+FAILED tests/test_taxonomy_gate.py::IAAGuessesAreRejected::test_iaa_report_passing_llm_self_consistency_off_as_human_is_rejected
+FAILED tests/test_v22_adjudicated_consumers.py::TestFamilyMFollowsAdjudication::test_the_builder_still_reads_the_raw_claim_nowhere_in_the_answer
+FAILED tests/test_v22_adjudicated_consumers.py::TestFamilyMFollowsAdjudication::test_the_guard_refuses_a_key_that_is_not_the_adjudicated_level
+FAILED tests/test_v22_adjudicated_consumers.py::TestFamilyMFollowsAdjudication::test_the_rebuilt_key_census_is_the_adjudicated_one
+FAILED tests/test_v22_adjudicated_consumers.py::TestFamilyMFollowsAdjudication::test_the_retired_copy_is_untouched
+FAILED tests/test_v22_adjudicated_consumers.py::TestFamilyQFieldTypes::test_q_answers_are_pinned_to_the_published_layer
+FAILED tests/test_v22_split_pointers.py::TestSplitPointersMatchTheDerivedRecords::test_every_v2_2_pointer_hash_equals_its_record_hash
+FAILED tests/test_v22_split_pointers.py::TestSplitPointersMatchTheDerivedRecords::test_the_kq_rebuild_matches_the_committed_task_files
+FAILED tests/test_v22_split_pointers.py::TestOwnerChecksReportCurrent::test_the_owner_scripts_agree_the_layer_is_current
+13 failed, 892 passed, 1665 subtests passed in 518.17s (0:08:38)

@@ -94,10 +94,23 @@ class TestVbetaFiguresAreCurrent(unittest.TestCase):
         self.assertNotRegex(src, r"harvest \d+ (?:newly-)?verified sources")
 
     def test_vbeta_manifest_explains_u_gap(self):
+        """The U 'gap' is gone: U and V now cover every admitted row.
+
+        CHANGE (post-purge, 2026-11-22): the old assertion required the
+        manifest note to name `unknown` and spell out the 6,935/6,219/716
+        gap.  The purge kept only FULLY_TRAINABLE rows and removed the
+        unknown-language exclusion, so U and V each have 80 tasks = all 80
+        admitted records.  The intent (the manifest explains the U/V
+        population) is preserved by checking the new note and the equality.
+        """
         note = self.bench.get("notes", "")
-        self.assertIn("unknown", note)
-        self.assertIn(f"{len(self.records):,}", note)
-        self.assertIn(f"{self.bench['tasks']['vbeta_U_language_routing']:,}", note)
+        self.assertIn("FULLY_TRAINABLE", note)
+        self.assertIn("quarantine.jsonl", note)
+        self.assertNotIn("unknown", note)
+        u = self.bench["tasks"]["vbeta_U_language_routing"]
+        v = self.bench["tasks"]["vbeta_V_source_tier_routing"]
+        self.assertEqual(u, len(self.records))
+        self.assertEqual(v, len(self.records))
 
 
 class TestBaselineFiguresInDocsAreLive(unittest.TestCase):
@@ -236,7 +249,11 @@ class TestBaselineFiguresInDocsAreLive(unittest.TestCase):
             self.assertNotIn(old, md, f"evaluation report: stale figure {old}")
         chg = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         self.assertIn(f"U ({u:,} tasks)", chg)
-        self.assertIn("excludes 716", chg)
+        # CHANGE (post-purge, 2026-11-22): the old pin required the phrase
+        # "excludes 716" (the pre-purge unknown-language exclusion).  That
+        # gap no longer exists — U and V both cover all 80 admitted records —
+        # so the new CHANGELOG entry must state the no-gap fact instead.
+        self.assertIn("no unknown-language exclusion", chg)
 
 
 class TestExploratoryDemotionIsLive(unittest.TestCase):
@@ -246,11 +263,16 @@ class TestExploratoryDemotionIsLive(unittest.TestCase):
     C, R, U, V are INVALID; only A is PRIMARY. The docs must mark them with
     the audited status and quote the live headline arithmetic."""
 
+    # CHANGE (post-purge, 2026-11-22): after the vbeta purge V has 80 rows,
+    # all carrying a single tier label and no held-out split, so the audit
+    # marks it single_label/holdout_too_small and the scorer puts it in the
+    # EXPLORATORY block.  It used to be INVALID (saturated/shortcut).
     EXPL = {
         "F_false_positive_rejection.jsonl",
         "G_patch_verification.jsonl",
         "I_verified_non_exploit.jsonl",
         "J_verified_patch.jsonl",
+        "vbeta_V_source_tier_routing.jsonl",
     }
 
     def setUp(self):
@@ -291,10 +313,16 @@ class TestExploratoryDemotionIsLive(unittest.TestCase):
             for i, a in enumerate(blocks):
                 for b in blocks[i + 1:]:
                     self.assertFalse(a & b, f"{name}: {a & b} is in two blocks")
-            scored = {f for f, s in status.items() if s.get("rows_scorable")}
-            self.assertEqual(primary | expl | invalid | retired, scored,
-                             f"{name}: the blocks do not cover every scored "
-                             f"family")
+            # CHANGE (post-purge, 2026-11-22): v3_T_taxonomy_explicit is now
+            # a 0-byte family file.  It is still emitted into `families_retired`
+            # with 0 scorable rows, so "families with rows" is no longer the
+            # right reconciliation set.  The four blocks partition every
+            # family that is not NOT_SCORABLE, including zero-row ones.
+            scorable_fams = {f for f, s in status.items()
+                             if s.get("status") != "NOT_SCORABLE"}
+            self.assertEqual(primary | expl | invalid | retired, scorable_fams,
+                             f"{name}: the blocks do not cover every "
+                             f"scorable-family entry")
             for f in primary:
                 self.assertEqual(status[f]["status"], "PRIMARY",
                                  f"{name}: {f} is in the primary block but "

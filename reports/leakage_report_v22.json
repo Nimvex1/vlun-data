@@ -1,9 +1,9 @@
 {
   "counts": {
     "quarantine": 2,
-    "test": 284,
-    "train": 489,
-    "validation": 307
+    "test": 253,
+    "train": 443,
+    "validation": 273
   },
   "cross_layer_pairs": {
     "near": [],

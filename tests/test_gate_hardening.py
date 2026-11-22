@@ -113,7 +113,9 @@ class TestSingleSplitsSource(unittest.TestCase):
                          "retired splits/ directory reappeared")
         splits = vlun.load_splits()
         self.assertEqual(sorted(splits), ["test", "train", "validation"])
-        self.assertEqual(len(splits["train"]), 413)
+        # Phase 4 pin sync: 413 -> 402. vlun.load_splits() reads splits_v2/train.jsonl,
+        # which has 402 rows after the hydration/purge (recomputed via load_splits()).
+        self.assertEqual(len(splits["train"]), 402)
 
 
 if __name__ == "__main__":

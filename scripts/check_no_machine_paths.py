@@ -92,6 +92,17 @@ REDACTION_TOKEN = "REDACTED"
 # of the match, so a leading separator makes the first component empty.
 _NAME_COMPONENT = 2
 
+# A match can only occur where one of these literal substrings occurs:
+#   * windows_user_profile needs "Users" or "Documents and Settings";
+#   * posix_home needs "/home/" or "/Users/" (the latter contains "Users");
+#   * posix_root needs "/root/"; posix_tmp needs "/tmp/".
+# Every pattern is case-sensitive and the JSON-escape undo only collapses
+# doubled backslashes, so a file without any of these bytes cannot produce
+# a finding. Checking the raw bytes first avoids decoding and line-scanning
+# the hundreds of MB of JSONL that carry none of them.
+_TRIGGER_BYTES = (b"Users", b"Documents and Settings", b"/home/", b"/root/",
+                  b"/tmp/")
+
 # ---------------------------------------------------------------------------
 # scope
 # ---------------------------------------------------------------------------
@@ -404,6 +415,10 @@ def scan_files(paths: list[str]) -> list[Finding]:
         try:
             raw = (ROOT / rel).read_bytes()
         except OSError:
+            continue
+        # No trigger substring means no pattern can match this file, so the
+        # decode/split/regex work below cannot contribute a finding.
+        if not any(token in raw for token in _TRIGGER_BYTES):
             continue
         text = raw.decode("utf-8", errors="replace")
         for lineno, line in enumerate(text.splitlines(), 1):

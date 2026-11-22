@@ -16,18 +16,17 @@
   },
   "clean_holdout": {
     "by_family": {
+      "C_attacker_reasoning.jsonl": 24,
       "L_severity_reconciliation.jsonl": 6,
       "N_attacker_identity_extraction.jsonl": 2,
       "O_record_class_and_scope.jsonl": 15,
       "P_provenance_tier_and_rights.jsonl": 109,
-      "v3_R_source_tier_routing.jsonl": 1950,
-      "v3_S_contest_outcome.jsonl": 36,
-      "v3_T_taxonomy_explicit.jsonl": 2,
-      "vbeta_U_language_routing.jsonl": 564
+      "v3_R_source_tier_routing.jsonl": 1185,
+      "v3_S_contest_outcome.jsonl": 23
     },
     "claim": "every row in this file has ZERO known literal-answer overlap. This is the only partition in this layer claimed leakage-free",
     "literal_answer_overlap": 0,
-    "rows": 2684,
+    "rows": 1364,
     "tasks_file": "benchmark/independent/secondary_holdout_tasks.jsonl",
     "verification": "recomputed from the written payload and the committed benchmark families by scripts/build_secondary_holdout.py --check, without reading the answer key; a row is leaking when evidence_text() contains the gold scalar as a word-boundary literal"
   },
@@ -57,19 +56,19 @@
         ],
         "kind": "class_disjoint",
         "label_counts": {
-          "no_confirmed_vulnerability": 526,
-          "vulnerable": 194
+          "no_confirmed_vulnerability": 490,
+          "vulnerable": 168
         },
-        "reason": "holding out the two rarest labels removed every row (720 of 720); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
-        "rows_held_out": 720,
+        "reason": "holding out the two rarest labels removed every row (658 of 658); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
+        "rows_held_out": 658,
         "rows_retained": 0,
         "verdict": "skipped_empty_retained_side"
       },
       "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
-        "groups_total": 720,
+        "groups_total": 658,
         "kind": "group_disjoint",
-        "reason": "every one of the 720 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 658 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
@@ -85,13 +84,13 @@
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 720,
+      "rows_available": 658,
       "shortcuts_class_disjoint": {
-        "reason": "holding out the two rarest labels removed every row (720 of 720); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
+        "reason": "holding out the two rarest labels removed every row (658 of 658); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
         "verdict": "skipped_empty_retained_side"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 720 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 658 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -136,43 +135,96 @@
     },
     "C_attacker_reasoning.jsonl": {
       "class_disjoint": {
+        "clean_holdout_too_small": true,
+        "group_disjoint_verified": true,
+        "held_out_labels": {
+          "malicious_dependency": 7,
+          "protocol_accounting_or_config_flaw": 17
+        },
+        "held_out_labels_absent_from_retained": true,
+        "held_out_labels_before_filter": [
+          "malicious_dependency",
+          "protocol_accounting_or_config_flaw"
+        ],
         "kind": "class_disjoint",
         "label_counts": {
-          "honest_but_misconfigured": 3,
-          "malicious_dependency": 11,
-          "privileged": 133,
-          "unprivileged": 143
+          "malicious_dependency": 7,
+          "privileged": 340,
+          "protocol_accounting_or_config_flaw": 17,
+          "unprivileged": 29
         },
-        "reason": "rarest label 'honest_but_misconfigured' has n=3, below the --min-minority floor of 5; a holdout of 3 rows cannot support a stable class-disjoint estimate",
-        "verdict": "skipped_insufficient_minority_support"
+        "literal_answer_overlap_in_clean": 0,
+        "retained_contains_held_out_label": [],
+        "rows_excluded_contaminated": 0,
+        "rows_excluded_with_family_clean": 0,
+        "rows_held_out": 24,
+        "rows_held_out_before_filter": 24,
+        "rows_retained": 369,
+        "rows_transformed_and_clean": 0,
+        "single_class_holdout": false,
+        "usable_for_comparison": false,
+        "verdict": "built"
       },
-      "clean_holdout_status": "no_holdout_rows",
+      "clean_holdout_status": "clean",
       "group_disjoint": {
-        "groups_total": 290,
+        "groups_total": 393,
         "kind": "group_disjoint",
-        "reason": "every one of the 290 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 393 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
       },
       "payload_leakage": {
-        "clean_holdout_status": "no_holdout_rows",
+        "clean_holdout_status": "clean",
         "literal_answer_overlap_in_clean": 0,
         "reason": "",
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 0,
-        "rows_in_clean_holdout": 0,
+        "rows_held_out": 24,
+        "rows_in_clean_holdout": 24,
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 290,
+      "rows_available": 393,
       "shortcuts_class_disjoint": {
-        "reason": "rarest label 'honest_but_misconfigured' has n=3, below the --min-minority floor of 5; a holdout of 3 rows cannot support a stable class-disjoint estimate",
-        "verdict": "skipped_insufficient_minority_support"
+        "best_shortcut_accuracy": 0.7083,
+        "frequency_from_retained": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "group_lookup": {
+          "accuracy": 0.0,
+          "coverage": 0.0,
+          "macro_f1": 0.0
+        },
+        "held_out_rows": 24,
+        "input_retrieval": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "kept_label_space": 2,
+        "kept_rows": 369,
+        "majority_from_retained": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "majority_heldout_oracle_peek": {
+          "accuracy": 0.7083,
+          "coverage": 1.0,
+          "macro_f1": 0.4146
+        },
+        "random_from_retained_space": {
+          "accuracy": 0.0,
+          "coverage": 1.0,
+          "macro_f1": 0.0
+        },
+        "worst_honest_shortcut_accuracy": 0.0
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 290 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 393 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -337,16 +389,16 @@
       "class_disjoint": {
         "kind": "class_disjoint",
         "label_counts": {
-          "effective": 7
+          "effective": 3
         },
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
-        "groups_total": 7,
+        "groups_total": 3,
         "kind": "group_disjoint",
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 3 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_already_group_disjoint"
@@ -362,13 +414,13 @@
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 7,
+      "rows_available": 3,
       "shortcuts_class_disjoint": {
         "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
         "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 7 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
+        "reason": "every one of the 3 record groups is a single row, so the committed splits already hold out whole records. Rebuilding the partition cannot make it stricter; the residual risk in this family is split-composition drift, not group overlap",
         "verdict": "skipped_already_group_disjoint"
       }
     },
@@ -935,8 +987,8 @@
       "class_disjoint": {
         "group_disjoint_verified": true,
         "held_out_labels": {
-          "0": 878,
-          "2": 1072
+          "0": 854,
+          "2": 331
         },
         "held_out_labels_absent_from_retained": true,
         "held_out_labels_before_filter": [
@@ -945,17 +997,17 @@
         ],
         "kind": "class_disjoint",
         "label_counts": {
-          "0": 878,
-          "1": 3517,
-          "2": 1072
+          "0": 854,
+          "1": 3438,
+          "2": 331
         },
         "literal_answer_overlap_in_clean": 0,
         "retained_contains_held_out_label": [],
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 1950,
-        "rows_held_out_before_filter": 1950,
-        "rows_retained": 3517,
+        "rows_held_out": 1185,
+        "rows_held_out_before_filter": 1185,
+        "rows_retained": 3438,
         "rows_transformed_and_clean": 0,
         "single_class_holdout": false,
         "usable_for_comparison": true,
@@ -986,14 +1038,14 @@
         "reason": "",
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 1950,
-        "rows_in_clean_holdout": 1950,
+        "rows_held_out": 1185,
+        "rows_in_clean_holdout": 1185,
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 5467,
+      "rows_available": 4623,
       "shortcuts_class_disjoint": {
-        "best_shortcut_accuracy": 0.5497,
+        "best_shortcut_accuracy": 0.7207,
         "frequency_from_retained": {
           "accuracy": 0.0,
           "coverage": 1.0,
@@ -1004,23 +1056,23 @@
           "coverage": 0.0,
           "macro_f1": 0.0
         },
-        "held_out_rows": 1950,
+        "held_out_rows": 1185,
         "input_retrieval": {
           "accuracy": 0.0,
           "coverage": 1.0,
           "macro_f1": 0.0
         },
         "kept_label_space": 1,
-        "kept_rows": 3517,
+        "kept_rows": 3438,
         "majority_from_retained": {
           "accuracy": 0.0,
           "coverage": 1.0,
           "macro_f1": 0.0
         },
         "majority_heldout_oracle_peek": {
-          "accuracy": 0.5497,
+          "accuracy": 0.7207,
           "coverage": 1.0,
-          "macro_f1": 0.3547
+          "macro_f1": 0.4188
         },
         "random_from_retained_space": {
           "accuracy": 0.0,
@@ -1042,128 +1094,37 @@
         ],
         "kind": "class_disjoint",
         "label_counts": {
-          "finding": 1056,
-          "negative": 16
+          "finding": 317,
+          "negative": 14
         },
-        "reason": "holding out the two rarest labels removed every row (1072 of 1072); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
-        "rows_held_out": 1072,
+        "reason": "holding out the two rarest labels removed every row (331 of 331); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
+        "rows_held_out": 331,
         "rows_retained": 0,
         "verdict": "skipped_empty_retained_side"
-      },
-      "clean_holdout_status": "clean",
-      "group_disjoint": {
-        "group_disjoint_verified": true,
-        "groups_held_out": 1,
-        "groups_total": 5,
-        "held_out_labels": {
-          "finding": 36
-        },
-        "held_out_labels_before_filter": {
-          "finding": 36
-        },
-        "kind": "group_disjoint",
-        "literal_answer_overlap_in_clean": 0,
-        "retained_labels": {
-          "finding": 1020,
-          "negative": 16
-        },
-        "rows_excluded_contaminated": 0,
-        "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 36,
-        "rows_held_out_before_filter": 36,
-        "rows_retained": 1036,
-        "rows_transformed_and_clean": 0,
-        "single_class_holdout": true,
-        "usable_for_comparison": false,
-        "verdict": "built"
-      },
-      "payload_leakage": {
-        "clean_holdout_status": "clean",
-        "literal_answer_overlap_in_clean": 0,
-        "reason": "",
-        "rows_excluded_contaminated": 0,
-        "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 36,
-        "rows_in_clean_holdout": 36,
-        "rows_transformed_and_clean": 0,
-        "rows_with_overlap_before": 0
-      },
-      "rows_available": 1072,
-      "shortcuts_class_disjoint": {
-        "reason": "holding out the two rarest labels removed every row (1072 of 1072); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
-        "verdict": "skipped_empty_retained_side"
-      },
-      "shortcuts_group_disjoint": {
-        "best_shortcut_accuracy": 1.0,
-        "frequency_from_retained": {
-          "accuracy": 1.0,
-          "coverage": 1.0,
-          "macro_f1": 1.0
-        },
-        "group_lookup": {
-          "accuracy": 1.0,
-          "coverage": 0.0,
-          "macro_f1": 1.0
-        },
-        "held_out_rows": 36,
-        "input_retrieval": {
-          "accuracy": 0.9444,
-          "coverage": 1.0,
-          "macro_f1": 0.4857
-        },
-        "kept_label_space": 2,
-        "kept_rows": 1036,
-        "majority_from_retained": {
-          "accuracy": 1.0,
-          "coverage": 1.0,
-          "macro_f1": 1.0
-        },
-        "majority_heldout_oracle_peek": {
-          "accuracy": 1.0,
-          "coverage": 1.0,
-          "macro_f1": 1.0
-        },
-        "random_from_retained_space": {
-          "accuracy": 0.6944,
-          "coverage": 1.0,
-          "macro_f1": 0.4098
-        },
-        "worst_honest_shortcut_accuracy": 0.6944
-      }
-    },
-    "v3_T_taxonomy_explicit.jsonl": {
-      "class_disjoint": {
-        "kind": "class_disjoint",
-        "label_counts": {
-          "access control": 1,
-          "business logic": 588
-        },
-        "reason": "rarest label 'access control' has n=1, below the --min-minority floor of 5; a holdout of 1 rows cannot support a stable class-disjoint estimate",
-        "verdict": "skipped_insufficient_minority_support"
       },
       "clean_holdout_status": "clean",
       "group_disjoint": {
         "clean_holdout_too_small": true,
         "group_disjoint_verified": true,
         "groups_held_out": 1,
-        "groups_total": 2,
+        "groups_total": 5,
         "held_out_labels": {
-          "business logic": 2
+          "finding": 23
         },
         "held_out_labels_before_filter": {
-          "business logic": 2
+          "finding": 23
         },
         "kind": "group_disjoint",
         "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
-          "access control": 1,
-          "business logic": 586
+          "finding": 294,
+          "negative": 14
         },
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 2,
-        "rows_held_out_before_filter": 2,
-        "rows_retained": 587,
+        "rows_held_out": 23,
+        "rows_held_out_before_filter": 23,
+        "rows_retained": 308,
         "rows_transformed_and_clean": 0,
         "single_class_holdout": true,
         "usable_for_comparison": false,
@@ -1175,36 +1136,36 @@
         "reason": "",
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 2,
-        "rows_in_clean_holdout": 2,
+        "rows_held_out": 23,
+        "rows_in_clean_holdout": 23,
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 589,
+      "rows_available": 331,
       "shortcuts_class_disjoint": {
-        "reason": "rarest label 'access control' has n=1, below the --min-minority floor of 5; a holdout of 1 rows cannot support a stable class-disjoint estimate",
-        "verdict": "skipped_insufficient_minority_support"
+        "reason": "holding out the two rarest labels removed every row (331 of 331); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
+        "verdict": "skipped_empty_retained_side"
       },
       "shortcuts_group_disjoint": {
         "best_shortcut_accuracy": 1.0,
         "frequency_from_retained": {
-          "accuracy": 1.0,
+          "accuracy": 0.9565,
           "coverage": 1.0,
-          "macro_f1": 1.0
+          "macro_f1": 0.4889
         },
         "group_lookup": {
           "accuracy": 1.0,
           "coverage": 0.0,
           "macro_f1": 1.0
         },
-        "held_out_rows": 2,
+        "held_out_rows": 23,
         "input_retrieval": {
-          "accuracy": 1.0,
+          "accuracy": 0.9565,
           "coverage": 1.0,
-          "macro_f1": 1.0
+          "macro_f1": 0.4889
         },
         "kept_label_space": 2,
-        "kept_rows": 587,
+        "kept_rows": 308,
         "majority_from_retained": {
           "accuracy": 1.0,
           "coverage": 1.0,
@@ -1216,205 +1177,84 @@
           "macro_f1": 1.0
         },
         "random_from_retained_space": {
-          "accuracy": 0.5,
+          "accuracy": 0.6957,
           "coverage": 1.0,
-          "macro_f1": 0.3333
+          "macro_f1": 0.4103
         },
-        "worst_honest_shortcut_accuracy": 0.5
+        "worst_honest_shortcut_accuracy": 0.6957
       }
+    },
+    "v3_T_taxonomy_explicit.jsonl": {
+      "verdict": "skipped_no_labeled_rows"
     },
     "vbeta_U_language_routing.jsonl": {
       "class_disjoint": {
-        "group_disjoint_verified": true,
-        "held_out_labels": {
-          "cairo": 19,
-          "move": 20
-        },
-        "held_out_labels_absent_from_retained": true,
-        "held_out_labels_before_filter": [
-          "cairo",
-          "move"
-        ],
         "kind": "class_disjoint",
         "label_counts": {
-          "cairo": 19,
-          "go": 38,
-          "move": 20,
-          "rust": 55,
-          "solidity": 6063,
-          "vyper": 24
+          "go": 5,
+          "rust": 2,
+          "solidity": 73
         },
-        "literal_answer_overlap_in_clean": 0,
-        "retained_contains_held_out_label": [],
-        "rows_excluded_contaminated": 0,
-        "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 39,
-        "rows_held_out_before_filter": 39,
-        "rows_retained": 505,
-        "rows_transformed_and_clean": 0,
-        "single_class_holdout": false,
-        "usable_for_comparison": true,
-        "verdict": "built"
+        "reason": "rarest label 'rust' has n=2, below the --min-minority floor of 5; a holdout of 2 rows cannot support a stable class-disjoint estimate",
+        "verdict": "skipped_insufficient_minority_support"
       },
-      "clean_holdout_status": "clean",
+      "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "group_disjoint_verified": true,
-        "groups_held_out": 3,
-        "groups_total": 10,
-        "held_out_labels": {
-          "go": 2,
-          "move": 10,
-          "rust": 6,
-          "solidity": 507
-        },
-        "held_out_labels_before_filter": {
-          "go": 2,
-          "move": 10,
-          "rust": 6,
-          "solidity": 507
-        },
+        "groups_held_out": 0,
+        "groups_total": 1,
+        "held_out_labels": {},
         "kind": "group_disjoint",
-        "literal_answer_overlap_in_clean": 0,
         "retained_labels": {
-          "cairo": 19,
-          "go": 36,
-          "move": 10,
-          "rust": 49,
-          "solidity": 5556,
-          "vyper": 24
+          "go": 5,
+          "rust": 2,
+          "solidity": 73
         },
-        "rows_excluded_contaminated": 0,
-        "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 525,
-        "rows_held_out_before_filter": 525,
-        "rows_retained": 5694,
-        "rows_transformed_and_clean": 0,
+        "rows_held_out": 0,
+        "rows_retained": 80,
         "single_class_holdout": false,
-        "usable_for_comparison": true,
-        "verdict": "built"
+        "usable_for_comparison": false,
+        "verdict": "skipped_empty_holdout"
       },
       "payload_leakage": {
-        "clean_holdout_status": "clean",
+        "clean_holdout_status": "no_holdout_rows",
         "literal_answer_overlap_in_clean": 0,
         "reason": "",
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 564,
-        "rows_in_clean_holdout": 564,
+        "rows_held_out": 0,
+        "rows_in_clean_holdout": 0,
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 6219,
+      "rows_available": 80,
       "shortcuts_class_disjoint": {
-        "best_shortcut_accuracy": 0.5128,
-        "frequency_from_retained": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "group_lookup": {
-          "accuracy": 0.0,
-          "coverage": 0.0,
-          "macro_f1": 0.0
-        },
-        "held_out_rows": 39,
-        "input_retrieval": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "kept_label_space": 1,
-        "kept_rows": 505,
-        "majority_from_retained": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "majority_heldout_oracle_peek": {
-          "accuracy": 0.5128,
-          "coverage": 1.0,
-          "macro_f1": 0.339
-        },
-        "random_from_retained_space": {
-          "accuracy": 0.0,
-          "coverage": 1.0,
-          "macro_f1": 0.0
-        },
-        "worst_honest_shortcut_accuracy": 0.0
+        "reason": "rarest label 'rust' has n=2, below the --min-minority floor of 5; a holdout of 2 rows cannot support a stable class-disjoint estimate",
+        "verdict": "skipped_insufficient_minority_support"
       },
       "shortcuts_group_disjoint": {
-        "best_shortcut_accuracy": 0.9657,
-        "frequency_from_retained": {
-          "accuracy": 0.9429,
-          "coverage": 1.0,
-          "macro_f1": 0.1876
-        },
-        "group_lookup": {
-          "accuracy": 0.9657,
-          "coverage": 0.0,
-          "macro_f1": 0.2456
-        },
-        "held_out_rows": 525,
-        "input_retrieval": {
-          "accuracy": 0.9067,
-          "coverage": 1.0,
-          "macro_f1": 0.1585
-        },
-        "kept_label_space": 6,
-        "kept_rows": 5694,
-        "majority_from_retained": {
-          "accuracy": 0.9657,
-          "coverage": 1.0,
-          "macro_f1": 0.2456
-        },
-        "majority_heldout_oracle_peek": {
-          "accuracy": 0.9657,
-          "coverage": 1.0,
-          "macro_f1": 0.2456
-        },
-        "random_from_retained_space": {
-          "accuracy": 0.1848,
-          "coverage": 1.0,
-          "macro_f1": 0.0564
-        },
-        "worst_honest_shortcut_accuracy": 0.1848
+        "reason": null,
+        "verdict": "skipped_empty_holdout"
       }
     },
     "vbeta_V_source_tier_routing.jsonl": {
       "class_disjoint": {
-        "held_out_labels": [
-          "1",
-          "2"
-        ],
         "kind": "class_disjoint",
         "label_counts": {
-          "1": 35,
-          "2": 6900
+          "2": 80
         },
-        "reason": "holding out the two rarest labels removed every row (6935 of 6935); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
-        "rows_held_out": 6935,
-        "rows_retained": 0,
-        "verdict": "skipped_empty_retained_side"
+        "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
+        "verdict": "skipped_single_class"
       },
       "clean_holdout_status": "no_holdout_rows",
       "group_disjoint": {
         "group_label_map": {
-          "cantina-portfolio": "2",
-          "cyfrin-codehawks": "2",
-          "immunefi-past-competitions": "2",
-          "lisabench": "2",
-          "movebit-sampled-audits": "1",
-          "ottersec-audits": "1",
-          "scabench": "2",
-          "shieldify-audits-portfolio": "1",
-          "solodit-harvest": "2",
-          "trailofbits-publications": "1",
-          "web3bugs": "2"
+          "solodit-harvest": "2"
         },
-        "groups_multi_row": 11,
-        "groups_total": 11,
+        "groups_multi_row": 1,
+        "groups_total": 1,
         "kind": "group_disjoint",
-        "reason": "every one of the 11 multi-row source groups carries exactly one label, so the group key determines the answer. Holding out a group would leak its label to every row removed; a group-disjoint split here measures the lookup, not the task",
+        "reason": "every one of the 1 multi-row source groups carries exactly one label, so the group key determines the answer. Holding out a group would leak its label to every row removed; a group-disjoint split here measures the lookup, not the task",
         "single_class_holdout": false,
         "usable_for_comparison": false,
         "verdict": "skipped_group_determines_label"
@@ -1430,13 +1270,13 @@
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 6935,
+      "rows_available": 80,
       "shortcuts_class_disjoint": {
-        "reason": "holding out the two rarest labels removed every row (6935 of 6935); the retained side is empty, so nothing can be fitted. A binary family cannot be evaluated class-disjoint",
-        "verdict": "skipped_empty_retained_side"
+        "reason": "the family has one label; class-disjoint evaluation is vacuous because held-out labels cannot be unseen",
+        "verdict": "skipped_single_class"
       },
       "shortcuts_group_disjoint": {
-        "reason": "every one of the 11 multi-row source groups carries exactly one label, so the group key determines the answer. Holding out a group would leak its label to every row removed; a group-disjoint split here measures the lookup, not the task",
+        "reason": "every one of the 1 multi-row source groups carries exactly one label, so the group key determines the answer. Holding out a group would leak its label to every row removed; a group-disjoint split here measures the lookup, not the task",
         "verdict": "skipped_group_determines_label"
       }
     }
@@ -1445,7 +1285,7 @@
   "holdout_fraction": 0.3,
   "holdout_version": "2",
   "independence_guarantee": "The clean partition is built only from the committed benchmark files. No model, prompt or threshold was tuned against it, and it did not exist while any published score was produced. This guarantee applies to rows in secondary_holdout_tasks.jsonl only; the exploratory file is not independent evidence.",
-  "keys_written": 2684,
+  "keys_written": 1364,
   "method": "group_disjoint: whole groups partitioned with a seeded shuffle, stratified by each group's label set. class_disjoint: all rows of the two rarest labels held out, then every group touching a held-out row removed from the retained side, so retained labels and retained groups are both disjoint from the holdout. Held-out rows whose payload contains the gold scalar are then either redacted (only where the literal sits in non-essential provenance text) or excluded from the clean partition.",
   "min_minority": 5,
   "model_facing_tasks": {
@@ -1562,15 +1402,15 @@
     },
     "rows_excluded_contaminated": 29,
     "rows_excluded_with_family_clean": 3,
-    "rows_held_out_total": 2716,
-    "rows_in_clean_holdout": 2684,
+    "rows_held_out_total": 1396,
+    "rows_in_clean_holdout": 1364,
     "rows_in_exploratory_holdout": 32,
     "rows_transformed_and_clean": 3,
     "rows_with_overlap_after_in_clean_holdout": 0,
     "rows_with_overlap_before": 32
   },
   "seed": 7,
-  "tasks_written": 2684,
+  "tasks_written": 1364,
   "transforms": [
     {
       "after_sha256": "ef49754a47ee57334a3473a911624e3784691be970bc753bf1eabf7b8ecf6711",

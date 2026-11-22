@@ -1,0 +1,1219 @@
+INDEPENDENT AUDIT VERIFICATION LOG
+Repository : <repo>
+Audit JSON : reports/metadata_vs_trainable_audit.json
+Hydration  : reports/metadata_stub_hydration_plan.md
+==============================================================================
+[PASS] 0. audit JSON exists/parses -- reports\metadata_vs_trainable_audit.json
+[PASS] 0. files[] present -- 196 file entries
+[PASS] 1. repo-wide jsonl path set -- discovered=196 audited=196
+[PASS] 1a. paths missing from audit -- none
+[PASS] 1b. paths extra in audit -- none
+[INFO] 1c. exclusions -- excluded any path with a directory component in .git, work
+[PASS] 2. row count [Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl] -- counted=80 total_rows=80
+[PASS] 2. row count [Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl] -- counted=80 total_rows=80
+[PASS] 2. row count [Vbeta/derived_vbeta/candidate_ledger.jsonl] -- counted=80 total_rows=80
+[PASS] 2. row count [Vbeta/derived_vbeta/corroborations.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [Vbeta/derived_vbeta/duplicates.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [Vbeta/derived_vbeta/negatives.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [Vbeta/derived_vbeta/quarantine.jsonl] -- counted=26960 total_rows=26960
+[PASS] 2. row count [Vbeta/derived_vbeta/records.jsonl] -- counted=80 total_rows=80
+[PASS] 2. row count [Vbeta/fetched/receipts.jsonl] -- counted=15 total_rows=15
+[PASS] 2. row count [Vbeta/jsonl_vbeta/findings.jsonl] -- counted=7060 total_rows=7060
+[PASS] 2. row count [Vbeta/jsonl_vbeta/sources.jsonl] -- counted=15 total_rows=15
+[PASS] 2. row count [Vbeta/splits_vbeta/quarantine.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [annotation/iaa_v1/sample.jsonl] -- counted=301 total_rows=301
+[PASS] 2. row count [benchmark/A_vulnerability_detection.jsonl] -- counted=658 total_rows=658
+[PASS] 2. row count [benchmark/C_attacker_reasoning.jsonl] -- counted=658 total_rows=658
+[PASS] 2. row count [benchmark/D_exploit_construction.jsonl] -- counted=644 total_rows=644
+[PASS] 2. row count [benchmark/F_false_positive_rejection.jsonl] -- counted=440 total_rows=440
+[PASS] 2. row count [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- counted=444 total_rows=444
+[PASS] 2. row count [benchmark/Fb_duplicate_radar_pair.jsonl] -- counted=651 total_rows=651
+[PASS] 2. row count [benchmark/G_patch_verification.jsonl] -- counted=37 total_rows=37
+[PASS] 2. row count [benchmark/H_verified_exploit.jsonl] -- counted=7 total_rows=7
+[PASS] 2. row count [benchmark/I_verified_non_exploit.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [benchmark/J_verified_patch.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- counted=61 total_rows=61
+[PASS] 2. row count [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- counted=75 total_rows=75
+[PASS] 2. row count [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- counted=372 total_rows=372
+[PASS] 2. row count [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- counted=406 total_rows=406
+[PASS] 2. row count [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- counted=32 total_rows=32
+[PASS] 2. row count [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- counted=32 total_rows=32
+[PASS] 2. row count [benchmark/independent/secondary_holdout_keys.jsonl] -- counted=1364 total_rows=1364
+[PASS] 2. row count [benchmark/independent/secondary_holdout_tasks.jsonl] -- counted=1364 total_rows=1364
+[PASS] 2. row count [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [benchmark/independent/v1_task_holdout/negative_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [benchmark/independent/v1_task_holdout/patch_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl] -- counted=6 total_rows=6
+[PASS] 2. row count [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- counted=720 total_rows=720
+[PASS] 2. row count [benchmark/retired_families/E_exploit_verification.jsonl] -- counted=720 total_rows=720
+[PASS] 2. row count [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- counted=137 total_rows=137
+[PASS] 2. row count [benchmark/retired_families/L_severity_reconciliation.jsonl] -- counted=137 total_rows=137
+[PASS] 2. row count [benchmark/retired_families/M_experiment_level_classification.jsonl] -- counted=37 total_rows=37
+[PASS] 2. row count [benchmark/retired_families/N_attacker_identity_extraction.jsonl] -- counted=137 total_rows=137
+[PASS] 2. row count [benchmark/retired_families/O_record_class_and_scope.jsonl] -- counted=137 total_rows=137
+[PASS] 2. row count [benchmark/retired_families/P_provenance_tier_and_rights.jsonl] -- counted=137 total_rows=137
+[PASS] 2. row count [benchmark/retired_families/v3_S_contest_outcome.jsonl] -- counted=331 total_rows=331
+[PASS] 2. row count [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [benchmark/v3_R_source_tier_routing.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [datasets/negative_quarantine.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [datasets/v1_hydration_quarantine.jsonl] -- counted=688 total_rows=688
+[PASS] 2. row count [datasets/verified_exploits.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [datasets/verified_findings.jsonl] -- counted=6 total_rows=6
+[PASS] 2. row count [datasets/verified_negatives.jsonl] -- counted=22 total_rows=22
+[PASS] 2. row count [datasets/verified_patches.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [derived/counterexamples.jsonl] -- counted=63 total_rows=63
+[PASS] 2. row count [derived/hard_negatives.jsonl] -- counted=458 total_rows=458
+[PASS] 2. row count [derived/records.jsonl] -- counted=685 total_rows=685
+[PASS] 2. row count [derived/root_cause_candidates.jsonl] -- counted=40 total_rows=40
+[PASS] 2. row count [derived_poc_queue/triage_queue.jsonl] -- counted=1011 total_rows=1011
+[PASS] 2. row count [derived_prove/candidate_ledger.jsonl] -- counted=210 total_rows=210
+[PASS] 2. row count [derived_rejections/rejection_corpus.jsonl] -- counted=444 total_rows=444
+[PASS] 2. row count [derived_siblings/candidates.jsonl] -- counted=255 total_rows=255
+[PASS] 2. row count [derived_siblings/hard_negatives.jsonl] -- counted=11 total_rows=11
+[PASS] 2. row count [derived_siblings/tasks.jsonl] -- counted=239 total_rows=239
+[PASS] 2. row count [derived_span_tasks/answer_key.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [derived_span_tasks/tasks.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [derived_v2_2/audit_ingestion_records.jsonl] -- counted=16 total_rows=16
+[PASS] 2. row count [derived_v2_2/audit_sources.jsonl] -- counted=16 total_rows=16
+[PASS] 2. row count [derived_v2_2/quarantine.jsonl] -- counted=76 total_rows=76
+[PASS] 2. row count [derived_v2_2/records.jsonl] -- counted=61 total_rows=61
+[PASS] 2. row count [derived_v3/candidate_ledger.jsonl] -- counted=7712 total_rows=7712
+[PASS] 2. row count [derived_v3/corroborations.jsonl] -- counted=108 total_rows=108
+[PASS] 2. row count [derived_v3/corroborations_v31.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [derived_v3/duplicates.jsonl] -- counted=108 total_rows=108
+[PASS] 2. row count [derived_v3/negatives.jsonl] -- counted=14 total_rows=14
+[PASS] 2. row count [derived_v3/normalization_fragments.jsonl] -- counted=531 total_rows=531
+[PASS] 2. row count [derived_v3/normalization_overlay.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [derived_v3/normalized_records_preview.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [derived_v3/patch_reviews.jsonl] -- counted=47 total_rows=47
+[PASS] 2. row count [derived_v3/quarantine.jsonl] -- counted=43628 total_rows=43628
+[PASS] 2. row count [derived_v3/records.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [derived_v4/admitted_ledger.jsonl] -- counted=2547 total_rows=2547
+[PASS] 2. row count [derived_v4/candidate_ledger.jsonl] -- counted=2547 total_rows=2547
+[PASS] 2. row count [derived_v4/duplicate_ledger.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [derived_v4/quarantine.jsonl] -- counted=8167 total_rows=8167
+[PASS] 2. row count [derived_v4/quarantined_ledger.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [distribution_v1/digests.jsonl] -- counted=6 total_rows=6
+[PASS] 2. row count [distribution_v1/records_v1.jsonl] -- counted=685 total_rows=685
+[PASS] 2. row count [distribution_v1/records_v1_withheld_pointers.jsonl] -- counted=3567 total_rows=3567
+[PASS] 2. row count [distribution_v1/records_v4.jsonl] -- counted=2547 total_rows=2547
+[PASS] 2. row count [distribution_v1/records_v4_withheld_pointers.jsonl] -- counted=14756 total_rows=14756
+[PASS] 2. row count [distribution_v1/rights_ledger.jsonl] -- counted=9703 total_rows=9703
+[PASS] 2. row count [distribution_v1/withheld_harness.jsonl] -- counted=33 total_rows=33
+[PASS] 2. row count [distribution_v1/withheld_pointers_other_layers.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [experiments/reconstruction_log.jsonl] -- counted=155 total_rows=155
+[PASS] 2. row count [jsonl/errors.jsonl] -- counted=19 total_rows=19
+[PASS] 2. row count [jsonl/exploits.jsonl] -- counted=154 total_rows=154
+[PASS] 2. row count [jsonl/findings.jsonl] -- counted=241 total_rows=241
+[PASS] 2. row count [jsonl/metadata.jsonl] -- counted=11 total_rows=11
+[PASS] 2. row count [jsonl/negative_findings.jsonl] -- counted=444 total_rows=444
+[PASS] 2. row count [jsonl/patches.jsonl] -- counted=37 total_rows=37
+[PASS] 2. row count [jsonl/protocol.jsonl] -- counted=8 total_rows=8
+[PASS] 2. row count [jsonl_ml/findings_cairo.jsonl] -- counted=8 total_rows=8
+[PASS] 2. row count [jsonl_ml/findings_move.jsonl] -- counted=15 total_rows=15
+[PASS] 2. row count [jsonl_ml/findings_reports.jsonl] -- counted=45 total_rows=45
+[PASS] 2. row count [jsonl_ml/findings_rust.jsonl] -- counted=18 total_rows=18
+[PASS] 2. row count [jsonl_ml/findings_vyper.jsonl] -- counted=51 total_rows=51
+[PASS] 2. row count [jsonl_ml/sources_cairo.jsonl] -- counted=13 total_rows=13
+[PASS] 2. row count [jsonl_ml/sources_move.jsonl] -- counted=18 total_rows=18
+[PASS] 2. row count [jsonl_ml/sources_reports.jsonl] -- counted=5 total_rows=5
+[PASS] 2. row count [jsonl_ml/sources_rust.jsonl] -- counted=25 total_rows=25
+[PASS] 2. row count [jsonl_ml/sources_vyper.jsonl] -- counted=51 total_rows=51
+[PASS] 2. row count [jsonl_v3/findings.jsonl] -- counted=7712 total_rows=7712
+[PASS] 2. row count [jsonl_v3/sources.jsonl] -- counted=18 total_rows=18
+[PASS] 2. row count [jsonl_v4/findings.jsonl] -- counted=2547 total_rows=2547
+[PASS] 2. row count [jsonl_v4/sources.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [nextdata/_index_all_cleaned.jsonl] -- counted=733 total_rows=733
+[PASS] 2. row count [nextdata/ml_dataset_part1.jsonl] -- counted=232 total_rows=232
+[PASS] 2. row count [nextdata/ml_dataset_part2.jsonl] -- counted=232 total_rows=232
+[PASS] 2. row count [nextdata/ml_dataset_part3.jsonl] -- counted=230 total_rows=230
+[PASS] 2. row count [reports/poc_attempts.jsonl] -- counted=56 total_rows=56
+[PASS] 2. row count [splits_v2/quarantine.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [splits_v2/test.jsonl] -- counted=242 total_rows=242
+[PASS] 2. row count [splits_v2/train.jsonl] -- counted=402 total_rows=402
+[PASS] 2. row count [splits_v2/validation.jsonl] -- counted=264 total_rows=264
+[PASS] 2. row count [splits_v2_2/quarantine.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [splits_v2_2/test.jsonl] -- counted=253 total_rows=253
+[PASS] 2. row count [splits_v2_2/train.jsonl] -- counted=443 total_rows=443
+[PASS] 2. row count [splits_v2_2/validation.jsonl] -- counted=273 total_rows=273
+[PASS] 2. row count [splits_v3/quarantine.jsonl] -- counted=844 total_rows=844
+[PASS] 2. row count [taxonomy/assignments_v1.jsonl] -- counted=387 total_rows=387
+[PASS] 2. row count [taxonomy/root_cause_v1.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/assignments_evidence_mismatch.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/assignments_exclusive_pair.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/assignments_ok.jsonl] -- counted=3 total_rows=3
+[PASS] 2. row count [tests/fixtures/broken/assignments_unknown_category.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/assignments_unknown_record.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl] -- counted=1 total_rows=1
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_facet_assignable.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_impact_as_cause.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_invented_swc.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_no_exclusions.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_unjustified_swc.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/broken/taxonomy_valid.jsonl] -- counted=31 total_rows=31
+[PASS] 2. row count [tests/fixtures/good/jsonl_v4/findings.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [training/attacker_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [training/canonical/detection.train.part-000.jsonl] -- counted=193 total_rows=193
+[PASS] 2. row count [training/canonical/language.train.part-000.jsonl] -- counted=5000 total_rows=5000
+[PASS] 2. row count [training/canonical/language.train.part-001.jsonl] -- counted=950 total_rows=950
+[PASS] 2. row count [training/canonical/severity.train.part-000.jsonl] -- counted=5000 total_rows=5000
+[PASS] 2. row count [training/canonical/severity.train.part-001.jsonl] -- counted=969 total_rows=969
+[PASS] 2. row count [training/exploit_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [training/negative_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [training/patch_reasoning.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [training/vulnerability_detection.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [wave1/00_governance/rights.jsonl] -- counted=7 total_rows=7
+[PASS] 2. row count [wave1/00_governance/source_registry.jsonl] -- counted=6 total_rows=6
+[PASS] 2. row count [wave1/01_dedup/hydration_quarantine.jsonl] -- counted=1593 total_rows=1593
+[PASS] 2. row count [wave1/01_dedup/overlap_manifest.jsonl] -- counted=896 total_rows=896
+[PASS] 2. row count [wave1/01_dedup/registry.jsonl] -- counted=24074 total_rows=24074
+[PASS] 2. row count [wave1/03_candidates/c4_mitigation/issues.jsonl] -- counted=336 total_rows=336
+[PASS] 2. row count [wave1/03_candidates/formal_specs/rules.jsonl] -- counted=6767 total_rows=6767
+[PASS] 2. row count [wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [wave1/03_candidates/judge/issues.jsonl] -- counted=613 total_rows=613
+[PASS] 2. row count [wave1/03_candidates/markdown_two_revision/candidates.jsonl] -- counted=556 total_rows=556
+[PASS] 2. row count [wave1/03_candidates/reevmbench/harnesses.jsonl] -- counted=62 total_rows=62
+[PASS] 2. row count [wave1/04_admitted/c4_mitigation/findings.jsonl] -- counted=244 total_rows=244
+[PASS] 2. row count [wave1/04_admitted/formal_specs/findings.jsonl] -- counted=895 total_rows=895
+[PASS] 2. row count [wave1/04_admitted/ghsa_web3_netnew/findings.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [wave1/04_admitted/judge/findings.jsonl] -- counted=71 total_rows=71
+[PASS] 2. row count [wave1/04_admitted/markdown_two_revision/findings.jsonl] -- counted=373 total_rows=373
+[PASS] 2. row count [wave1/04_admitted/reevmbench/findings.jsonl] -- counted=51 total_rows=51
+[PASS] 2. row count [wave1/benchmark_wave1/F_false_positive_rejection.jsonl] -- counted=147 total_rows=147
+[PASS] 2. row count [wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl] -- counted=426 total_rows=426
+[PASS] 2. row count [wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl] -- counted=255 total_rows=255
+[PASS] 2. row count [wave1/benchmark_wave1/G_patch_verification.jsonl] -- counted=244 total_rows=244
+[PASS] 2. row count [wave1/benchmark_wave1/J_verified_patch.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [wave1/benchmark_wave1/invariants.jsonl] -- counted=297 total_rows=297
+[PASS] 2. row count [wave1/benchmark_wave1/prove_candidates.jsonl] -- counted=10 total_rows=10
+[PASS] 2. row count [wave1/benchmark_wave1/prove_incidents.jsonl] -- counted=51 total_rows=51
+[PASS] 2. row count [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- counted=373 total_rows=373
+[PASS] 3a. bucket keys [Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl] -- sum(buckets)=80; formula used: sum(buckets) == total_rows (80)
+[PASS] 3a. bucket keys [Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl] -- sum(buckets)=80; formula used: sum(buckets) == total_rows (80)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/candidate_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/candidate_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/candidate_ledger.jsonl] -- sum(buckets)=80; formula used: sum(buckets) == total_rows (80)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/corroborations.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/corroborations.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/corroborations.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/duplicates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/duplicates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/duplicates.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/negatives.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/negatives.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/negatives.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/quarantine.jsonl] -- sum(buckets)=26960; formula used: sum(buckets) == total_rows (26960)
+[PASS] 3a. bucket keys [Vbeta/derived_vbeta/records.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/derived_vbeta/records.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/records.jsonl] -- sum(buckets)=80; formula used: sum(buckets) == total_rows (80)
+[PASS] 3a. bucket keys [Vbeta/fetched/receipts.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/fetched/receipts.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/fetched/receipts.jsonl] -- sum(buckets)=15; formula used: sum(buckets) == total_rows (15)
+[PASS] 3a. bucket keys [Vbeta/jsonl_vbeta/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/jsonl_vbeta/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/jsonl_vbeta/findings.jsonl] -- sum(buckets)=7060; formula used: sum(buckets) == total_rows (7060)
+[PASS] 3a. bucket keys [Vbeta/jsonl_vbeta/sources.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/jsonl_vbeta/sources.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/jsonl_vbeta/sources.jsonl] -- sum(buckets)=15; formula used: sum(buckets) == total_rows (15)
+[PASS] 3a. bucket keys [Vbeta/splits_vbeta/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [Vbeta/splits_vbeta/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [Vbeta/splits_vbeta/quarantine.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [annotation/iaa_v1/sample.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [annotation/iaa_v1/sample.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [annotation/iaa_v1/sample.jsonl] -- sum(buckets)=301; formula used: sum(buckets) == total_rows (301)
+[PASS] 3a. bucket keys [benchmark/A_vulnerability_detection.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/A_vulnerability_detection.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/A_vulnerability_detection.jsonl] -- sum(buckets)=658; formula used: sum(buckets) == total_rows (658)
+[PASS] 3a. bucket keys [benchmark/C_attacker_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/C_attacker_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/C_attacker_reasoning.jsonl] -- sum(buckets)=658; formula used: sum(buckets) == total_rows (658)
+[PASS] 3a. bucket keys [benchmark/D_exploit_construction.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/D_exploit_construction.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/D_exploit_construction.jsonl] -- sum(buckets)=644; formula used: sum(buckets) == total_rows (644)
+[PASS] 3a. bucket keys [benchmark/F_false_positive_rejection.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/F_false_positive_rejection.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/F_false_positive_rejection.jsonl] -- sum(buckets)=440; formula used: sum(buckets) == total_rows (440)
+[PASS] 3a. bucket keys [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- sum(buckets)=444; formula used: sum(buckets) == total_rows (444)
+[PASS] 3a. bucket keys [benchmark/Fb_duplicate_radar_pair.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/Fb_duplicate_radar_pair.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/Fb_duplicate_radar_pair.jsonl] -- sum(buckets)=651; formula used: sum(buckets) == total_rows (651)
+[PASS] 3a. bucket keys [benchmark/G_patch_verification.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/G_patch_verification.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/G_patch_verification.jsonl] -- sum(buckets)=37; formula used: sum(buckets) == total_rows (37)
+[PASS] 3a. bucket keys [benchmark/H_verified_exploit.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/H_verified_exploit.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/H_verified_exploit.jsonl] -- sum(buckets)=7; formula used: sum(buckets) == total_rows (7)
+[PASS] 3a. bucket keys [benchmark/I_verified_non_exploit.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/I_verified_non_exploit.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/I_verified_non_exploit.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [benchmark/J_verified_patch.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/J_verified_patch.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/J_verified_patch.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- sum(buckets)=61; formula used: sum(buckets) == total_rows (61)
+[PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- sum(buckets)=75; formula used: sum(buckets) == total_rows (75)
+[PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- sum(buckets)=372; formula used: sum(buckets) == total_rows (372)
+[PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- sum(buckets)=406; formula used: sum(buckets) == total_rows (406)
+[PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- sum(buckets)=32; formula used: sum(buckets) == total_rows (32)
+[PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- sum(buckets)=32; formula used: sum(buckets) == total_rows (32)
+[PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_keys.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/secondary_holdout_keys.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_keys.jsonl] -- sum(buckets)=1364; formula used: sum(buckets) == total_rows (1364)
+[PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_tasks.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/secondary_holdout_tasks.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_tasks.jsonl] -- sum(buckets)=1364; formula used: sum(buckets) == total_rows (1364)
+[PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/negative_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/negative_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/negative_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/patch_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/patch_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/patch_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl] -- sum(buckets)=6; formula used: sum(buckets) == total_rows (6)
+[PASS] 3a. bucket keys [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- sum(buckets)=720; formula used: sum(buckets) == total_rows (720)
+[PASS] 3a. bucket keys [benchmark/retired_families/E_exploit_verification.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/E_exploit_verification.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/E_exploit_verification.jsonl] -- sum(buckets)=720; formula used: sum(buckets) == total_rows (720)
+[PASS] 3a. bucket keys [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
+[PASS] 3a. bucket keys [benchmark/retired_families/L_severity_reconciliation.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/L_severity_reconciliation.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/L_severity_reconciliation.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
+[PASS] 3a. bucket keys [benchmark/retired_families/M_experiment_level_classification.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/M_experiment_level_classification.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/M_experiment_level_classification.jsonl] -- sum(buckets)=37; formula used: sum(buckets) == total_rows (37)
+[PASS] 3a. bucket keys [benchmark/retired_families/N_attacker_identity_extraction.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/N_attacker_identity_extraction.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/N_attacker_identity_extraction.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
+[PASS] 3a. bucket keys [benchmark/retired_families/O_record_class_and_scope.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/O_record_class_and_scope.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/O_record_class_and_scope.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
+[PASS] 3a. bucket keys [benchmark/retired_families/P_provenance_tier_and_rights.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/P_provenance_tier_and_rights.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/P_provenance_tier_and_rights.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
+[PASS] 3a. bucket keys [benchmark/retired_families/v3_S_contest_outcome.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/v3_S_contest_outcome.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/v3_S_contest_outcome.jsonl] -- sum(buckets)=331; formula used: sum(buckets) == total_rows (331)
+[PASS] 3a. bucket keys [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [benchmark/v3_R_source_tier_routing.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [benchmark/v3_R_source_tier_routing.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [benchmark/v3_R_source_tier_routing.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3a. bucket keys [datasets/negative_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/negative_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/negative_quarantine.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [datasets/v1_hydration_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/v1_hydration_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/v1_hydration_quarantine.jsonl] -- sum(buckets)=688; formula used: sum(buckets) == total_rows (688)
+[PASS] 3a. bucket keys [datasets/verified_exploits.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/verified_exploits.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/verified_exploits.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [datasets/verified_findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/verified_findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/verified_findings.jsonl] -- sum(buckets)=6; formula used: sum(buckets) == total_rows (6)
+[PASS] 3a. bucket keys [datasets/verified_negatives.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/verified_negatives.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/verified_negatives.jsonl] -- sum(buckets)=22; formula used: sum(buckets) == total_rows (22)
+[PASS] 3a. bucket keys [datasets/verified_patches.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [datasets/verified_patches.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [datasets/verified_patches.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [derived/counterexamples.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived/counterexamples.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived/counterexamples.jsonl] -- sum(buckets)=63; formula used: sum(buckets) == total_rows (63)
+[PASS] 3a. bucket keys [derived/hard_negatives.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived/hard_negatives.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived/hard_negatives.jsonl] -- sum(buckets)=458; formula used: sum(buckets) == total_rows (458)
+[PASS] 3a. bucket keys [derived/records.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived/records.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived/records.jsonl] -- sum(buckets)=685; formula used: sum(buckets) == total_rows (685)
+[PASS] 3a. bucket keys [derived/root_cause_candidates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived/root_cause_candidates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived/root_cause_candidates.jsonl] -- sum(buckets)=40; formula used: sum(buckets) == total_rows (40)
+[PASS] 3a. bucket keys [derived_poc_queue/triage_queue.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_poc_queue/triage_queue.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_poc_queue/triage_queue.jsonl] -- sum(buckets)=1011; formula used: sum(buckets) == total_rows (1011)
+[PASS] 3a. bucket keys [derived_prove/candidate_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_prove/candidate_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_prove/candidate_ledger.jsonl] -- sum(buckets)=210; formula used: sum(buckets) == total_rows (210)
+[PASS] 3a. bucket keys [derived_rejections/rejection_corpus.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_rejections/rejection_corpus.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_rejections/rejection_corpus.jsonl] -- sum(buckets)=444; formula used: sum(buckets) == total_rows (444)
+[PASS] 3a. bucket keys [derived_siblings/candidates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_siblings/candidates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_siblings/candidates.jsonl] -- sum(buckets)=255; formula used: sum(buckets) == total_rows (255)
+[PASS] 3a. bucket keys [derived_siblings/hard_negatives.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_siblings/hard_negatives.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_siblings/hard_negatives.jsonl] -- sum(buckets)=11; formula used: sum(buckets) == total_rows (11)
+[PASS] 3a. bucket keys [derived_siblings/tasks.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_siblings/tasks.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_siblings/tasks.jsonl] -- sum(buckets)=239; formula used: sum(buckets) == total_rows (239)
+[PASS] 3a. bucket keys [derived_span_tasks/answer_key.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_span_tasks/answer_key.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_span_tasks/answer_key.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3a. bucket keys [derived_span_tasks/tasks.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_span_tasks/tasks.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_span_tasks/tasks.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3a. bucket keys [derived_v2_2/audit_ingestion_records.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v2_2/audit_ingestion_records.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v2_2/audit_ingestion_records.jsonl] -- sum(buckets)=16; formula used: sum(buckets) == total_rows (16)
+[PASS] 3a. bucket keys [derived_v2_2/audit_sources.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v2_2/audit_sources.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v2_2/audit_sources.jsonl] -- sum(buckets)=16; formula used: sum(buckets) == total_rows (16)
+[PASS] 3a. bucket keys [derived_v2_2/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v2_2/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v2_2/quarantine.jsonl] -- sum(buckets)=76; formula used: sum(buckets) == total_rows (76)
+[PASS] 3a. bucket keys [derived_v2_2/records.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v2_2/records.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v2_2/records.jsonl] -- sum(buckets)=61; formula used: sum(buckets) == total_rows (61)
+[PASS] 3a. bucket keys [derived_v3/candidate_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/candidate_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/candidate_ledger.jsonl] -- sum(buckets)=7712; formula used: sum(buckets) == total_rows (7712)
+[PASS] 3a. bucket keys [derived_v3/corroborations.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/corroborations.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/corroborations.jsonl] -- sum(buckets)=108; formula used: sum(buckets) == total_rows (108)
+[PASS] 3a. bucket keys [derived_v3/corroborations_v31.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/corroborations_v31.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/corroborations_v31.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [derived_v3/duplicates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/duplicates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/duplicates.jsonl] -- sum(buckets)=108; formula used: sum(buckets) == total_rows (108)
+[PASS] 3a. bucket keys [derived_v3/negatives.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/negatives.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/negatives.jsonl] -- sum(buckets)=14; formula used: sum(buckets) == total_rows (14)
+[PASS] 3a. bucket keys [derived_v3/normalization_fragments.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/normalization_fragments.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/normalization_fragments.jsonl] -- sum(buckets)=531; formula used: sum(buckets) == total_rows (531)
+[PASS] 3a. bucket keys [derived_v3/normalization_overlay.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/normalization_overlay.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/normalization_overlay.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [derived_v3/normalized_records_preview.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/normalized_records_preview.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/normalized_records_preview.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3a. bucket keys [derived_v3/patch_reviews.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/patch_reviews.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/patch_reviews.jsonl] -- sum(buckets)=47; formula used: sum(buckets) == total_rows (47)
+[PASS] 3a. bucket keys [derived_v3/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/quarantine.jsonl] -- sum(buckets)=43628; formula used: sum(buckets) == total_rows (43628)
+[PASS] 3a. bucket keys [derived_v3/records.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v3/records.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v3/records.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3a. bucket keys [derived_v4/admitted_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v4/admitted_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v4/admitted_ledger.jsonl] -- sum(buckets)=2547; formula used: sum(buckets) == total_rows (2547)
+[PASS] 3a. bucket keys [derived_v4/candidate_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v4/candidate_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v4/candidate_ledger.jsonl] -- sum(buckets)=2547; formula used: sum(buckets) == total_rows (2547)
+[PASS] 3a. bucket keys [derived_v4/duplicate_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v4/duplicate_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v4/duplicate_ledger.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [derived_v4/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v4/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v4/quarantine.jsonl] -- sum(buckets)=8167; formula used: sum(buckets) == total_rows (8167)
+[PASS] 3a. bucket keys [derived_v4/quarantined_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_v4/quarantined_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_v4/quarantined_ledger.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [distribution_v1/digests.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/digests.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/digests.jsonl] -- sum(buckets)=6; formula used: sum(buckets) == total_rows (6)
+[PASS] 3a. bucket keys [distribution_v1/records_v1.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/records_v1.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/records_v1.jsonl] -- sum(buckets)=685; formula used: sum(buckets) == total_rows (685)
+[PASS] 3a. bucket keys [distribution_v1/records_v1_withheld_pointers.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/records_v1_withheld_pointers.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/records_v1_withheld_pointers.jsonl] -- sum(buckets)=3567; formula used: sum(buckets) == total_rows (3567)
+[PASS] 3a. bucket keys [distribution_v1/records_v4.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/records_v4.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/records_v4.jsonl] -- sum(buckets)=2547; formula used: sum(buckets) == total_rows (2547)
+[PASS] 3a. bucket keys [distribution_v1/records_v4_withheld_pointers.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/records_v4_withheld_pointers.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/records_v4_withheld_pointers.jsonl] -- sum(buckets)=14756; formula used: sum(buckets) == total_rows (14756)
+[PASS] 3a. bucket keys [distribution_v1/rights_ledger.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/rights_ledger.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/rights_ledger.jsonl] -- sum(buckets)=9703; formula used: sum(buckets) == total_rows (9703)
+[PASS] 3a. bucket keys [distribution_v1/withheld_harness.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/withheld_harness.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/withheld_harness.jsonl] -- sum(buckets)=33; formula used: sum(buckets) == total_rows (33)
+[PASS] 3a. bucket keys [distribution_v1/withheld_pointers_other_layers.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/withheld_pointers_other_layers.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/withheld_pointers_other_layers.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [experiments/reconstruction_log.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [experiments/reconstruction_log.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [experiments/reconstruction_log.jsonl] -- sum(buckets)=155; formula used: sum(buckets) == total_rows (155)
+[PASS] 3a. bucket keys [jsonl/errors.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/errors.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/errors.jsonl] -- sum(buckets)=19; formula used: sum(buckets) == total_rows (19)
+[PASS] 3a. bucket keys [jsonl/exploits.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/exploits.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/exploits.jsonl] -- sum(buckets)=154; formula used: sum(buckets) == total_rows (154)
+[PASS] 3a. bucket keys [jsonl/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/findings.jsonl] -- sum(buckets)=241; formula used: sum(buckets) == total_rows (241)
+[PASS] 3a. bucket keys [jsonl/metadata.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/metadata.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/metadata.jsonl] -- sum(buckets)=11; formula used: sum(buckets) == total_rows (11)
+[PASS] 3a. bucket keys [jsonl/negative_findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/negative_findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/negative_findings.jsonl] -- sum(buckets)=444; formula used: sum(buckets) == total_rows (444)
+[PASS] 3a. bucket keys [jsonl/patches.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/patches.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/patches.jsonl] -- sum(buckets)=37; formula used: sum(buckets) == total_rows (37)
+[PASS] 3a. bucket keys [jsonl/protocol.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl/protocol.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl/protocol.jsonl] -- sum(buckets)=8; formula used: sum(buckets) == total_rows (8)
+[PASS] 3a. bucket keys [jsonl_ml/findings_cairo.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/findings_cairo.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/findings_cairo.jsonl] -- sum(buckets)=8; formula used: sum(buckets) == total_rows (8)
+[PASS] 3a. bucket keys [jsonl_ml/findings_move.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/findings_move.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/findings_move.jsonl] -- sum(buckets)=15; formula used: sum(buckets) == total_rows (15)
+[PASS] 3a. bucket keys [jsonl_ml/findings_reports.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/findings_reports.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/findings_reports.jsonl] -- sum(buckets)=45; formula used: sum(buckets) == total_rows (45)
+[PASS] 3a. bucket keys [jsonl_ml/findings_rust.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/findings_rust.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/findings_rust.jsonl] -- sum(buckets)=18; formula used: sum(buckets) == total_rows (18)
+[PASS] 3a. bucket keys [jsonl_ml/findings_vyper.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/findings_vyper.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/findings_vyper.jsonl] -- sum(buckets)=51; formula used: sum(buckets) == total_rows (51)
+[PASS] 3a. bucket keys [jsonl_ml/sources_cairo.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/sources_cairo.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/sources_cairo.jsonl] -- sum(buckets)=13; formula used: sum(buckets) == total_rows (13)
+[PASS] 3a. bucket keys [jsonl_ml/sources_move.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/sources_move.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/sources_move.jsonl] -- sum(buckets)=18; formula used: sum(buckets) == total_rows (18)
+[PASS] 3a. bucket keys [jsonl_ml/sources_reports.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/sources_reports.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/sources_reports.jsonl] -- sum(buckets)=5; formula used: sum(buckets) == total_rows (5)
+[PASS] 3a. bucket keys [jsonl_ml/sources_rust.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/sources_rust.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/sources_rust.jsonl] -- sum(buckets)=25; formula used: sum(buckets) == total_rows (25)
+[PASS] 3a. bucket keys [jsonl_ml/sources_vyper.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_ml/sources_vyper.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_ml/sources_vyper.jsonl] -- sum(buckets)=51; formula used: sum(buckets) == total_rows (51)
+[PASS] 3a. bucket keys [jsonl_v3/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_v3/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_v3/findings.jsonl] -- sum(buckets)=7712; formula used: sum(buckets) == total_rows (7712)
+[PASS] 3a. bucket keys [jsonl_v3/sources.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_v3/sources.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_v3/sources.jsonl] -- sum(buckets)=18; formula used: sum(buckets) == total_rows (18)
+[PASS] 3a. bucket keys [jsonl_v4/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_v4/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_v4/findings.jsonl] -- sum(buckets)=2547; formula used: sum(buckets) == total_rows (2547)
+[PASS] 3a. bucket keys [jsonl_v4/sources.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [jsonl_v4/sources.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [jsonl_v4/sources.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [nextdata/_index_all_cleaned.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [nextdata/_index_all_cleaned.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [nextdata/_index_all_cleaned.jsonl] -- sum(buckets)=733; formula used: sum(buckets) == total_rows (733)
+[PASS] 3a. bucket keys [nextdata/ml_dataset_part1.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [nextdata/ml_dataset_part1.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [nextdata/ml_dataset_part1.jsonl] -- sum(buckets)=232; formula used: sum(buckets) == total_rows (232)
+[PASS] 3a. bucket keys [nextdata/ml_dataset_part2.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [nextdata/ml_dataset_part2.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [nextdata/ml_dataset_part2.jsonl] -- sum(buckets)=232; formula used: sum(buckets) == total_rows (232)
+[PASS] 3a. bucket keys [nextdata/ml_dataset_part3.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [nextdata/ml_dataset_part3.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [nextdata/ml_dataset_part3.jsonl] -- sum(buckets)=230; formula used: sum(buckets) == total_rows (230)
+[PASS] 3a. bucket keys [reports/poc_attempts.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [reports/poc_attempts.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [reports/poc_attempts.jsonl] -- sum(buckets)=56; formula used: sum(buckets) == total_rows (56)
+[PASS] 3a. bucket keys [splits_v2/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2/quarantine.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [splits_v2/test.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2/test.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2/test.jsonl] -- sum(buckets)=242; formula used: sum(buckets) == total_rows (242)
+[PASS] 3a. bucket keys [splits_v2/train.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2/train.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2/train.jsonl] -- sum(buckets)=402; formula used: sum(buckets) == total_rows (402)
+[PASS] 3a. bucket keys [splits_v2/validation.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2/validation.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2/validation.jsonl] -- sum(buckets)=264; formula used: sum(buckets) == total_rows (264)
+[PASS] 3a. bucket keys [splits_v2_2/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2_2/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2_2/quarantine.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [splits_v2_2/test.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2_2/test.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2_2/test.jsonl] -- sum(buckets)=253; formula used: sum(buckets) == total_rows (253)
+[PASS] 3a. bucket keys [splits_v2_2/train.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2_2/train.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2_2/train.jsonl] -- sum(buckets)=443; formula used: sum(buckets) == total_rows (443)
+[PASS] 3a. bucket keys [splits_v2_2/validation.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v2_2/validation.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v2_2/validation.jsonl] -- sum(buckets)=273; formula used: sum(buckets) == total_rows (273)
+[PASS] 3a. bucket keys [splits_v3/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [splits_v3/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [splits_v3/quarantine.jsonl] -- sum(buckets)=844; formula used: sum(buckets) == total_rows (844)
+[PASS] 3a. bucket keys [taxonomy/assignments_v1.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [taxonomy/assignments_v1.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [taxonomy/assignments_v1.jsonl] -- sum(buckets)=387; formula used: sum(buckets) == total_rows (387)
+[PASS] 3a. bucket keys [taxonomy/root_cause_v1.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [taxonomy/root_cause_v1.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [taxonomy/root_cause_v1.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_evidence_mismatch.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_evidence_mismatch.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_evidence_mismatch.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_exclusive_pair.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_exclusive_pair.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_exclusive_pair.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_ok.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_ok.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_ok.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_unknown_category.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_unknown_category.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_unknown_category.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_unknown_record.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_unknown_record.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_unknown_record.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl] -- sum(buckets)=1; formula used: sum(buckets) == total_rows (1)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_facet_assignable.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_facet_assignable.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_facet_assignable.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_impact_as_cause.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_impact_as_cause.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_impact_as_cause.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_invented_swc.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_invented_swc.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_invented_swc.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_no_exclusions.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_no_exclusions.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_no_exclusions.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_unjustified_swc.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_unjustified_swc.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_unjustified_swc.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/broken/taxonomy_valid.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/broken/taxonomy_valid.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/broken/taxonomy_valid.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
+[PASS] 3a. bucket keys [tests/fixtures/good/jsonl_v4/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [tests/fixtures/good/jsonl_v4/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [tests/fixtures/good/jsonl_v4/findings.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
+[PASS] 3a. bucket keys [training/attacker_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/attacker_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/attacker_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [training/canonical/detection.train.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/detection.train.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/detection.train.part-000.jsonl] -- sum(buckets)=193; formula used: sum(buckets) == total_rows (193)
+[PASS] 3a. bucket keys [training/canonical/language.train.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/language.train.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/language.train.part-000.jsonl] -- sum(buckets)=5000; formula used: sum(buckets) == total_rows (5000)
+[PASS] 3a. bucket keys [training/canonical/language.train.part-001.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/language.train.part-001.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/language.train.part-001.jsonl] -- sum(buckets)=950; formula used: sum(buckets) == total_rows (950)
+[PASS] 3a. bucket keys [training/canonical/severity.train.part-000.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/severity.train.part-000.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/severity.train.part-000.jsonl] -- sum(buckets)=5000; formula used: sum(buckets) == total_rows (5000)
+[PASS] 3a. bucket keys [training/canonical/severity.train.part-001.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/severity.train.part-001.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/severity.train.part-001.jsonl] -- sum(buckets)=969; formula used: sum(buckets) == total_rows (969)
+[PASS] 3a. bucket keys [training/exploit_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/exploit_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/exploit_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [training/negative_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/negative_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/negative_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [training/patch_reasoning.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/patch_reasoning.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/patch_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [training/vulnerability_detection.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/vulnerability_detection.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/vulnerability_detection.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [wave1/00_governance/rights.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/00_governance/rights.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/00_governance/rights.jsonl] -- sum(buckets)=7; formula used: sum(buckets) == total_rows (7)
+[PASS] 3a. bucket keys [wave1/00_governance/source_registry.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/00_governance/source_registry.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/00_governance/source_registry.jsonl] -- sum(buckets)=6; formula used: sum(buckets) == total_rows (6)
+[PASS] 3a. bucket keys [wave1/01_dedup/hydration_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/01_dedup/hydration_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/01_dedup/hydration_quarantine.jsonl] -- sum(buckets)=1593; formula used: sum(buckets) == total_rows (1593)
+[PASS] 3a. bucket keys [wave1/01_dedup/overlap_manifest.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/01_dedup/overlap_manifest.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/01_dedup/overlap_manifest.jsonl] -- sum(buckets)=896; formula used: sum(buckets) == total_rows (896)
+[PASS] 3a. bucket keys [wave1/01_dedup/registry.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/01_dedup/registry.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/01_dedup/registry.jsonl] -- sum(buckets)=24074; formula used: sum(buckets) == total_rows (24074)
+[PASS] 3a. bucket keys [wave1/03_candidates/c4_mitigation/issues.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/c4_mitigation/issues.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/c4_mitigation/issues.jsonl] -- sum(buckets)=336; formula used: sum(buckets) == total_rows (336)
+[PASS] 3a. bucket keys [wave1/03_candidates/formal_specs/rules.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/formal_specs/rules.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/formal_specs/rules.jsonl] -- sum(buckets)=6767; formula used: sum(buckets) == total_rows (6767)
+[PASS] 3a. bucket keys [wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [wave1/03_candidates/judge/issues.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/judge/issues.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/judge/issues.jsonl] -- sum(buckets)=613; formula used: sum(buckets) == total_rows (613)
+[PASS] 3a. bucket keys [wave1/03_candidates/markdown_two_revision/candidates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/markdown_two_revision/candidates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/markdown_two_revision/candidates.jsonl] -- sum(buckets)=556; formula used: sum(buckets) == total_rows (556)
+[PASS] 3a. bucket keys [wave1/03_candidates/reevmbench/harnesses.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/03_candidates/reevmbench/harnesses.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/03_candidates/reevmbench/harnesses.jsonl] -- sum(buckets)=62; formula used: sum(buckets) == total_rows (62)
+[PASS] 3a. bucket keys [wave1/04_admitted/c4_mitigation/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/c4_mitigation/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/c4_mitigation/findings.jsonl] -- sum(buckets)=244; formula used: sum(buckets) == total_rows (244)
+[PASS] 3a. bucket keys [wave1/04_admitted/formal_specs/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/formal_specs/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/formal_specs/findings.jsonl] -- sum(buckets)=895; formula used: sum(buckets) == total_rows (895)
+[PASS] 3a. bucket keys [wave1/04_admitted/ghsa_web3_netnew/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/ghsa_web3_netnew/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/ghsa_web3_netnew/findings.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [wave1/04_admitted/judge/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/judge/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/judge/findings.jsonl] -- sum(buckets)=71; formula used: sum(buckets) == total_rows (71)
+[PASS] 3a. bucket keys [wave1/04_admitted/markdown_two_revision/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/markdown_two_revision/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/markdown_two_revision/findings.jsonl] -- sum(buckets)=373; formula used: sum(buckets) == total_rows (373)
+[PASS] 3a. bucket keys [wave1/04_admitted/reevmbench/findings.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/04_admitted/reevmbench/findings.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/04_admitted/reevmbench/findings.jsonl] -- sum(buckets)=51; formula used: sum(buckets) == total_rows (51)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/F_false_positive_rejection.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/F_false_positive_rejection.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/F_false_positive_rejection.jsonl] -- sum(buckets)=147; formula used: sum(buckets) == total_rows (147)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl] -- sum(buckets)=426; formula used: sum(buckets) == total_rows (426)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl] -- sum(buckets)=255; formula used: sum(buckets) == total_rows (255)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/G_patch_verification.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/G_patch_verification.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/G_patch_verification.jsonl] -- sum(buckets)=244; formula used: sum(buckets) == total_rows (244)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/J_verified_patch.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/J_verified_patch.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/J_verified_patch.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/invariants.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/invariants.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/invariants.jsonl] -- sum(buckets)=297; formula used: sum(buckets) == total_rows (297)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/prove_candidates.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/prove_candidates.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/prove_candidates.jsonl] -- sum(buckets)=10; formula used: sum(buckets) == total_rows (10)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/prove_incidents.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/prove_incidents.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/prove_incidents.jsonl] -- sum(buckets)=51; formula used: sum(buckets) == total_rows (51)
+[PASS] 3a. bucket keys [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- sum(buckets)=373; formula used: sum(buckets) == total_rows (373)
+[PASS] 4a. coverage_pct range -- all 1176 numeric sub-percentage value(s) across 196 coverage_pct object(s) (+0 scalar) are numbers in [0.0, 100.0]
+[PASS] 4b. pct_metadata_flagged <= 100 -- all 221 value(s) <= 100: 0.0, 14.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 66.7, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+[PASS] 4c. pct_metadata_flagged non-negative -- none negative
+[PASS] 5. hydration_source present -- found 196 object(s)
+[PASS] 5a. hydration_source[0].dominant -- NONE
+[PASS] 5b. hydration_source[0] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[1].dominant -- NONE
+[PASS] 5b. hydration_source[1] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[2].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[2] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[3].dominant -- NONE
+[PASS] 5b. hydration_source[3] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[4].dominant -- NONE
+[PASS] 5b. hydration_source[4] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[5].dominant -- NONE
+[PASS] 5b. hydration_source[5] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[6].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[6] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[7].dominant -- NONE
+[PASS] 5b. hydration_source[7] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[8].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[8] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[9].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[9] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[10].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[10] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[11].dominant -- NONE
+[PASS] 5b. hydration_source[11] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[12].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[12] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[13].dominant -- NONE
+[PASS] 5b. hydration_source[13] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[14].dominant -- NONE
+[PASS] 5b. hydration_source[14] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[15].dominant -- NONE
+[PASS] 5b. hydration_source[15] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[16].dominant -- NONE
+[PASS] 5b. hydration_source[16] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[17].dominant -- NONE
+[PASS] 5b. hydration_source[17] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[18].dominant -- NONE
+[PASS] 5b. hydration_source[18] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[19].dominant -- NONE
+[PASS] 5b. hydration_source[19] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[20].dominant -- NONE
+[PASS] 5b. hydration_source[20] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[21].dominant -- NONE
+[PASS] 5b. hydration_source[21] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[22].dominant -- NONE
+[PASS] 5b. hydration_source[22] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[23].dominant -- NONE
+[PASS] 5b. hydration_source[23] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[24].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[24] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[25].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[25] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[26].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[26] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[27].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[27] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[28].dominant -- NONE
+[PASS] 5b. hydration_source[28] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[29].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[29] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[30].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[30] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[31].dominant -- NONE
+[PASS] 5b. hydration_source[31] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[32].dominant -- NONE
+[PASS] 5b. hydration_source[32] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[33].dominant -- NONE
+[PASS] 5b. hydration_source[33] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[34].dominant -- NONE
+[PASS] 5b. hydration_source[34] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[35].dominant -- NONE
+[PASS] 5b. hydration_source[35] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[36].dominant -- NONE
+[PASS] 5b. hydration_source[36] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[37].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[37] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[38].dominant -- NONE
+[PASS] 5b. hydration_source[38] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[39].dominant -- NONE
+[PASS] 5b. hydration_source[39] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[40].dominant -- NONE
+[PASS] 5b. hydration_source[40] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[41].dominant -- NONE
+[PASS] 5b. hydration_source[41] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[42].dominant -- NONE
+[PASS] 5b. hydration_source[42] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[43].dominant -- NONE
+[PASS] 5b. hydration_source[43] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[44].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[44] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[45].dominant -- NONE
+[PASS] 5b. hydration_source[45] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[46].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[46] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[47].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[47] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[48].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[48] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[49].dominant -- NONE
+[PASS] 5b. hydration_source[49] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[50].dominant -- NONE
+[PASS] 5b. hydration_source[50] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[51].dominant -- NONE
+[PASS] 5b. hydration_source[51] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[52].dominant -- NONE
+[PASS] 5b. hydration_source[52] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[53].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[53] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[54].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[54] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[55].dominant -- NONE
+[PASS] 5b. hydration_source[55] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[56].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[56] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[57].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[57] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[58].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[58] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[59].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[59] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[60].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[60] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[61].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[61] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[62].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[62] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[63].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[63] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[64].dominant -- NONE
+[PASS] 5b. hydration_source[64] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[65].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[65] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[66].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[66] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[67].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[67] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[68].dominant -- NONE
+[PASS] 5b. hydration_source[68] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[69].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[69] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[70].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[70] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[71].dominant -- NONE
+[PASS] 5b. hydration_source[71] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[72].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[72] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[73].dominant -- NONE
+[PASS] 5b. hydration_source[73] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[74].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[74] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[75].dominant -- NONE
+[PASS] 5b. hydration_source[75] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[76].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[76] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[77].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[77] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[78].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[78] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[79].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[79] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[80].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[80] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[81].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[81] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[82].dominant -- NONE
+[PASS] 5b. hydration_source[82] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[83].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[83] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[84].dominant -- NONE
+[PASS] 5b. hydration_source[84] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[85].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[85] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[86].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[86] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[87].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[87] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[88].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[88] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[89].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[89] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[90].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[90] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[91].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[91] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[92].dominant -- NONE
+[PASS] 5b. hydration_source[92] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[93].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[93] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[94].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[94] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[95].dominant -- NONE
+[PASS] 5b. hydration_source[95] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[96].dominant -- NONE
+[PASS] 5b. hydration_source[96] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[97].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[97] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[98].dominant -- NONE
+[PASS] 5b. hydration_source[98] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[99].dominant -- NONE
+[PASS] 5b. hydration_source[99] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[100].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[100] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[101].dominant -- NONE
+[PASS] 5b. hydration_source[101] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[102].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[102] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[103].dominant -- NONE
+[PASS] 5b. hydration_source[103] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[104].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[104] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[105].dominant -- NONE
+[PASS] 5b. hydration_source[105] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[106].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[106] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[107].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[107] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[108].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[108] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[109].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[109] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[110].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[110] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[111].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[111] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[112].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[112] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[113].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[113] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[114].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[114] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[115].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[115] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[116].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[116] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[117].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[117] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[118].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[118] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[119].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[119] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[120].dominant -- NONE
+[PASS] 5b. hydration_source[120] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[121].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[121] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[122].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[122] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[123].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[123] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[124].dominant -- NONE
+[PASS] 5b. hydration_source[124] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[125].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[125] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[126].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[126] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[127].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[127] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[128].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[128] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[129].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[129] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[130].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[130] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[131].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[131] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[132].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[132] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[133].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[133] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[134].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[134] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[135].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[135] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[136].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[136] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[137].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[137] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[138].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[138] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[139].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[139] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[140].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[140] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[141].dominant -- NONE
+[PASS] 5b. hydration_source[141] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[142].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[142] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[143].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[143] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[144].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[144] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[145].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[145] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[146].dominant -- NONE
+[PASS] 5b. hydration_source[146] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[147].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5b. hydration_source[147] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[148].dominant -- NONE
+[PASS] 5b. hydration_source[148] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[149].dominant -- NONE
+[PASS] 5b. hydration_source[149] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[150].dominant -- NONE
+[PASS] 5b. hydration_source[150] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[151].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[151] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[152].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[152] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[153].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[153] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[154].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[154] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[155].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[155] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[156].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[156] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[157].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[157] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[158].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[158] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[159].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[159] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[160].dominant -- NONE
+[PASS] 5b. hydration_source[160] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[161].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[161] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[162].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[162] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[163].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[163] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[164].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[164] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[165].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[165] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[166].dominant -- NONE
+[PASS] 5b. hydration_source[166] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[167].dominant -- NONE
+[PASS] 5b. hydration_source[167] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[168].dominant -- NONE
+[PASS] 5b. hydration_source[168] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[169].dominant -- NONE
+[PASS] 5b. hydration_source[169] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[170].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[170] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[171].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[171] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[172].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[172] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[173].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[173] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[174].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5b. hydration_source[174] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[175].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[175] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[176].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[176] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[177].dominant -- NONE
+[PASS] 5b. hydration_source[177] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[178].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[178] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[179].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[179] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[180].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[180] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[181].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[181] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[182].dominant -- NONE
+[PASS] 5b. hydration_source[182] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[183].dominant -- NONE
+[PASS] 5b. hydration_source[183] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[184].dominant -- NONE
+[PASS] 5b. hydration_source[184] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[185].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[185] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[186].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[186] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[187].dominant -- NONE
+[PASS] 5b. hydration_source[187] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[188].dominant -- NONE
+[PASS] 5b. hydration_source[188] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[189].dominant -- NONE
+[PASS] 5b. hydration_source[189] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[190].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[190] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[191].dominant -- NONE
+[PASS] 5b. hydration_source[191] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[192].dominant -- NONE
+[PASS] 5b. hydration_source[192] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[193].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[193] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[194].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[194] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[195].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[195] counts -- all integer counts are non-negative
+[PASS] 6. summary present -- object
+[PASS] 6a. summary.rows -- rows=235507 == sum(total_rows)
+[PASS] 6b. summary.files -- files=196 == len(files)
+[PASS] 7a. by_layer present -- 25 layer key(s)
+[PASS] 7b. by_layer coverage -- all 25 labelled layer(s) present in by_layer
+[PASS] 7d. stub_files == has_stubs paths -- both sets contain 123 path(s)
+[PASS] 8. hydration plan exists/non-empty -- 307779 characters, 3404 lines
+[PASS] 8a. plan section headers -- section header found for all 123 stub path(s)
+[INFO] 9. selection -- 5 stub file(s) sampled with seed=20261120: derived_v3/records.jsonl, jsonl/errors.jsonl, jsonl_ml/sources_reports.jsonl, nextdata/ml_dataset_part3.jsonl, splits_v3/quarantine.jsonl
+[PASS] 9. sample [derived_v3/records.jsonl] -- truncated sample prefix of a real source line
+[PASS] 9. sample [jsonl/errors.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[PASS] 9. sample [jsonl_ml/sources_reports.jsonl] -- truncated sample prefix of a real source line
+[PASS] 9. sample [nextdata/ml_dataset_part3.jsonl] -- truncated sample prefix of a real source line
+[PASS] 9. sample [splits_v3/quarantine.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[INFO] INFO. baseline -- expected counts below are exploration notes only -- NOT used as assertions
+[INFO] INFO. expected vs actual -- v1: expected 9 files/1877 rows; actual 9 files/1621 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- v2.2: expected 10 files/249 rows; actual 10 files/249 rows (match)
+[INFO] INFO. expected vs actual -- V3: expected 2 files/7730 rows; actual 13 files/69124 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- Vbeta: expected 11 files/34370 rows; actual 12 files/34370 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- wave1: expected 25 files/39950 rows; actual 26 files/38347 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- benchmark: expected 34 files/24078 rows; actual 34 files/14376 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- datasets(excl negatives): expected 3 files/314 rows; actual 5 files/697 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- taxonomy: expected 2 files/449 rows; actual 2 files/418 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- derived_prove: expected 1 files/210 rows; actual (no matching layer label in files[])
+[INFO] INFO. baseline -- exploration also noted ~189 in-scope .jsonl files repo-wide and ~12,829 OTHER-EMPTY rows expected in METADATA_ONLY_STUB (informational only)
+==============================================================================
+SUMMARY: checks run=1198  passed=1198  failed=0
+DISCREPANCIES: none

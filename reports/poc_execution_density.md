@@ -4,10 +4,10 @@ Generated from `reports/poc_attempts.jsonl` by `scripts/rerun_v1_pocs.py`. Every
 
 ## Candidates and attempts are different counts
 
-- exploit records in the v1/v2.1 queue: 155
+- exploit records in the v1/v2.1 queue: 154
 - eligible under the current standard: 5
-- attemptable (a sandboxed run is meaningful): 24
-- additional candidates queued from other layers (counted separately, never merged): 891
+- attemptable (a sandboxed run is meaningful): 23
+- additional candidates queued from other layers (counted separately, never merged): 857
 - **unique vulnerability records attempted**: 27
 - **total runs recorded**: 56
 - distinct sandboxed invocations: 45
@@ -61,5 +61,5 @@ L6 awarded by this campaign: 0 (no fixed revision was executed under this standa
 - achieved: 45
 - shortfall: 455
 
-The 500+ stretch target was not met. The v1/v2.1 pool has 155 exploit records; only 24 of them expose a test function against a locally available pinned tree, so the campaign is bounded by the corpus, not by compute. Reruns were not counted as new work, and failures were kept as data instead of being relabelled.
+The 500+ stretch target was not met. The v1/v2.1 pool has 154 exploit records; only 23 of them expose a test function against a locally available pinned tree, so the campaign is bounded by the corpus, not by compute. Reruns were not counted as new work, and failures were kept as data instead of being relabelled.
 

@@ -343,6 +343,12 @@ def main() -> int:
     _write_patch_report(R / "patch_verification_report.json",
                         patch_candidates)
     _write_queue(R / "experiment_readiness_queue.md", readiness)
+    # The full ledger also contains hydration-quarantined (REJECT) candidates.
+    # Remove any normalization artifacts regenerated for them so no
+    # METADATA_ONLY_STUB / PARTIAL_TEXT_NO_CODE row re-enters a trainable table.
+    # Idempotent; verbatim content only, nothing invented.
+    from hydrate_v22_v3 import purge_normalization  # local import avoids cycle
+    purge_normalization()
     V.log(f"normalize_v3.py done: {len(fragments)} fragments, "
           f"{len(overlays)} overlays, {len(preview)} preview rows")
     return 0

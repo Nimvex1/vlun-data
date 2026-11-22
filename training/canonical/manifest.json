@@ -3,51 +3,50 @@
   "counts": {
     "detection": {
       "train": {
-        "false": 101,
-        "true": 131
+        "false": 95,
+        "true": 98
       }
     },
     "language": {
       "train": {
-        "cairo": 5,
-        "go": 3176,
-        "move": 17,
-        "rust": 63,
-        "solidity": 4762,
-        "vyper": 27
+        "cairo": 1,
+        "go": 2167,
+        "move": 3,
+        "rust": 35,
+        "solidity": 3744
       }
     },
     "severity": {
       "train": {
-        "critical": 387,
-        "high": 1058,
-        "informational": 1674,
-        "low": 3137,
-        "medium": 1405
+        "critical": 338,
+        "high": 738,
+        "informational": 1017,
+        "low": 2804,
+        "medium": 1072
       }
     }
   },
   "dataset_version": "canonical-1.0",
-  "example_count": 15943,
+  "example_count": 12112,
   "exclusions": {
-    "v1:detection_unqualified": 387,
-    "v1:severity_unknown": 516,
-    "v2.2:detection_unqualified": 92,
-    "v2.2:severity_unknown": 6,
-    "v3.0:detection_unqualified": 5451,
-    "v3.0:severity_unknown": 894,
-    "v4:detection_unqualified": 5268,
-    "v4:language_unknown": 155,
-    "vbeta:detection_unqualified": 6930,
-    "vbeta:language_unknown": 716,
-    "vbeta:severity_unknown": 1501
+    "v1:detection_unqualified": 371,
+    "v1:severity_unknown": 491,
+    "v2.2:detection_below_l5": 29,
+    "v2.2:detection_unqualified": 24,
+    "v2.2:severity_unknown": 2,
+    "v3.0:detection_unqualified": 4609,
+    "v3.0:severity_unknown": 868,
+    "v4:detection_unqualified": 2547,
+    "v4:language_unknown": 16,
+    "vbeta:detection_unqualified": 80,
+    "vbeta:severity_unknown": 80
   },
   "files": [
     {
       "part": 0,
       "path": "training/canonical/detection.train.part-000.jsonl",
-      "rows": 232,
-      "sha256": "8a85e0da857cacf605a109230d93c3b5af51d368eeb80b1f6dd64ae07f8b9683",
+      "rows": 193,
+      "sha256": "1f3e7612ccf95c02d2ddd80dab4c51c3e5d84192d1c15bd7d5e91473be62920b",
       "split": "train",
       "task": "detection"
     },
@@ -55,15 +54,15 @@
       "part": 0,
       "path": "training/canonical/language.train.part-000.jsonl",
       "rows": 5000,
-      "sha256": "8a5acf512c6cba5948c0f4049651e96d205f9f9da7668a6d560e8d2e361a0978",
+      "sha256": "f65cbab72c0fe81f061269b456e000e5dfbdfe22207d906ee984f41ea5478d7a",
       "split": "train",
       "task": "language"
     },
     {
       "part": 1,
       "path": "training/canonical/language.train.part-001.jsonl",
-      "rows": 3050,
-      "sha256": "5d2e42ce5f0fe4aa31f1d80a6c0e69f7b17829d8fd69c3207c05f17ad3fb77ac",
+      "rows": 950,
+      "sha256": "686fd7b2fc327cac6ae1d955a1c0c91498a5e70359abe8f816e2916233267d3e",
       "split": "train",
       "task": "language"
     },
@@ -71,34 +70,34 @@
       "part": 0,
       "path": "training/canonical/severity.train.part-000.jsonl",
       "rows": 5000,
-      "sha256": "4b8e750f52af3cf5d3a26d0fc0fccdeef70efac47cc5288b518a565ba51517eb",
+      "sha256": "5e0be5892ce492b0d69b15ec1e60fe7e57f3c2223be41a53172808cd2034b0af",
       "split": "train",
       "task": "severity"
     },
     {
       "part": 1,
       "path": "training/canonical/severity.train.part-001.jsonl",
-      "rows": 2661,
-      "sha256": "efe73770cdc007db62dd292ecc5201807af2978f63f2b2b9902f44537cdd8040",
+      "rows": 969,
+      "sha256": "227847b913378e6fa40dfd441bfec5289d548da35380a43854748cf627370202",
       "split": "train",
       "task": "severity"
     }
   ],
   "filters": {
-    "detection": "verified only: v1 judged+confirmed positives, v1 rejected/disputed and v2.2 negative-control negatives, v3/vbeta IMPORT_AS_NEGATIVE negatives; unverified harvest rows never positives",
+    "detection": "verified only: v1 judged+confirmed positives, v1 rejected/disputed and v2.2 negative-control negatives, v3/vbeta IMPORT_AS_NEGATIVE negatives; a v2.2 positive must reach L5/L6 in the adjudicated experiment_view.level of derived_v2_2/records.jsonl (the immutable source status is not read: it still says experimentally_verified for demoted records); unverified harvest rows never positives; a v2.2 row below L5 is excluded as v2.2:detection_below_l5, never relabelled a negative",
     "language": "known languages only; unknown excluded",
     "severity": "closed-vocab only; qa/unknown excluded, never coerced"
   },
   "generated_by": "scripts/build_canonical_training.py",
   "held_out_partitions": {
-    "excluded_rows": 17002,
+    "excluded_rows": 2074,
     "model_visible": false,
     "note": "nothing is deleted: every excluded row is written there with its provenance intact. The directory is outside training/, so a consumer globbing the training directory cannot reach it, and it is not listed in this manifest",
     "reasons": {
-      "held_out_split": 3867,
-      "held_out_split_and_protected_record": 12257,
-      "model_visible": 15943,
-      "protected_record": 878
+      "held_out_split": 606,
+      "held_out_split_and_protected_record": 612,
+      "model_visible": 12112,
+      "protected_record": 856
     },
     "written_to": "benchmark/independent/canonical_holdout/"
   },
@@ -107,8 +106,8 @@
     "train"
   ],
   "protected_record_exclusion": {
-    "protected_identifiers": 23893,
-    "rows_excluded_for_this_reason": 13135,
+    "protected_identifiers": 5737,
+    "rows_excluded_for_this_reason": 1468,
     "rule": "a record that ANY benchmark family holds out (split test or validation) is excluded from the model-visible corpus, whatever this layer's own split label says; the v3 layer's benchmark_split and the benchmark's splits_v3 disagree, so a row can sit in a train shard and still be a benchmark test row",
     "source": "scripts/build_eval_leakage_report.py::protected_identifiers"
   },

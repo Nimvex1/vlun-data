@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import pathlib
 import re
 import subprocess
@@ -299,6 +300,31 @@ def check_task_payload_and_key() -> list[str]:
     return problems
 
 
+# Machine-local / cache / VCS trees the fallback walk must never descend into.
+# Mirrors the exclusion sets in build_eval_leakage_report.py and
+# build_json_catalog.py. work/ alone holds ~500k regenerable files, so a bare
+# rglob("*") there takes minutes before a per-file filter can reject anything.
+_FALLBACK_EXCLUDED_DIRS = frozenset({
+    "work", ".git", "__pycache__", ".pytest_cache", "node_modules",
+})
+
+
+def pruned_walk(root: pathlib.Path):
+    """Yield files under ``root``, pruning cache/VCS trees in place.
+
+    ``Path.rglob('*')`` has no in-place pruning and would descend into work/,
+    .git/ and the cache trees before the caller's per-file filter can reject
+    them. Clearing ``dirnames`` at the top of each os.walk pass keeps those
+    trees out of the walk entirely, yielding exactly the files a narrow walk
+    would have produced. This is only used by the fallback path in
+    ``tracked_paths()`` (when git is unavailable).
+    """
+    for dirpath, dirnames, filenames in os.walk(root, topdown=True):
+        dirnames[:] = [d for d in dirnames if d not in _FALLBACK_EXCLUDED_DIRS]
+        for name in filenames:
+            yield pathlib.Path(dirpath) / name
+
+
 def tracked_paths() -> list[str]:
     """Tracked file names, read-only. Falls back to a filesystem walk."""
     try:
@@ -310,10 +336,12 @@ def tracked_paths() -> list[str]:
     except (OSError, subprocess.SubprocessError):
         pass
     out = []
-    for p in sorted(ROOT.rglob("*")):
+    for p in sorted(pruned_walk(ROOT)):
         if not p.is_file():
             continue
-        if ".git" in p.parts or "work" in p.parts or "__pycache__" in p.parts:
+        # Keep the original per-path filter verbatim (parity with the old
+        # rglob semantics); pruning above is what avoids walking work/.
+        if any(part in _FALLBACK_EXCLUDED_DIRS for part in p.parts):
             continue
         out.append(p.relative_to(ROOT).as_posix())
     return out

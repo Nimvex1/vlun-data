@@ -7,33 +7,33 @@
     "call": 4,
     "safeTransfer": 4,
     "safeTransferFrom": 3,
-    "transfer": 18,
-    "transferFrom": 9
+    "transfer": 30,
+    "transferFrom": 15
   },
   "by_property": {
-    "caller_supplied_recipient": 19,
+    "caller_supplied_recipient": 28,
     "externally_influenced_balance_as_source": 179,
     "unchecked_low_level_call": 4,
-    "unchecked_token_move": 19
+    "unchecked_token_move": 28
   },
   "by_reference_project": {
-    "Synthetixio/synthetix-v3": 3,
-    "Uniswap/v2-periphery": 5,
+    "Synthetixio/synthetix-v3": 5,
+    "Uniswap/v2-periphery": 7,
     "Uniswap/v3-periphery": 1,
-    "aerodrome-finance/contracts": 6,
+    "aerodrome-finance/contracts": 10,
     "balancer/balancer-v2-monorepo": 42,
-    "code-423n4/2022-05-alchemix": 9,
+    "code-423n4/2022-05-alchemix": 14,
     "code-423n4/2024-04-noya": 12,
     "code-423n4/2024-12-bakerfi": 2,
     "code-423n4/2025-06-panoptic": 42,
-    "morpho-org/morpho-blue-bundlers": 6,
+    "morpho-org/morpho-blue-bundlers": 9,
     "pendle-finance/pendle-core-v2-public": 5,
-    "prisma-fi/prisma-contracts": 46,
+    "prisma-fi/prisma-contracts": 48,
     "silo-finance/silo-core-v1": 42
   },
   "by_vulnerable_project": {
     "Code4rena/2022-05-alchemix": 30,
-    "Code4rena/2024-01-decent": 48,
+    "Code4rena/2024-01-decent": 66,
     "Code4rena/2024-01-renft": 2,
     "Code4rena/2024-04-noya": 124,
     "Code4rena/2025-08-gte-perps": 17
@@ -245,7 +245,7 @@
         "SIBTASK::e24508f768e277ea4cf4"
       ]
     },
-    "identical_call_sites_in_more_than_one_task": 49,
+    "identical_call_sites_in_more_than_one_task": 53,
     "near_duplicate_examples": [
       {
         "a": "SIBTASK::00e383102ac1ab9b6722",
@@ -568,10 +568,10 @@
         "jaccard": 1.0
       }
     ],
-    "near_duplicate_pairs": 2001,
+    "near_duplicate_pairs": 2215,
     "near_duplicate_pairs_cross_split": 0,
     "note": "near-duplicate wording is reported, not removed: a sibling family that contrasts the same API necessarily repeats its own explanation. This layer is leakage-audited under the recorded criteria; it is not contamination-proof",
-    "pairs_compared": 24310,
+    "pairs_compared": 28441,
     "semantic_examples": [
       {
         "a": "SIBTASK::2cf54e3163f3ee771503",
@@ -790,6 +790,22 @@
         "cross_split": false
       },
       {
+        "a": "SIBTASK::000c16cee244bfdeac5d",
+        "a_split": "validation",
+        "b": "SIBTASK::337cd967d45358080b05",
+        "b_split": "validation",
+        "cosine": 0.98,
+        "cross_split": false
+      },
+      {
+        "a": "SIBTASK::000c16cee244bfdeac5d",
+        "a_split": "validation",
+        "b": "SIBTASK::63d11f6c9e36c53cd3da",
+        "b_split": "validation",
+        "cosine": 0.98,
+        "cross_split": false
+      },
+      {
         "a": "SIBTASK::08a73ceb7e732511c0db",
         "a_split": "test",
         "b": "SIBTASK::5aea02c164750f9447ef",
@@ -798,104 +814,88 @@
         "cross_split": false
       },
       {
-        "a": "SIBTASK::0ff84e736c96d46c3267",
-        "a_split": "train",
-        "b": "SIBTASK::b9dbcde11d4d2140d958",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::0982ebea6bdb3c5e21ff",
+        "a_split": "validation",
+        "b": "SIBTASK::16f0446adef23e578c63",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::0ff84e736c96d46c3267",
-        "a_split": "train",
-        "b": "SIBTASK::d667abbfa354643ea7e9",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::0982ebea6bdb3c5e21ff",
+        "a_split": "validation",
+        "b": "SIBTASK::9dfcc8bbf232e39c7016",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::1c21e74b49e0a962d3b3",
-        "a_split": "train",
-        "b": "SIBTASK::22eb8fd0231b4b391cd6",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::16f0446adef23e578c63",
+        "a_split": "validation",
+        "b": "SIBTASK::9dfcc8bbf232e39c7016",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::1c21e74b49e0a962d3b3",
-        "a_split": "train",
-        "b": "SIBTASK::f0c47a0fa34af81177c3",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::337cd967d45358080b05",
+        "a_split": "validation",
+        "b": "SIBTASK::63d11f6c9e36c53cd3da",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::22eb8fd0231b4b391cd6",
-        "a_split": "train",
-        "b": "SIBTASK::f0c47a0fa34af81177c3",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::4bdb15d2e6f61f425a17",
+        "a_split": "validation",
+        "b": "SIBTASK::d391f9180520e4c4eb80",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::399acd48e381de8eeab8",
-        "a_split": "train",
-        "b": "SIBTASK::3c3d4881596ceb79aa7d",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::4bdb15d2e6f61f425a17",
+        "a_split": "validation",
+        "b": "SIBTASK::f9acce8bd51b7bf98b29",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::399acd48e381de8eeab8",
-        "a_split": "train",
-        "b": "SIBTASK::82dc64b5839774074b10",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::d391f9180520e4c4eb80",
+        "a_split": "validation",
+        "b": "SIBTASK::f9acce8bd51b7bf98b29",
+        "b_split": "validation",
+        "cosine": 0.98,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::3c3d4881596ceb79aa7d",
-        "a_split": "train",
-        "b": "SIBTASK::82dc64b5839774074b10",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::2b5e763a7842796f4998",
+        "a_split": "validation",
+        "b": "SIBTASK::60990787aa614a776b5a",
+        "b_split": "validation",
+        "cosine": 0.978,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::7b9f52a523fd2d644821",
-        "a_split": "train",
-        "b": "SIBTASK::b00666e452190ea42ccb",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::15230e29931c6f51e71f",
+        "a_split": "validation",
+        "b": "SIBTASK::a880f41c6eb482f47975",
+        "b_split": "validation",
+        "cosine": 0.977,
         "cross_split": false
       },
       {
-        "a": "SIBTASK::7b9f52a523fd2d644821",
-        "a_split": "train",
-        "b": "SIBTASK::cc7ebe9b43a0ac751e7d",
-        "b_split": "train",
-        "cosine": 0.976,
-        "cross_split": false
-      },
-      {
-        "a": "SIBTASK::b00666e452190ea42ccb",
-        "a_split": "train",
-        "b": "SIBTASK::cc7ebe9b43a0ac751e7d",
-        "b_split": "train",
-        "cosine": 0.976,
-        "cross_split": false
-      },
-      {
-        "a": "SIBTASK::b9dbcde11d4d2140d958",
-        "a_split": "train",
-        "b": "SIBTASK::d667abbfa354643ea7e9",
-        "b_split": "train",
-        "cosine": 0.976,
+        "a": "SIBTASK::8a760a69e856d3bd8a77",
+        "a_split": "validation",
+        "b": "SIBTASK::a69981d7ec85e46f6abf",
+        "b_split": "validation",
+        "cosine": 0.977,
         "cross_split": false
       }
     ],
-    "semantic_pairs": 5954,
-    "semantic_pairs_cross_split": 440,
+    "semantic_pairs": 6175,
+    "semantic_pairs_cross_split": 324,
     "shared_pinned_file_examples": {
       "balancer/balancer-v2-monorepo@e91a2b643a49856f51a648d175667c1b48cf3377#pkg/liquidity-mining/contracts/VotingEscrowRemapper.sol": [
         {
@@ -915,7 +915,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::3c3e47a8000c24841b83"
         },
         {
@@ -945,7 +945,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::67604a779eae82e17ea9"
         },
         {
@@ -1147,7 +1147,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::8b36105ebf18715f4af0"
         },
         {
@@ -1162,7 +1162,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::bd952e9ffede7631ab1c"
         }
       ],
@@ -1314,7 +1314,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::bfce2d82da5b7b06c431"
         },
         {
@@ -1329,7 +1329,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::cc0801a6b2dea699eeca"
         },
         {
@@ -1381,7 +1381,7 @@
       "pendle-finance/pendle-core-v2-public@87685c89d05087535e9b9647eeda0e3d297d1f06#contracts/offchain-helpers/Multicall2.sol": [
         {
           "side": "reference",
-          "split": "train",
+          "split": "test",
           "task_id": "SIBTASK::2eee22e249c0d7d68fe8"
         },
         {
@@ -1391,7 +1391,7 @@
         },
         {
           "side": "reference",
-          "split": "train",
+          "split": "test",
           "task_id": "SIBTASK::9d1cd3f61666c2e00638"
         },
         {
@@ -1408,7 +1408,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::09303d6be15c13f435ea"
         },
         {
@@ -1503,7 +1503,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::69b75fef31eba08e4838"
         },
         {
@@ -1613,7 +1613,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::fdf3abd7574f8eb03288"
         }
       ],
@@ -1640,7 +1640,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::1fc3d047af3ef2991e15"
         },
         {
@@ -1685,7 +1685,7 @@
         },
         {
           "side": "reference",
-          "split": "test",
+          "split": "train",
           "task_id": "SIBTASK::4a31d8692449ea4462c9"
         },
         {
@@ -1843,11 +1843,11 @@
     "reference_side_repositories": 13,
     "reference_side_straddle_detail": {
       "Synthetixio/synthetix-v3": [
-        "test",
+        "train",
         "validation"
       ],
       "Uniswap/v2-periphery": [
-        "test",
+        "train",
         "validation"
       ],
       "balancer/balancer-v2-monorepo": [
@@ -1857,6 +1857,7 @@
       ],
       "code-423n4/2024-04-noya": [
         "test",
+        "train",
         "validation"
       ],
       "code-423n4/2025-06-panoptic": [
@@ -1884,11 +1885,11 @@
     "repositories_per_split": {
       "test": [
         "Code4rena/2022-05-alchemix",
-        "Code4rena/2025-08-gte-perps"
+        "Code4rena/2024-01-renft"
       ],
       "train": [
-        "Code4rena/2024-01-renft",
-        "Code4rena/2024-04-noya"
+        "Code4rena/2024-04-noya",
+        "Code4rena/2025-08-gte-perps"
       ],
       "validation": [
         "Code4rena/2024-01-decent"
@@ -1896,7 +1897,7 @@
     },
     "test_only_repositories": [
       "Code4rena/2022-05-alchemix",
-      "Code4rena/2025-08-gte-perps"
+      "Code4rena/2024-01-renft"
     ],
     "violation_count": 0,
     "violations": {},
@@ -1908,27 +1909,27 @@
     "decision": "citations_and_spans_only__no_source_text_redistributed",
     "expressive_text_redistributed": false,
     "reference_side_classes": {
-      "redistributable": 103,
-      "source_available_but_not_redistributable": 63,
-      "unknown": 63
+      "redistributable": 112,
+      "source_available_but_not_redistributable": 70,
+      "unknown": 68
     },
     "vulnerable_side_classes": {
       "source_available_but_not_redistributable": 2,
-      "unknown": 227
+      "unknown": 248
     }
   },
   "splits": {
     "assignment_by_group": {
       "Code4rena/2022-05-alchemix": "test",
       "Code4rena/2024-01-decent": "validation",
-      "Code4rena/2024-01-renft": "train",
+      "Code4rena/2024-01-renft": "test",
       "Code4rena/2024-04-noya": "train",
-      "Code4rena/2025-08-gte-perps": "test"
+      "Code4rena/2025-08-gte-perps": "train"
     },
     "counts": {
-      "test": 47,
-      "train": 126,
-      "validation": 48
+      "test": 32,
+      "train": 141,
+      "validation": 66
     },
     "group_members": {
       "Code4rena/2022-05-alchemix": [
@@ -1964,23 +1965,33 @@
         "SIBTASK::fe0a2ac9e2bedb644320"
       ],
       "Code4rena/2024-01-decent": [
+        "SIBTASK::000c16cee244bfdeac5d",
         "SIBTASK::038c368f42e5ff80cd1b",
         "SIBTASK::07cb190ae1b6d0da0b6a",
+        "SIBTASK::0982ebea6bdb3c5e21ff",
         "SIBTASK::0c7b50a94bbabfb81d1d",
         "SIBTASK::0eb810fdadbbf91d77ab",
+        "SIBTASK::15230e29931c6f51e71f",
         "SIBTASK::16f0446adef23e578c63",
         "SIBTASK::1803707ba2ec0bf70d68",
         "SIBTASK::1862608edd25283e94e6",
         "SIBTASK::2b59ae4a913732b80bf4",
+        "SIBTASK::2b5e763a7842796f4998",
         "SIBTASK::337c90f998798f322ec7",
+        "SIBTASK::337cd967d45358080b05",
+        "SIBTASK::342b6cead6d7d308b9ab",
         "SIBTASK::3445cffd80d2ea70fc01",
         "SIBTASK::37c9b3826f6fd5bc94d5",
         "SIBTASK::3b023257cfe63fe8947c",
         "SIBTASK::3cb8fb56d5f2f602c3b6",
         "SIBTASK::3dbf42e3dc19b735901d",
+        "SIBTASK::3f349dfdfaa784632634",
         "SIBTASK::4090f03019ee05fb9e46",
         "SIBTASK::43a52b62262058b60714",
+        "SIBTASK::4bdb15d2e6f61f425a17",
+        "SIBTASK::4fcce09bce3327ca637b",
         "SIBTASK::537b4b650a0fa171346b",
+        "SIBTASK::60990787aa614a776b5a",
         "SIBTASK::63422a888db86d785fba",
         "SIBTASK::63d11f6c9e36c53cd3da",
         "SIBTASK::68231e7117c6c3a63be4",
@@ -1989,12 +2000,18 @@
         "SIBTASK::79147278cc154b59d8a7",
         "SIBTASK::8009be5baa40a64e58cc",
         "SIBTASK::86d50783b73c37b34323",
+        "SIBTASK::8a760a69e856d3bd8a77",
         "SIBTASK::929e1be7da62a1a7c72b",
         "SIBTASK::9538f1daea44fbb288ad",
         "SIBTASK::96b372c5b54631ec087f",
         "SIBTASK::9c9c54aa9c628b144278",
+        "SIBTASK::9dfcc8bbf232e39c7016",
+        "SIBTASK::a69981d7ec85e46f6abf",
         "SIBTASK::a7c4bbbf2438ed533059",
+        "SIBTASK::a7d0be184854f60dc8e3",
+        "SIBTASK::a880f41c6eb482f47975",
         "SIBTASK::a9462690dd0023c81b4c",
+        "SIBTASK::b0e764fd41ea48489133",
         "SIBTASK::b6b0ddbc2d6f3e57f85c",
         "SIBTASK::b8b60fce504c8e9d661e",
         "SIBTASK::bc158b8eab1d4fddbfce",
@@ -2004,6 +2021,7 @@
         "SIBTASK::ce0a80f2008be05f1575",
         "SIBTASK::d20defa212f8a29cafca",
         "SIBTASK::d319ec89ce9912e4f275",
+        "SIBTASK::d391f9180520e4c4eb80",
         "SIBTASK::d99c0515ebebca5bc48c",
         "SIBTASK::daf27376c9c25cf102a6",
         "SIBTASK::e6a56f2601034bd94709",
@@ -2011,7 +2029,8 @@
         "SIBTASK::f2866c472ce233bf3504",
         "SIBTASK::f3322fa0698dc47db9e0",
         "SIBTASK::f9acce8bd51b7bf98b29",
-        "SIBTASK::fd680cb027002aac6d4b"
+        "SIBTASK::fd680cb027002aac6d4b",
+        "SIBTASK::ff55a729f2e8abc02a3a"
       ],
       "Code4rena/2024-01-renft": [
         "SIBTASK::2eee22e249c0d7d68fe8",
@@ -2164,6 +2183,7 @@
       ]
     },
     "group_of_task": {
+      "SIBTASK::000c16cee244bfdeac5d": "Code4rena/2024-01-decent",
       "SIBTASK::00e383102ac1ab9b6722": "Code4rena/2022-05-alchemix",
       "SIBTASK::02bc4cb44f82b05312d0": "Code4rena/2024-04-noya",
       "SIBTASK::038c368f42e5ff80cd1b": "Code4rena/2024-01-decent",
@@ -2172,12 +2192,14 @@
       "SIBTASK::07cb190ae1b6d0da0b6a": "Code4rena/2024-01-decent",
       "SIBTASK::08a73ceb7e732511c0db": "Code4rena/2022-05-alchemix",
       "SIBTASK::09303d6be15c13f435ea": "Code4rena/2025-08-gte-perps",
+      "SIBTASK::0982ebea6bdb3c5e21ff": "Code4rena/2024-01-decent",
       "SIBTASK::0c7b50a94bbabfb81d1d": "Code4rena/2024-01-decent",
       "SIBTASK::0eb810fdadbbf91d77ab": "Code4rena/2024-01-decent",
       "SIBTASK::0f9db5791117399f2271": "Code4rena/2024-04-noya",
       "SIBTASK::0ff84e736c96d46c3267": "Code4rena/2024-04-noya",
       "SIBTASK::10524106f13a76c38a10": "Code4rena/2024-04-noya",
       "SIBTASK::12961be3320c70153d73": "Code4rena/2024-04-noya",
+      "SIBTASK::15230e29931c6f51e71f": "Code4rena/2024-01-decent",
       "SIBTASK::154a1bc6dbcef8d1c6fe": "Code4rena/2024-04-noya",
       "SIBTASK::16f0446adef23e578c63": "Code4rena/2024-01-decent",
       "SIBTASK::1726271f436e02806385": "Code4rena/2024-04-noya",
@@ -2195,6 +2217,7 @@
       "SIBTASK::24aa2ca88b688482d1ad": "Code4rena/2024-04-noya",
       "SIBTASK::2924969546990971af5f": "Code4rena/2022-05-alchemix",
       "SIBTASK::2b59ae4a913732b80bf4": "Code4rena/2024-01-decent",
+      "SIBTASK::2b5e763a7842796f4998": "Code4rena/2024-01-decent",
       "SIBTASK::2cf54e3163f3ee771503": "Code4rena/2024-04-noya",
       "SIBTASK::2d1ba6770213a3b8996a": "Code4rena/2022-05-alchemix",
       "SIBTASK::2e5ce57e35636bdb7360": "Code4rena/2024-04-noya",
@@ -2204,6 +2227,8 @@
       "SIBTASK::3276607605e07b26932d": "Code4rena/2024-04-noya",
       "SIBTASK::32f111e860f3d0f47d3a": "Code4rena/2024-04-noya",
       "SIBTASK::337c90f998798f322ec7": "Code4rena/2024-01-decent",
+      "SIBTASK::337cd967d45358080b05": "Code4rena/2024-01-decent",
+      "SIBTASK::342b6cead6d7d308b9ab": "Code4rena/2024-01-decent",
       "SIBTASK::3445cffd80d2ea70fc01": "Code4rena/2024-01-decent",
       "SIBTASK::37c9b3826f6fd5bc94d5": "Code4rena/2024-01-decent",
       "SIBTASK::384146f9334436cc3061": "Code4rena/2024-04-noya",
@@ -2216,6 +2241,7 @@
       "SIBTASK::3d0b672c14852349b5a5": "Code4rena/2024-04-noya",
       "SIBTASK::3dbf42e3dc19b735901d": "Code4rena/2024-01-decent",
       "SIBTASK::3edeff053d12af704fb3": "Code4rena/2022-05-alchemix",
+      "SIBTASK::3f349dfdfaa784632634": "Code4rena/2024-01-decent",
       "SIBTASK::3f79ffc653cebd7d4cb0": "Code4rena/2025-08-gte-perps",
       "SIBTASK::3f98110a59dda2a73e64": "Code4rena/2024-04-noya",
       "SIBTASK::40301b0d243f2d2df710": "Code4rena/2024-04-noya",
@@ -2232,11 +2258,13 @@
       "SIBTASK::4a31d8692449ea4462c9": "Code4rena/2025-08-gte-perps",
       "SIBTASK::4afd58e527489ae30e01": "Code4rena/2024-04-noya",
       "SIBTASK::4bbb04ab90e5deb16524": "Code4rena/2024-04-noya",
+      "SIBTASK::4bdb15d2e6f61f425a17": "Code4rena/2024-01-decent",
       "SIBTASK::4c498633ed8fa3a4766f": "Code4rena/2022-05-alchemix",
       "SIBTASK::4c899556a043a368a39f": "Code4rena/2024-04-noya",
       "SIBTASK::4d4c82aa60d88dab2c40": "Code4rena/2024-04-noya",
       "SIBTASK::4d8b4f1c5fbbec6c8eff": "Code4rena/2022-05-alchemix",
       "SIBTASK::4ddd9bbe8bba99998f56": "Code4rena/2024-04-noya",
+      "SIBTASK::4fcce09bce3327ca637b": "Code4rena/2024-01-decent",
       "SIBTASK::50d2dbcf4c142a2a5f22": "Code4rena/2024-04-noya",
       "SIBTASK::534ed3a744bc18d5f0cc": "Code4rena/2025-08-gte-perps",
       "SIBTASK::537b4b650a0fa171346b": "Code4rena/2024-01-decent",
@@ -2246,6 +2274,7 @@
       "SIBTASK::5aea02c164750f9447ef": "Code4rena/2022-05-alchemix",
       "SIBTASK::5dae06e3e7eaacca13c8": "Code4rena/2024-04-noya",
       "SIBTASK::5db814028c4c6eb2385b": "Code4rena/2022-05-alchemix",
+      "SIBTASK::60990787aa614a776b5a": "Code4rena/2024-01-decent",
       "SIBTASK::63422a888db86d785fba": "Code4rena/2024-01-decent",
       "SIBTASK::63c2068cc2b2b3b25887": "Code4rena/2024-04-noya",
       "SIBTASK::63d11f6c9e36c53cd3da": "Code4rena/2024-01-decent",
@@ -2283,6 +2312,7 @@
       "SIBTASK::86d50783b73c37b34323": "Code4rena/2024-01-decent",
       "SIBTASK::87fc555c2c700a12f1ae": "Code4rena/2024-04-noya",
       "SIBTASK::883e955eb5f90eee422d": "Code4rena/2024-04-noya",
+      "SIBTASK::8a760a69e856d3bd8a77": "Code4rena/2024-01-decent",
       "SIBTASK::8a812e61e074c82820b0": "Code4rena/2024-04-noya",
       "SIBTASK::8b36105ebf18715f4af0": "Code4rena/2025-08-gte-perps",
       "SIBTASK::8c560569fa66f14b9b9e": "Code4rena/2024-04-noya",
@@ -2303,14 +2333,18 @@
       "SIBTASK::9c4c4ad850114440c0c1": "Code4rena/2022-05-alchemix",
       "SIBTASK::9c9c54aa9c628b144278": "Code4rena/2024-01-decent",
       "SIBTASK::9d1cd3f61666c2e00638": "Code4rena/2024-01-renft",
+      "SIBTASK::9dfcc8bbf232e39c7016": "Code4rena/2024-01-decent",
       "SIBTASK::9ed054dfb43500020ec8": "Code4rena/2024-04-noya",
       "SIBTASK::a065a6cea267376925ed": "Code4rena/2024-04-noya",
       "SIBTASK::a0c0b69ee0704816468a": "Code4rena/2024-04-noya",
       "SIBTASK::a2594e31a312bd61c6e3": "Code4rena/2024-04-noya",
       "SIBTASK::a4aa8ebf389c25a06eca": "Code4rena/2024-04-noya",
       "SIBTASK::a5b8d611fbb9ff7fd0ca": "Code4rena/2024-04-noya",
+      "SIBTASK::a69981d7ec85e46f6abf": "Code4rena/2024-01-decent",
       "SIBTASK::a714a0630f6b2ced3183": "Code4rena/2024-04-noya",
       "SIBTASK::a7c4bbbf2438ed533059": "Code4rena/2024-01-decent",
+      "SIBTASK::a7d0be184854f60dc8e3": "Code4rena/2024-01-decent",
+      "SIBTASK::a880f41c6eb482f47975": "Code4rena/2024-01-decent",
       "SIBTASK::a892a415816dbe472392": "Code4rena/2024-04-noya",
       "SIBTASK::a9462690dd0023c81b4c": "Code4rena/2024-01-decent",
       "SIBTASK::aa2a2387b61fe3895830": "Code4rena/2024-04-noya",
@@ -2318,6 +2352,7 @@
       "SIBTASK::ac6b2a7d33535de09622": "Code4rena/2024-04-noya",
       "SIBTASK::adaa8b4b12253255b645": "Code4rena/2024-04-noya",
       "SIBTASK::b00666e452190ea42ccb": "Code4rena/2024-04-noya",
+      "SIBTASK::b0e764fd41ea48489133": "Code4rena/2024-01-decent",
       "SIBTASK::b13a0539d79ad5e3f63c": "Code4rena/2024-04-noya",
       "SIBTASK::b3045737b0e0bd0e32f2": "Code4rena/2024-04-noya",
       "SIBTASK::b548be4394b28e1ebd81": "Code4rena/2022-05-alchemix",
@@ -2349,6 +2384,7 @@
       "SIBTASK::d0f3a2697a7f630df5b6": "Code4rena/2024-04-noya",
       "SIBTASK::d20defa212f8a29cafca": "Code4rena/2024-01-decent",
       "SIBTASK::d319ec89ce9912e4f275": "Code4rena/2024-01-decent",
+      "SIBTASK::d391f9180520e4c4eb80": "Code4rena/2024-01-decent",
       "SIBTASK::d409ef77a16f3de1b7e5": "Code4rena/2024-04-noya",
       "SIBTASK::d667abbfa354643ea7e9": "Code4rena/2024-04-noya",
       "SIBTASK::d7b88dab4b9e4c16bded": "Code4rena/2024-04-noya",
@@ -2384,11 +2420,12 @@
       "SIBTASK::fab4e24e01a386fc9613": "Code4rena/2024-04-noya",
       "SIBTASK::fd680cb027002aac6d4b": "Code4rena/2024-01-decent",
       "SIBTASK::fdf3abd7574f8eb03288": "Code4rena/2025-08-gte-perps",
-      "SIBTASK::fe0a2ac9e2bedb644320": "Code4rena/2022-05-alchemix"
+      "SIBTASK::fe0a2ac9e2bedb644320": "Code4rena/2022-05-alchemix",
+      "SIBTASK::ff55a729f2e8abc02a3a": "Code4rena/2024-01-decent"
     },
     "group_sizes": {
       "Code4rena/2022-05-alchemix": 30,
-      "Code4rena/2024-01-decent": 48,
+      "Code4rena/2024-01-decent": 66,
       "Code4rena/2024-01-renft": 2,
       "Code4rena/2024-04-noya": 124,
       "Code4rena/2025-08-gte-perps": 17
@@ -2396,6 +2433,7 @@
     "group_unit": "vulnerable_side_audited_repository",
     "rule": "whole vulnerable-side audited repositories are assigned to one split each, so no audited project's finding is seen twice; reference-side repositories are shared library code by construction and their straddle is measured in the hold-out audit instead of claimed away",
     "task_split": {
+      "SIBTASK::000c16cee244bfdeac5d": "validation",
       "SIBTASK::00e383102ac1ab9b6722": "test",
       "SIBTASK::02bc4cb44f82b05312d0": "train",
       "SIBTASK::038c368f42e5ff80cd1b": "validation",
@@ -2403,20 +2441,22 @@
       "SIBTASK::0690f975e92b2b682be2": "train",
       "SIBTASK::07cb190ae1b6d0da0b6a": "validation",
       "SIBTASK::08a73ceb7e732511c0db": "test",
-      "SIBTASK::09303d6be15c13f435ea": "test",
+      "SIBTASK::09303d6be15c13f435ea": "train",
+      "SIBTASK::0982ebea6bdb3c5e21ff": "validation",
       "SIBTASK::0c7b50a94bbabfb81d1d": "validation",
       "SIBTASK::0eb810fdadbbf91d77ab": "validation",
       "SIBTASK::0f9db5791117399f2271": "train",
       "SIBTASK::0ff84e736c96d46c3267": "train",
       "SIBTASK::10524106f13a76c38a10": "train",
       "SIBTASK::12961be3320c70153d73": "train",
+      "SIBTASK::15230e29931c6f51e71f": "validation",
       "SIBTASK::154a1bc6dbcef8d1c6fe": "train",
       "SIBTASK::16f0446adef23e578c63": "validation",
       "SIBTASK::1726271f436e02806385": "train",
       "SIBTASK::1803707ba2ec0bf70d68": "validation",
       "SIBTASK::1862608edd25283e94e6": "validation",
       "SIBTASK::1c21e74b49e0a962d3b3": "train",
-      "SIBTASK::1fc3d047af3ef2991e15": "test",
+      "SIBTASK::1fc3d047af3ef2991e15": "train",
       "SIBTASK::218725071b67c806be8f": "train",
       "SIBTASK::2282370a170200c9eb1c": "test",
       "SIBTASK::22eb8fd0231b4b391cd6": "train",
@@ -2427,28 +2467,32 @@
       "SIBTASK::24aa2ca88b688482d1ad": "train",
       "SIBTASK::2924969546990971af5f": "test",
       "SIBTASK::2b59ae4a913732b80bf4": "validation",
+      "SIBTASK::2b5e763a7842796f4998": "validation",
       "SIBTASK::2cf54e3163f3ee771503": "train",
       "SIBTASK::2d1ba6770213a3b8996a": "test",
       "SIBTASK::2e5ce57e35636bdb7360": "train",
-      "SIBTASK::2eee22e249c0d7d68fe8": "train",
+      "SIBTASK::2eee22e249c0d7d68fe8": "test",
       "SIBTASK::306919cc9c694c037dad": "train",
       "SIBTASK::307a56b3e2e4181667b3": "test",
       "SIBTASK::3276607605e07b26932d": "train",
       "SIBTASK::32f111e860f3d0f47d3a": "train",
       "SIBTASK::337c90f998798f322ec7": "validation",
+      "SIBTASK::337cd967d45358080b05": "validation",
+      "SIBTASK::342b6cead6d7d308b9ab": "validation",
       "SIBTASK::3445cffd80d2ea70fc01": "validation",
       "SIBTASK::37c9b3826f6fd5bc94d5": "validation",
       "SIBTASK::384146f9334436cc3061": "train",
       "SIBTASK::399acd48e381de8eeab8": "train",
       "SIBTASK::3b023257cfe63fe8947c": "validation",
       "SIBTASK::3c3d4881596ceb79aa7d": "train",
-      "SIBTASK::3c3e47a8000c24841b83": "test",
+      "SIBTASK::3c3e47a8000c24841b83": "train",
       "SIBTASK::3c54f8f2ce640a856b74": "train",
       "SIBTASK::3cb8fb56d5f2f602c3b6": "validation",
       "SIBTASK::3d0b672c14852349b5a5": "train",
       "SIBTASK::3dbf42e3dc19b735901d": "validation",
       "SIBTASK::3edeff053d12af704fb3": "test",
-      "SIBTASK::3f79ffc653cebd7d4cb0": "test",
+      "SIBTASK::3f349dfdfaa784632634": "validation",
+      "SIBTASK::3f79ffc653cebd7d4cb0": "train",
       "SIBTASK::3f98110a59dda2a73e64": "train",
       "SIBTASK::40301b0d243f2d2df710": "train",
       "SIBTASK::4090f03019ee05fb9e46": "validation",
@@ -2461,16 +2505,18 @@
       "SIBTASK::490326fa7b55103a0682": "test",
       "SIBTASK::493d14e9030a5ef842dd": "train",
       "SIBTASK::49fe53a8afdbb389ba32": "train",
-      "SIBTASK::4a31d8692449ea4462c9": "test",
+      "SIBTASK::4a31d8692449ea4462c9": "train",
       "SIBTASK::4afd58e527489ae30e01": "train",
       "SIBTASK::4bbb04ab90e5deb16524": "train",
+      "SIBTASK::4bdb15d2e6f61f425a17": "validation",
       "SIBTASK::4c498633ed8fa3a4766f": "test",
       "SIBTASK::4c899556a043a368a39f": "train",
       "SIBTASK::4d4c82aa60d88dab2c40": "train",
       "SIBTASK::4d8b4f1c5fbbec6c8eff": "test",
       "SIBTASK::4ddd9bbe8bba99998f56": "train",
+      "SIBTASK::4fcce09bce3327ca637b": "validation",
       "SIBTASK::50d2dbcf4c142a2a5f22": "train",
-      "SIBTASK::534ed3a744bc18d5f0cc": "test",
+      "SIBTASK::534ed3a744bc18d5f0cc": "train",
       "SIBTASK::537b4b650a0fa171346b": "validation",
       "SIBTASK::538b742c08bc5fb1c60c": "test",
       "SIBTASK::53b23c4341a02b137026": "train",
@@ -2478,21 +2524,22 @@
       "SIBTASK::5aea02c164750f9447ef": "test",
       "SIBTASK::5dae06e3e7eaacca13c8": "train",
       "SIBTASK::5db814028c4c6eb2385b": "test",
+      "SIBTASK::60990787aa614a776b5a": "validation",
       "SIBTASK::63422a888db86d785fba": "validation",
       "SIBTASK::63c2068cc2b2b3b25887": "train",
       "SIBTASK::63d11f6c9e36c53cd3da": "validation",
       "SIBTASK::63deb4113eaf3fa6117d": "train",
-      "SIBTASK::65a2b7c3f55daa7f766c": "test",
-      "SIBTASK::67604a779eae82e17ea9": "test",
+      "SIBTASK::65a2b7c3f55daa7f766c": "train",
+      "SIBTASK::67604a779eae82e17ea9": "train",
       "SIBTASK::68231e7117c6c3a63be4": "validation",
       "SIBTASK::6847bee482a1988012e8": "validation",
       "SIBTASK::68b3270b428d10fa4911": "train",
       "SIBTASK::69606d7dcdb3f1717b7d": "test",
-      "SIBTASK::69b75fef31eba08e4838": "test",
+      "SIBTASK::69b75fef31eba08e4838": "train",
       "SIBTASK::6a3b20d6794e8ced5ca5": "train",
       "SIBTASK::6b4aca3ebafb231ca491": "train",
       "SIBTASK::6e48dc07d1e887eac92e": "train",
-      "SIBTASK::6f44bf1648e6fd0bf9b2": "test",
+      "SIBTASK::6f44bf1648e6fd0bf9b2": "train",
       "SIBTASK::70110a0a8e00adcee2bf": "validation",
       "SIBTASK::71fee6f737d5f427976f": "train",
       "SIBTASK::727d5b3a7e970c41acbf": "train",
@@ -2515,10 +2562,11 @@
       "SIBTASK::86d50783b73c37b34323": "validation",
       "SIBTASK::87fc555c2c700a12f1ae": "train",
       "SIBTASK::883e955eb5f90eee422d": "train",
+      "SIBTASK::8a760a69e856d3bd8a77": "validation",
       "SIBTASK::8a812e61e074c82820b0": "train",
-      "SIBTASK::8b36105ebf18715f4af0": "test",
+      "SIBTASK::8b36105ebf18715f4af0": "train",
       "SIBTASK::8c560569fa66f14b9b9e": "train",
-      "SIBTASK::8c782575b881d6a4308b": "test",
+      "SIBTASK::8c782575b881d6a4308b": "train",
       "SIBTASK::90d54948aeb2424932bc": "train",
       "SIBTASK::929e1be7da62a1a7c72b": "validation",
       "SIBTASK::93188dcc5050e0d5aecc": "train",
@@ -2534,15 +2582,19 @@
       "SIBTASK::9aa8f04a2f6daa9cc514": "train",
       "SIBTASK::9c4c4ad850114440c0c1": "test",
       "SIBTASK::9c9c54aa9c628b144278": "validation",
-      "SIBTASK::9d1cd3f61666c2e00638": "train",
+      "SIBTASK::9d1cd3f61666c2e00638": "test",
+      "SIBTASK::9dfcc8bbf232e39c7016": "validation",
       "SIBTASK::9ed054dfb43500020ec8": "train",
       "SIBTASK::a065a6cea267376925ed": "train",
       "SIBTASK::a0c0b69ee0704816468a": "train",
       "SIBTASK::a2594e31a312bd61c6e3": "train",
       "SIBTASK::a4aa8ebf389c25a06eca": "train",
       "SIBTASK::a5b8d611fbb9ff7fd0ca": "train",
+      "SIBTASK::a69981d7ec85e46f6abf": "validation",
       "SIBTASK::a714a0630f6b2ced3183": "train",
       "SIBTASK::a7c4bbbf2438ed533059": "validation",
+      "SIBTASK::a7d0be184854f60dc8e3": "validation",
+      "SIBTASK::a880f41c6eb482f47975": "validation",
       "SIBTASK::a892a415816dbe472392": "train",
       "SIBTASK::a9462690dd0023c81b4c": "validation",
       "SIBTASK::aa2a2387b61fe3895830": "train",
@@ -2550,6 +2602,7 @@
       "SIBTASK::ac6b2a7d33535de09622": "train",
       "SIBTASK::adaa8b4b12253255b645": "train",
       "SIBTASK::b00666e452190ea42ccb": "train",
+      "SIBTASK::b0e764fd41ea48489133": "validation",
       "SIBTASK::b13a0539d79ad5e3f63c": "train",
       "SIBTASK::b3045737b0e0bd0e32f2": "train",
       "SIBTASK::b548be4394b28e1ebd81": "test",
@@ -2561,11 +2614,11 @@
       "SIBTASK::bb4c831e20026758d461": "train",
       "SIBTASK::bb72c3626d0e35771369": "train",
       "SIBTASK::bc158b8eab1d4fddbfce": "validation",
-      "SIBTASK::bd952e9ffede7631ab1c": "test",
+      "SIBTASK::bd952e9ffede7631ab1c": "train",
       "SIBTASK::be2ca590c5ba0b214123": "validation",
       "SIBTASK::bf6501c3e8b21de0c82b": "test",
       "SIBTASK::bf7a95b6fc8cbc352011": "test",
-      "SIBTASK::bfce2d82da5b7b06c431": "test",
+      "SIBTASK::bfce2d82da5b7b06c431": "train",
       "SIBTASK::c1e891d39452fbfcea35": "train",
       "SIBTASK::c21e2f7d1e64bcbad198": "validation",
       "SIBTASK::c4e892ca96624fc5deed": "train",
@@ -2573,7 +2626,7 @@
       "SIBTASK::c62f48798304222347d4": "train",
       "SIBTASK::c7e611d4ef1f2f713cb0": "test",
       "SIBTASK::ca6b3d3f145e666a0fa3": "train",
-      "SIBTASK::cc0801a6b2dea699eeca": "test",
+      "SIBTASK::cc0801a6b2dea699eeca": "train",
       "SIBTASK::cc7ebe9b43a0ac751e7d": "train",
       "SIBTASK::cd404047c62be9208bf8": "train",
       "SIBTASK::cd7efa723e83caff3630": "validation",
@@ -2581,6 +2634,7 @@
       "SIBTASK::d0f3a2697a7f630df5b6": "train",
       "SIBTASK::d20defa212f8a29cafca": "validation",
       "SIBTASK::d319ec89ce9912e4f275": "validation",
+      "SIBTASK::d391f9180520e4c4eb80": "validation",
       "SIBTASK::d409ef77a16f3de1b7e5": "train",
       "SIBTASK::d667abbfa354643ea7e9": "train",
       "SIBTASK::d7b88dab4b9e4c16bded": "train",
@@ -2593,7 +2647,7 @@
       "SIBTASK::def7c93ef8397e951b86": "train",
       "SIBTASK::df62b11883786dbf9145": "train",
       "SIBTASK::dfe819310b16d2f2d7e9": "train",
-      "SIBTASK::e24508f768e277ea4cf4": "test",
+      "SIBTASK::e24508f768e277ea4cf4": "train",
       "SIBTASK::e480268423b8420818b7": "train",
       "SIBTASK::e6610c17cf25e8a35c0b": "train",
       "SIBTASK::e6a56f2601034bd94709": "validation",
@@ -2615,21 +2669,22 @@
       "SIBTASK::f9acce8bd51b7bf98b29": "validation",
       "SIBTASK::fab4e24e01a386fc9613": "train",
       "SIBTASK::fd680cb027002aac6d4b": "validation",
-      "SIBTASK::fdf3abd7574f8eb03288": "test",
-      "SIBTASK::fe0a2ac9e2bedb644320": "test"
+      "SIBTASK::fdf3abd7574f8eb03288": "train",
+      "SIBTASK::fe0a2ac9e2bedb644320": "test",
+      "SIBTASK::ff55a729f2e8abc02a3a": "validation"
     }
   },
   "target": "expand the API-sibling task family from 71 toward 300+",
   "yield": {
-    "admitted_tasks": 221,
+    "admitted_tasks": 239,
     "baseline_v2_1_pairs": 71,
-    "candidates_proposed": 229,
-    "dropped": 0,
-    "growth_over_baseline": 3.2253521126760565,
-    "hard_negatives": 8,
-    "reviewed": 229,
-    "reviewed_and_agreed": 221,
-    "shortfall_explained": "the pool holds 229 real cross-repository sibling call sites; 0 could not be re-read from the pinned bytes and 8 failed the contrast under the independent reader, so 221 tasks are admitted. The binding limit is the number of confirmed findings whose cited code actually contains a call to a shared upstream API, not a processing step.",
+    "candidates_proposed": 255,
+    "dropped": 5,
+    "growth_over_baseline": 3.5211267605633805,
+    "hard_negatives": 11,
+    "reviewed": 255,
+    "reviewed_and_agreed": 239,
+    "shortfall_explained": "the pool holds 255 real cross-repository sibling call sites; 5 could not be re-read from the pinned bytes and 11 failed the contrast under the independent reader, so 239 tasks are admitted. The binding limit is the number of confirmed findings whose cited code actually contains a call to a shared upstream API, not a processing step.",
     "target_reached": false
   }
 }

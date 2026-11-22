@@ -13,9 +13,9 @@ that impossible, and this module pins all three:
 
   A. the taxonomy block's SHAPE. The layer carries a block that no builder
      emitted: no top-level `rule`, no `c4_original` inside a label, and for
-     the 43 records with no vulnerability class no `labels`/`multi_label`/
+     the 36 records with no vulnerability class no `labels`/`multi_label`/
      `vocabulary` at all. scripts/taxonomy.py emitted a superset, so every
-     one of the 722 records differed.
+     one of the 685 records differed.
   B. `attacker_model.attacker_identity.source_refs`. The layer states the
      pointer on exactly the 147 records whose identity was derived by a
      rule and omits the key on the 575 whose identity was quoted from a
@@ -28,7 +28,7 @@ that impossible, and this module pins all three:
      mirror instead, which left the shipped layer citing a mutable branch
      and would have failed the `provenance_urls_immutable_or_declared` gate.
 
-The tests read the layer and the source rows; they never rebuild the 722
+The tests read the layer and the source rows; they never rebuild the 685
 records, so they stay fast.
 Run:  python -m unittest discover -s tests
 """
@@ -78,7 +78,7 @@ class TestTaxonomyShape(unittest.TestCase):
 
     def test_classify_reproduces_every_committed_taxonomy_block(self):
         records = _layer()
-        self.assertEqual(len(records), 722)
+        self.assertEqual(len(records), 685)
         rows = _source_rows()
         for rec in records:
             self.assertEqual(
@@ -99,7 +99,7 @@ class TestTaxonomyShape(unittest.TestCase):
         without = [r for r in _layer()
                    if not ((r.get("finding") or {}).get("vulnerability_classes")
                            or [])]
-        self.assertEqual(len(without), 43)
+        self.assertEqual(len(without), 36)
         for rec in without:
             block = rec.get("taxonomy") or {}
             for key in ("labels", "multi_label", "vocabulary", "source_refs"):

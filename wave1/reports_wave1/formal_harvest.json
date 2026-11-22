@@ -17,7 +17,7 @@
   "excluded_setup_helpers": 46,
   "excluded_test_functions": 643,
   "files_scanned": 620,
-  "generated_at": "2026-11-19T19:52:15Z",
+  "generated_at": "2026-11-20T19:04:05Z",
   "high_quality_admitted": 217,
   "notes": [
     "governed repos=3; metadata_only=true",

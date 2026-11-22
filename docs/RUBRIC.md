@@ -26,7 +26,7 @@ in their own block (`families_invalid`, `families_exploratory`,
 `families_retired`) and in `micro_all_families`, so nothing is dropped
 silently.
 
-**Today the primary set is family A alone**: the headline metric covers 720 tasks (344 train, 229 validation, 147 test). Family C's split has drifted (train/test label mix L1 distance 1.0303), R's held-out labels never appear in train, and U and V are solved by a train-only shortcut (0.9834 and 0.9998 on the held-out split), so none of them is evaluation evidence.
+**Today the primary set is families A and C**: the headline metric covers 1,051 tasks (512 train, 366 validation, 173 test). C was promoted after its split was repaired: the audited train/test label mix is now L1 distance 0.1951 (was 1.0303) and its best train-only shortcut is 0.7966 (below the 0.90 dominance threshold), so it carries no validity flag. R's held-out labels never appear in train; U has no held-out split and an answer literal leak on 72 of 80 rows; V has no held-out split and a single observed label (all 80 rows are tier 2). None of them is evaluation evidence.
 
 The exact set, the reason for every family and the numbers behind each decision are regenerated into `reports/benchmark_metrics.json` and `reports/benchmark_metrics.md` by `python scripts/score_benchmark.py --build-metrics`.
 
@@ -58,7 +58,7 @@ what a held-out claim is measured against.
 
 For continuity with prior releases, every baseline report also carries
 `micro_all_families` — the same micro-average over **all** families ever
-shipped (22,149 tasks: primary + exploratory + invalid + retired; read from
+shipped (7,018 tasks: primary + exploratory + invalid + retired; read from
 `micro_all_families.scorable` in `reports/baselines/baseline_majority.json`).
 Quote the primary metric; compare across releases with the continuity twin.
 
@@ -73,7 +73,7 @@ distribution restated. Their accuracy is `null` with the reason
 `single_label_not_evaluable`, in every block, including the exploratory
 tables, and the published 1.000 for those families is withdrawn. Their row
 counts, splits and label distributions are kept — the exploratory block
-still holds their 32 sub-floor rows (`micro_exploratory.scorable` in
+still hold their 108 sub-floor rows (`micro_exploratory.scorable` in
 `reports/baselines/baseline_majority.json`) — so nothing disappears; only
 the number that cannot mean anything is removed.
 
@@ -166,20 +166,21 @@ primary set):
 
 | Baseline | Headline (primary set) | Continuity (all families) | Coverage |
 |---|---|---|---|
-| majority | 0.7306 | 0.8687 | 720/720 |
-| random-seed7 | 0.5042 | 0.3980 | 720/720 |
-| frequency-seed7 | 0.6042 | 0.8161 | 720/720 |
-| first-published (L only, retired) | n/a @ 0/720 | 1.000 (71 tasks) | 0/720 |
-| majority-published (L only, retired) | n/a @ 0/720 | 1.000 (71 tasks) | 0/720 |
-| retrieval (TF-IDF NN) | 0.4361 | 0.8937 | 720/720 |
+| majority | 0.7897 | 0.7303 | 1,051/1,051 |
+| random-seed7 | 0.3987 | 0.4169 | 1,051/1,051 |
+| frequency-seed7 | 0.6403 | 0.6684 | 1,051/1,051 |
+| first-published (L only, retired) | n/a @ 0/1,051 | 1.000 (71 tasks) | 0/1,051 |
+| majority-published (L only, retired) | n/a @ 0/1,051 | 1.000 (71 tasks) | 0/1,051 |
+| retrieval (TF-IDF NN) | 0.6746 | 0.7927 | 1,051/1,051 |
 
 The headline column is the baseline's accuracy over the primary set's
 scorable rows (train, validation and test together). The number a model
-result has to beat is the held-out one: on A's 147 test rows the train-only
-majority scores 0.5510 (macro-F1 0.3553), the seeded random 0.5238, the
-label-frequency 0.4966 and the retrieval 0.2925. A baseline that predicts
-nothing shows n/a with its 0/scorable coverage — never a 0.0000 that reads
-as a scored result.
+result has to beat is the held-out one, per family: the train-only majority
+baseline scores 0.6228 (macro-F1 0.3838) on A's 114 test rows and 0.7966
+(macro-F1 0.2217) on C's 59 test rows; every random, frequency and
+retrieval floor is in the per-family `baseline` block of the same report.
+A baseline that predicts nothing shows n/a with its 0/scorable coverage —
+never a 0.0000 that reads as a scored result.
 
 ```bash
 python scripts/score_benchmark.py --baseline majority
@@ -202,11 +203,13 @@ regeneration. The reports are generated; they are never hand-edited.
 is left untouched.
 
 The floors that matter for reading a model result are the held-out ones.
-For the primary family (A) the train-only majority floor on the 147 test
-rows is 0.5510 (macro-F1 0.3553): a model result below that has not beaten
-"always say the majority class". The floors of the invalid families are
-published as the evidence that invalidates them (U 0.9834, V 0.9998, K and
-O 1.0000 through a group lookup, P 0.9032), not as achievable scores.
+For the primary families the train-only majority floor is 0.6228 on A's 114
+test rows (macro-F1 0.3838) and 0.7966 on C's 59 test rows (macro-F1 0.2217):
+a model result below the relevant floor has not beaten "always say the
+majority class". U and V no longer publish a held-out floor at all — the
+purge left them with 80 train-only rows and no test split; the group-lookup
+floors of K and O (1.0000) and P (0.9032) are still published as the evidence
+that invalidates those families, not as achievable scores.
 
 ## Why the other families are not evidence
 
@@ -215,7 +218,6 @@ Each exclusion is a measurement, and the measurement is in
 
 | family | status | the measurement that demoted it |
 |---|---|---|
-| C | INVALID | split composition drift: train/test label mix L1 distance 1.0303 |
 | E | INVALID | split composition drift 0.6667; 7 scorable rows; 1 held-out row |
 | K | INVALID | the gold label appears in the evidence on 76 of 137 rows; all 31 held-out rows share a group with train; a group lookup scores 1.0000 on the held-out split |
 | L | INVALID | the gold label appears in the evidence on 94 of 128 rows; group overlap; split drift |
@@ -224,9 +226,9 @@ Each exclusion is a measurement, and the measurement is in
 | P | INVALID | group overlap; split drift; a group lookup scores 0.9032 |
 | R | INVALID | held-out labels unseen in train (`0` never occurs in train); split drift 1.7827 |
 | S | INVALID | saturated: one class covers 0.9851 of the rows |
-| T | INVALID | saturated 0.9983; near-duplicate leak; 2 held-out rows |
-| U | INVALID | saturated 0.9749; record-id overlap; train-only majority scores 0.9834 on the 5596 held-out rows |
-| V | INVALID | saturated 0.9950; record-id overlap; train-only majority scores 0.9998 on the 5668 held-out rows |
+| T | EXPLORATORY | 0 scorable rows after the purge (degeneracy verdict `empty`); holdout too small |
+| U | INVALID | answer literal leak on 72 of 80 rows; no held-out split (80 train-only rows) |
+| V | EXPLORATORY | single observed label (all 80 rows are tier 2); no held-out split |
 | B, F, G, I, J | EXPLORATORY | one observed label (and, for F, G, I, J, a holdout too small to estimate on) |
 | M | EXPLORATORY | 1 held-out row: nothing to estimate on |
 | D, H, Q | NOT_SCORABLE | generative, descriptive and judge-graded: they need a judge, not string match |

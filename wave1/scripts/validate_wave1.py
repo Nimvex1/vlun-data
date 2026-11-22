@@ -5,6 +5,9 @@
 (c) dedup_check.py --check: zero admitted collisions
 (d) rights & METADATA_ONLY compliance (no full-prose leaks)
 (e) benchmark readiness: scorable>=100, labels>=2, holdout>=30, train shortcut<0.9
+(i) HARD: 100% of candidate/admitted/benchmark rows are FULLY_TRAINABLE
+    (>=50 chars verbatim inline code AND >=100 chars verbatim prose).
+    gate h also enforces task_id/split consistency (previously detection-only).
 
 Writes only wave1/reports_wave1/validate_wave1.json. Exits 1 on any failure.
 """
@@ -18,7 +21,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from _common import ROOT, WAVE1, guard_wave1, sha256_file, write_json, utc_now
+from _common import ROOT, WAVE1, guard_wave1, sha256_file, write_json
+from hydration_lib import ALLOWED_INLINE_FIELDS, fully_trainable, trainable_stats
 
 PRESENT_JSON = WAVE1 / "00_governance" / "PRESENT.md.json"
 WRITE_CALLS = re.compile(
@@ -128,7 +132,11 @@ def gate_d_rights() -> dict:
                 for k, v in d.items():
                     if k.lower() in forbidden_fields:
                         leaks.append({"file": str(p), "candidate_id": d.get("candidate_id"), "field": k})
-                    if isinstance(v, str) and len(v) > 1000:
+                    # rights.jsonl now declares FULL_TRAINABLE_INLINE_EXTRACTION:
+                    # verbatim code/prose is intentionally vendored.  The legacy
+                    # 1000-char METADATA_ONLY guard applies only to non-inline
+                    # fields; inline fields are bounded by gate_i instead.
+                    if isinstance(v, str) and len(v) > 1000 and k not in ALLOWED_INLINE_FIELDS:
                         leaks.append({"file": str(p), "candidate_id": d.get("candidate_id"),
                                       "field": k, "reason": f"string length {len(v)}"})
     rights = []
@@ -283,6 +291,7 @@ def gate_h_group_disjoint() -> dict:
         groups: dict[str, set[str]] = defaultdict(set)
         rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
         missing = 0
+        task_id_mismatches = 0
         for row in rows:
             gid = row.get("group_id")
             split = row.get("split")
@@ -290,6 +299,10 @@ def gate_h_group_disjoint() -> dict:
                 missing += 1
                 continue
             groups[str(gid)].add(str(split))
+            tid_parts = str(row.get("task_id") or "").split("::")
+            if len(tid_parts) >= 3 and tid_parts[1] in ("train", "val", "test", "validation", "holdout"):
+                if tid_parts[1] != str(split):
+                    task_id_mismatches += 1
         overlap = {g: sorted(s) for g, s in groups.items() if len(s) > 1}
         families[p.stem] = {
             "rows": len(rows),
@@ -297,15 +310,58 @@ def gate_h_group_disjoint() -> dict:
             "splits": sorted({s for ss in groups.values() for s in ss}),
             "overlapping_groups": dict(list(overlap.items())[:20]),
             "missing_group_id": missing,
+            "task_id_split_mismatches": task_id_mismatches,
         }
-        if overlap or missing:
+        if overlap or missing or task_id_mismatches:
             violations.append({
                 "family": p.stem,
                 "overlapping_groups": list(overlap.items())[:10],
                 "missing_group_id": missing,
+                "task_id_split_mismatches": task_id_mismatches,
             })
     return {
         "families": families,
+        "violations": violations[:50],
+        "verdict": "PASS" if not violations else "FAIL",
+    }
+
+
+def gate_i_fully_trainable() -> dict:
+    """HARD GATE: every row in the candidate/admitted/benchmark tables must be
+    FULLY_TRAINABLE -- >=50 chars of verbatim inline code and >=100 chars of
+    verbatim prose.  Any short row is a stub that escaped hydration/quarantine.
+    """
+    roots = [
+        ("03_candidates", WAVE1 / "03_candidates", "**/*.jsonl"),
+        ("04_admitted", WAVE1 / "04_admitted", "**/*.jsonl"),
+        ("benchmark_wave1", WAVE1 / "benchmark_wave1", "*.jsonl"),
+    ]
+    per_file = {}
+    violations = []
+    total = 0
+    for group, base, pattern in roots:
+        if not base.exists():
+            violations.append({"group": group, "reason": f"{base.name}/ missing"})
+            continue
+        for p in sorted(base.glob(pattern)):
+            rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+            short = []
+            for r in rows:
+                total += 1
+                st = trainable_stats(r)
+                if not st["fully_trainable"]:
+                    short.append({
+                        "id": r.get("task_id") or r.get("candidate_id"),
+                        "code_chars": st["code_chars"],
+                        "prose_chars": st["prose_chars"],
+                    })
+            per_file[str(p.relative_to(WAVE1))] = {"rows": len(rows), "short": len(short)}
+            for s in short[:10]:
+                violations.append({"file": str(p.relative_to(WAVE1)), **s})
+    return {
+        "rows_scanned": total,
+        "files": per_file,
+        "short_rows": len(violations),
         "violations": violations[:50],
         "verdict": "PASS" if not violations else "FAIL",
     }
@@ -325,12 +381,16 @@ def main() -> None:
         "f_label_purity": gate_f_label_purity(),
         "g_j_execution": gate_g_j_execution(),
         "h_group_disjoint_splits": gate_h_group_disjoint(),
+        "i_fully_trainable": gate_i_fully_trainable(),
     }
     hard = ["a_single_writer", "b_present_drift", "c_dedup", "d_rights",
-            "f_label_purity", "g_j_execution", "h_group_disjoint_splits"]
+            "f_label_purity", "g_j_execution", "h_group_disjoint_splits",
+            "i_fully_trainable"]
     verdict = "PASS" if all(gates[g]["verdict"] == "PASS" for g in hard) else "FAIL"
+    # No run wall-clock field: this report is committed and byte-hashed by the
+    # JSON catalog, so a fresh utc_now() on every run would make it stale.
+    # All functional content (gates, verdict, note) is deterministic.
     report = {
-        "validated_at": utc_now(),
         "gates": gates,
         "verdict": verdict,
         "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational "

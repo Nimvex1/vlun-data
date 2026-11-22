@@ -273,7 +273,7 @@
     {
       "check": "shas_present_in_source",
       "critical": true,
-      "detail": "30 SHAs checked against the committed source-SHA index",
+      "detail": "0 SHAs checked against the committed source-SHA index",
       "failure_count": 0,
       "failures": [],
       "group": "no-invention",
@@ -354,7 +354,7 @@
     {
       "check": "protected_files_byte_identical",
       "critical": true,
-      "detail": "19 pipeline-written protected files byte-identical to canonical form; 9 read-only evidence files parse as JSONL and are checked for writability by check_reproducibility.py; 4 declared non-canonical (prose reports)",
+      "detail": "21 pipeline-written protected files byte-identical to canonical form; 9 read-only evidence files parse as JSONL and are checked for writability by check_reproducibility.py; 4 declared non-canonical (prose reports)",
       "failure_count": 0,
       "failures": [],
       "group": "isolation",
@@ -381,7 +381,7 @@
     {
       "check": "benchmark_T_resolves",
       "critical": true,
-      "detail": "589 tasks checked",
+      "detail": "0 tasks checked",
       "failure_count": 0,
       "failures": [],
       "group": "references",

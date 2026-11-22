@@ -17,7 +17,6 @@ from _common import (
     load_registry,
     read_jsonl,
     write_json,
-    utc_now,
 )
 
 ADMITTED = WAVE1 / "04_admitted"
@@ -72,8 +71,10 @@ def main() -> None:
     if mpath.exists():
         manifest_count = sum(1 for _ in read_jsonl(mpath))
 
+    # No run wall-clock field: this report is committed and byte-hashed by the
+    # JSON catalog, so a fresh utc_now() on every run would make it stale.
+    # All functional content (counts, collisions, verdict) is deterministic.
     report = {
-        "checked_at": utc_now(),
         "registry_size": len(registry),
         "admitted_rows": admitted_rows,
         "dedup_keys_checked": keys_checked,

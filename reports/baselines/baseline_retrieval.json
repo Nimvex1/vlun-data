@@ -16,13 +16,14 @@
           "G_patch_verification.jsonl",
           "I_verified_non_exploit.jsonl",
           "J_verified_patch.jsonl",
-          "M_experiment_level_classification.jsonl"
+          "M_experiment_level_classification.jsonl",
+          "v3_T_taxonomy_explicit.jsonl",
+          "vbeta_V_source_tier_routing.jsonl"
         ],
-        "scorable": 297
+        "scorable": 373
       },
       "INVALID": {
         "families": [
-          "C_attacker_reasoning.jsonl",
           "E_exploit_verification.jsonl",
           "K_language_ecosystem_routing.jsonl",
           "L_severity_reconciliation.jsonl",
@@ -31,11 +32,9 @@
           "P_provenance_tier_and_rights.jsonl",
           "v3_R_source_tier_routing.jsonl",
           "v3_S_contest_outcome.jsonl",
-          "v3_T_taxonomy_explicit.jsonl",
-          "vbeta_U_language_routing.jsonl",
-          "vbeta_V_source_tier_routing.jsonl"
+          "vbeta_U_language_routing.jsonl"
         ],
-        "scorable": 21132
+        "scorable": 5594
       },
       "NOT_SCORABLE": {
         "families": [],
@@ -43,9 +42,10 @@
       },
       "PRIMARY": {
         "families": [
-          "A_vulnerability_detection.jsonl"
+          "A_vulnerability_detection.jsonl",
+          "C_attacker_reasoning.jsonl"
         ],
-        "scorable": 720
+        "scorable": 1051
       },
       "UNKNOWN": {
         "families": [],
@@ -55,15 +55,15 @@
     "excluded_families": {
       "D_exploit_construction.jsonl": {
         "reason": "generative task, needs a judge rather than string match",
-        "tasks": 720
+        "tasks": 644
       },
       "Fa_rejection_evidence_axis_vector.jsonl": {
         "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
-        "tasks": 458
+        "tasks": 444
       },
       "Fb_duplicate_radar_pair.jsonl": {
-        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-        "tasks": 552
+        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+        "tasks": 651
       },
       "H_verified_exploit.jsonl": {
         "reason": "descriptive reference answers, no scalar label",
@@ -71,27 +71,27 @@
       },
       "Q_evidence_type_and_quality_rubric.jsonl": {
         "reason": "judge-graded rubric dict",
-        "tasks": 137
+        "tasks": 61
       }
     },
-    "manifest_scorable_total": 23200,
-    "scored_rows_all_families": 22149,
-    "scorer_covered": 720,
-    "scorer_covered_primary": 720
+    "manifest_scorable_total": 7935,
+    "scored_rows_all_families": 7018,
+    "scorer_covered": 1051,
+    "scorer_covered_primary": 1051
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task, needs a judge rather than string match",
     "Fa_rejection_evidence_axis_vector.jsonl": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
-    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
     "H_verified_exploit.jsonl": "descriptive reference answers, no scalar label",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
   },
   "families": {
     "A_vulnerability_detection.jsonl": {
-      "accuracy": 0.4361111111111111,
+      "accuracy": 0.5927051671732523,
       "accuracy_reason": null,
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.4361111111111111,
+      "accuracy_scorable": 0.5927051671732523,
       "baseline": {
         "fit_note": "the index holds the train inputs only",
         "fitted_label_space": [
@@ -100,75 +100,173 @@
         ],
         "fitted_on": "train",
         "heldout_test": {
-          "accuracy": 0.2925170068027211,
+          "accuracy": 0.5,
           "accuracy_reason": null,
-          "correct": 43,
+          "correct": 57,
           "coverage": 1.0,
-          "macro_f1": 0.2850729517396184,
-          "predicted": 147,
-          "rows": 147
+          "macro_f1": 0.49530097087378644,
+          "predicted": 114,
+          "rows": 114
         },
         "heldout_validation": {
-          "accuracy": 0.32751091703056767,
+          "accuracy": 0.6792452830188679,
           "accuracy_reason": null,
-          "correct": 75,
+          "correct": 144,
           "coverage": 1.0,
-          "macro_f1": 0.3228494623655914,
-          "predicted": 229,
-          "rows": 229
+          "macro_f1": 0.5124458874458874,
+          "predicted": 212,
+          "rows": 212
         },
         "test_only_labels": [],
-        "train_rows": 344,
+        "train_rows": 332,
         "validation_only_labels": []
       },
-      "correct": 314,
+      "correct": 390,
       "evaluable": true,
-      "macro_f1": 0.41329008742844753,
+      "macro_f1": 0.510242623533594,
       "per_class": {
         "no_confirmed_vulnerability": {
-          "f1": 0.5290023201856148,
-          "precision": 0.6785714285714286,
-          "recall": 0.43346007604562736,
-          "support": 526
+          "f1": 0.7112068965517241,
+          "precision": 0.7534246575342466,
+          "recall": 0.673469387755102,
+          "support": 490
         },
         "vulnerable": {
-          "f1": 0.29757785467128023,
-          "precision": 0.22395833333333334,
-          "recall": 0.44329896907216493,
-          "support": 194
+          "f1": 0.3092783505154639,
+          "precision": 0.2727272727272727,
+          "recall": 0.35714285714285715,
+          "support": 168
         }
       },
       "per_split": {
         "test": {
-          "accuracy": 0.2925170068027211,
+          "accuracy": 0.5,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.2925170068027211,
-          "correct": 43,
-          "macro_f1": 0.2850729517396184,
-          "predicted": 147,
-          "scorable": 147
+          "accuracy_scorable": 0.5,
+          "correct": 57,
+          "macro_f1": 0.49530097087378644,
+          "predicted": 114,
+          "scorable": 114
         },
         "train": {
-          "accuracy": 0.5697674418604651,
+          "accuracy": 0.5692771084337349,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.5697674418604651,
-          "correct": 196,
-          "macro_f1": 0.4872497280747693,
-          "predicted": 344,
-          "scorable": 344
+          "accuracy_scorable": 0.5692771084337349,
+          "correct": 189,
+          "macro_f1": 0.48395091250991856,
+          "predicted": 332,
+          "scorable": 332
         },
         "validation": {
-          "accuracy": 0.32751091703056767,
+          "accuracy": 0.6792452830188679,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.32751091703056767,
-          "correct": 75,
-          "macro_f1": 0.3228494623655914,
-          "predicted": 229,
-          "scorable": 229
+          "accuracy_scorable": 0.6792452830188679,
+          "correct": 144,
+          "macro_f1": 0.5124458874458874,
+          "predicted": 212,
+          "scorable": 212
         }
       },
-      "predicted": 720,
-      "scorable": 720,
+      "predicted": 658,
+      "scorable": 658,
+      "status": "PRIMARY"
+    },
+    "C_attacker_reasoning.jsonl": {
+      "accuracy": 0.811704834605598,
+      "accuracy_reason": null,
+      "accuracy_scope": "all_scorable_rows",
+      "accuracy_scorable": 0.811704834605598,
+      "baseline": {
+        "fit_note": "the index holds the train inputs only",
+        "fitted_label_space": [
+          "malicious_dependency",
+          "privileged",
+          "protocol_accounting_or_config_flaw",
+          "unprivileged"
+        ],
+        "fitted_on": "train",
+        "heldout_test": {
+          "accuracy": 0.7627118644067796,
+          "accuracy_reason": null,
+          "correct": 45,
+          "coverage": 1.0,
+          "macro_f1": 0.21844660194174761,
+          "predicted": 59,
+          "rows": 59
+        },
+        "heldout_validation": {
+          "accuracy": 0.8441558441558441,
+          "accuracy_reason": null,
+          "correct": 130,
+          "coverage": 1.0,
+          "macro_f1": 0.2558531560217269,
+          "predicted": 154,
+          "rows": 154
+        },
+        "test_only_labels": [],
+        "train_rows": 180,
+        "validation_only_labels": []
+      },
+      "correct": 319,
+      "evaluable": true,
+      "macro_f1": 0.317974163736684,
+      "per_class": {
+        "malicious_dependency": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 7
+        },
+        "privileged": {
+          "f1": 0.8972503617945007,
+          "precision": 0.8831908831908832,
+          "recall": 0.9117647058823529,
+          "support": 340
+        },
+        "protocol_accounting_or_config_flaw": {
+          "f1": 0.12903225806451615,
+          "precision": 0.14285714285714285,
+          "recall": 0.11764705882352941,
+          "support": 17
+        },
+        "unprivileged": {
+          "f1": 0.24561403508771928,
+          "precision": 0.25,
+          "recall": 0.2413793103448276,
+          "support": 29
+        }
+      },
+      "per_split": {
+        "test": {
+          "accuracy": 0.7627118644067796,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.7627118644067796,
+          "correct": 45,
+          "macro_f1": 0.21844660194174761,
+          "predicted": 59,
+          "scorable": 59
+        },
+        "train": {
+          "accuracy": 0.8,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.8,
+          "correct": 144,
+          "macro_f1": 0.3703078951450287,
+          "predicted": 180,
+          "scorable": 180
+        },
+        "validation": {
+          "accuracy": 0.8441558441558441,
+          "accuracy_reason": null,
+          "accuracy_scorable": 0.8441558441558441,
+          "correct": 130,
+          "macro_f1": 0.2558531560217269,
+          "predicted": 154,
+          "scorable": 154
+        }
+      },
+      "predicted": 393,
+      "scorable": 393,
       "status": "PRIMARY"
     }
   },
@@ -373,7 +471,7 @@
           "coverage": 0.0,
           "macro_f1": null,
           "predicted": 0,
-          "rows": 7
+          "rows": 3
         },
         "test_only_labels": [],
         "train_rows": 0,
@@ -394,118 +492,80 @@
           "correct": 0,
           "macro_f1": null,
           "predicted": 0,
-          "scorable": 7
+          "scorable": 3
         }
       },
       "predicted": 0,
-      "scorable": 7,
+      "scorable": 3,
+      "status": "EXPLORATORY"
+    },
+    "vbeta_V_source_tier_routing.jsonl": {
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
+      "accuracy_scope": "all_scorable_rows",
+      "accuracy_scorable": null,
+      "baseline": {
+        "fit_note": "the index holds the train inputs only",
+        "fitted_label_space": [
+          "2"
+        ],
+        "fitted_on": "train",
+        "heldout_test": {
+          "accuracy": null,
+          "accuracy_reason": "single_label_not_evaluable",
+          "correct": 0,
+          "coverage": null,
+          "macro_f1": null,
+          "predicted": 0,
+          "rows": 0
+        },
+        "heldout_validation": {
+          "accuracy": null,
+          "accuracy_reason": "single_label_not_evaluable",
+          "correct": 0,
+          "coverage": null,
+          "macro_f1": null,
+          "predicted": 0,
+          "rows": 0
+        },
+        "test_only_labels": [],
+        "train_rows": 80,
+        "validation_only_labels": []
+      },
+      "correct": 80,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "macro_f1": null,
+      "per_class": {
+        "2": {
+          "f1": null,
+          "precision": null,
+          "recall": null,
+          "support": 80
+        }
+      },
+      "per_split": {
+        "train": {
+          "accuracy": null,
+          "accuracy_reason": "single_label_not_evaluable",
+          "accuracy_scorable": null,
+          "correct": 80,
+          "macro_f1": null,
+          "predicted": 80,
+          "scorable": 80
+        }
+      },
+      "predicted": 80,
+      "scorable": 80,
       "status": "EXPLORATORY"
     }
   },
   "families_invalid": {
-    "C_attacker_reasoning.jsonl": {
-      "accuracy": 0.5241379310344828,
-      "accuracy_reason": null,
-      "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.5241379310344828,
-      "baseline": {
-        "fit_note": "the index holds the train inputs only",
-        "fitted_label_space": [
-          "honest_but_misconfigured",
-          "malicious_dependency",
-          "privileged",
-          "unprivileged"
-        ],
-        "fitted_on": "train",
-        "heldout_test": {
-          "accuracy": 0.358974358974359,
-          "accuracy_reason": null,
-          "correct": 14,
-          "coverage": 1.0,
-          "macro_f1": 0.17725752508361203,
-          "predicted": 39,
-          "rows": 39
-        },
-        "heldout_validation": {
-          "accuracy": 0.3025210084033613,
-          "accuracy_reason": null,
-          "correct": 36,
-          "coverage": 1.0,
-          "macro_f1": 0.1554054054054054,
-          "predicted": 119,
-          "rows": 119
-        },
-        "test_only_labels": [],
-        "train_rows": 132,
-        "validation_only_labels": []
-      },
-      "correct": 152,
-      "evaluable": true,
-      "macro_f1": 0.246031746031746,
-      "per_class": {
-        "honest_but_misconfigured": {
-          "f1": 0.0,
-          "precision": 0.0,
-          "recall": 0.0,
-          "support": 3
-        },
-        "malicious_dependency": {
-          "f1": 0.0,
-          "precision": 0.0,
-          "recall": 0.0,
-          "support": 11
-        },
-        "privileged": {
-          "f1": 0.33333333333333326,
-          "precision": 0.7073170731707317,
-          "recall": 0.21804511278195488,
-          "support": 133
-        },
-        "unprivileged": {
-          "f1": 0.6507936507936507,
-          "precision": 0.5234042553191489,
-          "recall": 0.8601398601398601,
-          "support": 143
-        }
-      },
-      "per_split": {
-        "test": {
-          "accuracy": 0.358974358974359,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.358974358974359,
-          "correct": 14,
-          "macro_f1": 0.17725752508361203,
-          "predicted": 39,
-          "scorable": 39
-        },
-        "train": {
-          "accuracy": 0.7727272727272727,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.7727272727272727,
-          "correct": 102,
-          "macro_f1": 0.3243374272786037,
-          "predicted": 132,
-          "scorable": 132
-        },
-        "validation": {
-          "accuracy": 0.3025210084033613,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.3025210084033613,
-          "correct": 36,
-          "macro_f1": 0.1554054054054054,
-          "predicted": 119,
-          "scorable": 119
-        }
-      },
-      "predicted": 290,
-      "scorable": 290,
-      "status": "INVALID"
-    },
     "v3_R_source_tier_routing.jsonl": {
-      "accuracy": 0.8178159868300713,
+      "accuracy": 0.8053212199870214,
       "accuracy_reason": null,
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.8178159868300713,
+      "accuracy_scorable": 0.8053212199870214,
       "baseline": {
         "fit_note": "the index holds the train inputs only",
         "fitted_label_space": [
@@ -514,13 +574,13 @@
         ],
         "fitted_on": "train",
         "heldout_test": {
-          "accuracy": 0.0020304568527918783,
+          "accuracy": 0.0011123470522803114,
           "accuracy_reason": null,
-          "correct": 2,
+          "correct": 1,
           "coverage": 1.0,
-          "macro_f1": 0.0101010101010101,
-          "predicted": 985,
-          "rows": 985
+          "macro_f1": 0.01333333333333333,
+          "predicted": 899,
+          "rows": 899
         },
         "heldout_validation": {
           "accuracy": null,
@@ -534,250 +594,127 @@
         "test_only_labels": [
           "0"
         ],
-        "train_rows": 4482,
+        "train_rows": 3724,
         "validation_only_labels": []
       },
-      "correct": 4471,
+      "correct": 3723,
       "evaluable": true,
-      "macro_f1": 0.6032346718129707,
+      "macro_f1": 0.6013563993159895,
       "per_class": {
         "0": {
           "f1": 0.0,
           "precision": 0.0,
           "recall": 0.0,
-          "support": 878
+          "support": 854
         },
         "1": {
-          "f1": 0.8784509681449094,
-          "precision": 0.7834224598930482,
-          "recall": 0.9997156667614444,
-          "support": 3517
+          "f1": 0.8847143592382912,
+          "precision": 0.7932625749884633,
+          "recall": 1.0,
+          "support": 3438
         },
         "2": {
-          "f1": 0.9312530472940029,
-          "precision": 0.975485188968335,
-          "recall": 0.8908582089552238,
-          "support": 1072
+          "f1": 0.9193548387096774,
+          "precision": 0.986159169550173,
+          "recall": 0.8610271903323263,
+          "support": 331
         }
       },
       "per_split": {
         "test": {
-          "accuracy": 0.0020304568527918783,
+          "accuracy": 0.0011123470522803114,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.0020304568527918783,
-          "correct": 2,
-          "macro_f1": 0.0101010101010101,
-          "predicted": 985,
-          "scorable": 985
+          "accuracy_scorable": 0.0011123470522803114,
+          "correct": 1,
+          "macro_f1": 0.01333333333333333,
+          "predicted": 899,
+          "scorable": 899
         },
         "train": {
-          "accuracy": 0.997099509147702,
+          "accuracy": 0.9994629430719656,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.997099509147702,
-          "correct": 4469,
-          "macro_f1": 0.9956901790063211,
-          "predicted": 4482,
-          "scorable": 4482
+          "accuracy_scorable": 0.9994629430719656,
+          "correct": 3722,
+          "macro_f1": 0.9981002229330233,
+          "predicted": 3724,
+          "scorable": 3724
         }
       },
-      "predicted": 5467,
-      "scorable": 5467,
+      "predicted": 4623,
+      "scorable": 4623,
       "status": "INVALID"
     },
     "vbeta_U_language_routing.jsonl": {
-      "accuracy": 0.9056118347001125,
+      "accuracy": 0.9875,
       "accuracy_reason": null,
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.9056118347001125,
+      "accuracy_scorable": 0.9875,
       "baseline": {
         "fit_note": "the index holds the train inputs only",
         "fitted_label_space": [
-          "cairo",
           "go",
-          "move",
           "rust",
-          "solidity",
-          "vyper"
+          "solidity"
         ],
         "fitted_on": "train",
         "heldout_test": {
-          "accuracy": 0.9090421729807004,
-          "accuracy_reason": null,
-          "correct": 5087,
-          "coverage": 1.0,
-          "macro_f1": 0.16836706099001178,
-          "predicted": 5596,
-          "rows": 5596
+          "accuracy": null,
+          "accuracy_reason": "no_predictions",
+          "correct": 0,
+          "coverage": null,
+          "macro_f1": null,
+          "predicted": 0,
+          "rows": 0
         },
         "heldout_validation": {
-          "accuracy": 0.47058823529411764,
-          "accuracy_reason": null,
-          "correct": 16,
-          "coverage": 1.0,
-          "macro_f1": 0.20170454545454547,
-          "predicted": 34,
-          "rows": 34
+          "accuracy": null,
+          "accuracy_reason": "no_predictions",
+          "correct": 0,
+          "coverage": null,
+          "macro_f1": null,
+          "predicted": 0,
+          "rows": 0
         },
         "test_only_labels": [],
-        "train_rows": 589,
+        "train_rows": 80,
         "validation_only_labels": []
       },
-      "correct": 5632,
+      "correct": 79,
       "evaluable": true,
-      "macro_f1": 0.21129521285419853,
+      "macro_f1": 0.9310344827586207,
       "per_class": {
-        "cairo": {
-          "f1": 0.0,
-          "precision": 0.0,
-          "recall": 0.0,
-          "support": 19
-        },
         "go": {
-          "f1": 0.023952095808383235,
-          "precision": 0.013513513513513514,
-          "recall": 0.10526315789473684,
-          "support": 38
-        },
-        "move": {
-          "f1": 0.24390243902439024,
-          "precision": 0.16129032258064516,
-          "recall": 0.5,
-          "support": 20
+          "f1": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 5
         },
         "rust": {
-          "f1": 0.016393442622950817,
-          "precision": 0.014925373134328358,
-          "recall": 0.01818181818181818,
-          "support": 55
+          "f1": 0.8,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "support": 2
         },
         "solidity": {
-          "f1": 0.9507364144235653,
-          "precision": 0.9765258215962441,
-          "recall": 0.9262741217219198,
-          "support": 6063
-        },
-        "vyper": {
-          "f1": 0.03278688524590164,
-          "precision": 0.02702702702702703,
-          "recall": 0.041666666666666664,
-          "support": 24
+          "f1": 0.993103448275862,
+          "precision": 1.0,
+          "recall": 0.9863013698630136,
+          "support": 73
         }
       },
       "per_split": {
-        "test": {
-          "accuracy": 0.9090421729807004,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.9090421729807004,
-          "correct": 5087,
-          "macro_f1": 0.16836706099001178,
-          "predicted": 5596,
-          "scorable": 5596
-        },
         "train": {
-          "accuracy": 0.8981324278438031,
+          "accuracy": 0.9875,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.8981324278438031,
-          "correct": 529,
-          "macro_f1": 0.3063714775905427,
-          "predicted": 589,
-          "scorable": 589
-        },
-        "validation": {
-          "accuracy": 0.47058823529411764,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.47058823529411764,
-          "correct": 16,
-          "macro_f1": 0.20170454545454547,
-          "predicted": 34,
-          "scorable": 34
+          "accuracy_scorable": 0.9875,
+          "correct": 79,
+          "macro_f1": 0.9310344827586207,
+          "predicted": 80,
+          "scorable": 80
         }
       },
-      "predicted": 6219,
-      "scorable": 6219,
-      "status": "INVALID"
-    },
-    "vbeta_V_source_tier_routing.jsonl": {
-      "accuracy": 0.9922134102379235,
-      "accuracy_reason": null,
-      "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.9922134102379235,
-      "baseline": {
-        "fit_note": "the index holds the train inputs only",
-        "fitted_label_space": [
-          "1",
-          "2"
-        ],
-        "fitted_on": "train",
-        "heldout_test": {
-          "accuracy": 0.9955892731122089,
-          "accuracy_reason": null,
-          "correct": 5643,
-          "coverage": 1.0,
-          "macro_f1": 0.49889488108920516,
-          "predicted": 5668,
-          "rows": 5668
-        },
-        "heldout_validation": {
-          "accuracy": 0.9537671232876712,
-          "accuracy_reason": null,
-          "correct": 557,
-          "coverage": 1.0,
-          "macro_f1": 0.5526427781087753,
-          "predicted": 584,
-          "rows": 584
-        },
-        "test_only_labels": [],
-        "train_rows": 683,
-        "validation_only_labels": []
-      },
-      "correct": 6881,
-      "evaluable": true,
-      "macro_f1": 0.6230431946658936,
-      "per_class": {
-        "1": {
-          "f1": 0.25,
-          "precision": 0.24324324324324326,
-          "recall": 0.2571428571428571,
-          "support": 35
-        },
-        "2": {
-          "f1": 0.9960863893317873,
-          "precision": 0.9962307915337779,
-          "recall": 0.9959420289855072,
-          "support": 6900
-        }
-      },
-      "per_split": {
-        "test": {
-          "accuracy": 0.9955892731122089,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.9955892731122089,
-          "correct": 5643,
-          "macro_f1": 0.49889488108920516,
-          "predicted": 5668,
-          "scorable": 5668
-        },
-        "train": {
-          "accuracy": 0.9970717423133236,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.9970717423133236,
-          "correct": 681,
-          "macro_f1": 0.9367592592592593,
-          "predicted": 683,
-          "scorable": 683
-        },
-        "validation": {
-          "accuracy": 0.9537671232876712,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.9537671232876712,
-          "correct": 557,
-          "macro_f1": 0.5526427781087753,
-          "predicted": 584,
-          "scorable": 584
-        }
-      },
-      "predicted": 6935,
-      "scorable": 6935,
+      "predicted": 80,
+      "scorable": 80,
       "status": "INVALID"
     }
   },
@@ -1561,10 +1498,10 @@
       "status": "INVALID"
     },
     "v3_S_contest_outcome.jsonl": {
-      "accuracy": 0.9850746268656716,
+      "accuracy": 0.9577039274924471,
       "accuracy_reason": null,
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.9850746268656716,
+      "accuracy_scorable": 0.9577039274924471,
       "baseline": {
         "fit_note": "the index holds the train inputs only",
         "fitted_label_space": [
@@ -1574,42 +1511,42 @@
         "heldout_test": {
           "accuracy": 1.0,
           "accuracy_reason": null,
-          "correct": 107,
+          "correct": 45,
           "coverage": 1.0,
           "macro_f1": 1.0,
-          "predicted": 107,
-          "rows": 107
+          "predicted": 45,
+          "rows": 45
         },
         "heldout_validation": {
-          "accuracy": 0.9548022598870056,
+          "accuracy": 0.8923076923076924,
           "accuracy_reason": null,
-          "correct": 338,
+          "correct": 116,
           "coverage": 1.0,
-          "macro_f1": 0.4884393063583815,
-          "predicted": 354,
-          "rows": 354
+          "macro_f1": 0.47154471544715454,
+          "predicted": 130,
+          "rows": 130
         },
         "test_only_labels": [],
-        "train_rows": 611,
+        "train_rows": 156,
         "validation_only_labels": [
           "negative"
         ]
       },
-      "correct": 1056,
+      "correct": 317,
       "evaluable": true,
-      "macro_f1": 0.49624060150375937,
+      "macro_f1": 0.4891975308641975,
       "per_class": {
         "finding": {
-          "f1": 0.9924812030075187,
-          "precision": 0.9850746268656716,
+          "f1": 0.978395061728395,
+          "precision": 0.9577039274924471,
           "recall": 1.0,
-          "support": 1056
+          "support": 317
         },
         "negative": {
           "f1": 0.0,
           "precision": 0.0,
           "recall": 0.0,
-          "support": 16
+          "support": 14
         }
       },
       "per_split": {
@@ -1617,58 +1554,55 @@
           "accuracy": 1.0,
           "accuracy_reason": null,
           "accuracy_scorable": 1.0,
-          "correct": 107,
+          "correct": 45,
           "macro_f1": 1.0,
-          "predicted": 107,
-          "scorable": 107
+          "predicted": 45,
+          "scorable": 45
         },
         "train": {
           "accuracy": 1.0,
           "accuracy_reason": null,
           "accuracy_scorable": 1.0,
-          "correct": 611,
+          "correct": 156,
           "macro_f1": 1.0,
-          "predicted": 611,
-          "scorable": 611
+          "predicted": 156,
+          "scorable": 156
         },
         "validation": {
-          "accuracy": 0.9548022598870056,
+          "accuracy": 0.8923076923076924,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.9548022598870056,
-          "correct": 338,
-          "macro_f1": 0.4884393063583815,
-          "predicted": 354,
-          "scorable": 354
+          "accuracy_scorable": 0.8923076923076924,
+          "correct": 116,
+          "macro_f1": 0.47154471544715454,
+          "predicted": 130,
+          "scorable": 130
         }
       },
-      "predicted": 1072,
-      "scorable": 1072,
+      "predicted": 331,
+      "scorable": 331,
       "status": "INVALID"
     },
     "v3_T_taxonomy_explicit.jsonl": {
-      "accuracy": 0.9966044142614601,
-      "accuracy_reason": null,
+      "accuracy": null,
+      "accuracy_reason": "single_label_not_evaluable",
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.9966044142614601,
+      "accuracy_scorable": null,
       "baseline": {
         "fit_note": "the index holds the train inputs only",
-        "fitted_label_space": [
-          "access control",
-          "business logic"
-        ],
+        "fitted_label_space": [],
         "fitted_on": "train",
         "heldout_test": {
-          "accuracy": 1.0,
-          "accuracy_reason": null,
-          "correct": 2,
-          "coverage": 1.0,
-          "macro_f1": 1.0,
-          "predicted": 2,
-          "rows": 2
+          "accuracy": null,
+          "accuracy_reason": "single_label_not_evaluable",
+          "correct": 0,
+          "coverage": null,
+          "macro_f1": null,
+          "predicted": 0,
+          "rows": 0
         },
         "heldout_validation": {
           "accuracy": null,
-          "accuracy_reason": "no_predictions",
+          "accuracy_reason": "single_label_not_evaluable",
           "correct": 0,
           "coverage": null,
           "macro_f1": null,
@@ -1676,49 +1610,18 @@
           "rows": 0
         },
         "test_only_labels": [],
-        "train_rows": 587,
+        "train_rows": 0,
         "validation_only_labels": []
       },
-      "correct": 587,
-      "evaluable": true,
-      "macro_f1": 0.4991496598639456,
-      "per_class": {
-        "access control": {
-          "f1": 0.0,
-          "precision": 0.0,
-          "recall": 0.0,
-          "support": 1
-        },
-        "business logic": {
-          "f1": 0.9982993197278912,
-          "precision": 0.9982993197278912,
-          "recall": 0.9982993197278912,
-          "support": 588
-        }
-      },
-      "per_split": {
-        "test": {
-          "accuracy": 1.0,
-          "accuracy_reason": null,
-          "accuracy_scorable": 1.0,
-          "correct": 2,
-          "macro_f1": 1.0,
-          "predicted": 2,
-          "scorable": 2
-        },
-        "train": {
-          "accuracy": 0.9965928449744463,
-          "accuracy_reason": null,
-          "accuracy_scorable": 0.9965928449744463,
-          "correct": 585,
-          "macro_f1": 0.4991467576791809,
-          "predicted": 587,
-          "scorable": 587
-        }
-      },
-      "predicted": 589,
-      "scorable": 589,
-      "status": "INVALID"
+      "correct": 0,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
+      "macro_f1": null,
+      "per_class": {},
+      "per_split": {},
+      "predicted": 0,
+      "scorable": 0,
+      "status": "EXPLORATORY"
     }
   },
   "family_status": {
@@ -1728,37 +1631,37 @@
       "evaluable_reason": null,
       "family": "A_vulnerability_detection.jsonl",
       "label_distribution": {
-        "no_confirmed_vulnerability": 526,
-        "vulnerable": 194
+        "no_confirmed_vulnerability": 490,
+        "vulnerable": 168
       },
-      "majority_fraction": 0.7306,
+      "majority_fraction": 0.7447,
       "majority_label": "no_confirmed_vulnerability",
       "n_labels": 2,
       "path": "benchmark/A_vulnerability_detection.jsonl",
-      "reason": "no validity flag; 720 scorable rows, 2 labels, train-only shortcut floor 0.551 on 147 held-out rows (majority class covers 0.7306 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
+      "reason": "no validity flag; 658 scorable rows, 2 labels, train-only shortcut floor 0.6228 on 114 held-out rows (majority class covers 0.7447 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
       "reasons": [],
       "retired": false,
-      "rows_scorable": 720,
-      "rows_total": 720,
+      "rows_scorable": 658,
+      "rows_total": 658,
       "shortcut_floor": {
         "available": true,
-        "best_train_only_accuracy": 0.551,
+        "best_train_only_accuracy": 0.6228,
         "best_train_only_baseline": "majority_from_train",
         "fitted_on": "train",
-        "heldout_rows": 147,
+        "heldout_rows": 114,
         "train_only_baselines": {
-          "frequency_from_train": 0.5102,
-          "input_retrieval": 0.3469,
-          "majority_from_train": 0.551,
-          "random_from_train_space": 0.551,
-          "source_only_lookup": 0.551,
-          "title_retrieval": 0.551
+          "frequency_from_train": 0.5439,
+          "input_retrieval": 0.5877,
+          "majority_from_train": 0.6228,
+          "random_from_train_space": 0.5175,
+          "source_only_lookup": 0.6228,
+          "title_retrieval": 0.6228
         }
       },
       "split_rows": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 114,
+        "train": 332,
+        "validation": 212
       },
       "status": "PRIMARY",
       "validity_flags": []
@@ -1808,51 +1711,47 @@
       ]
     },
     "C_attacker_reasoning.jsonl": {
-      "audit_usable_as_evidence": false,
+      "audit_usable_as_evidence": true,
       "evaluable": true,
       "evaluable_reason": null,
       "family": "C_attacker_reasoning.jsonl",
       "label_distribution": {
-        "honest_but_misconfigured": 3,
-        "malicious_dependency": 11,
-        "privileged": 133,
-        "unprivileged": 143
+        "malicious_dependency": 7,
+        "privileged": 340,
+        "protocol_accounting_or_config_flaw": 17,
+        "unprivileged": 29
       },
-      "majority_fraction": 0.4931,
-      "majority_label": "unprivileged",
+      "majority_fraction": 0.8651,
+      "majority_label": "privileged",
       "n_labels": 4,
       "path": "benchmark/C_attacker_reasoning.jsonl",
-      "reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40)",
-      "reasons": [
-        "split_composition_drift: train/test label mix L1 distance 1.0303 (>= 0.40)"
-      ],
+      "reason": "no validity flag; 393 scorable rows, 4 labels, train-only shortcut floor 0.7966 on 59 held-out rows (majority class covers 0.8651 of the rows; reported, not demoted: the minority class is still worth detecting and the train-only floor shows whether it is)",
+      "reasons": [],
       "retired": false,
-      "rows_scorable": 290,
-      "rows_total": 720,
+      "rows_scorable": 393,
+      "rows_total": 658,
       "shortcut_floor": {
         "available": true,
-        "best_train_only_accuracy": 0.5641,
-        "best_train_only_baseline": "input_retrieval",
+        "best_train_only_accuracy": 0.7966,
+        "best_train_only_baseline": "majority_from_train",
         "fitted_on": "train",
-        "heldout_rows": 39,
+        "heldout_rows": 59,
         "train_only_baselines": {
-          "frequency_from_train": 0.3846,
-          "input_retrieval": 0.5641,
-          "majority_from_train": 0.3333,
-          "random_from_train_space": 0.1282,
-          "source_only_lookup": 0.3333,
-          "title_retrieval": 0.3333
+          "frequency_from_train": 0.678,
+          "input_retrieval": 0.6949,
+          "majority_from_train": 0.7966,
+          "random_from_train_space": 0.2034,
+          "source_only_lookup": 0.7966,
+          "title_retrieval": 0.7966
         }
       },
       "split_rows": {
-        "test": 39,
-        "train": 132,
-        "validation": 119
+        "test": 59,
+        "train": 180,
+        "validation": 154
       },
-      "status": "INVALID",
-      "validity_flags": [
-        "split_composition_drift"
-      ]
+      "status": "PRIMARY",
+      "validity_flags": []
     },
     "D_exploit_construction.jsonl": {
       "audit_usable_as_evidence": null,
@@ -1870,7 +1769,7 @@
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 720,
+      "rows_total": 644,
       "shortcut_floor": {
         "available": false
       },
@@ -1945,7 +1844,7 @@
       ],
       "retired": false,
       "rows_scorable": 17,
-      "rows_total": 458,
+      "rows_total": 440,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
@@ -1976,7 +1875,7 @@
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 458,
+      "rows_total": 444,
       "shortcut_floor": {
         "available": false
       },
@@ -1987,20 +1886,20 @@
     "Fb_duplicate_radar_pair.jsonl": {
       "audit_usable_as_evidence": null,
       "evaluable": false,
-      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "family": "Fb_duplicate_radar_pair.jsonl",
       "label_distribution": {},
       "majority_fraction": null,
       "majority_label": null,
       "n_labels": 0,
       "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "reasons": [
-        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 552,
+      "rows_total": 651,
       "shortcut_floor": {
         "available": false
       },
@@ -2027,7 +1926,7 @@
       ],
       "retired": false,
       "rows_scorable": 7,
-      "rows_total": 38,
+      "rows_total": 37,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
@@ -2104,7 +2003,7 @@
       "evaluable_reason": "single_label_not_evaluable",
       "family": "J_verified_patch.jsonl",
       "label_distribution": {
-        "effective": 7
+        "effective": 3
       },
       "majority_fraction": 1.0,
       "majority_label": "effective",
@@ -2116,14 +2015,14 @@
         "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 7,
-      "rows_total": 7,
+      "rows_scorable": 3,
+      "rows_total": 3,
       "shortcut_floor": {
         "available": false,
         "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "validation": 7
+        "validation": 3
       },
       "status": "EXPLORATORY",
       "validity_flags": [
@@ -2463,7 +2362,7 @@
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 137,
+      "rows_total": 61,
       "shortcut_floor": {
         "available": false
       },
@@ -2477,40 +2376,40 @@
       "evaluable_reason": null,
       "family": "v3_R_source_tier_routing.jsonl",
       "label_distribution": {
-        "0": 878,
-        "1": 3517,
-        "2": 1072
+        "0": 854,
+        "1": 3438,
+        "2": 331
       },
-      "majority_fraction": 0.6433,
+      "majority_fraction": 0.7437,
       "majority_label": "1",
       "n_labels": 3,
       "path": "benchmark/v3_R_source_tier_routing.jsonl",
-      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.7827 (>= 0.40)",
+      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)",
       "reasons": [
         "held_out_labels_unseen_in_train: ['0']",
-        "split_composition_drift: train/test label mix L1 distance 1.7827 (>= 0.40)"
+        "split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)"
       ],
       "retired": false,
-      "rows_scorable": 5467,
-      "rows_total": 5467,
+      "rows_scorable": 4623,
+      "rows_total": 4623,
       "shortcut_floor": {
         "available": true,
-        "best_train_only_accuracy": 0.1086,
+        "best_train_only_accuracy": 0.0501,
         "best_train_only_baseline": "input_retrieval",
         "fitted_on": "train",
-        "heldout_rows": 985,
+        "heldout_rows": 899,
         "train_only_baselines": {
-          "frequency_from_train": 0.0274,
-          "input_retrieval": 0.1086,
+          "frequency_from_train": 0.0033,
+          "input_retrieval": 0.0501,
           "majority_from_train": 0.0,
-          "random_from_train_space": 0.0548,
+          "random_from_train_space": 0.0189,
           "source_only_lookup": 0.0,
-          "title_retrieval": 0.0244
+          "title_retrieval": 0.0067
         }
       },
       "split_rows": {
-        "test": 985,
-        "train": 4482
+        "test": 899,
+        "train": 3724
       },
       "status": "INVALID",
       "validity_flags": [
@@ -2524,28 +2423,28 @@
       "evaluable_reason": null,
       "family": "v3_S_contest_outcome.jsonl",
       "label_distribution": {
-        "finding": 1056,
-        "negative": 16
+        "finding": 317,
+        "negative": 14
       },
-      "majority_fraction": 0.9851,
+      "majority_fraction": 0.9577,
       "majority_label": "finding",
       "n_labels": 2,
       "path": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
-      "reason": "invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9851 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+      "reason": "invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9577 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 45 held-out rows, at or above 0.9",
       "reasons": [
-        "saturated: majority class 'finding' covers 0.9851 of the rows",
-        "a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9"
+        "saturated: majority class 'finding' covers 0.9577 of the rows",
+        "a train-only baseline (frequency_from_train) scores 1.0 on the 45 held-out rows, at or above 0.9"
       ],
       "retired": true,
-      "rows_scorable": 1072,
-      "rows_total": 1072,
+      "rows_scorable": 331,
+      "rows_total": 331,
       "shortcut_floor": {
         "available": true,
         "best_train_only_accuracy": 1.0,
         "best_train_only_baseline": "frequency_from_train",
         "fitted_on": "train",
-        "heldout_rows": 107,
-        "shortcut_dominance_reason": "a train-only baseline (frequency_from_train) scores 1.0 on the 107 held-out rows, at or above 0.9",
+        "heldout_rows": 45,
+        "shortcut_dominance_reason": "a train-only baseline (frequency_from_train) scores 1.0 on the 45 held-out rows, at or above 0.9",
         "shortcut_dominated": true,
         "train_only_baselines": {
           "frequency_from_train": 1.0,
@@ -2557,9 +2456,9 @@
         }
       },
       "split_rows": {
-        "test": 107,
-        "train": 611,
-        "validation": 354
+        "test": 45,
+        "train": 156,
+        "validation": 130
       },
       "status": "INVALID",
       "validity_flags": [
@@ -2568,49 +2467,28 @@
     },
     "v3_T_taxonomy_explicit.jsonl": {
       "audit_usable_as_evidence": false,
-      "evaluable": true,
-      "evaluable_reason": null,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "family": "v3_T_taxonomy_explicit.jsonl",
-      "label_distribution": {
-        "access control": 1,
-        "business logic": 588
-      },
-      "majority_fraction": 0.9983,
-      "majority_label": "business logic",
-      "n_labels": 2,
+      "label_distribution": {},
+      "majority_fraction": null,
+      "majority_label": null,
+      "n_labels": 0,
       "path": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
-      "reason": "invalid as evaluation evidence: saturated: majority class 'business logic' covers 0.9983 of the rows; near_duplicate_leak: 2 of 2 sampled held-out rows are near-duplicates of a train row; holdout_too_small: 2 held-out rows (< 30)",
+      "reason": "demoted: holdout_too_small: 0 held-out rows (< 30)",
       "reasons": [
-        "saturated: majority class 'business logic' covers 0.9983 of the rows",
-        "near_duplicate_leak: 2 of 2 sampled held-out rows are near-duplicates of a train row",
-        "holdout_too_small: 2 held-out rows (< 30)"
+        "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": true,
-      "rows_scorable": 589,
-      "rows_total": 589,
+      "rows_scorable": 0,
+      "rows_total": 0,
       "shortcut_floor": {
-        "available": true,
-        "best_train_only_accuracy": 1.0,
-        "best_train_only_baseline": "frequency_from_train",
-        "fitted_on": "train",
-        "heldout_rows": 2,
-        "train_only_baselines": {
-          "frequency_from_train": 1.0,
-          "input_retrieval": 1.0,
-          "majority_from_train": 1.0,
-          "random_from_train_space": 0.5,
-          "source_only_lookup": 1.0,
-          "title_retrieval": 1.0
-        }
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
       },
-      "split_rows": {
-        "test": 2,
-        "train": 587
-      },
-      "status": "INVALID",
+      "split_rows": {},
+      "status": "EXPLORATORY",
       "validity_flags": [
-        "saturated",
-        "near_duplicate_leak",
         "holdout_too_small"
       ]
     },
@@ -2620,170 +2498,159 @@
       "evaluable_reason": null,
       "family": "vbeta_U_language_routing.jsonl",
       "label_distribution": {
-        "cairo": 19,
-        "go": 38,
-        "move": 20,
-        "rust": 55,
-        "solidity": 6063,
-        "vyper": 24
+        "go": 5,
+        "rust": 2,
+        "solidity": 73
       },
-      "majority_fraction": 0.9749,
+      "majority_fraction": 0.9125,
       "majority_label": "solidity",
-      "n_labels": 6,
+      "n_labels": 3,
       "path": "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
-      "reason": "invalid as evaluation evidence: saturated: majority class 'solidity' covers 0.9749 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
+      "reason": "invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 72 of 75 rows (rate 0.96); holdout_too_small: 0 held-out rows (< 30)",
       "reasons": [
-        "saturated: majority class 'solidity' covers 0.9749 of the rows",
-        "record_id_overlap: 1 record ids appear on both sides of the split",
-        "a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9"
+        "answer_literal_leak: the label appears in the evidence on 72 of 75 rows (rate 0.96)",
+        "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 6219,
-      "rows_total": 6219,
+      "rows_scorable": 80,
+      "rows_total": 80,
       "shortcut_floor": {
-        "available": true,
-        "best_train_only_accuracy": 0.9834,
-        "best_train_only_baseline": "majority_from_train",
-        "fitted_on": "train",
-        "heldout_rows": 5596,
-        "shortcut_dominance_reason": "a train-only baseline (majority_from_train) scores 0.9834 on the 5596 held-out rows, at or above 0.9",
-        "shortcut_dominated": true,
-        "train_only_baselines": {
-          "frequency_from_train": 0.9076,
-          "input_retrieval": 0.8999,
-          "majority_from_train": 0.9834,
-          "random_from_train_space": 0.1596,
-          "source_only_lookup": 0.9834,
-          "title_retrieval": 0.8987
-        }
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "test": 5596,
-        "train": 589,
-        "validation": 34
+        "train": 80
       },
       "status": "INVALID",
       "validity_flags": [
-        "saturated",
-        "record_id_overlap"
+        "answer_literal_leak",
+        "holdout_too_small"
       ]
     },
     "vbeta_V_source_tier_routing.jsonl": {
       "audit_usable_as_evidence": false,
-      "evaluable": true,
-      "evaluable_reason": null,
+      "evaluable": false,
+      "evaluable_reason": "single_label_not_evaluable",
       "family": "vbeta_V_source_tier_routing.jsonl",
       "label_distribution": {
-        "1": 35,
-        "2": 6900
+        "2": 80
       },
-      "majority_fraction": 0.995,
+      "majority_fraction": 1.0,
       "majority_label": "2",
-      "n_labels": 2,
+      "n_labels": 1,
       "path": "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
-      "reason": "invalid as evaluation evidence: saturated: majority class '2' covers 0.995 of the rows; record_id_overlap: 1 record ids appear on both sides of the split; a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
+      "reason": "demoted: single_label: every scorable row carries the label '2'; holdout_too_small: 0 held-out rows (< 30)",
       "reasons": [
-        "saturated: majority class '2' covers 0.995 of the rows",
-        "record_id_overlap: 1 record ids appear on both sides of the split",
-        "a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9"
+        "single_label: every scorable row carries the label '2'",
+        "holdout_too_small: 0 held-out rows (< 30)"
       ],
       "retired": false,
-      "rows_scorable": 6935,
-      "rows_total": 6935,
+      "rows_scorable": 80,
+      "rows_total": 80,
       "shortcut_floor": {
-        "available": true,
-        "best_train_only_accuracy": 0.9998,
-        "best_train_only_baseline": "majority_from_train",
-        "fitted_on": "train",
-        "heldout_rows": 5668,
-        "shortcut_dominance_reason": "a train-only baseline (majority_from_train) scores 0.9998 on the 5668 held-out rows, at or above 0.9",
-        "shortcut_dominated": true,
-        "train_only_baselines": {
-          "frequency_from_train": 0.9889,
-          "input_retrieval": 0.9926,
-          "majority_from_train": 0.9998,
-          "random_from_train_space": 0.4875,
-          "source_only_lookup": 0.9998,
-          "title_retrieval": 0.9894
-        }
+        "available": false,
+        "reason": "no held-out split to fit a shortcut on"
       },
       "split_rows": {
-        "test": 5668,
-        "train": 683,
-        "validation": 584
+        "train": 80
       },
-      "status": "INVALID",
+      "status": "EXPLORATORY",
       "validity_flags": [
-        "saturated",
-        "record_id_overlap"
+        "single_label",
+        "holdout_too_small"
       ]
     }
   },
   "micro": {
-    "accuracy": 0.4361111111111111,
-    "accuracy_denominator": 720,
+    "accuracy": 0.6745956232159848,
+    "accuracy_denominator": 1051,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.4361111111111111,
-    "accuracy_scorable_denominator": 720,
-    "correct": 314,
+    "accuracy_scorable": 0.6745956232159848,
+    "accuracy_scorable_denominator": 1051,
+    "correct": 709,
     "evaluable_families": [
-      "A_vulnerability_detection.jsonl"
+      "A_vulnerability_detection.jsonl",
+      "C_attacker_reasoning.jsonl"
     ],
-    "macro_f1": 0.41329008742844753,
+    "macro_f1": 0.38206365033565404,
     "non_evaluable_families": [],
     "per_class": {
+      "malicious_dependency": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 7
+      },
       "no_confirmed_vulnerability": {
-        "f1": 0.5290023201856148,
-        "precision": 0.6785714285714286,
-        "recall": 0.43346007604562736,
-        "support": 526
+        "f1": 0.7112068965517241,
+        "precision": 0.7534246575342466,
+        "recall": 0.673469387755102,
+        "support": 490
+      },
+      "privileged": {
+        "f1": 0.8972503617945007,
+        "precision": 0.8831908831908832,
+        "recall": 0.9117647058823529,
+        "support": 340
+      },
+      "protocol_accounting_or_config_flaw": {
+        "f1": 0.12903225806451615,
+        "precision": 0.14285714285714285,
+        "recall": 0.11764705882352941,
+        "support": 17
+      },
+      "unprivileged": {
+        "f1": 0.24561403508771928,
+        "precision": 0.25,
+        "recall": 0.2413793103448276,
+        "support": 29
       },
       "vulnerable": {
-        "f1": 0.29757785467128023,
-        "precision": 0.22395833333333334,
-        "recall": 0.44329896907216493,
-        "support": 194
+        "f1": 0.3092783505154639,
+        "precision": 0.2727272727272727,
+        "recall": 0.35714285714285715,
+        "support": 168
       }
     },
     "per_split": {
       "test": {
-        "accuracy": 0.2925170068027211,
+        "accuracy": 0.5895953757225434,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.2925170068027211,
-        "correct": 43,
-        "macro_f1": 0.2850729517396184,
-        "predicted": 147,
-        "scorable": 147
+        "accuracy_scorable": 0.5895953757225434,
+        "correct": 102,
+        "macro_f1": 0.3107313915857605,
+        "predicted": 173,
+        "scorable": 173
       },
       "train": {
-        "accuracy": 0.5697674418604651,
+        "accuracy": 0.650390625,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.5697674418604651,
-        "correct": 196,
-        "macro_f1": 0.4872497280747693,
-        "predicted": 344,
-        "scorable": 344
+        "accuracy_scorable": 0.650390625,
+        "correct": 333,
+        "macro_f1": 0.40818890093332527,
+        "predicted": 512,
+        "scorable": 512
       },
       "validation": {
-        "accuracy": 0.32751091703056767,
+        "accuracy": 0.7486338797814208,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.32751091703056767,
-        "correct": 75,
-        "macro_f1": 0.3228494623655914,
-        "predicted": 229,
-        "scorable": 229
+        "accuracy_scorable": 0.7486338797814208,
+        "correct": 274,
+        "macro_f1": 0.3413840664964471,
+        "predicted": 366,
+        "scorable": 366
       }
     },
-    "predicted": 720,
-    "scorable": 720
+    "predicted": 1051,
+    "scorable": 1051
   },
   "micro_all_families": {
-    "accuracy": 0.8936908949700763,
-    "accuracy_denominator": 21889,
+    "accuracy": 0.7927267285243939,
+    "accuracy_denominator": 6682,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.8936908949700763,
-    "accuracy_scorable_denominator": 21889,
-    "correct": 19807,
+    "accuracy_scorable": 0.7927267285243939,
+    "accuracy_scorable_denominator": 6682,
+    "correct": 5622,
     "evaluable_families": [
       "A_vulnerability_detection.jsonl",
       "C_attacker_reasoning.jsonl",
@@ -2796,48 +2663,42 @@
       "P_provenance_tier_and_rights.jsonl",
       "v3_R_source_tier_routing.jsonl",
       "v3_S_contest_outcome.jsonl",
-      "v3_T_taxonomy_explicit.jsonl",
-      "vbeta_U_language_routing.jsonl",
-      "vbeta_V_source_tier_routing.jsonl"
+      "vbeta_U_language_routing.jsonl"
     ],
-    "macro_f1": 0.40421273866829005,
+    "macro_f1": 0.4795217616290499,
     "non_evaluable_families": [
       "B_root_cause_reasoning.jsonl",
       "F_false_positive_rejection.jsonl",
       "G_patch_verification.jsonl",
       "I_verified_non_exploit.jsonl",
-      "J_verified_patch.jsonl"
+      "J_verified_patch.jsonl",
+      "v3_T_taxonomy_explicit.jsonl",
+      "vbeta_V_source_tier_routing.jsonl"
     ],
     "per_class": {
       "0": {
-        "f1": 0.14714424007744434,
+        "f1": 0.1506442021803766,
         "precision": 1.0,
-        "recall": 0.0794148380355277,
-        "support": 957
+        "recall": 0.08145766345123258,
+        "support": 933
       },
       "1": {
-        "f1": 0.8725163519684067,
-        "precision": 0.778462893635763,
-        "recall": 0.9924199887703538,
-        "support": 3562
+        "f1": 0.884329315209028,
+        "precision": 0.7926436781609195,
+        "recall": 1.0,
+        "support": 3448
       },
       "2": {
-        "f1": 0.9876963846299451,
-        "precision": 0.9936524057382252,
-        "recall": 0.9818113396889112,
-        "support": 7972
+        "f1": 0.9193548387096774,
+        "precision": 0.986159169550173,
+        "recall": 0.8610271903323263,
+        "support": 331
       },
       "3": {
         "f1": 0.967741935483871,
         "precision": 1.0,
         "recall": 0.9375,
         "support": 48
-      },
-      "access control": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 1
       },
       "advisory": {
         "f1": 0.970873786407767,
@@ -2851,17 +2712,11 @@
         "recall": 0.8974358974358975,
         "support": 39
       },
-      "business logic": {
-        "f1": 0.9982993197278912,
-        "precision": 0.9982993197278912,
-        "recall": 0.9982993197278912,
-        "support": 588
-      },
       "cairo": {
-        "f1": 0.2564102564102564,
-        "precision": 0.4166666666666667,
-        "recall": 0.18518518518518517,
-        "support": 27
+        "f1": 0.7142857142857143,
+        "precision": 0.8333333333333334,
+        "recall": 0.625,
+        "support": 8
       },
       "critical": {
         "f1": 0.4285714285714286,
@@ -2882,28 +2737,22 @@
         "support": 4
       },
       "finding": {
-        "f1": 0.9924812030075187,
-        "precision": 0.9850746268656716,
+        "f1": 0.978395061728395,
+        "precision": 0.9577039274924471,
         "recall": 1.0,
-        "support": 1056
+        "support": 317
       },
       "go": {
-        "f1": 0.023952095808383235,
-        "precision": 0.013513513513513514,
-        "recall": 0.10526315789473684,
-        "support": 38
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 5
       },
       "high": {
         "f1": 0.39560439560439564,
         "precision": 0.35294117647058826,
         "recall": 0.45,
         "support": 40
-      },
-      "honest_but_misconfigured": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 3
       },
       "incident": {
         "f1": 0.0,
@@ -2951,7 +2800,7 @@
         "f1": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 11
+        "support": 7
       },
       "medium": {
         "f1": 0.14035087719298248,
@@ -2960,16 +2809,16 @@
         "support": 41
       },
       "move": {
-        "f1": 0.3859649122807018,
-        "precision": 0.27848101265822783,
-        "recall": 0.6285714285714286,
-        "support": 35
+        "f1": 0.7500000000000001,
+        "precision": 0.7058823529411765,
+        "recall": 0.8,
+        "support": 15
       },
       "negative": {
         "f1": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 16
+        "support": 14
       },
       "negative_control": {
         "f1": 0.0,
@@ -2978,10 +2827,10 @@
         "support": 1
       },
       "no_confirmed_vulnerability": {
-        "f1": 0.5290023201856148,
-        "precision": 0.6785714285714286,
-        "recall": 0.43346007604562736,
-        "support": 526
+        "f1": 0.7112068965517241,
+        "precision": 0.7534246575342466,
+        "recall": 0.673469387755102,
+        "support": 490
       },
       "observation": {
         "f1": 0.0,
@@ -3008,16 +2857,22 @@
         "support": 5
       },
       "privileged": {
-        "f1": 0.33333333333333326,
-        "precision": 0.7073170731707317,
-        "recall": 0.21804511278195488,
-        "support": 133
+        "f1": 0.8972503617945007,
+        "precision": 0.8831908831908832,
+        "recall": 0.9117647058823529,
+        "support": 340
+      },
+      "protocol_accounting_or_config_flaw": {
+        "f1": 0.12903225806451615,
+        "precision": 0.14285714285714285,
+        "recall": 0.11764705882352941,
+        "support": 17
       },
       "rust": {
-        "f1": 0.22641509433962262,
-        "precision": 0.20930232558139536,
-        "recall": 0.2465753424657534,
-        "support": 73
+        "f1": 0.9047619047619048,
+        "precision": 0.8636363636363636,
+        "recall": 0.95,
+        "support": 20
       },
       "scope_risk": {
         "f1": 0.0,
@@ -3026,10 +2881,10 @@
         "support": 1
       },
       "solidity": {
-        "f1": 0.9508527262034779,
-        "precision": 0.9765314926660914,
-        "recall": 0.926489849377865,
-        "support": 6108
+        "f1": 0.982905982905983,
+        "precision": 0.9913793103448276,
+        "recall": 0.9745762711864406,
+        "support": 118
       },
       "true": {
         "f1": 0.761904761904762,
@@ -3044,10 +2899,10 @@
         "support": 3
       },
       "unprivileged": {
-        "f1": 0.6507936507936507,
-        "precision": 0.5234042553191489,
-        "recall": 0.8601398601398601,
-        "support": 143
+        "f1": 0.24561403508771928,
+        "precision": 0.25,
+        "recall": 0.2413793103448276,
+        "support": 29
       },
       "vulnerability": {
         "f1": 0.8615384615384616,
@@ -3056,204 +2911,152 @@
         "support": 31
       },
       "vulnerable": {
-        "f1": 0.29757785467128023,
-        "precision": 0.22395833333333334,
-        "recall": 0.44329896907216493,
-        "support": 194
+        "f1": 0.3092783505154639,
+        "precision": 0.2727272727272727,
+        "recall": 0.35714285714285715,
+        "support": 168
       },
       "vyper": {
-        "f1": 0.6257668711656442,
-        "precision": 0.5795454545454546,
-        "recall": 0.68,
-        "support": 75
+        "f1": 0.9803921568627451,
+        "precision": 0.9803921568627451,
+        "recall": 0.9803921568627451,
+        "support": 51
       }
     },
     "per_split": {
       "test": {
-        "accuracy": 0.8678083813432247,
+        "accuracy": 0.1977491961414791,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.8678083813432247,
-        "correct": 10996,
-        "macro_f1": 0.4767995632347125,
-        "predicted": 12671,
-        "scorable": 12671
+        "accuracy_scorable": 0.1977491961414791,
+        "correct": 246,
+        "macro_f1": 0.5524222988365551,
+        "predicted": 1244,
+        "scorable": 1244
       },
       "train": {
-        "accuracy": 0.9585852090032154,
+        "accuracy": 0.9483295289479146,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.9585852090032154,
-        "correct": 7453,
-        "macro_f1": 0.5048330819945827,
-        "predicted": 7775,
-        "scorable": 7775
+        "accuracy_scorable": 0.9483295289479146,
+        "correct": 4570,
+        "macro_f1": 0.5511245093318894,
+        "predicted": 4819,
+        "scorable": 4819
       },
       "validation": {
-        "accuracy": 0.7713097713097713,
+        "accuracy": 0.777059773828756,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.7713097713097713,
-        "correct": 1113,
-        "macro_f1": 0.4001014137298222,
-        "predicted": 1443,
-        "scorable": 1443
+        "accuracy_scorable": 0.777059773828756,
+        "correct": 481,
+        "macro_f1": 0.4547304239515148,
+        "predicted": 619,
+        "scorable": 619
       }
     },
-    "predicted": 22134,
-    "scorable": 22149
+    "predicted": 7007,
+    "scorable": 7018
   },
   "micro_exploratory": {
     "accuracy": null,
     "accuracy_denominator": 0,
-    "accuracy_reason": "no evaluable family in this block: every contributing family has a single observed label (single_label_not_evaluable): F_false_positive_rejection.jsonl, G_patch_verification.jsonl, I_verified_non_exploit.jsonl, J_verified_patch.jsonl",
+    "accuracy_reason": "no evaluable family in this block: every contributing family has a single observed label (single_label_not_evaluable): F_false_positive_rejection.jsonl, G_patch_verification.jsonl, I_verified_non_exploit.jsonl, J_verified_patch.jsonl, vbeta_V_source_tier_routing.jsonl",
     "accuracy_scorable": null,
     "accuracy_scorable_denominator": 0,
-    "correct": 17,
+    "correct": 97,
     "evaluable_families": [],
     "macro_f1": null,
     "non_evaluable_families": [
       "F_false_positive_rejection.jsonl",
       "G_patch_verification.jsonl",
       "I_verified_non_exploit.jsonl",
-      "J_verified_patch.jsonl"
+      "J_verified_patch.jsonl",
+      "vbeta_V_source_tier_routing.jsonl"
     ],
     "per_class": {},
     "per_split": {},
-    "predicted": 17,
-    "scorable": 32
+    "predicted": 97,
+    "scorable": 108
   },
   "micro_invalid": {
-    "accuracy": 0.9061392840145946,
-    "accuracy_denominator": 18911,
+    "accuracy": 0.8084201573463746,
+    "accuracy_denominator": 4703,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.9061392840145946,
-    "accuracy_scorable_denominator": 18911,
-    "correct": 17136,
+    "accuracy_scorable": 0.8084201573463746,
+    "accuracy_scorable_denominator": 4703,
+    "correct": 3802,
     "evaluable_families": [
-      "C_attacker_reasoning.jsonl",
       "v3_R_source_tier_routing.jsonl",
-      "vbeta_U_language_routing.jsonl",
-      "vbeta_V_source_tier_routing.jsonl"
+      "vbeta_U_language_routing.jsonl"
     ],
-    "macro_f1": 0.31634180583794336,
+    "macro_f1": 0.7661954410373051,
     "non_evaluable_families": [],
     "per_class": {
       "0": {
         "f1": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 878
+        "support": 854
       },
       "1": {
-        "f1": 0.8728488300111428,
-        "precision": 0.7790055248618785,
-        "recall": 0.9923986486486487,
-        "support": 3552
+        "f1": 0.8847143592382912,
+        "precision": 0.7932625749884633,
+        "recall": 1.0,
+        "support": 3438
       },
       "2": {
-        "f1": 0.9876963846299451,
-        "precision": 0.9936524057382252,
-        "recall": 0.9818113396889112,
-        "support": 7972
-      },
-      "cairo": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 19
+        "f1": 0.9193548387096774,
+        "precision": 0.986159169550173,
+        "recall": 0.8610271903323263,
+        "support": 331
       },
       "go": {
-        "f1": 0.023952095808383235,
-        "precision": 0.013513513513513514,
-        "recall": 0.10526315789473684,
-        "support": 38
-      },
-      "honest_but_misconfigured": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 3
-      },
-      "malicious_dependency": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 11
-      },
-      "move": {
-        "f1": 0.24390243902439024,
-        "precision": 0.16129032258064516,
-        "recall": 0.5,
-        "support": 20
-      },
-      "privileged": {
-        "f1": 0.33333333333333326,
-        "precision": 0.7073170731707317,
-        "recall": 0.21804511278195488,
-        "support": 133
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 5
       },
       "rust": {
-        "f1": 0.016393442622950817,
-        "precision": 0.014925373134328358,
-        "recall": 0.01818181818181818,
-        "support": 55
+        "f1": 0.8,
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "support": 2
       },
       "solidity": {
-        "f1": 0.9507364144235653,
-        "precision": 0.9765258215962441,
-        "recall": 0.9262741217219198,
-        "support": 6063
-      },
-      "unprivileged": {
-        "f1": 0.6507936507936507,
-        "precision": 0.5234042553191489,
-        "recall": 0.8601398601398601,
-        "support": 143
-      },
-      "vyper": {
-        "f1": 0.03278688524590164,
-        "precision": 0.02702702702702703,
-        "recall": 0.041666666666666664,
-        "support": 24
+        "f1": 0.993103448275862,
+        "precision": 1.0,
+        "recall": 0.9863013698630136,
+        "support": 73
       }
     },
     "per_split": {
       "test": {
-        "accuracy": 0.87451171875,
+        "accuracy": 0.0011123470522803114,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.87451171875,
-        "correct": 10746,
-        "macro_f1": 0.20814321897551957,
-        "predicted": 12288,
-        "scorable": 12288
+        "accuracy_scorable": 0.0011123470522803114,
+        "correct": 1,
+        "macro_f1": 0.01333333333333333,
+        "predicted": 899,
+        "scorable": 899
       },
       "train": {
-        "accuracy": 0.9821610601427115,
+        "accuracy": 0.999211356466877,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.9821610601427115,
-        "correct": 5781,
-        "macro_f1": 0.42740547253930256,
-        "predicted": 5886,
-        "scorable": 5886
-      },
-      "validation": {
-        "accuracy": 0.8263229308005428,
-        "accuracy_reason": null,
-        "accuracy_scorable": 0.8263229308005428,
-        "correct": 609,
-        "macro_f1": 0.2533725359657354,
-        "predicted": 737,
-        "scorable": 737
+        "accuracy_scorable": 0.999211356466877,
+        "correct": 3801,
+        "macro_f1": 0.9578607788283817,
+        "predicted": 3804,
+        "scorable": 3804
       }
     },
-    "predicted": 18911,
-    "scorable": 18911
+    "predicted": 4703,
+    "scorable": 4703
   },
   "micro_retired": {
-    "accuracy": 0.9353410097431355,
-    "accuracy_denominator": 2258,
+    "accuracy": 0.8469827586206896,
+    "accuracy_denominator": 928,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.9353410097431355,
-    "accuracy_scorable_denominator": 2258,
-    "correct": 2340,
+    "accuracy_scorable": 0.8469827586206896,
+    "accuracy_scorable_denominator": 928,
+    "correct": 1014,
     "evaluable_families": [
       "E_exploit_verification.jsonl",
       "K_language_ecosystem_routing.jsonl",
@@ -3262,12 +3065,12 @@
       "N_attacker_identity_extraction.jsonl",
       "O_record_class_and_scope.jsonl",
       "P_provenance_tier_and_rights.jsonl",
-      "v3_S_contest_outcome.jsonl",
-      "v3_T_taxonomy_explicit.jsonl"
+      "v3_S_contest_outcome.jsonl"
     ],
-    "macro_f1": 0.4906710436082469,
+    "macro_f1": 0.48973033531156435,
     "non_evaluable_families": [
-      "B_root_cause_reasoning.jsonl"
+      "B_root_cause_reasoning.jsonl",
+      "v3_T_taxonomy_explicit.jsonl"
     ],
     "per_class": {
       "0": {
@@ -3288,12 +3091,6 @@
         "recall": 0.9375,
         "support": 48
       },
-      "access control": {
-        "f1": 0.0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "support": 1
-      },
       "advisory": {
         "f1": 0.970873786407767,
         "precision": 0.9615384615384616,
@@ -3305,12 +3102,6 @@
         "precision": 0.8536585365853658,
         "recall": 0.8974358974358975,
         "support": 39
-      },
-      "business logic": {
-        "f1": 0.9982993197278912,
-        "precision": 0.9982993197278912,
-        "recall": 0.9982993197278912,
-        "support": 588
       },
       "cairo": {
         "f1": 0.7142857142857143,
@@ -3337,10 +3128,10 @@
         "support": 4
       },
       "finding": {
-        "f1": 0.9924812030075187,
-        "precision": 0.9850746268656716,
+        "f1": 0.978395061728395,
+        "precision": 0.9577039274924471,
         "recall": 1.0,
-        "support": 1056
+        "support": 317
       },
       "high": {
         "f1": 0.39560439560439564,
@@ -3406,7 +3197,7 @@
         "f1": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 16
+        "support": 14
       },
       "negative_control": {
         "f1": 0.0,
@@ -3483,35 +3274,35 @@
     },
     "per_split": {
       "test": {
-        "accuracy": 0.8771186440677966,
+        "accuracy": 0.8313953488372093,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.8771186440677966,
-        "correct": 207,
-        "macro_f1": 0.7159460270713467,
-        "predicted": 236,
-        "scorable": 236
+        "accuracy_scorable": 0.8313953488372093,
+        "correct": 143,
+        "macro_f1": 0.7030344828473171,
+        "predicted": 172,
+        "scorable": 172
       },
       "train": {
-        "accuracy": 0.9553398058252427,
+        "accuracy": 0.8667992047713717,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.9553398058252427,
-        "correct": 1476,
-        "macro_f1": 0.5480776294836188,
-        "predicted": 1545,
-        "scorable": 1545
+        "accuracy_scorable": 0.8667992047713717,
+        "correct": 436,
+        "macro_f1": 0.5513396876039146,
+        "predicted": 503,
+        "scorable": 503
       },
       "validation": {
-        "accuracy": 0.89937106918239,
+        "accuracy": 0.8181818181818182,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.89937106918239,
-        "correct": 429,
-        "macro_f1": 0.4821868595881632,
-        "predicted": 477,
-        "scorable": 477
+        "accuracy_scorable": 0.8181818181818182,
+        "correct": 207,
+        "macro_f1": 0.480887275671915,
+        "predicted": 253,
+        "scorable": 253
       }
     },
-    "predicted": 2486,
-    "scorable": 2486
+    "predicted": 1156,
+    "scorable": 1156
   },
   "not_scorable_families": {
     "D_exploit_construction.jsonl": {
@@ -3521,7 +3312,7 @@
       "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it"
     },
     "Fb_duplicate_radar_pair.jsonl": {
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.3077 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
     },
     "H_verified_exploit.jsonl": {
       "reason": "descriptive reference answers, no scalar label"
@@ -3530,9 +3321,10 @@
       "reason": "judge-graded rubric dict"
     }
   },
-  "primary_denominator": 720,
+  "primary_denominator": 1051,
   "primary_families": [
-    "A_vulnerability_detection.jsonl"
+    "A_vulnerability_detection.jsonl",
+    "C_attacker_reasoning.jsonl"
   ],
   "run": "baseline:retrieval:seed7",
   "scope_note": "the per-family and per-micro `accuracy` covers every scorable row of the block (train, validation and test together): it is a label-distribution diagnostic, not a held-out result. The held-out predictive performance is the `test` entry of `per_split`, and for a baseline the `baseline.heldout_test` block, which is fitted on train rows only",

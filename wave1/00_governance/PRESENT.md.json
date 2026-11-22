@@ -1,18 +1,18 @@
 {
   "canonical_sha256": {
-    "README.md": "7808afb5cd4f06c93dae4658be051a175fa161f272e79b89ea5f037987bdbf73",
-    "Vbeta/present_snapshot.json": "2aa7028ef90fc557bf48546598eb56af378d912c6cee852525a211dbc7acfbc9",
-    "benchmark/manifest.json": "c021586fa2f3577d03cf8c1ac220d92e339905a7d46a1c0c54e2f423fc1569b6",
-    "derived_v3/manifest.json": "51c3852995e595638cee304d602ee8f41a5765b20091f9ee15fba1153f42a15b",
+    "README.md": "74983570c763b0285647ad054f678cfd043f9d1f04b217fe33d319e955ccbd70",
+    "Vbeta/present_snapshot.json": "8fb5366b5996ec0944f7afb52547a475b88476c70f86844ec36477f95cb3a7cf",
+    "benchmark/manifest.json": "612c99859a5005d23ee42b7e02fafc5e1b572b89ace458ef09f0d651fef116ac",
+    "derived_v3/manifest.json": "0b543184b66f5586bb45f6e72a88c1714f101437c6f9043510746e55bcd3eefc",
     "docs/SOURCE_CANDIDATES.md": "602a86c9dcc23d3ae5f93a8950bbc5dd80f98169f3a1a52789c3392cfb060da5",
-    "jsonl/patches.jsonl": "694e85cc084358d9aff86f375ed1186d0ce463cdb300558d7abafca7f432aabf",
+    "jsonl/patches.jsonl": "ca9f39536ee97cae3240f2293617b41f3c9e18d99d57156c3ffa46ae6fac303c",
     "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",
     "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
   },
   "created_at": "2026-11-20T13:52:42Z",
   "missing": [],
   "note": "wave1 PRESENT sentinel. Canonical hashes are read-only copies of the baseline; wave1 writers never edit these files. Own hash covers wave1 scripts.",
-  "self_sha256": "79d1a8ed0372f8a8a70840d26cf00f9df2be65d08344357c503da92f50e4094d",
+  "self_sha256": "7a70aa8ed94c814a004e8d53c2f7fa7b85a9bbf03a5a80162b18f54ddb5293e5",
   "wave1_script_sha256": {
     "scripts/_common.py": "10c0b95476bd89667e6bf912b8faa86869013593b878d23b200f08e3c72e7b93",
     "scripts/adapters/formal.py": "7ff08a76dcc7df11ffbdb65cd44f9d389df0c18a044c1fa4ec9752c80d8d979c",
@@ -21,13 +21,15 @@
     "scripts/adapters/markdown.py": "650d55b6fc302cc82c0b9890396715f6ddf8c16157c649bdc7449b744ab7f849",
     "scripts/adapters/mitigation.py": "a9087ea72b0aeae6cf522b25ef72f2efb5a356c93648bee3ba31b45c5db19a5e",
     "scripts/adapters/reevmbench.py": "dd092d7d7874ab98c44840b245f69012860e73332ec399acf6eca1926d7ab15b",
-    "scripts/assign_group_splits.py": "172652f5a6bd50a5dff5ae60ab3c44591541680b2e1db30ad76ca9e4e4bbf0cc",
+    "scripts/assign_group_splits.py": "104242d25e054154814684d9622fdbc879dd616b016a4c6df183169d60af1377",
     "scripts/build_dedup_registry.py": "1a40a9f9cd6d049342a4acb155746b44f65870235d1ac00517c5e991332053e7",
     "scripts/build_governance.py": "17b90c6da7a660970f97224bd1690544bcadab15d709619386f730185e061f56",
-    "scripts/build_wave1.py": "6b0299963b9f565a16cb60b6d1276bf36693ddab81ddc05482c69129ab4794ff",
-    "scripts/dedup_check.py": "6dca8713f6aee57d72604f4af6a068bd1d909283340be0c2957c71f891efa5de",
+    "scripts/build_wave1.py": "b06bb544a9221be41dc5b0147aadd6b1178587e3bbf53c38597769780b8b12de",
+    "scripts/dedup_check.py": "b9627ea8bed821d25535c59f737aca8e6cbaf256021a50d541b9648697f764eb",
+    "scripts/hydration_lib.py": "aef8c1d4742963a30e3bf1ce5ab02d917d976e093e43f292fbf3716fd6120c4d",
+    "scripts/propagate_hydration.py": "c90eae9d39976553ac2ea91609dc207dccae011095f74452a292b5414e0bf134",
     "scripts/rebalance_splits.py": "18db8dbeee99a993b86d729c23befec6f48a2bd80050b8092238e1fc0111ecde",
     "scripts/run_wave1_experiments.py": "6b5eda91cec90643c4047cd3902276712351f75e8fd0e43aff6350bdc4bed8f0",
-    "scripts/validate_wave1.py": "e1746cd0fbf731cce56c9a25d34451f277a88e4c77e2c35ab5604fc016c20208"
+    "scripts/validate_wave1.py": "78c7ec1b629f8eaa5c5654041cb07b8857d28d497549863d5137f69b92576374"
   }
 }

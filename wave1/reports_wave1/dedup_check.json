@@ -1,17 +1,15 @@
 {
   "admitted_by_source": {
-    "c4_mitigation": 531,
+    "c4_mitigation": 244,
     "formal_specs": 895,
-    "ghsa_web3_netnew": 31,
-    "judge": 99,
-    "markdown_two_revision": 575,
-    "reevmbench": 55
+    "judge": 71,
+    "markdown_two_revision": 373,
+    "reevmbench": 51
   },
-  "admitted_rows": 2186,
-  "checked_at": "2026-11-20T13:52:42Z",
+  "admitted_rows": 1634,
   "collision_details": [],
   "collisions": 0,
-  "dedup_keys_checked": 3550,
+  "dedup_keys_checked": 2870,
   "overlap_manifest_rows": 896,
   "registry_size": 24074,
   "verdict": "PASS"

@@ -38,7 +38,7 @@ rights-redacted `distribution_v1/` view. The evidence corpus
 
 These are the figures of the v1 publish/redaction pass recorded in
 `publish_manifest.json`. They are *not* a count of the material still
-present in this repository: 424 of the 722 derived records still carry
+present in this repository: 442 of the 685 derived records still carry
 source text, and the counting is stated below.
 
 ## Why
@@ -61,7 +61,7 @@ redistributed upstream. That is a deliberate, upstream decision, not a
 determination that the terms are permissive.
 
 `python scripts/fetch_sources.py` reads the LICENSE file at each cited commit and
-reports what it finds. 424 of 722 derived records carry source text from
+reports what it finds. 442 of 685 derived records carry source text from
 a repository that declares **no licence at all**: their terms are unstated rather
 than permissive. Each is flagged at `redistribution.flag` in
 `derived/records.jsonl`. **If you need a strictly licence-clean corpus, treat
@@ -88,17 +88,17 @@ pointers (path, commit, line range, permalink, sha256) are in
 
 | source id | source | declared terms | redistribution right | records registered | records carrying verbatim source |
 |---|---|---|---|---|---|
-| `halborn_public_reports` | Halborn Security Public Reports | no licence found | not documented | 1,785 | 0 |
-| `oak_security_audit_reports` | Oak Security audit reports | CC BY-ND 4.0 | documented (share with attribution; no derivatives) | 3,257 | 0 |
-| `coinfabrik_audit_reports` | CoinFabrik audit reports | no licence found | not documented | 226 | 0 |
-| `code4rena/2022-05-alchemix` | Code4rena 2022-05-alchemix | no licence found | not documented | 61 | 54 |
-| `code4rena/2024-01-decent` | Code4rena 2024-01-decent | no licence found | not documented | 100 | 74 |
-| `code4rena/2024-01-renft` | Code4rena 2024-01-renft | source-available, not redistributable | not documented | 129 | 0 |
-| `code4rena/2024-04-noya` | Code4rena 2024-04-noya | no licence found | not documented | 285 | 268 |
-| `code4rena/2024-08-wildcat` | Code4rena 2024-08-wildcat | source-available, not redistributable | not documented | 70 | 0 |
-| `code4rena/2024-12-bakerfi` | Code4rena 2024-12-bakerfi | source-available, not redistributable | not documented | 32 | 0 |
+| `halborn_public_reports` | Halborn Security Public Reports | no licence found | not documented | 249 | 0 |
+| `oak_security_audit_reports` | Oak Security audit reports | CC BY-ND 4.0 | documented (share with attribution; no derivatives) | 2,236 | 0 |
+| `coinfabrik_audit_reports` | CoinFabrik audit reports | no licence found | not documented | 62 | 0 |
+| `code4rena/2022-05-alchemix` | Code4rena 2022-05-alchemix | no licence found | not documented | 55 | 54 |
+| `code4rena/2024-01-decent` | Code4rena 2024-01-decent | no licence found | not documented | 95 | 90 |
+| `code4rena/2024-01-renft` | Code4rena 2024-01-renft | no licence found | not documented | 121 | 2 |
+| `code4rena/2024-04-noya` | Code4rena 2024-04-noya | no licence found | not documented | 279 | 268 |
+| `code4rena/2024-08-wildcat` | Code4rena 2024-08-wildcat | source-available, not redistributable | not documented | 67 | 0 |
+| `code4rena/2024-12-bakerfi` | Code4rena 2024-12-bakerfi | source-available, not redistributable | not documented | 31 | 0 |
 | `code4rena/2025-06-panoptic` | Code4rena 2025-06-panoptic | no licence found | not documented | 4 | 4 |
-| `code4rena/2025-08-gte-perps` | Code4rena 2025-08-gte-perps | no licence found | not documented | 41 | 24 |
+| `code4rena/2025-08-gte-perps` | Code4rena 2025-08-gte-perps | no licence found | not documented | 33 | 24 |
 
 **Attribution is not a redistribution right.** Naming an author, linking to
 their audit, or recording the sha256 of the bytes they published identifies
@@ -137,7 +137,7 @@ reproduced with their reasons in `RELEASE_MANIFEST.json` under
 
 | id | question | why it cannot be resolved here |
 |---|---|---|
-| OQ-001 | May the 424 v1 records' quoted Solidity (827 `code_context` entries carrying text) be redistributed at all? | The upstream repositories declare no licence, so there is no term to read and no permission to point at. The absence of a licence is not a grant, and no permission was obtained from the protocol authors. |
+| OQ-001 | May the 442 v1 records' quoted Solidity (1,414 `code_context` entries carrying text) be redistributed at all? | The upstream repositories declare no licence, so there is no term to read and no permission to point at. The absence of a licence is not a grant, and no permission was obtained from the protocol authors. |
 | OQ-002 | May the Code4rena contestant proof-of-concept code be redistributed as quoted evidence? | The code belongs to the contestants. No licence or permission was conveyed to the pipeline. The contest terms and the applicable law have to be read by a human. |
 | OQ-003 | Does the BUSL-1.1 Change Date convert the reNFT/BakerFi/Wildcat citations to an open licence, and does the project want to rely on it? | That is a question about each upstream commit and about the owner's intent, not something a script can decide. |
 | OQ-004 | Is every transformation this pipeline applies to an Oak Security report a derivative barred by No-Derivatives? | Whether a mined field, a projection or a digest is a derivative is a legal question that turns on the term and the jurisdiction. The passages are withheld rather than argued. |

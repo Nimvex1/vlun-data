@@ -19,23 +19,23 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/jsonl_vbeta/findings.jsonl` | vbeta | 2,690,346 | 7060 rows | yes |
 | `Vbeta/jsonl_vbeta/sources.jsonl` | vbeta | 5,448 | 15 rows | yes |
 | `jsonl/errors.jsonl` | v1 | 33,547 | 19 rows | yes |
-| `jsonl/exploits.jsonl` | v1 | 1,184,886 | 155 rows | yes |
-| `jsonl/findings.jsonl` | v1 | 2,954,151 | 264 rows | yes |
+| `jsonl/exploits.jsonl` | v1 | 2,395,881 | 154 rows | yes |
+| `jsonl/findings.jsonl` | v1 | 4,431,772 | 241 rows | yes |
 | `jsonl/metadata.jsonl` | v1 | 20,268 | 11 rows | yes |
-| `jsonl/negative_findings.jsonl` | v1 | 3,205,894 | 458 rows | yes |
-| `jsonl/patches.jsonl` | v1 | 157,151 | 38 rows | yes |
+| `jsonl/negative_findings.jsonl` | v1 | 6,145,661 | 444 rows | yes |
+| `jsonl/patches.jsonl` | v1 | 1,334,932 | 37 rows | yes |
 | `jsonl/protocol.jsonl` | v1 | 52,323 | 8 rows | yes |
-| `jsonl_ml/findings_cairo.jsonl` | v2.2 | 53,475 | 8 rows | yes |
-| `jsonl_ml/findings_move.jsonl` | v2.2 | 68,754 | 15 rows | yes |
-| `jsonl_ml/findings_reports.jsonl` | v2.2 | 402,765 | 45 rows | yes |
-| `jsonl_ml/findings_rust.jsonl` | v2.2 | 80,702 | 18 rows | yes |
-| `jsonl_ml/findings_vyper.jsonl` | v2.2 | 295,305 | 51 rows | yes |
+| `jsonl_ml/findings_cairo.jsonl` | v2.2 | 67,234 | 8 rows | yes |
+| `jsonl_ml/findings_move.jsonl` | v2.2 | 131,566 | 15 rows | yes |
+| `jsonl_ml/findings_reports.jsonl` | v2.2 | 615,782 | 45 rows | yes |
+| `jsonl_ml/findings_rust.jsonl` | v2.2 | 120,476 | 18 rows | yes |
+| `jsonl_ml/findings_vyper.jsonl` | v2.2 | 305,271 | 51 rows | yes |
 | `jsonl_ml/sources_cairo.jsonl` | v2.2 | 37,470 | 13 rows | yes |
 | `jsonl_ml/sources_move.jsonl` | v2.2 | 50,526 | 18 rows | yes |
-| `jsonl_ml/sources_reports.jsonl` | v2.2 | 9,560 | 5 rows | yes |
+| `jsonl_ml/sources_reports.jsonl` | v2.2 | 9,600 | 5 rows | yes |
 | `jsonl_ml/sources_rust.jsonl` | v2.2 | 48,431 | 25 rows | yes |
 | `jsonl_ml/sources_vyper.jsonl` | v2.2 | 145,442 | 51 rows | yes |
-| `jsonl_v3/findings.jsonl` | v3 | 17,214,899 | 7712 rows | yes |
+| `jsonl_v3/findings.jsonl` | v3 | 97,476,765 | 7712 rows | yes |
 | `jsonl_v3/sources.jsonl` | v3 | 12,839 | 18 rows | yes |
 
 ## derived (32)
@@ -44,36 +44,36 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `Vbeta/derived_vbeta/candidate_ledger.jsonl` | vbeta | 4,723,263 | 7060 rows | yes |
+| `Vbeta/derived_vbeta/candidate_ledger.jsonl` | vbeta | 67,184 | 80 rows | yes |
 | `Vbeta/derived_vbeta/corroborations.jsonl` | vbeta | 0 | 0 rows | yes |
-| `Vbeta/derived_vbeta/duplicates.jsonl` | vbeta | 23,890 | 63 rows | yes |
-| `Vbeta/derived_vbeta/manifest.json` | vbeta | 1,991 | object, 15 keys | yes |
-| `Vbeta/derived_vbeta/negatives.jsonl` | vbeta | 4,630 | 5 rows | yes |
-| `Vbeta/derived_vbeta/records.jsonl` | vbeta | 11,334,826 | 6935 rows | yes |
+| `Vbeta/derived_vbeta/duplicates.jsonl` | vbeta | 0 | 0 rows | yes |
+| `Vbeta/derived_vbeta/manifest.json` | vbeta | 1,458 | object, 19 keys | yes |
+| `Vbeta/derived_vbeta/negatives.jsonl` | vbeta | 0 | 0 rows | yes |
+| `Vbeta/derived_vbeta/records.jsonl` | vbeta | 1,104,459 | 80 rows | yes |
 | `Vbeta/derived_vbeta/source_ledger.json` | vbeta | 1,042 | object, 2 keys | yes |
 | `derived/counterexamples.jsonl` | v1 | 226,046 | 63 rows | yes |
 | `derived/hard_negatives.jsonl` | v1 | 3,640,038 | 458 rows | yes |
-| `derived/manifest.json` | v1 | 1,845 | object, 23 keys | yes |
-| `derived/records.jsonl` | v1 | 17,423,829 | 722 rows | yes |
+| `derived/manifest.json` | v1 | 140,527 | object, 26 keys | yes |
+| `derived/records.jsonl` | v1 | 21,541,490 | 685 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
 | `derived_v2_2/audit_sources.jsonl` | v2.2 | 17,417 | 16 rows | yes |
-| `derived_v2_2/manifest.json` | v2.2 | 2,097 | object, 23 keys | yes |
-| `derived_v2_2/records.jsonl` | v2.2 | 904,375 | 137 rows | yes |
-| `derived_v3/candidate_ledger.jsonl` | v3 | 19,438,183 | 7712 rows | yes |
+| `derived_v2_2/manifest.json` | v2.2 | 2,104 | object, 24 keys | yes |
+| `derived_v2_2/records.jsonl` | v2.2 | 794,207 | 61 rows | yes |
+| `derived_v3/candidate_ledger.jsonl` | v3 | 99,700,049 | 7712 rows | yes |
 | `derived_v3/corroborations.jsonl` | v3 | 34,481 | 108 rows | yes |
 | `derived_v3/corroborations_v31.jsonl` | v3 | 0 | 0 rows | yes |
 | `derived_v3/duplicates.jsonl` | v3 | 33,833 | 108 rows | yes |
-| `derived_v3/experiment_readiness.json` | v3 | 6,275,844 | unparseable | yes |
-| `derived_v3/manifest.json` | v3 | 4,963 | object, 27 keys | yes |
-| `derived_v3/negatives.jsonl` | v3 | 35,778 | 16 rows | yes |
-| `derived_v3/normalization.json` | v3 | 3,817 | object, 18 keys | yes |
-| `derived_v3/normalization_fragments.jsonl` | v3 | 29,084,823 | 29176 rows | yes |
-| `derived_v3/normalization_overlay.jsonl` | v3 | 4,649,822 | 9744 rows | yes |
-| `derived_v3/normalized_records_preview.jsonl` | v3 | 31,429,909 | 12504 rows | yes |
+| `derived_v3/experiment_readiness.json` | v3 | 1,948,771 | unparseable | yes |
+| `derived_v3/manifest.json` | v3 | 5,010 | object, 28 keys | yes |
+| `derived_v3/negatives.jsonl` | v3 | 132,365 | 14 rows | yes |
+| `derived_v3/normalization.json` | v3 | 3,810 | object, 18 keys | yes |
+| `derived_v3/normalization_fragments.jsonl` | v3 | 1,115,759 | 531 rows | yes |
+| `derived_v3/normalization_overlay.jsonl` | v3 | 0 | 0 rows | yes |
+| `derived_v3/normalized_records_preview.jsonl` | v3 | 81,740,314 | 4623 rows | yes |
 | `derived_v3/patch_candidates.json` | v3 | 27,650 | unparseable | yes |
 | `derived_v3/patch_reviews.jsonl` | v3 | 165,902 | 47 rows | yes |
-| `derived_v3/records.jsonl` | v3 | 12,128,732 | 5467 rows | yes |
+| `derived_v3/records.jsonl` | v3 | 80,648,879 | 4623 rows | yes |
 | `derived_v3/source_ledger.json` | v3 | 16,924 | object, 1 keys | yes |
 | `derived_v3/source_sha_index.json` | v3 | 5,745 | object, 2 keys | yes |
 
@@ -83,19 +83,19 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `Vbeta/splits_vbeta/quarantine.jsonl` | vbeta | 52,220 | 63 rows | yes |
-| `Vbeta/splits_vbeta/split.json` | vbeta | 262,986 | object, 3 keys | yes |
+| `Vbeta/splits_vbeta/quarantine.jsonl` | vbeta | 0 | 0 rows | yes |
+| `Vbeta/splits_vbeta/split.json` | vbeta | 11,674 | object, 3 keys | yes |
 | `splits_v2/quarantine.jsonl` | v1 | 11,029 | 2 rows | yes |
-| `splits_v2/test.jsonl` | v1 | 1,760,911 | 253 rows | yes |
-| `splits_v2/train.jsonl` | v1 | 3,690,273 | 413 rows | yes |
-| `splits_v2/validation.jsonl` | v1 | 2,142,625 | 277 rows | yes |
-| `splits_v2_2/manifest.json` | v2.2 | 3,766 | object, 12 keys | yes |
+| `splits_v2/test.jsonl` | v1 | 3,435,726 | 242 rows | yes |
+| `splits_v2/train.jsonl` | v1 | 3,849,347 | 402 rows | yes |
+| `splits_v2/validation.jsonl` | v1 | 6,990,280 | 264 rows | yes |
+| `splits_v2_2/manifest.json` | v2.2 | 3,671 | object, 12 keys | yes |
 | `splits_v2_2/quarantine.jsonl` | v2.2 | 1,590 | 2 rows | yes |
-| `splits_v2_2/test.jsonl` | v2.2 | 133,184 | 284 rows | yes |
-| `splits_v2_2/train.jsonl` | v2.2 | 231,486 | 489 rows | yes |
-| `splits_v2_2/validation.jsonl` | v2.2 | 147,932 | 307 rows | yes |
-| `splits_v3/quarantine.jsonl` | v3 | 0 | 0 rows | yes |
-| `splits_v3/split.json` | v3 | 314,661 | object, 3 keys | yes |
+| `splits_v2_2/test.jsonl` | v2.2 | 117,526 | 253 rows | yes |
+| `splits_v2_2/train.jsonl` | v2.2 | 208,706 | 443 rows | yes |
+| `splits_v2_2/validation.jsonl` | v2.2 | 131,042 | 273 rows | yes |
+| `splits_v3/quarantine.jsonl` | v3 | 546,335 | 844 rows | yes |
+| `splits_v3/split.json` | v3 | 285,882 | object, 3 keys | yes |
 
 ## benchmark (50)
 
@@ -103,34 +103,34 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl` | multi | 1,776,277 | 6219 rows | yes |
-| `Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl` | multi | 1,984,616 | 6935 rows | yes |
-| `Vbeta/benchmark_vbeta/vbeta_manifest.json` | multi | 801 | object, 6 keys | yes |
-| `benchmark/A_vulnerability_detection.jsonl` | multi | 1,331,642 | 720 rows | yes |
-| `benchmark/C_attacker_reasoning.jsonl` | multi | 1,601,415 | 720 rows | yes |
-| `benchmark/D_exploit_construction.jsonl` | multi | 1,850,406 | 720 rows | yes |
-| `benchmark/F_false_positive_rejection.jsonl` | multi | 1,045,751 | 458 rows | yes |
-| `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | multi | 3,505,061 | 458 rows | yes |
-| `benchmark/Fb_duplicate_radar_pair.jsonl` | multi | 3,122,443 | 552 rows | yes |
-| `benchmark/G_patch_verification.jsonl` | multi | 38,261 | 38 rows | yes |
+| `Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl` | multi | 137,738 | 80 rows | yes |
+| `Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl` | multi | 137,216 | 80 rows | yes |
+| `Vbeta/benchmark_vbeta/vbeta_manifest.json` | multi | 638 | object, 7 keys | yes |
+| `benchmark/A_vulnerability_detection.jsonl` | multi | 1,884,398 | 658 rows | yes |
+| `benchmark/C_attacker_reasoning.jsonl` | multi | 2,132,887 | 658 rows | yes |
+| `benchmark/D_exploit_construction.jsonl` | multi | 2,185,010 | 644 rows | yes |
+| `benchmark/F_false_positive_rejection.jsonl` | multi | 1,418,450 | 440 rows | yes |
+| `benchmark/Fa_rejection_evidence_axis_vector.jsonl` | multi | 3,522,340 | 444 rows | yes |
+| `benchmark/Fb_duplicate_radar_pair.jsonl` | multi | 3,843,134 | 651 rows | yes |
+| `benchmark/G_patch_verification.jsonl` | multi | 508,843 | 37 rows | yes |
 | `benchmark/H_verified_exploit.jsonl` | multi | 28,604 | 7 rows | yes |
-| `benchmark/I_verified_non_exploit.jsonl` | multi | 2,881 | 3 rows | yes |
-| `benchmark/J_verified_patch.jsonl` | multi | 24,190 | 7 rows | yes |
-| `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | multi | 1,059,576 | 137 rows | yes |
-| `benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl` | multi | 52,728 | 90 rows | yes |
-| `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | multi | 2,107,106 | 2048 rows | yes |
-| `benchmark/independent/canonical_holdout/manifest.json` | multi | 1,828 | object, 9 keys | yes |
-| `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | multi | 2,905,903 | 2766 rows | yes |
+| `benchmark/I_verified_non_exploit.jsonl` | multi | 21,468 | 3 rows | yes |
+| `benchmark/J_verified_patch.jsonl` | multi | 16,357 | 3 rows | yes |
+| `benchmark/Q_evidence_type_and_quality_rubric.jsonl` | multi | 462,512 | 61 rows | yes |
+| `benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl` | multi | 74,586 | 75 rows | yes |
+| `benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl` | multi | 691,605 | 372 rows | yes |
+| `benchmark/independent/canonical_holdout/manifest.json` | multi | 1,819 | object, 9 keys | yes |
+| `benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl` | multi | 743,169 | 406 rows | yes |
 | `benchmark/independent/secondary_holdout_exploratory_tasks.jsonl` | multi | 48,915 | 32 rows | yes |
-| `benchmark/independent/secondary_holdout_manifest.json` | multi | 63,182 | object, 19 keys | yes |
-| `benchmark/independent/secondary_holdout_tasks.jsonl` | multi | 1,049,984 | 2684 rows | yes |
-| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | multi | 67,771 | 257 rows | yes |
-| `benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl` | multi | 2,919 | 5 rows | yes |
-| `benchmark/independent/v1_task_holdout/manifest.json` | multi | 2,022 | object, 9 keys | yes |
-| `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` | multi | 23,813 | 106 rows | yes |
-| `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` | multi | 2,673 | 7 rows | yes |
-| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | multi | 96,536 | 257 rows | yes |
-| `benchmark/manifest.json` | multi | 15,096 | object, 8 keys | yes |
+| `benchmark/independent/secondary_holdout_manifest.json` | multi | 58,228 | object, 19 keys | yes |
+| `benchmark/independent/secondary_holdout_tasks.jsonl` | multi | 717,607 | 1364 rows | yes |
+| `benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl` | multi | 955 | 3 rows | yes |
+| `benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `benchmark/independent/v1_task_holdout/manifest.json` | multi | 2,007 | object, 9 keys | yes |
+| `benchmark/independent/v1_task_holdout/negative_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `benchmark/independent/v1_task_holdout/patch_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl` | multi | 27,442 | 6 rows | yes |
+| `benchmark/manifest.json` | multi | 15,068 | object, 8 keys | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.jsonl` | multi | 1,738,887 | 720 rows | yes |
 | `benchmark/retired_families/B_root_cause_reasoning.retirement.json` | multi | 586 | object, 9 keys | yes |
 | `benchmark/retired_families/E_exploit_verification.jsonl` | multi | 780,615 | 720 rows | yes |
@@ -147,12 +147,12 @@ also excluded: reports/v3/validation_v31.json.
 | `benchmark/retired_families/O_record_class_and_scope.retirement.json` | multi | 559 | object, 9 keys | yes |
 | `benchmark/retired_families/P_provenance_tier_and_rights.jsonl` | multi | 338,729 | 137 rows | yes |
 | `benchmark/retired_families/P_provenance_tier_and_rights.retirement.json` | multi | 583 | object, 9 keys | yes |
-| `benchmark/retired_families/v3_S_contest_outcome.jsonl` | multi | 551,514 | 1072 rows | yes |
+| `benchmark/retired_families/v3_S_contest_outcome.jsonl` | multi | 172,126 | 331 rows | yes |
 | `benchmark/retired_families/v3_S_contest_outcome.retirement.json` | multi | 582 | object, 9 keys | yes |
-| `benchmark/retired_families/v3_T_taxonomy_explicit.jsonl` | multi | 355,666 | 589 rows | yes |
+| `benchmark/retired_families/v3_T_taxonomy_explicit.jsonl` | multi | 0 | 0 rows | yes |
 | `benchmark/retired_families/v3_T_taxonomy_explicit.retirement.json` | multi | 569 | object, 9 keys | yes |
-| `benchmark/v3_R_source_tier_routing.jsonl` | multi | 2,941,947 | 5467 rows | yes |
-| `benchmark/v3_manifest.json` | multi | 790 | object, 7 keys | yes |
+| `benchmark/v3_R_source_tier_routing.jsonl` | multi | 2,534,541 | 4623 rows | yes |
+| `benchmark/v3_manifest.json` | multi | 787 | object, 7 keys | yes |
 
 ## experiments (123)
 
@@ -212,7 +212,7 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments/2024-04-noya__M-60__poc_run/result.json` | v1 | 1,704 | object, 24 keys | yes |
 | `experiments/2025-06-panoptic__H-01__poc_run/result.json` | v1 | 1,737 | object, 24 keys | yes |
 | `experiments/reconstruction_log.jsonl` | v1 | 53,415 | 155 rows | yes |
-| `experiments_v2_2/index.json` | v2.2 | 22,362 | object, 3 keys | yes |
+| `experiments_v2_2/index.json` | v2.2 | 17,271 | object, 3 keys | yes |
 | `experiments_v2_2/kerf-auditpoc/result.json` | v2.2 | 1,548 | object, 18 keys | yes |
 | `experiments_v2_2/move-cetus-checked-shlw/result.json` | v2.2 | 1,921 | object, 18 keys | yes |
 | `experiments_v2_2/quantillon-emergencyunstake/result.json` | v2.2 | 1,452 | object, 18 keys | yes |
@@ -292,69 +292,69 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `Vbeta/reports_vbeta/solodit_harvest_stats.json` | multi | 26,403 | object, 19 keys | yes |
 | `Vbeta/reports_vbeta/validation_vbeta.json` | multi | 7,359 | object, 4 keys | yes |
-| `reports/api_sibling_stats.json` | multi | 92,890 | object, 16 keys | yes |
+| `reports/api_sibling_stats.json` | multi | 95,943 | object, 16 keys | yes |
 | `reports/audit_source_ingestion.json` | multi | 9,439 | object, 7 keys | yes |
 | `reports/baseline/measured_2026-10-13.json` | multi | 3,327 | object, 12 keys | yes |
-| `reports/baselines/baseline_first_published.json` | multi | 85,743 | object, 24 keys | yes |
-| `reports/baselines/baseline_frequency_seed7.json` | multi | 108,820 | object, 24 keys | yes |
-| `reports/baselines/baseline_majority.json` | multi | 106,681 | object, 24 keys | yes |
-| `reports/baselines/baseline_majority_published.json` | multi | 85,750 | object, 24 keys | yes |
-| `reports/baselines/baseline_random_seed7.json` | multi | 109,783 | object, 24 keys | yes |
-| `reports/baselines/baseline_retrieval.json` | multi | 109,986 | object, 24 keys | yes |
-| `reports/benchmark_metrics.json` | multi | 72,981 | object, 13 keys | yes |
+| `reports/baselines/baseline_first_published.json` | multi | 81,728 | object, 24 keys | yes |
+| `reports/baselines/baseline_frequency_seed7.json` | multi | 102,392 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority.json` | multi | 100,176 | object, 24 keys | yes |
+| `reports/baselines/baseline_majority_published.json` | multi | 81,735 | object, 24 keys | yes |
+| `reports/baselines/baseline_random_seed7.json` | multi | 102,970 | object, 24 keys | yes |
+| `reports/baselines/baseline_retrieval.json` | multi | 102,991 | object, 24 keys | yes |
+| `reports/benchmark_metrics.json` | multi | 72,788 | object, 13 keys | yes |
 | `reports/benchmark_quality.json` | multi | 11,117 | object, 6 keys | yes |
 | `reports/build_all.json` | multi | 18,119 | object, 3 keys | yes |
-| `reports/citation_resolution.json` | multi | 508,808 | object, 16 keys | yes |
+| `reports/citation_resolution.json` | multi | 638,754 | object, 16 keys | yes |
 | `reports/counterexample_stats.json` | multi | 1,252 | object, 13 keys | yes |
-| `reports/dataset_stats.json` | multi | 17,407 | object, 20 keys | yes |
+| `reports/dataset_stats.json` | multi | 160,803 | object, 20 keys | yes |
 | `reports/depth_dashboard.json` | multi | 2,004 | object, 6 keys | yes |
-| `reports/eval_leakage_report.json` | multi | 48,313 | object, 11 keys | yes |
+| `reports/eval_leakage_report.json` | multi | 46,828 | object, 11 keys | yes |
 | `reports/evidence_pointer_audit.json` | multi | 6,684 | object, 7 keys | yes |
-| `reports/evidence_span_audit.json` | multi | 1,650 | object, 11 keys | yes |
+| `reports/evidence_span_audit.json` | multi | 1,547 | object, 11 keys | yes |
 | `reports/extraction_errors.json` | multi | 35,481 | object, 7 keys | yes |
-| `reports/f_extension_baselines.json` | multi | 211,847 | object, 4 keys | yes |
-| `reports/f_extension_stats.json` | multi | 5,235 | object, 10 keys | yes |
-| `reports/field_coverage.json` | multi | 4,078 | object, 2 keys | yes |
+| `reports/f_extension_baselines.json` | multi | 215,050 | object, 4 keys | yes |
+| `reports/f_extension_stats.json` | multi | 5,236 | object, 10 keys | yes |
+| `reports/field_coverage.json` | multi | 4,030 | object, 2 keys | yes |
 | `reports/hard_negative_stats.json` | multi | 1,264 | object, 13 keys | yes |
 | `reports/iaa_status.json` | multi | 1,077 | object, 11 keys | yes |
-| `reports/independent/audit.json` | multi | 67,732 | object, 4 keys | yes |
-| `reports/leakage_report.json` | multi | 141,515 | object, 11 keys | yes |
+| `reports/independent/audit.json` | multi | 62,144 | object, 4 keys | yes |
+| `reports/leakage_report.json` | multi | 184,047 | object, 10 keys | yes |
 | `reports/leakage_report_v2.json` | multi | 141,706 | object, 12 keys | yes |
 | `reports/leakage_report_v22.json` | multi | 1,288 | object, 7 keys | yes |
 | `reports/legacy/dataset_stats_v1_reported.json` | multi | 6,410 | object, 51 keys | yes |
-| `reports/machine_path_scan.json` | multi | 1,009,046 | object, 9 keys | yes |
+| `reports/machine_path_scan.json` | multi | 1,320,037 | object, 9 keys | yes |
 | `reports/manifest_checks.json` | multi | 361 | object, 6 keys | yes |
 | `reports/negative_experiments.json` | multi | 3,370 | object, 3 keys | yes |
-| `reports/negative_verification_stats.json` | multi | 1,653,285 | object, 22 keys | yes |
+| `reports/negative_verification_stats.json` | multi | 2,131,136 | object, 22 keys | yes |
 | `reports/nonevm_pilot.json` | multi | 71,445 | object, 15 keys | yes |
 | `reports/patch_verification.json` | multi | 22,664 | object, 6 keys | yes |
 | `reports/patch_verification_v2.json` | multi | 129,631 | object, 8 keys | yes |
 | `reports/poc_attempts.jsonl` | multi | 95,734 | 56 rows | yes |
 | `reports/poc_execution_density.json` | multi | 3,386 | object, 12 keys | yes |
-| `reports/poc_triage_queue.json` | multi | 2,487 | object, 5 keys | yes |
+| `reports/poc_triage_queue.json` | multi | 2,486 | object, 5 keys | yes |
 | `reports/pre_upgrade_audit.json` | multi | 28,885 | object, 16 keys | yes |
 | `reports/prove_candidate_ledger.json` | multi | 2,476 | object, 11 keys | yes |
 | `reports/prove_split_interface.json` | multi | 16,824 | object, 15 keys | yes |
 | `reports/provenance_quality.json` | multi | 982 | object, 5 keys | yes |
-| `reports/quarantine_report.json` | multi | 8,827 | object, 4 keys | yes |
+| `reports/quarantine_report.json` | multi | 8,826 | object, 4 keys | yes |
 | `reports/record_audit_summary.json` | multi | 491 | object, 11 keys | yes |
 | `reports/record_hash_verification.json` | multi | 1,935 | object, 10 keys | yes |
-| `reports/rejection_evidence_stats.json` | multi | 7,227 | object, 20 keys | yes |
-| `reports/remediation_before_after.json` | multi | 5,359 | object, 3 keys | yes |
+| `reports/rejection_evidence_stats.json` | multi | 7,273 | object, 20 keys | yes |
+| `reports/remediation_before_after.json` | multi | 5,352 | object, 3 keys | yes |
 | `reports/reproducibility_checks_summary.json` | multi | 310 | object, 4 keys | yes |
 | `reports/reproduction_manifest.json` | multi | 28,395 | object, 3 keys | yes |
 | `reports/reproduction_stats.json` | multi | 203,428 | object, 14 keys | yes |
-| `reports/rights_history_exposure.json` | multi | 56,761 | object, 10 keys | yes |
-| `reports/rights_inventory.json` | multi | 1,053,931 | object, 18 keys | yes |
-| `reports/root_cause_taxonomy_stats.json` | multi | 3,242 | object, 14 keys | yes |
+| `reports/rights_history_exposure.json` | multi | 55,242 | object, 10 keys | yes |
+| `reports/rights_inventory.json` | multi | 1,122,496 | object, 18 keys | yes |
+| `reports/root_cause_taxonomy_stats.json` | multi | 3,176 | object, 14 keys | yes |
 | `reports/run_artefacts_index.json` | multi | 10,937 | object, 5 keys | yes |
-| `reports/sibling_review.json` | multi | 407,251 | object, 13 keys | yes |
+| `reports/sibling_review.json` | multi | 451,685 | object, 13 keys | yes |
 | `reports/source_fetch_verification.json` | multi | 59 | object, 3 keys | yes |
-| `reports/span_scoring_report.json` | multi | 6,751 | object, 15 keys | yes |
+| `reports/span_scoring_report.json` | multi | 6,738 | object, 15 keys | yes |
 | `reports/static_analysis.json` | multi | 18,020 | object, 7 keys | yes |
-| `reports/subsets.json` | multi | 1,888 | object, 8 keys | yes |
+| `reports/subsets.json` | multi | 1,565 | object, 8 keys | yes |
 | `reports/third_party_audit.json` | multi | 13,289 | object, 16 keys | yes |
-| `reports/v2_1_summary.json` | multi | 1,111 | object, 25 keys | yes |
+| `reports/v2_1_summary.json` | multi | 1,662 | object, 25 keys | yes |
 | `reports/v2_2/benchmark.json` | multi | 11,457 | object, 4 keys | yes |
 | `reports/v2_2/dataset_summary.json` | multi | 25,874 | object, 11 keys | yes |
 | `reports/v2_2/l5_adjudication.json` | multi | 30,713 | object, 9 keys | yes |
@@ -362,7 +362,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/dataset_summary.json` | multi | 4,963 | object, 27 keys | yes |
 | `reports/v3/experimental_proof.json` | multi | 39,253 | object, 5 keys | yes |
 | `reports/v3/extraction_failures.json` | multi | 35 | object, 2 keys | yes |
-| `reports/v3/normalization_report.json` | multi | 3,817 | object, 18 keys | yes |
+| `reports/v3/normalization_report.json` | multi | 3,810 | object, 18 keys | yes |
 | `reports/v3/normalization_unknowns.json` | multi | 3,311 | object, 3 keys | yes |
 | `reports/v3/patch_static_review.json` | multi | 5,422 | object, 22 keys | yes |
 | `reports/v3/patch_verification_report.json` | multi | 303 | object, 7 keys | yes |
@@ -371,7 +371,7 @@ also excluded: reports/v3/validation_v31.json.
 | `reports/v3/validation_v3.json` | multi | 10,102 | object, 5 keys | yes |
 | `reports/v3/violation_evidence.json` | multi | 1,653 | object, 2 keys | yes |
 | `reports/v4_licensing_migration.json` | multi | 2,096 | object, 10 keys | yes |
-| `reports/validation_report.json` | multi | 21,159 | object, 8 keys | yes |
+| `reports/validation_report.json` | multi | 21,951 | object, 8 keys | yes |
 | `reports/verification_stats.json` | multi | 4,747 | object, 9 keys | yes |
 | `reports/verified_experiments.json` | multi | 74,954 | object, 3 keys | yes |
 
@@ -393,10 +393,10 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `datasets/verified_exploits.jsonl` | multi | 4,054 | 5 rows | yes |
-| `datasets/verified_findings.jsonl` | multi | 258,614 | 302 rows | yes |
-| `datasets/verified_negatives.jsonl` | multi | 704,578 | 202 rows | yes |
-| `datasets/verified_patches.jsonl` | multi | 8,500 | 7 rows | yes |
+| `datasets/verified_exploits.jsonl` | multi | 0 | 0 rows | yes |
+| `datasets/verified_findings.jsonl` | multi | 5,658 | 6 rows | yes |
+| `datasets/verified_negatives.jsonl` | multi | 167,297 | 22 rows | yes |
+| `datasets/verified_patches.jsonl` | multi | 0 | 0 rows | yes |
 
 ## training (11)
 
@@ -404,17 +404,17 @@ also excluded: reports/v3/validation_v31.json.
 
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
-| `training/attacker_reasoning.jsonl` | multi | 12,148 | 45 rows | yes |
-| `training/canonical/detection.train.part-000.jsonl` | multi | 184,784 | 232 rows | yes |
-| `training/canonical/language.train.part-000.jsonl` | multi | 6,789,782 | 5000 rows | yes |
-| `training/canonical/language.train.part-001.jsonl` | multi | 3,109,957 | 3050 rows | yes |
-| `training/canonical/manifest.json` | multi | 4,572 | object, 16 keys | yes |
-| `training/canonical/severity.train.part-000.jsonl` | multi | 6,839,871 | 5000 rows | yes |
-| `training/canonical/severity.train.part-001.jsonl` | multi | 2,428,233 | 2661 rows | yes |
+| `training/attacker_reasoning.jsonl` | multi | 0 | 0 rows | yes |
+| `training/canonical/detection.train.part-000.jsonl` | multi | 167,093 | 193 rows | yes |
+| `training/canonical/language.train.part-000.jsonl` | multi | 8,104,637 | 5000 rows | yes |
+| `training/canonical/language.train.part-001.jsonl` | multi | 1,426,475 | 950 rows | yes |
+| `training/canonical/manifest.json` | multi | 4,829 | object, 16 keys | yes |
+| `training/canonical/severity.train.part-000.jsonl` | multi | 8,083,052 | 5000 rows | yes |
+| `training/canonical/severity.train.part-001.jsonl` | multi | 1,459,392 | 969 rows | yes |
 | `training/exploit_reasoning.jsonl` | multi | 0 | 0 rows | yes |
-| `training/negative_reasoning.jsonl` | multi | 21,659 | 96 rows | yes |
+| `training/negative_reasoning.jsonl` | multi | 0 | 0 rows | yes |
 | `training/patch_reasoning.jsonl` | multi | 0 | 0 rows | yes |
-| `training/vulnerability_detection.jsonl` | multi | 82,325 | 45 rows | yes |
+| `training/vulnerability_detection.jsonl` | multi | 0 | 0 rows | yes |
 
 ## harvest (6)
 
@@ -423,7 +423,7 @@ also excluded: reports/v3/validation_v31.json.
 | file | layer | bytes | rows / content | tracked |
 |---|---|---|---|---|
 | `Vbeta/candidates.json` | vbeta | 70,253 | array[111] | yes |
-| `Vbeta/fetched/receipts.jsonl` | vbeta | 8,548 | 15 rows | yes |
+| `Vbeta/fetched/receipts.jsonl` | vbeta | 8,532 | 15 rows | yes |
 | `Vbeta/lisabench_candidates.json` | vbeta | 5,770,458 | array[5175] | yes |
 | `Vbeta/scabench_candidates.json` | vbeta | 713,923 | array[550] | yes |
 | `Vbeta/solodit_candidates.json` | vbeta | 1,963,958 | array[733] | yes |
@@ -437,46 +437,46 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 501,216 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 538,782 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,458 | object, 8 keys | yes |
-| `V4/manifest.json` | meta | 926 | object, 17 keys | yes |
+| `V4/manifest.json` | meta | 919 | object, 17 keys | yes |
 | `V4/sources.json` | meta | 2,130 | array[3] | yes |
-| `Vbeta/present_snapshot.json` | meta | 679 | object, 3 keys | yes |
+| `Vbeta/present_snapshot.json` | meta | 685 | object, 3 keys | yes |
 | `Vbeta/sources.json` | meta | 10,291 | object, 5 keys | yes |
 | `_audit/dependency_leakage.json` | meta | 433 | object, 5 keys | yes |
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
 | `_audit/legal_hygiene.json` | meta | 712 | object, 11 keys | yes |
 | `annotation/iaa_v1/frozen_sample.json` | meta | 1,308 | object, 12 keys | yes |
 | `annotation/iaa_v1/sample.jsonl` | meta | 745,904 | 301 rows | yes |
-| `derived_poc_queue/triage_queue.jsonl` | meta | 1,896,966 | 1046 rows | yes |
+| `derived_poc_queue/triage_queue.jsonl` | meta | 1,837,694 | 1011 rows | yes |
 | `derived_prove/candidate_ledger.jsonl` | meta | 411,379 | 210 rows | yes |
 | `derived_rejections/definitions.json` | meta | 4,583 | object, 6 keys | yes |
-| `derived_rejections/rejection_corpus.jsonl` | meta | 1,795,476 | 458 rows | yes |
-| `derived_siblings/candidates.jsonl` | meta | 1,723,108 | 229 rows | yes |
-| `derived_siblings/hard_negatives.jsonl` | meta | 48,794 | 8 rows | yes |
-| `derived_siblings/manifest.json` | meta | 2,619 | object, 12 keys | yes |
-| `derived_siblings/pool_inputs.json` | meta | 2,847 | object, 5 keys | yes |
-| `derived_siblings/splits.json` | meta | 34,335 | object, 8 keys | yes |
-| `derived_siblings/tasks.jsonl` | meta | 1,682,815 | 221 rows | yes |
-| `derived_span_tasks/answer_key.jsonl` | meta | 11,600,299 | 12504 rows | yes |
-| `derived_span_tasks/manifest.json` | meta | 2,064 | object, 14 keys | yes |
-| `derived_span_tasks/splits.json` | meta | 350,250 | object, 4 keys | yes |
-| `derived_span_tasks/tasks.jsonl` | meta | 12,692,462 | 12504 rows | yes |
-| `derived_v4/admitted_ledger.jsonl` | meta | 21,405,193 | 5268 rows | yes |
-| `derived_v4/candidate_ledger.jsonl` | meta | 654,168 | 5270 rows | yes |
-| `derived_v4/duplicate_ledger.jsonl` | meta | 9,162 | 2 rows | yes |
-| `derived_v4/manifest.json` | meta | 926 | object, 17 keys | yes |
+| `derived_rejections/rejection_corpus.jsonl` | meta | 1,962,695 | 444 rows | yes |
+| `derived_siblings/candidates.jsonl` | meta | 1,932,253 | 255 rows | yes |
+| `derived_siblings/hard_negatives.jsonl` | meta | 67,260 | 11 rows | yes |
+| `derived_siblings/manifest.json` | meta | 2,621 | object, 12 keys | yes |
+| `derived_siblings/pool_inputs.json` | meta | 2,849 | object, 5 keys | yes |
+| `derived_siblings/splits.json` | meta | 37,140 | object, 8 keys | yes |
+| `derived_siblings/tasks.jsonl` | meta | 1,827,425 | 239 rows | yes |
+| `derived_span_tasks/answer_key.jsonl` | meta | 3,948,004 | 4623 rows | yes |
+| `derived_span_tasks/manifest.json` | meta | 2,054 | object, 14 keys | yes |
+| `derived_span_tasks/splits.json` | meta | 129,582 | object, 4 keys | yes |
+| `derived_span_tasks/tasks.jsonl` | meta | 4,682,892 | 4623 rows | yes |
+| `derived_v4/admitted_ledger.jsonl` | meta | 19,762,001 | 2547 rows | yes |
+| `derived_v4/candidate_ledger.jsonl` | meta | 7,737,930 | 2547 rows | yes |
+| `derived_v4/duplicate_ledger.jsonl` | meta | 0 | 0 rows | yes |
+| `derived_v4/manifest.json` | meta | 919 | object, 17 keys | yes |
 | `derived_v4/quarantined_ledger.jsonl` | meta | 0 | 0 rows | yes |
-| `distribution_v1/MANIFEST.json` | meta | 3,735 | object, 17 keys | yes |
+| `distribution_v1/MANIFEST.json` | meta | 3,733 | object, 17 keys | yes |
 | `distribution_v1/digests.jsonl` | meta | 5,279 | 6 rows | yes |
 | `distribution_v1/licence_contradictions.json` | meta | 118 | object, 3 keys | yes |
-| `distribution_v1/records_v1.jsonl` | meta | 1,639,265 | 722 rows | yes |
-| `distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 2,294,241 | 1794 rows | yes |
-| `distribution_v1/records_v4.jsonl` | meta | 15,348,137 | 5268 rows | yes |
-| `distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 17,649,335 | 10070 rows | yes |
-| `distribution_v1/rights_ledger.jsonl` | meta | 17,025,448 | 12893 rows | yes |
-| `distribution_v1/rights_source_registry.json` | meta | 17,374 | object, 6 keys | yes |
+| `distribution_v1/records_v1.jsonl` | meta | 1,928,638 | 685 rows | yes |
+| `distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 4,843,356 | 3567 rows | yes |
+| `distribution_v1/records_v4.jsonl` | meta | 8,456,189 | 2547 rows | yes |
+| `distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 26,322,208 | 14756 rows | yes |
+| `distribution_v1/rights_ledger.jsonl` | meta | 12,924,575 | 9703 rows | yes |
+| `distribution_v1/rights_source_registry.json` | meta | 19,056 | object, 6 keys | yes |
 | `distribution_v1/withheld_harness.jsonl` | meta | 46,768 | 33 rows | yes |
 | `distribution_v1/withheld_pointers_other_layers.jsonl` | meta | 0 | 0 rows | yes |
 | `experiments_nonevm/cairo__CS-HRDTCL-001/blocked-CS-HRDTCL-001/harness.json` | meta | 1,036 | object, 5 keys | yes |
@@ -811,11 +811,11 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_2/result.json` | meta | 1,670 | object, 17 keys | yes |
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/harness.json` | meta | 2,093 | object, 15 keys | yes |
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/result.json` | meta | 1,670 | object, 17 keys | yes |
-| `jsonl_v4/findings.jsonl` | meta | 21,405,193 | 5268 rows | yes |
+| `jsonl_v4/findings.jsonl` | meta | 19,879,163 | 2547 rows | yes |
 | `jsonl_v4/sources.jsonl` | meta | 3,120 | 3 rows | yes |
-| `publish_manifest.json` | meta | 2,081 | object, 17 keys | yes |
-| `taxonomy/assignments_v1.jsonl` | meta | 217,793 | 418 rows | yes |
-| `taxonomy/root_cause_v1.jsonl` | meta | 116,154 | 31 rows | yes |
+| `publish_manifest.json` | meta | 2,423 | object, 17 keys | yes |
+| `taxonomy/assignments_v1.jsonl` | meta | 202,788 | 387 rows | yes |
+| `taxonomy/root_cause_v1.jsonl` | meta | 116,603 | 31 rows | yes |
 | `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 918 | 1 rows | yes |
 | `tests/fixtures/broken/abstain_on_verified_task.json` | meta | 122 | object, 2 keys | yes |
 | `tests/fixtures/broken/assignments_evidence_mismatch.jsonl` | meta | 452 | 1 rows | yes |
@@ -827,13 +827,13 @@ also excluded: reports/v3/validation_v31.json.
 | `tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl` | meta | 352 | 1 rows | yes |
 | `tests/fixtures/broken/bad_hash/distribution_v1/MANIFEST.json` | meta | 964 | object, 12 keys | yes |
 | `tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl` | meta | 1,024 | 1 rows | yes |
-| `tests/fixtures/broken/bad_hash_verified_key.json` | meta | 1,060 | object, 11 keys | yes |
+| `tests/fixtures/broken/bad_hash_verified_key.json` | meta | 1,061 | object, 11 keys | yes |
 | `tests/fixtures/broken/claims_recovery_with_blocker/result.json` | meta | 1,249 | object, 20 keys | yes |
 | `tests/fixtures/broken/contradictory_licence/V4/manifest.json` | meta | 297 | object, 7 keys | yes |
 | `tests/fixtures/broken/contradictory_licence/V4/sources.json` | meta | 783 | array[2] | yes |
 | `tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl` | meta | 1,047 | 2 rows | yes |
 | `tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl` | meta | 833 | 1 rows | yes |
-| `tests/fixtures/broken/exact_bounds_bad_hash_submission.json` | meta | 198 | object, 3 keys | yes |
+| `tests/fixtures/broken/exact_bounds_bad_hash_submission.json` | meta | 199 | object, 3 keys | yes |
 | `tests/fixtures/broken/fork_block_changed_no_scope_note/result.json` | meta | 1,039 | object, 20 keys | yes |
 | `tests/fixtures/broken/hash_mismatch/result.json` | meta | 1,240 | object, 22 keys | yes |
 | `tests/fixtures/broken/iaa_report_llm_as_iaa.json` | meta | 832 | object, 8 keys | yes |
@@ -891,25 +891,25 @@ also excluded: reports/v3/validation_v31.json.
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/assertion.json` | meta | 194 | object, 6 keys | yes |
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/harness.json` | meta | 180 | object, 4 keys | yes |
 | `tests/fixtures/nonevm_good/cw-1.5.4-release-pow/result.json` | meta | 1,694 | object, 16 keys | yes |
-| `wave1/00_governance/PRESENT.md.json` | meta | 2,669 | object, 6 keys | yes |
+| `wave1/00_governance/PRESENT.md.json` | meta | 2,875 | object, 6 keys | yes |
 | `wave1/00_governance/label_domains.json` | meta | 1,842 | object, 4 keys | yes |
-| `wave1/00_governance/rights.jsonl` | meta | 2,621 | 7 rows | yes |
+| `wave1/00_governance/rights.jsonl` | meta | 2,485 | 7 rows | yes |
 | `wave1/00_governance/source_registry.jsonl` | meta | 1,731 | 6 rows | yes |
 | `wave1/01_dedup/overlap_manifest.jsonl` | meta | 358,999 | 896 rows | yes |
 | `wave1/01_dedup/registry.jsonl` | meta | 5,263,209 | 24074 rows | yes |
 | `wave1/01_dedup/registry_summary.json` | meta | 689 | object, 6 keys | yes |
-| `wave1/03_candidates/c4_mitigation/issues.jsonl` | meta | 881,419 | 812 rows | yes |
-| `wave1/03_candidates/formal_specs/rules.jsonl` | meta | 6,943,886 | 7088 rows | yes |
-| `wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl` | meta | 37,372 | 35 rows | yes |
-| `wave1/03_candidates/judge/issues.jsonl` | meta | 1,047,734 | 1153 rows | yes |
-| `wave1/03_candidates/markdown_two_revision/candidates.jsonl` | meta | 801,174 | 786 rows | yes |
-| `wave1/03_candidates/reevmbench/harnesses.jsonl` | meta | 68,524 | 67 rows | yes |
-| `wave1/04_admitted/c4_mitigation/findings.jsonl` | meta | 470,483 | 531 rows | yes |
-| `wave1/04_admitted/formal_specs/findings.jsonl` | meta | 978,853 | 895 rows | yes |
-| `wave1/04_admitted/ghsa_web3_netnew/findings.jsonl` | meta | 33,343 | 31 rows | yes |
-| `wave1/04_admitted/judge/findings.jsonl` | meta | 199,403 | 99 rows | yes |
-| `wave1/04_admitted/markdown_two_revision/findings.jsonl` | meta | 527,582 | 575 rows | yes |
-| `wave1/04_admitted/reevmbench/findings.jsonl` | meta | 41,553 | 55 rows | yes |
+| `wave1/03_candidates/c4_mitigation/issues.jsonl` | meta | 879,258 | 336 rows | yes |
+| `wave1/03_candidates/formal_specs/rules.jsonl` | meta | 29,349,449 | 6767 rows | yes |
+| `wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl` | meta | 0 | 0 rows | yes |
+| `wave1/03_candidates/judge/issues.jsonl` | meta | 1,635,757 | 613 rows | yes |
+| `wave1/03_candidates/markdown_two_revision/candidates.jsonl` | meta | 1,589,185 | 556 rows | yes |
+| `wave1/03_candidates/reevmbench/harnesses.jsonl` | meta | 243,169 | 62 rows | yes |
+| `wave1/04_admitted/c4_mitigation/findings.jsonl` | meta | 598,754 | 244 rows | yes |
+| `wave1/04_admitted/formal_specs/findings.jsonl` | meta | 3,995,060 | 895 rows | yes |
+| `wave1/04_admitted/ghsa_web3_netnew/findings.jsonl` | meta | 0 | 0 rows | yes |
+| `wave1/04_admitted/judge/findings.jsonl` | meta | 275,316 | 71 rows | yes |
+| `wave1/04_admitted/markdown_two_revision/findings.jsonl` | meta | 1,039,158 | 373 rows | yes |
+| `wave1/04_admitted/reevmbench/findings.jsonl` | meta | 190,280 | 51 rows | yes |
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-05-asymmetry-mitigation-findings__70/result.json` | meta | 3,955 | object, 20 keys | yes |
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-07-angle-mitigation-findings__26/result.json` | meta | 2,805 | object, 20 keys | yes |
 | `wave1/05_experiments/prove_candidates/c4_mitigation__code-423n4__2023-07-angle-mitigation-findings__29/result.json` | meta | 2,805 | object, 20 keys | yes |
@@ -983,24 +983,24 @@ also excluded: reports/v3/validation_v31.json.
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0023/result.json` | meta | 2,124 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0024/result.json` | meta | 2,129 | object, 20 keys | yes |
 | `wave1/05_experiments/reevmbench/reevmbench__clarahacks__clarahacks__ch-0025/result.json` | meta | 2,134 | object, 20 keys | yes |
-| `wave1/benchmark_wave1/F_false_positive_rejection.jsonl` | meta | 107,756 | 212 rows | yes |
-| `wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl` | meta | 320,619 | 594 rows | yes |
-| `wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl` | meta | 411,736 | 527 rows | yes |
-| `wave1/benchmark_wave1/G_patch_verification.jsonl` | meta | 219,547 | 531 rows | yes |
+| `wave1/benchmark_wave1/F_false_positive_rejection.jsonl` | meta | 340,460 | 147 rows | yes |
+| `wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl` | meta | 1,014,535 | 426 rows | yes |
+| `wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl` | meta | 649,085 | 255 rows | yes |
+| `wave1/benchmark_wave1/G_patch_verification.jsonl` | meta | 480,017 | 244 rows | yes |
 | `wave1/benchmark_wave1/J_verified_patch.jsonl` | meta | 0 | 0 rows | yes |
-| `wave1/benchmark_wave1/invariants.jsonl` | meta | 224,906 | 297 rows | yes |
-| `wave1/benchmark_wave1/prove_candidates.jsonl` | meta | 9,506 | 18 rows | yes |
-| `wave1/benchmark_wave1/prove_incidents.jsonl` | meta | 23,705 | 55 rows | yes |
-| `wave1/benchmark_wave1/severity_reconciliation.jsonl` | meta | 364,363 | 606 rows | yes |
-| `wave1/reports_wave1/build_wave1.json` | meta | 510 | object, 6 keys | yes |
-| `wave1/reports_wave1/dedup_check.json` | meta | 405 | object, 9 keys | yes |
+| `wave1/benchmark_wave1/invariants.jsonl` | meta | 1,199,726 | 297 rows | yes |
+| `wave1/benchmark_wave1/prove_candidates.jsonl` | meta | 23,290 | 10 rows | yes |
+| `wave1/benchmark_wave1/prove_incidents.jsonl` | meta | 173,564 | 51 rows | yes |
+| `wave1/benchmark_wave1/severity_reconciliation.jsonl` | meta | 927,132 | 373 rows | yes |
+| `wave1/reports_wave1/build_wave1.json` | meta | 803 | object, 6 keys | yes |
+| `wave1/reports_wave1/dedup_check.json` | meta | 337 | object, 8 keys | yes |
 | `wave1/reports_wave1/execution_summary.json` | meta | 13,782 | object, 9 keys | yes |
 | `wave1/reports_wave1/formal_harvest.json` | meta | 4,054 | object, 25 keys | yes |
-| `wave1/reports_wave1/ghsa_harvest.json` | meta | 4,775 | object, 9 keys | yes |
-| `wave1/reports_wave1/group_split_report.json` | meta | 16,201 | object, 4 keys | yes |
-| `wave1/reports_wave1/judge_harvest.json` | meta | 6,464 | object, 31 keys | yes |
-| `wave1/reports_wave1/markdown_harvest.json` | meta | 2,232 | object, 22 keys | yes |
-| `wave1/reports_wave1/mitigation_harvest.json` | meta | 2,355 | object, 17 keys | yes |
+| `wave1/reports_wave1/ghsa_harvest.json` | meta | 1,246 | object, 9 keys | yes |
+| `wave1/reports_wave1/group_split_report.json` | meta | 15,942 | object, 4 keys | yes |
+| `wave1/reports_wave1/judge_harvest.json` | meta | 6,453 | object, 31 keys | yes |
+| `wave1/reports_wave1/markdown_harvest.json` | meta | 2,145 | object, 22 keys | yes |
+| `wave1/reports_wave1/mitigation_harvest.json` | meta | 2,352 | object, 17 keys | yes |
 | `wave1/reports_wave1/reevmbench_harvest.json` | meta | 3,173 | object, 24 keys | yes |
-| `wave1/reports_wave1/split_rebalance.json` | meta | 1,612 | object, 3 keys | yes |
-| `wave1/reports_wave1/validate_wave1.json` | meta | 6,107 | object, 4 keys | yes |
+| `wave1/reports_wave1/split_rebalance.json` | meta | 1,640 | object, 3 keys | yes |
+| `wave1/reports_wave1/validate_wave1.json` | meta | 8,911 | object, 3 keys | yes |

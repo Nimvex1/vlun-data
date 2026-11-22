@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -143,11 +144,42 @@ def ignored_set() -> set[str]:
     return set(proc.stdout.splitlines())
 
 
+def _excluded_dir(rel_dir: str) -> bool:
+    """True when a repo-relative directory is one EXCLUDED_PREFIXES drops.
+
+    This mirrors the per-file filter in ``scan`` exactly: a directory is
+    pruned iff every file beneath it would be rejected by that same prefix
+    test.  Directories that are only git-ignored/untracked are still yielded
+    and filtered by the git-based checks below, so the catalog output is
+    byte-for-byte unchanged.
+    """
+    return any(rel_dir == pre[:-1] or rel_dir.startswith(pre)
+               for pre in EXCLUDED_PREFIXES)
+
+
+def pruned_walk(root: Path):
+    """Yield files under ``root``, pruning excluded directories in place.
+
+    ``Path.rglob('*')`` has no in-place pruning: it descends into work/ (half
+    a million machine-local files), .git/ and the other excluded trees before
+    the per-file filters in ``scan`` can reject them.  Pruning at the top of
+    the walk callback keeps those trees out of the scan entirely.
+    """
+    for dirpath, dirnames, filenames in os.walk(root, topdown=True):
+        rel_dir = Path(dirpath).relative_to(root).as_posix()
+        dirnames[:] = [
+            d for d in dirnames
+            if not _excluded_dir(d if rel_dir == "." else f"{rel_dir}/{d}")
+        ]
+        for name in filenames:
+            yield Path(dirpath) / name
+
+
 def scan() -> list[str]:
     ignored = ignored_set()
     tracked = tracked_set()
     out = []
-    for path in ROOT.rglob("*"):
+    for path in pruned_walk(ROOT):
         if not path.is_file() or path.suffix not in (".json", ".jsonl"):
             continue
         rel = path.relative_to(ROOT).as_posix()

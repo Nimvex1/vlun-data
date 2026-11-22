@@ -1,22 +1,22 @@
 {
-  "admitted": 5268,
-  "candidate_ledger": 5270,
+  "admitted": 2547,
+  "candidate_ledger": 2547,
   "candidate_verification_levels": {
-    "L0": 5270
+    "L0": 2547
   },
-  "candidates": 5270,
+  "candidates": 2547,
   "dataset_version": "4.0",
-  "duplicates": 2,
-  "extracted_findings": 5270,
+  "duplicates": 0,
+  "extracted_findings": 2547,
   "generated_by": "scripts/register_v4.py",
   "languages": {
-    "go": 3394,
-    "michelson": 4,
-    "move": 5,
-    "rust": 143,
-    "solidity": 1555,
-    "teal": 14,
-    "unknown": 155
+    "go": 2200,
+    "michelson": 1,
+    "move": 1,
+    "rust": 45,
+    "solidity": 281,
+    "teal": 3,
+    "unknown": 16
   },
   "layer": "V4",
   "licensing_risks": [
@@ -24,18 +24,18 @@
     "coinfabrik_audit_reports: no LICENSE file found",
     "oak_security_audit_reports: CC BY-ND 4.0"
   ],
-  "missing_provenance": 2554,
+  "missing_provenance": 796,
   "quarantined": 0,
   "reports_by_source": {
-    "coinfabrik_audit_reports": 226,
-    "halborn_public_reports": 1785,
-    "oak_security_audit_reports": 3259
+    "coinfabrik_audit_reports": 62,
+    "halborn_public_reports": 249,
+    "oak_security_audit_reports": 2236
   },
   "source_candidates_staged": 666,
   "verification_levels": {
-    "L0": 5268
+    "L0": 2547
   },
   "vulnerability_classes": {
-    "unknown": 5270
+    "unknown": 2547
   }
 }

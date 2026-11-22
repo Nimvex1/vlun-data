@@ -31,8 +31,18 @@
     "mitigation commits are cumulative"
   ],
   "validation_checks": "83/85",
-  "validation_checks_passed": "85/85",
-  "validation_failed_checks": [],
+  "validation_checks_passed": "84/85",
+  "validation_failed_checks": [
+    {
+      "check": "snippet_length_plausible",
+      "failures": [
+        "findings.jsonl 2024-01-decent/H-04 decentxyz/decent-bridge/src/DecentEthRouter.sol snippet far longer than its claimed range",
+        "findings.jsonl 2024-01-decent/H-04 decentxyz/decent-bridge/src/DecentEthRouter.sol snippet far longer than its claimed range",
+        "findings.jsonl 2024-12-bakerfi/M-16 code-423n4/2024-12-bakerfi/contracts/core/strategies/StrategySupplyBase.sol snippet far longer than its claimed range"
+      ],
+      "group": "provenance"
+    }
+  ],
   "validation_failures": 0,
-  "validation_warnings": 0
+  "validation_warnings": 1
 }

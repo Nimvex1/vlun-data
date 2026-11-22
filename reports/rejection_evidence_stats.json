@@ -1,7 +1,7 @@
 {
   "attributed_statement_classes": {
     "design_or_scope_exclusion": 4,
-    "participant_only": 22,
+    "participant_only": 19,
     "technical_refutation": 5
   },
   "code_gate_axis": {
@@ -18,19 +18,20 @@
     "neighbouring_gate_declared_by_layer": 4
   },
   "corroboration_by_method": {
-    "duplicate_of_issue_number_unresolved:none": 145,
-    "explicit_duplicate_of_pointer:high": 193,
-    "same_code_target_same_audit:low": 921
+    "duplicate_of_issue_number_unresolved:none": 143,
+    "duplicate_of_pointer_unresolved:none": 1,
+    "explicit_duplicate_of_pointer:high": 188,
+    "same_code_target_same_audit:low": 1547
   },
   "definitions_version": "rejection-definitions-1.0",
   "exploit_attempt_status": {
     "claimed_violation_demonstrated": 1,
     "environment_unavailable": 2,
-    "not_attempted": 455
+    "not_attempted": 441
   },
   "is_false_positive": {
-    "False": 193,
-    "None": 265
+    "False": 188,
+    "None": 256
   },
   "metric_definitions": {
     "claim_corroborated_as_duplicate_of_confirmed_finding": {
@@ -71,12 +72,12 @@
     }
   },
   "metrics": {
-    "claim_corroborated_as_duplicate_of_confirmed_finding": 193,
+    "claim_corroborated_as_duplicate_of_confirmed_finding": 188,
     "exploit_attempted_and_claimed_violation_not_demonstrated": 0,
     "reason_attributed_to_judge_or_sponsor": 9,
     "reason_supported_by_cited_code": 1,
-    "rejection_status_publicly_reported": 458,
-    "unknown_or_insufficient_evidence": 256
+    "rejection_status_publicly_reported": 444,
+    "unknown_or_insufficient_evidence": 247
   },
   "metrics_sum_note": "these six metrics are independent axes and are NOT additive: one record can appear in several of them",
   "primary_precedence": [
@@ -97,26 +98,26 @@
   "primary_reason_class": {
     "business_scenario_exclusion": 4,
     "code_derived_blocker": 1,
-    "corroborated_duplicate": 191,
-    "dispute_or_invalid_label": 18,
+    "corroborated_duplicate": 186,
+    "dispute_or_invalid_label": 15,
     "duplicate_label_unresolved_pointer": 138,
     "experimentally_confirmed_underlying_issue": 1,
     "public_judge_or_sponsor_explanation": 5,
-    "scope_or_eligibility_label": 10,
-    "withdrawn_by_author": 90
+    "scope_or_eligibility_label": 6,
+    "withdrawn_by_author": 88
   },
   "reason_class_any": {
     "business_scenario_exclusion": 4,
     "code_derived_blocker": 1,
     "code_gate_context_only": 7,
-    "corroborated_duplicate": 193,
-    "dispute_or_invalid_label": 112,
-    "duplicate_label_unresolved_pointer": 145,
+    "corroborated_duplicate": 188,
+    "dispute_or_invalid_label": 106,
+    "duplicate_label_unresolved_pointer": 144,
     "experimentally_confirmed_underlying_issue": 1,
     "public_judge_or_sponsor_explanation": 5,
-    "scope_or_eligibility_label": 10,
-    "unattributed_participant_discussion": 22,
-    "withdrawn_by_author": 90
+    "scope_or_eligibility_label": 6,
+    "unattributed_participant_discussion": 19,
+    "withdrawn_by_author": 88
   },
   "reason_class_vocabulary": [
     "executionally_disproven",
@@ -141,5 +142,5 @@
     "code_gate_refutes_claim_standing": 1
   },
   "technical_reason_for_why_the_claim_is_false": 6,
-  "total": 458
+  "total": 444
 }

@@ -9,44 +9,44 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 
 | Layer | Source | Records | Strongest evidence |
 |---|---|---|---|
-| v1 | 8 Code4rena audits (Solidity) | 722 derived | 9 pinpoint experiments, **7** L6 verified patches |
-| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 137 | 37 executed runs, levels `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}` |
+| v1 | 8 Code4rena audits (Solidity) | 685 derived | 9 pinpoint experiments, **7** L6 verified patches |
+| v2.2 | advisories/audits/bounties/post-mortems, 5 languages | 61 | 37 executed runs, levels `{'L1': 1, 'L3': 1, 'L4': 29, 'L5': 5, 'L6': 1, 'none': 100}` |
 | V3.0 | 18 new archives (audits, contests, incident PoCs, 1 research dataset) | 5,467 admitted / 7,712 candidates | levels `{"L0": 4586, "L1": 754, "L3": 115, "L4": 7, "L5": 5}` after the V3.2 execution overlay |
-| V3.1 | normalized findings with spans + overlays | 12,504 preview rows (7,037 new) | severity on 11,610, class on 2,093, files on 5,790 |
+| V3.1 | normalized findings with spans + overlays | 4,623 preview rows (7,037 new) | severity on 10,792, class on 2,093, files on 5,744 |
 | V3.2 | fork executions of incident PoCs | 18 runs | **5** L5 reproduced violations (fund_theft), 6 not reproduced at L3 (blocked or test failure) |
-| Vbeta | 15 new sources (incl. Solodit mirror) | 6,935 admitted / 7,060 candidates | L0/L1 only — nothing executed in this pass |
-| V4 | 666 report candidates from Halborn/Oak/CoinFabrik archives | 5,268 admitted | all L0 — no PoC execution performed |
-| wave1 | isolated METADATA_ONLY research tree | 2,186 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds 0 rows |
+| Vbeta | 15 new sources (incl. Solodit mirror) | 80 admitted / 80 candidates | L0/L1 only — nothing executed in this pass |
+| V4 | 666 report candidates from Halborn/Oak/CoinFabrik archives | 2,547 admitted | all L0 — no PoC execution performed |
+| wave1 | isolated METADATA_ONLY research tree | 1,634 admitted | 55 incident harnesses + 18 prove candidates attempted; **7 L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds 0 rows |
 
-Gates (0 critical failures): v2 85/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
+Gates (0 critical failures): v2 84/85 · v3.0 46/46 · v3.1 44/44 · Vbeta 34/34. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
-Verification density (L5+L6 ÷ admitted records): v1 7/722 · v2.2 6/137 · V3.0 5/5,467 · Vbeta 0/6,935 (L0/L1-only by construction) · V4 0/5,268 (L0-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/722 · v2.2 6/137 · V3.0 127/5,467 · Vbeta 0/6,935 · V4 0/5,268. Depth is reported next to scale so dilution is visible, not hidden.
+Verification density (L5+L6 ÷ admitted records): v1 7/685 · v2.2 6/61 · V3.0 5/5,467 · Vbeta 0/80 (L0/L1-only by construction) · V4 0/2,547 (L0-only by construction). Counted as executed evidence (any level above L1, i.e. a real compile or run artefact): v1 7/685 · v2.2 6/61 · V3.0 127/5,467 · Vbeta 0/80 · V4 0/2,547. Depth is reported next to scale so dilution is visible, not hidden.
 
 ## Layout
 
 ```
-jsonl/            ORIGINAL v1 evidence layer (264 findings, 458 negatives, 155 exploits, 38 patches). Never rewritten.
-derived/          enriched v1 records (722): evidence, attacker model, state transition, taxonomy, quality
+jsonl/            ORIGINAL v1 evidence layer (241 findings, 444 negatives, 154 exploits, 37 patches). Never rewritten.
+derived/          enriched v1 records (685): evidence, attacker model, state transition, taxonomy, quality
 experiments/      one directory per attempted exploit (harness, command, stdout, stderr, result.json)
 jsonl_ml/         v2.2 source layer (137 findings, 112 sources). Read-only.
-derived_v2_2/     v2.2 derived records (137) with quality rubric + experiment view
-splits_v2_2/      v2.2 splits (train 76, validation 30, test 31, quarantine 2)
+derived_v2_2/     v2.2 derived records (61) with quality rubric + experiment view
+splits_v2_2/      v2.2 splits (train 41, validation 9, test 11, quarantine 2)
 experiments_v2_2/ executed multi-language runs
 jsonl_v3/         v3 source layer (7,712 candidates, 18 sources). Read-only.
-derived_v3/       v3 records (5,467) + v3.1 fragments/overlays/preview (12,504 rows)
+derived_v3/       v3 records (5,467) + v3.1 fragments/overlays/preview (4,623 rows)
 splits_v3/        by-source splits, no source spans splits
 experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harness manifest, result.json)
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        19 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (13,154 tasks)
+benchmark/        19 families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta (160 tasks)
 benchmark/retired_families/  retired families (B, E, K, L, M, N, O, P, S, T) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
-Vbeta/            isolated new-language layer (6,935 admitted / 7,060 candidates, 15 sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
-V4/               isolated Halborn/Oak/CoinFabrik layer (5,268 admitted, all L0): jsonl_v4/, derived_v4/, licensing.json; METADATA_ONLY
-wave1/            isolated METADATA_ONLY research tree (2,186 admitted, 24,074-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
+Vbeta/            isolated new-language layer (80 admitted / 80 candidates, 15 sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
+V4/               isolated Halborn/Oak/CoinFabrik layer (2,547 admitted, all L0): jsonl_v4/, derived_v4/, licensing.json; METADATA_ONLY
+wave1/            isolated METADATA_ONLY research tree (1,634 admitted, 24,074-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
 nextdata/ + .firecrawl/  local-only Solodit scrape artefacts (1,926 issue URLs indexed, 733 detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
@@ -80,20 +80,20 @@ forge reported `Success`, and no patch is called effective without the controlle
 - **v1/v2:** 9 pinpoint experiments
   (2 inconclusive, missing symbol recorded);
   **7** patches verified effective;
-  rejection evidence over 458 rejected submissions (axes are independent
+  rejection evidence over 444 rejected submissions (axes are independent
   and not additive): 9 carry a reason
   attributed to a named judge or sponsor, 1 where
   a gate in the cited code removes the standing the claim itself asserts,
   **6** in total have a technical reason
-  the claim is false, 193 are
+  the claim is false, 188 are
   corroborated as duplicates of an accepted finding (redundancy, not falsity),
   0 had an exploit
   attempted that did not demonstrate the violation, and
-  256 rest on a public label alone — definitions
+  247 rest on a public label alone — definitions
   in [`reports/rejection_evidence.md`](reports/rejection_evidence.md);
   71 API-sibling counterexample pairs.
 - **v2.2:** 37 executed runs;
-  123 of 137 records state no attacker standing.
+  123 of 61 records state no attacker standing.
 - **V3.0:** 3,517 strong imports +
   1,934 unverified imports +
   16 hard negatives +
@@ -131,11 +131,11 @@ forge reported `Success`, and no patch is called effective without the controlle
   met: only 8 tasks have
   both revisions executed today, and each further task needs a pinned fix and a test run on
   both sides before it can be counted.
-- **Vbeta:** 6,935 admitted records from 7,060 candidates
-  (64 IMPORT, 6,866 unverified,
-  5 negatives, 62 research-only);
-  79 L1 quoted-PoC rows (rest L0); languages `["cairo", "go", "move", "rust", "solidity", "unknown", "vyper"]`;
-  splits train 683 / validation 584 / test 5,668.
+- **Vbeta:** 80 admitted records from 80 candidates
+  (0 IMPORT, 80 unverified,
+  0 negatives, 0 research-only);
+  12 L1 quoted-PoC rows (rest L0); languages `["go", "rust", "solidity"]`;
+  splits train 80 / validation 0 / test 0.
 - Full per-source accounting, unknowns with resolving evidence, and extraction failures:
   [`reports/v2_1_quality_report.md`](reports/v2_1_quality_report.md),
   [`reports/v2_2/quality_report.md`](reports/v2_2/quality_report.md),
@@ -166,30 +166,30 @@ families that need experimentally produced ground truth only admit rows that hav
 
 | Family | Tasks | Scorable | Status | Layer |
 |---|---|---|---|---|
-| `A_vulnerability_detection` | 720 | 720 | PRIMARY | v1/A-Q |
+| `A_vulnerability_detection` | 658 | 658 | PRIMARY | v1/A-Q |
 | `B_root_cause_reasoning` | 720 | 228 | EXPLORATORY | v1/A-Q (retired) |
-| `C_attacker_reasoning` | 720 | 290 | INVALID | v1/A-Q |
-| `D_exploit_construction` | 720 | 0 | NOT_SCORABLE | v1/A-Q |
+| `C_attacker_reasoning` | 658 | 393 | PRIMARY | v1/A-Q |
+| `D_exploit_construction` | 644 | 0 | NOT_SCORABLE | v1/A-Q |
 | `E_exploit_verification` | 720 | 7 | INVALID | v1/A-Q (retired) |
-| `F_false_positive_rejection` | 458 | 17 | EXPLORATORY | v1/A-Q |
-| `Fa_rejection_evidence_axis_vector` | 458 | 0 | NOT_SCORABLE | v1/A-Q |
-| `Fb_duplicate_radar_pair` | 552 | 0 | NOT_SCORABLE | v1/A-Q |
-| `G_patch_verification` | 38 | 7 | EXPLORATORY | v1/A-Q |
+| `F_false_positive_rejection` | 440 | 17 | EXPLORATORY | v1/A-Q |
+| `Fa_rejection_evidence_axis_vector` | 444 | 0 | NOT_SCORABLE | v1/A-Q |
+| `Fb_duplicate_radar_pair` | 651 | 0 | NOT_SCORABLE | v1/A-Q |
+| `G_patch_verification` | 37 | 7 | EXPLORATORY | v1/A-Q |
 | `H_verified_exploit` | 7 | 0 | NOT_SCORABLE | v1/A-Q |
 | `I_verified_non_exploit` | 3 | 1 | EXPLORATORY | v1/A-Q |
-| `J_verified_patch` | 7 | 7 | EXPLORATORY | v1/A-Q |
+| `J_verified_patch` | 3 | 3 | EXPLORATORY | v1/A-Q |
 | `K_language_ecosystem_routing` | 137 | 137 | INVALID | v1/A-Q (retired) |
 | `L_severity_reconciliation` | 137 | 128 | INVALID | v1/A-Q (retired) |
 | `M_experiment_level_classification` | 37 | 37 | EXPLORATORY | v1/A-Q (retired) |
 | `N_attacker_identity_extraction` | 137 | 14 | INVALID | v1/A-Q (retired) |
 | `O_record_class_and_scope` | 137 | 137 | INVALID | v1/A-Q (retired) |
 | `P_provenance_tier_and_rights` | 137 | 137 | INVALID | v1/A-Q (retired) |
-| `Q_evidence_type_and_quality_rubric` | 137 | 0 | NOT_SCORABLE | v1/A-Q |
-| `R_v3_source_tier_routing` | 5,467 | 5,467 | INVALID | v3 |
-| `S_v3_contest_outcome` | 1,072 | 1,072 | INVALID | v3 (retired) |
-| `T_v31_taxonomy_explicit` | 589 | 589 | INVALID | v3 (retired) |
-| `vbeta_U_language_routing` | 6,219 | 6,219 | INVALID | Vbeta |
-| `vbeta_V_source_tier_routing` | 6,935 | 6,935 | INVALID | Vbeta |
+| `Q_evidence_type_and_quality_rubric` | 61 | 0 | NOT_SCORABLE | v1/A-Q |
+| `R_v3_source_tier_routing` | 4,623 | 4,623 | INVALID | v3 |
+| `S_v3_contest_outcome` | 331 | 331 | INVALID | v3 (retired) |
+| `T_v31_taxonomy_explicit` | 0 | 0 | EXPLORATORY | v3 (retired) |
+| `vbeta_U_language_routing` | 80 | 80 | INVALID | Vbeta |
+| `vbeta_V_source_tier_routing` | 80 | 80 | EXPLORATORY | Vbeta |
 
 `Tasks` is every row of the family file; `Scorable` is the number of those rows that carry a
 real scalar answer key for the headline exact-match projection — a family graded under a
@@ -207,27 +207,27 @@ an evaluation claim:
 | `UNKNOWN` | a family file on disk that no rule covers — fail-closed, never primary | no |
 
 The exact-match scorer (`scripts/score_benchmark.py`, rubric in `docs/RUBRIC.md`, keys in
-`docs/ANSWER_KEY.md`) covers 720 of
-23,200 manifest-scorable tasks in its primary metric. The
+`docs/ANSWER_KEY.md`) covers 1,051 of
+7,935 manifest-scorable tasks in its primary metric. The
 rest are reported in their own blocks and never in the headline: the
-4 INVALID families' 18,911 scorable rows (C, R, U, V),
-the 4 EXPLORATORY families' 32 sub-floor rows (F, G, I, J),
-the 10 retired families' 2,486 scorable rows (B, E, K, L, M, N, O, P, S, T —
+2 INVALID families' 4,703 scorable rows (R, U),
+the 5 EXPLORATORY families' 108 sub-floor rows (F, G, I, J, V),
+the 10 retired families' 1,156 scorable rows (B, E, K, L, M, N, O, P, S, T —
 retirement is a location, not a verdict), plus the D, Fa, Fb, H, Q families that have no
-exactly-matchable key (1,874 rows), excluded with stated reasons. Two of those
+exactly-matchable key (1,807 rows), excluded with stated reasons. Two of those
 families are not left unscored: the F-extension is graded by its own scorer under its own
 task contracts — `Fa_rejection_evidence_axis_vector` per axis over the assessed axes
-(9 of 458 rows carry evidence for every
-axis; 449 partial) and `Fb_duplicate_radar_pair` as a three-class
-pair adjudication (552 pairs: 184
-same, 106 distinct,
-262 ambiguous), with published trivial-predictor floors
+(9 of 444 rows carry evidence for every
+axis; 435 partial) and `Fb_duplicate_radar_pair` as a three-class
+pair adjudication (651 pairs: 179
+same, 101 distinct,
+371 ambiguous), with published trivial-predictor floors
 ([`reports/f_extension.md`](reports/f_extension.md),
 [`reports/f_extension_baselines.json`](reports/f_extension_baselines.json)). The table's 0
 for both is a scope statement about the headline projection, never a claim that the rows
 went unscored. The four blocks
 partition every scored family, and the continuity twin below covers all
-22,149 of them.
+7,018 of them.
 
 **The benchmark is OPEN-KEY.** Every benchmark family row carries its answer key in the same
 file as its input, and those files are committed in this public repository, so the keys are
@@ -248,23 +248,23 @@ releases.
 
 | Baseline | Primary acc @ predicted/scorable | Primary acc over scorable | Continuity acc @ predicted/scorable |
 |---|---|---|---|
-| majority | 0.7306 @ 720/720 | 0.7306 | 0.8687 @ 22,134/22,149 |
-| random-seed7 | 0.5042 @ 720/720 | 0.5042 | 0.3980 @ 22,134/22,149 |
-| frequency-seed7 | 0.6042 @ 720/720 | 0.6042 | 0.8161 @ 22,134/22,149 |
-| first-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,149 |
-| majority-published (L only, retired family) | n/a @ 0/720 | 0.0000 | 1.0000 @ 71/22,149 |
-| TF-IDF retrieval | 0.4361 @ 720/720 | 0.4361 | 0.8937 @ 22,134/22,149 |
+| majority | 0.7897 @ 1,051/1,051 | 0.7897 | 0.7303 @ 7,007/7,018 |
+| random-seed7 | 0.3987 @ 1,051/1,051 | 0.3987 | 0.4169 @ 7,007/7,018 |
+| frequency-seed7 | 0.6403 @ 1,051/1,051 | 0.6403 | 0.6684 @ 7,007/7,018 |
+| first-published (L only, retired family) | n/a @ 0/1,051 | 0.0000 | 1.0000 @ 71/7,018 |
+| majority-published (L only, retired family) | n/a @ 0/1,051 | 0.0000 | 1.0000 @ 71/7,018 |
+| TF-IDF retrieval | 0.6746 @ 1,051/1,051 | 0.6746 | 0.7927 @ 7,007/7,018 |
 
 first-published and majority-published are L-only predictors over a retired family:
 they emit nothing on the primary set by construction, so their primary accuracy is
 **n/a with zero predictions**, never a 0.0000 that reads as a scored result — the
 `over scorable` column is where the abstention shows as 0.0000 of
-720 primary scorable tasks.
-The 4 INVALID families (C, R, U, V) carry no headline claim: a
+1,051 primary scorable tasks.
+The 2 INVALID families (R, U) carry no headline claim: a
 validity flag makes them unusable as evaluation evidence, and a model score there would be
 a score on a task that is not a task. Their rows stay in the dataset and stay scored, in
 `families_invalid`, and are never counted in the headline.
-The 4 EXPLORATORY families (F, G, I, J) are demoted: below the
+The 5 EXPLORATORY families (F, G, I, J, V) are demoted: below the
 100-row floor, a holdout too small to estimate
 on, or a single observed label. A family whose scorable rows carry one label is **not
 evaluable** for accuracy at all — its accuracy is null with the reason
@@ -273,9 +273,9 @@ label distribution.
 
 The headline number is a label-distribution diagnostic over the primary set's scorable rows
 (train, validation and test together). The number a model result has to beat is the held-out
-one: on the primary family's 147 test rows the train-only majority
-floor is 0.5510, the seeded random 0.5238, the
-label-frequency 0.4966 and the retrieval 0.2925. Every
+one: on the primary family's 173 test rows the train-only majority
+floor is 0.6228, the seeded random 0.5263, the
+label-frequency 0.5088 and the retrieval 0.5000. Every
 floor is fitted on the train rows only; a floor fitted on the held-out rows would have seen
 the answers it is scored against. A split-blind floor is a validity hazard.
 `scripts/check_manifests.py` recomputes every one of these
@@ -299,7 +299,7 @@ with its manifest fails the build.
   they stay in the research tree, and this project grants no redistribution right over them.
   Third-party source is not licensed here at all.
 
-- 424 v1 records
+- 442 v1 records
   carry verbatim source from repositories declaring no licence (flagged per record; re-measured
    from the text itself in `reports/third_party_audit.json`).
 
@@ -449,10 +449,10 @@ facts; full prose one hop away, never copied in). Admission is computed in code
 `wave1/` is an additive research tree, not a merge into the published corpora: a
 24,074-key dedup registry ([`wave1/01_dedup/registry.jsonl`](wave1/01_dedup/registry.jsonl))
 screens its adapters against every canonical layer, and no wave1 writer may touch
-PRESENT. It admits **2,186** records — c4_mitigation 531,
-formal_specs 895, markdown 575,
-ghsa 31, judge 99,
-reevmbench 55 — all under METADATA_ONLY handling
+PRESENT. It admits **1,634** records — c4_mitigation 244,
+formal_specs 895, markdown 373,
+ghsa 0, judge 71,
+reevmbench 51 — all under METADATA_ONLY handling
 (links + attributed facts; report prose and full comment bodies are never copied in).
 4 families are promoted PRIMARY (`F`, `Fa`, `Fb`, `G`, `invariants`).
 Stage 1 execution attempted 55 ReEVMBench incident harnesses and
@@ -505,7 +505,7 @@ entries they do not own and raise instead of dropping, and
   and `benchmark/` A-T + `Vbeta/benchmark_vbeta/` U-V (every task carries its split; answer keys
   rebuild from the records). The held-out partitions were moved out of the model-visible
   training view into `benchmark/independent/`: `training/` ships the train partition only
-  (16,129 rows, of which 0
+  (12,112 rows, of which 0
   carry a record that any benchmark family holds out), and the held-out shards are committed
   under `benchmark/independent/` instead — open-key, but not model-visible. Measured in
   [`reports/eval_leakage_report.md`](reports/eval_leakage_report.md).
@@ -529,4 +529,4 @@ See [`NOTICE.md`](NOTICE.md).
 
 ## V4 layer
 
-Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 5270 extracted, 5268 admitted, 0 quarantined, 2 duplicates. Evidence levels: {'L0': 5268}. Languages: go 3394, michelson 4, move 5, rust 143, solidity 1555, teal 14, unknown 155. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.
+Isolated layer extracted from the cloned Halborn/Oak/CoinFabrik report archives (`work/cloned_conversion/staged_report_candidates.jsonl`, 666 report candidates). Records: 2547 extracted, 2547 admitted, 0 quarantined, 0 duplicates. Evidence levels: {'L0': 2547}. Languages: go 2200, michelson 1, move 1, rust 45, solidity 281, teal 3, unknown 16. Missing provenance is tracked in the manifest; all records are L0 only (no PoC execution was performed). Details: `reports/cloned_repo_conversion_v2.md`, `jsonl_v4/`, `derived_v4/`.

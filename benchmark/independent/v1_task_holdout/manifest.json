@@ -1,47 +1,47 @@
 {
   "MODEL_VISIBLE": false,
   "counts": {
-    "attacker_reasoning": 257,
-    "exploit_reasoning": 5,
-    "negative_reasoning": 106,
-    "patch_reasoning": 7,
-    "vulnerability_detection": 257
+    "attacker_reasoning": 3,
+    "exploit_reasoning": 0,
+    "negative_reasoning": 0,
+    "patch_reasoning": 0,
+    "vulnerability_detection": 6
   },
-  "excluded_rows": 632,
+  "excluded_rows": 9,
   "files": [
     {
       "path": "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
-      "rows": 257,
-      "sha256": "5aec7304783a3d422a899ab166a27560153c07c6a272cd2124418af04c8d2e77",
+      "rows": 3,
+      "sha256": "bb945877f281945111cfe0ac34af1d614ac7b6a2a97d97e5ce2d0af53f61df96",
       "task_file": "attacker_reasoning"
     },
     {
       "path": "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
-      "rows": 5,
-      "sha256": "cb4f089a532c0ee41a1824d2cc34a780dc36a87eaf92d9529bdaea641a6cba32",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "task_file": "exploit_reasoning"
     },
     {
       "path": "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl",
-      "rows": 106,
-      "sha256": "95fa5c62f38b514932af7ffaac8b6b38623b7f94ff24655f018d9561e52c0a69",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "task_file": "negative_reasoning"
     },
     {
       "path": "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
-      "rows": 7,
-      "sha256": "1d8fefb6c053cae0339c125553a8a04a3c64084bb4e8aee05f0a9dc3cf252479",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "task_file": "patch_reasoning"
     },
     {
       "path": "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl",
-      "rows": 257,
-      "sha256": "c724ff1eb392c0efa3444457e2145d2eb7b97e8952f10eed85580d5645186d90",
+      "rows": 6,
+      "sha256": "5d131fa90ce3c81ffef1ca122452eee57e52561f20033e47278d5d700fb0998f",
       "task_file": "vulnerability_detection"
     }
   ],
   "generated_by": "scripts/build_subsets.py",
-  "protected_identifiers": 24579,
+  "protected_identifiers": 6257,
   "rule": "a record that ANY benchmark family holds out is excluded from the model-visible task files, whatever the layer's own split label says",
   "source": "scripts/build_eval_leakage_report.py::protected_identifiers",
   "warning": "NOT MODEL-VISIBLE. These task rows are records that a benchmark family holds out (split test or validation). They carry the labels the benchmark is scored on. They live outside training/ so that a corpus consumer globbing the training directory cannot reach them. Do not train on them."

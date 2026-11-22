@@ -1,0 +1,69 @@
+{
+  "families": {
+    "c4_mitigation": {
+      "already_hydrated": 336,
+      "before": 336,
+      "hydrated": 336,
+      "quarantined": 0
+    },
+    "formal_specs": {
+      "already_hydrated": 0,
+      "before": 7088,
+      "hydrated": 6767,
+      "quarantined": 321
+    },
+    "ghsa_web3_netnew": {
+      "already_hydrated": 0,
+      "before": 0,
+      "hydrated": 0,
+      "quarantined": 0
+    },
+    "judge": {
+      "already_hydrated": 0,
+      "before": 1153,
+      "hydrated": 613,
+      "quarantined": 540
+    },
+    "markdown_two_revision": {
+      "already_hydrated": 556,
+      "before": 556,
+      "hydrated": 556,
+      "quarantined": 0
+    },
+    "reevmbench": {
+      "already_hydrated": 0,
+      "before": 67,
+      "hydrated": 62,
+      "quarantined": 5
+    }
+  },
+  "generated_at": "2026-11-20T19:04:12Z",
+  "original_pass": {
+    "note": "Authoritative first-pass counts over the untouched candidate layer; later rebuilds re-hydrate adapter-regenerated rows and are cumulative-invariant.",
+    "families": {
+      "c4_mitigation": {"before": 812, "hydrated": 336, "quarantined": 476},
+      "reevmbench": {"before": 67, "hydrated": 62, "quarantined": 5},
+      "formal_specs": {"before": 7088, "hydrated": 6767, "quarantined": 321},
+      "judge": {"before": 1153, "hydrated": 613, "quarantined": 540},
+      "markdown_two_revision": {"before": 786, "hydrated": 556, "quarantined": 230},
+      "ghsa_web3_netnew": {"before": 35, "hydrated": 0, "quarantined": 35}
+    },
+    "totals": {"before": 9941, "hydrated": 8334, "quarantined": 1607}
+  },
+  "quarantine_cumulative": 1593,
+  "quarantine_file": "wave1\\01_dedup\\hydration_quarantine.jsonl",
+  "rules": [
+    "All inline content is copied verbatim from work/sources/_api_cache, work/sources clones, or deterministic raw GitHub fetches cached in work/hydration_cache/ (git-ignored); nothing is fabricated.",
+    "Rows with <50 chars inline code or <100 chars prose are moved, with their full original body, to the quarantine ledger, not invented."
+  ],
+  "seconds": 2.4,
+  "thresholds": {
+    "code_chars_min": 50,
+    "prose_chars_min": 100
+  },
+  "totals": {
+    "before": 9200,
+    "hydrated": 8334,
+    "quarantined": 866
+  }
+}

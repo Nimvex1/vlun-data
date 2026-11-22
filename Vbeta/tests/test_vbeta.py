@@ -71,30 +71,45 @@ class TestArtefacts(unittest.TestCase):
                     cls.cands[c["cid"]] = c
 
     def test_counts(self):
-        self.assertEqual(len(self.ledger), 7060)
-        self.assertEqual(self.manifest["candidate_count"], 7060)
+        # Only FULLY_TRAINABLE rows survive the purge (>=50 chars inline code
+        # AND >=100 chars technical prose). All 80 come from solodit-harvest.
+        self.assertEqual(len(self.ledger), 80)
+        self.assertEqual(self.manifest["candidate_count"], 80)
         self.assertEqual(self.manifest["record_count"], len(self.records))
-        self.assertEqual(len(self.records), 6935)
-        # candidate_decisions is explicitly the CANDIDATE population
-        # (7,060 rows), distinct from the admitted record count.
+        self.assertEqual(len(self.records), 80)
+        self.assertEqual(self.manifest["source_count"], 15)
+        # candidate_decisions is explicitly the retained CANDIDATE population.
         dec = dict(self.manifest["candidate_decisions"])
-        self.assertEqual(sum(dec.values()), 7060)
-        self.assertEqual(dec.get("IMPORT"), 64)
-        self.assertEqual(dec.get("IMPORT_AS_NEGATIVE"), 5)
-        self.assertEqual(dec.get("IMPORT_AS_UNVERIFIED"), 6866)
-        self.assertEqual(dec.get("RESEARCH_ONLY"), 62)
-        self.assertEqual(dec.get("CORROBORATION_ONLY"), 63)
+        self.assertEqual(sum(dec.values()), 80)
+        self.assertEqual(dec, {"IMPORT_AS_UNVERIFIED": 80})
+        self.assertEqual(self.manifest["candidate_by_source"],
+                         {"solodit-harvest": 80})
         # admitted_* distributions sum to the admitted records.
         for key in ("admitted_by_language", "admitted_by_ecosystem"):
-            self.assertEqual(sum(self.manifest[key].values()), 6935, key)
+            self.assertEqual(sum(self.manifest[key].values()), 80, key)
         self.assertEqual(
-            sum(self.manifest["candidate_verification_levels"].values()), 7060)
+            sum(self.manifest["candidate_verification_levels"].values()), 80)
+        self.assertEqual(self.manifest["quarantine_rows"], 26960)
 
-    def test_new_languages_present(self):
+    def test_trainable_languages_present(self):
         langs = {r["language"] for r in self.ledger}
-        for lang in ("circom", "noir", "leo", "cairo", "move", "go",
-                     "typescript", "rust", "solidity"):
-            self.assertIn(lang, langs, f"missing language {lang}")
+        self.assertEqual(langs, {"go", "rust", "solidity"})
+
+    def test_every_retained_row_is_fully_trainable(self):
+        import json as _json
+        for r in self.records:
+            code = max((len(str(c.get("snippet") or ""))
+                        for c in (r.get("code_context") or [])
+                        if isinstance(c, dict)), default=0)
+            self.assertGreaterEqual(code, 50, r["finding_id"])
+            self.assertGreaterEqual(len(r.get("description") or ""), 100,
+                                    r["finding_id"])
+        qpath = V.VBETA_DIR / "derived_vbeta" / "quarantine.jsonl"
+        qrows = [_json.loads(line) for line in
+                 qpath.read_text(encoding="utf-8").splitlines() if line.strip()]
+        self.assertTrue(qrows)
+        self.assertTrue(all(r["reason"] == "UNHYDRATABLE_DEAD_POINTER"
+                            for r in qrows))
 
     def test_no_level_above_l1(self):
         for r in self.ledger:
@@ -166,12 +181,13 @@ class TestShieldify(unittest.TestCase):
                       if r["source_id"] == "shieldify-audits-portfolio"]
 
     def test_finding_volume(self):
-        self.assertEqual(len(self.ledger), 33)
-        self.assertEqual(len(self.records), 27)
+        # No shieldify row carries both inline code and >=100 chars of prose.
+        self.assertEqual(len(self.ledger), 0)
+        self.assertEqual(len(self.records), 0)
 
     def test_severity_verbatim(self):
         sevs = {r["severity_observed"] for r in self.records}
-        self.assertTrue({"High", "Medium", "Low", "Informational"} <= sevs)
+        self.assertEqual(sevs, set())
 
     def test_every_record_has_evidence(self):
         for r in self.records:
@@ -188,7 +204,7 @@ class TestShieldify(unittest.TestCase):
     def test_l1_matches_poc(self):
         l1 = sorted(r["finding_id"] for r in self.records
                     if r["verification_level"] == "L1")
-        self.assertEqual(len(l1), 5)
+        self.assertEqual(len(l1), 0)
         for r in self.records:
             if r["finding_id"] in l1:
                 self.assertEqual(
@@ -197,7 +213,7 @@ class TestShieldify(unittest.TestCase):
     def test_taxonomy_not_forced(self):
         unknowns = [r for r in self.records
                     if r["evidence"]["taxonomy"] == "unknown"]
-        self.assertTrue(unknowns, "at least one row must refuse taxonomy")
+        self.assertEqual(unknowns, [], "no shieldify rows survive the purge")
 
     def test_no_code_redistributed(self):
         import json as _json
@@ -219,10 +235,11 @@ class TestWeb3Bugs(unittest.TestCase):
                        if r["source_id"] == cls.SRC]
 
     def test_volume_and_decisions(self):
-        self.assertEqual(len(self.ledger), 491)
-        self.assertEqual(len(self.records), 491)
+        # No web3bugs row carries both inline code and >=100 chars of prose.
+        self.assertEqual(len(self.ledger), 0)
+        self.assertEqual(len(self.records), 0)
         decs = {r["decision"] for r in self.records}
-        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+        self.assertEqual(decs, set())
 
     def test_labels_are_not_severities(self):
         # Oracle-difficulty labels must never leak into severity fields.
@@ -250,11 +267,11 @@ class TestScaBench(unittest.TestCase):
                        if r["source_id"] == cls.SRC]
 
     def test_volume_and_decisions(self):
-        self.assertEqual(len(self.ledger), 550)
-        self.assertEqual(len(self.records), 550)
+        # No scabench row carries both inline code and >=100 chars of prose.
+        self.assertEqual(len(self.ledger), 0)
+        self.assertEqual(len(self.records), 0)
         decs = {r["decision"] for r in self.records}
-        # No disposition field in source: nothing may claim IMPORT.
-        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+        self.assertEqual(decs, set())
 
     def test_commit_pinned_links(self):
         for r in self.ledger:
@@ -264,13 +281,13 @@ class TestScaBench(unittest.TestCase):
 
     def test_language_honestly_unknown(self):
         langs = {r["language"] for r in self.records}
-        self.assertEqual(langs, {"unknown"})
+        self.assertEqual(langs, set())
 
     def test_adjudication_mined_as_attribution(self):
         named = [r for r in self.records
                  if "submitter unknown via" not in
                  r["evidence"]["attribution"]]
-        self.assertGreater(len(named), 200)
+        self.assertEqual(len(named), 0)
 
 
 class TestLisabench(unittest.TestCase):
@@ -286,15 +303,15 @@ class TestLisabench(unittest.TestCase):
                        if r["source_id"] == cls.SRC]
 
     def test_volume_and_decisions(self):
-        self.assertEqual(len(self.ledger), 5175)
-        self.assertEqual(len(self.records), 5175)
+        # No lisabench row carries both inline code and >=100 chars of prose.
+        self.assertEqual(len(self.ledger), 0)
+        self.assertEqual(len(self.records), 0)
         decs = {r["decision"] for r in self.records}
-        # No disposition field in source: nothing may claim IMPORT.
-        self.assertEqual(decs, {"IMPORT_AS_UNVERIFIED"})
+        self.assertEqual(decs, set())
 
     def test_severity_verbatim_including_gas(self):
         sevs = {r["severity_observed"] for r in self.records}
-        self.assertTrue({"MEDIUM", "HIGH", "LOW", "GAS"} <= sevs)
+        self.assertEqual(sevs, set())
 
     def test_code_content_never_copied(self):
         # Contract bodies carry these markers; prose titles do not.
@@ -325,27 +342,29 @@ class TestSoloditHarvest(unittest.TestCase):
         cls.stats = V.read_json(V.REPORTS_VB / "solodit_harvest_stats.json")
 
     def test_volume_and_rejections(self):
-        self.assertEqual(len(self.ledger), 733)
+        # 80 solodit rows survive the FULLY_TRAINABLE purge; the harvest stats
+        # remain the history of the original 733-row harvest.
+        self.assertEqual(len(self.ledger), 80)
+        self.assertEqual(len(self.records), 80)
         self.assertEqual(self.stats["harvested"], 733)
         self.assertEqual(self.stats["rejected"], 1)
         self.assertEqual(self.stats["duplicates"][0]["duplicate_of"],
                          "cyfrin-codehawks:stablecoin-h-03")
 
-    def test_0001_migrated_with_real_provenance(self):
+    def test_dead_pointer_0001_was_quarantined(self):
+        # The 0001 PearVault row had a DEAD code pointer, so it was removed
+        # from the trainable tables rather than left as a STUB.
+        import json as _json
         rows = [r for r in self.records
                 if r["finding_id"].startswith(f"{self.SRC}:0001-")]
-        self.assertEqual(len(rows), 1)
-        r = rows[0]
-        self.assertEqual(r["decision"], "IMPORT")
-        self.assertEqual(r["severity_observed"], "High Risk")
-        self.assertEqual(r["status_observed"], "Fixed.")
-        self.assertEqual(r["verification_level"], "L0")
-        self.assertIn("Withdrawal Request Manipulation", r["title"])
-        self.assertIn("withdrawal", r["description"].lower())
-        self.assertIn("PearVault.sol", r["evidence"]["code_location"])
-        self.assertIn("f681d7cc31ba76d521038f65e0e060849de55345",
-                      r["evidence"]["code_location"])
-        self.assertIn("solodit.cyfrin.io/issues/", r["description"])
+        self.assertEqual(rows, [])
+        qpath = V.VBETA_DIR / "derived_vbeta" / "quarantine.jsonl"
+        qrows = [_json.loads(line) for line in
+                 qpath.read_text(encoding="utf-8").splitlines() if line.strip()]
+        dead = [r for r in qrows
+                if str(r.get("id", "")).startswith(f"{self.SRC}:0001-")]
+        self.assertTrue(dead)
+        self.assertEqual(dead[0]["reason"], "UNHYDRATABLE_DEAD_POINTER")
 
     def test_no_operator_rows_remain(self):
         for r in V.read_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl"):
@@ -353,12 +372,10 @@ class TestSoloditHarvest(unittest.TestCase):
                                 "user_contributed")
 
     def test_poc_rows_are_l1_with_proof(self):
-        # 73 ledger L1 (incl. quarantined whose kept rows carry the same
-        # PoC); 71 admitted L1 records. No quoted PoC is lost: every
-        # quarantined PoC row's kept counterpart has poc_observed=true.
+        # 12 L1 rows survive the FULLY_TRAINABLE purge (all solodit-harvest).
         l1 = [r for r in self.records
               if r["verification_level"] == "L1"]
-        self.assertEqual(len(l1), 71)
+        self.assertEqual(len(l1), 12)
         for r in l1:
             self.assertEqual(r["evidence"]["proof_type"],
                              "published_poc_in_report")
@@ -376,12 +393,9 @@ class TestSoloditHarvest(unittest.TestCase):
     def test_quarantine_never_admitted_twice(self):
         rec_ids = {r["finding_id"] for r in self.records}
         dups = V.read_jsonl(V.DERIVED_VB / "duplicates.jsonl")
-        self.assertEqual(len(dups), 63)
+        self.assertEqual(len(dups), 0, "non-trainable duplicate links were purged")
         for d in dups:
             self.assertNotIn(d["candidate_id"], rec_ids)
-            self.assertIn(d["duplicate_of"], rec_ids |
-                          {r["candidate_id"] for r in
-                           V.read_jsonl(V.DERIVED_VB / "candidate_ledger.jsonl")})
         quarantine = V.read_jsonl(V.SPLITS_VB / "quarantine.jsonl")
         self.assertEqual({r["candidate_id"] for r in quarantine},
                          {d["candidate_id"] for d in dups})

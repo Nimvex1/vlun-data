@@ -1,5 +1,20 @@
 # CHANGELOG (release log — append-only, newest first)
 
+## Hydration/purge sync — Vbeta counts and benchmark headline (2026-11-22, unreleased)
+
+- **Vbeta counts re-frozen to the purged layer.** `Vbeta/derived_vbeta/manifest.json`
+  now reports **80 candidates / 80 admitted records / 15 sources** (was
+  7,060 candidates / 6,935 admitted records / 15 sources). The older figures
+  stay below as history; this entry does not rewrite them.
+- **U (80 tasks) and V (80 tasks)** are now the whole admitted population:
+  the 6,219/6,935 split and the 716 unknown-language exclusion no longer
+  exist, so there is **no unknown-language exclusion** after the purge.
+- **Headline set is A + C = 1,051 rows** (was A alone = 720). C is a valid
+  PRIMARY family again: label-mix L1 0.1951 (was 1.0303) and best train-only
+  shortcut 0.7966, both below the demotion thresholds. `docs/RUBRIC.md`,
+  `docs/ANSWER_KEY.md` and `reports/independent_benchmark_evaluation.md`
+  were updated by hand — no generator writes them.
+
 ## Remediation — baseline-drift repair, reproducibility hardening (2026-10-25, unreleased)
 
 - **v2.2 split-pointer drift repaired (37 records).** Commit `cb6a2a8` added

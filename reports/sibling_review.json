@@ -1,5 +1,6 @@
 {
   "admitted_pair_ids": [
+    "SIB::000c16cee244bfdeac5d",
     "SIB::00e383102ac1ab9b6722",
     "SIB::02bc4cb44f82b05312d0",
     "SIB::038c368f42e5ff80cd1b",
@@ -8,12 +9,14 @@
     "SIB::07cb190ae1b6d0da0b6a",
     "SIB::08a73ceb7e732511c0db",
     "SIB::09303d6be15c13f435ea",
+    "SIB::0982ebea6bdb3c5e21ff",
     "SIB::0c7b50a94bbabfb81d1d",
     "SIB::0eb810fdadbbf91d77ab",
     "SIB::0f9db5791117399f2271",
     "SIB::0ff84e736c96d46c3267",
     "SIB::10524106f13a76c38a10",
     "SIB::12961be3320c70153d73",
+    "SIB::15230e29931c6f51e71f",
     "SIB::154a1bc6dbcef8d1c6fe",
     "SIB::16f0446adef23e578c63",
     "SIB::1726271f436e02806385",
@@ -31,6 +34,7 @@
     "SIB::24aa2ca88b688482d1ad",
     "SIB::2924969546990971af5f",
     "SIB::2b59ae4a913732b80bf4",
+    "SIB::2b5e763a7842796f4998",
     "SIB::2cf54e3163f3ee771503",
     "SIB::2d1ba6770213a3b8996a",
     "SIB::2e5ce57e35636bdb7360",
@@ -40,6 +44,8 @@
     "SIB::3276607605e07b26932d",
     "SIB::32f111e860f3d0f47d3a",
     "SIB::337c90f998798f322ec7",
+    "SIB::337cd967d45358080b05",
+    "SIB::342b6cead6d7d308b9ab",
     "SIB::3445cffd80d2ea70fc01",
     "SIB::37c9b3826f6fd5bc94d5",
     "SIB::384146f9334436cc3061",
@@ -52,6 +58,7 @@
     "SIB::3d0b672c14852349b5a5",
     "SIB::3dbf42e3dc19b735901d",
     "SIB::3edeff053d12af704fb3",
+    "SIB::3f349dfdfaa784632634",
     "SIB::3f79ffc653cebd7d4cb0",
     "SIB::3f98110a59dda2a73e64",
     "SIB::40301b0d243f2d2df710",
@@ -68,11 +75,13 @@
     "SIB::4a31d8692449ea4462c9",
     "SIB::4afd58e527489ae30e01",
     "SIB::4bbb04ab90e5deb16524",
+    "SIB::4bdb15d2e6f61f425a17",
     "SIB::4c498633ed8fa3a4766f",
     "SIB::4c899556a043a368a39f",
     "SIB::4d4c82aa60d88dab2c40",
     "SIB::4d8b4f1c5fbbec6c8eff",
     "SIB::4ddd9bbe8bba99998f56",
+    "SIB::4fcce09bce3327ca637b",
     "SIB::50d2dbcf4c142a2a5f22",
     "SIB::534ed3a744bc18d5f0cc",
     "SIB::537b4b650a0fa171346b",
@@ -82,6 +91,7 @@
     "SIB::5aea02c164750f9447ef",
     "SIB::5dae06e3e7eaacca13c8",
     "SIB::5db814028c4c6eb2385b",
+    "SIB::60990787aa614a776b5a",
     "SIB::63422a888db86d785fba",
     "SIB::63c2068cc2b2b3b25887",
     "SIB::63d11f6c9e36c53cd3da",
@@ -119,6 +129,7 @@
     "SIB::86d50783b73c37b34323",
     "SIB::87fc555c2c700a12f1ae",
     "SIB::883e955eb5f90eee422d",
+    "SIB::8a760a69e856d3bd8a77",
     "SIB::8a812e61e074c82820b0",
     "SIB::8b36105ebf18715f4af0",
     "SIB::8c560569fa66f14b9b9e",
@@ -139,14 +150,18 @@
     "SIB::9c4c4ad850114440c0c1",
     "SIB::9c9c54aa9c628b144278",
     "SIB::9d1cd3f61666c2e00638",
+    "SIB::9dfcc8bbf232e39c7016",
     "SIB::9ed054dfb43500020ec8",
     "SIB::a065a6cea267376925ed",
     "SIB::a0c0b69ee0704816468a",
     "SIB::a2594e31a312bd61c6e3",
     "SIB::a4aa8ebf389c25a06eca",
     "SIB::a5b8d611fbb9ff7fd0ca",
+    "SIB::a69981d7ec85e46f6abf",
     "SIB::a714a0630f6b2ced3183",
     "SIB::a7c4bbbf2438ed533059",
+    "SIB::a7d0be184854f60dc8e3",
+    "SIB::a880f41c6eb482f47975",
     "SIB::a892a415816dbe472392",
     "SIB::a9462690dd0023c81b4c",
     "SIB::aa2a2387b61fe3895830",
@@ -154,6 +169,7 @@
     "SIB::ac6b2a7d33535de09622",
     "SIB::adaa8b4b12253255b645",
     "SIB::b00666e452190ea42ccb",
+    "SIB::b0e764fd41ea48489133",
     "SIB::b13a0539d79ad5e3f63c",
     "SIB::b3045737b0e0bd0e32f2",
     "SIB::b548be4394b28e1ebd81",
@@ -185,6 +201,7 @@
     "SIB::d0f3a2697a7f630df5b6",
     "SIB::d20defa212f8a29cafca",
     "SIB::d319ec89ce9912e4f275",
+    "SIB::d391f9180520e4c4eb80",
     "SIB::d409ef77a16f3de1b7e5",
     "SIB::d667abbfa354643ea7e9",
     "SIB::d7b88dab4b9e4c16bded",
@@ -220,9 +237,10 @@
     "SIB::fab4e24e01a386fc9613",
     "SIB::fd680cb027002aac6d4b",
     "SIB::fdf3abd7574f8eb03288",
-    "SIB::fe0a2ac9e2bedb644320"
+    "SIB::fe0a2ac9e2bedb644320",
+    "SIB::ff55a729f2e8abc02a3a"
   ],
-  "candidates": 229,
+  "candidates": 255,
   "checks_performed": [
     "span_bytes_hash_and_call_text",
     "independent_form_re_derivation_via_solidity_facts",
@@ -232,29 +250,88 @@
     "pair_identity_unique"
   ],
   "dispositions": {
-    "admitted": 221,
-    "hard_negative": 8
+    "admitted": 239,
+    "dropped": 5,
+    "hard_negative": 11
   },
-  "dropped_pair_ids": [],
+  "dropped_pair_ids": [
+    "SIB::2558b19e1161bc82bc62",
+    "SIB::7b85a02762583be1749d",
+    "SIB::c5a6a970c28978da9a8d",
+    "SIB::e37f60047aa8e4b85317",
+    "SIB::eac6d14a311721070280"
+  ],
   "generated_by": "scripts/review_sibling_pairs.py",
   "hard_negative_pair_ids": [
     "SIB::14d35cf07880609cf686",
     "SIB::1ce841a2ea90f56b2d62",
     "SIB::392a35bf94ffcd32ee1a",
     "SIB::535f1507fc49af84d0e0",
+    "SIB::55c50e4d7255aa5f8f9d",
     "SIB::6747acca73e3ec075f65",
     "SIB::790fe6ab3b5a6669ddc7",
+    "SIB::8f0a00e819d026197a20",
     "SIB::9f33f34fd7a57c8aa577",
-    "SIB::af8b711a4a98376037fb"
+    "SIB::af8b711a4a98376037fb",
+    "SIB::d9a9d201076fa84b9b9a"
   ],
   "independence_note": "The reviewer does not trust the builder's booleans. It re-reads the bytes at the recorded revision and classifies each site again with scripts/solidity_facts.py's guard grammar plus its own statement scan; a pair survives only when the second reader reaches the same conclusion.",
   "reasons": {
-    "reference:form_disagreed": 5,
-    "vulnerable:form_disagreed": 3
+    "reference:form_disagreed": 8,
+    "vulnerable:form_disagreed": 3,
+    "vulnerable:span_mismatch": 5
   },
   "review_version": "sibling-review-1",
-  "reviewed": 229,
+  "reviewed": 255,
   "rows": [
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at contracts/Router.sol:254"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::000c16cee244bfdeac5d",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "contracts",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
     {
       "api": "balanceOf",
       "checks": {
@@ -658,6 +735,54 @@
         },
         "reference_span": {
           "agree": true,
+          "detail": "span `token.transfer(` re-read at test-forge/utils/users/ERC20User.sol:18"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::0982ebea6bdb3c5e21ff",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
           "detail": "span `WETH.transfer(` re-read at contracts/examples/ExampleFlashSwap.sol:54"
         },
         "root_cause_present": {
@@ -976,6 +1101,54 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "disagree",
       "vulnerable_project": "2024-04-noya"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `lockToken.transfer(` re-read at contracts/dao/TokenLocker.sol:879"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::15230e29931c6f51e71f",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "prisma-contracts",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "balanceOf",
@@ -1750,6 +1923,38 @@
     {
       "api": "balanceOf",
       "checks": {
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the read is cross-checked against another quantity",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `debtToken.balanceOf(` re-read at contracts/BaseSilo.sol:191"
+        },
+        "vulnerable_span": {
+          "agree": false,
+          "detail": "line 50 of these bytes is 'modifier onlyIfWeHaveEnoughReserves(uint256 amount) {', not the declaration of `onlyIfWeHaveEnoughReserves`"
+        }
+      },
+      "disposition": "dropped",
+      "drop_reason": "vulnerable:span_mismatch",
+      "pair_id": "SIB::2558b19e1161bc82bc62",
+      "property": "externally_influenced_balance_as_source",
+      "reasons": [
+        "vulnerable:span_mismatch"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "silo-core-v1",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "balanceOf",
+      "checks": {
         "contrast": {
           "agree": true,
           "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
@@ -1838,6 +2043,54 @@
       "reasons": [],
       "record_id": "2024-01-decent/H-04",
       "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at contracts/Router.sol:382"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::2b5e763a7842796f4998",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "contracts",
       "review_version": "sibling-review-1",
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
@@ -2269,6 +2522,102 @@
       "property": "caller_supplied_recipient",
       "reasons": [],
       "record_id": "2024-01-decent/M-02",
+      "reference_project": "morpho-blue-bundlers",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at contracts/Router.sol:254"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::337cd967d45358080b05",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "contracts",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `Permit2Lib.PERMIT2.transferFrom(` re-read at src/Permit2Bundler.sol:48"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "< < In LayerZero, the destination chain's function call requires a specific gas amount; otherwise, it will revert with an out-of-gas exception. It falls under t"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::342b6cead6d7d308b9ab",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-02",
       "reference_project": "morpho-blue-bundlers",
       "review_version": "sibling-review-1",
       "reviewed_by": "scripts/review_sibling_pairs.py",
@@ -2900,6 +3249,54 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2022-05-alchemix"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `token.transferFrom(` re-read at test-forge/utils/users/ERC20User.sol:22"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "< < In LayerZero, the destination chain's function call requires a specific gas amount; otherwise, it will revert with an out-of-gas exception. It falls under t"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::3f349dfdfaa784632634",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-02",
+      "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "safeTransferFrom",
@@ -3670,6 +4067,54 @@
       "vulnerable_project": "2024-04-noya"
     },
     {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `WETH.transfer(` re-read at contracts/examples/ExampleFlashSwap.sol:54"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::4bdb15d2e6f61f425a17",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "v2-periphery",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -3908,6 +4353,54 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2024-04-noya"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `token.transferFrom(` re-read at test-forge/utils/users/ERC20User.sol:22"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentBridgeExecutor.sol:63"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::4fcce09bce3327ca637b",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "balanceOf",
@@ -4200,6 +4693,56 @@
       "vulnerable_project": "2024-04-noya"
     },
     {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": false,
+          "claimed": "controlled",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `exchangeV1.transferFrom(` re-read at contracts/UniswapV2Migrator.sol:30"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "< < In LayerZero, the destination chain's function call requires a specific gas amount; otherwise, it will revert with an out-of-gas exception. It falls under t"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "hard_negative",
+      "drop_reason": "reference:form_disagreed",
+      "pair_id": "SIB::55c50e4d7255aa5f8f9d",
+      "property": "unchecked_token_move",
+      "reasons": [
+        "reference:form_disagreed"
+      ],
+      "record_id": "2024-01-decent/H-02",
+      "reference_project": "v2-periphery",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -4390,6 +4933,54 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2022-05-alchemix"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at contracts/Router.sol:382"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::60990787aa614a776b5a",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "contracts",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "balanceOf",
@@ -5838,6 +6429,38 @@
     {
       "api": "balanceOf",
       "checks": {
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the read is cross-checked against another quantity",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `curvePoolLp.balanceOf(` re-read at contracts/dao/FeeConverter.sol:290"
+        },
+        "vulnerable_span": {
+          "agree": false,
+          "detail": "line 50 of these bytes is 'modifier onlyIfWeHaveEnoughReserves(uint256 amount) {', not the declaration of `onlyIfWeHaveEnoughReserves`"
+        }
+      },
+      "disposition": "dropped",
+      "drop_reason": "vulnerable:span_mismatch",
+      "pair_id": "SIB::7b85a02762583be1749d",
+      "property": "externally_influenced_balance_as_source",
+      "reasons": [
+        "vulnerable:span_mismatch"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "prisma-contracts",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "balanceOf",
+      "checks": {
         "contrast": {
           "agree": true,
           "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
@@ -6268,6 +6891,54 @@
       "vulnerable_project": "2024-04-noya"
     },
     {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `synth.transfer(` re-read at markets/perps-market/contracts/modules/PerpsAccountModule.sol:267"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::8a760a69e856d3bd8a77",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "synthetix-v3",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -6458,6 +7129,56 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2025-08-gte-perps"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": false,
+          "claimed": "controlled",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `exchangeV1.transferFrom(` re-read at contracts/UniswapV2Migrator.sol:30"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentBridgeExecutor.sol:63"
+        }
+      },
+      "disposition": "hard_negative",
+      "drop_reason": "reference:form_disagreed",
+      "pair_id": "SIB::8f0a00e819d026197a20",
+      "property": "unchecked_token_move",
+      "reasons": [
+        "reference:form_disagreed"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "v2-periphery",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "balanceOf",
@@ -7228,6 +7949,54 @@
       "vulnerable_project": "2024-01-renft"
     },
     {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `token.transfer(` re-read at test-forge/utils/users/ERC20User.sol:18"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::9dfcc8bbf232e39c7016",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -7566,6 +8335,54 @@
       "vulnerable_project": "2024-04-noya"
     },
     {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `synth.transfer(` re-read at markets/perps-market/contracts/modules/PerpsAccountModule.sol:267"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::a69981d7ec85e46f6abf",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "synthetix-v3",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -7656,6 +8473,102 @@
       "reasons": [],
       "record_id": "2024-01-decent/H-02",
       "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `Permit2Lib.PERMIT2.transferFrom(` re-read at src/Permit2Bundler.sol:48"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "DecentEthRouter.sol#_bridgeWithPayload() - Any refunded ETH (native token) will be refunded to the DecentBridgeAdapter, making them stuck"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::a7d0be184854f60dc8e3",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/M-05",
+      "reference_project": "morpho-blue-bundlers",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `lockToken.transfer(` re-read at contracts/dao/TokenLocker.sol:879"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:298"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::a880f41c6eb482f47975",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "prisma-contracts",
       "review_version": "sibling-review-1",
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
@@ -8046,6 +8959,54 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2024-04-noya"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the destination is read out of protocol storage",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `Permit2Lib.PERMIT2.transferFrom(` re-read at src/Permit2Bundler.sol:48"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "the destination is the caller or a calldata parameter",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentBridgeExecutor.sol:63"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::b0e764fd41ea48489133",
+      "property": "caller_supplied_recipient",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "morpho-blue-bundlers",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     },
     {
       "api": "balanceOf",
@@ -9010,6 +9971,38 @@
     {
       "api": "balanceOf",
       "checks": {
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the read is cross-checked against another quantity",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `token0.balanceOf(` re-read at src/accountants/PanopticVaultAccountant.sol:201"
+        },
+        "vulnerable_span": {
+          "agree": false,
+          "detail": "line 50 of these bytes is 'modifier onlyIfWeHaveEnoughReserves(uint256 amount) {', not the declaration of `onlyIfWeHaveEnoughReserves`"
+        }
+      },
+      "disposition": "dropped",
+      "drop_reason": "vulnerable:span_mismatch",
+      "pair_id": "SIB::c5a6a970c28978da9a8d",
+      "property": "externally_influenced_balance_as_source",
+      "reasons": [
+        "vulnerable:span_mismatch"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "2025-06-panoptic",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "balanceOf",
+      "checks": {
         "contrast": {
           "agree": true,
           "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
@@ -9536,6 +10529,54 @@
       "vulnerable_project": "2024-01-decent"
     },
     {
+      "api": "transfer",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `WETH.transfer(` re-read at contracts/examples/ExampleFlashSwap.sol:54"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "When the DecentEthRouter receives the dcntEth OFT token from a cross-chain transaction, if the WETH balance of the destination router is less than amount of dcn"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transfer(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:334"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::d391f9180520e4c4eb80",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "v2-periphery",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
       "api": "balanceOf",
       "checks": {
         "contrast": {
@@ -9773,6 +10814,56 @@
       "review_version": "sibling-review-1",
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": false,
+          "claimed": "controlled",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `exchangeV1.transferFrom(` re-read at contracts/UniswapV2Migrator.sol:30"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "DecentEthRouter.sol#_bridgeWithPayload() - Any refunded ETH (native token) will be refunded to the DecentBridgeAdapter, making them stuck"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "hard_negative",
+      "drop_reason": "reference:form_disagreed",
+      "pair_id": "SIB::d9a9d201076fa84b9b9a",
+      "property": "unchecked_token_move",
+      "reasons": [
+        "reference:form_disagreed"
+      ],
+      "record_id": "2024-01-decent/M-05",
+      "reference_project": "v2-periphery",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
       "vulnerable_project": "2024-01-decent"
     },
     {
@@ -10162,6 +11253,38 @@
     {
       "api": "balanceOf",
       "checks": {
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the read is cross-checked against another quantity",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `_SY.balanceOf(` re-read at testFoundry/PendleConnector.t.sol:325"
+        },
+        "vulnerable_span": {
+          "agree": false,
+          "detail": "line 50 of these bytes is 'modifier onlyIfWeHaveEnoughReserves(uint256 amount) {', not the declaration of `onlyIfWeHaveEnoughReserves`"
+        }
+      },
+      "disposition": "dropped",
+      "drop_reason": "vulnerable:span_mismatch",
+      "pair_id": "SIB::e37f60047aa8e4b85317",
+      "property": "externally_influenced_balance_as_source",
+      "reasons": [
+        "vulnerable:span_mismatch"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "2024-04-noya",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "balanceOf",
+      "checks": {
         "contrast": {
           "agree": true,
           "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
@@ -10349,6 +11472,38 @@
       "review_version": "sibling-review-1",
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
+    },
+    {
+      "api": "balanceOf",
+      "checks": {
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "the read is cross-checked against another quantity",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `_votingEscrow.balanceOf(` re-read at pkg/liquidity-mining/contracts/VotingEscrowRemapper.sol:138"
+        },
+        "vulnerable_span": {
+          "agree": false,
+          "detail": "line 50 of these bytes is 'modifier onlyIfWeHaveEnoughReserves(uint256 amount) {', not the declaration of `onlyIfWeHaveEnoughReserves`"
+        }
+      },
+      "disposition": "dropped",
+      "drop_reason": "vulnerable:span_mismatch",
+      "pair_id": "SIB::eac6d14a311721070280",
+      "property": "externally_influenced_balance_as_source",
+      "reasons": [
+        "vulnerable:span_mismatch"
+      ],
+      "record_id": "2024-01-decent/H-04",
+      "reference_project": "balancer-v2-monorepo",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "disagree",
       "vulnerable_project": "2024-01-decent"
     },
     {
@@ -11262,10 +12417,58 @@
       "reviewed_by": "scripts/review_sibling_pairs.py",
       "verdict": "agree",
       "vulnerable_project": "2022-05-alchemix"
+    },
+    {
+      "api": "transferFrom",
+      "checks": {
+        "contrast": {
+          "agree": true,
+          "detail": "vulnerable=risky reference=controlled; the pair needs risky against controlled"
+        },
+        "cross_repository": {
+          "agree": true,
+          "detail": "two repositories"
+        },
+        "reference_form": {
+          "agree": true,
+          "claimed": "controlled",
+          "detail": "an OZ-style safe wrapper or an enforcement of the result is present in the statement/function",
+          "re_derived": "controlled"
+        },
+        "reference_span": {
+          "agree": true,
+          "detail": "span `token.transferFrom(` re-read at test-forge/utils/users/ERC20User.sol:22"
+        },
+        "root_cause_present": {
+          "agree": true,
+          "detail": "DecentEthRouter.sol#_bridgeWithPayload() - Any refunded ETH (native token) will be refunded to the DecentBridgeAdapter, making them stuck"
+        },
+        "vulnerable_form": {
+          "agree": true,
+          "claimed": "risky",
+          "detail": "neither a safe wrapper nor any enforcement of the result is observed",
+          "re_derived": "risky"
+        },
+        "vulnerable_span": {
+          "agree": true,
+          "detail": "span `weth.transferFrom(` re-read at decentxyz/decent-bridge/src/DecentEthRouter.sol:325"
+        }
+      },
+      "disposition": "admitted",
+      "drop_reason": "",
+      "pair_id": "SIB::ff55a729f2e8abc02a3a",
+      "property": "unchecked_token_move",
+      "reasons": [],
+      "record_id": "2024-01-decent/M-05",
+      "reference_project": "2022-05-alchemix",
+      "review_version": "sibling-review-1",
+      "reviewed_by": "scripts/review_sibling_pairs.py",
+      "verdict": "agree",
+      "vulnerable_project": "2024-01-decent"
     }
   ],
   "verdicts": {
-    "agree": 221,
-    "disagree": 8
+    "agree": 239,
+    "disagree": 16
   }
 }

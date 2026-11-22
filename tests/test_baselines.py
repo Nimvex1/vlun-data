@@ -2,10 +2,14 @@
 
 The committed baselines were computed against a stale Vbeta population
 (624/719 scorable rows) while the shipped Vbeta benchmark files carry
-6,219 scorable U rows and 6,935 V rows (13,154 scorable tasks). A stale floor is worse than no floor: a model result read
+80 scorable U rows and 80 V rows (160 scorable tasks). A stale floor is worse than no floor: a model result read
 against it is meaningless. This recomputes the cheap deterministic
 summaries from the committed reports and fails when they disagree with
 reports/baselines/*.json.
+
+Phase 4 pin sync: 6,219 U / 6,935 V / 13,154 total -> 80 / 80 / 160,
+recomputed as labeled rows in Vbeta/benchmark_vbeta/{U,V}_*.jsonl after the
+hydration/purge; this narrative now describes the shipped files, not history.
 
 Not a scorer re-run (too slow for every gate); a cross-file consistency
 check. `python scripts/score_benchmark.py --baseline ...` regenerates.
@@ -97,9 +101,13 @@ class TestBaselinesMatchShippedBenchmarks(unittest.TestCase):
         rep = json.loads((BASE / "baseline_majority.json")
                          .read_text(encoding="utf-8"))
         expl = rep["families_exploratory"]
+        # Phase 4 pin sync: added vbeta_V_source_tier_routing.jsonl. The
+        # hydration restored that family to 80 labeled rows, so the regenerated
+        # baseline report now classifies it EXPLORATORY alongside F/G/I/J.
         self.assertEqual(sorted(expl), [
             "F_false_positive_rejection.jsonl", "G_patch_verification.jsonl",
             "I_verified_non_exploit.jsonl", "J_verified_patch.jsonl",
+            "vbeta_V_source_tier_routing.jsonl",
         ])
         self.assertFalse(set(rep["families"]) & set(expl),
                          "exploratory families leaked into the headline set")
@@ -219,8 +227,11 @@ class TestFloatAggregationIsVersionStable(unittest.TestCase):
         # the reports were generated with exactly-rounded summation already.
         want = (BASE / "baseline_majority.json").read_text(encoding="utf-8")
         rep = json.loads(want)
+        # Phase 4 pin sync: 0.18752334805774482 -> 0.16818426237618156.
+        # Recomputed by score_benchmark.py --build-baselines from the hydrated
+        # retired families; this guards the fsum implementation, not old data.
         self.assertAlmostEqual(
-            rep["micro_retired"]["macro_f1"], 0.18752334805774482, places=15)
+            rep["micro_retired"]["macro_f1"], 0.16818426237618156, places=15)
 
 
 if __name__ == "__main__":

@@ -84,11 +84,14 @@ class TestSubL5Restatement(LayerBase):
         return bd.build_record(self.findings[rid], registry, self.adjudications)
 
     def test_the_l3_record_is_restated_without_touching_its_level(self):
-        rec = self.records[CVE_L3]
-        view = rec["experiment_view"]
-        # what the committed layer publishes today (pre-fix, by design of the
-        # test: it proves the restatement is the delta, not the level)
-        self.assertEqual(view["level"], "L3")
+        # Pin sync (purge): the PUBLISHED row self.records[CVE_L3] was removed
+        # from derived_v2_2/records.jsonl as QUARANTINED_NO_CODE /
+        # UNHYDRATABLE_DEAD_POINTER ("pointer only; no verbatim snippet"). It is
+        # preserved in derived_v2_2/quarantine.jsonl, and the source finding
+        # still lives in jsonl_ml/findings_vyper.jsonl. Old pin: the three
+        # committed-layer lines (rec/view + assertEqual(view["level"], "L3"))
+        # that used to precede this rebuild; replaced by the in-memory rebuild
+        # from the source layer, which the test already performs here.
         row = self.rebuilt(CVE_L3)
         new = row["experiment_view"]
         self.assertEqual(new["level"], "L3",
@@ -106,9 +109,10 @@ class TestSubL5Restatement(LayerBase):
         self.assertNotIn("experimentally_verified",
                          row["evidence_summary"]["counts"])
         self.assertEqual(row["evidence_summary"]["strongest"], "observed_fact")
-        # No "differs from the committed layer" assertion here: the committed
-        # layer is already the restated one, so it would assert a disagreement
-        # that the fix exists to remove. The invariant is in the lines above.
+        # No "differs from the committed layer" assertion here: that published
+        # row was purged as an untrainable dead pointer (see above), so the
+        # restatement delta is asserted against the source rebuild instead.
+        # The invariant is in the lines above.
 
     def test_no_rebuilt_view_below_l5_disagrees_with_its_own_outcome(self):
         _findings, registry = bd.load_layer()
@@ -268,7 +272,11 @@ class TestFamilyMFollowsAdjudication(LayerBase):
     def test_the_builder_still_reads_the_raw_claim_nowhere_in_the_answer(self):
         self.assertEqual(self.info["problems"], [],
                          "; ".join(self.info["problems"][:5]))
-        self.assertEqual(len(self.rows), 37)
+        # Pin sync (purge): 37 -> 34. Three family-M rows were purged from the
+        # trainable layer as UNHYDRATABLE_DEAD_POINTER / QUARANTINED_NO_CODE and
+        # live in derived_v2_2/quarantine.jsonl; the frozen published history
+        # under benchmark/retired_families/ is byte-unchanged at 37 rows.
+        self.assertEqual(len(self.rows), 34)
         raw_positives = 0
         for row in self.rows:
             rid = row["source"]["record_id"]
@@ -287,12 +295,19 @@ class TestFamilyMFollowsAdjudication(LayerBase):
                 self.assertNotEqual(row["answer_key"]["level"], "L5",
                                     f"{rid}: family M re-published the "
                                     "withdrawn L5 claim")
-        self.assertEqual(raw_positives, 30)
+        # Pin sync (purge): 30 -> 29 surviving demoted rows. The 30th demotion
+        # (solidity:zentory-self-audit/M-09) was purged as a dead pointer and is
+        # quarantined, so it can no longer appear in the trainable M rows.
+        self.assertEqual(raw_positives, 29)
 
     def test_the_rebuilt_key_census_is_the_adjudicated_one(self):
         levels = collections.Counter(r["answer_key"]["level"] for r in self.rows)
+        # Pin sync (purge): L1:1/L3:1/L5:5 -> L1:0/L3:0/L5:4. The L1 demotion
+        # (M-09) and the L3 record (vyper:CVE-2024-24567) were purged as
+        # UNHYDRATABLE_DEAD_POINTER / QUARANTINED_NO_CODE, preserved only in
+        # quarantine; L4:29 and L6:1 are unchanged. Total = 34, as above.
         self.assertEqual(dict(levels),
-                         {"L1": 1, "L3": 1, "L4": 29, "L5": 5, "L6": 1})
+                         {"L5": 4, "L4": 29, "L6": 1})
         self.assertNotIn("experimentally_verified",
                          {r["answer_key"]["evidence_type"]
                           for r in self.rows if r["answer_key"]["level"] == "L4"})
@@ -333,18 +348,25 @@ class TestFamilyMFollowsAdjudication(LayerBase):
         self.assertEqual(
             {r["answer_key"]["evidence_type"] for r in frozen},
             {"experimentally_verified"})
-        # ... and the live builder disagrees with them by design: 30 answers
-        # because the adjudication moved the level below L5, plus
-        # `vyper:CVE-2024-24567`, whose level was ALREADY L3 while its evidence
-        # type read `experimentally_verified` (the frozen row publishes that
-        # contradiction; the live builder may not).
+        # Pin sync (split rebuild + purge): match frozen rows by
+        # source.record_id, NOT by the task `id`. The current split rebuild
+        # moved `move:cetus-checked-shlw` validation -> test, so the same source
+        # record is M::test::... live but M::validation::... in the frozen file;
+        # the old id-based `next(...)` match raised StopIteration.
+        # The live builder disagrees with the frozen answers by design: the
+        # adjudication moved the level below L5. 31 -> 29 because the L1
+        # demotion solidity:zentory-self-audit/M-09 and the L3 record
+        # vyper:CVE-2024-24567 were purged as UNHYDRATABLE_DEAD_POINTER /
+        # QUARANTINED_NO_CODE and survive only in quarantine. The old
+        # assertIn(CVE, differing) is therefore dropped.
+        frozen_by_source = {f["source"]["record_id"]: f for f in frozen}
         differing = {
             r["source"]["record_id"]
             for r in self.rows
-            if r["answer_key"] != next(f for f in frozen if f["id"] == r["id"])
-            ["answer_key"]}
-        self.assertEqual(len(differing), 31)
-        self.assertIn("vyper:CVE-2024-24567", differing)
+            if r["answer_key"]
+            != frozen_by_source[r["source"]["record_id"]]["answer_key"]
+        }
+        self.assertEqual(len(differing), 29)
 
     def test_no_write_path_targets_retired_families(self):
         """Not one frozen family file moves, whatever the rebuild produces."""
@@ -369,8 +391,11 @@ class TestFamilyQFieldTypes(LayerBase):
         cls.q = {r["id"]: r for r in cls.tasks["Q"]}
 
     def test_q_answers_are_pinned_to_the_published_layer(self):
-        """Every Q answer key equals derived_v2_2/records.jsonl, all 137 rows."""
-        self.assertEqual(len(self.q), 137)
+        """Every Q answer key equals derived_v2_2/records.jsonl, all 61 rows."""
+        # Phase 4 pin sync: 137 -> 61. The hydration/purge shrank both family Q
+        # and derived_v2_2/records.jsonl to 61 rows (recomputed via bb.build()
+        # and a direct record count).
+        self.assertEqual(len(self.q), 61)
         for rid_row, row in self.q.items():
             rec_id = row["source"]["record_id"]
             rec = self.records[rec_id]
@@ -413,13 +438,23 @@ class TestFamilyQFieldTypes(LayerBase):
         self.assertEqual(checked, 30)
 
     def test_the_raw_map_still_says_what_the_source_claimed(self):
-        """The immutable source is not edited; only the answer follows the view."""
-        raw = self.findings["solidity:zentory-self-audit/M-09"]["evidence"]
+        """The immutable source is not edited; only the answer follows the view.
+
+        Pin sync (purge): solidity:zentory-self-audit/M-09 -> .../O-01, and the
+        published level L1 -> L4. M-09 was purged from the trainable layer as
+        UNHYDRATABLE_DEAD_POINTER / QUARANTINED_NO_CODE ("pointer only") and is
+        preserved in derived_v2_2/quarantine.jsonl; its immutable source finding
+        still exists. O-01 is a surviving demotion with the same invariant:
+        raw poc_execution claims experimentally_verified while the published
+        view is L4/observed_fact, so bd.field_evidence_types maps it back to
+        observed_fact. No trainable row is fabricated.
+        """
+        raw = self.findings["solidity:zentory-self-audit/O-01"]["evidence"]
         self.assertEqual(raw["poc_execution"]["evidence_type"],
                          "experimentally_verified")
-        demoted_view = self.records["solidity:zentory-self-audit/M-09"][
+        demoted_view = self.records["solidity:zentory-self-audit/O-01"][
             "experiment_view"]
-        self.assertEqual(demoted_view["level"], "L1")
+        self.assertEqual(demoted_view["level"], "L4")
         self.assertEqual(
             bd.field_evidence_types(raw, demoted_view)["poc_execution"],
             demoted_view["evidence_type"])
@@ -441,11 +476,17 @@ class TestCanonicalDetectionFollowsLevel(LayerBase):
                 self.assertIn(view.get("level"), bct.DETECTION_LEVELS,
                               f"{r['canonical_id']} is a verified positive at "
                               f"level {view.get('level')}")
-        # 30 adjudicated demotions + vyper:CVE-2024-24567 (L3, never visited by
-        # the adjudication) all still carry the raw status the gate used to read
-        self.assertEqual(b.excluded["v2.2:detection_below_l5"], 31,
-                         "31 records must leave the verified set")
-        withdrawn = self.demoted | {CVE_L3}
+        # Pin sync (purge): 31 -> 29. Of the 30 adjudicated demotions plus
+        # vyper:CVE-2024-24567 (L3, never visited by the adjudication), the L1
+        # demotion M-09 and the L3 CVE were purged from the trainable layer as
+        # UNHYDRATABLE_DEAD_POINTER / QUARANTINED_NO_CODE and survive only in
+        # quarantine. The withdrawn set is the demotions still published:
+        # `self.demoted & set(self.records)` (29), replacing the old
+        # `self.demoted | {CVE_L3}` (31). Verified raw_positives - positives ==
+        # withdrawn and positives & withdrawn == empty.
+        self.assertEqual(b.excluded["v2.2:detection_below_l5"], 29,
+                         "29 records must leave the verified set")
+        withdrawn = self.demoted & set(self.records)
         raw_positives = {rid for rid, rec in self.records.items()
                          if rec["finding"]["status"] in
                          ("confirmed", "experimentally_verified")}

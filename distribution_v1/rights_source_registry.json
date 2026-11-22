@@ -37,7 +37,7 @@
       "note": "the absence of a licence file is not a grant, so the public distribution keeps identifiers, locators and hashes plus an independently written digest, and withholds copied report prose",
       "redistribution_right": "not_documented",
       "redistribution_scope": null,
-      "registered_rows": 1785,
+      "registered_rows": 249,
       "source_id": "halborn_public_reports",
       "source_name": "Halborn Security Public Reports",
       "source_url": "https://github.com/HalbornSecurity/PublicReports",
@@ -77,7 +77,7 @@
       "note": "CC BY-ND 4.0 permits redistributing the licensed work unchanged with attribution and expressly forbids derivatives, so a re-sectioned or rewritten report text is a derivative; that term must stay visible on the record instead of hidden behind license_status: unknown",
       "redistribution_right": "documented",
       "redistribution_scope": "verbatim_copy_only_with_attribution",
-      "registered_rows": 3257,
+      "registered_rows": 2236,
       "source_id": "oak_security_audit_reports",
       "source_name": "Oak Security audit reports",
       "source_url": "https://github.com/oak-security/audit-reports",
@@ -117,7 +117,7 @@
       "note": "no licence file is published in the pinned repository, and two of this source's findings additionally state the vulnerable revision as a 38- or 39-character hex string rather than an object id; see commit_reference_quality",
       "redistribution_right": "not_documented",
       "redistribution_scope": null,
-      "registered_rows": 226,
+      "registered_rows": 62,
       "source_id": "coinfabrik_audit_reports",
       "source_name": "CoinFabrik audit reports",
       "source_url": "https://github.com/CoinFabrik/coinfabrik-audit-reports",
@@ -128,25 +128,27 @@
     {
       "current_declared_status": {
         "redistributable": 1,
-        "unknown": 60
+        "unknown": 54
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
       "immutable_commits": [
+        "1136544ac842ff48ae0b1b939701436598d74075",
         "71abbe683dfd5c0686b7e594fb4f78a14b668d8b",
+        "bfff03c0d2a59bcd8e2ead1da9aed9edf0080d05",
         "de65c34c7b6e4e94662bf508e214dcbf327984f4",
         "e8a0263b8208c5de22074361c1d64f59a3e767e5"
       ],
       "legal_clearance": false,
       "license_classification_counts": {
         "redistributable": 1,
-        "unknown": 60
+        "unknown": 54
       },
       "license_status_required": "none_declared",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 54,
       "redistribution_right": "not_documented",
-      "registered_rows": 61,
+      "registered_rows": 55,
       "source_id": "code4rena/2022-05-alchemix",
       "source_name": "Code4rena 2022-05-alchemix audited protocol repository",
       "source_url": "https://github.com/code-423n4/2022-05-alchemix",
@@ -156,27 +158,33 @@
     {
       "current_declared_status": {
         "source_available_but_not_redistributable": 5,
-        "unknown": 95
+        "unknown": 90
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
       "immutable_commits": [
         "011f62059f3a0b1f3577c8ccd1140f0cf3e7bb29",
+        "0335e8f7e1bd1e8d8329fd300aea2ef2f36dd19f",
         "07ef78215e3d246d47a410651906287c6acec3ef",
         "2a5e19ac03e627f78b24a0635cece7c33b0ccdb1",
+        "48c21c3921931798184367fc02d3a8132b041942",
+        "5f0dfd290d8290678b933b64f31d119b3c4b4e6a",
+        "6cce88e63e176af1ddb6cc56e029110289622317",
         "7f90fd4489551b69c20d11eeecb17a3f564afb18",
+        "c647a3a647fc693c38b16ef023c54e518b46e206",
+        "ca7d4f1d482df5e17f8aaf1b34d0e4432020bc4e",
         "d562762c3bf58cca7e24171873fb7b6fbfa7b2b5"
       ],
       "legal_clearance": false,
       "license_classification_counts": {
         "source_available_but_not_redistributable": 5,
-        "unknown": 95
+        "unknown": 90
       },
       "license_status_required": "none_declared",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
-      "records_carrying_verbatim_source": 74,
+      "records_carrying_verbatim_source": 90,
       "redistribution_right": "not_documented",
-      "registered_rows": 100,
+      "registered_rows": 95,
       "source_id": "code4rena/2024-01-decent",
       "source_name": "Code4rena 2024-01-decent audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-01-decent",
@@ -185,49 +193,71 @@
     },
     {
       "current_declared_status": {
-        "source_available_but_not_redistributable": 120,
-        "unknown": 9
-      },
-      "data_handling_policy": "METADATA_ONLY",
-      "derivatives_allowed": false,
-      "immutable_commits": [],
-      "legal_clearance": false,
-      "license_classification_counts": {
-        "source_available_but_not_redistributable": 120,
-        "unknown": 9
-      },
-      "license_status_required": "source_available_not_redistributable",
-      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
-      "records_carrying_verbatim_source": 0,
-      "redistribution_right": "not_documented",
-      "registered_rows": 129,
-      "source_id": "code4rena/2024-01-renft",
-      "source_name": "Code4rena 2024-01-renft audited protocol repository",
-      "source_url": "https://github.com/code-423n4/2024-01-renft",
-      "upstream_licence_declared_in_manifest": null,
-      "upstream_licence_observed": "source_available_not_redistributable"
-    },
-    {
-      "current_declared_status": {
-        "source_available_but_not_redistributable": 12,
-        "unknown": 273
+        "source_available_but_not_redistributable": 119,
+        "unknown": 2
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
       "immutable_commits": [
-        "9c79b332eff82011dcfa1e8fd51bad805159d758",
-        "cc3854f634a72bd4a8b597021887088ca2d6d29f"
+        "25bae8ddfa8709e5c51ab429fe06024e46a18f15",
+        "39541cd55c95d48ba7885563c516fd330e0e794c",
+        "3bccb8e1da43cbd9925e97cf59cb17c25d1eaf95",
+        "3ddd32455a849c3c6dc3c3aad7a33a6c9b44c291",
+        "47a3620ed937c780d26ff218b76edaaef658f7e2",
+        "516aedb7b9a8d341d0d2666c23780d2bd8a9a600",
+        "697c2474757ea89fec12a4e6db16a574fe259610",
+        "7ca0a99396e7cb6ce86ced6f4f036d252bbaa5da",
+        "b140318af6581e499506b11128a892e3f7a52aeb",
+        "cbf5ff74e40576be72090afd99bf6f0c366bd315",
+        "f8bd2159b64392d5b594f4e056be258ade2fefab"
       ],
       "legal_clearance": false,
       "license_classification_counts": {
-        "source_available_but_not_redistributable": 12,
-        "unknown": 273
+        "source_available_but_not_redistributable": 119,
+        "unknown": 2
+      },
+      "license_status_required": "none_declared",
+      "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
+      "records_carrying_verbatim_source": 2,
+      "redistribution_right": "not_documented",
+      "registered_rows": 121,
+      "source_id": "code4rena/2024-01-renft",
+      "source_name": "Code4rena 2024-01-renft audited protocol repository",
+      "source_url": "https://github.com/code-423n4/2024-01-renft",
+      "upstream_licence_declared_in_manifest": null,
+      "upstream_licence_observed": null
+    },
+    {
+      "current_declared_status": {
+        "source_available_but_not_redistributable": 10,
+        "unknown": 269
+      },
+      "data_handling_policy": "METADATA_ONLY",
+      "derivatives_allowed": false,
+      "immutable_commits": [
+        "0ec6514fe26d35f17435d91eb49c3db8f83325c8",
+        "1136544ac842ff48ae0b1b939701436598d74075",
+        "26b8b5471a68bec519cd8e992cbd94be7cecfc69",
+        "3314bd6ee3c1cbe03349c5e5f700d181d7dba407",
+        "344a58bb84b24d6c281be038a5dff1631426e9c0",
+        "4280609ad3462ed4d7ed6bd93c76eced8ae2761e",
+        "46888db798227cb49902816db29e664ff9df60e7",
+        "549f774626b71dd13a427561d4743535a9cc0dca",
+        "63f3d08d6d7ae9fc74855a489eeae080b72a3f46",
+        "6a69b173733c5c4df3fb3e3d4467c176bcec490b",
+        "70621494b23d333e67442485d7c743ee6e7d22db",
+        "724a9ef43adf139437ba87dcbab63462394d4601"
+      ],
+      "legal_clearance": false,
+      "license_classification_counts": {
+        "source_available_but_not_redistributable": 10,
+        "unknown": 269
       },
       "license_status_required": "none_declared",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 268,
       "redistribution_right": "not_documented",
-      "registered_rows": 285,
+      "registered_rows": 279,
       "source_id": "code4rena/2024-04-noya",
       "source_name": "Code4rena 2024-04-noya audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-04-noya",
@@ -236,22 +266,23 @@
     },
     {
       "current_declared_status": {
-        "source_available_but_not_redistributable": 67,
-        "unknown": 3
+        "source_available_but_not_redistributable": 67
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
-      "immutable_commits": [],
+      "immutable_commits": [
+        "95cc459f27d4db3b502e90478569affb8ec19988",
+        "fe746cc0fbedc4447a981a50e6ba4c95f98b9fe1"
+      ],
       "legal_clearance": false,
       "license_classification_counts": {
-        "source_available_but_not_redistributable": 67,
-        "unknown": 3
+        "source_available_but_not_redistributable": 67
       },
       "license_status_required": "source_available_not_redistributable",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 0,
       "redistribution_right": "not_documented",
-      "registered_rows": 70,
+      "registered_rows": 67,
       "source_id": "code4rena/2024-08-wildcat",
       "source_name": "Code4rena 2024-08-wildcat audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-08-wildcat",
@@ -261,21 +292,25 @@
     {
       "current_declared_status": {
         "source_available_but_not_redistributable": 21,
-        "unknown": 11
+        "unknown": 10
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
-      "immutable_commits": [],
+      "immutable_commits": [
+        "0daf8a0547b6245faed5b6cd3f5daf44d2ea7c9a",
+        "3873b82ae8b321473f3afaf08727e97be0635be9",
+        "782f51917056a53a2c228701058a6c3fb233684a"
+      ],
       "legal_clearance": false,
       "license_classification_counts": {
         "source_available_but_not_redistributable": 21,
-        "unknown": 11
+        "unknown": 10
       },
       "license_status_required": "source_available_not_redistributable",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 0,
       "redistribution_right": "not_documented",
-      "registered_rows": 32,
+      "registered_rows": 31,
       "source_id": "code4rena/2024-12-bakerfi",
       "source_name": "Code4rena 2024-12-bakerfi audited protocol repository",
       "source_url": "https://github.com/code-423n4/2024-12-bakerfi",
@@ -309,7 +344,7 @@
     },
     {
       "current_declared_status": {
-        "unknown": 41
+        "unknown": 33
       },
       "data_handling_policy": "METADATA_ONLY",
       "derivatives_allowed": false,
@@ -320,13 +355,13 @@
       ],
       "legal_clearance": false,
       "license_classification_counts": {
-        "unknown": 41
+        "unknown": 33
       },
       "license_status_required": "none_declared",
       "note": "scripts/fetch_sources.py read a LICENSE file at the pinned commit and found the stated value; no upstream permission was requested or obtained. The per-record classification is mixed for this repository: the status above is the status of the records that carry verbatim source, and `license_classification_counts` publishes the mixture",
       "records_carrying_verbatim_source": 24,
       "redistribution_right": "not_documented",
-      "registered_rows": 41,
+      "registered_rows": 33,
       "source_id": "code4rena/2025-08-gte-perps",
       "source_name": "Code4rena 2025-08-gte-perps audited protocol repository",
       "source_url": "https://github.com/code-423n4/2025-08-gte-perps",

@@ -1,175 +1,175 @@
 {
   "fields": {
     "v1.derived.attacker_model.attacker_identity": {
-      "known": 405,
-      "known_pct": 56.1,
-      "total": 722,
-      "unknown_or_empty": 317
+      "known": 399,
+      "known_pct": 58.2,
+      "total": 685,
+      "unknown_or_empty": 286
     },
     "v1.derived.invariants": {
-      "known": 722,
+      "known": 685,
       "known_pct": 100.0,
-      "total": 722,
+      "total": 685,
       "unknown_or_empty": 0
     },
     "v1.derived.security_state_transition": {
-      "known": 722,
+      "known": 685,
       "known_pct": 100.0,
-      "total": 722,
+      "total": 685,
       "unknown_or_empty": 0
     },
     "v1.derived.taxonomy": {
-      "known": 722,
+      "known": 685,
       "known_pct": 100.0,
-      "total": 722,
+      "total": 685,
       "unknown_or_empty": 0
     },
     "v1.findings.finding.root_cause": {
-      "known": 5,
-      "known_pct": 1.9,
-      "total": 264,
-      "unknown_or_empty": 259
+      "known": 4,
+      "known_pct": 1.7,
+      "total": 241,
+      "unknown_or_empty": 237
     },
     "v1.findings.finding.severity": {
-      "known": 264,
+      "known": 241,
       "known_pct": 100.0,
-      "total": 264,
+      "total": 241,
       "unknown_or_empty": 0
     },
     "v1.findings.finding.status": {
-      "known": 264,
+      "known": 241,
       "known_pct": 100.0,
-      "total": 264,
+      "total": 241,
       "unknown_or_empty": 0
     },
     "v1.findings.finding.summary": {
-      "known": 220,
-      "known_pct": 83.3,
-      "total": 264,
-      "unknown_or_empty": 44
+      "known": 199,
+      "known_pct": 82.6,
+      "total": 241,
+      "unknown_or_empty": 42
     },
     "v1.findings.finding.title": {
-      "known": 264,
+      "known": 241,
       "known_pct": 100.0,
-      "total": 264,
+      "total": 241,
       "unknown_or_empty": 0
     },
     "v1.findings.finding.vulnerability_classes": {
-      "known": 249,
-      "known_pct": 94.3,
-      "total": 264,
-      "unknown_or_empty": 15
+      "known": 230,
+      "known_pct": 95.4,
+      "total": 241,
+      "unknown_or_empty": 11
     },
     "v3.records.attack_sequence": {
       "known": 0,
       "known_pct": 0.0,
-      "total": 5467,
-      "unknown_or_empty": 5467
+      "total": 4623,
+      "unknown_or_empty": 4623
     },
     "v3.records.ecosystem": {
-      "known": 5467,
+      "known": 4623,
       "known_pct": 100.0,
-      "total": 5467,
+      "total": 4623,
       "unknown_or_empty": 0
     },
     "v3.records.fix_description": {
       "known": 0,
       "known_pct": 0.0,
-      "total": 5467,
-      "unknown_or_empty": 5467
+      "total": 4623,
+      "unknown_or_empty": 4623
     },
     "v3.records.impact": {
       "known": 0,
       "known_pct": 0.0,
-      "total": 5467,
-      "unknown_or_empty": 5467
+      "total": 4623,
+      "unknown_or_empty": 4623
     },
     "v3.records.language": {
-      "known": 5467,
+      "known": 4623,
       "known_pct": 100.0,
-      "total": 5467,
+      "total": 4623,
       "unknown_or_empty": 0
     },
     "v3.records.root_cause": {
-      "known": 0,
-      "known_pct": 0.0,
-      "total": 5467,
-      "unknown_or_empty": 5467
+      "known": 4623,
+      "known_pct": 100.0,
+      "total": 4623,
+      "unknown_or_empty": 0
     },
     "v3.records.severity": {
-      "known": 4573,
-      "known_pct": 83.6,
-      "total": 5467,
-      "unknown_or_empty": 894
+      "known": 3755,
+      "known_pct": 81.2,
+      "total": 4623,
+      "unknown_or_empty": 868
     },
     "vbeta.records.attack_sequence": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 6935,
-      "unknown_or_empty": 6935
+      "total": 80,
+      "unknown_or_empty": 80
     },
     "vbeta.records.decision": {
-      "known": 6935,
+      "known": 80,
       "known_pct": 100.0,
-      "total": 6935,
+      "total": 80,
       "unknown_or_empty": 0
     },
     "vbeta.records.ecosystem": {
-      "known": 6124,
-      "known_pct": 88.3,
-      "total": 6935,
-      "unknown_or_empty": 811
+      "known": 74,
+      "known_pct": 92.5,
+      "total": 80,
+      "unknown_or_empty": 6
     },
     "vbeta.records.fix_description": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 6935,
-      "unknown_or_empty": 6935
+      "total": 80,
+      "unknown_or_empty": 80
     },
     "vbeta.records.impact": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 6935,
-      "unknown_or_empty": 6935
+      "total": 80,
+      "unknown_or_empty": 80
     },
     "vbeta.records.language": {
-      "known": 6219,
-      "known_pct": 89.7,
-      "total": 6935,
-      "unknown_or_empty": 716
+      "known": 80,
+      "known_pct": 100.0,
+      "total": 80,
+      "unknown_or_empty": 0
     },
     "vbeta.records.root_cause": {
       "known": 0,
       "known_pct": 0.0,
       "note": "field absent in layer",
-      "total": 6935,
-      "unknown_or_empty": 6935
+      "total": 80,
+      "unknown_or_empty": 80
     },
     "vbeta.records.severity_observed": {
-      "known": 6350,
-      "known_pct": 91.6,
-      "total": 6935,
-      "unknown_or_empty": 585
+      "known": 0,
+      "known_pct": 0.0,
+      "total": 80,
+      "unknown_or_empty": 80
     },
     "vbeta.records.status_observed": {
-      "known": 91,
-      "known_pct": 1.3,
-      "total": 6935,
-      "unknown_or_empty": 6844
+      "known": 9,
+      "known_pct": 11.2,
+      "total": 80,
+      "unknown_or_empty": 71
     },
     "vbeta.records.title": {
-      "known": 6935,
+      "known": 80,
       "known_pct": 100.0,
-      "total": 6935,
+      "total": 80,
       "unknown_or_empty": 0
     },
     "vbeta.records.verification_level": {
-      "known": 6935,
+      "known": 80,
       "known_pct": 100.0,
-      "total": 6935,
+      "total": 80,
       "unknown_or_empty": 0
     }
   },

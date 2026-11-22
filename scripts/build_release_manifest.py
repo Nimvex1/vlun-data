@@ -554,7 +554,21 @@ def windows_of(text: str) -> set[str]:
             for i in range(len(words) - WORD_WINDOW + 1)}
 
 
-def verbatim_spans(text: str, corpus: set[str]) -> list[tuple[int, bool]]:
+def corpus_vocab(corpus: set[str]) -> set[str]:
+    """Every word that occurs in a corpus window.
+
+    A verbatim match is a lowercased 10-word window that is in `corpus`.
+    If a string contains no word from this set it cannot contain such a
+    window, so `verbatim_spans` can skip its per-window join/lower work.
+    """
+    vocab: set[str] = set()
+    for window in corpus:
+        vocab.update(window.split())
+    return vocab
+
+
+def verbatim_spans(text: str, corpus: set[str],
+                   vocab: set[str] | None = None) -> list[tuple[int, bool]]:
     """The verbatim runs of `text` that also occur in the corpus.
 
     A "verbatim run" is a maximal stretch of consecutive words all of whose
@@ -565,9 +579,17 @@ def verbatim_spans(text: str, corpus: set[str]) -> list[tuple[int, bool]]:
     published policy never carries third-party code, not even a short
     quotation of it.
     """
+    if len(text) <= 2 * WORD_WINDOW:
+        # 11 one-letter words need 21 characters, so a shorter string
+        # cannot have more than WORD_WINDOW words (the check below).
+        return []
     words = text.split()
     n = len(words)
     if n <= WORD_WINDOW:
+        return []
+    if vocab is not None and not any(w.lower() in vocab for w in words):
+        # None of this string's words occurs in any corpus window, so no
+        # 10-word window of it can be in the corpus.
         return []
     hits = [i for i in range(n - WORD_WINDOW + 1)
             if " ".join(words[i:i + WORD_WINDOW]).lower() in corpus]
@@ -644,8 +666,18 @@ def personal_mailboxes(text: str) -> list[str]:
     return out
 
 
-def file_strings(path: Path) -> list[str]:
-    """Every string a candidate file carries."""
+# `measure` asks for a file's strings and then, for JSON/JSONL, asks for its
+# leaf strings again. Parsing the same multi-hundred-MB layer twice per file
+# was pure waste. A one-entry cache shares the rows between those two calls
+# without retaining every parsed layer for the whole run.
+_ROWS_CACHE: tuple[Path, list] | None = None
+
+
+def _cached_rows(path: Path) -> list:
+    global _ROWS_CACHE
+    cached = _ROWS_CACHE
+    if cached is not None and cached[0] == path:
+        return cached[1]
     suffix = path.suffix.lower()
     if suffix == ".jsonl":
         rows = read_jsonl(path)
@@ -653,8 +685,20 @@ def file_strings(path: Path) -> list[str]:
         try:
             loaded = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
-            return []
-        rows = loaded if isinstance(loaded, list) else [loaded]
+            rows = []
+        else:
+            rows = loaded if isinstance(loaded, list) else [loaded]
+    else:
+        rows = []
+    _ROWS_CACHE = (path, rows)
+    return rows
+
+
+def file_strings(path: Path) -> list[str]:
+    """Every string a candidate file carries."""
+    suffix = path.suffix.lower()
+    if suffix in (".jsonl", ".json"):
+        rows = _cached_rows(path)
     elif suffix in (".md", ".txt", ".csv", ".sol", ".py", ".rs", ".toml", ".cff",
                     ".yaml", ".yml", ".rst", ".cfg", ".ini"):
         try:
@@ -673,7 +717,7 @@ def file_strings(path: Path) -> list[str]:
     return out
 
 
-def measure(path: Path, corpus: set[str]) -> dict:
+def measure(path: Path, corpus: set[str], vocab: set[str] | None = None) -> dict:
     """Measure what a file actually carries."""
     verbatim = 0
     longest = 0
@@ -687,7 +731,7 @@ def measure(path: Path, corpus: set[str]) -> dict:
                 "third_party_code_fields": 0, "personal_data_strings": 0}
     suffix = path.suffix.lower()
     for text in file_strings(path):
-        spans = verbatim_spans(text, corpus)
+        spans = verbatim_spans(text, corpus, vocab)
         if spans:
             verbatim += 1
             longest = max(longest, max(s for s, _c in spans))
@@ -695,7 +739,8 @@ def measure(path: Path, corpus: set[str]) -> dict:
                 if is_code:
                     code_spans += 1
                     longest_code = max(longest_code, size)
-        mailboxes += len(personal_mailboxes(text))
+        if "@" in text:  # every email address contains '@'
+            mailboxes += len(personal_mailboxes(text))
     if suffix in (".jsonl", ".json"):
         for pointer, text in _leaf_strings(path):
             leaf = pointer.replace("[", ".").split(".")[-1].rstrip("]")
@@ -713,17 +758,9 @@ def measure(path: Path, corpus: set[str]) -> dict:
 
 def _leaf_strings(path: Path):
     suffix = path.suffix.lower()
-    if suffix == ".jsonl":
-        rows = read_jsonl(path)
-    elif suffix == ".json":
-        try:
-            loaded = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            return
-        rows = loaded if isinstance(loaded, list) else [loaded]
-    else:
+    if suffix not in (".jsonl", ".json"):
         return
-    for row in rows:
+    for row in _cached_rows(path):
         if isinstance(row, dict):
             yield from strings_of(row)
 
@@ -793,6 +830,7 @@ def decide(rel: str, evidence: dict) -> tuple[str, str]:
 def build(root: Path) -> dict:
     files = tracked_files(root)
     corpus = corpus_windows(root)
+    vocab = corpus_vocab(corpus)
     paths: dict[str, str] = {}
     detail: dict[str, dict] = {}
     for rel in files:
@@ -801,7 +839,7 @@ def build(root: Path) -> dict:
             # would not be reproducible (the first build sees no file, the
             # second sees the file the first build wrote)
             continue
-        evidence = measure(root / rel, corpus)
+        evidence = measure(root / rel, corpus, vocab)
         status, why = decide(rel, evidence)
         paths[rel] = status
         interesting = {k: v for k, v in sorted(evidence.items()) if v}

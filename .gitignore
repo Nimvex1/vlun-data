@@ -1,5 +1,7 @@
 __pycache__/
 *.pyc
+.pytest_cache/
+_api_cache/
 .DS_Store
 Thumbs.db
 *.swp
@@ -11,6 +13,11 @@ Thumbs.db
 # contain source that must NOT be redistributed. Nothing in work/ belongs in the
 # repository; the dataset keeps citations and hashes, not the code.
 work/
+
+# Hydration workers stage verbatim extracted source here. Already covered by
+# the work/ rule above, but named explicitly so the boundary is unambiguous:
+# this cache must never be mistaken for a dataset layer or enter the catalog.
+work/hydration_cache/
 
 # Generated at build time, committed deliberately: see reports/.
 

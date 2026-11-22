@@ -17,7 +17,7 @@ Every commit reachable from an origin/* ref is published on the remote named abo
 
 ## Third-party material added in history and no longer in the tree
 
-Commits scanned: 106. Paths that appear in history but not in the current tree (code/prose suffixes): 39. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
+Commits scanned: 118. Paths that appear in history but not in the current tree (code/prose suffixes): 37. These are split below into blobs that actually carried third-party expression and paths that were only generated project artefacts, so the exposure is not overstated.
 
 ### Historically published third-party expression
 
@@ -123,8 +123,6 @@ Commits scanned: 106. Paths that appear in history but not in the current tree (
 
 ### Other paths retired or moved (generated project artefacts)
 
-- `.swarm/ewc-fisher.json` — added `7f907c566`, absent from the current tree; 10710 bytes, sha256 `4f713792c3eb7a0d…`; reachable from 1 local ref(s). No upstream source signature detected in the historical blob.
-- `VLUN-IMPROVEMENT-PLAN-2026-10-27.md` — added `7f907c566`, absent from the current tree; 33225 bytes, sha256 `b3ad430523c53a61…`; reachable from 1 local ref(s). No upstream source signature detected in the historical blob.
 - `_audit/baseline_2026-10-27.md` — added `209deeb4c`, absent from the current tree; 2921 bytes, sha256 `c1e4e90e3bfbeeb3…`; reachable from 2 local ref(s). No upstream source signature detected in the historical blob.
 - `benchmark/M_experiment_level_classification.jsonl` — added `abae0ef88`, absent from the current tree; 197893 bytes, sha256 `11a097d24a14a7d8…`; reachable from 15 local ref(s). No upstream source signature detected in the historical blob.
 - `benchmark/P_provenance_tier_and_rights.jsonl` — added `abae0ef88`, absent from the current tree; 338549 bytes, sha256 `fa44c5e48f108ba3…`; reachable from 15 local ref(s). No upstream source signature detected in the historical blob.

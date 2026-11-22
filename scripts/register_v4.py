@@ -483,6 +483,14 @@ def main():
     findings = [json.loads(line) for line in open(
         ROOT / "work" / "cloned_conversion" / "v4" / "extracted_findings.jsonl",
         encoding="utf-8") if line.strip()]
+    if not findings:
+        # Refuse to overwrite committed V4 layers from an absent/empty
+        # git-ignored work input.  This source is not shipped in a fresh clone;
+        # a silent empty build would erase the hydrated canonical layer.
+        raise RuntimeError(
+            "work/cloned_conversion/v4/extracted_findings.jsonl is empty; "
+            "refusing to overwrite committed jsonl_v4/, derived_v4/ and V4/ "
+            "(use --manifest-only to rebuild the manifest from committed layers)")
 
     # Rights come from the recorded decision file, never from a placeholder. The
     # harvester leaves `license: "unknown"` on every row, which used to flow
@@ -529,6 +537,26 @@ def main():
 
     admitted, quarantined, duplicates, candidate_ledger = partition_findings(
         findings, existing)
+
+    # Track-4 hydration: inline verbatim PDF-excerpt content into each admitted
+    # row before it is written, and join the metadata-only candidate ledger to
+    # those rows by candidate_id.  NO FABRICATION -- hydrate_vbeta_v4 only copies
+    # strings already captured in the row by extract_cloned_findings.py.
+    try:
+        from hydrate_vbeta_v4 import hydrate_v4_row
+    except ImportError:  # allow running from a different cwd
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from hydrate_vbeta_v4 import hydrate_v4_row
+    admitted = [hydrate_v4_row(r) for r in admitted]
+    _inline_keys = ("code_context", "description", "root_cause", "poc", "patch")
+    _by_id = {r["candidate_id"]: r for r in admitted}
+    for row in candidate_ledger:
+        src = _by_id.get(row.get("candidate_id"))
+        if src:
+            for key in _inline_keys:
+                if key in src:
+                    row[key] = src[key]
 
     # pinned source commits
     pins = {}

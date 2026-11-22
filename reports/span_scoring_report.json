@@ -3,14 +3,14 @@
   "axis_separation_demo": {
     "exact_span": {
       "answer_acc": 1.0,
-      "citation_rate": 0.825,
+      "citation_rate": 0.5,
       "exactness": 1.0,
       "support": 1.0
     },
     "note": "off_by-one keeps answer + existence but breaks exactness AND support -> the two citation axes are genuinely separate; plausible-wrong keeps support but breaks answer correctness.",
     "off_by_one": {
       "answer_acc": 1.0,
-      "citation_rate": 0.825,
+      "citation_rate": 0.5,
       "exactness": 0.0,
       "support": 0.0
     },
@@ -94,15 +94,15 @@
           "exact_rate_over_applicable": 1.0
         },
         "citation_existence": {
-          "cited": 330,
-          "not_cited": 70,
-          "rate": 0.825
+          "cited": 200,
+          "not_cited": 200,
+          "rate": 0.5
         },
         "cited_vs_supported_confusion": {
           "cited_and_supported": 200,
           "cited_but_unsupported": 0,
           "not_cited_on_verifiable_task": 0,
-          "unsupported_but_cited_on_abstain_task": 130
+          "unsupported_but_cited_on_abstain_task": 0
         },
         "span_support": {
           "applicable": 200,
@@ -133,15 +133,15 @@
           "exact_rate_over_applicable": 0.0
         },
         "citation_existence": {
-          "cited": 330,
-          "not_cited": 70,
-          "rate": 0.825
+          "cited": 200,
+          "not_cited": 200,
+          "rate": 0.5
         },
         "cited_vs_supported_confusion": {
           "cited_and_supported": 0,
           "cited_but_unsupported": 200,
           "not_cited_on_verifiable_task": 0,
-          "unsupported_but_cited_on_abstain_task": 130
+          "unsupported_but_cited_on_abstain_task": 0
         },
         "span_support": {
           "applicable": 200,
@@ -172,15 +172,15 @@
           "exact_rate_over_applicable": 1.0
         },
         "citation_existence": {
-          "cited": 330,
-          "not_cited": 70,
-          "rate": 0.825
+          "cited": 200,
+          "not_cited": 200,
+          "rate": 0.5
         },
         "cited_vs_supported_confusion": {
           "cited_and_supported": 200,
           "cited_but_unsupported": 0,
           "not_cited_on_verifiable_task": 0,
-          "unsupported_but_cited_on_abstain_task": 130
+          "unsupported_but_cited_on_abstain_task": 0
         },
         "span_support": {
           "applicable": 200,

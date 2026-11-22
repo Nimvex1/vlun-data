@@ -14,12 +14,12 @@
         "valid_finding"
       ]
     },
-    "ratio": "70/15/15",
-    "rows": 212,
+    "ratio": "35/30/30 (floor-preserving; <200 rows)",
+    "rows": 147,
     "splits": {
-      "test": 77,
-      "train": 73,
-      "val": 62
+      "test": 54,
+      "train": 50,
+      "val": 43
     }
   },
   "Fa_rejection_evidence_axis_vector": {
@@ -50,11 +50,11 @@
       ]
     },
     "ratio": "70/15/15",
-    "rows": 594,
+    "rows": 426,
     "splits": {
-      "test": 216,
-      "train": 204,
-      "val": 174
+      "test": 156,
+      "train": 144,
+      "val": 126
     }
   },
   "Fb_duplicate_radar_pair": {
@@ -73,11 +73,11 @@
       ]
     },
     "ratio": "70/15/15",
-    "rows": 527,
+    "rows": 255,
     "splits": {
-      "test": 160,
-      "train": 210,
-      "val": 157
+      "test": 77,
+      "train": 102,
+      "val": 76
     }
   }
 }

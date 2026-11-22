@@ -6,9 +6,10 @@
     "vbeta_V_source_tier_routing"
   ],
   "generated_by": "Vbeta/scripts/build_vbeta.py",
-  "notes": "answer keys rebuild from derived_vbeta/records.jsonl. U covers 6,219 of 6,935 admitted records: 716 rows carry language 'unknown' and are excluded by construction, because a language-routing task whose answer is 'unknown' carries no signal. V covers every admitted record. Split assignment is by source (no source spans splits), which is why U is concentrated in whichever splits its sources own.",
+  "notes": "Benchmarks contain only FULLY_TRAINABLE rows (inline code >= 50 chars AND technical prose >= 100 chars). Non-trainable/dead-pointer rows were removed to Vbeta/derived_vbeta/quarantine.jsonl.",
+  "purge_reason": "UNHYDRATABLE_DEAD_POINTER",
   "tasks": {
-    "vbeta_U_language_routing": 6219,
-    "vbeta_V_source_tier_routing": 6935
+    "vbeta_U_language_routing": 80,
+    "vbeta_V_source_tier_routing": 80
   }
 }

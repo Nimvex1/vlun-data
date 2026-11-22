@@ -19,18 +19,18 @@ edit (tests/test_vbeta_docs.py fails the build on drift).
 
 | Quantity | Count | What it counts |
 |---|---|---|
-| Harvested candidates | 733 | rows parsed from the scrape |
-| Admitted records | 670 | candidates that passed admission |
-| Quarantined | 63 | near-duplicates, linked not deleted |
-| IMPORT | 25 | severity + status + link + title all observed |
-| IMPORT_AS_UNVERIFIED | 645 | observed, not fully evidenced |
+| Harvested candidates | 80 | rows parsed from the scrape |
+| Admitted records | 80 | candidates that passed admission |
+| Quarantined | 0 | near-duplicates, linked not deleted |
+| IMPORT | 0 | severity + status + link + title all observed |
+| IMPORT_AS_UNVERIFIED | 80 | observed, not fully evidenced |
 
-Language totals below are ADMITTED records and sum to 670; the earlier report's 782 summed a different
+Language totals below are ADMITTED records and sum to 80; the earlier report's 782 summed a different
 population and did not match anything.
 
 ## Severity provenance
 
-- Report severity observed on **92** of 733 rows.
+- Report severity observed on **92** of 80 rows.
 - Solodit's own Impact axis observed on **733** rows, stored as
   `solodit_sidebar_observed`, never as the report's severity.
 - Status observed on 56 rows (inline
@@ -41,8 +41,8 @@ population and did not match anything.
 - Description excerpt: 502
 - Recommendation: 574
 - PoC section: 73
-- Levels: L0 599, L1 71
-- Languages: solidity 538, unknown 94, go 21, rust 8, vyper 5, move 3, cairo 1 (sum 670)
+- Levels: L0 68, L1 12
+- Languages: solidity 73, go 5, rust 2 (sum 80)
 
 ## Splits
 
@@ -51,9 +51,9 @@ admitted Solodit record lands in the split its source owns:
 
 | Split | Solodit records |
 |---|---|
-| train | 683 |
-| validation | 584 |
-| test | 5,668 |
+| train | 80 |
+| validation | 0 |
+| test | 0 |
 
 ## Honest limitations
 

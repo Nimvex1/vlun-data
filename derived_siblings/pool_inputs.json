@@ -24,65 +24,65 @@
     },
     "vulnerable_corpus": {
       "by_property": {
-        "caller_supplied_recipient": 11,
-        "externally_influenced_balance_as_source": 44,
+        "caller_supplied_recipient": 16,
+        "externally_influenced_balance_as_source": 45,
         "pair_balance_drain_via_skim": 8,
         "unbound_signer_identity": 2,
         "unchecked_low_level_call": 4,
-        "unchecked_token_move": 11
+        "unchecked_token_move": 16
       },
       "cited_files_missing": 2,
-      "cited_files_read": 312,
-      "judged_high_medium": 204,
+      "cited_files_read": 307,
+      "judged_high_medium": 194,
       "record_cap": null,
-      "records": 264,
+      "records": 241,
       "records_contributing_sites": 26,
-      "rejected_class_mismatch": 27,
-      "rejected_wrong_function": 364,
-      "sites": 75
+      "rejected_class_mismatch": 29,
+      "rejected_wrong_function": 356,
+      "sites": 81
     }
   },
   "pairing": {
     "controlled_reference_sites": 70,
-    "pairs_built": 229,
+    "pairs_built": 255,
     "pairs_by_api": {
       "approve": 4,
-      "balanceOf": 179,
+      "balanceOf": 184,
       "call": 4,
       "recover": 3,
       "safeTransfer": 4,
       "safeTransferFrom": 3,
-      "transfer": 18,
-      "transferFrom": 14
+      "transfer": 30,
+      "transferFrom": 23
     },
     "pairs_by_property": {
-      "caller_supplied_recipient": 19,
-      "externally_influenced_balance_as_source": 179,
+      "caller_supplied_recipient": 28,
+      "externally_influenced_balance_as_source": 184,
       "unbound_signer_identity": 3,
       "unchecked_low_level_call": 4,
-      "unchecked_token_move": 24
+      "unchecked_token_move": 36
     },
     "pairs_by_reference_project": {
-      "2022-05-alchemix": 9,
-      "2024-04-noya": 12,
+      "2022-05-alchemix": 14,
+      "2024-04-noya": 13,
       "2024-04-renzo": 1,
       "2024-12-bakerfi": 2,
-      "2025-06-panoptic": 42,
-      "balancer-v2-monorepo": 42,
-      "contracts": 6,
-      "morpho-blue-bundlers": 6,
+      "2025-06-panoptic": 43,
+      "balancer-v2-monorepo": 43,
+      "contracts": 10,
+      "morpho-blue-bundlers": 9,
       "openzeppelin-contracts": 1,
       "pendle-core-v2-public": 5,
-      "prisma-contracts": 46,
-      "silo-core-v1": 42,
+      "prisma-contracts": 49,
+      "silo-core-v1": 43,
       "smart-contracts": 1,
-      "synthetix-v3": 3,
-      "v2-periphery": 10,
+      "synthetix-v3": 5,
+      "v2-periphery": 15,
       "v3-periphery": 1
     },
     "pairs_by_vulnerable_project": {
       "2022-05-alchemix": 32,
-      "2024-01-decent": 51,
+      "2024-01-decent": 77,
       "2024-01-renft": 2,
       "2024-04-noya": 127,
       "2025-08-gte-perps": 17
@@ -93,7 +93,7 @@
       "no_risky_form": 3
     },
     "reference_sites": 566,
-    "vulnerable_sites": 75
+    "vulnerable_sites": 81
   },
   "target_note": "spec item 11 asks to expand 71 toward 300+; this reports the yield the source pool actually supports, not a quota"
 }

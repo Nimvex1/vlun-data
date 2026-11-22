@@ -10,6 +10,7 @@ WAVE1 = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WAVE1 / "scripts"))
 
 from _common import ROOT, WAVE1 as COMMON_WAVE1, guard_wave1, load_registry, read_jsonl, sha256_file  # noqa: E402
+from hydration_lib import ALLOWED_INLINE_FIELDS, fully_trainable  # noqa: E402
 
 
 class TestConfinement(unittest.TestCase):
@@ -57,7 +58,14 @@ class TestAdmitted(unittest.TestCase):
         for p in base.rglob("*.jsonl"):
             for row in read_jsonl(p):
                 self.assertTrue(row.get("dedup_keys"), f"{p}: missing dedup_keys")
-                self.assertFalse(any(len(str(v)) > 1000 for v in row.values()), f"{p}: prose leak")
+                # rights.jsonl now declares FULL_TRAINABLE_INLINE_EXTRACTION:
+                # verbatim code/prose in inline fields is intentional.  The old
+                # <=1000-char METADATA_ONLY guard applies only to other fields.
+                self.assertFalse(
+                    any(len(str(v)) > 1000 for k, v in row.items()
+                        if k not in ALLOWED_INLINE_FIELDS),
+                    f"{p}: non-inline prose leak",
+                )
 
 
 class TestSemanticPurity(unittest.TestCase):
@@ -123,6 +131,28 @@ class TestJExecutionStrictness(unittest.TestCase):
             self.assertRegex(str(ex.get("fixed_commit") or ""), r"^[0-9a-fA-F]{40}$")
             self.assertNotIn("overlay", str(ex.get("patch_provenance") or "").lower())
             self.assertFalse(str(ex.get("fixed_sha") or "").startswith("blob:"))
+
+
+class TestFullyTrainable(unittest.TestCase):
+    def test_every_row_in_candidate_admitted_benchmark_is_trainable(self):
+        roots = [
+            (WAVE1 / "03_candidates", "**/*.jsonl"),
+            (WAVE1 / "04_admitted", "**/*.jsonl"),
+            (WAVE1 / "benchmark_wave1", "*.jsonl"),
+        ]
+        checked = 0
+        for base, pattern in roots:
+            if not base.exists():
+                self.fail(f"missing layer: {base}")
+            for p in sorted(base.glob(pattern)):
+                for row in read_jsonl(p):
+                    checked += 1
+                    self.assertTrue(
+                        fully_trainable(row),
+                        f"{p.relative_to(WAVE1)}: row {row.get('task_id') or row.get('candidate_id')} "
+                        f"is not FULLY_TRAINABLE",
+                    )
+        self.assertGreater(checked, 0, "no rows checked")
 
 
 class TestPresent(unittest.TestCase):

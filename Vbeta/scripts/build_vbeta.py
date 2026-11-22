@@ -39,6 +39,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import vlun_vbeta as V  # noqa: E402
 
+# Trainability purge (see scripts/purge_untrainable_vbeta_v4.py).  The base
+# tables above are built first; the purge re-reads them, re-applies the cached
+# verbatim hydration, and removes every row that is not FULLY_TRAINABLE, moving
+# it to Vbeta/derived_vbeta/quarantine.jsonl.  This keeps a plain apply-mode
+# rebuild in sync with the quarantined, count-pinned committed state.
+_REPO_SCRIPTS = Path(__file__).resolve().parents[2] / "scripts"
+sys.path.insert(0, str(_REPO_SCRIPTS))
+
 U = V.UNKNOWN
 
 SENTINELS = [
@@ -449,6 +457,15 @@ def main() -> int:
         V.REPORTS_VB / "quality_report.md")
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
+
+    # Re-hydrate from the deterministic cache and drop untrainable/dead-pointer
+    # rows into the quarantine log; manifests/splits/benchmarks are rebuilt for
+    # the retained population.  --check must not mutate anything.
+    if not args.check:
+        from purge_untrainable_vbeta_v4 import purge_vbeta
+        pstats = purge_vbeta(hydrate=True)
+        V.log(f"  purge: {pstats['records']['kept']} trainable records, "
+              f"{pstats['records']['purged']} quarantined")
     V.log(f"  wrote {len(outputs)} artefacts + quality report "
           f"({len(ledger)} candidates, {len(records)} records)")
     return 0

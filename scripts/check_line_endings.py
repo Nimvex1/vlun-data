@@ -59,12 +59,55 @@ def _blob(rel: str) -> bytes | None:
         return None
 
 
+def _blobs(rels: list[str]) -> dict[str, bytes | None]:
+    """Index bytes for every `rel` in ONE `git cat-file --batch` call.
+
+    Spawning one `git cat-file blob :path` process per file dominated this
+    gate (thousands of process starts). `--batch` reads the same `:path`
+    index entries, so the bytes - and therefore the CRLF verdict - are
+    identical. A missing index entry or an empty blob falls back to
+    `_blob`, which preserves the original `returncode == 0 and stdout`
+    guard (an empty result is re-read from the working tree).
+    """
+    out: dict[str, bytes | None] = {}
+    if not rels:
+        return out
+    payload = ("\n".join(f":{rel}" for rel in rels) + "\n").encode("utf-8")
+    try:
+        proc = subprocess.run(["git", "cat-file", "--batch"], cwd=str(ROOT),
+                              input=payload, capture_output=True)
+    except (OSError, subprocess.SubprocessError):
+        proc = None
+    if proc is None or proc.returncode != 0:
+        # Same fallback path as the original per-file helper.
+        return {rel: _blob(rel) for rel in rels}
+    data = proc.stdout
+    pos = 0
+    for rel in rels:
+        nl = data.find(b"\n", pos)
+        if nl < 0:
+            out[rel] = _blob(rel)
+            continue
+        header = data[pos:nl].decode("utf-8", "replace").split()
+        pos = nl + 1
+        if len(header) == 3 and header[1] in ("blob", "tree", "commit", "tag"):
+            size = int(header[2])
+            content = data[pos:pos + size]
+            pos += size + 1
+            if content:  # mirrors `_blob`'s `and out.stdout`
+                out[rel] = content
+                continue
+        out[rel] = _blob(rel)
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
     offenders: list[str] = []
     scanned = 0
+    candidates: list[str] = []
     for rel in tracked_files():
         if rel.startswith(EXCLUDED_PREFIXES) or rel.startswith(EVIDENCE_PREFIXES):
             continue
@@ -72,7 +115,10 @@ def main() -> int:
             continue
         if not (ROOT / rel).is_file():
             continue
-        blob = _blob(rel)
+        candidates.append(rel)
+    blobs = _blobs(candidates)
+    for rel in candidates:
+        blob = blobs.get(rel)
         if blob is None:
             continue
         if b"\x00" in blob[:4096]:      # binary mislabelled by extension

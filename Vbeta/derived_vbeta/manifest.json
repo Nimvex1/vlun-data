@@ -1,50 +1,24 @@
 {
   "admitted_by_ecosystem": {
-    "aptos": 10,
-    "cosmos": 9,
-    "evm": 6089,
-    "solana": 7,
-    "starknet": 2,
-    "sui": 7,
-    "unknown": 811
+    "cosmos": 1,
+    "evm": 73,
+    "unknown": 6
   },
   "admitted_by_language": {
-    "cairo": 19,
-    "go": 38,
-    "move": 20,
-    "rust": 55,
-    "solidity": 6063,
-    "unknown": 716,
-    "vyper": 24
+    "go": 5,
+    "rust": 2,
+    "solidity": 73
   },
   "candidate_by_source": {
-    "cantina-portfolio": 6,
-    "cyfrin-codehawks": 8,
-    "immunefi-past-competitions": 2,
-    "lisabench": 5175,
-    "movebit-sampled-audits": 15,
-    "neodyme-reports": 12,
-    "openzeppelin-cairo": 2,
-    "ottersec-audits": 11,
-    "runtime-verification-publications": 3,
-    "scabench": 550,
-    "shieldify-audits-portfolio": 33,
-    "solodit-harvest": 733,
-    "trailofbits-publications": 4,
-    "veridise-zk-archive": 15,
-    "web3bugs": 491
+    "solodit-harvest": 80
   },
-  "candidate_count": 7060,
+  "candidate_count": 80,
   "candidate_decisions": {
-    "CORROBORATION_ONLY": 63,
-    "IMPORT": 64,
-    "IMPORT_AS_NEGATIVE": 5,
-    "IMPORT_AS_UNVERIFIED": 6866,
-    "RESEARCH_ONLY": 62
+    "IMPORT_AS_UNVERIFIED": 80
   },
   "candidate_verification_levels": {
-    "L0": 6981,
-    "L1": 79
+    "L0": 68,
+    "L1": 12
   },
   "count_domains": {
     "admitted_by_ecosystem": "admitted_record (IMPORT* decisions)",
@@ -61,7 +35,11 @@
   "experimental_runs_note": "nothing executed in this pass; L1 = published-PoC claims only",
   "generated_by": "Vbeta/scripts/build_vbeta.py",
   "license_posture": "METADATA_ONLY for all third-party content; openzeppelin-cairo rows carry observed MIT",
-  "record_count": 6935,
+  "purge_reason": "UNHYDRATABLE_DEAD_POINTER",
+  "quarantine_rows": 26960,
+  "record_count": 80,
   "schema_version": "vbeta-1.0",
-  "source_count": 15
+  "source_count": 15,
+  "trainable_min_code_chars": 50,
+  "trainable_min_prose_chars": 100
 }

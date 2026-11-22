@@ -43,6 +43,7 @@ import collections
 import hashlib
 import importlib.util
 import json
+import os
 import subprocess
 import pathlib
 import re
@@ -910,6 +911,33 @@ def measure(corpus_root: pathlib.Path | None = None) -> dict:
 
 
 # ----------------------------------------------------------------- rendering ----
+# Machine-local / cache / VCS trees that must never be walked. work/ alone
+# holds ~500k regenerable files; descending into it (or .git/, the pytest
+# cache, ...) makes a full-tree glob take minutes. Mirrors the exclusion set
+# in build_json_catalog.py. No file relevant to this report lives under any of
+# them, so pruning them leaves the generated report byte-for-byte unchanged.
+_EXCLUDED_DIRS = frozenset({
+    "work", ".git", ".pytest_cache", "__pycache__", "node_modules",
+    ".mypy_cache", ".ruff_cache", ".firecrawl", ".freebuff", "nextdata",
+    "brag-output", "ai", "V3/clones",
+})
+
+
+def pruned_walk(root: pathlib.Path):
+    """Yield files under ``root``, pruning excluded directories in place.
+
+    ``Path.rglob`` has no in-place pruning: it descends into work/ (half a
+    million machine-local files), .git/ and the cache trees before a filename
+    filter can reject them.  Clearing ``dirnames`` at the top of each os.walk
+    pass keeps those trees out of the walk entirely while yielding exactly the
+    files the narrow rglob would have produced.
+    """
+    for dirpath, dirnames, filenames in os.walk(root, topdown=True):
+        dirnames[:] = [d for d in dirnames if d not in _EXCLUDED_DIRS]
+        for name in filenames:
+            yield pathlib.Path(dirpath) / name
+
+
 def release_boundary() -> dict:
     """What is OPEN-KEY and what is actually protected, measured.
 
@@ -928,8 +956,9 @@ def release_boundary() -> dict:
         families.append({"path": rel, "rows": len(rows),
                          "rows_with_a_committed_answer_key": keyed})
     in_tree = []
-    for p in sorted(ROOT.rglob("prove_tasks_private.jsonl")):
-        in_tree.append(p.relative_to(ROOT).as_posix())
+    for p in sorted(pruned_walk(ROOT)):
+        if p.name == "prove_tasks_private.jsonl":
+            in_tree.append(p.relative_to(ROOT).as_posix())
     holdout_keys = (ROOT / "benchmark" / "independent"
                     / "secondary_holdout_keys.jsonl")
     try:

@@ -7,7 +7,8 @@ seven controlled two-revision results in `reports/verified_experiments.json`
 were therefore invisible to the derived layer.
 
 The merge is now a pure function (`build_derived.merge_verification`) so these
-tests exercise every gate without rebuilding the 722-record layer:
+tests exercise every gate without rebuilding the 685-record layer
+(Phase 4 pin sync: 722 -> 685; the hydration/purge shrank derived/records.jsonl):
 
   * a valid two-revision claim is emitted as L6 / VERIFIED_TWO_REVISION with
     `evidence_type: experimentally_verified` and compact commits/digest/test
@@ -283,8 +284,9 @@ class TestPublishedLayerSurvives(unittest.TestCase):
     """The rebuild must not delete execution findings it cannot re-derive.
 
     `work/poc_runs/` is git-ignored and absent here, and `V1/clones/` is absent
-    too, so a full rebuild of `derived/records.jsonl` would both drop the 155
-    published single-revision verdicts and rewrite 390 records' code-context,
+    too, so a full rebuild of `derived/records.jsonl` would both drop the 154
+    published single-revision verdicts (Phase 4 pin sync: 155 -> 154, recomputed
+    from the rebuilt layer) and rewrite 390 records' code-context,
     licence and redistribution fields for reasons that have nothing to do with
     L6. These tests pin the two protections: the committed layer is read back as
     the verdict index, and the in-place merge touches only the verification
@@ -307,16 +309,18 @@ class TestPublishedLayerSurvives(unittest.TestCase):
     def test_committed_index_recovers_every_published_verdict(self):
         published = {self._fid(r): r["verification"] for r in self.records
                      if r.get("verification", {}).get("attempted")}
-        # 155 records carried a single-revision verdict before the merge; seven
+        # Phase 4 pin sync: 155 -> 154 recoverable, 157 -> 156 published.
+        # Recomputed from the rebuilt derived/records.jsonl (685 rows): 154
+        # records carried a single-revision verdict before the merge; seven
         # now carry an L6 block, five of those alongside their prior verdict and
-        # two with no prior at all, so 157 blocks are `attempted` and 155
+        # two with no prior at all, so 156 blocks are `attempted` and 154
         # verdicts must still be recoverable.
-        self.assertEqual(len(published), 157)
+        self.assertEqual(len(published), 156)
         recoverable = {fid for fid, ver in published.items()
                        if ver.get("prior_verdict")
                        or (ver.get("verdict")
                            and ver.get("verdict") != "l6_verified_patch")}
-        self.assertEqual(len(recoverable), 155)
+        self.assertEqual(len(recoverable), 154)
         self.assertEqual(set(self.priors), recoverable)
         for fid, ver in published.items():
             want = ver.get("prior_verdict") if ver.get("level") == "L6" else ver.get("verdict")

@@ -16,7 +16,10 @@ These tests pin the properties that make the branch alive:
   * missing citation inputs SKIP with `skipped_no_network`, which is visibly
     not a pass;
   * the derived/ chain replays the DOCUMENTED pipeline (build_derived ->
-    resolve_citations -> the record-hash migration), not one stage.
+    the authoritative citation-pin replay -> the record-hash migration),
+    not one stage. The citation stage is `replay_v1_citation_pins.py`, not
+    `resolve_citations.py`: the latter's git-ignored clones are absent in a
+    partial checkout, so its own write-guard refuses to run; see the test below.
 
 Run:  python -m unittest tests.test_reproducibility_parity -v
 """
@@ -219,8 +222,21 @@ class TestDerivedChainIsLikeForLike(unittest.TestCase):
     """The derived/ replay must be the documented pipeline, not one stage."""
 
     def test_chain_includes_the_citation_resolution_stage(self):
+        # The citation stage of this replay is `replay_v1_citation_pins.py`,
+        # not `resolve_citations.py`. The resolver reads only git-ignored
+        # clones (work/wt, work/repos, work/sources, work/source_manifest.json)
+        # that a partial checkout does not have, so it cannot re-derive the
+        # published pins: its own write-guard refuses the run (exit 1) rather
+        # than shrink the authoritative 639 pins to the ~553 the remaining
+        # clones can resolve. `replay_v1_citation_pins.py` re-applies those
+        # exact SHAs and their resolution metadata verbatim -- it is the same
+        # offline stage used to publish the committed layer, so it is the
+        # citation-resolution stage a like-for-like replay must include.
+        # See reports/phase5_fixes_repro.md, "Fix 1". Adding the resolver back
+        # would make the gate fail reproducibility, so that is guarded too.
         scripts = [c[0] for c in DERIVED_CHAIN]
-        self.assertIn("scripts/resolve_citations.py", scripts)
+        self.assertIn("scripts/replay_v1_citation_pins.py", scripts)
+        self.assertNotIn("scripts/resolve_citations.py", scripts)
 
     def test_chain_includes_the_record_hash_migration(self):
         self.assertIn(("scripts/build_derived.py", ["--migrate-record-hashes"]),

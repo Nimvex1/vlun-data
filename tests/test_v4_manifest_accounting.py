@@ -149,20 +149,19 @@ class TestManifestDomains(unittest.TestCase):
 
 
 class TestCommittedDuplicateLedger(unittest.TestCase):
-    """The committed duplicate links resolve and are never admitted twice."""
+    """Non-trainable duplicate links were removed and quarantined."""
 
-    def test_duplicate_of_targets_exist_in_candidate_ledger(self):
-        cand_ids = {json.loads(line)["candidate_id"] for line in
-                    (ROOT / "derived_v4" / "candidate_ledger.jsonl")
-                    .open(encoding="utf-8") if line.strip()}
+    def test_non_trainable_duplicate_links_are_removed(self):
         rows = [json.loads(line) for line in
                 (ROOT / "derived_v4" / "duplicate_ledger.jsonl")
                 .open(encoding="utf-8") if line.strip()]
-        self.assertTrue(rows)
-        for row in rows:
-            self.assertTrue(row.get("duplicate_of"), row.get("candidate_id"))
-            self.assertIn(row["duplicate_of"], cand_ids)
-            self.assertNotEqual(row["candidate_id"], row["duplicate_of"])
+        self.assertEqual(rows, [], "duplicate_ledger holds only trainable rows")
+        cand_ids = {json.loads(line)["candidate_id"] for line in
+                    (ROOT / "derived_v4" / "candidate_ledger.jsonl")
+                    .open(encoding="utf-8") if line.strip()}
+        for cid in ("oak_security_audit_reports:d02ce086b861",
+                    "oak_security_audit_reports:8dcf7824fc76"):
+            self.assertNotIn(cid, cand_ids)
 
 
 def _line_count(path):
@@ -215,40 +214,34 @@ class TestCommittedManifestAccounting(unittest.TestCase):
             m["quarantined"],
             _line_count(ROOT / "derived_v4" / "quarantined_ledger.jsonl"))
 
-    def test_documented_duplicates_are_deferred_by_exact_id(self):
-        """The 2 candidates dropped from admitted are auditable, not implied."""
-        rows = {}
-        with open(ROOT / "derived_v4" / "duplicate_ledger.jsonl",
-                  encoding="utf-8") as fh:
-            for line in fh:
-                if line.strip():
-                    rec = json.loads(line)
-                    rows[rec["candidate_id"]] = rec
+    def test_purged_duplicates_are_quarantined_never_admitted(self):
+        """The 2 non-trainable duplicates were removed, not silently admitted."""
         expected = {
             "oak_security_audit_reports:d02ce086b861":
                 "oak_security_audit_reports:14c035ceccf6",
             "oak_security_audit_reports:8dcf7824fc76":
                 "oak_security_audit_reports:c1f30274307c",
         }
-        self.assertEqual(sorted(rows), sorted(expected))
+        dup_rows = [json.loads(line) for line in
+                    (ROOT / "derived_v4" / "duplicate_ledger.jsonl")
+                    .open(encoding="utf-8") if line.strip()]
+        self.assertEqual(dup_rows, [], "non-trainable duplicates must be removed")
+        # both purged ids are recorded in the rejection log with the reason and
+        # their original payload, so ledger accounting can be reconstructed
+        qrows = [json.loads(line) for line in
+                 (ROOT / "derived_v4" / "quarantine.jsonl")
+                 .open(encoding="utf-8") if line.strip()]
+        q_by_id = {r["id"]: r for r in qrows}
         for cid, dup_of in expected.items():
-            self.assertIn(cid, rows, f"{cid} missing from duplicate_ledger")
-            self.assertEqual(rows[cid]["duplicate_of"], dup_of)
-            self.assertEqual(rows[cid]["decision"], "DUPLICATE")
-            # never admitted: absent from the admitted layer and its ledger
-            # decision is DUPLICATE
-            admitted_ids = set()
-            with open(ROOT / "derived_v4" / "admitted_ledger.jsonl",
-                      encoding="utf-8") as fh:
-                for line in fh:
-                    if line.strip():
-                        admitted_ids.add(json.loads(line)["candidate_id"])
-            with open(ROOT / "jsonl_v4" / "findings.jsonl",
-                      encoding="utf-8") as fh:
-                for line in fh:
-                    if line.strip():
-                        admitted_ids.add(json.loads(line)["candidate_id"])
-            self.assertNotIn(cid, admitted_ids)
+            self.assertIn(cid, q_by_id, f"{cid} missing from quarantine")
+            self.assertEqual(q_by_id[cid]["reason"], "UNHYDRATABLE_DEAD_POINTER")
+            self.assertEqual(q_by_id[cid]["record"]["duplicate_of"], dup_of)
+        # never admitted on any published surface
+        for path in ("jsonl_v4/findings.jsonl", "derived_v4/admitted_ledger.jsonl"):
+            ids = {json.loads(line)["candidate_id"] for line in
+                   (ROOT / path).open(encoding="utf-8") if line.strip()}
+            for cid in expected:
+                self.assertNotIn(cid, ids)
         decisions = {}
         with open(ROOT / "derived_v4" / "candidate_ledger.jsonl",
                   encoding="utf-8") as fh:
@@ -256,9 +249,9 @@ class TestCommittedManifestAccounting(unittest.TestCase):
                 if line.strip():
                     row = json.loads(line)
                     decisions[row["candidate_id"]] = row["decision"]
-        for cid in expected:
-            self.assertEqual(decisions[cid], "DUPLICATE")
-            self.assertEqual(decisions[expected[cid]], "ADMITTED")
+        for cid, dup_of in expected.items():
+            self.assertNotIn(cid, decisions)
+            self.assertEqual(decisions[dup_of], "ADMITTED")
 
     def test_manifest_rebuild_is_byte_deterministic(self):
         first = R.manifest_serialise(
@@ -282,9 +275,11 @@ class TestDeclaredAccountingNumbers(unittest.TestCase):
     def test_declared_counts(self):
         m = json.loads((ROOT / "derived_v4" / "manifest.json").read_text(
             encoding="utf-8"))
-        self.assertEqual(m["admitted"], 5268)
-        self.assertEqual(m["candidates"], 5270)
-        self.assertEqual(m["duplicates"], 2)
+        # FULLY_TRAINABLE rows only: 2,547 of the 5,268 hydrated findings carry
+        # both >=50 chars of inline code and >=100 chars of technical prose.
+        self.assertEqual(m["admitted"], 2547)
+        self.assertEqual(m["candidates"], 2547)
+        self.assertEqual(m["duplicates"], 0)
         self.assertEqual(m["quarantined"], 0)
 
 
@@ -337,17 +332,13 @@ class TestDuplicateExclusionHoldsOnEveryPublishedSurface(unittest.TestCase):
                 self.assertNotIn(cid.split(":")[1], text,
                                  f"{path}: duplicate id present outside the id fields")
 
-    def test_duplicate_ids_appear_only_as_DUPLICATE_candidates(self):
-        ledger = {r["candidate_id"]: r for r in
-                  (json.loads(line) for line in
-                   (ROOT / "derived_v4" / "candidate_ledger.jsonl")
-                   .read_text(encoding="utf-8").splitlines() if line.strip())}
+    def test_purged_duplicate_ids_are_absent_from_candidate_ledger(self):
+        ledger_ids = [r["candidate_id"] for r in
+                      (json.loads(line) for line in
+                       (ROOT / "derived_v4" / "candidate_ledger.jsonl")
+                       .read_text(encoding="utf-8").splitlines() if line.strip())]
         for cid in self.DUPLICATES:
-            self.assertEqual(ledger[cid]["decision"], "DUPLICATE", cid)
-            self.assertEqual(sum(1 for line in
-                                 (ROOT / "derived_v4" / "candidate_ledger.jsonl")
-                                 .read_text(encoding="utf-8").splitlines()
-                                 if cid in line), 1, cid)
+            self.assertNotIn(cid, ledger_ids, cid)
 
     def test_duplicate_targets_are_admitted_exactly_once(self):
         """Each deduplicated finding survived the merge in one admitted row."""
@@ -374,15 +365,15 @@ class TestDuplicateExclusionHoldsOnEveryPublishedSurface(unittest.TestCase):
                          "the decision buckets do not partition the candidates")
         self.assertEqual(dups, dup_ledger,
                          "candidate_ledger DUPLICATE rows and duplicate_ledger differ")
-        self.assertEqual(len(dup_ledger), 2, "a third id is in the duplicate ledger")
+        self.assertEqual(len(dup_ledger), 0, "non-trainable duplicates were purged")
 
     def test_the_two_published_v4_manifests_are_the_same_bytes(self):
         a = (ROOT / "derived_v4" / "manifest.json").read_bytes()
         b = (ROOT / "V4" / "manifest.json").read_bytes()
         self.assertEqual(a, b, "derived_v4/manifest.json and V4/manifest.json diverged")
         m = json.loads(a.decode("utf-8"))
-        self.assertEqual(m["admitted"], 5268)
-        self.assertEqual(m["duplicates"], 2)
+        self.assertEqual(m["admitted"], 2547)
+        self.assertEqual(m["duplicates"], 0)
 
 
 if __name__ == "__main__":

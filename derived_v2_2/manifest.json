@@ -7,11 +7,10 @@
     "unprivileged": 6
   },
   "by_language": {
-    "cairo": 8,
-    "move": 15,
-    "rust": 18,
-    "solidity": 45,
-    "vyper": 51
+    "cairo": 3,
+    "move": 7,
+    "rust": 7,
+    "solidity": 44
   },
   "by_record_class": {
     "advisory": 51,
@@ -93,7 +92,8 @@
       "unverified": 2
     }
   },
-  "records": 137,
+  "quarantined_count": 76,
+  "records": 61,
   "state_transition_present": 0,
   "taxonomy_mapped": 8,
   "with_experiment": 37

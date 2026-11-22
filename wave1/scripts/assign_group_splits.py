@@ -472,6 +472,14 @@ def assign_family(family: str, path: Path) -> tuple[list[dict], dict]:
         new_row = dict(row)
         new_row["group_id"] = groups[gidx].gid
         new_row["split"] = group_split[gidx]
+        # task_ids are minted as "<domain>::<split>::<id>" by the adapters.
+        # Re-splitting must rewrite that embedded split too, or the task_id
+        # contradicts the row's split (a real integrity bug).
+        tid = str(new_row.get("task_id") or "")
+        tid_parts = tid.split("::")
+        if len(tid_parts) >= 3 and tid_parts[1] in ("train", "val", "test", "validation", "holdout"):
+            tid_parts[1] = str(new_row["split"])
+            new_row["task_id"] = "::".join(tid_parts)
         out_rows.append(new_row)
 
     # Exact input row order is preserved: only group_id/split are touched.

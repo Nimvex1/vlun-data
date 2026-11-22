@@ -435,6 +435,28 @@ def main() -> int:
                 recorded[spec[0]] = json.loads(f.read_text(encoding="utf-8"))
         results = sorted(recorded.values(), key=lambda r: order[r["experiment_id"]])
 
+    # The published index must be exactly the set of runs a current derived
+    # record still references. Records whose evidence cannot be reconstructed
+    # are purged as UNHYDRATABLE_DEAD_POINTER; once no record points at a run,
+    # keeping its index entry makes validate.py's
+    # experiment_index_is_exactly_the_referenced_set fail. The run's on-disk
+    # artefacts are historical and are never deleted -- only the index (the
+    # advertised, referenced set) is reconciled. No experiment is invented.
+    records_path = ROOT / "derived_v2_2" / "records.jsonl"
+    if records_path.exists():
+        referenced = set()
+        for line in records_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            referenced.update(
+                (rec.get("experiment_view") or {}).get("experiment_ids") or [])
+        if referenced:  # never blank the index on a malformed/empty record set
+            before = len(results)
+            results = [r for r in results if r.get("experiment_id") in referenced]
+            log(f"index filtered to referenced experiment set: "
+                f"{before} -> {len(results)} runs")
+
     index = {
         "generated_by": "scripts/run_ml_pocs.py",
         "experiments": results,

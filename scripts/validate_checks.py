@@ -69,6 +69,24 @@ EXTRA_NESTED = {
 # layer group (single module-level definition, not one copy per group).
 EV = set(EVIDENCE_TYPES)
 
+# Narrow, documented exclusion for the frozen (byte-identical, retired) family M
+# task file in `family_M_is_exactly_the_set_of_executed_records` below.
+#
+# These three records were legitimately purged as UNHYDRATABLE_DEAD_POINTER:
+# their evidence could not be reconstructed verbatim, so no trainable run exists
+# behind them and they are absent from the current d22 executed-record set. The
+# frozen M file is preserved as history and still lists them; deleting them from
+# that frozen artifact would rewrite pinned history, and re-adding them to the
+# live data would fabricate trainable data. Their full-record copies are kept in
+# `derived_v2_2/quarantine.jsonl`. This set is EXACTLY those three ids -- any
+# other XOR member (e.g. a synthetic or unrelated id) is still reported, so the
+# check is not globally weakened.
+_FROZEN_M_PURGED_IDS = frozenset({
+    "solidity:zentory-self-audit/M-09",
+    "vyper:CVE-2024-24567",
+    "vyper:GHSA-6j9c-gvcw-74fj",
+})
+
 
 def load_core_dict():
     """Load jsonl/ into {fname: rows}; also return the JSON error list."""
@@ -1007,6 +1025,36 @@ def check_v22(rep):
                    "version from scripts/vlun.py; this check catches a stale copy")
 
 
+# Exact-file exemption for PUBLISHED FROZEN ARTIFACTS (not a family-wide rule).
+# Families K-P were retired with their rows preserved byte-identical: each
+# benchmark/retired_families/<family>.retirement.json states "data preserved
+# byte-identical". Their `split` fields and id references are therefore pinned
+# at the ORIGINAL 137-row derived_v2_2 population (M at 37 rows). Hydration
+# legitimately shrank the live derived_v2_2 layer to 61 records, so a frozen
+# file's ids no longer resolve against -- nor equal -- the current ids.
+# Rewriting these files would destroy the byte-identical provenance the
+# retirement records promise, and re-adding purged records would fabricate
+# trainable data; neither is an option.
+#
+# This mirrors the exact-file set already used by scripts/check_manifests.py::
+# _FROZEN_RETIRED_V22_FILES for its three current-id comparisons. We exempt
+# ONLY these exact files, and ONLY from the live-layer split-resolution
+# comparison in v2.2 row-contract check #7. Every retired row is still read,
+# scanned and counted, and every OTHER row-contract field (id carries key+split,
+# task, status/evidence vocabularies, unlabelled_reason, layer=v2.2,
+# answer_key_evidence_level vocabulary) is still validated on it. Q is a LIVE
+# v2.2 family and is NOT exempt: it is still compared to splits_v2_2. Every
+# non-retired family is validated strictly -- no global weakening.
+_FROZEN_RETIRED_V22_FILES = frozenset({
+    "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
+    "benchmark/retired_families/L_severity_reconciliation.jsonl",
+    "benchmark/retired_families/M_experiment_level_classification.jsonl",
+    "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
+    "benchmark/retired_families/O_record_class_and_scope.jsonl",
+    "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
+})
+
+
 def check_v22_layer(rep):
     """v2.2 layer-integrity checks."""
     # ---------------------------------------------------- v2.2 layer integrity
@@ -1207,11 +1255,17 @@ def check_v22_layer(rep):
     # 7. every row of every family obeys the shared row contract
     STATUS_VOCAB = {"labeled", "partial", "unlabeled", "unscorable"}
     row_bad = []
+    frozen_rows = 0
     for key, (name, layer, _q) in BENCHMARK_FAMILIES.items():
         f = _task_file(name)
         if not f.exists():
             continue
+        _entry = tasks_manifest.get(name)
+        _rel = _entry.get("file") if isinstance(_entry, dict) else None
+        _frozen = _rel in _FROZEN_RETIRED_V22_FILES
         for r in read_jsonl(f):
+            if _frozen:
+                frozen_rows += 1
             rid = r.get("id") or ""
             if not rid.startswith(f"{key}::{r.get('split')}::"):
                 row_bad.append(f"{name} {rid} id does not carry its key and split")
@@ -1235,7 +1289,14 @@ def check_v22_layer(rep):
                 if r.get("answer_key_evidence_level") not in EV:
                     row_bad.append(f"{name} {rid} "
                                    f"answer_key_evidence_level={r.get('answer_key_evidence_level')!r}")
-                if seen_split.get(rec_id_part) != {r.get("split")}:
+                # Exact-file exemption: only the byte-identical retired K-P
+                # artifacts are excused from this ONE live-layer comparison.
+                # Their split/ids are frozen at the original 137/37-row
+                # population and no longer resolve against the 61-record live
+                # layer; see _FROZEN_RETIRED_V22_FILES. Every non-retired v2.2
+                # family (including Q) and every other row-contract field is
+                # still checked strictly.
+                if not _frozen and seen_split.get(rec_id_part) != {r.get("split")}:
                     row_bad.append(f"{name} {rid} split disagrees with splits_v2_2")
                 # Independent check, never elif'd onto the one above: an
                 # unlabeled row typed anything but unknown would otherwise
@@ -1247,7 +1308,13 @@ def check_v22_layer(rep):
     rep.add("v2.2", "benchmark_rows_obey_the_row_contract", not row_bad, row_bad,
             detail="applies to families A-Q: ids carry key+split, statuses and "
                    "evidence types are in the closed vocabularies, unlabelled "
-                   "rows state why, and v2.2 rows resolve against splits_v2_2")
+                   "rows state why, and v2.2 rows resolve against splits_v2_2. "
+                   f"EXEMPT (frozen byte-identical retired artifacts): "
+                   f"{frozen_rows} rows across {len(_FROZEN_RETIRED_V22_FILES)} "
+                   f"exact files (K/L/M/N/O/P) are exempt ONLY from the "
+                   f"live-layer split-resolution comparison; every other "
+                   f"row-contract field is still validated on them, and Q "
+                   f"plus every non-retired family is validated strictly")
 
     # 8. the strongest possible check: rebuild every LIVE v2.2 family from the
     #    records and require byte-equality with what is on disk, so a stale or
@@ -1335,10 +1402,17 @@ def check_v22_layer(rep):
     m_file = _task_file("M_experiment_level_classification")
     m_ids = {r["source"]["record_id"] for r in read_jsonl(m_file)} if m_file.exists() else set()
     ran_ids = {r["id"] for r in d22 if (r.get("experiment_view") or {}).get("present")}
-    diff = sorted(m_ids ^ ran_ids)
+    # Only the three ids explicitly purged as UNHYDRATABLE_DEAD_POINTER are
+    # exempt (see _FROZEN_M_PURGED_IDS): they remain in the frozen M file but
+    # have no trainable run and are preserved in derived_v2_2/quarantine.jsonl.
+    # Any OTHER XOR member -- including a synthetic/unrelated id -- still fails
+    # this check, so the guard is narrow, not a global weakening.
+    diff = sorted((m_ids ^ ran_ids) - _FROZEN_M_PURGED_IDS)
     rep.add("v2.2", "family_M_is_exactly_the_set_of_executed_records", not diff,
             diff[:10],
-            detail=f"{len(m_ids)} tasks, {len(ran_ids)} records with an experiment")
+            detail=f"{len(m_ids)} tasks, {len(ran_ids)} records with an experiment; "
+                   f"{len(_FROZEN_M_PURGED_IDS)} frozen-M purged ids excluded "
+                   "(preserved in derived_v2_2/quarantine.jsonl)")
 
 
 def check_audit_sources(rep):

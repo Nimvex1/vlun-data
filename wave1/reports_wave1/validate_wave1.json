@@ -1,7 +1,7 @@
 {
   "gates": {
     "a_single_writer": {
-      "scripts_scanned": 18,
+      "scripts_scanned": 20,
       "verdict": "PASS",
       "violations": []
     },
@@ -12,14 +12,14 @@
       "wave1_script_drift": []
     },
     "c_dedup": {
-      "admitted_rows": 2186,
+      "admitted_rows": 1634,
       "collisions": 0,
       "returncode": 0,
-      "stdout": "[dedup_check] registry=24074 admitted=2186 keys=3550 collisions=0 overlaps=896 -> PASS",
+      "stdout": "[dedup_check] registry=24074 admitted=1634 keys=2870 collisions=0 overlaps=896 -> PASS",
       "verdict": "PASS"
     },
     "d_rights": {
-      "admitted_rows_scanned": 2186,
+      "admitted_rows_scanned": 1634,
       "prose_leaks": [],
       "rights_rows": 7,
       "verdict": "PASS"
@@ -32,10 +32,10 @@
             "valid_finding"
           ],
           "ready_for_primary": true,
-          "rows": 212,
-          "scorable": 212,
-          "test_rows": 63,
-          "train_only_shortcut": 0.0317
+          "rows": 147,
+          "scorable": 147,
+          "test_rows": 41,
+          "train_only_shortcut": 0.0244
         },
         "Fa_rejection_evidence_axis_vector": {
           "observed_labels": [
@@ -47,9 +47,9 @@
             "technical_falsity"
           ],
           "ready_for_primary": false,
-          "rows": 594,
-          "scorable": 594,
-          "test_rows": 18,
+          "rows": 426,
+          "scorable": 426,
+          "test_rows": 6,
           "train_only_shortcut": 0.1667
         },
         "Fb_duplicate_radar_pair": {
@@ -58,10 +58,10 @@
             "same"
           ],
           "ready_for_primary": true,
-          "rows": 527,
-          "scorable": 527,
-          "test_rows": 80,
-          "train_only_shortcut": 0.85
+          "rows": 255,
+          "scorable": 255,
+          "test_rows": 40,
+          "train_only_shortcut": 0.1
         },
         "G_patch_verification": {
           "observed_labels": [
@@ -69,10 +69,10 @@
             "unmitigated_or_regression"
           ],
           "ready_for_primary": true,
-          "rows": 531,
-          "scorable": 531,
-          "test_rows": 79,
-          "train_only_shortcut": 0.5063
+          "rows": 244,
+          "scorable": 244,
+          "test_rows": 36,
+          "train_only_shortcut": 0.5556
         },
         "J_verified_patch": {
           "observed_labels": [],
@@ -96,7 +96,7 @@
         "prove_candidates": {
           "observed_labels": [],
           "ready_for_primary": false,
-          "rows": 18,
+          "rows": 10,
           "scorable": 0,
           "test_rows": 0,
           "train_only_shortcut": null
@@ -104,7 +104,7 @@
         "prove_incidents": {
           "observed_labels": [],
           "ready_for_primary": false,
-          "rows": 55,
+          "rows": 51,
           "scorable": 0,
           "test_rows": 0,
           "train_only_shortcut": null
@@ -115,10 +115,10 @@
             "low"
           ],
           "ready_for_primary": false,
-          "rows": 606,
-          "scorable": 606,
-          "test_rows": 20,
-          "train_only_shortcut": 0.9
+          "rows": 373,
+          "scorable": 373,
+          "test_rows": 0,
+          "train_only_shortcut": null
         }
       },
       "primary_ready_count": 4,
@@ -140,52 +140,57 @@
           "groups": 4,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 212,
+          "rows": 147,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "Fa_rejection_evidence_axis_vector": {
-          "groups": 4,
+          "groups": 3,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 594,
+          "rows": 426,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "Fb_duplicate_radar_pair": {
-          "groups": 74,
+          "groups": 66,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 527,
+          "rows": 255,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "G_patch_verification": {
           "groups": 11,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 531,
+          "rows": 244,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "J_verified_patch": {
           "groups": 0,
           "missing_group_id": 0,
           "overlapping_groups": {},
           "rows": 0,
-          "splits": []
+          "splits": [],
+          "task_id_split_mismatches": 0
         },
         "invariants": {
           "groups": 217,
@@ -196,47 +201,141 @@
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "prove_candidates": {
-          "groups": 8,
+          "groups": 7,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 18,
+          "rows": 10,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "prove_incidents": {
-          "groups": 55,
+          "groups": 51,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 55,
+          "rows": 51,
           "splits": [
             "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         },
         "severity_reconciliation": {
-          "groups": 5,
+          "groups": 2,
           "missing_group_id": 0,
           "overlapping_groups": {},
-          "rows": 606,
+          "rows": 373,
           "splits": [
-            "test",
             "train",
             "val"
-          ]
+          ],
+          "task_id_split_mismatches": 0
         }
       },
+      "verdict": "PASS",
+      "violations": []
+    },
+    "i_fully_trainable": {
+      "files": {
+        "03_candidates\\c4_mitigation\\issues.jsonl": {
+          "rows": 336,
+          "short": 0
+        },
+        "03_candidates\\formal_specs\\rules.jsonl": {
+          "rows": 6767,
+          "short": 0
+        },
+        "03_candidates\\ghsa_web3_netnew\\candidates.jsonl": {
+          "rows": 0,
+          "short": 0
+        },
+        "03_candidates\\judge\\issues.jsonl": {
+          "rows": 613,
+          "short": 0
+        },
+        "03_candidates\\markdown_two_revision\\candidates.jsonl": {
+          "rows": 556,
+          "short": 0
+        },
+        "03_candidates\\reevmbench\\harnesses.jsonl": {
+          "rows": 62,
+          "short": 0
+        },
+        "04_admitted\\c4_mitigation\\findings.jsonl": {
+          "rows": 244,
+          "short": 0
+        },
+        "04_admitted\\formal_specs\\findings.jsonl": {
+          "rows": 895,
+          "short": 0
+        },
+        "04_admitted\\ghsa_web3_netnew\\findings.jsonl": {
+          "rows": 0,
+          "short": 0
+        },
+        "04_admitted\\judge\\findings.jsonl": {
+          "rows": 71,
+          "short": 0
+        },
+        "04_admitted\\markdown_two_revision\\findings.jsonl": {
+          "rows": 373,
+          "short": 0
+        },
+        "04_admitted\\reevmbench\\findings.jsonl": {
+          "rows": 51,
+          "short": 0
+        },
+        "benchmark_wave1\\F_false_positive_rejection.jsonl": {
+          "rows": 147,
+          "short": 0
+        },
+        "benchmark_wave1\\Fa_rejection_evidence_axis_vector.jsonl": {
+          "rows": 426,
+          "short": 0
+        },
+        "benchmark_wave1\\Fb_duplicate_radar_pair.jsonl": {
+          "rows": 255,
+          "short": 0
+        },
+        "benchmark_wave1\\G_patch_verification.jsonl": {
+          "rows": 244,
+          "short": 0
+        },
+        "benchmark_wave1\\J_verified_patch.jsonl": {
+          "rows": 0,
+          "short": 0
+        },
+        "benchmark_wave1\\invariants.jsonl": {
+          "rows": 297,
+          "short": 0
+        },
+        "benchmark_wave1\\prove_candidates.jsonl": {
+          "rows": 10,
+          "short": 0
+        },
+        "benchmark_wave1\\prove_incidents.jsonl": {
+          "rows": 51,
+          "short": 0
+        },
+        "benchmark_wave1\\severity_reconciliation.jsonl": {
+          "rows": 373,
+          "short": 0
+        }
+      },
+      "rows_scanned": 11771,
+      "short_rows": 0,
       "verdict": "PASS",
       "violations": []
     }
   },
   "note": "gate e is PENDING until a family reaches PRIMARY thresholds; it is informational and does not fail the structural gates.",
-  "validated_at": "2026-11-20T13:52:42Z",
   "verdict": "PASS"
 }
