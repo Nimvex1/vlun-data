@@ -80,7 +80,6 @@ def hydrate_from_parent(row: dict, parents: dict[str, dict]) -> bool:
 
     Returns True when the row now classifies as non-stub.
     """
-    ids = [str(row.get(k)) for k in ID_KEYS if isinstance(row.get(k), str)]
     src = None
     for key in ID_KEYS:
         val = row.get(key)

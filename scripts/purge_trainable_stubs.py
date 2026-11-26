@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from trainable_purge_lib import (  # noqa: E402
-    ROOT as LIB_ROOT, is_stub, parent_index, hydrate_from_parent,
+    is_stub, parent_index, hydrate_from_parent,
     quarantine_payload, append_quarantine,
 )
 

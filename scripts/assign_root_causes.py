@@ -318,8 +318,7 @@ def build(records, candidates, taxonomy, l6_ids):
     # quarantine any that remain unhydratable. The parent record is the
     # assignment's own source, so the embedded snippet/prose is real.
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from trainable_purge_lib import parent_index, hydrate_from_parent, quarantine_payload, append_quarantine, is_stub
-    parents = parent_index()
+    from trainable_purge_lib import hydrate_from_parent, quarantine_payload, append_quarantine, is_stub
     kept = []
     purged = []
     by_id = {str(r.get("id") or r.get("record_id")): r for r in records}
