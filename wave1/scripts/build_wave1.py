@@ -45,7 +45,16 @@ def _run(script: Path, ran: list[str], failures: list[dict]) -> None:
         print(f"[build_wave1] MISSING {rel}")
         return
     print(f"[build_wave1] running {rel}")
-    proc = subprocess.run([sys.executable, str(script)], capture_output=True, text=True, timeout=900)
+    try:
+        proc = subprocess.run([sys.executable, str(script)], capture_output=True, text=True, timeout=900)
+    except subprocess.TimeoutExpired as exc:
+        out, err = exc.stdout, exc.stderr
+        stdout = out.decode("utf-8", "replace") if isinstance(out, bytes) else (out or "")
+        stderr = err.decode("utf-8", "replace") if isinstance(err, bytes) else (err or "")
+        failures.append({"script": rel, "error": "timeout", "stderr": stderr[-1000:]})
+        print(f"[build_wave1] TIMEOUT {rel}: {stdout[-300:]}")
+        ran.append(rel)
+        return
     tail = (proc.stdout or "").strip().splitlines()[-3:]
     for line in tail:
         print("   " + line)

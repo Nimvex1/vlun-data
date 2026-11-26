@@ -70,6 +70,7 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -1716,6 +1717,11 @@ def build_distribution(root: Path, inv: dict, affected: list[dict]) -> dict:
     def jl(rows) -> str:
         return "".join(json.dumps(r, sort_keys=True, ensure_ascii=False) + "\n"
                        for r in rows)
+
+    # distribution_v1/records_v1.jsonl and records_v4.jsonl are rights-governed
+    # METADATA_ONLY distribution projections, NOT trainable tables. They keep
+    # every projection row (including pointer-only withheld content) so the
+    # rights ledger and withheld-pointer mirrors stay in exact correspondence.
 
     write("rights_ledger.jsonl", jl(sorted(ledger, key=lambda r: (
         r["subject_kind"], r["subject"], r.get("content_class") or ""))))

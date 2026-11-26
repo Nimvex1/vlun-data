@@ -16,6 +16,8 @@ dependencies = []
 
 [project.optional-dependencies]
 static-analysis = ["slither-analyzer>=0.10.0"]
+# Gate runner uses pytest-xdist so the ~900-test suite fits the 2400s budget.
+test = ["pytest>=9", "pytest-xdist>=3"]
 # WIP-only: scripts/extract_cloned_findings.py degrades gracefully without it.
 pdf-tools = ["pypdf>=4"]
 

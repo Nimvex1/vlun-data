@@ -148,7 +148,7 @@ def load_formal_repos() -> list[str]:
             if row.get("source_id") == SOURCE:
                 repos = [str(r) for r in (row.get("repos") or []) if r]
                 break
-    except Exception as exc:  # pragma: no cover - defensive
+    except (OSError, ValueError) as exc:  # pragma: no cover - defensive
         print(f"[formal] source_registry read failed: {exc}")
     return repos or list(FALLBACK_REPOS)
 
@@ -162,11 +162,14 @@ def git_head(dest: Path) -> str:
             text=True,
             timeout=30,
         )
+        if proc.returncode != 0:
+            print(f"[formal] git rev-parse failed for {dest}: rc={proc.returncode}")
+            return ""
         sha = (proc.stdout or "").strip()
         if SHA40_RE.fullmatch(sha):
             return sha.lower()
-    except Exception:  # pragma: no cover - git absent / timeout
-        pass
+    except (OSError, subprocess.TimeoutExpired) as exc:  # git absent / timeout
+        print(f"[formal] git HEAD unavailable for {dest}: {exc}")
     return ""
 
 
@@ -391,9 +394,16 @@ def load_pair_evidence(dest: Path, slug_norm: str) -> dict[str, dict[str, Any]]:
             data = json.loads(guard_scratch(root_json).read_text(encoding="utf-8"))
             by_name: dict[str, list[tuple[str, str]]] = defaultdict(list)
             order: list[str] = []
-            for version in data if isinstance(data, list) else []:
+            for version in (data if isinstance(data, list) else []):
+                if not isinstance(version, dict):
+                    continue
                 vid = str(version.get("id") or "Original")
-                for rule in version.get("rules") or []:
+                rules = version.get("rules") or []
+                if not isinstance(rules, list):
+                    continue
+                for rule in rules:
+                    if not isinstance(rule, dict):
+                        continue
                     name = str(rule.get("name") or "")
                     if not name:
                         continue
@@ -405,7 +415,7 @@ def load_pair_evidence(dest: Path, slug_norm: str) -> dict[str, dict[str, Any]]:
                     _build_evidence(name, root_json, "results.json", 0,
                                     by_name[name], "")
                 )
-        except Exception as exc:  # pragma: no cover - defensive
+        except (OSError, ValueError) as exc:  # pragma: no cover - defensive
             print(f"[formal] results.json read failed for {slug_norm}: {exc}")
 
     for path in sorted(dest.rglob("mutations/coverage/*.csv")):
@@ -428,7 +438,7 @@ def load_pair_evidence(dest: Path, slug_norm: str) -> dict[str, dict[str, Any]]:
                         _build_evidence(name, path, rel, 2,
                                         _matrix_variants(row, header), dir_hint)
                     )
-        except Exception as exc:  # pragma: no cover - defensive
+        except (OSError, ValueError, csv.Error) as exc:  # pragma: no cover - defensive
             print(f"[formal] coverage matrix read failed for {slug_norm}: {exc}")
 
     chosen: dict[str, dict[str, Any]] = {}
@@ -459,8 +469,8 @@ def existing_manifest_keys() -> set[tuple[Any, ...]]:
         try:
             for row in read_jsonl(OVERLAP):
                 seen.add((row.get("source"), row.get("candidate_id"), row.get("key")))
-        except Exception:  # pragma: no cover - defensive
-            pass
+        except (OSError, ValueError) as exc:  # pragma: no cover - defensive
+            print(f"[formal] overlap manifest read failed; treating as empty: {exc}")
     return seen
 
 
@@ -486,7 +496,7 @@ def main() -> None:
         clone_name = slug.replace("/", "__")
         try:
             dest = git_clone("https://github.com/" + slug, clone_name)
-        except Exception as exc:  # pragma: no cover - defensive
+        except OSError as exc:  # pragma: no cover - scratch guard / filesystem
             dest = None
             notes.append(f"clone error {slug}: {exc}")
         if dest is None or not (dest / ".git").exists():
@@ -515,7 +525,7 @@ def main() -> None:
             try:
                 rel = path.relative_to(dest).as_posix()
                 text = path.read_text(encoding="utf-8", errors="replace")
-            except Exception as exc:
+            except (OSError, ValueError) as exc:
                 notes.append(f"read failed {slug}: {exc}")
                 continue
             files_scanned += 1

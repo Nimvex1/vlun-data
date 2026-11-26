@@ -1,0 +1,44 @@
+{
+  "assertion_tested": {
+    "assertion_kind": "state_change_equality",
+    "assertions": [
+      "assertNotEq(rentalOrderTypeHash, rentalOrderTypeHashCorrect)",
+      "assertNotEq(rentalOrderTypeHash, correctTypeHash)",
+      "assertEq(rentalOrderTypeHashCorrect, correctTypeHash)"
+    ],
+    "claimed_impact": "attacker: exploit the behaviour of `_deriveHookHash` in smart-contracts/src/packages/Signer.sol",
+    "declared_test_functions": [
+      "test_EIP712_encoding"
+    ]
+  },
+  "attempt_dir": "experiments_v1_reruns/2024-01-renft__M-11/attempt_3",
+  "attempt_n": 3,
+  "blocker_class": null,
+  "build_rc": 0,
+  "candidate_layer": "v1_v2_1",
+  "command_toolchain": "foundry",
+  "commands": [
+    "forge build --quiet (cwd work/poc_reruns/code-423n4__2024-01-renft) -> rc=0",
+    "forge test --match-path test/vlun_poc/2024-01-renft__M-11.t.sol --match-test test_EIP712_encoding -vv --json (cwd work/poc_reruns/code-423n4__2024-01-renft)"
+  ],
+  "decoded_logs": [],
+  "detail": "forge executed the declared test; forge reported Success for the reporter's own assertion(s): assertNotEq(rentalOrderTypeHash, rentalOrderTypeHashCorrect)",
+  "evidence_level_supported": "L5",
+  "finding_id": "2024-01-renft/M-11",
+  "outcome": "claim_reproduced",
+  "output_sha256": {
+    "command.txt": "d0ae4ce9ef4a7f2f273243386c57cbb34800762b6a205c38fc46e928e46075e3",
+    "harness.json": "710de9b41cec75312f6cb9c8b81f0a5421cf65c0864e20217577131cd66493a7",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout.txt": "c9e4937638d5e3cee3bdb1a67db628a23da78ffdd45798d05ea7516b642a19af",
+    "toolchain.txt": "88a23921cea0a85d65aabc8b2b445e77c085e60d95c9f73f6b636ef623ebc8f0"
+  },
+  "per_test_status": {
+    "test_EIP712_encoding()": "Success"
+  },
+  "pinned_vulnerable_commit": "2a4f56a292a1621fdc14db12725c2682ee7e5d4b",
+  "recorded_at_utc": "2026-11-23T15:42:10Z",
+  "repository": "code-423n4/2024-01-renft",
+  "run_status": "pass",
+  "test_rc": 0
+}

@@ -21,12 +21,12 @@
       "N_attacker_identity_extraction.jsonl": 2,
       "O_record_class_and_scope.jsonl": 15,
       "P_provenance_tier_and_rights.jsonl": 109,
-      "v3_R_source_tier_routing.jsonl": 1185,
+      "v3_R_source_tier_routing.jsonl": 1183,
       "v3_S_contest_outcome.jsonl": 23
     },
     "claim": "every row in this file has ZERO known literal-answer overlap. This is the only partition in this layer claimed leakage-free",
     "literal_answer_overlap": 0,
-    "rows": 1364,
+    "rows": 1362,
     "tasks_file": "benchmark/independent/secondary_holdout_tasks.jsonl",
     "verification": "recomputed from the written payload and the committed benchmark families by scripts/build_secondary_holdout.py --check, without reading the answer key; a row is leaking when evidence_text() contains the gold scalar as a word-boundary literal"
   },
@@ -987,7 +987,7 @@
       "class_disjoint": {
         "group_disjoint_verified": true,
         "held_out_labels": {
-          "0": 854,
+          "0": 852,
           "2": 331
         },
         "held_out_labels_absent_from_retained": true,
@@ -997,7 +997,7 @@
         ],
         "kind": "class_disjoint",
         "label_counts": {
-          "0": 854,
+          "0": 852,
           "1": 3438,
           "2": 331
         },
@@ -1005,8 +1005,8 @@
         "retained_contains_held_out_label": [],
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 1185,
-        "rows_held_out_before_filter": 1185,
+        "rows_held_out": 1183,
+        "rows_held_out_before_filter": 1183,
         "rows_retained": 3438,
         "rows_transformed_and_clean": 0,
         "single_class_holdout": false,
@@ -1038,14 +1038,14 @@
         "reason": "",
         "rows_excluded_contaminated": 0,
         "rows_excluded_with_family_clean": 0,
-        "rows_held_out": 1185,
-        "rows_in_clean_holdout": 1185,
+        "rows_held_out": 1183,
+        "rows_in_clean_holdout": 1183,
         "rows_transformed_and_clean": 0,
         "rows_with_overlap_before": 0
       },
-      "rows_available": 4623,
+      "rows_available": 4621,
       "shortcuts_class_disjoint": {
-        "best_shortcut_accuracy": 0.7207,
+        "best_shortcut_accuracy": 0.7202,
         "frequency_from_retained": {
           "accuracy": 0.0,
           "coverage": 1.0,
@@ -1056,7 +1056,7 @@
           "coverage": 0.0,
           "macro_f1": 0.0
         },
-        "held_out_rows": 1185,
+        "held_out_rows": 1183,
         "input_retrieval": {
           "accuracy": 0.0,
           "coverage": 1.0,
@@ -1070,9 +1070,9 @@
           "macro_f1": 0.0
         },
         "majority_heldout_oracle_peek": {
-          "accuracy": 0.7207,
+          "accuracy": 0.7202,
           "coverage": 1.0,
-          "macro_f1": 0.4188
+          "macro_f1": 0.4187
         },
         "random_from_retained_space": {
           "accuracy": 0.0,
@@ -1160,9 +1160,9 @@
         },
         "held_out_rows": 23,
         "input_retrieval": {
-          "accuracy": 0.9565,
+          "accuracy": 0.4783,
           "coverage": 1.0,
-          "macro_f1": 0.4889
+          "macro_f1": 0.3235
         },
         "kept_label_space": 2,
         "kept_rows": 308,
@@ -1181,7 +1181,7 @@
           "coverage": 1.0,
           "macro_f1": 0.4103
         },
-        "worst_honest_shortcut_accuracy": 0.6957
+        "worst_honest_shortcut_accuracy": 0.4783
       }
     },
     "v3_T_taxonomy_explicit.jsonl": {
@@ -1285,7 +1285,7 @@
   "holdout_fraction": 0.3,
   "holdout_version": "2",
   "independence_guarantee": "The clean partition is built only from the committed benchmark files. No model, prompt or threshold was tuned against it, and it did not exist while any published score was produced. This guarantee applies to rows in secondary_holdout_tasks.jsonl only; the exploratory file is not independent evidence.",
-  "keys_written": 1364,
+  "keys_written": 1362,
   "method": "group_disjoint: whole groups partitioned with a seeded shuffle, stratified by each group's label set. class_disjoint: all rows of the two rarest labels held out, then every group touching a held-out row removed from the retained side, so retained labels and retained groups are both disjoint from the holdout. Held-out rows whose payload contains the gold scalar are then either redacted (only where the literal sits in non-essential provenance text) or excluded from the clean partition.",
   "min_minority": 5,
   "model_facing_tasks": {
@@ -1402,15 +1402,15 @@
     },
     "rows_excluded_contaminated": 29,
     "rows_excluded_with_family_clean": 3,
-    "rows_held_out_total": 1396,
-    "rows_in_clean_holdout": 1364,
+    "rows_held_out_total": 1394,
+    "rows_in_clean_holdout": 1362,
     "rows_in_exploratory_holdout": 32,
     "rows_transformed_and_clean": 3,
     "rows_with_overlap_after_in_clean_holdout": 0,
     "rows_with_overlap_before": 32
   },
   "seed": 7,
-  "tasks_written": 1364,
+  "tasks_written": 1362,
   "transforms": [
     {
       "after_sha256": "ef49754a47ee57334a3473a911624e3784691be970bc753bf1eabf7b8ecf6711",

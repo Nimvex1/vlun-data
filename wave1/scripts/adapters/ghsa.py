@@ -108,7 +108,8 @@ def _payloads():
         for p in sorted(API_CACHE.glob("*.json")):
             try:
                 yield str(p.relative_to(WORK_SOURCES)), json.loads(p.read_text(encoding="utf-8"))
-            except Exception:
+            except (OSError, ValueError) as exc:
+                print(f"[ghsa] skipping unreadable cache payload {p.name}: {exc}")
                 continue
     for p in (CAND_DIR / "candidates.jsonl", CAND_DIR / "findings.jsonl",
               ADMIT_DIR / "findings.jsonl"):

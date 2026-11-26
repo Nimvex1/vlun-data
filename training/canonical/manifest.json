@@ -3,31 +3,31 @@
   "counts": {
     "detection": {
       "train": {
-        "false": 95,
-        "true": 98
+        "false": 34,
+        "true": 95
       }
     },
     "language": {
       "train": {
         "cairo": 1,
-        "go": 2167,
+        "go": 2160,
         "move": 3,
-        "rust": 35,
-        "solidity": 3744
+        "rust": 33,
+        "solidity": 3692
       }
     },
     "severity": {
       "train": {
-        "critical": 338,
-        "high": 738,
-        "informational": 1017,
-        "low": 2804,
-        "medium": 1072
+        "critical": 336,
+        "high": 713,
+        "informational": 1009,
+        "low": 2802,
+        "medium": 1048
       }
     }
   },
   "dataset_version": "canonical-1.0",
-  "example_count": 12112,
+  "example_count": 11926,
   "exclusions": {
     "v1:detection_unqualified": 371,
     "v1:severity_unknown": 491,
@@ -36,7 +36,7 @@
     "v2.2:severity_unknown": 2,
     "v3.0:detection_unqualified": 4609,
     "v3.0:severity_unknown": 868,
-    "v4:detection_unqualified": 2547,
+    "v4:detection_unqualified": 2546,
     "v4:language_unknown": 16,
     "vbeta:detection_unqualified": 80,
     "vbeta:severity_unknown": 80
@@ -45,8 +45,8 @@
     {
       "part": 0,
       "path": "training/canonical/detection.train.part-000.jsonl",
-      "rows": 193,
-      "sha256": "1f3e7612ccf95c02d2ddd80dab4c51c3e5d84192d1c15bd7d5e91473be62920b",
+      "rows": 129,
+      "sha256": "fa3687d1123c0b65a9c5c60df00cca7a2d2beccb46e0b0337d2cc51ff71c4536",
       "split": "train",
       "task": "detection"
     },
@@ -54,15 +54,15 @@
       "part": 0,
       "path": "training/canonical/language.train.part-000.jsonl",
       "rows": 5000,
-      "sha256": "f65cbab72c0fe81f061269b456e000e5dfbdfe22207d906ee984f41ea5478d7a",
+      "sha256": "2f80720337de9d93ce3a3b56accc3e8e05c38fe052f6adf1d623186b6c90662f",
       "split": "train",
       "task": "language"
     },
     {
       "part": 1,
       "path": "training/canonical/language.train.part-001.jsonl",
-      "rows": 950,
-      "sha256": "686fd7b2fc327cac6ae1d955a1c0c91498a5e70359abe8f816e2916233267d3e",
+      "rows": 889,
+      "sha256": "4aa2915886dc70175853da21519057d91e1ef4787e23314b6e4901d62827e183",
       "split": "train",
       "task": "language"
     },
@@ -70,15 +70,15 @@
       "part": 0,
       "path": "training/canonical/severity.train.part-000.jsonl",
       "rows": 5000,
-      "sha256": "5e0be5892ce492b0d69b15ec1e60fe7e57f3c2223be41a53172808cd2034b0af",
+      "sha256": "86a13380f6a38abdbab9b10280b4ac1acfc82c4ad0e5ed1f78a7c602e563e3d8",
       "split": "train",
       "task": "severity"
     },
     {
       "part": 1,
       "path": "training/canonical/severity.train.part-001.jsonl",
-      "rows": 969,
-      "sha256": "227847b913378e6fa40dfd441bfec5289d548da35380a43854748cf627370202",
+      "rows": 908,
+      "sha256": "ee404f7f3d53df2631d62c58b32ee68ce9fda692e1dcc1d2676a26cf151fea56",
       "split": "train",
       "task": "severity"
     }
@@ -90,14 +90,14 @@
   },
   "generated_by": "scripts/build_canonical_training.py",
   "held_out_partitions": {
-    "excluded_rows": 2074,
+    "excluded_rows": 1440,
     "model_visible": false,
     "note": "nothing is deleted: every excluded row is written there with its provenance intact. The directory is outside training/, so a consumer globbing the training directory cannot reach it, and it is not listed in this manifest",
     "reasons": {
       "held_out_split": 606,
-      "held_out_split_and_protected_record": 612,
-      "model_visible": 12112,
-      "protected_record": 856
+      "held_out_split_and_protected_record": 516,
+      "model_visible": 11926,
+      "protected_record": 318
     },
     "written_to": "benchmark/independent/canonical_holdout/"
   },
@@ -106,8 +106,8 @@
     "train"
   ],
   "protected_record_exclusion": {
-    "protected_identifiers": 5737,
-    "rows_excluded_for_this_reason": 1468,
+    "protected_identifiers": 5539,
+    "rows_excluded_for_this_reason": 834,
     "rule": "a record that ANY benchmark family holds out (split test or validation) is excluded from the model-visible corpus, whatever this layer's own split label says; the v3 layer's benchmark_split and the benchmark's splits_v3 disagree, so a row can sit in a train shard and still be a benchmark test row",
     "source": "scripts/build_eval_leakage_report.py::protected_identifiers"
   },

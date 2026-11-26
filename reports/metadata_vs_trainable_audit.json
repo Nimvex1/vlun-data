@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-22T12:40:13.128594+00:00",
-  "repo_root": ".",
+  "generated_at": "2026-11-26T11:37:14.905088+00:00",
+  "repo_root": "<repo>",
   "scan": {
     "excluded_dirs": [
       ".git",
@@ -10,8 +10,8 @@
       "work"
     ],
     "excluded_jsonl_files": 346,
-    "total_jsonl_files": 196,
-    "total_rows": 235507,
+    "total_jsonl_files": 205,
+    "total_rows": 199594,
     "invalid_lines": 0
   },
   "definitions": {
@@ -42,38 +42,64 @@
       "Detection walks every string value recursively; known field paths are additionally recognised.",
       "code_reference_only pointer objects have no snippet and are never counted as inline code.",
       "invariants[].invariant natural-language text is only counted as a formal spec when CVL markers are present.",
-      "METADATA_ONLY/POINTER_ONLY must be an exact value (or in a known flag field); the words inside input_text are not flags."
-    ]
+      "METADATA_ONLY/POINTER_ONLY must be an exact value (or in a known flag field); the words inside input_text are not flags.",
+      "Hydrated rows carry one of FULL_INLINE_EXTRACTION, VERBATIM_HYDRATED, QUARANTINED_POINTER, INLINE_EVIDENCE_EXTRACTED instead of METADATA_ONLY; those values are never stub markers."
+    ],
+    "data_handling_values": [
+      "FULL_INLINE_EXTRACTION",
+      "VERBATIM_HYDRATED",
+      "QUARANTINED_POINTER",
+      "INLINE_EVIDENCE_EXTRACTED"
+    ],
+    "table_roles": {
+      "trainable_or_benchmark": "Dataset, derived task table, split or benchmark task. Must have 0 METADATA_ONLY_STUB rows (enforced by verify_audit.py).",
+      "governance_or_quarantine_ledger": "Provenance, rights, quarantine, dedup, audit or normalization bookkeeping. Stub rows retained for audit trail and dedup accounting.",
+      "test_fixture": "Synthetic files under tests/fixtures/**, never training data."
+    }
   },
   "summary": {
-    "files": 196,
-    "rows": 235507,
+    "files": 205,
+    "rows": 199594,
     "buckets": {
-      "FULLY_TRAINABLE": 60241,
-      "PARTIAL_TEXT_NO_CODE": 73425,
-      "METADATA_ONLY_STUB": 101841
+      "FULLY_TRAINABLE": 66870,
+      "PARTIAL_TEXT_NO_CODE": 73637,
+      "METADATA_ONLY_STUB": 59087
     },
     "hydration": {
-      "HYDRATABLE_FROM_LOCAL_WORK": 36804,
-      "HYDRATABLE_FROM_GIT_OR_GITHUB": 80983,
-      "UNHYDRATABLE_DEAD_POINTER": 117720
+      "HYDRATABLE_FROM_LOCAL_WORK": 36835,
+      "HYDRATABLE_FROM_GIT_OR_GITHUB": 86357,
+      "UNHYDRATABLE_DEAD_POINTER": 76402
     },
-    "invalid_lines": 0
+    "invalid_lines": 0,
+    "table_roles": {
+      "trainable_or_benchmark": {
+        "files": 113,
+        "METADATA_ONLY_STUB": 0
+      },
+      "governance_or_quarantine_ledger": {
+        "files": 63,
+        "METADATA_ONLY_STUB": 59067
+      },
+      "test_fixture": {
+        "files": 29,
+        "METADATA_ONLY_STUB": 20
+      }
+    }
   },
   "by_layer": {
     "benchmark": {
       "files": 34,
-      "rows": 14376,
+      "rows": 13918,
       "buckets": {
-        "FULLY_TRAINABLE": 6052,
-        "PARTIAL_TEXT_NO_CODE": 616,
-        "METADATA_ONLY_STUB": 7708
+        "FULLY_TRAINABLE": 11813,
+        "PARTIAL_TEXT_NO_CODE": 711,
+        "METADATA_ONLY_STUB": 1394
       },
       "coverage_pct_avg": {
-        "pct_code": 68.1,
-        "pct_diff": 9.3,
-        "pct_poc": 10.8,
-        "pct_prose": 72.1,
+        "pct_code": 77.6,
+        "pct_diff": 12.7,
+        "pct_poc": 14.1,
+        "pct_prose": 82.3,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -111,27 +137,28 @@
       ]
     },
     "other/annotation": {
-      "files": 1,
-      "rows": 301,
+      "files": 2,
+      "rows": 333,
       "buckets": {
         "FULLY_TRAINABLE": 194,
         "PARTIAL_TEXT_NO_CODE": 75,
-        "METADATA_ONLY_STUB": 32
+        "METADATA_ONLY_STUB": 64
       },
       "coverage_pct_avg": {
-        "pct_code": 64.8,
-        "pct_diff": 1.3,
-        "pct_poc": 3.0,
-        "pct_prose": 89.0,
-        "pct_spec": 0.3,
+        "pct_code": 32.4,
+        "pct_diff": 0.7,
+        "pct_poc": 1.5,
+        "pct_prose": 44.5,
+        "pct_spec": 0.1,
         "pct_metadata_flagged": 0.0
       },
       "stub_files": [
+        "annotation/iaa_v1/quarantine.jsonl",
         "annotation/iaa_v1/sample.jsonl"
       ]
     },
     "other/derived": {
-      "files": 3,
+      "files": 4,
       "rows": 561,
       "buckets": {
         "FULLY_TRAINABLE": 324,
@@ -139,36 +166,38 @@
         "METADATA_ONLY_STUB": 19
       },
       "coverage_pct_avg": {
-        "pct_code": 27.2,
+        "pct_code": 20.9,
         "pct_diff": 0.1,
         "pct_poc": 0.2,
-        "pct_prose": 88.3,
-        "pct_spec": 1.4,
+        "pct_prose": 73.2,
+        "pct_spec": 1.2,
         "pct_metadata_flagged": 0.0
       },
       "stub_files": [
         "derived/counterexamples.jsonl",
         "derived/hard_negatives.jsonl",
+        "derived/quarantine_counterexamples.jsonl",
         "derived/root_cause_candidates.jsonl"
       ]
     },
     "other/derived_poc_queue": {
-      "files": 1,
+      "files": 2,
       "rows": 1011,
       "buckets": {
-        "FULLY_TRAINABLE": 127,
-        "PARTIAL_TEXT_NO_CODE": 27,
-        "METADATA_ONLY_STUB": 857
+        "FULLY_TRAINABLE": 976,
+        "PARTIAL_TEXT_NO_CODE": 33,
+        "METADATA_ONLY_STUB": 2
       },
       "coverage_pct_avg": {
-        "pct_code": 12.6,
-        "pct_diff": 0.0,
-        "pct_poc": 1.8,
-        "pct_prose": 15.2,
-        "pct_spec": 0.0,
+        "pct_code": 48.4,
+        "pct_diff": 1.3,
+        "pct_poc": 41.3,
+        "pct_prose": 49.8,
+        "pct_spec": 0.1,
         "pct_metadata_flagged": 0.0
       },
       "stub_files": [
+        "derived_poc_queue/quarantine.jsonl",
         "derived_poc_queue/triage_queue.jsonl"
       ]
     },
@@ -299,19 +328,41 @@
         "nextdata/ml_dataset_part3.jsonl"
       ]
     },
-    "other/reports": {
-      "files": 1,
-      "rows": 56,
+    "other/quarantine": {
+      "files": 3,
+      "rows": 1228,
       "buckets": {
-        "FULLY_TRAINABLE": 7,
-        "PARTIAL_TEXT_NO_CODE": 39,
-        "METADATA_ONLY_STUB": 10
+        "FULLY_TRAINABLE": 12,
+        "PARTIAL_TEXT_NO_CODE": 153,
+        "METADATA_ONLY_STUB": 1063
       },
       "coverage_pct_avg": {
-        "pct_code": 12.5,
+        "pct_code": 0.6,
         "pct_diff": 0.0,
-        "pct_poc": 62.5,
-        "pct_prose": 42.9,
+        "pct_poc": 0.2,
+        "pct_prose": 6.4,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "stub_files": [
+        "quarantine/benchmark_v3_R_quarantine.jsonl",
+        "quarantine/retirement_quarantine.jsonl",
+        "quarantine/secondary_holdout_quarantine.jsonl"
+      ]
+    },
+    "other/reports": {
+      "files": 1,
+      "rows": 79,
+      "buckets": {
+        "FULLY_TRAINABLE": 9,
+        "PARTIAL_TEXT_NO_CODE": 56,
+        "METADATA_ONLY_STUB": 14
+      },
+      "coverage_pct_avg": {
+        "pct_code": 11.4,
+        "pct_diff": 0.0,
+        "pct_poc": 60.8,
+        "pct_prose": 44.3,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -427,18 +478,18 @@
       ]
     },
     "other/training": {
-      "files": 10,
-      "rows": 12112,
+      "files": 11,
+      "rows": 12744,
       "buckets": {
-        "FULLY_TRAINABLE": 3318,
-        "PARTIAL_TEXT_NO_CODE": 8608,
-        "METADATA_ONLY_STUB": 186
+        "FULLY_TRAINABLE": 3319,
+        "PARTIAL_TEXT_NO_CODE": 8607,
+        "METADATA_ONLY_STUB": 818
       },
       "coverage_pct_avg": {
-        "pct_code": 12.6,
+        "pct_code": 13.7,
         "pct_diff": 0.0,
         "pct_poc": 0.3,
-        "pct_prose": 45.9,
+        "pct_prose": 45.5,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -446,6 +497,7 @@
         "training/canonical/detection.train.part-000.jsonl",
         "training/canonical/language.train.part-000.jsonl",
         "training/canonical/language.train.part-001.jsonl",
+        "training/canonical/quarantine.jsonl",
         "training/canonical/severity.train.part-000.jsonl",
         "training/canonical/severity.train.part-001.jsonl"
       ]
@@ -471,7 +523,7 @@
       ]
     },
     "taxonomy": {
-      "files": 2,
+      "files": 3,
       "rows": 418,
       "buckets": {
         "FULLY_TRAINABLE": 42,
@@ -479,15 +531,16 @@
         "METADATA_ONLY_STUB": 147
       },
       "coverage_pct_avg": {
-        "pct_code": 41.1,
+        "pct_code": 28.3,
         "pct_diff": 0.0,
-        "pct_poc": 3.2,
-        "pct_prose": 81.0,
+        "pct_poc": 2.2,
+        "pct_prose": 66.7,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "stub_files": [
         "taxonomy/assignments_v1.jsonl",
+        "taxonomy/quarantine.jsonl",
         "taxonomy/root_cause_v1.jsonl"
       ]
     },
@@ -541,19 +594,19 @@
     },
     "v3": {
       "files": 13,
-      "rows": 69124,
+      "rows": 26365,
       "buckets": {
-        "FULLY_TRAINABLE": 19822,
-        "PARTIAL_TEXT_NO_CODE": 5513,
-        "METADATA_ONLY_STUB": 43789
+        "FULLY_TRAINABLE": 19826,
+        "PARTIAL_TEXT_NO_CODE": 5444,
+        "METADATA_ONLY_STUB": 1095
       },
       "coverage_pct_avg": {
         "pct_code": 33.9,
         "pct_diff": 22.8,
-        "pct_poc": 11.3,
+        "pct_poc": 11.4,
         "pct_prose": 60.2,
         "pct_spec": 1.5,
-        "pct_metadata_flagged": 7.7
+        "pct_metadata_flagged": 0.0
       },
       "stub_files": [
         "derived_v3/candidate_ledger.jsonl",
@@ -569,18 +622,18 @@
       ]
     },
     "v4": {
-      "files": 15,
-      "rows": 47108,
+      "files": 16,
+      "rows": 47461,
       "buckets": {
         "FULLY_TRAINABLE": 7579,
-        "PARTIAL_TEXT_NO_CODE": 37017,
-        "METADATA_ONLY_STUB": 2512
+        "PARTIAL_TEXT_NO_CODE": 37028,
+        "METADATA_ONLY_STUB": 2854
       },
       "coverage_pct_avg": {
-        "pct_code": 20.9,
+        "pct_code": 19.6,
         "pct_diff": 0.0,
-        "pct_poc": 0.6,
-        "pct_prose": 65.4,
+        "pct_poc": 0.5,
+        "pct_prose": 61.3,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -589,6 +642,7 @@
         "derived_v4/candidate_ledger.jsonl",
         "derived_v4/quarantine.jsonl",
         "distribution_v1/digests.jsonl",
+        "distribution_v1/quarantine.jsonl",
         "distribution_v1/records_v1.jsonl",
         "distribution_v1/records_v1_withheld_pointers.jsonl",
         "distribution_v1/records_v4.jsonl",
@@ -601,17 +655,17 @@
     },
     "vbeta": {
       "files": 12,
-      "rows": 34370,
+      "rows": 39406,
       "buckets": {
         "FULLY_TRAINABLE": 1829,
         "PARTIAL_TEXT_NO_CODE": 12212,
-        "METADATA_ONLY_STUB": 20329
+        "METADATA_ONLY_STUB": 25365
       },
       "coverage_pct_avg": {
-        "pct_code": 26.0,
+        "pct_code": 25.9,
         "pct_diff": 0.1,
         "pct_poc": 9.1,
-        "pct_prose": 42.6,
+        "pct_prose": 42.1,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -664,6 +718,7 @@
     {
       "path": "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
       "layer": "vbeta",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 80,
       "invalid_lines": 0,
       "buckets": {
@@ -693,6 +748,7 @@
     {
       "path": "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
       "layer": "vbeta",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 80,
       "invalid_lines": 0,
       "buckets": {
@@ -722,6 +778,7 @@
     {
       "path": "Vbeta/derived_vbeta/candidate_ledger.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 80,
       "invalid_lines": 0,
       "buckets": {
@@ -751,6 +808,7 @@
     {
       "path": "Vbeta/derived_vbeta/corroborations.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -780,6 +838,7 @@
     {
       "path": "Vbeta/derived_vbeta/duplicates.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -809,6 +868,7 @@
     {
       "path": "Vbeta/derived_vbeta/negatives.jsonl",
       "layer": "vbeta",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -838,35 +898,37 @@
     {
       "path": "Vbeta/derived_vbeta/quarantine.jsonl",
       "layer": "vbeta",
-      "total_rows": 26960,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 31996,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 1521,
         "PARTIAL_TEXT_NO_CODE": 10179,
-        "METADATA_ONLY_STUB": 15260
+        "METADATA_ONLY_STUB": 20296
       },
       "coverage_pct": {
-        "pct_code": 5.9,
+        "pct_code": 5.0,
         "pct_diff": 0.0,
         "pct_poc": 0.1,
-        "pct_prose": 43.1,
+        "pct_prose": 36.3,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8427,
-          "UNHYDRATABLE_DEAD_POINTER": 17012
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9812,
+          "UNHYDRATABLE_DEAD_POINTER": 20663
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(17012)/GIT(8427)"
+        "display": "DEAD(20663)/GIT(9812)"
       },
       "has_stubs": true
     },
     {
       "path": "Vbeta/derived_vbeta/records.jsonl",
       "layer": "vbeta",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 80,
       "invalid_lines": 0,
       "buckets": {
@@ -896,6 +958,7 @@
     {
       "path": "Vbeta/fetched/receipts.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 15,
       "invalid_lines": 0,
       "buckets": {
@@ -925,6 +988,7 @@
     {
       "path": "Vbeta/jsonl_vbeta/findings.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 7060,
       "invalid_lines": 0,
       "buckets": {
@@ -954,6 +1018,7 @@
     {
       "path": "Vbeta/jsonl_vbeta/sources.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 15,
       "invalid_lines": 0,
       "buckets": {
@@ -983,6 +1048,7 @@
     {
       "path": "Vbeta/splits_vbeta/quarantine.jsonl",
       "layer": "vbeta",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -1010,8 +1076,39 @@
       "has_stubs": false
     },
     {
+      "path": "annotation/iaa_v1/quarantine.jsonl",
+      "layer": "other/annotation",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 32,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 32
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 29
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(29)/GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
       "path": "annotation/iaa_v1/sample.jsonl",
       "layer": "other/annotation",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 301,
       "invalid_lines": 0,
       "buckets": {
@@ -1041,6 +1138,7 @@
     {
       "path": "benchmark/A_vulnerability_detection.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 658,
       "invalid_lines": 0,
       "buckets": {
@@ -1070,6 +1168,7 @@
     {
       "path": "benchmark/C_attacker_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 658,
       "invalid_lines": 0,
       "buckets": {
@@ -1099,6 +1198,7 @@
     {
       "path": "benchmark/D_exploit_construction.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 644,
       "invalid_lines": 0,
       "buckets": {
@@ -1128,6 +1228,7 @@
     {
       "path": "benchmark/F_false_positive_rejection.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 440,
       "invalid_lines": 0,
       "buckets": {
@@ -1157,6 +1258,7 @@
     {
       "path": "benchmark/Fa_rejection_evidence_axis_vector.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 444,
       "invalid_lines": 0,
       "buckets": {
@@ -1186,10 +1288,11 @@
     {
       "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
       "layer": "benchmark",
-      "total_rows": 651,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 632,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 651,
+        "FULLY_TRAINABLE": 632,
         "PARTIAL_TEXT_NO_CODE": 0,
         "METADATA_ONLY_STUB": 0
       },
@@ -1215,6 +1318,7 @@
     {
       "path": "benchmark/G_patch_verification.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 37,
       "invalid_lines": 0,
       "buckets": {
@@ -1244,6 +1348,7 @@
     {
       "path": "benchmark/H_verified_exploit.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 7,
       "invalid_lines": 0,
       "buckets": {
@@ -1273,6 +1378,7 @@
     {
       "path": "benchmark/I_verified_non_exploit.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -1302,6 +1408,7 @@
     {
       "path": "benchmark/J_verified_patch.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -1331,6 +1438,7 @@
     {
       "path": "benchmark/Q_evidence_type_and_quality_rubric.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 61,
       "invalid_lines": 0,
       "buckets": {
@@ -1360,93 +1468,97 @@
     {
       "path": "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
       "layer": "benchmark",
-      "total_rows": 75,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 52,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 32,
         "PARTIAL_TEXT_NO_CODE": 20,
-        "METADATA_ONLY_STUB": 23
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 42.7,
+        "pct_code": 61.5,
         "pct_diff": 0.0,
         "pct_poc": 0.0,
-        "pct_prose": 69.3,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 9,
-          "UNHYDRATABLE_DEAD_POINTER": 34
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 8,
+          "UNHYDRATABLE_DEAD_POINTER": 12
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(34)/GIT(9)"
+        "display": "DEAD(12)/GIT(8)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
       "layer": "benchmark",
-      "total_rows": 372,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 356,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 204,
         "PARTIAL_TEXT_NO_CODE": 152,
-        "METADATA_ONLY_STUB": 16
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 54.8,
+        "pct_code": 57.3,
         "pct_diff": 0.0,
-        "pct_poc": 6.2,
-        "pct_prose": 95.7,
+        "pct_poc": 6.5,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 156,
-          "UNHYDRATABLE_DEAD_POINTER": 12
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 144,
+          "UNHYDRATABLE_DEAD_POINTER": 8
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(156)/DEAD(12)"
+        "display": "GIT(144)/DEAD(8)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
       "layer": "benchmark",
-      "total_rows": 406,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 390,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 234,
         "PARTIAL_TEXT_NO_CODE": 156,
-        "METADATA_ONLY_STUB": 16
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 57.6,
+        "pct_code": 60.0,
         "pct_diff": 0.0,
-        "pct_poc": 5.7,
-        "pct_prose": 96.1,
+        "pct_poc": 5.9,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 166,
-          "UNHYDRATABLE_DEAD_POINTER": 6
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 154,
+          "UNHYDRATABLE_DEAD_POINTER": 2
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(166)/DEAD(6)"
+        "display": "GIT(154)/DEAD(2)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/independent/secondary_holdout_exploratory_keys.jsonl",
       "layer": "benchmark",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 32,
       "invalid_lines": 0,
       "buckets": {
@@ -1476,6 +1588,7 @@
     {
       "path": "benchmark/independent/secondary_holdout_exploratory_tasks.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 32,
       "invalid_lines": 0,
       "buckets": {
@@ -1505,12 +1618,13 @@
     {
       "path": "benchmark/independent/secondary_holdout_keys.jsonl",
       "layer": "benchmark",
-      "total_rows": 1364,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 1362,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 0,
         "PARTIAL_TEXT_NO_CODE": 0,
-        "METADATA_ONLY_STUB": 1364
+        "METADATA_ONLY_STUB": 1362
       },
       "coverage_pct": {
         "pct_code": 0.0,
@@ -1524,45 +1638,47 @@
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 55,
-          "UNHYDRATABLE_DEAD_POINTER": 1309
+          "UNHYDRATABLE_DEAD_POINTER": 1307
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(1309)/GIT(55)"
+        "display": "DEAD(1307)/GIT(55)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/independent/secondary_holdout_tasks.jsonl",
       "layer": "benchmark",
-      "total_rows": 1364,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 1362,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 159,
-        "PARTIAL_TEXT_NO_CODE": 83,
-        "METADATA_ONLY_STUB": 1122
+        "FULLY_TRAINABLE": 1262,
+        "PARTIAL_TEXT_NO_CODE": 100,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 11.7,
-        "pct_diff": 0.0,
-        "pct_poc": 0.4,
-        "pct_prose": 17.7,
-        "pct_spec": 0.0,
+        "pct_code": 92.7,
+        "pct_diff": 9.8,
+        "pct_poc": 62.0,
+        "pct_prose": 99.6,
+        "pct_spec": 0.1,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 1205
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 11,
+          "UNHYDRATABLE_DEAD_POINTER": 89
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(1205)"
+        "display": "DEAD(89)/GIT(11)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -1592,6 +1708,7 @@
     {
       "path": "benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -1621,6 +1738,7 @@
     {
       "path": "benchmark/independent/v1_task_holdout/negative_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -1650,6 +1768,7 @@
     {
       "path": "benchmark/independent/v1_task_holdout/patch_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -1679,6 +1798,7 @@
     {
       "path": "benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 6,
       "invalid_lines": 0,
       "buckets": {
@@ -1708,6 +1828,7 @@
     {
       "path": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 720,
       "invalid_lines": 0,
       "buckets": {
@@ -1737,35 +1858,37 @@
     {
       "path": "benchmark/retired_families/E_exploit_verification.jsonl",
       "layer": "benchmark",
-      "total_rows": 720,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 342,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 328,
         "PARTIAL_TEXT_NO_CODE": 14,
-        "METADATA_ONLY_STUB": 378
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 46.7,
+        "pct_code": 98.2,
         "pct_diff": 0.0,
-        "pct_poc": 9.9,
-        "pct_prose": 46.4,
+        "pct_poc": 20.8,
+        "pct_prose": 97.7,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5,
-          "UNHYDRATABLE_DEAD_POINTER": 387
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
+          "UNHYDRATABLE_DEAD_POINTER": 12
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(387)/GIT(5)"
+        "display": "DEAD(12)/GIT(2)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 137,
       "invalid_lines": 0,
       "buckets": {
@@ -1795,6 +1918,7 @@
     {
       "path": "benchmark/retired_families/L_severity_reconciliation.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 137,
       "invalid_lines": 0,
       "buckets": {
@@ -1824,6 +1948,7 @@
     {
       "path": "benchmark/retired_families/M_experiment_level_classification.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 37,
       "invalid_lines": 0,
       "buckets": {
@@ -1853,6 +1978,7 @@
     {
       "path": "benchmark/retired_families/N_attacker_identity_extraction.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 137,
       "invalid_lines": 0,
       "buckets": {
@@ -1882,6 +2008,7 @@
     {
       "path": "benchmark/retired_families/O_record_class_and_scope.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 137,
       "invalid_lines": 0,
       "buckets": {
@@ -1911,6 +2038,7 @@
     {
       "path": "benchmark/retired_families/P_provenance_tier_and_rights.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 137,
       "invalid_lines": 0,
       "buckets": {
@@ -1940,35 +2068,37 @@
     {
       "path": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 331,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 3,
-        "PARTIAL_TEXT_NO_CODE": 80,
-        "METADATA_ONLY_STUB": 248
+        "FULLY_TRAINABLE": 244,
+        "PARTIAL_TEXT_NO_CODE": 87,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 1.2,
-        "pct_diff": 0.0,
-        "pct_poc": 0.0,
-        "pct_prose": 24.8,
+        "pct_code": 74.0,
+        "pct_diff": 32.0,
+        "pct_poc": 6.6,
+        "pct_prose": 99.7,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 328
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 6,
+          "UNHYDRATABLE_DEAD_POINTER": 81
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(328)"
+        "display": "DEAD(81)/GIT(6)"
       },
       "has_stubs": true
     },
     {
       "path": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
       "layer": "benchmark",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -1998,35 +2128,37 @@
     {
       "path": "benchmark/v3_R_source_tier_routing.jsonl",
       "layer": "benchmark",
-      "total_rows": 4623,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 4621,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 3,
-        "PARTIAL_TEXT_NO_CODE": 111,
-        "METADATA_ONLY_STUB": 4509
+        "FULLY_TRAINABLE": 4439,
+        "PARTIAL_TEXT_NO_CODE": 182,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 0.2,
-        "pct_diff": 0.0,
-        "pct_poc": 0.0,
-        "pct_prose": 2.3,
-        "pct_spec": 0.0,
+        "pct_code": 96.2,
+        "pct_diff": 75.6,
+        "pct_poc": 33.9,
+        "pct_prose": 99.7,
+        "pct_spec": 0.5,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 4620
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 41,
+          "UNHYDRATABLE_DEAD_POINTER": 141
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(4620)"
+        "display": "DEAD(141)/GIT(41)"
       },
       "has_stubs": true
     },
     {
       "path": "datasets/negative_quarantine.jsonl",
       "layer": "datasets",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -2056,6 +2188,7 @@
     {
       "path": "datasets/v1_hydration_quarantine.jsonl",
       "layer": "datasets",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 688,
       "invalid_lines": 0,
       "buckets": {
@@ -2085,6 +2218,7 @@
     {
       "path": "datasets/verified_exploits.jsonl",
       "layer": "datasets",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -2114,6 +2248,7 @@
     {
       "path": "datasets/verified_findings.jsonl",
       "layer": "datasets",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 6,
       "invalid_lines": 0,
       "buckets": {
@@ -2143,6 +2278,7 @@
     {
       "path": "datasets/verified_negatives.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 22,
       "invalid_lines": 0,
       "buckets": {
@@ -2172,6 +2308,7 @@
     {
       "path": "datasets/verified_patches.jsonl",
       "layer": "datasets",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -2201,35 +2338,37 @@
     {
       "path": "derived/counterexamples.jsonl",
       "layer": "other/derived",
-      "total_rows": 63,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 45,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 3,
         "PARTIAL_TEXT_NO_CODE": 42,
-        "METADATA_ONLY_STUB": 18
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 4.8,
+        "pct_code": 6.7,
         "pct_diff": 0.0,
         "pct_poc": 0.0,
-        "pct_prose": 69.8,
-        "pct_spec": 1.6,
+        "pct_prose": 97.8,
+        "pct_spec": 2.2,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 60,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 42,
           "UNHYDRATABLE_DEAD_POINTER": 0
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(60)"
+        "display": "GIT(42)"
       },
       "has_stubs": true
     },
     {
       "path": "derived/hard_negatives.jsonl",
       "layer": "other/derived",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 458,
       "invalid_lines": 0,
       "buckets": {
@@ -2257,8 +2396,39 @@
       "has_stubs": true
     },
     {
+      "path": "derived/quarantine_counterexamples.jsonl",
+      "layer": "other/derived",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 18,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 18
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 18,
+          "UNHYDRATABLE_DEAD_POINTER": 0
+        },
+        "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
+        "display": "GIT(18)"
+      },
+      "has_stubs": true
+    },
+    {
       "path": "derived/records.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 685,
       "invalid_lines": 0,
       "buckets": {
@@ -2288,6 +2458,7 @@
     {
       "path": "derived/root_cause_candidates.jsonl",
       "layer": "other/derived",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 40,
       "invalid_lines": 0,
       "buckets": {
@@ -2315,37 +2486,69 @@
       "has_stubs": true
     },
     {
-      "path": "derived_poc_queue/triage_queue.jsonl",
+      "path": "derived_poc_queue/quarantine.jsonl",
       "layer": "other/derived_poc_queue",
-      "total_rows": 1011,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 127,
-        "PARTIAL_TEXT_NO_CODE": 27,
-        "METADATA_ONLY_STUB": 857
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 2
       },
       "coverage_pct": {
-        "pct_code": 12.6,
+        "pct_code": 0.0,
         "pct_diff": 0.0,
-        "pct_poc": 1.8,
-        "pct_prose": 15.2,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
-          "HYDRATABLE_FROM_LOCAL_WORK": 27,
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 857
+          "UNHYDRATABLE_DEAD_POINTER": 2
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(857)/LOCAL(27)"
+        "display": "DEAD(2)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "derived_poc_queue/triage_queue.jsonl",
+      "layer": "other/derived_poc_queue",
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 1009,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 976,
+        "PARTIAL_TEXT_NO_CODE": 33,
+        "METADATA_ONLY_STUB": 0
+      },
+      "coverage_pct": {
+        "pct_code": 96.7,
+        "pct_diff": 2.6,
+        "pct_poc": 82.6,
+        "pct_prose": 99.5,
+        "pct_spec": 0.2,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 27,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1,
+          "UNHYDRATABLE_DEAD_POINTER": 5
+        },
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(27)/DEAD(5)/GIT(1)"
       },
       "has_stubs": true
     },
     {
       "path": "derived_prove/candidate_ledger.jsonl",
       "layer": "prove",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 210,
       "invalid_lines": 0,
       "buckets": {
@@ -2375,6 +2578,7 @@
     {
       "path": "derived_rejections/rejection_corpus.jsonl",
       "layer": "other/derived_rejections",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 444,
       "invalid_lines": 0,
       "buckets": {
@@ -2404,6 +2608,7 @@
     {
       "path": "derived_siblings/candidates.jsonl",
       "layer": "other/derived_siblings",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 255,
       "invalid_lines": 0,
       "buckets": {
@@ -2433,6 +2638,7 @@
     {
       "path": "derived_siblings/hard_negatives.jsonl",
       "layer": "other/derived_siblings",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 11,
       "invalid_lines": 0,
       "buckets": {
@@ -2462,6 +2668,7 @@
     {
       "path": "derived_siblings/tasks.jsonl",
       "layer": "other/derived_siblings",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 239,
       "invalid_lines": 0,
       "buckets": {
@@ -2491,6 +2698,7 @@
     {
       "path": "derived_span_tasks/answer_key.jsonl",
       "layer": "other/derived_span_tasks",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 4623,
       "invalid_lines": 0,
       "buckets": {
@@ -2520,6 +2728,7 @@
     {
       "path": "derived_span_tasks/tasks.jsonl",
       "layer": "other/derived_span_tasks",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 4623,
       "invalid_lines": 0,
       "buckets": {
@@ -2549,6 +2758,7 @@
     {
       "path": "derived_v2_2/audit_ingestion_records.jsonl",
       "layer": "other/derived_v2_2",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 16,
       "invalid_lines": 0,
       "buckets": {
@@ -2578,6 +2788,7 @@
     {
       "path": "derived_v2_2/audit_sources.jsonl",
       "layer": "other/derived_v2_2",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 16,
       "invalid_lines": 0,
       "buckets": {
@@ -2607,6 +2818,7 @@
     {
       "path": "derived_v2_2/quarantine.jsonl",
       "layer": "other/derived_v2_2",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 76,
       "invalid_lines": 0,
       "buckets": {
@@ -2636,6 +2848,7 @@
     {
       "path": "derived_v2_2/records.jsonl",
       "layer": "other/derived_v2_2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 61,
       "invalid_lines": 0,
       "buckets": {
@@ -2665,6 +2878,7 @@
     {
       "path": "derived_v3/candidate_ledger.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 7712,
       "invalid_lines": 0,
       "buckets": {
@@ -2694,6 +2908,7 @@
     {
       "path": "derived_v3/corroborations.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 108,
       "invalid_lines": 0,
       "buckets": {
@@ -2723,6 +2938,7 @@
     {
       "path": "derived_v3/corroborations_v31.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -2752,6 +2968,7 @@
     {
       "path": "derived_v3/duplicates.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 108,
       "invalid_lines": 0,
       "buckets": {
@@ -2781,6 +2998,7 @@
     {
       "path": "derived_v3/negatives.jsonl",
       "layer": "v3",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 14,
       "invalid_lines": 0,
       "buckets": {
@@ -2810,6 +3028,7 @@
     {
       "path": "derived_v3/normalization_fragments.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 531,
       "invalid_lines": 0,
       "buckets": {
@@ -2839,6 +3058,7 @@
     {
       "path": "derived_v3/normalization_overlay.jsonl",
       "layer": "v3",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -2868,35 +3088,37 @@
     {
       "path": "derived_v3/normalized_records_preview.jsonl",
       "layer": "v3",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 4623,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 4612,
+        "FULLY_TRAINABLE": 4614,
         "PARTIAL_TEXT_NO_CODE": 9,
-        "METADATA_ONLY_STUB": 2
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
         "pct_code": 99.8,
         "pct_diff": 77.5,
-        "pct_poc": 45.2,
-        "pct_prose": 99.8,
+        "pct_poc": 45.3,
+        "pct_prose": 99.9,
         "pct_spec": 0.5,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
-          "HYDRATABLE_FROM_LOCAL_WORK": 11,
+          "HYDRATABLE_FROM_LOCAL_WORK": 9,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
           "UNHYDRATABLE_DEAD_POINTER": 0
         },
         "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
-        "display": "LOCAL(11)"
+        "display": "LOCAL(9)"
       },
       "has_stubs": true
     },
     {
       "path": "derived_v3/patch_reviews.jsonl",
       "layer": "v3",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 47,
       "invalid_lines": 0,
       "buckets": {
@@ -2926,64 +3148,67 @@
     {
       "path": "derived_v3/quarantine.jsonl",
       "layer": "v3",
-      "total_rows": 43628,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 869,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 0,
-        "PARTIAL_TEXT_NO_CODE": 70,
-        "METADATA_ONLY_STUB": 43558
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 869
       },
       "coverage_pct": {
         "pct_code": 0.0,
         "pct_diff": 0.0,
         "pct_poc": 0.0,
-        "pct_prose": 0.2,
+        "pct_prose": 0.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
-          "HYDRATABLE_FROM_LOCAL_WORK": 844,
+          "HYDRATABLE_FROM_LOCAL_WORK": 869,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 42784
+          "UNHYDRATABLE_DEAD_POINTER": 0
         },
-        "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(42784)/LOCAL(844)"
+        "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
+        "display": "LOCAL(869)"
       },
       "has_stubs": true
     },
     {
       "path": "derived_v3/records.jsonl",
       "layer": "v3",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 4623,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 4612,
+        "FULLY_TRAINABLE": 4614,
         "PARTIAL_TEXT_NO_CODE": 9,
-        "METADATA_ONLY_STUB": 2
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
         "pct_code": 99.8,
         "pct_diff": 77.5,
-        "pct_poc": 44.6,
-        "pct_prose": 99.8,
+        "pct_poc": 44.7,
+        "pct_prose": 99.9,
         "pct_spec": 0.5,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
-          "HYDRATABLE_FROM_LOCAL_WORK": 11,
+          "HYDRATABLE_FROM_LOCAL_WORK": 9,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
           "UNHYDRATABLE_DEAD_POINTER": 0
         },
         "dominant": "HYDRATABLE_FROM_LOCAL_WORK",
-        "display": "LOCAL(11)"
+        "display": "LOCAL(9)"
       },
       "has_stubs": true
     },
     {
       "path": "derived_v4/admitted_ledger.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2547,
       "invalid_lines": 0,
       "buckets": {
@@ -3013,6 +3238,7 @@
     {
       "path": "derived_v4/candidate_ledger.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2547,
       "invalid_lines": 0,
       "buckets": {
@@ -3042,6 +3268,7 @@
     {
       "path": "derived_v4/duplicate_ledger.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -3071,12 +3298,13 @@
     {
       "path": "derived_v4/quarantine.jsonl",
       "layer": "v4",
-      "total_rows": 8167,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 8168,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 108,
         "PARTIAL_TEXT_NO_CODE": 7480,
-        "METADATA_ONLY_STUB": 579
+        "METADATA_ONLY_STUB": 580
       },
       "coverage_pct": {
         "pct_code": 1.3,
@@ -3089,17 +3317,18 @@
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5400,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5401,
           "UNHYDRATABLE_DEAD_POINTER": 2659
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(5400)/DEAD(2659)"
+        "display": "GIT(5401)/DEAD(2659)"
       },
       "has_stubs": true
     },
     {
       "path": "derived_v4/quarantined_ledger.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -3129,6 +3358,7 @@
     {
       "path": "distribution_v1/digests.jsonl",
       "layer": "v4",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 6,
       "invalid_lines": 0,
       "buckets": {
@@ -3156,8 +3386,39 @@
       "has_stubs": true
     },
     {
+      "path": "distribution_v1/quarantine.jsonl",
+      "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 341,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 341
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 5,
+          "UNHYDRATABLE_DEAD_POINTER": 336
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(336)/GIT(5)"
+      },
+      "has_stubs": true
+    },
+    {
       "path": "distribution_v1/records_v1.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 685,
       "invalid_lines": 0,
       "buckets": {
@@ -3187,6 +3448,7 @@
     {
       "path": "distribution_v1/records_v1_withheld_pointers.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 3567,
       "invalid_lines": 0,
       "buckets": {
@@ -3216,6 +3478,7 @@
     {
       "path": "distribution_v1/records_v4.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2547,
       "invalid_lines": 0,
       "buckets": {
@@ -3245,6 +3508,7 @@
     {
       "path": "distribution_v1/records_v4_withheld_pointers.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 14756,
       "invalid_lines": 0,
       "buckets": {
@@ -3274,11 +3538,12 @@
     {
       "path": "distribution_v1/rights_ledger.jsonl",
       "layer": "v4",
-      "total_rows": 9703,
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 9714,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 0,
-        "PARTIAL_TEXT_NO_CODE": 9703,
+        "PARTIAL_TEXT_NO_CODE": 9714,
         "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
@@ -3293,16 +3558,17 @@
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 9571,
-          "UNHYDRATABLE_DEAD_POINTER": 132
+          "UNHYDRATABLE_DEAD_POINTER": 143
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(9571)/DEAD(132)"
+        "display": "GIT(9571)/DEAD(143)"
       },
       "has_stubs": true
     },
     {
       "path": "distribution_v1/withheld_harness.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 33,
       "invalid_lines": 0,
       "buckets": {
@@ -3332,6 +3598,7 @@
     {
       "path": "distribution_v1/withheld_pointers_other_layers.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -3361,6 +3628,7 @@
     {
       "path": "experiments/reconstruction_log.jsonl",
       "layer": "other/experiments",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 155,
       "invalid_lines": 0,
       "buckets": {
@@ -3390,6 +3658,7 @@
     {
       "path": "jsonl/errors.jsonl",
       "layer": "v1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 19,
       "invalid_lines": 0,
       "buckets": {
@@ -3419,6 +3688,7 @@
     {
       "path": "jsonl/exploits.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 154,
       "invalid_lines": 0,
       "buckets": {
@@ -3448,6 +3718,7 @@
     {
       "path": "jsonl/findings.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 241,
       "invalid_lines": 0,
       "buckets": {
@@ -3477,6 +3748,7 @@
     {
       "path": "jsonl/metadata.jsonl",
       "layer": "v1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 11,
       "invalid_lines": 0,
       "buckets": {
@@ -3506,6 +3778,7 @@
     {
       "path": "jsonl/negative_findings.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 444,
       "invalid_lines": 0,
       "buckets": {
@@ -3535,6 +3808,7 @@
     {
       "path": "jsonl/patches.jsonl",
       "layer": "v1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 37,
       "invalid_lines": 0,
       "buckets": {
@@ -3564,6 +3838,7 @@
     {
       "path": "jsonl/protocol.jsonl",
       "layer": "v1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 8,
       "invalid_lines": 0,
       "buckets": {
@@ -3593,6 +3868,7 @@
     {
       "path": "jsonl_ml/findings_cairo.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 8,
       "invalid_lines": 0,
       "buckets": {
@@ -3622,6 +3898,7 @@
     {
       "path": "jsonl_ml/findings_move.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 15,
       "invalid_lines": 0,
       "buckets": {
@@ -3651,6 +3928,7 @@
     {
       "path": "jsonl_ml/findings_reports.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 45,
       "invalid_lines": 0,
       "buckets": {
@@ -3680,6 +3958,7 @@
     {
       "path": "jsonl_ml/findings_rust.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 18,
       "invalid_lines": 0,
       "buckets": {
@@ -3709,6 +3988,7 @@
     {
       "path": "jsonl_ml/findings_vyper.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 51,
       "invalid_lines": 0,
       "buckets": {
@@ -3738,6 +4018,7 @@
     {
       "path": "jsonl_ml/sources_cairo.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 13,
       "invalid_lines": 0,
       "buckets": {
@@ -3767,6 +4048,7 @@
     {
       "path": "jsonl_ml/sources_move.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 18,
       "invalid_lines": 0,
       "buckets": {
@@ -3796,6 +4078,7 @@
     {
       "path": "jsonl_ml/sources_reports.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 5,
       "invalid_lines": 0,
       "buckets": {
@@ -3825,6 +4108,7 @@
     {
       "path": "jsonl_ml/sources_rust.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 25,
       "invalid_lines": 0,
       "buckets": {
@@ -3854,6 +4138,7 @@
     {
       "path": "jsonl_ml/sources_vyper.jsonl",
       "layer": "v2.2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 51,
       "invalid_lines": 0,
       "buckets": {
@@ -3883,6 +4168,7 @@
     {
       "path": "jsonl_v3/findings.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 7712,
       "invalid_lines": 0,
       "buckets": {
@@ -3912,12 +4198,13 @@
     {
       "path": "jsonl_v3/sources.jsonl",
       "layer": "v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 18,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 0,
-        "PARTIAL_TEXT_NO_CODE": 0,
-        "METADATA_ONLY_STUB": 18
+        "PARTIAL_TEXT_NO_CODE": 1,
+        "METADATA_ONLY_STUB": 17
       },
       "coverage_pct": {
         "pct_code": 0.0,
@@ -3925,7 +4212,7 @@
         "pct_poc": 0.0,
         "pct_prose": 5.6,
         "pct_spec": 0.0,
-        "pct_metadata_flagged": 100.0
+        "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
@@ -3941,6 +4228,7 @@
     {
       "path": "jsonl_v4/findings.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2547,
       "invalid_lines": 0,
       "buckets": {
@@ -3970,6 +4258,7 @@
     {
       "path": "jsonl_v4/sources.jsonl",
       "layer": "v4",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -3999,6 +4288,7 @@
     {
       "path": "nextdata/_index_all_cleaned.jsonl",
       "layer": "other/nextdata",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 733,
       "invalid_lines": 0,
       "buckets": {
@@ -4028,6 +4318,7 @@
     {
       "path": "nextdata/ml_dataset_part1.jsonl",
       "layer": "other/nextdata",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 232,
       "invalid_lines": 0,
       "buckets": {
@@ -4057,6 +4348,7 @@
     {
       "path": "nextdata/ml_dataset_part2.jsonl",
       "layer": "other/nextdata",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 232,
       "invalid_lines": 0,
       "buckets": {
@@ -4086,6 +4378,7 @@
     {
       "path": "nextdata/ml_dataset_part3.jsonl",
       "layer": "other/nextdata",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 230,
       "invalid_lines": 0,
       "buckets": {
@@ -4113,37 +4406,129 @@
       "has_stubs": true
     },
     {
-      "path": "reports/poc_attempts.jsonl",
-      "layer": "other/reports",
-      "total_rows": 56,
+      "path": "quarantine/benchmark_v3_R_quarantine.jsonl",
+      "layer": "other/quarantine",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 846,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 7,
-        "PARTIAL_TEXT_NO_CODE": 39,
-        "METADATA_ONLY_STUB": 10
+        "FULLY_TRAINABLE": 12,
+        "PARTIAL_TEXT_NO_CODE": 153,
+        "METADATA_ONLY_STUB": 681
       },
       "coverage_pct": {
-        "pct_code": 12.5,
+        "pct_code": 1.8,
         "pct_diff": 0.0,
-        "pct_poc": 62.5,
-        "pct_prose": 42.9,
+        "pct_poc": 0.7,
+        "pct_prose": 19.1,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 49,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 834
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(834)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "quarantine/retirement_quarantine.jsonl",
+      "layer": "other/quarantine",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 378,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 378
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 3,
+          "UNHYDRATABLE_DEAD_POINTER": 375
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(375)/GIT(3)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "quarantine/secondary_holdout_quarantine.jsonl",
+      "layer": "other/quarantine",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 4,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 4
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 4
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(4)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "reports/poc_attempts.jsonl",
+      "layer": "other/reports",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 79,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 9,
+        "PARTIAL_TEXT_NO_CODE": 56,
+        "METADATA_ONLY_STUB": 14
+      },
+      "coverage_pct": {
+        "pct_code": 11.4,
+        "pct_diff": 0.0,
+        "pct_poc": 60.8,
+        "pct_prose": 44.3,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 70,
           "UNHYDRATABLE_DEAD_POINTER": 0
         },
         "dominant": "HYDRATABLE_FROM_GIT_OR_GITHUB",
-        "display": "GIT(49)"
+        "display": "GIT(70)"
       },
       "has_stubs": true
     },
     {
       "path": "splits_v2/quarantine.jsonl",
       "layer": "other/splits_v2",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -4173,6 +4558,7 @@
     {
       "path": "splits_v2/test.jsonl",
       "layer": "other/splits_v2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 242,
       "invalid_lines": 0,
       "buckets": {
@@ -4202,6 +4588,7 @@
     {
       "path": "splits_v2/train.jsonl",
       "layer": "other/splits_v2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 402,
       "invalid_lines": 0,
       "buckets": {
@@ -4231,6 +4618,7 @@
     {
       "path": "splits_v2/validation.jsonl",
       "layer": "other/splits_v2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 264,
       "invalid_lines": 0,
       "buckets": {
@@ -4260,6 +4648,7 @@
     {
       "path": "splits_v2_2/quarantine.jsonl",
       "layer": "other/splits_v2_2",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -4289,6 +4678,7 @@
     {
       "path": "splits_v2_2/test.jsonl",
       "layer": "other/splits_v2_2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 253,
       "invalid_lines": 0,
       "buckets": {
@@ -4318,6 +4708,7 @@
     {
       "path": "splits_v2_2/train.jsonl",
       "layer": "other/splits_v2_2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 443,
       "invalid_lines": 0,
       "buckets": {
@@ -4347,6 +4738,7 @@
     {
       "path": "splits_v2_2/validation.jsonl",
       "layer": "other/splits_v2_2",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 273,
       "invalid_lines": 0,
       "buckets": {
@@ -4376,6 +4768,7 @@
     {
       "path": "splits_v3/quarantine.jsonl",
       "layer": "other/splits_v3",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 844,
       "invalid_lines": 0,
       "buckets": {
@@ -4405,18 +4798,19 @@
     {
       "path": "taxonomy/assignments_v1.jsonl",
       "layer": "taxonomy",
-      "total_rows": 387,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 240,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 18,
         "PARTIAL_TEXT_NO_CODE": 222,
-        "METADATA_ONLY_STUB": 147
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 4.7,
+        "pct_code": 7.5,
         "pct_diff": 0.0,
         "pct_poc": 0.0,
-        "pct_prose": 62.0,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -4424,16 +4818,47 @@
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
-          "UNHYDRATABLE_DEAD_POINTER": 369
+          "UNHYDRATABLE_DEAD_POINTER": 222
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(369)"
+        "display": "DEAD(222)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "taxonomy/quarantine.jsonl",
+      "layer": "taxonomy",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 147,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 147
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 0,
+          "UNHYDRATABLE_DEAD_POINTER": 147
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(147)"
       },
       "has_stubs": true
     },
     {
       "path": "taxonomy/root_cause_v1.jsonl",
       "layer": "taxonomy",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -4463,6 +4888,7 @@
     {
       "path": "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4492,6 +4918,7 @@
     {
       "path": "tests/fixtures/broken/assignments_evidence_mismatch.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4521,6 +4948,7 @@
     {
       "path": "tests/fixtures/broken/assignments_exclusive_pair.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4550,6 +4978,7 @@
     {
       "path": "tests/fixtures/broken/assignments_ok.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 3,
       "invalid_lines": 0,
       "buckets": {
@@ -4579,6 +5008,7 @@
     {
       "path": "tests/fixtures/broken/assignments_unknown_category.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4608,6 +5038,7 @@
     {
       "path": "tests/fixtures/broken/assignments_unknown_record.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4637,6 +5068,7 @@
     {
       "path": "tests/fixtures/broken/assignments_unlabelled_no_reason.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4666,6 +5098,7 @@
     {
       "path": "tests/fixtures/broken/attribution_free_digest/distribution_v1/digests.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4695,6 +5128,7 @@
     {
       "path": "tests/fixtures/broken/bad_hash/distribution_v1/records_v4_withheld_pointers.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4724,6 +5158,7 @@
     {
       "path": "tests/fixtures/broken/contradictory_licence/jsonl_v4/findings.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -4753,6 +5188,7 @@
     {
       "path": "tests/fixtures/broken/copied_unlicensed_source/distribution_v1/records_v1.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4782,6 +5218,7 @@
     {
       "path": "tests/fixtures/broken/poc_attempts/blocked_without_blocker_class.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -4811,6 +5248,7 @@
     {
       "path": "tests/fixtures/broken/poc_attempts/claim_reproduced_without_assertion.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4840,6 +5278,7 @@
     {
       "path": "tests/fixtures/broken/poc_attempts/compile_failure_promoted_to_L4.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4869,6 +5308,7 @@
     {
       "path": "tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -4898,6 +5338,7 @@
     {
       "path": "tests/fixtures/broken/poc_triage/eligible_with_blocker.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4927,6 +5368,7 @@
     {
       "path": "tests/fixtures/broken/poc_triage/missing_pinned_revision.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4956,6 +5398,7 @@
     {
       "path": "tests/fixtures/broken/poc_triage/not_eligible_without_blocker.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -4985,6 +5428,7 @@
     {
       "path": "tests/fixtures/broken/poc_triage/poc_code_copied_not_pointed.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -5014,6 +5458,7 @@
     {
       "path": "tests/fixtures/broken/poc_triage/unknown_blocker_class.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 1,
       "invalid_lines": 0,
       "buckets": {
@@ -5043,6 +5488,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_facet_assignable.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5072,6 +5518,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_impact_as_cause.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5101,6 +5548,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_invented_swc.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5130,6 +5578,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_no_exclusions.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5159,6 +5608,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_no_map_no_reason.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5188,6 +5638,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_primitive_as_cause.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5217,6 +5668,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_unjustified_swc.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5246,6 +5698,7 @@
     {
       "path": "tests/fixtures/broken/taxonomy_valid.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 31,
       "invalid_lines": 0,
       "buckets": {
@@ -5275,6 +5728,7 @@
     {
       "path": "tests/fixtures/good/jsonl_v4/findings.jsonl",
       "layer": "other/tests",
+      "table_role": "test_fixture",
       "total_rows": 2,
       "invalid_lines": 0,
       "buckets": {
@@ -5304,6 +5758,7 @@
     {
       "path": "training/attacker_reasoning.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5333,18 +5788,19 @@
     {
       "path": "training/canonical/detection.train.part-000.jsonl",
       "layer": "other/training",
-      "total_rows": 193,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 129,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 96,
         "PARTIAL_TEXT_NO_CODE": 33,
-        "METADATA_ONLY_STUB": 64
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 49.7,
+        "pct_code": 74.4,
         "pct_diff": 0.0,
-        "pct_poc": 0.5,
-        "pct_prose": 66.8,
+        "pct_poc": 0.8,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
@@ -5352,132 +5808,167 @@
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
           "HYDRATABLE_FROM_GIT_OR_GITHUB": 2,
-          "UNHYDRATABLE_DEAD_POINTER": 95
+          "UNHYDRATABLE_DEAD_POINTER": 31
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(95)/GIT(2)"
+        "display": "DEAD(31)/GIT(2)"
       },
       "has_stubs": true
     },
     {
       "path": "training/canonical/language.train.part-000.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 5000,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 1496,
-        "PARTIAL_TEXT_NO_CODE": 3475,
-        "METADATA_ONLY_STUB": 29
+        "FULLY_TRAINABLE": 1497,
+        "PARTIAL_TEXT_NO_CODE": 3503,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
         "pct_code": 29.9,
         "pct_diff": 0.0,
         "pct_poc": 1.2,
-        "pct_prose": 99.4,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1092,
-          "UNHYDRATABLE_DEAD_POINTER": 2412
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1062,
+          "UNHYDRATABLE_DEAD_POINTER": 2441
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(2412)/GIT(1092)"
+        "display": "DEAD(2441)/GIT(1062)"
       },
       "has_stubs": true
     },
     {
       "path": "training/canonical/language.train.part-001.jsonl",
       "layer": "other/training",
-      "total_rows": 950,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 889,
       "invalid_lines": 0,
       "buckets": {
         "FULLY_TRAINABLE": 66,
-        "PARTIAL_TEXT_NO_CODE": 851,
-        "METADATA_ONLY_STUB": 33
+        "PARTIAL_TEXT_NO_CODE": 823,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 6.9,
+        "pct_code": 7.4,
         "pct_diff": 0.0,
         "pct_poc": 0.1,
-        "pct_prose": 96.5,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 49,
-          "UNHYDRATABLE_DEAD_POINTER": 835
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 47,
+          "UNHYDRATABLE_DEAD_POINTER": 776
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(835)/GIT(49)"
+        "display": "DEAD(776)/GIT(47)"
+      },
+      "has_stubs": true
+    },
+    {
+      "path": "training/canonical/quarantine.jsonl",
+      "layer": "other/training",
+      "table_role": "governance_or_quarantine_ledger",
+      "total_rows": 818,
+      "invalid_lines": 0,
+      "buckets": {
+        "FULLY_TRAINABLE": 0,
+        "PARTIAL_TEXT_NO_CODE": 0,
+        "METADATA_ONLY_STUB": 818
+      },
+      "coverage_pct": {
+        "pct_code": 0.0,
+        "pct_diff": 0.0,
+        "pct_poc": 0.0,
+        "pct_prose": 0.0,
+        "pct_spec": 0.0,
+        "pct_metadata_flagged": 0.0
+      },
+      "hydration_source": {
+        "counts": {
+          "HYDRATABLE_FROM_LOCAL_WORK": 0,
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 112,
+          "UNHYDRATABLE_DEAD_POINTER": 706
+        },
+        "dominant": "UNHYDRATABLE_DEAD_POINTER",
+        "display": "DEAD(706)/GIT(112)"
       },
       "has_stubs": true
     },
     {
       "path": "training/canonical/severity.train.part-000.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 5000,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 1588,
-        "PARTIAL_TEXT_NO_CODE": 3382,
-        "METADATA_ONLY_STUB": 30
+        "FULLY_TRAINABLE": 1590,
+        "PARTIAL_TEXT_NO_CODE": 3410,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
         "pct_code": 31.8,
         "pct_diff": 0.0,
         "pct_poc": 1.3,
-        "pct_prose": 99.4,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1094,
-          "UNHYDRATABLE_DEAD_POINTER": 2318
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 1063,
+          "UNHYDRATABLE_DEAD_POINTER": 2347
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(2318)/GIT(1094)"
+        "display": "DEAD(2347)/GIT(1063)"
       },
       "has_stubs": true
     },
     {
       "path": "training/canonical/severity.train.part-001.jsonl",
       "layer": "other/training",
-      "total_rows": 969,
+      "table_role": "trainable_or_benchmark",
+      "total_rows": 908,
       "invalid_lines": 0,
       "buckets": {
-        "FULLY_TRAINABLE": 72,
-        "PARTIAL_TEXT_NO_CODE": 867,
-        "METADATA_ONLY_STUB": 30
+        "FULLY_TRAINABLE": 70,
+        "PARTIAL_TEXT_NO_CODE": 838,
+        "METADATA_ONLY_STUB": 0
       },
       "coverage_pct": {
-        "pct_code": 7.4,
+        "pct_code": 7.7,
         "pct_diff": 0.0,
         "pct_poc": 0.1,
-        "pct_prose": 96.9,
+        "pct_prose": 100.0,
         "pct_spec": 0.0,
         "pct_metadata_flagged": 0.0
       },
       "hydration_source": {
         "counts": {
           "HYDRATABLE_FROM_LOCAL_WORK": 0,
-          "HYDRATABLE_FROM_GIT_OR_GITHUB": 45,
-          "UNHYDRATABLE_DEAD_POINTER": 852
+          "HYDRATABLE_FROM_GIT_OR_GITHUB": 43,
+          "UNHYDRATABLE_DEAD_POINTER": 795
         },
         "dominant": "UNHYDRATABLE_DEAD_POINTER",
-        "display": "DEAD(852)/GIT(45)"
+        "display": "DEAD(795)/GIT(43)"
       },
       "has_stubs": true
     },
     {
       "path": "training/exploit_reasoning.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5507,6 +5998,7 @@
     {
       "path": "training/negative_reasoning.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5536,6 +6028,7 @@
     {
       "path": "training/patch_reasoning.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5565,6 +6058,7 @@
     {
       "path": "training/vulnerability_detection.jsonl",
       "layer": "other/training",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5594,6 +6088,7 @@
     {
       "path": "wave1/00_governance/rights.jsonl",
       "layer": "wave1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 7,
       "invalid_lines": 0,
       "buckets": {
@@ -5623,6 +6118,7 @@
     {
       "path": "wave1/00_governance/source_registry.jsonl",
       "layer": "wave1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 6,
       "invalid_lines": 0,
       "buckets": {
@@ -5652,6 +6148,7 @@
     {
       "path": "wave1/01_dedup/hydration_quarantine.jsonl",
       "layer": "wave1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 1593,
       "invalid_lines": 0,
       "buckets": {
@@ -5681,6 +6178,7 @@
     {
       "path": "wave1/01_dedup/overlap_manifest.jsonl",
       "layer": "wave1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 896,
       "invalid_lines": 0,
       "buckets": {
@@ -5710,6 +6208,7 @@
     {
       "path": "wave1/01_dedup/registry.jsonl",
       "layer": "wave1",
+      "table_role": "governance_or_quarantine_ledger",
       "total_rows": 24074,
       "invalid_lines": 0,
       "buckets": {
@@ -5739,6 +6238,7 @@
     {
       "path": "wave1/03_candidates/c4_mitigation/issues.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 336,
       "invalid_lines": 0,
       "buckets": {
@@ -5768,6 +6268,7 @@
     {
       "path": "wave1/03_candidates/formal_specs/rules.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 6767,
       "invalid_lines": 0,
       "buckets": {
@@ -5797,6 +6298,7 @@
     {
       "path": "wave1/03_candidates/ghsa_web3_netnew/candidates.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -5826,6 +6328,7 @@
     {
       "path": "wave1/03_candidates/judge/issues.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 613,
       "invalid_lines": 0,
       "buckets": {
@@ -5855,6 +6358,7 @@
     {
       "path": "wave1/03_candidates/markdown_two_revision/candidates.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 556,
       "invalid_lines": 0,
       "buckets": {
@@ -5884,6 +6388,7 @@
     {
       "path": "wave1/03_candidates/reevmbench/harnesses.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 62,
       "invalid_lines": 0,
       "buckets": {
@@ -5913,6 +6418,7 @@
     {
       "path": "wave1/04_admitted/c4_mitigation/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 244,
       "invalid_lines": 0,
       "buckets": {
@@ -5942,6 +6448,7 @@
     {
       "path": "wave1/04_admitted/formal_specs/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 895,
       "invalid_lines": 0,
       "buckets": {
@@ -5971,6 +6478,7 @@
     {
       "path": "wave1/04_admitted/ghsa_web3_netnew/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -6000,6 +6508,7 @@
     {
       "path": "wave1/04_admitted/judge/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 71,
       "invalid_lines": 0,
       "buckets": {
@@ -6029,6 +6538,7 @@
     {
       "path": "wave1/04_admitted/markdown_two_revision/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 373,
       "invalid_lines": 0,
       "buckets": {
@@ -6058,6 +6568,7 @@
     {
       "path": "wave1/04_admitted/reevmbench/findings.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 51,
       "invalid_lines": 0,
       "buckets": {
@@ -6087,6 +6598,7 @@
     {
       "path": "wave1/benchmark_wave1/F_false_positive_rejection.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 147,
       "invalid_lines": 0,
       "buckets": {
@@ -6116,6 +6628,7 @@
     {
       "path": "wave1/benchmark_wave1/Fa_rejection_evidence_axis_vector.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 426,
       "invalid_lines": 0,
       "buckets": {
@@ -6145,6 +6658,7 @@
     {
       "path": "wave1/benchmark_wave1/Fb_duplicate_radar_pair.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 255,
       "invalid_lines": 0,
       "buckets": {
@@ -6174,6 +6688,7 @@
     {
       "path": "wave1/benchmark_wave1/G_patch_verification.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 244,
       "invalid_lines": 0,
       "buckets": {
@@ -6203,6 +6718,7 @@
     {
       "path": "wave1/benchmark_wave1/J_verified_patch.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 0,
       "invalid_lines": 0,
       "buckets": {
@@ -6232,6 +6748,7 @@
     {
       "path": "wave1/benchmark_wave1/invariants.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 297,
       "invalid_lines": 0,
       "buckets": {
@@ -6261,6 +6778,7 @@
     {
       "path": "wave1/benchmark_wave1/prove_candidates.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 10,
       "invalid_lines": 0,
       "buckets": {
@@ -6290,6 +6808,7 @@
     {
       "path": "wave1/benchmark_wave1/prove_incidents.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 51,
       "invalid_lines": 0,
       "buckets": {
@@ -6319,6 +6838,7 @@
     {
       "path": "wave1/benchmark_wave1/severity_reconciliation.jsonl",
       "layer": "wave1",
+      "table_role": "trainable_or_benchmark",
       "total_rows": 373,
       "invalid_lines": 0,
       "buckets": {
@@ -6352,6 +6872,7 @@
     "Vbeta/fetched/receipts.jsonl",
     "Vbeta/jsonl_vbeta/findings.jsonl",
     "Vbeta/jsonl_vbeta/sources.jsonl",
+    "annotation/iaa_v1/quarantine.jsonl",
     "annotation/iaa_v1/sample.jsonl",
     "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
     "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
@@ -6366,7 +6887,9 @@
     "datasets/v1_hydration_quarantine.jsonl",
     "derived/counterexamples.jsonl",
     "derived/hard_negatives.jsonl",
+    "derived/quarantine_counterexamples.jsonl",
     "derived/root_cause_candidates.jsonl",
+    "derived_poc_queue/quarantine.jsonl",
     "derived_poc_queue/triage_queue.jsonl",
     "derived_prove/candidate_ledger.jsonl",
     "derived_rejections/rejection_corpus.jsonl",
@@ -6389,6 +6912,7 @@
     "derived_v4/candidate_ledger.jsonl",
     "derived_v4/quarantine.jsonl",
     "distribution_v1/digests.jsonl",
+    "distribution_v1/quarantine.jsonl",
     "distribution_v1/records_v1.jsonl",
     "distribution_v1/records_v1_withheld_pointers.jsonl",
     "distribution_v1/records_v4.jsonl",
@@ -6414,6 +6938,9 @@
     "nextdata/ml_dataset_part1.jsonl",
     "nextdata/ml_dataset_part2.jsonl",
     "nextdata/ml_dataset_part3.jsonl",
+    "quarantine/benchmark_v3_R_quarantine.jsonl",
+    "quarantine/retirement_quarantine.jsonl",
+    "quarantine/secondary_holdout_quarantine.jsonl",
     "reports/poc_attempts.jsonl",
     "splits_v2/test.jsonl",
     "splits_v2/train.jsonl",
@@ -6423,6 +6950,7 @@
     "splits_v2_2/validation.jsonl",
     "splits_v3/quarantine.jsonl",
     "taxonomy/assignments_v1.jsonl",
+    "taxonomy/quarantine.jsonl",
     "taxonomy/root_cause_v1.jsonl",
     "tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl",
     "tests/fixtures/broken/assignments_evidence_mismatch.jsonl",
@@ -6451,6 +6979,7 @@
     "training/canonical/detection.train.part-000.jsonl",
     "training/canonical/language.train.part-000.jsonl",
     "training/canonical/language.train.part-001.jsonl",
+    "training/canonical/quarantine.jsonl",
     "training/canonical/severity.train.part-000.jsonl",
     "training/canonical/severity.train.part-001.jsonl",
     "wave1/00_governance/rights.jsonl",

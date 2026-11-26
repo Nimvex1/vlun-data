@@ -143,12 +143,12 @@ def main() -> None:
             add(f"solodit_url:{norm_url(u)}", "solodit_url", "Vbeta", norm_url(u), source_ref="Vbeta/solodit_candidates.json")
     try:
         vsrc = json.loads((ROOT / "Vbeta" / "sources.json").read_text(encoding="utf-8"))
-        for rec in vsrc.get("sources", []):
-            sid = rec.get("source_id") or rec.get("name")
+        for rec in (vsrc.get("sources", []) if isinstance(vsrc, dict) else []):
+            sid = (rec.get("source_id") or rec.get("name")) if isinstance(rec, dict) else ""
             if sid:
                 add(f"vbeta_source:{sid}", "source_id", "Vbeta", str(sid), source_ref="Vbeta/sources.json")
-    except Exception:
-        pass
+    except (OSError, ValueError) as exc:
+        print(f"[registry] Vbeta/sources.json skipped: {exc}")
 
     # ---------------- V4 ----------------
     p4 = ROOT / "jsonl_v4" / "findings.jsonl"

@@ -36,7 +36,7 @@
   "generated_by": "Vbeta/scripts/build_vbeta.py",
   "license_posture": "METADATA_ONLY for all third-party content; openzeppelin-cairo rows carry observed MIT",
   "purge_reason": "UNHYDRATABLE_DEAD_POINTER",
-  "quarantine_rows": 26960,
+  "quarantine_rows": 31996,
   "record_count": 80,
   "schema_version": "vbeta-1.0",
   "source_count": 15,

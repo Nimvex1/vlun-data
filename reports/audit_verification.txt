@@ -4,8 +4,8 @@ Audit JSON : reports/metadata_vs_trainable_audit.json
 Hydration  : reports/metadata_stub_hydration_plan.md
 ==============================================================================
 [PASS] 0. audit JSON exists/parses -- reports\metadata_vs_trainable_audit.json
-[PASS] 0. files[] present -- 196 file entries
-[PASS] 1. repo-wide jsonl path set -- discovered=196 audited=196
+[PASS] 0. files[] present -- 205 file entries
+[PASS] 1. repo-wide jsonl path set -- discovered=205 audited=205
 [PASS] 1a. paths missing from audit -- none
 [PASS] 1b. paths extra in audit -- none
 [INFO] 1c. exclusions -- excluded any path with a directory component in .git, work
@@ -15,38 +15,39 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [Vbeta/derived_vbeta/corroborations.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [Vbeta/derived_vbeta/duplicates.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [Vbeta/derived_vbeta/negatives.jsonl] -- counted=0 total_rows=0
-[PASS] 2. row count [Vbeta/derived_vbeta/quarantine.jsonl] -- counted=26960 total_rows=26960
+[PASS] 2. row count [Vbeta/derived_vbeta/quarantine.jsonl] -- counted=31996 total_rows=31996
 [PASS] 2. row count [Vbeta/derived_vbeta/records.jsonl] -- counted=80 total_rows=80
 [PASS] 2. row count [Vbeta/fetched/receipts.jsonl] -- counted=15 total_rows=15
 [PASS] 2. row count [Vbeta/jsonl_vbeta/findings.jsonl] -- counted=7060 total_rows=7060
 [PASS] 2. row count [Vbeta/jsonl_vbeta/sources.jsonl] -- counted=15 total_rows=15
 [PASS] 2. row count [Vbeta/splits_vbeta/quarantine.jsonl] -- counted=0 total_rows=0
+[PASS] 2. row count [annotation/iaa_v1/quarantine.jsonl] -- counted=32 total_rows=32
 [PASS] 2. row count [annotation/iaa_v1/sample.jsonl] -- counted=301 total_rows=301
 [PASS] 2. row count [benchmark/A_vulnerability_detection.jsonl] -- counted=658 total_rows=658
 [PASS] 2. row count [benchmark/C_attacker_reasoning.jsonl] -- counted=658 total_rows=658
 [PASS] 2. row count [benchmark/D_exploit_construction.jsonl] -- counted=644 total_rows=644
 [PASS] 2. row count [benchmark/F_false_positive_rejection.jsonl] -- counted=440 total_rows=440
 [PASS] 2. row count [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- counted=444 total_rows=444
-[PASS] 2. row count [benchmark/Fb_duplicate_radar_pair.jsonl] -- counted=651 total_rows=651
+[PASS] 2. row count [benchmark/Fb_duplicate_radar_pair.jsonl] -- counted=632 total_rows=632
 [PASS] 2. row count [benchmark/G_patch_verification.jsonl] -- counted=37 total_rows=37
 [PASS] 2. row count [benchmark/H_verified_exploit.jsonl] -- counted=7 total_rows=7
 [PASS] 2. row count [benchmark/I_verified_non_exploit.jsonl] -- counted=3 total_rows=3
 [PASS] 2. row count [benchmark/J_verified_patch.jsonl] -- counted=3 total_rows=3
 [PASS] 2. row count [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- counted=61 total_rows=61
-[PASS] 2. row count [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- counted=75 total_rows=75
-[PASS] 2. row count [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- counted=372 total_rows=372
-[PASS] 2. row count [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- counted=406 total_rows=406
+[PASS] 2. row count [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- counted=52 total_rows=52
+[PASS] 2. row count [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- counted=356 total_rows=356
+[PASS] 2. row count [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- counted=390 total_rows=390
 [PASS] 2. row count [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- counted=32 total_rows=32
 [PASS] 2. row count [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- counted=32 total_rows=32
-[PASS] 2. row count [benchmark/independent/secondary_holdout_keys.jsonl] -- counted=1364 total_rows=1364
-[PASS] 2. row count [benchmark/independent/secondary_holdout_tasks.jsonl] -- counted=1364 total_rows=1364
+[PASS] 2. row count [benchmark/independent/secondary_holdout_keys.jsonl] -- counted=1362 total_rows=1362
+[PASS] 2. row count [benchmark/independent/secondary_holdout_tasks.jsonl] -- counted=1362 total_rows=1362
 [PASS] 2. row count [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- counted=3 total_rows=3
 [PASS] 2. row count [benchmark/independent/v1_task_holdout/exploit_reasoning.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [benchmark/independent/v1_task_holdout/negative_reasoning.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [benchmark/independent/v1_task_holdout/patch_reasoning.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [benchmark/independent/v1_task_holdout/vulnerability_detection.jsonl] -- counted=6 total_rows=6
 [PASS] 2. row count [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- counted=720 total_rows=720
-[PASS] 2. row count [benchmark/retired_families/E_exploit_verification.jsonl] -- counted=720 total_rows=720
+[PASS] 2. row count [benchmark/retired_families/E_exploit_verification.jsonl] -- counted=342 total_rows=342
 [PASS] 2. row count [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- counted=137 total_rows=137
 [PASS] 2. row count [benchmark/retired_families/L_severity_reconciliation.jsonl] -- counted=137 total_rows=137
 [PASS] 2. row count [benchmark/retired_families/M_experiment_level_classification.jsonl] -- counted=37 total_rows=37
@@ -55,18 +56,20 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [benchmark/retired_families/P_provenance_tier_and_rights.jsonl] -- counted=137 total_rows=137
 [PASS] 2. row count [benchmark/retired_families/v3_S_contest_outcome.jsonl] -- counted=331 total_rows=331
 [PASS] 2. row count [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- counted=0 total_rows=0
-[PASS] 2. row count [benchmark/v3_R_source_tier_routing.jsonl] -- counted=4623 total_rows=4623
+[PASS] 2. row count [benchmark/v3_R_source_tier_routing.jsonl] -- counted=4621 total_rows=4621
 [PASS] 2. row count [datasets/negative_quarantine.jsonl] -- counted=3 total_rows=3
 [PASS] 2. row count [datasets/v1_hydration_quarantine.jsonl] -- counted=688 total_rows=688
 [PASS] 2. row count [datasets/verified_exploits.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [datasets/verified_findings.jsonl] -- counted=6 total_rows=6
 [PASS] 2. row count [datasets/verified_negatives.jsonl] -- counted=22 total_rows=22
 [PASS] 2. row count [datasets/verified_patches.jsonl] -- counted=0 total_rows=0
-[PASS] 2. row count [derived/counterexamples.jsonl] -- counted=63 total_rows=63
+[PASS] 2. row count [derived/counterexamples.jsonl] -- counted=45 total_rows=45
 [PASS] 2. row count [derived/hard_negatives.jsonl] -- counted=458 total_rows=458
+[PASS] 2. row count [derived/quarantine_counterexamples.jsonl] -- counted=18 total_rows=18
 [PASS] 2. row count [derived/records.jsonl] -- counted=685 total_rows=685
 [PASS] 2. row count [derived/root_cause_candidates.jsonl] -- counted=40 total_rows=40
-[PASS] 2. row count [derived_poc_queue/triage_queue.jsonl] -- counted=1011 total_rows=1011
+[PASS] 2. row count [derived_poc_queue/quarantine.jsonl] -- counted=2 total_rows=2
+[PASS] 2. row count [derived_poc_queue/triage_queue.jsonl] -- counted=1009 total_rows=1009
 [PASS] 2. row count [derived_prove/candidate_ledger.jsonl] -- counted=210 total_rows=210
 [PASS] 2. row count [derived_rejections/rejection_corpus.jsonl] -- counted=444 total_rows=444
 [PASS] 2. row count [derived_siblings/candidates.jsonl] -- counted=255 total_rows=255
@@ -87,19 +90,20 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [derived_v3/normalization_overlay.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [derived_v3/normalized_records_preview.jsonl] -- counted=4623 total_rows=4623
 [PASS] 2. row count [derived_v3/patch_reviews.jsonl] -- counted=47 total_rows=47
-[PASS] 2. row count [derived_v3/quarantine.jsonl] -- counted=43628 total_rows=43628
+[PASS] 2. row count [derived_v3/quarantine.jsonl] -- counted=869 total_rows=869
 [PASS] 2. row count [derived_v3/records.jsonl] -- counted=4623 total_rows=4623
 [PASS] 2. row count [derived_v4/admitted_ledger.jsonl] -- counted=2547 total_rows=2547
 [PASS] 2. row count [derived_v4/candidate_ledger.jsonl] -- counted=2547 total_rows=2547
 [PASS] 2. row count [derived_v4/duplicate_ledger.jsonl] -- counted=0 total_rows=0
-[PASS] 2. row count [derived_v4/quarantine.jsonl] -- counted=8167 total_rows=8167
+[PASS] 2. row count [derived_v4/quarantine.jsonl] -- counted=8168 total_rows=8168
 [PASS] 2. row count [derived_v4/quarantined_ledger.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [distribution_v1/digests.jsonl] -- counted=6 total_rows=6
+[PASS] 2. row count [distribution_v1/quarantine.jsonl] -- counted=341 total_rows=341
 [PASS] 2. row count [distribution_v1/records_v1.jsonl] -- counted=685 total_rows=685
 [PASS] 2. row count [distribution_v1/records_v1_withheld_pointers.jsonl] -- counted=3567 total_rows=3567
 [PASS] 2. row count [distribution_v1/records_v4.jsonl] -- counted=2547 total_rows=2547
 [PASS] 2. row count [distribution_v1/records_v4_withheld_pointers.jsonl] -- counted=14756 total_rows=14756
-[PASS] 2. row count [distribution_v1/rights_ledger.jsonl] -- counted=9703 total_rows=9703
+[PASS] 2. row count [distribution_v1/rights_ledger.jsonl] -- counted=9714 total_rows=9714
 [PASS] 2. row count [distribution_v1/withheld_harness.jsonl] -- counted=33 total_rows=33
 [PASS] 2. row count [distribution_v1/withheld_pointers_other_layers.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [experiments/reconstruction_log.jsonl] -- counted=155 total_rows=155
@@ -128,7 +132,10 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [nextdata/ml_dataset_part1.jsonl] -- counted=232 total_rows=232
 [PASS] 2. row count [nextdata/ml_dataset_part2.jsonl] -- counted=232 total_rows=232
 [PASS] 2. row count [nextdata/ml_dataset_part3.jsonl] -- counted=230 total_rows=230
-[PASS] 2. row count [reports/poc_attempts.jsonl] -- counted=56 total_rows=56
+[PASS] 2. row count [quarantine/benchmark_v3_R_quarantine.jsonl] -- counted=846 total_rows=846
+[PASS] 2. row count [quarantine/retirement_quarantine.jsonl] -- counted=378 total_rows=378
+[PASS] 2. row count [quarantine/secondary_holdout_quarantine.jsonl] -- counted=4 total_rows=4
+[PASS] 2. row count [reports/poc_attempts.jsonl] -- counted=79 total_rows=79
 [PASS] 2. row count [splits_v2/quarantine.jsonl] -- counted=2 total_rows=2
 [PASS] 2. row count [splits_v2/test.jsonl] -- counted=242 total_rows=242
 [PASS] 2. row count [splits_v2/train.jsonl] -- counted=402 total_rows=402
@@ -138,7 +145,8 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [splits_v2_2/train.jsonl] -- counted=443 total_rows=443
 [PASS] 2. row count [splits_v2_2/validation.jsonl] -- counted=273 total_rows=273
 [PASS] 2. row count [splits_v3/quarantine.jsonl] -- counted=844 total_rows=844
-[PASS] 2. row count [taxonomy/assignments_v1.jsonl] -- counted=387 total_rows=387
+[PASS] 2. row count [taxonomy/assignments_v1.jsonl] -- counted=240 total_rows=240
+[PASS] 2. row count [taxonomy/quarantine.jsonl] -- counted=147 total_rows=147
 [PASS] 2. row count [taxonomy/root_cause_v1.jsonl] -- counted=31 total_rows=31
 [PASS] 2. row count [tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl] -- counted=1 total_rows=1
 [PASS] 2. row count [tests/fixtures/broken/assignments_evidence_mismatch.jsonl] -- counted=1 total_rows=1
@@ -170,11 +178,12 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 2. row count [tests/fixtures/broken/taxonomy_valid.jsonl] -- counted=31 total_rows=31
 [PASS] 2. row count [tests/fixtures/good/jsonl_v4/findings.jsonl] -- counted=2 total_rows=2
 [PASS] 2. row count [training/attacker_reasoning.jsonl] -- counted=0 total_rows=0
-[PASS] 2. row count [training/canonical/detection.train.part-000.jsonl] -- counted=193 total_rows=193
+[PASS] 2. row count [training/canonical/detection.train.part-000.jsonl] -- counted=129 total_rows=129
 [PASS] 2. row count [training/canonical/language.train.part-000.jsonl] -- counted=5000 total_rows=5000
-[PASS] 2. row count [training/canonical/language.train.part-001.jsonl] -- counted=950 total_rows=950
+[PASS] 2. row count [training/canonical/language.train.part-001.jsonl] -- counted=889 total_rows=889
+[PASS] 2. row count [training/canonical/quarantine.jsonl] -- counted=818 total_rows=818
 [PASS] 2. row count [training/canonical/severity.train.part-000.jsonl] -- counted=5000 total_rows=5000
-[PASS] 2. row count [training/canonical/severity.train.part-001.jsonl] -- counted=969 total_rows=969
+[PASS] 2. row count [training/canonical/severity.train.part-001.jsonl] -- counted=908 total_rows=908
 [PASS] 2. row count [training/exploit_reasoning.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [training/negative_reasoning.jsonl] -- counted=0 total_rows=0
 [PASS] 2. row count [training/patch_reasoning.jsonl] -- counted=0 total_rows=0
@@ -225,7 +234,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [Vbeta/derived_vbeta/negatives.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [Vbeta/derived_vbeta/quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [Vbeta/derived_vbeta/quarantine.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [Vbeta/derived_vbeta/quarantine.jsonl] -- sum(buckets)=26960; formula used: sum(buckets) == total_rows (26960)
+[PASS] 3c. bucket sum [Vbeta/derived_vbeta/quarantine.jsonl] -- sum(buckets)=31996; formula used: sum(buckets) == total_rows (31996)
 [PASS] 3a. bucket keys [Vbeta/derived_vbeta/records.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [Vbeta/derived_vbeta/records.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [Vbeta/derived_vbeta/records.jsonl] -- sum(buckets)=80; formula used: sum(buckets) == total_rows (80)
@@ -241,6 +250,9 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3a. bucket keys [Vbeta/splits_vbeta/quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [Vbeta/splits_vbeta/quarantine.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [Vbeta/splits_vbeta/quarantine.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
+[PASS] 3a. bucket keys [annotation/iaa_v1/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [annotation/iaa_v1/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [annotation/iaa_v1/quarantine.jsonl] -- sum(buckets)=32; formula used: sum(buckets) == total_rows (32)
 [PASS] 3a. bucket keys [annotation/iaa_v1/sample.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [annotation/iaa_v1/sample.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [annotation/iaa_v1/sample.jsonl] -- sum(buckets)=301; formula used: sum(buckets) == total_rows (301)
@@ -261,7 +273,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [benchmark/Fa_rejection_evidence_axis_vector.jsonl] -- sum(buckets)=444; formula used: sum(buckets) == total_rows (444)
 [PASS] 3a. bucket keys [benchmark/Fb_duplicate_radar_pair.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/Fb_duplicate_radar_pair.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/Fb_duplicate_radar_pair.jsonl] -- sum(buckets)=651; formula used: sum(buckets) == total_rows (651)
+[PASS] 3c. bucket sum [benchmark/Fb_duplicate_radar_pair.jsonl] -- sum(buckets)=632; formula used: sum(buckets) == total_rows (632)
 [PASS] 3a. bucket keys [benchmark/G_patch_verification.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/G_patch_verification.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [benchmark/G_patch_verification.jsonl] -- sum(buckets)=37; formula used: sum(buckets) == total_rows (37)
@@ -279,13 +291,13 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [benchmark/Q_evidence_type_and_quality_rubric.jsonl] -- sum(buckets)=61; formula used: sum(buckets) == total_rows (61)
 [PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- sum(buckets)=75; formula used: sum(buckets) == total_rows (75)
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl] -- sum(buckets)=52; formula used: sum(buckets) == total_rows (52)
 [PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- sum(buckets)=372; formula used: sum(buckets) == total_rows (372)
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl] -- sum(buckets)=356; formula used: sum(buckets) == total_rows (356)
 [PASS] 3a. bucket keys [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- sum(buckets)=406; formula used: sum(buckets) == total_rows (406)
+[PASS] 3c. bucket sum [benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl] -- sum(buckets)=390; formula used: sum(buckets) == total_rows (390)
 [PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_exploratory_keys.jsonl] -- sum(buckets)=32; formula used: sum(buckets) == total_rows (32)
@@ -294,10 +306,10 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_exploratory_tasks.jsonl] -- sum(buckets)=32; formula used: sum(buckets) == total_rows (32)
 [PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_keys.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/secondary_holdout_keys.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_keys.jsonl] -- sum(buckets)=1364; formula used: sum(buckets) == total_rows (1364)
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_keys.jsonl] -- sum(buckets)=1362; formula used: sum(buckets) == total_rows (1362)
 [PASS] 3a. bucket keys [benchmark/independent/secondary_holdout_tasks.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/secondary_holdout_tasks.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_tasks.jsonl] -- sum(buckets)=1364; formula used: sum(buckets) == total_rows (1364)
+[PASS] 3c. bucket sum [benchmark/independent/secondary_holdout_tasks.jsonl] -- sum(buckets)=1362; formula used: sum(buckets) == total_rows (1362)
 [PASS] 3a. bucket keys [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
@@ -318,7 +330,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [benchmark/retired_families/B_root_cause_reasoning.jsonl] -- sum(buckets)=720; formula used: sum(buckets) == total_rows (720)
 [PASS] 3a. bucket keys [benchmark/retired_families/E_exploit_verification.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/retired_families/E_exploit_verification.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/retired_families/E_exploit_verification.jsonl] -- sum(buckets)=720; formula used: sum(buckets) == total_rows (720)
+[PASS] 3c. bucket sum [benchmark/retired_families/E_exploit_verification.jsonl] -- sum(buckets)=342; formula used: sum(buckets) == total_rows (342)
 [PASS] 3a. bucket keys [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [benchmark/retired_families/K_language_ecosystem_routing.jsonl] -- sum(buckets)=137; formula used: sum(buckets) == total_rows (137)
@@ -345,7 +357,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [benchmark/retired_families/v3_T_taxonomy_explicit.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [benchmark/v3_R_source_tier_routing.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [benchmark/v3_R_source_tier_routing.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [benchmark/v3_R_source_tier_routing.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
+[PASS] 3c. bucket sum [benchmark/v3_R_source_tier_routing.jsonl] -- sum(buckets)=4621; formula used: sum(buckets) == total_rows (4621)
 [PASS] 3a. bucket keys [datasets/negative_quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [datasets/negative_quarantine.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [datasets/negative_quarantine.jsonl] -- sum(buckets)=3; formula used: sum(buckets) == total_rows (3)
@@ -366,19 +378,25 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [datasets/verified_patches.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [derived/counterexamples.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived/counterexamples.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [derived/counterexamples.jsonl] -- sum(buckets)=63; formula used: sum(buckets) == total_rows (63)
+[PASS] 3c. bucket sum [derived/counterexamples.jsonl] -- sum(buckets)=45; formula used: sum(buckets) == total_rows (45)
 [PASS] 3a. bucket keys [derived/hard_negatives.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived/hard_negatives.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived/hard_negatives.jsonl] -- sum(buckets)=458; formula used: sum(buckets) == total_rows (458)
+[PASS] 3a. bucket keys [derived/quarantine_counterexamples.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived/quarantine_counterexamples.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived/quarantine_counterexamples.jsonl] -- sum(buckets)=18; formula used: sum(buckets) == total_rows (18)
 [PASS] 3a. bucket keys [derived/records.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived/records.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived/records.jsonl] -- sum(buckets)=685; formula used: sum(buckets) == total_rows (685)
 [PASS] 3a. bucket keys [derived/root_cause_candidates.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived/root_cause_candidates.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived/root_cause_candidates.jsonl] -- sum(buckets)=40; formula used: sum(buckets) == total_rows (40)
+[PASS] 3a. bucket keys [derived_poc_queue/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [derived_poc_queue/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [derived_poc_queue/quarantine.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
 [PASS] 3a. bucket keys [derived_poc_queue/triage_queue.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_poc_queue/triage_queue.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [derived_poc_queue/triage_queue.jsonl] -- sum(buckets)=1011; formula used: sum(buckets) == total_rows (1011)
+[PASS] 3c. bucket sum [derived_poc_queue/triage_queue.jsonl] -- sum(buckets)=1009; formula used: sum(buckets) == total_rows (1009)
 [PASS] 3a. bucket keys [derived_prove/candidate_ledger.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_prove/candidate_ledger.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived_prove/candidate_ledger.jsonl] -- sum(buckets)=210; formula used: sum(buckets) == total_rows (210)
@@ -441,7 +459,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [derived_v3/patch_reviews.jsonl] -- sum(buckets)=47; formula used: sum(buckets) == total_rows (47)
 [PASS] 3a. bucket keys [derived_v3/quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_v3/quarantine.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [derived_v3/quarantine.jsonl] -- sum(buckets)=43628; formula used: sum(buckets) == total_rows (43628)
+[PASS] 3c. bucket sum [derived_v3/quarantine.jsonl] -- sum(buckets)=869; formula used: sum(buckets) == total_rows (869)
 [PASS] 3a. bucket keys [derived_v3/records.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_v3/records.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived_v3/records.jsonl] -- sum(buckets)=4623; formula used: sum(buckets) == total_rows (4623)
@@ -456,13 +474,16 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [derived_v4/duplicate_ledger.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [derived_v4/quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_v4/quarantine.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [derived_v4/quarantine.jsonl] -- sum(buckets)=8167; formula used: sum(buckets) == total_rows (8167)
+[PASS] 3c. bucket sum [derived_v4/quarantine.jsonl] -- sum(buckets)=8168; formula used: sum(buckets) == total_rows (8168)
 [PASS] 3a. bucket keys [derived_v4/quarantined_ledger.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [derived_v4/quarantined_ledger.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [derived_v4/quarantined_ledger.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [distribution_v1/digests.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [distribution_v1/digests.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [distribution_v1/digests.jsonl] -- sum(buckets)=6; formula used: sum(buckets) == total_rows (6)
+[PASS] 3a. bucket keys [distribution_v1/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [distribution_v1/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [distribution_v1/quarantine.jsonl] -- sum(buckets)=341; formula used: sum(buckets) == total_rows (341)
 [PASS] 3a. bucket keys [distribution_v1/records_v1.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [distribution_v1/records_v1.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [distribution_v1/records_v1.jsonl] -- sum(buckets)=685; formula used: sum(buckets) == total_rows (685)
@@ -477,7 +498,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [distribution_v1/records_v4_withheld_pointers.jsonl] -- sum(buckets)=14756; formula used: sum(buckets) == total_rows (14756)
 [PASS] 3a. bucket keys [distribution_v1/rights_ledger.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [distribution_v1/rights_ledger.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [distribution_v1/rights_ledger.jsonl] -- sum(buckets)=9703; formula used: sum(buckets) == total_rows (9703)
+[PASS] 3c. bucket sum [distribution_v1/rights_ledger.jsonl] -- sum(buckets)=9714; formula used: sum(buckets) == total_rows (9714)
 [PASS] 3a. bucket keys [distribution_v1/withheld_harness.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [distribution_v1/withheld_harness.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [distribution_v1/withheld_harness.jsonl] -- sum(buckets)=33; formula used: sum(buckets) == total_rows (33)
@@ -562,9 +583,18 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3a. bucket keys [nextdata/ml_dataset_part3.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [nextdata/ml_dataset_part3.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [nextdata/ml_dataset_part3.jsonl] -- sum(buckets)=230; formula used: sum(buckets) == total_rows (230)
+[PASS] 3a. bucket keys [quarantine/benchmark_v3_R_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [quarantine/benchmark_v3_R_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [quarantine/benchmark_v3_R_quarantine.jsonl] -- sum(buckets)=846; formula used: sum(buckets) == total_rows (846)
+[PASS] 3a. bucket keys [quarantine/retirement_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [quarantine/retirement_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [quarantine/retirement_quarantine.jsonl] -- sum(buckets)=378; formula used: sum(buckets) == total_rows (378)
+[PASS] 3a. bucket keys [quarantine/secondary_holdout_quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [quarantine/secondary_holdout_quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [quarantine/secondary_holdout_quarantine.jsonl] -- sum(buckets)=4; formula used: sum(buckets) == total_rows (4)
 [PASS] 3a. bucket keys [reports/poc_attempts.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [reports/poc_attempts.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [reports/poc_attempts.jsonl] -- sum(buckets)=56; formula used: sum(buckets) == total_rows (56)
+[PASS] 3c. bucket sum [reports/poc_attempts.jsonl] -- sum(buckets)=79; formula used: sum(buckets) == total_rows (79)
 [PASS] 3a. bucket keys [splits_v2/quarantine.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [splits_v2/quarantine.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [splits_v2/quarantine.jsonl] -- sum(buckets)=2; formula used: sum(buckets) == total_rows (2)
@@ -594,7 +624,10 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [splits_v3/quarantine.jsonl] -- sum(buckets)=844; formula used: sum(buckets) == total_rows (844)
 [PASS] 3a. bucket keys [taxonomy/assignments_v1.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [taxonomy/assignments_v1.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [taxonomy/assignments_v1.jsonl] -- sum(buckets)=387; formula used: sum(buckets) == total_rows (387)
+[PASS] 3c. bucket sum [taxonomy/assignments_v1.jsonl] -- sum(buckets)=240; formula used: sum(buckets) == total_rows (240)
+[PASS] 3a. bucket keys [taxonomy/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [taxonomy/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [taxonomy/quarantine.jsonl] -- sum(buckets)=147; formula used: sum(buckets) == total_rows (147)
 [PASS] 3a. bucket keys [taxonomy/root_cause_v1.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [taxonomy/root_cause_v1.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [taxonomy/root_cause_v1.jsonl] -- sum(buckets)=31; formula used: sum(buckets) == total_rows (31)
@@ -690,19 +723,22 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3c. bucket sum [training/attacker_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
 [PASS] 3a. bucket keys [training/canonical/detection.train.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/canonical/detection.train.part-000.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [training/canonical/detection.train.part-000.jsonl] -- sum(buckets)=193; formula used: sum(buckets) == total_rows (193)
+[PASS] 3c. bucket sum [training/canonical/detection.train.part-000.jsonl] -- sum(buckets)=129; formula used: sum(buckets) == total_rows (129)
 [PASS] 3a. bucket keys [training/canonical/language.train.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/canonical/language.train.part-000.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [training/canonical/language.train.part-000.jsonl] -- sum(buckets)=5000; formula used: sum(buckets) == total_rows (5000)
 [PASS] 3a. bucket keys [training/canonical/language.train.part-001.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/canonical/language.train.part-001.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [training/canonical/language.train.part-001.jsonl] -- sum(buckets)=950; formula used: sum(buckets) == total_rows (950)
+[PASS] 3c. bucket sum [training/canonical/language.train.part-001.jsonl] -- sum(buckets)=889; formula used: sum(buckets) == total_rows (889)
+[PASS] 3a. bucket keys [training/canonical/quarantine.jsonl] -- exactly the 3 required keys
+[PASS] 3b. bucket values [training/canonical/quarantine.jsonl] -- all non-negative integers
+[PASS] 3c. bucket sum [training/canonical/quarantine.jsonl] -- sum(buckets)=818; formula used: sum(buckets) == total_rows (818)
 [PASS] 3a. bucket keys [training/canonical/severity.train.part-000.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/canonical/severity.train.part-000.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [training/canonical/severity.train.part-000.jsonl] -- sum(buckets)=5000; formula used: sum(buckets) == total_rows (5000)
 [PASS] 3a. bucket keys [training/canonical/severity.train.part-001.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/canonical/severity.train.part-001.jsonl] -- all non-negative integers
-[PASS] 3c. bucket sum [training/canonical/severity.train.part-001.jsonl] -- sum(buckets)=969; formula used: sum(buckets) == total_rows (969)
+[PASS] 3c. bucket sum [training/canonical/severity.train.part-001.jsonl] -- sum(buckets)=908; formula used: sum(buckets) == total_rows (908)
 [PASS] 3a. bucket keys [training/exploit_reasoning.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [training/exploit_reasoning.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [training/exploit_reasoning.jsonl] -- sum(buckets)=0; formula used: sum(buckets) == total_rows (0)
@@ -793,10 +829,10 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 3a. bucket keys [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- exactly the 3 required keys
 [PASS] 3b. bucket values [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- all non-negative integers
 [PASS] 3c. bucket sum [wave1/benchmark_wave1/severity_reconciliation.jsonl] -- sum(buckets)=373; formula used: sum(buckets) == total_rows (373)
-[PASS] 4a. coverage_pct range -- all 1176 numeric sub-percentage value(s) across 196 coverage_pct object(s) (+0 scalar) are numbers in [0.0, 100.0]
-[PASS] 4b. pct_metadata_flagged <= 100 -- all 221 value(s) <= 100: 0.0, 14.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 66.7, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+[PASS] 4a. coverage_pct range -- all 1230 numeric sub-percentage value(s) across 205 coverage_pct object(s) (+0 scalar) are numbers in [0.0, 100.0]
+[PASS] 4b. pct_metadata_flagged <= 100 -- all 231 value(s) <= 100: 0.0, 14.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 66.7, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 [PASS] 4c. pct_metadata_flagged non-negative -- none negative
-[PASS] 5. hydration_source present -- found 196 object(s)
+[PASS] 5. hydration_source present -- found 205 object(s)
 [PASS] 5a. hydration_source[0].dominant -- NONE
 [PASS] 5b. hydration_source[0] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[1].dominant -- NONE
@@ -823,7 +859,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[11] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[12].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[12] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[13].dominant -- NONE
+[PASS] 5a. hydration_source[13].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[13] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[14].dominant -- NONE
 [PASS] 5b. hydration_source[14] counts -- all integer counts are non-negative
@@ -845,21 +881,21 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[22] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[23].dominant -- NONE
 [PASS] 5b. hydration_source[23] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[24].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[24].dominant -- NONE
 [PASS] 5b. hydration_source[24] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[25].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[25].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[25] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[26].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[26] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[27].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[27].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[27] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[28].dominant -- NONE
+[PASS] 5a. hydration_source[28].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[28] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[29].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[29].dominant -- NONE
 [PASS] 5b. hydration_source[29] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[30].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[30] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[31].dominant -- NONE
+[PASS] 5a. hydration_source[31].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[31] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[32].dominant -- NONE
 [PASS] 5b. hydration_source[32] counts -- all integer counts are non-negative
@@ -871,9 +907,9 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[35] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[36].dominant -- NONE
 [PASS] 5b. hydration_source[36] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[37].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[37].dominant -- NONE
 [PASS] 5b. hydration_source[37] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[38].dominant -- NONE
+[PASS] 5a. hydration_source[38].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[38] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[39].dominant -- NONE
 [PASS] 5b. hydration_source[39] counts -- all integer counts are non-negative
@@ -885,17 +921,17 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[42] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[43].dominant -- NONE
 [PASS] 5b. hydration_source[43] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[44].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[44].dominant -- NONE
 [PASS] 5b. hydration_source[44] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[45].dominant -- NONE
+[PASS] 5a. hydration_source[45].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[45] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[46].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[46].dominant -- NONE
 [PASS] 5b. hydration_source[46] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[47].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[47].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[47] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[48].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[48] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[49].dominant -- NONE
+[PASS] 5a. hydration_source[49].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[49] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[50].dominant -- NONE
 [PASS] 5b. hydration_source[50] counts -- all integer counts are non-negative
@@ -903,105 +939,105 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[51] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[52].dominant -- NONE
 [PASS] 5b. hydration_source[52] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[53].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[53].dominant -- NONE
 [PASS] 5b. hydration_source[53] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[54].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[54] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[55].dominant -- NONE
+[PASS] 5a. hydration_source[55].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[55] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[56].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[56].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[56] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[57].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[57].dominant -- NONE
 [PASS] 5b. hydration_source[57] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[58].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[58].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[58] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[59].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[59].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[59] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[60].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[60] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[61].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[61].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[61] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[62].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[62].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[62] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[63].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[63] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[64].dominant -- NONE
+[PASS] 5a. hydration_source[64].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[64] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[65].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[65].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[65] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[66].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[66].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[66] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[67].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[67].dominant -- NONE
 [PASS] 5b. hydration_source[67] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[68].dominant -- NONE
+[PASS] 5a. hydration_source[68].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[68] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[69].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[69].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[69] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[70].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[70].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[70] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[71].dominant -- NONE
 [PASS] 5b. hydration_source[71] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[72].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[72].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[72] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[73].dominant -- NONE
+[PASS] 5a. hydration_source[73].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[73] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[74].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[74].dominant -- NONE
 [PASS] 5b. hydration_source[74] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[75].dominant -- NONE
+[PASS] 5a. hydration_source[75].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[75] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[76].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[76].dominant -- NONE
 [PASS] 5b. hydration_source[76] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[77].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[77].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[77] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[78].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[78].dominant -- NONE
 [PASS] 5b. hydration_source[78] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[79].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[79] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[80].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[80] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[81].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[81].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[81] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[82].dominant -- NONE
+[PASS] 5a. hydration_source[82].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[82] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[83].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[83] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[84].dominant -- NONE
+[PASS] 5a. hydration_source[84].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[84] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[85].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[85].dominant -- NONE
 [PASS] 5b. hydration_source[85] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[86].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[86].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[86] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[87].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[87].dominant -- NONE
 [PASS] 5b. hydration_source[87] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[88].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[88] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[89].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[89].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[89] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[90].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[90].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[90] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[91].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[91] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[92].dominant -- NONE
+[PASS] 5a. hydration_source[92].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[92] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[93].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[93].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[93] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[94].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[94].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[94] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[95].dominant -- NONE
+[PASS] 5a. hydration_source[95].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[95] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[96].dominant -- NONE
 [PASS] 5b. hydration_source[96] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[97].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[97].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[97] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[98].dominant -- NONE
+[PASS] 5a. hydration_source[98].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[98] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[99].dominant -- NONE
 [PASS] 5b. hydration_source[99] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[100].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[100].dominant -- NONE
 [PASS] 5b. hydration_source[100] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[101].dominant -- NONE
+[PASS] 5a. hydration_source[101].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[101] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[102].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[102].dominant -- NONE
 [PASS] 5b. hydration_source[102] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[103].dominant -- NONE
 [PASS] 5b. hydration_source[103] counts -- all integer counts are non-negative
@@ -1011,55 +1047,55 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[105] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[106].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[106] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[107].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[107].dominant -- NONE
 [PASS] 5b. hydration_source[107] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[108].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[108].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[108] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[109].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[109].dominant -- NONE
 [PASS] 5b. hydration_source[109] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[110].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[110] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[111].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[111].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[111] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[112].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[112].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[112] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[113].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[113] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[114].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[114] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[115].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[115].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[115] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[116].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[116].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[116] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[117].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[117].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[117] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[118].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[118].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[118] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[119].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[119].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[119] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[120].dominant -- NONE
+[PASS] 5a. hydration_source[120].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[120] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[121].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[121].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[121] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[122].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[122].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[122] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[123].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[123].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[123] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[124].dominant -- NONE
+[PASS] 5a. hydration_source[124].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[124] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[125].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[125] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[126].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[126].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[126] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[127].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[127].dominant -- NONE
 [PASS] 5b. hydration_source[127] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[128].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[128].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[128] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[129].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[129].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[129] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[130].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[130].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[130] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[131].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[131].dominant -- NONE
 [PASS] 5b. hydration_source[131] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[132].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[132] counts -- all integer counts are non-negative
@@ -1067,7 +1103,7 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[133] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[134].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[134] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[135].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[135].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[135] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[136].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[136] counts -- all integer counts are non-negative
@@ -1077,47 +1113,47 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[138] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[139].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[139] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[140].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[140].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[140] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[141].dominant -- NONE
+[PASS] 5a. hydration_source[141].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[141] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[142].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[142].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[142] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[143].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[143].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[143] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[144].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[144].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[144] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[145].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[145].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[145] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[146].dominant -- NONE
+[PASS] 5a. hydration_source[146].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[146] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[147].dominant -- HYDRATABLE_FROM_LOCAL_WORK
+[PASS] 5a. hydration_source[147].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[147] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[148].dominant -- NONE
+[PASS] 5a. hydration_source[148].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[148] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[149].dominant -- NONE
 [PASS] 5b. hydration_source[149] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[150].dominant -- NONE
+[PASS] 5a. hydration_source[150].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[150] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[151].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[151].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[151] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[152].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[152].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[152] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[153].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[153].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[153] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[154].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[154].dominant -- NONE
 [PASS] 5b. hydration_source[154] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[155].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[155].dominant -- HYDRATABLE_FROM_LOCAL_WORK
 [PASS] 5b. hydration_source[155] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[156].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[156].dominant -- NONE
 [PASS] 5b. hydration_source[156] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[157].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[157].dominant -- NONE
 [PASS] 5b. hydration_source[157] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[158].dominant -- UNHYDRATABLE_DEAD_POINTER
+[PASS] 5a. hydration_source[158].dominant -- NONE
 [PASS] 5b. hydration_source[158] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[159].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[159].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[159] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[160].dominant -- NONE
+[PASS] 5a. hydration_source[160].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[160] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[161].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[161] counts -- all integer counts are non-negative
@@ -1129,53 +1165,53 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[164] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[165].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[165] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[166].dominant -- NONE
+[PASS] 5a. hydration_source[166].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[166] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[167].dominant -- NONE
+[PASS] 5a. hydration_source[167].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[167] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[168].dominant -- NONE
 [PASS] 5b. hydration_source[168] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[169].dominant -- NONE
+[PASS] 5a. hydration_source[169].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[169] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[170].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[170] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[171].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[171] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[172].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[172].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[172] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[173].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[173] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[174].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[174] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[175].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[175].dominant -- NONE
 [PASS] 5b. hydration_source[175] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[176].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[176].dominant -- NONE
 [PASS] 5b. hydration_source[176] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[177].dominant -- NONE
 [PASS] 5b. hydration_source[177] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[178].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[178].dominant -- NONE
 [PASS] 5b. hydration_source[178] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[179].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[179].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[179] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[180].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[180].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[180] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[181].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[181] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[182].dominant -- NONE
+[PASS] 5a. hydration_source[182].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[182] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[183].dominant -- NONE
+[PASS] 5a. hydration_source[183].dominant -- UNHYDRATABLE_DEAD_POINTER
 [PASS] 5b. hydration_source[183] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[184].dominant -- NONE
+[PASS] 5a. hydration_source[184].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[184] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[185].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[185] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[186].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[186].dominant -- NONE
 [PASS] 5b. hydration_source[186] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[187].dominant -- NONE
+[PASS] 5a. hydration_source[187].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[187] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[188].dominant -- NONE
+[PASS] 5a. hydration_source[188].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[188] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[189].dominant -- NONE
+[PASS] 5a. hydration_source[189].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[189] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[190].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[190] counts -- all integer counts are non-negative
@@ -1183,37 +1219,60 @@ Hydration  : reports/metadata_stub_hydration_plan.md
 [PASS] 5b. hydration_source[191] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[192].dominant -- NONE
 [PASS] 5b. hydration_source[192] counts -- all integer counts are non-negative
-[PASS] 5a. hydration_source[193].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5a. hydration_source[193].dominant -- NONE
 [PASS] 5b. hydration_source[193] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[194].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[194] counts -- all integer counts are non-negative
 [PASS] 5a. hydration_source[195].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
 [PASS] 5b. hydration_source[195] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[196].dominant -- NONE
+[PASS] 5b. hydration_source[196] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[197].dominant -- NONE
+[PASS] 5b. hydration_source[197] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[198].dominant -- NONE
+[PASS] 5b. hydration_source[198] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[199].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[199] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[200].dominant -- NONE
+[PASS] 5b. hydration_source[200] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[201].dominant -- NONE
+[PASS] 5b. hydration_source[201] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[202].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[202] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[203].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[203] counts -- all integer counts are non-negative
+[PASS] 5a. hydration_source[204].dominant -- HYDRATABLE_FROM_GIT_OR_GITHUB
+[PASS] 5b. hydration_source[204] counts -- all integer counts are non-negative
 [PASS] 6. summary present -- object
-[PASS] 6a. summary.rows -- rows=235507 == sum(total_rows)
-[PASS] 6b. summary.files -- files=196 == len(files)
-[PASS] 7a. by_layer present -- 25 layer key(s)
-[PASS] 7b. by_layer coverage -- all 25 labelled layer(s) present in by_layer
-[PASS] 7d. stub_files == has_stubs paths -- both sets contain 123 path(s)
-[PASS] 8. hydration plan exists/non-empty -- 307779 characters, 3404 lines
-[PASS] 8a. plan section headers -- section header found for all 123 stub path(s)
-[INFO] 9. selection -- 5 stub file(s) sampled with seed=20261120: derived_v3/records.jsonl, jsonl/errors.jsonl, jsonl_ml/sources_reports.jsonl, nextdata/ml_dataset_part3.jsonl, splits_v3/quarantine.jsonl
-[PASS] 9. sample [derived_v3/records.jsonl] -- truncated sample prefix of a real source line
-[PASS] 9. sample [jsonl/errors.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
-[PASS] 9. sample [jsonl_ml/sources_reports.jsonl] -- truncated sample prefix of a real source line
-[PASS] 9. sample [nextdata/ml_dataset_part3.jsonl] -- truncated sample prefix of a real source line
-[PASS] 9. sample [splits_v3/quarantine.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[PASS] 6a. summary.rows -- rows=199594 == sum(total_rows)
+[PASS] 6b. summary.files -- files=205 == len(files)
+[PASS] 10. table_roles declaration -- all 3 roles declared
+[PASS] 10a. table_role coverage -- all 205 file(s) classified; trainable_or_benchmark=113
+[PASS] 10b. zero stubs in trainable_or_benchmark files -- 0 METADATA_ONLY_STUB rows across 113 trainable/benchmark/split/task files
+[PASS] 10c. role summary consistency -- trainable files=113, stubs=0
+[PASS] 11. zero METADATA_ONLY tags/boilerplate in trainable_or_benchmark files -- 0 offenders across 62511 row(s) re-derived from source
+[PASS] 7a. by_layer present -- 26 layer key(s)
+[PASS] 7b. by_layer coverage -- all 26 labelled layer(s) present in by_layer
+[PASS] 7d. stub_files == has_stubs paths -- both sets contain 132 path(s)
+[PASS] 8. hydration plan exists/non-empty -- 335063 characters, 3657 lines
+[PASS] 8a. plan section headers -- section header found for all 132 stub path(s)
+[INFO] 9. selection -- 5 stub file(s) sampled with seed=20261120: derived_v3/duplicates.jsonl, jsonl/metadata.jsonl, splits_v2/test.jsonl, tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl, training/canonical/severity.train.part-000.jsonl
+[PASS] 9. sample [derived_v3/duplicates.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[PASS] 9. sample [jsonl/metadata.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[PASS] 9. sample [splits_v2/test.jsonl] -- truncated sample prefix of a real source line
+[PASS] 9. sample [tests/fixtures/broken/poc_attempts/duplicate_attempt_id.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
+[PASS] 9. sample [training/canonical/severity.train.part-000.jsonl] -- sample is a real JSON object present in source (exact raw-string match)
 [INFO] INFO. baseline -- expected counts below are exploration notes only -- NOT used as assertions
 [INFO] INFO. expected vs actual -- v1: expected 9 files/1877 rows; actual 9 files/1621 rows (DIFFERS -- informational only)
 [INFO] INFO. expected vs actual -- v2.2: expected 10 files/249 rows; actual 10 files/249 rows (match)
-[INFO] INFO. expected vs actual -- V3: expected 2 files/7730 rows; actual 13 files/69124 rows (DIFFERS -- informational only)
-[INFO] INFO. expected vs actual -- Vbeta: expected 11 files/34370 rows; actual 12 files/34370 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- V3: expected 2 files/7730 rows; actual 13 files/26365 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- Vbeta: expected 11 files/34370 rows; actual 12 files/39406 rows (DIFFERS -- informational only)
 [INFO] INFO. expected vs actual -- wave1: expected 25 files/39950 rows; actual 26 files/38347 rows (DIFFERS -- informational only)
-[INFO] INFO. expected vs actual -- benchmark: expected 34 files/24078 rows; actual 34 files/14376 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- benchmark: expected 34 files/24078 rows; actual 34 files/13918 rows (DIFFERS -- informational only)
 [INFO] INFO. expected vs actual -- datasets(excl negatives): expected 3 files/314 rows; actual 5 files/697 rows (DIFFERS -- informational only)
-[INFO] INFO. expected vs actual -- taxonomy: expected 2 files/449 rows; actual 2 files/418 rows (DIFFERS -- informational only)
+[INFO] INFO. expected vs actual -- taxonomy: expected 2 files/449 rows; actual 3 files/418 rows (DIFFERS -- informational only)
 [INFO] INFO. expected vs actual -- derived_prove: expected 1 files/210 rows; actual (no matching layer label in files[])
 [INFO] INFO. baseline -- exploration also noted ~189 in-scope .jsonl files repo-wide and ~12,829 OTHER-EMPTY rows expected in METADATA_ONLY_STUB (informational only)
 ==============================================================================
-SUMMARY: checks run=1198  passed=1198  failed=0
+SUMMARY: checks run=1257  passed=1257  failed=0
 DISCREPANCIES: none

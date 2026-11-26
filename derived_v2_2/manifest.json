@@ -1,6 +1,11 @@
 {
-  "actor_mentioned": 20,
+  "actor_mentioned": 11,
   "attacker_identity": {
+    "privileged": 5,
+    "unknown": 51,
+    "unprivileged": 5
+  },
+  "attacker_identity_over_candidates": {
     "malicious_dependency": 2,
     "privileged": 6,
     "unknown": 123,
@@ -12,7 +17,24 @@
     "rust": 7,
     "solidity": 44
   },
+  "by_language_over_candidates": {
+    "cairo": 8,
+    "move": 15,
+    "rust": 18,
+    "solidity": 45,
+    "vyper": 51
+  },
   "by_record_class": {
+    "audit_finding": 39,
+    "incident": 1,
+    "judged": 3,
+    "negative_control": 1,
+    "observation": 2,
+    "overstated_by_the_report": 1,
+    "scope_risk": 1,
+    "vulnerability": 13
+  },
+  "by_record_class_over_candidates": {
     "advisory": 51,
     "audit_finding": 39,
     "incident": 2,
@@ -25,6 +47,12 @@
     "vulnerability": 31
   },
   "by_status": {
+    "confirmed": 3,
+    "experimentally_verified": 34,
+    "patched": 13,
+    "reported_claim": 11
+  },
+  "by_status_over_candidates": {
     "confirmed": 8,
     "experimentally_verified": 37,
     "fix_in_testing_at_time_of_postmortem": 1,
@@ -34,16 +62,54 @@
     "reported_claim": 60,
     "unknown": 1
   },
+  "candidate_count": 137,
   "canonical_groups": 10,
-  "code_citations": 155,
-  "code_citations_commit_pinned": 5,
+  "code_citations": 149,
+  "code_citations_commit_pinned": 1,
   "code_citations_resolved": 146,
+  "count_domains": {
+    "attacker_identity": "admitted record (derived_v2_2/records.jsonl)",
+    "attacker_identity_over_candidates": "candidate (pre-purge finding)",
+    "by_language": "admitted record (derived_v2_2/records.jsonl)",
+    "by_language_over_candidates": "candidate (pre-purge finding)",
+    "by_record_class": "admitted record (derived_v2_2/records.jsonl)",
+    "by_record_class_over_candidates": "candidate (pre-purge finding)",
+    "by_status": "admitted record (derived_v2_2/records.jsonl)",
+    "by_status_over_candidates": "candidate (pre-purge finding)",
+    "candidate_count": "candidate (pre-purge finding)",
+    "evidence_strongest": "admitted record (derived_v2_2/records.jsonl)",
+    "evidence_strongest_over_candidates": "candidate (pre-purge finding)",
+    "experiment_levels": "admitted record (derived_v2_2/records.jsonl)",
+    "experiment_levels_demoted": "admitted record (derived_v2_2/records.jsonl)",
+    "experiment_levels_demoted_over_candidates": "candidate (pre-purge finding)",
+    "experiment_levels_over_candidates": "candidate (pre-purge finding)",
+    "experiment_levels_provisional": "admitted record (derived_v2_2/records.jsonl)",
+    "experiment_levels_provisional_over_candidates": "candidate (pre-purge finding)",
+    "experiment_levels_verified_l5": "admitted record (derived_v2_2/records.jsonl)",
+    "experiment_levels_verified_l5_over_candidates": "candidate (pre-purge finding)",
+    "quality": "admitted record (derived_v2_2/records.jsonl)",
+    "quality_over_candidates": "candidate (pre-purge finding)",
+    "quarantined_count": "candidate (pre-purge finding)",
+    "records": "admitted record (derived_v2_2/records.jsonl)"
+  },
   "evidence_strongest": {
+    "experimentally_verified": 5,
+    "observed_fact": 56
+  },
+  "evidence_strongest_over_candidates": {
     "experimentally_verified": 6,
     "observed_fact": 131
   },
-  "experiment_artefacts_all_present": 37,
+  "experiment_artefacts_all_present": 34,
   "experiment_levels": {
+    "L4": 29,
+    "L5": 4,
+    "L6": 1,
+    "none": 27
+  },
+  "experiment_levels_demoted": 2,
+  "experiment_levels_demoted_over_candidates": 3,
+  "experiment_levels_over_candidates": {
     "L1": 1,
     "L3": 1,
     "L4": 29,
@@ -51,13 +117,49 @@
     "L6": 1,
     "none": 100
   },
-  "experiment_levels_demoted": 3,
   "experiment_levels_provisional": 27,
-  "experiment_levels_verified_l5": 5,
+  "experiment_levels_provisional_over_candidates": 27,
+  "experiment_levels_verified_l5": 4,
+  "experiment_levels_verified_l5_over_candidates": 5,
   "generated_by": "scripts/build_derived_v22.py",
-  "not_redistributable": 137,
+  "not_redistributable": 61,
   "problems": 0,
   "quality": {
+    "attacker_model": {
+      "high": 10,
+      "low": 46,
+      "medium": 5
+    },
+    "code_context": {
+      "low": 9,
+      "medium": 38,
+      "none": 14
+    },
+    "licensing": {
+      "mixed": 2,
+      "unknown_not_redistributable": 59
+    },
+    "provenance": {
+      "high": 17,
+      "medium": 44
+    },
+    "reasoning": {
+      "low": 6,
+      "medium": 55
+    },
+    "taxonomy": {
+      "classes_present_unmapped": 14,
+      "mapped": 3,
+      "no_classes": 44
+    },
+    "verification": {
+      "executed_not_demonstrated": 29,
+      "experimentally_verified": 5,
+      "reported_claim": 26,
+      "unverified": 1
+    }
+  },
+  "quality_over_candidates": {
     "attacker_model": {
       "high": 14,
       "low": 113,
@@ -95,6 +197,6 @@
   "quarantined_count": 76,
   "records": 61,
   "state_transition_present": 0,
-  "taxonomy_mapped": 8,
-  "with_experiment": 37
+  "taxonomy_mapped": 3,
+  "with_experiment": 34
 }

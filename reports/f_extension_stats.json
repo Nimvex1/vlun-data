@@ -1,8 +1,8 @@
 {
   "blocking_counts": {
-    "cross_file_separation_without_root_cause_evidence": 15755,
-    "same_root_cause_label": 396,
-    "shared_function_target": 756
+    "cross_file_separation_without_root_cause_evidence": 18027,
+    "same_root_cause_label": 82,
+    "shared_function_target": 797
   },
   "corpus_records": 444,
   "definitions_version": "rejection-definitions-1.0",
@@ -93,27 +93,27 @@
     "unique_source_records": 444
   },
   "fb": {
-    "ambiguous_class_pairs": 371,
+    "ambiguous_class_pairs": 414,
     "ambiguous_unscorable_pairs": 0,
     "by_label_cohort": {
-      "exploratory": 232,
-      "primary": 419
+      "exploratory": 275,
+      "primary": 357
     },
     "by_label_tier": {
       "ambiguous_shared_target_no_pointer": 139,
-      "ambiguous_target_separation_without_root_cause": 232,
+      "ambiguous_target_separation_without_root_cause": 275,
       "pointer_supported_positive": 179,
-      "rule_derived_target_and_root_cause_negative": 101
+      "rule_derived_target_and_root_cause_negative": 39
     },
     "by_relationship": {
-      "ambiguous": 371,
-      "distinct_vulnerability": 101,
+      "ambiguous": 414,
+      "distinct_vulnerability": 39,
       "same_vulnerability": 179
     },
     "by_split": {
       "test": 56,
-      "train": 320,
-      "validation": 275
+      "train": 309,
+      "validation": 267
     },
     "confirmed_duplicate_pairs": 179,
     "corpus_pointer_evidence": {
@@ -126,10 +126,10 @@
     "excluded_pairs": {
       "judgement_phrase_in_model_input": 60
     },
-    "pair_rows": 651,
-    "rule_derived_distinct_pairs": 101,
-    "unique_candidate_submissions": 415,
-    "unique_canonical_findings": 126
+    "pair_rows": 632,
+    "rule_derived_distinct_pairs": 39,
+    "unique_candidate_submissions": 410,
+    "unique_canonical_findings": 122
   },
   "generated_by": "scripts/build_f_extension.py",
   "independent_projects_in_corpus": {

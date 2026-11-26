@@ -72,6 +72,7 @@ import hashlib
 import importlib.util
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -564,6 +565,26 @@ def main() -> int:
     harvest_v3(b)
     v4_assign = harvest_v4(b)
     harvest_vbeta(b)
+    # Option A: a flat training row is a metadata stub when its input_text has
+    # no inline snippet and no technical prose. Hydrate from the verbatim
+    # parent record where possible; quarantine unhydratable rows so the
+    # published corpus has 0 stubs.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from trainable_purge_lib import (parent_index, hydrate_from_parent,
+                                     quarantine_payload, append_quarantine, is_stub)
+    _parents = parent_index()
+    _kept_rows, _purged = [], []
+    for _row in b.rows:
+        if is_stub(_row):
+            hydrate_from_parent(_row, _parents)
+        if is_stub(_row):
+            _purged.append(quarantine_payload(
+                _row, "training/canonical", str(_row.get("example_id") or id(_row))))
+        else:
+            _kept_rows.append(_row)
+    if _purged:
+        append_quarantine(ROOT / "training" / "canonical" / "quarantine.jsonl", _purged)
+    b.rows = _kept_rows
     b.apply_weights()
 
     protected = _leak.protected_identifiers()

@@ -167,8 +167,9 @@ def _resolve_token() -> tuple[str, str]:
         ).strip()
         if tok:
             return tok, "gh_cli:gh auth token"
-    except Exception:
-        pass
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, OSError) as exc:
+        # gh absent, non-zero auth, or timeout: fall back to anonymous budget.
+        print(f"[judge] gh auth token unavailable ({type(exc).__name__}); using anonymous")
     return "", "anonymous"
 
 
@@ -183,8 +184,10 @@ def _authed_get(api_path: str, token: str, *, quiet: bool = False) -> tuple[Any,
     if cache.exists():
         try:
             return json.loads(cache.read_text(encoding="utf-8")), 0
-        except Exception:
-            pass
+        except (OSError, ValueError) as exc:
+            # Corrupt/unreadable cache is a cache miss; go to the network below.
+            if not quiet:
+                print(f"[_authed_get] cache read failed for {api_path}: {exc}")
     url = "https://api.github.com/" + api_path.lstrip("/")
     headers = {
         "User-Agent": "vlun-wave1-audit",
@@ -201,14 +204,16 @@ def _authed_get(api_path: str, token: str, *, quiet: bool = False) -> tuple[Any,
             cp = guard_scratch(cache)
             cp.parent.mkdir(parents=True, exist_ok=True)
             cp.write_text(json.dumps(data), encoding="utf-8")
-        except Exception:
-            pass
+        except (OSError, ValueError) as exc:
+            # Cache persistence is best-effort; the fetched data is still real.
+            print(f"[_authed_get] cache write failed for {api_path}: {exc}")
         return data, 1
     except urllib.error.HTTPError as exc:
         if not quiet:
             print(f"[_authed_get] HTTP {exc.code} on {api_path}")
         return None, 1
-    except Exception as exc:
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        # Network down, timeout, or non-JSON response: degrade honestly.
         if not quiet:
             print(f"[_authed_get] failure on {api_path}: {exc}")
         return None, 1
@@ -228,7 +233,8 @@ def _verify_auth(token: str) -> bool:
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         return isinstance(data, dict) and isinstance(data.get("rate"), dict)
-    except Exception:
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
+        # Unreachable/invalid rate_limit response means the token is unverified.
         return False
 
 
@@ -480,7 +486,7 @@ def _mine_mitigation_pairs(
         return rows, stats, overlap_rows
     try:
         issues = [i for i in read_jsonl(guard_wave1(C4_ISSUES)) if isinstance(i, dict)]
-    except Exception as exc:
+    except (OSError, ValueError) as exc:
         stats["note"] = f"cache read failed: {exc}"
         return rows, stats, overlap_rows
     stats["issues_read"] = len(issues)
@@ -632,8 +638,8 @@ def main() -> None:
         try:
             for r in read_jsonl(OVERLAP):
                 existing_overlap.add((str(r.get("source")), str(r.get("candidate_id")), str(r.get("key"))))
-        except Exception:
-            pass
+        except (OSError, ValueError) as exc:
+            print(f"[judge] overlap manifest read failed; treating as empty: {exc}")
     local_keys: set[str] = set()
 
     repos_attempted = 0
@@ -700,7 +706,9 @@ def main() -> None:
                     str(l.get("name")) for l in (issue.get("labels") or [])
                     if isinstance(l, dict) and l.get("name")
                 ]
-            except Exception:
+            except (TypeError, ValueError, AttributeError) as exc:
+                # Malformed API issue shape: skip this issue, keep the harvest.
+                print(f"[judge] malformed issue {slug}#{number}: {exc}")
                 continue
             permalink = str(issue.get("html_url") or f"https://github.com/{slug}/issues/{number}")
             candidate_id = f"{SOURCE}:{norm_slug}:{number}"

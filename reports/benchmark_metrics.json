@@ -634,24 +634,24 @@
     "v3_R_source_tier_routing.jsonl": {
       "evaluable": true,
       "label_distribution": {
-        "0": 854,
+        "0": 852,
         "1": 3438,
         "2": 331
       },
-      "majority_fraction": 0.7437,
+      "majority_fraction": 0.744,
       "n_labels": 3,
-      "rows_scorable": 4623,
+      "rows_scorable": 4621,
       "shortcut_floor": {
         "available": true,
-        "best_train_only_accuracy": 0.0501,
+        "best_train_only_accuracy": 0.0502,
         "best_train_only_baseline": "input_retrieval",
         "fitted_on": "train",
-        "heldout_rows": 899,
+        "heldout_rows": 897,
         "train_only_baselines": {
-          "frequency_from_train": 0.0033,
-          "input_retrieval": 0.0501,
+          "frequency_from_train": 0.0045,
+          "input_retrieval": 0.0502,
           "majority_from_train": 0.0,
-          "random_from_train_space": 0.0189,
+          "random_from_train_space": 0.019,
           "source_only_lookup": 0.0,
           "title_retrieval": 0.0067
         }
@@ -660,7 +660,7 @@
       "test_only_labels": [
         "0"
       ],
-      "test_rows": 899,
+      "test_rows": 897,
       "train_only_majority_floor_on_test": 0.0,
       "train_rows": 3724
     },
@@ -839,9 +839,9 @@
     },
     "Fb_duplicate_radar_pair.jsonl": {
       "evaluable": false,
-      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "n_labels": 0,
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "retired": false,
       "rows_scorable": 0,
       "status": "NOT_SCORABLE",
@@ -992,9 +992,9 @@
       "evaluable": true,
       "evaluable_reason": null,
       "n_labels": 3,
-      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)",
+      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40)",
       "retired": false,
-      "rows_scorable": 4623,
+      "rows_scorable": 4621,
       "status": "INVALID",
       "validity_flags": [
         "held_out_labels_unseen_in_train",
@@ -1055,7 +1055,7 @@
   "generated_by": "scripts/score_benchmark.py --build-metrics",
   "known_limitations": [
     "Task D supplies 644 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.",
-    "Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.",
+    "Task E is labelled on its 7 rows with an executed verdict; the other 335 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.",
     "Task G is labelled on its 7 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 30 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.",
     "Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.",
     "Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.",
@@ -1098,7 +1098,7 @@
   },
   "retracted_claims": [
     {
-      "claim": "the headline micro-average covers 5,674 scorable rows across 3 families",
+      "claim": "the headline micro-average covers 5,672 scorable rows across 3 families",
       "reason": "the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination",
       "replacement": "the headline micro-average covers 1051 scorable rows across 2 family (A_vulnerability_detection.jsonl, C_attacker_reasoning.jsonl)",
       "status": "RETRACTED"
@@ -1160,7 +1160,7 @@
     {
       "claim": "v3_R_source_tier_routing.jsonl is usable as evaluation evidence",
       "reason": "validity flags measured by the independent audit",
-      "replacement": "status INVALID: invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)",
+      "replacement": "status INVALID: invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40)",
       "status": "RETRACTED"
     },
     {
@@ -1307,12 +1307,12 @@
     },
     "E_exploit_verification": {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 342
       },
       "by_split": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 342,
+        "train": 0,
+        "validation": 0
       },
       "duplicate_rows_dropped": 193,
       "evaluable": true,
@@ -1324,9 +1324,9 @@
       "scorable": 7,
       "status": "INVALID",
       "status_reason": "invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30)",
-      "tasks": 720,
-      "unlabeled": 713,
-      "unscorable": 713,
+      "tasks": 342,
+      "unlabeled": 335,
+      "unscorable": 335,
       "validity_flags": [
         "too_small_to_score",
         "holdout_too_small",
@@ -1388,28 +1388,28 @@
     },
     "Fb_duplicate_radar_pair": {
       "answer_key_evidence_levels": {
-        "derived_fact": 101,
+        "derived_fact": 39,
         "externally_attributed": 179,
-        "unknown": 371
+        "unknown": 414
       },
       "by_split": {
         "test": 56,
-        "train": 320,
-        "validation": 275
+        "train": 309,
+        "validation": 267
       },
       "duplicate_rows_dropped": 0,
       "evaluable": false,
-      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "labeled": 651,
+      "labeled": 632,
       "partial": 0,
       "retired": false,
-      "scorable": 651,
+      "scorable": 632,
       "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
       "scoring_status": "scorable",
       "status": "NOT_SCORABLE",
-      "status_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-      "tasks": 651,
+      "status_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "tasks": 632,
       "unlabeled": 0,
       "unscorable": 0,
       "validity_flags": []
@@ -1828,19 +1828,19 @@
     },
     "v3_R_source_tier_routing": {
       "by_split": {
-        "test": 899,
+        "test": 897,
         "train": 3724
       },
       "evaluable": true,
       "evaluable_reason": null,
       "file": "benchmark/v3_R_source_tier_routing.jsonl",
-      "labeled": 4623,
+      "labeled": 4621,
       "partial": 0,
       "retired": false,
-      "scorable": 4623,
+      "scorable": 4621,
       "status": "INVALID",
-      "status_reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)",
-      "tasks": 4623,
+      "status_reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40)",
+      "tasks": 4621,
       "unlabeled": 0,
       "unscorable": 0,
       "validity_flags": [
@@ -1940,7 +1940,7 @@
     "not_reproduced": 2,
     "poc_files": 644,
     "poc_labelled_rows": 7,
-    "poc_unlabelled_rows": 713,
+    "poc_unlabelled_rows": 335,
     "reproduced": 5,
     "test_vulnerable": 43
   },

@@ -48,7 +48,8 @@ def _tail(text: str | None) -> str:
 def display_cmd(cmd: list[str]) -> str:
     try:
         return subprocess.list2cmdline(cmd)
-    except Exception:
+    except (TypeError, ValueError):
+        # Non-string argv item: fall back to a plain join for logging only.
         return " ".join(cmd)
 
 

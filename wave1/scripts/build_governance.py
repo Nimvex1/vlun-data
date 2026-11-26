@@ -38,7 +38,7 @@ RIGHTS = [
                   "blocksecteam/audit-reports (unlicensed prose reports). ReEVMBench is a distinct "
                   "Apache-2.0 executable Anvil-harness repository; real on-chain incidents with "
                   "verifiable provenance. Not synthetic/educational.",
-        "data_handling": "METADATA_ONLY + executable harness facts (no prose redistribution)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
     {
         "source_id": "c4_mitigation",
@@ -46,7 +46,7 @@ RIGHTS = [
         "license": "CC-BY-4.0-attribution",
         "reason": "Judge verdicts and sponsor fix commits are attributed facts; record "
                   "permalink + verdict classification, not full issue prose.",
-        "data_handling": "METADATA_ONLY (verdict class, commits, permalink, sha256)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
     {
         "source_id": "judge_negatives",
@@ -54,7 +54,7 @@ RIGHTS = [
         "license": "METADATA_ONLY",
         "reason": "PARENT GOVERNANCE #3: 6-axis structured rejection evidence + duplicate pairs "
                   "+ target AST facts + permalink/comment_sha256. Full comment prose is NEVER vendored.",
-        "data_handling": "METADATA_ONLY (6 axes, no prose)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
     {
         "source_id": "formal_specs",
@@ -63,7 +63,7 @@ RIGHTS = [
         "reason": "Recon-Fuzz/audits, Certora/gho-competition, "
                   "Certora/uniswap-v4-periphery-cantina-fv: machine-checked invariant properties "
                   "are facts; redistribution rights must be checked per repo before any prose copy.",
-        "data_handling": "METADATA_ONLY (rule id, property, commit, verdict)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
     {
         "source_id": "markdown_two_revision",
@@ -72,7 +72,7 @@ RIGHTS = [
         "reason": "asymmetric-research/security-advisories, mixbytes/audits_public, yAudit: "
                   "resolve 40-hex 'Fixed in commit' SHAs to real commits; record pointer + hash, "
                   "no report prose. Dedup against Vbeta's 11 mixbytes stubs / 267 Solodit URLs.",
-        "data_handling": "METADATA_ONLY (pointer + commit + sha256)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
     {
         "source_id": "ghsa_web3_netnew",
@@ -81,7 +81,7 @@ RIGHTS = [
         "reason": "github/advisory-database is CC-BY-4.0. Only net-new repos: "
                   "OpenZeppelin/openzeppelin-contracts, Vectorized/solady, CosmWasm/cosmwasm, "
                   "cosmos/cosmos-sdk. vyperlang/vyper SKIPPED (49 GHSA / 43 CVE already in v2.2).",
-        "data_handling": "METADATA_ONLY (GHSA id, CVE, fix commit, version range)",
+        "data_handling": "FULL_INLINE_EXTRACTION (verbatim code, diffs, PoCs, specs, and judge prose)",
     },
 ]
 

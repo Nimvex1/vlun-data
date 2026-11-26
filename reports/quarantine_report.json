@@ -64,11 +64,11 @@
     {
       "counted_from": "reports/poc_attempts.jsonl",
       "detail": {
-        "unknown": 56
+        "unknown": 79
       },
       "group": "v1/v2.1 PoC re-run attempts",
       "meaning": "recorded sandbox attempts that did not reach a demonstrated violation — preserved as data, not deleted",
-      "records": 56
+      "records": 79
     },
     {
       "counted_from": "reports/v3/v32_unblock_attempts.json",
@@ -127,7 +127,7 @@
       "counted_from": "distribution_v1/*_withheld_pointers.jsonl, withheld_harness.jsonl",
       "detail": {
         "licence_contradictions": 0,
-        "personal_data_artefacts": 21,
+        "personal_data_artefacts": 24,
         "registered_sources": 11
       },
       "group": "withheld expressive content",

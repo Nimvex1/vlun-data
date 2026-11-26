@@ -1,0 +1,6 @@
+Error: Compiler run failed:
+Error (7920): Identifier not found or not unique.
+  --> test/vlun_poc/2024-01-renft__M-08.t.sol:13:13:
+   |
+13 |             RentalAssetUpdate[] memory rentalAssets = new RentalAssetUpdate[](1);
+   |             ^^^^^^^^^^^^^^^^^

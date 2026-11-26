@@ -1,0 +1,66 @@
+{
+  "dependency_configuration": {
+    "clone_head": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+    "clone_present": true,
+    "declared_dependency_count": 20,
+    "foundry_toml": true,
+    "head_matches_pinned_commit": true,
+    "lib_directories": [
+      "forge-std"
+    ],
+    "lockfile_available": true,
+    "node_modules_present": true,
+    "remappings_available": true,
+    "unresolved_relative_imports": []
+  },
+  "foundry_toml": true,
+  "harness_mode": "wrapped_fragment",
+  "import_rewrites": [
+    "wrapped 1 test function(s) into contract VlunReconstructedHarness"
+  ],
+  "libs": true,
+  "node_modules_junction": false,
+  "overlay_path": "testFoundry/vlun_poc/2024-04-noya__H-23.t.sol",
+  "overlay_sha256": "3f0c939046d99e918a34084735b2e219321f872e35691c4c9d97d09487c2a788",
+  "patch_reference": {
+    "fixed_commit": null,
+    "fixed_commit_note": "",
+    "patch_available": null,
+    "patch_record_present": false,
+    "prs": []
+  },
+  "pinned_vulnerable_commit": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+  "project_subdir": "",
+  "quoted_code_sha256": "45643b7342c60730de657501a62f1b1d386f546b7b3655d27623aa4936bfc7f0",
+  "remappings": true,
+  "repository": "code-423n4/2024-04-noya",
+  "scratch": {
+    "clone": "work/repos/code-423n4__2024-04-noya",
+    "clone_head": "7e7b0ffb53b516b95c7900d25fb00af8f108727f",
+    "copied": [],
+    "error": null,
+    "junctions": [],
+    "revision_substitution": {
+      "override": null,
+      "override_commit": null,
+      "tree": "work/repos/code-423n4__2024-04-noya"
+    },
+    "scratch": "work/poc_reruns/code-423n4__2024-04-noya",
+    "scratch_entries": [
+      "contracts",
+      "foundry.toml",
+      "hardhat.config.ts",
+      "lib",
+      "node_modules",
+      "package.json",
+      "remappings.txt",
+      "testFoundry",
+      "tsconfig.json",
+      "utils"
+    ],
+    "scratch_foundry_test_dir": "testFoundry",
+    "scratch_head": null,
+    "scratch_project_subdir": "",
+    "source_tree": "work/repos/code-423n4__2024-04-noya"
+  }
+}

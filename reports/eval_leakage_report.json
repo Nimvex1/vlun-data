@@ -28,8 +28,8 @@
       },
       {
         "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-        "rows": 651,
-        "sha256": "9b988b19ad347da84d12fda0a8302a5f8846937915cf8bcd73bcefce1da82db0"
+        "rows": 632,
+        "sha256": "484469aef91c3b0254b650ffdae225aff36f988eda196b19d4fc9b3d7cddb7cd"
       },
       {
         "path": "benchmark/G_patch_verification.jsonl",
@@ -58,8 +58,8 @@
       },
       {
         "path": "benchmark/v3_R_source_tier_routing.jsonl",
-        "rows": 4623,
-        "sha256": "42890d04ac2d29c7f193a0ea76589f154bb5b4dad49b0b3e5731969c5dd4a9be"
+        "rows": 4621,
+        "sha256": "43bf46968469e8511905e007320ffd574af3e7d903e1bee228540bf0498fa5d0"
       },
       {
         "path": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
@@ -68,8 +68,8 @@
       },
       {
         "path": "benchmark/retired_families/E_exploit_verification.jsonl",
-        "rows": 720,
-        "sha256": "736b8604ba212ecb2b10b4ed5a3da771d207ce69e9640754f4d7cae62d582565"
+        "rows": 342,
+        "sha256": "9dd242f7123be5fbcda186be4fbc302179e28dfc8eb05a2f53b91f148f1b505c"
       },
       {
         "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",
@@ -104,7 +104,7 @@
       {
         "path": "benchmark/retired_families/v3_S_contest_outcome.jsonl",
         "rows": 331,
-        "sha256": "93e9a263ab333c0e954aa50574e404696c51c2675f65bd660d29ad26712d840a"
+        "sha256": "da2077556d2e09c0bd8b3762453915d822acd707606edae69b395f9d1468118b"
       },
       {
         "path": "benchmark/retired_families/v3_T_taxonomy_explicit.jsonl",
@@ -131,11 +131,11 @@
       },
       {
         "by_split": {
-          "train": 193
+          "train": 129
         },
         "path": "training/canonical/detection.train.part-000.jsonl",
-        "rows": 193,
-        "sha256": "1f3e7612ccf95c02d2ddd80dab4c51c3e5d84192d1c15bd7d5e91473be62920b"
+        "rows": 129,
+        "sha256": "fa3687d1123c0b65a9c5c60df00cca7a2d2beccb46e0b0337d2cc51ff71c4536"
       },
       {
         "by_split": {
@@ -143,15 +143,23 @@
         },
         "path": "training/canonical/language.train.part-000.jsonl",
         "rows": 5000,
-        "sha256": "f65cbab72c0fe81f061269b456e000e5dfbdfe22207d906ee984f41ea5478d7a"
+        "sha256": "2f80720337de9d93ce3a3b56accc3e8e05c38fe052f6adf1d623186b6c90662f"
       },
       {
         "by_split": {
-          "train": 950
+          "train": 889
         },
         "path": "training/canonical/language.train.part-001.jsonl",
-        "rows": 950,
-        "sha256": "686fd7b2fc327cac6ae1d955a1c0c91498a5e70359abe8f816e2916233267d3e"
+        "rows": 889,
+        "sha256": "4aa2915886dc70175853da21519057d91e1ef4787e23314b6e4901d62827e183"
+      },
+      {
+        "by_split": {
+          "unsplit": 818
+        },
+        "path": "training/canonical/quarantine.jsonl",
+        "rows": 818,
+        "sha256": "64f960aed58b3b89eadbe00a297784b42fc428b6c522009f128e4fad29fe5c6d"
       },
       {
         "by_split": {
@@ -159,15 +167,15 @@
         },
         "path": "training/canonical/severity.train.part-000.jsonl",
         "rows": 5000,
-        "sha256": "5e0be5892ce492b0d69b15ec1e60fe7e57f3c2223be41a53172808cd2034b0af"
+        "sha256": "86a13380f6a38abdbab9b10280b4ac1acfc82c4ad0e5ed1f78a7c602e563e3d8"
       },
       {
         "by_split": {
-          "train": 969
+          "train": 908
         },
         "path": "training/canonical/severity.train.part-001.jsonl",
-        "rows": 969,
-        "sha256": "227847b913378e6fa40dfd441bfec5289d548da35380a43854748cf627370202"
+        "rows": 908,
+        "sha256": "ee404f7f3d53df2631d62c58b32ee68ce9fda692e1dcc1d2676a26cf151fea56"
       },
       {
         "by_split": {},
@@ -226,9 +234,10 @@
     }
   },
   "model_visible_corpus_hygiene": {
-    "rows": 12112,
+    "rows": 12744,
     "rows_by_split": {
-      "train": 12112
+      "train": 11926,
+      "unsplit": 818
     },
     "rows_carrying_a_protected_record": 0,
     "rule": "the model-visible corpus ships the train partition only; a row whose record is held out by any benchmark family does not belong in it, whatever the row's own split label says"
@@ -255,7 +264,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 80,
+            "rows_with_id_overlap": 78,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 0
           }
@@ -283,7 +292,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 80,
+            "rows_with_id_overlap": 78,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 0
           }
@@ -313,7 +322,7 @@
           },
           "train": {
             "rows_with_code_overlap": 321,
-            "rows_with_id_overlap": 193,
+            "rows_with_id_overlap": 133,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 0
           }
@@ -343,9 +352,9 @@
           },
           "train": {
             "rows_with_code_overlap": 321,
-            "rows_with_id_overlap": 193,
+            "rows_with_id_overlap": 133,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 26
+            "rows_with_text_overlap": 25
           }
         },
         "records": 658,
@@ -373,9 +382,9 @@
           },
           "train": {
             "rows_with_code_overlap": 316,
-            "rows_with_id_overlap": 190,
+            "rows_with_id_overlap": 131,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 26
+            "rows_with_text_overlap": 25
           }
         },
         "records": 644,
@@ -403,9 +412,9 @@
           },
           "train": {
             "rows_with_code_overlap": 216,
-            "rows_with_id_overlap": 94,
+            "rows_with_id_overlap": 34,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 25
+            "rows_with_text_overlap": 24
           }
         },
         "records": 440,
@@ -433,9 +442,9 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 95,
+            "rows_with_id_overlap": 34,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 26
+            "rows_with_text_overlap": 25
           }
         },
         "records": 444,
@@ -444,12 +453,12 @@
       "benchmark/Fb_duplicate_radar_pair.jsonl": {
         "by_split": {
           "test": 56,
-          "train": 320,
-          "validation": 275
+          "train": 309,
+          "validation": 267
         },
-        "heldout_records": 866,
-        "heldout_rows": 331,
-        "identifiers": 1717,
+        "heldout_records": 848,
+        "heldout_rows": 323,
+        "identifiers": 1674,
         "overlap_with_model_visible_corpus": {
           "heldout": {
             "rows_sharing_only_a_commit_sha": 0,
@@ -463,13 +472,13 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 109,
+            "rows_with_id_overlap": 43,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 36
+            "rows_with_text_overlap": 35
           }
         },
-        "records": 415,
-        "rows": 651
+        "records": 410,
+        "rows": 632
       },
       "benchmark/G_patch_verification.jsonl": {
         "by_split": {
@@ -606,7 +615,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 5
           }
@@ -636,9 +645,9 @@
           },
           "train": {
             "rows_with_code_overlap": 322,
-            "rows_with_id_overlap": 195,
+            "rows_with_id_overlap": 133,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 26
+            "rows_with_text_overlap": 25
           }
         },
         "records": 720,
@@ -646,13 +655,13 @@
       },
       "benchmark/retired_families/E_exploit_verification.jsonl": {
         "by_split": {
-          "test": 147,
-          "train": 344,
-          "validation": 229
+          "test": 87,
+          "train": 160,
+          "validation": 95
         },
-        "heldout_records": 752,
-        "heldout_rows": 376,
-        "identifiers": 1440,
+        "heldout_records": 364,
+        "heldout_rows": 182,
+        "identifiers": 684,
         "overlap_with_model_visible_corpus": {
           "heldout": {
             "rows_sharing_only_a_commit_sha": 0,
@@ -666,13 +675,13 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 195,
+            "rows_with_id_overlap": 74,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 0
           }
         },
-        "records": 720,
-        "rows": 720
+        "records": 342,
+        "rows": 342
       },
       "benchmark/retired_families/K_language_ecosystem_routing.jsonl": {
         "by_split": {
@@ -696,7 +705,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 5
           }
@@ -726,7 +735,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 5
           }
@@ -756,7 +765,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 28,
+            "rows_with_id_overlap": 2,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 1
           }
@@ -786,7 +795,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 5
           }
@@ -816,7 +825,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 5
           }
@@ -846,7 +855,7 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 40,
+            "rows_with_id_overlap": 9,
             "rows_with_identical_code_snippet": 0,
             "rows_with_text_overlap": 0
           }
@@ -876,9 +885,9 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 156,
+            "rows_with_id_overlap": 133,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 0
+            "rows_with_text_overlap": 100
           }
         },
         "records": 331,
@@ -886,12 +895,12 @@
       },
       "benchmark/v3_R_source_tier_routing.jsonl": {
         "by_split": {
-          "test": 899,
+          "test": 897,
           "train": 3724
         },
-        "heldout_records": 1798,
-        "heldout_rows": 899,
-        "identifiers": 9246,
+        "heldout_records": 1794,
+        "heldout_rows": 897,
+        "identifiers": 9242,
         "overlap_with_model_visible_corpus": {
           "heldout": {
             "rows_sharing_only_a_commit_sha": 0,
@@ -905,13 +914,13 @@
           },
           "train": {
             "rows_with_code_overlap": 0,
-            "rows_with_id_overlap": 3594,
+            "rows_with_id_overlap": 3571,
             "rows_with_identical_code_snippet": 0,
-            "rows_with_text_overlap": 0
+            "rows_with_text_overlap": 3009
           }
         },
-        "records": 4623,
-        "rows": 4623
+        "records": 4621,
+        "rows": 4621
       }
     },
     "by_training_file": {
@@ -929,17 +938,17 @@
       },
       "training/canonical/detection.train.part-000.jsonl": {
         "by_split": {
-          "train": 193
+          "train": 129
         },
         "heldout_code_hits": 0,
         "heldout_id_hits": 0,
         "heldout_identical_snippet_hits": 0,
         "heldout_rows_touching_this_file": 0,
         "heldout_text_hits": 0,
-        "rows": 193,
+        "rows": 129,
         "train_code_hits": 12111,
-        "train_id_hits": 1263,
-        "train_text_hits": 237
+        "train_id_hits": 702,
+        "train_text_hits": 231
       },
       "training/canonical/language.train.part-000.jsonl": {
         "by_split": {
@@ -952,22 +961,36 @@
         "heldout_text_hits": 0,
         "rows": 5000,
         "train_code_hits": 0,
-        "train_id_hits": 2917,
-        "train_text_hits": 15
+        "train_id_hits": 2899,
+        "train_text_hits": 474647
       },
       "training/canonical/language.train.part-001.jsonl": {
         "by_split": {
-          "train": 950
+          "train": 889
         },
         "heldout_code_hits": 0,
         "heldout_id_hits": 0,
         "heldout_identical_snippet_hits": 0,
         "heldout_rows_touching_this_file": 0,
         "heldout_text_hits": 0,
-        "rows": 950,
+        "rows": 889,
         "train_code_hits": 0,
-        "train_id_hits": 1261,
-        "train_text_hits": 11
+        "train_id_hits": 1017,
+        "train_text_hits": 224726
+      },
+      "training/canonical/quarantine.jsonl": {
+        "by_split": {
+          "unsplit": 818
+        },
+        "heldout_code_hits": 0,
+        "heldout_id_hits": 0,
+        "heldout_identical_snippet_hits": 0,
+        "heldout_rows_touching_this_file": 0,
+        "heldout_text_hits": 0,
+        "rows": 818,
+        "train_code_hits": 0,
+        "train_id_hits": 0,
+        "train_text_hits": 0
       },
       "training/canonical/severity.train.part-000.jsonl": {
         "by_split": {
@@ -979,23 +1002,23 @@
         "heldout_rows_touching_this_file": 0,
         "heldout_text_hits": 0,
         "rows": 5000,
-        "train_code_hits": 12365,
-        "train_id_hits": 3315,
-        "train_text_hits": 15
+        "train_code_hits": 12347,
+        "train_id_hits": 3256,
+        "train_text_hits": 448844
       },
       "training/canonical/severity.train.part-001.jsonl": {
         "by_split": {
-          "train": 969
+          "train": 908
         },
         "heldout_code_hits": 0,
         "heldout_id_hits": 0,
         "heldout_identical_snippet_hits": 0,
         "heldout_rows_touching_this_file": 0,
         "heldout_text_hits": 0,
-        "rows": 969,
+        "rows": 908,
         "train_code_hits": 0,
-        "train_id_hits": 1194,
-        "train_text_hits": 11
+        "train_id_hits": 958,
+        "train_text_hits": 250529
       },
       "training/exploit_reasoning.jsonl": {
         "by_split": {},
@@ -1059,11 +1082,11 @@
     },
     "train": {
       "note": "expected: the training corpus is the train partition",
-      "rows_with_id_overlap": 5442
+      "rows_with_id_overlap": 4631
     }
   },
   "protected_evaluation_set": {
-    "all_benchmark_records": 17093,
+    "all_benchmark_records": 16673,
     "by_family": {
       "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl": 0,
       "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl": 0,
@@ -1072,14 +1095,14 @@
       "benchmark/D_exploit_construction.jsonl": 632,
       "benchmark/F_false_positive_rejection.jsonl": 426,
       "benchmark/Fa_rejection_evidence_axis_vector.jsonl": 432,
-      "benchmark/Fb_duplicate_radar_pair.jsonl": 866,
+      "benchmark/Fb_duplicate_radar_pair.jsonl": 848,
       "benchmark/G_patch_verification.jsonl": 74,
       "benchmark/H_verified_exploit.jsonl": 14,
       "benchmark/I_verified_non_exploit.jsonl": 6,
       "benchmark/J_verified_patch.jsonl": 6,
       "benchmark/Q_evidence_type_and_quality_rubric.jsonl": 40,
       "benchmark/retired_families/B_root_cause_reasoning.jsonl": 752,
-      "benchmark/retired_families/E_exploit_verification.jsonl": 752,
+      "benchmark/retired_families/E_exploit_verification.jsonl": 364,
       "benchmark/retired_families/K_language_ecosystem_routing.jsonl": 122,
       "benchmark/retired_families/L_severity_reconciliation.jsonl": 122,
       "benchmark/retired_families/M_experiment_level_classification.jsonl": 12,
@@ -1087,9 +1110,9 @@
       "benchmark/retired_families/O_record_class_and_scope.jsonl": 122,
       "benchmark/retired_families/P_provenance_tier_and_rights.jsonl": 122,
       "benchmark/retired_families/v3_S_contest_outcome.jsonl": 350,
-      "benchmark/v3_R_source_tier_routing.jsonl": 1798
+      "benchmark/v3_R_source_tier_routing.jsonl": 1794
     },
-    "records": 5737,
+    "records": 5523,
     "records_present_in_model_visible_corpus": 0
   },
   "release_boundary": {
@@ -1123,8 +1146,8 @@
           },
           {
             "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-            "rows": 651,
-            "rows_with_a_committed_answer_key": 651
+            "rows": 632,
+            "rows_with_a_committed_answer_key": 632
           },
           {
             "path": "benchmark/G_patch_verification.jsonl",
@@ -1153,8 +1176,8 @@
           },
           {
             "path": "benchmark/v3_R_source_tier_routing.jsonl",
-            "rows": 4623,
-            "rows_with_a_committed_answer_key": 4623
+            "rows": 4621,
+            "rows_with_a_committed_answer_key": 4621
           },
           {
             "path": "benchmark/retired_families/B_root_cause_reasoning.jsonl",
@@ -1163,8 +1186,8 @@
           },
           {
             "path": "benchmark/retired_families/E_exploit_verification.jsonl",
-            "rows": 720,
-            "rows_with_a_committed_answer_key": 720
+            "rows": 342,
+            "rows_with_a_committed_answer_key": 342
           },
           {
             "path": "benchmark/retired_families/K_language_ecosystem_routing.jsonl",

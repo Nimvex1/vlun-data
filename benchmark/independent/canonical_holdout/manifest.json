@@ -2,49 +2,49 @@
   "MODEL_VISIBLE": false,
   "counts_by_task_and_layer_split": {
     "detection": {
-      "validation": 75
+      "validation": 52
     },
     "language": {
-      "validation": 372
+      "validation": 356
     },
     "severity": {
-      "validation": 406
+      "validation": 390
     }
   },
-  "excluded_rows": 2074,
+  "excluded_rows": 1440,
   "files": [
     {
       "part": 0,
       "path": "benchmark/independent/canonical_holdout/detection.heldout.part-000.jsonl",
-      "rows": 75,
-      "sha256": "1715f46e6257c763e69ad635ce0445f3d929aaa16297ad94229a610360d9eeea",
+      "rows": 52,
+      "sha256": "afb87189b6287af0887cb797f5d254a908a36482911e1f1ccb0d11452667c66c",
       "split": "heldout",
       "task": "detection"
     },
     {
       "part": 0,
       "path": "benchmark/independent/canonical_holdout/language.heldout.part-000.jsonl",
-      "rows": 372,
-      "sha256": "1b2a3234e562a99e95192735353f62963dd265d33cbf20175180e702a0a3f6fd",
+      "rows": 356,
+      "sha256": "33be471524ddb30ab53a07053a4b4aefddd9c9a5cccbbefd5881b24f7601ff73",
       "split": "heldout",
       "task": "language"
     },
     {
       "part": 0,
       "path": "benchmark/independent/canonical_holdout/severity.heldout.part-000.jsonl",
-      "rows": 406,
-      "sha256": "bd3634245288020db87c51680efe19cd984b8e65a27ba9383646b94366218308",
+      "rows": 390,
+      "sha256": "cea232b4b6c0ec219a10c7a317839874f6a2fcc1794d837e1d84a3846c96a490",
       "split": "heldout",
       "task": "severity"
     }
   ],
   "generated_by": "scripts/build_canonical_training.py",
-  "protected_identifiers": 5737,
+  "protected_identifiers": 5539,
   "reasons": {
     "held_out_split": 606,
-    "held_out_split_and_protected_record": 612,
-    "model_visible": 12112,
-    "protected_record": 856
+    "held_out_split_and_protected_record": 516,
+    "model_visible": 11926,
+    "protected_record": 318
   },
   "source_of_truth": "scripts/build_canonical_training.py; the same split selection the model-visible corpus uses",
   "warning": "NOT MODEL-VISIBLE. These rows are the held-out partitions of the benchmark families expressed in the canonical training schema. They carry the labels the benchmark is scored on. They live outside training/ so that a corpus consumer globbing the training directory cannot reach them, and they are NOT listed in training/canonical/manifest.json. Do not train on them."

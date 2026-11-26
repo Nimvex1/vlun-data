@@ -34,7 +34,7 @@
       "withheld_third_party_no_redistribution_rights": 210
     },
     "not_released_paths": 1550,
-    "paths_with_measured_personal_data": 22,
+    "paths_with_measured_personal_data": 24,
     "paths_with_measured_verbatim_third_party_content": 210,
     "released_paths": 575,
     "tracked_paths": 2125
@@ -2311,10 +2311,10 @@
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 189,
-        "verbatim_third_party_strings": 355
+        "verbatim_third_party_strings": 377
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 355 string(s) carry a run of at most 189 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 377 string(s) carry a run of at most 189 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "Vbeta/derived_vbeta/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2442,12 +2442,12 @@
       "evidence": {
         "longest_verbatim_code_span_chars": 3493,
         "longest_verbatim_span_chars": 3493,
-        "third_party_code_fields": 758,
-        "verbatim_code_spans": 622,
-        "verbatim_third_party_strings": 2110
+        "third_party_code_fields": 740,
+        "verbatim_code_spans": 603,
+        "verbatim_third_party_strings": 2053
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 622 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 603 run(s) of at most 3493 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/G_patch_verification.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2490,7 +2490,7 @@
         "longest_verbatim_code_span_chars": 799,
         "longest_verbatim_span_chars": 900,
         "verbatim_code_spans": 16,
-        "verbatim_third_party_strings": 51
+        "verbatim_third_party_strings": 48
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 16 run(s) of at most 799 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2502,7 +2502,7 @@
         "longest_verbatim_span_chars": 900,
         "personal_data_strings": 583,
         "verbatim_code_spans": 101,
-        "verbatim_third_party_strings": 367
+        "verbatim_third_party_strings": 356
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 101 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2514,7 +2514,7 @@
         "longest_verbatim_span_chars": 900,
         "personal_data_strings": 622,
         "verbatim_code_spans": 119,
-        "verbatim_third_party_strings": 398
+        "verbatim_third_party_strings": 387
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 119 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2531,15 +2531,15 @@
     "benchmark/independent/secondary_holdout_tasks.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 1805,
-        "longest_verbatim_span_chars": 3353,
-        "personal_data_strings": 2,
+        "longest_verbatim_code_span_chars": 4000,
+        "longest_verbatim_span_chars": 4000,
+        "personal_data_strings": 4,
         "third_party_code_fields": 73,
-        "verbatim_code_spans": 67,
-        "verbatim_third_party_strings": 308
+        "verbatim_code_spans": 1900,
+        "verbatim_third_party_strings": 2505
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 67 run(s) of at most 1805 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 1900 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/independent/v1_task_holdout/attacker_reasoning.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2580,7 +2580,7 @@
         "longest_verbatim_code_span_chars": 5422,
         "longest_verbatim_span_chars": 5422,
         "verbatim_code_spans": 318,
-        "verbatim_third_party_strings": 343
+        "verbatim_third_party_strings": 341
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 318 run(s) of at most 5422 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -2656,20 +2656,25 @@
     "benchmark/retired_families/v3_S_contest_outcome.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 157
+        "longest_verbatim_code_span_chars": 4000,
+        "longest_verbatim_span_chars": 4000,
+        "verbatim_code_spans": 212,
+        "verbatim_third_party_strings": 652
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 157 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 212 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "benchmark/v3_R_source_tier_routing.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 253,
-        "verbatim_third_party_strings": 580
+        "longest_verbatim_code_span_chars": 4000,
+        "longest_verbatim_span_chars": 4000,
+        "personal_data_strings": 2,
+        "verbatim_code_spans": 4268,
+        "verbatim_third_party_strings": 9495
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 580 string(s) carry a run of at most 253 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 4268 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "datasets/negative_quarantine.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2719,10 +2724,10 @@
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 175,
-        "verbatim_third_party_strings": 34
+        "verbatim_third_party_strings": 24
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 34 string(s) carry a run of at most 175 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 24 string(s) carry a run of at most 175 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "derived/hard_negatives.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2760,11 +2765,14 @@
     "derived_poc_queue/triage_queue.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 274,
-        "verbatim_third_party_strings": 37
+        "longest_verbatim_code_span_chars": 4000,
+        "longest_verbatim_span_chars": 4000,
+        "personal_data_strings": 2,
+        "verbatim_code_spans": 1612,
+        "verbatim_third_party_strings": 1706
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 37 string(s) carry a run of at most 274 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 1612 run(s) of at most 4000 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_siblings/candidates.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2833,37 +2841,39 @@
     "derived_v3/normalized_records_preview.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 7126,
-        "longest_verbatim_span_chars": 8960,
+        "longest_verbatim_code_span_chars": 10786,
+        "longest_verbatim_span_chars": 10786,
         "personal_data_strings": 3,
         "third_party_code_fields": 43352,
         "verbatim_code_spans": 24320,
         "verbatim_third_party_strings": 49017
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 24320 run(s) of at most 7126 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 24320 run(s) of at most 10786 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/quarantine.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_span_chars": 74,
-        "verbatim_third_party_strings": 87
+        "longest_verbatim_code_span_chars": 3218,
+        "longest_verbatim_span_chars": 4000,
+        "verbatim_code_spans": 4,
+        "verbatim_third_party_strings": 56
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 87 string(s) carry a run of at most 74 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party source code: 4 run(s) of at most 3218 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
-        "longest_verbatim_code_span_chars": 7126,
-        "longest_verbatim_span_chars": 8960,
+        "longest_verbatim_code_span_chars": 10786,
+        "longest_verbatim_span_chars": 10786,
         "personal_data_strings": 3,
         "third_party_code_fields": 43352,
         "verbatim_code_spans": 24320,
         "verbatim_third_party_strings": 49017
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 24320 run(s) of at most 7126 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 24320 run(s) of at most 10786 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_v3/source_sha_index.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -2905,11 +2915,11 @@
       "evidence": {
         "longest_verbatim_span_chars": 1175,
         "personal_data_strings": 777,
-        "third_party_code_fields": 15,
-        "verbatim_third_party_strings": 5226
+        "third_party_code_fields": 16,
+        "verbatim_third_party_strings": 5234
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party content: 5226 string(s) carry a run of at most 1175 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+      "why": "measured verbatim third-party content: 5234 string(s) carry a run of at most 1175 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "distribution_v1/records_v1.jsonl": {
       "base_rights_status": "project_own",
@@ -4042,12 +4052,12 @@
       "base_rights_status": "project_own",
       "evidence": {
         "longest_verbatim_code_span_chars": 176,
-        "longest_verbatim_span_chars": 839,
-        "verbatim_code_spans": 4,
+        "longest_verbatim_span_chars": 899,
+        "verbatim_code_spans": 10,
         "verbatim_third_party_strings": 1
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 4 run(s) of at most 176 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 10 run(s) of at most 176 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "reports/patch_verification_v2.json": {
       "base_rights_status": "project_own",
@@ -4062,10 +4072,10 @@
       "base_rights_status": "project_own",
       "evidence": {
         "longest_verbatim_span_chars": 165,
-        "verbatim_third_party_strings": 5
+        "verbatim_third_party_strings": 7
       },
       "rights_status": "attribution_required",
-      "why": "carries 5 verbatim third-party quotation(s) of at most 165 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
+      "why": "carries 7 verbatim third-party quotation(s) of at most 165 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
     },
     "reports/sibling_review.json": {
       "base_rights_status": "project_own",
@@ -4212,7 +4222,7 @@
         "longest_verbatim_code_span_chars": 800,
         "longest_verbatim_span_chars": 800,
         "verbatim_code_spans": 69,
-        "verbatim_third_party_strings": 131
+        "verbatim_third_party_strings": 124
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 69 run(s) of at most 800 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -4222,11 +4232,11 @@
       "evidence": {
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
-        "verbatim_code_spans": 15,
+        "verbatim_code_spans": 17,
         "verbatim_third_party_strings": 5000
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
-      "why": "measured verbatim third-party source code: 15 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+      "why": "measured verbatim third-party source code: 17 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "training/canonical/language.train.part-001.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -4234,7 +4244,7 @@
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
         "verbatim_code_spans": 2,
-        "verbatim_third_party_strings": 921
+        "verbatim_third_party_strings": 889
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 2 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -4245,7 +4255,7 @@
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
         "verbatim_code_spans": 87,
-        "verbatim_third_party_strings": 4994
+        "verbatim_third_party_strings": 4995
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 87 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
@@ -4256,7 +4266,7 @@
         "longest_verbatim_code_span_chars": 900,
         "longest_verbatim_span_chars": 900,
         "verbatim_code_spans": 2,
-        "verbatim_third_party_strings": 941
+        "verbatim_third_party_strings": 908
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 2 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"

@@ -1,0 +1,6 @@
+Error: Compiler run failed:
+Error (8936): Expected multi-line comment-terminator.
+   --> test/vlun_poc/2024-01-decent__M-03.t.sol:150:9:
+    |
+150 |         /* getting the SwapA
+    |         ^^^^^^^^^^^^^^^^^^^^

@@ -93,12 +93,25 @@ def gate_c_dedup(no_write: bool = False) -> dict:
     cmd = [sys.executable, str(script), "--check"]
     if no_write:
         cmd.append("--no-write")
-    proc = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        timeout=120,
-    )
+    try:
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+    except subprocess.TimeoutExpired as exc:
+        # dedup_check exceeded its budget: report FAIL, never infer collisions.
+        out, err = exc.stdout, exc.stderr
+        stdout = out.decode("utf-8", "replace") if isinstance(out, bytes) else (out or "")
+        stderr = err.decode("utf-8", "replace") if isinstance(err, bytes) else (err or "")
+        return {
+            "returncode": None,
+            "stdout": (stdout + "\n" + stderr).strip()[:1000],
+            "collisions": None,
+            "admitted_rows": None,
+            "verdict": "FAIL",
+        }
     report_path = WAVE1 / "reports_wave1" / "dedup_check.json"
     detail = json.loads(report_path.read_text(encoding="utf-8")) if report_path.exists() else {}
     return {
@@ -126,13 +139,13 @@ def gate_d_rights() -> dict:
                 rows += 1
                 try:
                     d = json.loads(line)
-                except Exception:
+                except json.JSONDecodeError:
                     leaks.append({"file": str(p), "reason": "invalid json"})
                     continue
                 for k, v in d.items():
                     if k.lower() in forbidden_fields:
                         leaks.append({"file": str(p), "candidate_id": d.get("candidate_id"), "field": k})
-                    # rights.jsonl now declares FULL_TRAINABLE_INLINE_EXTRACTION:
+                    # rights.jsonl now declares FULL_INLINE_EXTRACTION:
                     # verbatim code/prose is intentionally vendored.  The legacy
                     # 1000-char METADATA_ONLY guard applies only to non-inline
                     # fields; inline fields are bounded by gate_i instead.

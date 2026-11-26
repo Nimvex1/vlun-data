@@ -37,7 +37,7 @@ UNKNOWN, which is never primary.
 | `E_exploit_verification.jsonl` | INVALID | 7 | 2 | 1.0000 | invalid as evaluation evidence: split_composition_drift: train/test label mix L1 distance 0.6667 (>= 0.40); too_small_to_score: 7 scorable rows (< 30); holdout_too_small: 1 held-out rows (< 30) |
 | `F_false_positive_rejection.jsonl` | EXPLORATORY | 17 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'invalid'; holdout_too_small: 0 held-out rows (< 30) |
 | `Fa_rejection_evidence_axis_vector.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it |
-| `Fb_duplicate_radar_pair.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires |
+| `Fb_duplicate_radar_pair.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires |
 | `G_patch_verification.jsonl` | EXPLORATORY | 7 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'effective'; holdout_too_small: 0 held-out rows (< 30) |
 | `H_verified_exploit.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | descriptive reference answers, no scalar label |
 | `I_verified_non_exploit.jsonl` | EXPLORATORY | 1 | 1 | n/a (one label: not evaluable) | demoted: single_label: every scorable row carries the label 'exploitable'; holdout_too_small: 0 held-out rows (< 30) |
@@ -49,7 +49,7 @@ UNKNOWN, which is never primary.
 | `O_record_class_and_scope.jsonl` | INVALID | 137 | 10 | 0.1935 | invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9 |
 | `P_provenance_tier_and_rights.jsonl` | INVALID | 137 | 3 | 0.2903 | invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.4864 (>= 0.40); a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9 |
 | `Q_evidence_type_and_quality_rubric.jsonl` | NOT_SCORABLE | 0 | 0 | n/a (not scorable) | judge-graded rubric dict |
-| `v3_R_source_tier_routing.jsonl` | INVALID | 4623 | 3 | 0.0000 | invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40) |
+| `v3_R_source_tier_routing.jsonl` | INVALID | 4621 | 3 | 0.0000 | invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40) |
 | `v3_S_contest_outcome.jsonl` | INVALID | 331 | 2 | 1.0000 | invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9577 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 45 held-out rows, at or above 0.9 |
 | `v3_T_taxonomy_explicit.jsonl` | EXPLORATORY | 0 | 0 | n/a (one label: not evaluable) | demoted: holdout_too_small: 0 held-out rows (< 30) |
 | `vbeta_U_language_routing.jsonl` | INVALID | 80 | 3 | n/a | invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 72 of 75 rows (rate 0.96); holdout_too_small: 0 held-out rows (< 30) |
@@ -90,7 +90,7 @@ believed.
 
 | claim | status | replacement | why |
 |---|---|---|---|
-| the headline micro-average covers 5,674 scorable rows across 3 families | RETRACTED | the headline micro-average covers 1051 scorable rows across 2 family (A_vulnerability_detection.jsonl, C_attacker_reasoning.jsonl) | the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination |
+| the headline micro-average covers 5,672 scorable rows across 3 families | RETRACTED | the headline micro-average covers 1051 scorable rows across 2 family (A_vulnerability_detection.jsonl, C_attacker_reasoning.jsonl) | the old headline set was decided by a hand-written retirement list, not by evidence: it included families the independent audit flags for split drift, saturation, record overlap and shortcut domination |
 | families F, G, I and J score 1.000 (majority accuracy 1.000 in the coverage table) | DOWNGRADED | accuracy is null with the reason 'single_label_not_evaluable'; their row counts and label distributions are kept | every scorable row of those families carries one label, so the published 1.000 was the label distribution, not predictive performance |
 | the published majority baseline is a test-set floor | RETRACTED | the baselines are fitted on train rows only and applied to the held-out rows; the floors are reported per family with the rows they were fitted on | the old baselines were fitted over every labelled row of a family, held-out rows included, so the predictor had already seen the answers it was scored against |
 | a family is in the headline because its name is not on a retirement list | RETRACTED | the status of every family is computed at run time from the independent audit's own measurements; an uncovered family file defaults to UNKNOWN and is never primary | a hard-coded list cannot justify an evaluation claim |
@@ -100,7 +100,7 @@ believed.
 | N_attacker_identity_extraction.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: group_overlap: 2 of 3 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.6 (>= 0.40); too_small_to_score: 14 scorable rows (< 30); holdout_too_small: 3 held-out rows (< 30) | validity flags measured by the independent audit |
 | O_record_class_and_scope.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.534 (>= 0.40); a train-only baseline (source_only_lookup) scores 1.0 on the 31 held-out rows, at or above 0.9 | validity flags measured by the independent audit |
 | P_provenance_tier_and_rights.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: group_overlap: 31 of 31 held-out rows share a group with train; split_composition_drift: train/test label mix L1 distance 0.4864 (>= 0.40); a train-only baseline (source_only_lookup) scores 0.9032 on the 31 held-out rows, at or above 0.9 | validity flags measured by the independent audit |
-| v3_R_source_tier_routing.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40) | validity flags measured by the independent audit |
+| v3_R_source_tier_routing.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40) | validity flags measured by the independent audit |
 | v3_S_contest_outcome.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: saturated: majority class 'finding' covers 0.9577 of the rows; a train-only baseline (frequency_from_train) scores 1.0 on the 45 held-out rows, at or above 0.9 | validity flags measured by the independent audit |
 | vbeta_U_language_routing.jsonl is usable as evaluation evidence | RETRACTED | status INVALID: invalid as evaluation evidence: answer_literal_leak: the label appears in the evidence on 72 of 75 rows (rate 0.96); holdout_too_small: 0 held-out rows (< 30) | validity flags measured by the independent audit |
 
@@ -118,10 +118,10 @@ not the model.
 | `B_root_cause_reasoning` | 720 | 228 | 0 | 492 | 344 | 229 | 147 | EXPLORATORY |
 | `C_attacker_reasoning` | 658 | 393 | 0 | 265 | 332 | 212 | 114 | PRIMARY |
 | `D_exploit_construction` | 644 | 189 | 0 | 455 | 328 | 204 | 112 | NOT_SCORABLE |
-| `E_exploit_verification` | 720 | 7 | 0 | 713 | 344 | 229 | 147 | INVALID |
+| `E_exploit_verification` | 342 | 7 | 0 | 335 | 0 | 0 | 342 | INVALID |
 | `F_false_positive_rejection` | 440 | 17 | 0 | 423 | 227 | 176 | 37 | EXPLORATORY |
 | `Fa_rejection_evidence_axis_vector` | 444 | 9 | 435 | 0 | 228 | 179 | 37 | NOT_SCORABLE |
-| `Fb_duplicate_radar_pair` | 651 | 651 | 0 | 0 | 320 | 275 | 56 | NOT_SCORABLE |
+| `Fb_duplicate_radar_pair` | 632 | 632 | 0 | 0 | 309 | 267 | 56 | NOT_SCORABLE |
 | `G_patch_verification` | 37 | 7 | 0 | 30 | 0 | 18 | 19 | EXPLORATORY |
 | `H_verified_exploit` | 7 | 7 | 0 | 0 | 0 | 7 | 0 | NOT_SCORABLE |
 | `I_verified_non_exploit` | 3 | 1 | 0 | 0 | 0 | 3 | 0 | EXPLORATORY |
@@ -133,7 +133,7 @@ not the model.
 | `O_record_class_and_scope` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | INVALID |
 | `P_provenance_tier_and_rights` | 137 | 137 | 0 | 0 | 76 | 30 | 31 | INVALID |
 | `Q_evidence_type_and_quality_rubric` | 61 | 61 | 0 | 0 | 41 | 9 | 11 | NOT_SCORABLE |
-| `v3_R_source_tier_routing` | 4623 | 4623 | 0 | 0 | 3724 | 0 | 899 | INVALID |
+| `v3_R_source_tier_routing` | 4621 | 4621 | 0 | 0 | 3724 | 0 | 897 | INVALID |
 | `v3_S_contest_outcome` | 331 | 331 | 0 | 0 | 156 | 130 | 45 | INVALID |
 | `v3_T_taxonomy_explicit` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | EXPLORATORY |
 | `vbeta_U_language_routing` | 80 | 80 | 0 | 0 | 80 | 0 | 0 | INVALID |
@@ -157,7 +157,7 @@ to mean anything; it is reported in the table above.
 ## Known limitations of this benchmark
 
 - Task D supplies 644 PoC bodies quoted from reports. Their correctness is not established: only the fraction counted under *exploit confirmation rate* has been run.
-- Task E is labelled on its 7 rows with an executed verdict; the other 713 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
+- Task E is labelled on its 7 rows with an executed verdict; the other 335 are unlabelled -- a PoC verification task needs an executed ground truth, and executing them needs an archive RPC and a working toolchain.
 - Task G is labelled on its 7 rows where the same exploit was run against both the vulnerable and the fixed revision (L6); the other 30 are `not_testable` -- no executable PoC on either side, so their effectiveness is genuinely unestablished.
 - Counterexamples exist for only 43 of 204 confirmed High/Medium findings. The reasons are counted in `reports/counterexample_stats.json`, not glossed over.
 - Baseline predictors have been run (`reports/baselines/`, rubric in `docs/RUBRIC.md`): majority, label-frequency, copy-the-publisher, TF-IDF retrieval and seeded random. Every one of them is fitted on the train rows of its family and applied to the held-out rows; the rows each was fitted on are named in the report, so a floor fitted on the held-out rows would be visible rather than believed.

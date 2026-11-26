@@ -314,7 +314,29 @@ def build(records, candidates, taxonomy, l6_ids):
             continue
         rows.append(assign(rec, candidate_ids, l6_ids, taxonomy))
     rows.sort(key=lambda r: r["record_id"])
-    return rows
+    # Option A: hydrate stub assignments from the verbatim parent record;
+    # quarantine any that remain unhydratable. The parent record is the
+    # assignment's own source, so the embedded snippet/prose is real.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from trainable_purge_lib import parent_index, hydrate_from_parent, quarantine_payload, append_quarantine, is_stub
+    parents = parent_index()
+    kept = []
+    purged = []
+    by_id = {str(r.get("id") or r.get("record_id")): r for r in records}
+    for row in rows:
+        if is_stub(row):
+            parent = by_id.get(row["record_id"])
+            if parent:
+                hydrate_from_parent(row, {row["record_id"]: parent})
+        if is_stub(row):
+            purged.append(quarantine_payload(row, "taxonomy/assignments_v1.jsonl",
+                                            row["record_id"]))
+        else:
+            kept.append(row)
+    if purged:
+        from pathlib import Path as _Path
+        append_quarantine(_Path(ROOT) / "taxonomy" / "quarantine.jsonl", purged)
+    return kept
 
 
 def stats(rows, records, candidates, taxonomy):

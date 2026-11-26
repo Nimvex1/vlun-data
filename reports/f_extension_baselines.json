@@ -4016,12 +4016,12 @@
   "fb": {
     "by_split": {
       "test": 56,
-      "train": 320,
-      "validation": 275
+      "train": 309,
+      "validation": 267
     },
     "cohorts": {
-      "exploratory": 232,
-      "primary": 419
+      "exploratory": 275,
+      "primary": 357
     },
     "fixed_diagnostics": [
       {
@@ -4034,24 +4034,24 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 7,
-                "wrong": 7
+                "total": 5,
+                "wrong": 5
               },
               "different_function_same_file": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 27,
+                "wrong": 27
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 9,
-                "wrong": 9
+                "total": 3,
+                "wrong": 3
               },
               "not_applicable": {
                 "accuracy": 0.6667,
@@ -4068,16 +4068,16 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 27,
+                "wrong": 27
               },
               "primary": {
-                "accuracy": 0.3784,
+                "accuracy": 0.4828,
                 "correct": 14,
                 "invalid": 0,
                 "missing": 0,
-                "total": 37,
-                "wrong": 23
+                "total": 29,
+                "wrong": 15
               }
             },
             "by_project": {
@@ -4113,17 +4113,17 @@
             "confusion": {
               "ambiguous->ambiguous": 0,
               "ambiguous->distinct_vulnerability": 0,
-              "ambiguous->same_vulnerability": 26,
+              "ambiguous->same_vulnerability": 34,
               "distinct_vulnerability->ambiguous": 0,
               "distinct_vulnerability->distinct_vulnerability": 0,
-              "distinct_vulnerability->same_vulnerability": 16,
+              "distinct_vulnerability->same_vulnerability": 8,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 0,
               "same_vulnerability->same_vulnerability": 14
             },
             "confusion_observed": {
-              "ambiguous->same_vulnerability": 26,
-              "distinct_vulnerability->same_vulnerability": 16,
+              "ambiguous->same_vulnerability": 34,
+              "distinct_vulnerability->same_vulnerability": 8,
               "same_vulnerability->same_vulnerability": 14
             },
             "coverage": {
@@ -4152,20 +4152,20 @@
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 26,
+                "fn": 34,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 26,
+                "support": 34,
                 "tp": 0
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 16,
+                "fn": 8,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 16,
+                "support": 8,
                 "tp": 0
               },
               "same_vulnerability": {
@@ -4184,31 +4184,31 @@
             "split": "test"
           },
           "train": {
-            "accuracy": 0.2406,
+            "accuracy": 0.2492,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 13,
-                "wrong": 13
+                "total": 8,
+                "wrong": 8
               },
               "different_function_same_file": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
-                "wrong": 124
+                "total": 139,
+                "wrong": 139
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 28,
-                "wrong": 28
+                "total": 7,
+                "wrong": 7
               },
               "not_applicable": {
                 "accuracy": 0.4968,
@@ -4225,16 +4225,16 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
-                "wrong": 124
+                "total": 139,
+                "wrong": 139
               },
               "primary": {
-                "accuracy": 0.3929,
+                "accuracy": 0.4529,
                 "correct": 77,
                 "invalid": 0,
                 "missing": 0,
-                "total": 196,
-                "wrong": 119
+                "total": 170,
+                "wrong": 93
               }
             },
             "by_project": {
@@ -4243,32 +4243,32 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 30,
-                "wrong": 30
+                "total": 29,
+                "wrong": 29
               },
               "2024-04-noya": {
-                "accuracy": 0.2655,
+                "accuracy": 0.275,
                 "correct": 77,
                 "invalid": 0,
                 "missing": 0,
-                "total": 290,
-                "wrong": 213
+                "total": 280,
+                "wrong": 203
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.2406,
+              "accuracy": 0.2492,
               "accuracy_95ci": [
-                0.2013,
-                0.2808
+                0.2079,
+                0.2899
               ],
               "audits": 2,
               "available": true,
-              "clusters": 211,
+              "clusters": 208,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.1293,
+              "macro_f1": 0.133,
               "macro_f1_95ci": [
-                0.1117,
-                0.1461
+                0.1148,
+                0.1498
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -4278,66 +4278,66 @@
             "confusion": {
               "ambiguous->ambiguous": 0,
               "ambiguous->distinct_vulnerability": 0,
-              "ambiguous->same_vulnerability": 202,
+              "ambiguous->same_vulnerability": 217,
               "distinct_vulnerability->ambiguous": 0,
               "distinct_vulnerability->distinct_vulnerability": 0,
-              "distinct_vulnerability->same_vulnerability": 41,
+              "distinct_vulnerability->same_vulnerability": 15,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 0,
               "same_vulnerability->same_vulnerability": 77
             },
             "confusion_observed": {
-              "ambiguous->same_vulnerability": 202,
-              "distinct_vulnerability->same_vulnerability": 41,
+              "ambiguous->same_vulnerability": 217,
+              "distinct_vulnerability->same_vulnerability": 15,
               "same_vulnerability->same_vulnerability": 77
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 320,
+              "expected": 309,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 320
+              "valid_predictions": 309
             },
-            "evaluated_pairs": 320,
+            "evaluated_pairs": 309,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.1293,
+            "macro_f1": 0.133,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 320,
+            "pairs_scored": 309,
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 202,
+                "fn": 217,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 202,
+                "support": 217,
                 "tp": 0
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 41,
+                "fn": 15,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 41,
+                "support": 15,
                 "tp": 0
               },
               "same_vulnerability": {
-                "f1": 0.3879,
+                "f1": 0.399,
                 "fn": 0,
-                "fp": 243,
-                "precision": 0.2406,
+                "fp": 232,
+                "precision": 0.2492,
                 "recall": 1.0,
                 "support": 77,
                 "tp": 77
@@ -4349,31 +4349,31 @@
             "split": "train"
           },
           "validation": {
-            "accuracy": 0.32,
+            "accuracy": 0.3296,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 9,
+                "wrong": 9
               },
               "different_function_same_file": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
-                "wrong": 89
+                "total": 109,
+                "wrong": 109
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 25,
-                "wrong": 25
+                "total": 7,
+                "wrong": 7
               },
               "not_applicable": {
                 "accuracy": 0.6197,
@@ -4390,50 +4390,50 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
-                "wrong": 89
+                "total": 109,
+                "wrong": 109
               },
               "primary": {
-                "accuracy": 0.4731,
+                "accuracy": 0.557,
                 "correct": 88,
                 "invalid": 0,
                 "missing": 0,
-                "total": 186,
-                "wrong": 98
+                "total": 158,
+                "wrong": 70
               }
             },
             "by_project": {
               "2024-01-decent": {
-                "accuracy": 0.211,
+                "accuracy": 0.2212,
                 "correct": 23,
                 "invalid": 0,
                 "missing": 0,
-                "total": 109,
-                "wrong": 86
+                "total": 104,
+                "wrong": 81
               },
               "2024-01-renft": {
-                "accuracy": 0.3916,
+                "accuracy": 0.3988,
                 "correct": 65,
                 "invalid": 0,
                 "missing": 0,
-                "total": 166,
-                "wrong": 101
+                "total": 163,
+                "wrong": 98
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.32,
+              "accuracy": 0.3296,
               "accuracy_95ci": [
-                0.2772,
-                0.3603
+                0.2842,
+                0.3714
               ],
               "audits": 2,
               "available": true,
-              "clusters": 169,
+              "clusters": 167,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.1616,
+              "macro_f1": 0.1653,
               "macro_f1_95ci": [
-                0.1447,
-                0.1766
+                0.1475,
+                0.1806
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -4443,66 +4443,66 @@
             "confusion": {
               "ambiguous->ambiguous": 0,
               "ambiguous->distinct_vulnerability": 0,
-              "ambiguous->same_vulnerability": 143,
+              "ambiguous->same_vulnerability": 163,
               "distinct_vulnerability->ambiguous": 0,
               "distinct_vulnerability->distinct_vulnerability": 0,
-              "distinct_vulnerability->same_vulnerability": 44,
+              "distinct_vulnerability->same_vulnerability": 16,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 0,
               "same_vulnerability->same_vulnerability": 88
             },
             "confusion_observed": {
-              "ambiguous->same_vulnerability": 143,
-              "distinct_vulnerability->same_vulnerability": 44,
+              "ambiguous->same_vulnerability": 163,
+              "distinct_vulnerability->same_vulnerability": 16,
               "same_vulnerability->same_vulnerability": 88
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 275,
+              "expected": 267,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 275
+              "valid_predictions": 267
             },
-            "evaluated_pairs": 275,
+            "evaluated_pairs": 267,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.1616,
+            "macro_f1": 0.1653,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 275,
+            "pairs_scored": 267,
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 143,
+                "fn": 163,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 143,
+                "support": 163,
                 "tp": 0
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 44,
+                "fn": 16,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 44,
+                "support": 16,
                 "tp": 0
               },
               "same_vulnerability": {
-                "f1": 0.4848,
+                "f1": 0.4958,
                 "fn": 0,
-                "fp": 187,
-                "precision": 0.32,
+                "fp": 179,
+                "precision": 0.3296,
                 "recall": 1.0,
                 "support": 88,
                 "tp": 88
@@ -4520,14 +4520,14 @@
       {
         "by_split": {
           "test": {
-            "accuracy": 0.2857,
+            "accuracy": 0.1429,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 7,
+                "correct": 5,
                 "invalid": 0,
                 "missing": 0,
-                "total": 7,
+                "total": 5,
                 "wrong": 0
               },
               "different_function_same_file": {
@@ -4535,15 +4535,15 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 27,
+                "wrong": 27
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 9,
+                "correct": 3,
                 "invalid": 0,
                 "missing": 0,
-                "total": 9,
+                "total": 3,
                 "wrong": 0
               },
               "not_applicable": {
@@ -4561,42 +4561,42 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 27,
+                "wrong": 27
               },
               "primary": {
-                "accuracy": 0.4324,
-                "correct": 16,
+                "accuracy": 0.2759,
+                "correct": 8,
                 "invalid": 0,
                 "missing": 0,
-                "total": 37,
+                "total": 29,
                 "wrong": 21
               }
             },
             "by_project": {
               "2024-08-wildcat": {
-                "accuracy": 0.2857,
-                "correct": 16,
+                "accuracy": 0.1429,
+                "correct": 8,
                 "invalid": 0,
                 "missing": 0,
                 "total": 56,
-                "wrong": 40
+                "wrong": 48
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.2857,
+              "accuracy": 0.1429,
               "accuracy_95ci": [
-                0.1864,
-                0.4001
+                0.069,
+                0.2321
               ],
               "audits": 1,
               "available": true,
               "clusters": 35,
               "limitation": "1 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.1481,
+              "macro_f1": 0.0833,
               "macro_f1_95ci": [
-                0.1048,
-                0.1905
+                0.043,
+                0.1256
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -4605,18 +4605,18 @@
             "cohort": "all",
             "confusion": {
               "ambiguous->ambiguous": 0,
-              "ambiguous->distinct_vulnerability": 26,
+              "ambiguous->distinct_vulnerability": 34,
               "ambiguous->same_vulnerability": 0,
               "distinct_vulnerability->ambiguous": 0,
-              "distinct_vulnerability->distinct_vulnerability": 16,
+              "distinct_vulnerability->distinct_vulnerability": 8,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 14,
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->distinct_vulnerability": 26,
-              "distinct_vulnerability->distinct_vulnerability": 16,
+              "ambiguous->distinct_vulnerability": 34,
+              "distinct_vulnerability->distinct_vulnerability": 8,
               "same_vulnerability->distinct_vulnerability": 14
             },
             "coverage": {
@@ -4634,7 +4634,7 @@
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.1481,
+            "macro_f1": 0.0833,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
@@ -4645,21 +4645,21 @@
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 26,
+                "fn": 34,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 26,
+                "support": 34,
                 "tp": 0
               },
               "distinct_vulnerability": {
-                "f1": 0.4444,
+                "f1": 0.25,
                 "fn": 0,
-                "fp": 40,
-                "precision": 0.2857,
+                "fp": 48,
+                "precision": 0.1429,
                 "recall": 1.0,
-                "support": 16,
-                "tp": 16
+                "support": 8,
+                "tp": 8
               },
               "same_vulnerability": {
                 "f1": 0.0,
@@ -4677,14 +4677,14 @@
             "split": "test"
           },
           "train": {
-            "accuracy": 0.1281,
+            "accuracy": 0.0485,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 13,
+                "correct": 8,
                 "invalid": 0,
                 "missing": 0,
-                "total": 13,
+                "total": 8,
                 "wrong": 0
               },
               "different_function_same_file": {
@@ -4692,15 +4692,15 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
-                "wrong": 124
+                "total": 139,
+                "wrong": 139
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 28,
+                "correct": 7,
                 "invalid": 0,
                 "missing": 0,
-                "total": 28,
+                "total": 7,
                 "wrong": 0
               },
               "not_applicable": {
@@ -4718,50 +4718,50 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
-                "wrong": 124
+                "total": 139,
+                "wrong": 139
               },
               "primary": {
-                "accuracy": 0.2092,
-                "correct": 41,
+                "accuracy": 0.0882,
+                "correct": 15,
                 "invalid": 0,
                 "missing": 0,
-                "total": 196,
+                "total": 170,
                 "wrong": 155
               }
             },
             "by_project": {
               "2022-05-alchemix": {
-                "accuracy": 0.0333,
-                "correct": 1,
+                "accuracy": 0.0,
+                "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 30,
+                "total": 29,
                 "wrong": 29
               },
               "2024-04-noya": {
-                "accuracy": 0.1379,
-                "correct": 40,
+                "accuracy": 0.0536,
+                "correct": 15,
                 "invalid": 0,
                 "missing": 0,
-                "total": 290,
-                "wrong": 250
+                "total": 280,
+                "wrong": 265
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.1281,
+              "accuracy": 0.0485,
               "accuracy_95ci": [
-                0.0949,
-                0.1635
+                0.0261,
+                0.0752
               ],
               "audits": 2,
               "available": true,
-              "clusters": 211,
+              "clusters": 208,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.0757,
+              "macro_f1": 0.0309,
               "macro_f1_95ci": [
-                0.0578,
-                0.0937
+                0.0169,
+                0.0466
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -4770,61 +4770,61 @@
             "cohort": "all",
             "confusion": {
               "ambiguous->ambiguous": 0,
-              "ambiguous->distinct_vulnerability": 202,
+              "ambiguous->distinct_vulnerability": 217,
               "ambiguous->same_vulnerability": 0,
               "distinct_vulnerability->ambiguous": 0,
-              "distinct_vulnerability->distinct_vulnerability": 41,
+              "distinct_vulnerability->distinct_vulnerability": 15,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 77,
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->distinct_vulnerability": 202,
-              "distinct_vulnerability->distinct_vulnerability": 41,
+              "ambiguous->distinct_vulnerability": 217,
+              "distinct_vulnerability->distinct_vulnerability": 15,
               "same_vulnerability->distinct_vulnerability": 77
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 320,
+              "expected": 309,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 320
+              "valid_predictions": 309
             },
-            "evaluated_pairs": 320,
+            "evaluated_pairs": 309,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.0757,
+            "macro_f1": 0.0309,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 320,
+            "pairs_scored": 309,
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 202,
+                "fn": 217,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 202,
+                "support": 217,
                 "tp": 0
               },
               "distinct_vulnerability": {
-                "f1": 0.2271,
+                "f1": 0.0926,
                 "fn": 0,
-                "fp": 279,
-                "precision": 0.1281,
+                "fp": 294,
+                "precision": 0.0485,
                 "recall": 1.0,
-                "support": 41,
-                "tp": 41
+                "support": 15,
+                "tp": 15
               },
               "same_vulnerability": {
                 "f1": 0.0,
@@ -4842,14 +4842,14 @@
             "split": "train"
           },
           "validation": {
-            "accuracy": 0.16,
+            "accuracy": 0.0599,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 19,
+                "correct": 9,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
+                "total": 9,
                 "wrong": 0
               },
               "different_function_same_file": {
@@ -4857,15 +4857,15 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
-                "wrong": 89
+                "total": 109,
+                "wrong": 109
               },
               "different_function_same_file_and_different_root_cause": {
                 "accuracy": 1.0,
-                "correct": 25,
+                "correct": 7,
                 "invalid": 0,
                 "missing": 0,
-                "total": 25,
+                "total": 7,
                 "wrong": 0
               },
               "not_applicable": {
@@ -4883,50 +4883,50 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
-                "wrong": 89
+                "total": 109,
+                "wrong": 109
               },
               "primary": {
-                "accuracy": 0.2366,
-                "correct": 44,
+                "accuracy": 0.1013,
+                "correct": 16,
                 "invalid": 0,
                 "missing": 0,
-                "total": 186,
+                "total": 158,
                 "wrong": 142
               }
             },
             "by_project": {
               "2024-01-decent": {
-                "accuracy": 0.1468,
-                "correct": 16,
+                "accuracy": 0.0385,
+                "correct": 4,
                 "invalid": 0,
                 "missing": 0,
-                "total": 109,
-                "wrong": 93
+                "total": 104,
+                "wrong": 100
               },
               "2024-01-renft": {
-                "accuracy": 0.1687,
-                "correct": 28,
+                "accuracy": 0.0736,
+                "correct": 12,
                 "invalid": 0,
                 "missing": 0,
-                "total": 166,
-                "wrong": 138
+                "total": 163,
+                "wrong": 151
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.16,
+              "accuracy": 0.0599,
               "accuracy_95ci": [
-                0.1203,
-                0.2015
+                0.0341,
+                0.0875
               ],
               "audits": 2,
               "available": true,
-              "clusters": 169,
+              "clusters": 167,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.092,
+              "macro_f1": 0.0377,
               "macro_f1_95ci": [
-                0.0716,
-                0.1118
+                0.022,
+                0.0536
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -4935,61 +4935,61 @@
             "cohort": "all",
             "confusion": {
               "ambiguous->ambiguous": 0,
-              "ambiguous->distinct_vulnerability": 143,
+              "ambiguous->distinct_vulnerability": 163,
               "ambiguous->same_vulnerability": 0,
               "distinct_vulnerability->ambiguous": 0,
-              "distinct_vulnerability->distinct_vulnerability": 44,
+              "distinct_vulnerability->distinct_vulnerability": 16,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 0,
               "same_vulnerability->distinct_vulnerability": 88,
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->distinct_vulnerability": 143,
-              "distinct_vulnerability->distinct_vulnerability": 44,
+              "ambiguous->distinct_vulnerability": 163,
+              "distinct_vulnerability->distinct_vulnerability": 16,
               "same_vulnerability->distinct_vulnerability": 88
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 275,
+              "expected": 267,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 275
+              "valid_predictions": 267
             },
-            "evaluated_pairs": 275,
+            "evaluated_pairs": 267,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.092,
+            "macro_f1": 0.0377,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 275,
+            "pairs_scored": 267,
             "per_class": {
               "ambiguous": {
                 "f1": 0.0,
-                "fn": 143,
+                "fn": 163,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 143,
+                "support": 163,
                 "tp": 0
               },
               "distinct_vulnerability": {
-                "f1": 0.2759,
+                "f1": 0.1131,
                 "fn": 0,
-                "fp": 231,
-                "precision": 0.16,
+                "fp": 251,
+                "precision": 0.0599,
                 "recall": 1.0,
-                "support": 44,
-                "tp": 44
+                "support": 16,
+                "tp": 16
               },
               "same_vulnerability": {
                 "f1": 0.0,
@@ -5013,22 +5013,22 @@
       {
         "by_split": {
           "test": {
-            "accuracy": 0.4643,
+            "accuracy": 0.6071,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 7,
-                "wrong": 7
+                "total": 5,
+                "wrong": 5
               },
               "different_function_same_file": {
                 "accuracy": 1.0,
-                "correct": 19,
+                "correct": 27,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
+                "total": 27,
                 "wrong": 0
               },
               "different_function_same_file_and_different_root_cause": {
@@ -5036,8 +5036,8 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 9,
-                "wrong": 9
+                "total": 3,
+                "wrong": 3
               },
               "not_applicable": {
                 "accuracy": 0.3333,
@@ -5051,45 +5051,45 @@
             "by_label_cohort": {
               "exploratory": {
                 "accuracy": 1.0,
-                "correct": 19,
+                "correct": 27,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
+                "total": 27,
                 "wrong": 0
               },
               "primary": {
-                "accuracy": 0.1892,
+                "accuracy": 0.2414,
                 "correct": 7,
                 "invalid": 0,
                 "missing": 0,
-                "total": 37,
-                "wrong": 30
+                "total": 29,
+                "wrong": 22
               }
             },
             "by_project": {
               "2024-08-wildcat": {
-                "accuracy": 0.4643,
-                "correct": 26,
+                "accuracy": 0.6071,
+                "correct": 34,
                 "invalid": 0,
                 "missing": 0,
                 "total": 56,
-                "wrong": 30
+                "wrong": 22
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.4643,
+              "accuracy": 0.6071,
               "accuracy_95ci": [
-                0.339,
-                0.5833
+                0.5,
+                0.7092
               ],
               "audits": 1,
               "available": true,
               "clusters": 35,
               "limitation": "1 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.2114,
+              "macro_f1": 0.2519,
               "macro_f1_95ci": [
-                0.1688,
-                0.2456
+                0.2222,
+                0.2766
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -5097,10 +5097,10 @@
             },
             "cohort": "all",
             "confusion": {
-              "ambiguous->ambiguous": 26,
+              "ambiguous->ambiguous": 34,
               "ambiguous->distinct_vulnerability": 0,
               "ambiguous->same_vulnerability": 0,
-              "distinct_vulnerability->ambiguous": 16,
+              "distinct_vulnerability->ambiguous": 8,
               "distinct_vulnerability->distinct_vulnerability": 0,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 14,
@@ -5108,8 +5108,8 @@
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->ambiguous": 26,
-              "distinct_vulnerability->ambiguous": 16,
+              "ambiguous->ambiguous": 34,
+              "distinct_vulnerability->ambiguous": 8,
               "same_vulnerability->ambiguous": 14
             },
             "coverage": {
@@ -5127,7 +5127,7 @@
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.2114,
+            "macro_f1": 0.2519,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
@@ -5137,21 +5137,21 @@
             "pairs_scored": 56,
             "per_class": {
               "ambiguous": {
-                "f1": 0.6341,
+                "f1": 0.7556,
                 "fn": 0,
-                "fp": 30,
-                "precision": 0.4643,
+                "fp": 22,
+                "precision": 0.6071,
                 "recall": 1.0,
-                "support": 26,
-                "tp": 26
+                "support": 34,
+                "tp": 34
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 16,
+                "fn": 8,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 16,
+                "support": 8,
                 "tp": 0
               },
               "same_vulnerability": {
@@ -5170,22 +5170,22 @@
             "split": "test"
           },
           "train": {
-            "accuracy": 0.6312,
+            "accuracy": 0.7023,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 13,
-                "wrong": 13
+                "total": 8,
+                "wrong": 8
               },
               "different_function_same_file": {
                 "accuracy": 1.0,
-                "correct": 124,
+                "correct": 139,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
+                "total": 139,
                 "wrong": 0
               },
               "different_function_same_file_and_different_root_cause": {
@@ -5193,8 +5193,8 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 28,
-                "wrong": 28
+                "total": 7,
+                "wrong": 7
               },
               "not_applicable": {
                 "accuracy": 0.5032,
@@ -5208,53 +5208,53 @@
             "by_label_cohort": {
               "exploratory": {
                 "accuracy": 1.0,
-                "correct": 124,
+                "correct": 139,
                 "invalid": 0,
                 "missing": 0,
-                "total": 124,
+                "total": 139,
                 "wrong": 0
               },
               "primary": {
-                "accuracy": 0.398,
+                "accuracy": 0.4588,
                 "correct": 78,
                 "invalid": 0,
                 "missing": 0,
-                "total": 196,
-                "wrong": 118
+                "total": 170,
+                "wrong": 92
               }
             },
             "by_project": {
               "2022-05-alchemix": {
-                "accuracy": 0.9667,
+                "accuracy": 1.0,
                 "correct": 29,
                 "invalid": 0,
                 "missing": 0,
-                "total": 30,
-                "wrong": 1
+                "total": 29,
+                "wrong": 0
               },
               "2024-04-noya": {
-                "accuracy": 0.5966,
-                "correct": 173,
+                "accuracy": 0.6714,
+                "correct": 188,
                 "invalid": 0,
                 "missing": 0,
-                "total": 290,
-                "wrong": 117
+                "total": 280,
+                "wrong": 92
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.6312,
+              "accuracy": 0.7023,
               "accuracy_95ci": [
-                0.5792,
-                0.6795
+                0.6526,
+                0.75
               ],
               "audits": 2,
               "available": true,
-              "clusters": 211,
+              "clusters": 208,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.258,
+              "macro_f1": 0.275,
               "macro_f1_95ci": [
-                0.2445,
-                0.2697
+                0.2633,
+                0.2857
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -5262,10 +5262,10 @@
             },
             "cohort": "all",
             "confusion": {
-              "ambiguous->ambiguous": 202,
+              "ambiguous->ambiguous": 217,
               "ambiguous->distinct_vulnerability": 0,
               "ambiguous->same_vulnerability": 0,
-              "distinct_vulnerability->ambiguous": 41,
+              "distinct_vulnerability->ambiguous": 15,
               "distinct_vulnerability->distinct_vulnerability": 0,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 77,
@@ -5273,50 +5273,50 @@
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->ambiguous": 202,
-              "distinct_vulnerability->ambiguous": 41,
+              "ambiguous->ambiguous": 217,
+              "distinct_vulnerability->ambiguous": 15,
               "same_vulnerability->ambiguous": 77
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 320,
+              "expected": 309,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 320
+              "valid_predictions": 309
             },
-            "evaluated_pairs": 320,
+            "evaluated_pairs": 309,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.258,
+            "macro_f1": 0.275,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 320,
+            "pairs_scored": 309,
             "per_class": {
               "ambiguous": {
-                "f1": 0.7739,
+                "f1": 0.8251,
                 "fn": 0,
-                "fp": 118,
-                "precision": 0.6312,
+                "fp": 92,
+                "precision": 0.7023,
                 "recall": 1.0,
-                "support": 202,
-                "tp": 202
+                "support": 217,
+                "tp": 217
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 41,
+                "fn": 15,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 41,
+                "support": 15,
                 "tp": 0
               },
               "same_vulnerability": {
@@ -5335,22 +5335,22 @@
             "split": "train"
           },
           "validation": {
-            "accuracy": 0.52,
+            "accuracy": 0.6105,
             "by_hardness": {
               "different_file_and_different_root_cause": {
                 "accuracy": 0.0,
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 19,
-                "wrong": 19
+                "total": 9,
+                "wrong": 9
               },
               "different_function_same_file": {
                 "accuracy": 1.0,
-                "correct": 89,
+                "correct": 109,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
+                "total": 109,
                 "wrong": 0
               },
               "different_function_same_file_and_different_root_cause": {
@@ -5358,8 +5358,8 @@
                 "correct": 0,
                 "invalid": 0,
                 "missing": 0,
-                "total": 25,
-                "wrong": 25
+                "total": 7,
+                "wrong": 7
               },
               "not_applicable": {
                 "accuracy": 0.3803,
@@ -5373,53 +5373,53 @@
             "by_label_cohort": {
               "exploratory": {
                 "accuracy": 1.0,
-                "correct": 89,
+                "correct": 109,
                 "invalid": 0,
                 "missing": 0,
-                "total": 89,
+                "total": 109,
                 "wrong": 0
               },
               "primary": {
-                "accuracy": 0.2903,
+                "accuracy": 0.3418,
                 "correct": 54,
                 "invalid": 0,
                 "missing": 0,
-                "total": 186,
-                "wrong": 132
+                "total": 158,
+                "wrong": 104
               }
             },
             "by_project": {
               "2024-01-decent": {
-                "accuracy": 0.6422,
-                "correct": 70,
+                "accuracy": 0.7404,
+                "correct": 77,
                 "invalid": 0,
                 "missing": 0,
-                "total": 109,
-                "wrong": 39
+                "total": 104,
+                "wrong": 27
               },
               "2024-01-renft": {
-                "accuracy": 0.4398,
-                "correct": 73,
+                "accuracy": 0.5276,
+                "correct": 86,
                 "invalid": 0,
                 "missing": 0,
-                "total": 166,
-                "wrong": 93
+                "total": 163,
+                "wrong": 77
               }
             },
             "cluster_bootstrap": {
-              "accuracy": 0.52,
+              "accuracy": 0.6105,
               "accuracy_95ci": [
-                0.4657,
-                0.5779
+                0.5597,
+                0.6641
               ],
               "audits": 2,
               "available": true,
-              "clusters": 169,
+              "clusters": 167,
               "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-              "macro_f1": 0.2281,
+              "macro_f1": 0.2527,
               "macro_f1_95ci": [
-                0.2118,
-                0.2442
+                0.2392,
+                0.266
               ],
               "resamples": 1000,
               "seed": 20240517,
@@ -5427,10 +5427,10 @@
             },
             "cohort": "all",
             "confusion": {
-              "ambiguous->ambiguous": 143,
+              "ambiguous->ambiguous": 163,
               "ambiguous->distinct_vulnerability": 0,
               "ambiguous->same_vulnerability": 0,
-              "distinct_vulnerability->ambiguous": 44,
+              "distinct_vulnerability->ambiguous": 16,
               "distinct_vulnerability->distinct_vulnerability": 0,
               "distinct_vulnerability->same_vulnerability": 0,
               "same_vulnerability->ambiguous": 88,
@@ -5438,50 +5438,50 @@
               "same_vulnerability->same_vulnerability": 0
             },
             "confusion_observed": {
-              "ambiguous->ambiguous": 143,
-              "distinct_vulnerability->ambiguous": 44,
+              "ambiguous->ambiguous": 163,
+              "distinct_vulnerability->ambiguous": 16,
               "same_vulnerability->ambiguous": 88
             },
             "coverage": {
               "answered_rate": 1.0,
               "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-              "expected": 275,
+              "expected": 267,
               "invalid_predictions": 0,
               "missing_predictions": 0,
               "prediction_coverage": 1.0,
-              "valid_predictions": 275
+              "valid_predictions": 267
             },
-            "evaluated_pairs": 275,
+            "evaluated_pairs": 267,
             "invalid_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
-            "macro_f1": 0.2281,
+            "macro_f1": 0.2527,
             "missing_by_gold": {
               "ambiguous": 0,
               "distinct_vulnerability": 0,
               "same_vulnerability": 0
             },
             "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-            "pairs_scored": 275,
+            "pairs_scored": 267,
             "per_class": {
               "ambiguous": {
-                "f1": 0.6842,
+                "f1": 0.7581,
                 "fn": 0,
-                "fp": 132,
-                "precision": 0.52,
+                "fp": 104,
+                "precision": 0.6105,
                 "recall": 1.0,
-                "support": 143,
-                "tp": 143
+                "support": 163,
+                "tp": 163
               },
               "distinct_vulnerability": {
                 "f1": 0.0,
-                "fn": 44,
+                "fn": 16,
                 "fp": 0,
                 "precision": null,
                 "recall": 0.0,
-                "support": 44,
+                "support": 16,
                 "tp": 0
               },
               "same_vulnerability": {
@@ -5507,22 +5507,22 @@
     "frequency_baseline": {
       "by_split": {
         "test": {
-          "accuracy": 0.4643,
+          "accuracy": 0.6071,
           "by_hardness": {
             "different_file_and_different_root_cause": {
               "accuracy": 0.0,
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 7,
-              "wrong": 7
+              "total": 5,
+              "wrong": 5
             },
             "different_function_same_file": {
               "accuracy": 1.0,
-              "correct": 19,
+              "correct": 27,
               "invalid": 0,
               "missing": 0,
-              "total": 19,
+              "total": 27,
               "wrong": 0
             },
             "different_function_same_file_and_different_root_cause": {
@@ -5530,8 +5530,8 @@
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 9,
-              "wrong": 9
+              "total": 3,
+              "wrong": 3
             },
             "not_applicable": {
               "accuracy": 0.3333,
@@ -5545,45 +5545,45 @@
           "by_label_cohort": {
             "exploratory": {
               "accuracy": 1.0,
-              "correct": 19,
+              "correct": 27,
               "invalid": 0,
               "missing": 0,
-              "total": 19,
+              "total": 27,
               "wrong": 0
             },
             "primary": {
-              "accuracy": 0.1892,
+              "accuracy": 0.2414,
               "correct": 7,
               "invalid": 0,
               "missing": 0,
-              "total": 37,
-              "wrong": 30
+              "total": 29,
+              "wrong": 22
             }
           },
           "by_project": {
             "2024-08-wildcat": {
-              "accuracy": 0.4643,
-              "correct": 26,
+              "accuracy": 0.6071,
+              "correct": 34,
               "invalid": 0,
               "missing": 0,
               "total": 56,
-              "wrong": 30
+              "wrong": 22
             }
           },
           "cluster_bootstrap": {
-            "accuracy": 0.4643,
+            "accuracy": 0.6071,
             "accuracy_95ci": [
-              0.339,
-              0.5833
+              0.5,
+              0.7092
             ],
             "audits": 1,
             "available": true,
             "clusters": 35,
             "limitation": "1 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-            "macro_f1": 0.2114,
+            "macro_f1": 0.2519,
             "macro_f1_95ci": [
-              0.1688,
-              0.2456
+              0.2222,
+              0.2766
             ],
             "resamples": 1000,
             "seed": 20240517,
@@ -5591,10 +5591,10 @@
           },
           "cohort": "all",
           "confusion": {
-            "ambiguous->ambiguous": 26,
+            "ambiguous->ambiguous": 34,
             "ambiguous->distinct_vulnerability": 0,
             "ambiguous->same_vulnerability": 0,
-            "distinct_vulnerability->ambiguous": 16,
+            "distinct_vulnerability->ambiguous": 8,
             "distinct_vulnerability->distinct_vulnerability": 0,
             "distinct_vulnerability->same_vulnerability": 0,
             "same_vulnerability->ambiguous": 14,
@@ -5602,8 +5602,8 @@
             "same_vulnerability->same_vulnerability": 0
           },
           "confusion_observed": {
-            "ambiguous->ambiguous": 26,
-            "distinct_vulnerability->ambiguous": 16,
+            "ambiguous->ambiguous": 34,
+            "distinct_vulnerability->ambiguous": 8,
             "same_vulnerability->ambiguous": 14
           },
           "coverage": {
@@ -5621,7 +5621,7 @@
             "distinct_vulnerability": 0,
             "same_vulnerability": 0
           },
-          "macro_f1": 0.2114,
+          "macro_f1": 0.2519,
           "missing_by_gold": {
             "ambiguous": 0,
             "distinct_vulnerability": 0,
@@ -5631,21 +5631,21 @@
           "pairs_scored": 56,
           "per_class": {
             "ambiguous": {
-              "f1": 0.6341,
+              "f1": 0.7556,
               "fn": 0,
-              "fp": 30,
-              "precision": 0.4643,
+              "fp": 22,
+              "precision": 0.6071,
               "recall": 1.0,
-              "support": 26,
-              "tp": 26
+              "support": 34,
+              "tp": 34
             },
             "distinct_vulnerability": {
               "f1": 0.0,
-              "fn": 16,
+              "fn": 8,
               "fp": 0,
               "precision": null,
               "recall": 0.0,
-              "support": 16,
+              "support": 8,
               "tp": 0
             },
             "same_vulnerability": {
@@ -5664,22 +5664,22 @@
           "split": "test"
         },
         "train": {
-          "accuracy": 0.6312,
+          "accuracy": 0.7023,
           "by_hardness": {
             "different_file_and_different_root_cause": {
               "accuracy": 0.0,
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 13,
-              "wrong": 13
+              "total": 8,
+              "wrong": 8
             },
             "different_function_same_file": {
               "accuracy": 1.0,
-              "correct": 124,
+              "correct": 139,
               "invalid": 0,
               "missing": 0,
-              "total": 124,
+              "total": 139,
               "wrong": 0
             },
             "different_function_same_file_and_different_root_cause": {
@@ -5687,8 +5687,8 @@
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 28,
-              "wrong": 28
+              "total": 7,
+              "wrong": 7
             },
             "not_applicable": {
               "accuracy": 0.5032,
@@ -5702,53 +5702,53 @@
           "by_label_cohort": {
             "exploratory": {
               "accuracy": 1.0,
-              "correct": 124,
+              "correct": 139,
               "invalid": 0,
               "missing": 0,
-              "total": 124,
+              "total": 139,
               "wrong": 0
             },
             "primary": {
-              "accuracy": 0.398,
+              "accuracy": 0.4588,
               "correct": 78,
               "invalid": 0,
               "missing": 0,
-              "total": 196,
-              "wrong": 118
+              "total": 170,
+              "wrong": 92
             }
           },
           "by_project": {
             "2022-05-alchemix": {
-              "accuracy": 0.9667,
+              "accuracy": 1.0,
               "correct": 29,
               "invalid": 0,
               "missing": 0,
-              "total": 30,
-              "wrong": 1
+              "total": 29,
+              "wrong": 0
             },
             "2024-04-noya": {
-              "accuracy": 0.5966,
-              "correct": 173,
+              "accuracy": 0.6714,
+              "correct": 188,
               "invalid": 0,
               "missing": 0,
-              "total": 290,
-              "wrong": 117
+              "total": 280,
+              "wrong": 92
             }
           },
           "cluster_bootstrap": {
-            "accuracy": 0.6312,
+            "accuracy": 0.7023,
             "accuracy_95ci": [
-              0.5792,
-              0.6795
+              0.6526,
+              0.75
             ],
             "audits": 2,
             "available": true,
-            "clusters": 211,
+            "clusters": 208,
             "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-            "macro_f1": 0.258,
+            "macro_f1": 0.275,
             "macro_f1_95ci": [
-              0.2445,
-              0.2697
+              0.2633,
+              0.2857
             ],
             "resamples": 1000,
             "seed": 20240517,
@@ -5756,10 +5756,10 @@
           },
           "cohort": "all",
           "confusion": {
-            "ambiguous->ambiguous": 202,
+            "ambiguous->ambiguous": 217,
             "ambiguous->distinct_vulnerability": 0,
             "ambiguous->same_vulnerability": 0,
-            "distinct_vulnerability->ambiguous": 41,
+            "distinct_vulnerability->ambiguous": 15,
             "distinct_vulnerability->distinct_vulnerability": 0,
             "distinct_vulnerability->same_vulnerability": 0,
             "same_vulnerability->ambiguous": 77,
@@ -5767,50 +5767,50 @@
             "same_vulnerability->same_vulnerability": 0
           },
           "confusion_observed": {
-            "ambiguous->ambiguous": 202,
-            "distinct_vulnerability->ambiguous": 41,
+            "ambiguous->ambiguous": 217,
+            "distinct_vulnerability->ambiguous": 15,
             "same_vulnerability->ambiguous": 77
           },
           "coverage": {
             "answered_rate": 1.0,
             "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-            "expected": 320,
+            "expected": 309,
             "invalid_predictions": 0,
             "missing_predictions": 0,
             "prediction_coverage": 1.0,
-            "valid_predictions": 320
+            "valid_predictions": 309
           },
-          "evaluated_pairs": 320,
+          "evaluated_pairs": 309,
           "invalid_by_gold": {
             "ambiguous": 0,
             "distinct_vulnerability": 0,
             "same_vulnerability": 0
           },
-          "macro_f1": 0.258,
+          "macro_f1": 0.275,
           "missing_by_gold": {
             "ambiguous": 0,
             "distinct_vulnerability": 0,
             "same_vulnerability": 0
           },
           "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-          "pairs_scored": 320,
+          "pairs_scored": 309,
           "per_class": {
             "ambiguous": {
-              "f1": 0.7739,
+              "f1": 0.8251,
               "fn": 0,
-              "fp": 118,
-              "precision": 0.6312,
+              "fp": 92,
+              "precision": 0.7023,
               "recall": 1.0,
-              "support": 202,
-              "tp": 202
+              "support": 217,
+              "tp": 217
             },
             "distinct_vulnerability": {
               "f1": 0.0,
-              "fn": 41,
+              "fn": 15,
               "fp": 0,
               "precision": null,
               "recall": 0.0,
-              "support": 41,
+              "support": 15,
               "tp": 0
             },
             "same_vulnerability": {
@@ -5829,22 +5829,22 @@
           "split": "train"
         },
         "validation": {
-          "accuracy": 0.52,
+          "accuracy": 0.6105,
           "by_hardness": {
             "different_file_and_different_root_cause": {
               "accuracy": 0.0,
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 19,
-              "wrong": 19
+              "total": 9,
+              "wrong": 9
             },
             "different_function_same_file": {
               "accuracy": 1.0,
-              "correct": 89,
+              "correct": 109,
               "invalid": 0,
               "missing": 0,
-              "total": 89,
+              "total": 109,
               "wrong": 0
             },
             "different_function_same_file_and_different_root_cause": {
@@ -5852,8 +5852,8 @@
               "correct": 0,
               "invalid": 0,
               "missing": 0,
-              "total": 25,
-              "wrong": 25
+              "total": 7,
+              "wrong": 7
             },
             "not_applicable": {
               "accuracy": 0.3803,
@@ -5867,53 +5867,53 @@
           "by_label_cohort": {
             "exploratory": {
               "accuracy": 1.0,
-              "correct": 89,
+              "correct": 109,
               "invalid": 0,
               "missing": 0,
-              "total": 89,
+              "total": 109,
               "wrong": 0
             },
             "primary": {
-              "accuracy": 0.2903,
+              "accuracy": 0.3418,
               "correct": 54,
               "invalid": 0,
               "missing": 0,
-              "total": 186,
-              "wrong": 132
+              "total": 158,
+              "wrong": 104
             }
           },
           "by_project": {
             "2024-01-decent": {
-              "accuracy": 0.6422,
-              "correct": 70,
+              "accuracy": 0.7404,
+              "correct": 77,
               "invalid": 0,
               "missing": 0,
-              "total": 109,
-              "wrong": 39
+              "total": 104,
+              "wrong": 27
             },
             "2024-01-renft": {
-              "accuracy": 0.4398,
-              "correct": 73,
+              "accuracy": 0.5276,
+              "correct": 86,
               "invalid": 0,
               "missing": 0,
-              "total": 166,
-              "wrong": 93
+              "total": 163,
+              "wrong": 77
             }
           },
           "cluster_bootstrap": {
-            "accuracy": 0.52,
+            "accuracy": 0.6105,
             "accuracy_95ci": [
-              0.4657,
-              0.5779
+              0.5597,
+              0.6641
             ],
             "audits": 2,
             "available": true,
-            "clusters": 169,
+            "clusters": 167,
             "limitation": "2 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-            "macro_f1": 0.2281,
+            "macro_f1": 0.2527,
             "macro_f1_95ci": [
-              0.2118,
-              0.2442
+              0.2392,
+              0.266
             ],
             "resamples": 1000,
             "seed": 20240517,
@@ -5921,10 +5921,10 @@
           },
           "cohort": "all",
           "confusion": {
-            "ambiguous->ambiguous": 143,
+            "ambiguous->ambiguous": 163,
             "ambiguous->distinct_vulnerability": 0,
             "ambiguous->same_vulnerability": 0,
-            "distinct_vulnerability->ambiguous": 44,
+            "distinct_vulnerability->ambiguous": 16,
             "distinct_vulnerability->distinct_vulnerability": 0,
             "distinct_vulnerability->same_vulnerability": 0,
             "same_vulnerability->ambiguous": 88,
@@ -5932,50 +5932,50 @@
             "same_vulnerability->same_vulnerability": 0
           },
           "confusion_observed": {
-            "ambiguous->ambiguous": 143,
-            "distinct_vulnerability->ambiguous": 44,
+            "ambiguous->ambiguous": 163,
+            "distinct_vulnerability->ambiguous": 16,
             "same_vulnerability->ambiguous": 88
           },
           "coverage": {
             "answered_rate": 1.0,
             "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-            "expected": 275,
+            "expected": 267,
             "invalid_predictions": 0,
             "missing_predictions": 0,
             "prediction_coverage": 1.0,
-            "valid_predictions": 275
+            "valid_predictions": 267
           },
-          "evaluated_pairs": 275,
+          "evaluated_pairs": 267,
           "invalid_by_gold": {
             "ambiguous": 0,
             "distinct_vulnerability": 0,
             "same_vulnerability": 0
           },
-          "macro_f1": 0.2281,
+          "macro_f1": 0.2527,
           "missing_by_gold": {
             "ambiguous": 0,
             "distinct_vulnerability": 0,
             "same_vulnerability": 0
           },
           "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-          "pairs_scored": 275,
+          "pairs_scored": 267,
           "per_class": {
             "ambiguous": {
-              "f1": 0.6842,
+              "f1": 0.7581,
               "fn": 0,
-              "fp": 132,
-              "precision": 0.52,
+              "fp": 104,
+              "precision": 0.6105,
               "recall": 1.0,
-              "support": 143,
-              "tp": 143
+              "support": 163,
+              "tp": 163
             },
             "distinct_vulnerability": {
               "f1": 0.0,
-              "fn": 44,
+              "fn": 16,
               "fp": 0,
               "precision": null,
               "recall": 0.0,
-              "support": 44,
+              "support": 16,
               "tp": 0
             },
             "same_vulnerability": {
@@ -5994,12 +5994,12 @@
           "split": "validation"
         }
       },
-      "fit_rows": 320,
+      "fit_rows": 309,
       "fit_split": "train",
       "fitted_counts": {
         "relationship": {
-          "ambiguous": 202,
-          "distinct_vulnerability": 41,
+          "ambiguous": 217,
+          "distinct_vulnerability": 15,
           "same_vulnerability": 77
         },
         "winner": "ambiguous"
@@ -6007,23 +6007,23 @@
       "predictor": "majority_pair"
     },
     "primary_cohort": {
-      "accuracy": 0.3317,
+      "accuracy": 0.3894,
       "by_hardness": {
         "different_file_and_different_root_cause": {
           "accuracy": 0.0,
           "correct": 0,
           "invalid": 0,
           "missing": 0,
-          "total": 39,
-          "wrong": 39
+          "total": 22,
+          "wrong": 22
         },
         "different_function_same_file_and_different_root_cause": {
           "accuracy": 0.0,
           "correct": 0,
           "invalid": 0,
           "missing": 0,
-          "total": 62,
-          "wrong": 62
+          "total": 17,
+          "wrong": 17
         },
         "not_applicable": {
           "accuracy": 0.4371,
@@ -6036,70 +6036,70 @@
       },
       "by_label_cohort": {
         "primary": {
-          "accuracy": 0.3317,
+          "accuracy": 0.3894,
           "correct": 139,
           "invalid": 0,
           "missing": 0,
-          "total": 419,
-          "wrong": 280
+          "total": 357,
+          "wrong": 218
         }
       },
       "by_project": {
         "2022-05-alchemix": {
-          "accuracy": 0.9091,
+          "accuracy": 1.0,
           "correct": 10,
           "invalid": 0,
           "missing": 0,
-          "total": 11,
-          "wrong": 1
+          "total": 10,
+          "wrong": 0
         },
         "2024-01-decent": {
-          "accuracy": 0.48,
+          "accuracy": 0.5714,
           "correct": 36,
           "invalid": 0,
           "missing": 0,
-          "total": 75,
-          "wrong": 39
+          "total": 63,
+          "wrong": 27
         },
         "2024-01-renft": {
-          "accuracy": 0.1622,
+          "accuracy": 0.1895,
           "correct": 18,
           "invalid": 0,
           "missing": 0,
-          "total": 111,
-          "wrong": 93
+          "total": 95,
+          "wrong": 77
         },
         "2024-04-noya": {
-          "accuracy": 0.3676,
+          "accuracy": 0.425,
           "correct": 68,
           "invalid": 0,
           "missing": 0,
-          "total": 185,
-          "wrong": 117
+          "total": 160,
+          "wrong": 92
         },
         "2024-08-wildcat": {
-          "accuracy": 0.1892,
+          "accuracy": 0.2414,
           "correct": 7,
           "invalid": 0,
           "missing": 0,
-          "total": 37,
-          "wrong": 30
+          "total": 29,
+          "wrong": 22
         }
       },
       "cluster_bootstrap": {
-        "accuracy": 0.3317,
+        "accuracy": 0.3894,
         "accuracy_95ci": [
-          0.2874,
-          0.3759
+          0.3381,
+          0.4426
         ],
         "audits": 5,
         "available": true,
-        "clusters": 345,
+        "clusters": 326,
         "limitation": "5 audits back these clusters; the interval resamples submissions within those audits and does not generalise to unseen audit projects",
-        "macro_f1": 0.1661,
+        "macro_f1": 0.1868,
         "macro_f1_95ci": [
-          0.1488,
-          0.1821
+          0.1684,
+          0.2045
         ],
         "resamples": 1000,
         "seed": 20240517,
@@ -6110,7 +6110,7 @@
         "ambiguous->ambiguous": 139,
         "ambiguous->distinct_vulnerability": 0,
         "ambiguous->same_vulnerability": 0,
-        "distinct_vulnerability->ambiguous": 101,
+        "distinct_vulnerability->ambiguous": 39,
         "distinct_vulnerability->distinct_vulnerability": 0,
         "distinct_vulnerability->same_vulnerability": 0,
         "same_vulnerability->ambiguous": 179,
@@ -6119,49 +6119,49 @@
       },
       "confusion_observed": {
         "ambiguous->ambiguous": 139,
-        "distinct_vulnerability->ambiguous": 101,
+        "distinct_vulnerability->ambiguous": 39,
         "same_vulnerability->ambiguous": 179
       },
       "coverage": {
         "answered_rate": 1.0,
         "denominator_note": "missing predictions and invalid predictions are both a miss for the gold class and reduce coverage; invalid counts are reported separately",
-        "expected": 419,
+        "expected": 357,
         "invalid_predictions": 0,
         "missing_predictions": 0,
         "prediction_coverage": 1.0,
-        "valid_predictions": 419
+        "valid_predictions": 357
       },
-      "evaluated_pairs": 419,
+      "evaluated_pairs": 357,
       "invalid_by_gold": {
         "ambiguous": 0,
         "distinct_vulnerability": 0,
         "same_vulnerability": 0
       },
-      "macro_f1": 0.1661,
+      "macro_f1": 0.1868,
       "missing_by_gold": {
         "ambiguous": 0,
         "distinct_vulnerability": 0,
         "same_vulnerability": 0
       },
       "note": "ambiguous is a scored class: predicting a decision where the evidence does not establish one is an error, never skipped; miss/malformed predictions are reported in coverage",
-      "pairs_scored": 419,
+      "pairs_scored": 357,
       "per_class": {
         "ambiguous": {
-          "f1": 0.4982,
+          "f1": 0.5605,
           "fn": 0,
-          "fp": 280,
-          "precision": 0.3317,
+          "fp": 218,
+          "precision": 0.3894,
           "recall": 1.0,
           "support": 139,
           "tp": 139
         },
         "distinct_vulnerability": {
           "f1": 0.0,
-          "fn": 101,
+          "fn": 39,
           "fp": 0,
           "precision": null,
           "recall": 0.0,
-          "support": 101,
+          "support": 39,
           "tp": 0
         },
         "same_vulnerability": {
@@ -6180,17 +6180,17 @@
       "split": "all"
     },
     "reference_floor": {
-      "macro_f1": 0.2281,
-      "micro_accuracy": 0.52,
+      "macro_f1": 0.2527,
+      "micro_accuracy": 0.6105,
       "note": "the train-fitted frequency predictor is the reference floor; fixed predictors are diagnostics and no maximum over predictors is published",
       "predictor": "majority_pair",
       "selected_on": "validation",
       "test_reported_not_used_for_selection": {
-        "macro_f1": 0.2114,
-        "micro_accuracy": 0.4643
+        "macro_f1": 0.2519,
+        "micro_accuracy": 0.6071
       }
     },
-    "tasks": 651
+    "tasks": 632
   },
   "generated_by": "scripts/score_f_extension.py",
   "methodology": {

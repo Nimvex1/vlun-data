@@ -507,8 +507,8 @@
         "test_rows_with_shared_repo": 0
       },
       "rows_scorable": 7,
-      "rows_total": 720,
-      "rows_unlabeled": 713,
+      "rows_total": 342,
+      "rows_unlabeled": 335,
       "split_drift": {
         "per_split_label_distribution": {
           "test": {
@@ -612,8 +612,8 @@
       "verdict": "skipped_no_scorable_key"
     },
     "Fb_duplicate_radar_pair.jsonl": {
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-      "rows": 651,
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "rows": 632,
       "verdict": "skipped_no_scorable_key"
     },
     "G_patch_verification.jsonl": {
@@ -1720,16 +1720,16 @@
       },
       "baselines_test_split": {
         "answer_space_from_train": 2,
-        "best_shortcut_accuracy": 0.0501,
+        "best_shortcut_accuracy": 0.0502,
         "frequency_from_train": {
-          "accuracy": 0.0033,
+          "accuracy": 0.0045,
           "coverage": 1.0,
-          "macro_f1": 0.019
+          "macro_f1": 0.0252
         },
         "input_retrieval": {
-          "accuracy": 0.0501,
+          "accuracy": 0.0502,
           "coverage": 1.0,
-          "macro_f1": 0.0898
+          "macro_f1": 0.0403
         },
         "majority_from_train": {
           "accuracy": 0.0,
@@ -1742,7 +1742,7 @@
           "macro_f1": 0.0
         },
         "random_from_train_space": {
-          "accuracy": 0.0189,
+          "accuracy": 0.019,
           "coverage": 1.0,
           "macro_f1": 0.0233
         },
@@ -1751,7 +1751,7 @@
           "coverage": 0.0,
           "macro_f1": 0.0
         },
-        "test_rows": 899,
+        "test_rows": 897,
         "title_retrieval": {
           "accuracy": 0.0067,
           "coverage": 1.0,
@@ -1767,61 +1767,61 @@
           "0",
           "2"
         ],
-        "held_out_rows": 1185,
+        "held_out_rows": 1183,
         "kept_groups": 1,
         "kept_rows": 3438,
         "label_counts": {
-          "0": 854,
+          "0": 852,
           "1": 3438,
           "2": 331
         },
         "verdict": "built"
       },
       "degeneracy": {
-        "inv_gini": 0.4077,
+        "inv_gini": 0.4073,
         "label_distribution": {
-          "0": 854,
+          "0": 852,
           "1": 3438,
           "2": 331
         },
-        "majority_fraction": 0.7437,
+        "majority_fraction": 0.744,
         "majority_label": "1",
         "n_labels": 3,
-        "rows": 4623,
+        "rows": 4621,
         "verdict": "near_degenerate"
       },
       "group_overlap": {
         "group_type": "source",
         "shared_groups": 0,
         "test_groups": 2,
-        "test_rows": 899,
+        "test_rows": 897,
         "test_rows_in_shared_group": 0,
         "test_rows_in_shared_group_pct": 0.0,
         "train_groups": 5
       },
       "near_duplicates": {
-        "nearest_train_similarity_max": 0.0526,
-        "nearest_train_similarity_median": 0.0526,
+        "nearest_train_similarity_max": 0.0153,
+        "nearest_train_similarity_median": 0.0064,
         "of_those_label_matches_train": 0,
-        "test_rows_sampled": 4,
+        "test_rows_sampled": 391,
         "test_rows_sim_ge_0.9": 0,
         "verdict": "clean"
       },
       "record_overlap": {
         "record_id_overlap": 0,
         "repositories_shared": 0,
-        "test_rows": 899,
+        "test_rows": 897,
         "test_rows_with_identical_code_block": 0,
         "test_rows_with_shared_code_file_path": 0,
         "test_rows_with_shared_repo": 0
       },
-      "rows_scorable": 4623,
-      "rows_total": 4623,
+      "rows_scorable": 4621,
+      "rows_total": 4621,
       "rows_unlabeled": 0,
       "split_drift": {
         "per_split_label_distribution": {
           "test": {
-            "0": 854,
+            "0": 852,
             "2": 45
           },
           "train": {
@@ -1830,12 +1830,12 @@
           }
         },
         "train_majority_probe": {
-          "label_mix_l1_distance": 1.8999,
+          "label_mix_l1_distance": 1.8997,
           "test_is_single_class": false,
           "test_labels_absent_from_train": [
             "0"
           ],
-          "test_rows": 899,
+          "test_rows": 897,
           "train_majority": "1",
           "train_majority_accuracy_on_test": 0.0
         }
@@ -1848,13 +1848,19 @@
     },
     "v3_S_contest_outcome.jsonl": {
       "answer_leakage": {
-        "answer_literal_in_evidence": 0,
+        "answer_literal_in_evidence": 6,
         "answer_only_in_instruction": 0,
-        "evidence_leak_rate": 0.0,
-        "examples": [],
+        "evidence_leak_rate": 0.0181,
+        "examples": [
+          "S_v3_contest_outcome::c4-renzo-findings:439",
+          "S_v3_contest_outcome::c4-renzo-findings:580",
+          "S_v3_contest_outcome::c4-renzo-findings:588",
+          "S_v3_contest_outcome::c4-renzo-findings:589",
+          "S_v3_contest_outcome::c4-renzo-findings:602"
+        ],
         "rows_checked": 331,
-        "severity": "none",
-        "verdict": "clean"
+        "severity": "medium",
+        "verdict": "weak_answer_echo"
       },
       "baselines_test_split": {
         "answer_space_from_train": 1,
@@ -1936,10 +1942,10 @@
         "train_groups": 2
       },
       "near_duplicates": {
-        "nearest_train_similarity_max": 0.0526,
-        "nearest_train_similarity_median": 0.0526,
+        "nearest_train_similarity_max": 0.0082,
+        "nearest_train_similarity_median": 0.0047,
         "of_those_label_matches_train": 0,
-        "test_rows_sampled": 3,
+        "test_rows_sampled": 33,
         "test_rows_sim_ge_0.9": 0,
         "verdict": "clean"
       },

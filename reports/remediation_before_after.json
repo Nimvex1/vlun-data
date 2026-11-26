@@ -7,12 +7,12 @@
       "item": "4 + 15 — rejection evidence"
     },
     {
-      "after": "decision recorded per source in `V4/licensing.json` and migrated into 2547 V4 findings now carry the recorded decision across 6 layer files, with nothing changed outside the licence field set; distribution-safe view `distribution_v1/` inventories 2073 tracked files over 6 registered sources; licence contradictions remaining: 0; historical exposure reported separately, no history rewritten",
+      "after": "decision recorded per source in `V4/licensing.json` and migrated into 2547 V4 findings now carry the recorded decision across 6 layer files, with nothing changed outside the licence field set; distribution-safe view `distribution_v1/` inventories 2125 tracked files over 6 registered sources; licence contradictions remaining: 0; historical exposure reported separately, no history rewritten",
       "before": "424/722 derived records carried code from repositories with no declared licence; V4 stated `license_status: unknown` on every record while its own manifests declared no LICENSE file (two sources) and CC BY-ND 4.0 (Oak Security)",
       "item": "5 — rights and redistribution"
     },
     {
-      "after": "queue holds 154 v1/v2.1 records (5 eligible under the current standard); 2 reached a test run out of 45 distinct sandboxed invocations; outcomes {blocked: 3, claim_reproduced: 1, compile_failed: 23, executed_without_impact: 0, inconclusive: 0} by unique record; L6 awarded: 0; stretch target met: no",
+      "after": "queue holds 154 v1/v2.1 records (5 eligible under the current standard); 3 reached a test run out of 69 distinct sandboxed invocations; outcomes {blocked: 3, claim_reproduced: 1, compile_failed: 23, executed_without_impact: 0, inconclusive: 0} by unique record; L6 awarded: 0; stretch target met: no",
       "before": "155 exploit records identified, 9 pinpoint experiments, and an older run counted 'forge ran' as reproduction",
       "item": "6 — execution density"
     },
@@ -47,7 +47,7 @@
       "item": "14 — inter-annotator agreement"
     },
     {
-      "after": "23 assignable leaves in a versioned closed vocabulary over 387 in-scope records (124 left unlabelled); described as project-local, not a community standard",
+      "after": "23 assignable leaves in a versioned closed vocabulary over 240 in-scope records (113 left unlabelled); described as project-local, not a community standard",
       "before": "40 verbatim candidate strings served as the root-cause vocabulary",
       "item": "16 — root-cause taxonomy"
     },

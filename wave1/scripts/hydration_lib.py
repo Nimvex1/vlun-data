@@ -154,7 +154,8 @@ def load_api_index() -> tuple[dict[str, dict], dict[str, list[dict]]]:
     for f in API_CACHE.glob("*.json"):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
-        except Exception:
+        except (OSError, ValueError) as exc:
+            print(f"[hydration] skipping unreadable API cache file {f.name}: {exc}")
             continue
         if not isinstance(data, list):
             continue
@@ -195,7 +196,8 @@ def raw_fetch(url: str, timeout: int = 15) -> str | None:
     if cache.exists():
         try:
             return cache.read_text(encoding="utf-8")
-        except Exception:
+        except (OSError, ValueError) as exc:
+            print(f"[hydration] cache read failed for {url}: {exc}")
             return None
     if marker.exists():
         return None
@@ -205,7 +207,10 @@ def raw_fetch(url: str, timeout: int = 15) -> str | None:
             data = resp.read().decode("utf-8", "replace")
         cache.write_text(data, encoding="utf-8", newline="\n")
         return data
-    except Exception:
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        # Non-200 / timeout / bad URL: mark dead so the row can be quarantined
+        # honestly instead of fabricating content.
+        print(f"[hydration] fetch failed for {url}: {exc}")
         marker.write_text(url + "\n", encoding="utf-8", newline="\n")
         return None
 

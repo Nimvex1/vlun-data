@@ -212,8 +212,10 @@ def github_get(api_path: str, *, quiet: bool = False) -> dict | list | None:
     if cache.exists():
         try:
             return json.loads(cache.read_text(encoding="utf-8"))
-        except Exception:
-            pass
+        except (OSError, ValueError) as exc:
+            # Corrupt/unreadable cache is a cache miss; refetch below.
+            if not quiet:
+                print(f"[github_get] cache read failed for {api_path}: {exc}")
     url = "https://api.github.com/" + api_path.lstrip("/")
     req = urllib.request.Request(
         url,
@@ -229,7 +231,8 @@ def github_get(api_path: str, *, quiet: bool = False) -> dict | list | None:
         if not quiet:
             print(f"[github_get] HTTP {exc.code} on {api_path}")
         return None
-    except Exception as exc:  # network down / timeout
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        # Network down, timeout, or non-JSON response: degrade honestly.
         if not quiet:
             print(f"[github_get] failure on {api_path}: {exc}")
         return None
@@ -251,7 +254,8 @@ def git_clone(url: str, name: str) -> Path | None:
             capture_output=True,
         )
         return dest
-    except Exception as exc:
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, OSError) as exc:
+        # git absent, non-zero clone, or timeout: no checkout, no fabricated data.
         print(f"[git_clone] failed {url}: {exc}")
         return None
 

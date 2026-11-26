@@ -387,6 +387,78 @@ def jread(p: Path, default=None):
         return default
 
 
+#: The per-record bucket distributions in derived_v2_2/manifest.json. Every
+#: one is over `records` (the admitted population); anything over the 137
+#: candidates is named *_over_candidates with `candidate_count` as its own
+#: denominator. Both are checked before a document is written.
+D22_DISTRIBUTIONS = (
+    "attacker_identity", "by_language", "by_status", "by_record_class",
+    "evidence_strongest", "experiment_levels",
+)
+# `X of Y` is always a subset statement in this document: X may never exceed
+# Y. The lookbehind keeps a decimal such as `0.0000 of 1,051` from being read
+# as the integer `0000 of 1,051`.
+X_OF_Y_RE = re.compile(r"(?<![\w.])(\d[\d,]*)\s+of\s+(\d[\d,]*)(?![\w])")
+
+
+def validate_generated_stats(text: str, manifest: dict | None = None) -> None:
+    """Hard guard on the two statistics that drifted here.
+
+    (a) No rendered `X of Y` pair has X > Y. The defect was a candidate bucket
+        (`123`) printed over the admitted denominator (`61`).
+    (b) Every v2.2 per-record bucket distribution sums to `records`; likewise
+        each `*_over_candidates` distribution sums to `candidate_count`.
+
+    Raises AssertionError listing every violation, so a stale generator or a
+    hand-edited manifest fails the build instead of shipping a wrong fraction.
+    """
+    if manifest is None:
+        manifest = jread(ROOT / "derived_v2_2" / "manifest.json", {}) or {}
+    problems = []
+
+    for m in X_OF_Y_RE.finditer(text):
+        x = int(m.group(1).replace(",", ""))
+        y = int(m.group(2).replace(",", ""))
+        if x > y:
+            line = text.count("\n", 0, m.start()) + 1
+            problems.append(
+                f"line {line}: {m.group(0).strip()!r} renders {x} > {y}")
+
+    def check_buckets(label: str, buckets, expected) -> None:
+        if not isinstance(buckets, dict) or not buckets:
+            problems.append(f"derived_v2_2 manifest: {label} is not a distribution")
+            return
+        if not all(isinstance(v, int) and not isinstance(v, bool)
+                   for v in buckets.values()):
+            problems.append(f"derived_v2_2 manifest: {label} has non-integer buckets")
+            return
+        total = sum(buckets.values())
+        if total != expected:
+            problems.append(
+                f"derived_v2_2 manifest: {label} sums to {total}, expected {expected}")
+
+    records = manifest.get("records")
+    if not isinstance(records, int) or isinstance(records, bool):
+        problems.append("derived_v2_2 manifest: records is not an integer")
+    else:
+        for key in D22_DISTRIBUTIONS:
+            check_buckets(key, manifest.get(key), records)
+        for dim, buckets in (manifest.get("quality") or {}).items():
+            check_buckets(f"quality.{dim}", buckets, records)
+        candidates = manifest.get("candidate_count")
+        if candidates is not None:
+            for key in D22_DISTRIBUTIONS:
+                ck = key + "_over_candidates"
+                if ck in manifest:
+                    check_buckets(ck, manifest[ck], candidates)
+            for dim, buckets in (manifest.get("quality_over_candidates") or {}).items():
+                check_buckets(f"quality_over_candidates.{dim}", buckets, candidates)
+
+    if problems:
+        raise AssertionError("generated-doc statistics are inconsistent: "
+                             + "; ".join(problems))
+
+
 def render() -> str:
     s = jread(REPORTS / "dataset_stats.json", {}) or {}
     ce = jread(REPORTS / "counterexample_stats.json", {}) or {}
@@ -426,7 +498,10 @@ def render() -> str:
     from vlun_ml import DERIVED_V22, ML_JSONL, SPLITS_V22, load_findings, load_sources  # noqa: E402
     from vlun_v3 import V3_FAMILY_FILES  # noqa: E402  (v3 manifest-key -> task-file map)
     d22m = jread(DERIVED_V22 / "manifest.json", {}) or {}
-    fam_n = len(bench.get("tasks") or {})
+    # fam_n is computed from the family letters named across all three
+    # benchmark manifests once _fam_letter is defined below; counting the v1
+    # manifest's task keys here used to say "19 families" next to a list of
+    # 22 named families (Fa/Fb are sub-tasks of F, and R-V live elsewhere).
     ml_sources = ml_findings = 0
     if ML_JSONL.exists():
         ml_sources, ml_findings = len(load_sources()), len(load_findings())
@@ -503,7 +578,8 @@ def render() -> str:
     _vbdec = vbm.get("candidate_decisions", {}) or {}
     _vblvl = vbm.get("candidate_verification_levels", {}) or {}
     _vblang = vbm.get("admitted_by_language", {}) or {}
-    # wave1 layer: isolated METADATA_ONLY research tree. Same rule as above --
+    # wave1 layer: research tree (hydrated, not a METADATA_ONLY stub tree).
+    # Same rule as above --
     # every figure is read from the wave1 reports, never typed in. The older
     # freeze summary predates the ReEVMBench unblock (20 -> 55), so it is not
     # quoted here; the dedup gate is the authority for the admitted count.
@@ -583,6 +659,14 @@ def render() -> str:
         if base.startswith("vbeta_"):
             return base.split("_")[1]
         return base.split("_")[0]
+
+    # Count families by letter, not manifest task keys: Fa/Fb are sub-tasks of
+    # F, and R-T and U-V live in other manifests. The count must match the
+    # families the layout below actually names.
+    fam_n = len({_fam_letter(_f)[0] for _f in
+                 list(bench.get("tasks") or {})
+                 + list(v3bench.get("tasks") or {})
+                 + list(_vbm_tasks)})
 
     # The benchmark's family statuses come from the scorer's own report. The
     # old scheme (RETIRED / EXPLORATORY / SATURATED) was decided by a
@@ -773,7 +857,7 @@ permalink — and every claim carries its evidence type. Governing rule: truth o
 | V3.2 | fork executions of incident PoCs | {n(len((proof32.get('runs') or [])))} runs | **{(proof32.get('by_level') or {}).get('L5', 0)}** L5 reproduced violations (fund_theft), {(proof32.get('by_level') or {}).get('L3', 0)} not reproduced at L3 (blocked or test failure) |
 | Vbeta | {n(vbm.get('source_count', 0))} new sources (incl. Solodit mirror) | {n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates | L0/L1 only — nothing executed in this pass |
 | V4 | {n(v4m.get('source_candidates_staged', 0))} report candidates from Halborn/Oak/CoinFabrik archives | {n(v4_admitted)} admitted | all L0 — no PoC execution performed |
-| wave1 | isolated METADATA_ONLY research tree | {n(w1_admitted)} admitted | {n(w1_incidents)} incident harnesses + {n(w1_candidates)} prove candidates attempted; **{n(w1_l5_overlay)} L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds {n(w1_jrows)} rows |
+| wave1 | research tree | {n(w1_admitted)} admitted | {n(w1_incidents)} incident harnesses + {n(w1_candidates)} prove candidates attempted; **{n(w1_l5_overlay)} L5** (harness-overlay patch checks), **0 L6** commit-pinned patches, `J_verified_patch` holds {n(w1_jrows)} rows |
 
 Gates ({_crit_failures} critical failures): v2 {vrep.get('passed', 0)}/{vrep.get('checks', 0)} · v3.0 {v3gate.get('passed', 0)}/{v3gate.get('total', 0)} · v3.1 {v31gate.get('passed', 0)}/{v31gate.get('total', 0)} · Vbeta {_vbgpass}/{len(_vbgchecks)}. Cross-manifest and reproducibility gates recompute every count from canonical records — see `scripts/check_manifests.py`, `scripts/check_reproducibility.py` and [`reports/reproducibility_report.md`](reports/reproducibility_report.md) for the gate summary.
 
@@ -796,14 +880,14 @@ experiments_v3/   v3.2 fork-execution artefacts (command, stdout, stderr, harnes
 datasets/         high-confidence subsets, each with a published admission rule
 training/         task-oriented training files
 splits_v2/       post-quarantine v1/v2 splits (the pre-quarantine splits/ was retired; see scripts/vlun.py)
-benchmark/        {fam_n} families (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy) + U-V Vbeta ({n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
+benchmark/        {fam_n} families A-V (A-J v1, K-Q v2.2, R-S v3, T v3.1-taxonomy, U-V Vbeta; {n(sum(_vbm_tasks.values()) if isinstance(_vbm_tasks, dict) else 0)} tasks)
 benchmark/retired_families/  retired families ({_retired_letters}) — a location, not a verdict: frozen byte-identical with per-family retirement.json, still shipped, audited and scored, and their status is computed from the data like every other family's
 reports/          every generated report, including reports/v2_2/ and reports/v3/
 scripts/          the pipeline (standard-library only; see below)
 tests/            stdlib-only tests for terminology, counts, splits, gates (run: `python -m unittest discover -s tests`)
 Vbeta/            isolated new-language layer ({n(vbm.get('record_count', 0))} admitted / {n(vbm.get('candidate_count', 0))} candidates, {n(vbm.get('source_count', 0))} sources): own scripts, splits, benchmarks U-V, gates; never touches PRESENT
 V4/               isolated Halborn/Oak/CoinFabrik layer ({n(v4_admitted)} admitted, all L0): jsonl_v4/, derived_v4/, licensing.json; METADATA_ONLY
-wave1/            isolated METADATA_ONLY research tree ({n(w1_admitted)} admitted, {n(w1_registry)}-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
+wave1/            research tree ({n(w1_admitted)} admitted, {n(w1_registry)}-key dedup registry): adapters, benchmark_wave1/, gates; never touches PRESENT
 nextdata/ + .firecrawl/  local-only Solodit scrape artefacts ({n(_solodit_indexed)} issue URLs indexed, {n(vbharv.get('harvested', 0))} detail pages harvested): referenced by path, METADATA_ONLY
 work/             clones, retrieved source, execution logs — git-ignored
 ```
@@ -811,6 +895,33 @@ work/             clones, retrieved source, execution logs — git-ignored
 `jsonl/` is the contract: **original evidence**. Inferred analysis lives in `derived/`, machine
 executions in `work/` (summarised in `reports/`). A researcher can always separate what the audit
 said from what the builder derived from what was executed.
+
+## Where the trainable data lives vs. audit ledgers
+
+Every trainable dataset, derived task table, split and benchmark file has **zero
+`METADATA_ONLY_STUB` rows** (enforced by `scripts/verify_audit.py`, check `10b`). Stub rows survive
+only in explicit governance, quarantine and test-fixture ledgers, where they are kept for
+reproducibility, deduplication accounting and rights review — never as model input.
+
+**Primary trainable and benchmark layers (0 metadata stubs):**
+
+| Layer | Files | What each row carries |
+|---|---|---|
+| v1 | `derived/records.jsonl`, `datasets/verified_negatives.jsonl` | canonical derived security findings and judge-verified hard negatives with inline Solidity snippets, diffs, PoCs, AST facts and state transitions |
+| V4 | `distribution_v1/` (admitted records) | execution-verified and code-hydrated records |
+| wave1 | `wave1/03_candidates/`, `wave1/04_admitted/`, `wave1/benchmark_wave1/` | group-disjoint `A`–`K` tasks: C4 mitigations, ReEVMBench `L5` harnesses, Web3 OSV/GHSA patches, Certora/Recon CVL specs + target functions, Sherlock/C4 judge-reasoned hard negatives, two-revision advisories — 100% `FULLY_TRAINABLE` (gate `i`) |
+| evaluation | `benchmark/`, `Vbeta/benchmark_vbeta/` | evaluation tasks `A`–`V`, none metadata-only |
+| training | `training/`, `splits_v2/`, `splits_v2_2/` | group-disjoint model training splits |
+| v2.2 | `jsonl_ml/`, `derived_v2_2/` | multi-language Rust, Move, Cairo, Vyper findings |
+| V3 | `jsonl_v3/`, `derived_v3/` | hydrated audit findings and incident PoCs |
+
+**Governance, provenance and quarantine ledgers (not for model training):**
+
+`*quarantine*.jsonl`, `*candidate_ledger.jsonl`, `admitted_ledger.jsonl`, `rights.jsonl`,
+`sources.jsonl`, `source_registry.jsonl`, `receipts.jsonl`, `duplicates.jsonl`, `corroborations.jsonl`,
+`metadata.jsonl`, `errors.jsonl`, `protocol.jsonl` and `tests/fixtures/**` are audit-trail,
+deduplication and rights-accounting records. A stub in one of these files is a deliberate pointer
+to withheld or unresolvable content — it is not training data and must not be fed to a model.
 
 ## Evidence model
 
@@ -829,8 +940,18 @@ Every derived field carries `{{value, evidence_type, source_refs}}`. Closed voca
 PoC quality ladder: **L0** report prose · **L1** PoC quoted · **L2** PoC reconstructed ·
 **L3** compiles · **L4** executes · **L5** claimed violation reproduced ·
 **L6** reproduced on the vulnerable revision *and* blocked on the fixed one (same test).
-Above L2 requires a run artefact; L6 requires both legs. No PoC is marked reproduced unless
-forge reported `Success`, and no patch is called effective without the controlled comparison.
+Above L2 requires a run artefact; L6 requires both legs. A harness-source-blob overlay can
+reach **L5** but never **L6**: only a genuine upstream 40-hex fixed commit in repository
+history qualifies for the second leg. No PoC is marked reproduced unless forge reported
+`Success`, and no patch is called effective without the controlled comparison.
+
+Three vocabularies are kept strictly separate and must not be conflated:
+
+| Vocabulary | Field | Answers the question |
+|---|---|---|
+| `evidence_type` | per-field `{{value, evidence_type, source_refs}}` | *how* a value came to exist (observed, reported, derived, executed, attributed, unknown) |
+| `invariants.source_type` | per-invariant provenance | *where* the rule itself came from (code-derived, spec-authored, report-quoted) |
+| `assignment_status` | taxonomy assignments | *whether* a label is asserted, provisional or unlabelled — independent of evidence strength |
 
 ## What is verified (honest counts)
 
@@ -1173,7 +1294,7 @@ facts; full prose one hop away, never copied in). Admission is computed in code
 (`decide()`): IMPORT only on title + severity + link + status all observed. See
 [`Vbeta/README.md`](Vbeta/README.md) and the per-source ingestion reports.
 
-## wave1 layer (isolated, METADATA_ONLY research tree)
+## wave1 layer (research tree)
 
 `wave1/` is an additive research tree, not a merge into the published corpora: a
 {n(w1_registry)}-key dedup registry ([`wave1/01_dedup/registry.jsonl`](wave1/01_dedup/registry.jsonl))
@@ -1282,6 +1403,7 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
     want = render() + render_v4()
+    validate_generated_stats(want)
     notice = render_notice()
     if args.check:
         stale = []

@@ -1,0 +1,12 @@
+Error: Compiler run failed:
+Error (7576): Undeclared identifier.
+  --> test/vlun_poc/2024-01-renft__M-14.t.sol:11:27:
+   |
+11 |             vm.startPrank(alice.addr);
+   |                           ^^^^^
+
+Error (7920): Identifier not found or not unique.
+  --> test/vlun_poc/2024-01-renft__M-14.t.sol:12:13:
+   |
+12 |             BadWallet badWallet = new BadWallet();
+   |             ^^^^^^^^^

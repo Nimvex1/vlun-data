@@ -1,11 +1,11 @@
 {
   "note": "baseline: PRESENT must stay at this text (line-ending-independent hash); validate_vbeta.py warns on drift",
-  "resnapshot_reason": "README regenerated in final staleness fix",
+  "resnapshot_reason": "final regeneration after baseline and licensing fixes",
   "sentinel_sha256": {
-    "README.md": "74983570c763b0285647ad054f678cfd043f9d1f04b217fe33d319e955ccbd70",
-    "benchmark/manifest.json": "612c99859a5005d23ee42b7e02fafc5e1b572b89ace458ef09f0d651fef116ac",
-    "derived_v3/manifest.json": "0b543184b66f5586bb45f6e72a88c1714f101437c6f9043510746e55bcd3eefc",
-    "pyproject.toml": "27c097cd299d76f73ee6506ee26fe72d979604fac48b4c780923ff6ec2255920",
+    "README.md": "9512eee7bec0ee7d7d7c624b658bb155889c5b399846869da6191d78733ca476",
+    "benchmark/manifest.json": "52b4cb5c88abdaf943d80b1d0f75667bb20e45e0c04f8dd437ed568aae06ecba",
+    "derived_v3/manifest.json": "4c9f71fbcd93b2bb83c751325ff0fa1c25003e1536b1143a91f5561eac35e64b",
+    "pyproject.toml": "812eada72c99590e4d91672646121562556c4912246ec45ee8152e9846f22822",
     "scripts/vlun_v3.py": "b653b3c5b4fb9a70b767332ba67b5716711f0f643e9f50983eae856641bd2fb8"
   }
 }

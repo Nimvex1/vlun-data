@@ -1,0 +1,146 @@
+Error: Compiler run failed:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.20;"
+--> testFoundry/utils/mocks/EmergancyMock.sol
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> contracts/external/libraries/Silo/SolvencyV2.sol:61:65:
+   |
+61 |         returns (uint256 userLTV, uint256 LiquidationThreshold, bool isSolvent)
+   |                                                                 ^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> contracts/external/libraries/Silo/SolvencyV2.sol:47:5:
+   |
+47 |     function isSolvent(ISilo pool, address _user, uint256 liquidationThresholdMultilpier) public view returns (bool) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:13:13:
+   |
+13 |             _dealERC20(WETH, address(connector), _amount);
+   |             ^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:13:24:
+   |
+13 |             _dealERC20(WETH, address(connector), _amount);
+   |                        ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:13:38:
+   |
+13 |             _dealERC20(WETH, address(connector), _amount);
+   |                                      ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:14:13:
+   |
+14 |             _dealERC20(FRAX, address(connector), 10 * 1e18); // to repay the borrow fee
+   |             ^^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:14:24:
+   |
+14 |             _dealERC20(FRAX, address(connector), 10 * 1e18); // to repay the borrow fee
+   |                        ^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:14:38:
+   |
+14 |             _dealERC20(FRAX, address(connector), 10 * 1e18); // to repay the borrow fee
+   |                                      ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:16:35:
+   |
+16 |             vm.startPrank(address(owner));
+   |                                   ^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:18:13:
+   |
+18 |             connector.borrowAndSupply(IFraxPair(fraxPool), 0, _amount);
+   |             ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:18:39:
+   |
+18 |             connector.borrowAndSupply(IFraxPair(fraxPool), 0, _amount);
+   |                                       ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:18:49:
+   |
+18 |             connector.borrowAndSupply(IFraxPair(fraxPool), 0, _amount);
+   |                                                 ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:19:13:
+   |
+19 |             connector.borrowAndSupply(IFraxPair(fraxPool), 1e18, 0);
+   |             ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:19:39:
+   |
+19 |             connector.borrowAndSupply(IFraxPair(fraxPool), 1e18, 0);
+   |                                       ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:19:49:
+   |
+19 |             connector.borrowAndSupply(IFraxPair(fraxPool), 1e18, 0);
+   |                                                 ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:23:34:
+   |
+23 |             uint256 sharesOwed = IFraxPair(fraxPool).userBorrowShares(address(connector));
+   |                                  ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:23:44:
+   |
+23 |             uint256 sharesOwed = IFraxPair(fraxPool).userBorrowShares(address(connector));
+   |                                            ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:23:79:
+   |
+23 |             uint256 sharesOwed = IFraxPair(fraxPool).userBorrowShares(address(connector));
+   |                                                                               ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:26:13:
+   |
+26 |             connector.repay(IFraxPair(fraxPool), sharesOwed);
+   |             ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:26:29:
+   |
+26 |             connector.repay(IFraxPair(fraxPool), sharesOwed);
+   |                             ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:26:39:
+   |
+26 |             connector.repay(IFraxPair(fraxPool), sharesOwed);
+   |                                       ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:27:41:
+   |
+27 |             uint256 currentCollateral = IFraxPair(fraxPool).userCollateralBalance(address(connector));
+   |                                         ^^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:27:51:
+   |
+27 |             uint256 currentCollateral = IFraxPair(fraxPool).userCollateralBalance(address(connector));
+   |                                                   ^^^^^^^^
+
+Error (7576): Undeclared identifier.
+  --> testFoundry/vlun_poc/2024-04-noya__M-33.t.sol:27:91:
+   |
+27 |             uint256 currentCollateral = IFraxPair(fraxPool).userCollateralBalance(address(connector));
+   |                                                                                           ^^^^^^^^^

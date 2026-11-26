@@ -1,6 +1,6 @@
 {
-  "already_consistent": true,
-  "applied_utc": "2026-10-19T10:27:32Z",
+  "already_consistent": false,
+  "applied_utc": "2026-11-26T13:08:00Z",
   "fields_touched": [
     "data_handling_policy",
     "derivatives_allowed",
@@ -14,14 +14,15 @@
   "files": [
     {
       "by_source": {
-        "coinfabrik_audit_reports": 226,
-        "halborn_public_reports": 1785,
-        "oak_security_audit_reports": 3257
+        "coinfabrik_audit_reports": 62,
+        "halborn_public_reports": 249,
+        "oak_security_audit_reports": 2236
       },
       "current_bytes_match_output": true,
       "file": "jsonl_v4/findings.jsonl",
-      "rows": 5268,
-      "rows_changed": 5268
+      "rows": 2547,
+      "rows_already_reconciled": 0,
+      "rows_changed": 2547
     },
     {
       "by_source": {
@@ -32,40 +33,42 @@
       "current_bytes_match_output": true,
       "file": "jsonl_v4/sources.jsonl",
       "rows": 3,
+      "rows_already_reconciled": 0,
       "rows_changed": 3
     },
     {
       "by_source": {
-        "coinfabrik_audit_reports": 226,
-        "halborn_public_reports": 1785,
-        "oak_security_audit_reports": 3257
+        "coinfabrik_audit_reports": 62,
+        "halborn_public_reports": 249,
+        "oak_security_audit_reports": 2236
       },
       "current_bytes_match_output": true,
       "file": "derived_v4/admitted_ledger.jsonl",
-      "rows": 5268,
-      "rows_changed": 5268
+      "rows": 2547,
+      "rows_already_reconciled": 0,
+      "rows_changed": 2547
     },
     {
-      "by_source": {
-        "oak_security_audit_reports": 2
-      },
+      "by_source": {},
       "current_bytes_match_output": true,
       "file": "derived_v4/duplicate_ledger.jsonl",
-      "rows": 2,
-      "rows_changed": 2
+      "rows": 0,
+      "rows_already_reconciled": 0,
+      "rows_changed": 0
     },
     {
       "by_source": {},
       "current_bytes_match_output": true,
       "file": "derived_v4/quarantined_ledger.jsonl",
       "rows": 0,
+      "rows_already_reconciled": 0,
       "rows_changed": 0
     },
     {
       "current_bytes_match_output": true,
       "file": "V4/sources.json",
       "rows": 3,
-      "rows_changed": 3
+      "rows_changed": 0
     }
   ],
   "generated_by": "scripts/reconcile_v4_licensing.py",
@@ -73,5 +76,9 @@
   "migration_version": "v4-licensing-1.0",
   "registry": "V4/licensing.json",
   "registry_version": "v4-licensing-1.0",
-  "stale_files": []
+  "stale_files": [
+    "jsonl_v4/findings.jsonl",
+    "jsonl_v4/sources.jsonl",
+    "derived_v4/admitted_ledger.jsonl"
+  ]
 }

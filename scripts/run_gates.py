@@ -29,7 +29,7 @@ GATES = [
     ("manifests", [PY, "scripts/check_manifests.py", "--quiet"]),
     ("line-endings", [PY, "scripts/check_line_endings.py", "--quiet"]),
     ("reproducibility", [PY, "scripts/check_reproducibility.py", "--quiet"]),
-    ("unit-tests", [PY, "-m", "unittest", "discover", "-s", "tests"]),
+    ("unit-tests", [PY, "scripts/run_unit_tests.py"]),
     ("vbeta-tests", [PY, "Vbeta/tests/test_vbeta.py"]),
     # Wave-1 expansion layer: the frozen wave1 tree carries its own validator and
     # stdlib test suite. Both are invoked from the repo root; the validator exits 1

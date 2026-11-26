@@ -30,6 +30,50 @@ from pathlib import Path
 
 EXCLUDE_DIRS = ("work", ".git", "node_modules", ".venv", "__pycache__")
 
+# Table roles (Option A). Every .jsonl file is exactly one of these:
+#   trainable_or_benchmark      - a dataset, derived task table, split or benchmark task
+#   governance_or_quarantine_ledger - provenance/rights/quarantine/dedup/audit bookkeeping
+#   test_fixture                - files under tests/fixtures/** (deliberately synthetic)
+# Only the first role is subject to the hard zero-METADATA_ONLY_STUB assertion in
+# scripts/verify_audit.py. The role is recorded per file in the audit JSON so the
+# exclusion cannot drift silently when a new ledger or task table is added.
+TABLE_ROLES = ("trainable_or_benchmark", "governance_or_quarantine_ledger", "test_fixture")
+
+# Path fragments that identify governance/bookkeeping ledgers. These are exact
+# path segments or suffixes, never substring matches on bare words like "source"
+# (jsonl_ml/sources_*.jsonl are source declarations -- governance by design).
+GOVERNANCE_BASENAMES = frozenset({
+    "rights.jsonl", "source_registry.jsonl", "sources.jsonl", "receipts.jsonl",
+    "metadata.jsonl", "errors.jsonl", "protocol.jsonl", "duplicates.jsonl",
+    "corroborations.jsonl", "corroborations_v31.jsonl", "candidate_ledger.jsonl",
+    "admitted_ledger.jsonl", "duplicate_ledger.jsonl", "duplicated_ledger.jsonl",
+    "quarantine.jsonl", "registry.jsonl", "manifest.jsonl",
+    "rights_ledger.jsonl", "source_ledger.jsonl", "source_sha_index.jsonl",
+    "source_candidates.jsonl", "corroborations_v31.jsonl",
+})
+GOVERNANCE_PATH_FRAGMENTS = (
+    "quarantin", "/rights", "rights_", "/governance/", "/01_dedup/",
+    "candidate_ledger", "admitted_ledger", "duplicate_ledger", "corroborations",
+    "/receipts.", "/registry.", "rights_ledger", "withheld_pointers",
+    "rejection_corpus", "audit_ingestion_records", "audit_sources",
+    "normalization_fragments", "overlap_manifest", "reconstruction_log",
+    "poc_attempts", "root_cause_candidates", "hydration_quarantine",
+    "v1_hydration_quarantine", "negative_quarantine", "withheld_harness",
+    # Held-out answer keys are governance/evaluation ledgers: they must never
+    # be model input, so their metadata-only rows are legitimate bookkeeping.
+    "_keys.jsonl", "_exploratory_keys.jsonl",
+    # The frozen IAA annotation study sample is a research instrument (no gold
+    # answers); it is not model training data and its frozen bytes are pinned.
+    "annotation/iaa_v1/sample.jsonl",
+    # Raw harvest/staging layers: pointer records for reproducibility, never
+    # model input. The trainable projections are derived/records.jsonl etc.
+    "vbeta/jsonl_vbeta/findings.jsonl", "jsonl_v3/findings.jsonl",
+    "jsonl_v4/findings.jsonl",
+    # Rights-governed METADATA_ONLY distribution projections: withheld-content
+    # mirrors with pointers, governed by the rights ledger — never model input.
+    "distribution_v1/records_v1.jsonl", "distribution_v1/records_v4.jsonl",
+)
+
 CODE_MARKERS = (
     "pragma solidity",
     "contract ",
@@ -66,6 +110,14 @@ SPEC_DECL_RE = re.compile(
 )
 
 METADATA_TOKENS = ("metadata_only", "pointer_only")
+# Policy tags that replaced METADATA_ONLY on hydrated rows. They are NOT stub
+# markers: a hydrated row carrying one of these values is fully trainable.
+HYDRATED_HANDLING_VALUES = (
+    "FULL_INLINE_EXTRACTION",
+    "VERBATIM_HYDRATED",
+    "QUARANTINED_POINTER",
+    "INLINE_EVIDENCE_EXTRACTED",
+)
 FLAG_FIELD_NAMES = ("extraction_mode", "data_handling", "redistribution", "extraction_flag")
 
 KNOWN_CODE_LEAVES = {
@@ -161,6 +213,25 @@ def discover_jsonl(root: Path):
         excluded_count += _count_jsonl_below(base)
     found.sort(key=lambda p: p.relative_to(root).as_posix())
     return found, sorted(excluded), excluded_count
+
+
+def classify_table_role(rel: str) -> str:
+    """Return the one audit table role for a repo-relative POSIX path.
+
+    Pattern order matters: test fixtures and governance ledgers are classified
+    first; everything else is a trainable table, benchmark task, data split or
+    derived task table and is therefore subject to the zero-stub gate.
+    """
+    path = rel.replace("\\", "/")
+    low = path.lower()
+    if low.startswith("tests/fixtures/"):
+        return "test_fixture"
+    base = low.rsplit("/", 1)[-1]
+    if base in GOVERNANCE_BASENAMES:
+        return "governance_or_quarantine_ledger"
+    if any(fragment in low for fragment in GOVERNANCE_PATH_FRAGMENTS):
+        return "governance_or_quarantine_ledger"
+    return "trainable_or_benchmark"
 
 
 def assign_layer(rel: str) -> str:
@@ -761,6 +832,7 @@ def main() -> int:
         file_row = {
             "path": rel,
             "layer": layer,
+            "table_role": classify_table_role(rel),
             "total_rows": valid_rows,
             "invalid_lines": invalid,
             "buckets": buckets,
@@ -806,7 +878,7 @@ def main() -> int:
     json_data = {
         "schema_version": "1.0",
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "repo_root": str(root),
+        "repo_root": "<repo>",
         "scan": {
             "excluded_dirs": excluded,
             "excluded_jsonl_files": excluded_count,
@@ -843,7 +915,15 @@ def main() -> int:
                 "code_reference_only pointer objects have no snippet and are never counted as inline code.",
                 "invariants[].invariant natural-language text is only counted as a formal spec when CVL markers are present.",
                 "METADATA_ONLY/POINTER_ONLY must be an exact value (or in a known flag field); the words inside input_text are not flags.",
+                "Hydrated rows carry one of " + ", ".join(HYDRATED_HANDLING_VALUES)
+                + " instead of METADATA_ONLY; those values are never stub markers.",
             ],
+            "data_handling_values": list(HYDRATED_HANDLING_VALUES),
+            "table_roles": {
+                "trainable_or_benchmark": "Dataset, derived task table, split or benchmark task. Must have 0 METADATA_ONLY_STUB rows (enforced by verify_audit.py).",
+                "governance_or_quarantine_ledger": "Provenance, rights, quarantine, dedup, audit or normalization bookkeeping. Stub rows retained for audit trail and dedup accounting.",
+                "test_fixture": "Synthetic files under tests/fixtures/**, never training data.",
+            },
         },
         "summary": {
             "files": len(file_rows),
@@ -851,6 +931,15 @@ def main() -> int:
             "buckets": global_buckets,
             "hydration": global_hydration,
             "invalid_lines": total_invalid,
+            "table_roles": {
+                role: {
+                    "files": sum(1 for f in file_rows if f["table_role"] == role),
+                    "METADATA_ONLY_STUB": sum(
+                        f["buckets"]["METADATA_ONLY_STUB"] for f in file_rows
+                        if f["table_role"] == role),
+                }
+                for role in TABLE_ROLES
+            },
         },
         "by_layer": dict(sorted(by_layer.items())),
         "files": file_rows,

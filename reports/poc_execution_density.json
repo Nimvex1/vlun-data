@@ -29,34 +29,34 @@
     "2025-06-panoptic/H-01"
   ],
   "attempts": {
-    "attempts_where_forge_test_executed": 2,
-    "distinct_command_strings": 7,
-    "distinct_sandboxed_invocations": 45,
+    "attempts_where_forge_test_executed": 3,
+    "distinct_command_strings": 8,
+    "distinct_sandboxed_invocations": 69,
     "note": "These are two separate numbers on purpose: a record attempted twice is one record and two runs. Reruns are never counted as additional findings.",
-    "total_runs_recorded": 56,
+    "total_runs_recorded": 79,
     "unique_vulnerability_records_attempted": 27
   },
   "blocker_counts": {
-    "fixture_missing": 9,
-    "harness_reconstruction_required": 28,
-    "toolchain_missing": 18
+    "fixture_missing": 17,
+    "harness_reconstruction_required": 40,
+    "toolchain_missing": 20
   },
   "candidates_queued": {
-    "other_layer_rows": 857,
+    "other_layer_rows": 855,
     "v1_v2_1_attemptable": 23,
     "v1_v2_1_eligible": 5,
     "v1_v2_1_exploit_records": 154
   },
   "evidence_levels_supported": {
     "L3": 1,
-    "L5": 1
+    "L5": 2
   },
   "generated_by": "scripts/rerun_v1_pocs.py",
   "l6_awarded": 0,
   "outcomes": {
     "blocked": 13,
-    "claim_reproduced": 1,
-    "compile_failed": 41,
+    "claim_reproduced": 2,
+    "compile_failed": 63,
     "executed_without_impact": 0,
     "inconclusive": 1
   },
@@ -80,6 +80,19 @@
       "evidence_level_supported": "L5",
       "finding_id": "2024-01-renft/M-11",
       "outcome": "claim_reproduced"
+    },
+    {
+      "artefact_dir": "experiments_v1_reruns/2024-01-renft__M-11/attempt_3",
+      "assertion_tested": [
+        "assertNotEq(rentalOrderTypeHash, rentalOrderTypeHashCorrect)",
+        "assertNotEq(rentalOrderTypeHash, correctTypeHash)",
+        "assertEq(rentalOrderTypeHashCorrect, correctTypeHash)"
+      ],
+      "attempt_id": "2024-01-renft/M-11#attempt_3",
+      "caveat": "this campaign never executed a fixed revision, so no run here can be L6; an L5 claim also needs the assertion polarity reviewed by a human before it is promoted in the canonical layer",
+      "evidence_level_supported": "L5",
+      "finding_id": "2024-01-renft/M-11",
+      "outcome": "claim_reproduced"
     }
   ],
   "standard": {
@@ -95,9 +108,9 @@
     "rule": "L3 = a compiler run we performed succeeded; L4 = the test executed; L5 = the record's own assertion was identified and held. Compiler success is L3 and execution alone never establishes L5."
   },
   "stretch_campaign": {
-    "achieved_distinct_sandboxed_invocations": 45,
+    "achieved_distinct_sandboxed_invocations": 69,
     "honest_statement": "The 500+ stretch target was not met. The v1/v2.1 pool has 154 exploit records; only 23 of them expose a test function against a locally available pinned tree, so the campaign is bounded by the corpus, not by compute. Reruns were not counted as new work, and failures were kept as data instead of being relabelled.",
-    "shortfall": 455,
+    "shortfall": 431,
     "target_distinct_sandboxed_invocations": 500
   }
 }

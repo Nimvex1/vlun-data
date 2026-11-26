@@ -29,7 +29,6 @@ gate that cannot go red is not a gate.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import subprocess
@@ -99,6 +98,35 @@ DERIVED_FILES = [
 ]
 DERIVED_V22_CHAIN = [("scripts/build_derived_v22.py", [])]
 DERIVED_V22_FILES = ["derived_v2_2/records.jsonl", "derived_v2_2/manifest.json"]
+# Vbeta publishes in one stage: build_vbeta.py writes the base tables, then
+# re-hydrates and purges in place. The stage is replayed like-for-like (base
+# build + purge), with the hydration coming from work/hydration_cache when it
+# exists and from the committed hydrated rows when it does not. No `missing
+# inputs` skip: the cache-absent path is deterministic and offline, so the
+# gate must run on every fresh checkout.
+VBETA_CHAIN = [("Vbeta/scripts/build_vbeta.py", [])]
+# Every file the stage writes, including the purge-managed ones. The purge
+# rewrites records/ledger/splits/benchmarks and appends to the quarantine log;
+# a partial snapshot would restore some files but leave others drifted.
+VBETA_FILES = [
+    "Vbeta/jsonl_vbeta/sources.jsonl",
+    "Vbeta/jsonl_vbeta/findings.jsonl",
+    "Vbeta/derived_vbeta/candidate_ledger.jsonl",
+    "Vbeta/derived_vbeta/records.jsonl",
+    "Vbeta/derived_vbeta/negatives.jsonl",
+    "Vbeta/derived_vbeta/duplicates.jsonl",
+    "Vbeta/derived_vbeta/corroborations.jsonl",
+    "Vbeta/derived_vbeta/source_ledger.json",
+    "Vbeta/derived_vbeta/manifest.json",
+    "Vbeta/derived_vbeta/quarantine.jsonl",
+    "Vbeta/splits_vbeta/split.json",
+    "Vbeta/splits_vbeta/quarantine.jsonl",
+    "Vbeta/benchmark_vbeta/vbeta_U_language_routing.jsonl",
+    "Vbeta/benchmark_vbeta/vbeta_V_source_tier_routing.jsonl",
+    "Vbeta/benchmark_vbeta/vbeta_manifest.json",
+    "Vbeta/reports_vbeta/quality_report.md",
+    "Vbeta/present_snapshot.json",
+]
 # The citation inputs the replay needs. Absent on a fresh clone: the rebuild
 # would then emit mutable branch refs, not the committed immutable pins.
 DERIVED_CITATION_INPUTS = ("work/source_manifest.json", "work/repos")
@@ -566,8 +594,6 @@ def main() -> int:
                     f"(owners: {sorted(READ_ONLY_OWNERS.get(layer, [])) or 'none'})")
     vbeta_build = (ROOT / "Vbeta" / "scripts" / "build_vbeta.py").read_text(
         encoding="utf-8")
-    vbeta_build = (ROOT / "Vbeta" / "scripts" / "build_vbeta.py").read_text(
-        encoding="utf-8")
     if "assert_inside_vbeta" not in vbeta_build:
         offenders.append("Vbeta build lacks path assert")
     if offenders:
@@ -598,46 +624,23 @@ def main() -> int:
     else:
         G.ok("byte-stability of canonical dumps", "sort_keys-stable")
 
-    # 7b. Vbeta rebuild parity: build twice, outputs identical (validation
-    # report carries a timestamp and is excluded by semantic compare).
-    def snapshot():
-        snaps = {}
-        base = ROOT / "Vbeta"
-        for sub in ("jsonl_vbeta", "derived_vbeta", "splits_vbeta",
-                    "benchmark_vbeta"):
-            for p in sorted((base / sub).rglob("*")):
-                if p.is_file():
-                    h = hashlib.sha256(p.read_bytes()).hexdigest()
-                    snaps[str(p.relative_to(base))] = h
-        return snaps
-
-    # The full rebuild enters purge_vbeta(hydrate=True), which reads the
-    # git-ignored work/hydration_cache.  On a fresh checkout that cache is
-    # absent, so hydrated rows become untrainable and the rebuild OVERWRITES
-    # tracked Vbeta files (records.jsonl, candidate_ledger, split.json,
-    # benchmark files) - corrupting them for every later gate.  The
-    # rebuild-parity check is only meaningful where the cache exists; on a
-    # clean tree skip with an explicit reason (never a silent pass), as the
-    # V3.1/derived rebuild-parity checks above do.
-    if not (ROOT / "work" / "hydration_cache").exists():
-        G.skip("Vbeta rebuild parity",
-               "skipped_no_network: work/hydration_cache absent; a write-mode "
-               "Vbeta rebuild would purge hydrated rows and mutate tracked "
-               "files on a fresh checkout")
-    else:
-        before = snapshot()
-        r1 = subprocess.run([sys.executable, "Vbeta/scripts/build_vbeta.py"],
-                            cwd=str(ROOT), capture_output=True, text=True)
-        after = snapshot()
-        if r1.returncode != 0:
-            G.fail("Vbeta rebuild parity", f"rebuild rc={r1.returncode}")
-        elif before != after:
-            diff = [k for k in set(before) | set(after)
-                    if before.get(k) != after.get(k)]
-            G.fail("Vbeta rebuild parity", f"outputs differ: {diff[:5]}")
-        else:
-            G.ok("Vbeta rebuild parity",
-                 f"{len(after)} artefacts byte-identical across rebuilds")
+    # 7b. Vbeta rebuild parity.
+    #
+    # This used to be an inline "build twice, hash everything" check that
+    # SKIPPED whenever work/hydration_cache was absent. That skip hid the
+    # worst failure mode: on a fresh checkout the purge saw no hydration,
+    # dropped every row and overwrote nine tracked files.
+    #
+    # build_vbeta.py now treats the committed hydrated rows as the
+    # authoritative hydration source whenever the cache is absent, so the
+    # same single-stage replay is deterministic and offline in both modes.
+    # Reuse the shared rebuild_parity() helper: it snapshots every written
+    # file, runs the chain, compares bytes, names the residual difference on
+    # drift, and restores the committed bytes in a `finally` — the gate
+    # observes, it never leaves the working tree changed. No missing-input
+    # skip: this gate runs on every CI checkout.
+    parity = []
+    parity.append(rebuild_parity(G, "Vbeta/", VBETA_CHAIN, VBETA_FILES, []))
 
     # 7c. V3.1 byte-identity: committed normalization outputs must already
     # be in canonical form (per-row sort_keys JSONL, sort_keys JSON). A
@@ -713,7 +716,6 @@ def main() -> int:
     _derived_missing = [p for p in DERIVED_CITATION_INPUTS
                         if not (ROOT / p).exists()]
 
-    parity = []
     parity.append(rebuild_parity(G, "derived/", DERIVED_CHAIN, DERIVED_FILES,
                                  _derived_missing))
     parity.append(rebuild_parity(G, "derived_v2_2/", DERIVED_V22_CHAIN,

@@ -645,6 +645,35 @@ def main() -> int:
             return GI.SKIP_RC
 
     rows, stats = build(args.rpc)
+    # Option A: hydrate stub queue rows from their verbatim parent finding;
+    # quarantine the genuinely dead pointers. Keep the published stats in
+    # step with the rows that survive.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from trainable_purge_lib import (parent_index, hydrate_from_parent,
+                                     quarantine_payload, append_quarantine, is_stub)
+    _parents = parent_index()
+    _kept_rows = []
+    _purged = []
+    for _row in rows:
+        if is_stub(_row):
+            hydrate_from_parent(_row, _parents)
+        if is_stub(_row):
+            _purged.append(quarantine_payload(
+                _row, "derived_poc_queue/triage_queue.jsonl",
+                str(_row.get("candidate_id") or _row.get("finding_id") or id(_row))))
+        else:
+            _kept_rows.append(_row)
+    if _purged:
+        append_quarantine(ROOT / "derived_poc_queue" / "quarantine.jsonl", _purged)
+    rows = _kept_rows
+    if LAYER_V3 in stats.get("layers", {}):
+        stats["layers"][LAYER_V3]["queued"] = sum(
+            1 for r in rows if r.get("candidate_layer") == LAYER_V3)
+        stats["layers"][LAYER_V3]["poc_bearing_candidates"] = sum(
+            1 for r in rows if r.get("candidate_layer") == LAYER_V3)
+        stats["layers"][LAYER_V3]["eligible"] = sum(
+            1 for r in rows if r.get("candidate_layer") == LAYER_V3
+            and r.get("eligibility") == "eligible")
     errs = validate_queue_rows(rows, expected_v1=len(read_jsonl(JSONL / "exploits.jsonl")))
     if errs:
         for e in errs[:20]:

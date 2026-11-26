@@ -169,11 +169,14 @@ def git_head(dest: Path) -> str:
             ["git", "-C", str(dest), "rev-parse", "HEAD"],
             capture_output=True, text=True, timeout=30,
         )
+        if proc.returncode != 0:
+            print(f"[reevmbench] git rev-parse failed for {dest}: rc={proc.returncode}")
+            return ""
         sha = (proc.stdout or "").strip().lower()
         if re.fullmatch(r"[0-9a-f]{40}", sha):
             return sha
-    except Exception:  # pragma: no cover - git absent / timeout
-        pass
+    except (OSError, subprocess.TimeoutExpired) as exc:  # git absent / timeout
+        print(f"[reevmbench] git HEAD unavailable for {dest}: {exc}")
     return ""
 
 
@@ -185,7 +188,7 @@ def ensure_clone(notes: list[str]) -> tuple[Path | None, bool]:
     clone_failed = False
     try:
         dest = git_clone(CLONE_URL, CLONE_NAME)
-    except Exception as exc:  # pragma: no cover - defensive
+    except OSError as exc:  # pragma: no cover - scratch guard / filesystem
         notes.append(f"clone exception: {str(exc)[:200]}")
         dest = None
 
@@ -207,19 +210,28 @@ def ensure_clone(notes: list[str]) -> tuple[Path | None, bool]:
 
     if clone_failed:
         try:
-            subprocess.run(["git", "-C", str(dest), "config", "core.longpaths", "true"],
-                           capture_output=True, text=True, timeout=30)
+            conf = subprocess.run(
+                ["git", "-C", str(dest), "config", "core.longpaths", "true"],
+                capture_output=True, text=True, timeout=30,
+            )
+            if conf.returncode != 0:
+                notes.append(f"core.longpaths config failed: rc={conf.returncode}")
             res = subprocess.run(
                 ["git", "-C", str(dest), "restore", "--source=HEAD", ":/"],
                 capture_output=True, text=True, timeout=300,
             )
-            if res.returncode != 0:
-                subprocess.run(
+            recovered = res.returncode == 0
+            if not recovered:
+                chk = subprocess.run(
                     ["git", "-C", str(dest), "checkout", "--", "."],
                     capture_output=True, text=True, timeout=300,
                 )
-            notes.append("completed checkout with core.longpaths=true after initial clone")
-        except Exception as exc:  # pragma: no cover - defensive
+                recovered = chk.returncode == 0
+                if not recovered:
+                    notes.append(f"git checkout fallback failed: rc={chk.returncode}")
+            if recovered:
+                notes.append("completed checkout with core.longpaths=true after initial clone")
+        except (OSError, subprocess.TimeoutExpired) as exc:  # git absent / timeout
             notes.append(f"long-path checkout recovery failed: {str(exc)[:200]}")
     return dest, True
 
@@ -508,8 +520,8 @@ def existing_manifest_keys() -> set[tuple[Any, ...]]:
         try:
             for row in read_jsonl(OVERLAP):
                 seen.add((row.get("source"), row.get("candidate_id"), row.get("key")))
-        except Exception:  # pragma: no cover - defensive
-            pass
+        except (OSError, ValueError) as exc:  # pragma: no cover - defensive
+            print(f"[reevmbench] overlap manifest read failed; treating as empty: {exc}")
     return seen
 
 
@@ -620,7 +632,10 @@ def main() -> None:
     for hdir in hdirs:
         try:
             cand = parse_harness(dest, hdir, id_map, head, counter)
-        except Exception as exc:  # pragma: no cover - defensive per harness
+        except Exception as exc:  # pragma: no cover - best-effort adapter
+            # Deliberately broad: one malformed harness must not abort the whole
+            # harvest. Logged with the harness name so the skip is auditable;
+            # no candidate is fabricated in its place.
             notes.append(f"parse failed for {hdir.name}: {str(exc)[:160]}")
             continue
         candidates.append(cand)

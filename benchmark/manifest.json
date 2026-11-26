@@ -116,12 +116,12 @@
     },
     "E_exploit_verification": {
       "answer_key_evidence_levels": {
-        "not_recorded": 720
+        "not_recorded": 342
       },
       "by_split": {
-        "test": 147,
-        "train": 344,
-        "validation": 229
+        "test": 342,
+        "train": 0,
+        "validation": 0
       },
       "duplicate_rows_dropped": 193,
       "file": "benchmark/retired_families/E_exploit_verification.jsonl",
@@ -129,9 +129,9 @@
       "partial": 0,
       "scorable": 7,
       "status": "retired",
-      "tasks": 720,
-      "unlabeled": 713,
-      "unscorable": 713
+      "tasks": 342,
+      "unlabeled": 335,
+      "unscorable": 335
     },
     "F_false_positive_rejection": {
       "answer_key_evidence_levels": {
@@ -175,24 +175,24 @@
     },
     "Fb_duplicate_radar_pair": {
       "answer_key_evidence_levels": {
-        "derived_fact": 101,
+        "derived_fact": 39,
         "externally_attributed": 179,
-        "unknown": 371
+        "unknown": 414
       },
       "by_split": {
         "test": 56,
-        "train": 320,
-        "validation": 275
+        "train": 309,
+        "validation": 267
       },
       "duplicate_rows_dropped": 0,
       "file": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "labeled": 651,
+      "labeled": 632,
       "partial": 0,
-      "scorable": 651,
+      "scorable": 632,
       "scoring_note": "F-A scores a six-axis evidence vector with per-axis assessability; a row is scorable only when the packet carries the evidence for every axis. F-B scores same/distinct/ambiguous for a candidate-comparison pair with the triage outcome withheld from both sides; the ambiguous class is scorable because the insufficiency is itself established by the recorded evidence (no pointer, or a shared code target and nothing more), and such pairs are never counted as confirmed negatives.",
       "scoring_status": "scorable",
       "status": "headline",
-      "tasks": 651,
+      "tasks": 632,
       "unlabeled": 0,
       "unscorable": 0
     },

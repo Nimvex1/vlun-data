@@ -491,6 +491,135 @@ def check_hydration_source(res: Results, audit: dict) -> None:
 # ---------------------------------------------------------------------------
 
 
+def check_zero_trainable_stubs(res: Results, audit: dict, files: list[dict]) -> None:
+    """HARD GATE (Option A): no trainable/benchmark file may contain a stub.
+
+    Governance/quarantine ledgers and test fixtures may keep stub rows for
+    audit trail, dedup accounting and deliberately broken negative tests --
+    the classification lives in the audit's per-file ``table_role`` field.
+    """
+    declared_roles = (audit.get("definitions") or {}).get("table_roles")
+    if not isinstance(declared_roles, dict):
+        res.failed("10. table_roles declaration", "definitions.table_roles missing")
+        return
+    for role in ("trainable_or_benchmark", "governance_or_quarantine_ledger", "test_fixture"):
+        if role not in declared_roles:
+            res.failed("10. table_roles declaration", f"missing role: {role}")
+    if res.failed_count:
+        return
+    res.passed("10. table_roles declaration", "all 3 roles declared")
+
+    trainable = [entry for entry in files
+                 if entry.get("table_role") == "trainable_or_benchmark"]
+    unclassified = [entry for entry in files if "table_role" not in entry]
+    if unclassified:
+        res.failed("10a. table_role coverage",
+                   f"{len(unclassified)} file(s) missing table_role: "
+                   + ", ".join(str(e.get("path")) for e in unclassified[:10]))
+    else:
+        res.passed("10a. table_role coverage",
+                   f"all {len(files)} file(s) classified; "
+                   f"trainable_or_benchmark={len(trainable)}")
+
+    offenders = []
+    total = 0
+    for entry in trainable:
+        buckets = entry.get("buckets") or {}
+        count = buckets.get("METADATA_ONLY_STUB", 0)
+        if is_number(count) and int(count) > 0:
+            total += int(count)
+            offenders.append((norm_path(entry.get("path", "")), int(count)))
+    if offenders:
+        offenders.sort(key=lambda item: -item[1])
+        res.failed("10b. zero stubs in trainable_or_benchmark files",
+                   f"{total} METADATA_ONLY_STUB row(s) in {len(offenders)} file(s): "
+                   + ", ".join(f"{path}={n}" for path, n in offenders[:20]))
+    else:
+        res.passed(
+            "10b. zero stubs in trainable_or_benchmark files",
+            f"0 METADATA_ONLY_STUB rows across {len(trainable)} "
+            f"trainable/benchmark/split/task files",
+        )
+
+    role_summary = (audit.get("summary") or {}).get("table_roles")
+    if not isinstance(role_summary, dict):
+        res.failed("10c. role summary consistency", "summary.table_roles missing")
+        return
+    declared = role_summary.get("trainable_or_benchmark", {})
+    actual_files = len(trainable)
+    actual_stubs = sum(int(e.get("buckets", {}).get("METADATA_ONLY_STUB", 0) or 0)
+                       for e in trainable)
+    if (declared.get("files"), declared.get("METADATA_ONLY_STUB")) == (
+            actual_files, actual_stubs):
+        res.passed("10c. role summary consistency",
+                   f"trainable files={actual_files}, stubs={actual_stubs}")
+    else:
+        res.failed("10c. role summary consistency",
+                   f"declared={declared} but actual files={actual_files}, "
+                   f"stubs={actual_stubs}")
+
+
+# A data-handling / extraction policy tag is only stale on a hydrated row when
+# it still carries the old METADATA_ONLY sentinel. The replacement values
+# (FULL_INLINE_EXTRACTION, VERBATIM_HYDRATED, QUARANTINED_POINTER,
+# INLINE_EVIDENCE_EXTRACTED) are deliberate and must never be flagged here.
+POLICY_TAG_FIELDS = frozenset({
+    "data_handling_policy", "data_handling", "redistribution",
+    "extraction_mode", "extraction_flag",
+})
+METADATA_BOILERPLATE = (
+    "this dataset keeps metadata only",
+    "full wording lives at the source; this dataset keeps metadata only",
+)
+
+
+def check_no_metadata_only_in_trainable(res: Results, files: list[dict]) -> None:
+    """HARD GATE: no trainable/benchmark row carries a stale METADATA_ONLY tag.
+
+    This re-derives the fact from the source JSONL rows (not from the audit's
+    bucket counts), so a row that was hydrated but left with its old policy
+    tag is caught even when the classifier still bins it as fully trainable.
+    Governance/quarantine ledgers and test fixtures are excluded by the audit's
+    ``table_role``: their pointer-only rows may legitimately keep the token.
+    """
+    offenders: list[tuple[str, int, str]] = []
+    rows_checked = 0
+    for entry in files:
+        if entry.get("table_role") != "trainable_or_benchmark":
+            continue
+        rel = norm_path(entry.get("path", ""))
+        path = REPO_ROOT / rel
+        if not path.is_file():
+            continue
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            for lineno, line in enumerate(handle, 1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except (ValueError, TypeError):
+                    continue
+                if not isinstance(row, dict):
+                    continue
+                rows_checked += 1
+                for key, value in row.items():
+                    if (key in POLICY_TAG_FIELDS and isinstance(value, str)
+                            and value.strip().lower() == "metadata_only"):
+                        offenders.append((rel, lineno, "tag:" + key))
+                lowered = line.lower()
+                if any(fragment in lowered for fragment in METADATA_BOILERPLATE):
+                    offenders.append((rel, lineno, "boilerplate"))
+
+    check = "11. zero METADATA_ONLY tags/boilerplate in trainable_or_benchmark files"
+    if offenders:
+        res.failed(check, f"{len(offenders)} row(s): " + ", ".join(
+            f"{rel}:{lineno}({why})" for rel, lineno, why in offenders[:20]))
+    else:
+        res.passed(check,
+                   f"0 offenders across {rows_checked} row(s) re-derived from source")
+
+
 def check_summary(res: Results, audit: dict, files: list[dict]) -> None:
     summary = audit.get("summary")
     if not isinstance(summary, dict):
@@ -932,6 +1061,8 @@ def main() -> int:
         check_percentages(res, audit)
         check_hydration_source(res, audit)
         check_summary(res, audit, files)
+        check_zero_trainable_stubs(res, audit, files)
+        check_no_metadata_only_in_trainable(res, files)
         stub_files = check_layers_and_stubs(res, audit, files)
         plan_text = check_hydration_plan(res, stub_files)
         check_spot_checks(res, plan_text, stub_files, files)

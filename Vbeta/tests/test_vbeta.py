@@ -89,7 +89,7 @@ class TestArtefacts(unittest.TestCase):
             self.assertEqual(sum(self.manifest[key].values()), 80, key)
         self.assertEqual(
             sum(self.manifest["candidate_verification_levels"].values()), 80)
-        self.assertEqual(self.manifest["quarantine_rows"], 26960)
+        self.assertEqual(self.manifest["quarantine_rows"], 31996)  # 26960 -> 31996: Option A purge of jsonl_vbeta/findings.jsonl stub rows
 
     def test_trainable_languages_present(self):
         langs = {r["language"] for r in self.ledger}

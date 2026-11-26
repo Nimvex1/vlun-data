@@ -114,6 +114,7 @@ def _process_one(args):
     file_row = {
         "path": rel_path,
         "layer": layer,
+        "table_role": audit.classify_table_role(rel_path),
         "total_rows": valid_rows,
         "invalid_lines": invalid,
         "buckets": buckets,
@@ -261,6 +262,11 @@ def main() -> int:
                 "invariants[].invariant natural-language text is only counted as a formal spec when CVL markers are present.",
                 "METADATA_ONLY/POINTER_ONLY must be an exact value (or in a known flag field); the words inside input_text are not flags.",
             ],
+            "table_roles": {
+                "trainable_or_benchmark": "Dataset, derived task table, split or benchmark task. Must have 0 METADATA_ONLY_STUB rows (enforced by verify_audit.py).",
+                "governance_or_quarantine_ledger": "Provenance, rights, quarantine, dedup, audit or normalization bookkeeping. Stub rows retained for audit trail and dedup accounting.",
+                "test_fixture": "Synthetic files under tests/fixtures/**, never training data.",
+            },
         },
         "summary": {
             "files": len(file_rows),
@@ -268,6 +274,15 @@ def main() -> int:
             "buckets": global_buckets,
             "hydration": global_hydration,
             "invalid_lines": total_invalid,
+            "table_roles": {
+                role: {
+                    "files": sum(1 for f in file_rows if f.get("table_role") == role),
+                    "METADATA_ONLY_STUB": sum(
+                        f["buckets"]["METADATA_ONLY_STUB"] for f in file_rows
+                        if f.get("table_role") == role),
+                }
+                for role in audit.TABLE_ROLES
+            },
         },
         "by_layer": dict(sorted(by_layer.items())),
         "files": file_rows,

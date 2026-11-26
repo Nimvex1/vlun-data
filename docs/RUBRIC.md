@@ -58,7 +58,7 @@ what a held-out claim is measured against.
 
 For continuity with prior releases, every baseline report also carries
 `micro_all_families` — the same micro-average over **all** families ever
-shipped (7,018 tasks: primary + exploratory + invalid + retired; read from
+shipped (7,016 tasks: primary + exploratory + invalid + retired; read from
 `micro_all_families.scorable` in `reports/baselines/baseline_majority.json`).
 Quote the primary metric; compare across releases with the continuity twin.
 
@@ -166,12 +166,12 @@ primary set):
 
 | Baseline | Headline (primary set) | Continuity (all families) | Coverage |
 |---|---|---|---|
-| majority | 0.7897 | 0.7303 | 1,051/1,051 |
-| random-seed7 | 0.3987 | 0.4169 | 1,051/1,051 |
-| frequency-seed7 | 0.6403 | 0.6684 | 1,051/1,051 |
+| majority | 0.7897 | 0.7305 | 1,051/1,051 |
+| random-seed7 | 0.3987 | 0.4172 | 1,051/1,051 |
+| frequency-seed7 | 0.6403 | 0.6686 | 1,051/1,051 |
 | first-published (L only, retired) | n/a @ 0/1,051 | 1.000 (71 tasks) | 0/1,051 |
 | majority-published (L only, retired) | n/a @ 0/1,051 | 1.000 (71 tasks) | 0/1,051 |
-| retrieval (TF-IDF NN) | 0.6746 | 0.7927 | 1,051/1,051 |
+| retrieval (TF-IDF NN) | 0.6746 | 0.7991 | 1,051/1,051 |
 
 The headline column is the baseline's accuracy over the primary set's
 scorable rows (train, validation and test together). The number a model

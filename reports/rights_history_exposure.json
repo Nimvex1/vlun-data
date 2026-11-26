@@ -1,5 +1,5 @@
 {
-  "commits_scanned": 118,
+  "commits_scanned": 121,
   "current_exposure_items_in_history_scan": [
     {
       "added_in_commit": "c88f3026c5cb212782ae33c46b07a4549c44b8f9",
@@ -1035,9 +1035,9 @@
       "patch_diffs_removed": 76,
       "records_written": 1898,
       "records_written_breakdown": {
-        "jsonl_source_rows": 953,
-        "note": "the original v1 publication count: every jsonl/ row plus every splits_v2/ pointer row (945, including the 2 quarantined cross-split duplicates). It counts pointers, not distinct records: a finding and its exploit/patch rows share an id, and each split row points back at a jsonl row. Distinct canonical ids are 722 findings+negatives; jsonl/ holds 953 rows; derived/ holds 722 derived records. This key is kept as the historical publish figure because audit_pre_upgrade.py pins it (v1_manifest_records_written).",
-        "splits_v2_rows": 945
+        "jsonl_source_rows": 914,
+        "note": "LIVE recomputation (2026-11-22): 914 jsonl/ rows + 910 splits_v2/ pointer rows = 1,824 (down from the original 953 + 945 after the hydration/purge removed 39 jsonl rows -- including one final orphan patch row, 38 -> 37 -- and 35 split rows; the earlier 915 + 910 = 1,825 figure was superseded by that last purge). The 'records_written' key above is deliberately NOT this sum: 1898 is the frozen v1 historical publish figure pinned as v1_manifest_records_written by scripts/audit_pre_upgrade.py and copied into reports/pre_upgrade_audit.json, reports/rights_history_exposure.json and reports/rights_inventory.json. It counts pointers, not distinct records: a finding and its exploit/patch rows share an id, and each split row points back at a jsonl row. The two numbers are kept separate so the historical pin cannot drift while the breakdown stays live.",
+        "splits_v2_rows": 910
       },
       "records_written_is_not_a_record_count": true,
       "release_manifest": "RELEASE_MANIFEST.json",

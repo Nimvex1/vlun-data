@@ -460,11 +460,25 @@ def purge_v3(report: dict) -> None:
         if not rows:
             continue
         n0 = len(rows)
+        # Option A: hydrate stub tasks from their verbatim parent finding
+        # before deciding to purge. The parent is records.jsonl / the V3
+        # candidate ledger, so the inline snippet+prose is real, not invented.
+        import importlib.util as _ilu
+        _spec = _ilu.spec_from_file_location(
+            "_tpurge", Path(__file__).resolve().parent / "trainable_purge_lib.py")
+        _tpurge = _ilu.module_from_spec(_spec)
+        _spec.loader.exec_module(_tpurge)
+        _is_stub, _hydrate = _tpurge.is_stub, _tpurge.hydrate_from_parent
+        rec_by_id = {r["finding_id"]: r for r in records}
         nk = []
         for r in rows:
             fid = (r.get("input") or {}).get("finding_id") if isinstance(r.get("input"), dict) else None
             fid = fid or r.get("finding_id") or r.get("task_id")
-            if fid in hydrate_ids or (isinstance(fid, str) and fid.split("::")[-1] in hydrate_ids):
+            if isinstance(fid, str):
+                fid = fid.split("::")[-1]
+            if fid in hydrate_ids or fid in rec_by_id:
+                if _is_stub(r) and fid in rec_by_id:
+                    _hydrate(r, {fid: rec_by_id[fid]})
                 nk.append(r)
         _write_jsonl(p, nk)
         report[rel] = {"before": n0, "after": len(nk)}

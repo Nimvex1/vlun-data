@@ -34,7 +34,7 @@
           "v3_S_contest_outcome.jsonl",
           "vbeta_U_language_routing.jsonl"
         ],
-        "scorable": 5594
+        "scorable": 5592
       },
       "NOT_SCORABLE": {
         "families": [],
@@ -62,8 +62,8 @@
         "tasks": 444
       },
       "Fb_duplicate_radar_pair.jsonl": {
-        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
-        "tasks": 651
+        "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+        "tasks": 632
       },
       "H_verified_exploit.jsonl": {
         "reason": "descriptive reference answers, no scalar label",
@@ -74,15 +74,15 @@
         "tasks": 61
       }
     },
-    "manifest_scorable_total": 7935,
-    "scored_rows_all_families": 7018,
+    "manifest_scorable_total": 7914,
+    "scored_rows_all_families": 7016,
     "scorer_covered": 1051,
     "scorer_covered_primary": 1051
   },
   "excluded_families": {
     "D_exploit_construction.jsonl": "generative task, needs a judge rather than string match",
     "Fa_rejection_evidence_axis_vector.jsonl": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it",
-    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+    "Fb_duplicate_radar_pair.jsonl": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
     "H_verified_exploit.jsonl": "descriptive reference answers, no scalar label",
     "Q_evidence_type_and_quality_rubric.jsonl": "judge-graded rubric dict"
   },
@@ -558,10 +558,10 @@
   },
   "families_invalid": {
     "v3_R_source_tier_routing.jsonl": {
-      "accuracy": 0.690893359290504,
+      "accuracy": 0.6911923826011686,
       "accuracy_reason": null,
       "accuracy_scope": "all_scorable_rows",
-      "accuracy_scorable": 0.690893359290504,
+      "accuracy_scorable": 0.6911923826011686,
       "baseline": {
         "fitted_label_space": [
           "1",
@@ -569,13 +569,13 @@
         ],
         "fitted_on": "train",
         "heldout_test": {
-          "accuracy": 0.006674082313681869,
+          "accuracy": 0.006688963210702341,
           "accuracy_reason": null,
           "correct": 6,
           "coverage": 1.0,
           "macro_f1": 0.030534351145038167,
-          "predicted": 899,
-          "rows": 899
+          "predicted": 897,
+          "rows": 897
         },
         "heldout_validation": {
           "accuracy": null,
@@ -594,17 +594,17 @@
       },
       "correct": 3194,
       "evaluable": true,
-      "macro_f1": 0.2984769656547651,
+      "macro_f1": 0.2985484910428501,
       "per_class": {
         "0": {
           "f1": 0.0,
           "precision": 0.0,
           "recall": 0.0,
-          "support": 854
+          "support": 852
         },
         "1": {
-          "f1": 0.8245089111486925,
-          "precision": 0.745822546481525,
+          "f1": 0.8247234873129474,
+          "precision": 0.7461737697198022,
           "recall": 0.9217568353694008,
           "support": 3438
         },
@@ -617,13 +617,13 @@
       },
       "per_split": {
         "test": {
-          "accuracy": 0.006674082313681869,
+          "accuracy": 0.006688963210702341,
           "accuracy_reason": null,
-          "accuracy_scorable": 0.006674082313681869,
+          "accuracy_scorable": 0.006688963210702341,
           "correct": 6,
           "macro_f1": 0.030534351145038167,
-          "predicted": 899,
-          "scorable": 899
+          "predicted": 897,
+          "scorable": 897
         },
         "train": {
           "accuracy": 0.8560687432867884,
@@ -635,8 +635,8 @@
           "scorable": 3724
         }
       },
-      "predicted": 4623,
-      "scorable": 4623,
+      "predicted": 4621,
+      "scorable": 4621,
       "status": "INVALID"
     },
     "vbeta_U_language_routing.jsonl": {
@@ -1783,7 +1783,7 @@
       ],
       "retired": true,
       "rows_scorable": 7,
-      "rows_total": 720,
+      "rows_total": 342,
       "shortcut_floor": {
         "available": true,
         "best_train_only_accuracy": 1.0,
@@ -1871,20 +1871,20 @@
     "Fb_duplicate_radar_pair.jsonl": {
       "audit_usable_as_evidence": null,
       "evaluable": false,
-      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "evaluable_reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "family": "Fb_duplicate_radar_pair.jsonl",
       "label_distribution": {},
       "majority_fraction": null,
       "majority_label": null,
       "n_labels": 0,
       "path": "benchmark/Fb_duplicate_radar_pair.jsonl",
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires",
       "reasons": [
-        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+        "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
       ],
       "retired": false,
       "rows_scorable": 0,
-      "rows_total": 651,
+      "rows_total": 632,
       "shortcut_floor": {
         "available": false
       },
@@ -2361,39 +2361,39 @@
       "evaluable_reason": null,
       "family": "v3_R_source_tier_routing.jsonl",
       "label_distribution": {
-        "0": 854,
+        "0": 852,
         "1": 3438,
         "2": 331
       },
-      "majority_fraction": 0.7437,
+      "majority_fraction": 0.744,
       "majority_label": "1",
       "n_labels": 3,
       "path": "benchmark/v3_R_source_tier_routing.jsonl",
-      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)",
+      "reason": "invalid as evaluation evidence: held_out_labels_unseen_in_train: ['0']; split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40)",
       "reasons": [
         "held_out_labels_unseen_in_train: ['0']",
-        "split_composition_drift: train/test label mix L1 distance 1.8999 (>= 0.40)"
+        "split_composition_drift: train/test label mix L1 distance 1.8997 (>= 0.40)"
       ],
       "retired": false,
-      "rows_scorable": 4623,
-      "rows_total": 4623,
+      "rows_scorable": 4621,
+      "rows_total": 4621,
       "shortcut_floor": {
         "available": true,
-        "best_train_only_accuracy": 0.0501,
+        "best_train_only_accuracy": 0.0502,
         "best_train_only_baseline": "input_retrieval",
         "fitted_on": "train",
-        "heldout_rows": 899,
+        "heldout_rows": 897,
         "train_only_baselines": {
-          "frequency_from_train": 0.0033,
-          "input_retrieval": 0.0501,
+          "frequency_from_train": 0.0045,
+          "input_retrieval": 0.0502,
           "majority_from_train": 0.0,
-          "random_from_train_space": 0.0189,
+          "random_from_train_space": 0.019,
           "source_only_lookup": 0.0,
           "title_retrieval": 0.0067
         }
       },
       "split_rows": {
-        "test": 899,
+        "test": 897,
         "train": 3724
       },
       "status": "INVALID",
@@ -2630,11 +2630,11 @@
     "scorable": 1051
   },
   "micro_all_families": {
-    "accuracy": 0.6683627656390302,
-    "accuracy_denominator": 6682,
+    "accuracy": 0.668562874251497,
+    "accuracy_denominator": 6680,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.6683627656390302,
-    "accuracy_scorable_denominator": 6682,
+    "accuracy_scorable": 0.668562874251497,
+    "accuracy_scorable_denominator": 6680,
     "correct": 4791,
     "evaluable_families": [
       "A_vulnerability_detection.jsonl",
@@ -2650,7 +2650,7 @@
       "v3_S_contest_outcome.jsonl",
       "vbeta_U_language_routing.jsonl"
     ],
-    "macro_f1": 0.26723682150137423,
+    "macro_f1": 0.26724560684865084,
     "non_evaluable_families": [
       "B_root_cause_reasoning.jsonl",
       "F_false_positive_rejection.jsonl",
@@ -2662,14 +2662,14 @@
     ],
     "per_class": {
       "0": {
-        "f1": 0.07272727272727272,
+        "f1": 0.0728744939271255,
         "precision": 0.631578947368421,
-        "recall": 0.03858520900321544,
-        "support": 933
+        "recall": 0.03866809881847476,
+        "support": 931
       },
       "1": {
-        "f1": 0.8215627834650772,
-        "precision": 0.7425626610447411,
+        "f1": 0.8217757615035645,
+        "precision": 0.7429107101007734,
         "recall": 0.9193735498839907,
         "support": 3448
       },
@@ -2910,13 +2910,13 @@
     },
     "per_split": {
       "test": {
-        "accuracy": 0.14710610932475884,
+        "accuracy": 0.1473429951690821,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.14710610932475884,
+        "accuracy_scorable": 0.1473429951690821,
         "correct": 183,
-        "macro_f1": 0.23815597178778727,
-        "predicted": 1244,
-        "scorable": 1244
+        "macro_f1": 0.23815717345738704,
+        "predicted": 1242,
+        "scorable": 1242
       },
       "train": {
         "accuracy": 0.8036937123884623,
@@ -2937,8 +2937,8 @@
         "scorable": 619
       }
     },
-    "predicted": 7007,
-    "scorable": 7018
+    "predicted": 7005,
+    "scorable": 7016
   },
   "micro_exploratory": {
     "accuracy": null,
@@ -2962,28 +2962,28 @@
     "scorable": 108
   },
   "micro_invalid": {
-    "accuracy": 0.6931745694237721,
-    "accuracy_denominator": 4703,
+    "accuracy": 0.6934694745798766,
+    "accuracy_denominator": 4701,
     "accuracy_reason": null,
-    "accuracy_scorable": 0.6931745694237721,
-    "accuracy_scorable_denominator": 4703,
+    "accuracy_scorable": 0.6934694745798766,
+    "accuracy_scorable_denominator": 4701,
     "correct": 3260,
     "evaluable_families": [
       "v3_R_source_tier_routing.jsonl",
       "vbeta_U_language_routing.jsonl"
     ],
-    "macro_f1": 0.29992341433423186,
+    "macro_f1": 0.29995917702827435,
     "non_evaluable_families": [],
     "per_class": {
       "0": {
         "f1": 0.0,
         "precision": 0.0,
         "recall": 0.0,
-        "support": 854
+        "support": 852
       },
       "1": {
-        "f1": 0.8245089111486925,
-        "precision": 0.745822546481525,
+        "f1": 0.8247234873129474,
+        "precision": 0.7461737697198022,
         "recall": 0.9217568353694008,
         "support": 3438
       },
@@ -3014,13 +3014,13 @@
     },
     "per_split": {
       "test": {
-        "accuracy": 0.006674082313681869,
+        "accuracy": 0.006688963210702341,
         "accuracy_reason": null,
-        "accuracy_scorable": 0.006674082313681869,
+        "accuracy_scorable": 0.006688963210702341,
         "correct": 6,
         "macro_f1": 0.030534351145038167,
-        "predicted": 899,
-        "scorable": 899
+        "predicted": 897,
+        "scorable": 897
       },
       "train": {
         "accuracy": 0.8554153522607781,
@@ -3032,8 +3032,8 @@
         "scorable": 3804
       }
     },
-    "predicted": 4703,
-    "scorable": 4703
+    "predicted": 4701,
+    "scorable": 4701
   },
   "micro_retired": {
     "accuracy": 0.5743534482758621,
@@ -3297,7 +3297,7 @@
       "reason": "not scorable by the headline exact-match projection: the gold is a vector of six axes plus per-axis assessability, so there is no single label to match. scripts/score_f_extension.py scores it per axis over the assessed axes only, and publishes the per-axis majority floor with it"
     },
     "Fb_duplicate_radar_pair.jsonl": {
-      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.5200 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
+      "reason": "not promoted into the headline: same_vulnerability / distinct_vulnerability / ambiguous is scalar in shape, but joining the micro-average would move the published denominator while the pair floor is still 0.6105 from the train-fitted trivial predictor. scripts/score_f_extension.py scores it (with the published floors) and its row ids carry the split segment the shared row contract requires"
     },
     "H_verified_exploit.jsonl": {
       "reason": "descriptive reference answers, no scalar label"

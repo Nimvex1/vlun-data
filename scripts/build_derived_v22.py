@@ -1058,6 +1058,20 @@ def experiment_level_counts(rows: list[dict]) -> dict:
     }
 
 
+# The per-record bucket distributions in the published manifest. Each one is
+# summed over `records` (the admitted rows that actually ship). The candidate
+# ledger is kept separately under explicit `*_over_candidates` keys so no
+# candidate bucket can be read as a fraction of the admitted population.
+D22_DISTRIBUTIONS = (
+    "attacker_identity", "by_language", "by_status", "by_record_class",
+    "evidence_strongest", "experiment_levels",
+)
+D22_ADJUDICATION_COUNTERS = (
+    "experiment_levels_verified_l5", "experiment_levels_provisional",
+    "experiment_levels_demoted",
+)
+
+
 def build_manifest(rows: list[dict], problems: list[str]) -> dict:
     manifest = {
         "generated_by": "scripts/build_derived_v22.py",
@@ -1100,6 +1114,44 @@ def build_manifest(rows: list[dict], problems: list[str]) -> dict:
     return manifest
 
 
+def build_admitted_manifest(admitted: list[dict], candidate: dict,
+                            problems: list[str]) -> dict:
+    """Publish a manifest whose distributions describe the admitted rows.
+
+    `build_manifest` is the candidate-ledger view: it counts every finding in
+    the immutable source layer. This build then purges the unhydratable rows,
+    so every bucket in the *published* manifest has to be recomputed from the
+    rows that actually remain in `records.jsonl`; otherwise a bucket taken
+    from 137 candidates would be rendered as a fraction of 61 admitted
+    records. The candidate view stays available under `*_over_candidates`
+    with `candidate_count` as its explicit denominator, and `count_domains`
+    names both populations.
+    """
+    out = build_manifest(admitted, problems)
+    out["candidate_count"] = candidate["records"]
+    out["quarantined_count"] = candidate["records"] - len(admitted)
+    for key in D22_DISTRIBUTIONS:
+        out[key + "_over_candidates"] = candidate[key]
+    out["quality_over_candidates"] = {
+        dim: dict(buckets)
+        for dim, buckets in (candidate.get("quality") or {}).items()}
+    for key in D22_ADJUDICATION_COUNTERS:
+        out[key + "_over_candidates"] = candidate[key]
+    admitted_domain = "admitted record (derived_v2_2/records.jsonl)"
+    candidate_domain = "candidate (pre-purge finding)"
+    out["count_domains"] = {
+        **{k: admitted_domain for k in (*D22_DISTRIBUTIONS,
+                                        *D22_ADJUDICATION_COUNTERS,
+                                        "records", "quality")},
+        **{k + "_over_candidates": candidate_domain
+           for k in (*D22_DISTRIBUTIONS, *D22_ADJUDICATION_COUNTERS)},
+        "quality_over_candidates": candidate_domain,
+        "candidate_count": candidate_domain,
+        "quarantined_count": candidate_domain,
+    }
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true",
@@ -1140,6 +1192,9 @@ def main() -> int:
         return 1
 
     manifest = build_manifest(rows, problems)
+    # Snapshot the candidate view before the purge rewrites the on-disk copy:
+    # it is kept under *_over_candidates in the published manifest.
+    candidate_manifest = manifest
 
     if args.check:
         log(f"--check: {len(rows)} records built, nothing written")
@@ -1160,6 +1215,20 @@ def main() -> int:
     # Move unhydratable rows to quarantine and out of trainable tables.
     from hydrate_v22_v3 import purge_v22  # local import: avoids a cycle at load
     purge_v22({})
+
+    # The purge is part of this build. Republish every distribution over the
+    # rows that survive it, never over the candidates they came from.
+    admitted = [json.loads(line) for line in
+                (DERIVED_V22 / "records.jsonl").read_text(encoding="utf-8")
+                .splitlines() if line.strip()]
+    published = build_admitted_manifest(admitted, candidate_manifest, problems)
+    write_json(DERIVED_V22 / "manifest.json", published)
+    log(f"recomputed {DERIVED_V22 / 'manifest.json'} over "
+        f"{len(admitted)} admitted records "
+        f"({candidate_manifest['records']} candidates)")
+    for k in ("records", "candidate_count", "attacker_identity",
+              "experiment_levels"):
+        log(f"  {k}: {published[k]}")
     return 0
 
 
