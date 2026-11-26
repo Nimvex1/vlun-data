@@ -23,21 +23,21 @@
   ],
   "counts": {
     "by_licence": {
-      "CC-BY-4.0": 256,
-      "MIT": 319
+      "CC-BY-4.0": 257,
+      "MIT": 324
     },
     "by_rights_status": {
-      "attribution_required": 14,
-      "internal_research_artefact_not_cleared": 1340,
+      "attribution_required": 15,
+      "internal_research_artefact_not_cleared": 1465,
       "metadata_only": 1,
-      "project_own": 560,
-      "withheld_third_party_no_redistribution_rights": 210
+      "project_own": 565,
+      "withheld_third_party_no_redistribution_rights": 230
     },
-    "not_released_paths": 1550,
+    "not_released_paths": 1695,
     "paths_with_measured_personal_data": 24,
-    "paths_with_measured_verbatim_third_party_content": 210,
-    "released_paths": 575,
-    "tracked_paths": 2125
+    "paths_with_measured_verbatim_third_party_content": 230,
+    "released_paths": 581,
+    "tracked_paths": 2276
   },
   "foreign_statement_scan": {
     "contradiction_present": false,
@@ -173,8 +173,10 @@
     "derived/counterexamples.jsonl",
     "derived/hard_negatives.jsonl",
     "derived/manifest.json",
+    "derived/quarantine_counterexamples.jsonl",
     "derived/records.jsonl",
     "derived/root_cause_candidates.jsonl",
+    "derived_poc_queue/quarantine.jsonl",
     "derived_poc_queue/triage_queue.jsonl",
     "derived_prove/candidate_ledger.jsonl",
     "derived_rejections/definitions.json",
@@ -915,6 +917,12 @@
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/result.json",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/command.txt",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/harness.json",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/result.json",
@@ -927,6 +935,12 @@
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/result.json",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/command.txt",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/harness.json",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/result.json",
@@ -939,6 +953,12 @@
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/result.json",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/command.txt",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/harness.json",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/result.json",
@@ -957,6 +977,12 @@
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/stderr.txt",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/stdout.txt",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/toolchain.txt",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/command.txt",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/harness.json",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/result.json",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/stderr.txt",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/stdout.txt",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/toolchain.txt",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/command.txt",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/harness.json",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/result.json",
@@ -969,6 +995,12 @@
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/result.json",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/result.json",
@@ -981,6 +1013,12 @@
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/result.json",
@@ -993,6 +1031,12 @@
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/result.json",
@@ -1005,6 +1049,12 @@
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/result.json",
@@ -1017,6 +1067,12 @@
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/result.json",
@@ -1029,6 +1085,12 @@
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/result.json",
@@ -1041,6 +1103,12 @@
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/result.json",
@@ -1053,6 +1121,12 @@
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/result.json",
@@ -1065,6 +1139,12 @@
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/result.json",
@@ -1077,6 +1157,12 @@
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/result.json",
@@ -1089,6 +1175,12 @@
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/result.json",
@@ -1101,6 +1193,12 @@
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/result.json",
@@ -1113,6 +1211,12 @@
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/result.json",
@@ -1125,6 +1229,12 @@
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/result.json",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/command.txt",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/harness.json",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/result.json",
@@ -1149,6 +1259,12 @@
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/result.json",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/command.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/harness.json",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/result.json",
@@ -1161,6 +1277,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/result.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/command.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/harness.json",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/result.json",
@@ -1173,6 +1295,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/result.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/command.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/harness.json",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/result.json",
@@ -1185,6 +1313,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/stderr.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/stdout.txt",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/toolchain.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/command.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/harness.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/result.json",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/stderr.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/stdout.txt",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/toolchain.txt",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/command.txt",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/harness.json",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/result.json",
@@ -1239,6 +1373,12 @@
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/stderr.txt",
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/stdout.txt",
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/toolchain.txt",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/command.txt",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/harness.json",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/result.json",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/stderr.txt",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/stdout.txt",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/toolchain.txt",
     "experiments_v2_2/index.json",
     "experiments_v2_2/kerf-auditpoc/result.json",
     "experiments_v2_2/kerf-auditpoc/stderr.txt",
@@ -1490,6 +1630,9 @@
     "jsonl_v3/sources.jsonl",
     "jsonl_v4/findings.jsonl",
     "jsonl_v4/sources.jsonl",
+    "quarantine/benchmark_v3_R_quarantine.jsonl",
+    "quarantine/retirement_quarantine.jsonl",
+    "quarantine/secondary_holdout_quarantine.jsonl",
     "reports/metadata_stub_hydration_plan.md",
     "reports/third_party_audit.json",
     "splits_v2/quarantine.jsonl",
@@ -1505,6 +1648,7 @@
     "splits_v3/split.json",
     "taxonomy/assignments_v1.jsonl",
     "taxonomy/derivation_log.md",
+    "taxonomy/quarantine.jsonl",
     "taxonomy/root_cause_v1.jsonl",
     "taxonomy/root_cause_v1.md",
     "tests/fixtures/broken/rejection/verdict_overwritten.json",
@@ -1514,6 +1658,7 @@
     "training/canonical/language.train.part-000.jsonl",
     "training/canonical/language.train.part-001.jsonl",
     "training/canonical/manifest.json",
+    "training/canonical/quarantine.jsonl",
     "training/canonical/severity.train.part-000.jsonl",
     "training/canonical/severity.train.part-001.jsonl",
     "training/exploit_reasoning.jsonl",
@@ -1732,6 +1877,7 @@
     "annotation/iaa_v1/frozen_sample.json": "CC-BY-4.0",
     "annotation/iaa_v1/guide.md": "CC-BY-4.0",
     "annotation/iaa_v1/protocol.md": "CC-BY-4.0",
+    "annotation/iaa_v1/quarantine.jsonl": "CC-BY-4.0",
     "annotation/iaa_v1/responses/README.md": "CC-BY-4.0",
     "distribution_v1/MANIFEST.json": "CC-BY-4.0",
     "distribution_v1/README.md": "CC-BY-4.0",
@@ -2013,6 +2159,7 @@
     "scripts/profile_gates.py": "MIT",
     "scripts/profile_pytest.py": "MIT",
     "scripts/prove_grader.py": "MIT",
+    "scripts/purge_trainable_stubs.py": "MIT",
     "scripts/purge_untrainable_vbeta_v4.py": "MIT",
     "scripts/reconcile_proof_artefact_hashes.py": "MIT",
     "scripts/reconcile_v4_licensing.py": "MIT",
@@ -2029,6 +2176,7 @@
     "scripts/run_move_poc.py": "MIT",
     "scripts/run_negative_experiments.py": "MIT",
     "scripts/run_static_analysis.py": "MIT",
+    "scripts/run_unit_tests.py": "MIT",
     "scripts/run_verified_experiments.py": "MIT",
     "scripts/run_vyper_poc.py": "MIT",
     "scripts/sample_iaa.py": "MIT",
@@ -2039,6 +2187,7 @@
     "scripts/solidity_facts.py": "MIT",
     "scripts/sync_gate_pins.py": "MIT",
     "scripts/taxonomy.py": "MIT",
+    "scripts/trainable_purge_lib.py": "MIT",
     "scripts/unblock_v32_runs.py": "MIT",
     "scripts/v1_purge.py": "MIT",
     "scripts/v31_extract.py": "MIT",
@@ -2193,6 +2342,7 @@
     "tests/test_prove_split.py": "MIT",
     "tests/test_prove_verification.py": "MIT",
     "tests/test_publish_manifest.py": "MIT",
+    "tests/test_readme_stats_invariants.py": "MIT",
     "tests/test_rejection_corpus.py": "MIT",
     "tests/test_replay_safety.py": "MIT",
     "tests/test_reproducibility.py": "MIT",
@@ -2206,6 +2356,7 @@
     "tests/test_span_scoring.py": "MIT",
     "tests/test_splits.py": "MIT",
     "tests/test_taxonomy_gate.py": "MIT",
+    "tests/test_trainable_stub_gate.py": "MIT",
     "tests/test_v1_derived_l6.py": "MIT",
     "tests/test_v22_adjudicated_consumers.py": "MIT",
     "tests/test_v22_l5_adjudication.py": "MIT",
@@ -2364,6 +2515,15 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 226 string(s) carry a run of at most 599 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "annotation/iaa_v1/quarantine.jsonl": {
+      "base_rights_status": "project_own",
+      "evidence": {
+        "longest_verbatim_span_chars": 92,
+        "verbatim_third_party_strings": 9
+      },
+      "rights_status": "attribution_required",
+      "why": "carries 9 verbatim third-party quotation(s) of at most 92 characters, which is the attributed short-quotation quota: attribution is owed to the original authors, and attribution is not a redistribution right"
     },
     "annotation/iaa_v1/sample.jsonl": {
       "base_rights_status": "project_own",
@@ -2741,6 +2901,15 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 432 run(s) of at most 9296 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "derived/quarantine_counterexamples.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 95,
+        "verbatim_third_party_strings": 10
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 10 string(s) carry a run of at most 95 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
     "derived/records.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -2761,6 +2930,17 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 69 string(s) carry a run of at most 600 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "derived_poc_queue/quarantine.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 3070,
+        "longest_verbatim_span_chars": 3070,
+        "verbatim_code_spans": 4,
+        "verbatim_third_party_strings": 4
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 4 run(s) of at most 3070 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "derived_poc_queue/triage_queue.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -3225,6 +3405,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3237,6 +3428,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3269,6 +3471,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3281,6 +3494,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3313,6 +3537,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3325,6 +3560,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3357,6 +3603,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3369,6 +3626,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3401,6 +3669,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3413,6 +3692,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3445,6 +3735,17 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3457,6 +3758,17 @@
       "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/stderr.txt": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 114,
+        "longest_verbatim_span_chars": 114,
+        "verbatim_code_spans": 1,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 1 run(s) of at most 114 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/stderr.txt": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_code_span_chars": 114,
@@ -3507,6 +3819,15 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 165 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 165,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 165 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_1/result.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
@@ -3526,6 +3847,15 @@
       "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
     },
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/result.json": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 107,
+        "verbatim_third_party_strings": 1
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 1 string(s) carry a run of at most 107 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/result.json": {
       "base_rights_status": "internal_research_artefact_not_cleared",
       "evidence": {
         "longest_verbatim_span_chars": 107,
@@ -4048,6 +4378,37 @@
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 297 run(s) of at most 3561 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
+    "quarantine/benchmark_v3_R_quarantine.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 3070,
+        "longest_verbatim_span_chars": 3070,
+        "verbatim_code_spans": 10,
+        "verbatim_third_party_strings": 365
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 10 run(s) of at most 3070 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "quarantine/retirement_quarantine.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_span_chars": 806,
+        "verbatim_third_party_strings": 2
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party content: 2 string(s) carry a run of at most 806 characters that also occurs in the canonical third-party corpus, and no documented right to redistribute that text is on file"
+    },
+    "quarantine/secondary_holdout_quarantine.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 3070,
+        "longest_verbatim_span_chars": 3070,
+        "verbatim_code_spans": 8,
+        "verbatim_third_party_strings": 8
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 8 run(s) of at most 3070 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
     "reports/metadata_stub_hydration_plan.md": {
       "base_rights_status": "project_own",
       "evidence": {
@@ -4248,6 +4609,17 @@
       },
       "rights_status": "withheld_third_party_no_redistribution_rights",
       "why": "measured verbatim third-party source code: 2 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
+    },
+    "training/canonical/quarantine.jsonl": {
+      "base_rights_status": "internal_research_artefact_not_cleared",
+      "evidence": {
+        "longest_verbatim_code_span_chars": 900,
+        "longest_verbatim_span_chars": 900,
+        "verbatim_code_spans": 448,
+        "verbatim_third_party_strings": 598
+      },
+      "rights_status": "withheld_third_party_no_redistribution_rights",
+      "why": "measured verbatim third-party source code: 448 run(s) of at most 900 characters are source code that also occurs in the canonical third-party corpus. The project's own policy never carries third-party code, not even a short quotation of it, and no documented right to redistribute it is on file"
     },
     "training/canonical/severity.train.part-000.jsonl": {
       "base_rights_status": "internal_research_artefact_not_cleared",
@@ -4662,6 +5034,7 @@
     "annotation/iaa_v1/frozen_sample.json": "project_own",
     "annotation/iaa_v1/guide.md": "project_own",
     "annotation/iaa_v1/protocol.md": "project_own",
+    "annotation/iaa_v1/quarantine.jsonl": "attribution_required",
     "annotation/iaa_v1/responses/README.md": "project_own",
     "annotation/iaa_v1/sample.jsonl": "withheld_third_party_no_redistribution_rights",
     "benchmark/A_vulnerability_detection.jsonl": "withheld_third_party_no_redistribution_rights",
@@ -4721,8 +5094,10 @@
     "derived/counterexamples.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived/hard_negatives.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived/manifest.json": "internal_research_artefact_not_cleared",
+    "derived/quarantine_counterexamples.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived/records.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived/root_cause_candidates.jsonl": "withheld_third_party_no_redistribution_rights",
+    "derived_poc_queue/quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived_poc_queue/triage_queue.jsonl": "withheld_third_party_no_redistribution_rights",
     "derived_prove/candidate_ledger.jsonl": "internal_research_artefact_not_cleared",
     "derived_rejections/definitions.json": "internal_research_artefact_not_cleared",
@@ -5484,6 +5859,12 @@
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-decent__M-03/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-decent__M-03/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5496,6 +5877,12 @@
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-08/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-08/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5508,6 +5895,12 @@
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-11/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-11/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5526,6 +5919,12 @@
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-14/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-14/attempt_4/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5538,6 +5937,12 @@
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-01-renft__M-15/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-01-renft__M-15/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5550,6 +5955,12 @@
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-01/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-01/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5562,6 +5973,12 @@
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-04/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-04/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5574,6 +5991,12 @@
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-12/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-12/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5586,6 +6009,12 @@
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-19/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-19/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5598,6 +6027,12 @@
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-22/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-22/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5610,6 +6045,12 @@
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__H-23/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__H-23/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5622,6 +6063,12 @@
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-04/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-04/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5634,6 +6081,12 @@
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-05/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-05/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5646,6 +6099,12 @@
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-06/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-06/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5658,6 +6117,12 @@
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-07/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-07/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5670,6 +6135,12 @@
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-10/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-10/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5682,6 +6153,12 @@
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-33/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-33/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5694,6 +6171,12 @@
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/stderr.txt": "withheld_third_party_no_redistribution_rights",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-34/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/stderr.txt": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-04-noya__M-34/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-04-noya__M-60/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5718,6 +6201,12 @@
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5730,6 +6219,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/result.json": "withheld_third_party_no_redistribution_rights",
@@ -5742,6 +6237,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/result.json": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5754,6 +6255,12 @@
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/result.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/command.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/harness.json": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/result.json": "internal_research_artefact_not_cleared",
@@ -5808,6 +6315,12 @@
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/stderr.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/stdout.txt": "internal_research_artefact_not_cleared",
     "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/toolchain.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/command.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/harness.json": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/result.json": "withheld_third_party_no_redistribution_rights",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/stderr.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/stdout.txt": "internal_research_artefact_not_cleared",
+    "experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/toolchain.txt": "internal_research_artefact_not_cleared",
     "experiments_v2_2/index.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/kerf-auditpoc/result.json": "internal_research_artefact_not_cleared",
     "experiments_v2_2/kerf-auditpoc/stderr.txt": "internal_research_artefact_not_cleared",
@@ -6062,6 +6575,9 @@
     "jsonl_v4/sources.jsonl": "internal_research_artefact_not_cleared",
     "publish_manifest.json": "project_own",
     "pyproject.toml": "project_own",
+    "quarantine/benchmark_v3_R_quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
+    "quarantine/retirement_quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
+    "quarantine/secondary_holdout_quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
     "reports/AUDIT_EXECUTIVE_SUMMARY.md": "project_own",
     "reports/FINAL_VERIFICATION_RESULTS.md": "project_own",
     "reports/HYDRATION_BEFORE_AFTER.md": "project_own",
@@ -6320,6 +6836,7 @@
     "scripts/profile_gates.py": "project_own",
     "scripts/profile_pytest.py": "project_own",
     "scripts/prove_grader.py": "project_own",
+    "scripts/purge_trainable_stubs.py": "project_own",
     "scripts/purge_untrainable_vbeta_v4.py": "project_own",
     "scripts/reconcile_proof_artefact_hashes.py": "project_own",
     "scripts/reconcile_v4_licensing.py": "project_own",
@@ -6336,6 +6853,7 @@
     "scripts/run_move_poc.py": "project_own",
     "scripts/run_negative_experiments.py": "project_own",
     "scripts/run_static_analysis.py": "project_own",
+    "scripts/run_unit_tests.py": "project_own",
     "scripts/run_verified_experiments.py": "project_own",
     "scripts/run_vyper_poc.py": "project_own",
     "scripts/sample_iaa.py": "project_own",
@@ -6346,6 +6864,7 @@
     "scripts/solidity_facts.py": "project_own",
     "scripts/sync_gate_pins.py": "project_own",
     "scripts/taxonomy.py": "project_own",
+    "scripts/trainable_purge_lib.py": "project_own",
     "scripts/unblock_v32_runs.py": "project_own",
     "scripts/v1_purge.py": "project_own",
     "scripts/v31_extract.py": "project_own",
@@ -6376,6 +6895,7 @@
     "splits_v3/split.json": "internal_research_artefact_not_cleared",
     "taxonomy/assignments_v1.jsonl": "internal_research_artefact_not_cleared",
     "taxonomy/derivation_log.md": "withheld_third_party_no_redistribution_rights",
+    "taxonomy/quarantine.jsonl": "internal_research_artefact_not_cleared",
     "taxonomy/root_cause_v1.jsonl": "internal_research_artefact_not_cleared",
     "taxonomy/root_cause_v1.md": "internal_research_artefact_not_cleared",
     "tests/__init__.py": "project_own",
@@ -6517,6 +7037,7 @@
     "tests/test_prove_split.py": "project_own",
     "tests/test_prove_verification.py": "project_own",
     "tests/test_publish_manifest.py": "project_own",
+    "tests/test_readme_stats_invariants.py": "project_own",
     "tests/test_rejection_corpus.py": "project_own",
     "tests/test_replay_safety.py": "project_own",
     "tests/test_reproducibility.py": "project_own",
@@ -6530,6 +7051,7 @@
     "tests/test_span_scoring.py": "project_own",
     "tests/test_splits.py": "project_own",
     "tests/test_taxonomy_gate.py": "project_own",
+    "tests/test_trainable_stub_gate.py": "project_own",
     "tests/test_v1_derived_l6.py": "project_own",
     "tests/test_v22_adjudicated_consumers.py": "project_own",
     "tests/test_v22_l5_adjudication.py": "project_own",
@@ -6544,6 +7066,7 @@
     "training/canonical/language.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/language.train.part-001.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/manifest.json": "internal_research_artefact_not_cleared",
+    "training/canonical/quarantine.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/severity.train.part-000.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/canonical/severity.train.part-001.jsonl": "withheld_third_party_no_redistribution_rights",
     "training/exploit_reasoning.jsonl": "internal_research_artefact_not_cleared",
@@ -6752,6 +7275,7 @@
     "annotation/iaa_v1/frozen_sample.json",
     "annotation/iaa_v1/guide.md",
     "annotation/iaa_v1/protocol.md",
+    "annotation/iaa_v1/quarantine.jsonl",
     "annotation/iaa_v1/responses/README.md",
     "distribution_v1/MANIFEST.json",
     "distribution_v1/README.md",
@@ -7033,6 +7557,7 @@
     "scripts/profile_gates.py",
     "scripts/profile_pytest.py",
     "scripts/prove_grader.py",
+    "scripts/purge_trainable_stubs.py",
     "scripts/purge_untrainable_vbeta_v4.py",
     "scripts/reconcile_proof_artefact_hashes.py",
     "scripts/reconcile_v4_licensing.py",
@@ -7049,6 +7574,7 @@
     "scripts/run_move_poc.py",
     "scripts/run_negative_experiments.py",
     "scripts/run_static_analysis.py",
+    "scripts/run_unit_tests.py",
     "scripts/run_verified_experiments.py",
     "scripts/run_vyper_poc.py",
     "scripts/sample_iaa.py",
@@ -7059,6 +7585,7 @@
     "scripts/solidity_facts.py",
     "scripts/sync_gate_pins.py",
     "scripts/taxonomy.py",
+    "scripts/trainable_purge_lib.py",
     "scripts/unblock_v32_runs.py",
     "scripts/v1_purge.py",
     "scripts/v31_extract.py",
@@ -7213,6 +7740,7 @@
     "tests/test_prove_split.py",
     "tests/test_prove_verification.py",
     "tests/test_publish_manifest.py",
+    "tests/test_readme_stats_invariants.py",
     "tests/test_rejection_corpus.py",
     "tests/test_replay_safety.py",
     "tests/test_reproducibility.py",
@@ -7226,6 +7754,7 @@
     "tests/test_span_scoring.py",
     "tests/test_splits.py",
     "tests/test_taxonomy_gate.py",
+    "tests/test_trainable_stub_gate.py",
     "tests/test_v1_derived_l6.py",
     "tests/test_v22_adjudicated_consumers.py",
     "tests/test_v22_l5_adjudication.py",

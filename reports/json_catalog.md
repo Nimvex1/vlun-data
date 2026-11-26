@@ -8,7 +8,7 @@ trees (work/, V3/clones/, node_modules/, __pycache__/, .git/, .firecrawl/, nextd
 Volatile gate outputs (bytes vary run-to-run by design) are
 also excluded: reports/v3/validation_v31.json.
 
-929 files across 11 categories.
+983 files across 11 categories.
 
 ## source (21)
 
@@ -38,7 +38,7 @@ also excluded: reports/v3/validation_v31.json.
 | `jsonl_v3/findings.jsonl` | v3 | 97,476,765 | 7712 rows | yes |
 | `jsonl_v3/sources.jsonl` | v3 | 13,055 | 18 rows | yes |
 
-## derived (35)
+## derived (36)
 
 *normalized records, ledgers, manifests, overlays.*
 
@@ -55,6 +55,7 @@ also excluded: reports/v3/validation_v31.json.
 | `derived/counterexamples.jsonl` | v1 | 178,330 | 45 rows | yes |
 | `derived/hard_negatives.jsonl` | v1 | 3,640,038 | 458 rows | yes |
 | `derived/manifest.json` | v1 | 140,527 | object, 26 keys | yes |
+| `derived/quarantine_counterexamples.jsonl` | v1 | 50,470 | 18 rows | yes |
 | `derived/records.jsonl` | v1 | 21,541,490 | 685 rows | yes |
 | `derived/root_cause_candidates.jsonl` | v1 | 25,176 | 40 rows | yes |
 | `derived_v2_2/audit_ingestion_records.jsonl` | v2.2 | 10,792 | 16 rows | yes |
@@ -405,7 +406,7 @@ also excluded: reports/v3/validation_v31.json.
 | `datasets/verified_negatives.jsonl` | multi | 167,297 | 22 rows | yes |
 | `datasets/verified_patches.jsonl` | multi | 0 | 0 rows | yes |
 
-## training (11)
+## training (12)
 
 *task-oriented training files.*
 
@@ -416,6 +417,7 @@ also excluded: reports/v3/validation_v31.json.
 | `training/canonical/language.train.part-000.jsonl` | multi | 8,106,263 | 5000 rows | yes |
 | `training/canonical/language.train.part-001.jsonl` | multi | 1,367,613 | 889 rows | yes |
 | `training/canonical/manifest.json` | multi | 4,828 | object, 16 keys | yes |
+| `training/canonical/quarantine.jsonl` | multi | 1,052,334 | 818 rows | yes |
 | `training/canonical/severity.train.part-000.jsonl` | multi | 8,083,537 | 5000 rows | yes |
 | `training/canonical/severity.train.part-001.jsonl` | multi | 1,398,004 | 908 rows | yes |
 | `training/exploit_reasoning.jsonl` | multi | 0 | 0 rows | yes |
@@ -436,7 +438,7 @@ also excluded: reports/v3/validation_v31.json.
 | `Vbeta/solodit_candidates.json` | vbeta | 1,963,958 | array[733] | yes |
 | `Vbeta/web3bugs_candidates.json` | vbeta | 633,436 | array[491] | yes |
 
-## meta (573)
+## meta (625)
 
 *repo-level registries, snapshots, packaging and reviews.*
 
@@ -444,7 +446,7 @@ also excluded: reports/v3/validation_v31.json.
 |---|---|---|---|---|
 | `.swarm/ewc-fisher.json` | meta | 10,711 | object, 6 keys | yes |
 | `.zenodo.json` | meta | 2,573 | object, 11 keys | yes |
-| `RELEASE_MANIFEST.json` | meta | 551,500 | object, 19 keys | yes |
+| `RELEASE_MANIFEST.json` | meta | 593,060 | object, 19 keys | yes |
 | `V3/sources.json` | meta | 10,791 | object, 5 keys | yes |
 | `V4/licensing.json` | meta | 4,485 | object, 8 keys | yes |
 | `V4/manifest.json` | meta | 919 | object, 17 keys | yes |
@@ -455,7 +457,9 @@ also excluded: reports/v3/validation_v31.json.
 | `_audit/independent_leakage.json` | meta | 4,328 | object, 3 keys | yes |
 | `_audit/legal_hygiene.json` | meta | 712 | object, 11 keys | yes |
 | `annotation/iaa_v1/frozen_sample.json` | meta | 1,308 | object, 12 keys | yes |
+| `annotation/iaa_v1/quarantine.jsonl` | meta | 43,942 | 32 rows | yes |
 | `annotation/iaa_v1/sample.jsonl` | meta | 745,904 | 301 rows | yes |
+| `derived_poc_queue/quarantine.jsonl` | meta | 15,176 | 2 rows | yes |
 | `derived_poc_queue/triage_queue.jsonl` | meta | 5,319,707 | 1009 rows | yes |
 | `derived_prove/candidate_ledger.jsonl` | meta | 411,379 | 210 rows | yes |
 | `derived_rejections/definitions.json` | meta | 4,583 | object, 6 keys | yes |
@@ -711,76 +715,112 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2024-01-decent__M-03/attempt_1/result.json` | meta | 1,726 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-decent__M-03/attempt_2/harness.json` | meta | 2,489 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-decent__M-03/attempt_2/result.json` | meta | 1,856 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-01-decent__M-03/attempt_3/harness.json` | meta | 2,268 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-01-decent__M-03/attempt_3/result.json` | meta | 1,856 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-08/attempt_1/harness.json` | meta | 1,060 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-08/attempt_1/result.json` | meta | 1,359 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-08/attempt_2/harness.json` | meta | 2,018 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-08/attempt_2/result.json` | meta | 1,525 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-08/attempt_3/harness.json` | meta | 2,046 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-08/attempt_3/result.json` | meta | 1,525 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-11/attempt_1/harness.json` | meta | 1,060 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-11/attempt_1/result.json` | meta | 1,476 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-11/attempt_2/harness.json` | meta | 2,018 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-11/attempt_2/result.json` | meta | 2,065 | object, 20 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-11/attempt_3/harness.json` | meta | 2,046 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-11/attempt_3/result.json` | meta | 1,982 | object, 20 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_1/harness.json` | meta | 1,022 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_1/result.json` | meta | 1,914 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_2/harness.json` | meta | 1,558 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_2/result.json` | meta | 2,341 | object, 18 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_3/harness.json` | meta | 2,046 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-14/attempt_3/result.json` | meta | 2,104 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-14/attempt_4/harness.json` | meta | 2,008 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-14/attempt_4/result.json` | meta | 2,104 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-15/attempt_1/harness.json` | meta | 1,022 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-15/attempt_1/result.json` | meta | 1,930 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-15/attempt_2/harness.json` | meta | 1,980 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-01-renft__M-15/attempt_2/result.json` | meta | 2,120 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-15/attempt_3/harness.json` | meta | 2,008 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-01-renft__M-15/attempt_3/result.json` | meta | 2,120 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-01/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-01/attempt_1/result.json` | meta | 1,710 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-01/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-01/attempt_2/result.json` | meta | 1,670 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-01/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-01/attempt_3/result.json` | meta | 1,670 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-04/attempt_1/harness.json` | meta | 2,079 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-04/attempt_1/result.json` | meta | 1,681 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-04/attempt_2/harness.json` | meta | 2,340 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-04/attempt_2/result.json` | meta | 1,681 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-04/attempt_3/harness.json` | meta | 2,125 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-04/attempt_3/result.json` | meta | 1,681 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-12/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-12/attempt_1/result.json` | meta | 2,082 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-12/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-12/attempt_2/result.json` | meta | 2,063 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-12/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-12/attempt_3/result.json` | meta | 2,063 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-19/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-19/attempt_1/result.json` | meta | 1,643 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-19/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-19/attempt_2/result.json` | meta | 1,603 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-19/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-19/attempt_3/result.json` | meta | 1,603 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-22/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-22/attempt_1/result.json` | meta | 1,992 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-22/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-22/attempt_2/result.json` | meta | 1,949 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-22/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-22/attempt_3/result.json` | meta | 1,949 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-23/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-23/attempt_1/result.json` | meta | 1,717 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-23/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__H-23/attempt_2/result.json` | meta | 1,677 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-23/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__H-23/attempt_3/result.json` | meta | 1,677 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-04/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-04/attempt_1/result.json` | meta | 1,904 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-04/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-04/attempt_2/result.json` | meta | 1,864 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-04/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-04/attempt_3/result.json` | meta | 1,864 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-05/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-05/attempt_1/result.json` | meta | 1,602 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-05/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-05/attempt_2/result.json` | meta | 1,562 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-05/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-05/attempt_3/result.json` | meta | 1,562 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-06/attempt_1/harness.json` | meta | 1,666 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-06/attempt_1/result.json` | meta | 1,763 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-06/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-06/attempt_2/result.json` | meta | 1,688 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-06/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-06/attempt_3/result.json` | meta | 1,688 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-07/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-07/attempt_1/result.json` | meta | 1,668 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-07/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-07/attempt_2/result.json` | meta | 1,628 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-07/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-07/attempt_3/result.json` | meta | 1,628 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-10/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-10/attempt_1/result.json` | meta | 1,867 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-10/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-10/attempt_2/result.json` | meta | 1,848 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-10/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-10/attempt_3/result.json` | meta | 1,848 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-33/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-33/attempt_1/result.json` | meta | 1,584 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-33/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-33/attempt_2/result.json` | meta | 1,544 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-33/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-33/attempt_3/result.json` | meta | 1,544 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-34/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-34/attempt_1/result.json` | meta | 1,518 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-34/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-34/attempt_2/result.json` | meta | 1,478 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-34/attempt_3/harness.json` | meta | 2,002 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-04-noya__M-34/attempt_3/result.json` | meta | 1,478 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-60/attempt_1/harness.json` | meta | 1,741 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-60/attempt_1/result.json` | meta | 1,523 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-04-noya__M-60/attempt_2/harness.json` | meta | 2,002 | object, 15 keys | yes |
@@ -789,18 +829,26 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2024-08-wildcat__H-01/attempt_1/result.json` | meta | 1,697 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/harness.json` | meta | 2,142 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__H-01/attempt_2/result.json` | meta | 1,697 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/harness.json` | meta | 2,142 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__H-01/attempt_3/result.json` | meta | 1,697 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/harness.json` | meta | 1,875 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_1/result.json` | meta | 1,577 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/harness.json` | meta | 2,142 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_2/result.json` | meta | 1,577 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/harness.json` | meta | 2,142 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-02/attempt_3/result.json` | meta | 1,577 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/harness.json` | meta | 1,875 | object, 14 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_1/result.json` | meta | 2,049 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/harness.json` | meta | 2,142 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_2/result.json` | meta | 2,049 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/harness.json` | meta | 2,142 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-06/attempt_3/result.json` | meta | 2,049 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/harness.json` | meta | 1,547 | object, 5 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_1/result.json` | meta | 1,345 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/harness.json` | meta | 2,608 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_2/result.json` | meta | 2,655 | object, 17 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/harness.json` | meta | 2,405 | object, 15 keys | yes |
+| `experiments_v1_reruns/2024-08-wildcat__M-07/attempt_3/result.json` | meta | 2,655 | object, 17 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/harness.json` | meta | 3 | object, 0 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_1/result.json` | meta | 1,356 | object, 15 keys | yes |
 | `experiments_v1_reruns/2024-12-bakerfi__M-08/attempt_2/harness.json` | meta | 3 | object, 0 keys | yes |
@@ -819,10 +867,16 @@ also excluded: reports/v3/validation_v31.json.
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_2/result.json` | meta | 1,670 | object, 17 keys | yes |
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/harness.json` | meta | 2,093 | object, 15 keys | yes |
 | `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_3/result.json` | meta | 1,670 | object, 17 keys | yes |
+| `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/harness.json` | meta | 1,956 | object, 15 keys | yes |
+| `experiments_v1_reruns/2025-06-panoptic__H-01/attempt_4/result.json` | meta | 1,670 | object, 17 keys | yes |
 | `jsonl_v4/findings.jsonl` | meta | 19,902,086 | 2547 rows | yes |
 | `jsonl_v4/sources.jsonl` | meta | 3,147 | 3 rows | yes |
 | `publish_manifest.json` | meta | 2,423 | object, 17 keys | yes |
+| `quarantine/benchmark_v3_R_quarantine.jsonl` | meta | 619,207 | 846 rows | yes |
+| `quarantine/retirement_quarantine.jsonl` | meta | 278,859 | 378 rows | yes |
+| `quarantine/secondary_holdout_quarantine.jsonl` | meta | 25,309 | 4 rows | yes |
 | `taxonomy/assignments_v1.jsonl` | meta | 134,658 | 240 rows | yes |
+| `taxonomy/quarantine.jsonl` | meta | 97,792 | 147 rows | yes |
 | `taxonomy/root_cause_v1.jsonl` | meta | 116,603 | 31 rows | yes |
 | `tests/fixtures/broken/abbrev_commit_as_immutable/distribution_v1/records_v1_withheld_pointers.jsonl` | meta | 918 | 1 rows | yes |
 | `tests/fixtures/broken/abstain_on_verified_task.json` | meta | 122 | object, 2 keys | yes |
